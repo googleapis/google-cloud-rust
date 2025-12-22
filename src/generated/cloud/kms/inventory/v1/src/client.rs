@@ -72,9 +72,7 @@ impl KeyDashboardService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::key_dashboard_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::key_dashboard_service::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::key_dashboard_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -82,49 +80,35 @@ impl KeyDashboardService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::KeyDashboardService + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::KeyDashboardService + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::KeyDashboardService>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::KeyDashboardService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::KeyDashboardService> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::KeyDashboardService> {
         super::transport::KeyDashboardService::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::KeyDashboardService> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::KeyDashboardService::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::KeyDashboardService> {
+        Self::build_transport(conf).await.map(super::tracing::KeyDashboardService::new)
     }
 
     /// Returns cryptographic keys managed by Cloud KMS in a given Cloud project.
     /// Note that this data is sourced from snapshots, meaning it may not
     /// completely reflect the actual state of key metadata at call time.
-    pub fn list_crypto_keys(&self) -> super::builder::key_dashboard_service::ListCryptoKeys {
+    pub fn list_crypto_keys(&self) -> super::builder::key_dashboard_service::ListCryptoKeys
+    {
         super::builder::key_dashboard_service::ListCryptoKeys::new(self.inner.clone())
     }
 }
@@ -186,9 +170,7 @@ impl KeyTrackingService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::key_tracking_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::key_tracking_service::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::key_tracking_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -196,43 +178,28 @@ impl KeyTrackingService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::KeyTrackingService + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::KeyTrackingService + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::KeyTrackingService>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::KeyTrackingService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::KeyTrackingService> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::KeyTrackingService> {
         super::transport::KeyTrackingService::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::KeyTrackingService> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::KeyTrackingService::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::KeyTrackingService> {
+        Self::build_transport(conf).await.map(super::tracing::KeyTrackingService::new)
     }
 
     /// Returns aggregate information about the resources protected by the given
@@ -242,9 +209,24 @@ impl KeyTrackingService {
     /// succeed.
     ///
     /// [google.cloud.kms.v1.CryptoKey]: kms::model::CryptoKey
-    pub fn get_protected_resources_summary(
-        &self,
-    ) -> super::builder::key_tracking_service::GetProtectedResourcesSummary {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_inventory_v1::client::KeyTrackingService;
+    /// async fn sample(
+    ///    client: &KeyTrackingService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_protected_resources_summary()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_protected_resources_summary(&self) -> super::builder::key_tracking_service::GetProtectedResourcesSummary
+    {
         super::builder::key_tracking_service::GetProtectedResourcesSummary::new(self.inner.clone())
     }
 
@@ -252,9 +234,8 @@ impl KeyTrackingService {
     /// [CryptoKey][google.cloud.kms.v1.CryptoKey] in the given Cloud organization.
     ///
     /// [google.cloud.kms.v1.CryptoKey]: kms::model::CryptoKey
-    pub fn search_protected_resources(
-        &self,
-    ) -> super::builder::key_tracking_service::SearchProtectedResources {
+    pub fn search_protected_resources(&self) -> super::builder::key_tracking_service::SearchProtectedResources
+    {
         super::builder::key_tracking_service::SearchProtectedResources::new(self.inner.clone())
     }
 }

@@ -52,6 +52,7 @@ pub trait CompanyService: std::fmt::Debug + Send + Sync {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
 }
 
 /// All implementations of [super::CompanyService] also implement [CompanyService].
@@ -110,6 +111,7 @@ impl<T: super::CompanyService> CompanyService for T {
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::Completion].
@@ -126,6 +128,7 @@ pub trait Completion: std::fmt::Debug + Send + Sync {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
 }
 
 /// All implementations of [super::Completion] also implement [Completion].
@@ -148,6 +151,7 @@ impl<T: super::Completion> Completion for T {
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::EventService].
@@ -164,6 +168,7 @@ pub trait EventService: std::fmt::Debug + Send + Sync {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
 }
 
 /// All implementations of [super::EventService] also implement [EventService].
@@ -186,6 +191,7 @@ impl<T: super::EventService> EventService for T {
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::JobService].
@@ -423,6 +429,7 @@ pub trait TenantService: std::fmt::Debug + Send + Sync {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
 }
 
 /// All implementations of [super::TenantService] also implement [TenantService].
@@ -481,4 +488,5 @@ impl<T: super::TenantService> TenantService for T {
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
+
 }

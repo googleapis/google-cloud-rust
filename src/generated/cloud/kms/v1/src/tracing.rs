@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [Autokey](super::stub::Autokey) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct Autokey<T>
-where
-    T: super::stub::Autokey + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Autokey + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> Autokey<T>
-where
-    T: super::stub::Autokey + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Autokey + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::Autokey for Autokey<T>
-where
-    T: super::stub::Autokey + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Autokey + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn create_key_handle(
         &self,
@@ -118,6 +112,7 @@ where
         self.inner.get_operation(req, options).await
     }
 
+
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -136,25 +131,19 @@ where
 /// Implements a [AutokeyAdmin](super::stub::AutokeyAdmin) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct AutokeyAdmin<T>
-where
-    T: super::stub::AutokeyAdmin + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::AutokeyAdmin + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> AutokeyAdmin<T>
-where
-    T: super::stub::AutokeyAdmin + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::AutokeyAdmin + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::AutokeyAdmin for AutokeyAdmin<T>
-where
-    T: super::stub::AutokeyAdmin + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::AutokeyAdmin + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn update_autokey_config(
         &self,
@@ -235,30 +224,25 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
+
 }
 
 /// Implements a [EkmService](super::stub::EkmService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct EkmService<T>
-where
-    T: super::stub::EkmService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::EkmService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> EkmService<T>
-where
-    T: super::stub::EkmService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::EkmService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::EkmService for EkmService<T>
-where
-    T: super::stub::EkmService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::EkmService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn list_ekm_connections(
         &self,
@@ -375,30 +359,25 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
+
 }
 
 /// Implements a [KeyManagementService](super::stub::KeyManagementService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct KeyManagementService<T>
-where
-    T: super::stub::KeyManagementService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::KeyManagementService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> KeyManagementService<T>
-where
-    T: super::stub::KeyManagementService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::KeyManagementService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::KeyManagementService for KeyManagementService<T>
-where
-    T: super::stub::KeyManagementService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::KeyManagementService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn list_key_rings(
         &self,
@@ -549,9 +528,7 @@ where
         req: crate::model::UpdateCryptoKeyPrimaryVersionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::CryptoKey>> {
-        self.inner
-            .update_crypto_key_primary_version(req, options)
-            .await
+        self.inner.update_crypto_key_primary_version(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -715,4 +692,6 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
+
 }
+

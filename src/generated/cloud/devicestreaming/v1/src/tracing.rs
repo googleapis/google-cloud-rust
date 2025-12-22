@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [DirectAccessService](super::stub::DirectAccessService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct DirectAccessService<T>
-where
-    T: super::stub::DirectAccessService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::DirectAccessService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> DirectAccessService<T>
-where
-    T: super::stub::DirectAccessService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::DirectAccessService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::DirectAccessService for DirectAccessService<T>
-where
-    T: super::stub::DirectAccessService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::DirectAccessService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn create_device_session(
         &self,
@@ -81,4 +75,6 @@ where
     ) -> Result<gax::response::Response<crate::model::DeviceSession>> {
         self.inner.update_device_session(req, options).await
     }
+
 }
+

@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [ParameterManager](super::stub::ParameterManager) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct ParameterManager<T>
-where
-    T: super::stub::ParameterManager + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ParameterManager + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> ParameterManager<T>
-where
-    T: super::stub::ParameterManager + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ParameterManager + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::ParameterManager for ParameterManager<T>
-where
-    T: super::stub::ParameterManager + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ParameterManager + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn list_parameters(
         &self,
@@ -153,4 +147,6 @@ where
     ) -> Result<gax::response::Response<location::model::Location>> {
         self.inner.get_location(req, options).await
     }
+
 }
+

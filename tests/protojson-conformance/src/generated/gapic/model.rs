@@ -27,6 +27,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TestStatus {
+
     pub name: std::string::String,
 
     pub failure_message: std::string::String,
@@ -74,6 +75,7 @@ impl wkt::message::Message for TestStatus {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FailureSet {
+
     pub test: std::vec::Vec<crate::generated::gapic::model::TestStatus>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -88,7 +90,7 @@ impl FailureSet {
     pub fn set_test<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::generated::gapic::model::TestStatus>,
+        V: std::convert::Into<crate::generated::gapic::model::TestStatus>
     {
         use std::iter::Iterator;
         self.test = v.into_iter().map(|i| i.into()).collect();
@@ -110,6 +112,7 @@ impl wkt::message::Message for FailureSet {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConformanceRequest {
+
     /// Which format should the testee serialize its message to?
     pub requested_output_format: crate::generated::gapic::model::WireFormat,
 
@@ -127,8 +130,7 @@ pub struct ConformanceRequest {
     pub test_category: crate::generated::gapic::model::TestCategory,
 
     /// Specify details for how to encode jspb.
-    pub jspb_encoding_options:
-        std::option::Option<crate::generated::gapic::model::JspbEncodingConfig>,
+    pub jspb_encoding_options: std::option::Option<crate::generated::gapic::model::JspbEncodingConfig>,
 
     /// This can be used in json and text format. If true, testee should print
     /// unknown fields instead of ignore. This feature is optional.
@@ -148,12 +150,7 @@ impl ConformanceRequest {
     }
 
     /// Sets the value of [requested_output_format][crate::generated::gapic::model::ConformanceRequest::requested_output_format].
-    pub fn set_requested_output_format<
-        T: std::convert::Into<crate::generated::gapic::model::WireFormat>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_requested_output_format<T: std::convert::Into<crate::generated::gapic::model::WireFormat>>(mut self, v: T) -> Self {
         self.requested_output_format = v.into();
         self
     }
@@ -165,20 +162,14 @@ impl ConformanceRequest {
     }
 
     /// Sets the value of [test_category][crate::generated::gapic::model::ConformanceRequest::test_category].
-    pub fn set_test_category<
-        T: std::convert::Into<crate::generated::gapic::model::TestCategory>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_test_category<T: std::convert::Into<crate::generated::gapic::model::TestCategory>>(mut self, v: T) -> Self {
         self.test_category = v.into();
         self
     }
 
     /// Sets the value of [jspb_encoding_options][crate::generated::gapic::model::ConformanceRequest::jspb_encoding_options].
     pub fn set_jspb_encoding_options<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::generated::gapic::model::JspbEncodingConfig>,
+    where T: std::convert::Into<crate::generated::gapic::model::JspbEncodingConfig>
     {
         self.jspb_encoding_options = std::option::Option::Some(v.into());
         self
@@ -186,8 +177,7 @@ impl ConformanceRequest {
 
     /// Sets or clears the value of [jspb_encoding_options][crate::generated::gapic::model::ConformanceRequest::jspb_encoding_options].
     pub fn set_or_clear_jspb_encoding_options<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::generated::gapic::model::JspbEncodingConfig>,
+    where T: std::convert::Into<crate::generated::gapic::model::JspbEncodingConfig>
     {
         self.jspb_encoding_options = v.map(|x| x.into());
         self
@@ -203,14 +193,8 @@ impl ConformanceRequest {
     ///
     /// Note that all the setters affecting `payload` are mutually
     /// exclusive.
-    pub fn set_payload<
-        T: std::convert::Into<
-                std::option::Option<crate::generated::gapic::model::conformance_request::Payload>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_payload<T: std::convert::Into<std::option::Option<crate::generated::gapic::model::conformance_request::Payload>>>(mut self, v: T) -> Self
+    {
         self.payload = v.into();
         self
     }
@@ -221,9 +205,7 @@ impl ConformanceRequest {
     pub fn protobuf_payload(&self) -> std::option::Option<&::bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.payload.as_ref().and_then(|v| match v {
-            crate::generated::gapic::model::conformance_request::Payload::ProtobufPayload(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::generated::gapic::model::conformance_request::Payload::ProtobufPayload(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -235,7 +217,9 @@ impl ConformanceRequest {
     /// mutually exclusive.
     pub fn set_protobuf_payload<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.payload = std::option::Option::Some(
-            crate::generated::gapic::model::conformance_request::Payload::ProtobufPayload(v.into()),
+            crate::generated::gapic::model::conformance_request::Payload::ProtobufPayload(
+                v.into()
+            )
         );
         self
     }
@@ -246,9 +230,7 @@ impl ConformanceRequest {
     pub fn json_payload(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.payload.as_ref().and_then(|v| match v {
-            crate::generated::gapic::model::conformance_request::Payload::JsonPayload(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::generated::gapic::model::conformance_request::Payload::JsonPayload(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -260,7 +242,9 @@ impl ConformanceRequest {
     /// mutually exclusive.
     pub fn set_json_payload<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.payload = std::option::Option::Some(
-            crate::generated::gapic::model::conformance_request::Payload::JsonPayload(v.into()),
+            crate::generated::gapic::model::conformance_request::Payload::JsonPayload(
+                v.into()
+            )
         );
         self
     }
@@ -271,9 +255,7 @@ impl ConformanceRequest {
     pub fn jspb_payload(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.payload.as_ref().and_then(|v| match v {
-            crate::generated::gapic::model::conformance_request::Payload::JspbPayload(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::generated::gapic::model::conformance_request::Payload::JspbPayload(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -285,7 +267,9 @@ impl ConformanceRequest {
     /// mutually exclusive.
     pub fn set_jspb_payload<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.payload = std::option::Option::Some(
-            crate::generated::gapic::model::conformance_request::Payload::JspbPayload(v.into()),
+            crate::generated::gapic::model::conformance_request::Payload::JspbPayload(
+                v.into()
+            )
         );
         self
     }
@@ -296,9 +280,7 @@ impl ConformanceRequest {
     pub fn text_payload(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.payload.as_ref().and_then(|v| match v {
-            crate::generated::gapic::model::conformance_request::Payload::TextPayload(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::generated::gapic::model::conformance_request::Payload::TextPayload(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -310,7 +292,9 @@ impl ConformanceRequest {
     /// mutually exclusive.
     pub fn set_text_payload<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.payload = std::option::Option::Some(
-            crate::generated::gapic::model::conformance_request::Payload::TextPayload(v.into()),
+            crate::generated::gapic::model::conformance_request::Payload::TextPayload(
+                v.into()
+            )
         );
         self
     }
@@ -326,6 +310,7 @@ impl wkt::message::Message for ConformanceRequest {
 pub mod conformance_request {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The payload (whether protobuf of JSON) is always for a
     /// protobuf_test_messages.proto3.TestAllTypes proto (as defined in
@@ -364,6 +349,7 @@ pub mod conformance_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConformanceResponse {
+
     pub result: std::option::Option<crate::generated::gapic::model::conformance_response::Result>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -378,14 +364,8 @@ impl ConformanceResponse {
     ///
     /// Note that all the setters affecting `result` are mutually
     /// exclusive.
-    pub fn set_result<
-        T: std::convert::Into<
-                std::option::Option<crate::generated::gapic::model::conformance_response::Result>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_result<T: std::convert::Into<std::option::Option<crate::generated::gapic::model::conformance_response::Result>>>(mut self, v: T) -> Self
+    {
         self.result = v.into();
         self
     }
@@ -396,9 +376,7 @@ impl ConformanceResponse {
     pub fn parse_error(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.result.as_ref().and_then(|v| match v {
-            crate::generated::gapic::model::conformance_response::Result::ParseError(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::generated::gapic::model::conformance_response::Result::ParseError(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -410,7 +388,9 @@ impl ConformanceResponse {
     /// mutually exclusive.
     pub fn set_parse_error<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.result = std::option::Option::Some(
-            crate::generated::gapic::model::conformance_response::Result::ParseError(v.into()),
+            crate::generated::gapic::model::conformance_response::Result::ParseError(
+                v.into()
+            )
         );
         self
     }
@@ -421,9 +401,7 @@ impl ConformanceResponse {
     pub fn serialize_error(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.result.as_ref().and_then(|v| match v {
-            crate::generated::gapic::model::conformance_response::Result::SerializeError(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::generated::gapic::model::conformance_response::Result::SerializeError(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -435,7 +413,9 @@ impl ConformanceResponse {
     /// mutually exclusive.
     pub fn set_serialize_error<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.result = std::option::Option::Some(
-            crate::generated::gapic::model::conformance_response::Result::SerializeError(v.into()),
+            crate::generated::gapic::model::conformance_response::Result::SerializeError(
+                v.into()
+            )
         );
         self
     }
@@ -446,9 +426,7 @@ impl ConformanceResponse {
     pub fn timeout_error(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.result.as_ref().and_then(|v| match v {
-            crate::generated::gapic::model::conformance_response::Result::TimeoutError(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::generated::gapic::model::conformance_response::Result::TimeoutError(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -460,7 +438,9 @@ impl ConformanceResponse {
     /// mutually exclusive.
     pub fn set_timeout_error<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.result = std::option::Option::Some(
-            crate::generated::gapic::model::conformance_response::Result::TimeoutError(v.into()),
+            crate::generated::gapic::model::conformance_response::Result::TimeoutError(
+                v.into()
+            )
         );
         self
     }
@@ -471,9 +451,7 @@ impl ConformanceResponse {
     pub fn runtime_error(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.result.as_ref().and_then(|v| match v {
-            crate::generated::gapic::model::conformance_response::Result::RuntimeError(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::generated::gapic::model::conformance_response::Result::RuntimeError(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -485,7 +463,9 @@ impl ConformanceResponse {
     /// mutually exclusive.
     pub fn set_runtime_error<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.result = std::option::Option::Some(
-            crate::generated::gapic::model::conformance_response::Result::RuntimeError(v.into()),
+            crate::generated::gapic::model::conformance_response::Result::RuntimeError(
+                v.into()
+            )
         );
         self
     }
@@ -496,9 +476,7 @@ impl ConformanceResponse {
     pub fn protobuf_payload(&self) -> std::option::Option<&::bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.result.as_ref().and_then(|v| match v {
-            crate::generated::gapic::model::conformance_response::Result::ProtobufPayload(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::generated::gapic::model::conformance_response::Result::ProtobufPayload(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -510,7 +488,9 @@ impl ConformanceResponse {
     /// mutually exclusive.
     pub fn set_protobuf_payload<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.result = std::option::Option::Some(
-            crate::generated::gapic::model::conformance_response::Result::ProtobufPayload(v.into()),
+            crate::generated::gapic::model::conformance_response::Result::ProtobufPayload(
+                v.into()
+            )
         );
         self
     }
@@ -521,9 +501,7 @@ impl ConformanceResponse {
     pub fn json_payload(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.result.as_ref().and_then(|v| match v {
-            crate::generated::gapic::model::conformance_response::Result::JsonPayload(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::generated::gapic::model::conformance_response::Result::JsonPayload(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -535,7 +513,9 @@ impl ConformanceResponse {
     /// mutually exclusive.
     pub fn set_json_payload<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.result = std::option::Option::Some(
-            crate::generated::gapic::model::conformance_response::Result::JsonPayload(v.into()),
+            crate::generated::gapic::model::conformance_response::Result::JsonPayload(
+                v.into()
+            )
         );
         self
     }
@@ -546,9 +526,7 @@ impl ConformanceResponse {
     pub fn skipped(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.result.as_ref().and_then(|v| match v {
-            crate::generated::gapic::model::conformance_response::Result::Skipped(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::generated::gapic::model::conformance_response::Result::Skipped(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -560,7 +538,9 @@ impl ConformanceResponse {
     /// mutually exclusive.
     pub fn set_skipped<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.result = std::option::Option::Some(
-            crate::generated::gapic::model::conformance_response::Result::Skipped(v.into()),
+            crate::generated::gapic::model::conformance_response::Result::Skipped(
+                v.into()
+            )
         );
         self
     }
@@ -571,9 +551,7 @@ impl ConformanceResponse {
     pub fn jspb_payload(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.result.as_ref().and_then(|v| match v {
-            crate::generated::gapic::model::conformance_response::Result::JspbPayload(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::generated::gapic::model::conformance_response::Result::JspbPayload(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -585,7 +563,9 @@ impl ConformanceResponse {
     /// mutually exclusive.
     pub fn set_jspb_payload<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.result = std::option::Option::Some(
-            crate::generated::gapic::model::conformance_response::Result::JspbPayload(v.into()),
+            crate::generated::gapic::model::conformance_response::Result::JspbPayload(
+                v.into()
+            )
         );
         self
     }
@@ -596,9 +576,7 @@ impl ConformanceResponse {
     pub fn text_payload(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.result.as_ref().and_then(|v| match v {
-            crate::generated::gapic::model::conformance_response::Result::TextPayload(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::generated::gapic::model::conformance_response::Result::TextPayload(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -610,7 +588,9 @@ impl ConformanceResponse {
     /// mutually exclusive.
     pub fn set_text_payload<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.result = std::option::Option::Some(
-            crate::generated::gapic::model::conformance_response::Result::TextPayload(v.into()),
+            crate::generated::gapic::model::conformance_response::Result::TextPayload(
+                v.into()
+            )
         );
         self
     }
@@ -626,6 +606,7 @@ impl wkt::message::Message for ConformanceResponse {
 pub mod conformance_response {
     #[allow(unused_imports)]
     use super::*;
+
 
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -710,6 +691,7 @@ pub mod conformance_response {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct JspbEncodingConfig {
+
     /// Encode the value field of Any as jspb array if true, otherwise binary.
     pub use_jspb_array_any_format: bool,
 
@@ -824,9 +806,7 @@ impl std::convert::From<i32> for WireFormat {
             2 => Self::Json,
             3 => Self::Jspb,
             4 => Self::TextFormat,
-            _ => Self::UnknownValue(wire_format::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(wire_format::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -840,9 +820,7 @@ impl std::convert::From<&str> for WireFormat {
             "JSON" => Self::Json,
             "JSPB" => Self::Jspb,
             "TEXT_FORMAT" => Self::TextFormat,
-            _ => Self::UnknownValue(wire_format::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(wire_format::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -869,8 +847,7 @@ impl<'de> serde::de::Deserialize<'de> for WireFormat {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<WireFormat>::new(
-            ".conformance.WireFormat",
-        ))
+            ".conformance.WireFormat"))
     }
 }
 
@@ -947,9 +924,7 @@ impl TestCategory {
             Self::UnspecifiedTest => std::option::Option::Some("UNSPECIFIED_TEST"),
             Self::BinaryTest => std::option::Option::Some("BINARY_TEST"),
             Self::JsonTest => std::option::Option::Some("JSON_TEST"),
-            Self::JsonIgnoreUnknownParsingTest => {
-                std::option::Option::Some("JSON_IGNORE_UNKNOWN_PARSING_TEST")
-            }
+            Self::JsonIgnoreUnknownParsingTest => std::option::Option::Some("JSON_IGNORE_UNKNOWN_PARSING_TEST"),
             Self::JspbTest => std::option::Option::Some("JSPB_TEST"),
             Self::TextFormatTest => std::option::Option::Some("TEXT_FORMAT_TEST"),
             Self::UnknownValue(u) => u.0.name(),
@@ -979,9 +954,7 @@ impl std::convert::From<i32> for TestCategory {
             3 => Self::JsonIgnoreUnknownParsingTest,
             4 => Self::JspbTest,
             5 => Self::TextFormatTest,
-            _ => Self::UnknownValue(test_category::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(test_category::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -996,9 +969,7 @@ impl std::convert::From<&str> for TestCategory {
             "JSON_IGNORE_UNKNOWN_PARSING_TEST" => Self::JsonIgnoreUnknownParsingTest,
             "JSPB_TEST" => Self::JspbTest,
             "TEXT_FORMAT_TEST" => Self::TextFormatTest,
-            _ => Self::UnknownValue(test_category::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(test_category::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -1026,7 +997,6 @@ impl<'de> serde::de::Deserialize<'de> for TestCategory {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<TestCategory>::new(
-            ".conformance.TestCategory",
-        ))
+            ".conformance.TestCategory"))
     }
 }

@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -28,7 +29,6 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -42,6 +42,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AuditData {
+
     /// The permission_delta when when creating or updating a Role.
     pub permission_delta: std::option::Option<crate::model::audit_data::PermissionDelta>,
 
@@ -62,8 +63,7 @@ impl AuditData {
     /// let x = AuditData::new().set_permission_delta(PermissionDelta::default()/* use setters */);
     /// ```
     pub fn set_permission_delta<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::audit_data::PermissionDelta>,
+    where T: std::convert::Into<crate::model::audit_data::PermissionDelta>
     {
         self.permission_delta = std::option::Option::Some(v.into());
         self
@@ -79,8 +79,7 @@ impl AuditData {
     /// let x = AuditData::new().set_or_clear_permission_delta(None::<PermissionDelta>);
     /// ```
     pub fn set_or_clear_permission_delta<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::audit_data::PermissionDelta>,
+    where T: std::convert::Into<crate::model::audit_data::PermissionDelta>
     {
         self.permission_delta = v.map(|x| x.into());
         self
@@ -98,11 +97,13 @@ pub mod audit_data {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// A PermissionDelta message to record the added_permissions and
     /// removed_permissions inside a role.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PermissionDelta {
+
         /// Added permissions.
         pub added_permissions: std::vec::Vec<std::string::String>,
 
@@ -127,7 +128,7 @@ pub mod audit_data {
         pub fn set_added_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.added_permissions = v.into_iter().map(|i| i.into()).collect();
@@ -144,7 +145,7 @@ pub mod audit_data {
         pub fn set_removed_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.removed_permissions = v.into_iter().map(|i| i.into()).collect();
@@ -173,6 +174,7 @@ pub mod audit_data {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ServiceAccount {
+
     /// The resource name of the service account.
     ///
     /// Use one of the following formats:
@@ -326,10 +328,7 @@ impl ServiceAccount {
     /// # use google_cloud_iam_admin_v1::model::ServiceAccount;
     /// let x = ServiceAccount::new().set_oauth2_client_id("example");
     /// ```
-    pub fn set_oauth2_client_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_oauth2_client_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.oauth2_client_id = v.into();
         self
     }
@@ -357,6 +356,7 @@ impl wkt::message::Message for ServiceAccount {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateServiceAccountRequest {
+
     /// Required. The resource name of the project associated with the service
     /// accounts, such as `projects/my-project-123`.
     pub name: std::string::String,
@@ -415,8 +415,7 @@ impl CreateServiceAccountRequest {
     /// let x = CreateServiceAccountRequest::new().set_service_account(ServiceAccount::default()/* use setters */);
     /// ```
     pub fn set_service_account<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ServiceAccount>,
+    where T: std::convert::Into<crate::model::ServiceAccount>
     {
         self.service_account = std::option::Option::Some(v.into());
         self
@@ -432,8 +431,7 @@ impl CreateServiceAccountRequest {
     /// let x = CreateServiceAccountRequest::new().set_or_clear_service_account(None::<ServiceAccount>);
     /// ```
     pub fn set_or_clear_service_account<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ServiceAccount>,
+    where T: std::convert::Into<crate::model::ServiceAccount>
     {
         self.service_account = v.map(|x| x.into());
         self
@@ -450,6 +448,7 @@ impl wkt::message::Message for CreateServiceAccountRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServiceAccountsRequest {
+
     /// Required. The resource name of the project associated with the service
     /// accounts, such as `projects/my-project-123`.
     pub name: std::string::String,
@@ -525,6 +524,7 @@ impl wkt::message::Message for ListServiceAccountsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServiceAccountsResponse {
+
     /// The list of matching service accounts.
     pub accounts: std::vec::Vec<crate::model::ServiceAccount>,
 
@@ -558,7 +558,7 @@ impl ListServiceAccountsResponse {
     pub fn set_accounts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ServiceAccount>,
+        V: std::convert::Into<crate::model::ServiceAccount>
     {
         use std::iter::Iterator;
         self.accounts = v.into_iter().map(|i| i.into()).collect();
@@ -602,6 +602,7 @@ impl gax::paginator::internal::PageableResponse for ListServiceAccountsResponse 
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetServiceAccountRequest {
+
     /// Required. The resource name of the service account in the following format:
     /// `projects/{PROJECT_ID}/serviceAccounts/{ACCOUNT}`.
     /// Using `-` as a wildcard for the `PROJECT_ID` will infer the project from
@@ -640,6 +641,7 @@ impl wkt::message::Message for GetServiceAccountRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteServiceAccountRequest {
+
     /// Required. The resource name of the service account in the following format:
     /// `projects/{PROJECT_ID}/serviceAccounts/{ACCOUNT}`.
     /// Using `-` as a wildcard for the `PROJECT_ID` will infer the project from
@@ -684,6 +686,7 @@ impl wkt::message::Message for DeleteServiceAccountRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PatchServiceAccountRequest {
+
     pub service_account: std::option::Option<crate::model::ServiceAccount>,
 
     pub update_mask: std::option::Option<wkt::FieldMask>,
@@ -705,8 +708,7 @@ impl PatchServiceAccountRequest {
     /// let x = PatchServiceAccountRequest::new().set_service_account(ServiceAccount::default()/* use setters */);
     /// ```
     pub fn set_service_account<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ServiceAccount>,
+    where T: std::convert::Into<crate::model::ServiceAccount>
     {
         self.service_account = std::option::Option::Some(v.into());
         self
@@ -722,8 +724,7 @@ impl PatchServiceAccountRequest {
     /// let x = PatchServiceAccountRequest::new().set_or_clear_service_account(None::<ServiceAccount>);
     /// ```
     pub fn set_or_clear_service_account<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ServiceAccount>,
+    where T: std::convert::Into<crate::model::ServiceAccount>
     {
         self.service_account = v.map(|x| x.into());
         self
@@ -738,8 +739,7 @@ impl PatchServiceAccountRequest {
     /// let x = PatchServiceAccountRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -755,8 +755,7 @@ impl PatchServiceAccountRequest {
     /// let x = PatchServiceAccountRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -773,6 +772,7 @@ impl wkt::message::Message for PatchServiceAccountRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UndeleteServiceAccountRequest {
+
     /// The resource name of the service account in the following format:
     /// `projects/{PROJECT_ID}/serviceAccounts/{ACCOUNT_UNIQUE_ID}`.
     /// Using `-` as a wildcard for the `PROJECT_ID` will infer the project from
@@ -809,6 +809,7 @@ impl wkt::message::Message for UndeleteServiceAccountRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UndeleteServiceAccountResponse {
+
     /// Metadata for the restored service account.
     pub restored_account: std::option::Option<crate::model::ServiceAccount>,
 
@@ -829,8 +830,7 @@ impl UndeleteServiceAccountResponse {
     /// let x = UndeleteServiceAccountResponse::new().set_restored_account(ServiceAccount::default()/* use setters */);
     /// ```
     pub fn set_restored_account<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ServiceAccount>,
+    where T: std::convert::Into<crate::model::ServiceAccount>
     {
         self.restored_account = std::option::Option::Some(v.into());
         self
@@ -846,8 +846,7 @@ impl UndeleteServiceAccountResponse {
     /// let x = UndeleteServiceAccountResponse::new().set_or_clear_restored_account(None::<ServiceAccount>);
     /// ```
     pub fn set_or_clear_restored_account<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ServiceAccount>,
+    where T: std::convert::Into<crate::model::ServiceAccount>
     {
         self.restored_account = v.map(|x| x.into());
         self
@@ -864,6 +863,7 @@ impl wkt::message::Message for UndeleteServiceAccountResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnableServiceAccountRequest {
+
     /// The resource name of the service account in the following format:
     /// `projects/{PROJECT_ID}/serviceAccounts/{ACCOUNT}`.
     /// Using `-` as a wildcard for the `PROJECT_ID` will infer the project from
@@ -902,6 +902,7 @@ impl wkt::message::Message for EnableServiceAccountRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DisableServiceAccountRequest {
+
     /// The resource name of the service account in the following format:
     /// `projects/{PROJECT_ID}/serviceAccounts/{ACCOUNT}`.
     /// Using `-` as a wildcard for the `PROJECT_ID` will infer the project from
@@ -940,6 +941,7 @@ impl wkt::message::Message for DisableServiceAccountRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServiceAccountKeysRequest {
+
     /// Required. The resource name of the service account in the following format:
     /// `projects/{PROJECT_ID}/serviceAccounts/{ACCOUNT}`.
     ///
@@ -987,7 +989,7 @@ impl ListServiceAccountKeysRequest {
     pub fn set_key_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::list_service_account_keys_request::KeyType>,
+        V: std::convert::Into<crate::model::list_service_account_keys_request::KeyType>
     {
         use std::iter::Iterator;
         self.key_types = v.into_iter().map(|i| i.into()).collect();
@@ -1005,6 +1007,7 @@ impl wkt::message::Message for ListServiceAccountKeysRequest {
 pub mod list_service_account_keys_request {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// `KeyType` filters to selectively retrieve certain varieties
     /// of keys.
@@ -1094,9 +1097,7 @@ pub mod list_service_account_keys_request {
                 0 => Self::Unspecified,
                 1 => Self::UserManaged,
                 2 => Self::SystemManaged,
-                _ => Self::UnknownValue(key_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(key_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1108,9 +1109,7 @@ pub mod list_service_account_keys_request {
                 "KEY_TYPE_UNSPECIFIED" => Self::Unspecified,
                 "USER_MANAGED" => Self::UserManaged,
                 "SYSTEM_MANAGED" => Self::SystemManaged,
-                _ => Self::UnknownValue(key_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(key_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1135,8 +1134,7 @@ pub mod list_service_account_keys_request {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<KeyType>::new(
-                ".google.iam.admin.v1.ListServiceAccountKeysRequest.KeyType",
-            ))
+                ".google.iam.admin.v1.ListServiceAccountKeysRequest.KeyType"))
         }
     }
 }
@@ -1145,6 +1143,7 @@ pub mod list_service_account_keys_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServiceAccountKeysResponse {
+
     /// The public keys for the service account.
     pub keys: std::vec::Vec<crate::model::ServiceAccountKey>,
 
@@ -1171,7 +1170,7 @@ impl ListServiceAccountKeysResponse {
     pub fn set_keys<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ServiceAccountKey>,
+        V: std::convert::Into<crate::model::ServiceAccountKey>
     {
         use std::iter::Iterator;
         self.keys = v.into_iter().map(|i| i.into()).collect();
@@ -1189,6 +1188,7 @@ impl wkt::message::Message for ListServiceAccountKeysResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetServiceAccountKeyRequest {
+
     /// Required. The resource name of the service account key in the following format:
     /// `projects/{PROJECT_ID}/serviceAccounts/{ACCOUNT}/keys/{key}`.
     ///
@@ -1230,10 +1230,7 @@ impl GetServiceAccountKeyRequest {
     /// let x0 = GetServiceAccountKeyRequest::new().set_public_key_type(ServiceAccountPublicKeyType::TypeX509PemFile);
     /// let x1 = GetServiceAccountKeyRequest::new().set_public_key_type(ServiceAccountPublicKeyType::TypeRawPublicKey);
     /// ```
-    pub fn set_public_key_type<T: std::convert::Into<crate::model::ServiceAccountPublicKeyType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_public_key_type<T: std::convert::Into<crate::model::ServiceAccountPublicKeyType>>(mut self, v: T) -> Self {
         self.public_key_type = v.into();
         self
     }
@@ -1272,6 +1269,7 @@ impl wkt::message::Message for GetServiceAccountKeyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ServiceAccountKey {
+
     /// The resource name of the service account key in the following format
     /// `projects/{PROJECT_ID}/serviceAccounts/{ACCOUNT}/keys/{key}`.
     pub name: std::string::String,
@@ -1346,12 +1344,7 @@ impl ServiceAccountKey {
     /// let x0 = ServiceAccountKey::new().set_private_key_type(ServiceAccountPrivateKeyType::TypePkcs12File);
     /// let x1 = ServiceAccountKey::new().set_private_key_type(ServiceAccountPrivateKeyType::TypeGoogleCredentialsFile);
     /// ```
-    pub fn set_private_key_type<
-        T: std::convert::Into<crate::model::ServiceAccountPrivateKeyType>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_private_key_type<T: std::convert::Into<crate::model::ServiceAccountPrivateKeyType>>(mut self, v: T) -> Self {
         self.private_key_type = v.into();
         self
     }
@@ -1365,10 +1358,7 @@ impl ServiceAccountKey {
     /// let x0 = ServiceAccountKey::new().set_key_algorithm(ServiceAccountKeyAlgorithm::KeyAlgRsa1024);
     /// let x1 = ServiceAccountKey::new().set_key_algorithm(ServiceAccountKeyAlgorithm::KeyAlgRsa2048);
     /// ```
-    pub fn set_key_algorithm<T: std::convert::Into<crate::model::ServiceAccountKeyAlgorithm>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_key_algorithm<T: std::convert::Into<crate::model::ServiceAccountKeyAlgorithm>>(mut self, v: T) -> Self {
         self.key_algorithm = v.into();
         self
     }
@@ -1406,8 +1396,7 @@ impl ServiceAccountKey {
     /// let x = ServiceAccountKey::new().set_valid_after_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_valid_after_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.valid_after_time = std::option::Option::Some(v.into());
         self
@@ -1423,8 +1412,7 @@ impl ServiceAccountKey {
     /// let x = ServiceAccountKey::new().set_or_clear_valid_after_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_valid_after_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.valid_after_time = v.map(|x| x.into());
         self
@@ -1439,8 +1427,7 @@ impl ServiceAccountKey {
     /// let x = ServiceAccountKey::new().set_valid_before_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_valid_before_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.valid_before_time = std::option::Option::Some(v.into());
         self
@@ -1456,8 +1443,7 @@ impl ServiceAccountKey {
     /// let x = ServiceAccountKey::new().set_or_clear_valid_before_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_valid_before_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.valid_before_time = v.map(|x| x.into());
         self
@@ -1472,10 +1458,7 @@ impl ServiceAccountKey {
     /// let x0 = ServiceAccountKey::new().set_key_origin(ServiceAccountKeyOrigin::UserProvided);
     /// let x1 = ServiceAccountKey::new().set_key_origin(ServiceAccountKeyOrigin::GoogleProvided);
     /// ```
-    pub fn set_key_origin<T: std::convert::Into<crate::model::ServiceAccountKeyOrigin>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_key_origin<T: std::convert::Into<crate::model::ServiceAccountKeyOrigin>>(mut self, v: T) -> Self {
         self.key_origin = v.into();
         self
     }
@@ -1489,12 +1472,7 @@ impl ServiceAccountKey {
     /// let x0 = ServiceAccountKey::new().set_key_type(KeyType::UserManaged);
     /// let x1 = ServiceAccountKey::new().set_key_type(KeyType::SystemManaged);
     /// ```
-    pub fn set_key_type<
-        T: std::convert::Into<crate::model::list_service_account_keys_request::KeyType>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_key_type<T: std::convert::Into<crate::model::list_service_account_keys_request::KeyType>>(mut self, v: T) -> Self {
         self.key_type = v.into();
         self
     }
@@ -1522,6 +1500,7 @@ impl wkt::message::Message for ServiceAccountKey {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateServiceAccountKeyRequest {
+
     /// Required. The resource name of the service account in the following format:
     /// `projects/{PROJECT_ID}/serviceAccounts/{ACCOUNT}`.
     /// Using `-` as a wildcard for the `PROJECT_ID` will infer the project from
@@ -1568,12 +1547,7 @@ impl CreateServiceAccountKeyRequest {
     /// let x0 = CreateServiceAccountKeyRequest::new().set_private_key_type(ServiceAccountPrivateKeyType::TypePkcs12File);
     /// let x1 = CreateServiceAccountKeyRequest::new().set_private_key_type(ServiceAccountPrivateKeyType::TypeGoogleCredentialsFile);
     /// ```
-    pub fn set_private_key_type<
-        T: std::convert::Into<crate::model::ServiceAccountPrivateKeyType>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_private_key_type<T: std::convert::Into<crate::model::ServiceAccountPrivateKeyType>>(mut self, v: T) -> Self {
         self.private_key_type = v.into();
         self
     }
@@ -1587,10 +1561,7 @@ impl CreateServiceAccountKeyRequest {
     /// let x0 = CreateServiceAccountKeyRequest::new().set_key_algorithm(ServiceAccountKeyAlgorithm::KeyAlgRsa1024);
     /// let x1 = CreateServiceAccountKeyRequest::new().set_key_algorithm(ServiceAccountKeyAlgorithm::KeyAlgRsa2048);
     /// ```
-    pub fn set_key_algorithm<T: std::convert::Into<crate::model::ServiceAccountKeyAlgorithm>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_key_algorithm<T: std::convert::Into<crate::model::ServiceAccountKeyAlgorithm>>(mut self, v: T) -> Self {
         self.key_algorithm = v.into();
         self
     }
@@ -1606,6 +1577,7 @@ impl wkt::message::Message for CreateServiceAccountKeyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UploadServiceAccountKeyRequest {
+
     /// The resource name of the service account in the following format:
     /// `projects/{PROJECT_ID}/serviceAccounts/{ACCOUNT}`.
     /// Using `-` as a wildcard for the `PROJECT_ID` will infer the project from
@@ -1662,6 +1634,7 @@ impl wkt::message::Message for UploadServiceAccountKeyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteServiceAccountKeyRequest {
+
     /// Required. The resource name of the service account key in the following format:
     /// `projects/{PROJECT_ID}/serviceAccounts/{ACCOUNT}/keys/{key}`.
     /// Using `-` as a wildcard for the `PROJECT_ID` will infer the project from
@@ -1700,6 +1673,7 @@ impl wkt::message::Message for DeleteServiceAccountKeyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DisableServiceAccountKeyRequest {
+
     /// Required. The resource name of the service account key in the following format:
     /// `projects/{PROJECT_ID}/serviceAccounts/{ACCOUNT}/keys/{key}`.
     ///
@@ -1739,6 +1713,7 @@ impl wkt::message::Message for DisableServiceAccountKeyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnableServiceAccountKeyRequest {
+
     /// Required. The resource name of the service account key in the following format:
     /// `projects/{PROJECT_ID}/serviceAccounts/{ACCOUNT}/keys/{key}`.
     ///
@@ -1781,6 +1756,7 @@ impl wkt::message::Message for EnableServiceAccountKeyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SignBlobRequest {
+
     /// Required. Deprecated. [Migrate to Service Account Credentials
     /// API](https://cloud.google.com/iam/help/credentials/migrate-api).
     ///
@@ -1847,6 +1823,7 @@ impl wkt::message::Message for SignBlobRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SignBlobResponse {
+
     /// Deprecated. [Migrate to Service Account Credentials
     /// API](https://cloud.google.com/iam/help/credentials/migrate-api).
     ///
@@ -1909,6 +1886,7 @@ impl wkt::message::Message for SignBlobResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SignJwtRequest {
+
     /// Required. Deprecated. [Migrate to Service Account Credentials
     /// API](https://cloud.google.com/iam/help/credentials/migrate-api).
     ///
@@ -1984,6 +1962,7 @@ impl wkt::message::Message for SignJwtRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SignJwtResponse {
+
     /// Deprecated. [Migrate to Service Account Credentials
     /// API](https://cloud.google.com/iam/help/credentials/migrate-api).
     ///
@@ -2043,6 +2022,7 @@ impl wkt::message::Message for SignJwtResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Role {
+
     /// The name of the role.
     ///
     /// When Role is used in CreateRole, the role name must not be set.
@@ -2128,7 +2108,7 @@ impl Role {
     pub fn set_included_permissions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.included_permissions = v.into_iter().map(|i| i.into()).collect();
@@ -2145,10 +2125,7 @@ impl Role {
     /// let x1 = Role::new().set_stage(RoleLaunchStage::Ga);
     /// let x2 = Role::new().set_stage(RoleLaunchStage::Deprecated);
     /// ```
-    pub fn set_stage<T: std::convert::Into<crate::model::role::RoleLaunchStage>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_stage<T: std::convert::Into<crate::model::role::RoleLaunchStage>>(mut self, v: T) -> Self {
         self.stage = v.into();
         self
     }
@@ -2188,6 +2165,7 @@ impl wkt::message::Message for Role {
 pub mod role {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// A stage representing a role's lifecycle phase.
     ///
@@ -2293,9 +2271,7 @@ pub mod role {
                 4 => Self::Deprecated,
                 5 => Self::Disabled,
                 6 => Self::Eap,
-                _ => Self::UnknownValue(role_launch_stage::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(role_launch_stage::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -2310,9 +2286,7 @@ pub mod role {
                 "DEPRECATED" => Self::Deprecated,
                 "DISABLED" => Self::Disabled,
                 "EAP" => Self::Eap,
-                _ => Self::UnknownValue(role_launch_stage::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(role_launch_stage::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -2340,8 +2314,7 @@ pub mod role {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<RoleLaunchStage>::new(
-                ".google.iam.admin.v1.Role.RoleLaunchStage",
-            ))
+                ".google.iam.admin.v1.Role.RoleLaunchStage"))
         }
     }
 }
@@ -2350,6 +2323,7 @@ pub mod role {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QueryGrantableRolesRequest {
+
     /// Required. The full resource name to query from the list of grantable roles.
     ///
     /// The name follows the Google Cloud Platform resource format.
@@ -2383,10 +2357,7 @@ impl QueryGrantableRolesRequest {
     /// # use google_cloud_iam_admin_v1::model::QueryGrantableRolesRequest;
     /// let x = QueryGrantableRolesRequest::new().set_full_resource_name("example");
     /// ```
-    pub fn set_full_resource_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_full_resource_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.full_resource_name = v.into();
         self
     }
@@ -2439,6 +2410,7 @@ impl wkt::message::Message for QueryGrantableRolesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QueryGrantableRolesResponse {
+
     /// The list of matching roles.
     pub roles: std::vec::Vec<crate::model::Role>,
 
@@ -2469,7 +2441,7 @@ impl QueryGrantableRolesResponse {
     pub fn set_roles<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Role>,
+        V: std::convert::Into<crate::model::Role>
     {
         use std::iter::Iterator;
         self.roles = v.into_iter().map(|i| i.into()).collect();
@@ -2513,6 +2485,7 @@ impl gax::paginator::internal::PageableResponse for QueryGrantableRolesResponse 
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRolesRequest {
+
     /// The `parent` parameter's value depends on the target resource for the
     /// request, namely
     /// [`roles`](https://cloud.google.com/iam/reference/rest/v1/roles),
@@ -2643,6 +2616,7 @@ impl wkt::message::Message for ListRolesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRolesResponse {
+
     /// The Roles defined on this resource.
     pub roles: std::vec::Vec<crate::model::Role>,
 
@@ -2673,7 +2647,7 @@ impl ListRolesResponse {
     pub fn set_roles<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Role>,
+        V: std::convert::Into<crate::model::Role>
     {
         use std::iter::Iterator;
         self.roles = v.into_iter().map(|i| i.into()).collect();
@@ -2717,6 +2691,7 @@ impl gax::paginator::internal::PageableResponse for ListRolesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetRoleRequest {
+
     /// The `name` parameter's value depends on the target resource for the
     /// request, namely
     /// [`roles`](https://cloud.google.com/iam/reference/rest/v1/roles),
@@ -2782,6 +2757,7 @@ impl wkt::message::Message for GetRoleRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateRoleRequest {
+
     /// The `parent` parameter's value depends on the target resource for the
     /// request, namely
     /// [`projects`](https://cloud.google.com/iam/reference/rest/v1/projects.roles)
@@ -2859,8 +2835,7 @@ impl CreateRoleRequest {
     /// let x = CreateRoleRequest::new().set_role(Role::default()/* use setters */);
     /// ```
     pub fn set_role<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Role>,
+    where T: std::convert::Into<crate::model::Role>
     {
         self.role = std::option::Option::Some(v.into());
         self
@@ -2876,8 +2851,7 @@ impl CreateRoleRequest {
     /// let x = CreateRoleRequest::new().set_or_clear_role(None::<Role>);
     /// ```
     pub fn set_or_clear_role<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Role>,
+    where T: std::convert::Into<crate::model::Role>
     {
         self.role = v.map(|x| x.into());
         self
@@ -2894,6 +2868,7 @@ impl wkt::message::Message for CreateRoleRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateRoleRequest {
+
     /// The `name` parameter's value depends on the target resource for the
     /// request, namely
     /// [`projects`](https://cloud.google.com/iam/reference/rest/v1/projects.roles)
@@ -2955,8 +2930,7 @@ impl UpdateRoleRequest {
     /// let x = UpdateRoleRequest::new().set_role(Role::default()/* use setters */);
     /// ```
     pub fn set_role<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Role>,
+    where T: std::convert::Into<crate::model::Role>
     {
         self.role = std::option::Option::Some(v.into());
         self
@@ -2972,8 +2946,7 @@ impl UpdateRoleRequest {
     /// let x = UpdateRoleRequest::new().set_or_clear_role(None::<Role>);
     /// ```
     pub fn set_or_clear_role<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Role>,
+    where T: std::convert::Into<crate::model::Role>
     {
         self.role = v.map(|x| x.into());
         self
@@ -2988,8 +2961,7 @@ impl UpdateRoleRequest {
     /// let x = UpdateRoleRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -3005,8 +2977,7 @@ impl UpdateRoleRequest {
     /// let x = UpdateRoleRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -3023,6 +2994,7 @@ impl wkt::message::Message for UpdateRoleRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteRoleRequest {
+
     /// The `name` parameter's value depends on the target resource for the
     /// request, namely
     /// [`projects`](https://cloud.google.com/iam/reference/rest/v1/projects.roles)
@@ -3095,6 +3067,7 @@ impl wkt::message::Message for DeleteRoleRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UndeleteRoleRequest {
+
     /// The `name` parameter's value depends on the target resource for the
     /// request, namely
     /// [`projects`](https://cloud.google.com/iam/reference/rest/v1/projects.roles)
@@ -3167,6 +3140,7 @@ impl wkt::message::Message for UndeleteRoleRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Permission {
+
     /// The name of this Permission.
     pub name: std::string::String,
 
@@ -3260,10 +3234,7 @@ impl Permission {
     /// let x1 = Permission::new().set_stage(PermissionLaunchStage::Ga);
     /// let x2 = Permission::new().set_stage(PermissionLaunchStage::Deprecated);
     /// ```
-    pub fn set_stage<T: std::convert::Into<crate::model::permission::PermissionLaunchStage>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_stage<T: std::convert::Into<crate::model::permission::PermissionLaunchStage>>(mut self, v: T) -> Self {
         self.stage = v.into();
         self
     }
@@ -3277,12 +3248,7 @@ impl Permission {
     /// let x0 = Permission::new().set_custom_roles_support_level(CustomRolesSupportLevel::Testing);
     /// let x1 = Permission::new().set_custom_roles_support_level(CustomRolesSupportLevel::NotSupported);
     /// ```
-    pub fn set_custom_roles_support_level<
-        T: std::convert::Into<crate::model::permission::CustomRolesSupportLevel>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_custom_roles_support_level<T: std::convert::Into<crate::model::permission::CustomRolesSupportLevel>>(mut self, v: T) -> Self {
         self.custom_roles_support_level = v.into();
         self
     }
@@ -3306,10 +3272,7 @@ impl Permission {
     /// # use google_cloud_iam_admin_v1::model::Permission;
     /// let x = Permission::new().set_primary_permission("example");
     /// ```
-    pub fn set_primary_permission<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_primary_permission<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.primary_permission = v.into();
         self
     }
@@ -3325,6 +3288,7 @@ impl wkt::message::Message for Permission {
 pub mod permission {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// A stage representing a permission's lifecycle phase.
     ///
@@ -3417,9 +3381,7 @@ pub mod permission {
                 1 => Self::Beta,
                 2 => Self::Ga,
                 3 => Self::Deprecated,
-                _ => Self::UnknownValue(permission_launch_stage::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(permission_launch_stage::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -3432,9 +3394,7 @@ pub mod permission {
                 "BETA" => Self::Beta,
                 "GA" => Self::Ga,
                 "DEPRECATED" => Self::Deprecated,
-                _ => Self::UnknownValue(permission_launch_stage::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(permission_launch_stage::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -3460,8 +3420,7 @@ pub mod permission {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<PermissionLaunchStage>::new(
-                ".google.iam.admin.v1.Permission.PermissionLaunchStage",
-            ))
+                ".google.iam.admin.v1.Permission.PermissionLaunchStage"))
         }
     }
 
@@ -3551,9 +3510,7 @@ pub mod permission {
                 0 => Self::Supported,
                 1 => Self::Testing,
                 2 => Self::NotSupported,
-                _ => Self::UnknownValue(custom_roles_support_level::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(custom_roles_support_level::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -3565,9 +3522,7 @@ pub mod permission {
                 "SUPPORTED" => Self::Supported,
                 "TESTING" => Self::Testing,
                 "NOT_SUPPORTED" => Self::NotSupported,
-                _ => Self::UnknownValue(custom_roles_support_level::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(custom_roles_support_level::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -3591,11 +3546,8 @@ pub mod permission {
         where
             D: serde::Deserializer<'de>,
         {
-            deserializer.deserialize_any(
-                wkt::internal::EnumVisitor::<CustomRolesSupportLevel>::new(
-                    ".google.iam.admin.v1.Permission.CustomRolesSupportLevel",
-                ),
-            )
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<CustomRolesSupportLevel>::new(
+                ".google.iam.admin.v1.Permission.CustomRolesSupportLevel"))
         }
     }
 }
@@ -3604,6 +3556,7 @@ pub mod permission {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QueryTestablePermissionsRequest {
+
     /// Required. The full resource name to query from the list of testable
     /// permissions.
     ///
@@ -3636,10 +3589,7 @@ impl QueryTestablePermissionsRequest {
     /// # use google_cloud_iam_admin_v1::model::QueryTestablePermissionsRequest;
     /// let x = QueryTestablePermissionsRequest::new().set_full_resource_name("example");
     /// ```
-    pub fn set_full_resource_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_full_resource_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.full_resource_name = v.into();
         self
     }
@@ -3679,6 +3629,7 @@ impl wkt::message::Message for QueryTestablePermissionsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QueryTestablePermissionsResponse {
+
     /// The Permissions testable on the requested resource.
     pub permissions: std::vec::Vec<crate::model::Permission>,
 
@@ -3709,7 +3660,7 @@ impl QueryTestablePermissionsResponse {
     pub fn set_permissions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Permission>,
+        V: std::convert::Into<crate::model::Permission>
     {
         use std::iter::Iterator;
         self.permissions = v.into_iter().map(|i| i.into()).collect();
@@ -3753,6 +3704,7 @@ impl gax::paginator::internal::PageableResponse for QueryTestablePermissionsResp
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QueryAuditableServicesRequest {
+
     /// Required. The full resource name to query from the list of auditable
     /// services.
     ///
@@ -3776,10 +3728,7 @@ impl QueryAuditableServicesRequest {
     /// # use google_cloud_iam_admin_v1::model::QueryAuditableServicesRequest;
     /// let x = QueryAuditableServicesRequest::new().set_full_resource_name("example");
     /// ```
-    pub fn set_full_resource_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_full_resource_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.full_resource_name = v.into();
         self
     }
@@ -3795,6 +3744,7 @@ impl wkt::message::Message for QueryAuditableServicesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QueryAuditableServicesResponse {
+
     /// The auditable services for a resource.
     pub services: std::vec::Vec<crate::model::query_auditable_services_response::AuditableService>,
 
@@ -3821,7 +3771,7 @@ impl QueryAuditableServicesResponse {
     pub fn set_services<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::query_auditable_services_response::AuditableService>,
+        V: std::convert::Into<crate::model::query_auditable_services_response::AuditableService>
     {
         use std::iter::Iterator;
         self.services = v.into_iter().map(|i| i.into()).collect();
@@ -3840,10 +3790,12 @@ pub mod query_auditable_services_response {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Contains information about an auditable service.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AuditableService {
+
         /// Public name of the service.
         /// For example, the service name for Cloud IAM is 'iam.googleapis.com'.
         pub name: std::string::String,
@@ -3880,6 +3832,7 @@ pub mod query_auditable_services_response {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LintPolicyRequest {
+
     /// The full resource name of the policy this lint request is about.
     ///
     /// The name follows the Google Cloud Platform (GCP) resource format.
@@ -3909,10 +3862,7 @@ impl LintPolicyRequest {
     /// # use google_cloud_iam_admin_v1::model::LintPolicyRequest;
     /// let x = LintPolicyRequest::new().set_full_resource_name("example");
     /// ```
-    pub fn set_full_resource_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_full_resource_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.full_resource_name = v.into();
         self
     }
@@ -3929,12 +3879,8 @@ impl LintPolicyRequest {
     /// let x = LintPolicyRequest::new().set_lint_object(Some(
     ///     google_cloud_iam_admin_v1::model::lint_policy_request::LintObject::Condition(Expr::default().into())));
     /// ```
-    pub fn set_lint_object<
-        T: std::convert::Into<std::option::Option<crate::model::lint_policy_request::LintObject>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_lint_object<T: std::convert::Into<std::option::Option<crate::model::lint_policy_request::LintObject>>>(mut self, v: T) -> Self
+    {
         self.lint_object = v.into();
         self
     }
@@ -3945,9 +3891,7 @@ impl LintPolicyRequest {
     pub fn condition(&self) -> std::option::Option<&std::boxed::Box<gtype::model::Expr>> {
         #[allow(unreachable_patterns)]
         self.lint_object.as_ref().and_then(|v| match v {
-            crate::model::lint_policy_request::LintObject::Condition(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::lint_policy_request::LintObject::Condition(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -3965,12 +3909,11 @@ impl LintPolicyRequest {
     /// let x = LintPolicyRequest::new().set_condition(Expr::default()/* use setters */);
     /// assert!(x.condition().is_some());
     /// ```
-    pub fn set_condition<T: std::convert::Into<std::boxed::Box<gtype::model::Expr>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_condition<T: std::convert::Into<std::boxed::Box<gtype::model::Expr>>>(mut self, v: T) -> Self {
         self.lint_object = std::option::Option::Some(
-            crate::model::lint_policy_request::LintObject::Condition(v.into()),
+            crate::model::lint_policy_request::LintObject::Condition(
+                v.into()
+            )
         );
         self
     }
@@ -3987,6 +3930,7 @@ pub mod lint_policy_request {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Required. The Cloud IAM object to be linted.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -4000,6 +3944,7 @@ pub mod lint_policy_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LintResult {
+
     /// The validation unit level.
     pub level: crate::model::lint_result::Level,
 
@@ -4043,10 +3988,7 @@ impl LintResult {
     /// use google_cloud_iam_admin_v1::model::lint_result::Level;
     /// let x0 = LintResult::new().set_level(Level::Condition);
     /// ```
-    pub fn set_level<T: std::convert::Into<crate::model::lint_result::Level>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_level<T: std::convert::Into<crate::model::lint_result::Level>>(mut self, v: T) -> Self {
         self.level = v.into();
         self
     }
@@ -4058,10 +4000,7 @@ impl LintResult {
     /// # use google_cloud_iam_admin_v1::model::LintResult;
     /// let x = LintResult::new().set_validation_unit_name("example");
     /// ```
-    pub fn set_validation_unit_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_validation_unit_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.validation_unit_name = v.into();
         self
     }
@@ -4076,10 +4015,7 @@ impl LintResult {
     /// let x1 = LintResult::new().set_severity(Severity::Warning);
     /// let x2 = LintResult::new().set_severity(Severity::Notice);
     /// ```
-    pub fn set_severity<T: std::convert::Into<crate::model::lint_result::Severity>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_severity<T: std::convert::Into<crate::model::lint_result::Severity>>(mut self, v: T) -> Self {
         self.severity = v.into();
         self
     }
@@ -4131,6 +4067,7 @@ impl wkt::message::Message for LintResult {
 pub mod lint_result {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Possible Level values of a validation unit corresponding to its domain
     /// of discourse.
@@ -4215,9 +4152,7 @@ pub mod lint_result {
             match value {
                 0 => Self::Unspecified,
                 3 => Self::Condition,
-                _ => Self::UnknownValue(level::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(level::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -4228,9 +4163,7 @@ pub mod lint_result {
             match value {
                 "LEVEL_UNSPECIFIED" => Self::Unspecified,
                 "CONDITION" => Self::Condition,
-                _ => Self::UnknownValue(level::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(level::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -4254,8 +4187,7 @@ pub mod lint_result {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Level>::new(
-                ".google.iam.admin.v1.LintResult.Level",
-            ))
+                ".google.iam.admin.v1.LintResult.Level"))
         }
     }
 
@@ -4375,9 +4307,7 @@ pub mod lint_result {
                 3 => Self::Notice,
                 4 => Self::Info,
                 5 => Self::Deprecated,
-                _ => Self::UnknownValue(severity::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(severity::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -4392,9 +4322,7 @@ pub mod lint_result {
                 "NOTICE" => Self::Notice,
                 "INFO" => Self::Info,
                 "DEPRECATED" => Self::Deprecated,
-                _ => Self::UnknownValue(severity::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(severity::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -4422,8 +4350,7 @@ pub mod lint_result {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Severity>::new(
-                ".google.iam.admin.v1.LintResult.Severity",
-            ))
+                ".google.iam.admin.v1.LintResult.Severity"))
         }
     }
 }
@@ -4433,6 +4360,7 @@ pub mod lint_result {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LintPolicyResponse {
+
     /// List of lint results sorted by `severity` in descending order.
     pub lint_results: std::vec::Vec<crate::model::LintResult>,
 
@@ -4459,7 +4387,7 @@ impl LintPolicyResponse {
     pub fn set_lint_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::LintResult>,
+        V: std::convert::Into<crate::model::LintResult>
     {
         use std::iter::Iterator;
         self.lint_results = v.into_iter().map(|i| i.into()).collect();
@@ -4559,9 +4487,7 @@ impl std::convert::From<i32> for ServiceAccountKeyAlgorithm {
             0 => Self::KeyAlgUnspecified,
             1 => Self::KeyAlgRsa1024,
             2 => Self::KeyAlgRsa2048,
-            _ => Self::UnknownValue(service_account_key_algorithm::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(service_account_key_algorithm::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -4573,9 +4499,7 @@ impl std::convert::From<&str> for ServiceAccountKeyAlgorithm {
             "KEY_ALG_UNSPECIFIED" => Self::KeyAlgUnspecified,
             "KEY_ALG_RSA_1024" => Self::KeyAlgRsa1024,
             "KEY_ALG_RSA_2048" => Self::KeyAlgRsa2048,
-            _ => Self::UnknownValue(service_account_key_algorithm::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(service_account_key_algorithm::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -4599,11 +4523,8 @@ impl<'de> serde::de::Deserialize<'de> for ServiceAccountKeyAlgorithm {
     where
         D: serde::Deserializer<'de>,
     {
-        deserializer.deserialize_any(
-            wkt::internal::EnumVisitor::<ServiceAccountKeyAlgorithm>::new(
-                ".google.iam.admin.v1.ServiceAccountKeyAlgorithm",
-            ),
-        )
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<ServiceAccountKeyAlgorithm>::new(
+            ".google.iam.admin.v1.ServiceAccountKeyAlgorithm"))
     }
 }
 
@@ -4670,9 +4591,7 @@ impl ServiceAccountPrivateKeyType {
         match self {
             Self::TypeUnspecified => std::option::Option::Some("TYPE_UNSPECIFIED"),
             Self::TypePkcs12File => std::option::Option::Some("TYPE_PKCS12_FILE"),
-            Self::TypeGoogleCredentialsFile => {
-                std::option::Option::Some("TYPE_GOOGLE_CREDENTIALS_FILE")
-            }
+            Self::TypeGoogleCredentialsFile => std::option::Option::Some("TYPE_GOOGLE_CREDENTIALS_FILE"),
             Self::UnknownValue(u) => u.0.name(),
         }
     }
@@ -4697,9 +4616,7 @@ impl std::convert::From<i32> for ServiceAccountPrivateKeyType {
             0 => Self::TypeUnspecified,
             1 => Self::TypePkcs12File,
             2 => Self::TypeGoogleCredentialsFile,
-            _ => Self::UnknownValue(service_account_private_key_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(service_account_private_key_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -4711,9 +4628,7 @@ impl std::convert::From<&str> for ServiceAccountPrivateKeyType {
             "TYPE_UNSPECIFIED" => Self::TypeUnspecified,
             "TYPE_PKCS12_FILE" => Self::TypePkcs12File,
             "TYPE_GOOGLE_CREDENTIALS_FILE" => Self::TypeGoogleCredentialsFile,
-            _ => Self::UnknownValue(service_account_private_key_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(service_account_private_key_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -4737,11 +4652,8 @@ impl<'de> serde::de::Deserialize<'de> for ServiceAccountPrivateKeyType {
     where
         D: serde::Deserializer<'de>,
     {
-        deserializer.deserialize_any(
-            wkt::internal::EnumVisitor::<ServiceAccountPrivateKeyType>::new(
-                ".google.iam.admin.v1.ServiceAccountPrivateKeyType",
-            ),
-        )
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<ServiceAccountPrivateKeyType>::new(
+            ".google.iam.admin.v1.ServiceAccountPrivateKeyType"))
     }
 }
 
@@ -4831,9 +4743,7 @@ impl std::convert::From<i32> for ServiceAccountPublicKeyType {
             0 => Self::TypeNone,
             1 => Self::TypeX509PemFile,
             2 => Self::TypeRawPublicKey,
-            _ => Self::UnknownValue(service_account_public_key_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(service_account_public_key_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -4845,9 +4755,7 @@ impl std::convert::From<&str> for ServiceAccountPublicKeyType {
             "TYPE_NONE" => Self::TypeNone,
             "TYPE_X509_PEM_FILE" => Self::TypeX509PemFile,
             "TYPE_RAW_PUBLIC_KEY" => Self::TypeRawPublicKey,
-            _ => Self::UnknownValue(service_account_public_key_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(service_account_public_key_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -4871,11 +4779,8 @@ impl<'de> serde::de::Deserialize<'de> for ServiceAccountPublicKeyType {
     where
         D: serde::Deserializer<'de>,
     {
-        deserializer.deserialize_any(
-            wkt::internal::EnumVisitor::<ServiceAccountPublicKeyType>::new(
-                ".google.iam.admin.v1.ServiceAccountPublicKeyType",
-            ),
-        )
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<ServiceAccountPublicKeyType>::new(
+            ".google.iam.admin.v1.ServiceAccountPublicKeyType"))
     }
 }
 
@@ -4965,9 +4870,7 @@ impl std::convert::From<i32> for ServiceAccountKeyOrigin {
             0 => Self::OriginUnspecified,
             1 => Self::UserProvided,
             2 => Self::GoogleProvided,
-            _ => Self::UnknownValue(service_account_key_origin::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(service_account_key_origin::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -4979,9 +4882,7 @@ impl std::convert::From<&str> for ServiceAccountKeyOrigin {
             "ORIGIN_UNSPECIFIED" => Self::OriginUnspecified,
             "USER_PROVIDED" => Self::UserProvided,
             "GOOGLE_PROVIDED" => Self::GoogleProvided,
-            _ => Self::UnknownValue(service_account_key_origin::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(service_account_key_origin::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -5006,8 +4907,7 @@ impl<'de> serde::de::Deserialize<'de> for ServiceAccountKeyOrigin {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<ServiceAccountKeyOrigin>::new(
-            ".google.iam.admin.v1.ServiceAccountKeyOrigin",
-        ))
+            ".google.iam.admin.v1.ServiceAccountKeyOrigin"))
     }
 }
 
@@ -5093,9 +4993,7 @@ impl std::convert::From<i32> for RoleView {
         match value {
             0 => Self::Basic,
             1 => Self::Full,
-            _ => Self::UnknownValue(role_view::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(role_view::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -5106,9 +5004,7 @@ impl std::convert::From<&str> for RoleView {
         match value {
             "BASIC" => Self::Basic,
             "FULL" => Self::Full,
-            _ => Self::UnknownValue(role_view::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(role_view::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -5132,7 +5028,6 @@ impl<'de> serde::de::Deserialize<'de> for RoleView {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<RoleView>::new(
-            ".google.iam.admin.v1.RoleView",
-        ))
+            ".google.iam.admin.v1.RoleView"))
     }
 }

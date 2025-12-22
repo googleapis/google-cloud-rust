@@ -72,9 +72,7 @@ impl DeveloperConnect {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::developer_connect::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::developer_connect::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::developer_connect::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -82,52 +80,56 @@ impl DeveloperConnect {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::DeveloperConnect + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::DeveloperConnect + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::DeveloperConnect>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::DeveloperConnect>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::DeveloperConnect> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::DeveloperConnect> {
         super::transport::DeveloperConnect::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::DeveloperConnect> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::DeveloperConnect::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::DeveloperConnect> {
+        Self::build_transport(conf).await.map(super::tracing::DeveloperConnect::new)
     }
 
     /// Lists Connections in a given project and location.
-    pub fn list_connections(&self) -> super::builder::developer_connect::ListConnections {
+    pub fn list_connections(&self) -> super::builder::developer_connect::ListConnections
+    {
         super::builder::developer_connect::ListConnections::new(self.inner.clone())
     }
 
     /// Gets details of a single Connection.
-    pub fn get_connection(&self) -> super::builder::developer_connect::GetConnection {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::client::DeveloperConnect;
+    /// async fn sample(
+    ///    client: &DeveloperConnect,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_connection()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_connection(&self) -> super::builder::developer_connect::GetConnection
+    {
         super::builder::developer_connect::GetConnection::new(self.inner.clone())
     }
 
@@ -142,7 +144,8 @@ impl DeveloperConnect {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_connection(&self) -> super::builder::developer_connect::CreateConnection {
+    pub fn create_connection(&self) -> super::builder::developer_connect::CreateConnection
+    {
         super::builder::developer_connect::CreateConnection::new(self.inner.clone())
     }
 
@@ -157,7 +160,8 @@ impl DeveloperConnect {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_connection(&self) -> super::builder::developer_connect::UpdateConnection {
+    pub fn update_connection(&self) -> super::builder::developer_connect::UpdateConnection
+    {
         super::builder::developer_connect::UpdateConnection::new(self.inner.clone())
     }
 
@@ -172,7 +176,8 @@ impl DeveloperConnect {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_connection(&self) -> super::builder::developer_connect::DeleteConnection {
+    pub fn delete_connection(&self) -> super::builder::developer_connect::DeleteConnection
+    {
         super::builder::developer_connect::DeleteConnection::new(self.inner.clone())
     }
 
@@ -191,9 +196,8 @@ impl DeveloperConnect {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_git_repository_link(
-        &self,
-    ) -> super::builder::developer_connect::CreateGitRepositoryLink {
+    pub fn create_git_repository_link(&self) -> super::builder::developer_connect::CreateGitRepositoryLink
+    {
         super::builder::developer_connect::CreateGitRepositoryLink::new(self.inner.clone())
     }
 
@@ -208,41 +212,88 @@ impl DeveloperConnect {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_git_repository_link(
-        &self,
-    ) -> super::builder::developer_connect::DeleteGitRepositoryLink {
+    pub fn delete_git_repository_link(&self) -> super::builder::developer_connect::DeleteGitRepositoryLink
+    {
         super::builder::developer_connect::DeleteGitRepositoryLink::new(self.inner.clone())
     }
 
     /// Lists GitRepositoryLinks in a given project, location, and connection.
-    pub fn list_git_repository_links(
-        &self,
-    ) -> super::builder::developer_connect::ListGitRepositoryLinks {
+    pub fn list_git_repository_links(&self) -> super::builder::developer_connect::ListGitRepositoryLinks
+    {
         super::builder::developer_connect::ListGitRepositoryLinks::new(self.inner.clone())
     }
 
     /// Gets details of a single GitRepositoryLink.
-    pub fn get_git_repository_link(
-        &self,
-    ) -> super::builder::developer_connect::GetGitRepositoryLink {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::client::DeveloperConnect;
+    /// async fn sample(
+    ///    client: &DeveloperConnect,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_git_repository_link()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_git_repository_link(&self) -> super::builder::developer_connect::GetGitRepositoryLink
+    {
         super::builder::developer_connect::GetGitRepositoryLink::new(self.inner.clone())
     }
 
     /// Fetches read/write token of a given gitRepositoryLink.
-    pub fn fetch_read_write_token(&self) -> super::builder::developer_connect::FetchReadWriteToken {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::client::DeveloperConnect;
+    /// async fn sample(
+    ///    client: &DeveloperConnect
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .fetch_read_write_token()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn fetch_read_write_token(&self) -> super::builder::developer_connect::FetchReadWriteToken
+    {
         super::builder::developer_connect::FetchReadWriteToken::new(self.inner.clone())
     }
 
     /// Fetches read token of a given gitRepositoryLink.
-    pub fn fetch_read_token(&self) -> super::builder::developer_connect::FetchReadToken {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::client::DeveloperConnect;
+    /// async fn sample(
+    ///    client: &DeveloperConnect
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .fetch_read_token()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn fetch_read_token(&self) -> super::builder::developer_connect::FetchReadToken
+    {
         super::builder::developer_connect::FetchReadToken::new(self.inner.clone())
     }
 
     /// FetchLinkableGitRepositories returns a list of git repositories from an SCM
     /// that are available to be added to a Connection.
-    pub fn fetch_linkable_git_repositories(
-        &self,
-    ) -> super::builder::developer_connect::FetchLinkableGitRepositories {
+    pub fn fetch_linkable_git_repositories(&self) -> super::builder::developer_connect::FetchLinkableGitRepositories
+    {
         super::builder::developer_connect::FetchLinkableGitRepositories::new(self.inner.clone())
     }
 
@@ -250,26 +301,75 @@ impl DeveloperConnect {
     /// are available to be added to a Connection.
     /// For github.com, only installations accessible to the authorizer token
     /// are returned. For GitHub Enterprise, all installations are returned.
-    pub fn fetch_git_hub_installations(
-        &self,
-    ) -> super::builder::developer_connect::FetchGitHubInstallations {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::client::DeveloperConnect;
+    /// async fn sample(
+    ///    client: &DeveloperConnect
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .fetch_git_hub_installations()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn fetch_git_hub_installations(&self) -> super::builder::developer_connect::FetchGitHubInstallations
+    {
         super::builder::developer_connect::FetchGitHubInstallations::new(self.inner.clone())
     }
 
     /// Fetch the list of branches or tags for a given repository.
-    pub fn fetch_git_refs(&self) -> super::builder::developer_connect::FetchGitRefs {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::client::DeveloperConnect;
+    /// async fn sample(
+    ///    client: &DeveloperConnect
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .fetch_git_refs()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn fetch_git_refs(&self) -> super::builder::developer_connect::FetchGitRefs
+    {
         super::builder::developer_connect::FetchGitRefs::new(self.inner.clone())
     }
 
     /// Lists AccountConnectors in a given project and location.
-    pub fn list_account_connectors(
-        &self,
-    ) -> super::builder::developer_connect::ListAccountConnectors {
+    pub fn list_account_connectors(&self) -> super::builder::developer_connect::ListAccountConnectors
+    {
         super::builder::developer_connect::ListAccountConnectors::new(self.inner.clone())
     }
 
     /// Gets details of a single AccountConnector.
-    pub fn get_account_connector(&self) -> super::builder::developer_connect::GetAccountConnector {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::client::DeveloperConnect;
+    /// async fn sample(
+    ///    client: &DeveloperConnect,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_account_connector()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_account_connector(&self) -> super::builder::developer_connect::GetAccountConnector
+    {
         super::builder::developer_connect::GetAccountConnector::new(self.inner.clone())
     }
 
@@ -284,9 +384,8 @@ impl DeveloperConnect {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_account_connector(
-        &self,
-    ) -> super::builder::developer_connect::CreateAccountConnector {
+    pub fn create_account_connector(&self) -> super::builder::developer_connect::CreateAccountConnector
+    {
         super::builder::developer_connect::CreateAccountConnector::new(self.inner.clone())
     }
 
@@ -301,9 +400,8 @@ impl DeveloperConnect {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_account_connector(
-        &self,
-    ) -> super::builder::developer_connect::UpdateAccountConnector {
+    pub fn update_account_connector(&self) -> super::builder::developer_connect::UpdateAccountConnector
+    {
         super::builder::developer_connect::UpdateAccountConnector::new(self.inner.clone())
     }
 
@@ -318,19 +416,36 @@ impl DeveloperConnect {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_account_connector(
-        &self,
-    ) -> super::builder::developer_connect::DeleteAccountConnector {
+    pub fn delete_account_connector(&self) -> super::builder::developer_connect::DeleteAccountConnector
+    {
         super::builder::developer_connect::DeleteAccountConnector::new(self.inner.clone())
     }
 
     /// Fetches OAuth access token based on end user credentials.
-    pub fn fetch_access_token(&self) -> super::builder::developer_connect::FetchAccessToken {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::client::DeveloperConnect;
+    /// async fn sample(
+    ///    client: &DeveloperConnect
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .fetch_access_token()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn fetch_access_token(&self) -> super::builder::developer_connect::FetchAccessToken
+    {
         super::builder::developer_connect::FetchAccessToken::new(self.inner.clone())
     }
 
     /// Lists Users in a given project, location, and account_connector.
-    pub fn list_users(&self) -> super::builder::developer_connect::ListUsers {
+    pub fn list_users(&self) -> super::builder::developer_connect::ListUsers
+    {
         super::builder::developer_connect::ListUsers::new(self.inner.clone())
     }
 
@@ -345,12 +460,30 @@ impl DeveloperConnect {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_user(&self) -> super::builder::developer_connect::DeleteUser {
+    pub fn delete_user(&self) -> super::builder::developer_connect::DeleteUser
+    {
         super::builder::developer_connect::DeleteUser::new(self.inner.clone())
     }
 
     /// Fetch the User based on the user credentials.
-    pub fn fetch_self(&self) -> super::builder::developer_connect::FetchSelf {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::client::DeveloperConnect;
+    /// async fn sample(
+    ///    client: &DeveloperConnect
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .fetch_self()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn fetch_self(&self) -> super::builder::developer_connect::FetchSelf
+    {
         super::builder::developer_connect::FetchSelf::new(self.inner.clone())
     }
 
@@ -365,45 +498,114 @@ impl DeveloperConnect {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_self(&self) -> super::builder::developer_connect::DeleteSelf {
+    pub fn delete_self(&self) -> super::builder::developer_connect::DeleteSelf
+    {
         super::builder::developer_connect::DeleteSelf::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::developer_connect::ListLocations {
+    pub fn list_locations(&self) -> super::builder::developer_connect::ListLocations
+    {
         super::builder::developer_connect::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(&self) -> super::builder::developer_connect::GetLocation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::client::DeveloperConnect;
+    /// async fn sample(
+    ///    client: &DeveloperConnect
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_location(&self) -> super::builder::developer_connect::GetLocation
+    {
         super::builder::developer_connect::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::developer_connect::ListOperations {
+    pub fn list_operations(&self) -> super::builder::developer_connect::ListOperations
+    {
         super::builder::developer_connect::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::developer_connect::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::client::DeveloperConnect;
+    /// async fn sample(
+    ///    client: &DeveloperConnect
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::developer_connect::GetOperation
+    {
         super::builder::developer_connect::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(&self) -> super::builder::developer_connect::DeleteOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::client::DeveloperConnect;
+    /// async fn sample(
+    ///    client: &DeveloperConnect
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_operation(&self) -> super::builder::developer_connect::DeleteOperation
+    {
         super::builder::developer_connect::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(&self) -> super::builder::developer_connect::CancelOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::client::DeveloperConnect;
+    /// async fn sample(
+    ///    client: &DeveloperConnect
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_operation(&self) -> super::builder::developer_connect::CancelOperation
+    {
         super::builder::developer_connect::CancelOperation::new(self.inner.clone())
     }
 }
@@ -472,9 +674,7 @@ impl InsightsConfigService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::insights_config_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::insights_config_service::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::insights_config_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -482,49 +682,33 @@ impl InsightsConfigService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::InsightsConfigService + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::InsightsConfigService + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::InsightsConfigService>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::InsightsConfigService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::InsightsConfigService> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::InsightsConfigService> {
         super::transport::InsightsConfigService::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::InsightsConfigService> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::InsightsConfigService::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::InsightsConfigService> {
+        Self::build_transport(conf).await.map(super::tracing::InsightsConfigService::new)
     }
 
     /// Lists InsightsConfigs in a given project and location.
-    pub fn list_insights_configs(
-        &self,
-    ) -> super::builder::insights_config_service::ListInsightsConfigs {
+    pub fn list_insights_configs(&self) -> super::builder::insights_config_service::ListInsightsConfigs
+    {
         super::builder::insights_config_service::ListInsightsConfigs::new(self.inner.clone())
     }
 
@@ -539,16 +723,31 @@ impl InsightsConfigService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_insights_config(
-        &self,
-    ) -> super::builder::insights_config_service::CreateInsightsConfig {
+    pub fn create_insights_config(&self) -> super::builder::insights_config_service::CreateInsightsConfig
+    {
         super::builder::insights_config_service::CreateInsightsConfig::new(self.inner.clone())
     }
 
     /// Gets details of a single Insight.
-    pub fn get_insights_config(
-        &self,
-    ) -> super::builder::insights_config_service::GetInsightsConfig {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::client::InsightsConfigService;
+    /// async fn sample(
+    ///    client: &InsightsConfigService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_insights_config()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_insights_config(&self) -> super::builder::insights_config_service::GetInsightsConfig
+    {
         super::builder::insights_config_service::GetInsightsConfig::new(self.inner.clone())
     }
 
@@ -563,9 +762,8 @@ impl InsightsConfigService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_insights_config(
-        &self,
-    ) -> super::builder::insights_config_service::UpdateInsightsConfig {
+    pub fn update_insights_config(&self) -> super::builder::insights_config_service::UpdateInsightsConfig
+    {
         super::builder::insights_config_service::UpdateInsightsConfig::new(self.inner.clone())
     }
 
@@ -580,47 +778,114 @@ impl InsightsConfigService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_insights_config(
-        &self,
-    ) -> super::builder::insights_config_service::DeleteInsightsConfig {
+    pub fn delete_insights_config(&self) -> super::builder::insights_config_service::DeleteInsightsConfig
+    {
         super::builder::insights_config_service::DeleteInsightsConfig::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::insights_config_service::ListLocations {
+    pub fn list_locations(&self) -> super::builder::insights_config_service::ListLocations
+    {
         super::builder::insights_config_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(&self) -> super::builder::insights_config_service::GetLocation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::client::InsightsConfigService;
+    /// async fn sample(
+    ///    client: &InsightsConfigService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_location(&self) -> super::builder::insights_config_service::GetLocation
+    {
         super::builder::insights_config_service::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::insights_config_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::insights_config_service::ListOperations
+    {
         super::builder::insights_config_service::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::insights_config_service::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::client::InsightsConfigService;
+    /// async fn sample(
+    ///    client: &InsightsConfigService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::insights_config_service::GetOperation
+    {
         super::builder::insights_config_service::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(&self) -> super::builder::insights_config_service::DeleteOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::client::InsightsConfigService;
+    /// async fn sample(
+    ///    client: &InsightsConfigService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_operation(&self) -> super::builder::insights_config_service::DeleteOperation
+    {
         super::builder::insights_config_service::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(&self) -> super::builder::insights_config_service::CancelOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::client::InsightsConfigService;
+    /// async fn sample(
+    ///    client: &InsightsConfigService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_operation(&self) -> super::builder::insights_config_service::CancelOperation
+    {
         super::builder::insights_config_service::CancelOperation::new(self.inner.clone())
     }
 }

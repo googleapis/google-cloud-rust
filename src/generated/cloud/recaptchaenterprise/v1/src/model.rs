@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -27,7 +28,6 @@ extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -39,6 +39,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateAssessmentRequest {
+
     /// Required. The name of the project in which the assessment is created,
     /// in the format `projects/{project}`.
     pub parent: std::string::String,
@@ -75,8 +76,7 @@ impl CreateAssessmentRequest {
     /// let x = CreateAssessmentRequest::new().set_assessment(Assessment::default()/* use setters */);
     /// ```
     pub fn set_assessment<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Assessment>,
+    where T: std::convert::Into<crate::model::Assessment>
     {
         self.assessment = std::option::Option::Some(v.into());
         self
@@ -92,8 +92,7 @@ impl CreateAssessmentRequest {
     /// let x = CreateAssessmentRequest::new().set_or_clear_assessment(None::<Assessment>);
     /// ```
     pub fn set_or_clear_assessment<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Assessment>,
+    where T: std::convert::Into<crate::model::Assessment>
     {
         self.assessment = v.map(|x| x.into());
         self
@@ -110,6 +109,7 @@ impl wkt::message::Message for CreateAssessmentRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TransactionEvent {
+
     /// Optional. The type of this transaction event.
     pub event_type: crate::model::transaction_event::TransactionEventType,
 
@@ -145,12 +145,7 @@ impl TransactionEvent {
     /// let x1 = TransactionEvent::new().set_event_type(TransactionEventType::MerchantDeny);
     /// let x2 = TransactionEvent::new().set_event_type(TransactionEventType::ManualReview);
     /// ```
-    pub fn set_event_type<
-        T: std::convert::Into<crate::model::transaction_event::TransactionEventType>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_event_type<T: std::convert::Into<crate::model::transaction_event::TransactionEventType>>(mut self, v: T) -> Self {
         self.event_type = v.into();
         self
     }
@@ -188,8 +183,7 @@ impl TransactionEvent {
     /// let x = TransactionEvent::new().set_event_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_event_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.event_time = std::option::Option::Some(v.into());
         self
@@ -205,8 +199,7 @@ impl TransactionEvent {
     /// let x = TransactionEvent::new().set_or_clear_event_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_event_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.event_time = v.map(|x| x.into());
         self
@@ -223,6 +216,7 @@ impl wkt::message::Message for TransactionEvent {
 pub mod transaction_event {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Enum that represents an event in the payment transaction lifecycle.
     ///
@@ -369,9 +363,7 @@ pub mod transaction_event {
         /// the integer representation of enums.
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
-                Self::Unspecified => {
-                    std::option::Option::Some("TRANSACTION_EVENT_TYPE_UNSPECIFIED")
-                }
+                Self::Unspecified => std::option::Option::Some("TRANSACTION_EVENT_TYPE_UNSPECIFIED"),
                 Self::MerchantApprove => std::option::Option::Some("MERCHANT_APPROVE"),
                 Self::MerchantDeny => std::option::Option::Some("MERCHANT_DENY"),
                 Self::ManualReview => std::option::Option::Some("MANUAL_REVIEW"),
@@ -384,9 +376,7 @@ pub mod transaction_event {
                 Self::ChargebackAlert => std::option::Option::Some("CHARGEBACK_ALERT"),
                 Self::FraudNotification => std::option::Option::Some("FRAUD_NOTIFICATION"),
                 Self::Chargeback => std::option::Option::Some("CHARGEBACK"),
-                Self::ChargebackRepresentment => {
-                    std::option::Option::Some("CHARGEBACK_REPRESENTMENT")
-                }
+                Self::ChargebackRepresentment => std::option::Option::Some("CHARGEBACK_REPRESENTMENT"),
                 Self::ChargebackReverse => std::option::Option::Some("CHARGEBACK_REVERSE"),
                 Self::RefundRequest => std::option::Option::Some("REFUND_REQUEST"),
                 Self::RefundDecline => std::option::Option::Some("REFUND_DECLINE"),
@@ -432,9 +422,7 @@ pub mod transaction_event {
                 16 => Self::RefundDecline,
                 17 => Self::Refund,
                 18 => Self::RefundReverse,
-                _ => Self::UnknownValue(transaction_event_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(transaction_event_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -462,9 +450,7 @@ pub mod transaction_event {
                 "REFUND_DECLINE" => Self::RefundDecline,
                 "REFUND" => Self::Refund,
                 "REFUND_REVERSE" => Self::RefundReverse,
-                _ => Self::UnknownValue(transaction_event_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(transaction_event_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -505,8 +491,7 @@ pub mod transaction_event {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<TransactionEventType>::new(
-                ".google.cloud.recaptchaenterprise.v1.TransactionEvent.TransactionEventType",
-            ))
+                ".google.cloud.recaptchaenterprise.v1.TransactionEvent.TransactionEventType"))
         }
     }
 }
@@ -515,6 +500,7 @@ pub mod transaction_event {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AnnotateAssessmentRequest {
+
     /// Required. The resource name of the Assessment, in the format
     /// `projects/{project}/assessments/{assessment}`.
     pub name: std::string::String,
@@ -571,12 +557,7 @@ impl AnnotateAssessmentRequest {
     /// let x0 = AnnotateAssessmentRequest::new().set_annotation(Annotation::Legitimate);
     /// let x1 = AnnotateAssessmentRequest::new().set_annotation(Annotation::Fraudulent);
     /// ```
-    pub fn set_annotation<
-        T: std::convert::Into<crate::model::annotate_assessment_request::Annotation>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_annotation<T: std::convert::Into<crate::model::annotate_assessment_request::Annotation>>(mut self, v: T) -> Self {
         self.annotation = v.into();
         self
     }
@@ -596,7 +577,7 @@ impl AnnotateAssessmentRequest {
     pub fn set_reasons<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::annotate_assessment_request::Reason>,
+        V: std::convert::Into<crate::model::annotate_assessment_request::Reason>
     {
         use std::iter::Iterator;
         self.reasons = v.into_iter().map(|i| i.into()).collect();
@@ -636,8 +617,7 @@ impl AnnotateAssessmentRequest {
     /// let x = AnnotateAssessmentRequest::new().set_transaction_event(TransactionEvent::default()/* use setters */);
     /// ```
     pub fn set_transaction_event<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TransactionEvent>,
+    where T: std::convert::Into<crate::model::TransactionEvent>
     {
         self.transaction_event = std::option::Option::Some(v.into());
         self
@@ -653,8 +633,7 @@ impl AnnotateAssessmentRequest {
     /// let x = AnnotateAssessmentRequest::new().set_or_clear_transaction_event(None::<TransactionEvent>);
     /// ```
     pub fn set_or_clear_transaction_event<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TransactionEvent>,
+    where T: std::convert::Into<crate::model::TransactionEvent>
     {
         self.transaction_event = v.map(|x| x.into());
         self
@@ -671,6 +650,7 @@ impl wkt::message::Message for AnnotateAssessmentRequest {
 pub mod annotate_assessment_request {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Enum that represents the types of annotations.
     ///
@@ -774,9 +754,7 @@ pub mod annotate_assessment_request {
                 2 => Self::Fraudulent,
                 3 => Self::PasswordCorrect,
                 4 => Self::PasswordIncorrect,
-                _ => Self::UnknownValue(annotation::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(annotation::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -790,9 +768,7 @@ pub mod annotate_assessment_request {
                 "FRAUDULENT" => Self::Fraudulent,
                 "PASSWORD_CORRECT" => Self::PasswordCorrect,
                 "PASSWORD_INCORRECT" => Self::PasswordIncorrect,
-                _ => Self::UnknownValue(annotation::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(annotation::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -819,8 +795,7 @@ pub mod annotate_assessment_request {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Annotation>::new(
-                ".google.cloud.recaptchaenterprise.v1.AnnotateAssessmentRequest.Annotation",
-            ))
+                ".google.cloud.recaptchaenterprise.v1.AnnotateAssessmentRequest.Annotation"))
         }
     }
 
@@ -987,9 +962,7 @@ pub mod annotate_assessment_request {
                 12 => Self::TransactionAccepted,
                 13 => Self::TransactionDeclined,
                 14 => Self::SocialSpam,
-                _ => Self::UnknownValue(reason::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(reason::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1013,9 +986,7 @@ pub mod annotate_assessment_request {
                 "CORRECT_PASSWORD" => Self::CorrectPassword,
                 "INCORRECT_PASSWORD" => Self::IncorrectPassword,
                 "SOCIAL_SPAM" => Self::SocialSpam,
-                _ => Self::UnknownValue(reason::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(reason::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1052,8 +1023,7 @@ pub mod annotate_assessment_request {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Reason>::new(
-                ".google.cloud.recaptchaenterprise.v1.AnnotateAssessmentRequest.Reason",
-            ))
+                ".google.cloud.recaptchaenterprise.v1.AnnotateAssessmentRequest.Reason"))
         }
     }
 }
@@ -1062,6 +1032,7 @@ pub mod annotate_assessment_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AnnotateAssessmentResponse {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1081,6 +1052,7 @@ impl wkt::message::Message for AnnotateAssessmentResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EndpointVerificationInfo {
+
     /// Output only. Token to provide to the client to trigger endpoint
     /// verification. It must be used within 15 minutes.
     pub request_token: std::string::String,
@@ -1120,8 +1092,7 @@ impl EndpointVerificationInfo {
     /// let x = EndpointVerificationInfo::new().set_last_verification_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_last_verification_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.last_verification_time = std::option::Option::Some(v.into());
         self
@@ -1137,8 +1108,7 @@ impl EndpointVerificationInfo {
     /// let x = EndpointVerificationInfo::new().set_or_clear_last_verification_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_last_verification_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.last_verification_time = v.map(|x| x.into());
         self
@@ -1155,12 +1125,8 @@ impl EndpointVerificationInfo {
     /// use google_cloud_recaptchaenterprise_v1::model::endpoint_verification_info::Endpoint;
     /// let x = EndpointVerificationInfo::new().set_endpoint(Some(Endpoint::EmailAddress("example".to_string())));
     /// ```
-    pub fn set_endpoint<
-        T: std::convert::Into<std::option::Option<crate::model::endpoint_verification_info::Endpoint>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_endpoint<T: std::convert::Into<std::option::Option<crate::model::endpoint_verification_info::Endpoint>>>(mut self, v: T) -> Self
+    {
         self.endpoint = v.into();
         self
     }
@@ -1171,9 +1137,7 @@ impl EndpointVerificationInfo {
     pub fn email_address(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.endpoint.as_ref().and_then(|v| match v {
-            crate::model::endpoint_verification_info::Endpoint::EmailAddress(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::endpoint_verification_info::Endpoint::EmailAddress(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -1193,7 +1157,9 @@ impl EndpointVerificationInfo {
     /// ```
     pub fn set_email_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.endpoint = std::option::Option::Some(
-            crate::model::endpoint_verification_info::Endpoint::EmailAddress(v.into()),
+            crate::model::endpoint_verification_info::Endpoint::EmailAddress(
+                v.into()
+            )
         );
         self
     }
@@ -1204,9 +1170,7 @@ impl EndpointVerificationInfo {
     pub fn phone_number(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.endpoint.as_ref().and_then(|v| match v {
-            crate::model::endpoint_verification_info::Endpoint::PhoneNumber(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::endpoint_verification_info::Endpoint::PhoneNumber(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -1226,7 +1190,9 @@ impl EndpointVerificationInfo {
     /// ```
     pub fn set_phone_number<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.endpoint = std::option::Option::Some(
-            crate::model::endpoint_verification_info::Endpoint::PhoneNumber(v.into()),
+            crate::model::endpoint_verification_info::Endpoint::PhoneNumber(
+                v.into()
+            )
         );
         self
     }
@@ -1243,6 +1209,7 @@ pub mod endpoint_verification_info {
     #[allow(unused_imports)]
     use super::*;
 
+
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Endpoint {
@@ -1258,6 +1225,7 @@ pub mod endpoint_verification_info {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AccountVerificationInfo {
+
     /// Optional. Endpoints that can be used for identity verification.
     pub endpoints: std::vec::Vec<crate::model::EndpointVerificationInfo>,
 
@@ -1296,7 +1264,7 @@ impl AccountVerificationInfo {
     pub fn set_endpoints<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::EndpointVerificationInfo>,
+        V: std::convert::Into<crate::model::EndpointVerificationInfo>
     {
         use std::iter::Iterator;
         self.endpoints = v.into_iter().map(|i| i.into()).collect();
@@ -1325,12 +1293,7 @@ impl AccountVerificationInfo {
     /// let x1 = AccountVerificationInfo::new().set_latest_verification_result(Result::ErrorUserNotVerified);
     /// let x2 = AccountVerificationInfo::new().set_latest_verification_result(Result::ErrorSiteOnboardingIncomplete);
     /// ```
-    pub fn set_latest_verification_result<
-        T: std::convert::Into<crate::model::account_verification_info::Result>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_latest_verification_result<T: std::convert::Into<crate::model::account_verification_info::Result>>(mut self, v: T) -> Self {
         self.latest_verification_result = v.into();
         self
     }
@@ -1359,6 +1322,7 @@ impl wkt::message::Message for AccountVerificationInfo {
 pub mod account_verification_info {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Result of the account verification as contained in the verdict token issued
     /// at the end of the verification flow.
@@ -1453,22 +1417,12 @@ pub mod account_verification_info {
                 Self::Unspecified => std::option::Option::Some("RESULT_UNSPECIFIED"),
                 Self::SuccessUserVerified => std::option::Option::Some("SUCCESS_USER_VERIFIED"),
                 Self::ErrorUserNotVerified => std::option::Option::Some("ERROR_USER_NOT_VERIFIED"),
-                Self::ErrorSiteOnboardingIncomplete => {
-                    std::option::Option::Some("ERROR_SITE_ONBOARDING_INCOMPLETE")
-                }
-                Self::ErrorRecipientNotAllowed => {
-                    std::option::Option::Some("ERROR_RECIPIENT_NOT_ALLOWED")
-                }
-                Self::ErrorRecipientAbuseLimitExhausted => {
-                    std::option::Option::Some("ERROR_RECIPIENT_ABUSE_LIMIT_EXHAUSTED")
-                }
+                Self::ErrorSiteOnboardingIncomplete => std::option::Option::Some("ERROR_SITE_ONBOARDING_INCOMPLETE"),
+                Self::ErrorRecipientNotAllowed => std::option::Option::Some("ERROR_RECIPIENT_NOT_ALLOWED"),
+                Self::ErrorRecipientAbuseLimitExhausted => std::option::Option::Some("ERROR_RECIPIENT_ABUSE_LIMIT_EXHAUSTED"),
                 Self::ErrorCriticalInternal => std::option::Option::Some("ERROR_CRITICAL_INTERNAL"),
-                Self::ErrorCustomerQuotaExhausted => {
-                    std::option::Option::Some("ERROR_CUSTOMER_QUOTA_EXHAUSTED")
-                }
-                Self::ErrorVerificationBypassed => {
-                    std::option::Option::Some("ERROR_VERIFICATION_BYPASSED")
-                }
+                Self::ErrorCustomerQuotaExhausted => std::option::Option::Some("ERROR_CUSTOMER_QUOTA_EXHAUSTED"),
+                Self::ErrorVerificationBypassed => std::option::Option::Some("ERROR_VERIFICATION_BYPASSED"),
                 Self::ErrorVerdictMismatch => std::option::Option::Some("ERROR_VERDICT_MISMATCH"),
                 Self::UnknownValue(u) => u.0.name(),
             }
@@ -1501,9 +1455,7 @@ pub mod account_verification_info {
                 7 => Self::ErrorCustomerQuotaExhausted,
                 8 => Self::ErrorVerificationBypassed,
                 9 => Self::ErrorVerdictMismatch,
-                _ => Self::UnknownValue(result::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(result::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1522,9 +1474,7 @@ pub mod account_verification_info {
                 "ERROR_CUSTOMER_QUOTA_EXHAUSTED" => Self::ErrorCustomerQuotaExhausted,
                 "ERROR_VERIFICATION_BYPASSED" => Self::ErrorVerificationBypassed,
                 "ERROR_VERDICT_MISMATCH" => Self::ErrorVerdictMismatch,
-                _ => Self::UnknownValue(result::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(result::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1556,8 +1506,7 @@ pub mod account_verification_info {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Result>::new(
-                ".google.cloud.recaptchaenterprise.v1.AccountVerificationInfo.Result",
-            ))
+                ".google.cloud.recaptchaenterprise.v1.AccountVerificationInfo.Result"))
         }
     }
 }
@@ -1566,6 +1515,7 @@ pub mod account_verification_info {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PrivatePasswordLeakVerification {
+
     /// Required. Exactly 26-bit prefix of the SHA-256 hash of the canonicalized
     /// username. It is used to look up password leaks associated with that hash
     /// prefix.
@@ -1613,10 +1563,7 @@ impl PrivatePasswordLeakVerification {
     /// # use google_cloud_recaptchaenterprise_v1::model::PrivatePasswordLeakVerification;
     /// let x = PrivatePasswordLeakVerification::new().set_encrypted_user_credentials_hash(bytes::Bytes::from_static(b"example"));
     /// ```
-    pub fn set_encrypted_user_credentials_hash<T: std::convert::Into<::bytes::Bytes>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_encrypted_user_credentials_hash<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.encrypted_user_credentials_hash = v.into();
         self
     }
@@ -1633,7 +1580,7 @@ impl PrivatePasswordLeakVerification {
     pub fn set_encrypted_leak_match_prefixes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<::bytes::Bytes>,
+        V: std::convert::Into<::bytes::Bytes>
     {
         use std::iter::Iterator;
         self.encrypted_leak_match_prefixes = v.into_iter().map(|i| i.into()).collect();
@@ -1647,10 +1594,7 @@ impl PrivatePasswordLeakVerification {
     /// # use google_cloud_recaptchaenterprise_v1::model::PrivatePasswordLeakVerification;
     /// let x = PrivatePasswordLeakVerification::new().set_reencrypted_user_credentials_hash(bytes::Bytes::from_static(b"example"));
     /// ```
-    pub fn set_reencrypted_user_credentials_hash<T: std::convert::Into<::bytes::Bytes>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_reencrypted_user_credentials_hash<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.reencrypted_user_credentials_hash = v.into();
         self
     }
@@ -1666,6 +1610,7 @@ impl wkt::message::Message for PrivatePasswordLeakVerification {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Assessment {
+
     /// Output only. Identifier. The resource name for the Assessment in the format
     /// `projects/{project}/assessments/{assessment}`.
     pub name: std::string::String,
@@ -1690,8 +1635,7 @@ pub struct Assessment {
     /// Optional. The private password leak verification field contains the
     /// parameters that are used to to check for leaks privately without sharing
     /// user credentials.
-    pub private_password_leak_verification:
-        std::option::Option<crate::model::PrivatePasswordLeakVerification>,
+    pub private_password_leak_verification: std::option::Option<crate::model::PrivatePasswordLeakVerification>,
 
     /// Output only. Assessment returned when firewall policies belonging to the
     /// project are evaluated using the field firewall_policy_evaluation.
@@ -1744,8 +1688,7 @@ impl Assessment {
     /// let x = Assessment::new().set_event(Event::default()/* use setters */);
     /// ```
     pub fn set_event<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Event>,
+    where T: std::convert::Into<crate::model::Event>
     {
         self.event = std::option::Option::Some(v.into());
         self
@@ -1761,8 +1704,7 @@ impl Assessment {
     /// let x = Assessment::new().set_or_clear_event(None::<Event>);
     /// ```
     pub fn set_or_clear_event<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Event>,
+    where T: std::convert::Into<crate::model::Event>
     {
         self.event = v.map(|x| x.into());
         self
@@ -1777,8 +1719,7 @@ impl Assessment {
     /// let x = Assessment::new().set_risk_analysis(RiskAnalysis::default()/* use setters */);
     /// ```
     pub fn set_risk_analysis<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RiskAnalysis>,
+    where T: std::convert::Into<crate::model::RiskAnalysis>
     {
         self.risk_analysis = std::option::Option::Some(v.into());
         self
@@ -1794,8 +1735,7 @@ impl Assessment {
     /// let x = Assessment::new().set_or_clear_risk_analysis(None::<RiskAnalysis>);
     /// ```
     pub fn set_or_clear_risk_analysis<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RiskAnalysis>,
+    where T: std::convert::Into<crate::model::RiskAnalysis>
     {
         self.risk_analysis = v.map(|x| x.into());
         self
@@ -1810,8 +1750,7 @@ impl Assessment {
     /// let x = Assessment::new().set_token_properties(TokenProperties::default()/* use setters */);
     /// ```
     pub fn set_token_properties<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TokenProperties>,
+    where T: std::convert::Into<crate::model::TokenProperties>
     {
         self.token_properties = std::option::Option::Some(v.into());
         self
@@ -1827,8 +1766,7 @@ impl Assessment {
     /// let x = Assessment::new().set_or_clear_token_properties(None::<TokenProperties>);
     /// ```
     pub fn set_or_clear_token_properties<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TokenProperties>,
+    where T: std::convert::Into<crate::model::TokenProperties>
     {
         self.token_properties = v.map(|x| x.into());
         self
@@ -1843,8 +1781,7 @@ impl Assessment {
     /// let x = Assessment::new().set_account_verification(AccountVerificationInfo::default()/* use setters */);
     /// ```
     pub fn set_account_verification<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AccountVerificationInfo>,
+    where T: std::convert::Into<crate::model::AccountVerificationInfo>
     {
         self.account_verification = std::option::Option::Some(v.into());
         self
@@ -1860,8 +1797,7 @@ impl Assessment {
     /// let x = Assessment::new().set_or_clear_account_verification(None::<AccountVerificationInfo>);
     /// ```
     pub fn set_or_clear_account_verification<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AccountVerificationInfo>,
+    where T: std::convert::Into<crate::model::AccountVerificationInfo>
     {
         self.account_verification = v.map(|x| x.into());
         self
@@ -1876,8 +1812,7 @@ impl Assessment {
     /// let x = Assessment::new().set_account_defender_assessment(AccountDefenderAssessment::default()/* use setters */);
     /// ```
     pub fn set_account_defender_assessment<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AccountDefenderAssessment>,
+    where T: std::convert::Into<crate::model::AccountDefenderAssessment>
     {
         self.account_defender_assessment = std::option::Option::Some(v.into());
         self
@@ -1893,8 +1828,7 @@ impl Assessment {
     /// let x = Assessment::new().set_or_clear_account_defender_assessment(None::<AccountDefenderAssessment>);
     /// ```
     pub fn set_or_clear_account_defender_assessment<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AccountDefenderAssessment>,
+    where T: std::convert::Into<crate::model::AccountDefenderAssessment>
     {
         self.account_defender_assessment = v.map(|x| x.into());
         self
@@ -1909,8 +1843,7 @@ impl Assessment {
     /// let x = Assessment::new().set_private_password_leak_verification(PrivatePasswordLeakVerification::default()/* use setters */);
     /// ```
     pub fn set_private_password_leak_verification<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::PrivatePasswordLeakVerification>,
+    where T: std::convert::Into<crate::model::PrivatePasswordLeakVerification>
     {
         self.private_password_leak_verification = std::option::Option::Some(v.into());
         self
@@ -1925,12 +1858,8 @@ impl Assessment {
     /// let x = Assessment::new().set_or_clear_private_password_leak_verification(Some(PrivatePasswordLeakVerification::default()/* use setters */));
     /// let x = Assessment::new().set_or_clear_private_password_leak_verification(None::<PrivatePasswordLeakVerification>);
     /// ```
-    pub fn set_or_clear_private_password_leak_verification<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<crate::model::PrivatePasswordLeakVerification>,
+    pub fn set_or_clear_private_password_leak_verification<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<crate::model::PrivatePasswordLeakVerification>
     {
         self.private_password_leak_verification = v.map(|x| x.into());
         self
@@ -1945,8 +1874,7 @@ impl Assessment {
     /// let x = Assessment::new().set_firewall_policy_assessment(FirewallPolicyAssessment::default()/* use setters */);
     /// ```
     pub fn set_firewall_policy_assessment<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::FirewallPolicyAssessment>,
+    where T: std::convert::Into<crate::model::FirewallPolicyAssessment>
     {
         self.firewall_policy_assessment = std::option::Option::Some(v.into());
         self
@@ -1962,8 +1890,7 @@ impl Assessment {
     /// let x = Assessment::new().set_or_clear_firewall_policy_assessment(None::<FirewallPolicyAssessment>);
     /// ```
     pub fn set_or_clear_firewall_policy_assessment<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::FirewallPolicyAssessment>,
+    where T: std::convert::Into<crate::model::FirewallPolicyAssessment>
     {
         self.firewall_policy_assessment = v.map(|x| x.into());
         self
@@ -1978,8 +1905,7 @@ impl Assessment {
     /// let x = Assessment::new().set_fraud_prevention_assessment(FraudPreventionAssessment::default()/* use setters */);
     /// ```
     pub fn set_fraud_prevention_assessment<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::FraudPreventionAssessment>,
+    where T: std::convert::Into<crate::model::FraudPreventionAssessment>
     {
         self.fraud_prevention_assessment = std::option::Option::Some(v.into());
         self
@@ -1995,8 +1921,7 @@ impl Assessment {
     /// let x = Assessment::new().set_or_clear_fraud_prevention_assessment(None::<FraudPreventionAssessment>);
     /// ```
     pub fn set_or_clear_fraud_prevention_assessment<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::FraudPreventionAssessment>,
+    where T: std::convert::Into<crate::model::FraudPreventionAssessment>
     {
         self.fraud_prevention_assessment = v.map(|x| x.into());
         self
@@ -2011,8 +1936,7 @@ impl Assessment {
     /// let x = Assessment::new().set_fraud_signals(FraudSignals::default()/* use setters */);
     /// ```
     pub fn set_fraud_signals<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::FraudSignals>,
+    where T: std::convert::Into<crate::model::FraudSignals>
     {
         self.fraud_signals = std::option::Option::Some(v.into());
         self
@@ -2028,8 +1952,7 @@ impl Assessment {
     /// let x = Assessment::new().set_or_clear_fraud_signals(None::<FraudSignals>);
     /// ```
     pub fn set_or_clear_fraud_signals<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::FraudSignals>,
+    where T: std::convert::Into<crate::model::FraudSignals>
     {
         self.fraud_signals = v.map(|x| x.into());
         self
@@ -2044,8 +1967,7 @@ impl Assessment {
     /// let x = Assessment::new().set_phone_fraud_assessment(PhoneFraudAssessment::default()/* use setters */);
     /// ```
     pub fn set_phone_fraud_assessment<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::PhoneFraudAssessment>,
+    where T: std::convert::Into<crate::model::PhoneFraudAssessment>
     {
         self.phone_fraud_assessment = std::option::Option::Some(v.into());
         self
@@ -2061,8 +1983,7 @@ impl Assessment {
     /// let x = Assessment::new().set_or_clear_phone_fraud_assessment(None::<PhoneFraudAssessment>);
     /// ```
     pub fn set_or_clear_phone_fraud_assessment<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::PhoneFraudAssessment>,
+    where T: std::convert::Into<crate::model::PhoneFraudAssessment>
     {
         self.phone_fraud_assessment = v.map(|x| x.into());
         self
@@ -2077,8 +1998,7 @@ impl Assessment {
     /// let x = Assessment::new().set_assessment_environment(AssessmentEnvironment::default()/* use setters */);
     /// ```
     pub fn set_assessment_environment<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AssessmentEnvironment>,
+    where T: std::convert::Into<crate::model::AssessmentEnvironment>
     {
         self.assessment_environment = std::option::Option::Some(v.into());
         self
@@ -2094,8 +2014,7 @@ impl Assessment {
     /// let x = Assessment::new().set_or_clear_assessment_environment(None::<AssessmentEnvironment>);
     /// ```
     pub fn set_or_clear_assessment_environment<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AssessmentEnvironment>,
+    where T: std::convert::Into<crate::model::AssessmentEnvironment>
     {
         self.assessment_environment = v.map(|x| x.into());
         self
@@ -2112,6 +2031,7 @@ impl wkt::message::Message for Assessment {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Event {
+
     /// Optional. The user response token provided by the reCAPTCHA Enterprise
     /// client-side integration on your site.
     pub token: std::string::String,
@@ -2332,7 +2252,7 @@ impl Event {
     pub fn set_headers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.headers = v.into_iter().map(|i| i.into()).collect();
@@ -2360,8 +2280,7 @@ impl Event {
     /// let x = Event::new().set_transaction_data(TransactionData::default()/* use setters */);
     /// ```
     pub fn set_transaction_data<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TransactionData>,
+    where T: std::convert::Into<crate::model::TransactionData>
     {
         self.transaction_data = std::option::Option::Some(v.into());
         self
@@ -2377,8 +2296,7 @@ impl Event {
     /// let x = Event::new().set_or_clear_transaction_data(None::<TransactionData>);
     /// ```
     pub fn set_or_clear_transaction_data<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TransactionData>,
+    where T: std::convert::Into<crate::model::TransactionData>
     {
         self.transaction_data = v.map(|x| x.into());
         self
@@ -2393,8 +2311,7 @@ impl Event {
     /// let x = Event::new().set_user_info(UserInfo::default()/* use setters */);
     /// ```
     pub fn set_user_info<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::UserInfo>,
+    where T: std::convert::Into<crate::model::UserInfo>
     {
         self.user_info = std::option::Option::Some(v.into());
         self
@@ -2410,8 +2327,7 @@ impl Event {
     /// let x = Event::new().set_or_clear_user_info(None::<UserInfo>);
     /// ```
     pub fn set_or_clear_user_info<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::UserInfo>,
+    where T: std::convert::Into<crate::model::UserInfo>
     {
         self.user_info = v.map(|x| x.into());
         self
@@ -2426,10 +2342,7 @@ impl Event {
     /// let x0 = Event::new().set_fraud_prevention(FraudPrevention::Enabled);
     /// let x1 = Event::new().set_fraud_prevention(FraudPrevention::Disabled);
     /// ```
-    pub fn set_fraud_prevention<T: std::convert::Into<crate::model::event::FraudPrevention>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_fraud_prevention<T: std::convert::Into<crate::model::event::FraudPrevention>>(mut self, v: T) -> Self {
         self.fraud_prevention = v.into();
         self
     }
@@ -2445,6 +2358,7 @@ impl wkt::message::Message for Event {
 pub mod event {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Setting that controls Fraud Prevention assessments.
     ///
@@ -2536,9 +2450,7 @@ pub mod event {
                 0 => Self::Unspecified,
                 1 => Self::Enabled,
                 2 => Self::Disabled,
-                _ => Self::UnknownValue(fraud_prevention::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(fraud_prevention::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -2550,9 +2462,7 @@ pub mod event {
                 "FRAUD_PREVENTION_UNSPECIFIED" => Self::Unspecified,
                 "ENABLED" => Self::Enabled,
                 "DISABLED" => Self::Disabled,
-                _ => Self::UnknownValue(fraud_prevention::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(fraud_prevention::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -2577,8 +2487,7 @@ pub mod event {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<FraudPrevention>::new(
-                ".google.cloud.recaptchaenterprise.v1.Event.FraudPrevention",
-            ))
+                ".google.cloud.recaptchaenterprise.v1.Event.FraudPrevention"))
         }
     }
 }
@@ -2587,6 +2496,7 @@ pub mod event {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TransactionData {
+
     /// Unique identifier for the transaction. This custom identifier can be used
     /// to reference this transaction in the future, for example, labeling a refund
     /// or chargeback event. Two attempts at the same transaction should use the
@@ -2657,8 +2567,7 @@ impl TransactionData {
     /// let x = TransactionData::new().set_transaction_id("example");
     /// ```
     pub fn set_transaction_id<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.transaction_id = std::option::Option::Some(v.into());
         self
@@ -2673,8 +2582,7 @@ impl TransactionData {
     /// let x = TransactionData::new().set_or_clear_transaction_id(None::<String>);
     /// ```
     pub fn set_or_clear_transaction_id<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.transaction_id = v.map(|x| x.into());
         self
@@ -2761,8 +2669,7 @@ impl TransactionData {
     /// let x = TransactionData::new().set_shipping_address(Address::default()/* use setters */);
     /// ```
     pub fn set_shipping_address<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::transaction_data::Address>,
+    where T: std::convert::Into<crate::model::transaction_data::Address>
     {
         self.shipping_address = std::option::Option::Some(v.into());
         self
@@ -2778,8 +2685,7 @@ impl TransactionData {
     /// let x = TransactionData::new().set_or_clear_shipping_address(None::<Address>);
     /// ```
     pub fn set_or_clear_shipping_address<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::transaction_data::Address>,
+    where T: std::convert::Into<crate::model::transaction_data::Address>
     {
         self.shipping_address = v.map(|x| x.into());
         self
@@ -2794,8 +2700,7 @@ impl TransactionData {
     /// let x = TransactionData::new().set_billing_address(Address::default()/* use setters */);
     /// ```
     pub fn set_billing_address<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::transaction_data::Address>,
+    where T: std::convert::Into<crate::model::transaction_data::Address>
     {
         self.billing_address = std::option::Option::Some(v.into());
         self
@@ -2811,8 +2716,7 @@ impl TransactionData {
     /// let x = TransactionData::new().set_or_clear_billing_address(None::<Address>);
     /// ```
     pub fn set_or_clear_billing_address<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::transaction_data::Address>,
+    where T: std::convert::Into<crate::model::transaction_data::Address>
     {
         self.billing_address = v.map(|x| x.into());
         self
@@ -2827,8 +2731,7 @@ impl TransactionData {
     /// let x = TransactionData::new().set_user(User::default()/* use setters */);
     /// ```
     pub fn set_user<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::transaction_data::User>,
+    where T: std::convert::Into<crate::model::transaction_data::User>
     {
         self.user = std::option::Option::Some(v.into());
         self
@@ -2844,8 +2747,7 @@ impl TransactionData {
     /// let x = TransactionData::new().set_or_clear_user(None::<User>);
     /// ```
     pub fn set_or_clear_user<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::transaction_data::User>,
+    where T: std::convert::Into<crate::model::transaction_data::User>
     {
         self.user = v.map(|x| x.into());
         self
@@ -2866,7 +2768,7 @@ impl TransactionData {
     pub fn set_merchants<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::transaction_data::User>,
+        V: std::convert::Into<crate::model::transaction_data::User>
     {
         use std::iter::Iterator;
         self.merchants = v.into_iter().map(|i| i.into()).collect();
@@ -2888,7 +2790,7 @@ impl TransactionData {
     pub fn set_items<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::transaction_data::Item>,
+        V: std::convert::Into<crate::model::transaction_data::Item>
     {
         use std::iter::Iterator;
         self.items = v.into_iter().map(|i| i.into()).collect();
@@ -2904,8 +2806,7 @@ impl TransactionData {
     /// let x = TransactionData::new().set_gateway_info(GatewayInfo::default()/* use setters */);
     /// ```
     pub fn set_gateway_info<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::transaction_data::GatewayInfo>,
+    where T: std::convert::Into<crate::model::transaction_data::GatewayInfo>
     {
         self.gateway_info = std::option::Option::Some(v.into());
         self
@@ -2921,8 +2822,7 @@ impl TransactionData {
     /// let x = TransactionData::new().set_or_clear_gateway_info(None::<GatewayInfo>);
     /// ```
     pub fn set_or_clear_gateway_info<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::transaction_data::GatewayInfo>,
+    where T: std::convert::Into<crate::model::transaction_data::GatewayInfo>
     {
         self.gateway_info = v.map(|x| x.into());
         self
@@ -2940,10 +2840,12 @@ pub mod transaction_data {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Structured address format for billing and shipping addresses.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Address {
+
         /// Optional. The recipient name, potentially including information such as
         /// "care of".
         pub recipient: std::string::String,
@@ -2996,7 +2898,7 @@ pub mod transaction_data {
         pub fn set_address<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.address = v.into_iter().map(|i| i.into()).collect();
@@ -3022,10 +2924,7 @@ pub mod transaction_data {
         /// # use google_cloud_recaptchaenterprise_v1::model::transaction_data::Address;
         /// let x = Address::new().set_administrative_area("example");
         /// ```
-        pub fn set_administrative_area<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_administrative_area<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.administrative_area = v.into();
             self
         }
@@ -3065,6 +2964,7 @@ pub mod transaction_data {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct User {
+
         /// Optional. Unique account identifier for this user. If using account
         /// defender, this should match the hashed_account_id field. Otherwise, a
         /// unique and persistent identifier for this account.
@@ -3150,10 +3050,7 @@ pub mod transaction_data {
         /// # use google_cloud_recaptchaenterprise_v1::model::transaction_data::User;
         /// let x = User::new().set_phone_number("example");
         /// ```
-        pub fn set_phone_number<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_phone_number<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.phone_number = v.into();
             self
         }
@@ -3181,6 +3078,7 @@ pub mod transaction_data {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Item {
+
         /// Optional. The full name of the item.
         pub name: std::string::String,
 
@@ -3246,10 +3144,7 @@ pub mod transaction_data {
         /// # use google_cloud_recaptchaenterprise_v1::model::transaction_data::Item;
         /// let x = Item::new().set_merchant_account_id("example");
         /// ```
-        pub fn set_merchant_account_id<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_merchant_account_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.merchant_account_id = v.into();
             self
         }
@@ -3265,6 +3160,7 @@ pub mod transaction_data {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GatewayInfo {
+
         /// Optional. Name of the gateway service (for example, stripe, square,
         /// paypal).
         pub name: std::string::String,
@@ -3307,10 +3203,7 @@ pub mod transaction_data {
         /// # use google_cloud_recaptchaenterprise_v1::model::transaction_data::GatewayInfo;
         /// let x = GatewayInfo::new().set_gateway_response_code("example");
         /// ```
-        pub fn set_gateway_response_code<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_gateway_response_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.gateway_response_code = v.into();
             self
         }
@@ -3322,10 +3215,7 @@ pub mod transaction_data {
         /// # use google_cloud_recaptchaenterprise_v1::model::transaction_data::GatewayInfo;
         /// let x = GatewayInfo::new().set_avs_response_code("example");
         /// ```
-        pub fn set_avs_response_code<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_avs_response_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.avs_response_code = v.into();
             self
         }
@@ -3337,10 +3227,7 @@ pub mod transaction_data {
         /// # use google_cloud_recaptchaenterprise_v1::model::transaction_data::GatewayInfo;
         /// let x = GatewayInfo::new().set_cvv_response_code("example");
         /// ```
-        pub fn set_cvv_response_code<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_cvv_response_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.cvv_response_code = v.into();
             self
         }
@@ -3357,6 +3244,7 @@ pub mod transaction_data {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UserInfo {
+
     /// Optional. Creation time for this account associated with this user. Leave
     /// blank for non logged-in actions, guest checkout, or when there is no
     /// account associated with the current user.
@@ -3389,8 +3277,7 @@ impl UserInfo {
     /// let x = UserInfo::new().set_create_account_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_account_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_account_time = std::option::Option::Some(v.into());
         self
@@ -3406,8 +3293,7 @@ impl UserInfo {
     /// let x = UserInfo::new().set_or_clear_create_account_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_account_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_account_time = v.map(|x| x.into());
         self
@@ -3440,7 +3326,7 @@ impl UserInfo {
     pub fn set_user_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::UserId>,
+        V: std::convert::Into<crate::model::UserId>
     {
         use std::iter::Iterator;
         self.user_ids = v.into_iter().map(|i| i.into()).collect();
@@ -3458,6 +3344,7 @@ impl wkt::message::Message for UserInfo {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UserId {
+
     pub id_oneof: std::option::Option<crate::model::user_id::IdOneof>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -3479,12 +3366,8 @@ impl UserId {
     /// use google_cloud_recaptchaenterprise_v1::model::user_id::IdOneof;
     /// let x = UserId::new().set_id_oneof(Some(IdOneof::Email("example".to_string())));
     /// ```
-    pub fn set_id_oneof<
-        T: std::convert::Into<std::option::Option<crate::model::user_id::IdOneof>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_id_oneof<T: std::convert::Into<std::option::Option<crate::model::user_id::IdOneof>>>(mut self, v: T) -> Self
+    {
         self.id_oneof = v.into();
         self
     }
@@ -3515,7 +3398,11 @@ impl UserId {
     /// assert!(x.username().is_none());
     /// ```
     pub fn set_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.id_oneof = std::option::Option::Some(crate::model::user_id::IdOneof::Email(v.into()));
+        self.id_oneof = std::option::Option::Some(
+            crate::model::user_id::IdOneof::Email(
+                v.into()
+            )
+        );
         self
     }
 
@@ -3545,8 +3432,11 @@ impl UserId {
     /// assert!(x.username().is_none());
     /// ```
     pub fn set_phone_number<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.id_oneof =
-            std::option::Option::Some(crate::model::user_id::IdOneof::PhoneNumber(v.into()));
+        self.id_oneof = std::option::Option::Some(
+            crate::model::user_id::IdOneof::PhoneNumber(
+                v.into()
+            )
+        );
         self
     }
 
@@ -3576,8 +3466,11 @@ impl UserId {
     /// assert!(x.phone_number().is_none());
     /// ```
     pub fn set_username<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.id_oneof =
-            std::option::Option::Some(crate::model::user_id::IdOneof::Username(v.into()));
+        self.id_oneof = std::option::Option::Some(
+            crate::model::user_id::IdOneof::Username(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -3592,6 +3485,7 @@ impl wkt::message::Message for UserId {
 pub mod user_id {
     #[allow(unused_imports)]
     use super::*;
+
 
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -3611,6 +3505,7 @@ pub mod user_id {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RiskAnalysis {
+
     /// Output only. Legitimate event score from 0.0 to 1.0.
     /// (1.0 means very likely legitimate traffic while 0.0 means very likely
     /// non-legitimate traffic).
@@ -3662,7 +3557,7 @@ impl RiskAnalysis {
     pub fn set_reasons<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::risk_analysis::ClassificationReason>,
+        V: std::convert::Into<crate::model::risk_analysis::ClassificationReason>
     {
         use std::iter::Iterator;
         self.reasons = v.into_iter().map(|i| i.into()).collect();
@@ -3679,7 +3574,7 @@ impl RiskAnalysis {
     pub fn set_extended_verdict_reasons<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.extended_verdict_reasons = v.into_iter().map(|i| i.into()).collect();
@@ -3696,10 +3591,7 @@ impl RiskAnalysis {
     /// let x1 = RiskAnalysis::new().set_challenge(Challenge::Passed);
     /// let x2 = RiskAnalysis::new().set_challenge(Challenge::Failed);
     /// ```
-    pub fn set_challenge<T: std::convert::Into<crate::model::risk_analysis::Challenge>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_challenge<T: std::convert::Into<crate::model::risk_analysis::Challenge>>(mut self, v: T) -> Self {
         self.challenge = v.into();
         self
     }
@@ -3715,6 +3607,7 @@ impl wkt::message::Message for RiskAnalysis {
 pub mod risk_analysis {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Reasons contributing to the risk analysis verdict.
     ///
@@ -3796,9 +3689,7 @@ pub mod risk_analysis {
                 Self::Automation => std::option::Option::Some("AUTOMATION"),
                 Self::UnexpectedEnvironment => std::option::Option::Some("UNEXPECTED_ENVIRONMENT"),
                 Self::TooMuchTraffic => std::option::Option::Some("TOO_MUCH_TRAFFIC"),
-                Self::UnexpectedUsagePatterns => {
-                    std::option::Option::Some("UNEXPECTED_USAGE_PATTERNS")
-                }
+                Self::UnexpectedUsagePatterns => std::option::Option::Some("UNEXPECTED_USAGE_PATTERNS"),
                 Self::LowConfidenceScore => std::option::Option::Some("LOW_CONFIDENCE_SCORE"),
                 Self::SuspectedCarding => std::option::Option::Some("SUSPECTED_CARDING"),
                 Self::SuspectedChargeback => std::option::Option::Some("SUSPECTED_CHARGEBACK"),
@@ -3831,9 +3722,7 @@ pub mod risk_analysis {
                 5 => Self::LowConfidenceScore,
                 6 => Self::SuspectedCarding,
                 7 => Self::SuspectedChargeback,
-                _ => Self::UnknownValue(classification_reason::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(classification_reason::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -3850,9 +3739,7 @@ pub mod risk_analysis {
                 "LOW_CONFIDENCE_SCORE" => Self::LowConfidenceScore,
                 "SUSPECTED_CARDING" => Self::SuspectedCarding,
                 "SUSPECTED_CHARGEBACK" => Self::SuspectedChargeback,
-                _ => Self::UnknownValue(classification_reason::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(classification_reason::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -3882,8 +3769,7 @@ pub mod risk_analysis {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<ClassificationReason>::new(
-                ".google.cloud.recaptchaenterprise.v1.RiskAnalysis.ClassificationReason",
-            ))
+                ".google.cloud.recaptchaenterprise.v1.RiskAnalysis.ClassificationReason"))
         }
     }
 
@@ -3979,9 +3865,7 @@ pub mod risk_analysis {
                 1 => Self::Nocaptcha,
                 2 => Self::Passed,
                 3 => Self::Failed,
-                _ => Self::UnknownValue(challenge::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(challenge::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -3994,9 +3878,7 @@ pub mod risk_analysis {
                 "NOCAPTCHA" => Self::Nocaptcha,
                 "PASSED" => Self::Passed,
                 "FAILED" => Self::Failed,
-                _ => Self::UnknownValue(challenge::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(challenge::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -4022,8 +3904,7 @@ pub mod risk_analysis {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Challenge>::new(
-                ".google.cloud.recaptchaenterprise.v1.RiskAnalysis.Challenge",
-            ))
+                ".google.cloud.recaptchaenterprise.v1.RiskAnalysis.Challenge"))
         }
     }
 }
@@ -4032,6 +3913,7 @@ pub mod risk_analysis {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TokenProperties {
+
     /// Output only. Whether the provided user response token is valid. When valid
     /// = false, the reason could be specified in invalid_reason or it could also
     /// be due to a user failing to solve a challenge or a sitekey mismatch (i.e
@@ -4090,12 +3972,7 @@ impl TokenProperties {
     /// let x1 = TokenProperties::new().set_invalid_reason(InvalidReason::Malformed);
     /// let x2 = TokenProperties::new().set_invalid_reason(InvalidReason::Expired);
     /// ```
-    pub fn set_invalid_reason<
-        T: std::convert::Into<crate::model::token_properties::InvalidReason>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_invalid_reason<T: std::convert::Into<crate::model::token_properties::InvalidReason>>(mut self, v: T) -> Self {
         self.invalid_reason = v.into();
         self
     }
@@ -4109,8 +3986,7 @@ impl TokenProperties {
     /// let x = TokenProperties::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -4126,8 +4002,7 @@ impl TokenProperties {
     /// let x = TokenProperties::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -4152,10 +4027,7 @@ impl TokenProperties {
     /// # use google_cloud_recaptchaenterprise_v1::model::TokenProperties;
     /// let x = TokenProperties::new().set_android_package_name("example");
     /// ```
-    pub fn set_android_package_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_android_package_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.android_package_name = v.into();
         self
     }
@@ -4195,6 +4067,7 @@ impl wkt::message::Message for TokenProperties {
 pub mod token_properties {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Enum that represents the types of invalid token reasons.
     ///
@@ -4303,9 +4176,7 @@ pub mod token_properties {
                 4 => Self::Dupe,
                 5 => Self::Missing,
                 6 => Self::BrowserError,
-                _ => Self::UnknownValue(invalid_reason::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(invalid_reason::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -4321,9 +4192,7 @@ pub mod token_properties {
                 "DUPE" => Self::Dupe,
                 "MISSING" => Self::Missing,
                 "BROWSER_ERROR" => Self::BrowserError,
-                _ => Self::UnknownValue(invalid_reason::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(invalid_reason::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -4352,8 +4221,7 @@ pub mod token_properties {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<InvalidReason>::new(
-                ".google.cloud.recaptchaenterprise.v1.TokenProperties.InvalidReason",
-            ))
+                ".google.cloud.recaptchaenterprise.v1.TokenProperties.InvalidReason"))
         }
     }
 }
@@ -4362,6 +4230,7 @@ pub mod token_properties {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FraudPreventionAssessment {
+
     /// Output only. Probability of this transaction being fraudulent. Summarizes
     /// the combined risk of attack vectors below. Values are from 0.0 (lowest)
     /// to 1.0 (highest).
@@ -4369,17 +4238,14 @@ pub struct FraudPreventionAssessment {
 
     /// Output only. Assessment of this transaction for risk of a stolen
     /// instrument.
-    pub stolen_instrument_verdict:
-        std::option::Option<crate::model::fraud_prevention_assessment::StolenInstrumentVerdict>,
+    pub stolen_instrument_verdict: std::option::Option<crate::model::fraud_prevention_assessment::StolenInstrumentVerdict>,
 
     /// Output only. Assessment of this transaction for risk of being part of a
     /// card testing attack.
-    pub card_testing_verdict:
-        std::option::Option<crate::model::fraud_prevention_assessment::CardTestingVerdict>,
+    pub card_testing_verdict: std::option::Option<crate::model::fraud_prevention_assessment::CardTestingVerdict>,
 
     /// Output only. Assessment of this transaction for behavioral trust.
-    pub behavioral_trust_verdict:
-        std::option::Option<crate::model::fraud_prevention_assessment::BehavioralTrustVerdict>,
+    pub behavioral_trust_verdict: std::option::Option<crate::model::fraud_prevention_assessment::BehavioralTrustVerdict>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -4410,8 +4276,7 @@ impl FraudPreventionAssessment {
     /// let x = FraudPreventionAssessment::new().set_stolen_instrument_verdict(StolenInstrumentVerdict::default()/* use setters */);
     /// ```
     pub fn set_stolen_instrument_verdict<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::fraud_prevention_assessment::StolenInstrumentVerdict>,
+    where T: std::convert::Into<crate::model::fraud_prevention_assessment::StolenInstrumentVerdict>
     {
         self.stolen_instrument_verdict = std::option::Option::Some(v.into());
         self
@@ -4427,8 +4292,7 @@ impl FraudPreventionAssessment {
     /// let x = FraudPreventionAssessment::new().set_or_clear_stolen_instrument_verdict(None::<StolenInstrumentVerdict>);
     /// ```
     pub fn set_or_clear_stolen_instrument_verdict<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::fraud_prevention_assessment::StolenInstrumentVerdict>,
+    where T: std::convert::Into<crate::model::fraud_prevention_assessment::StolenInstrumentVerdict>
     {
         self.stolen_instrument_verdict = v.map(|x| x.into());
         self
@@ -4443,8 +4307,7 @@ impl FraudPreventionAssessment {
     /// let x = FraudPreventionAssessment::new().set_card_testing_verdict(CardTestingVerdict::default()/* use setters */);
     /// ```
     pub fn set_card_testing_verdict<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::fraud_prevention_assessment::CardTestingVerdict>,
+    where T: std::convert::Into<crate::model::fraud_prevention_assessment::CardTestingVerdict>
     {
         self.card_testing_verdict = std::option::Option::Some(v.into());
         self
@@ -4460,8 +4323,7 @@ impl FraudPreventionAssessment {
     /// let x = FraudPreventionAssessment::new().set_or_clear_card_testing_verdict(None::<CardTestingVerdict>);
     /// ```
     pub fn set_or_clear_card_testing_verdict<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::fraud_prevention_assessment::CardTestingVerdict>,
+    where T: std::convert::Into<crate::model::fraud_prevention_assessment::CardTestingVerdict>
     {
         self.card_testing_verdict = v.map(|x| x.into());
         self
@@ -4476,8 +4338,7 @@ impl FraudPreventionAssessment {
     /// let x = FraudPreventionAssessment::new().set_behavioral_trust_verdict(BehavioralTrustVerdict::default()/* use setters */);
     /// ```
     pub fn set_behavioral_trust_verdict<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::fraud_prevention_assessment::BehavioralTrustVerdict>,
+    where T: std::convert::Into<crate::model::fraud_prevention_assessment::BehavioralTrustVerdict>
     {
         self.behavioral_trust_verdict = std::option::Option::Some(v.into());
         self
@@ -4493,8 +4354,7 @@ impl FraudPreventionAssessment {
     /// let x = FraudPreventionAssessment::new().set_or_clear_behavioral_trust_verdict(None::<BehavioralTrustVerdict>);
     /// ```
     pub fn set_or_clear_behavioral_trust_verdict<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::fraud_prevention_assessment::BehavioralTrustVerdict>,
+    where T: std::convert::Into<crate::model::fraud_prevention_assessment::BehavioralTrustVerdict>
     {
         self.behavioral_trust_verdict = v.map(|x| x.into());
         self
@@ -4512,11 +4372,13 @@ pub mod fraud_prevention_assessment {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Information about stolen instrument fraud, where the user is not the
     /// legitimate owner of the instrument being used for the purchase.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct StolenInstrumentVerdict {
+
         /// Output only. Probability of this transaction being executed with a stolen
         /// instrument. Values are from 0.0 (lowest) to 1.0 (highest).
         pub risk: f32,
@@ -4553,6 +4415,7 @@ pub mod fraud_prevention_assessment {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CardTestingVerdict {
+
         /// Output only. Probability of this transaction attempt being part of a card
         /// testing attack. Values are from 0.0 (lowest) to 1.0 (highest).
         pub risk: f32,
@@ -4588,6 +4451,7 @@ pub mod fraud_prevention_assessment {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct BehavioralTrustVerdict {
+
         /// Output only. Probability of this transaction attempt being executed in a
         /// behaviorally trustworthy way. Values are from 0.0 (lowest) to 1.0
         /// (highest).
@@ -4625,6 +4489,7 @@ pub mod fraud_prevention_assessment {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FraudSignals {
+
     /// Output only. Signals describing the end user in this transaction.
     pub user_signals: std::option::Option<crate::model::fraud_signals::UserSignals>,
 
@@ -4649,8 +4514,7 @@ impl FraudSignals {
     /// let x = FraudSignals::new().set_user_signals(UserSignals::default()/* use setters */);
     /// ```
     pub fn set_user_signals<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::fraud_signals::UserSignals>,
+    where T: std::convert::Into<crate::model::fraud_signals::UserSignals>
     {
         self.user_signals = std::option::Option::Some(v.into());
         self
@@ -4666,8 +4530,7 @@ impl FraudSignals {
     /// let x = FraudSignals::new().set_or_clear_user_signals(None::<UserSignals>);
     /// ```
     pub fn set_or_clear_user_signals<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::fraud_signals::UserSignals>,
+    where T: std::convert::Into<crate::model::fraud_signals::UserSignals>
     {
         self.user_signals = v.map(|x| x.into());
         self
@@ -4682,8 +4545,7 @@ impl FraudSignals {
     /// let x = FraudSignals::new().set_card_signals(CardSignals::default()/* use setters */);
     /// ```
     pub fn set_card_signals<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::fraud_signals::CardSignals>,
+    where T: std::convert::Into<crate::model::fraud_signals::CardSignals>
     {
         self.card_signals = std::option::Option::Some(v.into());
         self
@@ -4699,8 +4561,7 @@ impl FraudSignals {
     /// let x = FraudSignals::new().set_or_clear_card_signals(None::<CardSignals>);
     /// ```
     pub fn set_or_clear_card_signals<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::fraud_signals::CardSignals>,
+    where T: std::convert::Into<crate::model::fraud_signals::CardSignals>
     {
         self.card_signals = v.map(|x| x.into());
         self
@@ -4718,10 +4579,12 @@ pub mod fraud_signals {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Signals describing the user involved in this transaction.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct UserSignals {
+
         /// Output only. This user (based on email, phone, and other identifiers) has
         /// been seen on the internet for at least this number of days.
         pub active_days_lower_bound: i32,
@@ -4774,6 +4637,7 @@ pub mod fraud_signals {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CardSignals {
+
         /// Output only. The labels for the payment card in this transaction.
         pub card_labels: std::vec::Vec<crate::model::fraud_signals::card_signals::CardLabel>,
 
@@ -4800,7 +4664,7 @@ pub mod fraud_signals {
         pub fn set_card_labels<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::fraud_signals::card_signals::CardLabel>,
+            V: std::convert::Into<crate::model::fraud_signals::card_signals::CardLabel>
         {
             use std::iter::Iterator;
             self.card_labels = v.into_iter().map(|i| i.into()).collect();
@@ -4818,6 +4682,7 @@ pub mod fraud_signals {
     pub mod card_signals {
         #[allow(unused_imports)]
         use super::*;
+
 
         /// Risk labels describing the card being assessed, such as its funding
         /// mechanism.
@@ -4901,10 +4766,7 @@ pub mod fraud_signals {
         }
 
         impl std::fmt::Display for CardLabel {
-            fn fmt(
-                &self,
-                f: &mut std::fmt::Formatter<'_>,
-            ) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -4916,9 +4778,7 @@ pub mod fraud_signals {
                     1 => Self::Prepaid,
                     2 => Self::Virtual,
                     3 => Self::UnexpectedLocation,
-                    _ => Self::UnknownValue(card_label::UnknownValue(
-                        wkt::internal::UnknownEnumValue::Integer(value),
-                    )),
+                    _ => Self::UnknownValue(card_label::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
                 }
             }
         }
@@ -4931,9 +4791,7 @@ pub mod fraud_signals {
                     "PREPAID" => Self::Prepaid,
                     "VIRTUAL" => Self::Virtual,
                     "UNEXPECTED_LOCATION" => Self::UnexpectedLocation,
-                    _ => Self::UnknownValue(card_label::UnknownValue(
-                        wkt::internal::UnknownEnumValue::String(value.to_string()),
-                    )),
+                    _ => Self::UnknownValue(card_label::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
                 }
             }
         }
@@ -4959,8 +4817,7 @@ pub mod fraud_signals {
                 D: serde::Deserializer<'de>,
             {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<CardLabel>::new(
-                    ".google.cloud.recaptchaenterprise.v1.FraudSignals.CardSignals.CardLabel",
-                ))
+                    ".google.cloud.recaptchaenterprise.v1.FraudSignals.CardSignals.CardLabel"))
             }
         }
     }
@@ -4970,6 +4827,7 @@ pub mod fraud_signals {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SmsTollFraudVerdict {
+
     /// Output only. Probability of an SMS event being fraudulent.
     /// Values are from 0.0 (lowest) to 1.0 (highest).
     pub risk: f32,
@@ -5010,7 +4868,7 @@ impl SmsTollFraudVerdict {
     pub fn set_reasons<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::sms_toll_fraud_verdict::SmsTollFraudReason>,
+        V: std::convert::Into<crate::model::sms_toll_fraud_verdict::SmsTollFraudReason>
     {
         use std::iter::Iterator;
         self.reasons = v.into_iter().map(|i| i.into()).collect();
@@ -5028,6 +4886,7 @@ impl wkt::message::Message for SmsTollFraudVerdict {
 pub mod sms_toll_fraud_verdict {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Reasons contributing to the SMS toll fraud verdict.
     ///
@@ -5110,9 +4969,7 @@ pub mod sms_toll_fraud_verdict {
             match value {
                 0 => Self::Unspecified,
                 1 => Self::InvalidPhoneNumber,
-                _ => Self::UnknownValue(sms_toll_fraud_reason::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(sms_toll_fraud_reason::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -5123,9 +4980,7 @@ pub mod sms_toll_fraud_verdict {
             match value {
                 "SMS_TOLL_FRAUD_REASON_UNSPECIFIED" => Self::Unspecified,
                 "INVALID_PHONE_NUMBER" => Self::InvalidPhoneNumber,
-                _ => Self::UnknownValue(sms_toll_fraud_reason::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(sms_toll_fraud_reason::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -5149,8 +5004,7 @@ pub mod sms_toll_fraud_verdict {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<SmsTollFraudReason>::new(
-                ".google.cloud.recaptchaenterprise.v1.SmsTollFraudVerdict.SmsTollFraudReason",
-            ))
+                ".google.cloud.recaptchaenterprise.v1.SmsTollFraudVerdict.SmsTollFraudReason"))
         }
     }
 }
@@ -5159,6 +5013,7 @@ pub mod sms_toll_fraud_verdict {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PhoneFraudAssessment {
+
     /// Output only. Assessment of this phone event for risk of SMS toll fraud.
     pub sms_toll_fraud_verdict: std::option::Option<crate::model::SmsTollFraudVerdict>,
 
@@ -5179,8 +5034,7 @@ impl PhoneFraudAssessment {
     /// let x = PhoneFraudAssessment::new().set_sms_toll_fraud_verdict(SmsTollFraudVerdict::default()/* use setters */);
     /// ```
     pub fn set_sms_toll_fraud_verdict<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::SmsTollFraudVerdict>,
+    where T: std::convert::Into<crate::model::SmsTollFraudVerdict>
     {
         self.sms_toll_fraud_verdict = std::option::Option::Some(v.into());
         self
@@ -5196,8 +5050,7 @@ impl PhoneFraudAssessment {
     /// let x = PhoneFraudAssessment::new().set_or_clear_sms_toll_fraud_verdict(None::<SmsTollFraudVerdict>);
     /// ```
     pub fn set_or_clear_sms_toll_fraud_verdict<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::SmsTollFraudVerdict>,
+    where T: std::convert::Into<crate::model::SmsTollFraudVerdict>
     {
         self.sms_toll_fraud_verdict = v.map(|x| x.into());
         self
@@ -5214,6 +5067,7 @@ impl wkt::message::Message for PhoneFraudAssessment {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AccountDefenderAssessment {
+
     /// Output only. Labels for this request.
     pub labels: std::vec::Vec<crate::model::account_defender_assessment::AccountDefenderLabel>,
 
@@ -5240,7 +5094,7 @@ impl AccountDefenderAssessment {
     pub fn set_labels<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::account_defender_assessment::AccountDefenderLabel>,
+        V: std::convert::Into<crate::model::account_defender_assessment::AccountDefenderLabel>
     {
         use std::iter::Iterator;
         self.labels = v.into_iter().map(|i| i.into()).collect();
@@ -5258,6 +5112,7 @@ impl wkt::message::Message for AccountDefenderAssessment {
 pub mod account_defender_assessment {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Labels returned by account defender for this request.
     ///
@@ -5328,19 +5183,11 @@ pub mod account_defender_assessment {
         /// the integer representation of enums.
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
-                Self::Unspecified => {
-                    std::option::Option::Some("ACCOUNT_DEFENDER_LABEL_UNSPECIFIED")
-                }
+                Self::Unspecified => std::option::Option::Some("ACCOUNT_DEFENDER_LABEL_UNSPECIFIED"),
                 Self::ProfileMatch => std::option::Option::Some("PROFILE_MATCH"),
-                Self::SuspiciousLoginActivity => {
-                    std::option::Option::Some("SUSPICIOUS_LOGIN_ACTIVITY")
-                }
-                Self::SuspiciousAccountCreation => {
-                    std::option::Option::Some("SUSPICIOUS_ACCOUNT_CREATION")
-                }
-                Self::RelatedAccountsNumberHigh => {
-                    std::option::Option::Some("RELATED_ACCOUNTS_NUMBER_HIGH")
-                }
+                Self::SuspiciousLoginActivity => std::option::Option::Some("SUSPICIOUS_LOGIN_ACTIVITY"),
+                Self::SuspiciousAccountCreation => std::option::Option::Some("SUSPICIOUS_ACCOUNT_CREATION"),
+                Self::RelatedAccountsNumberHigh => std::option::Option::Some("RELATED_ACCOUNTS_NUMBER_HIGH"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -5367,9 +5214,7 @@ pub mod account_defender_assessment {
                 2 => Self::SuspiciousLoginActivity,
                 3 => Self::SuspiciousAccountCreation,
                 4 => Self::RelatedAccountsNumberHigh,
-                _ => Self::UnknownValue(account_defender_label::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(account_defender_label::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -5383,9 +5228,7 @@ pub mod account_defender_assessment {
                 "SUSPICIOUS_LOGIN_ACTIVITY" => Self::SuspiciousLoginActivity,
                 "SUSPICIOUS_ACCOUNT_CREATION" => Self::SuspiciousAccountCreation,
                 "RELATED_ACCOUNTS_NUMBER_HIGH" => Self::RelatedAccountsNumberHigh,
-                _ => Self::UnknownValue(account_defender_label::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(account_defender_label::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -5421,6 +5264,7 @@ pub mod account_defender_assessment {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateKeyRequest {
+
     /// Required. The name of the project in which the key is created, in the
     /// format `projects/{project}`.
     pub parent: std::string::String,
@@ -5457,8 +5301,7 @@ impl CreateKeyRequest {
     /// let x = CreateKeyRequest::new().set_key(Key::default()/* use setters */);
     /// ```
     pub fn set_key<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Key>,
+    where T: std::convert::Into<crate::model::Key>
     {
         self.key = std::option::Option::Some(v.into());
         self
@@ -5474,8 +5317,7 @@ impl CreateKeyRequest {
     /// let x = CreateKeyRequest::new().set_or_clear_key(None::<Key>);
     /// ```
     pub fn set_or_clear_key<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Key>,
+    where T: std::convert::Into<crate::model::Key>
     {
         self.key = v.map(|x| x.into());
         self
@@ -5492,6 +5334,7 @@ impl wkt::message::Message for CreateKeyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListKeysRequest {
+
     /// Required. The name of the project that contains the keys that is
     /// listed, in the format `projects/{project}`.
     pub parent: std::string::String,
@@ -5559,6 +5402,7 @@ impl wkt::message::Message for ListKeysRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListKeysResponse {
+
     /// Key details.
     pub keys: std::vec::Vec<crate::model::Key>,
 
@@ -5589,7 +5433,7 @@ impl ListKeysResponse {
     pub fn set_keys<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Key>,
+        V: std::convert::Into<crate::model::Key>
     {
         use std::iter::Iterator;
         self.keys = v.into_iter().map(|i| i.into()).collect();
@@ -5633,6 +5477,7 @@ impl gax::paginator::internal::PageableResponse for ListKeysResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RetrieveLegacySecretKeyRequest {
+
     /// Required. The public key name linked to the requested secret key in the
     /// format `projects/{project}/keys/{key}`.
     pub key: std::string::String,
@@ -5668,6 +5513,7 @@ impl wkt::message::Message for RetrieveLegacySecretKeyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetKeyRequest {
+
     /// Required. The name of the requested key, in the format
     /// `projects/{project}/keys/{key}`.
     pub name: std::string::String,
@@ -5703,6 +5549,7 @@ impl wkt::message::Message for GetKeyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateKeyRequest {
+
     /// Required. The key to update.
     pub key: std::option::Option<crate::model::Key>,
 
@@ -5727,8 +5574,7 @@ impl UpdateKeyRequest {
     /// let x = UpdateKeyRequest::new().set_key(Key::default()/* use setters */);
     /// ```
     pub fn set_key<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Key>,
+    where T: std::convert::Into<crate::model::Key>
     {
         self.key = std::option::Option::Some(v.into());
         self
@@ -5744,8 +5590,7 @@ impl UpdateKeyRequest {
     /// let x = UpdateKeyRequest::new().set_or_clear_key(None::<Key>);
     /// ```
     pub fn set_or_clear_key<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Key>,
+    where T: std::convert::Into<crate::model::Key>
     {
         self.key = v.map(|x| x.into());
         self
@@ -5760,8 +5605,7 @@ impl UpdateKeyRequest {
     /// let x = UpdateKeyRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -5777,8 +5621,7 @@ impl UpdateKeyRequest {
     /// let x = UpdateKeyRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -5795,6 +5638,7 @@ impl wkt::message::Message for UpdateKeyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteKeyRequest {
+
     /// Required. The name of the key to be deleted, in the format
     /// `projects/{project}/keys/{key}`.
     pub name: std::string::String,
@@ -5830,6 +5674,7 @@ impl wkt::message::Message for DeleteKeyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateFirewallPolicyRequest {
+
     /// Required. The name of the project this policy applies to, in the format
     /// `projects/{project}`.
     pub parent: std::string::String,
@@ -5866,8 +5711,7 @@ impl CreateFirewallPolicyRequest {
     /// let x = CreateFirewallPolicyRequest::new().set_firewall_policy(FirewallPolicy::default()/* use setters */);
     /// ```
     pub fn set_firewall_policy<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::FirewallPolicy>,
+    where T: std::convert::Into<crate::model::FirewallPolicy>
     {
         self.firewall_policy = std::option::Option::Some(v.into());
         self
@@ -5883,8 +5727,7 @@ impl CreateFirewallPolicyRequest {
     /// let x = CreateFirewallPolicyRequest::new().set_or_clear_firewall_policy(None::<FirewallPolicy>);
     /// ```
     pub fn set_or_clear_firewall_policy<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::FirewallPolicy>,
+    where T: std::convert::Into<crate::model::FirewallPolicy>
     {
         self.firewall_policy = v.map(|x| x.into());
         self
@@ -5901,6 +5744,7 @@ impl wkt::message::Message for CreateFirewallPolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListFirewallPoliciesRequest {
+
     /// Required. The name of the project to list the policies for, in the format
     /// `projects/{project}`.
     pub parent: std::string::String,
@@ -5968,6 +5812,7 @@ impl wkt::message::Message for ListFirewallPoliciesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListFirewallPoliciesResponse {
+
     /// Policy details.
     pub firewall_policies: std::vec::Vec<crate::model::FirewallPolicy>,
 
@@ -5998,7 +5843,7 @@ impl ListFirewallPoliciesResponse {
     pub fn set_firewall_policies<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::FirewallPolicy>,
+        V: std::convert::Into<crate::model::FirewallPolicy>
     {
         use std::iter::Iterator;
         self.firewall_policies = v.into_iter().map(|i| i.into()).collect();
@@ -6042,6 +5887,7 @@ impl gax::paginator::internal::PageableResponse for ListFirewallPoliciesResponse
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetFirewallPolicyRequest {
+
     /// Required. The name of the requested policy, in the format
     /// `projects/{project}/firewallpolicies/{firewallpolicy}`.
     pub name: std::string::String,
@@ -6077,6 +5923,7 @@ impl wkt::message::Message for GetFirewallPolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateFirewallPolicyRequest {
+
     /// Required. The policy to update.
     pub firewall_policy: std::option::Option<crate::model::FirewallPolicy>,
 
@@ -6101,8 +5948,7 @@ impl UpdateFirewallPolicyRequest {
     /// let x = UpdateFirewallPolicyRequest::new().set_firewall_policy(FirewallPolicy::default()/* use setters */);
     /// ```
     pub fn set_firewall_policy<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::FirewallPolicy>,
+    where T: std::convert::Into<crate::model::FirewallPolicy>
     {
         self.firewall_policy = std::option::Option::Some(v.into());
         self
@@ -6118,8 +5964,7 @@ impl UpdateFirewallPolicyRequest {
     /// let x = UpdateFirewallPolicyRequest::new().set_or_clear_firewall_policy(None::<FirewallPolicy>);
     /// ```
     pub fn set_or_clear_firewall_policy<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::FirewallPolicy>,
+    where T: std::convert::Into<crate::model::FirewallPolicy>
     {
         self.firewall_policy = v.map(|x| x.into());
         self
@@ -6134,8 +5979,7 @@ impl UpdateFirewallPolicyRequest {
     /// let x = UpdateFirewallPolicyRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -6151,8 +5995,7 @@ impl UpdateFirewallPolicyRequest {
     /// let x = UpdateFirewallPolicyRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -6169,6 +6012,7 @@ impl wkt::message::Message for UpdateFirewallPolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteFirewallPolicyRequest {
+
     /// Required. The name of the policy to be deleted, in the format
     /// `projects/{project}/firewallpolicies/{firewallpolicy}`.
     pub name: std::string::String,
@@ -6204,6 +6048,7 @@ impl wkt::message::Message for DeleteFirewallPolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReorderFirewallPoliciesRequest {
+
     /// Required. The name of the project to list the policies for, in the format
     /// `projects/{project}`.
     pub parent: std::string::String,
@@ -6242,7 +6087,7 @@ impl ReorderFirewallPoliciesRequest {
     pub fn set_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.names = v.into_iter().map(|i| i.into()).collect();
@@ -6260,6 +6105,7 @@ impl wkt::message::Message for ReorderFirewallPoliciesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReorderFirewallPoliciesResponse {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -6279,6 +6125,7 @@ impl wkt::message::Message for ReorderFirewallPoliciesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MigrateKeyRequest {
+
     /// Required. The name of the key to be migrated, in the format
     /// `projects/{project}/keys/{key}`.
     pub name: std::string::String,
@@ -6336,6 +6183,7 @@ impl wkt::message::Message for MigrateKeyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetMetricsRequest {
+
     /// Required. The name of the requested metrics, in the format
     /// `projects/{project}/keys/{key}/metrics`.
     pub name: std::string::String,
@@ -6371,6 +6219,7 @@ impl wkt::message::Message for GetMetricsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Metrics {
+
     /// Output only. Identifier. The name of the metrics, in the format
     /// `projects/{project}/keys/{key}/metrics`.
     pub name: std::string::String,
@@ -6417,8 +6266,7 @@ impl Metrics {
     /// let x = Metrics::new().set_start_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -6434,8 +6282,7 @@ impl Metrics {
     /// let x = Metrics::new().set_or_clear_start_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -6456,7 +6303,7 @@ impl Metrics {
     pub fn set_score_metrics<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ScoreMetrics>,
+        V: std::convert::Into<crate::model::ScoreMetrics>
     {
         use std::iter::Iterator;
         self.score_metrics = v.into_iter().map(|i| i.into()).collect();
@@ -6478,7 +6325,7 @@ impl Metrics {
     pub fn set_challenge_metrics<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ChallengeMetrics>,
+        V: std::convert::Into<crate::model::ChallengeMetrics>
     {
         use std::iter::Iterator;
         self.challenge_metrics = v.into_iter().map(|i| i.into()).collect();
@@ -6497,6 +6344,7 @@ impl wkt::message::Message for Metrics {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RetrieveLegacySecretKeyResponse {
+
     /// The secret key (also known as shared secret) authorizes communication
     /// between your application backend and the reCAPTCHA Enterprise server to
     /// create an assessment.
@@ -6518,10 +6366,7 @@ impl RetrieveLegacySecretKeyResponse {
     /// # use google_cloud_recaptchaenterprise_v1::model::RetrieveLegacySecretKeyResponse;
     /// let x = RetrieveLegacySecretKeyResponse::new().set_legacy_secret_key("example");
     /// ```
-    pub fn set_legacy_secret_key<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_legacy_secret_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.legacy_secret_key = v.into();
         self
     }
@@ -6538,6 +6383,7 @@ impl wkt::message::Message for RetrieveLegacySecretKeyResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Key {
+
     /// Identifier. The resource name for the Key in the format
     /// `projects/{project}/keys/{key}`.
     pub name: std::string::String,
@@ -6547,7 +6393,7 @@ pub struct Key {
 
     /// Optional. See [Creating and managing labels]
     /// (<https://cloud.google.com/recaptcha/docs/labels>).
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Output only. The timestamp corresponding to the creation of this key.
     pub create_time: std::option::Option<wkt::Timestamp>,
@@ -6624,8 +6470,7 @@ impl Key {
     /// let x = Key::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -6641,8 +6486,7 @@ impl Key {
     /// let x = Key::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -6657,8 +6501,7 @@ impl Key {
     /// let x = Key::new().set_testing_options(TestingOptions::default()/* use setters */);
     /// ```
     pub fn set_testing_options<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TestingOptions>,
+    where T: std::convert::Into<crate::model::TestingOptions>
     {
         self.testing_options = std::option::Option::Some(v.into());
         self
@@ -6674,8 +6517,7 @@ impl Key {
     /// let x = Key::new().set_or_clear_testing_options(None::<TestingOptions>);
     /// ```
     pub fn set_or_clear_testing_options<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TestingOptions>,
+    where T: std::convert::Into<crate::model::TestingOptions>
     {
         self.testing_options = v.map(|x| x.into());
         self
@@ -6690,8 +6532,7 @@ impl Key {
     /// let x = Key::new().set_waf_settings(WafSettings::default()/* use setters */);
     /// ```
     pub fn set_waf_settings<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::WafSettings>,
+    where T: std::convert::Into<crate::model::WafSettings>
     {
         self.waf_settings = std::option::Option::Some(v.into());
         self
@@ -6707,8 +6548,7 @@ impl Key {
     /// let x = Key::new().set_or_clear_waf_settings(None::<WafSettings>);
     /// ```
     pub fn set_or_clear_waf_settings<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::WafSettings>,
+    where T: std::convert::Into<crate::model::WafSettings>
     {
         self.waf_settings = v.map(|x| x.into());
         self
@@ -6726,12 +6566,8 @@ impl Key {
     /// let x = Key::new().set_platform_settings(Some(
     ///     google_cloud_recaptchaenterprise_v1::model::key::PlatformSettings::WebSettings(WebKeySettings::default().into())));
     /// ```
-    pub fn set_platform_settings<
-        T: std::convert::Into<std::option::Option<crate::model::key::PlatformSettings>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_platform_settings<T: std::convert::Into<std::option::Option<crate::model::key::PlatformSettings>>>(mut self, v: T) -> Self
+    {
         self.platform_settings = v.into();
         self
     }
@@ -6739,9 +6575,7 @@ impl Key {
     /// The value of [platform_settings][crate::model::Key::platform_settings]
     /// if it holds a `WebSettings`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn web_settings(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::WebKeySettings>> {
+    pub fn web_settings(&self) -> std::option::Option<&std::boxed::Box<crate::model::WebKeySettings>> {
         #[allow(unreachable_patterns)]
         self.platform_settings.as_ref().and_then(|v| match v {
             crate::model::key::PlatformSettings::WebSettings(v) => std::option::Option::Some(v),
@@ -6765,23 +6599,19 @@ impl Key {
     /// assert!(x.ios_settings().is_none());
     /// assert!(x.express_settings().is_none());
     /// ```
-    pub fn set_web_settings<
-        T: std::convert::Into<std::boxed::Box<crate::model::WebKeySettings>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.platform_settings =
-            std::option::Option::Some(crate::model::key::PlatformSettings::WebSettings(v.into()));
+    pub fn set_web_settings<T: std::convert::Into<std::boxed::Box<crate::model::WebKeySettings>>>(mut self, v: T) -> Self {
+        self.platform_settings = std::option::Option::Some(
+            crate::model::key::PlatformSettings::WebSettings(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [platform_settings][crate::model::Key::platform_settings]
     /// if it holds a `AndroidSettings`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn android_settings(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::AndroidKeySettings>> {
+    pub fn android_settings(&self) -> std::option::Option<&std::boxed::Box<crate::model::AndroidKeySettings>> {
         #[allow(unreachable_patterns)]
         self.platform_settings.as_ref().and_then(|v| match v {
             crate::model::key::PlatformSettings::AndroidSettings(v) => std::option::Option::Some(v),
@@ -6805,14 +6635,11 @@ impl Key {
     /// assert!(x.ios_settings().is_none());
     /// assert!(x.express_settings().is_none());
     /// ```
-    pub fn set_android_settings<
-        T: std::convert::Into<std::boxed::Box<crate::model::AndroidKeySettings>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_android_settings<T: std::convert::Into<std::boxed::Box<crate::model::AndroidKeySettings>>>(mut self, v: T) -> Self {
         self.platform_settings = std::option::Option::Some(
-            crate::model::key::PlatformSettings::AndroidSettings(v.into()),
+            crate::model::key::PlatformSettings::AndroidSettings(
+                v.into()
+            )
         );
         self
     }
@@ -6820,9 +6647,7 @@ impl Key {
     /// The value of [platform_settings][crate::model::Key::platform_settings]
     /// if it holds a `IosSettings`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn ios_settings(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::IOSKeySettings>> {
+    pub fn ios_settings(&self) -> std::option::Option<&std::boxed::Box<crate::model::IOSKeySettings>> {
         #[allow(unreachable_patterns)]
         self.platform_settings.as_ref().and_then(|v| match v {
             crate::model::key::PlatformSettings::IosSettings(v) => std::option::Option::Some(v),
@@ -6846,23 +6671,19 @@ impl Key {
     /// assert!(x.android_settings().is_none());
     /// assert!(x.express_settings().is_none());
     /// ```
-    pub fn set_ios_settings<
-        T: std::convert::Into<std::boxed::Box<crate::model::IOSKeySettings>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.platform_settings =
-            std::option::Option::Some(crate::model::key::PlatformSettings::IosSettings(v.into()));
+    pub fn set_ios_settings<T: std::convert::Into<std::boxed::Box<crate::model::IOSKeySettings>>>(mut self, v: T) -> Self {
+        self.platform_settings = std::option::Option::Some(
+            crate::model::key::PlatformSettings::IosSettings(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [platform_settings][crate::model::Key::platform_settings]
     /// if it holds a `ExpressSettings`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn express_settings(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::ExpressKeySettings>> {
+    pub fn express_settings(&self) -> std::option::Option<&std::boxed::Box<crate::model::ExpressKeySettings>> {
         #[allow(unreachable_patterns)]
         self.platform_settings.as_ref().and_then(|v| match v {
             crate::model::key::PlatformSettings::ExpressSettings(v) => std::option::Option::Some(v),
@@ -6886,14 +6707,11 @@ impl Key {
     /// assert!(x.android_settings().is_none());
     /// assert!(x.ios_settings().is_none());
     /// ```
-    pub fn set_express_settings<
-        T: std::convert::Into<std::boxed::Box<crate::model::ExpressKeySettings>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_express_settings<T: std::convert::Into<std::boxed::Box<crate::model::ExpressKeySettings>>>(mut self, v: T) -> Self {
         self.platform_settings = std::option::Option::Some(
-            crate::model::key::PlatformSettings::ExpressSettings(v.into()),
+            crate::model::key::PlatformSettings::ExpressSettings(
+                v.into()
+            )
         );
         self
     }
@@ -6909,6 +6727,7 @@ impl wkt::message::Message for Key {
 pub mod key {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Platform-specific settings for this key. The key can only be used on a
     /// platform for which the settings are enabled.
@@ -6930,6 +6749,7 @@ pub mod key {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TestingOptions {
+
     /// Optional. All assessments for this Key return this score. Must be between 0
     /// (likely not legitimate) and 1 (likely legitimate) inclusive.
     pub testing_score: f32,
@@ -6968,12 +6788,7 @@ impl TestingOptions {
     /// let x0 = TestingOptions::new().set_testing_challenge(TestingChallenge::Nocaptcha);
     /// let x1 = TestingOptions::new().set_testing_challenge(TestingChallenge::UnsolvableChallenge);
     /// ```
-    pub fn set_testing_challenge<
-        T: std::convert::Into<crate::model::testing_options::TestingChallenge>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_testing_challenge<T: std::convert::Into<crate::model::testing_options::TestingChallenge>>(mut self, v: T) -> Self {
         self.testing_challenge = v.into();
         self
     }
@@ -6989,6 +6804,7 @@ impl wkt::message::Message for TestingOptions {
 pub mod testing_options {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Enum that represents the challenge option for challenge-based (CHECKBOX,
     /// INVISIBLE) testing keys.
@@ -7080,9 +6896,7 @@ pub mod testing_options {
                 0 => Self::Unspecified,
                 1 => Self::Nocaptcha,
                 2 => Self::UnsolvableChallenge,
-                _ => Self::UnknownValue(testing_challenge::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(testing_challenge::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -7094,9 +6908,7 @@ pub mod testing_options {
                 "TESTING_CHALLENGE_UNSPECIFIED" => Self::Unspecified,
                 "NOCAPTCHA" => Self::Nocaptcha,
                 "UNSOLVABLE_CHALLENGE" => Self::UnsolvableChallenge,
-                _ => Self::UnknownValue(testing_challenge::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(testing_challenge::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -7121,8 +6933,7 @@ pub mod testing_options {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<TestingChallenge>::new(
-                ".google.cloud.recaptchaenterprise.v1.TestingOptions.TestingChallenge",
-            ))
+                ".google.cloud.recaptchaenterprise.v1.TestingOptions.TestingChallenge"))
         }
     }
 }
@@ -7131,6 +6942,7 @@ pub mod testing_options {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WebKeySettings {
+
     /// Optional. If set to true, it means allowed_domains are not enforced.
     pub allow_all_domains: bool,
 
@@ -7182,7 +6994,7 @@ impl WebKeySettings {
     pub fn set_allowed_domains<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.allowed_domains = v.into_iter().map(|i| i.into()).collect();
@@ -7211,12 +7023,7 @@ impl WebKeySettings {
     /// let x1 = WebKeySettings::new().set_integration_type(IntegrationType::Checkbox);
     /// let x2 = WebKeySettings::new().set_integration_type(IntegrationType::Invisible);
     /// ```
-    pub fn set_integration_type<
-        T: std::convert::Into<crate::model::web_key_settings::IntegrationType>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_integration_type<T: std::convert::Into<crate::model::web_key_settings::IntegrationType>>(mut self, v: T) -> Self {
         self.integration_type = v.into();
         self
     }
@@ -7231,12 +7038,7 @@ impl WebKeySettings {
     /// let x1 = WebKeySettings::new().set_challenge_security_preference(ChallengeSecurityPreference::Balance);
     /// let x2 = WebKeySettings::new().set_challenge_security_preference(ChallengeSecurityPreference::Security);
     /// ```
-    pub fn set_challenge_security_preference<
-        T: std::convert::Into<crate::model::web_key_settings::ChallengeSecurityPreference>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_challenge_security_preference<T: std::convert::Into<crate::model::web_key_settings::ChallengeSecurityPreference>>(mut self, v: T) -> Self {
         self.challenge_security_preference = v.into();
         self
     }
@@ -7252,6 +7054,7 @@ impl wkt::message::Message for WebKeySettings {
 pub mod web_key_settings {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Enum that represents the integration types for web keys.
     ///
@@ -7349,9 +7152,7 @@ pub mod web_key_settings {
                 1 => Self::Score,
                 2 => Self::Checkbox,
                 3 => Self::Invisible,
-                _ => Self::UnknownValue(integration_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(integration_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -7364,9 +7165,7 @@ pub mod web_key_settings {
                 "SCORE" => Self::Score,
                 "CHECKBOX" => Self::Checkbox,
                 "INVISIBLE" => Self::Invisible,
-                _ => Self::UnknownValue(integration_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(integration_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -7392,8 +7191,7 @@ pub mod web_key_settings {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<IntegrationType>::new(
-                ".google.cloud.recaptchaenterprise.v1.WebKeySettings.IntegrationType",
-            ))
+                ".google.cloud.recaptchaenterprise.v1.WebKeySettings.IntegrationType"))
         }
     }
 
@@ -7460,9 +7258,7 @@ pub mod web_key_settings {
         /// the integer representation of enums.
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
-                Self::Unspecified => {
-                    std::option::Option::Some("CHALLENGE_SECURITY_PREFERENCE_UNSPECIFIED")
-                }
+                Self::Unspecified => std::option::Option::Some("CHALLENGE_SECURITY_PREFERENCE_UNSPECIFIED"),
                 Self::Usability => std::option::Option::Some("USABILITY"),
                 Self::Balance => std::option::Option::Some("BALANCE"),
                 Self::Security => std::option::Option::Some("SECURITY"),
@@ -7491,9 +7287,7 @@ pub mod web_key_settings {
                 1 => Self::Usability,
                 2 => Self::Balance,
                 3 => Self::Security,
-                _ => Self::UnknownValue(challenge_security_preference::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(challenge_security_preference::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -7506,9 +7300,7 @@ pub mod web_key_settings {
                 "USABILITY" => Self::Usability,
                 "BALANCE" => Self::Balance,
                 "SECURITY" => Self::Security,
-                _ => Self::UnknownValue(challenge_security_preference::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(challenge_security_preference::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -7543,6 +7335,7 @@ pub mod web_key_settings {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AndroidKeySettings {
+
     /// Optional. If set to true, allowed_package_names are not enforced.
     pub allow_all_package_names: bool,
 
@@ -7585,7 +7378,7 @@ impl AndroidKeySettings {
     pub fn set_allowed_package_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.allowed_package_names = v.into_iter().map(|i| i.into()).collect();
@@ -7599,10 +7392,7 @@ impl AndroidKeySettings {
     /// # use google_cloud_recaptchaenterprise_v1::model::AndroidKeySettings;
     /// let x = AndroidKeySettings::new().set_support_non_google_app_store_distribution(true);
     /// ```
-    pub fn set_support_non_google_app_store_distribution<T: std::convert::Into<bool>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_support_non_google_app_store_distribution<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.support_non_google_app_store_distribution = v.into();
         self
     }
@@ -7618,6 +7408,7 @@ impl wkt::message::Message for AndroidKeySettings {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct IOSKeySettings {
+
     /// Optional. If set to true, allowed_bundle_ids are not enforced.
     pub allow_all_bundle_ids: bool,
 
@@ -7662,7 +7453,7 @@ impl IOSKeySettings {
     pub fn set_allowed_bundle_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.allowed_bundle_ids = v.into_iter().map(|i| i.into()).collect();
@@ -7678,8 +7469,7 @@ impl IOSKeySettings {
     /// let x = IOSKeySettings::new().set_apple_developer_id(AppleDeveloperId::default()/* use setters */);
     /// ```
     pub fn set_apple_developer_id<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AppleDeveloperId>,
+    where T: std::convert::Into<crate::model::AppleDeveloperId>
     {
         self.apple_developer_id = std::option::Option::Some(v.into());
         self
@@ -7695,8 +7485,7 @@ impl IOSKeySettings {
     /// let x = IOSKeySettings::new().set_or_clear_apple_developer_id(None::<AppleDeveloperId>);
     /// ```
     pub fn set_or_clear_apple_developer_id<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AppleDeveloperId>,
+    where T: std::convert::Into<crate::model::AppleDeveloperId>
     {
         self.apple_developer_id = v.map(|x| x.into());
         self
@@ -7713,6 +7502,7 @@ impl wkt::message::Message for IOSKeySettings {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExpressKeySettings {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -7732,6 +7522,7 @@ impl wkt::message::Message for ExpressKeySettings {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AppleDeveloperId {
+
     /// Required. Input only. A private key (downloaded as a text file with a .p8
     /// file extension) generated for your Apple Developer account. Ensure that
     /// Apple DeviceCheck is enabled for the private key.
@@ -7799,10 +7590,11 @@ impl wkt::message::Message for AppleDeveloperId {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ScoreDistribution {
+
     /// Map key is score value multiplied by 100. The scores are discrete values
     /// between [0, 1]. The maximum number of buckets is on order of a few dozen,
     /// but typically much lower (ie. 10).
-    pub score_buckets: std::collections::HashMap<i32, i64>,
+    pub score_buckets: std::collections::HashMap<i32,i64>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -7844,13 +7636,13 @@ impl wkt::message::Message for ScoreDistribution {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ScoreMetrics {
+
     /// Aggregated score metrics for all traffic.
     pub overall_metrics: std::option::Option<crate::model::ScoreDistribution>,
 
     /// Action-based metrics. The map key is the action name which specified by the
     /// site owners at time of the "execute" client-side call.
-    pub action_metrics:
-        std::collections::HashMap<std::string::String, crate::model::ScoreDistribution>,
+    pub action_metrics: std::collections::HashMap<std::string::String,crate::model::ScoreDistribution>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -7869,8 +7661,7 @@ impl ScoreMetrics {
     /// let x = ScoreMetrics::new().set_overall_metrics(ScoreDistribution::default()/* use setters */);
     /// ```
     pub fn set_overall_metrics<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ScoreDistribution>,
+    where T: std::convert::Into<crate::model::ScoreDistribution>
     {
         self.overall_metrics = std::option::Option::Some(v.into());
         self
@@ -7886,8 +7677,7 @@ impl ScoreMetrics {
     /// let x = ScoreMetrics::new().set_or_clear_overall_metrics(None::<ScoreDistribution>);
     /// ```
     pub fn set_or_clear_overall_metrics<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ScoreDistribution>,
+    where T: std::convert::Into<crate::model::ScoreDistribution>
     {
         self.overall_metrics = v.map(|x| x.into());
         self
@@ -7926,6 +7716,7 @@ impl wkt::message::Message for ScoreMetrics {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ChallengeMetrics {
+
     /// Count of reCAPTCHA checkboxes or badges rendered. This is mostly equivalent
     /// to a count of pageloads for pages that include reCAPTCHA.
     pub pageload_count: i64,
@@ -8009,6 +7800,7 @@ impl wkt::message::Message for ChallengeMetrics {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FirewallPolicyAssessment {
+
     /// Output only. If the processing of a policy config fails, an error is
     /// populated and the firewall_policy is left empty.
     pub error: std::option::Option<rpc::model::Status>,
@@ -8035,8 +7827,7 @@ impl FirewallPolicyAssessment {
     /// let x = FirewallPolicyAssessment::new().set_error(Status::default()/* use setters */);
     /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<rpc::model::Status>,
+    where T: std::convert::Into<rpc::model::Status>
     {
         self.error = std::option::Option::Some(v.into());
         self
@@ -8052,8 +7843,7 @@ impl FirewallPolicyAssessment {
     /// let x = FirewallPolicyAssessment::new().set_or_clear_error(None::<Status>);
     /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<rpc::model::Status>,
+    where T: std::convert::Into<rpc::model::Status>
     {
         self.error = v.map(|x| x.into());
         self
@@ -8068,8 +7858,7 @@ impl FirewallPolicyAssessment {
     /// let x = FirewallPolicyAssessment::new().set_firewall_policy(FirewallPolicy::default()/* use setters */);
     /// ```
     pub fn set_firewall_policy<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::FirewallPolicy>,
+    where T: std::convert::Into<crate::model::FirewallPolicy>
     {
         self.firewall_policy = std::option::Option::Some(v.into());
         self
@@ -8085,8 +7874,7 @@ impl FirewallPolicyAssessment {
     /// let x = FirewallPolicyAssessment::new().set_or_clear_firewall_policy(None::<FirewallPolicy>);
     /// ```
     pub fn set_or_clear_firewall_policy<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::FirewallPolicy>,
+    where T: std::convert::Into<crate::model::FirewallPolicy>
     {
         self.firewall_policy = v.map(|x| x.into());
         self
@@ -8104,8 +7892,8 @@ impl wkt::message::Message for FirewallPolicyAssessment {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FirewallAction {
-    pub firewall_action_oneof:
-        std::option::Option<crate::model::firewall_action::FirewallActionOneof>,
+
+    pub firewall_action_oneof: std::option::Option<crate::model::firewall_action::FirewallActionOneof>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -8127,12 +7915,8 @@ impl FirewallAction {
     /// let x = FirewallAction::new().set_firewall_action_oneof(Some(
     ///     google_cloud_recaptchaenterprise_v1::model::firewall_action::FirewallActionOneof::Allow(AllowAction::default().into())));
     /// ```
-    pub fn set_firewall_action_oneof<
-        T: std::convert::Into<std::option::Option<crate::model::firewall_action::FirewallActionOneof>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_firewall_action_oneof<T: std::convert::Into<std::option::Option<crate::model::firewall_action::FirewallActionOneof>>>(mut self, v: T) -> Self
+    {
         self.firewall_action_oneof = v.into();
         self
     }
@@ -8140,14 +7924,10 @@ impl FirewallAction {
     /// The value of [firewall_action_oneof][crate::model::FirewallAction::firewall_action_oneof]
     /// if it holds a `Allow`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn allow(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::firewall_action::AllowAction>> {
+    pub fn allow(&self) -> std::option::Option<&std::boxed::Box<crate::model::firewall_action::AllowAction>> {
         #[allow(unreachable_patterns)]
         self.firewall_action_oneof.as_ref().and_then(|v| match v {
-            crate::model::firewall_action::FirewallActionOneof::Allow(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::firewall_action::FirewallActionOneof::Allow(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -8170,14 +7950,11 @@ impl FirewallAction {
     /// assert!(x.substitute().is_none());
     /// assert!(x.set_header().is_none());
     /// ```
-    pub fn set_allow<
-        T: std::convert::Into<std::boxed::Box<crate::model::firewall_action::AllowAction>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_allow<T: std::convert::Into<std::boxed::Box<crate::model::firewall_action::AllowAction>>>(mut self, v: T) -> Self {
         self.firewall_action_oneof = std::option::Option::Some(
-            crate::model::firewall_action::FirewallActionOneof::Allow(v.into()),
+            crate::model::firewall_action::FirewallActionOneof::Allow(
+                v.into()
+            )
         );
         self
     }
@@ -8185,14 +7962,10 @@ impl FirewallAction {
     /// The value of [firewall_action_oneof][crate::model::FirewallAction::firewall_action_oneof]
     /// if it holds a `Block`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn block(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::firewall_action::BlockAction>> {
+    pub fn block(&self) -> std::option::Option<&std::boxed::Box<crate::model::firewall_action::BlockAction>> {
         #[allow(unreachable_patterns)]
         self.firewall_action_oneof.as_ref().and_then(|v| match v {
-            crate::model::firewall_action::FirewallActionOneof::Block(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::firewall_action::FirewallActionOneof::Block(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -8215,14 +7988,11 @@ impl FirewallAction {
     /// assert!(x.substitute().is_none());
     /// assert!(x.set_header().is_none());
     /// ```
-    pub fn set_block<
-        T: std::convert::Into<std::boxed::Box<crate::model::firewall_action::BlockAction>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_block<T: std::convert::Into<std::boxed::Box<crate::model::firewall_action::BlockAction>>>(mut self, v: T) -> Self {
         self.firewall_action_oneof = std::option::Option::Some(
-            crate::model::firewall_action::FirewallActionOneof::Block(v.into()),
+            crate::model::firewall_action::FirewallActionOneof::Block(
+                v.into()
+            )
         );
         self
     }
@@ -8230,16 +8000,10 @@ impl FirewallAction {
     /// The value of [firewall_action_oneof][crate::model::FirewallAction::firewall_action_oneof]
     /// if it holds a `IncludeRecaptchaScript`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn include_recaptcha_script(
-        &self,
-    ) -> std::option::Option<
-        &std::boxed::Box<crate::model::firewall_action::IncludeRecaptchaScriptAction>,
-    > {
+    pub fn include_recaptcha_script(&self) -> std::option::Option<&std::boxed::Box<crate::model::firewall_action::IncludeRecaptchaScriptAction>> {
         #[allow(unreachable_patterns)]
         self.firewall_action_oneof.as_ref().and_then(|v| match v {
-            crate::model::firewall_action::FirewallActionOneof::IncludeRecaptchaScript(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::firewall_action::FirewallActionOneof::IncludeRecaptchaScript(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -8262,16 +8026,11 @@ impl FirewallAction {
     /// assert!(x.substitute().is_none());
     /// assert!(x.set_header().is_none());
     /// ```
-    pub fn set_include_recaptcha_script<
-        T: std::convert::Into<
-                std::boxed::Box<crate::model::firewall_action::IncludeRecaptchaScriptAction>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_include_recaptcha_script<T: std::convert::Into<std::boxed::Box<crate::model::firewall_action::IncludeRecaptchaScriptAction>>>(mut self, v: T) -> Self {
         self.firewall_action_oneof = std::option::Option::Some(
-            crate::model::firewall_action::FirewallActionOneof::IncludeRecaptchaScript(v.into()),
+            crate::model::firewall_action::FirewallActionOneof::IncludeRecaptchaScript(
+                v.into()
+            )
         );
         self
     }
@@ -8279,14 +8038,10 @@ impl FirewallAction {
     /// The value of [firewall_action_oneof][crate::model::FirewallAction::firewall_action_oneof]
     /// if it holds a `Redirect`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn redirect(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::firewall_action::RedirectAction>> {
+    pub fn redirect(&self) -> std::option::Option<&std::boxed::Box<crate::model::firewall_action::RedirectAction>> {
         #[allow(unreachable_patterns)]
         self.firewall_action_oneof.as_ref().and_then(|v| match v {
-            crate::model::firewall_action::FirewallActionOneof::Redirect(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::firewall_action::FirewallActionOneof::Redirect(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -8309,14 +8064,11 @@ impl FirewallAction {
     /// assert!(x.substitute().is_none());
     /// assert!(x.set_header().is_none());
     /// ```
-    pub fn set_redirect<
-        T: std::convert::Into<std::boxed::Box<crate::model::firewall_action::RedirectAction>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_redirect<T: std::convert::Into<std::boxed::Box<crate::model::firewall_action::RedirectAction>>>(mut self, v: T) -> Self {
         self.firewall_action_oneof = std::option::Option::Some(
-            crate::model::firewall_action::FirewallActionOneof::Redirect(v.into()),
+            crate::model::firewall_action::FirewallActionOneof::Redirect(
+                v.into()
+            )
         );
         self
     }
@@ -8324,15 +8076,10 @@ impl FirewallAction {
     /// The value of [firewall_action_oneof][crate::model::FirewallAction::firewall_action_oneof]
     /// if it holds a `Substitute`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn substitute(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::firewall_action::SubstituteAction>>
-    {
+    pub fn substitute(&self) -> std::option::Option<&std::boxed::Box<crate::model::firewall_action::SubstituteAction>> {
         #[allow(unreachable_patterns)]
         self.firewall_action_oneof.as_ref().and_then(|v| match v {
-            crate::model::firewall_action::FirewallActionOneof::Substitute(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::firewall_action::FirewallActionOneof::Substitute(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -8355,14 +8102,11 @@ impl FirewallAction {
     /// assert!(x.redirect().is_none());
     /// assert!(x.set_header().is_none());
     /// ```
-    pub fn set_substitute<
-        T: std::convert::Into<std::boxed::Box<crate::model::firewall_action::SubstituteAction>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_substitute<T: std::convert::Into<std::boxed::Box<crate::model::firewall_action::SubstituteAction>>>(mut self, v: T) -> Self {
         self.firewall_action_oneof = std::option::Option::Some(
-            crate::model::firewall_action::FirewallActionOneof::Substitute(v.into()),
+            crate::model::firewall_action::FirewallActionOneof::Substitute(
+                v.into()
+            )
         );
         self
     }
@@ -8370,14 +8114,10 @@ impl FirewallAction {
     /// The value of [firewall_action_oneof][crate::model::FirewallAction::firewall_action_oneof]
     /// if it holds a `SetHeader`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn set_header(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::firewall_action::SetHeaderAction>> {
+    pub fn set_header(&self) -> std::option::Option<&std::boxed::Box<crate::model::firewall_action::SetHeaderAction>> {
         #[allow(unreachable_patterns)]
         self.firewall_action_oneof.as_ref().and_then(|v| match v {
-            crate::model::firewall_action::FirewallActionOneof::SetHeader(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::firewall_action::FirewallActionOneof::SetHeader(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -8400,14 +8140,11 @@ impl FirewallAction {
     /// assert!(x.redirect().is_none());
     /// assert!(x.substitute().is_none());
     /// ```
-    pub fn set_set_header<
-        T: std::convert::Into<std::boxed::Box<crate::model::firewall_action::SetHeaderAction>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_set_header<T: std::convert::Into<std::boxed::Box<crate::model::firewall_action::SetHeaderAction>>>(mut self, v: T) -> Self {
         self.firewall_action_oneof = std::option::Option::Some(
-            crate::model::firewall_action::FirewallActionOneof::SetHeader(v.into()),
+            crate::model::firewall_action::FirewallActionOneof::SetHeader(
+                v.into()
+            )
         );
         self
     }
@@ -8424,10 +8161,12 @@ pub mod firewall_action {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// An allow action continues processing a request unimpeded.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AllowAction {
+
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -8448,6 +8187,7 @@ pub mod firewall_action {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct BlockAction {
+
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -8471,6 +8211,7 @@ pub mod firewall_action {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct IncludeRecaptchaScriptAction {
+
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -8491,6 +8232,7 @@ pub mod firewall_action {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct RedirectAction {
+
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -8511,6 +8253,7 @@ pub mod firewall_action {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SubstituteAction {
+
         /// Optional. The address to redirect to. The target is a relative path in
         /// the current host. Example: "/blog/404.html".
         pub path: std::string::String,
@@ -8548,6 +8291,7 @@ pub mod firewall_action {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SetHeaderAction {
+
         /// Optional. The header key to set in the request to the backend server.
         pub key: std::string::String,
 
@@ -8604,9 +8348,7 @@ pub mod firewall_action {
         Block(std::boxed::Box<crate::model::firewall_action::BlockAction>),
         /// This action injects reCAPTCHA JavaScript code into the HTML page
         /// returned by the site backend.
-        IncludeRecaptchaScript(
-            std::boxed::Box<crate::model::firewall_action::IncludeRecaptchaScriptAction>,
-        ),
+        IncludeRecaptchaScript(std::boxed::Box<crate::model::firewall_action::IncludeRecaptchaScriptAction>),
         /// This action redirects the request to a reCAPTCHA interstitial to
         /// attach a token.
         Redirect(std::boxed::Box<crate::model::firewall_action::RedirectAction>),
@@ -8624,6 +8366,7 @@ pub mod firewall_action {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FirewallPolicy {
+
     /// Identifier. The resource name for the FirewallPolicy in the format
     /// `projects/{project}/firewallpolicies/{firewallpolicy}`.
     pub name: std::string::String,
@@ -8729,7 +8472,7 @@ impl FirewallPolicy {
     pub fn set_actions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::FirewallAction>,
+        V: std::convert::Into<crate::model::FirewallAction>
     {
         use std::iter::Iterator;
         self.actions = v.into_iter().map(|i| i.into()).collect();
@@ -8747,6 +8490,7 @@ impl wkt::message::Message for FirewallPolicy {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRelatedAccountGroupMembershipsRequest {
+
     /// Required. The resource name for the related account group in the format
     /// `projects/{project}/relatedaccountgroups/{relatedaccountgroup}`.
     pub parent: std::string::String,
@@ -8819,9 +8563,9 @@ impl wkt::message::Message for ListRelatedAccountGroupMembershipsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRelatedAccountGroupMembershipsResponse {
+
     /// The memberships listed by the query.
-    pub related_account_group_memberships:
-        std::vec::Vec<crate::model::RelatedAccountGroupMembership>,
+    pub related_account_group_memberships: std::vec::Vec<crate::model::RelatedAccountGroupMembership>,
 
     /// A token, which can be sent as `page_token` to retrieve the next page.
     /// If this field is omitted, there are no subsequent pages.
@@ -8850,7 +8594,7 @@ impl ListRelatedAccountGroupMembershipsResponse {
     pub fn set_related_account_group_memberships<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::RelatedAccountGroupMembership>,
+        V: std::convert::Into<crate::model::RelatedAccountGroupMembership>
     {
         use std::iter::Iterator;
         self.related_account_group_memberships = v.into_iter().map(|i| i.into()).collect();
@@ -8894,6 +8638,7 @@ impl gax::paginator::internal::PageableResponse for ListRelatedAccountGroupMembe
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRelatedAccountGroupsRequest {
+
     /// Required. The name of the project to list related account groups from, in
     /// the format `projects/{project}`.
     pub parent: std::string::String,
@@ -8966,6 +8711,7 @@ impl wkt::message::Message for ListRelatedAccountGroupsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRelatedAccountGroupsResponse {
+
     /// The groups of related accounts listed by the query.
     pub related_account_groups: std::vec::Vec<crate::model::RelatedAccountGroup>,
 
@@ -8996,7 +8742,7 @@ impl ListRelatedAccountGroupsResponse {
     pub fn set_related_account_groups<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::RelatedAccountGroup>,
+        V: std::convert::Into<crate::model::RelatedAccountGroup>
     {
         use std::iter::Iterator;
         self.related_account_groups = v.into_iter().map(|i| i.into()).collect();
@@ -9040,6 +8786,7 @@ impl gax::paginator::internal::PageableResponse for ListRelatedAccountGroupsResp
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchRelatedAccountGroupMembershipsRequest {
+
     /// Required. The name of the project to search related account group
     /// memberships from. Specify the project name in the following format:
     /// `projects/{project}`.
@@ -9153,9 +8900,9 @@ impl wkt::message::Message for SearchRelatedAccountGroupMembershipsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchRelatedAccountGroupMembershipsResponse {
+
     /// The queried memberships.
-    pub related_account_group_memberships:
-        std::vec::Vec<crate::model::RelatedAccountGroupMembership>,
+    pub related_account_group_memberships: std::vec::Vec<crate::model::RelatedAccountGroupMembership>,
 
     /// A token, which can be sent as `page_token` to retrieve the next page.
     /// If this field is omitted, there are no subsequent pages.
@@ -9184,7 +8931,7 @@ impl SearchRelatedAccountGroupMembershipsResponse {
     pub fn set_related_account_group_memberships<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::RelatedAccountGroupMembership>,
+        V: std::convert::Into<crate::model::RelatedAccountGroupMembership>
     {
         use std::iter::Iterator;
         self.related_account_group_memberships = v.into_iter().map(|i| i.into()).collect();
@@ -9228,6 +8975,7 @@ impl gax::paginator::internal::PageableResponse for SearchRelatedAccountGroupMem
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AddIpOverrideRequest {
+
     /// Required. The name of the key to which the IP override is added, in the
     /// format `projects/{project}/keys/{key}`.
     pub name: std::string::String,
@@ -9264,8 +9012,7 @@ impl AddIpOverrideRequest {
     /// let x = AddIpOverrideRequest::new().set_ip_override_data(IpOverrideData::default()/* use setters */);
     /// ```
     pub fn set_ip_override_data<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::IpOverrideData>,
+    where T: std::convert::Into<crate::model::IpOverrideData>
     {
         self.ip_override_data = std::option::Option::Some(v.into());
         self
@@ -9281,8 +9028,7 @@ impl AddIpOverrideRequest {
     /// let x = AddIpOverrideRequest::new().set_or_clear_ip_override_data(None::<IpOverrideData>);
     /// ```
     pub fn set_or_clear_ip_override_data<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::IpOverrideData>,
+    where T: std::convert::Into<crate::model::IpOverrideData>
     {
         self.ip_override_data = v.map(|x| x.into());
         self
@@ -9299,6 +9045,7 @@ impl wkt::message::Message for AddIpOverrideRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AddIpOverrideResponse {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -9318,6 +9065,7 @@ impl wkt::message::Message for AddIpOverrideResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RemoveIpOverrideRequest {
+
     /// Required. The name of the key from which the IP override is removed, in the
     /// format `projects/{project}/keys/{key}`.
     pub name: std::string::String,
@@ -9354,8 +9102,7 @@ impl RemoveIpOverrideRequest {
     /// let x = RemoveIpOverrideRequest::new().set_ip_override_data(IpOverrideData::default()/* use setters */);
     /// ```
     pub fn set_ip_override_data<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::IpOverrideData>,
+    where T: std::convert::Into<crate::model::IpOverrideData>
     {
         self.ip_override_data = std::option::Option::Some(v.into());
         self
@@ -9371,8 +9118,7 @@ impl RemoveIpOverrideRequest {
     /// let x = RemoveIpOverrideRequest::new().set_or_clear_ip_override_data(None::<IpOverrideData>);
     /// ```
     pub fn set_or_clear_ip_override_data<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::IpOverrideData>,
+    where T: std::convert::Into<crate::model::IpOverrideData>
     {
         self.ip_override_data = v.map(|x| x.into());
         self
@@ -9389,6 +9135,7 @@ impl wkt::message::Message for RemoveIpOverrideRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RemoveIpOverrideResponse {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -9408,6 +9155,7 @@ impl wkt::message::Message for RemoveIpOverrideResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListIpOverridesRequest {
+
     /// Required. The parent key for which the IP overrides are listed, in the
     /// format `projects/{project}/keys/{key}`.
     pub parent: std::string::String,
@@ -9477,6 +9225,7 @@ impl wkt::message::Message for ListIpOverridesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListIpOverridesResponse {
+
     /// IP Overrides details.
     pub ip_overrides: std::vec::Vec<crate::model::IpOverrideData>,
 
@@ -9507,7 +9256,7 @@ impl ListIpOverridesResponse {
     pub fn set_ip_overrides<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::IpOverrideData>,
+        V: std::convert::Into<crate::model::IpOverrideData>
     {
         use std::iter::Iterator;
         self.ip_overrides = v.into_iter().map(|i| i.into()).collect();
@@ -9551,6 +9300,7 @@ impl gax::paginator::internal::PageableResponse for ListIpOverridesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RelatedAccountGroupMembership {
+
     /// Required. Identifier. The resource name for this membership in the format
     /// `projects/{project}/relatedaccountgroups/{relatedaccountgroup}/memberships/{membership}`.
     pub name: std::string::String,
@@ -9623,6 +9373,7 @@ impl wkt::message::Message for RelatedAccountGroupMembership {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RelatedAccountGroup {
+
     /// Required. Identifier. The resource name for the related account group in
     /// the format
     /// `projects/{project}/relatedaccountgroups/{related_account_group}`.
@@ -9660,6 +9411,7 @@ impl wkt::message::Message for RelatedAccountGroup {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WafSettings {
+
     /// Required. The WAF service that uses this key.
     pub waf_service: crate::model::waf_settings::WafService,
 
@@ -9684,10 +9436,7 @@ impl WafSettings {
     /// let x1 = WafSettings::new().set_waf_service(WafService::Fastly);
     /// let x2 = WafSettings::new().set_waf_service(WafService::Cloudflare);
     /// ```
-    pub fn set_waf_service<T: std::convert::Into<crate::model::waf_settings::WafService>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_waf_service<T: std::convert::Into<crate::model::waf_settings::WafService>>(mut self, v: T) -> Self {
         self.waf_service = v.into();
         self
     }
@@ -9702,10 +9451,7 @@ impl WafSettings {
     /// let x1 = WafSettings::new().set_waf_feature(WafFeature::SessionToken);
     /// let x2 = WafSettings::new().set_waf_feature(WafFeature::ActionToken);
     /// ```
-    pub fn set_waf_feature<T: std::convert::Into<crate::model::waf_settings::WafFeature>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_waf_feature<T: std::convert::Into<crate::model::waf_settings::WafFeature>>(mut self, v: T) -> Self {
         self.waf_feature = v.into();
         self
     }
@@ -9721,6 +9467,7 @@ impl wkt::message::Message for WafSettings {
 pub mod waf_settings {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Supported WAF features. For more information, see
     /// <https://cloud.google.com/recaptcha/docs/usecase#comparison_of_features>.
@@ -9821,9 +9568,7 @@ pub mod waf_settings {
                 2 => Self::SessionToken,
                 3 => Self::ActionToken,
                 5 => Self::Express,
-                _ => Self::UnknownValue(waf_feature::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(waf_feature::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -9837,9 +9582,7 @@ pub mod waf_settings {
                 "SESSION_TOKEN" => Self::SessionToken,
                 "ACTION_TOKEN" => Self::ActionToken,
                 "EXPRESS" => Self::Express,
-                _ => Self::UnknownValue(waf_feature::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(waf_feature::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -9866,8 +9609,7 @@ pub mod waf_settings {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<WafFeature>::new(
-                ".google.cloud.recaptchaenterprise.v1.WafSettings.WafFeature",
-            ))
+                ".google.cloud.recaptchaenterprise.v1.WafSettings.WafFeature"))
         }
     }
 
@@ -9967,9 +9709,7 @@ pub mod waf_settings {
                 3 => Self::Fastly,
                 4 => Self::Cloudflare,
                 5 => Self::Akamai,
-                _ => Self::UnknownValue(waf_service::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(waf_service::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -9983,9 +9723,7 @@ pub mod waf_settings {
                 "FASTLY" => Self::Fastly,
                 "CLOUDFLARE" => Self::Cloudflare,
                 "AKAMAI" => Self::Akamai,
-                _ => Self::UnknownValue(waf_service::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(waf_service::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -10012,8 +9750,7 @@ pub mod waf_settings {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<WafService>::new(
-                ".google.cloud.recaptchaenterprise.v1.WafSettings.WafService",
-            ))
+                ".google.cloud.recaptchaenterprise.v1.WafSettings.WafService"))
         }
     }
 }
@@ -10023,6 +9760,7 @@ pub mod waf_settings {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AssessmentEnvironment {
+
     /// Optional. Identifies the client module initiating the CreateAssessment
     /// request. This can be the link to the client module's project. Examples
     /// include:
@@ -10079,6 +9817,7 @@ impl wkt::message::Message for AssessmentEnvironment {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct IpOverrideData {
+
     /// Required. The IP address to override (can be IPv4, IPv6 or CIDR).
     /// The IP override must be a valid IPv4 or IPv6 address, or a CIDR range.
     /// The IP override must be a public IP address.
@@ -10119,12 +9858,7 @@ impl IpOverrideData {
     /// use google_cloud_recaptchaenterprise_v1::model::ip_override_data::OverrideType;
     /// let x0 = IpOverrideData::new().set_override_type(OverrideType::Allow);
     /// ```
-    pub fn set_override_type<
-        T: std::convert::Into<crate::model::ip_override_data::OverrideType>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_override_type<T: std::convert::Into<crate::model::ip_override_data::OverrideType>>(mut self, v: T) -> Self {
         self.override_type = v.into();
         self
     }
@@ -10140,6 +9874,7 @@ impl wkt::message::Message for IpOverrideData {
 pub mod ip_override_data {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Enum that represents the type of IP override.
     ///
@@ -10223,9 +9958,7 @@ pub mod ip_override_data {
             match value {
                 0 => Self::Unspecified,
                 1 => Self::Allow,
-                _ => Self::UnknownValue(override_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(override_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -10236,9 +9969,7 @@ pub mod ip_override_data {
             match value {
                 "OVERRIDE_TYPE_UNSPECIFIED" => Self::Unspecified,
                 "ALLOW" => Self::Allow,
-                _ => Self::UnknownValue(override_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(override_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -10262,8 +9993,7 @@ pub mod ip_override_data {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<OverrideType>::new(
-                ".google.cloud.recaptchaenterprise.v1.IpOverrideData.OverrideType",
-            ))
+                ".google.cloud.recaptchaenterprise.v1.IpOverrideData.OverrideType"))
         }
     }
 }

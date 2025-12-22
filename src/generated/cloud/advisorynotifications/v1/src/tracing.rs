@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [AdvisoryNotificationsService](super::stub::AdvisoryNotificationsService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct AdvisoryNotificationsService<T>
-where
-    T: super::stub::AdvisoryNotificationsService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::AdvisoryNotificationsService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> AdvisoryNotificationsService<T>
-where
-    T: super::stub::AdvisoryNotificationsService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::AdvisoryNotificationsService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::AdvisoryNotificationsService for AdvisoryNotificationsService<T>
-where
-    T: super::stub::AdvisoryNotificationsService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::AdvisoryNotificationsService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn list_notifications(
         &self,
@@ -72,4 +66,6 @@ where
     ) -> Result<gax::response::Response<crate::model::Settings>> {
         self.inner.update_settings(req, options).await
     }
+
 }
+

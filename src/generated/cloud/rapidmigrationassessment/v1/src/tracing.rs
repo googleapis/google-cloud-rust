@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [RapidMigrationAssessment](super::stub::RapidMigrationAssessment) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct RapidMigrationAssessment<T>
-where
-    T: super::stub::RapidMigrationAssessment + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::RapidMigrationAssessment + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> RapidMigrationAssessment<T>
-where
-    T: super::stub::RapidMigrationAssessment + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::RapidMigrationAssessment + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::RapidMigrationAssessment for RapidMigrationAssessment<T>
-where
-    T: super::stub::RapidMigrationAssessment + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::RapidMigrationAssessment + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn create_collector(
         &self,
@@ -181,6 +175,7 @@ where
         self.inner.cancel_operation(req, options).await
     }
 
+
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -195,3 +190,4 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 }
+

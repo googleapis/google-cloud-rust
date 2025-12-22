@@ -129,6 +129,7 @@ impl std::fmt::Debug for super::Membership {
     }
 }
 
+
 impl std::fmt::Debug for super::MembershipEndpoint {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MembershipEndpoint");
@@ -198,10 +199,7 @@ impl std::fmt::Debug for super::GkeCluster {
 impl std::fmt::Debug for super::KubernetesMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("KubernetesMetadata");
-        debug_struct.field(
-            "kubernetes_api_server_version",
-            &self.kubernetes_api_server_version,
-        );
+        debug_struct.field("kubernetes_api_server_version", &self.kubernetes_api_server_version);
         debug_struct.field("node_provider_id", &self.node_provider_id);
         debug_struct.field("node_count", &self.node_count);
         debug_struct.field("vcpu_count", &self.vcpu_count);

@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [MetricsScopes](super::stub::MetricsScopes) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct MetricsScopes<T>
-where
-    T: super::stub::MetricsScopes + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::MetricsScopes + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> MetricsScopes<T>
-where
-    T: super::stub::MetricsScopes + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::MetricsScopes + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::MetricsScopes for MetricsScopes<T>
-where
-    T: super::stub::MetricsScopes + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::MetricsScopes + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn get_metrics_scope(
         &self,
@@ -51,11 +45,8 @@ where
         &self,
         req: crate::model::ListMetricsScopesByMonitoredProjectRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListMetricsScopesByMonitoredProjectResponse>>
-    {
-        self.inner
-            .list_metrics_scopes_by_monitored_project(req, options)
-            .await
+    ) -> Result<gax::response::Response<crate::model::ListMetricsScopesByMonitoredProjectResponse>> {
+        self.inner.list_metrics_scopes_by_monitored_project(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -85,6 +76,7 @@ where
         self.inner.get_operation(req, options).await
     }
 
+
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -99,3 +91,4 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 }
+

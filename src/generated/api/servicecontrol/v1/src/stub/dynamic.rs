@@ -22,6 +22,7 @@ pub trait QuotaController: std::fmt::Debug + Send + Sync {
         req: crate::model::AllocateQuotaRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::AllocateQuotaResponse>>;
+
 }
 
 /// All implementations of [super::QuotaController] also implement [QuotaController].
@@ -35,6 +36,7 @@ impl<T: super::QuotaController> QuotaController for T {
     ) -> crate::Result<gax::response::Response<crate::model::AllocateQuotaResponse>> {
         T::allocate_quota(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::ServiceController].
@@ -51,6 +53,7 @@ pub trait ServiceController: std::fmt::Debug + Send + Sync {
         req: crate::model::ReportRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::ReportResponse>>;
+
 }
 
 /// All implementations of [super::ServiceController] also implement [ServiceController].
@@ -73,4 +76,5 @@ impl<T: super::ServiceController> ServiceController for T {
     ) -> crate::Result<gax::response::Response<crate::model::ReportResponse>> {
         T::report(self, req, options).await
     }
+
 }

@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [ManagedKafka](super::stub::ManagedKafka) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct ManagedKafka<T>
-where
-    T: super::stub::ManagedKafka + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ManagedKafka + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> ManagedKafka<T>
-where
-    T: super::stub::ManagedKafka + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ManagedKafka + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::ManagedKafka for ManagedKafka<T>
-where
-    T: super::stub::ManagedKafka + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ManagedKafka + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn list_clusters(
         &self,
@@ -280,6 +274,7 @@ where
         self.inner.cancel_operation(req, options).await
     }
 
+
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -298,25 +293,19 @@ where
 /// Implements a [ManagedKafkaConnect](super::stub::ManagedKafkaConnect) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct ManagedKafkaConnect<T>
-where
-    T: super::stub::ManagedKafkaConnect + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ManagedKafkaConnect + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> ManagedKafkaConnect<T>
-where
-    T: super::stub::ManagedKafkaConnect + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ManagedKafkaConnect + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::ManagedKafkaConnect for ManagedKafkaConnect<T>
-where
-    T: super::stub::ManagedKafkaConnect + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ManagedKafkaConnect + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn list_connect_clusters(
         &self,
@@ -497,6 +486,7 @@ where
         self.inner.cancel_operation(req, options).await
     }
 
+
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -511,3 +501,4 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 }
+

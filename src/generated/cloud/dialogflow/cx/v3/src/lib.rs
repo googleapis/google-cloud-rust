@@ -53,6 +53,7 @@
 //! * [Webhooks](client/struct.Webhooks.html)
 
 #![cfg_attr(docsrs, feature(doc_cfg))]
+
 #![allow(deprecated)]
 
 /// The messages and enums that are part of this client library.
@@ -79,46 +80,10 @@ pub(crate) mod tracing;
 pub(crate) mod transport;
 
 /// The default host used by the service.
-#[cfg(any(
-    feature = "agents",
-    feature = "changelogs",
-    feature = "deployments",
-    feature = "entity-types",
-    feature = "environments",
-    feature = "experiments",
-    feature = "flows",
-    feature = "generators",
-    feature = "intents",
-    feature = "pages",
-    feature = "security-settings-service",
-    feature = "sessions",
-    feature = "session-entity-types",
-    feature = "test-cases",
-    feature = "transition-route-groups",
-    feature = "versions",
-    feature = "webhooks",
-))]
+#[cfg(any(feature = "agents",feature = "changelogs",feature = "deployments",feature = "entity-types",feature = "environments",feature = "experiments",feature = "flows",feature = "generators",feature = "intents",feature = "pages",feature = "security-settings-service",feature = "sessions",feature = "session-entity-types",feature = "test-cases",feature = "transition-route-groups",feature = "versions",feature = "webhooks",))]
 const DEFAULT_HOST: &str = "https://dialogflow.googleapis.com/";
 
-#[cfg(any(
-    feature = "agents",
-    feature = "changelogs",
-    feature = "deployments",
-    feature = "entity-types",
-    feature = "environments",
-    feature = "experiments",
-    feature = "flows",
-    feature = "generators",
-    feature = "intents",
-    feature = "pages",
-    feature = "security-settings-service",
-    feature = "sessions",
-    feature = "session-entity-types",
-    feature = "test-cases",
-    feature = "transition-route-groups",
-    feature = "versions",
-    feature = "webhooks",
-))]
+#[cfg(any(feature = "agents",feature = "changelogs",feature = "deployments",feature = "entity-types",feature = "environments",feature = "experiments",feature = "flows",feature = "generators",feature = "intents",feature = "pages",feature = "security-settings-service",feature = "sessions",feature = "session-entity-types",feature = "test-cases",feature = "transition-route-groups",feature = "versions",feature = "webhooks",))]
 pub(crate) mod info {
     const NAME: &str = env!("CARGO_PKG_NAME");
     const VERSION: &str = env!("CARGO_PKG_VERSION");
@@ -133,3 +98,4 @@ pub(crate) mod info {
         };
     }
 }
+

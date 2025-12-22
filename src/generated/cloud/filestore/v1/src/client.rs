@@ -92,9 +92,7 @@ impl CloudFilestoreManager {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::cloud_filestore_manager::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::cloud_filestore_manager::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::cloud_filestore_manager::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -102,53 +100,56 @@ impl CloudFilestoreManager {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::CloudFilestoreManager + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::CloudFilestoreManager + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CloudFilestoreManager>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CloudFilestoreManager>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::CloudFilestoreManager> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::CloudFilestoreManager> {
         super::transport::CloudFilestoreManager::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::CloudFilestoreManager> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::CloudFilestoreManager::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::CloudFilestoreManager> {
+        Self::build_transport(conf).await.map(super::tracing::CloudFilestoreManager::new)
     }
 
     /// Lists all instances in a project for either a specified location
     /// or for all locations.
-    pub fn list_instances(&self) -> super::builder::cloud_filestore_manager::ListInstances {
+    pub fn list_instances(&self) -> super::builder::cloud_filestore_manager::ListInstances
+    {
         super::builder::cloud_filestore_manager::ListInstances::new(self.inner.clone())
     }
 
     /// Gets the details of a specific instance.
-    pub fn get_instance(&self) -> super::builder::cloud_filestore_manager::GetInstance {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_filestore_v1::client::CloudFilestoreManager;
+    /// async fn sample(
+    ///    client: &CloudFilestoreManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_instance()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_instance(&self) -> super::builder::cloud_filestore_manager::GetInstance
+    {
         super::builder::cloud_filestore_manager::GetInstance::new(self.inner.clone())
     }
 
@@ -166,7 +167,8 @@ impl CloudFilestoreManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_instance(&self) -> super::builder::cloud_filestore_manager::CreateInstance {
+    pub fn create_instance(&self) -> super::builder::cloud_filestore_manager::CreateInstance
+    {
         super::builder::cloud_filestore_manager::CreateInstance::new(self.inner.clone())
     }
 
@@ -181,7 +183,8 @@ impl CloudFilestoreManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_instance(&self) -> super::builder::cloud_filestore_manager::UpdateInstance {
+    pub fn update_instance(&self) -> super::builder::cloud_filestore_manager::UpdateInstance
+    {
         super::builder::cloud_filestore_manager::UpdateInstance::new(self.inner.clone())
     }
 
@@ -200,7 +203,8 @@ impl CloudFilestoreManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn restore_instance(&self) -> super::builder::cloud_filestore_manager::RestoreInstance {
+    pub fn restore_instance(&self) -> super::builder::cloud_filestore_manager::RestoreInstance
+    {
         super::builder::cloud_filestore_manager::RestoreInstance::new(self.inner.clone())
     }
 
@@ -215,7 +219,8 @@ impl CloudFilestoreManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn revert_instance(&self) -> super::builder::cloud_filestore_manager::RevertInstance {
+    pub fn revert_instance(&self) -> super::builder::cloud_filestore_manager::RevertInstance
+    {
         super::builder::cloud_filestore_manager::RevertInstance::new(self.inner.clone())
     }
 
@@ -230,18 +235,37 @@ impl CloudFilestoreManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_instance(&self) -> super::builder::cloud_filestore_manager::DeleteInstance {
+    pub fn delete_instance(&self) -> super::builder::cloud_filestore_manager::DeleteInstance
+    {
         super::builder::cloud_filestore_manager::DeleteInstance::new(self.inner.clone())
     }
 
     /// Lists all snapshots in a project for either a specified location
     /// or for all locations.
-    pub fn list_snapshots(&self) -> super::builder::cloud_filestore_manager::ListSnapshots {
+    pub fn list_snapshots(&self) -> super::builder::cloud_filestore_manager::ListSnapshots
+    {
         super::builder::cloud_filestore_manager::ListSnapshots::new(self.inner.clone())
     }
 
     /// Gets the details of a specific snapshot.
-    pub fn get_snapshot(&self) -> super::builder::cloud_filestore_manager::GetSnapshot {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_filestore_v1::client::CloudFilestoreManager;
+    /// async fn sample(
+    ///    client: &CloudFilestoreManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_snapshot()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_snapshot(&self) -> super::builder::cloud_filestore_manager::GetSnapshot
+    {
         super::builder::cloud_filestore_manager::GetSnapshot::new(self.inner.clone())
     }
 
@@ -256,7 +280,8 @@ impl CloudFilestoreManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_snapshot(&self) -> super::builder::cloud_filestore_manager::CreateSnapshot {
+    pub fn create_snapshot(&self) -> super::builder::cloud_filestore_manager::CreateSnapshot
+    {
         super::builder::cloud_filestore_manager::CreateSnapshot::new(self.inner.clone())
     }
 
@@ -271,7 +296,8 @@ impl CloudFilestoreManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_snapshot(&self) -> super::builder::cloud_filestore_manager::DeleteSnapshot {
+    pub fn delete_snapshot(&self) -> super::builder::cloud_filestore_manager::DeleteSnapshot
+    {
         super::builder::cloud_filestore_manager::DeleteSnapshot::new(self.inner.clone())
     }
 
@@ -286,18 +312,37 @@ impl CloudFilestoreManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_snapshot(&self) -> super::builder::cloud_filestore_manager::UpdateSnapshot {
+    pub fn update_snapshot(&self) -> super::builder::cloud_filestore_manager::UpdateSnapshot
+    {
         super::builder::cloud_filestore_manager::UpdateSnapshot::new(self.inner.clone())
     }
 
     /// Lists all backups in a project for either a specified location or for all
     /// locations.
-    pub fn list_backups(&self) -> super::builder::cloud_filestore_manager::ListBackups {
+    pub fn list_backups(&self) -> super::builder::cloud_filestore_manager::ListBackups
+    {
         super::builder::cloud_filestore_manager::ListBackups::new(self.inner.clone())
     }
 
     /// Gets the details of a specific backup.
-    pub fn get_backup(&self) -> super::builder::cloud_filestore_manager::GetBackup {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_filestore_v1::client::CloudFilestoreManager;
+    /// async fn sample(
+    ///    client: &CloudFilestoreManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_backup()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_backup(&self) -> super::builder::cloud_filestore_manager::GetBackup
+    {
         super::builder::cloud_filestore_manager::GetBackup::new(self.inner.clone())
     }
 
@@ -312,7 +357,8 @@ impl CloudFilestoreManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_backup(&self) -> super::builder::cloud_filestore_manager::CreateBackup {
+    pub fn create_backup(&self) -> super::builder::cloud_filestore_manager::CreateBackup
+    {
         super::builder::cloud_filestore_manager::CreateBackup::new(self.inner.clone())
     }
 
@@ -327,7 +373,8 @@ impl CloudFilestoreManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_backup(&self) -> super::builder::cloud_filestore_manager::DeleteBackup {
+    pub fn delete_backup(&self) -> super::builder::cloud_filestore_manager::DeleteBackup
+    {
         super::builder::cloud_filestore_manager::DeleteBackup::new(self.inner.clone())
     }
 
@@ -342,7 +389,8 @@ impl CloudFilestoreManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_backup(&self) -> super::builder::cloud_filestore_manager::UpdateBackup {
+    pub fn update_backup(&self) -> super::builder::cloud_filestore_manager::UpdateBackup
+    {
         super::builder::cloud_filestore_manager::UpdateBackup::new(self.inner.clone())
     }
 
@@ -357,45 +405,114 @@ impl CloudFilestoreManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn promote_replica(&self) -> super::builder::cloud_filestore_manager::PromoteReplica {
+    pub fn promote_replica(&self) -> super::builder::cloud_filestore_manager::PromoteReplica
+    {
         super::builder::cloud_filestore_manager::PromoteReplica::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::cloud_filestore_manager::ListLocations {
+    pub fn list_locations(&self) -> super::builder::cloud_filestore_manager::ListLocations
+    {
         super::builder::cloud_filestore_manager::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(&self) -> super::builder::cloud_filestore_manager::GetLocation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_filestore_v1::client::CloudFilestoreManager;
+    /// async fn sample(
+    ///    client: &CloudFilestoreManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_location(&self) -> super::builder::cloud_filestore_manager::GetLocation
+    {
         super::builder::cloud_filestore_manager::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::cloud_filestore_manager::ListOperations {
+    pub fn list_operations(&self) -> super::builder::cloud_filestore_manager::ListOperations
+    {
         super::builder::cloud_filestore_manager::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::cloud_filestore_manager::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_filestore_v1::client::CloudFilestoreManager;
+    /// async fn sample(
+    ///    client: &CloudFilestoreManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::cloud_filestore_manager::GetOperation
+    {
         super::builder::cloud_filestore_manager::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(&self) -> super::builder::cloud_filestore_manager::DeleteOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_filestore_v1::client::CloudFilestoreManager;
+    /// async fn sample(
+    ///    client: &CloudFilestoreManager
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_operation(&self) -> super::builder::cloud_filestore_manager::DeleteOperation
+    {
         super::builder::cloud_filestore_manager::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(&self) -> super::builder::cloud_filestore_manager::CancelOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_filestore_v1::client::CloudFilestoreManager;
+    /// async fn sample(
+    ///    client: &CloudFilestoreManager
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_operation(&self) -> super::builder::cloud_filestore_manager::CancelOperation
+    {
         super::builder::cloud_filestore_manager::CancelOperation::new(self.inner.clone())
     }
 }

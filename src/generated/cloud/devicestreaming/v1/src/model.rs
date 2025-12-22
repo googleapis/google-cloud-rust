@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -26,7 +27,6 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -38,6 +38,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeviceMessage {
+
     pub contents: std::option::Option<crate::model::device_message::Contents>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -60,12 +61,8 @@ impl DeviceMessage {
     /// let x = DeviceMessage::new().set_contents(Some(
     ///     google_cloud_devicestreaming_v1::model::device_message::Contents::StatusUpdate(StatusUpdate::default().into())));
     /// ```
-    pub fn set_contents<
-        T: std::convert::Into<std::option::Option<crate::model::device_message::Contents>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_contents<T: std::convert::Into<std::option::Option<crate::model::device_message::Contents>>>(mut self, v: T) -> Self
+    {
         self.contents = v.into();
         self
     }
@@ -73,9 +70,7 @@ impl DeviceMessage {
     /// The value of [contents][crate::model::DeviceMessage::contents]
     /// if it holds a `StatusUpdate`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn status_update(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::StatusUpdate>> {
+    pub fn status_update(&self) -> std::option::Option<&std::boxed::Box<crate::model::StatusUpdate>> {
         #[allow(unreachable_patterns)]
         self.contents.as_ref().and_then(|v| match v {
             crate::model::device_message::Contents::StatusUpdate(v) => std::option::Option::Some(v),
@@ -98,12 +93,11 @@ impl DeviceMessage {
     /// assert!(x.stream_status().is_none());
     /// assert!(x.stream_data().is_none());
     /// ```
-    pub fn set_status_update<T: std::convert::Into<std::boxed::Box<crate::model::StatusUpdate>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_status_update<T: std::convert::Into<std::boxed::Box<crate::model::StatusUpdate>>>(mut self, v: T) -> Self {
         self.contents = std::option::Option::Some(
-            crate::model::device_message::Contents::StatusUpdate(v.into()),
+            crate::model::device_message::Contents::StatusUpdate(
+                v.into()
+            )
         );
         self
     }
@@ -111,9 +105,7 @@ impl DeviceMessage {
     /// The value of [contents][crate::model::DeviceMessage::contents]
     /// if it holds a `StreamStatus`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn stream_status(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::StreamStatus>> {
+    pub fn stream_status(&self) -> std::option::Option<&std::boxed::Box<crate::model::StreamStatus>> {
         #[allow(unreachable_patterns)]
         self.contents.as_ref().and_then(|v| match v {
             crate::model::device_message::Contents::StreamStatus(v) => std::option::Option::Some(v),
@@ -136,12 +128,11 @@ impl DeviceMessage {
     /// assert!(x.status_update().is_none());
     /// assert!(x.stream_data().is_none());
     /// ```
-    pub fn set_stream_status<T: std::convert::Into<std::boxed::Box<crate::model::StreamStatus>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_stream_status<T: std::convert::Into<std::boxed::Box<crate::model::StreamStatus>>>(mut self, v: T) -> Self {
         self.contents = std::option::Option::Some(
-            crate::model::device_message::Contents::StreamStatus(v.into()),
+            crate::model::device_message::Contents::StreamStatus(
+                v.into()
+            )
         );
         self
     }
@@ -172,12 +163,12 @@ impl DeviceMessage {
     /// assert!(x.status_update().is_none());
     /// assert!(x.stream_status().is_none());
     /// ```
-    pub fn set_stream_data<T: std::convert::Into<std::boxed::Box<crate::model::StreamData>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.contents =
-            std::option::Option::Some(crate::model::device_message::Contents::StreamData(v.into()));
+    pub fn set_stream_data<T: std::convert::Into<std::boxed::Box<crate::model::StreamData>>>(mut self, v: T) -> Self {
+        self.contents = std::option::Option::Some(
+            crate::model::device_message::Contents::StreamData(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -192,6 +183,7 @@ impl wkt::message::Message for DeviceMessage {
 pub mod device_message {
     #[allow(unused_imports)]
     use super::*;
+
 
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -209,6 +201,7 @@ pub mod device_message {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AdbMessage {
+
     pub contents: std::option::Option<crate::model::adb_message::Contents>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -231,12 +224,8 @@ impl AdbMessage {
     /// let x = AdbMessage::new().set_contents(Some(
     ///     google_cloud_devicestreaming_v1::model::adb_message::Contents::Open(Open::default().into())));
     /// ```
-    pub fn set_contents<
-        T: std::convert::Into<std::option::Option<crate::model::adb_message::Contents>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_contents<T: std::convert::Into<std::option::Option<crate::model::adb_message::Contents>>>(mut self, v: T) -> Self
+    {
         self.contents = v.into();
         self
     }
@@ -266,12 +255,12 @@ impl AdbMessage {
     /// assert!(x.open().is_some());
     /// assert!(x.stream_data().is_none());
     /// ```
-    pub fn set_open<T: std::convert::Into<std::boxed::Box<crate::model::Open>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.contents =
-            std::option::Option::Some(crate::model::adb_message::Contents::Open(v.into()));
+    pub fn set_open<T: std::convert::Into<std::boxed::Box<crate::model::Open>>>(mut self, v: T) -> Self {
+        self.contents = std::option::Option::Some(
+            crate::model::adb_message::Contents::Open(
+                v.into()
+            )
+        );
         self
     }
 
@@ -300,12 +289,12 @@ impl AdbMessage {
     /// assert!(x.stream_data().is_some());
     /// assert!(x.open().is_none());
     /// ```
-    pub fn set_stream_data<T: std::convert::Into<std::boxed::Box<crate::model::StreamData>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.contents =
-            std::option::Option::Some(crate::model::adb_message::Contents::StreamData(v.into()));
+    pub fn set_stream_data<T: std::convert::Into<std::boxed::Box<crate::model::StreamData>>>(mut self, v: T) -> Self {
+        self.contents = std::option::Option::Some(
+            crate::model::adb_message::Contents::StreamData(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -321,6 +310,7 @@ pub mod adb_message {
     #[allow(unused_imports)]
     use super::*;
 
+
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Contents {
@@ -335,11 +325,12 @@ pub mod adb_message {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StatusUpdate {
+
     /// The device's state
     pub state: crate::model::status_update::DeviceState,
 
     /// A map of properties with information about this device.
-    pub properties: std::collections::HashMap<std::string::String, std::string::String>,
+    pub properties: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// A comma-separated list of "features" that this device supports.
     pub features: std::string::String,
@@ -362,10 +353,7 @@ impl StatusUpdate {
     /// let x1 = StatusUpdate::new().set_state(DeviceState::Recovery);
     /// let x2 = StatusUpdate::new().set_state(DeviceState::Rescue);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::status_update::DeviceState>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::status_update::DeviceState>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -414,6 +402,7 @@ impl wkt::message::Message for StatusUpdate {
 pub mod status_update {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The state displayed with the ADB Device when running "adb devices"
     ///
@@ -536,9 +525,7 @@ pub mod status_update {
                 12 => Self::Unauthorized,
                 13 => Self::Authorizing,
                 14 => Self::Connecting,
-                _ => Self::UnknownValue(device_state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(device_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -557,9 +544,7 @@ pub mod status_update {
                 "UNAUTHORIZED" => Self::Unauthorized,
                 "AUTHORIZING" => Self::Authorizing,
                 "CONNECTING" => Self::Connecting,
-                _ => Self::UnknownValue(device_state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(device_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -591,8 +576,7 @@ pub mod status_update {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<DeviceState>::new(
-                ".google.cloud.devicestreaming.v1.StatusUpdate.DeviceState",
-            ))
+                ".google.cloud.devicestreaming.v1.StatusUpdate.DeviceState"))
         }
     }
 }
@@ -601,6 +585,7 @@ pub mod status_update {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StreamStatus {
+
     /// The unique ID of this stream, assigned by the client.
     pub stream_id: i32,
 
@@ -639,12 +624,8 @@ impl StreamStatus {
     /// let x = StreamStatus::new().set_status(Some(
     ///     google_cloud_devicestreaming_v1::model::stream_status::Status::Okay(Okay::default().into())));
     /// ```
-    pub fn set_status<
-        T: std::convert::Into<std::option::Option<crate::model::stream_status::Status>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_status<T: std::convert::Into<std::option::Option<crate::model::stream_status::Status>>>(mut self, v: T) -> Self
+    {
         self.status = v.into();
         self
     }
@@ -674,12 +655,12 @@ impl StreamStatus {
     /// assert!(x.okay().is_some());
     /// assert!(x.fail().is_none());
     /// ```
-    pub fn set_okay<T: std::convert::Into<std::boxed::Box<crate::model::Okay>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.status =
-            std::option::Option::Some(crate::model::stream_status::Status::Okay(v.into()));
+    pub fn set_okay<T: std::convert::Into<std::boxed::Box<crate::model::Okay>>>(mut self, v: T) -> Self {
+        self.status = std::option::Option::Some(
+            crate::model::stream_status::Status::Okay(
+                v.into()
+            )
+        );
         self
     }
 
@@ -708,12 +689,12 @@ impl StreamStatus {
     /// assert!(x.fail().is_some());
     /// assert!(x.okay().is_none());
     /// ```
-    pub fn set_fail<T: std::convert::Into<std::boxed::Box<crate::model::Fail>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.status =
-            std::option::Option::Some(crate::model::stream_status::Status::Fail(v.into()));
+    pub fn set_fail<T: std::convert::Into<std::boxed::Box<crate::model::Fail>>>(mut self, v: T) -> Self {
+        self.status = std::option::Option::Some(
+            crate::model::stream_status::Status::Fail(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -728,6 +709,7 @@ impl wkt::message::Message for StreamStatus {
 pub mod stream_status {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The result of the stream. Either "Okay" for success or "Fail" for failure.
     #[derive(Clone, Debug, PartialEq)]
@@ -744,6 +726,7 @@ pub mod stream_status {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Open {
+
     /// Required. The unique ID that will be used to talk to this stream. This
     /// should probably just be a number that increments for each new Open request.
     pub stream_id: i32,
@@ -794,6 +777,7 @@ impl wkt::message::Message for Open {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StreamData {
+
     /// Required. The unique ID of this stream, assigned by the client.
     pub stream_id: i32,
 
@@ -832,12 +816,8 @@ impl StreamData {
     /// use google_cloud_devicestreaming_v1::model::stream_data::Contents;
     /// let x = StreamData::new().set_contents(Some(Contents::Data(bytes::Bytes::from_static(b"example"))));
     /// ```
-    pub fn set_contents<
-        T: std::convert::Into<std::option::Option<crate::model::stream_data::Contents>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_contents<T: std::convert::Into<std::option::Option<crate::model::stream_data::Contents>>>(mut self, v: T) -> Self
+    {
         self.contents = v.into();
         self
     }
@@ -867,8 +847,11 @@ impl StreamData {
     /// assert!(x.close().is_none());
     /// ```
     pub fn set_data<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.contents =
-            std::option::Option::Some(crate::model::stream_data::Contents::Data(v.into()));
+        self.contents = std::option::Option::Some(
+            crate::model::stream_data::Contents::Data(
+                v.into()
+            )
+        );
         self
     }
 
@@ -897,12 +880,12 @@ impl StreamData {
     /// assert!(x.close().is_some());
     /// assert!(x.data().is_none());
     /// ```
-    pub fn set_close<T: std::convert::Into<std::boxed::Box<crate::model::Close>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.contents =
-            std::option::Option::Some(crate::model::stream_data::Contents::Close(v.into()));
+    pub fn set_close<T: std::convert::Into<std::boxed::Box<crate::model::Close>>>(mut self, v: T) -> Self {
+        self.contents = std::option::Option::Some(
+            crate::model::stream_data::Contents::Close(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -917,6 +900,7 @@ impl wkt::message::Message for StreamData {
 pub mod stream_data {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The data of the stream, either bytes or "Close", indicating that the stream
     /// is done.
@@ -934,6 +918,7 @@ pub mod stream_data {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Okay {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -953,6 +938,7 @@ impl wkt::message::Message for Okay {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Fail {
+
     /// A user-displayable failure reason.
     pub reason: std::string::String,
 
@@ -987,6 +973,7 @@ impl wkt::message::Message for Fail {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Close {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1006,6 +993,7 @@ impl wkt::message::Message for Close {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateDeviceSessionRequest {
+
     /// Required. The Compute Engine project under which this device will be
     /// allocated. "projects/{project_id}"
     pub parent: std::string::String,
@@ -1049,8 +1037,7 @@ impl CreateDeviceSessionRequest {
     /// let x = CreateDeviceSessionRequest::new().set_device_session(DeviceSession::default()/* use setters */);
     /// ```
     pub fn set_device_session<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DeviceSession>,
+    where T: std::convert::Into<crate::model::DeviceSession>
     {
         self.device_session = std::option::Option::Some(v.into());
         self
@@ -1066,8 +1053,7 @@ impl CreateDeviceSessionRequest {
     /// let x = CreateDeviceSessionRequest::new().set_or_clear_device_session(None::<DeviceSession>);
     /// ```
     pub fn set_or_clear_device_session<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DeviceSession>,
+    where T: std::convert::Into<crate::model::DeviceSession>
     {
         self.device_session = v.map(|x| x.into());
         self
@@ -1080,10 +1066,7 @@ impl CreateDeviceSessionRequest {
     /// # use google_cloud_devicestreaming_v1::model::CreateDeviceSessionRequest;
     /// let x = CreateDeviceSessionRequest::new().set_device_session_id("example");
     /// ```
-    pub fn set_device_session_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_device_session_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.device_session_id = v.into();
         self
     }
@@ -1099,6 +1082,7 @@ impl wkt::message::Message for CreateDeviceSessionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDeviceSessionsRequest {
+
     /// Required. The name of the parent to request, e.g. "projects/{project_id}"
     pub parent: std::string::String,
 
@@ -1179,6 +1163,7 @@ impl wkt::message::Message for ListDeviceSessionsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDeviceSessionsResponse {
+
     /// The sessions matching the specified filter in the given cloud project.
     pub device_sessions: std::vec::Vec<crate::model::DeviceSession>,
 
@@ -1209,7 +1194,7 @@ impl ListDeviceSessionsResponse {
     pub fn set_device_sessions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::DeviceSession>,
+        V: std::convert::Into<crate::model::DeviceSession>
     {
         use std::iter::Iterator;
         self.device_sessions = v.into_iter().map(|i| i.into()).collect();
@@ -1253,6 +1238,7 @@ impl gax::paginator::internal::PageableResponse for ListDeviceSessionsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetDeviceSessionRequest {
+
     /// Required. Name of the DeviceSession, e.g.
     /// "projects/{project_id}/deviceSessions/{session_id}"
     pub name: std::string::String,
@@ -1288,6 +1274,7 @@ impl wkt::message::Message for GetDeviceSessionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CancelDeviceSessionRequest {
+
     /// Required. Name of the DeviceSession, e.g.
     /// "projects/{project_id}/deviceSessions/{session_id}"
     pub name: std::string::String,
@@ -1323,6 +1310,7 @@ impl wkt::message::Message for CancelDeviceSessionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateDeviceSessionRequest {
+
     /// Required. DeviceSession to update.
     /// The DeviceSession's `name` field is used to identify the session to update
     /// "projects/{project_id}/deviceSessions/{session_id}"
@@ -1348,8 +1336,7 @@ impl UpdateDeviceSessionRequest {
     /// let x = UpdateDeviceSessionRequest::new().set_device_session(DeviceSession::default()/* use setters */);
     /// ```
     pub fn set_device_session<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DeviceSession>,
+    where T: std::convert::Into<crate::model::DeviceSession>
     {
         self.device_session = std::option::Option::Some(v.into());
         self
@@ -1365,8 +1352,7 @@ impl UpdateDeviceSessionRequest {
     /// let x = UpdateDeviceSessionRequest::new().set_or_clear_device_session(None::<DeviceSession>);
     /// ```
     pub fn set_or_clear_device_session<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DeviceSession>,
+    where T: std::convert::Into<crate::model::DeviceSession>
     {
         self.device_session = v.map(|x| x.into());
         self
@@ -1381,8 +1367,7 @@ impl UpdateDeviceSessionRequest {
     /// let x = UpdateDeviceSessionRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -1398,8 +1383,7 @@ impl UpdateDeviceSessionRequest {
     /// let x = UpdateDeviceSessionRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -1416,6 +1400,7 @@ impl wkt::message::Message for UpdateDeviceSessionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeviceSession {
+
     /// Optional. Name of the DeviceSession, e.g.
     /// "projects/{project_id}/deviceSessions/{session_id}"
     pub name: std::string::String,
@@ -1488,10 +1473,7 @@ impl DeviceSession {
     /// let x1 = DeviceSession::new().set_state(SessionState::Pending);
     /// let x2 = DeviceSession::new().set_state(SessionState::Active);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::device_session::SessionState>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::device_session::SessionState>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -1511,7 +1493,7 @@ impl DeviceSession {
     pub fn set_state_histories<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::device_session::SessionStateEvent>,
+        V: std::convert::Into<crate::model::device_session::SessionStateEvent>
     {
         use std::iter::Iterator;
         self.state_histories = v.into_iter().map(|i| i.into()).collect();
@@ -1527,8 +1509,7 @@ impl DeviceSession {
     /// let x = DeviceSession::new().set_inactivity_timeout(Duration::default()/* use setters */);
     /// ```
     pub fn set_inactivity_timeout<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.inactivity_timeout = std::option::Option::Some(v.into());
         self
@@ -1544,8 +1525,7 @@ impl DeviceSession {
     /// let x = DeviceSession::new().set_or_clear_inactivity_timeout(None::<Duration>);
     /// ```
     pub fn set_or_clear_inactivity_timeout<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.inactivity_timeout = v.map(|x| x.into());
         self
@@ -1560,8 +1540,7 @@ impl DeviceSession {
     /// let x = DeviceSession::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -1577,8 +1556,7 @@ impl DeviceSession {
     /// let x = DeviceSession::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -1593,8 +1571,7 @@ impl DeviceSession {
     /// let x = DeviceSession::new().set_active_start_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_active_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.active_start_time = std::option::Option::Some(v.into());
         self
@@ -1610,8 +1587,7 @@ impl DeviceSession {
     /// let x = DeviceSession::new().set_or_clear_active_start_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_active_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.active_start_time = v.map(|x| x.into());
         self
@@ -1626,8 +1602,7 @@ impl DeviceSession {
     /// let x = DeviceSession::new().set_android_device(AndroidDevice::default()/* use setters */);
     /// ```
     pub fn set_android_device<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AndroidDevice>,
+    where T: std::convert::Into<crate::model::AndroidDevice>
     {
         self.android_device = std::option::Option::Some(v.into());
         self
@@ -1643,8 +1618,7 @@ impl DeviceSession {
     /// let x = DeviceSession::new().set_or_clear_android_device(None::<AndroidDevice>);
     /// ```
     pub fn set_or_clear_android_device<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AndroidDevice>,
+    where T: std::convert::Into<crate::model::AndroidDevice>
     {
         self.android_device = v.map(|x| x.into());
         self
@@ -1662,12 +1636,8 @@ impl DeviceSession {
     /// let x = DeviceSession::new().set_expiration(Some(
     ///     google_cloud_devicestreaming_v1::model::device_session::Expiration::Ttl(Duration::default().into())));
     /// ```
-    pub fn set_expiration<
-        T: std::convert::Into<std::option::Option<crate::model::device_session::Expiration>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_expiration<T: std::convert::Into<std::option::Option<crate::model::device_session::Expiration>>>(mut self, v: T) -> Self
+    {
         self.expiration = v.into();
         self
     }
@@ -1698,8 +1668,11 @@ impl DeviceSession {
     /// assert!(x.expire_time().is_none());
     /// ```
     pub fn set_ttl<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(mut self, v: T) -> Self {
-        self.expiration =
-            std::option::Option::Some(crate::model::device_session::Expiration::Ttl(v.into()));
+        self.expiration = std::option::Option::Some(
+            crate::model::device_session::Expiration::Ttl(
+                v.into()
+            )
+        );
         self
     }
 
@@ -1728,12 +1701,11 @@ impl DeviceSession {
     /// assert!(x.expire_time().is_some());
     /// assert!(x.ttl().is_none());
     /// ```
-    pub fn set_expire_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_expire_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(mut self, v: T) -> Self {
         self.expiration = std::option::Option::Some(
-            crate::model::device_session::Expiration::ExpireTime(v.into()),
+            crate::model::device_session::Expiration::ExpireTime(
+                v.into()
+            )
         );
         self
     }
@@ -1750,11 +1722,13 @@ pub mod device_session {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// A message encapsulating a series of Session states and the time that the
     /// DeviceSession first entered those states.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SessionStateEvent {
+
         /// Output only. The session_state tracked by this event
         pub session_state: crate::model::device_session::SessionState,
 
@@ -1783,12 +1757,7 @@ pub mod device_session {
         /// let x1 = SessionStateEvent::new().set_session_state(SessionState::Pending);
         /// let x2 = SessionStateEvent::new().set_session_state(SessionState::Active);
         /// ```
-        pub fn set_session_state<
-            T: std::convert::Into<crate::model::device_session::SessionState>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_session_state<T: std::convert::Into<crate::model::device_session::SessionState>>(mut self, v: T) -> Self {
             self.session_state = v.into();
             self
         }
@@ -1802,8 +1771,7 @@ pub mod device_session {
         /// let x = SessionStateEvent::new().set_event_time(Timestamp::default()/* use setters */);
         /// ```
         pub fn set_event_time<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.event_time = std::option::Option::Some(v.into());
             self
@@ -1819,8 +1787,7 @@ pub mod device_session {
         /// let x = SessionStateEvent::new().set_or_clear_event_time(None::<Timestamp>);
         /// ```
         pub fn set_or_clear_event_time<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.event_time = v.map(|x| x.into());
             self
@@ -1833,10 +1800,7 @@ pub mod device_session {
         /// # use google_cloud_devicestreaming_v1::model::device_session::SessionStateEvent;
         /// let x = SessionStateEvent::new().set_state_message("example");
         /// ```
-        pub fn set_state_message<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_state_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.state_message = v.into();
             self
         }
@@ -1968,9 +1932,7 @@ pub mod device_session {
                 5 => Self::Finished,
                 6 => Self::Unavailable,
                 7 => Self::Error,
-                _ => Self::UnknownValue(session_state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(session_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1987,9 +1949,7 @@ pub mod device_session {
                 "FINISHED" => Self::Finished,
                 "UNAVAILABLE" => Self::Unavailable,
                 "ERROR" => Self::Error,
-                _ => Self::UnknownValue(session_state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(session_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -2019,8 +1979,7 @@ pub mod device_session {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<SessionState>::new(
-                ".google.cloud.devicestreaming.v1.DeviceSession.SessionState",
-            ))
+                ".google.cloud.devicestreaming.v1.DeviceSession.SessionState"))
         }
     }
 
@@ -2043,6 +2002,7 @@ pub mod device_session {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AndroidDevice {
+
     /// Required. The id of the Android device to be used.
     /// Use the TestEnvironmentDiscoveryService to get supported options.
     pub android_model_id: std::string::String,
@@ -2074,10 +2034,7 @@ impl AndroidDevice {
     /// # use google_cloud_devicestreaming_v1::model::AndroidDevice;
     /// let x = AndroidDevice::new().set_android_model_id("example");
     /// ```
-    pub fn set_android_model_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_android_model_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.android_model_id = v.into();
         self
     }
@@ -2089,10 +2046,7 @@ impl AndroidDevice {
     /// # use google_cloud_devicestreaming_v1::model::AndroidDevice;
     /// let x = AndroidDevice::new().set_android_version_id("example");
     /// ```
-    pub fn set_android_version_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_android_version_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.android_version_id = v.into();
         self
     }

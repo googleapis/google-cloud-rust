@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [AnalyticsService](super::stub::AnalyticsService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct AnalyticsService<T>
-where
-    T: super::stub::AnalyticsService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::AnalyticsService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> AnalyticsService<T>
-where
-    T: super::stub::AnalyticsService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::AnalyticsService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::AnalyticsService for AnalyticsService<T>
-where
-    T: super::stub::AnalyticsService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::AnalyticsService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn export_analytics_metrics(
         &self,
@@ -64,6 +58,7 @@ where
         self.inner.get_operation(req, options).await
     }
 
+
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -82,25 +77,19 @@ where
 /// Implements a [CatalogService](super::stub::CatalogService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct CatalogService<T>
-where
-    T: super::stub::CatalogService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::CatalogService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> CatalogService<T>
-where
-    T: super::stub::CatalogService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::CatalogService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::CatalogService for CatalogService<T>
-where
-    T: super::stub::CatalogService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::CatalogService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn list_catalogs(
         &self,
@@ -217,30 +206,25 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
+
 }
 
 /// Implements a [CompletionService](super::stub::CompletionService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct CompletionService<T>
-where
-    T: super::stub::CompletionService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::CompletionService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> CompletionService<T>
-where
-    T: super::stub::CompletionService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::CompletionService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::CompletionService for CompletionService<T>
-where
-    T: super::stub::CompletionService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::CompletionService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn complete_query(
         &self,
@@ -277,6 +261,7 @@ where
         self.inner.get_operation(req, options).await
     }
 
+
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -295,25 +280,19 @@ where
 /// Implements a [ControlService](super::stub::ControlService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct ControlService<T>
-where
-    T: super::stub::ControlService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ControlService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> ControlService<T>
-where
-    T: super::stub::ControlService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ControlService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::ControlService for ControlService<T>
-where
-    T: super::stub::ControlService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ControlService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn create_control(
         &self,
@@ -376,30 +355,25 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
+
 }
 
 /// Implements a [ConversationalSearchService](super::stub::ConversationalSearchService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct ConversationalSearchService<T>
-where
-    T: super::stub::ConversationalSearchService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ConversationalSearchService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> ConversationalSearchService<T>
-where
-    T: super::stub::ConversationalSearchService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ConversationalSearchService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::ConversationalSearchService for ConversationalSearchService<T>
-where
-    T: super::stub::ConversationalSearchService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ConversationalSearchService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn list_operations(
         &self,
@@ -417,39 +391,32 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
+
 }
 
 /// Implements a [GenerativeQuestionService](super::stub::GenerativeQuestionService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct GenerativeQuestionService<T>
-where
-    T: super::stub::GenerativeQuestionService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::GenerativeQuestionService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> GenerativeQuestionService<T>
-where
-    T: super::stub::GenerativeQuestionService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::GenerativeQuestionService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::GenerativeQuestionService for GenerativeQuestionService<T>
-where
-    T: super::stub::GenerativeQuestionService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::GenerativeQuestionService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn update_generative_questions_feature_config(
         &self,
         req: crate::model::UpdateGenerativeQuestionsFeatureConfigRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::GenerativeQuestionsFeatureConfig>> {
-        self.inner
-            .update_generative_questions_feature_config(req, options)
-            .await
+        self.inner.update_generative_questions_feature_config(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -458,9 +425,7 @@ where
         req: crate::model::GetGenerativeQuestionsFeatureConfigRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::GenerativeQuestionsFeatureConfig>> {
-        self.inner
-            .get_generative_questions_feature_config(req, options)
-            .await
+        self.inner.get_generative_questions_feature_config(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -469,9 +434,7 @@ where
         req: crate::model::ListGenerativeQuestionConfigsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListGenerativeQuestionConfigsResponse>> {
-        self.inner
-            .list_generative_question_configs(req, options)
-            .await
+        self.inner.list_generative_question_configs(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -480,9 +443,7 @@ where
         req: crate::model::UpdateGenerativeQuestionConfigRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::GenerativeQuestionConfig>> {
-        self.inner
-            .update_generative_question_config(req, options)
-            .await
+        self.inner.update_generative_question_config(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -490,11 +451,8 @@ where
         &self,
         req: crate::model::BatchUpdateGenerativeQuestionConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::BatchUpdateGenerativeQuestionConfigsResponse>>
-    {
-        self.inner
-            .batch_update_generative_question_configs(req, options)
-            .await
+    ) -> Result<gax::response::Response<crate::model::BatchUpdateGenerativeQuestionConfigsResponse>> {
+        self.inner.batch_update_generative_question_configs(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -514,30 +472,25 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
+
 }
 
 /// Implements a [ModelService](super::stub::ModelService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct ModelService<T>
-where
-    T: super::stub::ModelService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ModelService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> ModelService<T>
-where
-    T: super::stub::ModelService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ModelService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::ModelService for ModelService<T>
-where
-    T: super::stub::ModelService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ModelService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn create_model(
         &self,
@@ -628,6 +581,7 @@ where
         self.inner.get_operation(req, options).await
     }
 
+
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -646,25 +600,19 @@ where
 /// Implements a [PredictionService](super::stub::PredictionService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct PredictionService<T>
-where
-    T: super::stub::PredictionService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::PredictionService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> PredictionService<T>
-where
-    T: super::stub::PredictionService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::PredictionService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::PredictionService for PredictionService<T>
-where
-    T: super::stub::PredictionService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::PredictionService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn predict(
         &self,
@@ -691,30 +639,25 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
+
 }
 
 /// Implements a [ProductService](super::stub::ProductService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct ProductService<T>
-where
-    T: super::stub::ProductService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ProductService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> ProductService<T>
-where
-    T: super::stub::ProductService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ProductService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::ProductService for ProductService<T>
-where
-    T: super::stub::ProductService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ProductService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn create_product(
         &self,
@@ -841,6 +784,7 @@ where
         self.inner.get_operation(req, options).await
     }
 
+
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -859,25 +803,19 @@ where
 /// Implements a [SearchService](super::stub::SearchService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct SearchService<T>
-where
-    T: super::stub::SearchService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::SearchService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> SearchService<T>
-where
-    T: super::stub::SearchService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::SearchService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::SearchService for SearchService<T>
-where
-    T: super::stub::SearchService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::SearchService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn search(
         &self,
@@ -904,30 +842,25 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
+
 }
 
 /// Implements a [ServingConfigService](super::stub::ServingConfigService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct ServingConfigService<T>
-where
-    T: super::stub::ServingConfigService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ServingConfigService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> ServingConfigService<T>
-where
-    T: super::stub::ServingConfigService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ServingConfigService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::ServingConfigService for ServingConfigService<T>
-where
-    T: super::stub::ServingConfigService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ServingConfigService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn create_serving_config(
         &self,
@@ -1008,30 +941,25 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
+
 }
 
 /// Implements a [UserEventService](super::stub::UserEventService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct UserEventService<T>
-where
-    T: super::stub::UserEventService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::UserEventService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> UserEventService<T>
-where
-    T: super::stub::UserEventService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::UserEventService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::UserEventService for UserEventService<T>
-where
-    T: super::stub::UserEventService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::UserEventService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn write_user_event(
         &self,
@@ -1095,6 +1023,7 @@ where
         self.inner.get_operation(req, options).await
     }
 
+
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -1109,3 +1038,4 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 }
+

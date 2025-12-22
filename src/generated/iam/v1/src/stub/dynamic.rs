@@ -34,6 +34,7 @@ pub trait IAMPolicy: std::fmt::Debug + Send + Sync {
         req: crate::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::TestIamPermissionsResponse>>;
+
 }
 
 /// All implementations of [super::IAMPolicy] also implement [IAMPolicy].
@@ -65,4 +66,5 @@ impl<T: super::IAMPolicy> IAMPolicy for T {
     ) -> crate::Result<gax::response::Response<crate::model::TestIamPermissionsResponse>> {
         T::test_iam_permissions(self, req, options).await
     }
+
 }

@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [AlloyDBCSQLAdmin](super::stub::AlloyDBCSQLAdmin) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct AlloyDBCSQLAdmin<T>
-where
-    T: super::stub::AlloyDBCSQLAdmin + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::AlloyDBCSQLAdmin + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> AlloyDBCSQLAdmin<T>
-where
-    T: super::stub::AlloyDBCSQLAdmin + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::AlloyDBCSQLAdmin + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::AlloyDBCSQLAdmin for AlloyDBCSQLAdmin<T>
-where
-    T: super::stub::AlloyDBCSQLAdmin + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::AlloyDBCSQLAdmin + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn restore_from_cloud_sql(
         &self,
@@ -100,6 +94,7 @@ where
         self.inner.cancel_operation(req, options).await
     }
 
+
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -118,25 +113,19 @@ where
 /// Implements a [AlloyDBAdmin](super::stub::AlloyDBAdmin) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct AlloyDBAdmin<T>
-where
-    T: super::stub::AlloyDBAdmin + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::AlloyDBAdmin + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> AlloyDBAdmin<T>
-where
-    T: super::stub::AlloyDBAdmin + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::AlloyDBAdmin + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::AlloyDBAdmin for AlloyDBAdmin<T>
-where
-    T: super::stub::AlloyDBAdmin + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::AlloyDBAdmin + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn list_clusters(
         &self,
@@ -524,6 +513,7 @@ where
         self.inner.cancel_operation(req, options).await
     }
 
+
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -538,3 +528,4 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 }
+

@@ -81,51 +81,56 @@ impl ManagedKafka {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::ManagedKafka + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::ManagedKafka + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ManagedKafka>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ManagedKafka>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ManagedKafka> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ManagedKafka> {
         super::transport::ManagedKafka::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ManagedKafka> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::ManagedKafka::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ManagedKafka> {
+        Self::build_transport(conf).await.map(super::tracing::ManagedKafka::new)
     }
 
     /// Lists the clusters in a given project and location.
-    pub fn list_clusters(&self) -> super::builder::managed_kafka::ListClusters {
+    pub fn list_clusters(&self) -> super::builder::managed_kafka::ListClusters
+    {
         super::builder::managed_kafka::ListClusters::new(self.inner.clone())
     }
 
     /// Returns the properties of a single cluster.
-    pub fn get_cluster(&self) -> super::builder::managed_kafka::GetCluster {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_v1::client::ManagedKafka;
+    /// async fn sample(
+    ///    client: &ManagedKafka,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_cluster()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_cluster(&self) -> super::builder::managed_kafka::GetCluster
+    {
         super::builder::managed_kafka::GetCluster::new(self.inner.clone())
     }
 
@@ -140,7 +145,8 @@ impl ManagedKafka {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_cluster(&self) -> super::builder::managed_kafka::CreateCluster {
+    pub fn create_cluster(&self) -> super::builder::managed_kafka::CreateCluster
+    {
         super::builder::managed_kafka::CreateCluster::new(self.inner.clone())
     }
 
@@ -155,7 +161,8 @@ impl ManagedKafka {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_cluster(&self) -> super::builder::managed_kafka::UpdateCluster {
+    pub fn update_cluster(&self) -> super::builder::managed_kafka::UpdateCluster
+    {
         super::builder::managed_kafka::UpdateCluster::new(self.inner.clone())
     }
 
@@ -170,128 +177,421 @@ impl ManagedKafka {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_cluster(&self) -> super::builder::managed_kafka::DeleteCluster {
+    pub fn delete_cluster(&self) -> super::builder::managed_kafka::DeleteCluster
+    {
         super::builder::managed_kafka::DeleteCluster::new(self.inner.clone())
     }
 
     /// Lists the topics in a given cluster.
-    pub fn list_topics(&self) -> super::builder::managed_kafka::ListTopics {
+    pub fn list_topics(&self) -> super::builder::managed_kafka::ListTopics
+    {
         super::builder::managed_kafka::ListTopics::new(self.inner.clone())
     }
 
     /// Returns the properties of a single topic.
-    pub fn get_topic(&self) -> super::builder::managed_kafka::GetTopic {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_v1::client::ManagedKafka;
+    /// async fn sample(
+    ///    client: &ManagedKafka,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_topic()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_topic(&self) -> super::builder::managed_kafka::GetTopic
+    {
         super::builder::managed_kafka::GetTopic::new(self.inner.clone())
     }
 
     /// Creates a new topic in a given project and location.
-    pub fn create_topic(&self) -> super::builder::managed_kafka::CreateTopic {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_v1::client::ManagedKafka;
+    /// async fn sample(
+    ///    client: &ManagedKafka
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_topic()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_topic(&self) -> super::builder::managed_kafka::CreateTopic
+    {
         super::builder::managed_kafka::CreateTopic::new(self.inner.clone())
     }
 
     /// Updates the properties of a single topic.
-    pub fn update_topic(&self) -> super::builder::managed_kafka::UpdateTopic {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_v1::client::ManagedKafka;
+    /// async fn sample(
+    ///    client: &ManagedKafka
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_topic()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_topic(&self) -> super::builder::managed_kafka::UpdateTopic
+    {
         super::builder::managed_kafka::UpdateTopic::new(self.inner.clone())
     }
 
     /// Deletes a single topic.
-    pub fn delete_topic(&self) -> super::builder::managed_kafka::DeleteTopic {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_v1::client::ManagedKafka;
+    /// async fn sample(
+    ///    client: &ManagedKafka
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_topic()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_topic(&self) -> super::builder::managed_kafka::DeleteTopic
+    {
         super::builder::managed_kafka::DeleteTopic::new(self.inner.clone())
     }
 
     /// Lists the consumer groups in a given cluster.
-    pub fn list_consumer_groups(&self) -> super::builder::managed_kafka::ListConsumerGroups {
+    pub fn list_consumer_groups(&self) -> super::builder::managed_kafka::ListConsumerGroups
+    {
         super::builder::managed_kafka::ListConsumerGroups::new(self.inner.clone())
     }
 
     /// Returns the properties of a single consumer group.
-    pub fn get_consumer_group(&self) -> super::builder::managed_kafka::GetConsumerGroup {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_v1::client::ManagedKafka;
+    /// async fn sample(
+    ///    client: &ManagedKafka,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_consumer_group()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_consumer_group(&self) -> super::builder::managed_kafka::GetConsumerGroup
+    {
         super::builder::managed_kafka::GetConsumerGroup::new(self.inner.clone())
     }
 
     /// Updates the properties of a single consumer group.
-    pub fn update_consumer_group(&self) -> super::builder::managed_kafka::UpdateConsumerGroup {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_v1::client::ManagedKafka;
+    /// async fn sample(
+    ///    client: &ManagedKafka
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_consumer_group()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_consumer_group(&self) -> super::builder::managed_kafka::UpdateConsumerGroup
+    {
         super::builder::managed_kafka::UpdateConsumerGroup::new(self.inner.clone())
     }
 
     /// Deletes a single consumer group.
-    pub fn delete_consumer_group(&self) -> super::builder::managed_kafka::DeleteConsumerGroup {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_v1::client::ManagedKafka;
+    /// async fn sample(
+    ///    client: &ManagedKafka
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_consumer_group()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_consumer_group(&self) -> super::builder::managed_kafka::DeleteConsumerGroup
+    {
         super::builder::managed_kafka::DeleteConsumerGroup::new(self.inner.clone())
     }
 
     /// Lists the acls in a given cluster.
-    pub fn list_acls(&self) -> super::builder::managed_kafka::ListAcls {
+    pub fn list_acls(&self) -> super::builder::managed_kafka::ListAcls
+    {
         super::builder::managed_kafka::ListAcls::new(self.inner.clone())
     }
 
     /// Returns the properties of a single acl.
-    pub fn get_acl(&self) -> super::builder::managed_kafka::GetAcl {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_v1::client::ManagedKafka;
+    /// async fn sample(
+    ///    client: &ManagedKafka,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_acl()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_acl(&self) -> super::builder::managed_kafka::GetAcl
+    {
         super::builder::managed_kafka::GetAcl::new(self.inner.clone())
     }
 
     /// Creates a new acl in the given project, location, and cluster.
-    pub fn create_acl(&self) -> super::builder::managed_kafka::CreateAcl {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_v1::client::ManagedKafka;
+    /// async fn sample(
+    ///    client: &ManagedKafka
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_acl()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_acl(&self) -> super::builder::managed_kafka::CreateAcl
+    {
         super::builder::managed_kafka::CreateAcl::new(self.inner.clone())
     }
 
     /// Updates the properties of a single acl.
-    pub fn update_acl(&self) -> super::builder::managed_kafka::UpdateAcl {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_v1::client::ManagedKafka;
+    /// async fn sample(
+    ///    client: &ManagedKafka
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_acl()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_acl(&self) -> super::builder::managed_kafka::UpdateAcl
+    {
         super::builder::managed_kafka::UpdateAcl::new(self.inner.clone())
     }
 
     /// Deletes an acl.
-    pub fn delete_acl(&self) -> super::builder::managed_kafka::DeleteAcl {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_v1::client::ManagedKafka;
+    /// async fn sample(
+    ///    client: &ManagedKafka
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_acl()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_acl(&self) -> super::builder::managed_kafka::DeleteAcl
+    {
         super::builder::managed_kafka::DeleteAcl::new(self.inner.clone())
     }
 
     /// Incremental update: Adds an acl entry to an acl. Creates the acl if it does
     /// not exist yet.
-    pub fn add_acl_entry(&self) -> super::builder::managed_kafka::AddAclEntry {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_v1::client::ManagedKafka;
+    /// async fn sample(
+    ///    client: &ManagedKafka
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .add_acl_entry()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn add_acl_entry(&self) -> super::builder::managed_kafka::AddAclEntry
+    {
         super::builder::managed_kafka::AddAclEntry::new(self.inner.clone())
     }
 
     /// Incremental update: Removes an acl entry from an acl. Deletes the acl if
     /// its acl entries become empty (i.e. if the removed entry was the last one in
     /// the acl).
-    pub fn remove_acl_entry(&self) -> super::builder::managed_kafka::RemoveAclEntry {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_v1::client::ManagedKafka;
+    /// async fn sample(
+    ///    client: &ManagedKafka
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .remove_acl_entry()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn remove_acl_entry(&self) -> super::builder::managed_kafka::RemoveAclEntry
+    {
         super::builder::managed_kafka::RemoveAclEntry::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::managed_kafka::ListLocations {
+    pub fn list_locations(&self) -> super::builder::managed_kafka::ListLocations
+    {
         super::builder::managed_kafka::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(&self) -> super::builder::managed_kafka::GetLocation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_v1::client::ManagedKafka;
+    /// async fn sample(
+    ///    client: &ManagedKafka
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_location(&self) -> super::builder::managed_kafka::GetLocation
+    {
         super::builder::managed_kafka::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::managed_kafka::ListOperations {
+    pub fn list_operations(&self) -> super::builder::managed_kafka::ListOperations
+    {
         super::builder::managed_kafka::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::managed_kafka::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_v1::client::ManagedKafka;
+    /// async fn sample(
+    ///    client: &ManagedKafka
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::managed_kafka::GetOperation
+    {
         super::builder::managed_kafka::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(&self) -> super::builder::managed_kafka::DeleteOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_v1::client::ManagedKafka;
+    /// async fn sample(
+    ///    client: &ManagedKafka
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_operation(&self) -> super::builder::managed_kafka::DeleteOperation
+    {
         super::builder::managed_kafka::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(&self) -> super::builder::managed_kafka::CancelOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_v1::client::ManagedKafka;
+    /// async fn sample(
+    ///    client: &ManagedKafka
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_operation(&self) -> super::builder::managed_kafka::CancelOperation
+    {
         super::builder::managed_kafka::CancelOperation::new(self.inner.clone())
     }
 }
@@ -353,9 +653,7 @@ impl ManagedKafkaConnect {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::managed_kafka_connect::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::managed_kafka_connect::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::managed_kafka_connect::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -363,54 +661,56 @@ impl ManagedKafkaConnect {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::ManagedKafkaConnect + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::ManagedKafkaConnect + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ManagedKafkaConnect>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ManagedKafkaConnect>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ManagedKafkaConnect> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ManagedKafkaConnect> {
         super::transport::ManagedKafkaConnect::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ManagedKafkaConnect> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::ManagedKafkaConnect::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ManagedKafkaConnect> {
+        Self::build_transport(conf).await.map(super::tracing::ManagedKafkaConnect::new)
     }
 
     /// Lists the Kafka Connect clusters in a given project and location.
-    pub fn list_connect_clusters(
-        &self,
-    ) -> super::builder::managed_kafka_connect::ListConnectClusters {
+    pub fn list_connect_clusters(&self) -> super::builder::managed_kafka_connect::ListConnectClusters
+    {
         super::builder::managed_kafka_connect::ListConnectClusters::new(self.inner.clone())
     }
 
     /// Returns the properties of a single Kafka Connect cluster.
-    pub fn get_connect_cluster(&self) -> super::builder::managed_kafka_connect::GetConnectCluster {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_v1::client::ManagedKafkaConnect;
+    /// async fn sample(
+    ///    client: &ManagedKafkaConnect,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_connect_cluster()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_connect_cluster(&self) -> super::builder::managed_kafka_connect::GetConnectCluster
+    {
         super::builder::managed_kafka_connect::GetConnectCluster::new(self.inner.clone())
     }
 
@@ -425,9 +725,8 @@ impl ManagedKafkaConnect {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_connect_cluster(
-        &self,
-    ) -> super::builder::managed_kafka_connect::CreateConnectCluster {
+    pub fn create_connect_cluster(&self) -> super::builder::managed_kafka_connect::CreateConnectCluster
+    {
         super::builder::managed_kafka_connect::CreateConnectCluster::new(self.inner.clone())
     }
 
@@ -442,9 +741,8 @@ impl ManagedKafkaConnect {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_connect_cluster(
-        &self,
-    ) -> super::builder::managed_kafka_connect::UpdateConnectCluster {
+    pub fn update_connect_cluster(&self) -> super::builder::managed_kafka_connect::UpdateConnectCluster
+    {
         super::builder::managed_kafka_connect::UpdateConnectCluster::new(self.inner.clone())
     }
 
@@ -459,92 +757,296 @@ impl ManagedKafkaConnect {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_connect_cluster(
-        &self,
-    ) -> super::builder::managed_kafka_connect::DeleteConnectCluster {
+    pub fn delete_connect_cluster(&self) -> super::builder::managed_kafka_connect::DeleteConnectCluster
+    {
         super::builder::managed_kafka_connect::DeleteConnectCluster::new(self.inner.clone())
     }
 
     /// Lists the connectors in a given Connect cluster.
-    pub fn list_connectors(&self) -> super::builder::managed_kafka_connect::ListConnectors {
+    pub fn list_connectors(&self) -> super::builder::managed_kafka_connect::ListConnectors
+    {
         super::builder::managed_kafka_connect::ListConnectors::new(self.inner.clone())
     }
 
     /// Returns the properties of a single connector.
-    pub fn get_connector(&self) -> super::builder::managed_kafka_connect::GetConnector {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_v1::client::ManagedKafkaConnect;
+    /// async fn sample(
+    ///    client: &ManagedKafkaConnect,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_connector()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_connector(&self) -> super::builder::managed_kafka_connect::GetConnector
+    {
         super::builder::managed_kafka_connect::GetConnector::new(self.inner.clone())
     }
 
     /// Creates a new connector in a given Connect cluster.
-    pub fn create_connector(&self) -> super::builder::managed_kafka_connect::CreateConnector {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_v1::client::ManagedKafkaConnect;
+    /// async fn sample(
+    ///    client: &ManagedKafkaConnect
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_connector()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_connector(&self) -> super::builder::managed_kafka_connect::CreateConnector
+    {
         super::builder::managed_kafka_connect::CreateConnector::new(self.inner.clone())
     }
 
     /// Updates the properties of a connector.
-    pub fn update_connector(&self) -> super::builder::managed_kafka_connect::UpdateConnector {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_v1::client::ManagedKafkaConnect;
+    /// async fn sample(
+    ///    client: &ManagedKafkaConnect
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_connector()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_connector(&self) -> super::builder::managed_kafka_connect::UpdateConnector
+    {
         super::builder::managed_kafka_connect::UpdateConnector::new(self.inner.clone())
     }
 
     /// Deletes a connector.
-    pub fn delete_connector(&self) -> super::builder::managed_kafka_connect::DeleteConnector {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_v1::client::ManagedKafkaConnect;
+    /// async fn sample(
+    ///    client: &ManagedKafkaConnect
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_connector()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_connector(&self) -> super::builder::managed_kafka_connect::DeleteConnector
+    {
         super::builder::managed_kafka_connect::DeleteConnector::new(self.inner.clone())
     }
 
     /// Pauses the connector and its tasks.
-    pub fn pause_connector(&self) -> super::builder::managed_kafka_connect::PauseConnector {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_v1::client::ManagedKafkaConnect;
+    /// async fn sample(
+    ///    client: &ManagedKafkaConnect
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .pause_connector()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn pause_connector(&self) -> super::builder::managed_kafka_connect::PauseConnector
+    {
         super::builder::managed_kafka_connect::PauseConnector::new(self.inner.clone())
     }
 
     /// Resumes the connector and its tasks.
-    pub fn resume_connector(&self) -> super::builder::managed_kafka_connect::ResumeConnector {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_v1::client::ManagedKafkaConnect;
+    /// async fn sample(
+    ///    client: &ManagedKafkaConnect
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .resume_connector()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn resume_connector(&self) -> super::builder::managed_kafka_connect::ResumeConnector
+    {
         super::builder::managed_kafka_connect::ResumeConnector::new(self.inner.clone())
     }
 
     /// Restarts the connector.
-    pub fn restart_connector(&self) -> super::builder::managed_kafka_connect::RestartConnector {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_v1::client::ManagedKafkaConnect;
+    /// async fn sample(
+    ///    client: &ManagedKafkaConnect
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .restart_connector()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn restart_connector(&self) -> super::builder::managed_kafka_connect::RestartConnector
+    {
         super::builder::managed_kafka_connect::RestartConnector::new(self.inner.clone())
     }
 
     /// Stops the connector.
-    pub fn stop_connector(&self) -> super::builder::managed_kafka_connect::StopConnector {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_v1::client::ManagedKafkaConnect;
+    /// async fn sample(
+    ///    client: &ManagedKafkaConnect
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .stop_connector()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn stop_connector(&self) -> super::builder::managed_kafka_connect::StopConnector
+    {
         super::builder::managed_kafka_connect::StopConnector::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::managed_kafka_connect::ListLocations {
+    pub fn list_locations(&self) -> super::builder::managed_kafka_connect::ListLocations
+    {
         super::builder::managed_kafka_connect::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(&self) -> super::builder::managed_kafka_connect::GetLocation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_v1::client::ManagedKafkaConnect;
+    /// async fn sample(
+    ///    client: &ManagedKafkaConnect
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_location(&self) -> super::builder::managed_kafka_connect::GetLocation
+    {
         super::builder::managed_kafka_connect::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::managed_kafka_connect::ListOperations {
+    pub fn list_operations(&self) -> super::builder::managed_kafka_connect::ListOperations
+    {
         super::builder::managed_kafka_connect::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::managed_kafka_connect::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_v1::client::ManagedKafkaConnect;
+    /// async fn sample(
+    ///    client: &ManagedKafkaConnect
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::managed_kafka_connect::GetOperation
+    {
         super::builder::managed_kafka_connect::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(&self) -> super::builder::managed_kafka_connect::DeleteOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_v1::client::ManagedKafkaConnect;
+    /// async fn sample(
+    ///    client: &ManagedKafkaConnect
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_operation(&self) -> super::builder::managed_kafka_connect::DeleteOperation
+    {
         super::builder::managed_kafka_connect::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(&self) -> super::builder::managed_kafka_connect::CancelOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_v1::client::ManagedKafkaConnect;
+    /// async fn sample(
+    ///    client: &ManagedKafkaConnect
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_operation(&self) -> super::builder::managed_kafka_connect::CancelOperation
+    {
         super::builder::managed_kafka_connect::CancelOperation::new(self.inner.clone())
     }
 }

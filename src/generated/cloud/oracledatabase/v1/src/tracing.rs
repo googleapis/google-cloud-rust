@@ -18,35 +18,26 @@ use crate::Result;
 /// Implements a [OracleDatabase](super::stub::OracleDatabase) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct OracleDatabase<T>
-where
-    T: super::stub::OracleDatabase + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::OracleDatabase + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> OracleDatabase<T>
-where
-    T: super::stub::OracleDatabase + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::OracleDatabase + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::OracleDatabase for OracleDatabase<T>
-where
-    T: super::stub::OracleDatabase + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::OracleDatabase + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn list_cloud_exadata_infrastructures(
         &self,
         req: crate::model::ListCloudExadataInfrastructuresRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListCloudExadataInfrastructuresResponse>>
-    {
-        self.inner
-            .list_cloud_exadata_infrastructures(req, options)
-            .await
+    ) -> Result<gax::response::Response<crate::model::ListCloudExadataInfrastructuresResponse>> {
+        self.inner.list_cloud_exadata_infrastructures(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -55,9 +46,7 @@ where
         req: crate::model::GetCloudExadataInfrastructureRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::CloudExadataInfrastructure>> {
-        self.inner
-            .get_cloud_exadata_infrastructure(req, options)
-            .await
+        self.inner.get_cloud_exadata_infrastructure(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -66,9 +55,7 @@ where
         req: crate::model::CreateCloudExadataInfrastructureRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        self.inner
-            .create_cloud_exadata_infrastructure(req, options)
-            .await
+        self.inner.create_cloud_exadata_infrastructure(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -77,9 +64,7 @@ where
         req: crate::model::DeleteCloudExadataInfrastructureRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        self.inner
-            .delete_cloud_exadata_infrastructure(req, options)
-            .await
+        self.inner.delete_cloud_exadata_infrastructure(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -231,11 +216,8 @@ where
         &self,
         req: crate::model::GenerateAutonomousDatabaseWalletRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::GenerateAutonomousDatabaseWalletResponse>>
-    {
-        self.inner
-            .generate_autonomous_database_wallet(req, options)
-            .await
+    ) -> Result<gax::response::Response<crate::model::GenerateAutonomousDatabaseWalletResponse>> {
+        self.inner.generate_autonomous_database_wallet(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -252,11 +234,8 @@ where
         &self,
         req: crate::model::ListAutonomousDatabaseCharacterSetsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListAutonomousDatabaseCharacterSetsResponse>>
-    {
-        self.inner
-            .list_autonomous_database_character_sets(req, options)
-            .await
+    ) -> Result<gax::response::Response<crate::model::ListAutonomousDatabaseCharacterSetsResponse>> {
+        self.inner.list_autonomous_database_character_sets(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -265,9 +244,7 @@ where
         req: crate::model::ListAutonomousDatabaseBackupsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListAutonomousDatabaseBackupsResponse>> {
-        self.inner
-            .list_autonomous_database_backups(req, options)
-            .await
+        self.inner.list_autonomous_database_backups(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -303,9 +280,7 @@ where
         req: crate::model::SwitchoverAutonomousDatabaseRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        self.inner
-            .switchover_autonomous_database(req, options)
-            .await
+        self.inner.switchover_autonomous_database(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -440,9 +415,7 @@ where
         req: crate::model::RemoveVirtualMachineExadbVmClusterRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        self.inner
-            .remove_virtual_machine_exadb_vm_cluster(req, options)
-            .await
+        self.inner.remove_virtual_machine_exadb_vm_cluster(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -451,9 +424,7 @@ where
         req: crate::model::ListExascaleDbStorageVaultsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListExascaleDbStorageVaultsResponse>> {
-        self.inner
-            .list_exascale_db_storage_vaults(req, options)
-            .await
+        self.inner.list_exascale_db_storage_vaults(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -471,9 +442,7 @@ where
         req: crate::model::CreateExascaleDbStorageVaultRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        self.inner
-            .create_exascale_db_storage_vault(req, options)
-            .await
+        self.inner.create_exascale_db_storage_vault(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -482,9 +451,7 @@ where
         req: crate::model::DeleteExascaleDbStorageVaultRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        self.inner
-            .delete_exascale_db_storage_vault(req, options)
-            .await
+        self.inner.delete_exascale_db_storage_vault(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -492,11 +459,8 @@ where
         &self,
         req: crate::model::ListDbSystemInitialStorageSizesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListDbSystemInitialStorageSizesResponse>>
-    {
-        self.inner
-            .list_db_system_initial_storage_sizes(req, options)
-            .await
+    ) -> Result<gax::response::Response<crate::model::ListDbSystemInitialStorageSizesResponse>> {
+        self.inner.list_db_system_initial_storage_sizes(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -643,6 +607,7 @@ where
         self.inner.cancel_operation(req, options).await
     }
 
+
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -657,3 +622,4 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 }
+

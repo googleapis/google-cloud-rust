@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [DataTransferService](super::stub::DataTransferService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct DataTransferService<T>
-where
-    T: super::stub::DataTransferService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::DataTransferService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> DataTransferService<T>
-where
-    T: super::stub::DataTransferService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::DataTransferService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::DataTransferService for DataTransferService<T>
-where
-    T: super::stub::DataTransferService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::DataTransferService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn get_data_source(
         &self,
@@ -198,4 +192,6 @@ where
     ) -> Result<gax::response::Response<location::model::Location>> {
         self.inner.get_location(req, options).await
     }
+
 }
+

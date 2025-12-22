@@ -244,10 +244,7 @@ impl std::fmt::Debug for super::BigQueryDestination {
         debug_struct.field("table", &self.table);
         debug_struct.field("force", &self.force);
         debug_struct.field("partition_spec", &self.partition_spec);
-        debug_struct.field(
-            "separate_tables_per_asset_type",
-            &self.separate_tables_per_asset_type,
-        );
+        debug_struct.field("separate_tables_per_asset_type", &self.separate_tables_per_asset_type);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -420,10 +417,7 @@ impl std::fmt::Debug for super::iam_policy_analysis_query::Options {
         debug_struct.field("expand_resources", &self.expand_resources);
         debug_struct.field("output_resource_edges", &self.output_resource_edges);
         debug_struct.field("output_group_edges", &self.output_group_edges);
-        debug_struct.field(
-            "analyze_service_account_impersonation",
-            &self.analyze_service_account_impersonation,
-        );
+        debug_struct.field("analyze_service_account_impersonation", &self.analyze_service_account_impersonation);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -459,10 +453,7 @@ impl std::fmt::Debug for super::AnalyzeIamPolicyResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AnalyzeIamPolicyResponse");
         debug_struct.field("main_analysis", &self.main_analysis);
-        debug_struct.field(
-            "service_account_impersonation_analysis",
-            &self.service_account_impersonation_analysis,
-        );
+        debug_struct.field("service_account_impersonation_analysis", &self.service_account_impersonation_analysis);
         debug_struct.field("fully_explored", &self.fully_explored);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -572,6 +563,7 @@ impl std::fmt::Debug for super::saved_query::QueryContent {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::CreateSavedQueryRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -833,9 +825,7 @@ impl std::fmt::Debug for super::batch_get_effective_iam_policies_response::Effec
     }
 }
 
-impl std::fmt::Debug
-    for super::batch_get_effective_iam_policies_response::effective_iam_policy::PolicyInfo
-{
+impl std::fmt::Debug for super::batch_get_effective_iam_policies_response::effective_iam_policy::PolicyInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PolicyInfo");
         debug_struct.field("attached_resource", &self.attached_resource);
@@ -1381,6 +1371,7 @@ impl std::fmt::Debug for super::iam_policy_search_result::explanation::Permissio
     }
 }
 
+
 impl std::fmt::Debug for super::IamPolicyAnalysisState {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("IamPolicyAnalysisState");
@@ -1407,10 +1398,7 @@ impl std::fmt::Debug for super::ConditionEvaluation {
 impl std::fmt::Debug for super::IamPolicyAnalysisResult {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("IamPolicyAnalysisResult");
-        debug_struct.field(
-            "attached_resource_full_name",
-            &self.attached_resource_full_name,
-        );
+        debug_struct.field("attached_resource_full_name", &self.attached_resource_full_name);
         debug_struct.field("iam_binding", &self.iam_binding);
         debug_struct.field("access_control_lists", &self.access_control_lists);
         debug_struct.field("identity_list", &self.identity_list);

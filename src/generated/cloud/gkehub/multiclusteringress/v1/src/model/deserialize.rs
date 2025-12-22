@@ -67,9 +67,9 @@ impl<'de> serde::de::Deserialize<'de> for super::FeatureSpec {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
-                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -77,18 +77,14 @@ impl<'de> serde::de::Deserialize<'de> for super::FeatureSpec {
                     match tag {
                         __FieldTag::__config_membership => {
                             if !fields.insert(__FieldTag::__config_membership) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for config_membership",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for config_membership"));
                             }
-                            result.config_membership = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.config_membership = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        }
+                        },
                     }
                 }
                 std::result::Result::Ok(result)

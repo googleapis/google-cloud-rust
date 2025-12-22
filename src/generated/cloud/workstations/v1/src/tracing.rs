@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [Workstations](super::stub::Workstations) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct Workstations<T>
-where
-    T: super::stub::Workstations + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Workstations + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> Workstations<T>
-where
-    T: super::stub::Workstations + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Workstations + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::Workstations for Workstations<T>
-where
-    T: super::stub::Workstations + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Workstations + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn get_workstation_cluster(
         &self,
@@ -106,9 +100,7 @@ where
         req: crate::model::ListUsableWorkstationConfigsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListUsableWorkstationConfigsResponse>> {
-        self.inner
-            .list_usable_workstation_configs(req, options)
-            .await
+        self.inner.list_usable_workstation_configs(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -282,6 +274,7 @@ where
         self.inner.cancel_operation(req, options).await
     }
 
+
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -296,3 +289,4 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 }
+

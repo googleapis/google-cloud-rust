@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [StorageControl](super::stub::StorageControl) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct StorageControl<T>
-where
-    T: super::stub::StorageControl + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::StorageControl + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> StorageControl<T>
-where
-    T: super::stub::StorageControl + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::StorageControl + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::StorageControl for StorageControl<T>
-where
-    T: super::stub::StorageControl + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::StorageControl + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn delete_bucket(
         &self,
@@ -162,4 +156,6 @@ where
     ) -> Result<gax::response::Response<crate::model::Object>> {
         self.inner.move_object(req, options).await
     }
+
 }
+

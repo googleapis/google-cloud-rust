@@ -39,10 +39,7 @@ pub mod contact_center_insights {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = ContactCenterInsights;
             type Credentials = gaxi::options::Credentials;
-            async fn build(
-                self,
-                config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -57,12 +54,8 @@ pub mod contact_center_insights {
     }
 
     impl<R> RequestBuilder<R>
-    where
-        R: std::default::Default,
-    {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
+    where R: std::default::Default {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -92,17 +85,14 @@ pub mod contact_center_insights {
     pub struct CreateConversation(RequestBuilder<crate::model::CreateConversationRequest>);
 
     impl CreateConversation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateConversationRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateConversationRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -115,10 +105,7 @@ pub mod contact_center_insights {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Conversation> {
-            (*self.0.stub)
-                .create_conversation(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_conversation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateConversationRequest::parent].
@@ -133,8 +120,7 @@ pub mod contact_center_insights {
         ///
         /// This is a **required** field for requests.
         pub fn set_conversation<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Conversation>,
+        where T: std::convert::Into<crate::model::Conversation>
         {
             self.0.request.conversation = std::option::Option::Some(v.into());
             self
@@ -144,8 +130,7 @@ pub mod contact_center_insights {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_conversation<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Conversation>,
+        where T: std::convert::Into<crate::model::Conversation>
         {
             self.0.request.conversation = v.map(|x| x.into());
             self
@@ -187,17 +172,14 @@ pub mod contact_center_insights {
     pub struct UploadConversation(RequestBuilder<crate::model::UploadConversationRequest>);
 
     impl UploadConversation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UploadConversationRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UploadConversationRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -215,21 +197,16 @@ pub mod contact_center_insights {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [upload_conversation][crate::client::ContactCenterInsights::upload_conversation].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .upload_conversation(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).upload_conversation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `upload_conversation`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::Conversation, crate::model::UploadConversationMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::Conversation, crate::model::UploadConversationMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::Conversation,
-                crate::model::UploadConversationMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::Conversation, crate::model::UploadConversationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -269,8 +246,7 @@ pub mod contact_center_insights {
         ///
         /// This is a **required** field for requests.
         pub fn set_conversation<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Conversation>,
+        where T: std::convert::Into<crate::model::Conversation>
         {
             self.0.request.conversation = std::option::Option::Some(v.into());
             self
@@ -280,8 +256,7 @@ pub mod contact_center_insights {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_conversation<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Conversation>,
+        where T: std::convert::Into<crate::model::Conversation>
         {
             self.0.request.conversation = v.map(|x| x.into());
             self
@@ -295,8 +270,7 @@ pub mod contact_center_insights {
 
         /// Sets the value of [redaction_config][crate::model::UploadConversationRequest::redaction_config].
         pub fn set_redaction_config<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::RedactionConfig>,
+        where T: std::convert::Into<crate::model::RedactionConfig>
         {
             self.0.request.redaction_config = std::option::Option::Some(v.into());
             self
@@ -304,8 +278,7 @@ pub mod contact_center_insights {
 
         /// Sets or clears the value of [redaction_config][crate::model::UploadConversationRequest::redaction_config].
         pub fn set_or_clear_redaction_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::RedactionConfig>,
+        where T: std::convert::Into<crate::model::RedactionConfig>
         {
             self.0.request.redaction_config = v.map(|x| x.into());
             self
@@ -313,8 +286,7 @@ pub mod contact_center_insights {
 
         /// Sets the value of [speech_config][crate::model::UploadConversationRequest::speech_config].
         pub fn set_speech_config<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::SpeechConfig>,
+        where T: std::convert::Into<crate::model::SpeechConfig>
         {
             self.0.request.speech_config = std::option::Option::Some(v.into());
             self
@@ -322,8 +294,7 @@ pub mod contact_center_insights {
 
         /// Sets or clears the value of [speech_config][crate::model::UploadConversationRequest::speech_config].
         pub fn set_or_clear_speech_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::SpeechConfig>,
+        where T: std::convert::Into<crate::model::SpeechConfig>
         {
             self.0.request.speech_config = v.map(|x| x.into());
             self
@@ -358,17 +329,14 @@ pub mod contact_center_insights {
     pub struct UpdateConversation(RequestBuilder<crate::model::UpdateConversationRequest>);
 
     impl UpdateConversation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateConversationRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateConversationRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -381,18 +349,14 @@ pub mod contact_center_insights {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Conversation> {
-            (*self.0.stub)
-                .update_conversation(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_conversation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [conversation][crate::model::UpdateConversationRequest::conversation].
         ///
         /// This is a **required** field for requests.
         pub fn set_conversation<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Conversation>,
+        where T: std::convert::Into<crate::model::Conversation>
         {
             self.0.request.conversation = std::option::Option::Some(v.into());
             self
@@ -402,8 +366,7 @@ pub mod contact_center_insights {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_conversation<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Conversation>,
+        where T: std::convert::Into<crate::model::Conversation>
         {
             self.0.request.conversation = v.map(|x| x.into());
             self
@@ -411,8 +374,7 @@ pub mod contact_center_insights {
 
         /// Sets the value of [update_mask][crate::model::UpdateConversationRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -420,8 +382,7 @@ pub mod contact_center_insights {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateConversationRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -456,10 +417,10 @@ pub mod contact_center_insights {
     pub struct GetConversation(RequestBuilder<crate::model::GetConversationRequest>);
 
     impl GetConversation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -476,10 +437,7 @@ pub mod contact_center_insights {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Conversation> {
-            (*self.0.stub)
-                .get_conversation(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_conversation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetConversationRequest::name].
@@ -529,17 +487,14 @@ pub mod contact_center_insights {
     pub struct ListConversations(RequestBuilder<crate::model::ListConversationsRequest>);
 
     impl ListConversations {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListConversationsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListConversationsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -552,17 +507,11 @@ pub mod contact_center_insights {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListConversationsResponse> {
-            (*self.0.stub)
-                .list_conversations(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_conversations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListConversationsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListConversationsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -574,10 +523,7 @@ pub mod contact_center_insights {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListConversationsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListConversationsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -649,17 +595,14 @@ pub mod contact_center_insights {
     pub struct DeleteConversation(RequestBuilder<crate::model::DeleteConversationRequest>);
 
     impl DeleteConversation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteConversationRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteConversationRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -672,10 +615,7 @@ pub mod contact_center_insights {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .delete_conversation(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_conversation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteConversationRequest::name].
@@ -722,10 +662,10 @@ pub mod contact_center_insights {
     pub struct CreateAnalysis(RequestBuilder<crate::model::CreateAnalysisRequest>);
 
     impl CreateAnalysis {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -747,21 +687,16 @@ pub mod contact_center_insights {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_analysis][crate::client::ContactCenterInsights::create_analysis].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .create_analysis(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_analysis(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_analysis`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::Analysis, crate::model::CreateAnalysisOperationMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::Analysis, crate::model::CreateAnalysisOperationMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::Analysis,
-                crate::model::CreateAnalysisOperationMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::Analysis, crate::model::CreateAnalysisOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -801,8 +736,7 @@ pub mod contact_center_insights {
         ///
         /// This is a **required** field for requests.
         pub fn set_analysis<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Analysis>,
+        where T: std::convert::Into<crate::model::Analysis>
         {
             self.0.request.analysis = std::option::Option::Some(v.into());
             self
@@ -812,8 +746,7 @@ pub mod contact_center_insights {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_analysis<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Analysis>,
+        where T: std::convert::Into<crate::model::Analysis>
         {
             self.0.request.analysis = v.map(|x| x.into());
             self
@@ -848,10 +781,10 @@ pub mod contact_center_insights {
     pub struct GetAnalysis(RequestBuilder<crate::model::GetAnalysisRequest>);
 
     impl GetAnalysis {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -868,10 +801,7 @@ pub mod contact_center_insights {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Analysis> {
-            (*self.0.stub)
-                .get_analysis(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_analysis(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAnalysisRequest::name].
@@ -915,10 +845,10 @@ pub mod contact_center_insights {
     pub struct ListAnalyses(RequestBuilder<crate::model::ListAnalysesRequest>);
 
     impl ListAnalyses {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -935,17 +865,11 @@ pub mod contact_center_insights {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListAnalysesResponse> {
-            (*self.0.stub)
-                .list_analyses(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_analyses(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListAnalysesResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListAnalysesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -957,10 +881,7 @@ pub mod contact_center_insights {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListAnalysesResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListAnalysesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1020,10 +941,10 @@ pub mod contact_center_insights {
     pub struct DeleteAnalysis(RequestBuilder<crate::model::DeleteAnalysisRequest>);
 
     impl DeleteAnalysis {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1040,10 +961,7 @@ pub mod contact_center_insights {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .delete_analysis(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_analysis(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteAnalysisRequest::name].
@@ -1081,22 +999,17 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct BulkAnalyzeConversations(
-        RequestBuilder<crate::model::BulkAnalyzeConversationsRequest>,
-    );
+    pub struct BulkAnalyzeConversations(RequestBuilder<crate::model::BulkAnalyzeConversationsRequest>);
 
     impl BulkAnalyzeConversations {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::BulkAnalyzeConversationsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::BulkAnalyzeConversationsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1114,23 +1027,16 @@ pub mod contact_center_insights {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [bulk_analyze_conversations][crate::client::ContactCenterInsights::bulk_analyze_conversations].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .bulk_analyze_conversations(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).bulk_analyze_conversations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `bulk_analyze_conversations`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<
-            crate::model::BulkAnalyzeConversationsResponse,
-            crate::model::BulkAnalyzeConversationsMetadata,
-        > {
-            type Operation = lro::internal::Operation<
-                crate::model::BulkAnalyzeConversationsResponse,
-                crate::model::BulkAnalyzeConversationsMetadata,
-            >;
+            self
+        ) ->
+            impl lro::Poller<crate::model::BulkAnalyzeConversationsResponse, crate::model::BulkAnalyzeConversationsMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::BulkAnalyzeConversationsResponse, crate::model::BulkAnalyzeConversationsMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1184,8 +1090,7 @@ pub mod contact_center_insights {
 
         /// Sets the value of [annotator_selector][crate::model::BulkAnalyzeConversationsRequest::annotator_selector].
         pub fn set_annotator_selector<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::AnnotatorSelector>,
+        where T: std::convert::Into<crate::model::AnnotatorSelector>
         {
             self.0.request.annotator_selector = std::option::Option::Some(v.into());
             self
@@ -1193,8 +1098,7 @@ pub mod contact_center_insights {
 
         /// Sets or clears the value of [annotator_selector][crate::model::BulkAnalyzeConversationsRequest::annotator_selector].
         pub fn set_or_clear_annotator_selector<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::AnnotatorSelector>,
+        where T: std::convert::Into<crate::model::AnnotatorSelector>
         {
             self.0.request.annotator_selector = v.map(|x| x.into());
             self
@@ -1227,22 +1131,17 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct BulkDeleteConversations(
-        RequestBuilder<crate::model::BulkDeleteConversationsRequest>,
-    );
+    pub struct BulkDeleteConversations(RequestBuilder<crate::model::BulkDeleteConversationsRequest>);
 
     impl BulkDeleteConversations {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::BulkDeleteConversationsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::BulkDeleteConversationsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1260,23 +1159,16 @@ pub mod contact_center_insights {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [bulk_delete_conversations][crate::client::ContactCenterInsights::bulk_delete_conversations].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .bulk_delete_conversations(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).bulk_delete_conversations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `bulk_delete_conversations`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<
-            crate::model::BulkDeleteConversationsResponse,
-            crate::model::BulkDeleteConversationsMetadata,
-        > {
-            type Operation = lro::internal::Operation<
-                crate::model::BulkDeleteConversationsResponse,
-                crate::model::BulkDeleteConversationsMetadata,
-            >;
+            self
+        ) ->
+            impl lro::Poller<crate::model::BulkDeleteConversationsResponse, crate::model::BulkDeleteConversationsMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::BulkDeleteConversationsResponse, crate::model::BulkDeleteConversationsMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1360,17 +1252,14 @@ pub mod contact_center_insights {
     pub struct IngestConversations(RequestBuilder<crate::model::IngestConversationsRequest>);
 
     impl IngestConversations {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::IngestConversationsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::IngestConversationsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1388,23 +1277,16 @@ pub mod contact_center_insights {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [ingest_conversations][crate::client::ContactCenterInsights::ingest_conversations].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .ingest_conversations(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).ingest_conversations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `ingest_conversations`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<
-            crate::model::IngestConversationsResponse,
-            crate::model::IngestConversationsMetadata,
-        > {
-            type Operation = lro::internal::Operation<
-                crate::model::IngestConversationsResponse,
-                crate::model::IngestConversationsMetadata,
-            >;
+            self
+        ) ->
+            impl lro::Poller<crate::model::IngestConversationsResponse, crate::model::IngestConversationsMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::IngestConversationsResponse, crate::model::IngestConversationsMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1442,8 +1324,7 @@ pub mod contact_center_insights {
 
         /// Sets the value of [conversation_config][crate::model::IngestConversationsRequest::conversation_config].
         pub fn set_conversation_config<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::ingest_conversations_request::ConversationConfig>,
+        where T: std::convert::Into<crate::model::ingest_conversations_request::ConversationConfig>
         {
             self.0.request.conversation_config = std::option::Option::Some(v.into());
             self
@@ -1451,8 +1332,7 @@ pub mod contact_center_insights {
 
         /// Sets or clears the value of [conversation_config][crate::model::IngestConversationsRequest::conversation_config].
         pub fn set_or_clear_conversation_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::ingest_conversations_request::ConversationConfig>,
+        where T: std::convert::Into<crate::model::ingest_conversations_request::ConversationConfig>
         {
             self.0.request.conversation_config = v.map(|x| x.into());
             self
@@ -1460,8 +1340,7 @@ pub mod contact_center_insights {
 
         /// Sets the value of [redaction_config][crate::model::IngestConversationsRequest::redaction_config].
         pub fn set_redaction_config<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::RedactionConfig>,
+        where T: std::convert::Into<crate::model::RedactionConfig>
         {
             self.0.request.redaction_config = std::option::Option::Some(v.into());
             self
@@ -1469,8 +1348,7 @@ pub mod contact_center_insights {
 
         /// Sets or clears the value of [redaction_config][crate::model::IngestConversationsRequest::redaction_config].
         pub fn set_or_clear_redaction_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::RedactionConfig>,
+        where T: std::convert::Into<crate::model::RedactionConfig>
         {
             self.0.request.redaction_config = v.map(|x| x.into());
             self
@@ -1478,8 +1356,7 @@ pub mod contact_center_insights {
 
         /// Sets the value of [speech_config][crate::model::IngestConversationsRequest::speech_config].
         pub fn set_speech_config<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::SpeechConfig>,
+        where T: std::convert::Into<crate::model::SpeechConfig>
         {
             self.0.request.speech_config = std::option::Option::Some(v.into());
             self
@@ -1487,8 +1364,7 @@ pub mod contact_center_insights {
 
         /// Sets or clears the value of [speech_config][crate::model::IngestConversationsRequest::speech_config].
         pub fn set_or_clear_speech_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::SpeechConfig>,
+        where T: std::convert::Into<crate::model::SpeechConfig>
         {
             self.0.request.speech_config = v.map(|x| x.into());
             self
@@ -1496,8 +1372,7 @@ pub mod contact_center_insights {
 
         /// Sets the value of [sample_size][crate::model::IngestConversationsRequest::sample_size].
         pub fn set_sample_size<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i32>,
+        where T: std::convert::Into<i32>
         {
             self.0.request.sample_size = std::option::Option::Some(v.into());
             self
@@ -1505,8 +1380,7 @@ pub mod contact_center_insights {
 
         /// Sets or clears the value of [sample_size][crate::model::IngestConversationsRequest::sample_size].
         pub fn set_or_clear_sample_size<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<i32>,
+        where T: std::convert::Into<i32>
         {
             self.0.request.sample_size = v.map(|x| x.into());
             self
@@ -1516,10 +1390,7 @@ pub mod contact_center_insights {
         ///
         /// Note that all the setters affecting `source` are
         /// mutually exclusive.
-        pub fn set_source<T: Into<Option<crate::model::ingest_conversations_request::Source>>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_source<T: Into<Option<crate::model::ingest_conversations_request::Source>>>(mut self, v: T) ->Self {
             self.0.request.source = v.into();
             self
         }
@@ -1529,14 +1400,7 @@ pub mod contact_center_insights {
         ///
         /// Note that all the setters affecting `source` are
         /// mutually exclusive.
-        pub fn set_gcs_source<
-            T: std::convert::Into<
-                    std::boxed::Box<crate::model::ingest_conversations_request::GcsSource>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_gcs_source<T: std::convert::Into<std::boxed::Box<crate::model::ingest_conversations_request::GcsSource>>>(mut self, v: T) -> Self {
             self.0.request = self.0.request.set_gcs_source(v);
             self
         }
@@ -1545,12 +1409,7 @@ pub mod contact_center_insights {
         ///
         /// Note that all the setters affecting `object_config` are
         /// mutually exclusive.
-        pub fn set_object_config<
-            T: Into<Option<crate::model::ingest_conversations_request::ObjectConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_object_config<T: Into<Option<crate::model::ingest_conversations_request::ObjectConfig>>>(mut self, v: T) ->Self {
             self.0.request.object_config = v.into();
             self
         }
@@ -1560,16 +1419,7 @@ pub mod contact_center_insights {
         ///
         /// Note that all the setters affecting `object_config` are
         /// mutually exclusive.
-        pub fn set_transcript_object_config<
-            T: std::convert::Into<
-                    std::boxed::Box<
-                        crate::model::ingest_conversations_request::TranscriptObjectConfig,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_transcript_object_config<T: std::convert::Into<std::boxed::Box<crate::model::ingest_conversations_request::TranscriptObjectConfig>>>(mut self, v: T) -> Self {
             self.0.request = self.0.request.set_transcript_object_config(v);
             self
         }
@@ -1604,17 +1454,14 @@ pub mod contact_center_insights {
     pub struct ExportInsightsData(RequestBuilder<crate::model::ExportInsightsDataRequest>);
 
     impl ExportInsightsData {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ExportInsightsDataRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ExportInsightsDataRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1632,23 +1479,16 @@ pub mod contact_center_insights {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [export_insights_data][crate::client::ContactCenterInsights::export_insights_data].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .export_insights_data(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).export_insights_data(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `export_insights_data`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<
-            crate::model::ExportInsightsDataResponse,
-            crate::model::ExportInsightsDataMetadata,
-        > {
-            type Operation = lro::internal::Operation<
-                crate::model::ExportInsightsDataResponse,
-                crate::model::ExportInsightsDataMetadata,
-            >;
+            self
+        ) ->
+            impl lro::Poller<crate::model::ExportInsightsDataResponse, crate::model::ExportInsightsDataMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::ExportInsightsDataResponse, crate::model::ExportInsightsDataMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1697,12 +1537,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [write_disposition][crate::model::ExportInsightsDataRequest::write_disposition].
-        pub fn set_write_disposition<
-            T: Into<crate::model::export_insights_data_request::WriteDisposition>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_write_disposition<T: Into<crate::model::export_insights_data_request::WriteDisposition>>(mut self, v: T) -> Self {
             self.0.request.write_disposition = v.into();
             self
         }
@@ -1711,12 +1546,7 @@ pub mod contact_center_insights {
         ///
         /// Note that all the setters affecting `destination` are
         /// mutually exclusive.
-        pub fn set_destination<
-            T: Into<Option<crate::model::export_insights_data_request::Destination>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_destination<T: Into<Option<crate::model::export_insights_data_request::Destination>>>(mut self, v: T) ->Self {
             self.0.request.destination = v.into();
             self
         }
@@ -1726,16 +1556,7 @@ pub mod contact_center_insights {
         ///
         /// Note that all the setters affecting `destination` are
         /// mutually exclusive.
-        pub fn set_big_query_destination<
-            T: std::convert::Into<
-                    std::boxed::Box<
-                        crate::model::export_insights_data_request::BigQueryDestination,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_big_query_destination<T: std::convert::Into<std::boxed::Box<crate::model::export_insights_data_request::BigQueryDestination>>>(mut self, v: T) -> Self {
             self.0.request = self.0.request.set_big_query_destination(v);
             self
         }
@@ -1770,17 +1591,14 @@ pub mod contact_center_insights {
     pub struct CreateIssueModel(RequestBuilder<crate::model::CreateIssueModelRequest>);
 
     impl CreateIssueModel {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateIssueModelRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateIssueModelRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1798,21 +1616,16 @@ pub mod contact_center_insights {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_issue_model][crate::client::ContactCenterInsights::create_issue_model].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .create_issue_model(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_issue_model(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_issue_model`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::IssueModel, crate::model::CreateIssueModelMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::IssueModel, crate::model::CreateIssueModelMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::IssueModel,
-                crate::model::CreateIssueModelMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::IssueModel, crate::model::CreateIssueModelMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1852,8 +1665,7 @@ pub mod contact_center_insights {
         ///
         /// This is a **required** field for requests.
         pub fn set_issue_model<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::IssueModel>,
+        where T: std::convert::Into<crate::model::IssueModel>
         {
             self.0.request.issue_model = std::option::Option::Some(v.into());
             self
@@ -1863,8 +1675,7 @@ pub mod contact_center_insights {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_issue_model<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::IssueModel>,
+        where T: std::convert::Into<crate::model::IssueModel>
         {
             self.0.request.issue_model = v.map(|x| x.into());
             self
@@ -1899,17 +1710,14 @@ pub mod contact_center_insights {
     pub struct UpdateIssueModel(RequestBuilder<crate::model::UpdateIssueModelRequest>);
 
     impl UpdateIssueModel {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateIssueModelRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateIssueModelRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1922,18 +1730,14 @@ pub mod contact_center_insights {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::IssueModel> {
-            (*self.0.stub)
-                .update_issue_model(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_issue_model(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [issue_model][crate::model::UpdateIssueModelRequest::issue_model].
         ///
         /// This is a **required** field for requests.
         pub fn set_issue_model<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::IssueModel>,
+        where T: std::convert::Into<crate::model::IssueModel>
         {
             self.0.request.issue_model = std::option::Option::Some(v.into());
             self
@@ -1943,8 +1747,7 @@ pub mod contact_center_insights {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_issue_model<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::IssueModel>,
+        where T: std::convert::Into<crate::model::IssueModel>
         {
             self.0.request.issue_model = v.map(|x| x.into());
             self
@@ -1952,8 +1755,7 @@ pub mod contact_center_insights {
 
         /// Sets the value of [update_mask][crate::model::UpdateIssueModelRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -1961,8 +1763,7 @@ pub mod contact_center_insights {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateIssueModelRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -1997,10 +1798,10 @@ pub mod contact_center_insights {
     pub struct GetIssueModel(RequestBuilder<crate::model::GetIssueModelRequest>);
 
     impl GetIssueModel {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2017,10 +1818,7 @@ pub mod contact_center_insights {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::IssueModel> {
-            (*self.0.stub)
-                .get_issue_model(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_issue_model(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetIssueModelRequest::name].
@@ -2060,10 +1858,10 @@ pub mod contact_center_insights {
     pub struct ListIssueModels(RequestBuilder<crate::model::ListIssueModelsRequest>);
 
     impl ListIssueModels {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2080,10 +1878,7 @@ pub mod contact_center_insights {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListIssueModelsResponse> {
-            (*self.0.stub)
-                .list_issue_models(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_issue_models(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ListIssueModelsRequest::parent].
@@ -2124,17 +1919,14 @@ pub mod contact_center_insights {
     pub struct DeleteIssueModel(RequestBuilder<crate::model::DeleteIssueModelRequest>);
 
     impl DeleteIssueModel {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteIssueModelRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteIssueModelRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2152,16 +1944,16 @@ pub mod contact_center_insights {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_issue_model][crate::client::ContactCenterInsights::delete_issue_model].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .delete_issue_model(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_issue_model(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_issue_model`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteIssueModelMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::DeleteIssueModelMetadata>;
+        pub fn poller(
+            self
+        ) ->
+            impl lro::Poller<(), crate::model::DeleteIssueModelMetadata>
+        {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::DeleteIssueModelMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2186,12 +1978,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteIssueModelRequest::name].
@@ -2232,17 +2019,14 @@ pub mod contact_center_insights {
     pub struct DeployIssueModel(RequestBuilder<crate::model::DeployIssueModelRequest>);
 
     impl DeployIssueModel {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeployIssueModelRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DeployIssueModelRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2260,23 +2044,16 @@ pub mod contact_center_insights {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [deploy_issue_model][crate::client::ContactCenterInsights::deploy_issue_model].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .deploy_issue_model(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).deploy_issue_model(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `deploy_issue_model`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<
-            crate::model::DeployIssueModelResponse,
-            crate::model::DeployIssueModelMetadata,
-        > {
-            type Operation = lro::internal::Operation<
-                crate::model::DeployIssueModelResponse,
-                crate::model::DeployIssueModelMetadata,
-            >;
+            self
+        ) ->
+            impl lro::Poller<crate::model::DeployIssueModelResponse, crate::model::DeployIssueModelMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::DeployIssueModelResponse, crate::model::DeployIssueModelMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2342,17 +2119,14 @@ pub mod contact_center_insights {
     pub struct UndeployIssueModel(RequestBuilder<crate::model::UndeployIssueModelRequest>);
 
     impl UndeployIssueModel {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UndeployIssueModelRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UndeployIssueModelRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2370,23 +2144,16 @@ pub mod contact_center_insights {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [undeploy_issue_model][crate::client::ContactCenterInsights::undeploy_issue_model].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .undeploy_issue_model(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).undeploy_issue_model(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `undeploy_issue_model`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<
-            crate::model::UndeployIssueModelResponse,
-            crate::model::UndeployIssueModelMetadata,
-        > {
-            type Operation = lro::internal::Operation<
-                crate::model::UndeployIssueModelResponse,
-                crate::model::UndeployIssueModelMetadata,
-            >;
+            self
+        ) ->
+            impl lro::Poller<crate::model::UndeployIssueModelResponse, crate::model::UndeployIssueModelMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::UndeployIssueModelResponse, crate::model::UndeployIssueModelMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2452,17 +2219,14 @@ pub mod contact_center_insights {
     pub struct ExportIssueModel(RequestBuilder<crate::model::ExportIssueModelRequest>);
 
     impl ExportIssueModel {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ExportIssueModelRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ExportIssueModelRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2480,23 +2244,16 @@ pub mod contact_center_insights {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [export_issue_model][crate::client::ContactCenterInsights::export_issue_model].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .export_issue_model(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).export_issue_model(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `export_issue_model`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<
-            crate::model::ExportIssueModelResponse,
-            crate::model::ExportIssueModelMetadata,
-        > {
-            type Operation = lro::internal::Operation<
-                crate::model::ExportIssueModelResponse,
-                crate::model::ExportIssueModelMetadata,
-            >;
+            self
+        ) ->
+            impl lro::Poller<crate::model::ExportIssueModelResponse, crate::model::ExportIssueModelMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::ExportIssueModelResponse, crate::model::ExportIssueModelMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2536,12 +2293,7 @@ pub mod contact_center_insights {
         ///
         /// Note that all the setters affecting `destination` are
         /// mutually exclusive.
-        pub fn set_destination<
-            T: Into<Option<crate::model::export_issue_model_request::Destination>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_destination<T: Into<Option<crate::model::export_issue_model_request::Destination>>>(mut self, v: T) ->Self {
             self.0.request.destination = v.into();
             self
         }
@@ -2551,14 +2303,7 @@ pub mod contact_center_insights {
         ///
         /// Note that all the setters affecting `destination` are
         /// mutually exclusive.
-        pub fn set_gcs_destination<
-            T: std::convert::Into<
-                    std::boxed::Box<crate::model::export_issue_model_request::GcsDestination>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_gcs_destination<T: std::convert::Into<std::boxed::Box<crate::model::export_issue_model_request::GcsDestination>>>(mut self, v: T) -> Self {
             self.0.request = self.0.request.set_gcs_destination(v);
             self
         }
@@ -2593,17 +2338,14 @@ pub mod contact_center_insights {
     pub struct ImportIssueModel(RequestBuilder<crate::model::ImportIssueModelRequest>);
 
     impl ImportIssueModel {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ImportIssueModelRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ImportIssueModelRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2621,23 +2363,16 @@ pub mod contact_center_insights {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [import_issue_model][crate::client::ContactCenterInsights::import_issue_model].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .import_issue_model(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).import_issue_model(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `import_issue_model`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<
-            crate::model::ImportIssueModelResponse,
-            crate::model::ImportIssueModelMetadata,
-        > {
-            type Operation = lro::internal::Operation<
-                crate::model::ImportIssueModelResponse,
-                crate::model::ImportIssueModelMetadata,
-            >;
+            self
+        ) ->
+            impl lro::Poller<crate::model::ImportIssueModelResponse, crate::model::ImportIssueModelMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::ImportIssueModelResponse, crate::model::ImportIssueModelMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2683,10 +2418,7 @@ pub mod contact_center_insights {
         ///
         /// Note that all the setters affecting `source` are
         /// mutually exclusive.
-        pub fn set_source<T: Into<Option<crate::model::import_issue_model_request::Source>>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_source<T: Into<Option<crate::model::import_issue_model_request::Source>>>(mut self, v: T) ->Self {
             self.0.request.source = v.into();
             self
         }
@@ -2696,14 +2428,7 @@ pub mod contact_center_insights {
         ///
         /// Note that all the setters affecting `source` are
         /// mutually exclusive.
-        pub fn set_gcs_source<
-            T: std::convert::Into<
-                    std::boxed::Box<crate::model::import_issue_model_request::GcsSource>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_gcs_source<T: std::convert::Into<std::boxed::Box<crate::model::import_issue_model_request::GcsSource>>>(mut self, v: T) -> Self {
             self.0.request = self.0.request.set_gcs_source(v);
             self
         }
@@ -2737,10 +2462,10 @@ pub mod contact_center_insights {
     pub struct GetIssue(RequestBuilder<crate::model::GetIssueRequest>);
 
     impl GetIssue {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2757,10 +2482,7 @@ pub mod contact_center_insights {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Issue> {
-            (*self.0.stub)
-                .get_issue(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_issue(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetIssueRequest::name].
@@ -2800,10 +2522,10 @@ pub mod contact_center_insights {
     pub struct ListIssues(RequestBuilder<crate::model::ListIssuesRequest>);
 
     impl ListIssues {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2820,10 +2542,7 @@ pub mod contact_center_insights {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListIssuesResponse> {
-            (*self.0.stub)
-                .list_issues(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_issues(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ListIssuesRequest::parent].
@@ -2863,10 +2582,10 @@ pub mod contact_center_insights {
     pub struct UpdateIssue(RequestBuilder<crate::model::UpdateIssueRequest>);
 
     impl UpdateIssue {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2883,18 +2602,14 @@ pub mod contact_center_insights {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Issue> {
-            (*self.0.stub)
-                .update_issue(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_issue(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [issue][crate::model::UpdateIssueRequest::issue].
         ///
         /// This is a **required** field for requests.
         pub fn set_issue<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Issue>,
+        where T: std::convert::Into<crate::model::Issue>
         {
             self.0.request.issue = std::option::Option::Some(v.into());
             self
@@ -2904,8 +2619,7 @@ pub mod contact_center_insights {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_issue<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Issue>,
+        where T: std::convert::Into<crate::model::Issue>
         {
             self.0.request.issue = v.map(|x| x.into());
             self
@@ -2913,8 +2627,7 @@ pub mod contact_center_insights {
 
         /// Sets the value of [update_mask][crate::model::UpdateIssueRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -2922,8 +2635,7 @@ pub mod contact_center_insights {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateIssueRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -2958,10 +2670,10 @@ pub mod contact_center_insights {
     pub struct DeleteIssue(RequestBuilder<crate::model::DeleteIssueRequest>);
 
     impl DeleteIssue {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2978,10 +2690,7 @@ pub mod contact_center_insights {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .delete_issue(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_issue(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteIssueRequest::name].
@@ -3018,22 +2727,17 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CalculateIssueModelStats(
-        RequestBuilder<crate::model::CalculateIssueModelStatsRequest>,
-    );
+    pub struct CalculateIssueModelStats(RequestBuilder<crate::model::CalculateIssueModelStatsRequest>);
 
     impl CalculateIssueModelStats {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CalculateIssueModelStatsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CalculateIssueModelStatsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3046,10 +2750,7 @@ pub mod contact_center_insights {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::CalculateIssueModelStatsResponse> {
-            (*self.0.stub)
-                .calculate_issue_model_stats(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).calculate_issue_model_stats(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [issue_model][crate::model::CalculateIssueModelStatsRequest::issue_model].
@@ -3089,17 +2790,14 @@ pub mod contact_center_insights {
     pub struct CreatePhraseMatcher(RequestBuilder<crate::model::CreatePhraseMatcherRequest>);
 
     impl CreatePhraseMatcher {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreatePhraseMatcherRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreatePhraseMatcherRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3112,10 +2810,7 @@ pub mod contact_center_insights {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::PhraseMatcher> {
-            (*self.0.stub)
-                .create_phrase_matcher(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_phrase_matcher(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreatePhraseMatcherRequest::parent].
@@ -3130,8 +2825,7 @@ pub mod contact_center_insights {
         ///
         /// This is a **required** field for requests.
         pub fn set_phrase_matcher<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::PhraseMatcher>,
+        where T: std::convert::Into<crate::model::PhraseMatcher>
         {
             self.0.request.phrase_matcher = std::option::Option::Some(v.into());
             self
@@ -3141,8 +2835,7 @@ pub mod contact_center_insights {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_phrase_matcher<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::PhraseMatcher>,
+        where T: std::convert::Into<crate::model::PhraseMatcher>
         {
             self.0.request.phrase_matcher = v.map(|x| x.into());
             self
@@ -3177,17 +2870,14 @@ pub mod contact_center_insights {
     pub struct GetPhraseMatcher(RequestBuilder<crate::model::GetPhraseMatcherRequest>);
 
     impl GetPhraseMatcher {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetPhraseMatcherRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetPhraseMatcherRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3200,10 +2890,7 @@ pub mod contact_center_insights {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::PhraseMatcher> {
-            (*self.0.stub)
-                .get_phrase_matcher(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_phrase_matcher(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPhraseMatcherRequest::name].
@@ -3247,17 +2934,14 @@ pub mod contact_center_insights {
     pub struct ListPhraseMatchers(RequestBuilder<crate::model::ListPhraseMatchersRequest>);
 
     impl ListPhraseMatchers {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListPhraseMatchersRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListPhraseMatchersRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3270,17 +2954,11 @@ pub mod contact_center_insights {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListPhraseMatchersResponse> {
-            (*self.0.stub)
-                .list_phrase_matchers(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_phrase_matchers(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListPhraseMatchersResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListPhraseMatchersResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -3292,12 +2970,7 @@ pub mod contact_center_insights {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListPhraseMatchersResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListPhraseMatchersResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -3357,17 +3030,14 @@ pub mod contact_center_insights {
     pub struct DeletePhraseMatcher(RequestBuilder<crate::model::DeletePhraseMatcherRequest>);
 
     impl DeletePhraseMatcher {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeletePhraseMatcherRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DeletePhraseMatcherRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3380,10 +3050,7 @@ pub mod contact_center_insights {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .delete_phrase_matcher(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_phrase_matcher(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeletePhraseMatcherRequest::name].
@@ -3423,17 +3090,14 @@ pub mod contact_center_insights {
     pub struct UpdatePhraseMatcher(RequestBuilder<crate::model::UpdatePhraseMatcherRequest>);
 
     impl UpdatePhraseMatcher {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdatePhraseMatcherRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdatePhraseMatcherRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3446,18 +3110,14 @@ pub mod contact_center_insights {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::PhraseMatcher> {
-            (*self.0.stub)
-                .update_phrase_matcher(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_phrase_matcher(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [phrase_matcher][crate::model::UpdatePhraseMatcherRequest::phrase_matcher].
         ///
         /// This is a **required** field for requests.
         pub fn set_phrase_matcher<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::PhraseMatcher>,
+        where T: std::convert::Into<crate::model::PhraseMatcher>
         {
             self.0.request.phrase_matcher = std::option::Option::Some(v.into());
             self
@@ -3467,8 +3127,7 @@ pub mod contact_center_insights {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_phrase_matcher<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::PhraseMatcher>,
+        where T: std::convert::Into<crate::model::PhraseMatcher>
         {
             self.0.request.phrase_matcher = v.map(|x| x.into());
             self
@@ -3476,8 +3135,7 @@ pub mod contact_center_insights {
 
         /// Sets the value of [update_mask][crate::model::UpdatePhraseMatcherRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -3485,8 +3143,7 @@ pub mod contact_center_insights {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdatePhraseMatcherRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -3521,10 +3178,10 @@ pub mod contact_center_insights {
     pub struct CalculateStats(RequestBuilder<crate::model::CalculateStatsRequest>);
 
     impl CalculateStats {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3541,10 +3198,7 @@ pub mod contact_center_insights {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::CalculateStatsResponse> {
-            (*self.0.stub)
-                .calculate_stats(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).calculate_stats(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [location][crate::model::CalculateStatsRequest::location].
@@ -3590,10 +3244,10 @@ pub mod contact_center_insights {
     pub struct GetSettings(RequestBuilder<crate::model::GetSettingsRequest>);
 
     impl GetSettings {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3610,10 +3264,7 @@ pub mod contact_center_insights {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Settings> {
-            (*self.0.stub)
-                .get_settings(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_settings(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetSettingsRequest::name].
@@ -3653,10 +3304,10 @@ pub mod contact_center_insights {
     pub struct UpdateSettings(RequestBuilder<crate::model::UpdateSettingsRequest>);
 
     impl UpdateSettings {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3673,18 +3324,14 @@ pub mod contact_center_insights {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Settings> {
-            (*self.0.stub)
-                .update_settings(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_settings(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [settings][crate::model::UpdateSettingsRequest::settings].
         ///
         /// This is a **required** field for requests.
         pub fn set_settings<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Settings>,
+        where T: std::convert::Into<crate::model::Settings>
         {
             self.0.request.settings = std::option::Option::Some(v.into());
             self
@@ -3694,8 +3341,7 @@ pub mod contact_center_insights {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_settings<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Settings>,
+        where T: std::convert::Into<crate::model::Settings>
         {
             self.0.request.settings = v.map(|x| x.into());
             self
@@ -3705,8 +3351,7 @@ pub mod contact_center_insights {
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -3716,8 +3361,7 @@ pub mod contact_center_insights {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -3752,17 +3396,14 @@ pub mod contact_center_insights {
     pub struct CreateAnalysisRule(RequestBuilder<crate::model::CreateAnalysisRuleRequest>);
 
     impl CreateAnalysisRule {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateAnalysisRuleRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateAnalysisRuleRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3775,10 +3416,7 @@ pub mod contact_center_insights {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::AnalysisRule> {
-            (*self.0.stub)
-                .create_analysis_rule(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_analysis_rule(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateAnalysisRuleRequest::parent].
@@ -3793,8 +3431,7 @@ pub mod contact_center_insights {
         ///
         /// This is a **required** field for requests.
         pub fn set_analysis_rule<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::AnalysisRule>,
+        where T: std::convert::Into<crate::model::AnalysisRule>
         {
             self.0.request.analysis_rule = std::option::Option::Some(v.into());
             self
@@ -3804,8 +3441,7 @@ pub mod contact_center_insights {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_analysis_rule<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::AnalysisRule>,
+        where T: std::convert::Into<crate::model::AnalysisRule>
         {
             self.0.request.analysis_rule = v.map(|x| x.into());
             self
@@ -3840,10 +3476,10 @@ pub mod contact_center_insights {
     pub struct GetAnalysisRule(RequestBuilder<crate::model::GetAnalysisRuleRequest>);
 
     impl GetAnalysisRule {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3860,10 +3496,7 @@ pub mod contact_center_insights {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::AnalysisRule> {
-            (*self.0.stub)
-                .get_analysis_rule(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_analysis_rule(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAnalysisRuleRequest::name].
@@ -3907,17 +3540,14 @@ pub mod contact_center_insights {
     pub struct ListAnalysisRules(RequestBuilder<crate::model::ListAnalysisRulesRequest>);
 
     impl ListAnalysisRules {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListAnalysisRulesRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListAnalysisRulesRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3930,17 +3560,11 @@ pub mod contact_center_insights {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListAnalysisRulesResponse> {
-            (*self.0.stub)
-                .list_analysis_rules(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_analysis_rules(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListAnalysisRulesResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListAnalysisRulesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -3952,10 +3576,7 @@ pub mod contact_center_insights {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListAnalysisRulesResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListAnalysisRulesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -4009,17 +3630,14 @@ pub mod contact_center_insights {
     pub struct UpdateAnalysisRule(RequestBuilder<crate::model::UpdateAnalysisRuleRequest>);
 
     impl UpdateAnalysisRule {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateAnalysisRuleRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateAnalysisRuleRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4032,18 +3650,14 @@ pub mod contact_center_insights {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::AnalysisRule> {
-            (*self.0.stub)
-                .update_analysis_rule(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_analysis_rule(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [analysis_rule][crate::model::UpdateAnalysisRuleRequest::analysis_rule].
         ///
         /// This is a **required** field for requests.
         pub fn set_analysis_rule<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::AnalysisRule>,
+        where T: std::convert::Into<crate::model::AnalysisRule>
         {
             self.0.request.analysis_rule = std::option::Option::Some(v.into());
             self
@@ -4053,8 +3667,7 @@ pub mod contact_center_insights {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_analysis_rule<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::AnalysisRule>,
+        where T: std::convert::Into<crate::model::AnalysisRule>
         {
             self.0.request.analysis_rule = v.map(|x| x.into());
             self
@@ -4062,8 +3675,7 @@ pub mod contact_center_insights {
 
         /// Sets the value of [update_mask][crate::model::UpdateAnalysisRuleRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -4071,8 +3683,7 @@ pub mod contact_center_insights {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateAnalysisRuleRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -4107,17 +3718,14 @@ pub mod contact_center_insights {
     pub struct DeleteAnalysisRule(RequestBuilder<crate::model::DeleteAnalysisRuleRequest>);
 
     impl DeleteAnalysisRule {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteAnalysisRuleRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteAnalysisRuleRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4130,10 +3738,7 @@ pub mod contact_center_insights {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .delete_analysis_rule(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_analysis_rule(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteAnalysisRuleRequest::name].
@@ -4173,17 +3778,14 @@ pub mod contact_center_insights {
     pub struct GetEncryptionSpec(RequestBuilder<crate::model::GetEncryptionSpecRequest>);
 
     impl GetEncryptionSpec {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetEncryptionSpecRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetEncryptionSpecRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4196,10 +3798,7 @@ pub mod contact_center_insights {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::EncryptionSpec> {
-            (*self.0.stub)
-                .get_encryption_spec(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_encryption_spec(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetEncryptionSpecRequest::name].
@@ -4237,22 +3836,17 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct InitializeEncryptionSpec(
-        RequestBuilder<crate::model::InitializeEncryptionSpecRequest>,
-    );
+    pub struct InitializeEncryptionSpec(RequestBuilder<crate::model::InitializeEncryptionSpecRequest>);
 
     impl InitializeEncryptionSpec {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::InitializeEncryptionSpecRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::InitializeEncryptionSpecRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4270,23 +3864,16 @@ pub mod contact_center_insights {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [initialize_encryption_spec][crate::client::ContactCenterInsights::initialize_encryption_spec].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .initialize_encryption_spec(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).initialize_encryption_spec(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `initialize_encryption_spec`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<
-            crate::model::InitializeEncryptionSpecResponse,
-            crate::model::InitializeEncryptionSpecMetadata,
-        > {
-            type Operation = lro::internal::Operation<
-                crate::model::InitializeEncryptionSpecResponse,
-                crate::model::InitializeEncryptionSpecMetadata,
-            >;
+            self
+        ) ->
+            impl lro::Poller<crate::model::InitializeEncryptionSpecResponse, crate::model::InitializeEncryptionSpecMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::InitializeEncryptionSpecResponse, crate::model::InitializeEncryptionSpecMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4318,8 +3905,7 @@ pub mod contact_center_insights {
         ///
         /// This is a **required** field for requests.
         pub fn set_encryption_spec<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::EncryptionSpec>,
+        where T: std::convert::Into<crate::model::EncryptionSpec>
         {
             self.0.request.encryption_spec = std::option::Option::Some(v.into());
             self
@@ -4329,8 +3915,7 @@ pub mod contact_center_insights {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_encryption_spec<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::EncryptionSpec>,
+        where T: std::convert::Into<crate::model::EncryptionSpec>
         {
             self.0.request.encryption_spec = v.map(|x| x.into());
             self
@@ -4365,10 +3950,10 @@ pub mod contact_center_insights {
     pub struct CreateView(RequestBuilder<crate::model::CreateViewRequest>);
 
     impl CreateView {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -4385,10 +3970,7 @@ pub mod contact_center_insights {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::View> {
-            (*self.0.stub)
-                .create_view(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_view(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateViewRequest::parent].
@@ -4403,8 +3985,7 @@ pub mod contact_center_insights {
         ///
         /// This is a **required** field for requests.
         pub fn set_view<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::View>,
+        where T: std::convert::Into<crate::model::View>
         {
             self.0.request.view = std::option::Option::Some(v.into());
             self
@@ -4414,8 +3995,7 @@ pub mod contact_center_insights {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_view<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::View>,
+        where T: std::convert::Into<crate::model::View>
         {
             self.0.request.view = v.map(|x| x.into());
             self
@@ -4450,10 +4030,10 @@ pub mod contact_center_insights {
     pub struct GetView(RequestBuilder<crate::model::GetViewRequest>);
 
     impl GetView {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -4470,10 +4050,7 @@ pub mod contact_center_insights {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::View> {
-            (*self.0.stub)
-                .get_view(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_view(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetViewRequest::name].
@@ -4517,10 +4094,10 @@ pub mod contact_center_insights {
     pub struct ListViews(RequestBuilder<crate::model::ListViewsRequest>);
 
     impl ListViews {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -4537,17 +4114,11 @@ pub mod contact_center_insights {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListViewsResponse> {
-            (*self.0.stub)
-                .list_views(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_views(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListViewsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListViewsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -4559,10 +4130,7 @@ pub mod contact_center_insights {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListViewsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListViewsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -4616,10 +4184,10 @@ pub mod contact_center_insights {
     pub struct UpdateView(RequestBuilder<crate::model::UpdateViewRequest>);
 
     impl UpdateView {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -4636,18 +4204,14 @@ pub mod contact_center_insights {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::View> {
-            (*self.0.stub)
-                .update_view(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_view(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [view][crate::model::UpdateViewRequest::view].
         ///
         /// This is a **required** field for requests.
         pub fn set_view<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::View>,
+        where T: std::convert::Into<crate::model::View>
         {
             self.0.request.view = std::option::Option::Some(v.into());
             self
@@ -4657,8 +4221,7 @@ pub mod contact_center_insights {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_view<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::View>,
+        where T: std::convert::Into<crate::model::View>
         {
             self.0.request.view = v.map(|x| x.into());
             self
@@ -4666,8 +4229,7 @@ pub mod contact_center_insights {
 
         /// Sets the value of [update_mask][crate::model::UpdateViewRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -4675,8 +4237,7 @@ pub mod contact_center_insights {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateViewRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -4711,10 +4272,10 @@ pub mod contact_center_insights {
     pub struct DeleteView(RequestBuilder<crate::model::DeleteViewRequest>);
 
     impl DeleteView {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -4731,10 +4292,7 @@ pub mod contact_center_insights {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .delete_view(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_view(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteViewRequest::name].
@@ -4775,10 +4333,10 @@ pub mod contact_center_insights {
     pub struct QueryMetrics(RequestBuilder<crate::model::QueryMetricsRequest>);
 
     impl QueryMetrics {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -4800,21 +4358,16 @@ pub mod contact_center_insights {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [query_metrics][crate::client::ContactCenterInsights::query_metrics].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .query_metrics(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).query_metrics(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `query_metrics`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::QueryMetricsResponse, crate::model::QueryMetricsMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::QueryMetricsResponse, crate::model::QueryMetricsMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::QueryMetricsResponse,
-                crate::model::QueryMetricsMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::QueryMetricsResponse, crate::model::QueryMetricsMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4859,12 +4412,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [time_granularity][crate::model::QueryMetricsRequest::time_granularity].
-        pub fn set_time_granularity<
-            T: Into<crate::model::query_metrics_request::TimeGranularity>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_time_granularity<T: Into<crate::model::query_metrics_request::TimeGranularity>>(mut self, v: T) -> Self {
             self.0.request.time_granularity = v.into();
             self
         }
@@ -4873,7 +4421,7 @@ pub mod contact_center_insights {
         pub fn set_dimensions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::Dimension>,
+            V: std::convert::Into<crate::model::Dimension>
         {
             use std::iter::Iterator;
             self.0.request.dimensions = v.into_iter().map(|i| i.into()).collect();
@@ -4882,8 +4430,7 @@ pub mod contact_center_insights {
 
         /// Sets the value of [measure_mask][crate::model::QueryMetricsRequest::measure_mask].
         pub fn set_measure_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.measure_mask = std::option::Option::Some(v.into());
             self
@@ -4891,8 +4438,7 @@ pub mod contact_center_insights {
 
         /// Sets or clears the value of [measure_mask][crate::model::QueryMetricsRequest::measure_mask].
         pub fn set_or_clear_measure_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.measure_mask = v.map(|x| x.into());
             self
@@ -4927,17 +4473,14 @@ pub mod contact_center_insights {
     pub struct CreateQaQuestion(RequestBuilder<crate::model::CreateQaQuestionRequest>);
 
     impl CreateQaQuestion {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateQaQuestionRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateQaQuestionRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4950,10 +4493,7 @@ pub mod contact_center_insights {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::QaQuestion> {
-            (*self.0.stub)
-                .create_qa_question(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_qa_question(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateQaQuestionRequest::parent].
@@ -4968,8 +4508,7 @@ pub mod contact_center_insights {
         ///
         /// This is a **required** field for requests.
         pub fn set_qa_question<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::QaQuestion>,
+        where T: std::convert::Into<crate::model::QaQuestion>
         {
             self.0.request.qa_question = std::option::Option::Some(v.into());
             self
@@ -4979,8 +4518,7 @@ pub mod contact_center_insights {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_qa_question<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::QaQuestion>,
+        where T: std::convert::Into<crate::model::QaQuestion>
         {
             self.0.request.qa_question = v.map(|x| x.into());
             self
@@ -5021,10 +4559,10 @@ pub mod contact_center_insights {
     pub struct GetQaQuestion(RequestBuilder<crate::model::GetQaQuestionRequest>);
 
     impl GetQaQuestion {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -5041,10 +4579,7 @@ pub mod contact_center_insights {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::QaQuestion> {
-            (*self.0.stub)
-                .get_qa_question(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_qa_question(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetQaQuestionRequest::name].
@@ -5084,17 +4619,14 @@ pub mod contact_center_insights {
     pub struct UpdateQaQuestion(RequestBuilder<crate::model::UpdateQaQuestionRequest>);
 
     impl UpdateQaQuestion {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateQaQuestionRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateQaQuestionRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -5107,18 +4639,14 @@ pub mod contact_center_insights {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::QaQuestion> {
-            (*self.0.stub)
-                .update_qa_question(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_qa_question(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [qa_question][crate::model::UpdateQaQuestionRequest::qa_question].
         ///
         /// This is a **required** field for requests.
         pub fn set_qa_question<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::QaQuestion>,
+        where T: std::convert::Into<crate::model::QaQuestion>
         {
             self.0.request.qa_question = std::option::Option::Some(v.into());
             self
@@ -5128,8 +4656,7 @@ pub mod contact_center_insights {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_qa_question<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::QaQuestion>,
+        where T: std::convert::Into<crate::model::QaQuestion>
         {
             self.0.request.qa_question = v.map(|x| x.into());
             self
@@ -5139,8 +4666,7 @@ pub mod contact_center_insights {
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -5150,8 +4676,7 @@ pub mod contact_center_insights {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -5186,17 +4711,14 @@ pub mod contact_center_insights {
     pub struct DeleteQaQuestion(RequestBuilder<crate::model::DeleteQaQuestionRequest>);
 
     impl DeleteQaQuestion {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteQaQuestionRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteQaQuestionRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -5209,10 +4731,7 @@ pub mod contact_center_insights {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .delete_qa_question(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_qa_question(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteQaQuestionRequest::name].
@@ -5256,10 +4775,10 @@ pub mod contact_center_insights {
     pub struct ListQaQuestions(RequestBuilder<crate::model::ListQaQuestionsRequest>);
 
     impl ListQaQuestions {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -5276,17 +4795,11 @@ pub mod contact_center_insights {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListQaQuestionsResponse> {
-            (*self.0.stub)
-                .list_qa_questions(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_qa_questions(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListQaQuestionsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListQaQuestionsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -5298,10 +4811,7 @@ pub mod contact_center_insights {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListQaQuestionsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListQaQuestionsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -5355,17 +4865,14 @@ pub mod contact_center_insights {
     pub struct CreateQaScorecard(RequestBuilder<crate::model::CreateQaScorecardRequest>);
 
     impl CreateQaScorecard {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateQaScorecardRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateQaScorecardRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -5378,10 +4885,7 @@ pub mod contact_center_insights {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::QaScorecard> {
-            (*self.0.stub)
-                .create_qa_scorecard(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_qa_scorecard(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateQaScorecardRequest::parent].
@@ -5396,8 +4900,7 @@ pub mod contact_center_insights {
         ///
         /// This is a **required** field for requests.
         pub fn set_qa_scorecard<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::QaScorecard>,
+        where T: std::convert::Into<crate::model::QaScorecard>
         {
             self.0.request.qa_scorecard = std::option::Option::Some(v.into());
             self
@@ -5407,8 +4910,7 @@ pub mod contact_center_insights {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_qa_scorecard<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::QaScorecard>,
+        where T: std::convert::Into<crate::model::QaScorecard>
         {
             self.0.request.qa_scorecard = v.map(|x| x.into());
             self
@@ -5449,10 +4951,10 @@ pub mod contact_center_insights {
     pub struct GetQaScorecard(RequestBuilder<crate::model::GetQaScorecardRequest>);
 
     impl GetQaScorecard {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -5469,10 +4971,7 @@ pub mod contact_center_insights {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::QaScorecard> {
-            (*self.0.stub)
-                .get_qa_scorecard(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_qa_scorecard(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetQaScorecardRequest::name].
@@ -5512,17 +5011,14 @@ pub mod contact_center_insights {
     pub struct UpdateQaScorecard(RequestBuilder<crate::model::UpdateQaScorecardRequest>);
 
     impl UpdateQaScorecard {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateQaScorecardRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateQaScorecardRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -5535,18 +5031,14 @@ pub mod contact_center_insights {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::QaScorecard> {
-            (*self.0.stub)
-                .update_qa_scorecard(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_qa_scorecard(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [qa_scorecard][crate::model::UpdateQaScorecardRequest::qa_scorecard].
         ///
         /// This is a **required** field for requests.
         pub fn set_qa_scorecard<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::QaScorecard>,
+        where T: std::convert::Into<crate::model::QaScorecard>
         {
             self.0.request.qa_scorecard = std::option::Option::Some(v.into());
             self
@@ -5556,8 +5048,7 @@ pub mod contact_center_insights {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_qa_scorecard<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::QaScorecard>,
+        where T: std::convert::Into<crate::model::QaScorecard>
         {
             self.0.request.qa_scorecard = v.map(|x| x.into());
             self
@@ -5567,8 +5058,7 @@ pub mod contact_center_insights {
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -5578,8 +5068,7 @@ pub mod contact_center_insights {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -5614,17 +5103,14 @@ pub mod contact_center_insights {
     pub struct DeleteQaScorecard(RequestBuilder<crate::model::DeleteQaScorecardRequest>);
 
     impl DeleteQaScorecard {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteQaScorecardRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteQaScorecardRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -5637,10 +5123,7 @@ pub mod contact_center_insights {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .delete_qa_scorecard(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_qa_scorecard(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteQaScorecardRequest::name].
@@ -5690,17 +5173,14 @@ pub mod contact_center_insights {
     pub struct ListQaScorecards(RequestBuilder<crate::model::ListQaScorecardsRequest>);
 
     impl ListQaScorecards {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListQaScorecardsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListQaScorecardsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -5713,17 +5193,11 @@ pub mod contact_center_insights {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListQaScorecardsResponse> {
-            (*self.0.stub)
-                .list_qa_scorecards(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_qa_scorecards(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListQaScorecardsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListQaScorecardsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -5735,10 +5209,7 @@ pub mod contact_center_insights {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListQaScorecardsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListQaScorecardsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -5789,22 +5260,17 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateQaScorecardRevision(
-        RequestBuilder<crate::model::CreateQaScorecardRevisionRequest>,
-    );
+    pub struct CreateQaScorecardRevision(RequestBuilder<crate::model::CreateQaScorecardRevisionRequest>);
 
     impl CreateQaScorecardRevision {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateQaScorecardRevisionRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateQaScorecardRevisionRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -5817,10 +5283,7 @@ pub mod contact_center_insights {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::QaScorecardRevision> {
-            (*self.0.stub)
-                .create_qa_scorecard_revision(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_qa_scorecard_revision(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateQaScorecardRevisionRequest::parent].
@@ -5835,8 +5298,7 @@ pub mod contact_center_insights {
         ///
         /// This is a **required** field for requests.
         pub fn set_qa_scorecard_revision<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::QaScorecardRevision>,
+        where T: std::convert::Into<crate::model::QaScorecardRevision>
         {
             self.0.request.qa_scorecard_revision = std::option::Option::Some(v.into());
             self
@@ -5846,8 +5308,7 @@ pub mod contact_center_insights {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_qa_scorecard_revision<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::QaScorecardRevision>,
+        where T: std::convert::Into<crate::model::QaScorecardRevision>
         {
             self.0.request.qa_scorecard_revision = v.map(|x| x.into());
             self
@@ -5888,17 +5349,14 @@ pub mod contact_center_insights {
     pub struct GetQaScorecardRevision(RequestBuilder<crate::model::GetQaScorecardRevisionRequest>);
 
     impl GetQaScorecardRevision {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetQaScorecardRevisionRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetQaScorecardRevisionRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -5911,10 +5369,7 @@ pub mod contact_center_insights {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::QaScorecardRevision> {
-            (*self.0.stub)
-                .get_qa_scorecard_revision(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_qa_scorecard_revision(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetQaScorecardRevisionRequest::name].
@@ -5952,22 +5407,17 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct TuneQaScorecardRevision(
-        RequestBuilder<crate::model::TuneQaScorecardRevisionRequest>,
-    );
+    pub struct TuneQaScorecardRevision(RequestBuilder<crate::model::TuneQaScorecardRevisionRequest>);
 
     impl TuneQaScorecardRevision {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::TuneQaScorecardRevisionRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::TuneQaScorecardRevisionRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -5985,23 +5435,16 @@ pub mod contact_center_insights {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [tune_qa_scorecard_revision][crate::client::ContactCenterInsights::tune_qa_scorecard_revision].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .tune_qa_scorecard_revision(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).tune_qa_scorecard_revision(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `tune_qa_scorecard_revision`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<
-            crate::model::TuneQaScorecardRevisionResponse,
-            crate::model::TuneQaScorecardRevisionMetadata,
-        > {
-            type Operation = lro::internal::Operation<
-                crate::model::TuneQaScorecardRevisionResponse,
-                crate::model::TuneQaScorecardRevisionMetadata,
-            >;
+            self
+        ) ->
+            impl lro::Poller<crate::model::TuneQaScorecardRevisionResponse, crate::model::TuneQaScorecardRevisionMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::TuneQaScorecardRevisionResponse, crate::model::TuneQaScorecardRevisionMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -6077,22 +5520,17 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeployQaScorecardRevision(
-        RequestBuilder<crate::model::DeployQaScorecardRevisionRequest>,
-    );
+    pub struct DeployQaScorecardRevision(RequestBuilder<crate::model::DeployQaScorecardRevisionRequest>);
 
     impl DeployQaScorecardRevision {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeployQaScorecardRevisionRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DeployQaScorecardRevisionRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -6105,10 +5543,7 @@ pub mod contact_center_insights {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::QaScorecardRevision> {
-            (*self.0.stub)
-                .deploy_qa_scorecard_revision(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).deploy_qa_scorecard_revision(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeployQaScorecardRevisionRequest::name].
@@ -6145,22 +5580,17 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UndeployQaScorecardRevision(
-        RequestBuilder<crate::model::UndeployQaScorecardRevisionRequest>,
-    );
+    pub struct UndeployQaScorecardRevision(RequestBuilder<crate::model::UndeployQaScorecardRevisionRequest>);
 
     impl UndeployQaScorecardRevision {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UndeployQaScorecardRevisionRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UndeployQaScorecardRevisionRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -6173,10 +5603,7 @@ pub mod contact_center_insights {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::QaScorecardRevision> {
-            (*self.0.stub)
-                .undeploy_qa_scorecard_revision(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).undeploy_qa_scorecard_revision(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UndeployQaScorecardRevisionRequest::name].
@@ -6213,22 +5640,17 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteQaScorecardRevision(
-        RequestBuilder<crate::model::DeleteQaScorecardRevisionRequest>,
-    );
+    pub struct DeleteQaScorecardRevision(RequestBuilder<crate::model::DeleteQaScorecardRevisionRequest>);
 
     impl DeleteQaScorecardRevision {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteQaScorecardRevisionRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteQaScorecardRevisionRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -6241,10 +5663,7 @@ pub mod contact_center_insights {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .delete_qa_scorecard_revision(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_qa_scorecard_revision(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteQaScorecardRevisionRequest::name].
@@ -6291,22 +5710,17 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListQaScorecardRevisions(
-        RequestBuilder<crate::model::ListQaScorecardRevisionsRequest>,
-    );
+    pub struct ListQaScorecardRevisions(RequestBuilder<crate::model::ListQaScorecardRevisionsRequest>);
 
     impl ListQaScorecardRevisions {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListQaScorecardRevisionsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListQaScorecardRevisionsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -6319,19 +5733,11 @@ pub mod contact_center_insights {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListQaScorecardRevisionsResponse> {
-            (*self.0.stub)
-                .list_qa_scorecard_revisions(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_qa_scorecard_revisions(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<
-            crate::model::ListQaScorecardRevisionsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListQaScorecardRevisionsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -6343,12 +5749,7 @@ pub mod contact_center_insights {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListQaScorecardRevisionsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListQaScorecardRevisionsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -6408,17 +5809,14 @@ pub mod contact_center_insights {
     pub struct CreateFeedbackLabel(RequestBuilder<crate::model::CreateFeedbackLabelRequest>);
 
     impl CreateFeedbackLabel {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateFeedbackLabelRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateFeedbackLabelRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -6431,10 +5829,7 @@ pub mod contact_center_insights {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::FeedbackLabel> {
-            (*self.0.stub)
-                .create_feedback_label(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_feedback_label(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateFeedbackLabelRequest::parent].
@@ -6455,8 +5850,7 @@ pub mod contact_center_insights {
         ///
         /// This is a **required** field for requests.
         pub fn set_feedback_label<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::FeedbackLabel>,
+        where T: std::convert::Into<crate::model::FeedbackLabel>
         {
             self.0.request.feedback_label = std::option::Option::Some(v.into());
             self
@@ -6466,8 +5860,7 @@ pub mod contact_center_insights {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_feedback_label<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::FeedbackLabel>,
+        where T: std::convert::Into<crate::model::FeedbackLabel>
         {
             self.0.request.feedback_label = v.map(|x| x.into());
             self
@@ -6506,17 +5899,14 @@ pub mod contact_center_insights {
     pub struct ListFeedbackLabels(RequestBuilder<crate::model::ListFeedbackLabelsRequest>);
 
     impl ListFeedbackLabels {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListFeedbackLabelsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListFeedbackLabelsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -6529,17 +5919,11 @@ pub mod contact_center_insights {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListFeedbackLabelsResponse> {
-            (*self.0.stub)
-                .list_feedback_labels(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_feedback_labels(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListFeedbackLabelsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListFeedbackLabelsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -6551,12 +5935,7 @@ pub mod contact_center_insights {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListFeedbackLabelsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListFeedbackLabelsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -6616,17 +5995,14 @@ pub mod contact_center_insights {
     pub struct GetFeedbackLabel(RequestBuilder<crate::model::GetFeedbackLabelRequest>);
 
     impl GetFeedbackLabel {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetFeedbackLabelRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetFeedbackLabelRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -6639,10 +6015,7 @@ pub mod contact_center_insights {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::FeedbackLabel> {
-            (*self.0.stub)
-                .get_feedback_label(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_feedback_label(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetFeedbackLabelRequest::name].
@@ -6682,17 +6055,14 @@ pub mod contact_center_insights {
     pub struct UpdateFeedbackLabel(RequestBuilder<crate::model::UpdateFeedbackLabelRequest>);
 
     impl UpdateFeedbackLabel {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateFeedbackLabelRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateFeedbackLabelRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -6705,18 +6075,14 @@ pub mod contact_center_insights {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::FeedbackLabel> {
-            (*self.0.stub)
-                .update_feedback_label(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_feedback_label(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [feedback_label][crate::model::UpdateFeedbackLabelRequest::feedback_label].
         ///
         /// This is a **required** field for requests.
         pub fn set_feedback_label<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::FeedbackLabel>,
+        where T: std::convert::Into<crate::model::FeedbackLabel>
         {
             self.0.request.feedback_label = std::option::Option::Some(v.into());
             self
@@ -6726,8 +6092,7 @@ pub mod contact_center_insights {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_feedback_label<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::FeedbackLabel>,
+        where T: std::convert::Into<crate::model::FeedbackLabel>
         {
             self.0.request.feedback_label = v.map(|x| x.into());
             self
@@ -6737,8 +6102,7 @@ pub mod contact_center_insights {
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -6748,8 +6112,7 @@ pub mod contact_center_insights {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -6784,17 +6147,14 @@ pub mod contact_center_insights {
     pub struct DeleteFeedbackLabel(RequestBuilder<crate::model::DeleteFeedbackLabelRequest>);
 
     impl DeleteFeedbackLabel {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteFeedbackLabelRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteFeedbackLabelRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -6807,10 +6167,7 @@ pub mod contact_center_insights {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .delete_feedback_label(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_feedback_label(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteFeedbackLabelRequest::name].
@@ -6854,17 +6211,14 @@ pub mod contact_center_insights {
     pub struct ListAllFeedbackLabels(RequestBuilder<crate::model::ListAllFeedbackLabelsRequest>);
 
     impl ListAllFeedbackLabels {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListAllFeedbackLabelsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListAllFeedbackLabelsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -6877,17 +6231,11 @@ pub mod contact_center_insights {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListAllFeedbackLabelsResponse> {
-            (*self.0.stub)
-                .list_all_feedback_labels(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_all_feedback_labels(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListAllFeedbackLabelsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListAllFeedbackLabelsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -6899,12 +6247,7 @@ pub mod contact_center_insights {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListAllFeedbackLabelsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListAllFeedbackLabelsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -6962,22 +6305,17 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct BulkUploadFeedbackLabels(
-        RequestBuilder<crate::model::BulkUploadFeedbackLabelsRequest>,
-    );
+    pub struct BulkUploadFeedbackLabels(RequestBuilder<crate::model::BulkUploadFeedbackLabelsRequest>);
 
     impl BulkUploadFeedbackLabels {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::BulkUploadFeedbackLabelsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::BulkUploadFeedbackLabelsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -6995,23 +6333,16 @@ pub mod contact_center_insights {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [bulk_upload_feedback_labels][crate::client::ContactCenterInsights::bulk_upload_feedback_labels].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .bulk_upload_feedback_labels(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).bulk_upload_feedback_labels(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `bulk_upload_feedback_labels`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<
-            crate::model::BulkUploadFeedbackLabelsResponse,
-            crate::model::BulkUploadFeedbackLabelsMetadata,
-        > {
-            type Operation = lro::internal::Operation<
-                crate::model::BulkUploadFeedbackLabelsResponse,
-                crate::model::BulkUploadFeedbackLabelsMetadata,
-            >;
+            self
+        ) ->
+            impl lro::Poller<crate::model::BulkUploadFeedbackLabelsResponse, crate::model::BulkUploadFeedbackLabelsMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::BulkUploadFeedbackLabelsResponse, crate::model::BulkUploadFeedbackLabelsMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -7057,12 +6388,7 @@ pub mod contact_center_insights {
         ///
         /// Note that all the setters affecting `source` are
         /// mutually exclusive.
-        pub fn set_source<
-            T: Into<Option<crate::model::bulk_upload_feedback_labels_request::Source>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_source<T: Into<Option<crate::model::bulk_upload_feedback_labels_request::Source>>>(mut self, v: T) ->Self {
             self.0.request.source = v.into();
             self
         }
@@ -7072,14 +6398,7 @@ pub mod contact_center_insights {
         ///
         /// Note that all the setters affecting `source` are
         /// mutually exclusive.
-        pub fn set_gcs_source<
-            T: std::convert::Into<
-                    std::boxed::Box<crate::model::bulk_upload_feedback_labels_request::GcsSource>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_gcs_source<T: std::convert::Into<std::boxed::Box<crate::model::bulk_upload_feedback_labels_request::GcsSource>>>(mut self, v: T) -> Self {
             self.0.request = self.0.request.set_gcs_source(v);
             self
         }
@@ -7111,22 +6430,17 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct BulkDownloadFeedbackLabels(
-        RequestBuilder<crate::model::BulkDownloadFeedbackLabelsRequest>,
-    );
+    pub struct BulkDownloadFeedbackLabels(RequestBuilder<crate::model::BulkDownloadFeedbackLabelsRequest>);
 
     impl BulkDownloadFeedbackLabels {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::BulkDownloadFeedbackLabelsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::BulkDownloadFeedbackLabelsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -7144,23 +6458,16 @@ pub mod contact_center_insights {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [bulk_download_feedback_labels][crate::client::ContactCenterInsights::bulk_download_feedback_labels].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .bulk_download_feedback_labels(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).bulk_download_feedback_labels(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `bulk_download_feedback_labels`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<
-            crate::model::BulkDownloadFeedbackLabelsResponse,
-            crate::model::BulkDownloadFeedbackLabelsMetadata,
-        > {
-            type Operation = lro::internal::Operation<
-                crate::model::BulkDownloadFeedbackLabelsResponse,
-                crate::model::BulkDownloadFeedbackLabelsMetadata,
-            >;
+            self
+        ) ->
+            impl lro::Poller<crate::model::BulkDownloadFeedbackLabelsResponse, crate::model::BulkDownloadFeedbackLabelsMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::BulkDownloadFeedbackLabelsResponse, crate::model::BulkDownloadFeedbackLabelsMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -7209,12 +6516,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [feedback_label_type][crate::model::BulkDownloadFeedbackLabelsRequest::feedback_label_type].
-        pub fn set_feedback_label_type<
-            T: Into<crate::model::bulk_download_feedback_labels_request::FeedbackLabelType>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_feedback_label_type<T: Into<crate::model::bulk_download_feedback_labels_request::FeedbackLabelType>>(mut self, v: T) -> Self {
             self.0.request.feedback_label_type = v.into();
             self
         }
@@ -7229,7 +6531,7 @@ pub mod contact_center_insights {
         pub fn set_template_qa_scorecard_id<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.0.request.template_qa_scorecard_id = v.into_iter().map(|i| i.into()).collect();
@@ -7240,12 +6542,7 @@ pub mod contact_center_insights {
         ///
         /// Note that all the setters affecting `destination` are
         /// mutually exclusive.
-        pub fn set_destination<
-            T: Into<Option<crate::model::bulk_download_feedback_labels_request::Destination>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_destination<T: Into<Option<crate::model::bulk_download_feedback_labels_request::Destination>>>(mut self, v: T) ->Self {
             self.0.request.destination = v.into();
             self
         }
@@ -7255,16 +6552,7 @@ pub mod contact_center_insights {
         ///
         /// Note that all the setters affecting `destination` are
         /// mutually exclusive.
-        pub fn set_gcs_destination<
-            T: std::convert::Into<
-                    std::boxed::Box<
-                        crate::model::bulk_download_feedback_labels_request::GcsDestination,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_gcs_destination<T: std::convert::Into<std::boxed::Box<crate::model::bulk_download_feedback_labels_request::GcsDestination>>>(mut self, v: T) -> Self {
             self.0.request = self.0.request.set_gcs_destination(v);
             self
         }
@@ -7302,17 +6590,14 @@ pub mod contact_center_insights {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -7325,17 +6610,11 @@ pub mod contact_center_insights {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::ListOperationsResponse> {
-            (*self.0.stub)
-                .list_operations(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_operations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -7347,12 +6626,7 @@ pub mod contact_center_insights {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            longrunning::model::ListOperationsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -7416,17 +6690,14 @@ pub mod contact_center_insights {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -7439,10 +6710,7 @@ pub mod contact_center_insights {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .get_operation(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -7480,17 +6748,14 @@ pub mod contact_center_insights {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -7503,10 +6768,7 @@ pub mod contact_center_insights {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .cancel_operation(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).cancel_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -7522,4 +6784,5 @@ pub mod contact_center_insights {
             &mut self.0.options
         }
     }
+
 }

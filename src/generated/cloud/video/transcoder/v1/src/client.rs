@@ -77,9 +77,7 @@ impl TranscoderService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::transcoder_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::transcoder_service::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::transcoder_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -87,82 +85,169 @@ impl TranscoderService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::TranscoderService + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::TranscoderService + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::TranscoderService>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::TranscoderService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::TranscoderService> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::TranscoderService> {
         super::transport::TranscoderService::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::TranscoderService> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::TranscoderService::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::TranscoderService> {
+        Self::build_transport(conf).await.map(super::tracing::TranscoderService::new)
     }
 
     /// Creates a job in the specified region.
-    pub fn create_job(&self) -> super::builder::transcoder_service::CreateJob {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::client::TranscoderService;
+    /// async fn sample(
+    ///    client: &TranscoderService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_job()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_job(&self) -> super::builder::transcoder_service::CreateJob
+    {
         super::builder::transcoder_service::CreateJob::new(self.inner.clone())
     }
 
     /// Lists jobs in the specified region.
-    pub fn list_jobs(&self) -> super::builder::transcoder_service::ListJobs {
+    pub fn list_jobs(&self) -> super::builder::transcoder_service::ListJobs
+    {
         super::builder::transcoder_service::ListJobs::new(self.inner.clone())
     }
 
     /// Returns the job data.
-    pub fn get_job(&self) -> super::builder::transcoder_service::GetJob {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::client::TranscoderService;
+    /// async fn sample(
+    ///    client: &TranscoderService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_job()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_job(&self) -> super::builder::transcoder_service::GetJob
+    {
         super::builder::transcoder_service::GetJob::new(self.inner.clone())
     }
 
     /// Deletes a job.
-    pub fn delete_job(&self) -> super::builder::transcoder_service::DeleteJob {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::client::TranscoderService;
+    /// async fn sample(
+    ///    client: &TranscoderService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_job()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_job(&self) -> super::builder::transcoder_service::DeleteJob
+    {
         super::builder::transcoder_service::DeleteJob::new(self.inner.clone())
     }
 
     /// Creates a job template in the specified region.
-    pub fn create_job_template(&self) -> super::builder::transcoder_service::CreateJobTemplate {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::client::TranscoderService;
+    /// async fn sample(
+    ///    client: &TranscoderService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_job_template()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_job_template(&self) -> super::builder::transcoder_service::CreateJobTemplate
+    {
         super::builder::transcoder_service::CreateJobTemplate::new(self.inner.clone())
     }
 
     /// Lists job templates in the specified region.
-    pub fn list_job_templates(&self) -> super::builder::transcoder_service::ListJobTemplates {
+    pub fn list_job_templates(&self) -> super::builder::transcoder_service::ListJobTemplates
+    {
         super::builder::transcoder_service::ListJobTemplates::new(self.inner.clone())
     }
 
     /// Returns the job template data.
-    pub fn get_job_template(&self) -> super::builder::transcoder_service::GetJobTemplate {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::client::TranscoderService;
+    /// async fn sample(
+    ///    client: &TranscoderService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_job_template()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_job_template(&self) -> super::builder::transcoder_service::GetJobTemplate
+    {
         super::builder::transcoder_service::GetJobTemplate::new(self.inner.clone())
     }
 
     /// Deletes a job template.
-    pub fn delete_job_template(&self) -> super::builder::transcoder_service::DeleteJobTemplate {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::client::TranscoderService;
+    /// async fn sample(
+    ///    client: &TranscoderService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_job_template()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_job_template(&self) -> super::builder::transcoder_service::DeleteJobTemplate
+    {
         super::builder::transcoder_service::DeleteJobTemplate::new(self.inner.clone())
     }
 }

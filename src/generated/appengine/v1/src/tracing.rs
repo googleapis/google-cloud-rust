@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [Applications](super::stub::Applications) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct Applications<T>
-where
-    T: super::stub::Applications + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Applications + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> Applications<T>
-where
-    T: super::stub::Applications + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Applications + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::Applications for Applications<T>
-where
-    T: super::stub::Applications + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Applications + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn get_application(
         &self,
@@ -91,6 +85,7 @@ where
         self.inner.get_operation(req, options).await
     }
 
+
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -109,25 +104,19 @@ where
 /// Implements a [Services](super::stub::Services) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct Services<T>
-where
-    T: super::stub::Services + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Services + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> Services<T>
-where
-    T: super::stub::Services + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Services + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::Services for Services<T>
-where
-    T: super::stub::Services + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Services + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn list_services(
         &self,
@@ -182,6 +171,7 @@ where
         self.inner.get_operation(req, options).await
     }
 
+
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -200,25 +190,19 @@ where
 /// Implements a [Versions](super::stub::Versions) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct Versions<T>
-where
-    T: super::stub::Versions + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Versions + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> Versions<T>
-where
-    T: super::stub::Versions + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Versions + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::Versions for Versions<T>
-where
-    T: super::stub::Versions + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Versions + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn list_versions(
         &self,
@@ -282,6 +266,7 @@ where
         self.inner.get_operation(req, options).await
     }
 
+
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -300,25 +285,19 @@ where
 /// Implements a [Instances](super::stub::Instances) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct Instances<T>
-where
-    T: super::stub::Instances + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Instances + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> Instances<T>
-where
-    T: super::stub::Instances + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Instances + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::Instances for Instances<T>
-where
-    T: super::stub::Instances + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Instances + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn list_instances(
         &self,
@@ -373,6 +352,7 @@ where
         self.inner.get_operation(req, options).await
     }
 
+
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -391,25 +371,19 @@ where
 /// Implements a [Firewall](super::stub::Firewall) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct Firewall<T>
-where
-    T: super::stub::Firewall + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Firewall + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> Firewall<T>
-where
-    T: super::stub::Firewall + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Firewall + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::Firewall for Firewall<T>
-where
-    T: super::stub::Firewall + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Firewall + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn list_ingress_rules(
         &self,
@@ -481,30 +455,25 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
+
 }
 
 /// Implements a [AuthorizedDomains](super::stub::AuthorizedDomains) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct AuthorizedDomains<T>
-where
-    T: super::stub::AuthorizedDomains + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::AuthorizedDomains + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> AuthorizedDomains<T>
-where
-    T: super::stub::AuthorizedDomains + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::AuthorizedDomains + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::AuthorizedDomains for AuthorizedDomains<T>
-where
-    T: super::stub::AuthorizedDomains + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::AuthorizedDomains + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn list_authorized_domains(
         &self,
@@ -531,30 +500,25 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
+
 }
 
 /// Implements a [AuthorizedCertificates](super::stub::AuthorizedCertificates) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct AuthorizedCertificates<T>
-where
-    T: super::stub::AuthorizedCertificates + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::AuthorizedCertificates + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> AuthorizedCertificates<T>
-where
-    T: super::stub::AuthorizedCertificates + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::AuthorizedCertificates + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::AuthorizedCertificates for AuthorizedCertificates<T>
-where
-    T: super::stub::AuthorizedCertificates + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::AuthorizedCertificates + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn list_authorized_certificates(
         &self,
@@ -617,30 +581,25 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
+
 }
 
 /// Implements a [DomainMappings](super::stub::DomainMappings) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct DomainMappings<T>
-where
-    T: super::stub::DomainMappings + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::DomainMappings + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> DomainMappings<T>
-where
-    T: super::stub::DomainMappings + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::DomainMappings + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::DomainMappings for DomainMappings<T>
-where
-    T: super::stub::DomainMappings + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::DomainMappings + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn list_domain_mappings(
         &self,
@@ -704,6 +663,7 @@ where
         self.inner.get_operation(req, options).await
     }
 
+
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -718,3 +678,4 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 }
+

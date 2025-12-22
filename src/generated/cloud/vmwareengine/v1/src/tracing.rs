@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [VmwareEngine](super::stub::VmwareEngine) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct VmwareEngine<T>
-where
-    T: super::stub::VmwareEngine + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::VmwareEngine + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> VmwareEngine<T>
-where
-    T: super::stub::VmwareEngine + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::VmwareEngine + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::VmwareEngine for VmwareEngine<T>
-where
-    T: super::stub::VmwareEngine + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::VmwareEngine + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn list_private_clouds(
         &self,
@@ -168,11 +162,8 @@ where
         &self,
         req: crate::model::FetchNetworkPolicyExternalAddressesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::FetchNetworkPolicyExternalAddressesResponse>>
-    {
-        self.inner
-            .fetch_network_policy_external_addresses(req, options)
-            .await
+    ) -> Result<gax::response::Response<crate::model::FetchNetworkPolicyExternalAddressesResponse>> {
+        self.inner.fetch_network_policy_external_addresses(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -532,9 +523,7 @@ where
         req: crate::model::ListManagementDnsZoneBindingsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListManagementDnsZoneBindingsResponse>> {
-        self.inner
-            .list_management_dns_zone_bindings(req, options)
-            .await
+        self.inner.list_management_dns_zone_bindings(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -543,9 +532,7 @@ where
         req: crate::model::GetManagementDnsZoneBindingRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ManagementDnsZoneBinding>> {
-        self.inner
-            .get_management_dns_zone_binding(req, options)
-            .await
+        self.inner.get_management_dns_zone_binding(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -554,9 +541,7 @@ where
         req: crate::model::CreateManagementDnsZoneBindingRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        self.inner
-            .create_management_dns_zone_binding(req, options)
-            .await
+        self.inner.create_management_dns_zone_binding(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -565,9 +550,7 @@ where
         req: crate::model::UpdateManagementDnsZoneBindingRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        self.inner
-            .update_management_dns_zone_binding(req, options)
-            .await
+        self.inner.update_management_dns_zone_binding(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -576,9 +559,7 @@ where
         req: crate::model::DeleteManagementDnsZoneBindingRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        self.inner
-            .delete_management_dns_zone_binding(req, options)
-            .await
+        self.inner.delete_management_dns_zone_binding(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -587,9 +568,7 @@ where
         req: crate::model::RepairManagementDnsZoneBindingRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        self.inner
-            .repair_management_dns_zone_binding(req, options)
-            .await
+        self.inner.repair_management_dns_zone_binding(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -687,11 +666,8 @@ where
         &self,
         req: crate::model::ListPrivateConnectionPeeringRoutesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListPrivateConnectionPeeringRoutesResponse>>
-    {
-        self.inner
-            .list_private_connection_peering_routes(req, options)
-            .await
+    ) -> Result<gax::response::Response<crate::model::ListPrivateConnectionPeeringRoutesResponse>> {
+        self.inner.list_private_connection_peering_routes(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -793,6 +769,7 @@ where
         self.inner.delete_operation(req, options).await
     }
 
+
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -807,3 +784,4 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 }
+

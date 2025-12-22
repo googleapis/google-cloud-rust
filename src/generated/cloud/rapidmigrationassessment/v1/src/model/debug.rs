@@ -64,6 +64,7 @@ impl std::fmt::Debug for super::Collector {
     }
 }
 
+
 impl std::fmt::Debug for super::Annotation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Annotation");
@@ -78,6 +79,7 @@ impl std::fmt::Debug for super::Annotation {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::CreateAnnotationRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

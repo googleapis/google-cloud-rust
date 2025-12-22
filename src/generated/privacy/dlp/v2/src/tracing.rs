@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [DlpService](super::stub::DlpService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct DlpService<T>
-where
-    T: super::stub::DlpService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::DlpService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> DlpService<T>
-where
-    T: super::stub::DlpService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::DlpService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::DlpService for DlpService<T>
-where
-    T: super::stub::DlpService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::DlpService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn inspect_content(
         &self,
@@ -430,9 +424,7 @@ where
         req: crate::model::DeleteFileStoreDataProfileRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        self.inner
-            .delete_file_store_data_profile(req, options)
-            .await
+        self.inner.delete_file_store_data_profile(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -533,4 +525,6 @@ where
     ) -> Result<gax::response::Response<crate::model::Connection>> {
         self.inner.update_connection(req, options).await
     }
+
 }
+

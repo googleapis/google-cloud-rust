@@ -24,10 +24,7 @@ impl std::fmt::Debug for super::GmailAddOnManifest {
         debug_struct.field("contextual_triggers", &self.contextual_triggers);
         debug_struct.field("universal_actions", &self.universal_actions);
         debug_struct.field("compose_trigger", &self.compose_trigger);
-        debug_struct.field(
-            "authorization_check_function",
-            &self.authorization_check_function,
-        );
+        debug_struct.field("authorization_check_function", &self.authorization_check_function);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

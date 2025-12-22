@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [Operations](super::stub::Operations) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct Operations<T>
-where
-    T: super::stub::Operations + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Operations + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> Operations<T>
-where
-    T: super::stub::Operations + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Operations + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::Operations for Operations<T>
-where
-    T: super::stub::Operations + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Operations + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn list_operations(
         &self,
@@ -72,4 +66,6 @@ where
     ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
+
 }
+

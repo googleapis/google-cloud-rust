@@ -39,10 +39,7 @@ pub mod gateway_control {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = GatewayControl;
             type Credentials = gaxi::options::Credentials;
-            async fn build(
-                self,
-                config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -57,12 +54,8 @@ pub mod gateway_control {
     }
 
     impl<R> RequestBuilder<R>
-    where
-        R: std::default::Default,
-    {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::GatewayControl>,
-        ) -> Self {
+    where R: std::default::Default {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GatewayControl>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -92,17 +85,14 @@ pub mod gateway_control {
     pub struct GenerateCredentials(RequestBuilder<crate::model::GenerateCredentialsRequest>);
 
     impl GenerateCredentials {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::GatewayControl>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GatewayControl>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GenerateCredentialsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GenerateCredentialsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -115,10 +105,7 @@ pub mod gateway_control {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::GenerateCredentialsResponse> {
-            (*self.0.stub)
-                .generate_credentials(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).generate_credentials(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GenerateCredentialsRequest::name].
@@ -148,12 +135,7 @@ pub mod gateway_control {
         }
 
         /// Sets the value of [operating_system][crate::model::GenerateCredentialsRequest::operating_system].
-        pub fn set_operating_system<
-            T: Into<crate::model::generate_credentials_request::OperatingSystem>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_operating_system<T: Into<crate::model::generate_credentials_request::OperatingSystem>>(mut self, v: T) -> Self {
             self.0.request.operating_system = v.into();
             self
         }
@@ -165,4 +147,5 @@ pub mod gateway_control {
             &mut self.0.options
         }
     }
+
 }

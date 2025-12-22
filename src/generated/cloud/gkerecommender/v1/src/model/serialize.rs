@@ -23,9 +23,9 @@ impl serde::ser::Serialize for super::FetchModelsRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.page_size.is_some() {
             struct __With<'a>(&'a std::option::Option<i32>);
@@ -34,9 +34,7 @@ impl serde::ser::Serialize for super::FetchModelsRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
-                        self.0, serializer,
-                    )
+                    serde_with::As::< std::option::Option<wkt::internal::I32> >::serialize(self.0, serializer)
                 }
             }
             state.serialize_entry("pageSize", &__With(&self.page_size))?;
@@ -59,9 +57,9 @@ impl serde::ser::Serialize for super::FetchModelsResponse {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.models.is_empty() {
             state.serialize_entry("models", &self.models)?;
@@ -84,9 +82,9 @@ impl serde::ser::Serialize for super::FetchModelServersRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.model.is_empty() {
             state.serialize_entry("model", &self.model)?;
@@ -98,9 +96,7 @@ impl serde::ser::Serialize for super::FetchModelServersRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
-                        self.0, serializer,
-                    )
+                    serde_with::As::< std::option::Option<wkt::internal::I32> >::serialize(self.0, serializer)
                 }
             }
             state.serialize_entry("pageSize", &__With(&self.page_size))?;
@@ -123,9 +119,9 @@ impl serde::ser::Serialize for super::FetchModelServersResponse {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.model_servers.is_empty() {
             state.serialize_entry("modelServers", &self.model_servers)?;
@@ -148,9 +144,9 @@ impl serde::ser::Serialize for super::FetchModelServerVersionsRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.model.is_empty() {
             state.serialize_entry("model", &self.model)?;
@@ -165,9 +161,7 @@ impl serde::ser::Serialize for super::FetchModelServerVersionsRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
-                        self.0, serializer,
-                    )
+                    serde_with::As::< std::option::Option<wkt::internal::I32> >::serialize(self.0, serializer)
                 }
             }
             state.serialize_entry("pageSize", &__With(&self.page_size))?;
@@ -190,9 +184,9 @@ impl serde::ser::Serialize for super::FetchModelServerVersionsResponse {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.model_server_versions.is_empty() {
             state.serialize_entry("modelServerVersions", &self.model_server_versions)?;
@@ -215,9 +209,9 @@ impl serde::ser::Serialize for super::FetchBenchmarkingDataRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.model_server_info.is_some() {
             state.serialize_entry("modelServerInfo", &self.model_server_info)?;
@@ -243,9 +237,9 @@ impl serde::ser::Serialize for super::FetchBenchmarkingDataResponse {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.profile.is_empty() {
             state.serialize_entry("profile", &self.profile)?;
@@ -265,9 +259,9 @@ impl serde::ser::Serialize for super::FetchProfilesRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.model.is_empty() {
             state.serialize_entry("model", &self.model)?;
@@ -288,9 +282,7 @@ impl serde::ser::Serialize for super::FetchProfilesRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
-                        self.0, serializer,
-                    )
+                    serde_with::As::< std::option::Option<wkt::internal::I32> >::serialize(self.0, serializer)
                 }
             }
             state.serialize_entry("pageSize", &__With(&self.page_size))?;
@@ -313,9 +305,9 @@ impl serde::ser::Serialize for super::PerformanceRequirements {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.target_ntpot_milliseconds.is_some() {
             struct __With<'a>(&'a std::option::Option<i32>);
@@ -324,15 +316,10 @@ impl serde::ser::Serialize for super::PerformanceRequirements {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
-                        self.0, serializer,
-                    )
+                    serde_with::As::< std::option::Option<wkt::internal::I32> >::serialize(self.0, serializer)
                 }
             }
-            state.serialize_entry(
-                "targetNtpotMilliseconds",
-                &__With(&self.target_ntpot_milliseconds),
-            )?;
+            state.serialize_entry("targetNtpotMilliseconds", &__With(&self.target_ntpot_milliseconds))?;
         }
         if self.target_ttft_milliseconds.is_some() {
             struct __With<'a>(&'a std::option::Option<i32>);
@@ -341,15 +328,10 @@ impl serde::ser::Serialize for super::PerformanceRequirements {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
-                        self.0, serializer,
-                    )
+                    serde_with::As::< std::option::Option<wkt::internal::I32> >::serialize(self.0, serializer)
                 }
             }
-            state.serialize_entry(
-                "targetTtftMilliseconds",
-                &__With(&self.target_ttft_milliseconds),
-            )?;
+            state.serialize_entry("targetTtftMilliseconds", &__With(&self.target_ttft_milliseconds))?;
         }
         if self.target_cost.is_some() {
             state.serialize_entry("targetCost", &self.target_cost)?;
@@ -369,9 +351,9 @@ impl serde::ser::Serialize for super::Amount {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.units) {
             struct __With<'a>(&'a i64);
@@ -412,21 +394,15 @@ impl serde::ser::Serialize for super::Cost {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.cost_per_million_output_tokens.is_some() {
-            state.serialize_entry(
-                "costPerMillionOutputTokens",
-                &self.cost_per_million_output_tokens,
-            )?;
+            state.serialize_entry("costPerMillionOutputTokens", &self.cost_per_million_output_tokens)?;
         }
         if self.cost_per_million_input_tokens.is_some() {
-            state.serialize_entry(
-                "costPerMillionInputTokens",
-                &self.cost_per_million_input_tokens,
-            )?;
+            state.serialize_entry("costPerMillionInputTokens", &self.cost_per_million_input_tokens)?;
         }
         if !self.pricing_model.is_empty() {
             state.serialize_entry("pricingModel", &self.pricing_model)?;
@@ -438,15 +414,10 @@ impl serde::ser::Serialize for super::Cost {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<std::option::Option<wkt::internal::F32>>::serialize(
-                        self.0, serializer,
-                    )
+                    serde_with::As::< std::option::Option<wkt::internal::F32> >::serialize(self.0, serializer)
                 }
             }
-            state.serialize_entry(
-                "outputInputCostRatio",
-                &__With(&self.output_input_cost_ratio),
-            )?;
+            state.serialize_entry("outputInputCostRatio", &__With(&self.output_input_cost_ratio))?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -463,9 +434,9 @@ impl serde::ser::Serialize for super::TokensPerSecondRange {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.min) {
             struct __With<'a>(&'a i32);
@@ -506,9 +477,9 @@ impl serde::ser::Serialize for super::MillisecondRange {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.min) {
             struct __With<'a>(&'a i32);
@@ -549,9 +520,9 @@ impl serde::ser::Serialize for super::PerformanceRange {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.throughput_output_range.is_some() {
             state.serialize_entry("throughputOutputRange", &self.throughput_output_range)?;
@@ -577,9 +548,9 @@ impl serde::ser::Serialize for super::FetchProfilesResponse {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.profile.is_empty() {
             state.serialize_entry("profile", &self.profile)?;
@@ -608,9 +579,9 @@ impl serde::ser::Serialize for super::ModelServerInfo {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.model.is_empty() {
             state.serialize_entry("model", &self.model)?;
@@ -636,9 +607,9 @@ impl serde::ser::Serialize for super::ResourcesUsed {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.accelerator_count) {
             struct __With<'a>(&'a i32);
@@ -667,9 +638,9 @@ impl serde::ser::Serialize for super::PerformanceStats {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.queries_per_second) {
             struct __With<'a>(&'a f32);
@@ -693,10 +664,7 @@ impl serde::ser::Serialize for super::PerformanceStats {
                     serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
                 }
             }
-            state.serialize_entry(
-                "outputTokensPerSecond",
-                &__With(&self.output_tokens_per_second),
-            )?;
+            state.serialize_entry("outputTokensPerSecond", &__With(&self.output_tokens_per_second))?;
         }
         if !wkt::internal::is_default(&self.ntpot_milliseconds) {
             struct __With<'a>(&'a i32);
@@ -740,9 +708,9 @@ impl serde::ser::Serialize for super::Profile {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.model_server_info.is_some() {
             state.serialize_entry("modelServerInfo", &self.model_server_info)?;
@@ -777,9 +745,9 @@ impl serde::ser::Serialize for super::GenerateOptimizedManifestRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.model_server_info.is_some() {
             state.serialize_entry("modelServerInfo", &self.model_server_info)?;
@@ -811,9 +779,9 @@ impl serde::ser::Serialize for super::KubernetesManifest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.kind.is_empty() {
             state.serialize_entry("kind", &self.kind)?;
@@ -839,9 +807,9 @@ impl serde::ser::Serialize for super::GenerateOptimizedManifestResponse {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.kubernetes_manifests.is_empty() {
             state.serialize_entry("kubernetesManifests", &self.kubernetes_manifests)?;
@@ -867,9 +835,9 @@ impl serde::ser::Serialize for super::StorageConfig {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.model_bucket_uri.is_empty() {
             state.serialize_entry("modelBucketUri", &self.model_bucket_uri)?;

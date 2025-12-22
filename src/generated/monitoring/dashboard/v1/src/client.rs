@@ -73,9 +73,7 @@ impl DashboardsService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::dashboards_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::dashboards_service::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::dashboards_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -83,43 +81,28 @@ impl DashboardsService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::DashboardsService + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::DashboardsService + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::DashboardsService>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::DashboardsService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::DashboardsService> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::DashboardsService> {
         super::transport::DashboardsService::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::DashboardsService> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::DashboardsService::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::DashboardsService> {
+        Self::build_transport(conf).await.map(super::tracing::DashboardsService::new)
     }
 
     /// Creates a new custom dashboard. For examples on how you can use this API to
@@ -128,7 +111,24 @@ impl DashboardsService {
     /// method requires the `monitoring.dashboards.create` permission on the
     /// specified project. For more information about permissions, see [Cloud
     /// Identity and Access Management](https://cloud.google.com/iam).
-    pub fn create_dashboard(&self) -> super::builder::dashboards_service::CreateDashboard {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::client::DashboardsService;
+    /// async fn sample(
+    ///    client: &DashboardsService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_dashboard()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_dashboard(&self) -> super::builder::dashboards_service::CreateDashboard
+    {
         super::builder::dashboards_service::CreateDashboard::new(self.inner.clone())
     }
 
@@ -137,7 +137,8 @@ impl DashboardsService {
     /// This method requires the `monitoring.dashboards.list` permission
     /// on the specified project. For more information, see
     /// [Cloud Identity and Access Management](https://cloud.google.com/iam).
-    pub fn list_dashboards(&self) -> super::builder::dashboards_service::ListDashboards {
+    pub fn list_dashboards(&self) -> super::builder::dashboards_service::ListDashboards
+    {
         super::builder::dashboards_service::ListDashboards::new(self.inner.clone())
     }
 
@@ -146,7 +147,24 @@ impl DashboardsService {
     /// This method requires the `monitoring.dashboards.get` permission
     /// on the specified dashboard. For more information, see
     /// [Cloud Identity and Access Management](https://cloud.google.com/iam).
-    pub fn get_dashboard(&self) -> super::builder::dashboards_service::GetDashboard {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::client::DashboardsService;
+    /// async fn sample(
+    ///    client: &DashboardsService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_dashboard()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_dashboard(&self) -> super::builder::dashboards_service::GetDashboard
+    {
         super::builder::dashboards_service::GetDashboard::new(self.inner.clone())
     }
 
@@ -155,7 +173,23 @@ impl DashboardsService {
     /// This method requires the `monitoring.dashboards.delete` permission
     /// on the specified dashboard. For more information, see
     /// [Cloud Identity and Access Management](https://cloud.google.com/iam).
-    pub fn delete_dashboard(&self) -> super::builder::dashboards_service::DeleteDashboard {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::client::DashboardsService;
+    /// async fn sample(
+    ///    client: &DashboardsService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_dashboard()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_dashboard(&self) -> super::builder::dashboards_service::DeleteDashboard
+    {
         super::builder::dashboards_service::DeleteDashboard::new(self.inner.clone())
     }
 
@@ -164,7 +198,24 @@ impl DashboardsService {
     /// This method requires the `monitoring.dashboards.update` permission
     /// on the specified dashboard. For more information, see
     /// [Cloud Identity and Access Management](https://cloud.google.com/iam).
-    pub fn update_dashboard(&self) -> super::builder::dashboards_service::UpdateDashboard {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::client::DashboardsService;
+    /// async fn sample(
+    ///    client: &DashboardsService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_dashboard()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_dashboard(&self) -> super::builder::dashboards_service::UpdateDashboard
+    {
         super::builder::dashboards_service::UpdateDashboard::new(self.inner.clone())
     }
 }

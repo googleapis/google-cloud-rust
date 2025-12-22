@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [Connectors](super::stub::Connectors) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct Connectors<T>
-where
-    T: super::stub::Connectors + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Connectors + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> Connectors<T>
-where
-    T: super::stub::Connectors + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Connectors + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::Connectors for Connectors<T>
-where
-    T: super::stub::Connectors + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Connectors + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn list_connections(
         &self,
@@ -142,9 +136,7 @@ where
         req: crate::model::GetConnectionSchemaMetadataRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ConnectionSchemaMetadata>> {
-        self.inner
-            .get_connection_schema_metadata(req, options)
-            .await
+        self.inner.get_connection_schema_metadata(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -153,9 +145,7 @@ where
         req: crate::model::RefreshConnectionSchemaMetadataRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        self.inner
-            .refresh_connection_schema_metadata(req, options)
-            .await
+        self.inner.refresh_connection_schema_metadata(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -275,6 +265,7 @@ where
         self.inner.cancel_operation(req, options).await
     }
 
+
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -289,3 +280,4 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 }
+

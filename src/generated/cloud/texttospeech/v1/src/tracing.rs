@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [TextToSpeech](super::stub::TextToSpeech) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct TextToSpeech<T>
-where
-    T: super::stub::TextToSpeech + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::TextToSpeech + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> TextToSpeech<T>
-where
-    T: super::stub::TextToSpeech + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::TextToSpeech + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::TextToSpeech for TextToSpeech<T>
-where
-    T: super::stub::TextToSpeech + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::TextToSpeech + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn list_voices(
         &self,
@@ -72,30 +66,25 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
+
 }
 
 /// Implements a [TextToSpeechLongAudioSynthesize](super::stub::TextToSpeechLongAudioSynthesize) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct TextToSpeechLongAudioSynthesize<T>
-where
-    T: super::stub::TextToSpeechLongAudioSynthesize + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::TextToSpeechLongAudioSynthesize + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> TextToSpeechLongAudioSynthesize<T>
-where
-    T: super::stub::TextToSpeechLongAudioSynthesize + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::TextToSpeechLongAudioSynthesize + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::TextToSpeechLongAudioSynthesize for TextToSpeechLongAudioSynthesize<T>
-where
-    T: super::stub::TextToSpeechLongAudioSynthesize + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::TextToSpeechLongAudioSynthesize + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn synthesize_long_audio(
         &self,
@@ -123,6 +112,7 @@ where
         self.inner.get_operation(req, options).await
     }
 
+
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -137,3 +127,4 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 }
+

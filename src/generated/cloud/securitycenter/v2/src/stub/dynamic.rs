@@ -300,8 +300,7 @@ impl<T: super::SecurityCenter> SecurityCenter for T {
         &self,
         req: crate::model::BatchCreateResourceValueConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::BatchCreateResourceValueConfigsResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::BatchCreateResourceValueConfigsResponse>> {
         T::batch_create_resource_value_configs(self, req, options).await
     }
 
@@ -526,8 +525,7 @@ impl<T: super::SecurityCenter> SecurityCenter for T {
         &self,
         req: crate::model::ListResourceValueConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListResourceValueConfigsResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::ListResourceValueConfigsResponse>> {
         T::list_resource_value_configs(self, req, options).await
     }
 

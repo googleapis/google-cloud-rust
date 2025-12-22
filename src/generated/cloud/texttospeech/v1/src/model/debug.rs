@@ -56,10 +56,7 @@ impl std::fmt::Debug for super::Voice {
 impl std::fmt::Debug for super::AdvancedVoiceOptions {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AdvancedVoiceOptions");
-        debug_struct.field(
-            "low_latency_journey_synthesis",
-            &self.low_latency_journey_synthesis,
-        );
+        debug_struct.field("low_latency_journey_synthesis", &self.low_latency_journey_synthesis);
         debug_struct.field("relax_safety_filters", &self.relax_safety_filters);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -174,10 +171,7 @@ impl std::fmt::Debug for super::VoiceSelectionParams {
         debug_struct.field("custom_voice", &self.custom_voice);
         debug_struct.field("voice_clone", &self.voice_clone);
         debug_struct.field("model_name", &self.model_name);
-        debug_struct.field(
-            "multi_speaker_voice_config",
-            &self.multi_speaker_voice_config,
-        );
+        debug_struct.field("multi_speaker_voice_config", &self.multi_speaker_voice_config);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

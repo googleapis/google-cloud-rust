@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -27,7 +28,6 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -39,6 +39,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudLocation {
+
     /// Identifier. Name of the cloud location. Unique name of the cloud location
     /// including project and location using the form:
     /// `projects/{project_id}/locations/{location}/cloudLocations/{cloud_location}`
@@ -100,10 +101,7 @@ impl CloudLocation {
     /// # use google_cloud_locationfinder_v1::model::CloudLocation;
     /// let x = CloudLocation::new().set_containing_cloud_location("example");
     /// ```
-    pub fn set_containing_cloud_location<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_containing_cloud_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.containing_cloud_location = v.into();
         self
     }
@@ -130,12 +128,7 @@ impl CloudLocation {
     /// let x1 = CloudLocation::new().set_cloud_provider(CloudProvider::Aws);
     /// let x2 = CloudLocation::new().set_cloud_provider(CloudProvider::Azure);
     /// ```
-    pub fn set_cloud_provider<
-        T: std::convert::Into<crate::model::cloud_location::CloudProvider>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_cloud_provider<T: std::convert::Into<crate::model::cloud_location::CloudProvider>>(mut self, v: T) -> Self {
         self.cloud_provider = v.into();
         self
     }
@@ -162,12 +155,7 @@ impl CloudLocation {
     /// let x1 = CloudLocation::new().set_cloud_location_type(CloudLocationType::Zone);
     /// let x2 = CloudLocation::new().set_cloud_location_type(CloudLocationType::RegionExtension);
     /// ```
-    pub fn set_cloud_location_type<
-        T: std::convert::Into<crate::model::cloud_location::CloudLocationType>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_cloud_location_type<T: std::convert::Into<crate::model::cloud_location::CloudLocationType>>(mut self, v: T) -> Self {
         self.cloud_location_type = v.into();
         self
     }
@@ -180,8 +168,7 @@ impl CloudLocation {
     /// let x = CloudLocation::new().set_carbon_free_energy_percentage(42.0);
     /// ```
     pub fn set_carbon_free_energy_percentage<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<f32>,
+    where T: std::convert::Into<f32>
     {
         self.carbon_free_energy_percentage = std::option::Option::Some(v.into());
         self
@@ -195,12 +182,8 @@ impl CloudLocation {
     /// let x = CloudLocation::new().set_or_clear_carbon_free_energy_percentage(Some(42.0));
     /// let x = CloudLocation::new().set_or_clear_carbon_free_energy_percentage(None::<f32>);
     /// ```
-    pub fn set_or_clear_carbon_free_energy_percentage<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<f32>,
+    pub fn set_or_clear_carbon_free_energy_percentage<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<f32>
     {
         self.carbon_free_energy_percentage = v.map(|x| x.into());
         self
@@ -217,6 +200,7 @@ impl wkt::message::Message for CloudLocation {
 pub mod cloud_location {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The type of the cloud provider. This enum lists all possible providers of
     /// cloud locations.
@@ -315,9 +299,7 @@ pub mod cloud_location {
                 2 => Self::Aws,
                 3 => Self::Azure,
                 4 => Self::Oci,
-                _ => Self::UnknownValue(cloud_provider::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(cloud_provider::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -331,9 +313,7 @@ pub mod cloud_location {
                 "CLOUD_PROVIDER_AWS" => Self::Aws,
                 "CLOUD_PROVIDER_AZURE" => Self::Azure,
                 "CLOUD_PROVIDER_OCI" => Self::Oci,
-                _ => Self::UnknownValue(cloud_provider::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(cloud_provider::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -360,8 +340,7 @@ pub mod cloud_location {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<CloudProvider>::new(
-                ".google.cloud.locationfinder.v1.CloudLocation.CloudProvider",
-            ))
+                ".google.cloud.locationfinder.v1.CloudLocation.CloudProvider"))
         }
     }
 
@@ -434,9 +413,7 @@ pub mod cloud_location {
                 Self::Unspecified => std::option::Option::Some("CLOUD_LOCATION_TYPE_UNSPECIFIED"),
                 Self::Region => std::option::Option::Some("CLOUD_LOCATION_TYPE_REGION"),
                 Self::Zone => std::option::Option::Some("CLOUD_LOCATION_TYPE_ZONE"),
-                Self::RegionExtension => {
-                    std::option::Option::Some("CLOUD_LOCATION_TYPE_REGION_EXTENSION")
-                }
+                Self::RegionExtension => std::option::Option::Some("CLOUD_LOCATION_TYPE_REGION_EXTENSION"),
                 Self::GdccZone => std::option::Option::Some("CLOUD_LOCATION_TYPE_GDCC_ZONE"),
                 Self::UnknownValue(u) => u.0.name(),
             }
@@ -464,9 +441,7 @@ pub mod cloud_location {
                 2 => Self::Zone,
                 3 => Self::RegionExtension,
                 4 => Self::GdccZone,
-                _ => Self::UnknownValue(cloud_location_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(cloud_location_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -480,9 +455,7 @@ pub mod cloud_location {
                 "CLOUD_LOCATION_TYPE_ZONE" => Self::Zone,
                 "CLOUD_LOCATION_TYPE_REGION_EXTENSION" => Self::RegionExtension,
                 "CLOUD_LOCATION_TYPE_GDCC_ZONE" => Self::GdccZone,
-                _ => Self::UnknownValue(cloud_location_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(cloud_location_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -509,8 +482,7 @@ pub mod cloud_location {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<CloudLocationType>::new(
-                ".google.cloud.locationfinder.v1.CloudLocation.CloudLocationType",
-            ))
+                ".google.cloud.locationfinder.v1.CloudLocation.CloudLocationType"))
         }
     }
 }
@@ -519,6 +491,7 @@ pub mod cloud_location {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCloudLocationsRequest {
+
     /// Required. The parent, which owns this collection of cloud locations.
     /// Format: projects/{project}/locations/{location}
     pub parent: std::string::String,
@@ -611,6 +584,7 @@ impl wkt::message::Message for ListCloudLocationsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCloudLocationsResponse {
+
     /// Output only. List of cloud locations.
     pub cloud_locations: std::vec::Vec<crate::model::CloudLocation>,
 
@@ -643,7 +617,7 @@ impl ListCloudLocationsResponse {
     pub fn set_cloud_locations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::CloudLocation>,
+        V: std::convert::Into<crate::model::CloudLocation>
     {
         use std::iter::Iterator;
         self.cloud_locations = v.into_iter().map(|i| i.into()).collect();
@@ -687,6 +661,7 @@ impl gax::paginator::internal::PageableResponse for ListCloudLocationsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetCloudLocationRequest {
+
     /// Required. Name of the resource.
     pub name: std::string::String,
 
@@ -721,6 +696,7 @@ impl wkt::message::Message for GetCloudLocationRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchCloudLocationsRequest {
+
     /// Required. The parent, which owns this collection of cloud locations.
     /// Format: projects/{project}/locations/{location}
     pub parent: std::string::String,
@@ -774,10 +750,7 @@ impl SearchCloudLocationsRequest {
     /// # use google_cloud_locationfinder_v1::model::SearchCloudLocationsRequest;
     /// let x = SearchCloudLocationsRequest::new().set_source_cloud_location("example");
     /// ```
-    pub fn set_source_cloud_location<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source_cloud_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_cloud_location = v.into();
         self
     }
@@ -829,6 +802,7 @@ impl wkt::message::Message for SearchCloudLocationsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchCloudLocationsResponse {
+
     /// Output only. List of cloud locations.
     pub cloud_locations: std::vec::Vec<crate::model::CloudLocation>,
 
@@ -861,7 +835,7 @@ impl SearchCloudLocationsResponse {
     pub fn set_cloud_locations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::CloudLocation>,
+        V: std::convert::Into<crate::model::CloudLocation>
     {
         use std::iter::Iterator;
         self.cloud_locations = v.into_iter().map(|i| i.into()).collect();

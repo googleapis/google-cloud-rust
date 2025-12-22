@@ -81,51 +81,55 @@ impl Aml {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::Aml + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::Aml + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Aml>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Aml>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Aml> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Aml> {
         super::transport::Aml::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Aml> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::Aml::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Aml> {
+        Self::build_transport(conf).await.map(super::tracing::Aml::new)
     }
 
     /// Lists instances.
-    pub fn list_instances(&self) -> super::builder::aml::ListInstances {
+    pub fn list_instances(&self) -> super::builder::aml::ListInstances
+    {
         super::builder::aml::ListInstances::new(self.inner.clone())
     }
 
     /// Gets an instance.
-    pub fn get_instance(&self) -> super::builder::aml::GetInstance {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// async fn sample(
+    ///    client: &Aml
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_instance()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_instance(&self) -> super::builder::aml::GetInstance
+    {
         super::builder::aml::GetInstance::new(self.inner.clone())
     }
 
@@ -140,7 +144,8 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_instance(&self) -> super::builder::aml::CreateInstance {
+    pub fn create_instance(&self) -> super::builder::aml::CreateInstance
+    {
         super::builder::aml::CreateInstance::new(self.inner.clone())
     }
 
@@ -155,7 +160,8 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_instance(&self) -> super::builder::aml::UpdateInstance {
+    pub fn update_instance(&self) -> super::builder::aml::UpdateInstance
+    {
         super::builder::aml::UpdateInstance::new(self.inner.clone())
     }
 
@@ -170,7 +176,8 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_instance(&self) -> super::builder::aml::DeleteInstance {
+    pub fn delete_instance(&self) -> super::builder::aml::DeleteInstance
+    {
         super::builder::aml::DeleteInstance::new(self.inner.clone())
     }
 
@@ -188,7 +195,8 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn import_registered_parties(&self) -> super::builder::aml::ImportRegisteredParties {
+    pub fn import_registered_parties(&self) -> super::builder::aml::ImportRegisteredParties
+    {
         super::builder::aml::ImportRegisteredParties::new(self.inner.clone())
     }
 
@@ -206,17 +214,36 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn export_registered_parties(&self) -> super::builder::aml::ExportRegisteredParties {
+    pub fn export_registered_parties(&self) -> super::builder::aml::ExportRegisteredParties
+    {
         super::builder::aml::ExportRegisteredParties::new(self.inner.clone())
     }
 
     /// Lists datasets.
-    pub fn list_datasets(&self) -> super::builder::aml::ListDatasets {
+    pub fn list_datasets(&self) -> super::builder::aml::ListDatasets
+    {
         super::builder::aml::ListDatasets::new(self.inner.clone())
     }
 
     /// Gets a dataset.
-    pub fn get_dataset(&self) -> super::builder::aml::GetDataset {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// async fn sample(
+    ///    client: &Aml
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_dataset()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_dataset(&self) -> super::builder::aml::GetDataset
+    {
         super::builder::aml::GetDataset::new(self.inner.clone())
     }
 
@@ -231,7 +258,8 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_dataset(&self) -> super::builder::aml::CreateDataset {
+    pub fn create_dataset(&self) -> super::builder::aml::CreateDataset
+    {
         super::builder::aml::CreateDataset::new(self.inner.clone())
     }
 
@@ -246,7 +274,8 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_dataset(&self) -> super::builder::aml::UpdateDataset {
+    pub fn update_dataset(&self) -> super::builder::aml::UpdateDataset
+    {
         super::builder::aml::UpdateDataset::new(self.inner.clone())
     }
 
@@ -261,17 +290,36 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_dataset(&self) -> super::builder::aml::DeleteDataset {
+    pub fn delete_dataset(&self) -> super::builder::aml::DeleteDataset
+    {
         super::builder::aml::DeleteDataset::new(self.inner.clone())
     }
 
     /// Lists models.
-    pub fn list_models(&self) -> super::builder::aml::ListModels {
+    pub fn list_models(&self) -> super::builder::aml::ListModels
+    {
         super::builder::aml::ListModels::new(self.inner.clone())
     }
 
     /// Gets a model.
-    pub fn get_model(&self) -> super::builder::aml::GetModel {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// async fn sample(
+    ///    client: &Aml
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_model()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_model(&self) -> super::builder::aml::GetModel
+    {
         super::builder::aml::GetModel::new(self.inner.clone())
     }
 
@@ -286,7 +334,8 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_model(&self) -> super::builder::aml::CreateModel {
+    pub fn create_model(&self) -> super::builder::aml::CreateModel
+    {
         super::builder::aml::CreateModel::new(self.inner.clone())
     }
 
@@ -301,7 +350,8 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_model(&self) -> super::builder::aml::UpdateModel {
+    pub fn update_model(&self) -> super::builder::aml::UpdateModel
+    {
         super::builder::aml::UpdateModel::new(self.inner.clone())
     }
 
@@ -319,7 +369,8 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn export_model_metadata(&self) -> super::builder::aml::ExportModelMetadata {
+    pub fn export_model_metadata(&self) -> super::builder::aml::ExportModelMetadata
+    {
         super::builder::aml::ExportModelMetadata::new(self.inner.clone())
     }
 
@@ -334,17 +385,36 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_model(&self) -> super::builder::aml::DeleteModel {
+    pub fn delete_model(&self) -> super::builder::aml::DeleteModel
+    {
         super::builder::aml::DeleteModel::new(self.inner.clone())
     }
 
     /// Lists engine configs.
-    pub fn list_engine_configs(&self) -> super::builder::aml::ListEngineConfigs {
+    pub fn list_engine_configs(&self) -> super::builder::aml::ListEngineConfigs
+    {
         super::builder::aml::ListEngineConfigs::new(self.inner.clone())
     }
 
     /// Gets an engine config.
-    pub fn get_engine_config(&self) -> super::builder::aml::GetEngineConfig {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// async fn sample(
+    ///    client: &Aml
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_engine_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_engine_config(&self) -> super::builder::aml::GetEngineConfig
+    {
         super::builder::aml::GetEngineConfig::new(self.inner.clone())
     }
 
@@ -359,7 +429,8 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_engine_config(&self) -> super::builder::aml::CreateEngineConfig {
+    pub fn create_engine_config(&self) -> super::builder::aml::CreateEngineConfig
+    {
         super::builder::aml::CreateEngineConfig::new(self.inner.clone())
     }
 
@@ -374,7 +445,8 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_engine_config(&self) -> super::builder::aml::UpdateEngineConfig {
+    pub fn update_engine_config(&self) -> super::builder::aml::UpdateEngineConfig
+    {
         super::builder::aml::UpdateEngineConfig::new(self.inner.clone())
     }
 
@@ -392,7 +464,8 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn export_engine_config_metadata(&self) -> super::builder::aml::ExportEngineConfigMetadata {
+    pub fn export_engine_config_metadata(&self) -> super::builder::aml::ExportEngineConfigMetadata
+    {
         super::builder::aml::ExportEngineConfigMetadata::new(self.inner.clone())
     }
 
@@ -407,27 +480,64 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_engine_config(&self) -> super::builder::aml::DeleteEngineConfig {
+    pub fn delete_engine_config(&self) -> super::builder::aml::DeleteEngineConfig
+    {
         super::builder::aml::DeleteEngineConfig::new(self.inner.clone())
     }
 
     /// Gets a single EngineVersion.
-    pub fn get_engine_version(&self) -> super::builder::aml::GetEngineVersion {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// async fn sample(
+    ///    client: &Aml
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_engine_version()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_engine_version(&self) -> super::builder::aml::GetEngineVersion
+    {
         super::builder::aml::GetEngineVersion::new(self.inner.clone())
     }
 
     /// Lists EngineVersions for given location.
-    pub fn list_engine_versions(&self) -> super::builder::aml::ListEngineVersions {
+    pub fn list_engine_versions(&self) -> super::builder::aml::ListEngineVersions
+    {
         super::builder::aml::ListEngineVersions::new(self.inner.clone())
     }
 
     /// List PredictionResults.
-    pub fn list_prediction_results(&self) -> super::builder::aml::ListPredictionResults {
+    pub fn list_prediction_results(&self) -> super::builder::aml::ListPredictionResults
+    {
         super::builder::aml::ListPredictionResults::new(self.inner.clone())
     }
 
     /// Gets a PredictionResult.
-    pub fn get_prediction_result(&self) -> super::builder::aml::GetPredictionResult {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// async fn sample(
+    ///    client: &Aml
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_prediction_result()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_prediction_result(&self) -> super::builder::aml::GetPredictionResult
+    {
         super::builder::aml::GetPredictionResult::new(self.inner.clone())
     }
 
@@ -442,7 +552,8 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_prediction_result(&self) -> super::builder::aml::CreatePredictionResult {
+    pub fn create_prediction_result(&self) -> super::builder::aml::CreatePredictionResult
+    {
         super::builder::aml::CreatePredictionResult::new(self.inner.clone())
     }
 
@@ -457,7 +568,8 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_prediction_result(&self) -> super::builder::aml::UpdatePredictionResult {
+    pub fn update_prediction_result(&self) -> super::builder::aml::UpdatePredictionResult
+    {
         super::builder::aml::UpdatePredictionResult::new(self.inner.clone())
     }
 
@@ -475,9 +587,8 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn export_prediction_result_metadata(
-        &self,
-    ) -> super::builder::aml::ExportPredictionResultMetadata {
+    pub fn export_prediction_result_metadata(&self) -> super::builder::aml::ExportPredictionResultMetadata
+    {
         super::builder::aml::ExportPredictionResultMetadata::new(self.inner.clone())
     }
 
@@ -492,17 +603,36 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_prediction_result(&self) -> super::builder::aml::DeletePredictionResult {
+    pub fn delete_prediction_result(&self) -> super::builder::aml::DeletePredictionResult
+    {
         super::builder::aml::DeletePredictionResult::new(self.inner.clone())
     }
 
     /// List BacktestResults.
-    pub fn list_backtest_results(&self) -> super::builder::aml::ListBacktestResults {
+    pub fn list_backtest_results(&self) -> super::builder::aml::ListBacktestResults
+    {
         super::builder::aml::ListBacktestResults::new(self.inner.clone())
     }
 
     /// Gets a BacktestResult.
-    pub fn get_backtest_result(&self) -> super::builder::aml::GetBacktestResult {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// async fn sample(
+    ///    client: &Aml
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_backtest_result()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_backtest_result(&self) -> super::builder::aml::GetBacktestResult
+    {
         super::builder::aml::GetBacktestResult::new(self.inner.clone())
     }
 
@@ -517,7 +647,8 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_backtest_result(&self) -> super::builder::aml::CreateBacktestResult {
+    pub fn create_backtest_result(&self) -> super::builder::aml::CreateBacktestResult
+    {
         super::builder::aml::CreateBacktestResult::new(self.inner.clone())
     }
 
@@ -532,7 +663,8 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_backtest_result(&self) -> super::builder::aml::UpdateBacktestResult {
+    pub fn update_backtest_result(&self) -> super::builder::aml::UpdateBacktestResult
+    {
         super::builder::aml::UpdateBacktestResult::new(self.inner.clone())
     }
 
@@ -550,9 +682,8 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn export_backtest_result_metadata(
-        &self,
-    ) -> super::builder::aml::ExportBacktestResultMetadata {
+    pub fn export_backtest_result_metadata(&self) -> super::builder::aml::ExportBacktestResultMetadata
+    {
         super::builder::aml::ExportBacktestResultMetadata::new(self.inner.clone())
     }
 
@@ -567,45 +698,114 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_backtest_result(&self) -> super::builder::aml::DeleteBacktestResult {
+    pub fn delete_backtest_result(&self) -> super::builder::aml::DeleteBacktestResult
+    {
         super::builder::aml::DeleteBacktestResult::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::aml::ListLocations {
+    pub fn list_locations(&self) -> super::builder::aml::ListLocations
+    {
         super::builder::aml::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(&self) -> super::builder::aml::GetLocation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// async fn sample(
+    ///    client: &Aml
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_location(&self) -> super::builder::aml::GetLocation
+    {
         super::builder::aml::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::aml::ListOperations {
+    pub fn list_operations(&self) -> super::builder::aml::ListOperations
+    {
         super::builder::aml::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::aml::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// async fn sample(
+    ///    client: &Aml
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::aml::GetOperation
+    {
         super::builder::aml::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(&self) -> super::builder::aml::DeleteOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// async fn sample(
+    ///    client: &Aml
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_operation(&self) -> super::builder::aml::DeleteOperation
+    {
         super::builder::aml::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(&self) -> super::builder::aml::CancelOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// async fn sample(
+    ///    client: &Aml
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_operation(&self) -> super::builder::aml::CancelOperation
+    {
         super::builder::aml::CancelOperation::new(self.inner.clone())
     }
 }

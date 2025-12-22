@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [BackupDR](super::stub::BackupDR) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct BackupDR<T>
-where
-    T: super::stub::BackupDR + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::BackupDR + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> BackupDR<T>
-where
-    T: super::stub::BackupDR + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::BackupDR + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::BackupDR for BackupDR<T>
-where
-    T: super::stub::BackupDR + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::BackupDR + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn list_management_servers(
         &self,
@@ -169,9 +163,7 @@ where
         req: crate::model::FetchBackupsForResourceTypeRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::FetchBackupsForResourceTypeResponse>> {
-        self.inner
-            .fetch_backups_for_resource_type(req, options)
-            .await
+        self.inner.fetch_backups_for_resource_type(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -279,9 +271,7 @@ where
         req: crate::model::CreateBackupPlanAssociationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        self.inner
-            .create_backup_plan_association(req, options)
-            .await
+        self.inner.create_backup_plan_association(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -290,9 +280,7 @@ where
         req: crate::model::UpdateBackupPlanAssociationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        self.inner
-            .update_backup_plan_association(req, options)
-            .await
+        self.inner.update_backup_plan_association(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -318,12 +306,8 @@ where
         &self,
         req: crate::model::FetchBackupPlanAssociationsForResourceTypeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<
-        gax::response::Response<crate::model::FetchBackupPlanAssociationsForResourceTypeResponse>,
-    > {
-        self.inner
-            .fetch_backup_plan_associations_for_resource_type(req, options)
-            .await
+    ) -> Result<gax::response::Response<crate::model::FetchBackupPlanAssociationsForResourceTypeResponse>> {
+        self.inner.fetch_backup_plan_associations_for_resource_type(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -332,9 +316,7 @@ where
         req: crate::model::DeleteBackupPlanAssociationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        self.inner
-            .delete_backup_plan_association(req, options)
-            .await
+        self.inner.delete_backup_plan_association(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -369,12 +351,8 @@ where
         &self,
         req: crate::model::FetchDataSourceReferencesForResourceTypeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<
-        gax::response::Response<crate::model::FetchDataSourceReferencesForResourceTypeResponse>,
-    > {
-        self.inner
-            .fetch_data_source_references_for_resource_type(req, options)
-            .await
+    ) -> Result<gax::response::Response<crate::model::FetchDataSourceReferencesForResourceTypeResponse>> {
+        self.inner.fetch_data_source_references_for_resource_type(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -467,6 +445,7 @@ where
         self.inner.cancel_operation(req, options).await
     }
 
+
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -481,3 +460,4 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 }
+

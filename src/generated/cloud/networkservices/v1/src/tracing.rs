@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [DepService](super::stub::DepService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct DepService<T>
-where
-    T: super::stub::DepService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::DepService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> DepService<T>
-where
-    T: super::stub::DepService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::DepService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::DepService for DepService<T>
-where
-    T: super::stub::DepService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::DepService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn list_lb_traffic_extensions(
         &self,
@@ -298,6 +292,7 @@ where
         self.inner.cancel_operation(req, options).await
     }
 
+
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -316,25 +311,19 @@ where
 /// Implements a [NetworkServices](super::stub::NetworkServices) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct NetworkServices<T>
-where
-    T: super::stub::NetworkServices + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::NetworkServices + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> NetworkServices<T>
-where
-    T: super::stub::NetworkServices + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::NetworkServices + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::NetworkServices for NetworkServices<T>
-where
-    T: super::stub::NetworkServices + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::NetworkServices + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn list_endpoint_policies(
         &self,
@@ -938,6 +927,7 @@ where
         self.inner.cancel_operation(req, options).await
     }
 
+
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -952,3 +942,4 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 }
+

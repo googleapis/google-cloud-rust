@@ -80,51 +80,56 @@ impl BackupDR {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::BackupDR + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::BackupDR + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::BackupDR>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::BackupDR>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::BackupDR> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::BackupDR> {
         super::transport::BackupDR::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::BackupDR> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::BackupDR::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::BackupDR> {
+        Self::build_transport(conf).await.map(super::tracing::BackupDR::new)
     }
 
     /// Lists ManagementServers in a given project and location.
-    pub fn list_management_servers(&self) -> super::builder::backup_dr::ListManagementServers {
+    pub fn list_management_servers(&self) -> super::builder::backup_dr::ListManagementServers
+    {
         super::builder::backup_dr::ListManagementServers::new(self.inner.clone())
     }
 
     /// Gets details of a single ManagementServer.
-    pub fn get_management_server(&self) -> super::builder::backup_dr::GetManagementServer {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// async fn sample(
+    ///    client: &BackupDR,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_management_server()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_management_server(&self) -> super::builder::backup_dr::GetManagementServer
+    {
         super::builder::backup_dr::GetManagementServer::new(self.inner.clone())
     }
 
@@ -139,7 +144,8 @@ impl BackupDR {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_management_server(&self) -> super::builder::backup_dr::CreateManagementServer {
+    pub fn create_management_server(&self) -> super::builder::backup_dr::CreateManagementServer
+    {
         super::builder::backup_dr::CreateManagementServer::new(self.inner.clone())
     }
 
@@ -154,7 +160,8 @@ impl BackupDR {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_management_server(&self) -> super::builder::backup_dr::DeleteManagementServer {
+    pub fn delete_management_server(&self) -> super::builder::backup_dr::DeleteManagementServer
+    {
         super::builder::backup_dr::DeleteManagementServer::new(self.inner.clone())
     }
 
@@ -169,24 +176,45 @@ impl BackupDR {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_backup_vault(&self) -> super::builder::backup_dr::CreateBackupVault {
+    pub fn create_backup_vault(&self) -> super::builder::backup_dr::CreateBackupVault
+    {
         super::builder::backup_dr::CreateBackupVault::new(self.inner.clone())
     }
 
     /// Lists BackupVaults in a given project and location.
-    pub fn list_backup_vaults(&self) -> super::builder::backup_dr::ListBackupVaults {
+    pub fn list_backup_vaults(&self) -> super::builder::backup_dr::ListBackupVaults
+    {
         super::builder::backup_dr::ListBackupVaults::new(self.inner.clone())
     }
 
     /// FetchUsableBackupVaults lists usable BackupVaults in a given project and
     /// location. Usable BackupVault are the ones that user has
     /// backupdr.backupVaults.get permission.
-    pub fn fetch_usable_backup_vaults(&self) -> super::builder::backup_dr::FetchUsableBackupVaults {
+    pub fn fetch_usable_backup_vaults(&self) -> super::builder::backup_dr::FetchUsableBackupVaults
+    {
         super::builder::backup_dr::FetchUsableBackupVaults::new(self.inner.clone())
     }
 
     /// Gets details of a BackupVault.
-    pub fn get_backup_vault(&self) -> super::builder::backup_dr::GetBackupVault {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// async fn sample(
+    ///    client: &BackupDR,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_backup_vault()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_backup_vault(&self) -> super::builder::backup_dr::GetBackupVault
+    {
         super::builder::backup_dr::GetBackupVault::new(self.inner.clone())
     }
 
@@ -201,7 +229,8 @@ impl BackupDR {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_backup_vault(&self) -> super::builder::backup_dr::UpdateBackupVault {
+    pub fn update_backup_vault(&self) -> super::builder::backup_dr::UpdateBackupVault
+    {
         super::builder::backup_dr::UpdateBackupVault::new(self.inner.clone())
     }
 
@@ -216,17 +245,37 @@ impl BackupDR {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_backup_vault(&self) -> super::builder::backup_dr::DeleteBackupVault {
+    pub fn delete_backup_vault(&self) -> super::builder::backup_dr::DeleteBackupVault
+    {
         super::builder::backup_dr::DeleteBackupVault::new(self.inner.clone())
     }
 
     /// Lists DataSources in a given project and location.
-    pub fn list_data_sources(&self) -> super::builder::backup_dr::ListDataSources {
+    pub fn list_data_sources(&self) -> super::builder::backup_dr::ListDataSources
+    {
         super::builder::backup_dr::ListDataSources::new(self.inner.clone())
     }
 
     /// Gets details of a DataSource.
-    pub fn get_data_source(&self) -> super::builder::backup_dr::GetDataSource {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// async fn sample(
+    ///    client: &BackupDR,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_data_source()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_data_source(&self) -> super::builder::backup_dr::GetDataSource
+    {
         super::builder::backup_dr::GetDataSource::new(self.inner.clone())
     }
 
@@ -241,24 +290,43 @@ impl BackupDR {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_data_source(&self) -> super::builder::backup_dr::UpdateDataSource {
+    pub fn update_data_source(&self) -> super::builder::backup_dr::UpdateDataSource
+    {
         super::builder::backup_dr::UpdateDataSource::new(self.inner.clone())
     }
 
     /// Lists Backups in a given project and location.
-    pub fn list_backups(&self) -> super::builder::backup_dr::ListBackups {
+    pub fn list_backups(&self) -> super::builder::backup_dr::ListBackups
+    {
         super::builder::backup_dr::ListBackups::new(self.inner.clone())
     }
 
     /// Fetch Backups for a given resource type.
-    pub fn fetch_backups_for_resource_type(
-        &self,
-    ) -> super::builder::backup_dr::FetchBackupsForResourceType {
+    pub fn fetch_backups_for_resource_type(&self) -> super::builder::backup_dr::FetchBackupsForResourceType
+    {
         super::builder::backup_dr::FetchBackupsForResourceType::new(self.inner.clone())
     }
 
     /// Gets details of a Backup.
-    pub fn get_backup(&self) -> super::builder::backup_dr::GetBackup {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// async fn sample(
+    ///    client: &BackupDR,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_backup()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_backup(&self) -> super::builder::backup_dr::GetBackup
+    {
         super::builder::backup_dr::GetBackup::new(self.inner.clone())
     }
 
@@ -273,7 +341,8 @@ impl BackupDR {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_backup(&self) -> super::builder::backup_dr::UpdateBackup {
+    pub fn update_backup(&self) -> super::builder::backup_dr::UpdateBackup
+    {
         super::builder::backup_dr::UpdateBackup::new(self.inner.clone())
     }
 
@@ -288,7 +357,8 @@ impl BackupDR {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_backup(&self) -> super::builder::backup_dr::DeleteBackup {
+    pub fn delete_backup(&self) -> super::builder::backup_dr::DeleteBackup
+    {
         super::builder::backup_dr::DeleteBackup::new(self.inner.clone())
     }
 
@@ -303,7 +373,8 @@ impl BackupDR {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn restore_backup(&self) -> super::builder::backup_dr::RestoreBackup {
+    pub fn restore_backup(&self) -> super::builder::backup_dr::RestoreBackup
+    {
         super::builder::backup_dr::RestoreBackup::new(self.inner.clone())
     }
 
@@ -318,7 +389,8 @@ impl BackupDR {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_backup_plan(&self) -> super::builder::backup_dr::CreateBackupPlan {
+    pub fn create_backup_plan(&self) -> super::builder::backup_dr::CreateBackupPlan
+    {
         super::builder::backup_dr::CreateBackupPlan::new(self.inner.clone())
     }
 
@@ -333,17 +405,37 @@ impl BackupDR {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_backup_plan(&self) -> super::builder::backup_dr::UpdateBackupPlan {
+    pub fn update_backup_plan(&self) -> super::builder::backup_dr::UpdateBackupPlan
+    {
         super::builder::backup_dr::UpdateBackupPlan::new(self.inner.clone())
     }
 
     /// Gets details of a single BackupPlan.
-    pub fn get_backup_plan(&self) -> super::builder::backup_dr::GetBackupPlan {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// async fn sample(
+    ///    client: &BackupDR,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_backup_plan()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_backup_plan(&self) -> super::builder::backup_dr::GetBackupPlan
+    {
         super::builder::backup_dr::GetBackupPlan::new(self.inner.clone())
     }
 
     /// Lists BackupPlans in a given project and location.
-    pub fn list_backup_plans(&self) -> super::builder::backup_dr::ListBackupPlans {
+    pub fn list_backup_plans(&self) -> super::builder::backup_dr::ListBackupPlans
+    {
         super::builder::backup_dr::ListBackupPlans::new(self.inner.clone())
     }
 
@@ -358,17 +450,37 @@ impl BackupDR {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_backup_plan(&self) -> super::builder::backup_dr::DeleteBackupPlan {
+    pub fn delete_backup_plan(&self) -> super::builder::backup_dr::DeleteBackupPlan
+    {
         super::builder::backup_dr::DeleteBackupPlan::new(self.inner.clone())
     }
 
     /// Gets details of a single BackupPlanRevision.
-    pub fn get_backup_plan_revision(&self) -> super::builder::backup_dr::GetBackupPlanRevision {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// async fn sample(
+    ///    client: &BackupDR,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_backup_plan_revision()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_backup_plan_revision(&self) -> super::builder::backup_dr::GetBackupPlanRevision
+    {
         super::builder::backup_dr::GetBackupPlanRevision::new(self.inner.clone())
     }
 
     /// Lists BackupPlanRevisions in a given project and location.
-    pub fn list_backup_plan_revisions(&self) -> super::builder::backup_dr::ListBackupPlanRevisions {
+    pub fn list_backup_plan_revisions(&self) -> super::builder::backup_dr::ListBackupPlanRevisions
+    {
         super::builder::backup_dr::ListBackupPlanRevisions::new(self.inner.clone())
     }
 
@@ -383,9 +495,8 @@ impl BackupDR {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_backup_plan_association(
-        &self,
-    ) -> super::builder::backup_dr::CreateBackupPlanAssociation {
+    pub fn create_backup_plan_association(&self) -> super::builder::backup_dr::CreateBackupPlanAssociation
+    {
         super::builder::backup_dr::CreateBackupPlanAssociation::new(self.inner.clone())
     }
 
@@ -400,33 +511,44 @@ impl BackupDR {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_backup_plan_association(
-        &self,
-    ) -> super::builder::backup_dr::UpdateBackupPlanAssociation {
+    pub fn update_backup_plan_association(&self) -> super::builder::backup_dr::UpdateBackupPlanAssociation
+    {
         super::builder::backup_dr::UpdateBackupPlanAssociation::new(self.inner.clone())
     }
 
     /// Gets details of a single BackupPlanAssociation.
-    pub fn get_backup_plan_association(
-        &self,
-    ) -> super::builder::backup_dr::GetBackupPlanAssociation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// async fn sample(
+    ///    client: &BackupDR,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_backup_plan_association()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_backup_plan_association(&self) -> super::builder::backup_dr::GetBackupPlanAssociation
+    {
         super::builder::backup_dr::GetBackupPlanAssociation::new(self.inner.clone())
     }
 
     /// Lists BackupPlanAssociations in a given project and location.
-    pub fn list_backup_plan_associations(
-        &self,
-    ) -> super::builder::backup_dr::ListBackupPlanAssociations {
+    pub fn list_backup_plan_associations(&self) -> super::builder::backup_dr::ListBackupPlanAssociations
+    {
         super::builder::backup_dr::ListBackupPlanAssociations::new(self.inner.clone())
     }
 
     /// List BackupPlanAssociations for a given resource type.
-    pub fn fetch_backup_plan_associations_for_resource_type(
-        &self,
-    ) -> super::builder::backup_dr::FetchBackupPlanAssociationsForResourceType {
-        super::builder::backup_dr::FetchBackupPlanAssociationsForResourceType::new(
-            self.inner.clone(),
-        )
+    pub fn fetch_backup_plan_associations_for_resource_type(&self) -> super::builder::backup_dr::FetchBackupPlanAssociationsForResourceType
+    {
+        super::builder::backup_dr::FetchBackupPlanAssociationsForResourceType::new(self.inner.clone())
     }
 
     /// Deletes a single BackupPlanAssociation.
@@ -440,9 +562,8 @@ impl BackupDR {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_backup_plan_association(
-        &self,
-    ) -> super::builder::backup_dr::DeleteBackupPlanAssociation {
+    pub fn delete_backup_plan_association(&self) -> super::builder::backup_dr::DeleteBackupPlanAssociation
+    {
         super::builder::backup_dr::DeleteBackupPlanAssociation::new(self.inner.clone())
     }
 
@@ -457,26 +578,43 @@ impl BackupDR {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn trigger_backup(&self) -> super::builder::backup_dr::TriggerBackup {
+    pub fn trigger_backup(&self) -> super::builder::backup_dr::TriggerBackup
+    {
         super::builder::backup_dr::TriggerBackup::new(self.inner.clone())
     }
 
     /// Gets details of a single DataSourceReference.
-    pub fn get_data_source_reference(&self) -> super::builder::backup_dr::GetDataSourceReference {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// async fn sample(
+    ///    client: &BackupDR,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_data_source_reference()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_data_source_reference(&self) -> super::builder::backup_dr::GetDataSourceReference
+    {
         super::builder::backup_dr::GetDataSourceReference::new(self.inner.clone())
     }
 
     /// Lists DataSourceReferences for a given project and location.
-    pub fn list_data_source_references(
-        &self,
-    ) -> super::builder::backup_dr::ListDataSourceReferences {
+    pub fn list_data_source_references(&self) -> super::builder::backup_dr::ListDataSourceReferences
+    {
         super::builder::backup_dr::ListDataSourceReferences::new(self.inner.clone())
     }
 
     /// Fetch DataSourceReferences for a given project, location and resource type.
-    pub fn fetch_data_source_references_for_resource_type(
-        &self,
-    ) -> super::builder::backup_dr::FetchDataSourceReferencesForResourceType {
+    pub fn fetch_data_source_references_for_resource_type(&self) -> super::builder::backup_dr::FetchDataSourceReferencesForResourceType
+    {
         super::builder::backup_dr::FetchDataSourceReferencesForResourceType::new(self.inner.clone())
     }
 
@@ -491,17 +629,36 @@ impl BackupDR {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn initialize_service(&self) -> super::builder::backup_dr::InitializeService {
+    pub fn initialize_service(&self) -> super::builder::backup_dr::InitializeService
+    {
         super::builder::backup_dr::InitializeService::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::backup_dr::ListLocations {
+    pub fn list_locations(&self) -> super::builder::backup_dr::ListLocations
+    {
         super::builder::backup_dr::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(&self) -> super::builder::backup_dr::GetLocation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// async fn sample(
+    ///    client: &BackupDR
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_location(&self) -> super::builder::backup_dr::GetLocation
+    {
         super::builder::backup_dr::GetLocation::new(self.inner.clone())
     }
 
@@ -510,13 +667,47 @@ impl BackupDR {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
-    pub fn set_iam_policy(&self) -> super::builder::backup_dr::SetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// async fn sample(
+    ///    client: &BackupDR
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::backup_dr::SetIamPolicy
+    {
         super::builder::backup_dr::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
-    pub fn get_iam_policy(&self) -> super::builder::backup_dr::GetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// async fn sample(
+    ///    client: &BackupDR
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::backup_dr::GetIamPolicy
+    {
         super::builder::backup_dr::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -527,35 +718,102 @@ impl BackupDR {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
-    pub fn test_iam_permissions(&self) -> super::builder::backup_dr::TestIamPermissions {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// async fn sample(
+    ///    client: &BackupDR
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::backup_dr::TestIamPermissions
+    {
         super::builder::backup_dr::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::backup_dr::ListOperations {
+    pub fn list_operations(&self) -> super::builder::backup_dr::ListOperations
+    {
         super::builder::backup_dr::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::backup_dr::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// async fn sample(
+    ///    client: &BackupDR
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::backup_dr::GetOperation
+    {
         super::builder::backup_dr::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(&self) -> super::builder::backup_dr::DeleteOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// async fn sample(
+    ///    client: &BackupDR
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_operation(&self) -> super::builder::backup_dr::DeleteOperation
+    {
         super::builder::backup_dr::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(&self) -> super::builder::backup_dr::CancelOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// async fn sample(
+    ///    client: &BackupDR
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_operation(&self) -> super::builder::backup_dr::CancelOperation
+    {
         super::builder::backup_dr::CancelOperation::new(self.inner.clone())
     }
 }

@@ -39,10 +39,7 @@ pub mod autokey {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = Autokey;
             type Credentials = gaxi::options::Credentials;
-            async fn build(
-                self,
-                config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -57,9 +54,7 @@ pub mod autokey {
     }
 
     impl<R> RequestBuilder<R>
-    where
-        R: std::default::Default,
-    {
+    where R: std::default::Default {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
             Self {
                 stub,
@@ -92,7 +87,9 @@ pub mod autokey {
 
     impl CreateKeyHandle {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
-            Self(RequestBuilder::new(stub))
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -114,21 +111,16 @@ pub mod autokey {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_key_handle][crate::client::Autokey::create_key_handle].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .create_key_handle(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_key_handle(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_key_handle`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::KeyHandle, crate::model::CreateKeyHandleMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::KeyHandle, crate::model::CreateKeyHandleMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::KeyHandle,
-                crate::model::CreateKeyHandleMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::KeyHandle, crate::model::CreateKeyHandleMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -174,8 +166,7 @@ pub mod autokey {
         ///
         /// This is a **required** field for requests.
         pub fn set_key_handle<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::KeyHandle>,
+        where T: std::convert::Into<crate::model::KeyHandle>
         {
             self.0.request.key_handle = std::option::Option::Some(v.into());
             self
@@ -185,8 +176,7 @@ pub mod autokey {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_key_handle<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::KeyHandle>,
+        where T: std::convert::Into<crate::model::KeyHandle>
         {
             self.0.request.key_handle = v.map(|x| x.into());
             self
@@ -222,7 +212,9 @@ pub mod autokey {
 
     impl GetKeyHandle {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
-            Self(RequestBuilder::new(stub))
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -239,10 +231,7 @@ pub mod autokey {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::KeyHandle> {
-            (*self.0.stub)
-                .get_key_handle(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_key_handle(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetKeyHandleRequest::name].
@@ -287,7 +276,9 @@ pub mod autokey {
 
     impl ListKeyHandles {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
-            Self(RequestBuilder::new(stub))
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -304,17 +295,11 @@ pub mod autokey {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListKeyHandlesResponse> {
-            (*self.0.stub)
-                .list_key_handles(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_key_handles(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListKeyHandlesResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListKeyHandlesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -326,10 +311,7 @@ pub mod autokey {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListKeyHandlesResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListKeyHandlesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -394,14 +376,13 @@ pub mod autokey {
 
     impl ListLocations {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
-            Self(RequestBuilder::new(stub))
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -414,17 +395,11 @@ pub mod autokey {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::ListLocationsResponse> {
-            (*self.0.stub)
-                .list_locations(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_locations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -436,10 +411,7 @@ pub mod autokey {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -498,7 +470,9 @@ pub mod autokey {
 
     impl GetLocation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
-            Self(RequestBuilder::new(stub))
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -515,10 +489,7 @@ pub mod autokey {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::Location> {
-            (*self.0.stub)
-                .get_location(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_location(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -557,7 +528,9 @@ pub mod autokey {
 
     impl SetIamPolicy {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
-            Self(RequestBuilder::new(stub))
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -574,10 +547,7 @@ pub mod autokey {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::Policy> {
-            (*self.0.stub)
-                .set_iam_policy(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).set_iam_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -592,8 +562,7 @@ pub mod autokey {
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<iam_v1::model::Policy>,
+        where T: std::convert::Into<iam_v1::model::Policy>
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
@@ -603,8 +572,7 @@ pub mod autokey {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<iam_v1::model::Policy>,
+        where T: std::convert::Into<iam_v1::model::Policy>
         {
             self.0.request.policy = v.map(|x| x.into());
             self
@@ -612,8 +580,7 @@ pub mod autokey {
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -621,8 +588,7 @@ pub mod autokey {
 
         /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -658,7 +624,9 @@ pub mod autokey {
 
     impl GetIamPolicy {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
-            Self(RequestBuilder::new(stub))
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -675,10 +643,7 @@ pub mod autokey {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::Policy> {
-            (*self.0.stub)
-                .get_iam_policy(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_iam_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -691,8 +656,7 @@ pub mod autokey {
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        where T: std::convert::Into<iam_v1::model::GetPolicyOptions>
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
@@ -700,8 +664,7 @@ pub mod autokey {
 
         /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        where T: std::convert::Into<iam_v1::model::GetPolicyOptions>
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -737,14 +700,13 @@ pub mod autokey {
 
     impl TestIamPermissions {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
-            Self(RequestBuilder::new(stub))
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -757,10 +719,7 @@ pub mod autokey {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
-            (*self.0.stub)
-                .test_iam_permissions(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).test_iam_permissions(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -777,7 +736,7 @@ pub mod autokey {
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.0.request.permissions = v.into_iter().map(|i| i.into()).collect();
@@ -814,14 +773,13 @@ pub mod autokey {
 
     impl GetOperation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
-            Self(RequestBuilder::new(stub))
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -834,10 +792,7 @@ pub mod autokey {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .get_operation(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -853,6 +808,7 @@ pub mod autokey {
             &mut self.0.options
         }
     }
+
 }
 
 pub mod autokey_admin {
@@ -880,10 +836,7 @@ pub mod autokey_admin {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = AutokeyAdmin;
             type Credentials = gaxi::options::Credentials;
-            async fn build(
-                self,
-                config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -898,12 +851,8 @@ pub mod autokey_admin {
     }
 
     impl<R> RequestBuilder<R>
-    where
-        R: std::default::Default,
-    {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutokeyAdmin>,
-        ) -> Self {
+    where R: std::default::Default {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AutokeyAdmin>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -933,17 +882,14 @@ pub mod autokey_admin {
     pub struct UpdateAutokeyConfig(RequestBuilder<crate::model::UpdateAutokeyConfigRequest>);
 
     impl UpdateAutokeyConfig {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutokeyAdmin>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AutokeyAdmin>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateAutokeyConfigRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateAutokeyConfigRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -956,18 +902,14 @@ pub mod autokey_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::AutokeyConfig> {
-            (*self.0.stub)
-                .update_autokey_config(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_autokey_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [autokey_config][crate::model::UpdateAutokeyConfigRequest::autokey_config].
         ///
         /// This is a **required** field for requests.
         pub fn set_autokey_config<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::AutokeyConfig>,
+        where T: std::convert::Into<crate::model::AutokeyConfig>
         {
             self.0.request.autokey_config = std::option::Option::Some(v.into());
             self
@@ -977,8 +919,7 @@ pub mod autokey_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_autokey_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::AutokeyConfig>,
+        where T: std::convert::Into<crate::model::AutokeyConfig>
         {
             self.0.request.autokey_config = v.map(|x| x.into());
             self
@@ -988,8 +929,7 @@ pub mod autokey_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -999,8 +939,7 @@ pub mod autokey_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -1035,17 +974,14 @@ pub mod autokey_admin {
     pub struct GetAutokeyConfig(RequestBuilder<crate::model::GetAutokeyConfigRequest>);
 
     impl GetAutokeyConfig {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutokeyAdmin>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AutokeyAdmin>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetAutokeyConfigRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetAutokeyConfigRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1058,10 +994,7 @@ pub mod autokey_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::AutokeyConfig> {
-            (*self.0.stub)
-                .get_autokey_config(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_autokey_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAutokeyConfigRequest::name].
@@ -1098,22 +1031,17 @@ pub mod autokey_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ShowEffectiveAutokeyConfig(
-        RequestBuilder<crate::model::ShowEffectiveAutokeyConfigRequest>,
-    );
+    pub struct ShowEffectiveAutokeyConfig(RequestBuilder<crate::model::ShowEffectiveAutokeyConfigRequest>);
 
     impl ShowEffectiveAutokeyConfig {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutokeyAdmin>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AutokeyAdmin>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ShowEffectiveAutokeyConfigRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ShowEffectiveAutokeyConfigRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1126,10 +1054,7 @@ pub mod autokey_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ShowEffectiveAutokeyConfigResponse> {
-            (*self.0.stub)
-                .show_effective_autokey_config(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).show_effective_autokey_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ShowEffectiveAutokeyConfigRequest::parent].
@@ -1173,17 +1098,14 @@ pub mod autokey_admin {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutokeyAdmin>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AutokeyAdmin>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1196,17 +1118,11 @@ pub mod autokey_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::ListLocationsResponse> {
-            (*self.0.stub)
-                .list_locations(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_locations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1218,10 +1134,7 @@ pub mod autokey_admin {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1279,10 +1192,10 @@ pub mod autokey_admin {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutokeyAdmin>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AutokeyAdmin>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1299,10 +1212,7 @@ pub mod autokey_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::Location> {
-            (*self.0.stub)
-                .get_location(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_location(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -1340,10 +1250,10 @@ pub mod autokey_admin {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutokeyAdmin>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AutokeyAdmin>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1360,10 +1270,7 @@ pub mod autokey_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::Policy> {
-            (*self.0.stub)
-                .set_iam_policy(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).set_iam_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -1378,8 +1285,7 @@ pub mod autokey_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<iam_v1::model::Policy>,
+        where T: std::convert::Into<iam_v1::model::Policy>
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
@@ -1389,8 +1295,7 @@ pub mod autokey_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<iam_v1::model::Policy>,
+        where T: std::convert::Into<iam_v1::model::Policy>
         {
             self.0.request.policy = v.map(|x| x.into());
             self
@@ -1398,8 +1303,7 @@ pub mod autokey_admin {
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -1407,8 +1311,7 @@ pub mod autokey_admin {
 
         /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -1443,10 +1346,10 @@ pub mod autokey_admin {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutokeyAdmin>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AutokeyAdmin>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1463,10 +1366,7 @@ pub mod autokey_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::Policy> {
-            (*self.0.stub)
-                .get_iam_policy(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_iam_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -1479,8 +1379,7 @@ pub mod autokey_admin {
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        where T: std::convert::Into<iam_v1::model::GetPolicyOptions>
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
@@ -1488,8 +1387,7 @@ pub mod autokey_admin {
 
         /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        where T: std::convert::Into<iam_v1::model::GetPolicyOptions>
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -1524,17 +1422,14 @@ pub mod autokey_admin {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutokeyAdmin>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AutokeyAdmin>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1547,10 +1442,7 @@ pub mod autokey_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
-            (*self.0.stub)
-                .test_iam_permissions(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).test_iam_permissions(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -1567,7 +1459,7 @@ pub mod autokey_admin {
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.0.request.permissions = v.into_iter().map(|i| i.into()).collect();
@@ -1603,17 +1495,14 @@ pub mod autokey_admin {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutokeyAdmin>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AutokeyAdmin>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1626,10 +1515,7 @@ pub mod autokey_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .get_operation(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -1645,6 +1531,7 @@ pub mod autokey_admin {
             &mut self.0.options
         }
     }
+
 }
 
 pub mod ekm_service {
@@ -1672,10 +1559,7 @@ pub mod ekm_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = EkmService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(
-                self,
-                config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -1690,12 +1574,8 @@ pub mod ekm_service {
     }
 
     impl<R> RequestBuilder<R>
-    where
-        R: std::default::Default,
-    {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
-        ) -> Self {
+    where R: std::default::Default {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -1729,17 +1609,14 @@ pub mod ekm_service {
     pub struct ListEkmConnections(RequestBuilder<crate::model::ListEkmConnectionsRequest>);
 
     impl ListEkmConnections {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListEkmConnectionsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListEkmConnectionsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1752,17 +1629,11 @@ pub mod ekm_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListEkmConnectionsResponse> {
-            (*self.0.stub)
-                .list_ekm_connections(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_ekm_connections(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListEkmConnectionsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListEkmConnectionsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1774,12 +1645,7 @@ pub mod ekm_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListEkmConnectionsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListEkmConnectionsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1845,17 +1711,14 @@ pub mod ekm_service {
     pub struct GetEkmConnection(RequestBuilder<crate::model::GetEkmConnectionRequest>);
 
     impl GetEkmConnection {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetEkmConnectionRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetEkmConnectionRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1868,10 +1731,7 @@ pub mod ekm_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::EkmConnection> {
-            (*self.0.stub)
-                .get_ekm_connection(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_ekm_connection(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetEkmConnectionRequest::name].
@@ -1911,17 +1771,14 @@ pub mod ekm_service {
     pub struct CreateEkmConnection(RequestBuilder<crate::model::CreateEkmConnectionRequest>);
 
     impl CreateEkmConnection {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateEkmConnectionRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateEkmConnectionRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1934,10 +1791,7 @@ pub mod ekm_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::EkmConnection> {
-            (*self.0.stub)
-                .create_ekm_connection(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_ekm_connection(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateEkmConnectionRequest::parent].
@@ -1960,8 +1814,7 @@ pub mod ekm_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_ekm_connection<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::EkmConnection>,
+        where T: std::convert::Into<crate::model::EkmConnection>
         {
             self.0.request.ekm_connection = std::option::Option::Some(v.into());
             self
@@ -1971,8 +1824,7 @@ pub mod ekm_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_ekm_connection<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::EkmConnection>,
+        where T: std::convert::Into<crate::model::EkmConnection>
         {
             self.0.request.ekm_connection = v.map(|x| x.into());
             self
@@ -2007,17 +1859,14 @@ pub mod ekm_service {
     pub struct UpdateEkmConnection(RequestBuilder<crate::model::UpdateEkmConnectionRequest>);
 
     impl UpdateEkmConnection {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateEkmConnectionRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateEkmConnectionRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2030,18 +1879,14 @@ pub mod ekm_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::EkmConnection> {
-            (*self.0.stub)
-                .update_ekm_connection(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_ekm_connection(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [ekm_connection][crate::model::UpdateEkmConnectionRequest::ekm_connection].
         ///
         /// This is a **required** field for requests.
         pub fn set_ekm_connection<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::EkmConnection>,
+        where T: std::convert::Into<crate::model::EkmConnection>
         {
             self.0.request.ekm_connection = std::option::Option::Some(v.into());
             self
@@ -2051,8 +1896,7 @@ pub mod ekm_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_ekm_connection<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::EkmConnection>,
+        where T: std::convert::Into<crate::model::EkmConnection>
         {
             self.0.request.ekm_connection = v.map(|x| x.into());
             self
@@ -2062,8 +1906,7 @@ pub mod ekm_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -2073,8 +1916,7 @@ pub mod ekm_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -2109,10 +1951,10 @@ pub mod ekm_service {
     pub struct GetEkmConfig(RequestBuilder<crate::model::GetEkmConfigRequest>);
 
     impl GetEkmConfig {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2129,10 +1971,7 @@ pub mod ekm_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::EkmConfig> {
-            (*self.0.stub)
-                .get_ekm_config(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_ekm_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetEkmConfigRequest::name].
@@ -2172,10 +2011,10 @@ pub mod ekm_service {
     pub struct UpdateEkmConfig(RequestBuilder<crate::model::UpdateEkmConfigRequest>);
 
     impl UpdateEkmConfig {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2192,18 +2031,14 @@ pub mod ekm_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::EkmConfig> {
-            (*self.0.stub)
-                .update_ekm_config(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_ekm_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [ekm_config][crate::model::UpdateEkmConfigRequest::ekm_config].
         ///
         /// This is a **required** field for requests.
         pub fn set_ekm_config<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::EkmConfig>,
+        where T: std::convert::Into<crate::model::EkmConfig>
         {
             self.0.request.ekm_config = std::option::Option::Some(v.into());
             self
@@ -2213,8 +2048,7 @@ pub mod ekm_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_ekm_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::EkmConfig>,
+        where T: std::convert::Into<crate::model::EkmConfig>
         {
             self.0.request.ekm_config = v.map(|x| x.into());
             self
@@ -2224,8 +2058,7 @@ pub mod ekm_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -2235,8 +2068,7 @@ pub mod ekm_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -2271,17 +2103,14 @@ pub mod ekm_service {
     pub struct VerifyConnectivity(RequestBuilder<crate::model::VerifyConnectivityRequest>);
 
     impl VerifyConnectivity {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::VerifyConnectivityRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::VerifyConnectivityRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2294,10 +2123,7 @@ pub mod ekm_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::VerifyConnectivityResponse> {
-            (*self.0.stub)
-                .verify_connectivity(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).verify_connectivity(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::VerifyConnectivityRequest::name].
@@ -2341,17 +2167,14 @@ pub mod ekm_service {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2364,17 +2187,11 @@ pub mod ekm_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::ListLocationsResponse> {
-            (*self.0.stub)
-                .list_locations(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_locations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2386,10 +2203,7 @@ pub mod ekm_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2447,10 +2261,10 @@ pub mod ekm_service {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2467,10 +2281,7 @@ pub mod ekm_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::Location> {
-            (*self.0.stub)
-                .get_location(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_location(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -2508,10 +2319,10 @@ pub mod ekm_service {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2528,10 +2339,7 @@ pub mod ekm_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::Policy> {
-            (*self.0.stub)
-                .set_iam_policy(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).set_iam_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -2546,8 +2354,7 @@ pub mod ekm_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<iam_v1::model::Policy>,
+        where T: std::convert::Into<iam_v1::model::Policy>
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
@@ -2557,8 +2364,7 @@ pub mod ekm_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<iam_v1::model::Policy>,
+        where T: std::convert::Into<iam_v1::model::Policy>
         {
             self.0.request.policy = v.map(|x| x.into());
             self
@@ -2566,8 +2372,7 @@ pub mod ekm_service {
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -2575,8 +2380,7 @@ pub mod ekm_service {
 
         /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -2611,10 +2415,10 @@ pub mod ekm_service {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2631,10 +2435,7 @@ pub mod ekm_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::Policy> {
-            (*self.0.stub)
-                .get_iam_policy(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_iam_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -2647,8 +2448,7 @@ pub mod ekm_service {
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        where T: std::convert::Into<iam_v1::model::GetPolicyOptions>
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
@@ -2656,8 +2456,7 @@ pub mod ekm_service {
 
         /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        where T: std::convert::Into<iam_v1::model::GetPolicyOptions>
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -2692,17 +2491,14 @@ pub mod ekm_service {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2715,10 +2511,7 @@ pub mod ekm_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
-            (*self.0.stub)
-                .test_iam_permissions(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).test_iam_permissions(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -2735,7 +2528,7 @@ pub mod ekm_service {
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.0.request.permissions = v.into_iter().map(|i| i.into()).collect();
@@ -2771,17 +2564,14 @@ pub mod ekm_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2794,10 +2584,7 @@ pub mod ekm_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .get_operation(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -2813,6 +2600,7 @@ pub mod ekm_service {
             &mut self.0.options
         }
     }
+
 }
 
 pub mod key_management_service {
@@ -2840,10 +2628,7 @@ pub mod key_management_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = KeyManagementService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(
-                self,
-                config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -2858,12 +2643,8 @@ pub mod key_management_service {
     }
 
     impl<R> RequestBuilder<R>
-    where
-        R: std::default::Default,
-    {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
-        ) -> Self {
+    where R: std::default::Default {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -2897,10 +2678,10 @@ pub mod key_management_service {
     pub struct ListKeyRings(RequestBuilder<crate::model::ListKeyRingsRequest>);
 
     impl ListKeyRings {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2917,17 +2698,11 @@ pub mod key_management_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListKeyRingsResponse> {
-            (*self.0.stub)
-                .list_key_rings(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_key_rings(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListKeyRingsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListKeyRingsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2939,10 +2714,7 @@ pub mod key_management_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListKeyRingsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListKeyRingsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -3012,10 +2784,10 @@ pub mod key_management_service {
     pub struct ListCryptoKeys(RequestBuilder<crate::model::ListCryptoKeysRequest>);
 
     impl ListCryptoKeys {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3032,17 +2804,11 @@ pub mod key_management_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListCryptoKeysResponse> {
-            (*self.0.stub)
-                .list_crypto_keys(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_crypto_keys(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListCryptoKeysResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListCryptoKeysResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -3054,10 +2820,7 @@ pub mod key_management_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListCryptoKeysResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListCryptoKeysResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -3083,10 +2846,7 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [version_view][crate::model::ListCryptoKeysRequest::version_view].
-        pub fn set_version_view<T: Into<crate::model::crypto_key_version::CryptoKeyVersionView>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_version_view<T: Into<crate::model::crypto_key_version::CryptoKeyVersionView>>(mut self, v: T) -> Self {
             self.0.request.version_view = v.into();
             self
         }
@@ -3136,17 +2896,14 @@ pub mod key_management_service {
     pub struct ListCryptoKeyVersions(RequestBuilder<crate::model::ListCryptoKeyVersionsRequest>);
 
     impl ListCryptoKeyVersions {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListCryptoKeyVersionsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListCryptoKeyVersionsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3159,17 +2916,11 @@ pub mod key_management_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListCryptoKeyVersionsResponse> {
-            (*self.0.stub)
-                .list_crypto_key_versions(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_crypto_key_versions(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListCryptoKeyVersionsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListCryptoKeyVersionsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -3181,12 +2932,7 @@ pub mod key_management_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListCryptoKeyVersionsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListCryptoKeyVersionsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -3212,10 +2958,7 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [view][crate::model::ListCryptoKeyVersionsRequest::view].
-        pub fn set_view<T: Into<crate::model::crypto_key_version::CryptoKeyVersionView>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_view<T: Into<crate::model::crypto_key_version::CryptoKeyVersionView>>(mut self, v: T) -> Self {
             self.0.request.view = v.into();
             self
         }
@@ -3265,10 +3008,10 @@ pub mod key_management_service {
     pub struct ListImportJobs(RequestBuilder<crate::model::ListImportJobsRequest>);
 
     impl ListImportJobs {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3285,17 +3028,11 @@ pub mod key_management_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListImportJobsResponse> {
-            (*self.0.stub)
-                .list_import_jobs(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_import_jobs(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListImportJobsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListImportJobsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -3307,10 +3044,7 @@ pub mod key_management_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListImportJobsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListImportJobsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -3376,10 +3110,10 @@ pub mod key_management_service {
     pub struct GetKeyRing(RequestBuilder<crate::model::GetKeyRingRequest>);
 
     impl GetKeyRing {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3396,10 +3130,7 @@ pub mod key_management_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::KeyRing> {
-            (*self.0.stub)
-                .get_key_ring(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_key_ring(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetKeyRingRequest::name].
@@ -3439,10 +3170,10 @@ pub mod key_management_service {
     pub struct GetCryptoKey(RequestBuilder<crate::model::GetCryptoKeyRequest>);
 
     impl GetCryptoKey {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3459,10 +3190,7 @@ pub mod key_management_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::CryptoKey> {
-            (*self.0.stub)
-                .get_crypto_key(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_crypto_key(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetCryptoKeyRequest::name].
@@ -3502,17 +3230,14 @@ pub mod key_management_service {
     pub struct GetCryptoKeyVersion(RequestBuilder<crate::model::GetCryptoKeyVersionRequest>);
 
     impl GetCryptoKeyVersion {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetCryptoKeyVersionRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetCryptoKeyVersionRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3525,10 +3250,7 @@ pub mod key_management_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::CryptoKeyVersion> {
-            (*self.0.stub)
-                .get_crypto_key_version(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_crypto_key_version(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetCryptoKeyVersionRequest::name].
@@ -3568,10 +3290,10 @@ pub mod key_management_service {
     pub struct GetPublicKey(RequestBuilder<crate::model::GetPublicKeyRequest>);
 
     impl GetPublicKey {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3588,10 +3310,7 @@ pub mod key_management_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::PublicKey> {
-            (*self.0.stub)
-                .get_public_key(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_public_key(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPublicKeyRequest::name].
@@ -3603,10 +3322,7 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [public_key_format][crate::model::GetPublicKeyRequest::public_key_format].
-        pub fn set_public_key_format<T: Into<crate::model::public_key::PublicKeyFormat>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_public_key_format<T: Into<crate::model::public_key::PublicKeyFormat>>(mut self, v: T) -> Self {
             self.0.request.public_key_format = v.into();
             self
         }
@@ -3640,10 +3356,10 @@ pub mod key_management_service {
     pub struct GetImportJob(RequestBuilder<crate::model::GetImportJobRequest>);
 
     impl GetImportJob {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3660,10 +3376,7 @@ pub mod key_management_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ImportJob> {
-            (*self.0.stub)
-                .get_import_job(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_import_job(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetImportJobRequest::name].
@@ -3703,10 +3416,10 @@ pub mod key_management_service {
     pub struct CreateKeyRing(RequestBuilder<crate::model::CreateKeyRingRequest>);
 
     impl CreateKeyRing {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3723,10 +3436,7 @@ pub mod key_management_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::KeyRing> {
-            (*self.0.stub)
-                .create_key_ring(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_key_ring(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateKeyRingRequest::parent].
@@ -3749,8 +3459,7 @@ pub mod key_management_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_key_ring<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::KeyRing>,
+        where T: std::convert::Into<crate::model::KeyRing>
         {
             self.0.request.key_ring = std::option::Option::Some(v.into());
             self
@@ -3760,8 +3469,7 @@ pub mod key_management_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_key_ring<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::KeyRing>,
+        where T: std::convert::Into<crate::model::KeyRing>
         {
             self.0.request.key_ring = v.map(|x| x.into());
             self
@@ -3796,10 +3504,10 @@ pub mod key_management_service {
     pub struct CreateCryptoKey(RequestBuilder<crate::model::CreateCryptoKeyRequest>);
 
     impl CreateCryptoKey {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3816,10 +3524,7 @@ pub mod key_management_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::CryptoKey> {
-            (*self.0.stub)
-                .create_crypto_key(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_crypto_key(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateCryptoKeyRequest::parent].
@@ -3842,8 +3547,7 @@ pub mod key_management_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_crypto_key<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::CryptoKey>,
+        where T: std::convert::Into<crate::model::CryptoKey>
         {
             self.0.request.crypto_key = std::option::Option::Some(v.into());
             self
@@ -3853,8 +3557,7 @@ pub mod key_management_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_crypto_key<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::CryptoKey>,
+        where T: std::convert::Into<crate::model::CryptoKey>
         {
             self.0.request.crypto_key = v.map(|x| x.into());
             self
@@ -3895,17 +3598,14 @@ pub mod key_management_service {
     pub struct CreateCryptoKeyVersion(RequestBuilder<crate::model::CreateCryptoKeyVersionRequest>);
 
     impl CreateCryptoKeyVersion {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateCryptoKeyVersionRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateCryptoKeyVersionRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3918,10 +3618,7 @@ pub mod key_management_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::CryptoKeyVersion> {
-            (*self.0.stub)
-                .create_crypto_key_version(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_crypto_key_version(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateCryptoKeyVersionRequest::parent].
@@ -3936,8 +3633,7 @@ pub mod key_management_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_crypto_key_version<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::CryptoKeyVersion>,
+        where T: std::convert::Into<crate::model::CryptoKeyVersion>
         {
             self.0.request.crypto_key_version = std::option::Option::Some(v.into());
             self
@@ -3947,8 +3643,7 @@ pub mod key_management_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_crypto_key_version<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::CryptoKeyVersion>,
+        where T: std::convert::Into<crate::model::CryptoKeyVersion>
         {
             self.0.request.crypto_key_version = v.map(|x| x.into());
             self
@@ -3983,17 +3678,14 @@ pub mod key_management_service {
     pub struct ImportCryptoKeyVersion(RequestBuilder<crate::model::ImportCryptoKeyVersionRequest>);
 
     impl ImportCryptoKeyVersion {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ImportCryptoKeyVersionRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ImportCryptoKeyVersionRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4006,10 +3698,7 @@ pub mod key_management_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::CryptoKeyVersion> {
-            (*self.0.stub)
-                .import_crypto_key_version(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).import_crypto_key_version(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ImportCryptoKeyVersionRequest::parent].
@@ -4029,12 +3718,7 @@ pub mod key_management_service {
         /// Sets the value of [algorithm][crate::model::ImportCryptoKeyVersionRequest::algorithm].
         ///
         /// This is a **required** field for requests.
-        pub fn set_algorithm<
-            T: Into<crate::model::crypto_key_version::CryptoKeyVersionAlgorithm>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_algorithm<T: Into<crate::model::crypto_key_version::CryptoKeyVersionAlgorithm>>(mut self, v: T) -> Self {
             self.0.request.algorithm = v.into();
             self
         }
@@ -4057,12 +3741,7 @@ pub mod key_management_service {
         ///
         /// Note that all the setters affecting `wrapped_key_material` are
         /// mutually exclusive.
-        pub fn set_wrapped_key_material<
-            T: Into<Option<crate::model::import_crypto_key_version_request::WrappedKeyMaterial>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_wrapped_key_material<T: Into<Option<crate::model::import_crypto_key_version_request::WrappedKeyMaterial>>>(mut self, v: T) ->Self {
             self.0.request.wrapped_key_material = v.into();
             self
         }
@@ -4072,10 +3751,7 @@ pub mod key_management_service {
         ///
         /// Note that all the setters affecting `wrapped_key_material` are
         /// mutually exclusive.
-        pub fn set_rsa_aes_wrapped_key<T: std::convert::Into<::bytes::Bytes>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_rsa_aes_wrapped_key<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request = self.0.request.set_rsa_aes_wrapped_key(v);
             self
         }
@@ -4109,10 +3785,10 @@ pub mod key_management_service {
     pub struct CreateImportJob(RequestBuilder<crate::model::CreateImportJobRequest>);
 
     impl CreateImportJob {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -4129,10 +3805,7 @@ pub mod key_management_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ImportJob> {
-            (*self.0.stub)
-                .create_import_job(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_import_job(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateImportJobRequest::parent].
@@ -4155,8 +3828,7 @@ pub mod key_management_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_import_job<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::ImportJob>,
+        where T: std::convert::Into<crate::model::ImportJob>
         {
             self.0.request.import_job = std::option::Option::Some(v.into());
             self
@@ -4166,8 +3838,7 @@ pub mod key_management_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_import_job<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::ImportJob>,
+        where T: std::convert::Into<crate::model::ImportJob>
         {
             self.0.request.import_job = v.map(|x| x.into());
             self
@@ -4202,10 +3873,10 @@ pub mod key_management_service {
     pub struct UpdateCryptoKey(RequestBuilder<crate::model::UpdateCryptoKeyRequest>);
 
     impl UpdateCryptoKey {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -4222,18 +3893,14 @@ pub mod key_management_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::CryptoKey> {
-            (*self.0.stub)
-                .update_crypto_key(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_crypto_key(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [crypto_key][crate::model::UpdateCryptoKeyRequest::crypto_key].
         ///
         /// This is a **required** field for requests.
         pub fn set_crypto_key<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::CryptoKey>,
+        where T: std::convert::Into<crate::model::CryptoKey>
         {
             self.0.request.crypto_key = std::option::Option::Some(v.into());
             self
@@ -4243,8 +3910,7 @@ pub mod key_management_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_crypto_key<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::CryptoKey>,
+        where T: std::convert::Into<crate::model::CryptoKey>
         {
             self.0.request.crypto_key = v.map(|x| x.into());
             self
@@ -4254,8 +3920,7 @@ pub mod key_management_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -4265,8 +3930,7 @@ pub mod key_management_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -4301,17 +3965,14 @@ pub mod key_management_service {
     pub struct UpdateCryptoKeyVersion(RequestBuilder<crate::model::UpdateCryptoKeyVersionRequest>);
 
     impl UpdateCryptoKeyVersion {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateCryptoKeyVersionRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateCryptoKeyVersionRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4324,18 +3985,14 @@ pub mod key_management_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::CryptoKeyVersion> {
-            (*self.0.stub)
-                .update_crypto_key_version(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_crypto_key_version(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [crypto_key_version][crate::model::UpdateCryptoKeyVersionRequest::crypto_key_version].
         ///
         /// This is a **required** field for requests.
         pub fn set_crypto_key_version<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::CryptoKeyVersion>,
+        where T: std::convert::Into<crate::model::CryptoKeyVersion>
         {
             self.0.request.crypto_key_version = std::option::Option::Some(v.into());
             self
@@ -4345,8 +4002,7 @@ pub mod key_management_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_crypto_key_version<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::CryptoKeyVersion>,
+        where T: std::convert::Into<crate::model::CryptoKeyVersion>
         {
             self.0.request.crypto_key_version = v.map(|x| x.into());
             self
@@ -4356,8 +4012,7 @@ pub mod key_management_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -4367,8 +4022,7 @@ pub mod key_management_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -4400,22 +4054,17 @@ pub mod key_management_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateCryptoKeyPrimaryVersion(
-        RequestBuilder<crate::model::UpdateCryptoKeyPrimaryVersionRequest>,
-    );
+    pub struct UpdateCryptoKeyPrimaryVersion(RequestBuilder<crate::model::UpdateCryptoKeyPrimaryVersionRequest>);
 
     impl UpdateCryptoKeyPrimaryVersion {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateCryptoKeyPrimaryVersionRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateCryptoKeyPrimaryVersionRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4428,10 +4077,7 @@ pub mod key_management_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::CryptoKey> {
-            (*self.0.stub)
-                .update_crypto_key_primary_version(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_crypto_key_primary_version(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UpdateCryptoKeyPrimaryVersionRequest::name].
@@ -4476,22 +4122,17 @@ pub mod key_management_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DestroyCryptoKeyVersion(
-        RequestBuilder<crate::model::DestroyCryptoKeyVersionRequest>,
-    );
+    pub struct DestroyCryptoKeyVersion(RequestBuilder<crate::model::DestroyCryptoKeyVersionRequest>);
 
     impl DestroyCryptoKeyVersion {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DestroyCryptoKeyVersionRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DestroyCryptoKeyVersionRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4504,10 +4145,7 @@ pub mod key_management_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::CryptoKeyVersion> {
-            (*self.0.stub)
-                .destroy_crypto_key_version(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).destroy_crypto_key_version(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DestroyCryptoKeyVersionRequest::name].
@@ -4544,22 +4182,17 @@ pub mod key_management_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RestoreCryptoKeyVersion(
-        RequestBuilder<crate::model::RestoreCryptoKeyVersionRequest>,
-    );
+    pub struct RestoreCryptoKeyVersion(RequestBuilder<crate::model::RestoreCryptoKeyVersionRequest>);
 
     impl RestoreCryptoKeyVersion {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::RestoreCryptoKeyVersionRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::RestoreCryptoKeyVersionRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4572,10 +4205,7 @@ pub mod key_management_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::CryptoKeyVersion> {
-            (*self.0.stub)
-                .restore_crypto_key_version(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).restore_crypto_key_version(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::RestoreCryptoKeyVersionRequest::name].
@@ -4615,10 +4245,10 @@ pub mod key_management_service {
     pub struct Encrypt(RequestBuilder<crate::model::EncryptRequest>);
 
     impl Encrypt {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -4635,10 +4265,7 @@ pub mod key_management_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::EncryptResponse> {
-            (*self.0.stub)
-                .encrypt(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).encrypt(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::EncryptRequest::name].
@@ -4665,8 +4292,7 @@ pub mod key_management_service {
 
         /// Sets the value of [plaintext_crc32c][crate::model::EncryptRequest::plaintext_crc32c].
         pub fn set_plaintext_crc32c<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Int64Value>,
+        where T: std::convert::Into<wkt::Int64Value>
         {
             self.0.request.plaintext_crc32c = std::option::Option::Some(v.into());
             self
@@ -4674,8 +4300,7 @@ pub mod key_management_service {
 
         /// Sets or clears the value of [plaintext_crc32c][crate::model::EncryptRequest::plaintext_crc32c].
         pub fn set_or_clear_plaintext_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Int64Value>,
+        where T: std::convert::Into<wkt::Int64Value>
         {
             self.0.request.plaintext_crc32c = v.map(|x| x.into());
             self
@@ -4683,21 +4308,15 @@ pub mod key_management_service {
 
         /// Sets the value of [additional_authenticated_data_crc32c][crate::model::EncryptRequest::additional_authenticated_data_crc32c].
         pub fn set_additional_authenticated_data_crc32c<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Int64Value>,
+        where T: std::convert::Into<wkt::Int64Value>
         {
-            self.0.request.additional_authenticated_data_crc32c =
-                std::option::Option::Some(v.into());
+            self.0.request.additional_authenticated_data_crc32c = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [additional_authenticated_data_crc32c][crate::model::EncryptRequest::additional_authenticated_data_crc32c].
-        pub fn set_or_clear_additional_authenticated_data_crc32c<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<wkt::Int64Value>,
+        pub fn set_or_clear_additional_authenticated_data_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<wkt::Int64Value>
         {
             self.0.request.additional_authenticated_data_crc32c = v.map(|x| x.into());
             self
@@ -4732,10 +4351,10 @@ pub mod key_management_service {
     pub struct Decrypt(RequestBuilder<crate::model::DecryptRequest>);
 
     impl Decrypt {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -4752,10 +4371,7 @@ pub mod key_management_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::DecryptResponse> {
-            (*self.0.stub)
-                .decrypt(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).decrypt(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DecryptRequest::name].
@@ -4782,8 +4398,7 @@ pub mod key_management_service {
 
         /// Sets the value of [ciphertext_crc32c][crate::model::DecryptRequest::ciphertext_crc32c].
         pub fn set_ciphertext_crc32c<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Int64Value>,
+        where T: std::convert::Into<wkt::Int64Value>
         {
             self.0.request.ciphertext_crc32c = std::option::Option::Some(v.into());
             self
@@ -4791,8 +4406,7 @@ pub mod key_management_service {
 
         /// Sets or clears the value of [ciphertext_crc32c][crate::model::DecryptRequest::ciphertext_crc32c].
         pub fn set_or_clear_ciphertext_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Int64Value>,
+        where T: std::convert::Into<wkt::Int64Value>
         {
             self.0.request.ciphertext_crc32c = v.map(|x| x.into());
             self
@@ -4800,21 +4414,15 @@ pub mod key_management_service {
 
         /// Sets the value of [additional_authenticated_data_crc32c][crate::model::DecryptRequest::additional_authenticated_data_crc32c].
         pub fn set_additional_authenticated_data_crc32c<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Int64Value>,
+        where T: std::convert::Into<wkt::Int64Value>
         {
-            self.0.request.additional_authenticated_data_crc32c =
-                std::option::Option::Some(v.into());
+            self.0.request.additional_authenticated_data_crc32c = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [additional_authenticated_data_crc32c][crate::model::DecryptRequest::additional_authenticated_data_crc32c].
-        pub fn set_or_clear_additional_authenticated_data_crc32c<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<wkt::Int64Value>,
+        pub fn set_or_clear_additional_authenticated_data_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<wkt::Int64Value>
         {
             self.0.request.additional_authenticated_data_crc32c = v.map(|x| x.into());
             self
@@ -4849,10 +4457,10 @@ pub mod key_management_service {
     pub struct RawEncrypt(RequestBuilder<crate::model::RawEncryptRequest>);
 
     impl RawEncrypt {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -4869,10 +4477,7 @@ pub mod key_management_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::RawEncryptResponse> {
-            (*self.0.stub)
-                .raw_encrypt(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).raw_encrypt(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::RawEncryptRequest::name].
@@ -4899,8 +4504,7 @@ pub mod key_management_service {
 
         /// Sets the value of [plaintext_crc32c][crate::model::RawEncryptRequest::plaintext_crc32c].
         pub fn set_plaintext_crc32c<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Int64Value>,
+        where T: std::convert::Into<wkt::Int64Value>
         {
             self.0.request.plaintext_crc32c = std::option::Option::Some(v.into());
             self
@@ -4908,8 +4512,7 @@ pub mod key_management_service {
 
         /// Sets or clears the value of [plaintext_crc32c][crate::model::RawEncryptRequest::plaintext_crc32c].
         pub fn set_or_clear_plaintext_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Int64Value>,
+        where T: std::convert::Into<wkt::Int64Value>
         {
             self.0.request.plaintext_crc32c = v.map(|x| x.into());
             self
@@ -4917,21 +4520,15 @@ pub mod key_management_service {
 
         /// Sets the value of [additional_authenticated_data_crc32c][crate::model::RawEncryptRequest::additional_authenticated_data_crc32c].
         pub fn set_additional_authenticated_data_crc32c<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Int64Value>,
+        where T: std::convert::Into<wkt::Int64Value>
         {
-            self.0.request.additional_authenticated_data_crc32c =
-                std::option::Option::Some(v.into());
+            self.0.request.additional_authenticated_data_crc32c = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [additional_authenticated_data_crc32c][crate::model::RawEncryptRequest::additional_authenticated_data_crc32c].
-        pub fn set_or_clear_additional_authenticated_data_crc32c<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<wkt::Int64Value>,
+        pub fn set_or_clear_additional_authenticated_data_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<wkt::Int64Value>
         {
             self.0.request.additional_authenticated_data_crc32c = v.map(|x| x.into());
             self
@@ -4945,20 +4542,15 @@ pub mod key_management_service {
 
         /// Sets the value of [initialization_vector_crc32c][crate::model::RawEncryptRequest::initialization_vector_crc32c].
         pub fn set_initialization_vector_crc32c<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Int64Value>,
+        where T: std::convert::Into<wkt::Int64Value>
         {
             self.0.request.initialization_vector_crc32c = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [initialization_vector_crc32c][crate::model::RawEncryptRequest::initialization_vector_crc32c].
-        pub fn set_or_clear_initialization_vector_crc32c<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<wkt::Int64Value>,
+        pub fn set_or_clear_initialization_vector_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<wkt::Int64Value>
         {
             self.0.request.initialization_vector_crc32c = v.map(|x| x.into());
             self
@@ -4993,10 +4585,10 @@ pub mod key_management_service {
     pub struct RawDecrypt(RequestBuilder<crate::model::RawDecryptRequest>);
 
     impl RawDecrypt {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -5013,10 +4605,7 @@ pub mod key_management_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::RawDecryptResponse> {
-            (*self.0.stub)
-                .raw_decrypt(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).raw_decrypt(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::RawDecryptRequest::name].
@@ -5057,8 +4646,7 @@ pub mod key_management_service {
 
         /// Sets the value of [ciphertext_crc32c][crate::model::RawDecryptRequest::ciphertext_crc32c].
         pub fn set_ciphertext_crc32c<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Int64Value>,
+        where T: std::convert::Into<wkt::Int64Value>
         {
             self.0.request.ciphertext_crc32c = std::option::Option::Some(v.into());
             self
@@ -5066,8 +4654,7 @@ pub mod key_management_service {
 
         /// Sets or clears the value of [ciphertext_crc32c][crate::model::RawDecryptRequest::ciphertext_crc32c].
         pub fn set_or_clear_ciphertext_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Int64Value>,
+        where T: std::convert::Into<wkt::Int64Value>
         {
             self.0.request.ciphertext_crc32c = v.map(|x| x.into());
             self
@@ -5075,21 +4662,15 @@ pub mod key_management_service {
 
         /// Sets the value of [additional_authenticated_data_crc32c][crate::model::RawDecryptRequest::additional_authenticated_data_crc32c].
         pub fn set_additional_authenticated_data_crc32c<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Int64Value>,
+        where T: std::convert::Into<wkt::Int64Value>
         {
-            self.0.request.additional_authenticated_data_crc32c =
-                std::option::Option::Some(v.into());
+            self.0.request.additional_authenticated_data_crc32c = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [additional_authenticated_data_crc32c][crate::model::RawDecryptRequest::additional_authenticated_data_crc32c].
-        pub fn set_or_clear_additional_authenticated_data_crc32c<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<wkt::Int64Value>,
+        pub fn set_or_clear_additional_authenticated_data_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<wkt::Int64Value>
         {
             self.0.request.additional_authenticated_data_crc32c = v.map(|x| x.into());
             self
@@ -5097,20 +4678,15 @@ pub mod key_management_service {
 
         /// Sets the value of [initialization_vector_crc32c][crate::model::RawDecryptRequest::initialization_vector_crc32c].
         pub fn set_initialization_vector_crc32c<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Int64Value>,
+        where T: std::convert::Into<wkt::Int64Value>
         {
             self.0.request.initialization_vector_crc32c = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [initialization_vector_crc32c][crate::model::RawDecryptRequest::initialization_vector_crc32c].
-        pub fn set_or_clear_initialization_vector_crc32c<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<wkt::Int64Value>,
+        pub fn set_or_clear_initialization_vector_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<wkt::Int64Value>
         {
             self.0.request.initialization_vector_crc32c = v.map(|x| x.into());
             self
@@ -5145,10 +4721,10 @@ pub mod key_management_service {
     pub struct AsymmetricSign(RequestBuilder<crate::model::AsymmetricSignRequest>);
 
     impl AsymmetricSign {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -5165,10 +4741,7 @@ pub mod key_management_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::AsymmetricSignResponse> {
-            (*self.0.stub)
-                .asymmetric_sign(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).asymmetric_sign(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::AsymmetricSignRequest::name].
@@ -5181,8 +4754,7 @@ pub mod key_management_service {
 
         /// Sets the value of [digest][crate::model::AsymmetricSignRequest::digest].
         pub fn set_digest<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Digest>,
+        where T: std::convert::Into<crate::model::Digest>
         {
             self.0.request.digest = std::option::Option::Some(v.into());
             self
@@ -5190,8 +4762,7 @@ pub mod key_management_service {
 
         /// Sets or clears the value of [digest][crate::model::AsymmetricSignRequest::digest].
         pub fn set_or_clear_digest<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Digest>,
+        where T: std::convert::Into<crate::model::Digest>
         {
             self.0.request.digest = v.map(|x| x.into());
             self
@@ -5199,8 +4770,7 @@ pub mod key_management_service {
 
         /// Sets the value of [digest_crc32c][crate::model::AsymmetricSignRequest::digest_crc32c].
         pub fn set_digest_crc32c<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Int64Value>,
+        where T: std::convert::Into<wkt::Int64Value>
         {
             self.0.request.digest_crc32c = std::option::Option::Some(v.into());
             self
@@ -5208,8 +4778,7 @@ pub mod key_management_service {
 
         /// Sets or clears the value of [digest_crc32c][crate::model::AsymmetricSignRequest::digest_crc32c].
         pub fn set_or_clear_digest_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Int64Value>,
+        where T: std::convert::Into<wkt::Int64Value>
         {
             self.0.request.digest_crc32c = v.map(|x| x.into());
             self
@@ -5223,8 +4792,7 @@ pub mod key_management_service {
 
         /// Sets the value of [data_crc32c][crate::model::AsymmetricSignRequest::data_crc32c].
         pub fn set_data_crc32c<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Int64Value>,
+        where T: std::convert::Into<wkt::Int64Value>
         {
             self.0.request.data_crc32c = std::option::Option::Some(v.into());
             self
@@ -5232,8 +4800,7 @@ pub mod key_management_service {
 
         /// Sets or clears the value of [data_crc32c][crate::model::AsymmetricSignRequest::data_crc32c].
         pub fn set_or_clear_data_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Int64Value>,
+        where T: std::convert::Into<wkt::Int64Value>
         {
             self.0.request.data_crc32c = v.map(|x| x.into());
             self
@@ -5268,17 +4835,14 @@ pub mod key_management_service {
     pub struct AsymmetricDecrypt(RequestBuilder<crate::model::AsymmetricDecryptRequest>);
 
     impl AsymmetricDecrypt {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::AsymmetricDecryptRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::AsymmetricDecryptRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -5291,10 +4855,7 @@ pub mod key_management_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::AsymmetricDecryptResponse> {
-            (*self.0.stub)
-                .asymmetric_decrypt(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).asymmetric_decrypt(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::AsymmetricDecryptRequest::name].
@@ -5315,8 +4876,7 @@ pub mod key_management_service {
 
         /// Sets the value of [ciphertext_crc32c][crate::model::AsymmetricDecryptRequest::ciphertext_crc32c].
         pub fn set_ciphertext_crc32c<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Int64Value>,
+        where T: std::convert::Into<wkt::Int64Value>
         {
             self.0.request.ciphertext_crc32c = std::option::Option::Some(v.into());
             self
@@ -5324,8 +4884,7 @@ pub mod key_management_service {
 
         /// Sets or clears the value of [ciphertext_crc32c][crate::model::AsymmetricDecryptRequest::ciphertext_crc32c].
         pub fn set_or_clear_ciphertext_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Int64Value>,
+        where T: std::convert::Into<wkt::Int64Value>
         {
             self.0.request.ciphertext_crc32c = v.map(|x| x.into());
             self
@@ -5360,10 +4919,10 @@ pub mod key_management_service {
     pub struct MacSign(RequestBuilder<crate::model::MacSignRequest>);
 
     impl MacSign {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -5380,10 +4939,7 @@ pub mod key_management_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::MacSignResponse> {
-            (*self.0.stub)
-                .mac_sign(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).mac_sign(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::MacSignRequest::name].
@@ -5404,8 +4960,7 @@ pub mod key_management_service {
 
         /// Sets the value of [data_crc32c][crate::model::MacSignRequest::data_crc32c].
         pub fn set_data_crc32c<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Int64Value>,
+        where T: std::convert::Into<wkt::Int64Value>
         {
             self.0.request.data_crc32c = std::option::Option::Some(v.into());
             self
@@ -5413,8 +4968,7 @@ pub mod key_management_service {
 
         /// Sets or clears the value of [data_crc32c][crate::model::MacSignRequest::data_crc32c].
         pub fn set_or_clear_data_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Int64Value>,
+        where T: std::convert::Into<wkt::Int64Value>
         {
             self.0.request.data_crc32c = v.map(|x| x.into());
             self
@@ -5449,10 +5003,10 @@ pub mod key_management_service {
     pub struct MacVerify(RequestBuilder<crate::model::MacVerifyRequest>);
 
     impl MacVerify {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -5469,10 +5023,7 @@ pub mod key_management_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::MacVerifyResponse> {
-            (*self.0.stub)
-                .mac_verify(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).mac_verify(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::MacVerifyRequest::name].
@@ -5493,8 +5044,7 @@ pub mod key_management_service {
 
         /// Sets the value of [data_crc32c][crate::model::MacVerifyRequest::data_crc32c].
         pub fn set_data_crc32c<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Int64Value>,
+        where T: std::convert::Into<wkt::Int64Value>
         {
             self.0.request.data_crc32c = std::option::Option::Some(v.into());
             self
@@ -5502,8 +5052,7 @@ pub mod key_management_service {
 
         /// Sets or clears the value of [data_crc32c][crate::model::MacVerifyRequest::data_crc32c].
         pub fn set_or_clear_data_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Int64Value>,
+        where T: std::convert::Into<wkt::Int64Value>
         {
             self.0.request.data_crc32c = v.map(|x| x.into());
             self
@@ -5519,8 +5068,7 @@ pub mod key_management_service {
 
         /// Sets the value of [mac_crc32c][crate::model::MacVerifyRequest::mac_crc32c].
         pub fn set_mac_crc32c<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Int64Value>,
+        where T: std::convert::Into<wkt::Int64Value>
         {
             self.0.request.mac_crc32c = std::option::Option::Some(v.into());
             self
@@ -5528,8 +5076,7 @@ pub mod key_management_service {
 
         /// Sets or clears the value of [mac_crc32c][crate::model::MacVerifyRequest::mac_crc32c].
         pub fn set_or_clear_mac_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Int64Value>,
+        where T: std::convert::Into<wkt::Int64Value>
         {
             self.0.request.mac_crc32c = v.map(|x| x.into());
             self
@@ -5564,10 +5111,10 @@ pub mod key_management_service {
     pub struct Decapsulate(RequestBuilder<crate::model::DecapsulateRequest>);
 
     impl Decapsulate {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -5584,10 +5131,7 @@ pub mod key_management_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::DecapsulateResponse> {
-            (*self.0.stub)
-                .decapsulate(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).decapsulate(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DecapsulateRequest::name].
@@ -5608,8 +5152,7 @@ pub mod key_management_service {
 
         /// Sets the value of [ciphertext_crc32c][crate::model::DecapsulateRequest::ciphertext_crc32c].
         pub fn set_ciphertext_crc32c<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Int64Value>,
+        where T: std::convert::Into<wkt::Int64Value>
         {
             self.0.request.ciphertext_crc32c = std::option::Option::Some(v.into());
             self
@@ -5617,8 +5160,7 @@ pub mod key_management_service {
 
         /// Sets or clears the value of [ciphertext_crc32c][crate::model::DecapsulateRequest::ciphertext_crc32c].
         pub fn set_or_clear_ciphertext_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Int64Value>,
+        where T: std::convert::Into<wkt::Int64Value>
         {
             self.0.request.ciphertext_crc32c = v.map(|x| x.into());
             self
@@ -5653,17 +5195,14 @@ pub mod key_management_service {
     pub struct GenerateRandomBytes(RequestBuilder<crate::model::GenerateRandomBytesRequest>);
 
     impl GenerateRandomBytes {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GenerateRandomBytesRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GenerateRandomBytesRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -5676,10 +5215,7 @@ pub mod key_management_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::GenerateRandomBytesResponse> {
-            (*self.0.stub)
-                .generate_random_bytes(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).generate_random_bytes(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [location][crate::model::GenerateRandomBytesRequest::location].
@@ -5695,10 +5231,7 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [protection_level][crate::model::GenerateRandomBytesRequest::protection_level].
-        pub fn set_protection_level<T: Into<crate::model::ProtectionLevel>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_protection_level<T: Into<crate::model::ProtectionLevel>>(mut self, v: T) -> Self {
             self.0.request.protection_level = v.into();
             self
         }
@@ -5736,17 +5269,14 @@ pub mod key_management_service {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -5759,17 +5289,11 @@ pub mod key_management_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::ListLocationsResponse> {
-            (*self.0.stub)
-                .list_locations(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_locations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -5781,10 +5305,7 @@ pub mod key_management_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -5842,10 +5363,10 @@ pub mod key_management_service {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -5862,10 +5383,7 @@ pub mod key_management_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::Location> {
-            (*self.0.stub)
-                .get_location(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_location(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -5903,10 +5421,10 @@ pub mod key_management_service {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -5923,10 +5441,7 @@ pub mod key_management_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::Policy> {
-            (*self.0.stub)
-                .set_iam_policy(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).set_iam_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -5941,8 +5456,7 @@ pub mod key_management_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<iam_v1::model::Policy>,
+        where T: std::convert::Into<iam_v1::model::Policy>
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
@@ -5952,8 +5466,7 @@ pub mod key_management_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<iam_v1::model::Policy>,
+        where T: std::convert::Into<iam_v1::model::Policy>
         {
             self.0.request.policy = v.map(|x| x.into());
             self
@@ -5961,8 +5474,7 @@ pub mod key_management_service {
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -5970,8 +5482,7 @@ pub mod key_management_service {
 
         /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -6006,10 +5517,10 @@ pub mod key_management_service {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -6026,10 +5537,7 @@ pub mod key_management_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::Policy> {
-            (*self.0.stub)
-                .get_iam_policy(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_iam_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -6042,8 +5550,7 @@ pub mod key_management_service {
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        where T: std::convert::Into<iam_v1::model::GetPolicyOptions>
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
@@ -6051,8 +5558,7 @@ pub mod key_management_service {
 
         /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        where T: std::convert::Into<iam_v1::model::GetPolicyOptions>
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -6087,17 +5593,14 @@ pub mod key_management_service {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -6110,10 +5613,7 @@ pub mod key_management_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
-            (*self.0.stub)
-                .test_iam_permissions(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).test_iam_permissions(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -6130,7 +5630,7 @@ pub mod key_management_service {
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.0.request.permissions = v.into_iter().map(|i| i.into()).collect();
@@ -6166,17 +5666,14 @@ pub mod key_management_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -6189,10 +5686,7 @@ pub mod key_management_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .get_operation(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -6208,4 +5702,5 @@ pub mod key_management_service {
             &mut self.0.options
         }
     }
+
 }

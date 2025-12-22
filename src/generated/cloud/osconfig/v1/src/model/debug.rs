@@ -114,10 +114,7 @@ impl std::fmt::Debug for super::inventory::WindowsUpdatePackage {
         debug_struct.field("more_info_urls", &self.more_info_urls);
         debug_struct.field("update_id", &self.update_id);
         debug_struct.field("revision_number", &self.revision_number);
-        debug_struct.field(
-            "last_deployment_change_time",
-            &self.last_deployment_change_time,
-        );
+        debug_struct.field("last_deployment_change_time", &self.last_deployment_change_time);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -166,6 +163,7 @@ impl std::fmt::Debug for super::inventory::WindowsApplication {
     }
 }
 
+
 impl std::fmt::Debug for super::GetInventoryRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetInventoryRequest");
@@ -212,10 +210,7 @@ impl std::fmt::Debug for super::OSPolicy {
         debug_struct.field("description", &self.description);
         debug_struct.field("mode", &self.mode);
         debug_struct.field("resource_groups", &self.resource_groups);
-        debug_struct.field(
-            "allow_no_resource_group_match",
-            &self.allow_no_resource_group_match,
-        );
+        debug_struct.field("allow_no_resource_group_match", &self.allow_no_resource_group_match);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -522,10 +517,7 @@ impl std::fmt::Debug for super::ListOSPolicyAssignmentReportsRequest {
 impl std::fmt::Debug for super::ListOSPolicyAssignmentReportsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListOSPolicyAssignmentReportsResponse");
-        debug_struct.field(
-            "os_policy_assignment_reports",
-            &self.os_policy_assignment_reports,
-        );
+        debug_struct.field("os_policy_assignment_reports", &self.os_policy_assignment_reports);
         debug_struct.field("next_page_token", &self.next_page_token);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -556,10 +548,7 @@ impl std::fmt::Debug for super::os_policy_assignment_report::OSPolicyCompliance 
         debug_struct.field("os_policy_id", &self.os_policy_id);
         debug_struct.field("compliance_state", &self.compliance_state);
         debug_struct.field("compliance_state_reason", &self.compliance_state_reason);
-        debug_struct.field(
-            "os_policy_resource_compliances",
-            &self.os_policy_resource_compliances,
-        );
+        debug_struct.field("os_policy_resource_compliances", &self.os_policy_resource_compliances);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -567,9 +556,7 @@ impl std::fmt::Debug for super::os_policy_assignment_report::OSPolicyCompliance 
     }
 }
 
-impl std::fmt::Debug
-    for super::os_policy_assignment_report::os_policy_compliance::OSPolicyResourceCompliance
-{
+impl std::fmt::Debug for super::os_policy_assignment_report::os_policy_compliance::OSPolicyResourceCompliance {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("OSPolicyResourceCompliance");
         debug_struct.field("os_policy_resource_id", &self.os_policy_resource_id);
@@ -1027,10 +1014,7 @@ impl std::fmt::Debug for super::ListPatchJobInstanceDetailsRequest {
 impl std::fmt::Debug for super::ListPatchJobInstanceDetailsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListPatchJobInstanceDetailsResponse");
-        debug_struct.field(
-            "patch_job_instance_details",
-            &self.patch_job_instance_details,
-        );
+        debug_struct.field("patch_job_instance_details", &self.patch_job_instance_details);
         debug_struct.field("next_page_token", &self.next_page_token);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1112,35 +1096,17 @@ impl std::fmt::Debug for super::patch_job::InstanceDetailsSummary {
         debug_struct.field("inactive_instance_count", &self.inactive_instance_count);
         debug_struct.field("notified_instance_count", &self.notified_instance_count);
         debug_struct.field("started_instance_count", &self.started_instance_count);
-        debug_struct.field(
-            "downloading_patches_instance_count",
-            &self.downloading_patches_instance_count,
-        );
-        debug_struct.field(
-            "applying_patches_instance_count",
-            &self.applying_patches_instance_count,
-        );
+        debug_struct.field("downloading_patches_instance_count", &self.downloading_patches_instance_count);
+        debug_struct.field("applying_patches_instance_count", &self.applying_patches_instance_count);
         debug_struct.field("rebooting_instance_count", &self.rebooting_instance_count);
         debug_struct.field("succeeded_instance_count", &self.succeeded_instance_count);
-        debug_struct.field(
-            "succeeded_reboot_required_instance_count",
-            &self.succeeded_reboot_required_instance_count,
-        );
+        debug_struct.field("succeeded_reboot_required_instance_count", &self.succeeded_reboot_required_instance_count);
         debug_struct.field("failed_instance_count", &self.failed_instance_count);
         debug_struct.field("acked_instance_count", &self.acked_instance_count);
         debug_struct.field("timed_out_instance_count", &self.timed_out_instance_count);
-        debug_struct.field(
-            "pre_patch_step_instance_count",
-            &self.pre_patch_step_instance_count,
-        );
-        debug_struct.field(
-            "post_patch_step_instance_count",
-            &self.post_patch_step_instance_count,
-        );
-        debug_struct.field(
-            "no_agent_detected_instance_count",
-            &self.no_agent_detected_instance_count,
-        );
+        debug_struct.field("pre_patch_step_instance_count", &self.pre_patch_step_instance_count);
+        debug_struct.field("post_patch_step_instance_count", &self.post_patch_step_instance_count);
+        debug_struct.field("no_agent_detected_instance_count", &self.no_agent_detected_instance_count);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1336,10 +1302,7 @@ impl std::fmt::Debug for super::VulnerabilityReport {
         debug_struct.field("name", &self.name);
         debug_struct.field("vulnerabilities", &self.vulnerabilities);
         debug_struct.field("update_time", &self.update_time);
-        debug_struct.field(
-            "highest_upgradable_cve_severity",
-            &self.highest_upgradable_cve_severity,
-        );
+        debug_struct.field("highest_upgradable_cve_severity", &self.highest_upgradable_cve_severity);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1351,14 +1314,8 @@ impl std::fmt::Debug for super::vulnerability_report::Vulnerability {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Vulnerability");
         debug_struct.field("details", &self.details);
-        debug_struct.field(
-            "installed_inventory_item_ids",
-            &self.installed_inventory_item_ids,
-        );
-        debug_struct.field(
-            "available_inventory_item_ids",
-            &self.available_inventory_item_ids,
-        );
+        debug_struct.field("installed_inventory_item_ids", &self.installed_inventory_item_ids);
+        debug_struct.field("available_inventory_item_ids", &self.available_inventory_item_ids);
         debug_struct.field("create_time", &self.create_time);
         debug_struct.field("update_time", &self.update_time);
         debug_struct.field("items", &self.items);
@@ -1400,14 +1357,8 @@ impl std::fmt::Debug for super::vulnerability_report::vulnerability::details::Re
 impl std::fmt::Debug for super::vulnerability_report::vulnerability::Item {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Item");
-        debug_struct.field(
-            "installed_inventory_item_id",
-            &self.installed_inventory_item_id,
-        );
-        debug_struct.field(
-            "available_inventory_item_id",
-            &self.available_inventory_item_id,
-        );
+        debug_struct.field("installed_inventory_item_id", &self.installed_inventory_item_id);
+        debug_struct.field("available_inventory_item_id", &self.available_inventory_item_id);
         debug_struct.field("fixed_cpe_uri", &self.fixed_cpe_uri);
         debug_struct.field("upstream_fix", &self.upstream_fix);
         if !self._unknown_fields.is_empty() {

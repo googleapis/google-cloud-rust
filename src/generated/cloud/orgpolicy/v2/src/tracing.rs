@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [OrgPolicy](super::stub::OrgPolicy) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct OrgPolicy<T>
-where
-    T: super::stub::OrgPolicy + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::OrgPolicy + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> OrgPolicy<T>
-where
-    T: super::stub::OrgPolicy + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::OrgPolicy + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::OrgPolicy for OrgPolicy<T>
-where
-    T: super::stub::OrgPolicy + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::OrgPolicy + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn list_constraints(
         &self,
@@ -144,4 +138,6 @@ where
     ) -> Result<gax::response::Response<()>> {
         self.inner.delete_custom_constraint(req, options).await
     }
+
 }
+

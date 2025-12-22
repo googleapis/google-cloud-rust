@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -30,7 +31,6 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -43,6 +43,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AddressGroup {
+
     /// Required. Name of the AddressGroup resource. It matches pattern
     /// `projects/*/locations/{location}/addressGroups/<address_group>`.
     pub name: std::string::String,
@@ -57,7 +58,7 @@ pub struct AddressGroup {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Optional. Set of label tags associated with the AddressGroup resource.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Required. The type of the Address Group. Possible values are "IPv4" or
     /// "IPV6".
@@ -116,8 +117,7 @@ impl AddressGroup {
     /// let x = AddressGroup::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -133,8 +133,7 @@ impl AddressGroup {
     /// let x = AddressGroup::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -149,8 +148,7 @@ impl AddressGroup {
     /// let x = AddressGroup::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -166,8 +164,7 @@ impl AddressGroup {
     /// let x = AddressGroup::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -203,10 +200,7 @@ impl AddressGroup {
     /// let x0 = AddressGroup::new().set_type(Type::Ipv4);
     /// let x1 = AddressGroup::new().set_type(Type::Ipv6);
     /// ```
-    pub fn set_type<T: std::convert::Into<crate::model::address_group::Type>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_type<T: std::convert::Into<crate::model::address_group::Type>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
@@ -221,7 +215,7 @@ impl AddressGroup {
     pub fn set_items<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.items = v.into_iter().map(|i| i.into()).collect();
@@ -266,7 +260,7 @@ impl AddressGroup {
     pub fn set_purpose<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::address_group::Purpose>,
+        V: std::convert::Into<crate::model::address_group::Purpose>
     {
         use std::iter::Iterator;
         self.purpose = v.into_iter().map(|i| i.into()).collect();
@@ -284,6 +278,7 @@ impl wkt::message::Message for AddressGroup {
 pub mod address_group {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Possible type of the Address Group.
     ///
@@ -371,9 +366,7 @@ pub mod address_group {
                 0 => Self::Unspecified,
                 1 => Self::Ipv4,
                 2 => Self::Ipv6,
-                _ => Self::UnknownValue(r#type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -385,9 +378,7 @@ pub mod address_group {
                 "TYPE_UNSPECIFIED" => Self::Unspecified,
                 "IPV4" => Self::Ipv4,
                 "IPV6" => Self::Ipv6,
-                _ => Self::UnknownValue(r#type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -412,8 +403,7 @@ pub mod address_group {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
-                ".google.cloud.networksecurity.v1.AddressGroup.Type",
-            ))
+                ".google.cloud.networksecurity.v1.AddressGroup.Type"))
         }
     }
 
@@ -504,9 +494,7 @@ pub mod address_group {
                 0 => Self::Unspecified,
                 1 => Self::Default,
                 2 => Self::CloudArmor,
-                _ => Self::UnknownValue(purpose::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(purpose::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -518,9 +506,7 @@ pub mod address_group {
                 "PURPOSE_UNSPECIFIED" => Self::Unspecified,
                 "DEFAULT" => Self::Default,
                 "CLOUD_ARMOR" => Self::CloudArmor,
-                _ => Self::UnknownValue(purpose::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(purpose::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -545,8 +531,7 @@ pub mod address_group {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Purpose>::new(
-                ".google.cloud.networksecurity.v1.AddressGroup.Purpose",
-            ))
+                ".google.cloud.networksecurity.v1.AddressGroup.Purpose"))
         }
     }
 }
@@ -555,6 +540,7 @@ pub mod address_group {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAddressGroupsRequest {
+
     /// Required. The project and location from which the AddressGroups
     /// should be listed, specified in the format
     /// `projects/*/locations/{location}`.
@@ -640,6 +626,7 @@ impl wkt::message::Message for ListAddressGroupsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAddressGroupsResponse {
+
     /// List of AddressGroups resources.
     pub address_groups: std::vec::Vec<crate::model::AddressGroup>,
 
@@ -674,7 +661,7 @@ impl ListAddressGroupsResponse {
     pub fn set_address_groups<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AddressGroup>,
+        V: std::convert::Into<crate::model::AddressGroup>
     {
         use std::iter::Iterator;
         self.address_groups = v.into_iter().map(|i| i.into()).collect();
@@ -703,7 +690,7 @@ impl ListAddressGroupsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -735,6 +722,7 @@ impl gax::paginator::internal::PageableResponse for ListAddressGroupsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAddressGroupRequest {
+
     /// Required. A name of the AddressGroup to get. Must be in the format
     /// `projects/*/locations/{location}/addressGroups/*`.
     pub name: std::string::String,
@@ -770,6 +758,7 @@ impl wkt::message::Message for GetAddressGroupRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateAddressGroupRequest {
+
     /// Required. The parent resource of the AddressGroup. Must be in the
     /// format `projects/*/locations/{location}`.
     pub parent: std::string::String,
@@ -825,10 +814,7 @@ impl CreateAddressGroupRequest {
     /// # use google_cloud_networksecurity_v1::model::CreateAddressGroupRequest;
     /// let x = CreateAddressGroupRequest::new().set_address_group_id("example");
     /// ```
-    pub fn set_address_group_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_address_group_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.address_group_id = v.into();
         self
     }
@@ -842,8 +828,7 @@ impl CreateAddressGroupRequest {
     /// let x = CreateAddressGroupRequest::new().set_address_group(AddressGroup::default()/* use setters */);
     /// ```
     pub fn set_address_group<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AddressGroup>,
+    where T: std::convert::Into<crate::model::AddressGroup>
     {
         self.address_group = std::option::Option::Some(v.into());
         self
@@ -859,8 +844,7 @@ impl CreateAddressGroupRequest {
     /// let x = CreateAddressGroupRequest::new().set_or_clear_address_group(None::<AddressGroup>);
     /// ```
     pub fn set_or_clear_address_group<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AddressGroup>,
+    where T: std::convert::Into<crate::model::AddressGroup>
     {
         self.address_group = v.map(|x| x.into());
         self
@@ -889,6 +873,7 @@ impl wkt::message::Message for CreateAddressGroupRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateAddressGroupRequest {
+
     /// Optional. Field mask is used to specify the fields to be overwritten in the
     /// AddressGroup resource by the update.
     /// The fields specified in the update_mask are relative to the resource, not
@@ -931,8 +916,7 @@ impl UpdateAddressGroupRequest {
     /// let x = UpdateAddressGroupRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -948,8 +932,7 @@ impl UpdateAddressGroupRequest {
     /// let x = UpdateAddressGroupRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -964,8 +947,7 @@ impl UpdateAddressGroupRequest {
     /// let x = UpdateAddressGroupRequest::new().set_address_group(AddressGroup::default()/* use setters */);
     /// ```
     pub fn set_address_group<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AddressGroup>,
+    where T: std::convert::Into<crate::model::AddressGroup>
     {
         self.address_group = std::option::Option::Some(v.into());
         self
@@ -981,8 +963,7 @@ impl UpdateAddressGroupRequest {
     /// let x = UpdateAddressGroupRequest::new().set_or_clear_address_group(None::<AddressGroup>);
     /// ```
     pub fn set_or_clear_address_group<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AddressGroup>,
+    where T: std::convert::Into<crate::model::AddressGroup>
     {
         self.address_group = v.map(|x| x.into());
         self
@@ -1011,6 +992,7 @@ impl wkt::message::Message for UpdateAddressGroupRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteAddressGroupRequest {
+
     /// Required. A name of the AddressGroup to delete. Must be in the format
     /// `projects/*/locations/{location}/addressGroups/*`.
     pub name: std::string::String,
@@ -1073,6 +1055,7 @@ impl wkt::message::Message for DeleteAddressGroupRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AddAddressGroupItemsRequest {
+
     /// Required. A name of the AddressGroup to add items to. Must be in the format
     /// `projects|organization/*/locations/{location}/addressGroups/*`.
     pub address_group: std::string::String,
@@ -1125,7 +1108,7 @@ impl AddAddressGroupItemsRequest {
     pub fn set_items<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.items = v.into_iter().map(|i| i.into()).collect();
@@ -1155,6 +1138,7 @@ impl wkt::message::Message for AddAddressGroupItemsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RemoveAddressGroupItemsRequest {
+
     /// Required. A name of the AddressGroup to remove items from. Must be in the
     /// format `projects|organization/*/locations/{location}/addressGroups/*`.
     pub address_group: std::string::String,
@@ -1207,7 +1191,7 @@ impl RemoveAddressGroupItemsRequest {
     pub fn set_items<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.items = v.into_iter().map(|i| i.into()).collect();
@@ -1237,6 +1221,7 @@ impl wkt::message::Message for RemoveAddressGroupItemsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloneAddressGroupItemsRequest {
+
     /// Required. A name of the AddressGroup to clone items to. Must be in the
     /// format `projects|organization/*/locations/{location}/addressGroups/*`.
     pub address_group: std::string::String,
@@ -1286,10 +1271,7 @@ impl CloneAddressGroupItemsRequest {
     /// # use google_cloud_networksecurity_v1::model::CloneAddressGroupItemsRequest;
     /// let x = CloneAddressGroupItemsRequest::new().set_source_address_group("example");
     /// ```
-    pub fn set_source_address_group<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source_address_group<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_address_group = v.into();
         self
     }
@@ -1317,6 +1299,7 @@ impl wkt::message::Message for CloneAddressGroupItemsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAddressGroupReferencesRequest {
+
     /// Required. A name of the AddressGroup to clone items to. Must be in the
     /// format `projects|organization/*/locations/{location}/addressGroups/*`.
     pub address_group: std::string::String,
@@ -1389,9 +1372,9 @@ impl wkt::message::Message for ListAddressGroupReferencesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAddressGroupReferencesResponse {
+
     /// A list of references that matches the specified filter in the request.
-    pub address_group_references:
-        std::vec::Vec<crate::model::list_address_group_references_response::AddressGroupReference>,
+    pub address_group_references: std::vec::Vec<crate::model::list_address_group_references_response::AddressGroupReference>,
 
     /// If there might be more results than those appearing in this response, then
     /// `next_page_token` is included. To get the next set of results, call this
@@ -1421,9 +1404,7 @@ impl ListAddressGroupReferencesResponse {
     pub fn set_address_group_references<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<
-                crate::model::list_address_group_references_response::AddressGroupReference,
-            >,
+        V: std::convert::Into<crate::model::list_address_group_references_response::AddressGroupReference>
     {
         use std::iter::Iterator;
         self.address_group_references = v.into_iter().map(|i| i.into()).collect();
@@ -1468,10 +1449,12 @@ pub mod list_address_group_references_response {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// The Reference of AddressGroup.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AddressGroupReference {
+
         /// FirewallPolicy that is using the Address Group.
         pub firewall_policy: std::string::String,
 
@@ -1496,10 +1479,7 @@ pub mod list_address_group_references_response {
         /// # use google_cloud_networksecurity_v1::model::list_address_group_references_response::AddressGroupReference;
         /// let x = AddressGroupReference::new().set_firewall_policy("example");
         /// ```
-        pub fn set_firewall_policy<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_firewall_policy<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.firewall_policy = v.into();
             self
         }
@@ -1511,10 +1491,7 @@ pub mod list_address_group_references_response {
         /// # use google_cloud_networksecurity_v1::model::list_address_group_references_response::AddressGroupReference;
         /// let x = AddressGroupReference::new().set_security_policy("example");
         /// ```
-        pub fn set_security_policy<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_security_policy<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.security_policy = v.into();
             self
         }
@@ -1546,6 +1523,7 @@ pub mod list_address_group_references_response {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AuthorizationPolicy {
+
     /// Required. Name of the AuthorizationPolicy resource. It matches pattern
     /// `projects/{project}/locations/{location}/authorizationPolicies/<authorization_policy>`.
     pub name: std::string::String,
@@ -1560,7 +1538,7 @@ pub struct AuthorizationPolicy {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Optional. Set of label tags associated with the AuthorizationPolicy resource.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Required. The action to take when a rule match is found. Possible values
     /// are "ALLOW" or "DENY".
@@ -1613,8 +1591,7 @@ impl AuthorizationPolicy {
     /// let x = AuthorizationPolicy::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -1630,8 +1607,7 @@ impl AuthorizationPolicy {
     /// let x = AuthorizationPolicy::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -1646,8 +1622,7 @@ impl AuthorizationPolicy {
     /// let x = AuthorizationPolicy::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -1663,8 +1638,7 @@ impl AuthorizationPolicy {
     /// let x = AuthorizationPolicy::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -1700,10 +1674,7 @@ impl AuthorizationPolicy {
     /// let x0 = AuthorizationPolicy::new().set_action(Action::Allow);
     /// let x1 = AuthorizationPolicy::new().set_action(Action::Deny);
     /// ```
-    pub fn set_action<T: std::convert::Into<crate::model::authorization_policy::Action>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_action<T: std::convert::Into<crate::model::authorization_policy::Action>>(mut self, v: T) -> Self {
         self.action = v.into();
         self
     }
@@ -1723,7 +1694,7 @@ impl AuthorizationPolicy {
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::authorization_policy::Rule>,
+        V: std::convert::Into<crate::model::authorization_policy::Rule>
     {
         use std::iter::Iterator;
         self.rules = v.into_iter().map(|i| i.into()).collect();
@@ -1742,10 +1713,12 @@ pub mod authorization_policy {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Specification of rules.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Rule {
+
         /// Optional. List of attributes for the traffic source. All of the sources must match.
         /// A source is a match if both principals and ip_blocks match. If not set,
         /// the action specified in the 'action' field will be applied without any
@@ -1782,7 +1755,7 @@ pub mod authorization_policy {
         pub fn set_sources<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::authorization_policy::rule::Source>,
+            V: std::convert::Into<crate::model::authorization_policy::rule::Source>
         {
             use std::iter::Iterator;
             self.sources = v.into_iter().map(|i| i.into()).collect();
@@ -1804,7 +1777,7 @@ pub mod authorization_policy {
         pub fn set_destinations<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::authorization_policy::rule::Destination>,
+            V: std::convert::Into<crate::model::authorization_policy::rule::Destination>
         {
             use std::iter::Iterator;
             self.destinations = v.into_iter().map(|i| i.into()).collect();
@@ -1823,10 +1796,12 @@ pub mod authorization_policy {
         #[allow(unused_imports)]
         use super::*;
 
+
         /// Specification of traffic source attributes.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Source {
+
             /// Optional. List of peer identities to match for authorization. At least one
             /// principal should match. Each peer can be an exact match, or a prefix
             /// match (example, "namespace/*") or a suffix match (example,
@@ -1860,7 +1835,7 @@ pub mod authorization_policy {
             pub fn set_principals<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<std::string::String>,
+                V: std::convert::Into<std::string::String>
             {
                 use std::iter::Iterator;
                 self.principals = v.into_iter().map(|i| i.into()).collect();
@@ -1877,7 +1852,7 @@ pub mod authorization_policy {
             pub fn set_ip_blocks<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<std::string::String>,
+                V: std::convert::Into<std::string::String>
             {
                 use std::iter::Iterator;
                 self.ip_blocks = v.into_iter().map(|i| i.into()).collect();
@@ -1895,6 +1870,7 @@ pub mod authorization_policy {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Destination {
+
             /// Required. List of host names to match. Matched against the ":authority" header in
             /// http requests. At least one host should match. Each host can be an
             /// exact match, or a prefix match (example "mydomain.*") or a suffix
@@ -1913,9 +1889,7 @@ pub mod authorization_policy {
             /// header should match. Avoid using header matches to make authorization
             /// decisions unless there is a strong guarantee that requests arrive
             /// through a trusted client or proxy.
-            pub http_header_match: std::option::Option<
-                crate::model::authorization_policy::rule::destination::HttpHeaderMatch,
-            >,
+            pub http_header_match: std::option::Option<crate::model::authorization_policy::rule::destination::HttpHeaderMatch>,
 
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
@@ -1935,7 +1909,7 @@ pub mod authorization_policy {
             pub fn set_hosts<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<std::string::String>,
+                V: std::convert::Into<std::string::String>
             {
                 use std::iter::Iterator;
                 self.hosts = v.into_iter().map(|i| i.into()).collect();
@@ -1952,7 +1926,7 @@ pub mod authorization_policy {
             pub fn set_ports<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<u32>,
+                V: std::convert::Into<u32>
             {
                 use std::iter::Iterator;
                 self.ports = v.into_iter().map(|i| i.into()).collect();
@@ -1969,7 +1943,7 @@ pub mod authorization_policy {
             pub fn set_methods<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<std::string::String>,
+                V: std::convert::Into<std::string::String>
             {
                 use std::iter::Iterator;
                 self.methods = v.into_iter().map(|i| i.into()).collect();
@@ -1985,10 +1959,7 @@ pub mod authorization_policy {
             /// let x = Destination::new().set_http_header_match(HttpHeaderMatch::default()/* use setters */);
             /// ```
             pub fn set_http_header_match<T>(mut self, v: T) -> Self
-            where
-                T: std::convert::Into<
-                        crate::model::authorization_policy::rule::destination::HttpHeaderMatch,
-                    >,
+            where T: std::convert::Into<crate::model::authorization_policy::rule::destination::HttpHeaderMatch>
             {
                 self.http_header_match = std::option::Option::Some(v.into());
                 self
@@ -2004,10 +1975,7 @@ pub mod authorization_policy {
             /// let x = Destination::new().set_or_clear_http_header_match(None::<HttpHeaderMatch>);
             /// ```
             pub fn set_or_clear_http_header_match<T>(mut self, v: std::option::Option<T>) -> Self
-            where
-                T: std::convert::Into<
-                        crate::model::authorization_policy::rule::destination::HttpHeaderMatch,
-                    >,
+            where T: std::convert::Into<crate::model::authorization_policy::rule::destination::HttpHeaderMatch>
             {
                 self.http_header_match = v.map(|x| x.into());
                 self
@@ -2025,19 +1993,19 @@ pub mod authorization_policy {
             #[allow(unused_imports)]
             use super::*;
 
+
             /// Specification of HTTP header match attributes.
             #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct HttpHeaderMatch {
+
                 /// Required. The name of the HTTP header to match. For matching
                 /// against the HTTP request's authority, use a headerMatch
                 /// with the header name ":authority". For matching a
                 /// request's method, use the headerName ":method".
                 pub header_name: std::string::String,
 
-                pub r#type: std::option::Option<
-                    crate::model::authorization_policy::rule::destination::http_header_match::Type,
-                >,
+                pub r#type: std::option::Option<crate::model::authorization_policy::rule::destination::http_header_match::Type>,
 
                 pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
@@ -2054,10 +2022,7 @@ pub mod authorization_policy {
                 /// # use google_cloud_networksecurity_v1::model::authorization_policy::rule::destination::HttpHeaderMatch;
                 /// let x = HttpHeaderMatch::new().set_header_name("example");
                 /// ```
-                pub fn set_header_name<T: std::convert::Into<std::string::String>>(
-                    mut self,
-                    v: T,
-                ) -> Self {
+                pub fn set_header_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                     self.header_name = v.into();
                     self
                 }
@@ -2102,10 +2067,7 @@ pub mod authorization_policy {
                 /// let x = HttpHeaderMatch::new().set_regex_match("example");
                 /// assert!(x.regex_match().is_some());
                 /// ```
-                pub fn set_regex_match<T: std::convert::Into<std::string::String>>(
-                    mut self,
-                    v: T,
-                ) -> Self {
+                pub fn set_regex_match<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                     self.r#type = std::option::Option::Some(
                         crate::model::authorization_policy::rule::destination::http_header_match::Type::RegexMatch(
                             v.into()
@@ -2125,6 +2087,7 @@ pub mod authorization_policy {
             pub mod http_header_match {
                 #[allow(unused_imports)]
                 use super::*;
+
 
                 #[derive(Clone, Debug, PartialEq)]
                 #[non_exhaustive]
@@ -2230,9 +2193,7 @@ pub mod authorization_policy {
                 0 => Self::Unspecified,
                 1 => Self::Allow,
                 2 => Self::Deny,
-                _ => Self::UnknownValue(action::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(action::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -2244,9 +2205,7 @@ pub mod authorization_policy {
                 "ACTION_UNSPECIFIED" => Self::Unspecified,
                 "ALLOW" => Self::Allow,
                 "DENY" => Self::Deny,
-                _ => Self::UnknownValue(action::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(action::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -2271,8 +2230,7 @@ pub mod authorization_policy {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Action>::new(
-                ".google.cloud.networksecurity.v1.AuthorizationPolicy.Action",
-            ))
+                ".google.cloud.networksecurity.v1.AuthorizationPolicy.Action"))
         }
     }
 }
@@ -2281,6 +2239,7 @@ pub mod authorization_policy {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAuthorizationPoliciesRequest {
+
     /// Required. The project and location from which the AuthorizationPolicies
     /// should be listed, specified in the format
     /// `projects/{project}/locations/{location}`.
@@ -2350,6 +2309,7 @@ impl wkt::message::Message for ListAuthorizationPoliciesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAuthorizationPoliciesResponse {
+
     /// List of AuthorizationPolicies resources.
     pub authorization_policies: std::vec::Vec<crate::model::AuthorizationPolicy>,
 
@@ -2381,7 +2341,7 @@ impl ListAuthorizationPoliciesResponse {
     pub fn set_authorization_policies<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AuthorizationPolicy>,
+        V: std::convert::Into<crate::model::AuthorizationPolicy>
     {
         use std::iter::Iterator;
         self.authorization_policies = v.into_iter().map(|i| i.into()).collect();
@@ -2425,6 +2385,7 @@ impl gax::paginator::internal::PageableResponse for ListAuthorizationPoliciesRes
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAuthorizationPolicyRequest {
+
     /// Required. A name of the AuthorizationPolicy to get. Must be in the format
     /// `projects/{project}/locations/{location}/authorizationPolicies/*`.
     pub name: std::string::String,
@@ -2460,6 +2421,7 @@ impl wkt::message::Message for GetAuthorizationPolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateAuthorizationPolicyRequest {
+
     /// Required. The parent resource of the AuthorizationPolicy. Must be in the
     /// format `projects/{project}/locations/{location}`.
     pub parent: std::string::String,
@@ -2500,10 +2462,7 @@ impl CreateAuthorizationPolicyRequest {
     /// # use google_cloud_networksecurity_v1::model::CreateAuthorizationPolicyRequest;
     /// let x = CreateAuthorizationPolicyRequest::new().set_authorization_policy_id("example");
     /// ```
-    pub fn set_authorization_policy_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_authorization_policy_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.authorization_policy_id = v.into();
         self
     }
@@ -2517,8 +2476,7 @@ impl CreateAuthorizationPolicyRequest {
     /// let x = CreateAuthorizationPolicyRequest::new().set_authorization_policy(AuthorizationPolicy::default()/* use setters */);
     /// ```
     pub fn set_authorization_policy<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AuthorizationPolicy>,
+    where T: std::convert::Into<crate::model::AuthorizationPolicy>
     {
         self.authorization_policy = std::option::Option::Some(v.into());
         self
@@ -2534,8 +2492,7 @@ impl CreateAuthorizationPolicyRequest {
     /// let x = CreateAuthorizationPolicyRequest::new().set_or_clear_authorization_policy(None::<AuthorizationPolicy>);
     /// ```
     pub fn set_or_clear_authorization_policy<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AuthorizationPolicy>,
+    where T: std::convert::Into<crate::model::AuthorizationPolicy>
     {
         self.authorization_policy = v.map(|x| x.into());
         self
@@ -2552,6 +2509,7 @@ impl wkt::message::Message for CreateAuthorizationPolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateAuthorizationPolicyRequest {
+
     /// Optional. Field mask is used to specify the fields to be overwritten in the
     /// AuthorizationPolicy resource by the update.
     /// The fields specified in the update_mask are relative to the resource, not
@@ -2579,8 +2537,7 @@ impl UpdateAuthorizationPolicyRequest {
     /// let x = UpdateAuthorizationPolicyRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -2596,8 +2553,7 @@ impl UpdateAuthorizationPolicyRequest {
     /// let x = UpdateAuthorizationPolicyRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -2612,8 +2568,7 @@ impl UpdateAuthorizationPolicyRequest {
     /// let x = UpdateAuthorizationPolicyRequest::new().set_authorization_policy(AuthorizationPolicy::default()/* use setters */);
     /// ```
     pub fn set_authorization_policy<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AuthorizationPolicy>,
+    where T: std::convert::Into<crate::model::AuthorizationPolicy>
     {
         self.authorization_policy = std::option::Option::Some(v.into());
         self
@@ -2629,8 +2584,7 @@ impl UpdateAuthorizationPolicyRequest {
     /// let x = UpdateAuthorizationPolicyRequest::new().set_or_clear_authorization_policy(None::<AuthorizationPolicy>);
     /// ```
     pub fn set_or_clear_authorization_policy<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AuthorizationPolicy>,
+    where T: std::convert::Into<crate::model::AuthorizationPolicy>
     {
         self.authorization_policy = v.map(|x| x.into());
         self
@@ -2647,6 +2601,7 @@ impl wkt::message::Message for UpdateAuthorizationPolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteAuthorizationPolicyRequest {
+
     /// Required. A name of the AuthorizationPolicy to delete. Must be in the format
     /// `projects/{project}/locations/{location}/authorizationPolicies/*`.
     pub name: std::string::String,
@@ -2684,6 +2639,7 @@ impl wkt::message::Message for DeleteAuthorizationPolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ClientTlsPolicy {
+
     /// Required. Name of the ClientTlsPolicy resource. It matches the pattern
     /// `projects/*/locations/{location}/clientTlsPolicies/{client_tls_policy}`
     pub name: std::string::String,
@@ -2698,7 +2654,7 @@ pub struct ClientTlsPolicy {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Optional. Set of label tags associated with the resource.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. Server Name Indication string to present to the server during TLS
     /// handshake. E.g: "secure.example.com".
@@ -2754,8 +2710,7 @@ impl ClientTlsPolicy {
     /// let x = ClientTlsPolicy::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -2771,8 +2726,7 @@ impl ClientTlsPolicy {
     /// let x = ClientTlsPolicy::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -2787,8 +2741,7 @@ impl ClientTlsPolicy {
     /// let x = ClientTlsPolicy::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -2804,8 +2757,7 @@ impl ClientTlsPolicy {
     /// let x = ClientTlsPolicy::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -2853,8 +2805,7 @@ impl ClientTlsPolicy {
     /// let x = ClientTlsPolicy::new().set_client_certificate(CertificateProvider::default()/* use setters */);
     /// ```
     pub fn set_client_certificate<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CertificateProvider>,
+    where T: std::convert::Into<crate::model::CertificateProvider>
     {
         self.client_certificate = std::option::Option::Some(v.into());
         self
@@ -2870,8 +2821,7 @@ impl ClientTlsPolicy {
     /// let x = ClientTlsPolicy::new().set_or_clear_client_certificate(None::<CertificateProvider>);
     /// ```
     pub fn set_or_clear_client_certificate<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CertificateProvider>,
+    where T: std::convert::Into<crate::model::CertificateProvider>
     {
         self.client_certificate = v.map(|x| x.into());
         self
@@ -2892,7 +2842,7 @@ impl ClientTlsPolicy {
     pub fn set_server_validation_ca<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ValidationCA>,
+        V: std::convert::Into<crate::model::ValidationCA>
     {
         use std::iter::Iterator;
         self.server_validation_ca = v.into_iter().map(|i| i.into()).collect();
@@ -2910,6 +2860,7 @@ impl wkt::message::Message for ClientTlsPolicy {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListClientTlsPoliciesRequest {
+
     /// Required. The project and location from which the ClientTlsPolicies should
     /// be listed, specified in the format `projects/*/locations/{location}`.
     pub parent: std::string::String,
@@ -2978,6 +2929,7 @@ impl wkt::message::Message for ListClientTlsPoliciesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListClientTlsPoliciesResponse {
+
     /// List of ClientTlsPolicy resources.
     pub client_tls_policies: std::vec::Vec<crate::model::ClientTlsPolicy>,
 
@@ -3009,7 +2961,7 @@ impl ListClientTlsPoliciesResponse {
     pub fn set_client_tls_policies<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ClientTlsPolicy>,
+        V: std::convert::Into<crate::model::ClientTlsPolicy>
     {
         use std::iter::Iterator;
         self.client_tls_policies = v.into_iter().map(|i| i.into()).collect();
@@ -3053,6 +3005,7 @@ impl gax::paginator::internal::PageableResponse for ListClientTlsPoliciesRespons
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetClientTlsPolicyRequest {
+
     /// Required. A name of the ClientTlsPolicy to get. Must be in the format
     /// `projects/*/locations/{location}/clientTlsPolicies/*`.
     pub name: std::string::String,
@@ -3088,6 +3041,7 @@ impl wkt::message::Message for GetClientTlsPolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateClientTlsPolicyRequest {
+
     /// Required. The parent resource of the ClientTlsPolicy. Must be in
     /// the format `projects/*/locations/{location}`.
     pub parent: std::string::String,
@@ -3127,10 +3081,7 @@ impl CreateClientTlsPolicyRequest {
     /// # use google_cloud_networksecurity_v1::model::CreateClientTlsPolicyRequest;
     /// let x = CreateClientTlsPolicyRequest::new().set_client_tls_policy_id("example");
     /// ```
-    pub fn set_client_tls_policy_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_client_tls_policy_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.client_tls_policy_id = v.into();
         self
     }
@@ -3144,8 +3095,7 @@ impl CreateClientTlsPolicyRequest {
     /// let x = CreateClientTlsPolicyRequest::new().set_client_tls_policy(ClientTlsPolicy::default()/* use setters */);
     /// ```
     pub fn set_client_tls_policy<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ClientTlsPolicy>,
+    where T: std::convert::Into<crate::model::ClientTlsPolicy>
     {
         self.client_tls_policy = std::option::Option::Some(v.into());
         self
@@ -3161,8 +3111,7 @@ impl CreateClientTlsPolicyRequest {
     /// let x = CreateClientTlsPolicyRequest::new().set_or_clear_client_tls_policy(None::<ClientTlsPolicy>);
     /// ```
     pub fn set_or_clear_client_tls_policy<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ClientTlsPolicy>,
+    where T: std::convert::Into<crate::model::ClientTlsPolicy>
     {
         self.client_tls_policy = v.map(|x| x.into());
         self
@@ -3179,6 +3128,7 @@ impl wkt::message::Message for CreateClientTlsPolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateClientTlsPolicyRequest {
+
     /// Optional. Field mask is used to specify the fields to be overwritten in the
     /// ClientTlsPolicy resource by the update.  The fields
     /// specified in the update_mask are relative to the resource, not
@@ -3207,8 +3157,7 @@ impl UpdateClientTlsPolicyRequest {
     /// let x = UpdateClientTlsPolicyRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -3224,8 +3173,7 @@ impl UpdateClientTlsPolicyRequest {
     /// let x = UpdateClientTlsPolicyRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -3240,8 +3188,7 @@ impl UpdateClientTlsPolicyRequest {
     /// let x = UpdateClientTlsPolicyRequest::new().set_client_tls_policy(ClientTlsPolicy::default()/* use setters */);
     /// ```
     pub fn set_client_tls_policy<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ClientTlsPolicy>,
+    where T: std::convert::Into<crate::model::ClientTlsPolicy>
     {
         self.client_tls_policy = std::option::Option::Some(v.into());
         self
@@ -3257,8 +3204,7 @@ impl UpdateClientTlsPolicyRequest {
     /// let x = UpdateClientTlsPolicyRequest::new().set_or_clear_client_tls_policy(None::<ClientTlsPolicy>);
     /// ```
     pub fn set_or_clear_client_tls_policy<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ClientTlsPolicy>,
+    where T: std::convert::Into<crate::model::ClientTlsPolicy>
     {
         self.client_tls_policy = v.map(|x| x.into());
         self
@@ -3275,6 +3221,7 @@ impl wkt::message::Message for UpdateClientTlsPolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteClientTlsPolicyRequest {
+
     /// Required. A name of the ClientTlsPolicy to delete. Must be in
     /// the format `projects/*/locations/{location}/clientTlsPolicies/*`.
     pub name: std::string::String,
@@ -3310,6 +3257,7 @@ impl wkt::message::Message for DeleteClientTlsPolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
+
     /// Output only. The time the operation was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
@@ -3353,8 +3301,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -3370,8 +3317,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -3386,8 +3332,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -3403,8 +3348,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -3483,6 +3427,7 @@ impl wkt::message::Message for OperationMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ServerTlsPolicy {
+
     /// Required. Name of the ServerTlsPolicy resource. It matches the pattern
     /// `projects/*/locations/{location}/serverTlsPolicies/{server_tls_policy}`
     pub name: std::string::String,
@@ -3497,7 +3442,7 @@ pub struct ServerTlsPolicy {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Set of label tags associated with the resource.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Determines if server allows plaintext connections. If set to true, server
     /// allows plain text connections. By default, it is set to false. This setting
@@ -3563,8 +3508,7 @@ impl ServerTlsPolicy {
     /// let x = ServerTlsPolicy::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -3580,8 +3524,7 @@ impl ServerTlsPolicy {
     /// let x = ServerTlsPolicy::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -3596,8 +3539,7 @@ impl ServerTlsPolicy {
     /// let x = ServerTlsPolicy::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -3613,8 +3555,7 @@ impl ServerTlsPolicy {
     /// let x = ServerTlsPolicy::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -3662,8 +3603,7 @@ impl ServerTlsPolicy {
     /// let x = ServerTlsPolicy::new().set_server_certificate(CertificateProvider::default()/* use setters */);
     /// ```
     pub fn set_server_certificate<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CertificateProvider>,
+    where T: std::convert::Into<crate::model::CertificateProvider>
     {
         self.server_certificate = std::option::Option::Some(v.into());
         self
@@ -3679,8 +3619,7 @@ impl ServerTlsPolicy {
     /// let x = ServerTlsPolicy::new().set_or_clear_server_certificate(None::<CertificateProvider>);
     /// ```
     pub fn set_or_clear_server_certificate<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CertificateProvider>,
+    where T: std::convert::Into<crate::model::CertificateProvider>
     {
         self.server_certificate = v.map(|x| x.into());
         self
@@ -3695,8 +3634,7 @@ impl ServerTlsPolicy {
     /// let x = ServerTlsPolicy::new().set_mtls_policy(MTLSPolicy::default()/* use setters */);
     /// ```
     pub fn set_mtls_policy<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::server_tls_policy::MTLSPolicy>,
+    where T: std::convert::Into<crate::model::server_tls_policy::MTLSPolicy>
     {
         self.mtls_policy = std::option::Option::Some(v.into());
         self
@@ -3712,8 +3650,7 @@ impl ServerTlsPolicy {
     /// let x = ServerTlsPolicy::new().set_or_clear_mtls_policy(None::<MTLSPolicy>);
     /// ```
     pub fn set_or_clear_mtls_policy<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::server_tls_policy::MTLSPolicy>,
+    where T: std::convert::Into<crate::model::server_tls_policy::MTLSPolicy>
     {
         self.mtls_policy = v.map(|x| x.into());
         self
@@ -3731,10 +3668,12 @@ pub mod server_tls_policy {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Specification of the MTLSPolicy.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct MTLSPolicy {
+
         /// Defines the mechanism to obtain the Certificate Authority certificate to
         /// validate the client certificate.
         pub client_validation_ca: std::vec::Vec<crate::model::ValidationCA>,
@@ -3762,7 +3701,7 @@ pub mod server_tls_policy {
         pub fn set_client_validation_ca<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::ValidationCA>,
+            V: std::convert::Into<crate::model::ValidationCA>
         {
             use std::iter::Iterator;
             self.client_validation_ca = v.into_iter().map(|i| i.into()).collect();
@@ -3781,6 +3720,7 @@ pub mod server_tls_policy {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServerTlsPoliciesRequest {
+
     /// Required. The project and location from which the ServerTlsPolicies should
     /// be listed, specified in the format `projects/*/locations/{location}`.
     pub parent: std::string::String,
@@ -3849,6 +3789,7 @@ impl wkt::message::Message for ListServerTlsPoliciesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServerTlsPoliciesResponse {
+
     /// List of ServerTlsPolicy resources.
     pub server_tls_policies: std::vec::Vec<crate::model::ServerTlsPolicy>,
 
@@ -3880,7 +3821,7 @@ impl ListServerTlsPoliciesResponse {
     pub fn set_server_tls_policies<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ServerTlsPolicy>,
+        V: std::convert::Into<crate::model::ServerTlsPolicy>
     {
         use std::iter::Iterator;
         self.server_tls_policies = v.into_iter().map(|i| i.into()).collect();
@@ -3924,6 +3865,7 @@ impl gax::paginator::internal::PageableResponse for ListServerTlsPoliciesRespons
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetServerTlsPolicyRequest {
+
     /// Required. A name of the ServerTlsPolicy to get. Must be in the format
     /// `projects/*/locations/{location}/serverTlsPolicies/*`.
     pub name: std::string::String,
@@ -3959,6 +3901,7 @@ impl wkt::message::Message for GetServerTlsPolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateServerTlsPolicyRequest {
+
     /// Required. The parent resource of the ServerTlsPolicy. Must be in
     /// the format `projects/*/locations/{location}`.
     pub parent: std::string::String,
@@ -3998,10 +3941,7 @@ impl CreateServerTlsPolicyRequest {
     /// # use google_cloud_networksecurity_v1::model::CreateServerTlsPolicyRequest;
     /// let x = CreateServerTlsPolicyRequest::new().set_server_tls_policy_id("example");
     /// ```
-    pub fn set_server_tls_policy_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_server_tls_policy_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.server_tls_policy_id = v.into();
         self
     }
@@ -4015,8 +3955,7 @@ impl CreateServerTlsPolicyRequest {
     /// let x = CreateServerTlsPolicyRequest::new().set_server_tls_policy(ServerTlsPolicy::default()/* use setters */);
     /// ```
     pub fn set_server_tls_policy<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ServerTlsPolicy>,
+    where T: std::convert::Into<crate::model::ServerTlsPolicy>
     {
         self.server_tls_policy = std::option::Option::Some(v.into());
         self
@@ -4032,8 +3971,7 @@ impl CreateServerTlsPolicyRequest {
     /// let x = CreateServerTlsPolicyRequest::new().set_or_clear_server_tls_policy(None::<ServerTlsPolicy>);
     /// ```
     pub fn set_or_clear_server_tls_policy<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ServerTlsPolicy>,
+    where T: std::convert::Into<crate::model::ServerTlsPolicy>
     {
         self.server_tls_policy = v.map(|x| x.into());
         self
@@ -4050,6 +3988,7 @@ impl wkt::message::Message for CreateServerTlsPolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateServerTlsPolicyRequest {
+
     /// Optional. Field mask is used to specify the fields to be overwritten in the
     /// ServerTlsPolicy resource by the update.  The fields
     /// specified in the update_mask are relative to the resource, not
@@ -4078,8 +4017,7 @@ impl UpdateServerTlsPolicyRequest {
     /// let x = UpdateServerTlsPolicyRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -4095,8 +4033,7 @@ impl UpdateServerTlsPolicyRequest {
     /// let x = UpdateServerTlsPolicyRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -4111,8 +4048,7 @@ impl UpdateServerTlsPolicyRequest {
     /// let x = UpdateServerTlsPolicyRequest::new().set_server_tls_policy(ServerTlsPolicy::default()/* use setters */);
     /// ```
     pub fn set_server_tls_policy<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ServerTlsPolicy>,
+    where T: std::convert::Into<crate::model::ServerTlsPolicy>
     {
         self.server_tls_policy = std::option::Option::Some(v.into());
         self
@@ -4128,8 +4064,7 @@ impl UpdateServerTlsPolicyRequest {
     /// let x = UpdateServerTlsPolicyRequest::new().set_or_clear_server_tls_policy(None::<ServerTlsPolicy>);
     /// ```
     pub fn set_or_clear_server_tls_policy<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ServerTlsPolicy>,
+    where T: std::convert::Into<crate::model::ServerTlsPolicy>
     {
         self.server_tls_policy = v.map(|x| x.into());
         self
@@ -4146,6 +4081,7 @@ impl wkt::message::Message for UpdateServerTlsPolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteServerTlsPolicyRequest {
+
     /// Required. A name of the ServerTlsPolicy to delete. Must be in
     /// the format `projects/*/locations/{location}/serverTlsPolicies/*`.
     pub name: std::string::String,
@@ -4181,6 +4117,7 @@ impl wkt::message::Message for DeleteServerTlsPolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GrpcEndpoint {
+
     /// Required. The target URI of the gRPC endpoint. Only UDS path is supported, and
     /// should start with "unix:".
     pub target_uri: std::string::String,
@@ -4217,6 +4154,7 @@ impl wkt::message::Message for GrpcEndpoint {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ValidationCA {
+
     /// The type of certificate provider which provides the CA certificate.
     pub r#type: std::option::Option<crate::model::validation_ca::Type>,
 
@@ -4240,12 +4178,8 @@ impl ValidationCA {
     /// let x = ValidationCA::new().set_type(Some(
     ///     google_cloud_networksecurity_v1::model::validation_ca::Type::GrpcEndpoint(GrpcEndpoint::default().into())));
     /// ```
-    pub fn set_type<
-        T: std::convert::Into<std::option::Option<crate::model::validation_ca::Type>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_type<T: std::convert::Into<std::option::Option<crate::model::validation_ca::Type>>>(mut self, v: T) -> Self
+    {
         self.r#type = v.into();
         self
     }
@@ -4253,9 +4187,7 @@ impl ValidationCA {
     /// The value of [r#type][crate::model::ValidationCA::r#type]
     /// if it holds a `GrpcEndpoint`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn grpc_endpoint(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::GrpcEndpoint>> {
+    pub fn grpc_endpoint(&self) -> std::option::Option<&std::boxed::Box<crate::model::GrpcEndpoint>> {
         #[allow(unreachable_patterns)]
         self.r#type.as_ref().and_then(|v| match v {
             crate::model::validation_ca::Type::GrpcEndpoint(v) => std::option::Option::Some(v),
@@ -4277,26 +4209,22 @@ impl ValidationCA {
     /// assert!(x.grpc_endpoint().is_some());
     /// assert!(x.certificate_provider_instance().is_none());
     /// ```
-    pub fn set_grpc_endpoint<T: std::convert::Into<std::boxed::Box<crate::model::GrpcEndpoint>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.r#type =
-            std::option::Option::Some(crate::model::validation_ca::Type::GrpcEndpoint(v.into()));
+    pub fn set_grpc_endpoint<T: std::convert::Into<std::boxed::Box<crate::model::GrpcEndpoint>>>(mut self, v: T) -> Self {
+        self.r#type = std::option::Option::Some(
+            crate::model::validation_ca::Type::GrpcEndpoint(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [r#type][crate::model::ValidationCA::r#type]
     /// if it holds a `CertificateProviderInstance`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn certificate_provider_instance(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::CertificateProviderInstance>> {
+    pub fn certificate_provider_instance(&self) -> std::option::Option<&std::boxed::Box<crate::model::CertificateProviderInstance>> {
         #[allow(unreachable_patterns)]
         self.r#type.as_ref().and_then(|v| match v {
-            crate::model::validation_ca::Type::CertificateProviderInstance(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::validation_ca::Type::CertificateProviderInstance(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -4315,14 +4243,11 @@ impl ValidationCA {
     /// assert!(x.certificate_provider_instance().is_some());
     /// assert!(x.grpc_endpoint().is_none());
     /// ```
-    pub fn set_certificate_provider_instance<
-        T: std::convert::Into<std::boxed::Box<crate::model::CertificateProviderInstance>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_certificate_provider_instance<T: std::convert::Into<std::boxed::Box<crate::model::CertificateProviderInstance>>>(mut self, v: T) -> Self {
         self.r#type = std::option::Option::Some(
-            crate::model::validation_ca::Type::CertificateProviderInstance(v.into()),
+            crate::model::validation_ca::Type::CertificateProviderInstance(
+                v.into()
+            )
         );
         self
     }
@@ -4338,6 +4263,7 @@ impl wkt::message::Message for ValidationCA {
 pub mod validation_ca {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The type of certificate provider which provides the CA certificate.
     #[derive(Clone, Debug, PartialEq)]
@@ -4360,6 +4286,7 @@ pub mod validation_ca {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CertificateProviderInstance {
+
     /// Required. Plugin instance name, used to locate and load CertificateProvider instance
     /// configuration. Set to "google_cloud_private_spiffe" to use Certificate
     /// Authority Service certificate provider instance.
@@ -4397,6 +4324,7 @@ impl wkt::message::Message for CertificateProviderInstance {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CertificateProvider {
+
     /// The type of certificate provider which provides the certificates and
     /// private keys.
     pub r#type: std::option::Option<crate::model::certificate_provider::Type>,
@@ -4421,12 +4349,8 @@ impl CertificateProvider {
     /// let x = CertificateProvider::new().set_type(Some(
     ///     google_cloud_networksecurity_v1::model::certificate_provider::Type::GrpcEndpoint(GrpcEndpoint::default().into())));
     /// ```
-    pub fn set_type<
-        T: std::convert::Into<std::option::Option<crate::model::certificate_provider::Type>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_type<T: std::convert::Into<std::option::Option<crate::model::certificate_provider::Type>>>(mut self, v: T) -> Self
+    {
         self.r#type = v.into();
         self
     }
@@ -4434,14 +4358,10 @@ impl CertificateProvider {
     /// The value of [r#type][crate::model::CertificateProvider::r#type]
     /// if it holds a `GrpcEndpoint`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn grpc_endpoint(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::GrpcEndpoint>> {
+    pub fn grpc_endpoint(&self) -> std::option::Option<&std::boxed::Box<crate::model::GrpcEndpoint>> {
         #[allow(unreachable_patterns)]
         self.r#type.as_ref().and_then(|v| match v {
-            crate::model::certificate_provider::Type::GrpcEndpoint(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::certificate_provider::Type::GrpcEndpoint(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -4460,12 +4380,11 @@ impl CertificateProvider {
     /// assert!(x.grpc_endpoint().is_some());
     /// assert!(x.certificate_provider_instance().is_none());
     /// ```
-    pub fn set_grpc_endpoint<T: std::convert::Into<std::boxed::Box<crate::model::GrpcEndpoint>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_grpc_endpoint<T: std::convert::Into<std::boxed::Box<crate::model::GrpcEndpoint>>>(mut self, v: T) -> Self {
         self.r#type = std::option::Option::Some(
-            crate::model::certificate_provider::Type::GrpcEndpoint(v.into()),
+            crate::model::certificate_provider::Type::GrpcEndpoint(
+                v.into()
+            )
         );
         self
     }
@@ -4473,14 +4392,10 @@ impl CertificateProvider {
     /// The value of [r#type][crate::model::CertificateProvider::r#type]
     /// if it holds a `CertificateProviderInstance`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn certificate_provider_instance(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::CertificateProviderInstance>> {
+    pub fn certificate_provider_instance(&self) -> std::option::Option<&std::boxed::Box<crate::model::CertificateProviderInstance>> {
         #[allow(unreachable_patterns)]
         self.r#type.as_ref().and_then(|v| match v {
-            crate::model::certificate_provider::Type::CertificateProviderInstance(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::certificate_provider::Type::CertificateProviderInstance(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -4499,14 +4414,11 @@ impl CertificateProvider {
     /// assert!(x.certificate_provider_instance().is_some());
     /// assert!(x.grpc_endpoint().is_none());
     /// ```
-    pub fn set_certificate_provider_instance<
-        T: std::convert::Into<std::boxed::Box<crate::model::CertificateProviderInstance>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_certificate_provider_instance<T: std::convert::Into<std::boxed::Box<crate::model::CertificateProviderInstance>>>(mut self, v: T) -> Self {
         self.r#type = std::option::Option::Some(
-            crate::model::certificate_provider::Type::CertificateProviderInstance(v.into()),
+            crate::model::certificate_provider::Type::CertificateProviderInstance(
+                v.into()
+            )
         );
         self
     }
@@ -4522,6 +4434,7 @@ impl wkt::message::Message for CertificateProvider {
 pub mod certificate_provider {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The type of certificate provider which provides the certificates and
     /// private keys.

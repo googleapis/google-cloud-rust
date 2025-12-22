@@ -75,9 +75,7 @@ impl GkeInferenceQuickstart {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::gke_inference_quickstart::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::gke_inference_quickstart::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::gke_inference_quickstart::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -85,56 +83,73 @@ impl GkeInferenceQuickstart {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::GkeInferenceQuickstart + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::GkeInferenceQuickstart + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::GkeInferenceQuickstart>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::GkeInferenceQuickstart>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::GkeInferenceQuickstart> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::GkeInferenceQuickstart> {
         super::transport::GkeInferenceQuickstart::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::GkeInferenceQuickstart> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::GkeInferenceQuickstart::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::GkeInferenceQuickstart> {
+        Self::build_transport(conf).await.map(super::tracing::GkeInferenceQuickstart::new)
     }
 
     /// Fetches available models. Open-source models follow the Huggingface Hub
     /// `owner/model_name` format.
-    pub fn fetch_models(&self) -> super::builder::gke_inference_quickstart::FetchModels {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkerecommender_v1::client::GkeInferenceQuickstart;
+    /// async fn sample(
+    ///    client: &GkeInferenceQuickstart
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .fetch_models()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn fetch_models(&self) -> super::builder::gke_inference_quickstart::FetchModels
+    {
         super::builder::gke_inference_quickstart::FetchModels::new(self.inner.clone())
     }
 
     /// Fetches available model servers. Open-source model servers use simplified,
     /// lowercase names (e.g., `vllm`).
-    pub fn fetch_model_servers(
-        &self,
-    ) -> super::builder::gke_inference_quickstart::FetchModelServers {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkerecommender_v1::client::GkeInferenceQuickstart;
+    /// async fn sample(
+    ///    client: &GkeInferenceQuickstart
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .fetch_model_servers()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn fetch_model_servers(&self) -> super::builder::gke_inference_quickstart::FetchModelServers
+    {
         super::builder::gke_inference_quickstart::FetchModelServers::new(self.inner.clone())
     }
 
@@ -145,9 +160,24 @@ impl GkeInferenceQuickstart {
     /// accelerator. For example, `vllm` uses semver on GPUs, but returns nightly
     /// build tags on TPUs. All available versions will be returned when different
     /// schemas are present.
-    pub fn fetch_model_server_versions(
-        &self,
-    ) -> super::builder::gke_inference_quickstart::FetchModelServerVersions {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkerecommender_v1::client::GkeInferenceQuickstart;
+    /// async fn sample(
+    ///    client: &GkeInferenceQuickstart
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .fetch_model_server_versions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn fetch_model_server_versions(&self) -> super::builder::gke_inference_quickstart::FetchModelServerVersions
+    {
         super::builder::gke_inference_quickstart::FetchModelServerVersions::new(self.inner.clone())
     }
 
@@ -162,7 +192,8 @@ impl GkeInferenceQuickstart {
     /// with GKE Inference Quickstart
     /// recipes](https://cloud.google.com/kubernetes-engine/docs/how-to/machine-learning/inference/inference-quickstart#how)
     /// for details.
-    pub fn fetch_profiles(&self) -> super::builder::gke_inference_quickstart::FetchProfiles {
+    pub fn fetch_profiles(&self) -> super::builder::gke_inference_quickstart::FetchProfiles
+    {
         super::builder::gke_inference_quickstart::FetchProfiles::new(self.inner.clone())
     }
 
@@ -172,18 +203,48 @@ impl GkeInferenceQuickstart {
     /// Quickstart
     /// recipes](https://cloud.google.com/kubernetes-engine/docs/how-to/machine-learning/inference/inference-quickstart)
     /// for deployment details.
-    pub fn generate_optimized_manifest(
-        &self,
-    ) -> super::builder::gke_inference_quickstart::GenerateOptimizedManifest {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkerecommender_v1::client::GkeInferenceQuickstart;
+    /// async fn sample(
+    ///    client: &GkeInferenceQuickstart
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .generate_optimized_manifest()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn generate_optimized_manifest(&self) -> super::builder::gke_inference_quickstart::GenerateOptimizedManifest
+    {
         super::builder::gke_inference_quickstart::GenerateOptimizedManifest::new(self.inner.clone())
     }
 
     /// Fetches all of the benchmarking data available for a profile. Benchmarking
     /// data returns all of the performance metrics available for a given model
     /// server setup on a given instance type.
-    pub fn fetch_benchmarking_data(
-        &self,
-    ) -> super::builder::gke_inference_quickstart::FetchBenchmarkingData {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkerecommender_v1::client::GkeInferenceQuickstart;
+    /// async fn sample(
+    ///    client: &GkeInferenceQuickstart
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .fetch_benchmarking_data()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn fetch_benchmarking_data(&self) -> super::builder::gke_inference_quickstart::FetchBenchmarkingData
+    {
         super::builder::gke_inference_quickstart::FetchBenchmarkingData::new(self.inner.clone())
     }
 }

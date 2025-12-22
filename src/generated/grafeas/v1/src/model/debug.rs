@@ -81,10 +81,7 @@ impl std::fmt::Debug for super::BuildOccurrence {
         debug_struct.field("provenance_bytes", &self.provenance_bytes);
         debug_struct.field("intoto_provenance", &self.intoto_provenance);
         debug_struct.field("intoto_statement", &self.intoto_statement);
-        debug_struct.field(
-            "in_toto_slsa_provenance_v1",
-            &self.in_toto_slsa_provenance_v1,
-        );
+        debug_struct.field("in_toto_slsa_provenance_v1", &self.in_toto_slsa_provenance_v1);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1065,10 +1062,7 @@ impl std::fmt::Debug for super::BuildProvenance {
 impl std::fmt::Debug for super::Source {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Source");
-        debug_struct.field(
-            "artifact_storage_source_uri",
-            &self.artifact_storage_source_uri,
-        );
+        debug_struct.field("artifact_storage_source_uri", &self.artifact_storage_source_uri);
         debug_struct.field("file_hashes", &self.file_hashes);
         debug_struct.field("context", &self.context);
         debug_struct.field("additional_contexts", &self.additional_contexts);
@@ -1142,6 +1136,7 @@ impl std::fmt::Debug for super::SourceContext {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::AliasContext {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

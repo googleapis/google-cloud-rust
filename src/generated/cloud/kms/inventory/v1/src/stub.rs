@@ -38,14 +38,13 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait KeyDashboardService: std::fmt::Debug + Send + Sync {
+
     /// Implements [super::client::KeyDashboardService::list_crypto_keys].
     fn list_crypto_keys(
         &self,
         _req: crate::model::ListCryptoKeysRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListCryptoKeysResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListCryptoKeysResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 }
@@ -62,14 +61,13 @@ pub trait KeyDashboardService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait KeyTrackingService: std::fmt::Debug + Send + Sync {
+
     /// Implements [super::client::KeyTrackingService::get_protected_resources_summary].
     fn get_protected_resources_summary(
         &self,
         _req: crate::model::GetProtectedResourcesSummaryRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ProtectedResourcesSummary>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ProtectedResourcesSummary>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -78,11 +76,8 @@ pub trait KeyTrackingService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SearchProtectedResourcesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::SearchProtectedResourcesResponse>,
-        >,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::SearchProtectedResourcesResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 }
+

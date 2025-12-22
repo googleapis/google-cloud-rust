@@ -683,8 +683,7 @@ impl<T: super::AlloyDBAdmin> AlloyDBAdmin for T {
         &self,
         req: crate::model::ListSupportedDatabaseFlagsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListSupportedDatabaseFlagsResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::ListSupportedDatabaseFlagsResponse>> {
         T::list_supported_database_flags(self, req, options).await
     }
 
@@ -693,8 +692,7 @@ impl<T: super::AlloyDBAdmin> AlloyDBAdmin for T {
         &self,
         req: crate::model::GenerateClientCertificateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::GenerateClientCertificateResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::GenerateClientCertificateResponse>> {
         T::generate_client_certificate(self, req, options).await
     }
 

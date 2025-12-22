@@ -31,10 +31,7 @@ impl std::fmt::Debug for super::Span {
         debug_struct.field("time_events", &self.time_events);
         debug_struct.field("links", &self.links);
         debug_struct.field("status", &self.status);
-        debug_struct.field(
-            "same_process_as_parent_span",
-            &self.same_process_as_parent_span,
-        );
+        debug_struct.field("same_process_as_parent_span", &self.same_process_as_parent_span);
         debug_struct.field("child_span_count", &self.child_span_count);
         debug_struct.field("span_kind", &self.span_kind);
         if !self._unknown_fields.is_empty() {
@@ -99,10 +96,7 @@ impl std::fmt::Debug for super::span::TimeEvents {
         let mut debug_struct = f.debug_struct("TimeEvents");
         debug_struct.field("time_event", &self.time_event);
         debug_struct.field("dropped_annotations_count", &self.dropped_annotations_count);
-        debug_struct.field(
-            "dropped_message_events_count",
-            &self.dropped_message_events_count,
-        );
+        debug_struct.field("dropped_message_events_count", &self.dropped_message_events_count);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

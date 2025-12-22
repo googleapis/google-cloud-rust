@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [TranscoderService](super::stub::TranscoderService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct TranscoderService<T>
-where
-    T: super::stub::TranscoderService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::TranscoderService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> TranscoderService<T>
-where
-    T: super::stub::TranscoderService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::TranscoderService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::TranscoderService for TranscoderService<T>
-where
-    T: super::stub::TranscoderService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::TranscoderService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn create_job(
         &self,
@@ -108,4 +102,6 @@ where
     ) -> Result<gax::response::Response<()>> {
         self.inner.delete_job_template(req, options).await
     }
+
 }
+

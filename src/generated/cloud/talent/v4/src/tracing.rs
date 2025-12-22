@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [CompanyService](super::stub::CompanyService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct CompanyService<T>
-where
-    T: super::stub::CompanyService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::CompanyService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> CompanyService<T>
-where
-    T: super::stub::CompanyService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::CompanyService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::CompanyService for CompanyService<T>
-where
-    T: super::stub::CompanyService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::CompanyService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn create_company(
         &self,
@@ -90,30 +84,25 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
+
 }
 
 /// Implements a [Completion](super::stub::Completion) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct Completion<T>
-where
-    T: super::stub::Completion + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Completion + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> Completion<T>
-where
-    T: super::stub::Completion + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Completion + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::Completion for Completion<T>
-where
-    T: super::stub::Completion + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Completion + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn complete_query(
         &self,
@@ -131,30 +120,25 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
+
 }
 
 /// Implements a [EventService](super::stub::EventService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct EventService<T>
-where
-    T: super::stub::EventService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::EventService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> EventService<T>
-where
-    T: super::stub::EventService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::EventService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::EventService for EventService<T>
-where
-    T: super::stub::EventService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::EventService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn create_client_event(
         &self,
@@ -172,30 +156,25 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
+
 }
 
 /// Implements a [JobService](super::stub::JobService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct JobService<T>
-where
-    T: super::stub::JobService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::JobService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> JobService<T>
-where
-    T: super::stub::JobService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::JobService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::JobService for JobService<T>
-where
-    T: super::stub::JobService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::JobService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn create_job(
         &self,
@@ -295,6 +274,7 @@ where
         self.inner.get_operation(req, options).await
     }
 
+
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -313,25 +293,19 @@ where
 /// Implements a [TenantService](super::stub::TenantService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct TenantService<T>
-where
-    T: super::stub::TenantService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::TenantService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> TenantService<T>
-where
-    T: super::stub::TenantService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::TenantService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::TenantService for TenantService<T>
-where
-    T: super::stub::TenantService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::TenantService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn create_tenant(
         &self,
@@ -385,4 +359,6 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
+
 }
+

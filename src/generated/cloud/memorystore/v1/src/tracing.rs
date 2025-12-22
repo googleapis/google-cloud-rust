@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [Memorystore](super::stub::Memorystore) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct Memorystore<T>
-where
-    T: super::stub::Memorystore + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Memorystore + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> Memorystore<T>
-where
-    T: super::stub::Memorystore + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Memorystore + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::Memorystore for Memorystore<T>
-where
-    T: super::stub::Memorystore + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Memorystore + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn list_instances(
         &self,
@@ -217,6 +211,7 @@ where
         self.inner.cancel_operation(req, options).await
     }
 
+
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -231,3 +226,4 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 }
+

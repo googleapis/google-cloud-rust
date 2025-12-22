@@ -38,14 +38,13 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait Autokey: std::fmt::Debug + Send + Sync {
+
     /// Implements [super::client::Autokey::create_key_handle].
     fn create_key_handle(
         &self,
         _req: crate::model::CreateKeyHandleRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -54,9 +53,7 @@ pub trait Autokey: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetKeyHandleRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::KeyHandle>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::KeyHandle>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -65,9 +62,7 @@ pub trait Autokey: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListKeyHandlesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListKeyHandlesResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListKeyHandlesResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -76,9 +71,7 @@ pub trait Autokey: std::fmt::Debug + Send + Sync {
         &self,
         _req: location::model::ListLocationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<location::model::ListLocationsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -87,9 +80,7 @@ pub trait Autokey: std::fmt::Debug + Send + Sync {
         &self,
         _req: location::model::GetLocationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<location::model::Location>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<location::model::Location>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -98,9 +89,7 @@ pub trait Autokey: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -109,9 +98,7 @@ pub trait Autokey: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -120,9 +107,7 @@ pub trait Autokey: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -131,9 +116,7 @@ pub trait Autokey: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::GetOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -172,14 +155,13 @@ pub trait Autokey: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait AutokeyAdmin: std::fmt::Debug + Send + Sync {
+
     /// Implements [super::client::AutokeyAdmin::update_autokey_config].
     fn update_autokey_config(
         &self,
         _req: crate::model::UpdateAutokeyConfigRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::AutokeyConfig>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::AutokeyConfig>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -188,9 +170,7 @@ pub trait AutokeyAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetAutokeyConfigRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::AutokeyConfig>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::AutokeyConfig>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -199,11 +179,7 @@ pub trait AutokeyAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ShowEffectiveAutokeyConfigRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::ShowEffectiveAutokeyConfigResponse>,
-        >,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ShowEffectiveAutokeyConfigResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -212,9 +188,7 @@ pub trait AutokeyAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: location::model::ListLocationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<location::model::ListLocationsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -223,9 +197,7 @@ pub trait AutokeyAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: location::model::GetLocationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<location::model::Location>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<location::model::Location>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -234,9 +206,7 @@ pub trait AutokeyAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -245,9 +215,7 @@ pub trait AutokeyAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -256,9 +224,7 @@ pub trait AutokeyAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -267,9 +233,7 @@ pub trait AutokeyAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::GetOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 }
@@ -286,14 +250,13 @@ pub trait AutokeyAdmin: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait EkmService: std::fmt::Debug + Send + Sync {
+
     /// Implements [super::client::EkmService::list_ekm_connections].
     fn list_ekm_connections(
         &self,
         _req: crate::model::ListEkmConnectionsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListEkmConnectionsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListEkmConnectionsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -302,9 +265,7 @@ pub trait EkmService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetEkmConnectionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::EkmConnection>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::EkmConnection>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -313,9 +274,7 @@ pub trait EkmService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateEkmConnectionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::EkmConnection>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::EkmConnection>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -324,9 +283,7 @@ pub trait EkmService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateEkmConnectionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::EkmConnection>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::EkmConnection>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -335,9 +292,7 @@ pub trait EkmService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetEkmConfigRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::EkmConfig>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::EkmConfig>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -346,9 +301,7 @@ pub trait EkmService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateEkmConfigRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::EkmConfig>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::EkmConfig>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -357,9 +310,7 @@ pub trait EkmService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::VerifyConnectivityRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::VerifyConnectivityResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::VerifyConnectivityResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -368,9 +319,7 @@ pub trait EkmService: std::fmt::Debug + Send + Sync {
         &self,
         _req: location::model::ListLocationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<location::model::ListLocationsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -379,9 +328,7 @@ pub trait EkmService: std::fmt::Debug + Send + Sync {
         &self,
         _req: location::model::GetLocationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<location::model::Location>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<location::model::Location>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -390,9 +337,7 @@ pub trait EkmService: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -401,9 +346,7 @@ pub trait EkmService: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -412,9 +355,7 @@ pub trait EkmService: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -423,9 +364,7 @@ pub trait EkmService: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::GetOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 }
@@ -442,14 +381,13 @@ pub trait EkmService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
+
     /// Implements [super::client::KeyManagementService::list_key_rings].
     fn list_key_rings(
         &self,
         _req: crate::model::ListKeyRingsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListKeyRingsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListKeyRingsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -458,9 +396,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListCryptoKeysRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListCryptoKeysResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListCryptoKeysResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -469,11 +405,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListCryptoKeyVersionsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::ListCryptoKeyVersionsResponse>,
-        >,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListCryptoKeyVersionsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -482,9 +414,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListImportJobsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListImportJobsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListImportJobsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -493,9 +423,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetKeyRingRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::KeyRing>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::KeyRing>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -504,9 +432,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetCryptoKeyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::CryptoKey>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::CryptoKey>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -515,9 +441,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetCryptoKeyVersionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::CryptoKeyVersion>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::CryptoKeyVersion>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -526,9 +450,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetPublicKeyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::PublicKey>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::PublicKey>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -537,9 +459,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetImportJobRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ImportJob>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ImportJob>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -548,9 +468,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateKeyRingRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::KeyRing>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::KeyRing>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -559,9 +477,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateCryptoKeyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::CryptoKey>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::CryptoKey>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -570,9 +486,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateCryptoKeyVersionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::CryptoKeyVersion>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::CryptoKeyVersion>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -581,9 +495,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ImportCryptoKeyVersionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::CryptoKeyVersion>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::CryptoKeyVersion>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -592,9 +504,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateImportJobRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ImportJob>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ImportJob>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -603,9 +513,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateCryptoKeyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::CryptoKey>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::CryptoKey>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -614,9 +522,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateCryptoKeyVersionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::CryptoKeyVersion>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::CryptoKeyVersion>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -625,9 +531,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateCryptoKeyPrimaryVersionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::CryptoKey>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::CryptoKey>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -636,9 +540,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DestroyCryptoKeyVersionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::CryptoKeyVersion>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::CryptoKeyVersion>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -647,9 +549,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::RestoreCryptoKeyVersionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::CryptoKeyVersion>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::CryptoKeyVersion>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -658,9 +558,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::EncryptRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::EncryptResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::EncryptResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -669,9 +567,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DecryptRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::DecryptResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::DecryptResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -680,9 +576,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::RawEncryptRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::RawEncryptResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::RawEncryptResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -691,9 +585,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::RawDecryptRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::RawDecryptResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::RawDecryptResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -702,9 +594,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::AsymmetricSignRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::AsymmetricSignResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::AsymmetricSignResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -713,9 +603,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::AsymmetricDecryptRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::AsymmetricDecryptResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::AsymmetricDecryptResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -724,9 +612,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::MacSignRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::MacSignResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::MacSignResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -735,9 +621,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::MacVerifyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::MacVerifyResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::MacVerifyResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -746,9 +630,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DecapsulateRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::DecapsulateResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::DecapsulateResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -757,9 +639,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GenerateRandomBytesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::GenerateRandomBytesResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::GenerateRandomBytesResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -768,9 +648,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         &self,
         _req: location::model::ListLocationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<location::model::ListLocationsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -779,9 +657,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         &self,
         _req: location::model::GetLocationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<location::model::Location>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<location::model::Location>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -790,9 +666,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -801,9 +675,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -812,9 +684,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -823,9 +693,8 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::GetOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 }
+

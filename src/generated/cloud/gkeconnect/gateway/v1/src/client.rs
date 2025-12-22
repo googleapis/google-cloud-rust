@@ -80,47 +80,50 @@ impl GatewayControl {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::GatewayControl + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::GatewayControl + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::GatewayControl>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::GatewayControl>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::GatewayControl> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::GatewayControl> {
         super::transport::GatewayControl::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::GatewayControl> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::GatewayControl::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::GatewayControl> {
+        Self::build_transport(conf).await.map(super::tracing::GatewayControl::new)
     }
 
     /// GenerateCredentials provides connection information that allows a user to
     /// access the specified membership using Connect Gateway.
-    pub fn generate_credentials(&self) -> super::builder::gateway_control::GenerateCredentials {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkeconnect_gateway_v1::client::GatewayControl;
+    /// async fn sample(
+    ///    client: &GatewayControl
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .generate_credentials()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn generate_credentials(&self) -> super::builder::gateway_control::GenerateCredentials
+    {
         super::builder::gateway_control::GenerateCredentials::new(self.inner.clone())
     }
 }

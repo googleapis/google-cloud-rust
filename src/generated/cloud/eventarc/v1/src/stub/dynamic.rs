@@ -504,8 +504,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: crate::model::ListMessageBusEnrollmentsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListMessageBusEnrollmentsResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::ListMessageBusEnrollmentsResponse>> {
         T::list_message_bus_enrollments(self, req, options).await
     }
 

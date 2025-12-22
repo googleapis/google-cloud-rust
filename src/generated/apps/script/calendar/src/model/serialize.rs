@@ -23,9 +23,9 @@ impl serde::ser::Serialize for super::CalendarAddOnManifest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.homepage_trigger.is_some() {
             state.serialize_entry("homepageTrigger", &self.homepage_trigger)?;
@@ -34,10 +34,7 @@ impl serde::ser::Serialize for super::CalendarAddOnManifest {
             state.serialize_entry("conferenceSolution", &self.conference_solution)?;
         }
         if !self.create_settings_url_function.is_empty() {
-            state.serialize_entry(
-                "createSettingsUrlFunction",
-                &self.create_settings_url_function,
-            )?;
+            state.serialize_entry("createSettingsUrlFunction", &self.create_settings_url_function)?;
         }
         if self.event_open_trigger.is_some() {
             state.serialize_entry("eventOpenTrigger", &self.event_open_trigger)?;
@@ -63,9 +60,9 @@ impl serde::ser::Serialize for super::ConferenceSolution {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.on_create_function.is_empty() {
             state.serialize_entry("onCreateFunction", &self.on_create_function)?;
@@ -94,9 +91,9 @@ impl serde::ser::Serialize for super::CalendarExtensionPoint {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.run_function.is_empty() {
             state.serialize_entry("runFunction", &self.run_function)?;

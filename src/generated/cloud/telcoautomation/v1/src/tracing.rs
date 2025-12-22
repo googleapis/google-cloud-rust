@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [TelcoAutomation](super::stub::TelcoAutomation) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct TelcoAutomation<T>
-where
-    T: super::stub::TelcoAutomation + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::TelcoAutomation + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> TelcoAutomation<T>
-where
-    T: super::stub::TelcoAutomation + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::TelcoAutomation + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::TelcoAutomation for TelcoAutomation<T>
-where
-    T: super::stub::TelcoAutomation + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::TelcoAutomation + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn list_orchestration_clusters(
         &self,
@@ -415,6 +409,7 @@ where
         self.inner.cancel_operation(req, options).await
     }
 
+
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -429,3 +424,4 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 }
+

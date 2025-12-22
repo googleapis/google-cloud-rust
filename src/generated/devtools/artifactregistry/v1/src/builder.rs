@@ -39,10 +39,7 @@ pub mod artifact_registry {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = ArtifactRegistry;
             type Credentials = gaxi::options::Credentials;
-            async fn build(
-                self,
-                config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -57,12 +54,8 @@ pub mod artifact_registry {
     }
 
     impl<R> RequestBuilder<R>
-    where
-        R: std::default::Default,
-    {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
-        ) -> Self {
+    where R: std::default::Default {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -96,17 +89,14 @@ pub mod artifact_registry {
     pub struct ListDockerImages(RequestBuilder<crate::model::ListDockerImagesRequest>);
 
     impl ListDockerImages {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListDockerImagesRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListDockerImagesRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -119,17 +109,11 @@ pub mod artifact_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListDockerImagesResponse> {
-            (*self.0.stub)
-                .list_docker_images(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_docker_images(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListDockerImagesResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListDockerImagesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -141,10 +125,7 @@ pub mod artifact_registry {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListDockerImagesResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListDockerImagesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -204,10 +185,10 @@ pub mod artifact_registry {
     pub struct GetDockerImage(RequestBuilder<crate::model::GetDockerImageRequest>);
 
     impl GetDockerImage {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -224,10 +205,7 @@ pub mod artifact_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::DockerImage> {
-            (*self.0.stub)
-                .get_docker_image(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_docker_image(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetDockerImageRequest::name].
@@ -271,17 +249,14 @@ pub mod artifact_registry {
     pub struct ListMavenArtifacts(RequestBuilder<crate::model::ListMavenArtifactsRequest>);
 
     impl ListMavenArtifacts {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListMavenArtifactsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListMavenArtifactsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -294,17 +269,11 @@ pub mod artifact_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListMavenArtifactsResponse> {
-            (*self.0.stub)
-                .list_maven_artifacts(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_maven_artifacts(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListMavenArtifactsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListMavenArtifactsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -316,12 +285,7 @@ pub mod artifact_registry {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListMavenArtifactsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListMavenArtifactsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -375,17 +339,14 @@ pub mod artifact_registry {
     pub struct GetMavenArtifact(RequestBuilder<crate::model::GetMavenArtifactRequest>);
 
     impl GetMavenArtifact {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetMavenArtifactRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetMavenArtifactRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -398,10 +359,7 @@ pub mod artifact_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::MavenArtifact> {
-            (*self.0.stub)
-                .get_maven_artifact(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_maven_artifact(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetMavenArtifactRequest::name].
@@ -445,10 +403,10 @@ pub mod artifact_registry {
     pub struct ListNpmPackages(RequestBuilder<crate::model::ListNpmPackagesRequest>);
 
     impl ListNpmPackages {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -465,17 +423,11 @@ pub mod artifact_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListNpmPackagesResponse> {
-            (*self.0.stub)
-                .list_npm_packages(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_npm_packages(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListNpmPackagesResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListNpmPackagesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -487,10 +439,7 @@ pub mod artifact_registry {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListNpmPackagesResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListNpmPackagesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -544,10 +493,10 @@ pub mod artifact_registry {
     pub struct GetNpmPackage(RequestBuilder<crate::model::GetNpmPackageRequest>);
 
     impl GetNpmPackage {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -564,10 +513,7 @@ pub mod artifact_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::NpmPackage> {
-            (*self.0.stub)
-                .get_npm_package(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_npm_package(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetNpmPackageRequest::name].
@@ -611,17 +557,14 @@ pub mod artifact_registry {
     pub struct ListPythonPackages(RequestBuilder<crate::model::ListPythonPackagesRequest>);
 
     impl ListPythonPackages {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListPythonPackagesRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListPythonPackagesRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -634,17 +577,11 @@ pub mod artifact_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListPythonPackagesResponse> {
-            (*self.0.stub)
-                .list_python_packages(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_python_packages(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListPythonPackagesResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListPythonPackagesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -656,12 +593,7 @@ pub mod artifact_registry {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListPythonPackagesResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListPythonPackagesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -715,17 +647,14 @@ pub mod artifact_registry {
     pub struct GetPythonPackage(RequestBuilder<crate::model::GetPythonPackageRequest>);
 
     impl GetPythonPackage {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetPythonPackageRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetPythonPackageRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -738,10 +667,7 @@ pub mod artifact_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::PythonPackage> {
-            (*self.0.stub)
-                .get_python_package(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_python_package(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPythonPackageRequest::name].
@@ -782,17 +708,14 @@ pub mod artifact_registry {
     pub struct ImportAptArtifacts(RequestBuilder<crate::model::ImportAptArtifactsRequest>);
 
     impl ImportAptArtifacts {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ImportAptArtifactsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ImportAptArtifactsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -810,23 +733,16 @@ pub mod artifact_registry {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [import_apt_artifacts][crate::client::ArtifactRegistry::import_apt_artifacts].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .import_apt_artifacts(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).import_apt_artifacts(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `import_apt_artifacts`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<
-            crate::model::ImportAptArtifactsResponse,
-            crate::model::ImportAptArtifactsMetadata,
-        > {
-            type Operation = lro::internal::Operation<
-                crate::model::ImportAptArtifactsResponse,
-                crate::model::ImportAptArtifactsMetadata,
-            >;
+            self
+        ) ->
+            impl lro::Poller<crate::model::ImportAptArtifactsResponse, crate::model::ImportAptArtifactsMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::ImportAptArtifactsResponse, crate::model::ImportAptArtifactsMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -864,10 +780,7 @@ pub mod artifact_registry {
         ///
         /// Note that all the setters affecting `source` are
         /// mutually exclusive.
-        pub fn set_source<T: Into<Option<crate::model::import_apt_artifacts_request::Source>>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_source<T: Into<Option<crate::model::import_apt_artifacts_request::Source>>>(mut self, v: T) ->Self {
             self.0.request.source = v.into();
             self
         }
@@ -877,12 +790,7 @@ pub mod artifact_registry {
         ///
         /// Note that all the setters affecting `source` are
         /// mutually exclusive.
-        pub fn set_gcs_source<
-            T: std::convert::Into<std::boxed::Box<crate::model::ImportAptArtifactsGcsSource>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_gcs_source<T: std::convert::Into<std::boxed::Box<crate::model::ImportAptArtifactsGcsSource>>>(mut self, v: T) -> Self {
             self.0.request = self.0.request.set_gcs_source(v);
             self
         }
@@ -917,17 +825,14 @@ pub mod artifact_registry {
     pub struct ImportYumArtifacts(RequestBuilder<crate::model::ImportYumArtifactsRequest>);
 
     impl ImportYumArtifacts {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ImportYumArtifactsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ImportYumArtifactsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -945,23 +850,16 @@ pub mod artifact_registry {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [import_yum_artifacts][crate::client::ArtifactRegistry::import_yum_artifacts].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .import_yum_artifacts(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).import_yum_artifacts(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `import_yum_artifacts`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<
-            crate::model::ImportYumArtifactsResponse,
-            crate::model::ImportYumArtifactsMetadata,
-        > {
-            type Operation = lro::internal::Operation<
-                crate::model::ImportYumArtifactsResponse,
-                crate::model::ImportYumArtifactsMetadata,
-            >;
+            self
+        ) ->
+            impl lro::Poller<crate::model::ImportYumArtifactsResponse, crate::model::ImportYumArtifactsMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::ImportYumArtifactsResponse, crate::model::ImportYumArtifactsMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -999,10 +897,7 @@ pub mod artifact_registry {
         ///
         /// Note that all the setters affecting `source` are
         /// mutually exclusive.
-        pub fn set_source<T: Into<Option<crate::model::import_yum_artifacts_request::Source>>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_source<T: Into<Option<crate::model::import_yum_artifacts_request::Source>>>(mut self, v: T) ->Self {
             self.0.request.source = v.into();
             self
         }
@@ -1012,12 +907,7 @@ pub mod artifact_registry {
         ///
         /// Note that all the setters affecting `source` are
         /// mutually exclusive.
-        pub fn set_gcs_source<
-            T: std::convert::Into<std::boxed::Box<crate::model::ImportYumArtifactsGcsSource>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_gcs_source<T: std::convert::Into<std::boxed::Box<crate::model::ImportYumArtifactsGcsSource>>>(mut self, v: T) -> Self {
             self.0.request = self.0.request.set_gcs_source(v);
             self
         }
@@ -1055,17 +945,14 @@ pub mod artifact_registry {
     pub struct ListRepositories(RequestBuilder<crate::model::ListRepositoriesRequest>);
 
     impl ListRepositories {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListRepositoriesRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListRepositoriesRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1078,17 +965,11 @@ pub mod artifact_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListRepositoriesResponse> {
-            (*self.0.stub)
-                .list_repositories(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_repositories(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListRepositoriesResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListRepositoriesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1100,10 +981,7 @@ pub mod artifact_registry {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListRepositoriesResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListRepositoriesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1169,10 +1047,10 @@ pub mod artifact_registry {
     pub struct GetRepository(RequestBuilder<crate::model::GetRepositoryRequest>);
 
     impl GetRepository {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1189,10 +1067,7 @@ pub mod artifact_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Repository> {
-            (*self.0.stub)
-                .get_repository(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_repository(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetRepositoryRequest::name].
@@ -1233,17 +1108,14 @@ pub mod artifact_registry {
     pub struct CreateRepository(RequestBuilder<crate::model::CreateRepositoryRequest>);
 
     impl CreateRepository {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateRepositoryRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateRepositoryRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1261,18 +1133,16 @@ pub mod artifact_registry {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_repository][crate::client::ArtifactRegistry::create_repository].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .create_repository(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_repository(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_repository`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::Repository, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Repository, crate::model::OperationMetadata>;
+            self
+        ) ->
+            impl lro::Poller<crate::model::Repository, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::Repository, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1320,8 +1190,7 @@ pub mod artifact_registry {
         ///
         /// This is a **required** field for requests.
         pub fn set_repository<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Repository>,
+        where T: std::convert::Into<crate::model::Repository>
         {
             self.0.request.repository = std::option::Option::Some(v.into());
             self
@@ -1331,8 +1200,7 @@ pub mod artifact_registry {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_repository<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Repository>,
+        where T: std::convert::Into<crate::model::Repository>
         {
             self.0.request.repository = v.map(|x| x.into());
             self
@@ -1367,17 +1235,14 @@ pub mod artifact_registry {
     pub struct UpdateRepository(RequestBuilder<crate::model::UpdateRepositoryRequest>);
 
     impl UpdateRepository {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateRepositoryRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateRepositoryRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1390,16 +1255,12 @@ pub mod artifact_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Repository> {
-            (*self.0.stub)
-                .update_repository(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_repository(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [repository][crate::model::UpdateRepositoryRequest::repository].
         pub fn set_repository<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Repository>,
+        where T: std::convert::Into<crate::model::Repository>
         {
             self.0.request.repository = std::option::Option::Some(v.into());
             self
@@ -1407,8 +1268,7 @@ pub mod artifact_registry {
 
         /// Sets or clears the value of [repository][crate::model::UpdateRepositoryRequest::repository].
         pub fn set_or_clear_repository<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Repository>,
+        where T: std::convert::Into<crate::model::Repository>
         {
             self.0.request.repository = v.map(|x| x.into());
             self
@@ -1416,8 +1276,7 @@ pub mod artifact_registry {
 
         /// Sets the value of [update_mask][crate::model::UpdateRepositoryRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -1425,8 +1284,7 @@ pub mod artifact_registry {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateRepositoryRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -1462,17 +1320,14 @@ pub mod artifact_registry {
     pub struct DeleteRepository(RequestBuilder<crate::model::DeleteRepositoryRequest>);
 
     impl DeleteRepository {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteRepositoryRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteRepositoryRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1490,14 +1345,15 @@ pub mod artifact_registry {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_repository][crate::client::ArtifactRegistry::delete_repository].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .delete_repository(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_repository(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_repository`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+        pub fn poller(
+            self
+        ) ->
+            impl lro::Poller<(), crate::model::OperationMetadata>
+        {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -1523,12 +1379,7 @@ pub mod artifact_registry {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteRepositoryRequest::name].
@@ -1572,10 +1423,10 @@ pub mod artifact_registry {
     pub struct ListPackages(RequestBuilder<crate::model::ListPackagesRequest>);
 
     impl ListPackages {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1592,17 +1443,11 @@ pub mod artifact_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListPackagesResponse> {
-            (*self.0.stub)
-                .list_packages(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_packages(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListPackagesResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListPackagesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1614,10 +1459,7 @@ pub mod artifact_registry {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListPackagesResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListPackagesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1683,10 +1525,10 @@ pub mod artifact_registry {
     pub struct GetPackage(RequestBuilder<crate::model::GetPackageRequest>);
 
     impl GetPackage {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1703,10 +1545,7 @@ pub mod artifact_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Package> {
-            (*self.0.stub)
-                .get_package(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_package(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPackageRequest::name].
@@ -1747,10 +1586,10 @@ pub mod artifact_registry {
     pub struct DeletePackage(RequestBuilder<crate::model::DeletePackageRequest>);
 
     impl DeletePackage {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1772,14 +1611,15 @@ pub mod artifact_registry {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_package][crate::client::ArtifactRegistry::delete_package].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .delete_package(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_package(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_package`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+        pub fn poller(
+            self
+        ) ->
+            impl lro::Poller<(), crate::model::OperationMetadata>
+        {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -1805,12 +1645,7 @@ pub mod artifact_registry {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeletePackageRequest::name].
@@ -1854,10 +1689,10 @@ pub mod artifact_registry {
     pub struct ListVersions(RequestBuilder<crate::model::ListVersionsRequest>);
 
     impl ListVersions {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1874,17 +1709,11 @@ pub mod artifact_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListVersionsResponse> {
-            (*self.0.stub)
-                .list_versions(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_versions(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListVersionsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListVersionsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1896,10 +1725,7 @@ pub mod artifact_registry {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListVersionsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListVersionsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1969,10 +1795,10 @@ pub mod artifact_registry {
     pub struct GetVersion(RequestBuilder<crate::model::GetVersionRequest>);
 
     impl GetVersion {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1989,10 +1815,7 @@ pub mod artifact_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Version> {
-            (*self.0.stub)
-                .get_version(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_version(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetVersionRequest::name].
@@ -2037,10 +1860,10 @@ pub mod artifact_registry {
     pub struct DeleteVersion(RequestBuilder<crate::model::DeleteVersionRequest>);
 
     impl DeleteVersion {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2062,14 +1885,15 @@ pub mod artifact_registry {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_version][crate::client::ArtifactRegistry::delete_version].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .delete_version(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_version(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_version`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+        pub fn poller(
+            self
+        ) ->
+            impl lro::Poller<(), crate::model::OperationMetadata>
+        {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -2095,12 +1919,7 @@ pub mod artifact_registry {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteVersionRequest::name].
@@ -2145,17 +1964,14 @@ pub mod artifact_registry {
     pub struct BatchDeleteVersions(RequestBuilder<crate::model::BatchDeleteVersionsRequest>);
 
     impl BatchDeleteVersions {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::BatchDeleteVersionsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::BatchDeleteVersionsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2173,16 +1989,16 @@ pub mod artifact_registry {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [batch_delete_versions][crate::client::ArtifactRegistry::batch_delete_versions].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .batch_delete_versions(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).batch_delete_versions(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `batch_delete_versions`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::BatchDeleteVersionsMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::BatchDeleteVersionsMetadata>;
+        pub fn poller(
+            self
+        ) ->
+            impl lro::Poller<(), crate::model::BatchDeleteVersionsMetadata>
+        {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::BatchDeleteVersionsMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2207,12 +2023,7 @@ pub mod artifact_registry {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::BatchDeleteVersionsRequest::parent].
@@ -2227,7 +2038,7 @@ pub mod artifact_registry {
         pub fn set_names<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.0.request.names = v.into_iter().map(|i| i.into()).collect();
@@ -2269,10 +2080,10 @@ pub mod artifact_registry {
     pub struct UpdateVersion(RequestBuilder<crate::model::UpdateVersionRequest>);
 
     impl UpdateVersion {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2289,18 +2100,14 @@ pub mod artifact_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Version> {
-            (*self.0.stub)
-                .update_version(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_version(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [version][crate::model::UpdateVersionRequest::version].
         ///
         /// This is a **required** field for requests.
         pub fn set_version<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Version>,
+        where T: std::convert::Into<crate::model::Version>
         {
             self.0.request.version = std::option::Option::Some(v.into());
             self
@@ -2310,8 +2117,7 @@ pub mod artifact_registry {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_version<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Version>,
+        where T: std::convert::Into<crate::model::Version>
         {
             self.0.request.version = v.map(|x| x.into());
             self
@@ -2319,8 +2125,7 @@ pub mod artifact_registry {
 
         /// Sets the value of [update_mask][crate::model::UpdateVersionRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -2328,8 +2133,7 @@ pub mod artifact_registry {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateVersionRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -2368,10 +2172,10 @@ pub mod artifact_registry {
     pub struct ListFiles(RequestBuilder<crate::model::ListFilesRequest>);
 
     impl ListFiles {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2388,17 +2192,11 @@ pub mod artifact_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListFilesResponse> {
-            (*self.0.stub)
-                .list_files(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_files(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListFilesResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListFilesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2410,10 +2208,7 @@ pub mod artifact_registry {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListFilesResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListFilesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2479,10 +2274,10 @@ pub mod artifact_registry {
     pub struct GetFile(RequestBuilder<crate::model::GetFileRequest>);
 
     impl GetFile {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2499,10 +2294,7 @@ pub mod artifact_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::File> {
-            (*self.0.stub)
-                .get_file(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_file(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetFileRequest::name].
@@ -2543,10 +2335,10 @@ pub mod artifact_registry {
     pub struct DeleteFile(RequestBuilder<crate::model::DeleteFileRequest>);
 
     impl DeleteFile {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2568,14 +2360,15 @@ pub mod artifact_registry {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_file][crate::client::ArtifactRegistry::delete_file].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .delete_file(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_file(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_file`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+        pub fn poller(
+            self
+        ) ->
+            impl lro::Poller<(), crate::model::OperationMetadata>
+        {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -2601,12 +2394,7 @@ pub mod artifact_registry {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteFileRequest::name].
@@ -2646,10 +2434,10 @@ pub mod artifact_registry {
     pub struct UpdateFile(RequestBuilder<crate::model::UpdateFileRequest>);
 
     impl UpdateFile {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2666,18 +2454,14 @@ pub mod artifact_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::File> {
-            (*self.0.stub)
-                .update_file(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_file(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [file][crate::model::UpdateFileRequest::file].
         ///
         /// This is a **required** field for requests.
         pub fn set_file<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::File>,
+        where T: std::convert::Into<crate::model::File>
         {
             self.0.request.file = std::option::Option::Some(v.into());
             self
@@ -2687,8 +2471,7 @@ pub mod artifact_registry {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_file<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::File>,
+        where T: std::convert::Into<crate::model::File>
         {
             self.0.request.file = v.map(|x| x.into());
             self
@@ -2698,8 +2481,7 @@ pub mod artifact_registry {
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -2709,8 +2491,7 @@ pub mod artifact_registry {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -2749,10 +2530,10 @@ pub mod artifact_registry {
     pub struct ListTags(RequestBuilder<crate::model::ListTagsRequest>);
 
     impl ListTags {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2769,17 +2550,11 @@ pub mod artifact_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListTagsResponse> {
-            (*self.0.stub)
-                .list_tags(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_tags(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListTagsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListTagsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2791,10 +2566,7 @@ pub mod artifact_registry {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListTagsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListTagsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2852,10 +2624,10 @@ pub mod artifact_registry {
     pub struct GetTag(RequestBuilder<crate::model::GetTagRequest>);
 
     impl GetTag {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2872,10 +2644,7 @@ pub mod artifact_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Tag> {
-            (*self.0.stub)
-                .get_tag(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_tag(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetTagRequest::name].
@@ -2913,10 +2682,10 @@ pub mod artifact_registry {
     pub struct CreateTag(RequestBuilder<crate::model::CreateTagRequest>);
 
     impl CreateTag {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2933,10 +2702,7 @@ pub mod artifact_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Tag> {
-            (*self.0.stub)
-                .create_tag(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_tag(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateTagRequest::parent].
@@ -2953,8 +2719,7 @@ pub mod artifact_registry {
 
         /// Sets the value of [tag][crate::model::CreateTagRequest::tag].
         pub fn set_tag<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Tag>,
+        where T: std::convert::Into<crate::model::Tag>
         {
             self.0.request.tag = std::option::Option::Some(v.into());
             self
@@ -2962,8 +2727,7 @@ pub mod artifact_registry {
 
         /// Sets or clears the value of [tag][crate::model::CreateTagRequest::tag].
         pub fn set_or_clear_tag<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Tag>,
+        where T: std::convert::Into<crate::model::Tag>
         {
             self.0.request.tag = v.map(|x| x.into());
             self
@@ -2998,10 +2762,10 @@ pub mod artifact_registry {
     pub struct UpdateTag(RequestBuilder<crate::model::UpdateTagRequest>);
 
     impl UpdateTag {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3018,16 +2782,12 @@ pub mod artifact_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Tag> {
-            (*self.0.stub)
-                .update_tag(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_tag(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [tag][crate::model::UpdateTagRequest::tag].
         pub fn set_tag<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Tag>,
+        where T: std::convert::Into<crate::model::Tag>
         {
             self.0.request.tag = std::option::Option::Some(v.into());
             self
@@ -3035,8 +2795,7 @@ pub mod artifact_registry {
 
         /// Sets or clears the value of [tag][crate::model::UpdateTagRequest::tag].
         pub fn set_or_clear_tag<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Tag>,
+        where T: std::convert::Into<crate::model::Tag>
         {
             self.0.request.tag = v.map(|x| x.into());
             self
@@ -3044,8 +2803,7 @@ pub mod artifact_registry {
 
         /// Sets the value of [update_mask][crate::model::UpdateTagRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -3053,8 +2811,7 @@ pub mod artifact_registry {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateTagRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -3089,10 +2846,10 @@ pub mod artifact_registry {
     pub struct DeleteTag(RequestBuilder<crate::model::DeleteTagRequest>);
 
     impl DeleteTag {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3109,10 +2866,7 @@ pub mod artifact_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .delete_tag(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_tag(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteTagRequest::name].
@@ -3150,10 +2904,10 @@ pub mod artifact_registry {
     pub struct CreateRule(RequestBuilder<crate::model::CreateRuleRequest>);
 
     impl CreateRule {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3170,10 +2924,7 @@ pub mod artifact_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Rule> {
-            (*self.0.stub)
-                .create_rule(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_rule(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateRuleRequest::parent].
@@ -3192,8 +2943,7 @@ pub mod artifact_registry {
 
         /// Sets the value of [rule][crate::model::CreateRuleRequest::rule].
         pub fn set_rule<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Rule>,
+        where T: std::convert::Into<crate::model::Rule>
         {
             self.0.request.rule = std::option::Option::Some(v.into());
             self
@@ -3201,8 +2951,7 @@ pub mod artifact_registry {
 
         /// Sets or clears the value of [rule][crate::model::CreateRuleRequest::rule].
         pub fn set_or_clear_rule<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Rule>,
+        where T: std::convert::Into<crate::model::Rule>
         {
             self.0.request.rule = v.map(|x| x.into());
             self
@@ -3241,10 +2990,10 @@ pub mod artifact_registry {
     pub struct ListRules(RequestBuilder<crate::model::ListRulesRequest>);
 
     impl ListRules {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3261,17 +3010,11 @@ pub mod artifact_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListRulesResponse> {
-            (*self.0.stub)
-                .list_rules(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_rules(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListRulesResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListRulesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -3283,10 +3026,7 @@ pub mod artifact_registry {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListRulesResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListRulesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -3340,10 +3080,10 @@ pub mod artifact_registry {
     pub struct GetRule(RequestBuilder<crate::model::GetRuleRequest>);
 
     impl GetRule {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3360,10 +3100,7 @@ pub mod artifact_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Rule> {
-            (*self.0.stub)
-                .get_rule(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_rule(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetRuleRequest::name].
@@ -3403,10 +3140,10 @@ pub mod artifact_registry {
     pub struct UpdateRule(RequestBuilder<crate::model::UpdateRuleRequest>);
 
     impl UpdateRule {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3423,16 +3160,12 @@ pub mod artifact_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Rule> {
-            (*self.0.stub)
-                .update_rule(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_rule(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [rule][crate::model::UpdateRuleRequest::rule].
         pub fn set_rule<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Rule>,
+        where T: std::convert::Into<crate::model::Rule>
         {
             self.0.request.rule = std::option::Option::Some(v.into());
             self
@@ -3440,8 +3173,7 @@ pub mod artifact_registry {
 
         /// Sets or clears the value of [rule][crate::model::UpdateRuleRequest::rule].
         pub fn set_or_clear_rule<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Rule>,
+        where T: std::convert::Into<crate::model::Rule>
         {
             self.0.request.rule = v.map(|x| x.into());
             self
@@ -3449,8 +3181,7 @@ pub mod artifact_registry {
 
         /// Sets the value of [update_mask][crate::model::UpdateRuleRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -3458,8 +3189,7 @@ pub mod artifact_registry {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateRuleRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -3494,10 +3224,10 @@ pub mod artifact_registry {
     pub struct DeleteRule(RequestBuilder<crate::model::DeleteRuleRequest>);
 
     impl DeleteRule {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3514,10 +3244,7 @@ pub mod artifact_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .delete_rule(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_rule(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteRuleRequest::name].
@@ -3557,10 +3284,10 @@ pub mod artifact_registry {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3577,10 +3304,7 @@ pub mod artifact_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::Policy> {
-            (*self.0.stub)
-                .set_iam_policy(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).set_iam_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -3595,8 +3319,7 @@ pub mod artifact_registry {
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<iam_v1::model::Policy>,
+        where T: std::convert::Into<iam_v1::model::Policy>
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
@@ -3606,8 +3329,7 @@ pub mod artifact_registry {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<iam_v1::model::Policy>,
+        where T: std::convert::Into<iam_v1::model::Policy>
         {
             self.0.request.policy = v.map(|x| x.into());
             self
@@ -3615,8 +3337,7 @@ pub mod artifact_registry {
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -3624,8 +3345,7 @@ pub mod artifact_registry {
 
         /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -3660,10 +3380,10 @@ pub mod artifact_registry {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3680,10 +3400,7 @@ pub mod artifact_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::Policy> {
-            (*self.0.stub)
-                .get_iam_policy(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_iam_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -3696,8 +3413,7 @@ pub mod artifact_registry {
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        where T: std::convert::Into<iam_v1::model::GetPolicyOptions>
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
@@ -3705,8 +3421,7 @@ pub mod artifact_registry {
 
         /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        where T: std::convert::Into<iam_v1::model::GetPolicyOptions>
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -3741,17 +3456,14 @@ pub mod artifact_registry {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3764,10 +3476,7 @@ pub mod artifact_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
-            (*self.0.stub)
-                .test_iam_permissions(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).test_iam_permissions(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -3784,7 +3493,7 @@ pub mod artifact_registry {
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.0.request.permissions = v.into_iter().map(|i| i.into()).collect();
@@ -3820,17 +3529,14 @@ pub mod artifact_registry {
     pub struct GetProjectSettings(RequestBuilder<crate::model::GetProjectSettingsRequest>);
 
     impl GetProjectSettings {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetProjectSettingsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetProjectSettingsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3843,10 +3549,7 @@ pub mod artifact_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ProjectSettings> {
-            (*self.0.stub)
-                .get_project_settings(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_project_settings(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetProjectSettingsRequest::name].
@@ -3886,17 +3589,14 @@ pub mod artifact_registry {
     pub struct UpdateProjectSettings(RequestBuilder<crate::model::UpdateProjectSettingsRequest>);
 
     impl UpdateProjectSettings {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateProjectSettingsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateProjectSettingsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3909,16 +3609,12 @@ pub mod artifact_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ProjectSettings> {
-            (*self.0.stub)
-                .update_project_settings(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_project_settings(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_settings][crate::model::UpdateProjectSettingsRequest::project_settings].
         pub fn set_project_settings<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::ProjectSettings>,
+        where T: std::convert::Into<crate::model::ProjectSettings>
         {
             self.0.request.project_settings = std::option::Option::Some(v.into());
             self
@@ -3926,8 +3622,7 @@ pub mod artifact_registry {
 
         /// Sets or clears the value of [project_settings][crate::model::UpdateProjectSettingsRequest::project_settings].
         pub fn set_or_clear_project_settings<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::ProjectSettings>,
+        where T: std::convert::Into<crate::model::ProjectSettings>
         {
             self.0.request.project_settings = v.map(|x| x.into());
             self
@@ -3935,8 +3630,7 @@ pub mod artifact_registry {
 
         /// Sets the value of [update_mask][crate::model::UpdateProjectSettingsRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -3944,8 +3638,7 @@ pub mod artifact_registry {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateProjectSettingsRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -3980,10 +3673,10 @@ pub mod artifact_registry {
     pub struct GetVPCSCConfig(RequestBuilder<crate::model::GetVPCSCConfigRequest>);
 
     impl GetVPCSCConfig {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -4000,10 +3693,7 @@ pub mod artifact_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::VPCSCConfig> {
-            (*self.0.stub)
-                .get_vpcsc_config(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_vpcsc_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetVPCSCConfigRequest::name].
@@ -4043,17 +3733,14 @@ pub mod artifact_registry {
     pub struct UpdateVPCSCConfig(RequestBuilder<crate::model::UpdateVPCSCConfigRequest>);
 
     impl UpdateVPCSCConfig {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateVPCSCConfigRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateVPCSCConfigRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4066,16 +3753,12 @@ pub mod artifact_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::VPCSCConfig> {
-            (*self.0.stub)
-                .update_vpcsc_config(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_vpcsc_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [vpcsc_config][crate::model::UpdateVPCSCConfigRequest::vpcsc_config].
         pub fn set_vpcsc_config<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::VPCSCConfig>,
+        where T: std::convert::Into<crate::model::VPCSCConfig>
         {
             self.0.request.vpcsc_config = std::option::Option::Some(v.into());
             self
@@ -4083,8 +3766,7 @@ pub mod artifact_registry {
 
         /// Sets or clears the value of [vpcsc_config][crate::model::UpdateVPCSCConfigRequest::vpcsc_config].
         pub fn set_or_clear_vpcsc_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::VPCSCConfig>,
+        where T: std::convert::Into<crate::model::VPCSCConfig>
         {
             self.0.request.vpcsc_config = v.map(|x| x.into());
             self
@@ -4092,8 +3774,7 @@ pub mod artifact_registry {
 
         /// Sets the value of [update_mask][crate::model::UpdateVPCSCConfigRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -4101,8 +3782,7 @@ pub mod artifact_registry {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateVPCSCConfigRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -4137,10 +3817,10 @@ pub mod artifact_registry {
     pub struct UpdatePackage(RequestBuilder<crate::model::UpdatePackageRequest>);
 
     impl UpdatePackage {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -4157,16 +3837,12 @@ pub mod artifact_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Package> {
-            (*self.0.stub)
-                .update_package(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_package(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [package][crate::model::UpdatePackageRequest::package].
         pub fn set_package<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Package>,
+        where T: std::convert::Into<crate::model::Package>
         {
             self.0.request.package = std::option::Option::Some(v.into());
             self
@@ -4174,8 +3850,7 @@ pub mod artifact_registry {
 
         /// Sets or clears the value of [package][crate::model::UpdatePackageRequest::package].
         pub fn set_or_clear_package<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Package>,
+        where T: std::convert::Into<crate::model::Package>
         {
             self.0.request.package = v.map(|x| x.into());
             self
@@ -4183,8 +3858,7 @@ pub mod artifact_registry {
 
         /// Sets the value of [update_mask][crate::model::UpdatePackageRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -4192,8 +3866,7 @@ pub mod artifact_registry {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdatePackageRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -4232,10 +3905,10 @@ pub mod artifact_registry {
     pub struct ListAttachments(RequestBuilder<crate::model::ListAttachmentsRequest>);
 
     impl ListAttachments {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -4252,17 +3925,11 @@ pub mod artifact_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListAttachmentsResponse> {
-            (*self.0.stub)
-                .list_attachments(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_attachments(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListAttachmentsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListAttachmentsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -4274,10 +3941,7 @@ pub mod artifact_registry {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListAttachmentsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListAttachmentsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -4337,10 +4001,10 @@ pub mod artifact_registry {
     pub struct GetAttachment(RequestBuilder<crate::model::GetAttachmentRequest>);
 
     impl GetAttachment {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -4357,10 +4021,7 @@ pub mod artifact_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Attachment> {
-            (*self.0.stub)
-                .get_attachment(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_attachment(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAttachmentRequest::name].
@@ -4401,17 +4062,14 @@ pub mod artifact_registry {
     pub struct CreateAttachment(RequestBuilder<crate::model::CreateAttachmentRequest>);
 
     impl CreateAttachment {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateAttachmentRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateAttachmentRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4429,18 +4087,16 @@ pub mod artifact_registry {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_attachment][crate::client::ArtifactRegistry::create_attachment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .create_attachment(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_attachment(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_attachment`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::Attachment, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Attachment, crate::model::OperationMetadata>;
+            self
+        ) ->
+            impl lro::Poller<crate::model::Attachment, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::Attachment, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4488,8 +4144,7 @@ pub mod artifact_registry {
         ///
         /// This is a **required** field for requests.
         pub fn set_attachment<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Attachment>,
+        where T: std::convert::Into<crate::model::Attachment>
         {
             self.0.request.attachment = std::option::Option::Some(v.into());
             self
@@ -4499,8 +4154,7 @@ pub mod artifact_registry {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_attachment<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Attachment>,
+        where T: std::convert::Into<crate::model::Attachment>
         {
             self.0.request.attachment = v.map(|x| x.into());
             self
@@ -4536,17 +4190,14 @@ pub mod artifact_registry {
     pub struct DeleteAttachment(RequestBuilder<crate::model::DeleteAttachmentRequest>);
 
     impl DeleteAttachment {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteAttachmentRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteAttachmentRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4564,14 +4215,15 @@ pub mod artifact_registry {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_attachment][crate::client::ArtifactRegistry::delete_attachment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .delete_attachment(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_attachment(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_attachment`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+        pub fn poller(
+            self
+        ) ->
+            impl lro::Poller<(), crate::model::OperationMetadata>
+        {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -4597,12 +4249,7 @@ pub mod artifact_registry {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteAttachmentRequest::name].
@@ -4643,10 +4290,10 @@ pub mod artifact_registry {
     pub struct ExportArtifact(RequestBuilder<crate::model::ExportArtifactRequest>);
 
     impl ExportArtifact {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -4668,21 +4315,16 @@ pub mod artifact_registry {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [export_artifact][crate::client::ArtifactRegistry::export_artifact].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .export_artifact(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).export_artifact(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `export_artifact`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::ExportArtifactResponse, crate::model::ExportArtifactMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::ExportArtifactResponse, crate::model::ExportArtifactMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::ExportArtifactResponse,
-                crate::model::ExportArtifactMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::ExportArtifactResponse, crate::model::ExportArtifactMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4722,12 +4364,7 @@ pub mod artifact_registry {
         ///
         /// Note that all the setters affecting `source_artifact` are
         /// mutually exclusive.
-        pub fn set_source_artifact<
-            T: Into<Option<crate::model::export_artifact_request::SourceArtifact>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_source_artifact<T: Into<Option<crate::model::export_artifact_request::SourceArtifact>>>(mut self, v: T) ->Self {
             self.0.request.source_artifact = v.into();
             self
         }
@@ -4737,10 +4374,7 @@ pub mod artifact_registry {
         ///
         /// Note that all the setters affecting `source_artifact` are
         /// mutually exclusive.
-        pub fn set_source_version<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_source_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request = self.0.request.set_source_version(v);
             self
         }
@@ -4759,12 +4393,7 @@ pub mod artifact_registry {
         ///
         /// Note that all the setters affecting `destination` are
         /// mutually exclusive.
-        pub fn set_destination<
-            T: Into<Option<crate::model::export_artifact_request::Destination>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_destination<T: Into<Option<crate::model::export_artifact_request::Destination>>>(mut self, v: T) ->Self {
             self.0.request.destination = v.into();
             self
         }
@@ -4812,17 +4441,14 @@ pub mod artifact_registry {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4835,17 +4461,11 @@ pub mod artifact_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::ListLocationsResponse> {
-            (*self.0.stub)
-                .list_locations(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_locations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -4857,10 +4477,7 @@ pub mod artifact_registry {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -4918,10 +4535,10 @@ pub mod artifact_registry {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -4938,10 +4555,7 @@ pub mod artifact_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::Location> {
-            (*self.0.stub)
-                .get_location(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_location(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -4979,17 +4593,14 @@ pub mod artifact_registry {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -5002,10 +4613,7 @@ pub mod artifact_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .get_operation(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -5021,4 +4629,5 @@ pub mod artifact_registry {
             &mut self.0.options
         }
     }
+
 }

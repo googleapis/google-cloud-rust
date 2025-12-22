@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -28,7 +29,6 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -43,6 +43,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MetricsScope {
+
     /// Immutable. The resource name of the Monitoring Metrics Scope.
     /// On input, the resource name can be specified with the
     /// scoping project ID or number. On output, the resource name is
@@ -89,8 +90,7 @@ impl MetricsScope {
     /// let x = MetricsScope::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -106,8 +106,7 @@ impl MetricsScope {
     /// let x = MetricsScope::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -122,8 +121,7 @@ impl MetricsScope {
     /// let x = MetricsScope::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -139,8 +137,7 @@ impl MetricsScope {
     /// let x = MetricsScope::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -161,7 +158,7 @@ impl MetricsScope {
     pub fn set_monitored_projects<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::MonitoredProject>,
+        V: std::convert::Into<crate::model::MonitoredProject>
     {
         use std::iter::Iterator;
         self.monitored_projects = v.into_iter().map(|i| i.into()).collect();
@@ -181,6 +178,7 @@ impl wkt::message::Message for MetricsScope {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MonitoredProject {
+
     /// Immutable. The resource name of the `MonitoredProject`. On input, the resource name
     /// includes the scoping project ID and monitored project ID. On output, it
     /// contains the equivalent project numbers.
@@ -220,8 +218,7 @@ impl MonitoredProject {
     /// let x = MonitoredProject::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -237,8 +234,7 @@ impl MonitoredProject {
     /// let x = MonitoredProject::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -255,6 +251,7 @@ impl wkt::message::Message for MonitoredProject {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetMetricsScopeRequest {
+
     /// Required. The resource name of the `Metrics Scope`.
     /// Example:
     /// `locations/global/metricsScopes/{SCOPING_PROJECT_ID_OR_NUMBER}`
@@ -291,6 +288,7 @@ impl wkt::message::Message for GetMetricsScopeRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListMetricsScopesByMonitoredProjectRequest {
+
     /// Required. The resource name of the `Monitored Project` being requested.
     /// Example:
     /// `projects/{MONITORED_PROJECT_ID_OR_NUMBER}`
@@ -311,10 +309,7 @@ impl ListMetricsScopesByMonitoredProjectRequest {
     /// # use google_cloud_monitoring_metricsscope_v1::model::ListMetricsScopesByMonitoredProjectRequest;
     /// let x = ListMetricsScopesByMonitoredProjectRequest::new().set_monitored_resource_container("example");
     /// ```
-    pub fn set_monitored_resource_container<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_monitored_resource_container<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.monitored_resource_container = v.into();
         self
     }
@@ -330,6 +325,7 @@ impl wkt::message::Message for ListMetricsScopesByMonitoredProjectRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListMetricsScopesByMonitoredProjectResponse {
+
     /// A set of all metrics scopes that the specified monitored project has been
     /// added to.
     pub metrics_scopes: std::vec::Vec<crate::model::MetricsScope>,
@@ -357,7 +353,7 @@ impl ListMetricsScopesByMonitoredProjectResponse {
     pub fn set_metrics_scopes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::MetricsScope>,
+        V: std::convert::Into<crate::model::MetricsScope>
     {
         use std::iter::Iterator;
         self.metrics_scopes = v.into_iter().map(|i| i.into()).collect();
@@ -375,6 +371,7 @@ impl wkt::message::Message for ListMetricsScopesByMonitoredProjectResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateMonitoredProjectRequest {
+
     /// Required. The resource name of the existing `Metrics Scope` that will monitor this
     /// project.
     /// Example:
@@ -416,8 +413,7 @@ impl CreateMonitoredProjectRequest {
     /// let x = CreateMonitoredProjectRequest::new().set_monitored_project(MonitoredProject::default()/* use setters */);
     /// ```
     pub fn set_monitored_project<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::MonitoredProject>,
+    where T: std::convert::Into<crate::model::MonitoredProject>
     {
         self.monitored_project = std::option::Option::Some(v.into());
         self
@@ -433,8 +429,7 @@ impl CreateMonitoredProjectRequest {
     /// let x = CreateMonitoredProjectRequest::new().set_or_clear_monitored_project(None::<MonitoredProject>);
     /// ```
     pub fn set_or_clear_monitored_project<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::MonitoredProject>,
+    where T: std::convert::Into<crate::model::MonitoredProject>
     {
         self.monitored_project = v.map(|x| x.into());
         self
@@ -451,6 +446,7 @@ impl wkt::message::Message for CreateMonitoredProjectRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteMonitoredProjectRequest {
+
     /// Required. The resource name of the `MonitoredProject`.
     /// Example:
     /// `locations/global/metricsScopes/{SCOPING_PROJECT_ID_OR_NUMBER}/projects/{MONITORED_PROJECT_ID_OR_NUMBER}`
@@ -492,6 +488,7 @@ impl wkt::message::Message for DeleteMonitoredProjectRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
+
     /// Current state of the batch operation.
     pub state: crate::model::operation_metadata::State,
 
@@ -519,10 +516,7 @@ impl OperationMetadata {
     /// let x1 = OperationMetadata::new().set_state(State::Running);
     /// let x2 = OperationMetadata::new().set_state(State::Done);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::operation_metadata::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::operation_metadata::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -536,8 +530,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -553,8 +546,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -569,8 +561,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -586,8 +577,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -604,6 +594,7 @@ impl wkt::message::Message for OperationMetadata {
 pub mod operation_metadata {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Batch operation states.
     ///
@@ -701,9 +692,7 @@ pub mod operation_metadata {
                 2 => Self::Running,
                 3 => Self::Done,
                 4 => Self::Cancelled,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -717,9 +706,7 @@ pub mod operation_metadata {
                 "RUNNING" => Self::Running,
                 "DONE" => Self::Done,
                 "CANCELLED" => Self::Cancelled,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -746,8 +733,7 @@ pub mod operation_metadata {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.monitoring.metricsscope.v1.OperationMetadata.State",
-            ))
+                ".google.monitoring.metricsscope.v1.OperationMetadata.State"))
         }
     }
 }

@@ -236,14 +236,8 @@ impl std::fmt::Debug for super::Cluster {
         debug_struct.field("redis_configs", &self.redis_configs);
         debug_struct.field("precise_size_gb", &self.precise_size_gb);
         debug_struct.field("zone_distribution_config", &self.zone_distribution_config);
-        debug_struct.field(
-            "cross_cluster_replication_config",
-            &self.cross_cluster_replication_config,
-        );
-        debug_struct.field(
-            "deletion_protection_enabled",
-            &self.deletion_protection_enabled,
-        );
+        debug_struct.field("cross_cluster_replication_config", &self.cross_cluster_replication_config);
+        debug_struct.field("deletion_protection_enabled", &self.deletion_protection_enabled);
         debug_struct.field("maintenance_policy", &self.maintenance_policy);
         debug_struct.field("maintenance_schedule", &self.maintenance_schedule);
         debug_struct.field("psc_service_attachments", &self.psc_service_attachments);
@@ -304,6 +298,7 @@ impl std::fmt::Debug for super::cluster::ManagedBackupSource {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::AutomatedBackupConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

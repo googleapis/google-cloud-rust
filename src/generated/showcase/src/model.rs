@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -31,7 +32,6 @@ extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate uuid;
 extern crate wkt;
@@ -43,6 +43,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RepeatRequest {
+
     pub name: std::string::String,
 
     pub info: std::option::Option<crate::model::ComplianceData>,
@@ -97,8 +98,7 @@ impl RepeatRequest {
     /// let x = RepeatRequest::new().set_info(ComplianceData::default()/* use setters */);
     /// ```
     pub fn set_info<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ComplianceData>,
+    where T: std::convert::Into<crate::model::ComplianceData>
     {
         self.info = std::option::Option::Some(v.into());
         self
@@ -114,8 +114,7 @@ impl RepeatRequest {
     /// let x = RepeatRequest::new().set_or_clear_info(None::<ComplianceData>);
     /// ```
     pub fn set_or_clear_info<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ComplianceData>,
+    where T: std::convert::Into<crate::model::ComplianceData>
     {
         self.info = v.map(|x| x.into());
         self
@@ -141,8 +140,7 @@ impl RepeatRequest {
     /// let x = RepeatRequest::new().set_intended_binding_uri("example");
     /// ```
     pub fn set_intended_binding_uri<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.intended_binding_uri = std::option::Option::Some(v.into());
         self
@@ -157,8 +155,7 @@ impl RepeatRequest {
     /// let x = RepeatRequest::new().set_or_clear_intended_binding_uri(None::<String>);
     /// ```
     pub fn set_or_clear_intended_binding_uri<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.intended_binding_uri = v.map(|x| x.into());
         self
@@ -208,8 +205,7 @@ impl RepeatRequest {
     /// let x = RepeatRequest::new().set_p_int32(42);
     /// ```
     pub fn set_p_int32<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i32>,
+    where T: std::convert::Into<i32>
     {
         self.p_int32 = std::option::Option::Some(v.into());
         self
@@ -224,8 +220,7 @@ impl RepeatRequest {
     /// let x = RepeatRequest::new().set_or_clear_p_int32(None::<i32>);
     /// ```
     pub fn set_or_clear_p_int32<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i32>,
+    where T: std::convert::Into<i32>
     {
         self.p_int32 = v.map(|x| x.into());
         self
@@ -239,8 +234,7 @@ impl RepeatRequest {
     /// let x = RepeatRequest::new().set_p_int64(42);
     /// ```
     pub fn set_p_int64<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.p_int64 = std::option::Option::Some(v.into());
         self
@@ -255,8 +249,7 @@ impl RepeatRequest {
     /// let x = RepeatRequest::new().set_or_clear_p_int64(None::<i32>);
     /// ```
     pub fn set_or_clear_p_int64<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.p_int64 = v.map(|x| x.into());
         self
@@ -270,8 +263,7 @@ impl RepeatRequest {
     /// let x = RepeatRequest::new().set_p_double(42.0);
     /// ```
     pub fn set_p_double<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<f64>,
+    where T: std::convert::Into<f64>
     {
         self.p_double = std::option::Option::Some(v.into());
         self
@@ -286,8 +278,7 @@ impl RepeatRequest {
     /// let x = RepeatRequest::new().set_or_clear_p_double(None::<f32>);
     /// ```
     pub fn set_or_clear_p_double<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<f64>,
+    where T: std::convert::Into<f64>
     {
         self.p_double = v.map(|x| x.into());
         self
@@ -303,6 +294,7 @@ impl wkt::message::Message for RepeatRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RepeatResponse {
+
     pub request: std::option::Option<crate::model::RepeatRequest>,
 
     /// The URI template the request was bound to server-side.
@@ -325,8 +317,7 @@ impl RepeatResponse {
     /// let x = RepeatResponse::new().set_request(RepeatRequest::default()/* use setters */);
     /// ```
     pub fn set_request<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RepeatRequest>,
+    where T: std::convert::Into<crate::model::RepeatRequest>
     {
         self.request = std::option::Option::Some(v.into());
         self
@@ -342,8 +333,7 @@ impl RepeatResponse {
     /// let x = RepeatResponse::new().set_or_clear_request(None::<RepeatRequest>);
     /// ```
     pub fn set_or_clear_request<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RepeatRequest>,
+    where T: std::convert::Into<crate::model::RepeatRequest>
     {
         self.request = v.map(|x| x.into());
         self
@@ -374,6 +364,7 @@ impl wkt::message::Message for RepeatResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ComplianceSuite {
+
     pub group: std::vec::Vec<crate::model::ComplianceGroup>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -399,7 +390,7 @@ impl ComplianceSuite {
     pub fn set_group<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ComplianceGroup>,
+        V: std::convert::Into<crate::model::ComplianceGroup>
     {
         use std::iter::Iterator;
         self.group = v.into_iter().map(|i| i.into()).collect();
@@ -419,6 +410,7 @@ impl wkt::message::Message for ComplianceSuite {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ComplianceGroup {
+
     pub name: std::string::String,
 
     pub rpcs: std::vec::Vec<std::string::String>,
@@ -455,7 +447,7 @@ impl ComplianceGroup {
     pub fn set_rpcs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.rpcs = v.into_iter().map(|i| i.into()).collect();
@@ -477,7 +469,7 @@ impl ComplianceGroup {
     pub fn set_requests<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::RepeatRequest>,
+        V: std::convert::Into<crate::model::RepeatRequest>
     {
         use std::iter::Iterator;
         self.requests = v.into_iter().map(|i| i.into()).collect();
@@ -496,6 +488,7 @@ impl wkt::message::Message for ComplianceGroup {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ComplianceData {
+
     pub f_string: std::string::String,
 
     pub f_int32: i32,
@@ -740,10 +733,7 @@ impl ComplianceData {
     /// let x1 = ComplianceData::new().set_f_kingdom(LifeKingdom::Eubacteria);
     /// let x2 = ComplianceData::new().set_f_kingdom(LifeKingdom::Protista);
     /// ```
-    pub fn set_f_kingdom<T: std::convert::Into<crate::model::compliance_data::LifeKingdom>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_f_kingdom<T: std::convert::Into<crate::model::compliance_data::LifeKingdom>>(mut self, v: T) -> Self {
         self.f_kingdom = v.into();
         self
     }
@@ -757,8 +747,7 @@ impl ComplianceData {
     /// let x = ComplianceData::new().set_f_child(ComplianceDataChild::default()/* use setters */);
     /// ```
     pub fn set_f_child<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ComplianceDataChild>,
+    where T: std::convert::Into<crate::model::ComplianceDataChild>
     {
         self.f_child = std::option::Option::Some(v.into());
         self
@@ -774,8 +763,7 @@ impl ComplianceData {
     /// let x = ComplianceData::new().set_or_clear_f_child(None::<ComplianceDataChild>);
     /// ```
     pub fn set_or_clear_f_child<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ComplianceDataChild>,
+    where T: std::convert::Into<crate::model::ComplianceDataChild>
     {
         self.f_child = v.map(|x| x.into());
         self
@@ -789,8 +777,7 @@ impl ComplianceData {
     /// let x = ComplianceData::new().set_p_string("example");
     /// ```
     pub fn set_p_string<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.p_string = std::option::Option::Some(v.into());
         self
@@ -805,8 +792,7 @@ impl ComplianceData {
     /// let x = ComplianceData::new().set_or_clear_p_string(None::<String>);
     /// ```
     pub fn set_or_clear_p_string<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.p_string = v.map(|x| x.into());
         self
@@ -820,8 +806,7 @@ impl ComplianceData {
     /// let x = ComplianceData::new().set_p_int32(42);
     /// ```
     pub fn set_p_int32<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i32>,
+    where T: std::convert::Into<i32>
     {
         self.p_int32 = std::option::Option::Some(v.into());
         self
@@ -836,8 +821,7 @@ impl ComplianceData {
     /// let x = ComplianceData::new().set_or_clear_p_int32(None::<i32>);
     /// ```
     pub fn set_or_clear_p_int32<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i32>,
+    where T: std::convert::Into<i32>
     {
         self.p_int32 = v.map(|x| x.into());
         self
@@ -851,8 +835,7 @@ impl ComplianceData {
     /// let x = ComplianceData::new().set_p_double(42.0);
     /// ```
     pub fn set_p_double<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<f64>,
+    where T: std::convert::Into<f64>
     {
         self.p_double = std::option::Option::Some(v.into());
         self
@@ -867,8 +850,7 @@ impl ComplianceData {
     /// let x = ComplianceData::new().set_or_clear_p_double(None::<f32>);
     /// ```
     pub fn set_or_clear_p_double<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<f64>,
+    where T: std::convert::Into<f64>
     {
         self.p_double = v.map(|x| x.into());
         self
@@ -882,8 +864,7 @@ impl ComplianceData {
     /// let x = ComplianceData::new().set_p_bool(true);
     /// ```
     pub fn set_p_bool<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.p_bool = std::option::Option::Some(v.into());
         self
@@ -898,8 +879,7 @@ impl ComplianceData {
     /// let x = ComplianceData::new().set_or_clear_p_bool(None::<bool>);
     /// ```
     pub fn set_or_clear_p_bool<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.p_bool = v.map(|x| x.into());
         self
@@ -916,8 +896,7 @@ impl ComplianceData {
     /// let x2 = ComplianceData::new().set_p_kingdom(LifeKingdom::Protista);
     /// ```
     pub fn set_p_kingdom<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::compliance_data::LifeKingdom>,
+    where T: std::convert::Into<crate::model::compliance_data::LifeKingdom>
     {
         self.p_kingdom = std::option::Option::Some(v.into());
         self
@@ -935,8 +914,7 @@ impl ComplianceData {
     /// let x_none = ComplianceData::new().set_or_clear_p_kingdom(None::<LifeKingdom>);
     /// ```
     pub fn set_or_clear_p_kingdom<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::compliance_data::LifeKingdom>,
+    where T: std::convert::Into<crate::model::compliance_data::LifeKingdom>
     {
         self.p_kingdom = v.map(|x| x.into());
         self
@@ -951,8 +929,7 @@ impl ComplianceData {
     /// let x = ComplianceData::new().set_p_child(ComplianceDataChild::default()/* use setters */);
     /// ```
     pub fn set_p_child<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ComplianceDataChild>,
+    where T: std::convert::Into<crate::model::ComplianceDataChild>
     {
         self.p_child = std::option::Option::Some(v.into());
         self
@@ -968,8 +945,7 @@ impl ComplianceData {
     /// let x = ComplianceData::new().set_or_clear_p_child(None::<ComplianceDataChild>);
     /// ```
     pub fn set_or_clear_p_child<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ComplianceDataChild>,
+    where T: std::convert::Into<crate::model::ComplianceDataChild>
     {
         self.p_child = v.map(|x| x.into());
         self
@@ -986,6 +962,7 @@ impl wkt::message::Message for ComplianceData {
 pub mod compliance_data {
     #[allow(unused_imports)]
     use super::*;
+
 
     ///
     /// # Working with unknown values
@@ -1085,9 +1062,7 @@ pub mod compliance_data {
                 4 => Self::Fungi,
                 5 => Self::Plantae,
                 6 => Self::Animalia,
-                _ => Self::UnknownValue(life_kingdom::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(life_kingdom::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1103,9 +1078,7 @@ pub mod compliance_data {
                 "FUNGI" => Self::Fungi,
                 "PLANTAE" => Self::Plantae,
                 "ANIMALIA" => Self::Animalia,
-                _ => Self::UnknownValue(life_kingdom::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(life_kingdom::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1134,8 +1107,7 @@ pub mod compliance_data {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<LifeKingdom>::new(
-                ".google.showcase.v1beta1.ComplianceData.LifeKingdom",
-            ))
+                ".google.showcase.v1beta1.ComplianceData.LifeKingdom"))
         }
     }
 }
@@ -1143,6 +1115,7 @@ pub mod compliance_data {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ComplianceDataChild {
+
     pub f_string: std::string::String,
 
     pub f_float: f32,
@@ -1247,8 +1220,7 @@ impl ComplianceDataChild {
     /// let x = ComplianceDataChild::new().set_f_child(ComplianceDataGrandchild::default()/* use setters */);
     /// ```
     pub fn set_f_child<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ComplianceDataGrandchild>,
+    where T: std::convert::Into<crate::model::ComplianceDataGrandchild>
     {
         self.f_child = std::option::Option::Some(v.into());
         self
@@ -1264,8 +1236,7 @@ impl ComplianceDataChild {
     /// let x = ComplianceDataChild::new().set_or_clear_f_child(None::<ComplianceDataGrandchild>);
     /// ```
     pub fn set_or_clear_f_child<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ComplianceDataGrandchild>,
+    where T: std::convert::Into<crate::model::ComplianceDataGrandchild>
     {
         self.f_child = v.map(|x| x.into());
         self
@@ -1279,8 +1250,7 @@ impl ComplianceDataChild {
     /// let x = ComplianceDataChild::new().set_p_string("example");
     /// ```
     pub fn set_p_string<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.p_string = std::option::Option::Some(v.into());
         self
@@ -1295,8 +1265,7 @@ impl ComplianceDataChild {
     /// let x = ComplianceDataChild::new().set_or_clear_p_string(None::<String>);
     /// ```
     pub fn set_or_clear_p_string<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.p_string = v.map(|x| x.into());
         self
@@ -1310,8 +1279,7 @@ impl ComplianceDataChild {
     /// let x = ComplianceDataChild::new().set_p_float(42.0);
     /// ```
     pub fn set_p_float<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<f32>,
+    where T: std::convert::Into<f32>
     {
         self.p_float = std::option::Option::Some(v.into());
         self
@@ -1326,8 +1294,7 @@ impl ComplianceDataChild {
     /// let x = ComplianceDataChild::new().set_or_clear_p_float(None::<f32>);
     /// ```
     pub fn set_or_clear_p_float<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<f32>,
+    where T: std::convert::Into<f32>
     {
         self.p_float = v.map(|x| x.into());
         self
@@ -1341,8 +1308,7 @@ impl ComplianceDataChild {
     /// let x = ComplianceDataChild::new().set_p_double(42.0);
     /// ```
     pub fn set_p_double<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<f64>,
+    where T: std::convert::Into<f64>
     {
         self.p_double = std::option::Option::Some(v.into());
         self
@@ -1357,8 +1323,7 @@ impl ComplianceDataChild {
     /// let x = ComplianceDataChild::new().set_or_clear_p_double(None::<f32>);
     /// ```
     pub fn set_or_clear_p_double<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<f64>,
+    where T: std::convert::Into<f64>
     {
         self.p_double = v.map(|x| x.into());
         self
@@ -1372,8 +1337,7 @@ impl ComplianceDataChild {
     /// let x = ComplianceDataChild::new().set_p_bool(true);
     /// ```
     pub fn set_p_bool<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.p_bool = std::option::Option::Some(v.into());
         self
@@ -1388,8 +1352,7 @@ impl ComplianceDataChild {
     /// let x = ComplianceDataChild::new().set_or_clear_p_bool(None::<bool>);
     /// ```
     pub fn set_or_clear_p_bool<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.p_bool = v.map(|x| x.into());
         self
@@ -1419,8 +1382,7 @@ impl ComplianceDataChild {
     /// let x = ComplianceDataChild::new().set_p_child(ComplianceDataGrandchild::default()/* use setters */);
     /// ```
     pub fn set_p_child<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ComplianceDataGrandchild>,
+    where T: std::convert::Into<crate::model::ComplianceDataGrandchild>
     {
         self.p_child = std::option::Option::Some(v.into());
         self
@@ -1436,8 +1398,7 @@ impl ComplianceDataChild {
     /// let x = ComplianceDataChild::new().set_or_clear_p_child(None::<ComplianceDataGrandchild>);
     /// ```
     pub fn set_or_clear_p_child<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ComplianceDataGrandchild>,
+    where T: std::convert::Into<crate::model::ComplianceDataGrandchild>
     {
         self.p_child = v.map(|x| x.into());
         self
@@ -1453,6 +1414,7 @@ impl wkt::message::Message for ComplianceDataChild {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ComplianceDataGrandchild {
+
     pub f_string: std::string::String,
 
     pub f_double: f64,
@@ -1513,6 +1475,7 @@ impl wkt::message::Message for ComplianceDataGrandchild {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnumRequest {
+
     /// Whether the client is requesting a new, unknown enum value or a known enum value already declared in this proto file.
     pub unknown_enum: bool,
 
@@ -1546,6 +1509,7 @@ impl wkt::message::Message for EnumRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnumResponse {
+
     /// The original request for a known or unknown enum from the server.
     pub request: std::option::Option<crate::model::EnumRequest>,
 
@@ -1569,8 +1533,7 @@ impl EnumResponse {
     /// let x = EnumResponse::new().set_request(EnumRequest::default()/* use setters */);
     /// ```
     pub fn set_request<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::EnumRequest>,
+    where T: std::convert::Into<crate::model::EnumRequest>
     {
         self.request = std::option::Option::Some(v.into());
         self
@@ -1586,8 +1549,7 @@ impl EnumResponse {
     /// let x = EnumResponse::new().set_or_clear_request(None::<EnumRequest>);
     /// ```
     pub fn set_or_clear_request<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::EnumRequest>,
+    where T: std::convert::Into<crate::model::EnumRequest>
     {
         self.request = v.map(|x| x.into());
         self
@@ -1622,6 +1584,7 @@ impl wkt::message::Message for EnumResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EchoRequest {
+
     /// The severity to be echoed by the server.
     pub severity: crate::model::Severity,
 
@@ -1706,8 +1669,7 @@ impl EchoRequest {
     /// let x = EchoRequest::new().set_other_request_id("example");
     /// ```
     pub fn set_other_request_id<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.other_request_id = std::option::Option::Some(v.into());
         self
@@ -1722,8 +1684,7 @@ impl EchoRequest {
     /// let x = EchoRequest::new().set_or_clear_other_request_id(None::<String>);
     /// ```
     pub fn set_or_clear_other_request_id<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.other_request_id = v.map(|x| x.into());
         self
@@ -1740,12 +1701,8 @@ impl EchoRequest {
     /// use google_cloud_showcase_v1beta1::model::echo_request::Response;
     /// let x = EchoRequest::new().set_response(Some(Response::Content("example".to_string())));
     /// ```
-    pub fn set_response<
-        T: std::convert::Into<std::option::Option<crate::model::echo_request::Response>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_response<T: std::convert::Into<std::option::Option<crate::model::echo_request::Response>>>(mut self, v: T) -> Self
+    {
         self.response = v.into();
         self
     }
@@ -1775,8 +1732,11 @@ impl EchoRequest {
     /// assert!(x.error().is_none());
     /// ```
     pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.response =
-            std::option::Option::Some(crate::model::echo_request::Response::Content(v.into()));
+        self.response = std::option::Option::Some(
+            crate::model::echo_request::Response::Content(
+                v.into()
+            )
+        );
         self
     }
 
@@ -1805,12 +1765,12 @@ impl EchoRequest {
     /// assert!(x.error().is_some());
     /// assert!(x.content().is_none());
     /// ```
-    pub fn set_error<T: std::convert::Into<std::boxed::Box<rpc::model::Status>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.response =
-            std::option::Option::Some(crate::model::echo_request::Response::Error(v.into()));
+    pub fn set_error<T: std::convert::Into<std::boxed::Box<rpc::model::Status>>>(mut self, v: T) -> Self {
+        self.response = std::option::Option::Some(
+            crate::model::echo_request::Response::Error(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -1826,6 +1786,7 @@ pub mod echo_request {
     #[allow(unused_imports)]
     use super::*;
 
+
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Response {
@@ -1840,6 +1801,7 @@ pub mod echo_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EchoResponse {
+
     /// The content specified in the request.
     pub content: std::string::String,
 
@@ -1906,10 +1868,7 @@ impl EchoResponse {
     /// # use google_cloud_showcase_v1beta1::model::EchoResponse;
     /// let x = EchoResponse::new().set_other_request_id("example");
     /// ```
-    pub fn set_other_request_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_other_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.other_request_id = v.into();
         self
     }
@@ -1925,6 +1884,7 @@ impl wkt::message::Message for EchoResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EchoErrorDetailsRequest {
+
     /// Content to return in a singular `*.error.details` field of type
     /// `google.protobuf.Any`
     pub single_detail_text: std::string::String,
@@ -1948,10 +1908,7 @@ impl EchoErrorDetailsRequest {
     /// # use google_cloud_showcase_v1beta1::model::EchoErrorDetailsRequest;
     /// let x = EchoErrorDetailsRequest::new().set_single_detail_text("example");
     /// ```
-    pub fn set_single_detail_text<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_single_detail_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.single_detail_text = v.into();
         self
     }
@@ -1966,7 +1923,7 @@ impl EchoErrorDetailsRequest {
     pub fn set_multi_detail_text<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.multi_detail_text = v.into_iter().map(|i| i.into()).collect();
@@ -1984,10 +1941,10 @@ impl wkt::message::Message for EchoErrorDetailsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EchoErrorDetailsResponse {
+
     pub single_detail: std::option::Option<crate::model::echo_error_details_response::SingleDetail>,
 
-    pub multiple_details:
-        std::option::Option<crate::model::echo_error_details_response::MultipleDetails>,
+    pub multiple_details: std::option::Option<crate::model::echo_error_details_response::MultipleDetails>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2006,8 +1963,7 @@ impl EchoErrorDetailsResponse {
     /// let x = EchoErrorDetailsResponse::new().set_single_detail(SingleDetail::default()/* use setters */);
     /// ```
     pub fn set_single_detail<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::echo_error_details_response::SingleDetail>,
+    where T: std::convert::Into<crate::model::echo_error_details_response::SingleDetail>
     {
         self.single_detail = std::option::Option::Some(v.into());
         self
@@ -2023,8 +1979,7 @@ impl EchoErrorDetailsResponse {
     /// let x = EchoErrorDetailsResponse::new().set_or_clear_single_detail(None::<SingleDetail>);
     /// ```
     pub fn set_or_clear_single_detail<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::echo_error_details_response::SingleDetail>,
+    where T: std::convert::Into<crate::model::echo_error_details_response::SingleDetail>
     {
         self.single_detail = v.map(|x| x.into());
         self
@@ -2039,8 +1994,7 @@ impl EchoErrorDetailsResponse {
     /// let x = EchoErrorDetailsResponse::new().set_multiple_details(MultipleDetails::default()/* use setters */);
     /// ```
     pub fn set_multiple_details<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::echo_error_details_response::MultipleDetails>,
+    where T: std::convert::Into<crate::model::echo_error_details_response::MultipleDetails>
     {
         self.multiple_details = std::option::Option::Some(v.into());
         self
@@ -2056,8 +2010,7 @@ impl EchoErrorDetailsResponse {
     /// let x = EchoErrorDetailsResponse::new().set_or_clear_multiple_details(None::<MultipleDetails>);
     /// ```
     pub fn set_or_clear_multiple_details<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::echo_error_details_response::MultipleDetails>,
+    where T: std::convert::Into<crate::model::echo_error_details_response::MultipleDetails>
     {
         self.multiple_details = v.map(|x| x.into());
         self
@@ -2075,9 +2028,11 @@ pub mod echo_error_details_response {
     #[allow(unused_imports)]
     use super::*;
 
+
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SingleDetail {
+
         pub error: std::option::Option<crate::model::ErrorWithSingleDetail>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2097,8 +2052,7 @@ pub mod echo_error_details_response {
         /// let x = SingleDetail::new().set_error(ErrorWithSingleDetail::default()/* use setters */);
         /// ```
         pub fn set_error<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::ErrorWithSingleDetail>,
+        where T: std::convert::Into<crate::model::ErrorWithSingleDetail>
         {
             self.error = std::option::Option::Some(v.into());
             self
@@ -2114,8 +2068,7 @@ pub mod echo_error_details_response {
         /// let x = SingleDetail::new().set_or_clear_error(None::<ErrorWithSingleDetail>);
         /// ```
         pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::ErrorWithSingleDetail>,
+        where T: std::convert::Into<crate::model::ErrorWithSingleDetail>
         {
             self.error = v.map(|x| x.into());
             self
@@ -2131,6 +2084,7 @@ pub mod echo_error_details_response {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct MultipleDetails {
+
         pub error: std::option::Option<crate::model::ErrorWithMultipleDetails>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2150,8 +2104,7 @@ pub mod echo_error_details_response {
         /// let x = MultipleDetails::new().set_error(ErrorWithMultipleDetails::default()/* use setters */);
         /// ```
         pub fn set_error<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::ErrorWithMultipleDetails>,
+        where T: std::convert::Into<crate::model::ErrorWithMultipleDetails>
         {
             self.error = std::option::Option::Some(v.into());
             self
@@ -2167,8 +2120,7 @@ pub mod echo_error_details_response {
         /// let x = MultipleDetails::new().set_or_clear_error(None::<ErrorWithMultipleDetails>);
         /// ```
         pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::ErrorWithMultipleDetails>,
+        where T: std::convert::Into<crate::model::ErrorWithMultipleDetails>
         {
             self.error = v.map(|x| x.into());
             self
@@ -2185,6 +2137,7 @@ pub mod echo_error_details_response {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ErrorWithSingleDetail {
+
     pub details: std::option::Option<wkt::Any>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2204,8 +2157,7 @@ impl ErrorWithSingleDetail {
     /// let x = ErrorWithSingleDetail::new().set_details(Any::default()/* use setters */);
     /// ```
     pub fn set_details<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Any>,
+    where T: std::convert::Into<wkt::Any>
     {
         self.details = std::option::Option::Some(v.into());
         self
@@ -2221,8 +2173,7 @@ impl ErrorWithSingleDetail {
     /// let x = ErrorWithSingleDetail::new().set_or_clear_details(None::<Any>);
     /// ```
     pub fn set_or_clear_details<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Any>,
+    where T: std::convert::Into<wkt::Any>
     {
         self.details = v.map(|x| x.into());
         self
@@ -2238,6 +2189,7 @@ impl wkt::message::Message for ErrorWithSingleDetail {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ErrorWithMultipleDetails {
+
     pub details: std::vec::Vec<wkt::Any>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2263,7 +2215,7 @@ impl ErrorWithMultipleDetails {
     pub fn set_details<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<wkt::Any>,
+        V: std::convert::Into<wkt::Any>
     {
         use std::iter::Iterator;
         self.details = v.into_iter().map(|i| i.into()).collect();
@@ -2283,6 +2235,7 @@ impl wkt::message::Message for ErrorWithMultipleDetails {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PoetryError {
+
     pub poem: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2316,6 +2269,7 @@ impl wkt::message::Message for PoetryError {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FailEchoWithDetailsRequest {
+
     /// Optional message to echo back in the PoetryError. If empty, a value will be
     /// provided.
     pub message: std::string::String,
@@ -2352,6 +2306,7 @@ impl wkt::message::Message for FailEchoWithDetailsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FailEchoWithDetailsResponse {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2371,6 +2326,7 @@ impl wkt::message::Message for FailEchoWithDetailsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExpandRequest {
+
     /// The content that will be split into words and returned on the stream.
     pub content: std::string::String,
 
@@ -2409,8 +2365,7 @@ impl ExpandRequest {
     /// let x = ExpandRequest::new().set_error(Status::default()/* use setters */);
     /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<rpc::model::Status>,
+    where T: std::convert::Into<rpc::model::Status>
     {
         self.error = std::option::Option::Some(v.into());
         self
@@ -2426,8 +2381,7 @@ impl ExpandRequest {
     /// let x = ExpandRequest::new().set_or_clear_error(None::<Status>);
     /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<rpc::model::Status>,
+    where T: std::convert::Into<rpc::model::Status>
     {
         self.error = v.map(|x| x.into());
         self
@@ -2442,8 +2396,7 @@ impl ExpandRequest {
     /// let x = ExpandRequest::new().set_stream_wait_time(Duration::default()/* use setters */);
     /// ```
     pub fn set_stream_wait_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.stream_wait_time = std::option::Option::Some(v.into());
         self
@@ -2459,8 +2412,7 @@ impl ExpandRequest {
     /// let x = ExpandRequest::new().set_or_clear_stream_wait_time(None::<Duration>);
     /// ```
     pub fn set_or_clear_stream_wait_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.stream_wait_time = v.map(|x| x.into());
         self
@@ -2477,6 +2429,7 @@ impl wkt::message::Message for ExpandRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PagedExpandRequest {
+
     /// The string to expand.
     pub content: std::string::String,
 
@@ -2543,6 +2496,7 @@ impl wkt::message::Message for PagedExpandRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PagedExpandLegacyRequest {
+
     /// The string to expand.
     pub content: std::string::String,
 
@@ -2609,6 +2563,7 @@ impl wkt::message::Message for PagedExpandLegacyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PagedExpandResponse {
+
     /// The words that were expanded.
     pub responses: std::vec::Vec<crate::model::EchoResponse>,
 
@@ -2638,7 +2593,7 @@ impl PagedExpandResponse {
     pub fn set_responses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::EchoResponse>,
+        V: std::convert::Into<crate::model::EchoResponse>
     {
         use std::iter::Iterator;
         self.responses = v.into_iter().map(|i| i.into()).collect();
@@ -2682,6 +2637,7 @@ impl gax::paginator::internal::PageableResponse for PagedExpandResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PagedExpandResponseList {
+
     pub words: std::vec::Vec<std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2702,7 +2658,7 @@ impl PagedExpandResponseList {
     pub fn set_words<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.words = v.into_iter().map(|i| i.into()).collect();
@@ -2719,11 +2675,11 @@ impl wkt::message::Message for PagedExpandResponseList {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PagedExpandLegacyMappedResponse {
+
     /// The words that were expanded, indexed by their initial character.
     /// (-- aip.dev/not-precedent: This is a legacy, non-standard pattern that violates
     /// aip.dev/158. Ordinarily, this should be a `repeated` field, as in PagedExpandResponse. --)
-    pub alphabetized:
-        std::collections::HashMap<std::string::String, crate::model::PagedExpandResponseList>,
+    pub alphabetized: std::collections::HashMap<std::string::String,crate::model::PagedExpandResponseList>,
 
     /// The next page token.
     pub next_page_token: std::string::String,
@@ -2796,6 +2752,7 @@ impl gax::paginator::internal::PageableResponse for PagedExpandLegacyMappedRespo
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WaitRequest {
+
     pub end: std::option::Option<crate::model::wait_request::End>,
 
     pub response: std::option::Option<crate::model::wait_request::Response>,
@@ -2820,10 +2777,8 @@ impl WaitRequest {
     /// let x = WaitRequest::new().set_end(Some(
     ///     google_cloud_showcase_v1beta1::model::wait_request::End::EndTime(Timestamp::default().into())));
     /// ```
-    pub fn set_end<T: std::convert::Into<std::option::Option<crate::model::wait_request::End>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_end<T: std::convert::Into<std::option::Option<crate::model::wait_request::End>>>(mut self, v: T) -> Self
+    {
         self.end = v.into();
         self
     }
@@ -2853,11 +2808,12 @@ impl WaitRequest {
     /// assert!(x.end_time().is_some());
     /// assert!(x.ttl().is_none());
     /// ```
-    pub fn set_end_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.end = std::option::Option::Some(crate::model::wait_request::End::EndTime(v.into()));
+    pub fn set_end_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(mut self, v: T) -> Self {
+        self.end = std::option::Option::Some(
+            crate::model::wait_request::End::EndTime(
+                v.into()
+            )
+        );
         self
     }
 
@@ -2887,7 +2843,11 @@ impl WaitRequest {
     /// assert!(x.end_time().is_none());
     /// ```
     pub fn set_ttl<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(mut self, v: T) -> Self {
-        self.end = std::option::Option::Some(crate::model::wait_request::End::Ttl(v.into()));
+        self.end = std::option::Option::Some(
+            crate::model::wait_request::End::Ttl(
+                v.into()
+            )
+        );
         self
     }
 
@@ -2903,12 +2863,8 @@ impl WaitRequest {
     /// let x = WaitRequest::new().set_response(Some(
     ///     google_cloud_showcase_v1beta1::model::wait_request::Response::Error(Status::default().into())));
     /// ```
-    pub fn set_response<
-        T: std::convert::Into<std::option::Option<crate::model::wait_request::Response>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_response<T: std::convert::Into<std::option::Option<crate::model::wait_request::Response>>>(mut self, v: T) -> Self
+    {
         self.response = v.into();
         self
     }
@@ -2938,12 +2894,12 @@ impl WaitRequest {
     /// assert!(x.error().is_some());
     /// assert!(x.success().is_none());
     /// ```
-    pub fn set_error<T: std::convert::Into<std::boxed::Box<rpc::model::Status>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.response =
-            std::option::Option::Some(crate::model::wait_request::Response::Error(v.into()));
+    pub fn set_error<T: std::convert::Into<std::boxed::Box<rpc::model::Status>>>(mut self, v: T) -> Self {
+        self.response = std::option::Option::Some(
+            crate::model::wait_request::Response::Error(
+                v.into()
+            )
+        );
         self
     }
 
@@ -2972,12 +2928,12 @@ impl WaitRequest {
     /// assert!(x.success().is_some());
     /// assert!(x.error().is_none());
     /// ```
-    pub fn set_success<T: std::convert::Into<std::boxed::Box<crate::model::WaitResponse>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.response =
-            std::option::Option::Some(crate::model::wait_request::Response::Success(v.into()));
+    pub fn set_success<T: std::convert::Into<std::boxed::Box<crate::model::WaitResponse>>>(mut self, v: T) -> Self {
+        self.response = std::option::Option::Some(
+            crate::model::wait_request::Response::Success(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -2992,6 +2948,7 @@ impl wkt::message::Message for WaitRequest {
 pub mod wait_request {
     #[allow(unused_imports)]
     use super::*;
+
 
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -3017,6 +2974,7 @@ pub mod wait_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WaitResponse {
+
     /// This content of the result.
     pub content: std::string::String,
 
@@ -3051,6 +3009,7 @@ impl wkt::message::Message for WaitResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WaitMetadata {
+
     /// The time that this operation will complete.
     pub end_time: std::option::Option<wkt::Timestamp>,
 
@@ -3071,8 +3030,7 @@ impl WaitMetadata {
     /// let x = WaitMetadata::new().set_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -3088,8 +3046,7 @@ impl WaitMetadata {
     /// let x = WaitMetadata::new().set_or_clear_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -3106,6 +3063,7 @@ impl wkt::message::Message for WaitMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BlockRequest {
+
     /// The amount of time to block before returning a response.
     pub response_delay: std::option::Option<wkt::Duration>,
 
@@ -3128,8 +3086,7 @@ impl BlockRequest {
     /// let x = BlockRequest::new().set_response_delay(Duration::default()/* use setters */);
     /// ```
     pub fn set_response_delay<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.response_delay = std::option::Option::Some(v.into());
         self
@@ -3145,8 +3102,7 @@ impl BlockRequest {
     /// let x = BlockRequest::new().set_or_clear_response_delay(None::<Duration>);
     /// ```
     pub fn set_or_clear_response_delay<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.response_delay = v.map(|x| x.into());
         self
@@ -3164,12 +3120,8 @@ impl BlockRequest {
     /// let x = BlockRequest::new().set_response(Some(
     ///     google_cloud_showcase_v1beta1::model::block_request::Response::Error(Status::default().into())));
     /// ```
-    pub fn set_response<
-        T: std::convert::Into<std::option::Option<crate::model::block_request::Response>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_response<T: std::convert::Into<std::option::Option<crate::model::block_request::Response>>>(mut self, v: T) -> Self
+    {
         self.response = v.into();
         self
     }
@@ -3199,12 +3151,12 @@ impl BlockRequest {
     /// assert!(x.error().is_some());
     /// assert!(x.success().is_none());
     /// ```
-    pub fn set_error<T: std::convert::Into<std::boxed::Box<rpc::model::Status>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.response =
-            std::option::Option::Some(crate::model::block_request::Response::Error(v.into()));
+    pub fn set_error<T: std::convert::Into<std::boxed::Box<rpc::model::Status>>>(mut self, v: T) -> Self {
+        self.response = std::option::Option::Some(
+            crate::model::block_request::Response::Error(
+                v.into()
+            )
+        );
         self
     }
 
@@ -3233,12 +3185,12 @@ impl BlockRequest {
     /// assert!(x.success().is_some());
     /// assert!(x.error().is_none());
     /// ```
-    pub fn set_success<T: std::convert::Into<std::boxed::Box<crate::model::BlockResponse>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.response =
-            std::option::Option::Some(crate::model::block_request::Response::Success(v.into()));
+    pub fn set_success<T: std::convert::Into<std::boxed::Box<crate::model::BlockResponse>>>(mut self, v: T) -> Self {
+        self.response = std::option::Option::Some(
+            crate::model::block_request::Response::Success(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -3253,6 +3205,7 @@ impl wkt::message::Message for BlockRequest {
 pub mod block_request {
     #[allow(unused_imports)]
     use super::*;
+
 
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -3269,6 +3222,7 @@ pub mod block_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BlockResponse {
+
     /// This content can contain anything, the server will not depend on a value
     /// here.
     pub content: std::string::String,
@@ -3304,6 +3258,7 @@ impl wkt::message::Message for BlockResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct User {
+
     /// The resource name of the user.
     pub name: std::string::String,
 
@@ -3390,8 +3345,7 @@ impl User {
     /// let x = User::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -3407,8 +3361,7 @@ impl User {
     /// let x = User::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -3423,8 +3376,7 @@ impl User {
     /// let x = User::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -3440,8 +3392,7 @@ impl User {
     /// let x = User::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -3455,8 +3406,7 @@ impl User {
     /// let x = User::new().set_age(42);
     /// ```
     pub fn set_age<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i32>,
+    where T: std::convert::Into<i32>
     {
         self.age = std::option::Option::Some(v.into());
         self
@@ -3471,8 +3421,7 @@ impl User {
     /// let x = User::new().set_or_clear_age(None::<i32>);
     /// ```
     pub fn set_or_clear_age<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i32>,
+    where T: std::convert::Into<i32>
     {
         self.age = v.map(|x| x.into());
         self
@@ -3486,8 +3435,7 @@ impl User {
     /// let x = User::new().set_height_feet(42.0);
     /// ```
     pub fn set_height_feet<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<f64>,
+    where T: std::convert::Into<f64>
     {
         self.height_feet = std::option::Option::Some(v.into());
         self
@@ -3502,8 +3450,7 @@ impl User {
     /// let x = User::new().set_or_clear_height_feet(None::<f32>);
     /// ```
     pub fn set_or_clear_height_feet<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<f64>,
+    where T: std::convert::Into<f64>
     {
         self.height_feet = v.map(|x| x.into());
         self
@@ -3517,8 +3464,7 @@ impl User {
     /// let x = User::new().set_nickname("example");
     /// ```
     pub fn set_nickname<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.nickname = std::option::Option::Some(v.into());
         self
@@ -3533,8 +3479,7 @@ impl User {
     /// let x = User::new().set_or_clear_nickname(None::<String>);
     /// ```
     pub fn set_or_clear_nickname<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.nickname = v.map(|x| x.into());
         self
@@ -3548,8 +3493,7 @@ impl User {
     /// let x = User::new().set_enable_notifications(true);
     /// ```
     pub fn set_enable_notifications<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.enable_notifications = std::option::Option::Some(v.into());
         self
@@ -3564,8 +3508,7 @@ impl User {
     /// let x = User::new().set_or_clear_enable_notifications(None::<bool>);
     /// ```
     pub fn set_or_clear_enable_notifications<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.enable_notifications = v.map(|x| x.into());
         self
@@ -3583,6 +3526,7 @@ impl wkt::message::Message for User {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateUserRequest {
+
     /// The user to create.
     pub user: std::option::Option<crate::model::User>,
 
@@ -3603,8 +3547,7 @@ impl CreateUserRequest {
     /// let x = CreateUserRequest::new().set_user(User::default()/* use setters */);
     /// ```
     pub fn set_user<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::User>,
+    where T: std::convert::Into<crate::model::User>
     {
         self.user = std::option::Option::Some(v.into());
         self
@@ -3620,8 +3563,7 @@ impl CreateUserRequest {
     /// let x = CreateUserRequest::new().set_or_clear_user(None::<User>);
     /// ```
     pub fn set_or_clear_user<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::User>,
+    where T: std::convert::Into<crate::model::User>
     {
         self.user = v.map(|x| x.into());
         self
@@ -3639,6 +3581,7 @@ impl wkt::message::Message for CreateUserRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetUserRequest {
+
     /// The resource name of the requested user.
     pub name: std::string::String,
 
@@ -3674,6 +3617,7 @@ impl wkt::message::Message for GetUserRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateUserRequest {
+
     /// The user to update.
     pub user: std::option::Option<crate::model::User>,
 
@@ -3698,8 +3642,7 @@ impl UpdateUserRequest {
     /// let x = UpdateUserRequest::new().set_user(User::default()/* use setters */);
     /// ```
     pub fn set_user<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::User>,
+    where T: std::convert::Into<crate::model::User>
     {
         self.user = std::option::Option::Some(v.into());
         self
@@ -3715,8 +3658,7 @@ impl UpdateUserRequest {
     /// let x = UpdateUserRequest::new().set_or_clear_user(None::<User>);
     /// ```
     pub fn set_or_clear_user<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::User>,
+    where T: std::convert::Into<crate::model::User>
     {
         self.user = v.map(|x| x.into());
         self
@@ -3731,8 +3673,7 @@ impl UpdateUserRequest {
     /// let x = UpdateUserRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -3748,8 +3689,7 @@ impl UpdateUserRequest {
     /// let x = UpdateUserRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -3767,6 +3707,7 @@ impl wkt::message::Message for UpdateUserRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteUserRequest {
+
     /// The resource name of the user to delete.
     pub name: std::string::String,
 
@@ -3802,6 +3743,7 @@ impl wkt::message::Message for DeleteUserRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListUsersRequest {
+
     /// The maximum number of users to return. Server may return fewer users
     /// than requested. If unspecified, server will pick an appropriate default.
     pub page_size: i32,
@@ -3855,6 +3797,7 @@ impl wkt::message::Message for ListUsersRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListUsersResponse {
+
     /// The list of users.
     pub users: std::vec::Vec<crate::model::User>,
 
@@ -3887,7 +3830,7 @@ impl ListUsersResponse {
     pub fn set_users<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::User>,
+        V: std::convert::Into<crate::model::User>
     {
         use std::iter::Iterator;
         self.users = v.into_iter().map(|i| i.into()).collect();
@@ -3931,6 +3874,7 @@ impl gax::paginator::internal::PageableResponse for ListUsersResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Room {
+
     /// The resource name of the chat room.
     pub name: std::string::String,
 
@@ -3999,8 +3943,7 @@ impl Room {
     /// let x = Room::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -4016,8 +3959,7 @@ impl Room {
     /// let x = Room::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -4032,8 +3974,7 @@ impl Room {
     /// let x = Room::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -4049,8 +3990,7 @@ impl Room {
     /// let x = Room::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -4068,6 +4008,7 @@ impl wkt::message::Message for Room {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateRoomRequest {
+
     /// The room to create.
     pub room: std::option::Option<crate::model::Room>,
 
@@ -4088,8 +4029,7 @@ impl CreateRoomRequest {
     /// let x = CreateRoomRequest::new().set_room(Room::default()/* use setters */);
     /// ```
     pub fn set_room<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Room>,
+    where T: std::convert::Into<crate::model::Room>
     {
         self.room = std::option::Option::Some(v.into());
         self
@@ -4105,8 +4045,7 @@ impl CreateRoomRequest {
     /// let x = CreateRoomRequest::new().set_or_clear_room(None::<Room>);
     /// ```
     pub fn set_or_clear_room<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Room>,
+    where T: std::convert::Into<crate::model::Room>
     {
         self.room = v.map(|x| x.into());
         self
@@ -4124,6 +4063,7 @@ impl wkt::message::Message for CreateRoomRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetRoomRequest {
+
     /// The resource name of the requested room.
     pub name: std::string::String,
 
@@ -4159,6 +4099,7 @@ impl wkt::message::Message for GetRoomRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateRoomRequest {
+
     /// The room to update.
     pub room: std::option::Option<crate::model::Room>,
 
@@ -4183,8 +4124,7 @@ impl UpdateRoomRequest {
     /// let x = UpdateRoomRequest::new().set_room(Room::default()/* use setters */);
     /// ```
     pub fn set_room<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Room>,
+    where T: std::convert::Into<crate::model::Room>
     {
         self.room = std::option::Option::Some(v.into());
         self
@@ -4200,8 +4140,7 @@ impl UpdateRoomRequest {
     /// let x = UpdateRoomRequest::new().set_or_clear_room(None::<Room>);
     /// ```
     pub fn set_or_clear_room<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Room>,
+    where T: std::convert::Into<crate::model::Room>
     {
         self.room = v.map(|x| x.into());
         self
@@ -4216,8 +4155,7 @@ impl UpdateRoomRequest {
     /// let x = UpdateRoomRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -4233,8 +4171,7 @@ impl UpdateRoomRequest {
     /// let x = UpdateRoomRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -4252,6 +4189,7 @@ impl wkt::message::Message for UpdateRoomRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteRoomRequest {
+
     /// The resource name of the requested room.
     pub name: std::string::String,
 
@@ -4287,6 +4225,7 @@ impl wkt::message::Message for DeleteRoomRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRoomsRequest {
+
     /// The maximum number of rooms return. Server may return fewer rooms
     /// than requested. If unspecified, server will pick an appropriate default.
     pub page_size: i32,
@@ -4340,6 +4279,7 @@ impl wkt::message::Message for ListRoomsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRoomsResponse {
+
     /// The list of rooms.
     pub rooms: std::vec::Vec<crate::model::Room>,
 
@@ -4372,7 +4312,7 @@ impl ListRoomsResponse {
     pub fn set_rooms<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Room>,
+        V: std::convert::Into<crate::model::Room>
     {
         use std::iter::Iterator;
         self.rooms = v.into_iter().map(|i| i.into()).collect();
@@ -4417,6 +4357,7 @@ impl gax::paginator::internal::PageableResponse for ListRoomsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Blurb {
+
     /// The resource name of the chat room.
     pub name: std::string::String,
 
@@ -4477,8 +4418,7 @@ impl Blurb {
     /// let x = Blurb::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -4494,8 +4434,7 @@ impl Blurb {
     /// let x = Blurb::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -4510,8 +4449,7 @@ impl Blurb {
     /// let x = Blurb::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -4527,8 +4465,7 @@ impl Blurb {
     /// let x = Blurb::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -4545,10 +4482,8 @@ impl Blurb {
     /// use google_cloud_showcase_v1beta1::model::blurb::Content;
     /// let x = Blurb::new().set_content(Some(Content::Text("example".to_string())));
     /// ```
-    pub fn set_content<T: std::convert::Into<std::option::Option<crate::model::blurb::Content>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_content<T: std::convert::Into<std::option::Option<crate::model::blurb::Content>>>(mut self, v: T) -> Self
+    {
         self.content = v.into();
         self
     }
@@ -4578,7 +4513,11 @@ impl Blurb {
     /// assert!(x.image().is_none());
     /// ```
     pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.content = std::option::Option::Some(crate::model::blurb::Content::Text(v.into()));
+        self.content = std::option::Option::Some(
+            crate::model::blurb::Content::Text(
+                v.into()
+            )
+        );
         self
     }
 
@@ -4607,7 +4546,11 @@ impl Blurb {
     /// assert!(x.text().is_none());
     /// ```
     pub fn set_image<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.content = std::option::Option::Some(crate::model::blurb::Content::Image(v.into()));
+        self.content = std::option::Option::Some(
+            crate::model::blurb::Content::Image(
+                v.into()
+            )
+        );
         self
     }
 
@@ -4622,12 +4565,8 @@ impl Blurb {
     /// use google_cloud_showcase_v1beta1::model::blurb::LegacyId;
     /// let x = Blurb::new().set_legacy_id(Some(LegacyId::LegacyRoomId("example".to_string())));
     /// ```
-    pub fn set_legacy_id<
-        T: std::convert::Into<std::option::Option<crate::model::blurb::LegacyId>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_legacy_id<T: std::convert::Into<std::option::Option<crate::model::blurb::LegacyId>>>(mut self, v: T) -> Self
+    {
         self.legacy_id = v.into();
         self
     }
@@ -4657,8 +4596,11 @@ impl Blurb {
     /// assert!(x.legacy_user_id().is_none());
     /// ```
     pub fn set_legacy_room_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.legacy_id =
-            std::option::Option::Some(crate::model::blurb::LegacyId::LegacyRoomId(v.into()));
+        self.legacy_id = std::option::Option::Some(
+            crate::model::blurb::LegacyId::LegacyRoomId(
+                v.into()
+            )
+        );
         self
     }
 
@@ -4687,8 +4629,11 @@ impl Blurb {
     /// assert!(x.legacy_room_id().is_none());
     /// ```
     pub fn set_legacy_user_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.legacy_id =
-            std::option::Option::Some(crate::model::blurb::LegacyId::LegacyUserId(v.into()));
+        self.legacy_id = std::option::Option::Some(
+            crate::model::blurb::LegacyId::LegacyUserId(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -4703,6 +4648,7 @@ impl wkt::message::Message for Blurb {
 pub mod blurb {
     #[allow(unused_imports)]
     use super::*;
+
 
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -4735,6 +4681,7 @@ pub mod blurb {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateBlurbRequest {
+
     /// The resource name of the chat room or user profile that this blurb will
     /// be tied to.
     pub parent: std::string::String,
@@ -4771,8 +4718,7 @@ impl CreateBlurbRequest {
     /// let x = CreateBlurbRequest::new().set_blurb(Blurb::default()/* use setters */);
     /// ```
     pub fn set_blurb<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Blurb>,
+    where T: std::convert::Into<crate::model::Blurb>
     {
         self.blurb = std::option::Option::Some(v.into());
         self
@@ -4788,8 +4734,7 @@ impl CreateBlurbRequest {
     /// let x = CreateBlurbRequest::new().set_or_clear_blurb(None::<Blurb>);
     /// ```
     pub fn set_or_clear_blurb<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Blurb>,
+    where T: std::convert::Into<crate::model::Blurb>
     {
         self.blurb = v.map(|x| x.into());
         self
@@ -4807,6 +4752,7 @@ impl wkt::message::Message for CreateBlurbRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetBlurbRequest {
+
     /// The resource name of the requested blurb.
     pub name: std::string::String,
 
@@ -4842,6 +4788,7 @@ impl wkt::message::Message for GetBlurbRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateBlurbRequest {
+
     /// The blurb to update.
     pub blurb: std::option::Option<crate::model::Blurb>,
 
@@ -4866,8 +4813,7 @@ impl UpdateBlurbRequest {
     /// let x = UpdateBlurbRequest::new().set_blurb(Blurb::default()/* use setters */);
     /// ```
     pub fn set_blurb<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Blurb>,
+    where T: std::convert::Into<crate::model::Blurb>
     {
         self.blurb = std::option::Option::Some(v.into());
         self
@@ -4883,8 +4829,7 @@ impl UpdateBlurbRequest {
     /// let x = UpdateBlurbRequest::new().set_or_clear_blurb(None::<Blurb>);
     /// ```
     pub fn set_or_clear_blurb<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Blurb>,
+    where T: std::convert::Into<crate::model::Blurb>
     {
         self.blurb = v.map(|x| x.into());
         self
@@ -4899,8 +4844,7 @@ impl UpdateBlurbRequest {
     /// let x = UpdateBlurbRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -4916,8 +4860,7 @@ impl UpdateBlurbRequest {
     /// let x = UpdateBlurbRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -4935,6 +4878,7 @@ impl wkt::message::Message for UpdateBlurbRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteBlurbRequest {
+
     /// The resource name of the requested blurb.
     pub name: std::string::String,
 
@@ -4970,6 +4914,7 @@ impl wkt::message::Message for DeleteBlurbRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBlurbsRequest {
+
     /// The resource name of the requested room or profile who blurbs to list.
     pub parent: std::string::String,
 
@@ -5039,6 +4984,7 @@ impl wkt::message::Message for ListBlurbsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBlurbsResponse {
+
     /// The list of blurbs.
     pub blurbs: std::vec::Vec<crate::model::Blurb>,
 
@@ -5071,7 +5017,7 @@ impl ListBlurbsResponse {
     pub fn set_blurbs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Blurb>,
+        V: std::convert::Into<crate::model::Blurb>
     {
         use std::iter::Iterator;
         self.blurbs = v.into_iter().map(|i| i.into()).collect();
@@ -5116,6 +5062,7 @@ impl gax::paginator::internal::PageableResponse for ListBlurbsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchBlurbsRequest {
+
     /// The query used to search for blurbs containing to words of this string.
     /// Only posts that contain an exact match of a queried word will be returned.
     pub query: std::string::String,
@@ -5203,6 +5150,7 @@ impl wkt::message::Message for SearchBlurbsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchBlurbsMetadata {
+
     /// This signals to the client when to next poll for response.
     pub retry_info: std::option::Option<rpc::model::RetryInfo>,
 
@@ -5223,8 +5171,7 @@ impl SearchBlurbsMetadata {
     /// let x = SearchBlurbsMetadata::new().set_retry_info(RetryInfo::default()/* use setters */);
     /// ```
     pub fn set_retry_info<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<rpc::model::RetryInfo>,
+    where T: std::convert::Into<rpc::model::RetryInfo>
     {
         self.retry_info = std::option::Option::Some(v.into());
         self
@@ -5240,8 +5187,7 @@ impl SearchBlurbsMetadata {
     /// let x = SearchBlurbsMetadata::new().set_or_clear_retry_info(None::<RetryInfo>);
     /// ```
     pub fn set_or_clear_retry_info<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<rpc::model::RetryInfo>,
+    where T: std::convert::Into<rpc::model::RetryInfo>
     {
         self.retry_info = v.map(|x| x.into());
         self
@@ -5259,6 +5205,7 @@ impl wkt::message::Message for SearchBlurbsMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchBlurbsResponse {
+
     /// Blurbs that matched the search query.
     pub blurbs: std::vec::Vec<crate::model::Blurb>,
 
@@ -5291,7 +5238,7 @@ impl SearchBlurbsResponse {
     pub fn set_blurbs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Blurb>,
+        V: std::convert::Into<crate::model::Blurb>
     {
         use std::iter::Iterator;
         self.blurbs = v.into_iter().map(|i| i.into()).collect();
@@ -5322,6 +5269,7 @@ impl wkt::message::Message for SearchBlurbsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StreamBlurbsRequest {
+
     /// The resource name of a chat room or user profile whose blurbs to stream.
     pub name: std::string::String,
 
@@ -5357,8 +5305,7 @@ impl StreamBlurbsRequest {
     /// let x = StreamBlurbsRequest::new().set_expire_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_expire_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.expire_time = std::option::Option::Some(v.into());
         self
@@ -5374,8 +5321,7 @@ impl StreamBlurbsRequest {
     /// let x = StreamBlurbsRequest::new().set_or_clear_expire_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.expire_time = v.map(|x| x.into());
         self
@@ -5393,6 +5339,7 @@ impl wkt::message::Message for StreamBlurbsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StreamBlurbsResponse {
+
     /// The blurb that was either created, updated, or deleted.
     pub blurb: std::option::Option<crate::model::Blurb>,
 
@@ -5416,8 +5363,7 @@ impl StreamBlurbsResponse {
     /// let x = StreamBlurbsResponse::new().set_blurb(Blurb::default()/* use setters */);
     /// ```
     pub fn set_blurb<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Blurb>,
+    where T: std::convert::Into<crate::model::Blurb>
     {
         self.blurb = std::option::Option::Some(v.into());
         self
@@ -5433,8 +5379,7 @@ impl StreamBlurbsResponse {
     /// let x = StreamBlurbsResponse::new().set_or_clear_blurb(None::<Blurb>);
     /// ```
     pub fn set_or_clear_blurb<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Blurb>,
+    where T: std::convert::Into<crate::model::Blurb>
     {
         self.blurb = v.map(|x| x.into());
         self
@@ -5450,10 +5395,7 @@ impl StreamBlurbsResponse {
     /// let x1 = StreamBlurbsResponse::new().set_action(Action::Update);
     /// let x2 = StreamBlurbsResponse::new().set_action(Action::Delete);
     /// ```
-    pub fn set_action<T: std::convert::Into<crate::model::stream_blurbs_response::Action>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_action<T: std::convert::Into<crate::model::stream_blurbs_response::Action>>(mut self, v: T) -> Self {
         self.action = v.into();
         self
     }
@@ -5469,6 +5411,7 @@ impl wkt::message::Message for StreamBlurbsResponse {
 pub mod stream_blurbs_response {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The action that triggered the blurb to be returned.
     ///
@@ -5560,9 +5503,7 @@ pub mod stream_blurbs_response {
                 1 => Self::Create,
                 2 => Self::Update,
                 3 => Self::Delete,
-                _ => Self::UnknownValue(action::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(action::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -5575,9 +5516,7 @@ pub mod stream_blurbs_response {
                 "CREATE" => Self::Create,
                 "UPDATE" => Self::Update,
                 "DELETE" => Self::Delete,
-                _ => Self::UnknownValue(action::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(action::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -5603,8 +5542,7 @@ pub mod stream_blurbs_response {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Action>::new(
-                ".google.showcase.v1beta1.StreamBlurbsResponse.Action",
-            ))
+                ".google.showcase.v1beta1.StreamBlurbsResponse.Action"))
         }
     }
 }
@@ -5614,6 +5552,7 @@ pub mod stream_blurbs_response {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SendBlurbsResponse {
+
     /// The names of successful blurb creations.
     pub names: std::vec::Vec<std::string::String>,
 
@@ -5635,7 +5574,7 @@ impl SendBlurbsResponse {
     pub fn set_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.names = v.into_iter().map(|i| i.into()).collect();
@@ -5654,6 +5593,7 @@ impl wkt::message::Message for SendBlurbsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConnectRequest {
+
     pub request: std::option::Option<crate::model::connect_request::Request>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -5676,12 +5616,8 @@ impl ConnectRequest {
     /// let x = ConnectRequest::new().set_request(Some(
     ///     google_cloud_showcase_v1beta1::model::connect_request::Request::Config(ConnectConfig::default().into())));
     /// ```
-    pub fn set_request<
-        T: std::convert::Into<std::option::Option<crate::model::connect_request::Request>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_request<T: std::convert::Into<std::option::Option<crate::model::connect_request::Request>>>(mut self, v: T) -> Self
+    {
         self.request = v.into();
         self
     }
@@ -5689,9 +5625,7 @@ impl ConnectRequest {
     /// The value of [request][crate::model::ConnectRequest::request]
     /// if it holds a `Config`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn config(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::connect_request::ConnectConfig>> {
+    pub fn config(&self) -> std::option::Option<&std::boxed::Box<crate::model::connect_request::ConnectConfig>> {
         #[allow(unreachable_patterns)]
         self.request.as_ref().and_then(|v| match v {
             crate::model::connect_request::Request::Config(v) => std::option::Option::Some(v),
@@ -5713,14 +5647,12 @@ impl ConnectRequest {
     /// assert!(x.config().is_some());
     /// assert!(x.blurb().is_none());
     /// ```
-    pub fn set_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::connect_request::ConnectConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.request =
-            std::option::Option::Some(crate::model::connect_request::Request::Config(v.into()));
+    pub fn set_config<T: std::convert::Into<std::boxed::Box<crate::model::connect_request::ConnectConfig>>>(mut self, v: T) -> Self {
+        self.request = std::option::Option::Some(
+            crate::model::connect_request::Request::Config(
+                v.into()
+            )
+        );
         self
     }
 
@@ -5749,12 +5681,12 @@ impl ConnectRequest {
     /// assert!(x.blurb().is_some());
     /// assert!(x.config().is_none());
     /// ```
-    pub fn set_blurb<T: std::convert::Into<std::boxed::Box<crate::model::Blurb>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.request =
-            std::option::Option::Some(crate::model::connect_request::Request::Blurb(v.into()));
+    pub fn set_blurb<T: std::convert::Into<std::boxed::Box<crate::model::Blurb>>>(mut self, v: T) -> Self {
+        self.request = std::option::Option::Some(
+            crate::model::connect_request::Request::Blurb(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -5770,9 +5702,11 @@ pub mod connect_request {
     #[allow(unused_imports)]
     use super::*;
 
+
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ConnectConfig {
+
         /// The room or profile to follow and create messages for.
         pub parent: std::string::String,
 
@@ -5819,6 +5753,7 @@ pub mod connect_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RestError {
+
     pub error: std::option::Option<crate::model::rest_error::Status>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -5838,8 +5773,7 @@ impl RestError {
     /// let x = RestError::new().set_error(Status::default()/* use setters */);
     /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::rest_error::Status>,
+    where T: std::convert::Into<crate::model::rest_error::Status>
     {
         self.error = std::option::Option::Some(v.into());
         self
@@ -5855,8 +5789,7 @@ impl RestError {
     /// let x = RestError::new().set_or_clear_error(None::<Status>);
     /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::rest_error::Status>,
+    where T: std::convert::Into<crate::model::rest_error::Status>
     {
         self.error = v.map(|x| x.into());
         self
@@ -5874,9 +5807,11 @@ pub mod rest_error {
     #[allow(unused_imports)]
     use super::*;
 
+
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Status {
+
         /// The HTTP status code that corresponds to `google.rpc.Status.code`.
         pub code: i32,
 
@@ -5951,7 +5886,7 @@ pub mod rest_error {
         pub fn set_details<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<wkt::Any>,
+            V: std::convert::Into<wkt::Any>
         {
             use std::iter::Iterator;
             self.details = v.into_iter().map(|i| i.into()).collect();
@@ -5969,6 +5904,7 @@ pub mod rest_error {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Sequence {
+
     pub name: std::string::String,
 
     /// Sequence of responses to return in order for each attempt. If empty, the
@@ -6010,7 +5946,7 @@ impl Sequence {
     pub fn set_responses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::sequence::Response>,
+        V: std::convert::Into<crate::model::sequence::Response>
     {
         use std::iter::Iterator;
         self.responses = v.into_iter().map(|i| i.into()).collect();
@@ -6029,10 +5965,12 @@ pub mod sequence {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// A server response to an RPC Attempt in a sequence.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Response {
+
         /// The status to return for an individual attempt.
         pub status: std::option::Option<rpc::model::Status>,
 
@@ -6056,8 +5994,7 @@ pub mod sequence {
         /// let x = Response::new().set_status(Status::default()/* use setters */);
         /// ```
         pub fn set_status<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<rpc::model::Status>,
+        where T: std::convert::Into<rpc::model::Status>
         {
             self.status = std::option::Option::Some(v.into());
             self
@@ -6073,8 +6010,7 @@ pub mod sequence {
         /// let x = Response::new().set_or_clear_status(None::<Status>);
         /// ```
         pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<rpc::model::Status>,
+        where T: std::convert::Into<rpc::model::Status>
         {
             self.status = v.map(|x| x.into());
             self
@@ -6089,8 +6025,7 @@ pub mod sequence {
         /// let x = Response::new().set_delay(Duration::default()/* use setters */);
         /// ```
         pub fn set_delay<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Duration>,
+        where T: std::convert::Into<wkt::Duration>
         {
             self.delay = std::option::Option::Some(v.into());
             self
@@ -6106,8 +6041,7 @@ pub mod sequence {
         /// let x = Response::new().set_or_clear_delay(None::<Duration>);
         /// ```
         pub fn set_or_clear_delay<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Duration>,
+        where T: std::convert::Into<wkt::Duration>
         {
             self.delay = v.map(|x| x.into());
             self
@@ -6124,6 +6058,7 @@ pub mod sequence {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StreamingSequence {
+
     pub name: std::string::String,
 
     /// The Content that the stream will send
@@ -6180,7 +6115,7 @@ impl StreamingSequence {
     pub fn set_responses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::streaming_sequence::Response>,
+        V: std::convert::Into<crate::model::streaming_sequence::Response>
     {
         use std::iter::Iterator;
         self.responses = v.into_iter().map(|i| i.into()).collect();
@@ -6199,10 +6134,12 @@ pub mod streaming_sequence {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// A server response to an RPC Attempt in a sequence.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Response {
+
         /// The status to return for an individual attempt.
         pub status: std::option::Option<rpc::model::Status>,
 
@@ -6229,8 +6166,7 @@ pub mod streaming_sequence {
         /// let x = Response::new().set_status(Status::default()/* use setters */);
         /// ```
         pub fn set_status<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<rpc::model::Status>,
+        where T: std::convert::Into<rpc::model::Status>
         {
             self.status = std::option::Option::Some(v.into());
             self
@@ -6246,8 +6182,7 @@ pub mod streaming_sequence {
         /// let x = Response::new().set_or_clear_status(None::<Status>);
         /// ```
         pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<rpc::model::Status>,
+        where T: std::convert::Into<rpc::model::Status>
         {
             self.status = v.map(|x| x.into());
             self
@@ -6262,8 +6197,7 @@ pub mod streaming_sequence {
         /// let x = Response::new().set_delay(Duration::default()/* use setters */);
         /// ```
         pub fn set_delay<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Duration>,
+        where T: std::convert::Into<wkt::Duration>
         {
             self.delay = std::option::Option::Some(v.into());
             self
@@ -6279,8 +6213,7 @@ pub mod streaming_sequence {
         /// let x = Response::new().set_or_clear_delay(None::<Duration>);
         /// ```
         pub fn set_or_clear_delay<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Duration>,
+        where T: std::convert::Into<wkt::Duration>
         {
             self.delay = v.map(|x| x.into());
             self
@@ -6309,6 +6242,7 @@ pub mod streaming_sequence {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StreamingSequenceReport {
+
     pub name: std::string::String,
 
     /// The set of RPC attempts received by the server for a Sequence.
@@ -6349,7 +6283,7 @@ impl StreamingSequenceReport {
     pub fn set_attempts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::streaming_sequence_report::Attempt>,
+        V: std::convert::Into<crate::model::streaming_sequence_report::Attempt>
     {
         use std::iter::Iterator;
         self.attempts = v.into_iter().map(|i| i.into()).collect();
@@ -6368,10 +6302,12 @@ pub mod streaming_sequence_report {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Contains metrics on individual RPC Attempts in a sequence.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Attempt {
+
         /// The attempt number - starting at 0.
         pub attempt_number: i32,
 
@@ -6418,8 +6354,7 @@ pub mod streaming_sequence_report {
         /// let x = Attempt::new().set_attempt_deadline(Timestamp::default()/* use setters */);
         /// ```
         pub fn set_attempt_deadline<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.attempt_deadline = std::option::Option::Some(v.into());
             self
@@ -6435,8 +6370,7 @@ pub mod streaming_sequence_report {
         /// let x = Attempt::new().set_or_clear_attempt_deadline(None::<Timestamp>);
         /// ```
         pub fn set_or_clear_attempt_deadline<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.attempt_deadline = v.map(|x| x.into());
             self
@@ -6451,8 +6385,7 @@ pub mod streaming_sequence_report {
         /// let x = Attempt::new().set_response_time(Timestamp::default()/* use setters */);
         /// ```
         pub fn set_response_time<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.response_time = std::option::Option::Some(v.into());
             self
@@ -6468,8 +6401,7 @@ pub mod streaming_sequence_report {
         /// let x = Attempt::new().set_or_clear_response_time(None::<Timestamp>);
         /// ```
         pub fn set_or_clear_response_time<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.response_time = v.map(|x| x.into());
             self
@@ -6484,8 +6416,7 @@ pub mod streaming_sequence_report {
         /// let x = Attempt::new().set_attempt_delay(Duration::default()/* use setters */);
         /// ```
         pub fn set_attempt_delay<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Duration>,
+        where T: std::convert::Into<wkt::Duration>
         {
             self.attempt_delay = std::option::Option::Some(v.into());
             self
@@ -6501,8 +6432,7 @@ pub mod streaming_sequence_report {
         /// let x = Attempt::new().set_or_clear_attempt_delay(None::<Duration>);
         /// ```
         pub fn set_or_clear_attempt_delay<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Duration>,
+        where T: std::convert::Into<wkt::Duration>
         {
             self.attempt_delay = v.map(|x| x.into());
             self
@@ -6517,8 +6447,7 @@ pub mod streaming_sequence_report {
         /// let x = Attempt::new().set_status(Status::default()/* use setters */);
         /// ```
         pub fn set_status<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<rpc::model::Status>,
+        where T: std::convert::Into<rpc::model::Status>
         {
             self.status = std::option::Option::Some(v.into());
             self
@@ -6534,8 +6463,7 @@ pub mod streaming_sequence_report {
         /// let x = Attempt::new().set_or_clear_status(None::<Status>);
         /// ```
         pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<rpc::model::Status>,
+        where T: std::convert::Into<rpc::model::Status>
         {
             self.status = v.map(|x| x.into());
             self
@@ -6552,6 +6480,7 @@ pub mod streaming_sequence_report {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SequenceReport {
+
     pub name: std::string::String,
 
     /// The set of RPC attempts received by the server for a Sequence.
@@ -6592,7 +6521,7 @@ impl SequenceReport {
     pub fn set_attempts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::sequence_report::Attempt>,
+        V: std::convert::Into<crate::model::sequence_report::Attempt>
     {
         use std::iter::Iterator;
         self.attempts = v.into_iter().map(|i| i.into()).collect();
@@ -6611,10 +6540,12 @@ pub mod sequence_report {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Contains metrics on individual RPC Attempts in a sequence.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Attempt {
+
         /// The attempt number - starting at 0.
         pub attempt_number: i32,
 
@@ -6661,8 +6592,7 @@ pub mod sequence_report {
         /// let x = Attempt::new().set_attempt_deadline(Timestamp::default()/* use setters */);
         /// ```
         pub fn set_attempt_deadline<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.attempt_deadline = std::option::Option::Some(v.into());
             self
@@ -6678,8 +6608,7 @@ pub mod sequence_report {
         /// let x = Attempt::new().set_or_clear_attempt_deadline(None::<Timestamp>);
         /// ```
         pub fn set_or_clear_attempt_deadline<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.attempt_deadline = v.map(|x| x.into());
             self
@@ -6694,8 +6623,7 @@ pub mod sequence_report {
         /// let x = Attempt::new().set_response_time(Timestamp::default()/* use setters */);
         /// ```
         pub fn set_response_time<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.response_time = std::option::Option::Some(v.into());
             self
@@ -6711,8 +6639,7 @@ pub mod sequence_report {
         /// let x = Attempt::new().set_or_clear_response_time(None::<Timestamp>);
         /// ```
         pub fn set_or_clear_response_time<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.response_time = v.map(|x| x.into());
             self
@@ -6727,8 +6654,7 @@ pub mod sequence_report {
         /// let x = Attempt::new().set_attempt_delay(Duration::default()/* use setters */);
         /// ```
         pub fn set_attempt_delay<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Duration>,
+        where T: std::convert::Into<wkt::Duration>
         {
             self.attempt_delay = std::option::Option::Some(v.into());
             self
@@ -6744,8 +6670,7 @@ pub mod sequence_report {
         /// let x = Attempt::new().set_or_clear_attempt_delay(None::<Duration>);
         /// ```
         pub fn set_or_clear_attempt_delay<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Duration>,
+        where T: std::convert::Into<wkt::Duration>
         {
             self.attempt_delay = v.map(|x| x.into());
             self
@@ -6760,8 +6685,7 @@ pub mod sequence_report {
         /// let x = Attempt::new().set_status(Status::default()/* use setters */);
         /// ```
         pub fn set_status<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<rpc::model::Status>,
+        where T: std::convert::Into<rpc::model::Status>
         {
             self.status = std::option::Option::Some(v.into());
             self
@@ -6777,8 +6701,7 @@ pub mod sequence_report {
         /// let x = Attempt::new().set_or_clear_status(None::<Status>);
         /// ```
         pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<rpc::model::Status>,
+        where T: std::convert::Into<rpc::model::Status>
         {
             self.status = v.map(|x| x.into());
             self
@@ -6795,6 +6718,7 @@ pub mod sequence_report {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateSequenceRequest {
+
     pub sequence: std::option::Option<crate::model::Sequence>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -6814,8 +6738,7 @@ impl CreateSequenceRequest {
     /// let x = CreateSequenceRequest::new().set_sequence(Sequence::default()/* use setters */);
     /// ```
     pub fn set_sequence<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Sequence>,
+    where T: std::convert::Into<crate::model::Sequence>
     {
         self.sequence = std::option::Option::Some(v.into());
         self
@@ -6831,8 +6754,7 @@ impl CreateSequenceRequest {
     /// let x = CreateSequenceRequest::new().set_or_clear_sequence(None::<Sequence>);
     /// ```
     pub fn set_or_clear_sequence<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Sequence>,
+    where T: std::convert::Into<crate::model::Sequence>
     {
         self.sequence = v.map(|x| x.into());
         self
@@ -6848,6 +6770,7 @@ impl wkt::message::Message for CreateSequenceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateStreamingSequenceRequest {
+
     pub streaming_sequence: std::option::Option<crate::model::StreamingSequence>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -6867,8 +6790,7 @@ impl CreateStreamingSequenceRequest {
     /// let x = CreateStreamingSequenceRequest::new().set_streaming_sequence(StreamingSequence::default()/* use setters */);
     /// ```
     pub fn set_streaming_sequence<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::StreamingSequence>,
+    where T: std::convert::Into<crate::model::StreamingSequence>
     {
         self.streaming_sequence = std::option::Option::Some(v.into());
         self
@@ -6884,8 +6806,7 @@ impl CreateStreamingSequenceRequest {
     /// let x = CreateStreamingSequenceRequest::new().set_or_clear_streaming_sequence(None::<StreamingSequence>);
     /// ```
     pub fn set_or_clear_streaming_sequence<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::StreamingSequence>,
+    where T: std::convert::Into<crate::model::StreamingSequence>
     {
         self.streaming_sequence = v.map(|x| x.into());
         self
@@ -6901,6 +6822,7 @@ impl wkt::message::Message for CreateStreamingSequenceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AttemptSequenceRequest {
+
     pub name: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -6933,6 +6855,7 @@ impl wkt::message::Message for AttemptSequenceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AttemptStreamingSequenceRequest {
+
     pub name: std::string::String,
 
     /// used to send the index of the last failed message
@@ -6983,6 +6906,7 @@ impl wkt::message::Message for AttemptStreamingSequenceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AttemptStreamingSequenceResponse {
+
     /// The content specified in the request.
     pub content: std::string::String,
 
@@ -7016,6 +6940,7 @@ impl wkt::message::Message for AttemptStreamingSequenceResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSequenceReportRequest {
+
     pub name: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -7048,6 +6973,7 @@ impl wkt::message::Message for GetSequenceReportRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetStreamingSequenceReportRequest {
+
     pub name: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -7085,6 +7011,7 @@ impl wkt::message::Message for GetStreamingSequenceReportRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Session {
+
     /// The name of the session. The ID must conform to ^[a-z]+$
     /// If this is not provided, Showcase chooses one at random.
     pub name: std::string::String,
@@ -7121,10 +7048,7 @@ impl Session {
     /// let x0 = Session::new().set_version(Version::V1Latest);
     /// let x1 = Session::new().set_version(Version::V10);
     /// ```
-    pub fn set_version<T: std::convert::Into<crate::model::session::Version>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_version<T: std::convert::Into<crate::model::session::Version>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
@@ -7140,6 +7064,7 @@ impl wkt::message::Message for Session {
 pub mod session {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The specification versions understood by Showcase.
     ///
@@ -7228,9 +7153,7 @@ pub mod session {
                 0 => Self::Unspecified,
                 1 => Self::V1Latest,
                 2 => Self::V10,
-                _ => Self::UnknownValue(version::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(version::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -7242,9 +7165,7 @@ pub mod session {
                 "VERSION_UNSPECIFIED" => Self::Unspecified,
                 "V1_LATEST" => Self::V1Latest,
                 "V1_0" => Self::V10,
-                _ => Self::UnknownValue(version::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(version::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -7269,8 +7190,7 @@ pub mod session {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Version>::new(
-                ".google.showcase.v1beta1.Session.Version",
-            ))
+                ".google.showcase.v1beta1.Session.Version"))
         }
     }
 }
@@ -7279,6 +7199,7 @@ pub mod session {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateSessionRequest {
+
     /// The session to be created.
     /// Sessions are immutable once they are created (although they can
     /// be deleted).
@@ -7301,8 +7222,7 @@ impl CreateSessionRequest {
     /// let x = CreateSessionRequest::new().set_session(Session::default()/* use setters */);
     /// ```
     pub fn set_session<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Session>,
+    where T: std::convert::Into<crate::model::Session>
     {
         self.session = std::option::Option::Some(v.into());
         self
@@ -7318,8 +7238,7 @@ impl CreateSessionRequest {
     /// let x = CreateSessionRequest::new().set_or_clear_session(None::<Session>);
     /// ```
     pub fn set_or_clear_session<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Session>,
+    where T: std::convert::Into<crate::model::Session>
     {
         self.session = v.map(|x| x.into());
         self
@@ -7336,6 +7255,7 @@ impl wkt::message::Message for CreateSessionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSessionRequest {
+
     /// The session to be retrieved.
     pub name: std::string::String,
 
@@ -7370,6 +7290,7 @@ impl wkt::message::Message for GetSessionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSessionsRequest {
+
     /// The maximum number of sessions to return per page.
     pub page_size: i32,
 
@@ -7419,6 +7340,7 @@ impl wkt::message::Message for ListSessionsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSessionsResponse {
+
     /// The sessions being returned.
     pub sessions: std::vec::Vec<crate::model::Session>,
 
@@ -7449,7 +7371,7 @@ impl ListSessionsResponse {
     pub fn set_sessions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Session>,
+        V: std::convert::Into<crate::model::Session>
     {
         use std::iter::Iterator;
         self.sessions = v.into_iter().map(|i| i.into()).collect();
@@ -7493,6 +7415,7 @@ impl gax::paginator::internal::PageableResponse for ListSessionsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteSessionRequest {
+
     /// The session to be deleted.
     pub name: std::string::String,
 
@@ -7527,6 +7450,7 @@ impl wkt::message::Message for DeleteSessionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReportSessionRequest {
+
     /// The session to be reported on.
     pub name: std::string::String,
 
@@ -7561,6 +7485,7 @@ impl wkt::message::Message for ReportSessionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReportSessionResponse {
+
     /// The state of the report.
     pub result: crate::model::report_session_response::Result,
 
@@ -7585,10 +7510,7 @@ impl ReportSessionResponse {
     /// let x1 = ReportSessionResponse::new().set_result(Result::Failed);
     /// let x2 = ReportSessionResponse::new().set_result(Result::Incomplete);
     /// ```
-    pub fn set_result<T: std::convert::Into<crate::model::report_session_response::Result>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_result<T: std::convert::Into<crate::model::report_session_response::Result>>(mut self, v: T) -> Self {
         self.result = v.into();
         self
     }
@@ -7608,7 +7530,7 @@ impl ReportSessionResponse {
     pub fn set_test_runs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::TestRun>,
+        V: std::convert::Into<crate::model::TestRun>
     {
         use std::iter::Iterator;
         self.test_runs = v.into_iter().map(|i| i.into()).collect();
@@ -7626,6 +7548,7 @@ impl wkt::message::Message for ReportSessionResponse {
 pub mod report_session_response {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The topline state of the report.
     ///
@@ -7717,9 +7640,7 @@ pub mod report_session_response {
                 1 => Self::Passed,
                 2 => Self::Failed,
                 3 => Self::Incomplete,
-                _ => Self::UnknownValue(result::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(result::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -7732,9 +7653,7 @@ pub mod report_session_response {
                 "PASSED" => Self::Passed,
                 "FAILED" => Self::Failed,
                 "INCOMPLETE" => Self::Incomplete,
-                _ => Self::UnknownValue(result::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(result::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -7760,8 +7679,7 @@ pub mod report_session_response {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Result>::new(
-                ".google.showcase.v1beta1.ReportSessionResponse.Result",
-            ))
+                ".google.showcase.v1beta1.ReportSessionResponse.Result"))
         }
     }
 }
@@ -7769,6 +7687,7 @@ pub mod report_session_response {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Test {
+
     /// The name of the test.
     /// The tests/* portion of the names are hard-coded, and do not change
     /// from session to session.
@@ -7816,10 +7735,7 @@ impl Test {
     /// let x1 = Test::new().set_expectation_level(ExpectationLevel::Recommended);
     /// let x2 = Test::new().set_expectation_level(ExpectationLevel::Optional);
     /// ```
-    pub fn set_expectation_level<T: std::convert::Into<crate::model::test::ExpectationLevel>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_expectation_level<T: std::convert::Into<crate::model::test::ExpectationLevel>>(mut self, v: T) -> Self {
         self.expectation_level = v.into();
         self
     }
@@ -7851,7 +7767,7 @@ impl Test {
     pub fn set_blueprints<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::test::Blueprint>,
+        V: std::convert::Into<crate::model::test::Blueprint>
     {
         use std::iter::Iterator;
         self.blueprints = v.into_iter().map(|i| i.into()).collect();
@@ -7870,6 +7786,7 @@ pub mod test {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// A blueprint is an explicit definition of methods and requests that are needed
     /// to be made to test this specific test case. Ideally this would be represented
     /// by something more robust like CEL, but as of writing this, I am unsure if CEL
@@ -7877,6 +7794,7 @@ pub mod test {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Blueprint {
+
         /// The name of this blueprint.
         pub name: std::string::String,
 
@@ -7930,8 +7848,7 @@ pub mod test {
         /// let x = Blueprint::new().set_request(Invocation::default()/* use setters */);
         /// ```
         pub fn set_request<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::test::blueprint::Invocation>,
+        where T: std::convert::Into<crate::model::test::blueprint::Invocation>
         {
             self.request = std::option::Option::Some(v.into());
             self
@@ -7947,8 +7864,7 @@ pub mod test {
         /// let x = Blueprint::new().set_or_clear_request(None::<Invocation>);
         /// ```
         pub fn set_or_clear_request<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::test::blueprint::Invocation>,
+        where T: std::convert::Into<crate::model::test::blueprint::Invocation>
         {
             self.request = v.map(|x| x.into());
             self
@@ -7969,7 +7885,7 @@ pub mod test {
         pub fn set_additional_requests<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::test::blueprint::Invocation>,
+            V: std::convert::Into<crate::model::test::blueprint::Invocation>
         {
             use std::iter::Iterator;
             self.additional_requests = v.into_iter().map(|i| i.into()).collect();
@@ -7988,10 +7904,12 @@ pub mod test {
         #[allow(unused_imports)]
         use super::*;
 
+
         /// A message representing a method invocation.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Invocation {
+
             /// The fully qualified name of the showcase method to be invoked.
             pub method: std::string::String,
 
@@ -8025,10 +7943,7 @@ pub mod test {
             /// # use google_cloud_showcase_v1beta1::model::test::blueprint::Invocation;
             /// let x = Invocation::new().set_serialized_request(bytes::Bytes::from_static(b"example"));
             /// ```
-            pub fn set_serialized_request<T: std::convert::Into<::bytes::Bytes>>(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_serialized_request<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
                 self.serialized_request = v.into();
                 self
             }
@@ -8144,9 +8059,7 @@ pub mod test {
                 1 => Self::Required,
                 2 => Self::Recommended,
                 3 => Self::Optional,
-                _ => Self::UnknownValue(expectation_level::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(expectation_level::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -8159,9 +8072,7 @@ pub mod test {
                 "REQUIRED" => Self::Required,
                 "RECOMMENDED" => Self::Recommended,
                 "OPTIONAL" => Self::Optional,
-                _ => Self::UnknownValue(expectation_level::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(expectation_level::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -8187,8 +8098,7 @@ pub mod test {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<ExpectationLevel>::new(
-                ".google.showcase.v1beta1.Test.ExpectationLevel",
-            ))
+                ".google.showcase.v1beta1.Test.ExpectationLevel"))
         }
     }
 }
@@ -8197,6 +8107,7 @@ pub mod test {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Issue {
+
     /// The type of the issue.
     pub r#type: crate::model::issue::Type,
 
@@ -8238,10 +8149,7 @@ impl Issue {
     /// let x0 = Issue::new().set_severity(Severity::Error);
     /// let x1 = Issue::new().set_severity(Severity::Warning);
     /// ```
-    pub fn set_severity<T: std::convert::Into<crate::model::issue::Severity>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_severity<T: std::convert::Into<crate::model::issue::Severity>>(mut self, v: T) -> Self {
         self.severity = v.into();
         self
     }
@@ -8269,6 +8177,7 @@ impl wkt::message::Message for Issue {
 pub mod issue {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The different potential types of issues.
     ///
@@ -8361,9 +8270,7 @@ pub mod issue {
                 1 => Self::Skipped,
                 2 => Self::Pending,
                 3 => Self::IncorrectConfirmation,
-                _ => Self::UnknownValue(r#type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -8376,9 +8283,7 @@ pub mod issue {
                 "SKIPPED" => Self::Skipped,
                 "PENDING" => Self::Pending,
                 "INCORRECT_CONFIRMATION" => Self::IncorrectConfirmation,
-                _ => Self::UnknownValue(r#type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -8404,8 +8309,7 @@ pub mod issue {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
-                ".google.showcase.v1beta1.Issue.Type",
-            ))
+                ".google.showcase.v1beta1.Issue.Type"))
         }
     }
 
@@ -8494,9 +8398,7 @@ pub mod issue {
                 0 => Self::Unspecified,
                 1 => Self::Error,
                 2 => Self::Warning,
-                _ => Self::UnknownValue(severity::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(severity::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -8508,9 +8410,7 @@ pub mod issue {
                 "SEVERITY_UNSPECIFIED" => Self::Unspecified,
                 "ERROR" => Self::Error,
                 "WARNING" => Self::Warning,
-                _ => Self::UnknownValue(severity::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(severity::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -8535,8 +8435,7 @@ pub mod issue {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Severity>::new(
-                ".google.showcase.v1beta1.Issue.Severity",
-            ))
+                ".google.showcase.v1beta1.Issue.Severity"))
         }
     }
 }
@@ -8545,6 +8444,7 @@ pub mod issue {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTestsRequest {
+
     /// The session.
     pub parent: std::string::String,
 
@@ -8609,6 +8509,7 @@ impl wkt::message::Message for ListTestsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTestsResponse {
+
     /// The tests being returned.
     pub tests: std::vec::Vec<crate::model::Test>,
 
@@ -8639,7 +8540,7 @@ impl ListTestsResponse {
     pub fn set_tests<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Test>,
+        V: std::convert::Into<crate::model::Test>
     {
         use std::iter::Iterator;
         self.tests = v.into_iter().map(|i| i.into()).collect();
@@ -8683,6 +8584,7 @@ impl gax::paginator::internal::PageableResponse for ListTestsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TestRun {
+
     /// The name of the test.
     /// The tests/* portion of the names are hard-coded, and do not change
     /// from session to session.
@@ -8720,8 +8622,7 @@ impl TestRun {
     /// let x = TestRun::new().set_issue(Issue::default()/* use setters */);
     /// ```
     pub fn set_issue<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Issue>,
+    where T: std::convert::Into<crate::model::Issue>
     {
         self.issue = std::option::Option::Some(v.into());
         self
@@ -8737,8 +8638,7 @@ impl TestRun {
     /// let x = TestRun::new().set_or_clear_issue(None::<Issue>);
     /// ```
     pub fn set_or_clear_issue<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Issue>,
+    where T: std::convert::Into<crate::model::Issue>
     {
         self.issue = v.map(|x| x.into());
         self
@@ -8755,6 +8655,7 @@ impl wkt::message::Message for TestRun {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteTestRequest {
+
     /// The test to be deleted.
     pub name: std::string::String,
 
@@ -8788,6 +8689,7 @@ impl wkt::message::Message for DeleteTestRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VerifyTestRequest {
+
     /// The test to have an answer registered to it.
     pub name: std::string::String,
 
@@ -8841,7 +8743,7 @@ impl VerifyTestRequest {
     pub fn set_answers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<::bytes::Bytes>,
+        V: std::convert::Into<::bytes::Bytes>
     {
         use std::iter::Iterator;
         self.answers = v.into_iter().map(|i| i.into()).collect();
@@ -8858,6 +8760,7 @@ impl wkt::message::Message for VerifyTestRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VerifyTestResponse {
+
     /// An issue if check answer was unsuccessful. This will be empty if the check answer succeeded.
     pub issue: std::option::Option<crate::model::Issue>,
 
@@ -8878,8 +8781,7 @@ impl VerifyTestResponse {
     /// let x = VerifyTestResponse::new().set_issue(Issue::default()/* use setters */);
     /// ```
     pub fn set_issue<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Issue>,
+    where T: std::convert::Into<crate::model::Issue>
     {
         self.issue = std::option::Option::Some(v.into());
         self
@@ -8895,8 +8797,7 @@ impl VerifyTestResponse {
     /// let x = VerifyTestResponse::new().set_or_clear_issue(None::<Issue>);
     /// ```
     pub fn set_or_clear_issue<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Issue>,
+    where T: std::convert::Into<crate::model::Issue>
     {
         self.issue = v.map(|x| x.into());
         self
@@ -9003,9 +8904,7 @@ impl std::convert::From<i32> for Continent {
             3 => Self::Antartica,
             4 => Self::Australia,
             5 => Self::Europe,
-            _ => Self::UnknownValue(continent::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(continent::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -9020,9 +8919,7 @@ impl std::convert::From<&str> for Continent {
             "ANTARTICA" => Self::Antartica,
             "AUSTRALIA" => Self::Australia,
             "EUROPE" => Self::Europe,
-            _ => Self::UnknownValue(continent::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(continent::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -9050,8 +8947,7 @@ impl<'de> serde::de::Deserialize<'de> for Continent {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<Continent>::new(
-            ".google.showcase.v1beta1.Continent",
-        ))
+            ".google.showcase.v1beta1.Continent"))
     }
 }
 
@@ -9142,9 +9038,7 @@ impl std::convert::From<i32> for Severity {
             1 => Self::Necessary,
             2 => Self::Urgent,
             3 => Self::Critical,
-            _ => Self::UnknownValue(severity::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(severity::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -9157,9 +9051,7 @@ impl std::convert::From<&str> for Severity {
             "NECESSARY" => Self::Necessary,
             "URGENT" => Self::Urgent,
             "CRITICAL" => Self::Critical,
-            _ => Self::UnknownValue(severity::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(severity::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -9185,7 +9077,6 @@ impl<'de> serde::de::Deserialize<'de> for Severity {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<Severity>::new(
-            ".google.showcase.v1beta1.Severity",
-        ))
+            ".google.showcase.v1beta1.Severity"))
     }
 }

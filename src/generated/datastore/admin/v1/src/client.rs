@@ -126,42 +126,28 @@ impl DatastoreAdmin {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::DatastoreAdmin + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::DatastoreAdmin + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::DatastoreAdmin>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::DatastoreAdmin>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::DatastoreAdmin> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::DatastoreAdmin> {
         super::transport::DatastoreAdmin::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::DatastoreAdmin> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::DatastoreAdmin::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::DatastoreAdmin> {
+        Self::build_transport(conf).await.map(super::tracing::DatastoreAdmin::new)
     }
 
     /// Exports a copy of all or a subset of entities from Google Cloud Datastore
@@ -182,7 +168,8 @@ impl DatastoreAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn export_entities(&self) -> super::builder::datastore_admin::ExportEntities {
+    pub fn export_entities(&self) -> super::builder::datastore_admin::ExportEntities
+    {
         super::builder::datastore_admin::ExportEntities::new(self.inner.clone())
     }
 
@@ -201,7 +188,8 @@ impl DatastoreAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn import_entities(&self) -> super::builder::datastore_admin::ImportEntities {
+    pub fn import_entities(&self) -> super::builder::datastore_admin::ImportEntities
+    {
         super::builder::datastore_admin::ImportEntities::new(self.inner.clone())
     }
 
@@ -232,7 +220,8 @@ impl DatastoreAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_index(&self) -> super::builder::datastore_admin::CreateIndex {
+    pub fn create_index(&self) -> super::builder::datastore_admin::CreateIndex
+    {
         super::builder::datastore_admin::CreateIndex::new(self.inner.clone())
     }
 
@@ -261,47 +250,116 @@ impl DatastoreAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_index(&self) -> super::builder::datastore_admin::DeleteIndex {
+    pub fn delete_index(&self) -> super::builder::datastore_admin::DeleteIndex
+    {
         super::builder::datastore_admin::DeleteIndex::new(self.inner.clone())
     }
 
     /// Gets an index.
-    pub fn get_index(&self) -> super::builder::datastore_admin::GetIndex {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::client::DatastoreAdmin;
+    /// async fn sample(
+    ///    client: &DatastoreAdmin
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_index()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_index(&self) -> super::builder::datastore_admin::GetIndex
+    {
         super::builder::datastore_admin::GetIndex::new(self.inner.clone())
     }
 
     /// Lists the indexes that match the specified filters.  Datastore uses an
     /// eventually consistent query to fetch the list of indexes and may
     /// occasionally return stale results.
-    pub fn list_indexes(&self) -> super::builder::datastore_admin::ListIndexes {
+    pub fn list_indexes(&self) -> super::builder::datastore_admin::ListIndexes
+    {
         super::builder::datastore_admin::ListIndexes::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::datastore_admin::ListOperations {
+    pub fn list_operations(&self) -> super::builder::datastore_admin::ListOperations
+    {
         super::builder::datastore_admin::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::datastore_admin::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::client::DatastoreAdmin;
+    /// async fn sample(
+    ///    client: &DatastoreAdmin
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::datastore_admin::GetOperation
+    {
         super::builder::datastore_admin::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(&self) -> super::builder::datastore_admin::DeleteOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::client::DatastoreAdmin;
+    /// async fn sample(
+    ///    client: &DatastoreAdmin
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_operation(&self) -> super::builder::datastore_admin::DeleteOperation
+    {
         super::builder::datastore_admin::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(&self) -> super::builder::datastore_admin::CancelOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::client::DatastoreAdmin;
+    /// async fn sample(
+    ///    client: &DatastoreAdmin
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_operation(&self) -> super::builder::datastore_admin::CancelOperation
+    {
         super::builder::datastore_admin::CancelOperation::new(self.inner.clone())
     }
 }

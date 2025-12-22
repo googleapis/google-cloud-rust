@@ -23,9 +23,9 @@ impl serde::ser::Serialize for super::ComputeThreatListDiffRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.threat_type) {
             state.serialize_entry("threatType", &self.threat_type)?;
@@ -60,9 +60,9 @@ impl serde::ser::Serialize for super::compute_threat_list_diff_request::Constrai
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.max_diff_entries) {
             struct __With<'a>(&'a i32);
@@ -106,9 +106,9 @@ impl serde::ser::Serialize for super::ComputeThreatListDiffResponse {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.response_type) {
             state.serialize_entry("responseType", &self.response_type)?;
@@ -152,9 +152,9 @@ impl serde::ser::Serialize for super::compute_threat_list_diff_response::Checksu
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.sha256.is_empty() {
             struct __With<'a>(&'a ::bytes::Bytes);
@@ -183,9 +183,9 @@ impl serde::ser::Serialize for super::SearchUrisRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.uri.is_empty() {
             state.serialize_entry("uri", &self.uri)?;
@@ -208,9 +208,9 @@ impl serde::ser::Serialize for super::SearchUrisResponse {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.threat.is_some() {
             state.serialize_entry("threat", &self.threat)?;
@@ -230,9 +230,9 @@ impl serde::ser::Serialize for super::search_uris_response::ThreatUri {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.threat_types.is_empty() {
             state.serialize_entry("threatTypes", &self.threat_types)?;
@@ -255,9 +255,9 @@ impl serde::ser::Serialize for super::SearchHashesRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.hash_prefix.is_empty() {
             struct __With<'a>(&'a ::bytes::Bytes);
@@ -289,9 +289,9 @@ impl serde::ser::Serialize for super::SearchHashesResponse {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.threats.is_empty() {
             state.serialize_entry("threats", &self.threats)?;
@@ -314,9 +314,9 @@ impl serde::ser::Serialize for super::search_hashes_response::ThreatHash {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.threat_types.is_empty() {
             state.serialize_entry("threatTypes", &self.threat_types)?;
@@ -351,9 +351,9 @@ impl serde::ser::Serialize for super::ThreatEntryAdditions {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.raw_hashes.is_empty() {
             state.serialize_entry("rawHashes", &self.raw_hashes)?;
@@ -376,9 +376,9 @@ impl serde::ser::Serialize for super::ThreatEntryRemovals {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.raw_indices.is_some() {
             state.serialize_entry("rawIndices", &self.raw_indices)?;
@@ -401,9 +401,9 @@ impl serde::ser::Serialize for super::RawIndices {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.indices.is_empty() {
             struct __With<'a>(&'a std::vec::Vec<i32>);
@@ -412,9 +412,7 @@ impl serde::ser::Serialize for super::RawIndices {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<std::vec::Vec<wkt::internal::I32>>::serialize(
-                        self.0, serializer,
-                    )
+                    serde_with::As::< std::vec::Vec<wkt::internal::I32> >::serialize(self.0, serializer)
                 }
             }
             state.serialize_entry("indices", &__With(&self.indices))?;
@@ -434,9 +432,9 @@ impl serde::ser::Serialize for super::RawHashes {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.prefix_size) {
             struct __With<'a>(&'a i32);
@@ -477,9 +475,9 @@ impl serde::ser::Serialize for super::RiceDeltaEncoding {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.first_value) {
             struct __With<'a>(&'a i64);
@@ -544,9 +542,9 @@ impl serde::ser::Serialize for super::Submission {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.uri.is_empty() {
             state.serialize_entry("uri", &self.uri)?;
@@ -569,9 +567,9 @@ impl serde::ser::Serialize for super::ThreatInfo {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.abuse_type) {
             state.serialize_entry("abuseType", &self.abuse_type)?;
@@ -597,9 +595,9 @@ impl serde::ser::Serialize for super::threat_info::Confidence {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if let Some(value) = self.score() {
             struct __With<'a>(&'a f32);
@@ -631,9 +629,9 @@ impl serde::ser::Serialize for super::threat_info::ThreatJustification {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.labels.is_empty() {
             state.serialize_entry("labels", &self.labels)?;
@@ -656,9 +654,9 @@ impl serde::ser::Serialize for super::ThreatDiscovery {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.platform) {
             state.serialize_entry("platform", &self.platform)?;
@@ -681,9 +679,9 @@ impl serde::ser::Serialize for super::CreateSubmissionRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -706,9 +704,9 @@ impl serde::ser::Serialize for super::SubmitUriRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -737,9 +735,9 @@ impl serde::ser::Serialize for super::SubmitUriMetadata {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.state) {
             state.serialize_entry("state", &self.state)?;

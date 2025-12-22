@@ -18,35 +18,26 @@ use crate::Result;
 /// Implements a [SecurityCenter](super::stub::SecurityCenter) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct SecurityCenter<T>
-where
-    T: super::stub::SecurityCenter + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::SecurityCenter + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> SecurityCenter<T>
-where
-    T: super::stub::SecurityCenter + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::SecurityCenter + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::SecurityCenter for SecurityCenter<T>
-where
-    T: super::stub::SecurityCenter + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::SecurityCenter + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn batch_create_resource_value_configs(
         &self,
         req: crate::model::BatchCreateResourceValueConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::BatchCreateResourceValueConfigsResponse>>
-    {
-        self.inner
-            .batch_create_resource_value_configs(req, options)
-            .await
+    ) -> Result<gax::response::Response<crate::model::BatchCreateResourceValueConfigsResponse>> {
+        self.inner.batch_create_resource_value_configs(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -436,6 +427,7 @@ where
         self.inner.cancel_operation(req, options).await
     }
 
+
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -450,3 +442,4 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 }
+

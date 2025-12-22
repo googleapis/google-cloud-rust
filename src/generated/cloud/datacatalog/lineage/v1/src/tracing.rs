@@ -18,34 +18,26 @@ use crate::Result;
 /// Implements a [Lineage](super::stub::Lineage) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct Lineage<T>
-where
-    T: super::stub::Lineage + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Lineage + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> Lineage<T>
-where
-    T: super::stub::Lineage + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Lineage + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::Lineage for Lineage<T>
-where
-    T: super::stub::Lineage + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Lineage + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn process_open_lineage_run_event(
         &self,
         req: crate::model::ProcessOpenLineageRunEventRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ProcessOpenLineageRunEventResponse>> {
-        self.inner
-            .process_open_lineage_run_event(req, options)
-            .await
+        self.inner.process_open_lineage_run_event(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -228,6 +220,7 @@ where
         self.inner.cancel_operation(req, options).await
     }
 
+
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -242,3 +235,4 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 }
+

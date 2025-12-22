@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate api;
 extern crate async_trait;
 extern crate bytes;
@@ -30,7 +31,6 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -43,6 +43,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ManagedService {
+
     /// The name of the service. See the
     /// [overview](https://cloud.google.com/service-infrastructure/docs/overview)
     /// for naming requirements.
@@ -78,10 +79,7 @@ impl ManagedService {
     /// # use google_cloud_api_servicemanagement_v1::model::ManagedService;
     /// let x = ManagedService::new().set_producer_project_id("example");
     /// ```
-    pub fn set_producer_project_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_producer_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.producer_project_id = v.into();
         self
     }
@@ -97,6 +95,7 @@ impl wkt::message::Message for ManagedService {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
+
     /// The full name of the resources that this operation is directly
     /// associated with.
     pub resource_names: std::vec::Vec<std::string::String>,
@@ -128,7 +127,7 @@ impl OperationMetadata {
     pub fn set_resource_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.resource_names = v.into_iter().map(|i| i.into()).collect();
@@ -150,7 +149,7 @@ impl OperationMetadata {
     pub fn set_steps<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::operation_metadata::Step>,
+        V: std::convert::Into<crate::model::operation_metadata::Step>
     {
         use std::iter::Iterator;
         self.steps = v.into_iter().map(|i| i.into()).collect();
@@ -178,8 +177,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_start_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -195,8 +193,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_or_clear_start_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -214,10 +211,12 @@ pub mod operation_metadata {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Represents the status of one operation step.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Step {
+
         /// The short description of the step.
         pub description: std::string::String,
 
@@ -254,10 +253,7 @@ pub mod operation_metadata {
         /// let x1 = Step::new().set_status(Status::NotStarted);
         /// let x2 = Step::new().set_status(Status::InProgress);
         /// ```
-        pub fn set_status<T: std::convert::Into<crate::model::operation_metadata::Status>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_status<T: std::convert::Into<crate::model::operation_metadata::Status>>(mut self, v: T) -> Self {
             self.status = v.into();
             self
         }
@@ -371,9 +367,7 @@ pub mod operation_metadata {
                 3 => Self::InProgress,
                 4 => Self::Failed,
                 5 => Self::Cancelled,
-                _ => Self::UnknownValue(status::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(status::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -388,9 +382,7 @@ pub mod operation_metadata {
                 "IN_PROGRESS" => Self::InProgress,
                 "FAILED" => Self::Failed,
                 "CANCELLED" => Self::Cancelled,
-                _ => Self::UnknownValue(status::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(status::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -418,8 +410,7 @@ pub mod operation_metadata {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Status>::new(
-                ".google.api.servicemanagement.v1.OperationMetadata.Status",
-            ))
+                ".google.api.servicemanagement.v1.OperationMetadata.Status"))
         }
     }
 }
@@ -428,6 +419,7 @@ pub mod operation_metadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Diagnostic {
+
     /// File name and line number of the error or warning.
     pub location: std::string::String,
 
@@ -493,6 +485,7 @@ impl wkt::message::Message for Diagnostic {
 pub mod diagnostic {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The kind of diagnostic information possible.
     ///
@@ -575,9 +568,7 @@ pub mod diagnostic {
             match value {
                 0 => Self::Warning,
                 1 => Self::Error,
-                _ => Self::UnknownValue(kind::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(kind::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -588,9 +579,7 @@ pub mod diagnostic {
             match value {
                 "WARNING" => Self::Warning,
                 "ERROR" => Self::Error,
-                _ => Self::UnknownValue(kind::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(kind::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -614,8 +603,7 @@ pub mod diagnostic {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Kind>::new(
-                ".google.api.servicemanagement.v1.Diagnostic.Kind",
-            ))
+                ".google.api.servicemanagement.v1.Diagnostic.Kind"))
         }
     }
 }
@@ -625,6 +613,7 @@ pub mod diagnostic {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConfigSource {
+
     /// A unique ID for a specific instance of this message, typically assigned
     /// by the client for tracking purpose. If empty, the server may choose to
     /// generate one instead.
@@ -669,7 +658,7 @@ impl ConfigSource {
     pub fn set_files<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ConfigFile>,
+        V: std::convert::Into<crate::model::ConfigFile>
     {
         use std::iter::Iterator;
         self.files = v.into_iter().map(|i| i.into()).collect();
@@ -687,6 +676,7 @@ impl wkt::message::Message for ConfigSource {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConfigFile {
+
     /// The file name of the configuration file (full or relative path).
     pub file_path: std::string::String,
 
@@ -738,10 +728,7 @@ impl ConfigFile {
     /// let x1 = ConfigFile::new().set_file_type(FileType::OpenApiJson);
     /// let x2 = ConfigFile::new().set_file_type(FileType::OpenApiYaml);
     /// ```
-    pub fn set_file_type<T: std::convert::Into<crate::model::config_file::FileType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_file_type<T: std::convert::Into<crate::model::config_file::FileType>>(mut self, v: T) -> Self {
         self.file_type = v.into();
         self
     }
@@ -757,6 +744,7 @@ impl wkt::message::Message for ConfigFile {
 pub mod config_file {
     #[allow(unused_imports)]
     use super::*;
+
 
     ///
     /// # Working with unknown values
@@ -839,9 +827,7 @@ pub mod config_file {
                 Self::ServiceConfigYaml => std::option::Option::Some("SERVICE_CONFIG_YAML"),
                 Self::OpenApiJson => std::option::Option::Some("OPEN_API_JSON"),
                 Self::OpenApiYaml => std::option::Option::Some("OPEN_API_YAML"),
-                Self::FileDescriptorSetProto => {
-                    std::option::Option::Some("FILE_DESCRIPTOR_SET_PROTO")
-                }
+                Self::FileDescriptorSetProto => std::option::Option::Some("FILE_DESCRIPTOR_SET_PROTO"),
                 Self::ProtoFile => std::option::Option::Some("PROTO_FILE"),
                 Self::UnknownValue(u) => u.0.name(),
             }
@@ -870,9 +856,7 @@ pub mod config_file {
                 3 => Self::OpenApiYaml,
                 4 => Self::FileDescriptorSetProto,
                 6 => Self::ProtoFile,
-                _ => Self::UnknownValue(file_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(file_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -887,9 +871,7 @@ pub mod config_file {
                 "OPEN_API_YAML" => Self::OpenApiYaml,
                 "FILE_DESCRIPTOR_SET_PROTO" => Self::FileDescriptorSetProto,
                 "PROTO_FILE" => Self::ProtoFile,
-                _ => Self::UnknownValue(file_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(file_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -917,8 +899,7 @@ pub mod config_file {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<FileType>::new(
-                ".google.api.servicemanagement.v1.ConfigFile.FileType",
-            ))
+                ".google.api.servicemanagement.v1.ConfigFile.FileType"))
         }
     }
 }
@@ -927,6 +908,7 @@ pub mod config_file {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConfigRef {
+
     /// Resource name of a service config. It must have the following
     /// format: "services/{service name}/configs/{config id}".
     pub name: std::string::String,
@@ -965,6 +947,7 @@ impl wkt::message::Message for ConfigRef {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ChangeReport {
+
     /// List of changes between two service configurations.
     /// The changes will be alphabetically sorted based on the identifier
     /// of each change.
@@ -995,7 +978,7 @@ impl ChangeReport {
     pub fn set_config_changes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<api::model::ConfigChange>,
+        V: std::convert::Into<api::model::ConfigChange>
     {
         use std::iter::Iterator;
         self.config_changes = v.into_iter().map(|i| i.into()).collect();
@@ -1015,6 +998,7 @@ impl wkt::message::Message for ChangeReport {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Rollout {
+
     /// Optional. Unique identifier of this Rollout. Must be no longer than 63
     /// characters and only lower case letters, digits, '.', '_' and '-' are
     /// allowed.
@@ -1074,8 +1058,7 @@ impl Rollout {
     /// let x = Rollout::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -1091,8 +1074,7 @@ impl Rollout {
     /// let x = Rollout::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -1120,10 +1102,7 @@ impl Rollout {
     /// let x1 = Rollout::new().set_status(RolloutStatus::Success);
     /// let x2 = Rollout::new().set_status(RolloutStatus::Cancelled);
     /// ```
-    pub fn set_status<T: std::convert::Into<crate::model::rollout::RolloutStatus>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_status<T: std::convert::Into<crate::model::rollout::RolloutStatus>>(mut self, v: T) -> Self {
         self.status = v.into();
         self
     }
@@ -1152,12 +1131,8 @@ impl Rollout {
     /// let x = Rollout::new().set_strategy(Some(
     ///     google_cloud_api_servicemanagement_v1::model::rollout::Strategy::TrafficPercentStrategy(TrafficPercentStrategy::default().into())));
     /// ```
-    pub fn set_strategy<
-        T: std::convert::Into<std::option::Option<crate::model::rollout::Strategy>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_strategy<T: std::convert::Into<std::option::Option<crate::model::rollout::Strategy>>>(mut self, v: T) -> Self
+    {
         self.strategy = v.into();
         self
     }
@@ -1165,14 +1140,10 @@ impl Rollout {
     /// The value of [strategy][crate::model::Rollout::strategy]
     /// if it holds a `TrafficPercentStrategy`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn traffic_percent_strategy(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::rollout::TrafficPercentStrategy>> {
+    pub fn traffic_percent_strategy(&self) -> std::option::Option<&std::boxed::Box<crate::model::rollout::TrafficPercentStrategy>> {
         #[allow(unreachable_patterns)]
         self.strategy.as_ref().and_then(|v| match v {
-            crate::model::rollout::Strategy::TrafficPercentStrategy(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::rollout::Strategy::TrafficPercentStrategy(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -1191,14 +1162,11 @@ impl Rollout {
     /// assert!(x.traffic_percent_strategy().is_some());
     /// assert!(x.delete_service_strategy().is_none());
     /// ```
-    pub fn set_traffic_percent_strategy<
-        T: std::convert::Into<std::boxed::Box<crate::model::rollout::TrafficPercentStrategy>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_traffic_percent_strategy<T: std::convert::Into<std::boxed::Box<crate::model::rollout::TrafficPercentStrategy>>>(mut self, v: T) -> Self {
         self.strategy = std::option::Option::Some(
-            crate::model::rollout::Strategy::TrafficPercentStrategy(v.into()),
+            crate::model::rollout::Strategy::TrafficPercentStrategy(
+                v.into()
+            )
         );
         self
     }
@@ -1206,14 +1174,10 @@ impl Rollout {
     /// The value of [strategy][crate::model::Rollout::strategy]
     /// if it holds a `DeleteServiceStrategy`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn delete_service_strategy(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::rollout::DeleteServiceStrategy>> {
+    pub fn delete_service_strategy(&self) -> std::option::Option<&std::boxed::Box<crate::model::rollout::DeleteServiceStrategy>> {
         #[allow(unreachable_patterns)]
         self.strategy.as_ref().and_then(|v| match v {
-            crate::model::rollout::Strategy::DeleteServiceStrategy(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::rollout::Strategy::DeleteServiceStrategy(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -1232,14 +1196,11 @@ impl Rollout {
     /// assert!(x.delete_service_strategy().is_some());
     /// assert!(x.traffic_percent_strategy().is_none());
     /// ```
-    pub fn set_delete_service_strategy<
-        T: std::convert::Into<std::boxed::Box<crate::model::rollout::DeleteServiceStrategy>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_delete_service_strategy<T: std::convert::Into<std::boxed::Box<crate::model::rollout::DeleteServiceStrategy>>>(mut self, v: T) -> Self {
         self.strategy = std::option::Option::Some(
-            crate::model::rollout::Strategy::DeleteServiceStrategy(v.into()),
+            crate::model::rollout::Strategy::DeleteServiceStrategy(
+                v.into()
+            )
         );
         self
     }
@@ -1255,6 +1216,7 @@ impl wkt::message::Message for Rollout {
 pub mod rollout {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Strategy that specifies how clients of Google Service Controller want to
     /// send traffic to use different config versions. This is generally
@@ -1293,10 +1255,11 @@ pub mod rollout {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TrafficPercentStrategy {
+
         /// Maps service configuration IDs to their corresponding traffic percentage.
         /// Key is the service configuration ID, Value is the traffic percentage
         /// which must be greater than 0.0 and the sum must equal to 100.0.
-        pub percentages: std::collections::HashMap<std::string::String, f64>,
+        pub percentages: std::collections::HashMap<std::string::String,f64>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -1339,6 +1302,7 @@ pub mod rollout {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DeleteServiceStrategy {
+
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -1462,9 +1426,7 @@ pub mod rollout {
                 4 => Self::Failed,
                 5 => Self::Pending,
                 6 => Self::FailedRolledBack,
-                _ => Self::UnknownValue(rollout_status::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(rollout_status::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1480,9 +1442,7 @@ pub mod rollout {
                 "FAILED" => Self::Failed,
                 "PENDING" => Self::Pending,
                 "FAILED_ROLLED_BACK" => Self::FailedRolledBack,
-                _ => Self::UnknownValue(rollout_status::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(rollout_status::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1511,8 +1471,7 @@ pub mod rollout {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<RolloutStatus>::new(
-                ".google.api.servicemanagement.v1.Rollout.RolloutStatus",
-            ))
+                ".google.api.servicemanagement.v1.Rollout.RolloutStatus"))
         }
     }
 
@@ -1535,6 +1494,7 @@ pub mod rollout {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServicesRequest {
+
     /// Include services produced by the specified project.
     pub producer_project_id: std::string::String,
 
@@ -1570,10 +1530,7 @@ impl ListServicesRequest {
     /// # use google_cloud_api_servicemanagement_v1::model::ListServicesRequest;
     /// let x = ListServicesRequest::new().set_producer_project_id("example");
     /// ```
-    pub fn set_producer_project_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_producer_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.producer_project_id = v.into();
         self
     }
@@ -1626,6 +1583,7 @@ impl wkt::message::Message for ListServicesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServicesResponse {
+
     /// The returned services will only have the name field set.
     pub services: std::vec::Vec<crate::model::ManagedService>,
 
@@ -1655,7 +1613,7 @@ impl ListServicesResponse {
     pub fn set_services<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ManagedService>,
+        V: std::convert::Into<crate::model::ManagedService>
     {
         use std::iter::Iterator;
         self.services = v.into_iter().map(|i| i.into()).collect();
@@ -1699,6 +1657,7 @@ impl gax::paginator::internal::PageableResponse for ListServicesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetServiceRequest {
+
     /// Required. The name of the service.  See the `ServiceManager` overview for
     /// naming requirements.  For example: `example.googleapis.com`.
     pub service_name: std::string::String,
@@ -1734,6 +1693,7 @@ impl wkt::message::Message for GetServiceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateServiceRequest {
+
     /// Required. Initial values for the service resource.
     pub service: std::option::Option<crate::model::ManagedService>,
 
@@ -1754,8 +1714,7 @@ impl CreateServiceRequest {
     /// let x = CreateServiceRequest::new().set_service(ManagedService::default()/* use setters */);
     /// ```
     pub fn set_service<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ManagedService>,
+    where T: std::convert::Into<crate::model::ManagedService>
     {
         self.service = std::option::Option::Some(v.into());
         self
@@ -1771,8 +1730,7 @@ impl CreateServiceRequest {
     /// let x = CreateServiceRequest::new().set_or_clear_service(None::<ManagedService>);
     /// ```
     pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ManagedService>,
+    where T: std::convert::Into<crate::model::ManagedService>
     {
         self.service = v.map(|x| x.into());
         self
@@ -1789,6 +1747,7 @@ impl wkt::message::Message for CreateServiceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteServiceRequest {
+
     /// Required. The name of the service.  See the
     /// [overview](https://cloud.google.com/service-management/overview) for naming
     /// requirements.  For example: `example.googleapis.com`.
@@ -1825,6 +1784,7 @@ impl wkt::message::Message for DeleteServiceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UndeleteServiceRequest {
+
     /// Required. The name of the service. See the
     /// [overview](https://cloud.google.com/service-management/overview) for naming
     /// requirements. For example: `example.googleapis.com`.
@@ -1861,6 +1821,7 @@ impl wkt::message::Message for UndeleteServiceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UndeleteServiceResponse {
+
     /// Revived service resource.
     pub service: std::option::Option<crate::model::ManagedService>,
 
@@ -1881,8 +1842,7 @@ impl UndeleteServiceResponse {
     /// let x = UndeleteServiceResponse::new().set_service(ManagedService::default()/* use setters */);
     /// ```
     pub fn set_service<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ManagedService>,
+    where T: std::convert::Into<crate::model::ManagedService>
     {
         self.service = std::option::Option::Some(v.into());
         self
@@ -1898,8 +1858,7 @@ impl UndeleteServiceResponse {
     /// let x = UndeleteServiceResponse::new().set_or_clear_service(None::<ManagedService>);
     /// ```
     pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ManagedService>,
+    where T: std::convert::Into<crate::model::ManagedService>
     {
         self.service = v.map(|x| x.into());
         self
@@ -1916,6 +1875,7 @@ impl wkt::message::Message for UndeleteServiceResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetServiceConfigRequest {
+
     /// Required. The name of the service.  See the
     /// [overview](https://cloud.google.com/service-management/overview) for naming
     /// requirements.  For example: `example.googleapis.com`.
@@ -1971,10 +1931,7 @@ impl GetServiceConfigRequest {
     /// use google_cloud_api_servicemanagement_v1::model::get_service_config_request::ConfigView;
     /// let x0 = GetServiceConfigRequest::new().set_view(ConfigView::Full);
     /// ```
-    pub fn set_view<T: std::convert::Into<crate::model::get_service_config_request::ConfigView>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_view<T: std::convert::Into<crate::model::get_service_config_request::ConfigView>>(mut self, v: T) -> Self {
         self.view = v.into();
         self
     }
@@ -1990,6 +1947,7 @@ impl wkt::message::Message for GetServiceConfigRequest {
 pub mod get_service_config_request {
     #[allow(unused_imports)]
     use super::*;
+
 
     ///
     /// # Working with unknown values
@@ -2074,9 +2032,7 @@ pub mod get_service_config_request {
             match value {
                 0 => Self::Basic,
                 1 => Self::Full,
-                _ => Self::UnknownValue(config_view::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(config_view::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -2087,9 +2043,7 @@ pub mod get_service_config_request {
             match value {
                 "BASIC" => Self::Basic,
                 "FULL" => Self::Full,
-                _ => Self::UnknownValue(config_view::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(config_view::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -2113,8 +2067,7 @@ pub mod get_service_config_request {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<ConfigView>::new(
-                ".google.api.servicemanagement.v1.GetServiceConfigRequest.ConfigView",
-            ))
+                ".google.api.servicemanagement.v1.GetServiceConfigRequest.ConfigView"))
         }
     }
 }
@@ -2123,6 +2076,7 @@ pub mod get_service_config_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServiceConfigsRequest {
+
     /// Required. The name of the service.  See the
     /// [overview](https://cloud.google.com/service-management/overview) for naming
     /// requirements.  For example: `example.googleapis.com`.
@@ -2190,6 +2144,7 @@ impl wkt::message::Message for ListServiceConfigsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServiceConfigsResponse {
+
     /// The list of service configuration resources.
     pub service_configs: std::vec::Vec<api::model::Service>,
 
@@ -2219,7 +2174,7 @@ impl ListServiceConfigsResponse {
     pub fn set_service_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<api::model::Service>,
+        V: std::convert::Into<api::model::Service>
     {
         use std::iter::Iterator;
         self.service_configs = v.into_iter().map(|i| i.into()).collect();
@@ -2263,6 +2218,7 @@ impl gax::paginator::internal::PageableResponse for ListServiceConfigsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateServiceConfigRequest {
+
     /// Required. The name of the service.  See the
     /// [overview](https://cloud.google.com/service-management/overview) for naming
     /// requirements.  For example: `example.googleapis.com`.
@@ -2300,8 +2256,7 @@ impl CreateServiceConfigRequest {
     /// let x = CreateServiceConfigRequest::new().set_service_config(Service::default()/* use setters */);
     /// ```
     pub fn set_service_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<api::model::Service>,
+    where T: std::convert::Into<api::model::Service>
     {
         self.service_config = std::option::Option::Some(v.into());
         self
@@ -2317,8 +2272,7 @@ impl CreateServiceConfigRequest {
     /// let x = CreateServiceConfigRequest::new().set_or_clear_service_config(None::<Service>);
     /// ```
     pub fn set_or_clear_service_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<api::model::Service>,
+    where T: std::convert::Into<api::model::Service>
     {
         self.service_config = v.map(|x| x.into());
         self
@@ -2335,6 +2289,7 @@ impl wkt::message::Message for CreateServiceConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SubmitConfigSourceRequest {
+
     /// Required. The name of the service.  See the
     /// [overview](https://cloud.google.com/service-management/overview) for naming
     /// requirements.  For example: `example.googleapis.com`.
@@ -2377,8 +2332,7 @@ impl SubmitConfigSourceRequest {
     /// let x = SubmitConfigSourceRequest::new().set_config_source(ConfigSource::default()/* use setters */);
     /// ```
     pub fn set_config_source<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ConfigSource>,
+    where T: std::convert::Into<crate::model::ConfigSource>
     {
         self.config_source = std::option::Option::Some(v.into());
         self
@@ -2394,8 +2348,7 @@ impl SubmitConfigSourceRequest {
     /// let x = SubmitConfigSourceRequest::new().set_or_clear_config_source(None::<ConfigSource>);
     /// ```
     pub fn set_or_clear_config_source<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ConfigSource>,
+    where T: std::convert::Into<crate::model::ConfigSource>
     {
         self.config_source = v.map(|x| x.into());
         self
@@ -2424,6 +2377,7 @@ impl wkt::message::Message for SubmitConfigSourceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SubmitConfigSourceResponse {
+
     /// The generated service configuration.
     pub service_config: std::option::Option<api::model::Service>,
 
@@ -2444,8 +2398,7 @@ impl SubmitConfigSourceResponse {
     /// let x = SubmitConfigSourceResponse::new().set_service_config(Service::default()/* use setters */);
     /// ```
     pub fn set_service_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<api::model::Service>,
+    where T: std::convert::Into<api::model::Service>
     {
         self.service_config = std::option::Option::Some(v.into());
         self
@@ -2461,8 +2414,7 @@ impl SubmitConfigSourceResponse {
     /// let x = SubmitConfigSourceResponse::new().set_or_clear_service_config(None::<Service>);
     /// ```
     pub fn set_or_clear_service_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<api::model::Service>,
+    where T: std::convert::Into<api::model::Service>
     {
         self.service_config = v.map(|x| x.into());
         self
@@ -2479,6 +2431,7 @@ impl wkt::message::Message for SubmitConfigSourceResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateServiceRolloutRequest {
+
     /// Required. The name of the service.  See the
     /// [overview](https://cloud.google.com/service-management/overview) for naming
     /// requirements.  For example: `example.googleapis.com`.
@@ -2516,8 +2469,7 @@ impl CreateServiceRolloutRequest {
     /// let x = CreateServiceRolloutRequest::new().set_rollout(Rollout::default()/* use setters */);
     /// ```
     pub fn set_rollout<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Rollout>,
+    where T: std::convert::Into<crate::model::Rollout>
     {
         self.rollout = std::option::Option::Some(v.into());
         self
@@ -2533,8 +2485,7 @@ impl CreateServiceRolloutRequest {
     /// let x = CreateServiceRolloutRequest::new().set_or_clear_rollout(None::<Rollout>);
     /// ```
     pub fn set_or_clear_rollout<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Rollout>,
+    where T: std::convert::Into<crate::model::Rollout>
     {
         self.rollout = v.map(|x| x.into());
         self
@@ -2551,6 +2502,7 @@ impl wkt::message::Message for CreateServiceRolloutRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServiceRolloutsRequest {
+
     /// Required. The name of the service.  See the
     /// [overview](https://cloud.google.com/service-management/overview) for naming
     /// requirements.  For example: `example.googleapis.com`.
@@ -2642,6 +2594,7 @@ impl wkt::message::Message for ListServiceRolloutsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServiceRolloutsResponse {
+
     /// The list of rollout resources.
     pub rollouts: std::vec::Vec<crate::model::Rollout>,
 
@@ -2671,7 +2624,7 @@ impl ListServiceRolloutsResponse {
     pub fn set_rollouts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Rollout>,
+        V: std::convert::Into<crate::model::Rollout>
     {
         use std::iter::Iterator;
         self.rollouts = v.into_iter().map(|i| i.into()).collect();
@@ -2715,6 +2668,7 @@ impl gax::paginator::internal::PageableResponse for ListServiceRolloutsResponse 
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetServiceRolloutRequest {
+
     /// Required. The name of the service.  See the
     /// [overview](https://cloud.google.com/service-management/overview) for naming
     /// requirements.  For example: `example.googleapis.com`.
@@ -2766,6 +2720,7 @@ impl wkt::message::Message for GetServiceRolloutRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnableServiceResponse {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2785,6 +2740,7 @@ impl wkt::message::Message for EnableServiceResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateConfigReportRequest {
+
     /// Required. Service configuration for which we want to generate the report.
     /// For this version of API, the supported types are
     /// [google.api.servicemanagement.v1.ConfigRef][google.api.servicemanagement.v1.ConfigRef],
@@ -2824,8 +2780,7 @@ impl GenerateConfigReportRequest {
     /// let x = GenerateConfigReportRequest::new().set_new_config(Any::default()/* use setters */);
     /// ```
     pub fn set_new_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Any>,
+    where T: std::convert::Into<wkt::Any>
     {
         self.new_config = std::option::Option::Some(v.into());
         self
@@ -2841,8 +2796,7 @@ impl GenerateConfigReportRequest {
     /// let x = GenerateConfigReportRequest::new().set_or_clear_new_config(None::<Any>);
     /// ```
     pub fn set_or_clear_new_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Any>,
+    where T: std::convert::Into<wkt::Any>
     {
         self.new_config = v.map(|x| x.into());
         self
@@ -2857,8 +2811,7 @@ impl GenerateConfigReportRequest {
     /// let x = GenerateConfigReportRequest::new().set_old_config(Any::default()/* use setters */);
     /// ```
     pub fn set_old_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Any>,
+    where T: std::convert::Into<wkt::Any>
     {
         self.old_config = std::option::Option::Some(v.into());
         self
@@ -2874,8 +2827,7 @@ impl GenerateConfigReportRequest {
     /// let x = GenerateConfigReportRequest::new().set_or_clear_old_config(None::<Any>);
     /// ```
     pub fn set_or_clear_old_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Any>,
+    where T: std::convert::Into<wkt::Any>
     {
         self.old_config = v.map(|x| x.into());
         self
@@ -2892,6 +2844,7 @@ impl wkt::message::Message for GenerateConfigReportRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateConfigReportResponse {
+
     /// Name of the service this report belongs to.
     pub service_name: std::string::String,
 
@@ -2954,7 +2907,7 @@ impl GenerateConfigReportResponse {
     pub fn set_change_reports<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ChangeReport>,
+        V: std::convert::Into<crate::model::ChangeReport>
     {
         use std::iter::Iterator;
         self.change_reports = v.into_iter().map(|i| i.into()).collect();
@@ -2976,7 +2929,7 @@ impl GenerateConfigReportResponse {
     pub fn set_diagnostics<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Diagnostic>,
+        V: std::convert::Into<crate::model::Diagnostic>
     {
         use std::iter::Iterator;
         self.diagnostics = v.into_iter().map(|i| i.into()).collect();

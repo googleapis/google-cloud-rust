@@ -345,8 +345,7 @@ impl<T: super::CertificateAuthorityService> CertificateAuthorityService for T {
         &self,
         req: crate::model::FetchCertificateAuthorityCsrRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::FetchCertificateAuthorityCsrResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::FetchCertificateAuthorityCsrResponse>> {
         T::fetch_certificate_authority_csr(self, req, options).await
     }
 
@@ -364,8 +363,7 @@ impl<T: super::CertificateAuthorityService> CertificateAuthorityService for T {
         &self,
         req: crate::model::ListCertificateAuthoritiesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListCertificateAuthoritiesResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::ListCertificateAuthoritiesResponse>> {
         T::list_certificate_authorities(self, req, options).await
     }
 
@@ -464,8 +462,7 @@ impl<T: super::CertificateAuthorityService> CertificateAuthorityService for T {
         &self,
         req: crate::model::ListCertificateRevocationListsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListCertificateRevocationListsResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::ListCertificateRevocationListsResponse>> {
         T::list_certificate_revocation_lists(self, req, options).await
     }
 
@@ -510,8 +507,7 @@ impl<T: super::CertificateAuthorityService> CertificateAuthorityService for T {
         &self,
         req: crate::model::ListCertificateTemplatesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListCertificateTemplatesResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::ListCertificateTemplatesResponse>> {
         T::list_certificate_templates(self, req, options).await
     }
 

@@ -39,10 +39,7 @@ pub mod case_attachment_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = CaseAttachmentService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(
-                self,
-                config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -57,12 +54,8 @@ pub mod case_attachment_service {
     }
 
     impl<R> RequestBuilder<R>
-    where
-        R: std::default::Default,
-    {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CaseAttachmentService>,
-        ) -> Self {
+    where R: std::default::Default {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CaseAttachmentService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -96,10 +89,10 @@ pub mod case_attachment_service {
     pub struct ListAttachments(RequestBuilder<crate::model::ListAttachmentsRequest>);
 
     impl ListAttachments {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CaseAttachmentService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CaseAttachmentService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -116,17 +109,11 @@ pub mod case_attachment_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListAttachmentsResponse> {
-            (*self.0.stub)
-                .list_attachments(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_attachments(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListAttachmentsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListAttachmentsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -138,10 +125,7 @@ pub mod case_attachment_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListAttachmentsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListAttachmentsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -173,6 +157,7 @@ pub mod case_attachment_service {
             &mut self.0.options
         }
     }
+
 }
 
 pub mod case_service {
@@ -200,10 +185,7 @@ pub mod case_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = CaseService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(
-                self,
-                config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -218,12 +200,8 @@ pub mod case_service {
     }
 
     impl<R> RequestBuilder<R>
-    where
-        R: std::default::Default,
-    {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CaseService>,
-        ) -> Self {
+    where R: std::default::Default {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CaseService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -253,10 +231,10 @@ pub mod case_service {
     pub struct GetCase(RequestBuilder<crate::model::GetCaseRequest>);
 
     impl GetCase {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CaseService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CaseService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -273,10 +251,7 @@ pub mod case_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Case> {
-            (*self.0.stub)
-                .get_case(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_case(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetCaseRequest::name].
@@ -320,10 +295,10 @@ pub mod case_service {
     pub struct ListCases(RequestBuilder<crate::model::ListCasesRequest>);
 
     impl ListCases {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CaseService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CaseService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -340,17 +315,11 @@ pub mod case_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListCasesResponse> {
-            (*self.0.stub)
-                .list_cases(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_cases(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListCasesResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListCasesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -362,10 +331,7 @@ pub mod case_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListCasesResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListCasesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -429,10 +395,10 @@ pub mod case_service {
     pub struct SearchCases(RequestBuilder<crate::model::SearchCasesRequest>);
 
     impl SearchCases {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CaseService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CaseService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -449,17 +415,11 @@ pub mod case_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SearchCasesResponse> {
-            (*self.0.stub)
-                .search_cases(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).search_cases(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::SearchCasesResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::SearchCasesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -471,10 +431,7 @@ pub mod case_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::SearchCasesResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::SearchCasesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -532,10 +489,10 @@ pub mod case_service {
     pub struct CreateCase(RequestBuilder<crate::model::CreateCaseRequest>);
 
     impl CreateCase {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CaseService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CaseService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -552,10 +509,7 @@ pub mod case_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Case> {
-            (*self.0.stub)
-                .create_case(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_case(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateCaseRequest::parent].
@@ -570,8 +524,7 @@ pub mod case_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_case<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Case>,
+        where T: std::convert::Into<crate::model::Case>
         {
             self.0.request.case = std::option::Option::Some(v.into());
             self
@@ -581,8 +534,7 @@ pub mod case_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_case<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Case>,
+        where T: std::convert::Into<crate::model::Case>
         {
             self.0.request.case = v.map(|x| x.into());
             self
@@ -617,10 +569,10 @@ pub mod case_service {
     pub struct UpdateCase(RequestBuilder<crate::model::UpdateCaseRequest>);
 
     impl UpdateCase {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CaseService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CaseService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -637,18 +589,14 @@ pub mod case_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Case> {
-            (*self.0.stub)
-                .update_case(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_case(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [case][crate::model::UpdateCaseRequest::case].
         ///
         /// This is a **required** field for requests.
         pub fn set_case<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Case>,
+        where T: std::convert::Into<crate::model::Case>
         {
             self.0.request.case = std::option::Option::Some(v.into());
             self
@@ -658,8 +606,7 @@ pub mod case_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_case<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Case>,
+        where T: std::convert::Into<crate::model::Case>
         {
             self.0.request.case = v.map(|x| x.into());
             self
@@ -667,8 +614,7 @@ pub mod case_service {
 
         /// Sets the value of [update_mask][crate::model::UpdateCaseRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -676,8 +622,7 @@ pub mod case_service {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateCaseRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -712,10 +657,10 @@ pub mod case_service {
     pub struct EscalateCase(RequestBuilder<crate::model::EscalateCaseRequest>);
 
     impl EscalateCase {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CaseService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CaseService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -732,10 +677,7 @@ pub mod case_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Case> {
-            (*self.0.stub)
-                .escalate_case(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).escalate_case(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::EscalateCaseRequest::name].
@@ -748,8 +690,7 @@ pub mod case_service {
 
         /// Sets the value of [escalation][crate::model::EscalateCaseRequest::escalation].
         pub fn set_escalation<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Escalation>,
+        where T: std::convert::Into<crate::model::Escalation>
         {
             self.0.request.escalation = std::option::Option::Some(v.into());
             self
@@ -757,8 +698,7 @@ pub mod case_service {
 
         /// Sets or clears the value of [escalation][crate::model::EscalateCaseRequest::escalation].
         pub fn set_or_clear_escalation<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Escalation>,
+        where T: std::convert::Into<crate::model::Escalation>
         {
             self.0.request.escalation = v.map(|x| x.into());
             self
@@ -793,10 +733,10 @@ pub mod case_service {
     pub struct CloseCase(RequestBuilder<crate::model::CloseCaseRequest>);
 
     impl CloseCase {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CaseService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CaseService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -813,10 +753,7 @@ pub mod case_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Case> {
-            (*self.0.stub)
-                .close_case(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).close_case(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::CloseCaseRequest::name].
@@ -857,22 +794,17 @@ pub mod case_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SearchCaseClassifications(
-        RequestBuilder<crate::model::SearchCaseClassificationsRequest>,
-    );
+    pub struct SearchCaseClassifications(RequestBuilder<crate::model::SearchCaseClassificationsRequest>);
 
     impl SearchCaseClassifications {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CaseService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CaseService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SearchCaseClassificationsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::SearchCaseClassificationsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -885,19 +817,11 @@ pub mod case_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SearchCaseClassificationsResponse> {
-            (*self.0.stub)
-                .search_case_classifications(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).search_case_classifications(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<
-            crate::model::SearchCaseClassificationsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::SearchCaseClassificationsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -909,12 +833,7 @@ pub mod case_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::SearchCaseClassificationsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::SearchCaseClassificationsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -944,6 +863,7 @@ pub mod case_service {
             &mut self.0.options
         }
     }
+
 }
 
 pub mod comment_service {
@@ -971,10 +891,7 @@ pub mod comment_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = CommentService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(
-                self,
-                config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -989,12 +906,8 @@ pub mod comment_service {
     }
 
     impl<R> RequestBuilder<R>
-    where
-        R: std::default::Default,
-    {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CommentService>,
-        ) -> Self {
+    where R: std::default::Default {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CommentService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -1028,10 +941,10 @@ pub mod comment_service {
     pub struct ListComments(RequestBuilder<crate::model::ListCommentsRequest>);
 
     impl ListComments {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CommentService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CommentService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1048,17 +961,11 @@ pub mod comment_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListCommentsResponse> {
-            (*self.0.stub)
-                .list_comments(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_comments(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListCommentsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListCommentsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1070,10 +977,7 @@ pub mod comment_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListCommentsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListCommentsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1127,10 +1031,10 @@ pub mod comment_service {
     pub struct CreateComment(RequestBuilder<crate::model::CreateCommentRequest>);
 
     impl CreateComment {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CommentService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CommentService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1147,10 +1051,7 @@ pub mod comment_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Comment> {
-            (*self.0.stub)
-                .create_comment(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_comment(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateCommentRequest::parent].
@@ -1165,8 +1066,7 @@ pub mod comment_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_comment<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Comment>,
+        where T: std::convert::Into<crate::model::Comment>
         {
             self.0.request.comment = std::option::Option::Some(v.into());
             self
@@ -1176,8 +1076,7 @@ pub mod comment_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_comment<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Comment>,
+        where T: std::convert::Into<crate::model::Comment>
         {
             self.0.request.comment = v.map(|x| x.into());
             self
@@ -1190,4 +1089,5 @@ pub mod comment_service {
             &mut self.0.options
         }
     }
+
 }

@@ -303,6 +303,7 @@ pub trait AnswerRecords: std::fmt::Debug + Send + Sync {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
+
 }
 
 /// All implementations of [super::AnswerRecords] also implement [AnswerRecords].
@@ -371,6 +372,7 @@ impl<T: super::AnswerRecords> AnswerRecords for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::Contexts].
@@ -442,6 +444,7 @@ pub trait Contexts: std::fmt::Debug + Send + Sync {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
+
 }
 
 /// All implementations of [super::Contexts] also implement [Contexts].
@@ -546,6 +549,7 @@ impl<T: super::Contexts> Contexts for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::Conversations].
@@ -647,6 +651,7 @@ pub trait Conversations: std::fmt::Debug + Send + Sync {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
+
 }
 
 /// All implementations of [super::Conversations] also implement [Conversations].
@@ -712,8 +717,7 @@ impl<T: super::Conversations> Conversations for T {
         &self,
         req: crate::model::SuggestConversationSummaryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SuggestConversationSummaryResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::SuggestConversationSummaryResponse>> {
         T::suggest_conversation_summary(self, req, options).await
     }
 
@@ -722,8 +726,7 @@ impl<T: super::Conversations> Conversations for T {
         &self,
         req: crate::model::GenerateStatelessSummaryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::GenerateStatelessSummaryResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::GenerateStatelessSummaryResponse>> {
         T::generate_stateless_summary(self, req, options).await
     }
 
@@ -732,8 +735,7 @@ impl<T: super::Conversations> Conversations for T {
         &self,
         req: crate::model::GenerateStatelessSuggestionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::GenerateStatelessSuggestionResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::GenerateStatelessSuggestionResponse>> {
         T::generate_stateless_suggestion(self, req, options).await
     }
 
@@ -799,6 +801,7 @@ impl<T: super::Conversations> Conversations for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::ConversationDatasets].
@@ -903,8 +906,7 @@ impl<T: super::ConversationDatasets> ConversationDatasets for T {
         &self,
         req: crate::model::ListConversationDatasetsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListConversationDatasetsResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::ListConversationDatasetsResponse>> {
         T::list_conversation_datasets(self, req, options).await
     }
 
@@ -1036,9 +1038,7 @@ pub trait ConversationModels: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ListConversationModelEvaluationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::ListConversationModelEvaluationsResponse>,
-    >;
+    ) -> crate::Result<gax::response::Response<crate::model::ListConversationModelEvaluationsResponse>>;
 
     async fn create_conversation_model_evaluation(
         &self,
@@ -1159,9 +1159,7 @@ impl<T: super::ConversationModels> ConversationModels for T {
         &self,
         req: crate::model::ListConversationModelEvaluationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::ListConversationModelEvaluationsResponse>,
-    > {
+    ) -> crate::Result<gax::response::Response<crate::model::ListConversationModelEvaluationsResponse>> {
         T::list_conversation_model_evaluations(self, req, options).await
     }
 
@@ -1330,8 +1328,7 @@ impl<T: super::ConversationProfiles> ConversationProfiles for T {
         &self,
         req: crate::model::ListConversationProfilesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListConversationProfilesResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::ListConversationProfilesResponse>> {
         T::list_conversation_profiles(self, req, options).await
     }
 
@@ -2145,6 +2142,7 @@ pub trait Environments: std::fmt::Debug + Send + Sync {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
+
 }
 
 /// All implementations of [super::Environments] also implement [Environments].
@@ -2249,6 +2247,7 @@ impl<T: super::Environments> Environments for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::Fulfillments].
@@ -2296,6 +2295,7 @@ pub trait Fulfillments: std::fmt::Debug + Send + Sync {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
+
 }
 
 /// All implementations of [super::Fulfillments] also implement [Fulfillments].
@@ -2364,6 +2364,7 @@ impl<T: super::Fulfillments> Fulfillments for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::Generators].
@@ -2429,6 +2430,7 @@ pub trait Generators: std::fmt::Debug + Send + Sync {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
+
 }
 
 /// All implementations of [super::Generators] also implement [Generators].
@@ -2524,6 +2526,7 @@ impl<T: super::Generators> Generators for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::Intents].
@@ -2803,6 +2806,7 @@ pub trait KnowledgeBases: std::fmt::Debug + Send + Sync {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
+
 }
 
 /// All implementations of [super::KnowledgeBases] also implement [KnowledgeBases].
@@ -2898,6 +2902,7 @@ impl<T: super::KnowledgeBases> KnowledgeBases for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::Participants].
@@ -2987,6 +2992,7 @@ pub trait Participants: std::fmt::Debug + Send + Sync {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
+
 }
 
 /// All implementations of [super::Participants] also implement [Participants].
@@ -3118,6 +3124,7 @@ impl<T: super::Participants> Participants for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::Sessions].
@@ -3159,6 +3166,7 @@ pub trait Sessions: std::fmt::Debug + Send + Sync {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
+
 }
 
 /// All implementations of [super::Sessions] also implement [Sessions].
@@ -3218,6 +3226,7 @@ impl<T: super::Sessions> Sessions for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::SessionEntityTypes].
@@ -3283,6 +3292,7 @@ pub trait SessionEntityTypes: std::fmt::Debug + Send + Sync {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
+
 }
 
 /// All implementations of [super::SessionEntityTypes] also implement [SessionEntityTypes].
@@ -3378,6 +3388,7 @@ impl<T: super::SessionEntityTypes> SessionEntityTypes for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::Versions].
@@ -3443,6 +3454,7 @@ pub trait Versions: std::fmt::Debug + Send + Sync {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
+
 }
 
 /// All implementations of [super::Versions] also implement [Versions].
@@ -3538,4 +3550,5 @@ impl<T: super::Versions> Versions for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
+
 }

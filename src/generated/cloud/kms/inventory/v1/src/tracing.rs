@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [KeyDashboardService](super::stub::KeyDashboardService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct KeyDashboardService<T>
-where
-    T: super::stub::KeyDashboardService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::KeyDashboardService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> KeyDashboardService<T>
-where
-    T: super::stub::KeyDashboardService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::KeyDashboardService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::KeyDashboardService for KeyDashboardService<T>
-where
-    T: super::stub::KeyDashboardService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::KeyDashboardService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn list_crypto_keys(
         &self,
@@ -45,39 +39,32 @@ where
     ) -> Result<gax::response::Response<crate::model::ListCryptoKeysResponse>> {
         self.inner.list_crypto_keys(req, options).await
     }
+
 }
 
 /// Implements a [KeyTrackingService](super::stub::KeyTrackingService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct KeyTrackingService<T>
-where
-    T: super::stub::KeyTrackingService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::KeyTrackingService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> KeyTrackingService<T>
-where
-    T: super::stub::KeyTrackingService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::KeyTrackingService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::KeyTrackingService for KeyTrackingService<T>
-where
-    T: super::stub::KeyTrackingService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::KeyTrackingService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn get_protected_resources_summary(
         &self,
         req: crate::model::GetProtectedResourcesSummaryRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ProtectedResourcesSummary>> {
-        self.inner
-            .get_protected_resources_summary(req, options)
-            .await
+        self.inner.get_protected_resources_summary(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -88,4 +75,6 @@ where
     ) -> Result<gax::response::Response<crate::model::SearchProtectedResourcesResponse>> {
         self.inner.search_protected_resources(req, options).await
     }
+
 }
+

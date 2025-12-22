@@ -102,42 +102,28 @@ impl Autokey {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::Autokey + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::Autokey + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Autokey>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Autokey>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Autokey> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Autokey> {
         super::transport::Autokey::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Autokey> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::Autokey::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Autokey> {
+        Self::build_transport(conf).await.map(super::tracing::Autokey::new)
     }
 
     /// Creates a new [KeyHandle][google.cloud.kms.v1.KeyHandle], triggering the
@@ -160,31 +146,69 @@ impl Autokey {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_key_handle(&self) -> super::builder::autokey::CreateKeyHandle {
+    pub fn create_key_handle(&self) -> super::builder::autokey::CreateKeyHandle
+    {
         super::builder::autokey::CreateKeyHandle::new(self.inner.clone())
     }
 
     /// Returns the [KeyHandle][google.cloud.kms.v1.KeyHandle].
     ///
     /// [google.cloud.kms.v1.KeyHandle]: crate::model::KeyHandle
-    pub fn get_key_handle(&self) -> super::builder::autokey::GetKeyHandle {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_v1::client::Autokey;
+    /// async fn sample(
+    ///    client: &Autokey,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_key_handle()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_key_handle(&self) -> super::builder::autokey::GetKeyHandle
+    {
         super::builder::autokey::GetKeyHandle::new(self.inner.clone())
     }
 
     /// Lists [KeyHandles][google.cloud.kms.v1.KeyHandle].
     ///
     /// [google.cloud.kms.v1.KeyHandle]: crate::model::KeyHandle
-    pub fn list_key_handles(&self) -> super::builder::autokey::ListKeyHandles {
+    pub fn list_key_handles(&self) -> super::builder::autokey::ListKeyHandles
+    {
         super::builder::autokey::ListKeyHandles::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::autokey::ListLocations {
+    pub fn list_locations(&self) -> super::builder::autokey::ListLocations
+    {
         super::builder::autokey::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(&self) -> super::builder::autokey::GetLocation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_v1::client::Autokey;
+    /// async fn sample(
+    ///    client: &Autokey
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_location(&self) -> super::builder::autokey::GetLocation
+    {
         super::builder::autokey::GetLocation::new(self.inner.clone())
     }
 
@@ -193,13 +217,47 @@ impl Autokey {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
-    pub fn set_iam_policy(&self) -> super::builder::autokey::SetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_v1::client::Autokey;
+    /// async fn sample(
+    ///    client: &Autokey
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::autokey::SetIamPolicy
+    {
         super::builder::autokey::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
-    pub fn get_iam_policy(&self) -> super::builder::autokey::GetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_v1::client::Autokey;
+    /// async fn sample(
+    ///    client: &Autokey
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::autokey::GetIamPolicy
+    {
         super::builder::autokey::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -210,14 +268,48 @@ impl Autokey {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
-    pub fn test_iam_permissions(&self) -> super::builder::autokey::TestIamPermissions {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_v1::client::Autokey;
+    /// async fn sample(
+    ///    client: &Autokey
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::autokey::TestIamPermissions
+    {
         super::builder::autokey::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::autokey::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_v1::client::Autokey;
+    /// async fn sample(
+    ///    client: &Autokey
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::autokey::GetOperation
+    {
         super::builder::autokey::GetOperation::new(self.inner.clone())
     }
 }
@@ -295,42 +387,28 @@ impl AutokeyAdmin {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::AutokeyAdmin + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::AutokeyAdmin + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::AutokeyAdmin>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::AutokeyAdmin>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::AutokeyAdmin> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::AutokeyAdmin> {
         super::transport::AutokeyAdmin::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::AutokeyAdmin> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::AutokeyAdmin::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::AutokeyAdmin> {
+        Self::build_transport(conf).await.map(super::tracing::AutokeyAdmin::new)
     }
 
     /// Updates the [AutokeyConfig][google.cloud.kms.v1.AutokeyConfig] for a
@@ -344,7 +422,24 @@ impl AutokeyAdmin {
     /// [google.cloud.kms.v1.AutokeyConfig]: crate::model::AutokeyConfig
     /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
     /// [google.cloud.kms.v1.KeyHandle]: crate::model::KeyHandle
-    pub fn update_autokey_config(&self) -> super::builder::autokey_admin::UpdateAutokeyConfig {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_v1::client::AutokeyAdmin;
+    /// async fn sample(
+    ///    client: &AutokeyAdmin
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_autokey_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_autokey_config(&self) -> super::builder::autokey_admin::UpdateAutokeyConfig
+    {
         super::builder::autokey_admin::UpdateAutokeyConfig::new(self.inner.clone())
     }
 
@@ -352,24 +447,75 @@ impl AutokeyAdmin {
     /// folder.
     ///
     /// [google.cloud.kms.v1.AutokeyConfig]: crate::model::AutokeyConfig
-    pub fn get_autokey_config(&self) -> super::builder::autokey_admin::GetAutokeyConfig {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_v1::client::AutokeyAdmin;
+    /// async fn sample(
+    ///    client: &AutokeyAdmin,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_autokey_config()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_autokey_config(&self) -> super::builder::autokey_admin::GetAutokeyConfig
+    {
         super::builder::autokey_admin::GetAutokeyConfig::new(self.inner.clone())
     }
 
     /// Returns the effective Cloud KMS Autokey configuration for a given project.
-    pub fn show_effective_autokey_config(
-        &self,
-    ) -> super::builder::autokey_admin::ShowEffectiveAutokeyConfig {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_v1::client::AutokeyAdmin;
+    /// async fn sample(
+    ///    client: &AutokeyAdmin
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .show_effective_autokey_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn show_effective_autokey_config(&self) -> super::builder::autokey_admin::ShowEffectiveAutokeyConfig
+    {
         super::builder::autokey_admin::ShowEffectiveAutokeyConfig::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::autokey_admin::ListLocations {
+    pub fn list_locations(&self) -> super::builder::autokey_admin::ListLocations
+    {
         super::builder::autokey_admin::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(&self) -> super::builder::autokey_admin::GetLocation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_v1::client::AutokeyAdmin;
+    /// async fn sample(
+    ///    client: &AutokeyAdmin
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_location(&self) -> super::builder::autokey_admin::GetLocation
+    {
         super::builder::autokey_admin::GetLocation::new(self.inner.clone())
     }
 
@@ -378,13 +524,47 @@ impl AutokeyAdmin {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
-    pub fn set_iam_policy(&self) -> super::builder::autokey_admin::SetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_v1::client::AutokeyAdmin;
+    /// async fn sample(
+    ///    client: &AutokeyAdmin
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::autokey_admin::SetIamPolicy
+    {
         super::builder::autokey_admin::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
-    pub fn get_iam_policy(&self) -> super::builder::autokey_admin::GetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_v1::client::AutokeyAdmin;
+    /// async fn sample(
+    ///    client: &AutokeyAdmin
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::autokey_admin::GetIamPolicy
+    {
         super::builder::autokey_admin::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -395,14 +575,48 @@ impl AutokeyAdmin {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
-    pub fn test_iam_permissions(&self) -> super::builder::autokey_admin::TestIamPermissions {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_v1::client::AutokeyAdmin;
+    /// async fn sample(
+    ///    client: &AutokeyAdmin
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::autokey_admin::TestIamPermissions
+    {
         super::builder::autokey_admin::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::autokey_admin::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_v1::client::AutokeyAdmin;
+    /// async fn sample(
+    ///    client: &AutokeyAdmin
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::autokey_admin::GetOperation
+    {
         super::builder::autokey_admin::GetOperation::new(self.inner.clone())
     }
 }
@@ -478,48 +692,35 @@ impl EkmService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::EkmService + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::EkmService + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::EkmService>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::EkmService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::EkmService> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::EkmService> {
         super::transport::EkmService::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::EkmService> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::EkmService::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::EkmService> {
+        Self::build_transport(conf).await.map(super::tracing::EkmService::new)
     }
 
     /// Lists [EkmConnections][google.cloud.kms.v1.EkmConnection].
     ///
     /// [google.cloud.kms.v1.EkmConnection]: crate::model::EkmConnection
-    pub fn list_ekm_connections(&self) -> super::builder::ekm_service::ListEkmConnections {
+    pub fn list_ekm_connections(&self) -> super::builder::ekm_service::ListEkmConnections
+    {
         super::builder::ekm_service::ListEkmConnections::new(self.inner.clone())
     }
 
@@ -527,7 +728,24 @@ impl EkmService {
     /// [EkmConnection][google.cloud.kms.v1.EkmConnection].
     ///
     /// [google.cloud.kms.v1.EkmConnection]: crate::model::EkmConnection
-    pub fn get_ekm_connection(&self) -> super::builder::ekm_service::GetEkmConnection {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_v1::client::EkmService;
+    /// async fn sample(
+    ///    client: &EkmService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_ekm_connection()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_ekm_connection(&self) -> super::builder::ekm_service::GetEkmConnection
+    {
         super::builder::ekm_service::GetEkmConnection::new(self.inner.clone())
     }
 
@@ -535,14 +753,48 @@ impl EkmService {
     /// Project and Location.
     ///
     /// [google.cloud.kms.v1.EkmConnection]: crate::model::EkmConnection
-    pub fn create_ekm_connection(&self) -> super::builder::ekm_service::CreateEkmConnection {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_v1::client::EkmService;
+    /// async fn sample(
+    ///    client: &EkmService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_ekm_connection()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_ekm_connection(&self) -> super::builder::ekm_service::CreateEkmConnection
+    {
         super::builder::ekm_service::CreateEkmConnection::new(self.inner.clone())
     }
 
     /// Updates an [EkmConnection][google.cloud.kms.v1.EkmConnection]'s metadata.
     ///
     /// [google.cloud.kms.v1.EkmConnection]: crate::model::EkmConnection
-    pub fn update_ekm_connection(&self) -> super::builder::ekm_service::UpdateEkmConnection {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_v1::client::EkmService;
+    /// async fn sample(
+    ///    client: &EkmService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_ekm_connection()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_ekm_connection(&self) -> super::builder::ekm_service::UpdateEkmConnection
+    {
         super::builder::ekm_service::UpdateEkmConnection::new(self.inner.clone())
     }
 
@@ -550,7 +802,24 @@ impl EkmService {
     /// for a given project and location.
     ///
     /// [google.cloud.kms.v1.EkmConfig]: crate::model::EkmConfig
-    pub fn get_ekm_config(&self) -> super::builder::ekm_service::GetEkmConfig {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_v1::client::EkmService;
+    /// async fn sample(
+    ///    client: &EkmService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_ekm_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_ekm_config(&self) -> super::builder::ekm_service::GetEkmConfig
+    {
         super::builder::ekm_service::GetEkmConfig::new(self.inner.clone())
     }
 
@@ -558,7 +827,24 @@ impl EkmService {
     /// for a given project and location.
     ///
     /// [google.cloud.kms.v1.EkmConfig]: crate::model::EkmConfig
-    pub fn update_ekm_config(&self) -> super::builder::ekm_service::UpdateEkmConfig {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_v1::client::EkmService;
+    /// async fn sample(
+    ///    client: &EkmService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_ekm_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_ekm_config(&self) -> super::builder::ekm_service::UpdateEkmConfig
+    {
         super::builder::ekm_service::UpdateEkmConfig::new(self.inner.clone())
     }
 
@@ -569,17 +855,52 @@ impl EkmService {
     /// at <https://cloud.google.com/kms/docs/reference/ekm_errors>.
     ///
     /// [google.cloud.kms.v1.EkmConnection]: crate::model::EkmConnection
-    pub fn verify_connectivity(&self) -> super::builder::ekm_service::VerifyConnectivity {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_v1::client::EkmService;
+    /// async fn sample(
+    ///    client: &EkmService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .verify_connectivity()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn verify_connectivity(&self) -> super::builder::ekm_service::VerifyConnectivity
+    {
         super::builder::ekm_service::VerifyConnectivity::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::ekm_service::ListLocations {
+    pub fn list_locations(&self) -> super::builder::ekm_service::ListLocations
+    {
         super::builder::ekm_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(&self) -> super::builder::ekm_service::GetLocation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_v1::client::EkmService;
+    /// async fn sample(
+    ///    client: &EkmService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_location(&self) -> super::builder::ekm_service::GetLocation
+    {
         super::builder::ekm_service::GetLocation::new(self.inner.clone())
     }
 
@@ -588,13 +909,47 @@ impl EkmService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
-    pub fn set_iam_policy(&self) -> super::builder::ekm_service::SetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_v1::client::EkmService;
+    /// async fn sample(
+    ///    client: &EkmService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::ekm_service::SetIamPolicy
+    {
         super::builder::ekm_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
-    pub fn get_iam_policy(&self) -> super::builder::ekm_service::GetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_v1::client::EkmService;
+    /// async fn sample(
+    ///    client: &EkmService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::ekm_service::GetIamPolicy
+    {
         super::builder::ekm_service::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -605,14 +960,48 @@ impl EkmService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
-    pub fn test_iam_permissions(&self) -> super::builder::ekm_service::TestIamPermissions {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_v1::client::EkmService;
+    /// async fn sample(
+    ///    client: &EkmService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::ekm_service::TestIamPermissions
+    {
         super::builder::ekm_service::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::ekm_service::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_v1::client::EkmService;
+    /// async fn sample(
+    ///    client: &EkmService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::ekm_service::GetOperation
+    {
         super::builder::ekm_service::GetOperation::new(self.inner.clone())
     }
 }
@@ -689,9 +1078,7 @@ impl KeyManagementService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::key_management_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::key_management_service::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::key_management_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -699,79 +1086,83 @@ impl KeyManagementService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::KeyManagementService + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::KeyManagementService + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::KeyManagementService>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::KeyManagementService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::KeyManagementService> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::KeyManagementService> {
         super::transport::KeyManagementService::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::KeyManagementService> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::KeyManagementService::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::KeyManagementService> {
+        Self::build_transport(conf).await.map(super::tracing::KeyManagementService::new)
     }
 
     /// Lists [KeyRings][google.cloud.kms.v1.KeyRing].
     ///
     /// [google.cloud.kms.v1.KeyRing]: crate::model::KeyRing
-    pub fn list_key_rings(&self) -> super::builder::key_management_service::ListKeyRings {
+    pub fn list_key_rings(&self) -> super::builder::key_management_service::ListKeyRings
+    {
         super::builder::key_management_service::ListKeyRings::new(self.inner.clone())
     }
 
     /// Lists [CryptoKeys][google.cloud.kms.v1.CryptoKey].
     ///
     /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
-    pub fn list_crypto_keys(&self) -> super::builder::key_management_service::ListCryptoKeys {
+    pub fn list_crypto_keys(&self) -> super::builder::key_management_service::ListCryptoKeys
+    {
         super::builder::key_management_service::ListCryptoKeys::new(self.inner.clone())
     }
 
     /// Lists [CryptoKeyVersions][google.cloud.kms.v1.CryptoKeyVersion].
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
-    pub fn list_crypto_key_versions(
-        &self,
-    ) -> super::builder::key_management_service::ListCryptoKeyVersions {
+    pub fn list_crypto_key_versions(&self) -> super::builder::key_management_service::ListCryptoKeyVersions
+    {
         super::builder::key_management_service::ListCryptoKeyVersions::new(self.inner.clone())
     }
 
     /// Lists [ImportJobs][google.cloud.kms.v1.ImportJob].
     ///
     /// [google.cloud.kms.v1.ImportJob]: crate::model::ImportJob
-    pub fn list_import_jobs(&self) -> super::builder::key_management_service::ListImportJobs {
+    pub fn list_import_jobs(&self) -> super::builder::key_management_service::ListImportJobs
+    {
         super::builder::key_management_service::ListImportJobs::new(self.inner.clone())
     }
 
     /// Returns metadata for a given [KeyRing][google.cloud.kms.v1.KeyRing].
     ///
     /// [google.cloud.kms.v1.KeyRing]: crate::model::KeyRing
-    pub fn get_key_ring(&self) -> super::builder::key_management_service::GetKeyRing {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_v1::client::KeyManagementService;
+    /// async fn sample(
+    ///    client: &KeyManagementService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_key_ring()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_key_ring(&self) -> super::builder::key_management_service::GetKeyRing
+    {
         super::builder::key_management_service::GetKeyRing::new(self.inner.clone())
     }
 
@@ -782,7 +1173,24 @@ impl KeyManagementService {
     /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
     /// [google.cloud.kms.v1.CryptoKey.primary]: crate::model::CryptoKey::primary
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
-    pub fn get_crypto_key(&self) -> super::builder::key_management_service::GetCryptoKey {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_v1::client::KeyManagementService;
+    /// async fn sample(
+    ///    client: &KeyManagementService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_crypto_key()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_crypto_key(&self) -> super::builder::key_management_service::GetCryptoKey
+    {
         super::builder::key_management_service::GetCryptoKey::new(self.inner.clone())
     }
 
@@ -790,9 +1198,24 @@ impl KeyManagementService {
     /// [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion].
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
-    pub fn get_crypto_key_version(
-        &self,
-    ) -> super::builder::key_management_service::GetCryptoKeyVersion {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_v1::client::KeyManagementService;
+    /// async fn sample(
+    ///    client: &KeyManagementService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_crypto_key_version()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_crypto_key_version(&self) -> super::builder::key_management_service::GetCryptoKeyVersion
+    {
         super::builder::key_management_service::GetCryptoKeyVersion::new(self.inner.clone())
     }
 
@@ -807,14 +1230,48 @@ impl KeyManagementService {
     /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.ASYMMETRIC_SIGN]: crate::model::crypto_key::CryptoKeyPurpose::AsymmetricSign
     /// [google.cloud.kms.v1.CryptoKey.purpose]: crate::model::CryptoKey::purpose
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
-    pub fn get_public_key(&self) -> super::builder::key_management_service::GetPublicKey {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_v1::client::KeyManagementService;
+    /// async fn sample(
+    ///    client: &KeyManagementService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_public_key()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_public_key(&self) -> super::builder::key_management_service::GetPublicKey
+    {
         super::builder::key_management_service::GetPublicKey::new(self.inner.clone())
     }
 
     /// Returns metadata for a given [ImportJob][google.cloud.kms.v1.ImportJob].
     ///
     /// [google.cloud.kms.v1.ImportJob]: crate::model::ImportJob
-    pub fn get_import_job(&self) -> super::builder::key_management_service::GetImportJob {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_v1::client::KeyManagementService;
+    /// async fn sample(
+    ///    client: &KeyManagementService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_import_job()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_import_job(&self) -> super::builder::key_management_service::GetImportJob
+    {
         super::builder::key_management_service::GetImportJob::new(self.inner.clone())
     }
 
@@ -822,7 +1279,24 @@ impl KeyManagementService {
     /// Location.
     ///
     /// [google.cloud.kms.v1.KeyRing]: crate::model::KeyRing
-    pub fn create_key_ring(&self) -> super::builder::key_management_service::CreateKeyRing {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_v1::client::KeyManagementService;
+    /// async fn sample(
+    ///    client: &KeyManagementService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_key_ring()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_key_ring(&self) -> super::builder::key_management_service::CreateKeyRing
+    {
         super::builder::key_management_service::CreateKeyRing::new(self.inner.clone())
     }
 
@@ -837,7 +1311,24 @@ impl KeyManagementService {
     /// [google.cloud.kms.v1.CryptoKey.purpose]: crate::model::CryptoKey::purpose
     /// [google.cloud.kms.v1.CryptoKeyVersionTemplate.algorithm]: crate::model::CryptoKeyVersionTemplate::algorithm
     /// [google.cloud.kms.v1.KeyRing]: crate::model::KeyRing
-    pub fn create_crypto_key(&self) -> super::builder::key_management_service::CreateCryptoKey {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_v1::client::KeyManagementService;
+    /// async fn sample(
+    ///    client: &KeyManagementService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_crypto_key()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_crypto_key(&self) -> super::builder::key_management_service::CreateCryptoKey
+    {
         super::builder::key_management_service::CreateCryptoKey::new(self.inner.clone())
     }
 
@@ -852,9 +1343,24 @@ impl KeyManagementService {
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.ENABLED]: crate::model::crypto_key_version::CryptoKeyVersionState::Enabled
     /// [google.cloud.kms.v1.CryptoKeyVersion.state]: crate::model::CryptoKeyVersion::state
-    pub fn create_crypto_key_version(
-        &self,
-    ) -> super::builder::key_management_service::CreateCryptoKeyVersion {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_v1::client::KeyManagementService;
+    /// async fn sample(
+    ///    client: &KeyManagementService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_crypto_key_version()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_crypto_key_version(&self) -> super::builder::key_management_service::CreateCryptoKeyVersion
+    {
         super::builder::key_management_service::CreateCryptoKeyVersion::new(self.inner.clone())
     }
 
@@ -869,9 +1375,24 @@ impl KeyManagementService {
     ///
     /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
-    pub fn import_crypto_key_version(
-        &self,
-    ) -> super::builder::key_management_service::ImportCryptoKeyVersion {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_v1::client::KeyManagementService;
+    /// async fn sample(
+    ///    client: &KeyManagementService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .import_crypto_key_version()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn import_crypto_key_version(&self) -> super::builder::key_management_service::ImportCryptoKeyVersion
+    {
         super::builder::key_management_service::ImportCryptoKeyVersion::new(self.inner.clone())
     }
 
@@ -884,14 +1405,48 @@ impl KeyManagementService {
     /// [google.cloud.kms.v1.ImportJob]: crate::model::ImportJob
     /// [google.cloud.kms.v1.ImportJob.import_method]: crate::model::ImportJob::import_method
     /// [google.cloud.kms.v1.KeyRing]: crate::model::KeyRing
-    pub fn create_import_job(&self) -> super::builder::key_management_service::CreateImportJob {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_v1::client::KeyManagementService;
+    /// async fn sample(
+    ///    client: &KeyManagementService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_import_job()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_import_job(&self) -> super::builder::key_management_service::CreateImportJob
+    {
         super::builder::key_management_service::CreateImportJob::new(self.inner.clone())
     }
 
     /// Update a [CryptoKey][google.cloud.kms.v1.CryptoKey].
     ///
     /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
-    pub fn update_crypto_key(&self) -> super::builder::key_management_service::UpdateCryptoKey {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_v1::client::KeyManagementService;
+    /// async fn sample(
+    ///    client: &KeyManagementService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_crypto_key()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_crypto_key(&self) -> super::builder::key_management_service::UpdateCryptoKey
+    {
         super::builder::key_management_service::UpdateCryptoKey::new(self.inner.clone())
     }
 
@@ -914,9 +1469,24 @@ impl KeyManagementService {
     /// [google.cloud.kms.v1.CryptoKeyVersion.state]: crate::model::CryptoKeyVersion::state
     /// [google.cloud.kms.v1.KeyManagementService.DestroyCryptoKeyVersion]: crate::client::KeyManagementService::destroy_crypto_key_version
     /// [google.cloud.kms.v1.KeyManagementService.RestoreCryptoKeyVersion]: crate::client::KeyManagementService::restore_crypto_key_version
-    pub fn update_crypto_key_version(
-        &self,
-    ) -> super::builder::key_management_service::UpdateCryptoKeyVersion {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_v1::client::KeyManagementService;
+    /// async fn sample(
+    ///    client: &KeyManagementService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_crypto_key_version()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_crypto_key_version(&self) -> super::builder::key_management_service::UpdateCryptoKeyVersion
+    {
         super::builder::key_management_service::UpdateCryptoKeyVersion::new(self.inner.clone())
     }
 
@@ -930,12 +1500,25 @@ impl KeyManagementService {
     /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
     /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.ENCRYPT_DECRYPT]: crate::model::crypto_key::CryptoKeyPurpose::EncryptDecrypt
     /// [google.cloud.kms.v1.KeyManagementService.Encrypt]: crate::client::KeyManagementService::encrypt
-    pub fn update_crypto_key_primary_version(
-        &self,
-    ) -> super::builder::key_management_service::UpdateCryptoKeyPrimaryVersion {
-        super::builder::key_management_service::UpdateCryptoKeyPrimaryVersion::new(
-            self.inner.clone(),
-        )
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_v1::client::KeyManagementService;
+    /// async fn sample(
+    ///    client: &KeyManagementService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_crypto_key_primary_version()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_crypto_key_primary_version(&self) -> super::builder::key_management_service::UpdateCryptoKeyPrimaryVersion
+    {
+        super::builder::key_management_service::UpdateCryptoKeyPrimaryVersion::new(self.inner.clone())
     }
 
     /// Schedule a [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion] for
@@ -967,9 +1550,24 @@ impl KeyManagementService {
     /// [google.cloud.kms.v1.CryptoKeyVersion.destroy_time]: crate::model::CryptoKeyVersion::destroy_time
     /// [google.cloud.kms.v1.CryptoKeyVersion.state]: crate::model::CryptoKeyVersion::state
     /// [google.cloud.kms.v1.KeyManagementService.RestoreCryptoKeyVersion]: crate::client::KeyManagementService::restore_crypto_key_version
-    pub fn destroy_crypto_key_version(
-        &self,
-    ) -> super::builder::key_management_service::DestroyCryptoKeyVersion {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_v1::client::KeyManagementService;
+    /// async fn sample(
+    ///    client: &KeyManagementService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .destroy_crypto_key_version()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn destroy_crypto_key_version(&self) -> super::builder::key_management_service::DestroyCryptoKeyVersion
+    {
         super::builder::key_management_service::DestroyCryptoKeyVersion::new(self.inner.clone())
     }
 
@@ -988,9 +1586,24 @@ impl KeyManagementService {
     /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.DISABLED]: crate::model::crypto_key_version::CryptoKeyVersionState::Disabled
     /// [google.cloud.kms.v1.CryptoKeyVersion.destroy_time]: crate::model::CryptoKeyVersion::destroy_time
     /// [google.cloud.kms.v1.CryptoKeyVersion.state]: crate::model::CryptoKeyVersion::state
-    pub fn restore_crypto_key_version(
-        &self,
-    ) -> super::builder::key_management_service::RestoreCryptoKeyVersion {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_v1::client::KeyManagementService;
+    /// async fn sample(
+    ///    client: &KeyManagementService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .restore_crypto_key_version()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn restore_crypto_key_version(&self) -> super::builder::key_management_service::RestoreCryptoKeyVersion
+    {
         super::builder::key_management_service::RestoreCryptoKeyVersion::new(self.inner.clone())
     }
 
@@ -1002,7 +1615,24 @@ impl KeyManagementService {
     /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.ENCRYPT_DECRYPT]: crate::model::crypto_key::CryptoKeyPurpose::EncryptDecrypt
     /// [google.cloud.kms.v1.CryptoKey.purpose]: crate::model::CryptoKey::purpose
     /// [google.cloud.kms.v1.KeyManagementService.Decrypt]: crate::client::KeyManagementService::decrypt
-    pub fn encrypt(&self) -> super::builder::key_management_service::Encrypt {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_v1::client::KeyManagementService;
+    /// async fn sample(
+    ///    client: &KeyManagementService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .encrypt()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn encrypt(&self) -> super::builder::key_management_service::Encrypt
+    {
         super::builder::key_management_service::Encrypt::new(self.inner.clone())
     }
 
@@ -1014,7 +1644,24 @@ impl KeyManagementService {
     /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.ENCRYPT_DECRYPT]: crate::model::crypto_key::CryptoKeyPurpose::EncryptDecrypt
     /// [google.cloud.kms.v1.CryptoKey.purpose]: crate::model::CryptoKey::purpose
     /// [google.cloud.kms.v1.KeyManagementService.Encrypt]: crate::client::KeyManagementService::encrypt
-    pub fn decrypt(&self) -> super::builder::key_management_service::Decrypt {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_v1::client::KeyManagementService;
+    /// async fn sample(
+    ///    client: &KeyManagementService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .decrypt()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn decrypt(&self) -> super::builder::key_management_service::Decrypt
+    {
         super::builder::key_management_service::Decrypt::new(self.inner.clone())
     }
 
@@ -1029,7 +1676,24 @@ impl KeyManagementService {
     /// [google.cloud.kms.v1.CryptoKey.purpose]: crate::model::CryptoKey::purpose
     /// [google.cloud.kms.v1.KeyManagementService.Decrypt]: crate::client::KeyManagementService::decrypt
     /// [google.cloud.kms.v1.KeyManagementService.Encrypt]: crate::client::KeyManagementService::encrypt
-    pub fn raw_encrypt(&self) -> super::builder::key_management_service::RawEncrypt {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_v1::client::KeyManagementService;
+    /// async fn sample(
+    ///    client: &KeyManagementService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .raw_encrypt()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn raw_encrypt(&self) -> super::builder::key_management_service::RawEncrypt
+    {
         super::builder::key_management_service::RawEncrypt::new(self.inner.clone())
     }
 
@@ -1040,7 +1704,24 @@ impl KeyManagementService {
     ///
     /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.RAW_ENCRYPT_DECRYPT]: crate::model::crypto_key::CryptoKeyPurpose::RawEncryptDecrypt
     /// [google.cloud.kms.v1.CryptoKey.purpose]: crate::model::CryptoKey::purpose
-    pub fn raw_decrypt(&self) -> super::builder::key_management_service::RawDecrypt {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_v1::client::KeyManagementService;
+    /// async fn sample(
+    ///    client: &KeyManagementService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .raw_decrypt()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn raw_decrypt(&self) -> super::builder::key_management_service::RawDecrypt
+    {
         super::builder::key_management_service::RawDecrypt::new(self.inner.clone())
     }
 
@@ -1053,7 +1734,24 @@ impl KeyManagementService {
     /// [google.cloud.kms.v1.CryptoKey.purpose]: crate::model::CryptoKey::purpose
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.KeyManagementService.GetPublicKey]: crate::client::KeyManagementService::get_public_key
-    pub fn asymmetric_sign(&self) -> super::builder::key_management_service::AsymmetricSign {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_v1::client::KeyManagementService;
+    /// async fn sample(
+    ///    client: &KeyManagementService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .asymmetric_sign()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn asymmetric_sign(&self) -> super::builder::key_management_service::AsymmetricSign
+    {
         super::builder::key_management_service::AsymmetricSign::new(self.inner.clone())
     }
 
@@ -1066,7 +1764,24 @@ impl KeyManagementService {
     /// [google.cloud.kms.v1.CryptoKey.purpose]: crate::model::CryptoKey::purpose
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.KeyManagementService.GetPublicKey]: crate::client::KeyManagementService::get_public_key
-    pub fn asymmetric_decrypt(&self) -> super::builder::key_management_service::AsymmetricDecrypt {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_v1::client::KeyManagementService;
+    /// async fn sample(
+    ///    client: &KeyManagementService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .asymmetric_decrypt()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn asymmetric_decrypt(&self) -> super::builder::key_management_service::AsymmetricDecrypt
+    {
         super::builder::key_management_service::AsymmetricDecrypt::new(self.inner.clone())
     }
 
@@ -1076,7 +1791,24 @@ impl KeyManagementService {
     ///
     /// [google.cloud.kms.v1.CryptoKey.purpose]: crate::model::CryptoKey::purpose
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
-    pub fn mac_sign(&self) -> super::builder::key_management_service::MacSign {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_v1::client::KeyManagementService;
+    /// async fn sample(
+    ///    client: &KeyManagementService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .mac_sign()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn mac_sign(&self) -> super::builder::key_management_service::MacSign
+    {
         super::builder::key_management_service::MacSign::new(self.inner.clone())
     }
 
@@ -1087,7 +1819,24 @@ impl KeyManagementService {
     ///
     /// [google.cloud.kms.v1.CryptoKey.purpose]: crate::model::CryptoKey::purpose
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
-    pub fn mac_verify(&self) -> super::builder::key_management_service::MacVerify {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_v1::client::KeyManagementService;
+    /// async fn sample(
+    ///    client: &KeyManagementService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .mac_verify()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn mac_verify(&self) -> super::builder::key_management_service::MacVerify
+    {
         super::builder::key_management_service::MacVerify::new(self.inner.clone())
     }
 
@@ -1100,25 +1849,75 @@ impl KeyManagementService {
     /// [google.cloud.kms.v1.CryptoKey.purpose]: crate::model::CryptoKey::purpose
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.KeyManagementService.GetPublicKey]: crate::client::KeyManagementService::get_public_key
-    pub fn decapsulate(&self) -> super::builder::key_management_service::Decapsulate {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_v1::client::KeyManagementService;
+    /// async fn sample(
+    ///    client: &KeyManagementService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .decapsulate()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn decapsulate(&self) -> super::builder::key_management_service::Decapsulate
+    {
         super::builder::key_management_service::Decapsulate::new(self.inner.clone())
     }
 
     /// Generate random bytes using the Cloud KMS randomness source in the provided
     /// location.
-    pub fn generate_random_bytes(
-        &self,
-    ) -> super::builder::key_management_service::GenerateRandomBytes {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_v1::client::KeyManagementService;
+    /// async fn sample(
+    ///    client: &KeyManagementService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .generate_random_bytes()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn generate_random_bytes(&self) -> super::builder::key_management_service::GenerateRandomBytes
+    {
         super::builder::key_management_service::GenerateRandomBytes::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::key_management_service::ListLocations {
+    pub fn list_locations(&self) -> super::builder::key_management_service::ListLocations
+    {
         super::builder::key_management_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(&self) -> super::builder::key_management_service::GetLocation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_v1::client::KeyManagementService;
+    /// async fn sample(
+    ///    client: &KeyManagementService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_location(&self) -> super::builder::key_management_service::GetLocation
+    {
         super::builder::key_management_service::GetLocation::new(self.inner.clone())
     }
 
@@ -1127,13 +1926,47 @@ impl KeyManagementService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
-    pub fn set_iam_policy(&self) -> super::builder::key_management_service::SetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_v1::client::KeyManagementService;
+    /// async fn sample(
+    ///    client: &KeyManagementService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::key_management_service::SetIamPolicy
+    {
         super::builder::key_management_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
-    pub fn get_iam_policy(&self) -> super::builder::key_management_service::GetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_v1::client::KeyManagementService;
+    /// async fn sample(
+    ///    client: &KeyManagementService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::key_management_service::GetIamPolicy
+    {
         super::builder::key_management_service::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -1144,16 +1977,48 @@ impl KeyManagementService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
-    pub fn test_iam_permissions(
-        &self,
-    ) -> super::builder::key_management_service::TestIamPermissions {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_v1::client::KeyManagementService;
+    /// async fn sample(
+    ///    client: &KeyManagementService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::key_management_service::TestIamPermissions
+    {
         super::builder::key_management_service::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::key_management_service::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_v1::client::KeyManagementService;
+    /// async fn sample(
+    ///    client: &KeyManagementService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::key_management_service::GetOperation
+    {
         super::builder::key_management_service::GetOperation::new(self.inner.clone())
     }
 }

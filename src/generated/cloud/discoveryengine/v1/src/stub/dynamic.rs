@@ -35,6 +35,7 @@ pub trait AssistantService: std::fmt::Debug + Send + Sync {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
+
 }
 
 /// All implementations of [super::AssistantService] also implement [AssistantService].
@@ -67,6 +68,7 @@ impl<T: super::AssistantService> AssistantService for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::CmekConfigService].
@@ -413,6 +415,7 @@ pub trait ControlService: std::fmt::Debug + Send + Sync {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
+
 }
 
 /// All implementations of [super::ControlService] also implement [ControlService].
@@ -490,6 +493,7 @@ impl<T: super::ControlService> ControlService for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::ConversationalSearchService].
@@ -591,6 +595,7 @@ pub trait ConversationalSearchService: std::fmt::Debug + Send + Sync {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
+
 }
 
 /// All implementations of [super::ConversationalSearchService] also implement [ConversationalSearchService].
@@ -740,6 +745,7 @@ impl<T: super::ConversationalSearchService> ConversationalSearchService for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::DataStoreService].
@@ -1049,8 +1055,7 @@ impl<T: super::DocumentService> DocumentService for T {
         &self,
         req: crate::model::BatchGetDocumentsMetadataRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::BatchGetDocumentsMetadataResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::BatchGetDocumentsMetadataResponse>> {
         T::batch_get_documents_metadata(self, req, options).await
     }
 
@@ -1283,6 +1288,7 @@ pub trait GroundedGenerationService: std::fmt::Debug + Send + Sync {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
+
 }
 
 /// All implementations of [super::GroundedGenerationService] also implement [GroundedGenerationService].
@@ -1333,6 +1339,7 @@ impl<T: super::GroundedGenerationService> GroundedGenerationService for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::IdentityMappingStoreService].
@@ -1473,8 +1480,7 @@ impl<T: super::IdentityMappingStoreService> IdentityMappingStoreService for T {
         &self,
         req: crate::model::ListIdentityMappingStoresRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListIdentityMappingStoresResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::ListIdentityMappingStoresResponse>> {
         T::list_identity_mapping_stores(self, req, options).await
     }
 
@@ -1641,6 +1647,7 @@ pub trait RankService: std::fmt::Debug + Send + Sync {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
+
 }
 
 /// All implementations of [super::RankService] also implement [RankService].
@@ -1682,6 +1689,7 @@ impl<T: super::RankService> RankService for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::RecommendationService].
@@ -1711,6 +1719,7 @@ pub trait RecommendationService: std::fmt::Debug + Send + Sync {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
+
 }
 
 /// All implementations of [super::RecommendationService] also implement [RecommendationService].
@@ -1752,6 +1761,7 @@ impl<T: super::RecommendationService> RecommendationService for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::SchemaService].
@@ -1941,6 +1951,7 @@ pub trait SearchService: std::fmt::Debug + Send + Sync {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
+
 }
 
 /// All implementations of [super::SearchService] also implement [SearchService].
@@ -1991,6 +2002,7 @@ impl<T: super::SearchService> SearchService for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::SearchTuningService].
@@ -2129,6 +2141,7 @@ pub trait ServingConfigService: std::fmt::Debug + Send + Sync {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
+
 }
 
 /// All implementations of [super::ServingConfigService] also implement [ServingConfigService].
@@ -2170,6 +2183,7 @@ impl<T: super::ServingConfigService> ServingConfigService for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::SessionService].
@@ -2223,6 +2237,7 @@ pub trait SessionService: std::fmt::Debug + Send + Sync {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
+
 }
 
 /// All implementations of [super::SessionService] also implement [SessionService].
@@ -2300,6 +2315,7 @@ impl<T: super::SessionService> SessionService for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::SiteSearchEngineService].
@@ -2560,8 +2576,7 @@ impl<T: super::SiteSearchEngineService> SiteSearchEngineService for T {
         &self,
         req: crate::model::FetchDomainVerificationStatusRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::FetchDomainVerificationStatusResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::FetchDomainVerificationStatusResponse>> {
         T::fetch_domain_verification_status(self, req, options).await
     }
 

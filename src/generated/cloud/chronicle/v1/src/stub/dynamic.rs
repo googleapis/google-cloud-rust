@@ -100,6 +100,7 @@ pub trait DataAccessControlService: std::fmt::Debug + Send + Sync {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
+
 }
 
 /// All implementations of [super::DataAccessControlService] also implement [DataAccessControlService].
@@ -230,6 +231,7 @@ impl<T: super::DataAccessControlService> DataAccessControlService for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::EntityService].
@@ -288,6 +290,7 @@ pub trait EntityService: std::fmt::Debug + Send + Sync {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
+
 }
 
 /// All implementations of [super::EntityService] also implement [EntityService].
@@ -373,6 +376,7 @@ impl<T: super::EntityService> EntityService for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::InstanceService].
@@ -407,6 +411,7 @@ pub trait InstanceService: std::fmt::Debug + Send + Sync {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
+
 }
 
 /// All implementations of [super::InstanceService] also implement [InstanceService].
@@ -456,6 +461,7 @@ impl<T: super::InstanceService> InstanceService for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::ReferenceListService].
@@ -508,6 +514,7 @@ pub trait ReferenceListService: std::fmt::Debug + Send + Sync {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
+
 }
 
 /// All implementations of [super::ReferenceListService] also implement [ReferenceListService].
@@ -584,6 +591,7 @@ impl<T: super::ReferenceListService> ReferenceListService for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::RuleService].

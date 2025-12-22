@@ -27,9 +27,7 @@ pub trait MetricsScopes: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ListMetricsScopesByMonitoredProjectRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::ListMetricsScopesByMonitoredProjectResponse>,
-    >;
+    ) -> crate::Result<gax::response::Response<crate::model::ListMetricsScopesByMonitoredProjectResponse>>;
 
     async fn create_monitored_project(
         &self,
@@ -77,9 +75,7 @@ impl<T: super::MetricsScopes> MetricsScopes for T {
         &self,
         req: crate::model::ListMetricsScopesByMonitoredProjectRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::ListMetricsScopesByMonitoredProjectResponse>,
-    > {
+    ) -> crate::Result<gax::response::Response<crate::model::ListMetricsScopesByMonitoredProjectResponse>> {
         T::list_metrics_scopes_by_monitored_project(self, req, options).await
     }
 

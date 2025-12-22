@@ -23,9 +23,9 @@ impl serde::ser::Serialize for super::ExportSBOMRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -48,9 +48,9 @@ impl serde::ser::Serialize for super::export_sbom_request::CloudStorageLocation 
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -67,9 +67,9 @@ impl serde::ser::Serialize for super::ExportSBOMResponse {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.discovery_occurrence.is_empty() {
             state.serialize_entry("discoveryOccurrence", &self.discovery_occurrence)?;
@@ -89,9 +89,9 @@ impl serde::ser::Serialize for super::GetVulnerabilityOccurrencesSummaryRequest 
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -114,9 +114,9 @@ impl serde::ser::Serialize for super::VulnerabilityOccurrencesSummary {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.counts.is_empty() {
             state.serialize_entry("counts", &self.counts)?;
@@ -136,9 +136,9 @@ impl serde::ser::Serialize for super::vulnerability_occurrences_summary::Fixable
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.resource_uri.is_empty() {
             state.serialize_entry("resourceUri", &self.resource_uri)?;

@@ -39,10 +39,7 @@ pub mod edge_network {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = EdgeNetwork;
             type Credentials = gaxi::options::Credentials;
-            async fn build(
-                self,
-                config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -57,12 +54,8 @@ pub mod edge_network {
     }
 
     impl<R> RequestBuilder<R>
-    where
-        R: std::default::Default,
-    {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
-        ) -> Self {
+    where R: std::default::Default {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -92,10 +85,10 @@ pub mod edge_network {
     pub struct InitializeZone(RequestBuilder<crate::model::InitializeZoneRequest>);
 
     impl InitializeZone {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -112,10 +105,7 @@ pub mod edge_network {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::InitializeZoneResponse> {
-            (*self.0.stub)
-                .initialize_zone(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).initialize_zone(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::InitializeZoneRequest::name].
@@ -159,10 +149,10 @@ pub mod edge_network {
     pub struct ListZones(RequestBuilder<crate::model::ListZonesRequest>);
 
     impl ListZones {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -179,17 +169,11 @@ pub mod edge_network {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListZonesResponse> {
-            (*self.0.stub)
-                .list_zones(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_zones(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListZonesResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListZonesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -201,10 +185,7 @@ pub mod edge_network {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListZonesResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListZonesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -270,10 +251,10 @@ pub mod edge_network {
     pub struct GetZone(RequestBuilder<crate::model::GetZoneRequest>);
 
     impl GetZone {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -290,10 +271,7 @@ pub mod edge_network {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Zone> {
-            (*self.0.stub)
-                .get_zone(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_zone(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetZoneRequest::name].
@@ -337,10 +315,10 @@ pub mod edge_network {
     pub struct ListNetworks(RequestBuilder<crate::model::ListNetworksRequest>);
 
     impl ListNetworks {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -357,17 +335,11 @@ pub mod edge_network {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListNetworksResponse> {
-            (*self.0.stub)
-                .list_networks(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_networks(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListNetworksResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListNetworksResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -379,10 +351,7 @@ pub mod edge_network {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListNetworksResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListNetworksResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -448,10 +417,10 @@ pub mod edge_network {
     pub struct GetNetwork(RequestBuilder<crate::model::GetNetworkRequest>);
 
     impl GetNetwork {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -468,10 +437,7 @@ pub mod edge_network {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Network> {
-            (*self.0.stub)
-                .get_network(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_network(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetNetworkRequest::name].
@@ -511,10 +477,10 @@ pub mod edge_network {
     pub struct DiagnoseNetwork(RequestBuilder<crate::model::DiagnoseNetworkRequest>);
 
     impl DiagnoseNetwork {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -531,10 +497,7 @@ pub mod edge_network {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::DiagnoseNetworkResponse> {
-            (*self.0.stub)
-                .diagnose_network(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).diagnose_network(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DiagnoseNetworkRequest::name].
@@ -575,10 +538,10 @@ pub mod edge_network {
     pub struct CreateNetwork(RequestBuilder<crate::model::CreateNetworkRequest>);
 
     impl CreateNetwork {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -600,18 +563,16 @@ pub mod edge_network {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_network][crate::client::EdgeNetwork::create_network].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .create_network(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_network(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_network`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::Network, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Network, crate::model::OperationMetadata>;
+            self
+        ) ->
+            impl lro::Poller<crate::model::Network, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::Network, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -659,8 +620,7 @@ pub mod edge_network {
         ///
         /// This is a **required** field for requests.
         pub fn set_network<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Network>,
+        where T: std::convert::Into<crate::model::Network>
         {
             self.0.request.network = std::option::Option::Some(v.into());
             self
@@ -670,8 +630,7 @@ pub mod edge_network {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_network<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Network>,
+        where T: std::convert::Into<crate::model::Network>
         {
             self.0.request.network = v.map(|x| x.into());
             self
@@ -713,10 +672,10 @@ pub mod edge_network {
     pub struct DeleteNetwork(RequestBuilder<crate::model::DeleteNetworkRequest>);
 
     impl DeleteNetwork {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -738,14 +697,15 @@ pub mod edge_network {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_network][crate::client::EdgeNetwork::delete_network].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .delete_network(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_network(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_network`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+        pub fn poller(
+            self
+        ) ->
+            impl lro::Poller<(), crate::model::OperationMetadata>
+        {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -771,12 +731,7 @@ pub mod edge_network {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteNetworkRequest::name].
@@ -826,10 +781,10 @@ pub mod edge_network {
     pub struct ListSubnets(RequestBuilder<crate::model::ListSubnetsRequest>);
 
     impl ListSubnets {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -846,17 +801,11 @@ pub mod edge_network {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListSubnetsResponse> {
-            (*self.0.stub)
-                .list_subnets(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_subnets(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListSubnetsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListSubnetsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -868,10 +817,7 @@ pub mod edge_network {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListSubnetsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListSubnetsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -937,10 +883,10 @@ pub mod edge_network {
     pub struct GetSubnet(RequestBuilder<crate::model::GetSubnetRequest>);
 
     impl GetSubnet {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -957,10 +903,7 @@ pub mod edge_network {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Subnet> {
-            (*self.0.stub)
-                .get_subnet(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_subnet(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetSubnetRequest::name].
@@ -1001,10 +944,10 @@ pub mod edge_network {
     pub struct CreateSubnet(RequestBuilder<crate::model::CreateSubnetRequest>);
 
     impl CreateSubnet {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1026,18 +969,16 @@ pub mod edge_network {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_subnet][crate::client::EdgeNetwork::create_subnet].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .create_subnet(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_subnet(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_subnet`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::Subnet, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Subnet, crate::model::OperationMetadata>;
+            self
+        ) ->
+            impl lro::Poller<crate::model::Subnet, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::Subnet, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1085,8 +1026,7 @@ pub mod edge_network {
         ///
         /// This is a **required** field for requests.
         pub fn set_subnet<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Subnet>,
+        where T: std::convert::Into<crate::model::Subnet>
         {
             self.0.request.subnet = std::option::Option::Some(v.into());
             self
@@ -1096,8 +1036,7 @@ pub mod edge_network {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_subnet<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Subnet>,
+        where T: std::convert::Into<crate::model::Subnet>
         {
             self.0.request.subnet = v.map(|x| x.into());
             self
@@ -1139,10 +1078,10 @@ pub mod edge_network {
     pub struct UpdateSubnet(RequestBuilder<crate::model::UpdateSubnetRequest>);
 
     impl UpdateSubnet {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1164,18 +1103,16 @@ pub mod edge_network {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_subnet][crate::client::EdgeNetwork::update_subnet].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .update_subnet(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_subnet(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_subnet`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::Subnet, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Subnet, crate::model::OperationMetadata>;
+            self
+        ) ->
+            impl lro::Poller<crate::model::Subnet, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::Subnet, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1207,8 +1144,7 @@ pub mod edge_network {
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -1218,8 +1154,7 @@ pub mod edge_network {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -1229,8 +1164,7 @@ pub mod edge_network {
         ///
         /// This is a **required** field for requests.
         pub fn set_subnet<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Subnet>,
+        where T: std::convert::Into<crate::model::Subnet>
         {
             self.0.request.subnet = std::option::Option::Some(v.into());
             self
@@ -1240,8 +1174,7 @@ pub mod edge_network {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_subnet<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Subnet>,
+        where T: std::convert::Into<crate::model::Subnet>
         {
             self.0.request.subnet = v.map(|x| x.into());
             self
@@ -1283,10 +1216,10 @@ pub mod edge_network {
     pub struct DeleteSubnet(RequestBuilder<crate::model::DeleteSubnetRequest>);
 
     impl DeleteSubnet {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1308,14 +1241,15 @@ pub mod edge_network {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_subnet][crate::client::EdgeNetwork::delete_subnet].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .delete_subnet(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_subnet(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_subnet`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+        pub fn poller(
+            self
+        ) ->
+            impl lro::Poller<(), crate::model::OperationMetadata>
+        {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -1341,12 +1275,7 @@ pub mod edge_network {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteSubnetRequest::name].
@@ -1396,17 +1325,14 @@ pub mod edge_network {
     pub struct ListInterconnects(RequestBuilder<crate::model::ListInterconnectsRequest>);
 
     impl ListInterconnects {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListInterconnectsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListInterconnectsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1419,17 +1345,11 @@ pub mod edge_network {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListInterconnectsResponse> {
-            (*self.0.stub)
-                .list_interconnects(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_interconnects(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListInterconnectsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListInterconnectsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1441,10 +1361,7 @@ pub mod edge_network {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListInterconnectsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListInterconnectsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1510,10 +1427,10 @@ pub mod edge_network {
     pub struct GetInterconnect(RequestBuilder<crate::model::GetInterconnectRequest>);
 
     impl GetInterconnect {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1530,10 +1447,7 @@ pub mod edge_network {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Interconnect> {
-            (*self.0.stub)
-                .get_interconnect(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_interconnect(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetInterconnectRequest::name].
@@ -1573,17 +1487,14 @@ pub mod edge_network {
     pub struct DiagnoseInterconnect(RequestBuilder<crate::model::DiagnoseInterconnectRequest>);
 
     impl DiagnoseInterconnect {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DiagnoseInterconnectRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DiagnoseInterconnectRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1596,10 +1507,7 @@ pub mod edge_network {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::DiagnoseInterconnectResponse> {
-            (*self.0.stub)
-                .diagnose_interconnect(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).diagnose_interconnect(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DiagnoseInterconnectRequest::name].
@@ -1640,22 +1548,17 @@ pub mod edge_network {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListInterconnectAttachments(
-        RequestBuilder<crate::model::ListInterconnectAttachmentsRequest>,
-    );
+    pub struct ListInterconnectAttachments(RequestBuilder<crate::model::ListInterconnectAttachmentsRequest>);
 
     impl ListInterconnectAttachments {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListInterconnectAttachmentsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListInterconnectAttachmentsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1668,19 +1571,11 @@ pub mod edge_network {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListInterconnectAttachmentsResponse> {
-            (*self.0.stub)
-                .list_interconnect_attachments(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_interconnect_attachments(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<
-            crate::model::ListInterconnectAttachmentsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListInterconnectAttachmentsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1692,12 +1587,7 @@ pub mod edge_network {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListInterconnectAttachmentsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListInterconnectAttachmentsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1760,22 +1650,17 @@ pub mod edge_network {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetInterconnectAttachment(
-        RequestBuilder<crate::model::GetInterconnectAttachmentRequest>,
-    );
+    pub struct GetInterconnectAttachment(RequestBuilder<crate::model::GetInterconnectAttachmentRequest>);
 
     impl GetInterconnectAttachment {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetInterconnectAttachmentRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetInterconnectAttachmentRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1788,10 +1673,7 @@ pub mod edge_network {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::InterconnectAttachment> {
-            (*self.0.stub)
-                .get_interconnect_attachment(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_interconnect_attachment(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetInterconnectAttachmentRequest::name].
@@ -1829,22 +1711,17 @@ pub mod edge_network {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateInterconnectAttachment(
-        RequestBuilder<crate::model::CreateInterconnectAttachmentRequest>,
-    );
+    pub struct CreateInterconnectAttachment(RequestBuilder<crate::model::CreateInterconnectAttachmentRequest>);
 
     impl CreateInterconnectAttachment {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateInterconnectAttachmentRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateInterconnectAttachmentRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1862,21 +1739,16 @@ pub mod edge_network {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_interconnect_attachment][crate::client::EdgeNetwork::create_interconnect_attachment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .create_interconnect_attachment(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_interconnect_attachment(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_interconnect_attachment`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::InterconnectAttachment, crate::model::OperationMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::InterconnectAttachment, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::InterconnectAttachment,
-                crate::model::OperationMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::InterconnectAttachment, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1915,10 +1787,7 @@ pub mod edge_network {
         /// Sets the value of [interconnect_attachment_id][crate::model::CreateInterconnectAttachmentRequest::interconnect_attachment_id].
         ///
         /// This is a **required** field for requests.
-        pub fn set_interconnect_attachment_id<T: Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_interconnect_attachment_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.interconnect_attachment_id = v.into();
             self
         }
@@ -1927,8 +1796,7 @@ pub mod edge_network {
         ///
         /// This is a **required** field for requests.
         pub fn set_interconnect_attachment<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::InterconnectAttachment>,
+        where T: std::convert::Into<crate::model::InterconnectAttachment>
         {
             self.0.request.interconnect_attachment = std::option::Option::Some(v.into());
             self
@@ -1938,8 +1806,7 @@ pub mod edge_network {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_interconnect_attachment<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::InterconnectAttachment>,
+        where T: std::convert::Into<crate::model::InterconnectAttachment>
         {
             self.0.request.interconnect_attachment = v.map(|x| x.into());
             self
@@ -1978,22 +1845,17 @@ pub mod edge_network {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteInterconnectAttachment(
-        RequestBuilder<crate::model::DeleteInterconnectAttachmentRequest>,
-    );
+    pub struct DeleteInterconnectAttachment(RequestBuilder<crate::model::DeleteInterconnectAttachmentRequest>);
 
     impl DeleteInterconnectAttachment {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteInterconnectAttachmentRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteInterconnectAttachmentRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2011,14 +1873,15 @@ pub mod edge_network {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_interconnect_attachment][crate::client::EdgeNetwork::delete_interconnect_attachment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .delete_interconnect_attachment(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_interconnect_attachment(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_interconnect_attachment`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+        pub fn poller(
+            self
+        ) ->
+            impl lro::Poller<(), crate::model::OperationMetadata>
+        {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -2044,12 +1907,7 @@ pub mod edge_network {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteInterconnectAttachmentRequest::name].
@@ -2099,10 +1957,10 @@ pub mod edge_network {
     pub struct ListRouters(RequestBuilder<crate::model::ListRoutersRequest>);
 
     impl ListRouters {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2119,17 +1977,11 @@ pub mod edge_network {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListRoutersResponse> {
-            (*self.0.stub)
-                .list_routers(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_routers(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListRoutersResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListRoutersResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2141,10 +1993,7 @@ pub mod edge_network {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListRoutersResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListRoutersResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2210,10 +2059,10 @@ pub mod edge_network {
     pub struct GetRouter(RequestBuilder<crate::model::GetRouterRequest>);
 
     impl GetRouter {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2230,10 +2079,7 @@ pub mod edge_network {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Router> {
-            (*self.0.stub)
-                .get_router(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_router(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetRouterRequest::name].
@@ -2273,10 +2119,10 @@ pub mod edge_network {
     pub struct DiagnoseRouter(RequestBuilder<crate::model::DiagnoseRouterRequest>);
 
     impl DiagnoseRouter {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2293,10 +2139,7 @@ pub mod edge_network {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::DiagnoseRouterResponse> {
-            (*self.0.stub)
-                .diagnose_router(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).diagnose_router(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DiagnoseRouterRequest::name].
@@ -2337,10 +2180,10 @@ pub mod edge_network {
     pub struct CreateRouter(RequestBuilder<crate::model::CreateRouterRequest>);
 
     impl CreateRouter {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2362,18 +2205,16 @@ pub mod edge_network {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_router][crate::client::EdgeNetwork::create_router].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .create_router(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_router(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_router`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::Router, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Router, crate::model::OperationMetadata>;
+            self
+        ) ->
+            impl lro::Poller<crate::model::Router, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::Router, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2421,8 +2262,7 @@ pub mod edge_network {
         ///
         /// This is a **required** field for requests.
         pub fn set_router<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Router>,
+        where T: std::convert::Into<crate::model::Router>
         {
             self.0.request.router = std::option::Option::Some(v.into());
             self
@@ -2432,8 +2272,7 @@ pub mod edge_network {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_router<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Router>,
+        where T: std::convert::Into<crate::model::Router>
         {
             self.0.request.router = v.map(|x| x.into());
             self
@@ -2475,10 +2314,10 @@ pub mod edge_network {
     pub struct UpdateRouter(RequestBuilder<crate::model::UpdateRouterRequest>);
 
     impl UpdateRouter {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2500,18 +2339,16 @@ pub mod edge_network {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_router][crate::client::EdgeNetwork::update_router].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .update_router(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_router(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_router`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::Router, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Router, crate::model::OperationMetadata>;
+            self
+        ) ->
+            impl lro::Poller<crate::model::Router, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::Router, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2543,8 +2380,7 @@ pub mod edge_network {
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -2554,8 +2390,7 @@ pub mod edge_network {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -2565,8 +2400,7 @@ pub mod edge_network {
         ///
         /// This is a **required** field for requests.
         pub fn set_router<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Router>,
+        where T: std::convert::Into<crate::model::Router>
         {
             self.0.request.router = std::option::Option::Some(v.into());
             self
@@ -2576,8 +2410,7 @@ pub mod edge_network {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_router<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Router>,
+        where T: std::convert::Into<crate::model::Router>
         {
             self.0.request.router = v.map(|x| x.into());
             self
@@ -2619,10 +2452,10 @@ pub mod edge_network {
     pub struct DeleteRouter(RequestBuilder<crate::model::DeleteRouterRequest>);
 
     impl DeleteRouter {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2644,14 +2477,15 @@ pub mod edge_network {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_router][crate::client::EdgeNetwork::delete_router].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .delete_router(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_router(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_router`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+        pub fn poller(
+            self
+        ) ->
+            impl lro::Poller<(), crate::model::OperationMetadata>
+        {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -2677,12 +2511,7 @@ pub mod edge_network {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteRouterRequest::name].
@@ -2732,17 +2561,14 @@ pub mod edge_network {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2755,17 +2581,11 @@ pub mod edge_network {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::ListLocationsResponse> {
-            (*self.0.stub)
-                .list_locations(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_locations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2777,10 +2597,7 @@ pub mod edge_network {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2838,10 +2655,10 @@ pub mod edge_network {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2858,10 +2675,7 @@ pub mod edge_network {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::Location> {
-            (*self.0.stub)
-                .get_location(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_location(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -2903,17 +2717,14 @@ pub mod edge_network {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2926,17 +2737,11 @@ pub mod edge_network {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::ListOperationsResponse> {
-            (*self.0.stub)
-                .list_operations(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_operations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2948,12 +2753,7 @@ pub mod edge_network {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            longrunning::model::ListOperationsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -3017,17 +2817,14 @@ pub mod edge_network {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3040,10 +2837,7 @@ pub mod edge_network {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .get_operation(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -3081,17 +2875,14 @@ pub mod edge_network {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3104,10 +2895,7 @@ pub mod edge_network {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .delete_operation(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -3145,17 +2933,14 @@ pub mod edge_network {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3168,10 +2953,7 @@ pub mod edge_network {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .cancel_operation(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).cancel_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -3187,4 +2969,5 @@ pub mod edge_network {
             &mut self.0.options
         }
     }
+
 }

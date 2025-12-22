@@ -120,8 +120,7 @@ impl<T: super::ClientConnectorServicesService> ClientConnectorServicesService fo
         &self,
         req: crate::model::ListClientConnectorServicesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListClientConnectorServicesResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::ListClientConnectorServicesResponse>> {
         T::list_client_connector_services(self, req, options).await
     }
 

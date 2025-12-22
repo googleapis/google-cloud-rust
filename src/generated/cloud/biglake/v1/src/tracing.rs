@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [IcebergCatalogService](super::stub::IcebergCatalogService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct IcebergCatalogService<T>
-where
-    T: super::stub::IcebergCatalogService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::IcebergCatalogService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> IcebergCatalogService<T>
-where
-    T: super::stub::IcebergCatalogService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::IcebergCatalogService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::IcebergCatalogService for IcebergCatalogService<T>
-where
-    T: super::stub::IcebergCatalogService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::IcebergCatalogService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn get_iceberg_catalog_config(
         &self,
@@ -97,9 +91,7 @@ where
         req: crate::model::ListIcebergTableIdentifiersRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListIcebergTableIdentifiersResponse>> {
-        self.inner
-            .list_iceberg_table_identifiers(req, options)
-            .await
+        self.inner.list_iceberg_table_identifiers(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -135,9 +127,7 @@ where
         req: crate::model::GetIcebergTableRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::LoadIcebergTableCredentialsResponse>> {
-        self.inner
-            .load_iceberg_table_credentials(req, options)
-            .await
+        self.inner.load_iceberg_table_credentials(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -211,4 +201,6 @@ where
     ) -> Result<gax::response::Response<crate::model::FailoverIcebergCatalogResponse>> {
         self.inner.failover_iceberg_catalog(req, options).await
     }
+
 }
+

@@ -23,9 +23,9 @@ impl serde::ser::Serialize for super::PendingRenameInfo {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.operation.is_empty() {
             state.serialize_entry("operation", &self.operation)?;
@@ -45,9 +45,9 @@ impl serde::ser::Serialize for super::Folder {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -88,9 +88,9 @@ impl serde::ser::Serialize for super::GetFolderRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -102,15 +102,10 @@ impl serde::ser::Serialize for super::GetFolderRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
-                        self.0, serializer,
-                    )
+                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
                 }
             }
-            state.serialize_entry(
-                "ifMetagenerationMatch",
-                &__With(&self.if_metageneration_match),
-            )?;
+            state.serialize_entry("ifMetagenerationMatch", &__With(&self.if_metageneration_match))?;
         }
         if self.if_metageneration_not_match.is_some() {
             struct __With<'a>(&'a std::option::Option<i64>);
@@ -119,15 +114,10 @@ impl serde::ser::Serialize for super::GetFolderRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
-                        self.0, serializer,
-                    )
+                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
                 }
             }
-            state.serialize_entry(
-                "ifMetagenerationNotMatch",
-                &__With(&self.if_metageneration_not_match),
-            )?;
+            state.serialize_entry("ifMetagenerationNotMatch", &__With(&self.if_metageneration_not_match))?;
         }
         if !self.request_id.is_empty() {
             state.serialize_entry("requestId", &self.request_id)?;
@@ -147,9 +137,9 @@ impl serde::ser::Serialize for super::CreateFolderRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -181,9 +171,9 @@ impl serde::ser::Serialize for super::DeleteFolderRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -195,15 +185,10 @@ impl serde::ser::Serialize for super::DeleteFolderRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
-                        self.0, serializer,
-                    )
+                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
                 }
             }
-            state.serialize_entry(
-                "ifMetagenerationMatch",
-                &__With(&self.if_metageneration_match),
-            )?;
+            state.serialize_entry("ifMetagenerationMatch", &__With(&self.if_metageneration_match))?;
         }
         if self.if_metageneration_not_match.is_some() {
             struct __With<'a>(&'a std::option::Option<i64>);
@@ -212,15 +197,10 @@ impl serde::ser::Serialize for super::DeleteFolderRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
-                        self.0, serializer,
-                    )
+                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
                 }
             }
-            state.serialize_entry(
-                "ifMetagenerationNotMatch",
-                &__With(&self.if_metageneration_not_match),
-            )?;
+            state.serialize_entry("ifMetagenerationNotMatch", &__With(&self.if_metageneration_not_match))?;
         }
         if !self.request_id.is_empty() {
             state.serialize_entry("requestId", &self.request_id)?;
@@ -240,9 +220,9 @@ impl serde::ser::Serialize for super::ListFoldersRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -292,9 +272,9 @@ impl serde::ser::Serialize for super::ListFoldersResponse {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.folders.is_empty() {
             state.serialize_entry("folders", &self.folders)?;
@@ -317,9 +297,9 @@ impl serde::ser::Serialize for super::RenameFolderRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -334,15 +314,10 @@ impl serde::ser::Serialize for super::RenameFolderRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
-                        self.0, serializer,
-                    )
+                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
                 }
             }
-            state.serialize_entry(
-                "ifMetagenerationMatch",
-                &__With(&self.if_metageneration_match),
-            )?;
+            state.serialize_entry("ifMetagenerationMatch", &__With(&self.if_metageneration_match))?;
         }
         if self.if_metageneration_not_match.is_some() {
             struct __With<'a>(&'a std::option::Option<i64>);
@@ -351,15 +326,10 @@ impl serde::ser::Serialize for super::RenameFolderRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
-                        self.0, serializer,
-                    )
+                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
                 }
             }
-            state.serialize_entry(
-                "ifMetagenerationNotMatch",
-                &__With(&self.if_metageneration_not_match),
-            )?;
+            state.serialize_entry("ifMetagenerationNotMatch", &__With(&self.if_metageneration_not_match))?;
         }
         if !self.request_id.is_empty() {
             state.serialize_entry("requestId", &self.request_id)?;
@@ -379,9 +349,9 @@ impl serde::ser::Serialize for super::CommonLongRunningOperationMetadata {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.create_time.is_some() {
             state.serialize_entry("createTime", &self.create_time)?;
@@ -425,9 +395,9 @@ impl serde::ser::Serialize for super::RenameFolderMetadata {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.common_metadata.is_some() {
             state.serialize_entry("commonMetadata", &self.common_metadata)?;
@@ -453,9 +423,9 @@ impl serde::ser::Serialize for super::StorageLayout {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -487,9 +457,9 @@ impl serde::ser::Serialize for super::storage_layout::CustomPlacementConfig {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.data_locations.is_empty() {
             state.serialize_entry("dataLocations", &self.data_locations)?;
@@ -509,9 +479,9 @@ impl serde::ser::Serialize for super::storage_layout::HierarchicalNamespace {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.enabled) {
             state.serialize_entry("enabled", &self.enabled)?;
@@ -531,9 +501,9 @@ impl serde::ser::Serialize for super::GetStorageLayoutRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -559,9 +529,9 @@ impl serde::ser::Serialize for super::ManagedFolder {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -599,9 +569,9 @@ impl serde::ser::Serialize for super::GetManagedFolderRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -613,15 +583,10 @@ impl serde::ser::Serialize for super::GetManagedFolderRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
-                        self.0, serializer,
-                    )
+                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
                 }
             }
-            state.serialize_entry(
-                "ifMetagenerationMatch",
-                &__With(&self.if_metageneration_match),
-            )?;
+            state.serialize_entry("ifMetagenerationMatch", &__With(&self.if_metageneration_match))?;
         }
         if self.if_metageneration_not_match.is_some() {
             struct __With<'a>(&'a std::option::Option<i64>);
@@ -630,15 +595,10 @@ impl serde::ser::Serialize for super::GetManagedFolderRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
-                        self.0, serializer,
-                    )
+                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
                 }
             }
-            state.serialize_entry(
-                "ifMetagenerationNotMatch",
-                &__With(&self.if_metageneration_not_match),
-            )?;
+            state.serialize_entry("ifMetagenerationNotMatch", &__With(&self.if_metageneration_not_match))?;
         }
         if !self.request_id.is_empty() {
             state.serialize_entry("requestId", &self.request_id)?;
@@ -658,9 +618,9 @@ impl serde::ser::Serialize for super::CreateManagedFolderRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -689,9 +649,9 @@ impl serde::ser::Serialize for super::DeleteManagedFolderRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -703,15 +663,10 @@ impl serde::ser::Serialize for super::DeleteManagedFolderRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
-                        self.0, serializer,
-                    )
+                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
                 }
             }
-            state.serialize_entry(
-                "ifMetagenerationMatch",
-                &__With(&self.if_metageneration_match),
-            )?;
+            state.serialize_entry("ifMetagenerationMatch", &__With(&self.if_metageneration_match))?;
         }
         if self.if_metageneration_not_match.is_some() {
             struct __With<'a>(&'a std::option::Option<i64>);
@@ -720,15 +675,10 @@ impl serde::ser::Serialize for super::DeleteManagedFolderRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
-                        self.0, serializer,
-                    )
+                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
                 }
             }
-            state.serialize_entry(
-                "ifMetagenerationNotMatch",
-                &__With(&self.if_metageneration_not_match),
-            )?;
+            state.serialize_entry("ifMetagenerationNotMatch", &__With(&self.if_metageneration_not_match))?;
         }
         if !wkt::internal::is_default(&self.allow_non_empty) {
             state.serialize_entry("allowNonEmpty", &self.allow_non_empty)?;
@@ -751,9 +701,9 @@ impl serde::ser::Serialize for super::ListManagedFoldersRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -794,9 +744,9 @@ impl serde::ser::Serialize for super::ListManagedFoldersResponse {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.managed_folders.is_empty() {
             state.serialize_entry("managedFolders", &self.managed_folders)?;
@@ -819,9 +769,9 @@ impl serde::ser::Serialize for super::CreateAnywhereCacheMetadata {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.common_metadata.is_some() {
             state.serialize_entry("commonMetadata", &self.common_metadata)?;
@@ -853,9 +803,9 @@ impl serde::ser::Serialize for super::UpdateAnywhereCacheMetadata {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.common_metadata.is_some() {
             state.serialize_entry("commonMetadata", &self.common_metadata)?;
@@ -887,9 +837,9 @@ impl serde::ser::Serialize for super::AnywhereCache {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -930,9 +880,9 @@ impl serde::ser::Serialize for super::CreateAnywhereCacheRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -958,9 +908,9 @@ impl serde::ser::Serialize for super::UpdateAnywhereCacheRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.anywhere_cache.is_some() {
             state.serialize_entry("anywhereCache", &self.anywhere_cache)?;
@@ -986,9 +936,9 @@ impl serde::ser::Serialize for super::DisableAnywhereCacheRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -1011,9 +961,9 @@ impl serde::ser::Serialize for super::PauseAnywhereCacheRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -1036,9 +986,9 @@ impl serde::ser::Serialize for super::ResumeAnywhereCacheRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -1061,9 +1011,9 @@ impl serde::ser::Serialize for super::GetAnywhereCacheRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -1086,9 +1036,9 @@ impl serde::ser::Serialize for super::ListAnywhereCachesRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -1126,9 +1076,9 @@ impl serde::ser::Serialize for super::ListAnywhereCachesResponse {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.anywhere_caches.is_empty() {
             state.serialize_entry("anywhereCaches", &self.anywhere_caches)?;
@@ -1151,9 +1101,9 @@ impl serde::ser::Serialize for super::IntelligenceConfig {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -1168,10 +1118,7 @@ impl serde::ser::Serialize for super::IntelligenceConfig {
             state.serialize_entry("filter", &self.filter)?;
         }
         if self.effective_intelligence_config.is_some() {
-            state.serialize_entry(
-                "effectiveIntelligenceConfig",
-                &self.effective_intelligence_config,
-            )?;
+            state.serialize_entry("effectiveIntelligenceConfig", &self.effective_intelligence_config)?;
         }
         if self.trial_config.is_some() {
             state.serialize_entry("trialConfig", &self.trial_config)?;
@@ -1191,9 +1138,9 @@ impl serde::ser::Serialize for super::intelligence_config::Filter {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if let Some(value) = self.included_cloud_storage_locations() {
             state.serialize_entry("includedCloudStorageLocations", value)?;
@@ -1222,9 +1169,9 @@ impl serde::ser::Serialize for super::intelligence_config::filter::CloudStorageL
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.locations.is_empty() {
             state.serialize_entry("locations", &self.locations)?;
@@ -1244,9 +1191,9 @@ impl serde::ser::Serialize for super::intelligence_config::filter::CloudStorageB
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.bucket_id_regexes.is_empty() {
             state.serialize_entry("bucketIdRegexes", &self.bucket_id_regexes)?;
@@ -1266,9 +1213,9 @@ impl serde::ser::Serialize for super::intelligence_config::EffectiveIntelligence
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.effective_edition) {
             state.serialize_entry("effectiveEdition", &self.effective_edition)?;
@@ -1291,9 +1238,9 @@ impl serde::ser::Serialize for super::intelligence_config::TrialConfig {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.expire_time.is_some() {
             state.serialize_entry("expireTime", &self.expire_time)?;
@@ -1313,9 +1260,9 @@ impl serde::ser::Serialize for super::UpdateOrganizationIntelligenceConfigReques
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.intelligence_config.is_some() {
             state.serialize_entry("intelligenceConfig", &self.intelligence_config)?;
@@ -1341,9 +1288,9 @@ impl serde::ser::Serialize for super::UpdateFolderIntelligenceConfigRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.intelligence_config.is_some() {
             state.serialize_entry("intelligenceConfig", &self.intelligence_config)?;
@@ -1369,9 +1316,9 @@ impl serde::ser::Serialize for super::UpdateProjectIntelligenceConfigRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.intelligence_config.is_some() {
             state.serialize_entry("intelligenceConfig", &self.intelligence_config)?;
@@ -1397,9 +1344,9 @@ impl serde::ser::Serialize for super::GetOrganizationIntelligenceConfigRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -1419,9 +1366,9 @@ impl serde::ser::Serialize for super::GetFolderIntelligenceConfigRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -1441,9 +1388,9 @@ impl serde::ser::Serialize for super::GetProjectIntelligenceConfigRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;

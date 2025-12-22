@@ -74,9 +74,7 @@ impl PublicCertificateAuthorityService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::public_certificate_authority_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::public_certificate_authority_service::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::public_certificate_authority_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -84,44 +82,28 @@ impl PublicCertificateAuthorityService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::PublicCertificateAuthorityService + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::PublicCertificateAuthorityService + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<
-        std::sync::Arc<dyn super::stub::dynamic::PublicCertificateAuthorityService>,
-    > {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::PublicCertificateAuthorityService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::PublicCertificateAuthorityService> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::PublicCertificateAuthorityService> {
         super::transport::PublicCertificateAuthorityService::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::PublicCertificateAuthorityService> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::PublicCertificateAuthorityService::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::PublicCertificateAuthorityService> {
+        Self::build_transport(conf).await.map(super::tracing::PublicCertificateAuthorityService::new)
     }
 
     /// Creates a new
@@ -129,11 +111,24 @@ impl PublicCertificateAuthorityService {
     /// bound to the project.
     ///
     /// [google.cloud.security.publicca.v1.ExternalAccountKey]: crate::model::ExternalAccountKey
-    pub fn create_external_account_key(
-        &self,
-    ) -> super::builder::public_certificate_authority_service::CreateExternalAccountKey {
-        super::builder::public_certificate_authority_service::CreateExternalAccountKey::new(
-            self.inner.clone(),
-        )
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_publicca_v1::client::PublicCertificateAuthorityService;
+    /// async fn sample(
+    ///    client: &PublicCertificateAuthorityService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_external_account_key()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_external_account_key(&self) -> super::builder::public_certificate_authority_service::CreateExternalAccountKey
+    {
+        super::builder::public_certificate_authority_service::CreateExternalAccountKey::new(self.inner.clone())
     }
 }

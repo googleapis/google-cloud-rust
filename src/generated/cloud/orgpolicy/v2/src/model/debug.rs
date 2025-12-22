@@ -88,13 +88,11 @@ impl std::fmt::Debug for super::constraint::custom_constraint_definition::parame
     }
 }
 
+
 impl std::fmt::Debug for super::constraint::BooleanConstraint {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BooleanConstraint");
-        debug_struct.field(
-            "custom_constraint_definition",
-            &self.custom_constraint_definition,
-        );
+        debug_struct.field("custom_constraint_definition", &self.custom_constraint_definition);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

@@ -121,9 +121,7 @@ impl ManagedSchemaRegistry {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::managed_schema_registry::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::managed_schema_registry::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::managed_schema_registry::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -131,250 +129,743 @@ impl ManagedSchemaRegistry {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::ManagedSchemaRegistry + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::ManagedSchemaRegistry + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ManagedSchemaRegistry>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ManagedSchemaRegistry>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ManagedSchemaRegistry> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ManagedSchemaRegistry> {
         super::transport::ManagedSchemaRegistry::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ManagedSchemaRegistry> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::ManagedSchemaRegistry::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ManagedSchemaRegistry> {
+        Self::build_transport(conf).await.map(super::tracing::ManagedSchemaRegistry::new)
     }
 
     /// Get the schema registry instance.
-    pub fn get_schema_registry(
-        &self,
-    ) -> super::builder::managed_schema_registry::GetSchemaRegistry {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::client::ManagedSchemaRegistry;
+    /// async fn sample(
+    ///    client: &ManagedSchemaRegistry,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_schema_registry()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_schema_registry(&self) -> super::builder::managed_schema_registry::GetSchemaRegistry
+    {
         super::builder::managed_schema_registry::GetSchemaRegistry::new(self.inner.clone())
     }
 
     /// List schema registries.
-    pub fn list_schema_registries(
-        &self,
-    ) -> super::builder::managed_schema_registry::ListSchemaRegistries {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::client::ManagedSchemaRegistry;
+    /// async fn sample(
+    ///    client: &ManagedSchemaRegistry
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .list_schema_registries()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_schema_registries(&self) -> super::builder::managed_schema_registry::ListSchemaRegistries
+    {
         super::builder::managed_schema_registry::ListSchemaRegistries::new(self.inner.clone())
     }
 
     /// Create a schema registry instance.
-    pub fn create_schema_registry(
-        &self,
-    ) -> super::builder::managed_schema_registry::CreateSchemaRegistry {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::client::ManagedSchemaRegistry;
+    /// async fn sample(
+    ///    client: &ManagedSchemaRegistry
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_schema_registry()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_schema_registry(&self) -> super::builder::managed_schema_registry::CreateSchemaRegistry
+    {
         super::builder::managed_schema_registry::CreateSchemaRegistry::new(self.inner.clone())
     }
 
     /// Delete a schema registry instance.
-    pub fn delete_schema_registry(
-        &self,
-    ) -> super::builder::managed_schema_registry::DeleteSchemaRegistry {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::client::ManagedSchemaRegistry;
+    /// async fn sample(
+    ///    client: &ManagedSchemaRegistry
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_schema_registry()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_schema_registry(&self) -> super::builder::managed_schema_registry::DeleteSchemaRegistry
+    {
         super::builder::managed_schema_registry::DeleteSchemaRegistry::new(self.inner.clone())
     }
 
     /// Get the context.
-    pub fn get_context(&self) -> super::builder::managed_schema_registry::GetContext {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::client::ManagedSchemaRegistry;
+    /// async fn sample(
+    ///    client: &ManagedSchemaRegistry,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_context()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_context(&self) -> super::builder::managed_schema_registry::GetContext
+    {
         super::builder::managed_schema_registry::GetContext::new(self.inner.clone())
     }
 
     /// List contexts for a schema registry.
-    pub fn list_contexts(&self) -> super::builder::managed_schema_registry::ListContexts {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::client::ManagedSchemaRegistry;
+    /// async fn sample(
+    ///    client: &ManagedSchemaRegistry
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .list_contexts()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_contexts(&self) -> super::builder::managed_schema_registry::ListContexts
+    {
         super::builder::managed_schema_registry::ListContexts::new(self.inner.clone())
     }
 
     /// Get the schema for the given schema id.
-    pub fn get_schema(&self) -> super::builder::managed_schema_registry::GetSchema {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::client::ManagedSchemaRegistry;
+    /// async fn sample(
+    ///    client: &ManagedSchemaRegistry,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_schema()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_schema(&self) -> super::builder::managed_schema_registry::GetSchema
+    {
         super::builder::managed_schema_registry::GetSchema::new(self.inner.clone())
     }
 
     /// Get the schema string for the given schema id.
     /// The response will be the schema string.
-    pub fn get_raw_schema(&self) -> super::builder::managed_schema_registry::GetRawSchema {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::client::ManagedSchemaRegistry;
+    /// async fn sample(
+    ///    client: &ManagedSchemaRegistry
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_raw_schema()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_raw_schema(&self) -> super::builder::managed_schema_registry::GetRawSchema
+    {
         super::builder::managed_schema_registry::GetRawSchema::new(self.inner.clone())
     }
 
     /// List the schema versions for the given schema id.
     /// The response will be an array of subject-version pairs as:
     /// [{"subject":"subject1", "version":1}, {"subject":"subject2", "version":2}].
-    pub fn list_schema_versions(
-        &self,
-    ) -> super::builder::managed_schema_registry::ListSchemaVersions {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::client::ManagedSchemaRegistry;
+    /// async fn sample(
+    ///    client: &ManagedSchemaRegistry
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .list_schema_versions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_schema_versions(&self) -> super::builder::managed_schema_registry::ListSchemaVersions
+    {
         super::builder::managed_schema_registry::ListSchemaVersions::new(self.inner.clone())
     }
 
     /// List the supported schema types.
     /// The response will be an array of schema types.
-    pub fn list_schema_types(&self) -> super::builder::managed_schema_registry::ListSchemaTypes {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::client::ManagedSchemaRegistry;
+    /// async fn sample(
+    ///    client: &ManagedSchemaRegistry
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .list_schema_types()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_schema_types(&self) -> super::builder::managed_schema_registry::ListSchemaTypes
+    {
         super::builder::managed_schema_registry::ListSchemaTypes::new(self.inner.clone())
     }
 
     /// List subjects in the schema registry.
     /// The response will be an array of subject names.
-    pub fn list_subjects(&self) -> super::builder::managed_schema_registry::ListSubjects {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::client::ManagedSchemaRegistry;
+    /// async fn sample(
+    ///    client: &ManagedSchemaRegistry
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .list_subjects()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_subjects(&self) -> super::builder::managed_schema_registry::ListSubjects
+    {
         super::builder::managed_schema_registry::ListSubjects::new(self.inner.clone())
     }
 
     /// List subjects which reference a particular schema id.
     /// The response will be an array of subject names.
-    pub fn list_subjects_by_schema_id(
-        &self,
-    ) -> super::builder::managed_schema_registry::ListSubjectsBySchemaId {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::client::ManagedSchemaRegistry;
+    /// async fn sample(
+    ///    client: &ManagedSchemaRegistry
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .list_subjects_by_schema_id()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_subjects_by_schema_id(&self) -> super::builder::managed_schema_registry::ListSubjectsBySchemaId
+    {
         super::builder::managed_schema_registry::ListSubjectsBySchemaId::new(self.inner.clone())
     }
 
     /// Delete a subject.
     /// The response will be an array of versions of the deleted subject.
-    pub fn delete_subject(&self) -> super::builder::managed_schema_registry::DeleteSubject {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::client::ManagedSchemaRegistry;
+    /// async fn sample(
+    ///    client: &ManagedSchemaRegistry
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .delete_subject()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_subject(&self) -> super::builder::managed_schema_registry::DeleteSubject
+    {
         super::builder::managed_schema_registry::DeleteSubject::new(self.inner.clone())
     }
 
     /// Lookup a schema under the specified subject.
-    pub fn lookup_version(&self) -> super::builder::managed_schema_registry::LookupVersion {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::client::ManagedSchemaRegistry;
+    /// async fn sample(
+    ///    client: &ManagedSchemaRegistry
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .lookup_version()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn lookup_version(&self) -> super::builder::managed_schema_registry::LookupVersion
+    {
         super::builder::managed_schema_registry::LookupVersion::new(self.inner.clone())
     }
 
     /// Get a versioned schema (schema with subject/version) of a subject.
-    pub fn get_version(&self) -> super::builder::managed_schema_registry::GetVersion {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::client::ManagedSchemaRegistry;
+    /// async fn sample(
+    ///    client: &ManagedSchemaRegistry,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_version()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_version(&self) -> super::builder::managed_schema_registry::GetVersion
+    {
         super::builder::managed_schema_registry::GetVersion::new(self.inner.clone())
     }
 
     /// Get the schema string only for a version of a subject.
     /// The response will be the schema string.
-    pub fn get_raw_schema_version(
-        &self,
-    ) -> super::builder::managed_schema_registry::GetRawSchemaVersion {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::client::ManagedSchemaRegistry;
+    /// async fn sample(
+    ///    client: &ManagedSchemaRegistry
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_raw_schema_version()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_raw_schema_version(&self) -> super::builder::managed_schema_registry::GetRawSchemaVersion
+    {
         super::builder::managed_schema_registry::GetRawSchemaVersion::new(self.inner.clone())
     }
 
     /// Get all versions of a subject.
     /// The response will be an array of versions of the subject.
-    pub fn list_versions(&self) -> super::builder::managed_schema_registry::ListVersions {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::client::ManagedSchemaRegistry;
+    /// async fn sample(
+    ///    client: &ManagedSchemaRegistry
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .list_versions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_versions(&self) -> super::builder::managed_schema_registry::ListVersions
+    {
         super::builder::managed_schema_registry::ListVersions::new(self.inner.clone())
     }
 
     /// Register a new version under a given subject with the given schema.
-    pub fn create_version(&self) -> super::builder::managed_schema_registry::CreateVersion {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::client::ManagedSchemaRegistry;
+    /// async fn sample(
+    ///    client: &ManagedSchemaRegistry
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_version()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_version(&self) -> super::builder::managed_schema_registry::CreateVersion
+    {
         super::builder::managed_schema_registry::CreateVersion::new(self.inner.clone())
     }
 
     /// Delete a version of a subject.
     /// The response will be the deleted version id.
-    pub fn delete_version(&self) -> super::builder::managed_schema_registry::DeleteVersion {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::client::ManagedSchemaRegistry;
+    /// async fn sample(
+    ///    client: &ManagedSchemaRegistry
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .delete_version()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_version(&self) -> super::builder::managed_schema_registry::DeleteVersion
+    {
         super::builder::managed_schema_registry::DeleteVersion::new(self.inner.clone())
     }
 
     /// Get a list of IDs of schemas that reference the schema with the given
     /// subject and version.
-    pub fn list_referenced_schemas(
-        &self,
-    ) -> super::builder::managed_schema_registry::ListReferencedSchemas {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::client::ManagedSchemaRegistry;
+    /// async fn sample(
+    ///    client: &ManagedSchemaRegistry
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .list_referenced_schemas()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_referenced_schemas(&self) -> super::builder::managed_schema_registry::ListReferencedSchemas
+    {
         super::builder::managed_schema_registry::ListReferencedSchemas::new(self.inner.clone())
     }
 
     /// Check compatibility of a schema with all versions or a specific version of
     /// a subject.
-    pub fn check_compatibility(
-        &self,
-    ) -> super::builder::managed_schema_registry::CheckCompatibility {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::client::ManagedSchemaRegistry;
+    /// async fn sample(
+    ///    client: &ManagedSchemaRegistry
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .check_compatibility()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn check_compatibility(&self) -> super::builder::managed_schema_registry::CheckCompatibility
+    {
         super::builder::managed_schema_registry::CheckCompatibility::new(self.inner.clone())
     }
 
     /// Get schema config at global level or for a subject.
-    pub fn get_schema_config(&self) -> super::builder::managed_schema_registry::GetSchemaConfig {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::client::ManagedSchemaRegistry;
+    /// async fn sample(
+    ///    client: &ManagedSchemaRegistry
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_schema_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_schema_config(&self) -> super::builder::managed_schema_registry::GetSchemaConfig
+    {
         super::builder::managed_schema_registry::GetSchemaConfig::new(self.inner.clone())
     }
 
     /// Update config at global level or for a subject.
     /// Creates a SchemaSubject-level SchemaConfig if it does not exist.
-    pub fn update_schema_config(
-        &self,
-    ) -> super::builder::managed_schema_registry::UpdateSchemaConfig {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::client::ManagedSchemaRegistry;
+    /// async fn sample(
+    ///    client: &ManagedSchemaRegistry
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_schema_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_schema_config(&self) -> super::builder::managed_schema_registry::UpdateSchemaConfig
+    {
         super::builder::managed_schema_registry::UpdateSchemaConfig::new(self.inner.clone())
     }
 
     /// Delete schema config for a subject.
-    pub fn delete_schema_config(
-        &self,
-    ) -> super::builder::managed_schema_registry::DeleteSchemaConfig {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::client::ManagedSchemaRegistry;
+    /// async fn sample(
+    ///    client: &ManagedSchemaRegistry
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .delete_schema_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_schema_config(&self) -> super::builder::managed_schema_registry::DeleteSchemaConfig
+    {
         super::builder::managed_schema_registry::DeleteSchemaConfig::new(self.inner.clone())
     }
 
     /// Get mode at global level or for a subject.
-    pub fn get_schema_mode(&self) -> super::builder::managed_schema_registry::GetSchemaMode {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::client::ManagedSchemaRegistry;
+    /// async fn sample(
+    ///    client: &ManagedSchemaRegistry
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_schema_mode()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_schema_mode(&self) -> super::builder::managed_schema_registry::GetSchemaMode
+    {
         super::builder::managed_schema_registry::GetSchemaMode::new(self.inner.clone())
     }
 
     /// Update mode at global level or for a subject.
-    pub fn update_schema_mode(&self) -> super::builder::managed_schema_registry::UpdateSchemaMode {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::client::ManagedSchemaRegistry;
+    /// async fn sample(
+    ///    client: &ManagedSchemaRegistry
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_schema_mode()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_schema_mode(&self) -> super::builder::managed_schema_registry::UpdateSchemaMode
+    {
         super::builder::managed_schema_registry::UpdateSchemaMode::new(self.inner.clone())
     }
 
     /// Delete schema mode for a subject.
-    pub fn delete_schema_mode(&self) -> super::builder::managed_schema_registry::DeleteSchemaMode {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::client::ManagedSchemaRegistry;
+    /// async fn sample(
+    ///    client: &ManagedSchemaRegistry
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .delete_schema_mode()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_schema_mode(&self) -> super::builder::managed_schema_registry::DeleteSchemaMode
+    {
         super::builder::managed_schema_registry::DeleteSchemaMode::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::managed_schema_registry::ListLocations {
+    pub fn list_locations(&self) -> super::builder::managed_schema_registry::ListLocations
+    {
         super::builder::managed_schema_registry::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(&self) -> super::builder::managed_schema_registry::GetLocation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::client::ManagedSchemaRegistry;
+    /// async fn sample(
+    ///    client: &ManagedSchemaRegistry
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_location(&self) -> super::builder::managed_schema_registry::GetLocation
+    {
         super::builder::managed_schema_registry::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::managed_schema_registry::ListOperations {
+    pub fn list_operations(&self) -> super::builder::managed_schema_registry::ListOperations
+    {
         super::builder::managed_schema_registry::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::managed_schema_registry::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::client::ManagedSchemaRegistry;
+    /// async fn sample(
+    ///    client: &ManagedSchemaRegistry
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::managed_schema_registry::GetOperation
+    {
         super::builder::managed_schema_registry::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(&self) -> super::builder::managed_schema_registry::DeleteOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::client::ManagedSchemaRegistry;
+    /// async fn sample(
+    ///    client: &ManagedSchemaRegistry
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_operation(&self) -> super::builder::managed_schema_registry::DeleteOperation
+    {
         super::builder::managed_schema_registry::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(&self) -> super::builder::managed_schema_registry::CancelOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::client::ManagedSchemaRegistry;
+    /// async fn sample(
+    ///    client: &ManagedSchemaRegistry
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_operation(&self) -> super::builder::managed_schema_registry::CancelOperation
+    {
         super::builder::managed_schema_registry::CancelOperation::new(self.inner.clone())
     }
 }

@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [DatasetService](super::stub::DatasetService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct DatasetService<T>
-where
-    T: super::stub::DatasetService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::DatasetService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> DatasetService<T>
-where
-    T: super::stub::DatasetService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::DatasetService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::DatasetService for DatasetService<T>
-where
-    T: super::stub::DatasetService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::DatasetService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn get_dataset(
         &self,
@@ -99,30 +93,25 @@ where
     ) -> Result<gax::response::Response<crate::model::Dataset>> {
         self.inner.undelete_dataset(req, options).await
     }
+
 }
 
 /// Implements a [JobService](super::stub::JobService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct JobService<T>
-where
-    T: super::stub::JobService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::JobService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> JobService<T>
-where
-    T: super::stub::JobService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::JobService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::JobService for JobService<T>
-where
-    T: super::stub::JobService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::JobService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn cancel_job(
         &self,
@@ -185,30 +174,25 @@ where
     ) -> Result<gax::response::Response<crate::model::QueryResponse>> {
         self.inner.query(req, options).await
     }
+
 }
 
 /// Implements a [ModelService](super::stub::ModelService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct ModelService<T>
-where
-    T: super::stub::ModelService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ModelService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> ModelService<T>
-where
-    T: super::stub::ModelService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ModelService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::ModelService for ModelService<T>
-where
-    T: super::stub::ModelService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ModelService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn get_model(
         &self,
@@ -244,30 +228,25 @@ where
     ) -> Result<gax::response::Response<()>> {
         self.inner.delete_model(req, options).await
     }
+
 }
 
 /// Implements a [ProjectService](super::stub::ProjectService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct ProjectService<T>
-where
-    T: super::stub::ProjectService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ProjectService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> ProjectService<T>
-where
-    T: super::stub::ProjectService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ProjectService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::ProjectService for ProjectService<T>
-where
-    T: super::stub::ProjectService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ProjectService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn get_service_account(
         &self,
@@ -276,30 +255,25 @@ where
     ) -> Result<gax::response::Response<crate::model::GetServiceAccountResponse>> {
         self.inner.get_service_account(req, options).await
     }
+
 }
 
 /// Implements a [RoutineService](super::stub::RoutineService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct RoutineService<T>
-where
-    T: super::stub::RoutineService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::RoutineService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> RoutineService<T>
-where
-    T: super::stub::RoutineService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::RoutineService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::RoutineService for RoutineService<T>
-where
-    T: super::stub::RoutineService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::RoutineService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn get_routine(
         &self,
@@ -344,30 +318,25 @@ where
     ) -> Result<gax::response::Response<crate::model::ListRoutinesResponse>> {
         self.inner.list_routines(req, options).await
     }
+
 }
 
 /// Implements a [RowAccessPolicyService](super::stub::RowAccessPolicyService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct RowAccessPolicyService<T>
-where
-    T: super::stub::RowAccessPolicyService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::RowAccessPolicyService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> RowAccessPolicyService<T>
-where
-    T: super::stub::RowAccessPolicyService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::RowAccessPolicyService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::RowAccessPolicyService for RowAccessPolicyService<T>
-where
-    T: super::stub::RowAccessPolicyService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::RowAccessPolicyService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn list_row_access_policies(
         &self,
@@ -419,34 +388,27 @@ where
         req: crate::model::BatchDeleteRowAccessPoliciesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        self.inner
-            .batch_delete_row_access_policies(req, options)
-            .await
+        self.inner.batch_delete_row_access_policies(req, options).await
     }
+
 }
 
 /// Implements a [TableService](super::stub::TableService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct TableService<T>
-where
-    T: super::stub::TableService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::TableService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> TableService<T>
-where
-    T: super::stub::TableService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::TableService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::TableService for TableService<T>
-where
-    T: super::stub::TableService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::TableService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn get_table(
         &self,
@@ -500,4 +462,6 @@ where
     ) -> Result<gax::response::Response<crate::model::TableList>> {
         self.inner.list_tables(req, options).await
     }
+
 }
+

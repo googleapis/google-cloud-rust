@@ -39,10 +39,7 @@ pub mod datastore_admin {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = DatastoreAdmin;
             type Credentials = gaxi::options::Credentials;
-            async fn build(
-                self,
-                config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -57,12 +54,8 @@ pub mod datastore_admin {
     }
 
     impl<R> RequestBuilder<R>
-    where
-        R: std::default::Default,
-    {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatastoreAdmin>,
-        ) -> Self {
+    where R: std::default::Default {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DatastoreAdmin>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -93,10 +86,10 @@ pub mod datastore_admin {
     pub struct ExportEntities(RequestBuilder<crate::model::ExportEntitiesRequest>);
 
     impl ExportEntities {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatastoreAdmin>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DatastoreAdmin>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -118,21 +111,16 @@ pub mod datastore_admin {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [export_entities][crate::client::DatastoreAdmin::export_entities].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .export_entities(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).export_entities(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `export_entities`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::ExportEntitiesResponse, crate::model::ExportEntitiesMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::ExportEntitiesResponse, crate::model::ExportEntitiesMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::ExportEntitiesResponse,
-                crate::model::ExportEntitiesMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::ExportEntitiesResponse, crate::model::ExportEntitiesMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -181,8 +169,7 @@ pub mod datastore_admin {
 
         /// Sets the value of [entity_filter][crate::model::ExportEntitiesRequest::entity_filter].
         pub fn set_entity_filter<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::EntityFilter>,
+        where T: std::convert::Into<crate::model::EntityFilter>
         {
             self.0.request.entity_filter = std::option::Option::Some(v.into());
             self
@@ -190,8 +177,7 @@ pub mod datastore_admin {
 
         /// Sets or clears the value of [entity_filter][crate::model::ExportEntitiesRequest::entity_filter].
         pub fn set_or_clear_entity_filter<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::EntityFilter>,
+        where T: std::convert::Into<crate::model::EntityFilter>
         {
             self.0.request.entity_filter = v.map(|x| x.into());
             self
@@ -235,10 +221,10 @@ pub mod datastore_admin {
     pub struct ImportEntities(RequestBuilder<crate::model::ImportEntitiesRequest>);
 
     impl ImportEntities {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatastoreAdmin>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DatastoreAdmin>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -260,16 +246,16 @@ pub mod datastore_admin {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [import_entities][crate::client::DatastoreAdmin::import_entities].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .import_entities(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).import_entities(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `import_entities`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::ImportEntitiesMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::ImportEntitiesMetadata>;
+        pub fn poller(
+            self
+        ) ->
+            impl lro::Poller<(), crate::model::ImportEntitiesMetadata>
+        {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::ImportEntitiesMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -294,12 +280,7 @@ pub mod datastore_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [project_id][crate::model::ImportEntitiesRequest::project_id].
@@ -331,8 +312,7 @@ pub mod datastore_admin {
 
         /// Sets the value of [entity_filter][crate::model::ImportEntitiesRequest::entity_filter].
         pub fn set_entity_filter<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::EntityFilter>,
+        where T: std::convert::Into<crate::model::EntityFilter>
         {
             self.0.request.entity_filter = std::option::Option::Some(v.into());
             self
@@ -340,8 +320,7 @@ pub mod datastore_admin {
 
         /// Sets or clears the value of [entity_filter][crate::model::ImportEntitiesRequest::entity_filter].
         pub fn set_or_clear_entity_filter<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::EntityFilter>,
+        where T: std::convert::Into<crate::model::EntityFilter>
         {
             self.0.request.entity_filter = v.map(|x| x.into());
             self
@@ -377,10 +356,10 @@ pub mod datastore_admin {
     pub struct CreateIndex(RequestBuilder<crate::model::CreateIndexRequest>);
 
     impl CreateIndex {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatastoreAdmin>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DatastoreAdmin>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -402,18 +381,16 @@ pub mod datastore_admin {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_index][crate::client::DatastoreAdmin::create_index].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .create_index(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_index(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_index`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::Index, crate::model::IndexOperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Index, crate::model::IndexOperationMetadata>;
+            self
+        ) ->
+            impl lro::Poller<crate::model::Index, crate::model::IndexOperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::Index, crate::model::IndexOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -449,8 +426,7 @@ pub mod datastore_admin {
 
         /// Sets the value of [index][crate::model::CreateIndexRequest::index].
         pub fn set_index<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Index>,
+        where T: std::convert::Into<crate::model::Index>
         {
             self.0.request.index = std::option::Option::Some(v.into());
             self
@@ -458,8 +434,7 @@ pub mod datastore_admin {
 
         /// Sets or clears the value of [index][crate::model::CreateIndexRequest::index].
         pub fn set_or_clear_index<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Index>,
+        where T: std::convert::Into<crate::model::Index>
         {
             self.0.request.index = v.map(|x| x.into());
             self
@@ -495,10 +470,10 @@ pub mod datastore_admin {
     pub struct DeleteIndex(RequestBuilder<crate::model::DeleteIndexRequest>);
 
     impl DeleteIndex {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatastoreAdmin>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DatastoreAdmin>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -520,18 +495,16 @@ pub mod datastore_admin {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_index][crate::client::DatastoreAdmin::delete_index].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .delete_index(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_index(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_index`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::Index, crate::model::IndexOperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Index, crate::model::IndexOperationMetadata>;
+            self
+        ) ->
+            impl lro::Poller<crate::model::Index, crate::model::IndexOperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::Index, crate::model::IndexOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -600,10 +573,10 @@ pub mod datastore_admin {
     pub struct GetIndex(RequestBuilder<crate::model::GetIndexRequest>);
 
     impl GetIndex {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatastoreAdmin>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DatastoreAdmin>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -620,10 +593,7 @@ pub mod datastore_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Index> {
-            (*self.0.stub)
-                .get_index(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_index(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::GetIndexRequest::project_id].
@@ -671,10 +641,10 @@ pub mod datastore_admin {
     pub struct ListIndexes(RequestBuilder<crate::model::ListIndexesRequest>);
 
     impl ListIndexes {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatastoreAdmin>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DatastoreAdmin>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -691,17 +661,11 @@ pub mod datastore_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListIndexesResponse> {
-            (*self.0.stub)
-                .list_indexes(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_indexes(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListIndexesResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListIndexesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -713,10 +677,7 @@ pub mod datastore_admin {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListIndexesResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListIndexesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -778,17 +739,14 @@ pub mod datastore_admin {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatastoreAdmin>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DatastoreAdmin>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -801,17 +759,11 @@ pub mod datastore_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::ListOperationsResponse> {
-            (*self.0.stub)
-                .list_operations(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_operations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -823,12 +775,7 @@ pub mod datastore_admin {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            longrunning::model::ListOperationsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -892,17 +839,14 @@ pub mod datastore_admin {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatastoreAdmin>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DatastoreAdmin>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -915,10 +859,7 @@ pub mod datastore_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .get_operation(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -956,17 +897,14 @@ pub mod datastore_admin {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatastoreAdmin>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DatastoreAdmin>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -979,10 +917,7 @@ pub mod datastore_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .delete_operation(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -1020,17 +955,14 @@ pub mod datastore_admin {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatastoreAdmin>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DatastoreAdmin>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1043,10 +975,7 @@ pub mod datastore_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .cancel_operation(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).cancel_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -1062,4 +991,5 @@ pub mod datastore_admin {
             &mut self.0.options
         }
     }
+
 }

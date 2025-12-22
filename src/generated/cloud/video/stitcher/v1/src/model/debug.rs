@@ -268,10 +268,7 @@ impl std::fmt::Debug for super::PrefetchConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PrefetchConfig");
         debug_struct.field("enabled", &self.enabled);
-        debug_struct.field(
-            "initial_ad_request_duration",
-            &self.initial_ad_request_duration,
-        );
+        debug_struct.field("initial_ad_request_duration", &self.initial_ad_request_duration);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -324,6 +321,7 @@ impl std::fmt::Debug for super::vod_session::GamSettings {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::Interstitials {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -403,6 +401,7 @@ impl std::fmt::Debug for super::live_session::GamSettings {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::ManifestOptions {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

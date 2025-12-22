@@ -38,14 +38,13 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait Grafeas: std::fmt::Debug + Send + Sync {
+
     /// Implements [super::client::Grafeas::get_occurrence].
     fn get_occurrence(
         &self,
         _req: crate::model::GetOccurrenceRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Occurrence>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Occurrence>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -54,9 +53,7 @@ pub trait Grafeas: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListOccurrencesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListOccurrencesResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListOccurrencesResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -74,9 +71,7 @@ pub trait Grafeas: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateOccurrenceRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Occurrence>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Occurrence>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -85,11 +80,7 @@ pub trait Grafeas: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::BatchCreateOccurrencesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::BatchCreateOccurrencesResponse>,
-        >,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::BatchCreateOccurrencesResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -98,9 +89,7 @@ pub trait Grafeas: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateOccurrenceRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Occurrence>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Occurrence>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -109,9 +98,7 @@ pub trait Grafeas: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetOccurrenceNoteRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Note>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Note>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -120,9 +107,7 @@ pub trait Grafeas: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetNoteRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Note>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Note>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -131,9 +116,7 @@ pub trait Grafeas: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListNotesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListNotesResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListNotesResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -151,9 +134,7 @@ pub trait Grafeas: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateNoteRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Note>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Note>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -162,9 +143,7 @@ pub trait Grafeas: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::BatchCreateNotesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::BatchCreateNotesResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::BatchCreateNotesResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -173,9 +152,7 @@ pub trait Grafeas: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateNoteRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Note>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Note>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -184,9 +161,8 @@ pub trait Grafeas: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListNoteOccurrencesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListNoteOccurrencesResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListNoteOccurrencesResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 }
+

@@ -23,9 +23,9 @@ impl serde::ser::Serialize for super::Span {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -70,9 +70,7 @@ impl serde::ser::Serialize for super::Span {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
-                        self.0, serializer,
-                    )
+                    serde_with::As::< std::option::Option<wkt::internal::I32> >::serialize(self.0, serializer)
                 }
             }
             state.serialize_entry("childSpanCount", &__With(&self.child_span_count))?;
@@ -95,9 +93,9 @@ impl serde::ser::Serialize for super::span::Attributes {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.attribute_map.is_empty() {
             state.serialize_entry("attributeMap", &self.attribute_map)?;
@@ -112,10 +110,7 @@ impl serde::ser::Serialize for super::span::Attributes {
                     serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
                 }
             }
-            state.serialize_entry(
-                "droppedAttributesCount",
-                &__With(&self.dropped_attributes_count),
-            )?;
+            state.serialize_entry("droppedAttributesCount", &__With(&self.dropped_attributes_count))?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -132,9 +127,9 @@ impl serde::ser::Serialize for super::span::TimeEvent {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.time.is_some() {
             state.serialize_entry("time", &self.time)?;
@@ -160,9 +155,9 @@ impl serde::ser::Serialize for super::span::time_event::Annotation {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.description.is_some() {
             state.serialize_entry("description", &self.description)?;
@@ -185,9 +180,9 @@ impl serde::ser::Serialize for super::span::time_event::MessageEvent {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.r#type) {
             state.serialize_entry("type", &self.r#type)?;
@@ -214,10 +209,7 @@ impl serde::ser::Serialize for super::span::time_event::MessageEvent {
                     serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
                 }
             }
-            state.serialize_entry(
-                "uncompressedSizeBytes",
-                &__With(&self.uncompressed_size_bytes),
-            )?;
+            state.serialize_entry("uncompressedSizeBytes", &__With(&self.uncompressed_size_bytes))?;
         }
         if !wkt::internal::is_default(&self.compressed_size_bytes) {
             struct __With<'a>(&'a i64);
@@ -246,9 +238,9 @@ impl serde::ser::Serialize for super::span::TimeEvents {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.time_event.is_empty() {
             state.serialize_entry("timeEvent", &self.time_event)?;
@@ -263,10 +255,7 @@ impl serde::ser::Serialize for super::span::TimeEvents {
                     serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
                 }
             }
-            state.serialize_entry(
-                "droppedAnnotationsCount",
-                &__With(&self.dropped_annotations_count),
-            )?;
+            state.serialize_entry("droppedAnnotationsCount", &__With(&self.dropped_annotations_count))?;
         }
         if !wkt::internal::is_default(&self.dropped_message_events_count) {
             struct __With<'a>(&'a i32);
@@ -278,10 +267,7 @@ impl serde::ser::Serialize for super::span::TimeEvents {
                     serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
                 }
             }
-            state.serialize_entry(
-                "droppedMessageEventsCount",
-                &__With(&self.dropped_message_events_count),
-            )?;
+            state.serialize_entry("droppedMessageEventsCount", &__With(&self.dropped_message_events_count))?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -298,9 +284,9 @@ impl serde::ser::Serialize for super::span::Link {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.trace_id.is_empty() {
             state.serialize_entry("traceId", &self.trace_id)?;
@@ -329,9 +315,9 @@ impl serde::ser::Serialize for super::span::Links {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.link.is_empty() {
             state.serialize_entry("link", &self.link)?;
@@ -363,9 +349,9 @@ impl serde::ser::Serialize for super::AttributeValue {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if let Some(value) = self.string_value() {
             state.serialize_entry("stringValue", value)?;
@@ -400,9 +386,9 @@ impl serde::ser::Serialize for super::StackTrace {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.stack_frames.is_some() {
             state.serialize_entry("stackFrames", &self.stack_frames)?;
@@ -434,9 +420,9 @@ impl serde::ser::Serialize for super::stack_trace::StackFrame {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.function_name.is_some() {
             state.serialize_entry("functionName", &self.function_name)?;
@@ -492,9 +478,9 @@ impl serde::ser::Serialize for super::stack_trace::StackFrames {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.frame.is_empty() {
             state.serialize_entry("frame", &self.frame)?;
@@ -526,9 +512,9 @@ impl serde::ser::Serialize for super::Module {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.module.is_some() {
             state.serialize_entry("module", &self.module)?;
@@ -551,9 +537,9 @@ impl serde::ser::Serialize for super::TruncatableString {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.value.is_empty() {
             state.serialize_entry("value", &self.value)?;
@@ -585,9 +571,9 @@ impl serde::ser::Serialize for super::BatchWriteSpansRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;

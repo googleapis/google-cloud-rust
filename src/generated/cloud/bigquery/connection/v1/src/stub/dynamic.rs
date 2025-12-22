@@ -64,6 +64,7 @@ pub trait ConnectionService: std::fmt::Debug + Send + Sync {
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
+
 }
 
 /// All implementations of [super::ConnectionService] also implement [ConnectionService].
@@ -140,4 +141,5 @@ impl<T: super::ConnectionService> ConnectionService for T {
     ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         T::test_iam_permissions(self, req, options).await
     }
+
 }

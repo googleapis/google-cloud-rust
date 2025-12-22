@@ -401,6 +401,8 @@ impl std::fmt::Debug for super::Job {
     }
 }
 
+
+
 impl std::fmt::Debug for super::ExecutionReference {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ExecutionReference");
@@ -766,10 +768,7 @@ impl std::fmt::Debug for super::Revision {
         debug_struct.field("service", &self.service);
         debug_struct.field("scaling", &self.scaling);
         debug_struct.field("vpc_access", &self.vpc_access);
-        debug_struct.field(
-            "max_instance_request_concurrency",
-            &self.max_instance_request_concurrency,
-        );
+        debug_struct.field("max_instance_request_concurrency", &self.max_instance_request_concurrency);
         debug_struct.field("timeout", &self.timeout);
         debug_struct.field("service_account", &self.service_account);
         debug_struct.field("containers", &self.containers);
@@ -777,14 +776,8 @@ impl std::fmt::Debug for super::Revision {
         debug_struct.field("execution_environment", &self.execution_environment);
         debug_struct.field("encryption_key", &self.encryption_key);
         debug_struct.field("service_mesh", &self.service_mesh);
-        debug_struct.field(
-            "encryption_key_revocation_action",
-            &self.encryption_key_revocation_action,
-        );
-        debug_struct.field(
-            "encryption_key_shutdown_duration",
-            &self.encryption_key_shutdown_duration,
-        );
+        debug_struct.field("encryption_key_revocation_action", &self.encryption_key_revocation_action);
+        debug_struct.field("encryption_key_shutdown_duration", &self.encryption_key_shutdown_duration);
         debug_struct.field("reconciling", &self.reconciling);
         debug_struct.field("conditions", &self.conditions);
         debug_struct.field("observed_generation", &self.observed_generation);
@@ -793,10 +786,7 @@ impl std::fmt::Debug for super::Revision {
         debug_struct.field("session_affinity", &self.session_affinity);
         debug_struct.field("scaling_status", &self.scaling_status);
         debug_struct.field("node_selector", &self.node_selector);
-        debug_struct.field(
-            "gpu_zonal_redundancy_disabled",
-            &self.gpu_zonal_redundancy_disabled,
-        );
+        debug_struct.field("gpu_zonal_redundancy_disabled", &self.gpu_zonal_redundancy_disabled);
         debug_struct.field("creator", &self.creator);
         debug_struct.field("etag", &self.etag);
         if !self._unknown_fields.is_empty() {
@@ -820,26 +810,14 @@ impl std::fmt::Debug for super::RevisionTemplate {
         debug_struct.field("volumes", &self.volumes);
         debug_struct.field("execution_environment", &self.execution_environment);
         debug_struct.field("encryption_key", &self.encryption_key);
-        debug_struct.field(
-            "max_instance_request_concurrency",
-            &self.max_instance_request_concurrency,
-        );
+        debug_struct.field("max_instance_request_concurrency", &self.max_instance_request_concurrency);
         debug_struct.field("service_mesh", &self.service_mesh);
-        debug_struct.field(
-            "encryption_key_revocation_action",
-            &self.encryption_key_revocation_action,
-        );
-        debug_struct.field(
-            "encryption_key_shutdown_duration",
-            &self.encryption_key_shutdown_duration,
-        );
+        debug_struct.field("encryption_key_revocation_action", &self.encryption_key_revocation_action);
+        debug_struct.field("encryption_key_shutdown_duration", &self.encryption_key_shutdown_duration);
         debug_struct.field("session_affinity", &self.session_affinity);
         debug_struct.field("health_check_disabled", &self.health_check_disabled);
         debug_struct.field("node_selector", &self.node_selector);
-        debug_struct.field(
-            "gpu_zonal_redundancy_disabled",
-            &self.gpu_zonal_redundancy_disabled,
-        );
+        debug_struct.field("gpu_zonal_redundancy_disabled", &self.gpu_zonal_redundancy_disabled);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -986,13 +964,12 @@ impl std::fmt::Debug for super::service::MultiRegionSettings {
     }
 }
 
+
+
 impl std::fmt::Debug for super::RevisionScalingStatus {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RevisionScalingStatus");
-        debug_struct.field(
-            "desired_min_instance_count",
-            &self.desired_min_instance_count,
-        );
+        debug_struct.field("desired_min_instance_count", &self.desired_min_instance_count);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1071,10 +1048,7 @@ impl std::fmt::Debug for super::Task {
         debug_struct.field("log_uri", &self.log_uri);
         debug_struct.field("satisfies_pzs", &self.satisfies_pzs);
         debug_struct.field("node_selector", &self.node_selector);
-        debug_struct.field(
-            "gpu_zonal_redundancy_disabled",
-            &self.gpu_zonal_redundancy_disabled,
-        );
+        debug_struct.field("gpu_zonal_redundancy_disabled", &self.gpu_zonal_redundancy_disabled);
         debug_struct.field("etag", &self.etag);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1107,10 +1081,7 @@ impl std::fmt::Debug for super::TaskTemplate {
         debug_struct.field("encryption_key", &self.encryption_key);
         debug_struct.field("vpc_access", &self.vpc_access);
         debug_struct.field("node_selector", &self.node_selector);
-        debug_struct.field(
-            "gpu_zonal_redundancy_disabled",
-            &self.gpu_zonal_redundancy_disabled,
-        );
+        debug_struct.field("gpu_zonal_redundancy_disabled", &self.gpu_zonal_redundancy_disabled);
         debug_struct.field("retries", &self.retries);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1395,19 +1366,10 @@ impl std::fmt::Debug for super::WorkerPoolRevisionTemplate {
         debug_struct.field("volumes", &self.volumes);
         debug_struct.field("encryption_key", &self.encryption_key);
         debug_struct.field("service_mesh", &self.service_mesh);
-        debug_struct.field(
-            "encryption_key_revocation_action",
-            &self.encryption_key_revocation_action,
-        );
-        debug_struct.field(
-            "encryption_key_shutdown_duration",
-            &self.encryption_key_shutdown_duration,
-        );
+        debug_struct.field("encryption_key_revocation_action", &self.encryption_key_revocation_action);
+        debug_struct.field("encryption_key_shutdown_duration", &self.encryption_key_shutdown_duration);
         debug_struct.field("node_selector", &self.node_selector);
-        debug_struct.field(
-            "gpu_zonal_redundancy_disabled",
-            &self.gpu_zonal_redundancy_disabled,
-        );
+        debug_struct.field("gpu_zonal_redundancy_disabled", &self.gpu_zonal_redundancy_disabled);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

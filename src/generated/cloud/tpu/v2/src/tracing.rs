@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [Tpu](super::stub::Tpu) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct Tpu<T>
-where
-    T: super::stub::Tpu + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Tpu + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> Tpu<T>
-where
-    T: super::stub::Tpu + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Tpu + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::Tpu for Tpu<T>
-where
-    T: super::stub::Tpu + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Tpu + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn list_nodes(
         &self,
@@ -253,6 +247,7 @@ where
         self.inner.cancel_operation(req, options).await
     }
 
+
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -267,3 +262,4 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 }
+

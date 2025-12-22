@@ -82,48 +82,51 @@ impl IamChecker {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::IamChecker + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::IamChecker + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::IamChecker>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::IamChecker>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::IamChecker> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::IamChecker> {
         super::transport::IamChecker::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::IamChecker> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::IamChecker::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::IamChecker> {
+        Self::build_transport(conf).await.map(super::tracing::IamChecker::new)
     }
 
     /// Checks whether a principal has a specific permission for a specific
     /// resource, and explains why the principal does or does not have that
     /// permission.
-    pub fn troubleshoot_iam_policy(&self) -> super::builder::iam_checker::TroubleshootIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_policytroubleshooter_v1::client::IamChecker;
+    /// async fn sample(
+    ///    client: &IamChecker
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .troubleshoot_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn troubleshoot_iam_policy(&self) -> super::builder::iam_checker::TroubleshootIamPolicy
+    {
         super::builder::iam_checker::TroubleshootIamPolicy::new(self.inner.clone())
     }
 }

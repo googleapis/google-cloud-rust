@@ -23,14 +23,8 @@ impl std::fmt::Debug for super::DiagnosticConfig {
         debug_struct.field("gcs_bucket", &self.gcs_bucket);
         debug_struct.field("relative_path", &self.relative_path);
         debug_struct.field("enable_repair_flag", &self.enable_repair_flag);
-        debug_struct.field(
-            "enable_packet_capture_flag",
-            &self.enable_packet_capture_flag,
-        );
-        debug_struct.field(
-            "enable_copy_home_files_flag",
-            &self.enable_copy_home_files_flag,
-        );
+        debug_struct.field("enable_packet_capture_flag", &self.enable_packet_capture_flag);
+        debug_struct.field("enable_copy_home_files_flag", &self.enable_copy_home_files_flag);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -50,6 +44,7 @@ impl std::fmt::Debug for super::Event {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::NetworkInterface {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -105,10 +100,7 @@ impl std::fmt::Debug for super::ShieldedInstanceConfig {
         let mut debug_struct = f.debug_struct("ShieldedInstanceConfig");
         debug_struct.field("enable_secure_boot", &self.enable_secure_boot);
         debug_struct.field("enable_vtpm", &self.enable_vtpm);
-        debug_struct.field(
-            "enable_integrity_monitoring",
-            &self.enable_integrity_monitoring,
-        );
+        debug_struct.field("enable_integrity_monitoring", &self.enable_integrity_monitoring);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -191,6 +183,7 @@ impl std::fmt::Debug for super::GceSetup {
     }
 }
 
+
 impl std::fmt::Debug for super::UpgradeHistoryEntry {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpgradeHistoryEntry");
@@ -233,6 +226,8 @@ impl std::fmt::Debug for super::Instance {
         debug_struct.finish()
     }
 }
+
+
 
 impl std::fmt::Debug for super::OperationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

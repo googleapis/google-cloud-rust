@@ -113,16 +113,10 @@ impl std::fmt::Debug for super::search_catalog_request::Scope {
         let mut debug_struct = f.debug_struct("Scope");
         debug_struct.field("include_org_ids", &self.include_org_ids);
         debug_struct.field("include_project_ids", &self.include_project_ids);
-        debug_struct.field(
-            "include_gcp_public_datasets",
-            &self.include_gcp_public_datasets,
-        );
+        debug_struct.field("include_gcp_public_datasets", &self.include_gcp_public_datasets);
         debug_struct.field("restricted_locations", &self.restricted_locations);
         debug_struct.field("starred_only", &self.starred_only);
-        debug_struct.field(
-            "include_public_tag_templates",
-            &self.include_public_tag_templates,
-        );
+        debug_struct.field("include_public_tag_templates", &self.include_public_tag_templates);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -305,6 +299,7 @@ impl std::fmt::Debug for super::Entry {
     }
 }
 
+
 impl std::fmt::Debug for super::DatabaseTableSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DatabaseTableSpec");
@@ -409,10 +404,7 @@ impl std::fmt::Debug for super::LookerSystemSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("LookerSystemSpec");
         debug_struct.field("parent_instance_id", &self.parent_instance_id);
-        debug_struct.field(
-            "parent_instance_display_name",
-            &self.parent_instance_display_name,
-        );
+        debug_struct.field("parent_instance_display_name", &self.parent_instance_display_name);
         debug_struct.field("parent_model_id", &self.parent_model_id);
         debug_struct.field("parent_model_display_name", &self.parent_model_display_name);
         debug_struct.field("parent_view_id", &self.parent_view_id);
@@ -438,10 +430,7 @@ impl std::fmt::Debug for super::CloudBigtableSystemSpec {
 impl std::fmt::Debug for super::CloudBigtableInstanceSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CloudBigtableInstanceSpec");
-        debug_struct.field(
-            "cloud_bigtable_cluster_specs",
-            &self.cloud_bigtable_cluster_specs,
-        );
+        debug_struct.field("cloud_bigtable_cluster_specs", &self.cloud_bigtable_cluster_specs);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -721,10 +710,7 @@ impl std::fmt::Debug for super::RenameTagTemplateFieldEnumValueRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RenameTagTemplateFieldEnumValueRequest");
         debug_struct.field("name", &self.name);
-        debug_struct.field(
-            "new_enum_value_display_name",
-            &self.new_enum_value_display_name,
-        );
+        debug_struct.field("new_enum_value_display_name", &self.new_enum_value_display_name);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -807,6 +793,7 @@ impl std::fmt::Debug for super::ReconcileTagsMetadata {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::ListEntriesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -987,10 +974,7 @@ impl std::fmt::Debug for super::MigrationConfig {
         let mut debug_struct = f.debug_struct("MigrationConfig");
         debug_struct.field("tag_template_migration", &self.tag_template_migration);
         debug_struct.field("catalog_ui_experience", &self.catalog_ui_experience);
-        debug_struct.field(
-            "template_migration_enabled_time",
-            &self.template_migration_enabled_time,
-        );
+        debug_struct.field("template_migration_enabled_time", &self.template_migration_enabled_time);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1606,6 +1590,7 @@ impl std::fmt::Debug for super::Tag {
     }
 }
 
+
 impl std::fmt::Debug for super::TagField {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TagField");
@@ -1644,6 +1629,7 @@ impl std::fmt::Debug for super::TagTemplate {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::TagTemplateField {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -1713,10 +1699,7 @@ impl std::fmt::Debug for super::UsageStats {
         debug_struct.field("total_completions", &self.total_completions);
         debug_struct.field("total_failures", &self.total_failures);
         debug_struct.field("total_cancellations", &self.total_cancellations);
-        debug_struct.field(
-            "total_execution_time_for_completions_millis",
-            &self.total_execution_time_for_completions_millis,
-        );
+        debug_struct.field("total_execution_time_for_completions_millis", &self.total_execution_time_for_completions_millis);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1740,10 +1723,7 @@ impl std::fmt::Debug for super::UsageSignal {
         let mut debug_struct = f.debug_struct("UsageSignal");
         debug_struct.field("update_time", &self.update_time);
         debug_struct.field("usage_within_time_range", &self.usage_within_time_range);
-        debug_struct.field(
-            "common_usage_within_time_range",
-            &self.common_usage_within_time_range,
-        );
+        debug_struct.field("common_usage_within_time_range", &self.common_usage_within_time_range);
         debug_struct.field("favorite_count", &self.favorite_count);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);

@@ -124,6 +124,7 @@ impl std::fmt::Debug for super::report_detail::Metrics {
     }
 }
 
+
 impl std::fmt::Debug for super::ListReportDetailsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListReportDetailsRequest");
@@ -270,6 +271,7 @@ impl std::fmt::Debug for super::ReportConfig {
     }
 }
 
+
 impl std::fmt::Debug for super::Identity {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Identity");
@@ -291,14 +293,8 @@ impl std::fmt::Debug for super::DatasetConfig {
         debug_struct.field("labels", &self.labels);
         debug_struct.field("uid", &self.uid);
         debug_struct.field("organization_number", &self.organization_number);
-        debug_struct.field(
-            "include_newly_created_buckets",
-            &self.include_newly_created_buckets,
-        );
-        debug_struct.field(
-            "skip_verification_and_ingest",
-            &self.skip_verification_and_ingest,
-        );
+        debug_struct.field("include_newly_created_buckets", &self.include_newly_created_buckets);
+        debug_struct.field("skip_verification_and_ingest", &self.skip_verification_and_ingest);
         debug_struct.field("retention_period_days", &self.retention_period_days);
         debug_struct.field("link", &self.link);
         debug_struct.field("identity", &self.identity);
@@ -387,23 +383,11 @@ impl std::fmt::Debug for super::dataset_config::BucketErrors {
         let mut debug_struct = f.debug_struct("BucketErrors");
         debug_struct.field("validated_count", &self.validated_count);
         debug_struct.field("permission_denied_count", &self.permission_denied_count);
-        debug_struct.field(
-            "permission_denied_bucket_ids",
-            &self.permission_denied_bucket_ids,
-        );
-        debug_struct.field(
-            "non_management_hub_entitled_count",
-            &self.non_management_hub_entitled_count,
-        );
+        debug_struct.field("permission_denied_bucket_ids", &self.permission_denied_bucket_ids);
+        debug_struct.field("non_management_hub_entitled_count", &self.non_management_hub_entitled_count);
         debug_struct.field("internal_error_count", &self.internal_error_count);
-        debug_struct.field(
-            "non_storage_intelligence_entitled_count",
-            &self.non_storage_intelligence_entitled_count,
-        );
-        debug_struct.field(
-            "non_storage_intelligence_entitled_bucket_ids",
-            &self.non_storage_intelligence_entitled_bucket_ids,
-        );
+        debug_struct.field("non_storage_intelligence_entitled_count", &self.non_storage_intelligence_entitled_count);
+        debug_struct.field("non_storage_intelligence_entitled_bucket_ids", &self.non_storage_intelligence_entitled_bucket_ids);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -416,31 +400,13 @@ impl std::fmt::Debug for super::dataset_config::ProjectErrors {
         let mut debug_struct = f.debug_struct("ProjectErrors");
         debug_struct.field("validated_count", &self.validated_count);
         debug_struct.field("outside_org_error_count", &self.outside_org_error_count);
-        debug_struct.field(
-            "outside_org_project_numbers",
-            &self.outside_org_project_numbers,
-        );
-        debug_struct.field(
-            "non_management_hub_entitled_error_count",
-            &self.non_management_hub_entitled_error_count,
-        );
-        debug_struct.field(
-            "non_management_hub_entitled_project_numbers",
-            &self.non_management_hub_entitled_project_numbers,
-        );
-        debug_struct.field(
-            "non_storage_intelligence_entitled_error_count",
-            &self.non_storage_intelligence_entitled_error_count,
-        );
-        debug_struct.field(
-            "non_storage_intelligence_entitled_project_numbers",
-            &self.non_storage_intelligence_entitled_project_numbers,
-        );
+        debug_struct.field("outside_org_project_numbers", &self.outside_org_project_numbers);
+        debug_struct.field("non_management_hub_entitled_error_count", &self.non_management_hub_entitled_error_count);
+        debug_struct.field("non_management_hub_entitled_project_numbers", &self.non_management_hub_entitled_project_numbers);
+        debug_struct.field("non_storage_intelligence_entitled_error_count", &self.non_storage_intelligence_entitled_error_count);
+        debug_struct.field("non_storage_intelligence_entitled_project_numbers", &self.non_storage_intelligence_entitled_project_numbers);
         debug_struct.field("internal_error_count", &self.internal_error_count);
-        debug_struct.field(
-            "destination_project_check_result",
-            &self.destination_project_check_result,
-        );
+        debug_struct.field("destination_project_check_result", &self.destination_project_check_result);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -459,6 +425,7 @@ impl std::fmt::Debug for super::dataset_config::ValidationErrorsBeforeIngestion 
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::ListDatasetConfigsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

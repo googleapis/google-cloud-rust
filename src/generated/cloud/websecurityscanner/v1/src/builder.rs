@@ -39,10 +39,7 @@ pub mod web_security_scanner {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = WebSecurityScanner;
             type Credentials = gaxi::options::Credentials;
-            async fn build(
-                self,
-                config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -57,12 +54,8 @@ pub mod web_security_scanner {
     }
 
     impl<R> RequestBuilder<R>
-    where
-        R: std::default::Default,
-    {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::WebSecurityScanner>,
-        ) -> Self {
+    where R: std::default::Default {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::WebSecurityScanner>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -92,17 +85,14 @@ pub mod web_security_scanner {
     pub struct CreateScanConfig(RequestBuilder<crate::model::CreateScanConfigRequest>);
 
     impl CreateScanConfig {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::WebSecurityScanner>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::WebSecurityScanner>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateScanConfigRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateScanConfigRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -115,10 +105,7 @@ pub mod web_security_scanner {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ScanConfig> {
-            (*self.0.stub)
-                .create_scan_config(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_scan_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateScanConfigRequest::parent].
@@ -129,8 +116,7 @@ pub mod web_security_scanner {
 
         /// Sets the value of [scan_config][crate::model::CreateScanConfigRequest::scan_config].
         pub fn set_scan_config<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::ScanConfig>,
+        where T: std::convert::Into<crate::model::ScanConfig>
         {
             self.0.request.scan_config = std::option::Option::Some(v.into());
             self
@@ -138,8 +124,7 @@ pub mod web_security_scanner {
 
         /// Sets or clears the value of [scan_config][crate::model::CreateScanConfigRequest::scan_config].
         pub fn set_or_clear_scan_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::ScanConfig>,
+        where T: std::convert::Into<crate::model::ScanConfig>
         {
             self.0.request.scan_config = v.map(|x| x.into());
             self
@@ -174,17 +159,14 @@ pub mod web_security_scanner {
     pub struct DeleteScanConfig(RequestBuilder<crate::model::DeleteScanConfigRequest>);
 
     impl DeleteScanConfig {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::WebSecurityScanner>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::WebSecurityScanner>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteScanConfigRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteScanConfigRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -197,10 +179,7 @@ pub mod web_security_scanner {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .delete_scan_config(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_scan_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteScanConfigRequest::name].
@@ -238,10 +217,10 @@ pub mod web_security_scanner {
     pub struct GetScanConfig(RequestBuilder<crate::model::GetScanConfigRequest>);
 
     impl GetScanConfig {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::WebSecurityScanner>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::WebSecurityScanner>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -258,10 +237,7 @@ pub mod web_security_scanner {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ScanConfig> {
-            (*self.0.stub)
-                .get_scan_config(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_scan_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetScanConfigRequest::name].
@@ -303,10 +279,10 @@ pub mod web_security_scanner {
     pub struct ListScanConfigs(RequestBuilder<crate::model::ListScanConfigsRequest>);
 
     impl ListScanConfigs {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::WebSecurityScanner>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::WebSecurityScanner>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -323,17 +299,11 @@ pub mod web_security_scanner {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListScanConfigsResponse> {
-            (*self.0.stub)
-                .list_scan_configs(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_scan_configs(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListScanConfigsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListScanConfigsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -345,10 +315,7 @@ pub mod web_security_scanner {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListScanConfigsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListScanConfigsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -400,17 +367,14 @@ pub mod web_security_scanner {
     pub struct UpdateScanConfig(RequestBuilder<crate::model::UpdateScanConfigRequest>);
 
     impl UpdateScanConfig {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::WebSecurityScanner>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::WebSecurityScanner>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateScanConfigRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateScanConfigRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -423,16 +387,12 @@ pub mod web_security_scanner {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ScanConfig> {
-            (*self.0.stub)
-                .update_scan_config(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_scan_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [scan_config][crate::model::UpdateScanConfigRequest::scan_config].
         pub fn set_scan_config<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::ScanConfig>,
+        where T: std::convert::Into<crate::model::ScanConfig>
         {
             self.0.request.scan_config = std::option::Option::Some(v.into());
             self
@@ -440,8 +400,7 @@ pub mod web_security_scanner {
 
         /// Sets or clears the value of [scan_config][crate::model::UpdateScanConfigRequest::scan_config].
         pub fn set_or_clear_scan_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::ScanConfig>,
+        where T: std::convert::Into<crate::model::ScanConfig>
         {
             self.0.request.scan_config = v.map(|x| x.into());
             self
@@ -449,8 +408,7 @@ pub mod web_security_scanner {
 
         /// Sets the value of [update_mask][crate::model::UpdateScanConfigRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -458,8 +416,7 @@ pub mod web_security_scanner {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateScanConfigRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -494,10 +451,10 @@ pub mod web_security_scanner {
     pub struct StartScanRun(RequestBuilder<crate::model::StartScanRunRequest>);
 
     impl StartScanRun {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::WebSecurityScanner>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::WebSecurityScanner>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -514,10 +471,7 @@ pub mod web_security_scanner {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ScanRun> {
-            (*self.0.stub)
-                .start_scan_run(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).start_scan_run(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::StartScanRunRequest::name].
@@ -555,10 +509,10 @@ pub mod web_security_scanner {
     pub struct GetScanRun(RequestBuilder<crate::model::GetScanRunRequest>);
 
     impl GetScanRun {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::WebSecurityScanner>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::WebSecurityScanner>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -575,10 +529,7 @@ pub mod web_security_scanner {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ScanRun> {
-            (*self.0.stub)
-                .get_scan_run(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_scan_run(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetScanRunRequest::name].
@@ -620,10 +571,10 @@ pub mod web_security_scanner {
     pub struct ListScanRuns(RequestBuilder<crate::model::ListScanRunsRequest>);
 
     impl ListScanRuns {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::WebSecurityScanner>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::WebSecurityScanner>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -640,17 +591,11 @@ pub mod web_security_scanner {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListScanRunsResponse> {
-            (*self.0.stub)
-                .list_scan_runs(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_scan_runs(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListScanRunsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListScanRunsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -662,10 +607,7 @@ pub mod web_security_scanner {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListScanRunsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListScanRunsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -717,10 +659,10 @@ pub mod web_security_scanner {
     pub struct StopScanRun(RequestBuilder<crate::model::StopScanRunRequest>);
 
     impl StopScanRun {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::WebSecurityScanner>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::WebSecurityScanner>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -737,10 +679,7 @@ pub mod web_security_scanner {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ScanRun> {
-            (*self.0.stub)
-                .stop_scan_run(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).stop_scan_run(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::StopScanRunRequest::name].
@@ -782,10 +721,10 @@ pub mod web_security_scanner {
     pub struct ListCrawledUrls(RequestBuilder<crate::model::ListCrawledUrlsRequest>);
 
     impl ListCrawledUrls {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::WebSecurityScanner>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::WebSecurityScanner>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -802,17 +741,11 @@ pub mod web_security_scanner {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListCrawledUrlsResponse> {
-            (*self.0.stub)
-                .list_crawled_urls(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_crawled_urls(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListCrawledUrlsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListCrawledUrlsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -824,10 +757,7 @@ pub mod web_security_scanner {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListCrawledUrlsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListCrawledUrlsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -879,10 +809,10 @@ pub mod web_security_scanner {
     pub struct GetFinding(RequestBuilder<crate::model::GetFindingRequest>);
 
     impl GetFinding {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::WebSecurityScanner>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::WebSecurityScanner>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -899,10 +829,7 @@ pub mod web_security_scanner {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Finding> {
-            (*self.0.stub)
-                .get_finding(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_finding(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetFindingRequest::name].
@@ -944,10 +871,10 @@ pub mod web_security_scanner {
     pub struct ListFindings(RequestBuilder<crate::model::ListFindingsRequest>);
 
     impl ListFindings {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::WebSecurityScanner>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::WebSecurityScanner>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -964,17 +891,11 @@ pub mod web_security_scanner {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListFindingsResponse> {
-            (*self.0.stub)
-                .list_findings(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_findings(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListFindingsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListFindingsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -986,10 +907,7 @@ pub mod web_security_scanner {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListFindingsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListFindingsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1047,17 +965,14 @@ pub mod web_security_scanner {
     pub struct ListFindingTypeStats(RequestBuilder<crate::model::ListFindingTypeStatsRequest>);
 
     impl ListFindingTypeStats {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::WebSecurityScanner>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::WebSecurityScanner>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListFindingTypeStatsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListFindingTypeStatsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1070,10 +985,7 @@ pub mod web_security_scanner {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListFindingTypeStatsResponse> {
-            (*self.0.stub)
-                .list_finding_type_stats(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_finding_type_stats(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ListFindingTypeStatsRequest::parent].
@@ -1089,4 +1001,5 @@ pub mod web_security_scanner {
             &mut self.0.options
         }
     }
+
 }

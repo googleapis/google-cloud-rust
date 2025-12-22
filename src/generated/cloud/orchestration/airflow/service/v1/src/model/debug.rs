@@ -351,10 +351,7 @@ impl std::fmt::Debug for super::UserWorkloadsConfigMap {
 impl std::fmt::Debug for super::ListUserWorkloadsConfigMapsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListUserWorkloadsConfigMapsResponse");
-        debug_struct.field(
-            "user_workloads_config_maps",
-            &self.user_workloads_config_maps,
-        );
+        debug_struct.field("user_workloads_config_maps", &self.user_workloads_config_maps);
         debug_struct.field("next_page_token", &self.next_page_token);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -443,18 +440,9 @@ impl std::fmt::Debug for super::LoadSnapshotRequest {
         let mut debug_struct = f.debug_struct("LoadSnapshotRequest");
         debug_struct.field("environment", &self.environment);
         debug_struct.field("snapshot_path", &self.snapshot_path);
-        debug_struct.field(
-            "skip_pypi_packages_installation",
-            &self.skip_pypi_packages_installation,
-        );
-        debug_struct.field(
-            "skip_environment_variables_setting",
-            &self.skip_environment_variables_setting,
-        );
-        debug_struct.field(
-            "skip_airflow_overrides_setting",
-            &self.skip_airflow_overrides_setting,
-        );
+        debug_struct.field("skip_pypi_packages_installation", &self.skip_pypi_packages_installation);
+        debug_struct.field("skip_environment_variables_setting", &self.skip_environment_variables_setting);
+        debug_struct.field("skip_airflow_overrides_setting", &self.skip_airflow_overrides_setting);
         debug_struct.field("skip_gcs_data_copying", &self.skip_gcs_data_copying);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -510,10 +498,7 @@ impl std::fmt::Debug for super::FetchDatabasePropertiesResponse {
         let mut debug_struct = f.debug_struct("FetchDatabasePropertiesResponse");
         debug_struct.field("primary_gce_zone", &self.primary_gce_zone);
         debug_struct.field("secondary_gce_zone", &self.secondary_gce_zone);
-        debug_struct.field(
-            "is_failover_replica_available",
-            &self.is_failover_replica_available,
-        );
+        debug_struct.field("is_failover_replica_available", &self.is_failover_replica_available);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -540,14 +525,8 @@ impl std::fmt::Debug for super::EnvironmentConfig {
         debug_struct.field("node_count", &self.node_count);
         debug_struct.field("software_config", &self.software_config);
         debug_struct.field("node_config", &self.node_config);
-        debug_struct.field(
-            "private_environment_config",
-            &self.private_environment_config,
-        );
-        debug_struct.field(
-            "web_server_network_access_control",
-            &self.web_server_network_access_control,
-        );
+        debug_struct.field("private_environment_config", &self.private_environment_config);
+        debug_struct.field("web_server_network_access_control", &self.web_server_network_access_control);
         debug_struct.field("database_config", &self.database_config);
         debug_struct.field("web_server_config", &self.web_server_config);
         debug_struct.field("encryption_config", &self.encryption_config);
@@ -556,10 +535,7 @@ impl std::fmt::Debug for super::EnvironmentConfig {
         debug_struct.field("environment_size", &self.environment_size);
         debug_struct.field("airflow_uri", &self.airflow_uri);
         debug_struct.field("airflow_byoid_uri", &self.airflow_byoid_uri);
-        debug_struct.field(
-            "master_authorized_networks_config",
-            &self.master_authorized_networks_config,
-        );
+        debug_struct.field("master_authorized_networks_config", &self.master_authorized_networks_config);
         debug_struct.field("recovery_config", &self.recovery_config);
         debug_struct.field("resilience_mode", &self.resilience_mode);
         debug_struct.field("data_retention_config", &self.data_retention_config);
@@ -649,10 +625,7 @@ impl std::fmt::Debug for super::SoftwareConfig {
         debug_struct.field("env_variables", &self.env_variables);
         debug_struct.field("python_version", &self.python_version);
         debug_struct.field("scheduler_count", &self.scheduler_count);
-        debug_struct.field(
-            "cloud_data_lineage_integration",
-            &self.cloud_data_lineage_integration,
-        );
+        debug_struct.field("cloud_data_lineage_integration", &self.cloud_data_lineage_integration);
         debug_struct.field("web_server_plugins_mode", &self.web_server_plugins_mode);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -660,6 +633,9 @@ impl std::fmt::Debug for super::SoftwareConfig {
         debug_struct.finish()
     }
 }
+
+
+
 
 impl std::fmt::Debug for super::IPAllocationPolicy {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -687,14 +663,8 @@ impl std::fmt::Debug for super::NodeConfig {
         debug_struct.field("tags", &self.tags);
         debug_struct.field("ip_allocation_policy", &self.ip_allocation_policy);
         debug_struct.field("enable_ip_masq_agent", &self.enable_ip_masq_agent);
-        debug_struct.field(
-            "composer_network_attachment",
-            &self.composer_network_attachment,
-        );
-        debug_struct.field(
-            "composer_internal_ipv4_cidr_block",
-            &self.composer_internal_ipv4_cidr_block,
-        );
+        debug_struct.field("composer_network_attachment", &self.composer_network_attachment);
+        debug_struct.field("composer_internal_ipv4_cidr_block", &self.composer_internal_ipv4_cidr_block);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -707,10 +677,7 @@ impl std::fmt::Debug for super::PrivateClusterConfig {
         let mut debug_struct = f.debug_struct("PrivateClusterConfig");
         debug_struct.field("enable_private_endpoint", &self.enable_private_endpoint);
         debug_struct.field("master_ipv4_cidr_block", &self.master_ipv4_cidr_block);
-        debug_struct.field(
-            "master_ipv4_reserved_range",
-            &self.master_ipv4_reserved_range,
-        );
+        debug_struct.field("master_ipv4_reserved_range", &self.master_ipv4_reserved_range);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -732,40 +699,16 @@ impl std::fmt::Debug for super::NetworkingConfig {
 impl std::fmt::Debug for super::PrivateEnvironmentConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PrivateEnvironmentConfig");
-        debug_struct.field(
-            "enable_private_environment",
-            &self.enable_private_environment,
-        );
-        debug_struct.field(
-            "enable_private_builds_only",
-            &self.enable_private_builds_only,
-        );
+        debug_struct.field("enable_private_environment", &self.enable_private_environment);
+        debug_struct.field("enable_private_builds_only", &self.enable_private_builds_only);
         debug_struct.field("private_cluster_config", &self.private_cluster_config);
-        debug_struct.field(
-            "web_server_ipv4_cidr_block",
-            &self.web_server_ipv4_cidr_block,
-        );
+        debug_struct.field("web_server_ipv4_cidr_block", &self.web_server_ipv4_cidr_block);
         debug_struct.field("cloud_sql_ipv4_cidr_block", &self.cloud_sql_ipv4_cidr_block);
-        debug_struct.field(
-            "web_server_ipv4_reserved_range",
-            &self.web_server_ipv4_reserved_range,
-        );
-        debug_struct.field(
-            "cloud_composer_network_ipv4_cidr_block",
-            &self.cloud_composer_network_ipv4_cidr_block,
-        );
-        debug_struct.field(
-            "cloud_composer_network_ipv4_reserved_range",
-            &self.cloud_composer_network_ipv4_reserved_range,
-        );
-        debug_struct.field(
-            "enable_privately_used_public_ips",
-            &self.enable_privately_used_public_ips,
-        );
-        debug_struct.field(
-            "cloud_composer_connection_subnetwork",
-            &self.cloud_composer_connection_subnetwork,
-        );
+        debug_struct.field("web_server_ipv4_reserved_range", &self.web_server_ipv4_reserved_range);
+        debug_struct.field("cloud_composer_network_ipv4_cidr_block", &self.cloud_composer_network_ipv4_cidr_block);
+        debug_struct.field("cloud_composer_network_ipv4_reserved_range", &self.cloud_composer_network_ipv4_reserved_range);
+        debug_struct.field("enable_privately_used_public_ips", &self.enable_privately_used_public_ips);
+        debug_struct.field("cloud_composer_connection_subnetwork", &self.cloud_composer_connection_subnetwork);
         debug_struct.field("networking_config", &self.networking_config);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -861,10 +804,7 @@ impl std::fmt::Debug for super::workloads_config::DagProcessorResource {
 impl std::fmt::Debug for super::RecoveryConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RecoveryConfig");
-        debug_struct.field(
-            "scheduled_snapshots_config",
-            &self.scheduled_snapshots_config,
-        );
+        debug_struct.field("scheduled_snapshots_config", &self.scheduled_snapshots_config);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -877,10 +817,7 @@ impl std::fmt::Debug for super::ScheduledSnapshotsConfig {
         let mut debug_struct = f.debug_struct("ScheduledSnapshotsConfig");
         debug_struct.field("enabled", &self.enabled);
         debug_struct.field("snapshot_location", &self.snapshot_location);
-        debug_struct.field(
-            "snapshot_creation_schedule",
-            &self.snapshot_creation_schedule,
-        );
+        debug_struct.field("snapshot_creation_schedule", &self.snapshot_creation_schedule);
         debug_struct.field("time_zone", &self.time_zone);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -944,6 +881,7 @@ impl std::fmt::Debug for super::Environment {
     }
 }
 
+
 impl std::fmt::Debug for super::CheckUpgradeRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CheckUpgradeRequest");
@@ -960,14 +898,8 @@ impl std::fmt::Debug for super::CheckUpgradeResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CheckUpgradeResponse");
         debug_struct.field("build_log_uri", &self.build_log_uri);
-        debug_struct.field(
-            "contains_pypi_modules_conflict",
-            &self.contains_pypi_modules_conflict,
-        );
-        debug_struct.field(
-            "pypi_conflict_build_log_extract",
-            &self.pypi_conflict_build_log_extract,
-        );
+        debug_struct.field("contains_pypi_modules_conflict", &self.contains_pypi_modules_conflict);
+        debug_struct.field("pypi_conflict_build_log_extract", &self.pypi_conflict_build_log_extract);
         debug_struct.field("image_version", &self.image_version);
         debug_struct.field("pypi_dependencies", &self.pypi_dependencies);
         if !self._unknown_fields.is_empty() {
@@ -977,17 +909,12 @@ impl std::fmt::Debug for super::CheckUpgradeResponse {
     }
 }
 
+
 impl std::fmt::Debug for super::DataRetentionConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DataRetentionConfig");
-        debug_struct.field(
-            "airflow_metadata_retention_config",
-            &self.airflow_metadata_retention_config,
-        );
-        debug_struct.field(
-            "task_logs_retention_config",
-            &self.task_logs_retention_config,
-        );
+        debug_struct.field("airflow_metadata_retention_config", &self.airflow_metadata_retention_config);
+        debug_struct.field("task_logs_retention_config", &self.task_logs_retention_config);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

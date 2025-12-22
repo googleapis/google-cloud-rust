@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [EssentialContactsService](super::stub::EssentialContactsService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct EssentialContactsService<T>
-where
-    T: super::stub::EssentialContactsService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::EssentialContactsService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> EssentialContactsService<T>
-where
-    T: super::stub::EssentialContactsService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::EssentialContactsService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::EssentialContactsService for EssentialContactsService<T>
-where
-    T: super::stub::EssentialContactsService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::EssentialContactsService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn create_contact(
         &self,
@@ -99,4 +93,6 @@ where
     ) -> Result<gax::response::Response<()>> {
         self.inner.send_test_message(req, options).await
     }
+
 }
+

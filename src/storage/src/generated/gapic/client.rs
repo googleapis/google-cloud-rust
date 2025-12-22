@@ -23,47 +23,34 @@ pub struct StorageControl {
 }
 
 impl StorageControl {
+
     /// Creates a new client from the provided stub.
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::StorageControl + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::StorageControl + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::StorageControl>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::StorageControl>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::StorageControl> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::StorageControl> {
         super::transport::StorageControl::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::StorageControl> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::StorageControl::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::StorageControl> {
+        Self::build_transport(conf).await.map(super::tracing::StorageControl::new)
     }
 
     /// Permanently deletes an empty bucket.
@@ -90,7 +77,23 @@ impl StorageControl {
     /// **IAM Permissions**:
     ///
     /// Requires `storage.buckets.delete` IAM permission on the bucket.
-    pub fn delete_bucket(&self) -> super::builder::storage_control::DeleteBucket {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::StorageControl;
+    /// async fn sample(
+    ///    client: &StorageControl
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_bucket()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_bucket(&self) -> super::builder::storage_control::DeleteBucket
+    {
         super::builder::storage_control::DeleteBucket::new(self.inner.clone())
     }
 
@@ -105,7 +108,25 @@ impl StorageControl {
     ///
     /// - To return the IAM policies: `storage.buckets.getIamPolicy`
     /// - To return the bucket IP filtering rules: `storage.buckets.getIpFilter`
-    pub fn get_bucket(&self) -> super::builder::storage_control::GetBucket {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::StorageControl;
+    /// async fn sample(
+    ///    client: &StorageControl,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_bucket()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_bucket(&self) -> super::builder::storage_control::GetBucket
+    {
         super::builder::storage_control::GetBucket::new(self.inner.clone())
     }
 
@@ -120,7 +141,24 @@ impl StorageControl {
     /// - To enable object retention using the `enableObjectRetention` query
     ///   parameter: `storage.buckets.enableObjectRetention`
     /// - To set the bucket IP filtering rules: `storage.buckets.setIpFilter`
-    pub fn create_bucket(&self) -> super::builder::storage_control::CreateBucket {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::StorageControl;
+    /// async fn sample(
+    ///    client: &StorageControl
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_bucket()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_bucket(&self) -> super::builder::storage_control::CreateBucket
+    {
         super::builder::storage_control::CreateBucket::new(self.inner.clone())
     }
 
@@ -135,7 +173,8 @@ impl StorageControl {
     ///
     /// - To list the IAM policies: `storage.buckets.getIamPolicy`
     /// - To list the bucket IP filtering rules: `storage.buckets.getIpFilter`
-    pub fn list_buckets(&self) -> super::builder::storage_control::ListBuckets {
+    pub fn list_buckets(&self) -> super::builder::storage_control::ListBuckets
+    {
         super::builder::storage_control::ListBuckets::new(self.inner.clone())
     }
 
@@ -158,9 +197,24 @@ impl StorageControl {
     /// **IAM Permissions**:
     ///
     /// Requires `storage.buckets.update` IAM permission on the bucket.
-    pub fn lock_bucket_retention_policy(
-        &self,
-    ) -> super::builder::storage_control::LockBucketRetentionPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::StorageControl;
+    /// async fn sample(
+    ///    client: &StorageControl
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .lock_bucket_retention_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn lock_bucket_retention_policy(&self) -> super::builder::storage_control::LockBucketRetentionPolicy
+    {
         super::builder::storage_control::LockBucketRetentionPolicy::new(self.inner.clone())
     }
 
@@ -177,7 +231,24 @@ impl StorageControl {
     /// - To set bucket IP filtering rules: `storage.buckets.setIpFilter`
     /// - To update public access prevention policies or access control lists
     ///   (ACLs): `storage.buckets.setIamPolicy`
-    pub fn update_bucket(&self) -> super::builder::storage_control::UpdateBucket {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::StorageControl;
+    /// async fn sample(
+    ///    client: &StorageControl
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_bucket()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_bucket(&self) -> super::builder::storage_control::UpdateBucket
+    {
         super::builder::storage_control::UpdateBucket::new(self.inner.clone())
     }
 
@@ -192,7 +263,24 @@ impl StorageControl {
     /// the `storage.objects.delete` permission. If the request body includes
     /// the retention property, the authenticated user must also have the
     /// `storage.objects.setRetention` IAM permission.
-    pub fn compose_object(&self) -> super::builder::storage_control::ComposeObject {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::StorageControl;
+    /// async fn sample(
+    ///    client: &StorageControl
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .compose_object()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn compose_object(&self) -> super::builder::storage_control::ComposeObject
+    {
         super::builder::storage_control::ComposeObject::new(self.inner.clone())
     }
 
@@ -216,7 +304,23 @@ impl StorageControl {
     /// Requires `storage.objects.delete` IAM permission on the bucket.
     ///
     /// [google.storage.v2.Storage.RestoreObject]: crate::client::StorageControl::restore_object
-    pub fn delete_object(&self) -> super::builder::storage_control::DeleteObject {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::StorageControl;
+    /// async fn sample(
+    ///    client: &StorageControl
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_object()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_object(&self) -> super::builder::storage_control::DeleteObject
+    {
         super::builder::storage_control::DeleteObject::new(self.inner.clone())
     }
 
@@ -257,7 +361,24 @@ impl StorageControl {
     /// - `storage.objects.setIamPolicy` (only required if `copySourceAcl` is
     ///   `true` and the relevant
     ///   bucket has uniform bucket-level access disabled)
-    pub fn restore_object(&self) -> super::builder::storage_control::RestoreObject {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::StorageControl;
+    /// async fn sample(
+    ///    client: &StorageControl
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .restore_object()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn restore_object(&self) -> super::builder::storage_control::RestoreObject
+    {
         super::builder::storage_control::RestoreObject::new(self.inner.clone())
     }
 
@@ -268,7 +389,24 @@ impl StorageControl {
     /// Requires `storage.objects.get` IAM permission on the bucket.
     /// To return object ACLs, the authenticated user must also have
     /// the `storage.objects.getIamPolicy` permission.
-    pub fn get_object(&self) -> super::builder::storage_control::GetObject {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::StorageControl;
+    /// async fn sample(
+    ///    client: &StorageControl
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_object()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_object(&self) -> super::builder::storage_control::GetObject
+    {
         super::builder::storage_control::GetObject::new(self.inner.clone())
     }
 
@@ -278,7 +416,24 @@ impl StorageControl {
     /// **IAM Permissions**:
     ///
     /// Requires `storage.objects.update` IAM permission on the bucket.
-    pub fn update_object(&self) -> super::builder::storage_control::UpdateObject {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::StorageControl;
+    /// async fn sample(
+    ///    client: &StorageControl
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_object()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_object(&self) -> super::builder::storage_control::UpdateObject
+    {
         super::builder::storage_control::UpdateObject::new(self.inner.clone())
     }
 
@@ -290,13 +445,31 @@ impl StorageControl {
     /// IAM permission to use this method. To return object ACLs, the
     /// authenticated user must also
     /// have the `storage.objects.getIamPolicy` permission.
-    pub fn list_objects(&self) -> super::builder::storage_control::ListObjects {
+    pub fn list_objects(&self) -> super::builder::storage_control::ListObjects
+    {
         super::builder::storage_control::ListObjects::new(self.inner.clone())
     }
 
     /// Rewrites a source object to a destination object. Optionally overrides
     /// metadata.
-    pub fn rewrite_object(&self) -> super::builder::storage_control::RewriteObject {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::StorageControl;
+    /// async fn sample(
+    ///    client: &StorageControl
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .rewrite_object()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn rewrite_object(&self) -> super::builder::storage_control::RewriteObject
+    {
         super::builder::storage_control::RewriteObject::new(self.inner.clone())
     }
 
@@ -314,7 +487,24 @@ impl StorageControl {
     /// - `storage.objects.create`
     /// - `storage.objects.delete` (only required if overwriting an existing
     ///   object)
-    pub fn move_object(&self) -> super::builder::storage_control::MoveObject {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::StorageControl;
+    /// async fn sample(
+    ///    client: &StorageControl
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .move_object()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn move_object(&self) -> super::builder::storage_control::MoveObject
+    {
         super::builder::storage_control::MoveObject::new(self.inner.clone())
     }
 }

@@ -72,9 +72,7 @@ impl LoggingServiceV2 {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::logging_service_v_2::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::logging_service_v_2::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::logging_service_v_2::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -82,50 +80,51 @@ impl LoggingServiceV2 {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::LoggingServiceV2 + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::LoggingServiceV2 + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::LoggingServiceV2>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::LoggingServiceV2>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::LoggingServiceV2> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::LoggingServiceV2> {
         super::transport::LoggingServiceV2::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::LoggingServiceV2> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::LoggingServiceV2::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::LoggingServiceV2> {
+        Self::build_transport(conf).await.map(super::tracing::LoggingServiceV2::new)
     }
 
     /// Deletes all the log entries in a log for the _Default Log Bucket. The log
     /// reappears if it receives new entries. Log entries written shortly before
     /// the delete operation might not be deleted. Entries received after the
     /// delete operation with a timestamp before the operation will be deleted.
-    pub fn delete_log(&self) -> super::builder::logging_service_v_2::DeleteLog {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_logging_v2::client::LoggingServiceV2;
+    /// async fn sample(
+    ///    client: &LoggingServiceV2
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_log()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_log(&self) -> super::builder::logging_service_v_2::DeleteLog
+    {
         super::builder::logging_service_v_2::DeleteLog::new(self.inner.clone())
     }
 
@@ -136,7 +135,24 @@ impl LoggingServiceV2 {
     /// A single request may contain log entries for a maximum of 1000
     /// different resources (projects, organizations, billing accounts or
     /// folders)
-    pub fn write_log_entries(&self) -> super::builder::logging_service_v_2::WriteLogEntries {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_logging_v2::client::LoggingServiceV2;
+    /// async fn sample(
+    ///    client: &LoggingServiceV2
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .write_log_entries()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn write_log_entries(&self) -> super::builder::logging_service_v_2::WriteLogEntries
+    {
         super::builder::logging_service_v_2::WriteLogEntries::new(self.inner.clone())
     }
 
@@ -144,43 +160,92 @@ impl LoggingServiceV2 {
     /// from a project/folder/organization/billing account.  For ways to export log
     /// entries, see [Exporting
     /// Logs](https://cloud.google.com/logging/docs/export).
-    pub fn list_log_entries(&self) -> super::builder::logging_service_v_2::ListLogEntries {
+    pub fn list_log_entries(&self) -> super::builder::logging_service_v_2::ListLogEntries
+    {
         super::builder::logging_service_v_2::ListLogEntries::new(self.inner.clone())
     }
 
     /// Lists the descriptors for monitored resource types used by Logging.
-    pub fn list_monitored_resource_descriptors(
-        &self,
-    ) -> super::builder::logging_service_v_2::ListMonitoredResourceDescriptors {
-        super::builder::logging_service_v_2::ListMonitoredResourceDescriptors::new(
-            self.inner.clone(),
-        )
+    pub fn list_monitored_resource_descriptors(&self) -> super::builder::logging_service_v_2::ListMonitoredResourceDescriptors
+    {
+        super::builder::logging_service_v_2::ListMonitoredResourceDescriptors::new(self.inner.clone())
     }
 
     /// Lists the logs in projects, organizations, folders, or billing accounts.
     /// Only logs that have entries are listed.
-    pub fn list_logs(&self) -> super::builder::logging_service_v_2::ListLogs {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_logging_v2::client::LoggingServiceV2;
+    /// async fn sample(
+    ///    client: &LoggingServiceV2
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .list_logs()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_logs(&self) -> super::builder::logging_service_v_2::ListLogs
+    {
         super::builder::logging_service_v_2::ListLogs::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::logging_service_v_2::ListOperations {
+    pub fn list_operations(&self) -> super::builder::logging_service_v_2::ListOperations
+    {
         super::builder::logging_service_v_2::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::logging_service_v_2::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_logging_v2::client::LoggingServiceV2;
+    /// async fn sample(
+    ///    client: &LoggingServiceV2
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::logging_service_v_2::GetOperation
+    {
         super::builder::logging_service_v_2::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(&self) -> super::builder::logging_service_v_2::CancelOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_logging_v2::client::LoggingServiceV2;
+    /// async fn sample(
+    ///    client: &LoggingServiceV2
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_operation(&self) -> super::builder::logging_service_v_2::CancelOperation
+    {
         super::builder::logging_service_v_2::CancelOperation::new(self.inner.clone())
     }
 }
@@ -241,9 +306,7 @@ impl ConfigServiceV2 {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::config_service_v_2::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::config_service_v_2::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::config_service_v_2::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -251,52 +314,55 @@ impl ConfigServiceV2 {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::ConfigServiceV2 + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::ConfigServiceV2 + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ConfigServiceV2>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ConfigServiceV2>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ConfigServiceV2> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ConfigServiceV2> {
         super::transport::ConfigServiceV2::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ConfigServiceV2> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::ConfigServiceV2::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ConfigServiceV2> {
+        Self::build_transport(conf).await.map(super::tracing::ConfigServiceV2::new)
     }
 
     /// Lists log buckets.
-    pub fn list_buckets(&self) -> super::builder::config_service_v_2::ListBuckets {
+    pub fn list_buckets(&self) -> super::builder::config_service_v_2::ListBuckets
+    {
         super::builder::config_service_v_2::ListBuckets::new(self.inner.clone())
     }
 
     /// Gets a log bucket.
-    pub fn get_bucket(&self) -> super::builder::config_service_v_2::GetBucket {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_logging_v2::client::ConfigServiceV2;
+    /// async fn sample(
+    ///    client: &ConfigServiceV2
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_bucket()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_bucket(&self) -> super::builder::config_service_v_2::GetBucket
+    {
         super::builder::config_service_v_2::GetBucket::new(self.inner.clone())
     }
 
@@ -313,7 +379,8 @@ impl ConfigServiceV2 {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_bucket_async(&self) -> super::builder::config_service_v_2::CreateBucketAsync {
+    pub fn create_bucket_async(&self) -> super::builder::config_service_v_2::CreateBucketAsync
+    {
         super::builder::config_service_v_2::CreateBucketAsync::new(self.inner.clone())
     }
 
@@ -333,13 +400,31 @@ impl ConfigServiceV2 {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_bucket_async(&self) -> super::builder::config_service_v_2::UpdateBucketAsync {
+    pub fn update_bucket_async(&self) -> super::builder::config_service_v_2::UpdateBucketAsync
+    {
         super::builder::config_service_v_2::UpdateBucketAsync::new(self.inner.clone())
     }
 
     /// Creates a log bucket that can be used to store log entries. After a bucket
     /// has been created, the bucket's location cannot be changed.
-    pub fn create_bucket(&self) -> super::builder::config_service_v_2::CreateBucket {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_logging_v2::client::ConfigServiceV2;
+    /// async fn sample(
+    ///    client: &ConfigServiceV2
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_bucket()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_bucket(&self) -> super::builder::config_service_v_2::CreateBucket
+    {
         super::builder::config_service_v_2::CreateBucket::new(self.inner.clone())
     }
 
@@ -349,7 +434,24 @@ impl ConfigServiceV2 {
     /// `FAILED_PRECONDITION` will be returned.
     ///
     /// After a bucket has been created, the bucket's location cannot be changed.
-    pub fn update_bucket(&self) -> super::builder::config_service_v_2::UpdateBucket {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_logging_v2::client::ConfigServiceV2;
+    /// async fn sample(
+    ///    client: &ConfigServiceV2
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_bucket()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_bucket(&self) -> super::builder::config_service_v_2::UpdateBucket
+    {
         super::builder::config_service_v_2::UpdateBucket::new(self.inner.clone())
     }
 
@@ -358,29 +460,96 @@ impl ConfigServiceV2 {
     /// Changes the bucket's `lifecycle_state` to the `DELETE_REQUESTED` state.
     /// After 7 days, the bucket will be purged and all log entries in the bucket
     /// will be permanently deleted.
-    pub fn delete_bucket(&self) -> super::builder::config_service_v_2::DeleteBucket {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_logging_v2::client::ConfigServiceV2;
+    /// async fn sample(
+    ///    client: &ConfigServiceV2
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_bucket()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_bucket(&self) -> super::builder::config_service_v_2::DeleteBucket
+    {
         super::builder::config_service_v_2::DeleteBucket::new(self.inner.clone())
     }
 
     /// Undeletes a log bucket. A bucket that has been deleted can be undeleted
     /// within the grace period of 7 days.
-    pub fn undelete_bucket(&self) -> super::builder::config_service_v_2::UndeleteBucket {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_logging_v2::client::ConfigServiceV2;
+    /// async fn sample(
+    ///    client: &ConfigServiceV2
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .undelete_bucket()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn undelete_bucket(&self) -> super::builder::config_service_v_2::UndeleteBucket
+    {
         super::builder::config_service_v_2::UndeleteBucket::new(self.inner.clone())
     }
 
     /// Lists views on a log bucket.
-    pub fn list_views(&self) -> super::builder::config_service_v_2::ListViews {
+    pub fn list_views(&self) -> super::builder::config_service_v_2::ListViews
+    {
         super::builder::config_service_v_2::ListViews::new(self.inner.clone())
     }
 
     /// Gets a view on a log bucket..
-    pub fn get_view(&self) -> super::builder::config_service_v_2::GetView {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_logging_v2::client::ConfigServiceV2;
+    /// async fn sample(
+    ///    client: &ConfigServiceV2
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_view()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_view(&self) -> super::builder::config_service_v_2::GetView
+    {
         super::builder::config_service_v_2::GetView::new(self.inner.clone())
     }
 
     /// Creates a view over log entries in a log bucket. A bucket may contain a
     /// maximum of 30 views.
-    pub fn create_view(&self) -> super::builder::config_service_v_2::CreateView {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_logging_v2::client::ConfigServiceV2;
+    /// async fn sample(
+    ///    client: &ConfigServiceV2
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_view()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_view(&self) -> super::builder::config_service_v_2::CreateView
+    {
         super::builder::config_service_v_2::CreateView::new(self.inner.clone())
     }
 
@@ -389,7 +558,24 @@ impl ConfigServiceV2 {
     /// If an `UNAVAILABLE` error is returned, this indicates that system is not in
     /// a state where it can update the view. If this occurs, please try again in a
     /// few minutes.
-    pub fn update_view(&self) -> super::builder::config_service_v_2::UpdateView {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_logging_v2::client::ConfigServiceV2;
+    /// async fn sample(
+    ///    client: &ConfigServiceV2
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_view()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_view(&self) -> super::builder::config_service_v_2::UpdateView
+    {
         super::builder::config_service_v_2::UpdateView::new(self.inner.clone())
     }
 
@@ -397,17 +583,51 @@ impl ConfigServiceV2 {
     /// If an `UNAVAILABLE` error is returned, this indicates that system is not in
     /// a state where it can delete the view. If this occurs, please try again in a
     /// few minutes.
-    pub fn delete_view(&self) -> super::builder::config_service_v_2::DeleteView {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_logging_v2::client::ConfigServiceV2;
+    /// async fn sample(
+    ///    client: &ConfigServiceV2
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_view()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_view(&self) -> super::builder::config_service_v_2::DeleteView
+    {
         super::builder::config_service_v_2::DeleteView::new(self.inner.clone())
     }
 
     /// Lists sinks.
-    pub fn list_sinks(&self) -> super::builder::config_service_v_2::ListSinks {
+    pub fn list_sinks(&self) -> super::builder::config_service_v_2::ListSinks
+    {
         super::builder::config_service_v_2::ListSinks::new(self.inner.clone())
     }
 
     /// Gets a sink.
-    pub fn get_sink(&self) -> super::builder::config_service_v_2::GetSink {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_logging_v2::client::ConfigServiceV2;
+    /// async fn sample(
+    ///    client: &ConfigServiceV2
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_sink()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_sink(&self) -> super::builder::config_service_v_2::GetSink
+    {
         super::builder::config_service_v_2::GetSink::new(self.inner.clone())
     }
 
@@ -415,7 +635,24 @@ impl ConfigServiceV2 {
     /// export of newly-ingested log entries begins immediately, unless the sink's
     /// `writer_identity` is not permitted to write to the destination. A sink can
     /// export log entries only from the resource owning the sink.
-    pub fn create_sink(&self) -> super::builder::config_service_v_2::CreateSink {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_logging_v2::client::ConfigServiceV2;
+    /// async fn sample(
+    ///    client: &ConfigServiceV2
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_sink()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_sink(&self) -> super::builder::config_service_v_2::CreateSink
+    {
         super::builder::config_service_v_2::CreateSink::new(self.inner.clone())
     }
 
@@ -424,13 +661,46 @@ impl ConfigServiceV2 {
     ///
     /// The updated sink might also have a new `writer_identity`; see the
     /// `unique_writer_identity` field.
-    pub fn update_sink(&self) -> super::builder::config_service_v_2::UpdateSink {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_logging_v2::client::ConfigServiceV2;
+    /// async fn sample(
+    ///    client: &ConfigServiceV2
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_sink()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_sink(&self) -> super::builder::config_service_v_2::UpdateSink
+    {
         super::builder::config_service_v_2::UpdateSink::new(self.inner.clone())
     }
 
     /// Deletes a sink. If the sink has a unique `writer_identity`, then that
     /// service account is also deleted.
-    pub fn delete_sink(&self) -> super::builder::config_service_v_2::DeleteSink {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_logging_v2::client::ConfigServiceV2;
+    /// async fn sample(
+    ///    client: &ConfigServiceV2
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_sink()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_sink(&self) -> super::builder::config_service_v_2::DeleteSink
+    {
         super::builder::config_service_v_2::DeleteSink::new(self.inner.clone())
     }
 
@@ -447,7 +717,8 @@ impl ConfigServiceV2 {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_link(&self) -> super::builder::config_service_v_2::CreateLink {
+    pub fn create_link(&self) -> super::builder::config_service_v_2::CreateLink
+    {
         super::builder::config_service_v_2::CreateLink::new(self.inner.clone())
     }
 
@@ -463,45 +734,132 @@ impl ConfigServiceV2 {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_link(&self) -> super::builder::config_service_v_2::DeleteLink {
+    pub fn delete_link(&self) -> super::builder::config_service_v_2::DeleteLink
+    {
         super::builder::config_service_v_2::DeleteLink::new(self.inner.clone())
     }
 
     /// Lists links.
-    pub fn list_links(&self) -> super::builder::config_service_v_2::ListLinks {
+    pub fn list_links(&self) -> super::builder::config_service_v_2::ListLinks
+    {
         super::builder::config_service_v_2::ListLinks::new(self.inner.clone())
     }
 
     /// Gets a link.
-    pub fn get_link(&self) -> super::builder::config_service_v_2::GetLink {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_logging_v2::client::ConfigServiceV2;
+    /// async fn sample(
+    ///    client: &ConfigServiceV2
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_link()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_link(&self) -> super::builder::config_service_v_2::GetLink
+    {
         super::builder::config_service_v_2::GetLink::new(self.inner.clone())
     }
 
     /// Lists all the exclusions on the _Default sink in a parent resource.
-    pub fn list_exclusions(&self) -> super::builder::config_service_v_2::ListExclusions {
+    pub fn list_exclusions(&self) -> super::builder::config_service_v_2::ListExclusions
+    {
         super::builder::config_service_v_2::ListExclusions::new(self.inner.clone())
     }
 
     /// Gets the description of an exclusion in the _Default sink.
-    pub fn get_exclusion(&self) -> super::builder::config_service_v_2::GetExclusion {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_logging_v2::client::ConfigServiceV2;
+    /// async fn sample(
+    ///    client: &ConfigServiceV2
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_exclusion()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_exclusion(&self) -> super::builder::config_service_v_2::GetExclusion
+    {
         super::builder::config_service_v_2::GetExclusion::new(self.inner.clone())
     }
 
     /// Creates a new exclusion in the _Default sink in a specified parent
     /// resource. Only log entries belonging to that resource can be excluded. You
     /// can have up to 10 exclusions in a resource.
-    pub fn create_exclusion(&self) -> super::builder::config_service_v_2::CreateExclusion {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_logging_v2::client::ConfigServiceV2;
+    /// async fn sample(
+    ///    client: &ConfigServiceV2
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_exclusion()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_exclusion(&self) -> super::builder::config_service_v_2::CreateExclusion
+    {
         super::builder::config_service_v_2::CreateExclusion::new(self.inner.clone())
     }
 
     /// Changes one or more properties of an existing exclusion in the _Default
     /// sink.
-    pub fn update_exclusion(&self) -> super::builder::config_service_v_2::UpdateExclusion {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_logging_v2::client::ConfigServiceV2;
+    /// async fn sample(
+    ///    client: &ConfigServiceV2
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_exclusion()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_exclusion(&self) -> super::builder::config_service_v_2::UpdateExclusion
+    {
         super::builder::config_service_v_2::UpdateExclusion::new(self.inner.clone())
     }
 
     /// Deletes an exclusion in the _Default sink.
-    pub fn delete_exclusion(&self) -> super::builder::config_service_v_2::DeleteExclusion {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_logging_v2::client::ConfigServiceV2;
+    /// async fn sample(
+    ///    client: &ConfigServiceV2
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_exclusion()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_exclusion(&self) -> super::builder::config_service_v_2::DeleteExclusion
+    {
         super::builder::config_service_v_2::DeleteExclusion::new(self.inner.clone())
     }
 
@@ -515,7 +873,24 @@ impl ConfigServiceV2 {
     /// See [Enabling CMEK for Log
     /// Router](https://cloud.google.com/logging/docs/routing/managed-encryption)
     /// for more information.
-    pub fn get_cmek_settings(&self) -> super::builder::config_service_v_2::GetCmekSettings {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_logging_v2::client::ConfigServiceV2;
+    /// async fn sample(
+    ///    client: &ConfigServiceV2
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_cmek_settings()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_cmek_settings(&self) -> super::builder::config_service_v_2::GetCmekSettings
+    {
         super::builder::config_service_v_2::GetCmekSettings::new(self.inner.clone())
     }
 
@@ -536,7 +911,24 @@ impl ConfigServiceV2 {
     /// for more information.
     ///
     /// [google.logging.v2.ConfigServiceV2.UpdateCmekSettings]: crate::client::ConfigServiceV2::update_cmek_settings
-    pub fn update_cmek_settings(&self) -> super::builder::config_service_v_2::UpdateCmekSettings {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_logging_v2::client::ConfigServiceV2;
+    /// async fn sample(
+    ///    client: &ConfigServiceV2
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_cmek_settings()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_cmek_settings(&self) -> super::builder::config_service_v_2::UpdateCmekSettings
+    {
         super::builder::config_service_v_2::UpdateCmekSettings::new(self.inner.clone())
     }
 
@@ -550,7 +942,24 @@ impl ConfigServiceV2 {
     /// See [Enabling CMEK for Log
     /// Router](https://cloud.google.com/logging/docs/routing/managed-encryption)
     /// for more information.
-    pub fn get_settings(&self) -> super::builder::config_service_v_2::GetSettings {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_logging_v2::client::ConfigServiceV2;
+    /// async fn sample(
+    ///    client: &ConfigServiceV2
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_settings()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_settings(&self) -> super::builder::config_service_v_2::GetSettings
+    {
         super::builder::config_service_v_2::GetSettings::new(self.inner.clone())
     }
 
@@ -572,7 +981,24 @@ impl ConfigServiceV2 {
     /// for more information.
     ///
     /// [google.logging.v2.ConfigServiceV2.UpdateSettings]: crate::client::ConfigServiceV2::update_settings
-    pub fn update_settings(&self) -> super::builder::config_service_v_2::UpdateSettings {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_logging_v2::client::ConfigServiceV2;
+    /// async fn sample(
+    ///    client: &ConfigServiceV2
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_settings()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_settings(&self) -> super::builder::config_service_v_2::UpdateSettings
+    {
         super::builder::config_service_v_2::UpdateSettings::new(self.inner.clone())
     }
 
@@ -587,28 +1013,63 @@ impl ConfigServiceV2 {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn copy_log_entries(&self) -> super::builder::config_service_v_2::CopyLogEntries {
+    pub fn copy_log_entries(&self) -> super::builder::config_service_v_2::CopyLogEntries
+    {
         super::builder::config_service_v_2::CopyLogEntries::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::config_service_v_2::ListOperations {
+    pub fn list_operations(&self) -> super::builder::config_service_v_2::ListOperations
+    {
         super::builder::config_service_v_2::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::config_service_v_2::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_logging_v2::client::ConfigServiceV2;
+    /// async fn sample(
+    ///    client: &ConfigServiceV2
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::config_service_v_2::GetOperation
+    {
         super::builder::config_service_v_2::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(&self) -> super::builder::config_service_v_2::CancelOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_logging_v2::client::ConfigServiceV2;
+    /// async fn sample(
+    ///    client: &ConfigServiceV2
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_operation(&self) -> super::builder::config_service_v_2::CancelOperation
+    {
         super::builder::config_service_v_2::CancelOperation::new(self.inner.clone())
     }
 }
@@ -669,9 +1130,7 @@ impl MetricsServiceV2 {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::metrics_service_v_2::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::metrics_service_v_2::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::metrics_service_v_2::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -679,88 +1138,175 @@ impl MetricsServiceV2 {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::MetricsServiceV2 + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::MetricsServiceV2 + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::MetricsServiceV2>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::MetricsServiceV2>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::MetricsServiceV2> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::MetricsServiceV2> {
         super::transport::MetricsServiceV2::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::MetricsServiceV2> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::MetricsServiceV2::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::MetricsServiceV2> {
+        Self::build_transport(conf).await.map(super::tracing::MetricsServiceV2::new)
     }
 
     /// Lists logs-based metrics.
-    pub fn list_log_metrics(&self) -> super::builder::metrics_service_v_2::ListLogMetrics {
+    pub fn list_log_metrics(&self) -> super::builder::metrics_service_v_2::ListLogMetrics
+    {
         super::builder::metrics_service_v_2::ListLogMetrics::new(self.inner.clone())
     }
 
     /// Gets a logs-based metric.
-    pub fn get_log_metric(&self) -> super::builder::metrics_service_v_2::GetLogMetric {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_logging_v2::client::MetricsServiceV2;
+    /// async fn sample(
+    ///    client: &MetricsServiceV2
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_log_metric()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_log_metric(&self) -> super::builder::metrics_service_v_2::GetLogMetric
+    {
         super::builder::metrics_service_v_2::GetLogMetric::new(self.inner.clone())
     }
 
     /// Creates a logs-based metric.
-    pub fn create_log_metric(&self) -> super::builder::metrics_service_v_2::CreateLogMetric {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_logging_v2::client::MetricsServiceV2;
+    /// async fn sample(
+    ///    client: &MetricsServiceV2
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_log_metric()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_log_metric(&self) -> super::builder::metrics_service_v_2::CreateLogMetric
+    {
         super::builder::metrics_service_v_2::CreateLogMetric::new(self.inner.clone())
     }
 
     /// Creates or updates a logs-based metric.
-    pub fn update_log_metric(&self) -> super::builder::metrics_service_v_2::UpdateLogMetric {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_logging_v2::client::MetricsServiceV2;
+    /// async fn sample(
+    ///    client: &MetricsServiceV2
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_log_metric()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_log_metric(&self) -> super::builder::metrics_service_v_2::UpdateLogMetric
+    {
         super::builder::metrics_service_v_2::UpdateLogMetric::new(self.inner.clone())
     }
 
     /// Deletes a logs-based metric.
-    pub fn delete_log_metric(&self) -> super::builder::metrics_service_v_2::DeleteLogMetric {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_logging_v2::client::MetricsServiceV2;
+    /// async fn sample(
+    ///    client: &MetricsServiceV2
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_log_metric()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_log_metric(&self) -> super::builder::metrics_service_v_2::DeleteLogMetric
+    {
         super::builder::metrics_service_v_2::DeleteLogMetric::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::metrics_service_v_2::ListOperations {
+    pub fn list_operations(&self) -> super::builder::metrics_service_v_2::ListOperations
+    {
         super::builder::metrics_service_v_2::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::metrics_service_v_2::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_logging_v2::client::MetricsServiceV2;
+    /// async fn sample(
+    ///    client: &MetricsServiceV2
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::metrics_service_v_2::GetOperation
+    {
         super::builder::metrics_service_v_2::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(&self) -> super::builder::metrics_service_v_2::CancelOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_logging_v2::client::MetricsServiceV2;
+    /// async fn sample(
+    ///    client: &MetricsServiceV2
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_operation(&self) -> super::builder::metrics_service_v_2::CancelOperation
+    {
         super::builder::metrics_service_v_2::CancelOperation::new(self.inner.clone())
     }
 }

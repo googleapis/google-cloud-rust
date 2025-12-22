@@ -73,9 +73,9 @@ impl<'de> serde::de::Deserialize<'de> for super::MetadataExchangeRequest {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
-                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -83,40 +83,26 @@ impl<'de> serde::de::Deserialize<'de> for super::MetadataExchangeRequest {
                     match tag {
                         __FieldTag::__user_agent => {
                             if !fields.insert(__FieldTag::__user_agent) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for user_agent",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for user_agent"));
                             }
-                            result.user_agent = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.user_agent = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::__auth_type => {
                             if !fields.insert(__FieldTag::__auth_type) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for auth_type",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for auth_type"));
                             }
-                            result.auth_type = map
-                                .next_value::<std::option::Option<
-                                    crate::model::metadata_exchange_request::AuthType,
-                                >>()?
-                                .unwrap_or_default();
-                        }
+                            result.auth_type = map.next_value::<std::option::Option<crate::model::metadata_exchange_request::AuthType>>()?.unwrap_or_default();
+                        },
                         __FieldTag::__oauth2_token => {
                             if !fields.insert(__FieldTag::__oauth2_token) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for oauth2_token",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for oauth2_token"));
                             }
-                            result.oauth2_token = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.oauth2_token = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        }
+                        },
                     }
                 }
                 std::result::Result::Ok(result)
@@ -178,9 +164,9 @@ impl<'de> serde::de::Deserialize<'de> for super::MetadataExchangeResponse {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
-                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -188,30 +174,20 @@ impl<'de> serde::de::Deserialize<'de> for super::MetadataExchangeResponse {
                     match tag {
                         __FieldTag::__response_code => {
                             if !fields.insert(__FieldTag::__response_code) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for response_code",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for response_code"));
                             }
-                            result.response_code = map
-                                .next_value::<std::option::Option<
-                                    crate::model::metadata_exchange_response::ResponseCode,
-                                >>()?
-                                .unwrap_or_default();
-                        }
+                            result.response_code = map.next_value::<std::option::Option<crate::model::metadata_exchange_response::ResponseCode>>()?.unwrap_or_default();
+                        },
                         __FieldTag::__error => {
                             if !fields.insert(__FieldTag::__error) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for error",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for error"));
                             }
-                            result.error = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.error = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        }
+                        },
                     }
                 }
                 std::result::Result::Ok(result)

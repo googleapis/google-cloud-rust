@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate api;
 extern crate async_trait;
 extern crate bytes;
@@ -31,7 +32,6 @@ extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -44,6 +44,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProductLevelConfig {
+
     /// The type of [Product][google.cloud.retail.v2.Product]s allowed to be
     /// ingested into the catalog. Acceptable values are:
     ///
@@ -118,10 +119,7 @@ impl ProductLevelConfig {
     /// # use google_cloud_retail_v2::model::ProductLevelConfig;
     /// let x = ProductLevelConfig::new().set_ingestion_product_type("example");
     /// ```
-    pub fn set_ingestion_product_type<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_ingestion_product_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ingestion_product_type = v.into();
         self
     }
@@ -133,10 +131,7 @@ impl ProductLevelConfig {
     /// # use google_cloud_retail_v2::model::ProductLevelConfig;
     /// let x = ProductLevelConfig::new().set_merchant_center_product_id_field("example");
     /// ```
-    pub fn set_merchant_center_product_id_field<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_merchant_center_product_id_field<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.merchant_center_product_id_field = v.into();
         self
     }
@@ -153,6 +148,7 @@ impl wkt::message::Message for ProductLevelConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CatalogAttribute {
+
     /// Required. Attribute name.
     /// For example: `color`, `brands`, `attributes.custom_attribute`, such as
     /// `attributes.xyz`.
@@ -306,10 +302,7 @@ impl CatalogAttribute {
     /// let x0 = CatalogAttribute::new().set_type(AttributeType::Textual);
     /// let x1 = CatalogAttribute::new().set_type(AttributeType::Numerical);
     /// ```
-    pub fn set_type<T: std::convert::Into<crate::model::catalog_attribute::AttributeType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_type<T: std::convert::Into<crate::model::catalog_attribute::AttributeType>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
@@ -323,12 +316,7 @@ impl CatalogAttribute {
     /// let x0 = CatalogAttribute::new().set_indexable_option(IndexableOption::IndexableEnabled);
     /// let x1 = CatalogAttribute::new().set_indexable_option(IndexableOption::IndexableDisabled);
     /// ```
-    pub fn set_indexable_option<
-        T: std::convert::Into<crate::model::catalog_attribute::IndexableOption>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_indexable_option<T: std::convert::Into<crate::model::catalog_attribute::IndexableOption>>(mut self, v: T) -> Self {
         self.indexable_option = v.into();
         self
     }
@@ -342,12 +330,7 @@ impl CatalogAttribute {
     /// let x0 = CatalogAttribute::new().set_dynamic_facetable_option(DynamicFacetableOption::DynamicFacetableEnabled);
     /// let x1 = CatalogAttribute::new().set_dynamic_facetable_option(DynamicFacetableOption::DynamicFacetableDisabled);
     /// ```
-    pub fn set_dynamic_facetable_option<
-        T: std::convert::Into<crate::model::catalog_attribute::DynamicFacetableOption>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_dynamic_facetable_option<T: std::convert::Into<crate::model::catalog_attribute::DynamicFacetableOption>>(mut self, v: T) -> Self {
         self.dynamic_facetable_option = v.into();
         self
     }
@@ -361,12 +344,7 @@ impl CatalogAttribute {
     /// let x0 = CatalogAttribute::new().set_searchable_option(SearchableOption::SearchableEnabled);
     /// let x1 = CatalogAttribute::new().set_searchable_option(SearchableOption::SearchableDisabled);
     /// ```
-    pub fn set_searchable_option<
-        T: std::convert::Into<crate::model::catalog_attribute::SearchableOption>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_searchable_option<T: std::convert::Into<crate::model::catalog_attribute::SearchableOption>>(mut self, v: T) -> Self {
         self.searchable_option = v.into();
         self
     }
@@ -380,12 +358,7 @@ impl CatalogAttribute {
     /// let x0 = CatalogAttribute::new().set_exact_searchable_option(ExactSearchableOption::ExactSearchableEnabled);
     /// let x1 = CatalogAttribute::new().set_exact_searchable_option(ExactSearchableOption::ExactSearchableDisabled);
     /// ```
-    pub fn set_exact_searchable_option<
-        T: std::convert::Into<crate::model::catalog_attribute::ExactSearchableOption>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_exact_searchable_option<T: std::convert::Into<crate::model::catalog_attribute::ExactSearchableOption>>(mut self, v: T) -> Self {
         self.exact_searchable_option = v.into();
         self
     }
@@ -399,12 +372,7 @@ impl CatalogAttribute {
     /// let x0 = CatalogAttribute::new().set_retrievable_option(RetrievableOption::RetrievableEnabled);
     /// let x1 = CatalogAttribute::new().set_retrievable_option(RetrievableOption::RetrievableDisabled);
     /// ```
-    pub fn set_retrievable_option<
-        T: std::convert::Into<crate::model::catalog_attribute::RetrievableOption>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_retrievable_option<T: std::convert::Into<crate::model::catalog_attribute::RetrievableOption>>(mut self, v: T) -> Self {
         self.retrievable_option = v.into();
         self
     }
@@ -418,8 +386,7 @@ impl CatalogAttribute {
     /// let x = CatalogAttribute::new().set_facet_config(FacetConfig::default()/* use setters */);
     /// ```
     pub fn set_facet_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::catalog_attribute::FacetConfig>,
+    where T: std::convert::Into<crate::model::catalog_attribute::FacetConfig>
     {
         self.facet_config = std::option::Option::Some(v.into());
         self
@@ -435,8 +402,7 @@ impl CatalogAttribute {
     /// let x = CatalogAttribute::new().set_or_clear_facet_config(None::<FacetConfig>);
     /// ```
     pub fn set_or_clear_facet_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::catalog_attribute::FacetConfig>,
+    where T: std::convert::Into<crate::model::catalog_attribute::FacetConfig>
     {
         self.facet_config = v.map(|x| x.into());
         self
@@ -454,11 +420,13 @@ pub mod catalog_attribute {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Possible options for the facet that corresponds to the current attribute
     /// config.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct FacetConfig {
+
         /// If you don't set the facet
         /// [SearchRequest.FacetSpec.FacetKey.intervals][google.cloud.retail.v2.SearchRequest.FacetSpec.FacetKey.intervals]
         /// in the request to a numerical attribute, then we use the computed
@@ -480,8 +448,7 @@ pub mod catalog_attribute {
         /// [CatalogAttribute][google.cloud.retail.v2.CatalogAttribute] is 25.
         ///
         /// [google.cloud.retail.v2.CatalogAttribute]: crate::model::CatalogAttribute
-        pub ignored_facet_values:
-            std::vec::Vec<crate::model::catalog_attribute::facet_config::IgnoredFacetValues>,
+        pub ignored_facet_values: std::vec::Vec<crate::model::catalog_attribute::facet_config::IgnoredFacetValues>,
 
         /// Each instance replaces a list of facet values by a merged facet
         /// value. If a facet value is not in any list, then it will stay the same.
@@ -493,19 +460,16 @@ pub mod catalog_attribute {
         /// feature is available only for textual custom attributes.
         ///
         /// [google.cloud.retail.v2.CatalogAttribute]: crate::model::CatalogAttribute
-        pub merged_facet_values:
-            std::vec::Vec<crate::model::catalog_attribute::facet_config::MergedFacetValue>,
+        pub merged_facet_values: std::vec::Vec<crate::model::catalog_attribute::facet_config::MergedFacetValue>,
 
         /// Use this field only if you want to merge a facet key into another facet
         /// key.
-        pub merged_facet:
-            std::option::Option<crate::model::catalog_attribute::facet_config::MergedFacet>,
+        pub merged_facet: std::option::Option<crate::model::catalog_attribute::facet_config::MergedFacet>,
 
         /// Set this field only if you want to rerank based on facet values engaged
         /// by the user for the current key. This option is only possible for custom
         /// facetable textual keys.
-        pub rerank_config:
-            std::option::Option<crate::model::catalog_attribute::facet_config::RerankConfig>,
+        pub rerank_config: std::option::Option<crate::model::catalog_attribute::facet_config::RerankConfig>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -530,7 +494,7 @@ pub mod catalog_attribute {
         pub fn set_facet_intervals<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::Interval>,
+            V: std::convert::Into<crate::model::Interval>
         {
             use std::iter::Iterator;
             self.facet_intervals = v.into_iter().map(|i| i.into()).collect();
@@ -552,9 +516,7 @@ pub mod catalog_attribute {
         pub fn set_ignored_facet_values<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<
-                    crate::model::catalog_attribute::facet_config::IgnoredFacetValues,
-                >,
+            V: std::convert::Into<crate::model::catalog_attribute::facet_config::IgnoredFacetValues>
         {
             use std::iter::Iterator;
             self.ignored_facet_values = v.into_iter().map(|i| i.into()).collect();
@@ -576,7 +538,7 @@ pub mod catalog_attribute {
         pub fn set_merged_facet_values<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::catalog_attribute::facet_config::MergedFacetValue>,
+            V: std::convert::Into<crate::model::catalog_attribute::facet_config::MergedFacetValue>
         {
             use std::iter::Iterator;
             self.merged_facet_values = v.into_iter().map(|i| i.into()).collect();
@@ -592,8 +554,7 @@ pub mod catalog_attribute {
         /// let x = FacetConfig::new().set_merged_facet(MergedFacet::default()/* use setters */);
         /// ```
         pub fn set_merged_facet<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::catalog_attribute::facet_config::MergedFacet>,
+        where T: std::convert::Into<crate::model::catalog_attribute::facet_config::MergedFacet>
         {
             self.merged_facet = std::option::Option::Some(v.into());
             self
@@ -609,8 +570,7 @@ pub mod catalog_attribute {
         /// let x = FacetConfig::new().set_or_clear_merged_facet(None::<MergedFacet>);
         /// ```
         pub fn set_or_clear_merged_facet<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::catalog_attribute::facet_config::MergedFacet>,
+        where T: std::convert::Into<crate::model::catalog_attribute::facet_config::MergedFacet>
         {
             self.merged_facet = v.map(|x| x.into());
             self
@@ -625,8 +585,7 @@ pub mod catalog_attribute {
         /// let x = FacetConfig::new().set_rerank_config(RerankConfig::default()/* use setters */);
         /// ```
         pub fn set_rerank_config<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::catalog_attribute::facet_config::RerankConfig>,
+        where T: std::convert::Into<crate::model::catalog_attribute::facet_config::RerankConfig>
         {
             self.rerank_config = std::option::Option::Some(v.into());
             self
@@ -642,8 +601,7 @@ pub mod catalog_attribute {
         /// let x = FacetConfig::new().set_or_clear_rerank_config(None::<RerankConfig>);
         /// ```
         pub fn set_or_clear_rerank_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::catalog_attribute::facet_config::RerankConfig>,
+        where T: std::convert::Into<crate::model::catalog_attribute::facet_config::RerankConfig>
         {
             self.rerank_config = v.map(|x| x.into());
             self
@@ -661,6 +619,7 @@ pub mod catalog_attribute {
         #[allow(unused_imports)]
         use super::*;
 
+
         /// [Facet values][google.cloud.retail.v2.SearchResponse.Facet.values] to
         /// ignore on [facets][google.cloud.retail.v2.SearchResponse.Facet] during
         /// the specified time range for the given
@@ -673,6 +632,7 @@ pub mod catalog_attribute {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct IgnoredFacetValues {
+
             /// List of facet values to ignore for the following time range. The facet
             /// values are the same as the attribute values. There is a limit of 10
             /// values per instance of IgnoredFacetValues. Each value can have at most
@@ -710,7 +670,7 @@ pub mod catalog_attribute {
             pub fn set_values<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<std::string::String>,
+                V: std::convert::Into<std::string::String>
             {
                 use std::iter::Iterator;
                 self.values = v.into_iter().map(|i| i.into()).collect();
@@ -726,8 +686,7 @@ pub mod catalog_attribute {
             /// let x = IgnoredFacetValues::new().set_start_time(Timestamp::default()/* use setters */);
             /// ```
             pub fn set_start_time<T>(mut self, v: T) -> Self
-            where
-                T: std::convert::Into<wkt::Timestamp>,
+            where T: std::convert::Into<wkt::Timestamp>
             {
                 self.start_time = std::option::Option::Some(v.into());
                 self
@@ -743,8 +702,7 @@ pub mod catalog_attribute {
             /// let x = IgnoredFacetValues::new().set_or_clear_start_time(None::<Timestamp>);
             /// ```
             pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-            where
-                T: std::convert::Into<wkt::Timestamp>,
+            where T: std::convert::Into<wkt::Timestamp>
             {
                 self.start_time = v.map(|x| x.into());
                 self
@@ -759,8 +717,7 @@ pub mod catalog_attribute {
             /// let x = IgnoredFacetValues::new().set_end_time(Timestamp::default()/* use setters */);
             /// ```
             pub fn set_end_time<T>(mut self, v: T) -> Self
-            where
-                T: std::convert::Into<wkt::Timestamp>,
+            where T: std::convert::Into<wkt::Timestamp>
             {
                 self.end_time = std::option::Option::Some(v.into());
                 self
@@ -776,8 +733,7 @@ pub mod catalog_attribute {
             /// let x = IgnoredFacetValues::new().set_or_clear_end_time(None::<Timestamp>);
             /// ```
             pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-            where
-                T: std::convert::Into<wkt::Timestamp>,
+            where T: std::convert::Into<wkt::Timestamp>
             {
                 self.end_time = v.map(|x| x.into());
                 self
@@ -799,6 +755,7 @@ pub mod catalog_attribute {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct MergedFacetValue {
+
             /// All the facet values that are replaces by the same
             /// [merged_value][google.cloud.retail.v2.CatalogAttribute.FacetConfig.MergedFacetValue.merged_value]
             /// that follows. The maximum number of values per MergedFacetValue is 25.
@@ -829,7 +786,7 @@ pub mod catalog_attribute {
             pub fn set_values<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<std::string::String>,
+                V: std::convert::Into<std::string::String>
             {
                 use std::iter::Iterator;
                 self.values = v.into_iter().map(|i| i.into()).collect();
@@ -843,10 +800,7 @@ pub mod catalog_attribute {
             /// # use google_cloud_retail_v2::model::catalog_attribute::facet_config::MergedFacetValue;
             /// let x = MergedFacetValue::new().set_merged_value("example");
             /// ```
-            pub fn set_merged_value<T: std::convert::Into<std::string::String>>(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_merged_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.merged_value = v.into();
                 self
             }
@@ -868,6 +822,7 @@ pub mod catalog_attribute {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct MergedFacet {
+
             /// The merged facet key should be a valid facet key that is different than
             /// the facet key of the current catalog attribute. We refer this is
             /// merged facet key as the child of the current catalog attribute. This
@@ -891,10 +846,7 @@ pub mod catalog_attribute {
             /// # use google_cloud_retail_v2::model::catalog_attribute::facet_config::MergedFacet;
             /// let x = MergedFacet::new().set_merged_facet_key("example");
             /// ```
-            pub fn set_merged_facet_key<T: std::convert::Into<std::string::String>>(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_merged_facet_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.merged_facet_key = v.into();
                 self
             }
@@ -917,6 +869,7 @@ pub mod catalog_attribute {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct RerankConfig {
+
             /// If set to true, then we also rerank the dynamic facets based on the
             /// facet values engaged by the user for the current attribute key during
             /// serving.
@@ -956,7 +909,7 @@ pub mod catalog_attribute {
             pub fn set_facet_values<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<std::string::String>,
+                V: std::convert::Into<std::string::String>
             {
                 use std::iter::Iterator;
                 self.facet_values = v.into_iter().map(|i| i.into()).collect();
@@ -1062,9 +1015,7 @@ pub mod catalog_attribute {
                 0 => Self::Unknown,
                 1 => Self::Textual,
                 2 => Self::Numerical,
-                _ => Self::UnknownValue(attribute_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(attribute_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1076,9 +1027,7 @@ pub mod catalog_attribute {
                 "UNKNOWN" => Self::Unknown,
                 "TEXTUAL" => Self::Textual,
                 "NUMERICAL" => Self::Numerical,
-                _ => Self::UnknownValue(attribute_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(attribute_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1103,8 +1052,7 @@ pub mod catalog_attribute {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<AttributeType>::new(
-                ".google.cloud.retail.v2.CatalogAttribute.AttributeType",
-            ))
+                ".google.cloud.retail.v2.CatalogAttribute.AttributeType"))
         }
     }
 
@@ -1194,9 +1142,7 @@ pub mod catalog_attribute {
                 0 => Self::Unspecified,
                 1 => Self::IndexableEnabled,
                 2 => Self::IndexableDisabled,
-                _ => Self::UnknownValue(indexable_option::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(indexable_option::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1208,9 +1154,7 @@ pub mod catalog_attribute {
                 "INDEXABLE_OPTION_UNSPECIFIED" => Self::Unspecified,
                 "INDEXABLE_ENABLED" => Self::IndexableEnabled,
                 "INDEXABLE_DISABLED" => Self::IndexableDisabled,
-                _ => Self::UnknownValue(indexable_option::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(indexable_option::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1235,8 +1179,7 @@ pub mod catalog_attribute {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<IndexableOption>::new(
-                ".google.cloud.retail.v2.CatalogAttribute.IndexableOption",
-            ))
+                ".google.cloud.retail.v2.CatalogAttribute.IndexableOption"))
         }
     }
 
@@ -1299,15 +1242,9 @@ pub mod catalog_attribute {
         /// the integer representation of enums.
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
-                Self::Unspecified => {
-                    std::option::Option::Some("DYNAMIC_FACETABLE_OPTION_UNSPECIFIED")
-                }
-                Self::DynamicFacetableEnabled => {
-                    std::option::Option::Some("DYNAMIC_FACETABLE_ENABLED")
-                }
-                Self::DynamicFacetableDisabled => {
-                    std::option::Option::Some("DYNAMIC_FACETABLE_DISABLED")
-                }
+                Self::Unspecified => std::option::Option::Some("DYNAMIC_FACETABLE_OPTION_UNSPECIFIED"),
+                Self::DynamicFacetableEnabled => std::option::Option::Some("DYNAMIC_FACETABLE_ENABLED"),
+                Self::DynamicFacetableDisabled => std::option::Option::Some("DYNAMIC_FACETABLE_DISABLED"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -1332,9 +1269,7 @@ pub mod catalog_attribute {
                 0 => Self::Unspecified,
                 1 => Self::DynamicFacetableEnabled,
                 2 => Self::DynamicFacetableDisabled,
-                _ => Self::UnknownValue(dynamic_facetable_option::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(dynamic_facetable_option::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1346,9 +1281,7 @@ pub mod catalog_attribute {
                 "DYNAMIC_FACETABLE_OPTION_UNSPECIFIED" => Self::Unspecified,
                 "DYNAMIC_FACETABLE_ENABLED" => Self::DynamicFacetableEnabled,
                 "DYNAMIC_FACETABLE_DISABLED" => Self::DynamicFacetableDisabled,
-                _ => Self::UnknownValue(dynamic_facetable_option::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(dynamic_facetable_option::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1373,8 +1306,7 @@ pub mod catalog_attribute {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<DynamicFacetableOption>::new(
-                ".google.cloud.retail.v2.CatalogAttribute.DynamicFacetableOption",
-            ))
+                ".google.cloud.retail.v2.CatalogAttribute.DynamicFacetableOption"))
         }
     }
 
@@ -1464,9 +1396,7 @@ pub mod catalog_attribute {
                 0 => Self::Unspecified,
                 1 => Self::SearchableEnabled,
                 2 => Self::SearchableDisabled,
-                _ => Self::UnknownValue(searchable_option::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(searchable_option::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1478,9 +1408,7 @@ pub mod catalog_attribute {
                 "SEARCHABLE_OPTION_UNSPECIFIED" => Self::Unspecified,
                 "SEARCHABLE_ENABLED" => Self::SearchableEnabled,
                 "SEARCHABLE_DISABLED" => Self::SearchableDisabled,
-                _ => Self::UnknownValue(searchable_option::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(searchable_option::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1505,8 +1433,7 @@ pub mod catalog_attribute {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<SearchableOption>::new(
-                ".google.cloud.retail.v2.CatalogAttribute.SearchableOption",
-            ))
+                ".google.cloud.retail.v2.CatalogAttribute.SearchableOption"))
         }
     }
 
@@ -1569,15 +1496,9 @@ pub mod catalog_attribute {
         /// the integer representation of enums.
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
-                Self::Unspecified => {
-                    std::option::Option::Some("EXACT_SEARCHABLE_OPTION_UNSPECIFIED")
-                }
-                Self::ExactSearchableEnabled => {
-                    std::option::Option::Some("EXACT_SEARCHABLE_ENABLED")
-                }
-                Self::ExactSearchableDisabled => {
-                    std::option::Option::Some("EXACT_SEARCHABLE_DISABLED")
-                }
+                Self::Unspecified => std::option::Option::Some("EXACT_SEARCHABLE_OPTION_UNSPECIFIED"),
+                Self::ExactSearchableEnabled => std::option::Option::Some("EXACT_SEARCHABLE_ENABLED"),
+                Self::ExactSearchableDisabled => std::option::Option::Some("EXACT_SEARCHABLE_DISABLED"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -1602,9 +1523,7 @@ pub mod catalog_attribute {
                 0 => Self::Unspecified,
                 1 => Self::ExactSearchableEnabled,
                 2 => Self::ExactSearchableDisabled,
-                _ => Self::UnknownValue(exact_searchable_option::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(exact_searchable_option::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1616,9 +1535,7 @@ pub mod catalog_attribute {
                 "EXACT_SEARCHABLE_OPTION_UNSPECIFIED" => Self::Unspecified,
                 "EXACT_SEARCHABLE_ENABLED" => Self::ExactSearchableEnabled,
                 "EXACT_SEARCHABLE_DISABLED" => Self::ExactSearchableDisabled,
-                _ => Self::UnknownValue(exact_searchable_option::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(exact_searchable_option::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1643,8 +1560,7 @@ pub mod catalog_attribute {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<ExactSearchableOption>::new(
-                ".google.cloud.retail.v2.CatalogAttribute.ExactSearchableOption",
-            ))
+                ".google.cloud.retail.v2.CatalogAttribute.ExactSearchableOption"))
         }
     }
 
@@ -1734,9 +1650,7 @@ pub mod catalog_attribute {
                 0 => Self::Unspecified,
                 1 => Self::RetrievableEnabled,
                 2 => Self::RetrievableDisabled,
-                _ => Self::UnknownValue(retrievable_option::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(retrievable_option::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1748,9 +1662,7 @@ pub mod catalog_attribute {
                 "RETRIEVABLE_OPTION_UNSPECIFIED" => Self::Unspecified,
                 "RETRIEVABLE_ENABLED" => Self::RetrievableEnabled,
                 "RETRIEVABLE_DISABLED" => Self::RetrievableDisabled,
-                _ => Self::UnknownValue(retrievable_option::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(retrievable_option::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1775,8 +1687,7 @@ pub mod catalog_attribute {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<RetrievableOption>::new(
-                ".google.cloud.retail.v2.CatalogAttribute.RetrievableOption",
-            ))
+                ".google.cloud.retail.v2.CatalogAttribute.RetrievableOption"))
         }
     }
 }
@@ -1785,6 +1696,7 @@ pub mod catalog_attribute {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AttributesConfig {
+
     /// Required. Immutable. The fully qualified resource name of the attribute
     /// config. Format: `projects/*/locations/*/catalogs/*/attributesConfig`
     pub name: std::string::String,
@@ -1798,8 +1710,7 @@ pub struct AttributesConfig {
     /// `attributes.xyz`.
     ///
     /// The maximum number of catalog attributes allowed in a request is 1000.
-    pub catalog_attributes:
-        std::collections::HashMap<std::string::String, crate::model::CatalogAttribute>,
+    pub catalog_attributes: std::collections::HashMap<std::string::String,crate::model::CatalogAttribute>,
 
     /// Output only. The
     /// [AttributeConfigLevel][google.cloud.retail.v2.AttributeConfigLevel] used
@@ -1859,10 +1770,7 @@ impl AttributesConfig {
     /// let x0 = AttributesConfig::new().set_attribute_config_level(AttributeConfigLevel::ProductLevelAttributeConfig);
     /// let x1 = AttributesConfig::new().set_attribute_config_level(AttributeConfigLevel::CatalogLevelAttributeConfig);
     /// ```
-    pub fn set_attribute_config_level<T: std::convert::Into<crate::model::AttributeConfigLevel>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_attribute_config_level<T: std::convert::Into<crate::model::AttributeConfigLevel>>(mut self, v: T) -> Self {
         self.attribute_config_level = v.into();
         self
     }
@@ -1879,6 +1787,7 @@ impl wkt::message::Message for AttributesConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CompletionConfig {
+
     /// Required. Immutable. Fully qualified name
     /// `projects/*/locations/*/catalogs/*/completionConfig`
     pub name: std::string::String,
@@ -2025,8 +1934,7 @@ impl CompletionConfig {
     /// let x = CompletionConfig::new().set_suggestions_input_config(CompletionDataInputConfig::default()/* use setters */);
     /// ```
     pub fn set_suggestions_input_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CompletionDataInputConfig>,
+    where T: std::convert::Into<crate::model::CompletionDataInputConfig>
     {
         self.suggestions_input_config = std::option::Option::Some(v.into());
         self
@@ -2042,8 +1950,7 @@ impl CompletionConfig {
     /// let x = CompletionConfig::new().set_or_clear_suggestions_input_config(None::<CompletionDataInputConfig>);
     /// ```
     pub fn set_or_clear_suggestions_input_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CompletionDataInputConfig>,
+    where T: std::convert::Into<crate::model::CompletionDataInputConfig>
     {
         self.suggestions_input_config = v.map(|x| x.into());
         self
@@ -2056,10 +1963,7 @@ impl CompletionConfig {
     /// # use google_cloud_retail_v2::model::CompletionConfig;
     /// let x = CompletionConfig::new().set_last_suggestions_import_operation("example");
     /// ```
-    pub fn set_last_suggestions_import_operation<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_last_suggestions_import_operation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.last_suggestions_import_operation = v.into();
         self
     }
@@ -2073,8 +1977,7 @@ impl CompletionConfig {
     /// let x = CompletionConfig::new().set_denylist_input_config(CompletionDataInputConfig::default()/* use setters */);
     /// ```
     pub fn set_denylist_input_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CompletionDataInputConfig>,
+    where T: std::convert::Into<crate::model::CompletionDataInputConfig>
     {
         self.denylist_input_config = std::option::Option::Some(v.into());
         self
@@ -2090,8 +1993,7 @@ impl CompletionConfig {
     /// let x = CompletionConfig::new().set_or_clear_denylist_input_config(None::<CompletionDataInputConfig>);
     /// ```
     pub fn set_or_clear_denylist_input_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CompletionDataInputConfig>,
+    where T: std::convert::Into<crate::model::CompletionDataInputConfig>
     {
         self.denylist_input_config = v.map(|x| x.into());
         self
@@ -2104,10 +2006,7 @@ impl CompletionConfig {
     /// # use google_cloud_retail_v2::model::CompletionConfig;
     /// let x = CompletionConfig::new().set_last_denylist_import_operation("example");
     /// ```
-    pub fn set_last_denylist_import_operation<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_last_denylist_import_operation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.last_denylist_import_operation = v.into();
         self
     }
@@ -2121,8 +2020,7 @@ impl CompletionConfig {
     /// let x = CompletionConfig::new().set_allowlist_input_config(CompletionDataInputConfig::default()/* use setters */);
     /// ```
     pub fn set_allowlist_input_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CompletionDataInputConfig>,
+    where T: std::convert::Into<crate::model::CompletionDataInputConfig>
     {
         self.allowlist_input_config = std::option::Option::Some(v.into());
         self
@@ -2138,8 +2036,7 @@ impl CompletionConfig {
     /// let x = CompletionConfig::new().set_or_clear_allowlist_input_config(None::<CompletionDataInputConfig>);
     /// ```
     pub fn set_or_clear_allowlist_input_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CompletionDataInputConfig>,
+    where T: std::convert::Into<crate::model::CompletionDataInputConfig>
     {
         self.allowlist_input_config = v.map(|x| x.into());
         self
@@ -2152,10 +2049,7 @@ impl CompletionConfig {
     /// # use google_cloud_retail_v2::model::CompletionConfig;
     /// let x = CompletionConfig::new().set_last_allowlist_import_operation("example");
     /// ```
-    pub fn set_last_allowlist_import_operation<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_last_allowlist_import_operation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.last_allowlist_import_operation = v.into();
         self
     }
@@ -2171,6 +2065,7 @@ impl wkt::message::Message for CompletionConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Catalog {
+
     /// Required. Immutable. The fully qualified resource name of the catalog.
     pub name: std::string::String,
 
@@ -2224,8 +2119,7 @@ impl Catalog {
     /// let x = Catalog::new().set_product_level_config(ProductLevelConfig::default()/* use setters */);
     /// ```
     pub fn set_product_level_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ProductLevelConfig>,
+    where T: std::convert::Into<crate::model::ProductLevelConfig>
     {
         self.product_level_config = std::option::Option::Some(v.into());
         self
@@ -2241,8 +2135,7 @@ impl Catalog {
     /// let x = Catalog::new().set_or_clear_product_level_config(None::<ProductLevelConfig>);
     /// ```
     pub fn set_or_clear_product_level_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ProductLevelConfig>,
+    where T: std::convert::Into<crate::model::ProductLevelConfig>
     {
         self.product_level_config = v.map(|x| x.into());
         self
@@ -2263,6 +2156,7 @@ impl wkt::message::Message for Catalog {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCatalogsRequest {
+
     /// Required. The account resource name with an associated location.
     ///
     /// If the caller does not have permission to list
@@ -2356,6 +2250,7 @@ impl wkt::message::Message for ListCatalogsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCatalogsResponse {
+
     /// All the customer's [Catalog][google.cloud.retail.v2.Catalog]s.
     ///
     /// [google.cloud.retail.v2.Catalog]: crate::model::Catalog
@@ -2392,7 +2287,7 @@ impl ListCatalogsResponse {
     pub fn set_catalogs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Catalog>,
+        V: std::convert::Into<crate::model::Catalog>
     {
         use std::iter::Iterator;
         self.catalogs = v.into_iter().map(|i| i.into()).collect();
@@ -2440,6 +2335,7 @@ impl gax::paginator::internal::PageableResponse for ListCatalogsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateCatalogRequest {
+
     /// Required. The [Catalog][google.cloud.retail.v2.Catalog] to update.
     ///
     /// If the caller does not have permission to update the
@@ -2478,8 +2374,7 @@ impl UpdateCatalogRequest {
     /// let x = UpdateCatalogRequest::new().set_catalog(Catalog::default()/* use setters */);
     /// ```
     pub fn set_catalog<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Catalog>,
+    where T: std::convert::Into<crate::model::Catalog>
     {
         self.catalog = std::option::Option::Some(v.into());
         self
@@ -2495,8 +2390,7 @@ impl UpdateCatalogRequest {
     /// let x = UpdateCatalogRequest::new().set_or_clear_catalog(None::<Catalog>);
     /// ```
     pub fn set_or_clear_catalog<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Catalog>,
+    where T: std::convert::Into<crate::model::Catalog>
     {
         self.catalog = v.map(|x| x.into());
         self
@@ -2511,8 +2405,7 @@ impl UpdateCatalogRequest {
     /// let x = UpdateCatalogRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -2528,8 +2421,7 @@ impl UpdateCatalogRequest {
     /// let x = UpdateCatalogRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -2546,6 +2438,7 @@ impl wkt::message::Message for UpdateCatalogRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SetDefaultBranchRequest {
+
     /// Full resource name of the catalog, such as
     /// `projects/*/locations/global/catalogs/default_catalog`.
     pub catalog: std::string::String,
@@ -2646,6 +2539,7 @@ impl wkt::message::Message for SetDefaultBranchRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetDefaultBranchRequest {
+
     /// The parent catalog resource name, such as
     /// `projects/*/locations/global/catalogs/default_catalog`.
     pub catalog: std::string::String,
@@ -2684,6 +2578,7 @@ impl wkt::message::Message for GetDefaultBranchRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetDefaultBranchResponse {
+
     /// Full resource name of the branch id currently set as default branch.
     pub branch: std::string::String,
 
@@ -2726,8 +2621,7 @@ impl GetDefaultBranchResponse {
     /// let x = GetDefaultBranchResponse::new().set_set_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_set_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.set_time = std::option::Option::Some(v.into());
         self
@@ -2743,8 +2637,7 @@ impl GetDefaultBranchResponse {
     /// let x = GetDefaultBranchResponse::new().set_or_clear_set_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_set_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.set_time = v.map(|x| x.into());
         self
@@ -2777,6 +2670,7 @@ impl wkt::message::Message for GetDefaultBranchResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetCompletionConfigRequest {
+
     /// Required. Full CompletionConfig resource name. Format:
     /// `projects/{project_number}/locations/{location_id}/catalogs/{catalog_id}/completionConfig`
     pub name: std::string::String,
@@ -2816,6 +2710,7 @@ impl wkt::message::Message for GetCompletionConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateCompletionConfigRequest {
+
     /// Required. The [CompletionConfig][google.cloud.retail.v2.CompletionConfig]
     /// to update.
     ///
@@ -2864,8 +2759,7 @@ impl UpdateCompletionConfigRequest {
     /// let x = UpdateCompletionConfigRequest::new().set_completion_config(CompletionConfig::default()/* use setters */);
     /// ```
     pub fn set_completion_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CompletionConfig>,
+    where T: std::convert::Into<crate::model::CompletionConfig>
     {
         self.completion_config = std::option::Option::Some(v.into());
         self
@@ -2881,8 +2775,7 @@ impl UpdateCompletionConfigRequest {
     /// let x = UpdateCompletionConfigRequest::new().set_or_clear_completion_config(None::<CompletionConfig>);
     /// ```
     pub fn set_or_clear_completion_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CompletionConfig>,
+    where T: std::convert::Into<crate::model::CompletionConfig>
     {
         self.completion_config = v.map(|x| x.into());
         self
@@ -2897,8 +2790,7 @@ impl UpdateCompletionConfigRequest {
     /// let x = UpdateCompletionConfigRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -2914,8 +2806,7 @@ impl UpdateCompletionConfigRequest {
     /// let x = UpdateCompletionConfigRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -2936,6 +2827,7 @@ impl wkt::message::Message for UpdateCompletionConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAttributesConfigRequest {
+
     /// Required. Full AttributesConfig resource name. Format:
     /// `projects/{project_number}/locations/{location_id}/catalogs/{catalog_id}/attributesConfig`
     pub name: std::string::String,
@@ -2975,6 +2867,7 @@ impl wkt::message::Message for GetAttributesConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateAttributesConfigRequest {
+
     /// Required. The [AttributesConfig][google.cloud.retail.v2.AttributesConfig]
     /// to update.
     ///
@@ -3010,8 +2903,7 @@ impl UpdateAttributesConfigRequest {
     /// let x = UpdateAttributesConfigRequest::new().set_attributes_config(AttributesConfig::default()/* use setters */);
     /// ```
     pub fn set_attributes_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AttributesConfig>,
+    where T: std::convert::Into<crate::model::AttributesConfig>
     {
         self.attributes_config = std::option::Option::Some(v.into());
         self
@@ -3027,8 +2919,7 @@ impl UpdateAttributesConfigRequest {
     /// let x = UpdateAttributesConfigRequest::new().set_or_clear_attributes_config(None::<AttributesConfig>);
     /// ```
     pub fn set_or_clear_attributes_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AttributesConfig>,
+    where T: std::convert::Into<crate::model::AttributesConfig>
     {
         self.attributes_config = v.map(|x| x.into());
         self
@@ -3043,8 +2934,7 @@ impl UpdateAttributesConfigRequest {
     /// let x = UpdateAttributesConfigRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -3060,8 +2950,7 @@ impl UpdateAttributesConfigRequest {
     /// let x = UpdateAttributesConfigRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -3082,6 +2971,7 @@ impl wkt::message::Message for UpdateAttributesConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AddCatalogAttributeRequest {
+
     /// Required. Full AttributesConfig resource name. Format:
     /// `projects/{project_number}/locations/{location_id}/catalogs/{catalog_id}/attributesConfig`
     pub attributes_config: std::string::String,
@@ -3107,10 +2997,7 @@ impl AddCatalogAttributeRequest {
     /// # use google_cloud_retail_v2::model::AddCatalogAttributeRequest;
     /// let x = AddCatalogAttributeRequest::new().set_attributes_config("example");
     /// ```
-    pub fn set_attributes_config<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_attributes_config<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.attributes_config = v.into();
         self
     }
@@ -3124,8 +3011,7 @@ impl AddCatalogAttributeRequest {
     /// let x = AddCatalogAttributeRequest::new().set_catalog_attribute(CatalogAttribute::default()/* use setters */);
     /// ```
     pub fn set_catalog_attribute<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CatalogAttribute>,
+    where T: std::convert::Into<crate::model::CatalogAttribute>
     {
         self.catalog_attribute = std::option::Option::Some(v.into());
         self
@@ -3141,8 +3027,7 @@ impl AddCatalogAttributeRequest {
     /// let x = AddCatalogAttributeRequest::new().set_or_clear_catalog_attribute(None::<CatalogAttribute>);
     /// ```
     pub fn set_or_clear_catalog_attribute<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CatalogAttribute>,
+    where T: std::convert::Into<crate::model::CatalogAttribute>
     {
         self.catalog_attribute = v.map(|x| x.into());
         self
@@ -3163,6 +3048,7 @@ impl wkt::message::Message for AddCatalogAttributeRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RemoveCatalogAttributeRequest {
+
     /// Required. Full AttributesConfig resource name. Format:
     /// `projects/{project_number}/locations/{location_id}/catalogs/{catalog_id}/attributesConfig`
     pub attributes_config: std::string::String,
@@ -3188,10 +3074,7 @@ impl RemoveCatalogAttributeRequest {
     /// # use google_cloud_retail_v2::model::RemoveCatalogAttributeRequest;
     /// let x = RemoveCatalogAttributeRequest::new().set_attributes_config("example");
     /// ```
-    pub fn set_attributes_config<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_attributes_config<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.attributes_config = v.into();
         self
     }
@@ -3223,6 +3106,7 @@ impl wkt::message::Message for RemoveCatalogAttributeRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReplaceCatalogAttributeRequest {
+
     /// Required. Full AttributesConfig resource name. Format:
     /// `projects/{project_number}/locations/{location_id}/catalogs/{catalog_id}/attributesConfig`
     pub attributes_config: std::string::String,
@@ -3260,10 +3144,7 @@ impl ReplaceCatalogAttributeRequest {
     /// # use google_cloud_retail_v2::model::ReplaceCatalogAttributeRequest;
     /// let x = ReplaceCatalogAttributeRequest::new().set_attributes_config("example");
     /// ```
-    pub fn set_attributes_config<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_attributes_config<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.attributes_config = v.into();
         self
     }
@@ -3277,8 +3158,7 @@ impl ReplaceCatalogAttributeRequest {
     /// let x = ReplaceCatalogAttributeRequest::new().set_catalog_attribute(CatalogAttribute::default()/* use setters */);
     /// ```
     pub fn set_catalog_attribute<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CatalogAttribute>,
+    where T: std::convert::Into<crate::model::CatalogAttribute>
     {
         self.catalog_attribute = std::option::Option::Some(v.into());
         self
@@ -3294,8 +3174,7 @@ impl ReplaceCatalogAttributeRequest {
     /// let x = ReplaceCatalogAttributeRequest::new().set_or_clear_catalog_attribute(None::<CatalogAttribute>);
     /// ```
     pub fn set_or_clear_catalog_attribute<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CatalogAttribute>,
+    where T: std::convert::Into<crate::model::CatalogAttribute>
     {
         self.catalog_attribute = v.map(|x| x.into());
         self
@@ -3310,8 +3189,7 @@ impl ReplaceCatalogAttributeRequest {
     /// let x = ReplaceCatalogAttributeRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -3327,8 +3205,7 @@ impl ReplaceCatalogAttributeRequest {
     /// let x = ReplaceCatalogAttributeRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -3350,6 +3227,7 @@ impl wkt::message::Message for ReplaceCatalogAttributeRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Condition {
+
     /// A list (up to 10 entries) of terms to match the query on. If not
     /// specified, match all queries.
     /// If many query terms are specified, the condition
@@ -3391,7 +3269,7 @@ impl Condition {
     pub fn set_query_terms<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::condition::QueryTerm>,
+        V: std::convert::Into<crate::model::condition::QueryTerm>
     {
         use std::iter::Iterator;
         self.query_terms = v.into_iter().map(|i| i.into()).collect();
@@ -3413,7 +3291,7 @@ impl Condition {
     pub fn set_active_time_range<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::condition::TimeRange>,
+        V: std::convert::Into<crate::model::condition::TimeRange>
     {
         use std::iter::Iterator;
         self.active_time_range = v.into_iter().map(|i| i.into()).collect();
@@ -3430,7 +3308,7 @@ impl Condition {
     pub fn set_page_categories<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.page_categories = v.into_iter().map(|i| i.into()).collect();
@@ -3449,10 +3327,12 @@ pub mod condition {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Query terms that we want to match on.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct QueryTerm {
+
         /// The value of the term to match on.
         /// Value cannot be empty.
         /// Value can have at most 3 terms if specified as a partial match. Each
@@ -3508,6 +3388,7 @@ pub mod condition {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TimeRange {
+
         /// Start of time range. Range is inclusive.
         pub start_time: std::option::Option<wkt::Timestamp>,
 
@@ -3531,8 +3412,7 @@ pub mod condition {
         /// let x = TimeRange::new().set_start_time(Timestamp::default()/* use setters */);
         /// ```
         pub fn set_start_time<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.start_time = std::option::Option::Some(v.into());
             self
@@ -3548,8 +3428,7 @@ pub mod condition {
         /// let x = TimeRange::new().set_or_clear_start_time(None::<Timestamp>);
         /// ```
         pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.start_time = v.map(|x| x.into());
             self
@@ -3564,8 +3443,7 @@ pub mod condition {
         /// let x = TimeRange::new().set_end_time(Timestamp::default()/* use setters */);
         /// ```
         pub fn set_end_time<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.end_time = std::option::Option::Some(v.into());
             self
@@ -3581,8 +3459,7 @@ pub mod condition {
         /// let x = TimeRange::new().set_or_clear_end_time(None::<Timestamp>);
         /// ```
         pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.end_time = v.map(|x| x.into());
             self
@@ -3608,6 +3485,7 @@ pub mod condition {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Rule {
+
     /// Required. The condition that triggers the rule.
     /// If the condition is empty, the rule will always apply.
     pub condition: std::option::Option<crate::model::Condition>,
@@ -3632,8 +3510,7 @@ impl Rule {
     /// let x = Rule::new().set_condition(Condition::default()/* use setters */);
     /// ```
     pub fn set_condition<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Condition>,
+    where T: std::convert::Into<crate::model::Condition>
     {
         self.condition = std::option::Option::Some(v.into());
         self
@@ -3649,8 +3526,7 @@ impl Rule {
     /// let x = Rule::new().set_or_clear_condition(None::<Condition>);
     /// ```
     pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Condition>,
+    where T: std::convert::Into<crate::model::Condition>
     {
         self.condition = v.map(|x| x.into());
         self
@@ -3668,10 +3544,8 @@ impl Rule {
     /// let x = Rule::new().set_action(Some(
     ///     google_cloud_retail_v2::model::rule::Action::BoostAction(BoostAction::default().into())));
     /// ```
-    pub fn set_action<T: std::convert::Into<std::option::Option<crate::model::rule::Action>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_action<T: std::convert::Into<std::option::Option<crate::model::rule::Action>>>(mut self, v: T) -> Self
+    {
         self.action = v.into();
         self
     }
@@ -3679,9 +3553,7 @@ impl Rule {
     /// The value of [action][crate::model::Rule::action]
     /// if it holds a `BoostAction`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn boost_action(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::rule::BoostAction>> {
+    pub fn boost_action(&self) -> std::option::Option<&std::boxed::Box<crate::model::rule::BoostAction>> {
         #[allow(unreachable_patterns)]
         self.action.as_ref().and_then(|v| match v {
             crate::model::rule::Action::BoostAction(v) => std::option::Option::Some(v),
@@ -3712,22 +3584,19 @@ impl Rule {
     /// assert!(x.remove_facet_action().is_none());
     /// assert!(x.pin_action().is_none());
     /// ```
-    pub fn set_boost_action<
-        T: std::convert::Into<std::boxed::Box<crate::model::rule::BoostAction>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.action = std::option::Option::Some(crate::model::rule::Action::BoostAction(v.into()));
+    pub fn set_boost_action<T: std::convert::Into<std::boxed::Box<crate::model::rule::BoostAction>>>(mut self, v: T) -> Self {
+        self.action = std::option::Option::Some(
+            crate::model::rule::Action::BoostAction(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [action][crate::model::Rule::action]
     /// if it holds a `RedirectAction`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn redirect_action(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::rule::RedirectAction>> {
+    pub fn redirect_action(&self) -> std::option::Option<&std::boxed::Box<crate::model::rule::RedirectAction>> {
         #[allow(unreachable_patterns)]
         self.action.as_ref().and_then(|v| match v {
             crate::model::rule::Action::RedirectAction(v) => std::option::Option::Some(v),
@@ -3758,23 +3627,19 @@ impl Rule {
     /// assert!(x.remove_facet_action().is_none());
     /// assert!(x.pin_action().is_none());
     /// ```
-    pub fn set_redirect_action<
-        T: std::convert::Into<std::boxed::Box<crate::model::rule::RedirectAction>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.action =
-            std::option::Option::Some(crate::model::rule::Action::RedirectAction(v.into()));
+    pub fn set_redirect_action<T: std::convert::Into<std::boxed::Box<crate::model::rule::RedirectAction>>>(mut self, v: T) -> Self {
+        self.action = std::option::Option::Some(
+            crate::model::rule::Action::RedirectAction(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [action][crate::model::Rule::action]
     /// if it holds a `OnewaySynonymsAction`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn oneway_synonyms_action(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::rule::OnewaySynonymsAction>> {
+    pub fn oneway_synonyms_action(&self) -> std::option::Option<&std::boxed::Box<crate::model::rule::OnewaySynonymsAction>> {
         #[allow(unreachable_patterns)]
         self.action.as_ref().and_then(|v| match v {
             crate::model::rule::Action::OnewaySynonymsAction(v) => std::option::Option::Some(v),
@@ -3805,23 +3670,19 @@ impl Rule {
     /// assert!(x.remove_facet_action().is_none());
     /// assert!(x.pin_action().is_none());
     /// ```
-    pub fn set_oneway_synonyms_action<
-        T: std::convert::Into<std::boxed::Box<crate::model::rule::OnewaySynonymsAction>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.action =
-            std::option::Option::Some(crate::model::rule::Action::OnewaySynonymsAction(v.into()));
+    pub fn set_oneway_synonyms_action<T: std::convert::Into<std::boxed::Box<crate::model::rule::OnewaySynonymsAction>>>(mut self, v: T) -> Self {
+        self.action = std::option::Option::Some(
+            crate::model::rule::Action::OnewaySynonymsAction(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [action][crate::model::Rule::action]
     /// if it holds a `DoNotAssociateAction`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn do_not_associate_action(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::rule::DoNotAssociateAction>> {
+    pub fn do_not_associate_action(&self) -> std::option::Option<&std::boxed::Box<crate::model::rule::DoNotAssociateAction>> {
         #[allow(unreachable_patterns)]
         self.action.as_ref().and_then(|v| match v {
             crate::model::rule::Action::DoNotAssociateAction(v) => std::option::Option::Some(v),
@@ -3852,23 +3713,19 @@ impl Rule {
     /// assert!(x.remove_facet_action().is_none());
     /// assert!(x.pin_action().is_none());
     /// ```
-    pub fn set_do_not_associate_action<
-        T: std::convert::Into<std::boxed::Box<crate::model::rule::DoNotAssociateAction>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.action =
-            std::option::Option::Some(crate::model::rule::Action::DoNotAssociateAction(v.into()));
+    pub fn set_do_not_associate_action<T: std::convert::Into<std::boxed::Box<crate::model::rule::DoNotAssociateAction>>>(mut self, v: T) -> Self {
+        self.action = std::option::Option::Some(
+            crate::model::rule::Action::DoNotAssociateAction(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [action][crate::model::Rule::action]
     /// if it holds a `ReplacementAction`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn replacement_action(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::rule::ReplacementAction>> {
+    pub fn replacement_action(&self) -> std::option::Option<&std::boxed::Box<crate::model::rule::ReplacementAction>> {
         #[allow(unreachable_patterns)]
         self.action.as_ref().and_then(|v| match v {
             crate::model::rule::Action::ReplacementAction(v) => std::option::Option::Some(v),
@@ -3899,23 +3756,19 @@ impl Rule {
     /// assert!(x.remove_facet_action().is_none());
     /// assert!(x.pin_action().is_none());
     /// ```
-    pub fn set_replacement_action<
-        T: std::convert::Into<std::boxed::Box<crate::model::rule::ReplacementAction>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.action =
-            std::option::Option::Some(crate::model::rule::Action::ReplacementAction(v.into()));
+    pub fn set_replacement_action<T: std::convert::Into<std::boxed::Box<crate::model::rule::ReplacementAction>>>(mut self, v: T) -> Self {
+        self.action = std::option::Option::Some(
+            crate::model::rule::Action::ReplacementAction(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [action][crate::model::Rule::action]
     /// if it holds a `IgnoreAction`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn ignore_action(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::rule::IgnoreAction>> {
+    pub fn ignore_action(&self) -> std::option::Option<&std::boxed::Box<crate::model::rule::IgnoreAction>> {
         #[allow(unreachable_patterns)]
         self.action.as_ref().and_then(|v| match v {
             crate::model::rule::Action::IgnoreAction(v) => std::option::Option::Some(v),
@@ -3946,22 +3799,19 @@ impl Rule {
     /// assert!(x.remove_facet_action().is_none());
     /// assert!(x.pin_action().is_none());
     /// ```
-    pub fn set_ignore_action<
-        T: std::convert::Into<std::boxed::Box<crate::model::rule::IgnoreAction>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.action = std::option::Option::Some(crate::model::rule::Action::IgnoreAction(v.into()));
+    pub fn set_ignore_action<T: std::convert::Into<std::boxed::Box<crate::model::rule::IgnoreAction>>>(mut self, v: T) -> Self {
+        self.action = std::option::Option::Some(
+            crate::model::rule::Action::IgnoreAction(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [action][crate::model::Rule::action]
     /// if it holds a `FilterAction`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn filter_action(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::rule::FilterAction>> {
+    pub fn filter_action(&self) -> std::option::Option<&std::boxed::Box<crate::model::rule::FilterAction>> {
         #[allow(unreachable_patterns)]
         self.action.as_ref().and_then(|v| match v {
             crate::model::rule::Action::FilterAction(v) => std::option::Option::Some(v),
@@ -3992,22 +3842,19 @@ impl Rule {
     /// assert!(x.remove_facet_action().is_none());
     /// assert!(x.pin_action().is_none());
     /// ```
-    pub fn set_filter_action<
-        T: std::convert::Into<std::boxed::Box<crate::model::rule::FilterAction>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.action = std::option::Option::Some(crate::model::rule::Action::FilterAction(v.into()));
+    pub fn set_filter_action<T: std::convert::Into<std::boxed::Box<crate::model::rule::FilterAction>>>(mut self, v: T) -> Self {
+        self.action = std::option::Option::Some(
+            crate::model::rule::Action::FilterAction(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [action][crate::model::Rule::action]
     /// if it holds a `TwowaySynonymsAction`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn twoway_synonyms_action(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::rule::TwowaySynonymsAction>> {
+    pub fn twoway_synonyms_action(&self) -> std::option::Option<&std::boxed::Box<crate::model::rule::TwowaySynonymsAction>> {
         #[allow(unreachable_patterns)]
         self.action.as_ref().and_then(|v| match v {
             crate::model::rule::Action::TwowaySynonymsAction(v) => std::option::Option::Some(v),
@@ -4038,23 +3885,19 @@ impl Rule {
     /// assert!(x.remove_facet_action().is_none());
     /// assert!(x.pin_action().is_none());
     /// ```
-    pub fn set_twoway_synonyms_action<
-        T: std::convert::Into<std::boxed::Box<crate::model::rule::TwowaySynonymsAction>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.action =
-            std::option::Option::Some(crate::model::rule::Action::TwowaySynonymsAction(v.into()));
+    pub fn set_twoway_synonyms_action<T: std::convert::Into<std::boxed::Box<crate::model::rule::TwowaySynonymsAction>>>(mut self, v: T) -> Self {
+        self.action = std::option::Option::Some(
+            crate::model::rule::Action::TwowaySynonymsAction(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [action][crate::model::Rule::action]
     /// if it holds a `ForceReturnFacetAction`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn force_return_facet_action(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::rule::ForceReturnFacetAction>> {
+    pub fn force_return_facet_action(&self) -> std::option::Option<&std::boxed::Box<crate::model::rule::ForceReturnFacetAction>> {
         #[allow(unreachable_patterns)]
         self.action.as_ref().and_then(|v| match v {
             crate::model::rule::Action::ForceReturnFacetAction(v) => std::option::Option::Some(v),
@@ -4085,23 +3928,19 @@ impl Rule {
     /// assert!(x.remove_facet_action().is_none());
     /// assert!(x.pin_action().is_none());
     /// ```
-    pub fn set_force_return_facet_action<
-        T: std::convert::Into<std::boxed::Box<crate::model::rule::ForceReturnFacetAction>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.action =
-            std::option::Option::Some(crate::model::rule::Action::ForceReturnFacetAction(v.into()));
+    pub fn set_force_return_facet_action<T: std::convert::Into<std::boxed::Box<crate::model::rule::ForceReturnFacetAction>>>(mut self, v: T) -> Self {
+        self.action = std::option::Option::Some(
+            crate::model::rule::Action::ForceReturnFacetAction(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [action][crate::model::Rule::action]
     /// if it holds a `RemoveFacetAction`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn remove_facet_action(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::rule::RemoveFacetAction>> {
+    pub fn remove_facet_action(&self) -> std::option::Option<&std::boxed::Box<crate::model::rule::RemoveFacetAction>> {
         #[allow(unreachable_patterns)]
         self.action.as_ref().and_then(|v| match v {
             crate::model::rule::Action::RemoveFacetAction(v) => std::option::Option::Some(v),
@@ -4132,23 +3971,19 @@ impl Rule {
     /// assert!(x.force_return_facet_action().is_none());
     /// assert!(x.pin_action().is_none());
     /// ```
-    pub fn set_remove_facet_action<
-        T: std::convert::Into<std::boxed::Box<crate::model::rule::RemoveFacetAction>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.action =
-            std::option::Option::Some(crate::model::rule::Action::RemoveFacetAction(v.into()));
+    pub fn set_remove_facet_action<T: std::convert::Into<std::boxed::Box<crate::model::rule::RemoveFacetAction>>>(mut self, v: T) -> Self {
+        self.action = std::option::Option::Some(
+            crate::model::rule::Action::RemoveFacetAction(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [action][crate::model::Rule::action]
     /// if it holds a `PinAction`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn pin_action(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::rule::PinAction>> {
+    pub fn pin_action(&self) -> std::option::Option<&std::boxed::Box<crate::model::rule::PinAction>> {
         #[allow(unreachable_patterns)]
         self.action.as_ref().and_then(|v| match v {
             crate::model::rule::Action::PinAction(v) => std::option::Option::Some(v),
@@ -4179,11 +4014,12 @@ impl Rule {
     /// assert!(x.force_return_facet_action().is_none());
     /// assert!(x.remove_facet_action().is_none());
     /// ```
-    pub fn set_pin_action<T: std::convert::Into<std::boxed::Box<crate::model::rule::PinAction>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.action = std::option::Option::Some(crate::model::rule::Action::PinAction(v.into()));
+    pub fn set_pin_action<T: std::convert::Into<std::boxed::Box<crate::model::rule::PinAction>>>(mut self, v: T) -> Self {
+        self.action = std::option::Option::Some(
+            crate::model::rule::Action::PinAction(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -4199,10 +4035,12 @@ pub mod rule {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// A boost action to apply to results matching condition specified above.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct BoostAction {
+
         /// Strength of the condition boost, which must be in [-1, 1]. Negative
         /// boost means demotion. Default is 0.0.
         ///
@@ -4267,10 +4105,7 @@ pub mod rule {
         /// # use google_cloud_retail_v2::model::rule::BoostAction;
         /// let x = BoostAction::new().set_products_filter("example");
         /// ```
-        pub fn set_products_filter<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_products_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.products_filter = v.into();
             self
         }
@@ -4304,6 +4139,7 @@ pub mod rule {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct FilterAction {
+
         /// A filter to apply on the matching condition results. Supported features:
         ///
         /// * [filter][google.cloud.retail.v2.Rule.FilterAction.filter] must be set.
@@ -4361,6 +4197,7 @@ pub mod rule {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct RedirectAction {
+
         /// URL must have length equal or less than 2000 characters.
         pub redirect_uri: std::string::String,
 
@@ -4379,10 +4216,7 @@ pub mod rule {
         /// # use google_cloud_retail_v2::model::rule::RedirectAction;
         /// let x = RedirectAction::new().set_redirect_uri("example");
         /// ```
-        pub fn set_redirect_uri<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_redirect_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.redirect_uri = v.into();
             self
         }
@@ -4402,6 +4236,7 @@ pub mod rule {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TwowaySynonymsAction {
+
         /// Defines a set of synonyms.
         /// Can specify up to 100 synonyms.
         /// Must specify at least 2 synonyms.
@@ -4425,7 +4260,7 @@ pub mod rule {
         pub fn set_synonyms<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.synonyms = v.into_iter().map(|i| i.into()).collect();
@@ -4447,6 +4282,7 @@ pub mod rule {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct OnewaySynonymsAction {
+
         /// Terms from the search query.
         /// Will treat synonyms as their synonyms.
         /// Not themselves synonyms of the synonyms.
@@ -4479,7 +4315,7 @@ pub mod rule {
         pub fn set_query_terms<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.query_terms = v.into_iter().map(|i| i.into()).collect();
@@ -4496,7 +4332,7 @@ pub mod rule {
         pub fn set_synonyms<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.synonyms = v.into_iter().map(|i| i.into()).collect();
@@ -4513,7 +4349,7 @@ pub mod rule {
         pub fn set_oneway_terms<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.oneway_terms = v.into_iter().map(|i| i.into()).collect();
@@ -4533,6 +4369,7 @@ pub mod rule {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DoNotAssociateAction {
+
         /// Terms from the search query.
         /// Will not consider do_not_associate_terms for search if in search query.
         /// Can specify up to 100 terms.
@@ -4563,7 +4400,7 @@ pub mod rule {
         pub fn set_query_terms<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.query_terms = v.into_iter().map(|i| i.into()).collect();
@@ -4580,7 +4417,7 @@ pub mod rule {
         pub fn set_do_not_associate_terms<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.do_not_associate_terms = v.into_iter().map(|i| i.into()).collect();
@@ -4597,7 +4434,7 @@ pub mod rule {
         pub fn set_terms<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.terms = v.into_iter().map(|i| i.into()).collect();
@@ -4617,6 +4454,7 @@ pub mod rule {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ReplacementAction {
+
         /// Terms from the search query.
         /// Will be replaced by replacement term.
         /// Can specify up to 100 terms.
@@ -4646,7 +4484,7 @@ pub mod rule {
         pub fn set_query_terms<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.query_terms = v.into_iter().map(|i| i.into()).collect();
@@ -4660,10 +4498,7 @@ pub mod rule {
         /// # use google_cloud_retail_v2::model::rule::ReplacementAction;
         /// let x = ReplacementAction::new().set_replacement_term("example");
         /// ```
-        pub fn set_replacement_term<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_replacement_term<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.replacement_term = v.into();
             self
         }
@@ -4692,6 +4527,7 @@ pub mod rule {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct IgnoreAction {
+
         /// Terms to ignore in the search query.
         pub ignore_terms: std::vec::Vec<std::string::String>,
 
@@ -4713,7 +4549,7 @@ pub mod rule {
         pub fn set_ignore_terms<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.ignore_terms = v.into_iter().map(|i| i.into()).collect();
@@ -4763,10 +4599,10 @@ pub mod rule {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ForceReturnFacetAction {
+
         /// Each instance corresponds to a force return attribute for the given
         /// condition. There can't be more 15 instances here.
-        pub facet_position_adjustments:
-            std::vec::Vec<crate::model::rule::force_return_facet_action::FacetPositionAdjustment>,
+        pub facet_position_adjustments: std::vec::Vec<crate::model::rule::force_return_facet_action::FacetPositionAdjustment>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -4791,9 +4627,7 @@ pub mod rule {
         pub fn set_facet_position_adjustments<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<
-                    crate::model::rule::force_return_facet_action::FacetPositionAdjustment,
-                >,
+            V: std::convert::Into<crate::model::rule::force_return_facet_action::FacetPositionAdjustment>
         {
             use std::iter::Iterator;
             self.facet_position_adjustments = v.into_iter().map(|i| i.into()).collect();
@@ -4812,11 +4646,13 @@ pub mod rule {
         #[allow(unused_imports)]
         use super::*;
 
+
         /// Each facet position adjustment consists of a single attribute name (i.e.
         /// facet key) along with a specified position.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct FacetPositionAdjustment {
+
             /// The attribute name to force return as a facet. Each attribute name
             /// should be a valid attribute name, be non-empty and contain at most 80
             /// characters long.
@@ -4841,10 +4677,7 @@ pub mod rule {
             /// # use google_cloud_retail_v2::model::rule::force_return_facet_action::FacetPositionAdjustment;
             /// let x = FacetPositionAdjustment::new().set_attribute_name("example");
             /// ```
-            pub fn set_attribute_name<T: std::convert::Into<std::string::String>>(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_attribute_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.attribute_name = v.into();
                 self
             }
@@ -4894,6 +4727,7 @@ pub mod rule {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct RemoveFacetAction {
+
         /// The attribute names (i.e. facet keys) to remove from the dynamic facets
         /// (if present in the request). There can't be more 3 attribute names.
         /// Each attribute name should be a valid attribute name, be non-empty and
@@ -4918,7 +4752,7 @@ pub mod rule {
         pub fn set_attribute_names<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.attribute_names = v.into_iter().map(|i| i.into()).collect();
@@ -4965,6 +4799,7 @@ pub mod rule {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PinAction {
+
         /// Required. A map of positions to product_ids.
         ///
         /// Partial matches per action are allowed, if a certain position in the map
@@ -4977,7 +4812,7 @@ pub mod rule {
         ///
         /// The max size of this map is 120, equivalent to the max [request page
         /// size](https://cloud.google.com/retail/docs/reference/rest/v2/projects.locations.catalogs.placements/search#request-body).
-        pub pin_map: std::collections::HashMap<i64, std::string::String>,
+        pub pin_map: std::collections::HashMap<i64,std::string::String>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -5053,6 +4888,7 @@ pub mod rule {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Audience {
+
     /// The genders of the audience. Strongly encouraged to use the standard
     /// values: "male", "female", "unisex".
     ///
@@ -5100,7 +4936,7 @@ impl Audience {
     pub fn set_genders<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.genders = v.into_iter().map(|i| i.into()).collect();
@@ -5117,7 +4953,7 @@ impl Audience {
     pub fn set_age_groups<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.age_groups = v.into_iter().map(|i| i.into()).collect();
@@ -5137,6 +4973,7 @@ impl wkt::message::Message for Audience {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ColorInfo {
+
     /// The standard color families. Strongly recommended to use the following
     /// standard color groups: "Red", "Pink", "Orange", "Yellow", "Purple",
     /// "Green", "Cyan", "Blue", "Brown", "White", "Gray", "Black" and "Mixed".
@@ -5188,7 +5025,7 @@ impl ColorInfo {
     pub fn set_color_families<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.color_families = v.into_iter().map(|i| i.into()).collect();
@@ -5205,7 +5042,7 @@ impl ColorInfo {
     pub fn set_colors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.colors = v.into_iter().map(|i| i.into()).collect();
@@ -5226,6 +5063,7 @@ impl wkt::message::Message for ColorInfo {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CustomAttribute {
+
     /// The textual values of this custom attribute. For example, `["yellow",
     /// "green"]` when the key is "color".
     ///
@@ -5319,7 +5157,7 @@ impl CustomAttribute {
     pub fn set_text<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.text = v.into_iter().map(|i| i.into()).collect();
@@ -5336,7 +5174,7 @@ impl CustomAttribute {
     pub fn set_numbers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<f64>,
+        V: std::convert::Into<f64>
     {
         use std::iter::Iterator;
         self.numbers = v.into_iter().map(|i| i.into()).collect();
@@ -5352,8 +5190,7 @@ impl CustomAttribute {
     /// ```
     #[deprecated]
     pub fn set_searchable<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.searchable = std::option::Option::Some(v.into());
         self
@@ -5369,8 +5206,7 @@ impl CustomAttribute {
     /// ```
     #[deprecated]
     pub fn set_or_clear_searchable<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.searchable = v.map(|x| x.into());
         self
@@ -5385,8 +5221,7 @@ impl CustomAttribute {
     /// ```
     #[deprecated]
     pub fn set_indexable<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.indexable = std::option::Option::Some(v.into());
         self
@@ -5402,8 +5237,7 @@ impl CustomAttribute {
     /// ```
     #[deprecated]
     pub fn set_or_clear_indexable<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.indexable = v.map(|x| x.into());
         self
@@ -5421,6 +5255,7 @@ impl wkt::message::Message for CustomAttribute {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FulfillmentInfo {
+
     /// The fulfillment type, including commonly used types (such as pickup in
     /// store and same day delivery), and custom types. Customers have to map
     /// custom types to their display names before rendering UI.
@@ -5485,7 +5320,7 @@ impl FulfillmentInfo {
     pub fn set_place_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.place_ids = v.into_iter().map(|i| i.into()).collect();
@@ -5509,6 +5344,7 @@ impl wkt::message::Message for FulfillmentInfo {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Image {
+
     /// Required. URI of the image.
     ///
     /// This field must be a valid UTF-8 encoded URI with a length limit of 5,000
@@ -5586,6 +5422,7 @@ impl wkt::message::Message for Image {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Interval {
+
     /// The lower bound of the interval. If neither of the min fields are set, then
     /// the lower bound is negative infinity.
     ///
@@ -5619,10 +5456,8 @@ impl Interval {
     /// use google_cloud_retail_v2::model::interval::Min;
     /// let x = Interval::new().set_min(Some(Min::Minimum(42.0)));
     /// ```
-    pub fn set_min<T: std::convert::Into<std::option::Option<crate::model::interval::Min>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_min<T: std::convert::Into<std::option::Option<crate::model::interval::Min>>>(mut self, v: T) -> Self
+    {
         self.min = v.into();
         self
     }
@@ -5652,7 +5487,11 @@ impl Interval {
     /// assert!(x.exclusive_minimum().is_none());
     /// ```
     pub fn set_minimum<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
-        self.min = std::option::Option::Some(crate::model::interval::Min::Minimum(v.into()));
+        self.min = std::option::Option::Some(
+            crate::model::interval::Min::Minimum(
+                v.into()
+            )
+        );
         self
     }
 
@@ -5681,8 +5520,11 @@ impl Interval {
     /// assert!(x.minimum().is_none());
     /// ```
     pub fn set_exclusive_minimum<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
-        self.min =
-            std::option::Option::Some(crate::model::interval::Min::ExclusiveMinimum(v.into()));
+        self.min = std::option::Option::Some(
+            crate::model::interval::Min::ExclusiveMinimum(
+                v.into()
+            )
+        );
         self
     }
 
@@ -5697,10 +5539,8 @@ impl Interval {
     /// use google_cloud_retail_v2::model::interval::Max;
     /// let x = Interval::new().set_max(Some(Max::Maximum(42.0)));
     /// ```
-    pub fn set_max<T: std::convert::Into<std::option::Option<crate::model::interval::Max>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_max<T: std::convert::Into<std::option::Option<crate::model::interval::Max>>>(mut self, v: T) -> Self
+    {
         self.max = v.into();
         self
     }
@@ -5730,7 +5570,11 @@ impl Interval {
     /// assert!(x.exclusive_maximum().is_none());
     /// ```
     pub fn set_maximum<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
-        self.max = std::option::Option::Some(crate::model::interval::Max::Maximum(v.into()));
+        self.max = std::option::Option::Some(
+            crate::model::interval::Max::Maximum(
+                v.into()
+            )
+        );
         self
     }
 
@@ -5759,8 +5603,11 @@ impl Interval {
     /// assert!(x.maximum().is_none());
     /// ```
     pub fn set_exclusive_maximum<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
-        self.max =
-            std::option::Option::Some(crate::model::interval::Max::ExclusiveMaximum(v.into()));
+        self.max = std::option::Option::Some(
+            crate::model::interval::Max::ExclusiveMaximum(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -5775,6 +5622,7 @@ impl wkt::message::Message for Interval {
 pub mod interval {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The lower bound of the interval. If neither of the min fields are set, then
     /// the lower bound is negative infinity.
@@ -5811,6 +5659,7 @@ pub mod interval {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PriceInfo {
+
     /// The 3-letter currency code defined in [ISO
     /// 4217](https://www.iso.org/iso-4217-currency-codes.html).
     ///
@@ -5980,8 +5829,7 @@ impl PriceInfo {
     /// let x = PriceInfo::new().set_price_effective_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_price_effective_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.price_effective_time = std::option::Option::Some(v.into());
         self
@@ -5997,8 +5845,7 @@ impl PriceInfo {
     /// let x = PriceInfo::new().set_or_clear_price_effective_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_price_effective_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.price_effective_time = v.map(|x| x.into());
         self
@@ -6013,8 +5860,7 @@ impl PriceInfo {
     /// let x = PriceInfo::new().set_price_expire_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_price_expire_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.price_expire_time = std::option::Option::Some(v.into());
         self
@@ -6030,8 +5876,7 @@ impl PriceInfo {
     /// let x = PriceInfo::new().set_or_clear_price_expire_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_price_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.price_expire_time = v.map(|x| x.into());
         self
@@ -6046,8 +5891,7 @@ impl PriceInfo {
     /// let x = PriceInfo::new().set_price_range(PriceRange::default()/* use setters */);
     /// ```
     pub fn set_price_range<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::price_info::PriceRange>,
+    where T: std::convert::Into<crate::model::price_info::PriceRange>
     {
         self.price_range = std::option::Option::Some(v.into());
         self
@@ -6063,8 +5907,7 @@ impl PriceInfo {
     /// let x = PriceInfo::new().set_or_clear_price_range(None::<PriceRange>);
     /// ```
     pub fn set_or_clear_price_range<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::price_info::PriceRange>,
+    where T: std::convert::Into<crate::model::price_info::PriceRange>
     {
         self.price_range = v.map(|x| x.into());
         self
@@ -6082,6 +5925,7 @@ pub mod price_info {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// The price range of all
     /// [variant][google.cloud.retail.v2.Product.Type.VARIANT]
     /// [Product][google.cloud.retail.v2.Product] having the same
@@ -6093,6 +5937,7 @@ pub mod price_info {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PriceRange {
+
         /// The inclusive
         /// [Product.pricing_info.price][google.cloud.retail.v2.PriceInfo.price]
         /// interval of all [variant][google.cloud.retail.v2.Product.Type.VARIANT]
@@ -6134,8 +5979,7 @@ pub mod price_info {
         /// let x = PriceRange::new().set_price(Interval::default()/* use setters */);
         /// ```
         pub fn set_price<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Interval>,
+        where T: std::convert::Into<crate::model::Interval>
         {
             self.price = std::option::Option::Some(v.into());
             self
@@ -6151,8 +5995,7 @@ pub mod price_info {
         /// let x = PriceRange::new().set_or_clear_price(None::<Interval>);
         /// ```
         pub fn set_or_clear_price<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Interval>,
+        where T: std::convert::Into<crate::model::Interval>
         {
             self.price = v.map(|x| x.into());
             self
@@ -6167,8 +6010,7 @@ pub mod price_info {
         /// let x = PriceRange::new().set_original_price(Interval::default()/* use setters */);
         /// ```
         pub fn set_original_price<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Interval>,
+        where T: std::convert::Into<crate::model::Interval>
         {
             self.original_price = std::option::Option::Some(v.into());
             self
@@ -6184,8 +6026,7 @@ pub mod price_info {
         /// let x = PriceRange::new().set_or_clear_original_price(None::<Interval>);
         /// ```
         pub fn set_or_clear_original_price<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Interval>,
+        where T: std::convert::Into<crate::model::Interval>
         {
             self.original_price = v.map(|x| x.into());
             self
@@ -6205,6 +6046,7 @@ pub mod price_info {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Rating {
+
     /// The total number of ratings. This value is independent of the value of
     /// [rating_histogram][google.cloud.retail.v2.Rating.rating_histogram].
     ///
@@ -6275,7 +6117,7 @@ impl Rating {
     pub fn set_rating_histogram<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<i32>,
+        V: std::convert::Into<i32>
     {
         use std::iter::Iterator;
         self.rating_histogram = v.into_iter().map(|i| i.into()).collect();
@@ -6293,6 +6135,7 @@ impl wkt::message::Message for Rating {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UserInfo {
+
     /// Highly recommended for logged-in users. Unique identifier for logged-in
     /// user, such as a user name. Don't set for anonymous users.
     ///
@@ -6426,6 +6269,7 @@ impl wkt::message::Message for UserInfo {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LocalInventory {
+
     /// Optional. The place ID for the current set of inventory information.
     pub place_id: std::string::String,
 
@@ -6453,7 +6297,7 @@ pub struct LocalInventory {
     ///   unset or set to false.
     /// * The max summed total bytes of custom attribute keys and values per
     ///   product is 5MiB.
-    pub attributes: std::collections::HashMap<std::string::String, crate::model::CustomAttribute>,
+    pub attributes: std::collections::HashMap<std::string::String,crate::model::CustomAttribute>,
 
     /// Optional. Supported fulfillment types. Valid fulfillment type values
     /// include commonly used types (such as pickup in store and same day
@@ -6508,8 +6352,7 @@ impl LocalInventory {
     /// let x = LocalInventory::new().set_price_info(PriceInfo::default()/* use setters */);
     /// ```
     pub fn set_price_info<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::PriceInfo>,
+    where T: std::convert::Into<crate::model::PriceInfo>
     {
         self.price_info = std::option::Option::Some(v.into());
         self
@@ -6525,8 +6368,7 @@ impl LocalInventory {
     /// let x = LocalInventory::new().set_or_clear_price_info(None::<PriceInfo>);
     /// ```
     pub fn set_or_clear_price_info<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::PriceInfo>,
+    where T: std::convert::Into<crate::model::PriceInfo>
     {
         self.price_info = v.map(|x| x.into());
         self
@@ -6564,7 +6406,7 @@ impl LocalInventory {
     pub fn set_fulfillment_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.fulfillment_types = v.into_iter().map(|i| i.into()).collect();
@@ -6583,14 +6425,13 @@ impl wkt::message::Message for LocalInventory {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PinControlMetadata {
+
     /// Map of all matched pins, keyed by pin position.
-    pub all_matched_pins:
-        std::collections::HashMap<i64, crate::model::pin_control_metadata::ProductPins>,
+    pub all_matched_pins: std::collections::HashMap<i64,crate::model::pin_control_metadata::ProductPins>,
 
     /// Map of pins that were dropped due to overlap with other matching pins,
     /// keyed by pin position.
-    pub dropped_pins:
-        std::collections::HashMap<i64, crate::model::pin_control_metadata::ProductPins>,
+    pub dropped_pins: std::collections::HashMap<i64,crate::model::pin_control_metadata::ProductPins>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -6656,10 +6497,12 @@ pub mod pin_control_metadata {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// List of product ids which have associated pins.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ProductPins {
+
         /// List of product ids which have associated pins.
         pub product_id: std::vec::Vec<std::string::String>,
 
@@ -6681,7 +6524,7 @@ pub mod pin_control_metadata {
         pub fn set_product_id<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.product_id = v.into_iter().map(|i| i.into()).collect();
@@ -6700,6 +6543,7 @@ pub mod pin_control_metadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StringList {
+
     /// String values.
     pub values: std::vec::Vec<std::string::String>,
 
@@ -6721,7 +6565,7 @@ impl StringList {
     pub fn set_values<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.values = v.into_iter().map(|i| i.into()).collect();
@@ -6739,6 +6583,7 @@ impl wkt::message::Message for StringList {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DoubleList {
+
     /// The list of double values.
     pub values: std::vec::Vec<f64>,
 
@@ -6760,7 +6605,7 @@ impl DoubleList {
     pub fn set_values<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<f64>,
+        V: std::convert::Into<f64>
     {
         use std::iter::Iterator;
         self.values = v.into_iter().map(|i| i.into()).collect();
@@ -6778,6 +6623,7 @@ impl wkt::message::Message for DoubleList {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CompleteQueryRequest {
+
     /// Required. Catalog for which the completion is performed.
     ///
     /// Full resource name of catalog, such as
@@ -6931,7 +6777,7 @@ impl CompleteQueryRequest {
     pub fn set_language_codes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.language_codes = v.into_iter().map(|i| i.into()).collect();
@@ -7009,6 +6855,7 @@ impl wkt::message::Message for CompleteQueryRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CompleteQueryResponse {
+
     /// Results of the matching suggestions. The result list is ordered and the
     /// first result is top suggestion.
     pub completion_results: std::vec::Vec<crate::model::complete_query_response::CompletionResult>,
@@ -7048,8 +6895,7 @@ pub struct CompleteQueryResponse {
     /// [google.cloud.retail.v2.CompleteQueryRequest.visitor_id]: crate::model::CompleteQueryRequest::visitor_id
     /// [google.cloud.retail.v2.UserEvent]: crate::model::UserEvent
     #[deprecated]
-    pub recent_search_results:
-        std::vec::Vec<crate::model::complete_query_response::RecentSearchResult>,
+    pub recent_search_results: std::vec::Vec<crate::model::complete_query_response::RecentSearchResult>,
 
     /// A map of matched attribute suggestions. This field is only available for
     /// `cloud-retail` dataset.
@@ -7060,10 +6906,7 @@ pub struct CompleteQueryResponse {
     ///
     /// * `categories`
     ///
-    pub attribute_results: std::collections::HashMap<
-        std::string::String,
-        crate::model::complete_query_response::AttributeResult,
-    >,
+    pub attribute_results: std::collections::HashMap<std::string::String,crate::model::complete_query_response::AttributeResult>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -7088,7 +6931,7 @@ impl CompleteQueryResponse {
     pub fn set_completion_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::complete_query_response::CompletionResult>,
+        V: std::convert::Into<crate::model::complete_query_response::CompletionResult>
     {
         use std::iter::Iterator;
         self.completion_results = v.into_iter().map(|i| i.into()).collect();
@@ -7102,10 +6945,7 @@ impl CompleteQueryResponse {
     /// # use google_cloud_retail_v2::model::CompleteQueryResponse;
     /// let x = CompleteQueryResponse::new().set_attribution_token("example");
     /// ```
-    pub fn set_attribution_token<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_attribution_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.attribution_token = v.into();
         self
     }
@@ -7126,7 +6966,7 @@ impl CompleteQueryResponse {
     pub fn set_recent_search_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::complete_query_response::RecentSearchResult>,
+        V: std::convert::Into<crate::model::complete_query_response::RecentSearchResult>
     {
         use std::iter::Iterator;
         self.recent_search_results = v.into_iter().map(|i| i.into()).collect();
@@ -7167,10 +7007,12 @@ pub mod complete_query_response {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Resource that represents completion results.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CompletionResult {
+
         /// The suggestion for the query.
         pub suggestion: std::string::String,
 
@@ -7186,8 +7028,7 @@ pub mod complete_query_response {
         ///
         ///
         /// [google.cloud.retail.v2.UserEvent.product_details]: crate::model::UserEvent::product_details
-        pub attributes:
-            std::collections::HashMap<std::string::String, crate::model::CustomAttribute>,
+        pub attributes: std::collections::HashMap<std::string::String,crate::model::CustomAttribute>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -7243,6 +7084,7 @@ pub mod complete_query_response {
     #[non_exhaustive]
     #[deprecated]
     pub struct RecentSearchResult {
+
         /// The recent search query.
         pub recent_search: std::string::String,
 
@@ -7261,10 +7103,7 @@ pub mod complete_query_response {
         /// # use google_cloud_retail_v2::model::complete_query_response::RecentSearchResult;
         /// let x = RecentSearchResult::new().set_recent_search("example");
         /// ```
-        pub fn set_recent_search<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_recent_search<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.recent_search = v.into();
             self
         }
@@ -7280,6 +7119,7 @@ pub mod complete_query_response {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AttributeResult {
+
         /// The list of suggestions for the attribute.
         pub suggestions: std::vec::Vec<std::string::String>,
 
@@ -7301,7 +7141,7 @@ pub mod complete_query_response {
         pub fn set_suggestions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.suggestions = v.into_iter().map(|i| i.into()).collect();
@@ -7324,6 +7164,7 @@ pub mod complete_query_response {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Control {
+
     /// Immutable. Fully qualified name
     /// `projects/*/locations/global/catalogs/*/controls/*`
     pub name: std::string::String,
@@ -7416,7 +7257,7 @@ impl Control {
     pub fn set_associated_serving_config_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.associated_serving_config_ids = v.into_iter().map(|i| i.into()).collect();
@@ -7437,7 +7278,7 @@ impl Control {
     pub fn set_solution_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::SolutionType>,
+        V: std::convert::Into<crate::model::SolutionType>
     {
         use std::iter::Iterator;
         self.solution_types = v.into_iter().map(|i| i.into()).collect();
@@ -7458,7 +7299,7 @@ impl Control {
     pub fn set_search_solution_use_case<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::SearchSolutionUseCase>,
+        V: std::convert::Into<crate::model::SearchSolutionUseCase>
     {
         use std::iter::Iterator;
         self.search_solution_use_case = v.into_iter().map(|i| i.into()).collect();
@@ -7477,12 +7318,8 @@ impl Control {
     /// let x = Control::new().set_control(Some(
     ///     google_cloud_retail_v2::model::control::Control::Rule(Rule::default().into())));
     /// ```
-    pub fn set_control<
-        T: std::convert::Into<std::option::Option<crate::model::control::Control>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_control<T: std::convert::Into<std::option::Option<crate::model::control::Control>>>(mut self, v: T) -> Self
+    {
         self.control = v.into();
         self
     }
@@ -7511,11 +7348,12 @@ impl Control {
     /// let x = Control::new().set_rule(Rule::default()/* use setters */);
     /// assert!(x.rule().is_some());
     /// ```
-    pub fn set_rule<T: std::convert::Into<std::boxed::Box<crate::model::Rule>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.control = std::option::Option::Some(crate::model::control::Control::Rule(v.into()));
+    pub fn set_rule<T: std::convert::Into<std::boxed::Box<crate::model::Rule>>>(mut self, v: T) -> Self {
+        self.control = std::option::Option::Some(
+            crate::model::control::Control::Rule(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -7530,6 +7368,7 @@ impl wkt::message::Message for Control {
 pub mod control {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The behavior/type of the control
     ///
@@ -7550,6 +7389,7 @@ pub mod control {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateControlRequest {
+
     /// Required. Full resource name of parent catalog. Format:
     /// `projects/{project_number}/locations/{location_id}/catalogs/{catalog_id}`
     pub parent: std::string::String,
@@ -7593,8 +7433,7 @@ impl CreateControlRequest {
     /// let x = CreateControlRequest::new().set_control(Control::default()/* use setters */);
     /// ```
     pub fn set_control<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Control>,
+    where T: std::convert::Into<crate::model::Control>
     {
         self.control = std::option::Option::Some(v.into());
         self
@@ -7610,8 +7449,7 @@ impl CreateControlRequest {
     /// let x = CreateControlRequest::new().set_or_clear_control(None::<Control>);
     /// ```
     pub fn set_or_clear_control<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Control>,
+    where T: std::convert::Into<crate::model::Control>
     {
         self.control = v.map(|x| x.into());
         self
@@ -7640,6 +7478,7 @@ impl wkt::message::Message for CreateControlRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateControlRequest {
+
     /// Required. The Control to update.
     pub control: std::option::Option<crate::model::Control>,
 
@@ -7672,8 +7511,7 @@ impl UpdateControlRequest {
     /// let x = UpdateControlRequest::new().set_control(Control::default()/* use setters */);
     /// ```
     pub fn set_control<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Control>,
+    where T: std::convert::Into<crate::model::Control>
     {
         self.control = std::option::Option::Some(v.into());
         self
@@ -7689,8 +7527,7 @@ impl UpdateControlRequest {
     /// let x = UpdateControlRequest::new().set_or_clear_control(None::<Control>);
     /// ```
     pub fn set_or_clear_control<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Control>,
+    where T: std::convert::Into<crate::model::Control>
     {
         self.control = v.map(|x| x.into());
         self
@@ -7705,8 +7542,7 @@ impl UpdateControlRequest {
     /// let x = UpdateControlRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -7722,8 +7558,7 @@ impl UpdateControlRequest {
     /// let x = UpdateControlRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -7740,6 +7575,7 @@ impl wkt::message::Message for UpdateControlRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteControlRequest {
+
     /// Required. The resource name of the Control to delete. Format:
     /// `projects/{project_number}/locations/{location_id}/catalogs/{catalog_id}/controls/{control_id}`
     pub name: std::string::String,
@@ -7775,6 +7611,7 @@ impl wkt::message::Message for DeleteControlRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetControlRequest {
+
     /// Required. The resource name of the Control to get. Format:
     /// `projects/{project_number}/locations/{location_id}/catalogs/{catalog_id}/controls/{control_id}`
     pub name: std::string::String,
@@ -7810,6 +7647,7 @@ impl wkt::message::Message for GetControlRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListControlsRequest {
+
     /// Required. The catalog resource name. Format:
     /// `projects/{project_number}/locations/{location_id}/catalogs/{catalog_id}`
     pub parent: std::string::String,
@@ -7899,6 +7737,7 @@ impl wkt::message::Message for ListControlsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListControlsResponse {
+
     /// All the Controls for a given catalog.
     pub controls: std::vec::Vec<crate::model::Control>,
 
@@ -7928,7 +7767,7 @@ impl ListControlsResponse {
     pub fn set_controls<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Control>,
+        V: std::convert::Into<crate::model::Control>
     {
         use std::iter::Iterator;
         self.controls = v.into_iter().map(|i| i.into()).collect();
@@ -7974,6 +7813,7 @@ impl gax::paginator::internal::PageableResponse for ListControlsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConversationalSearchRequest {
+
     /// Required. The resource name of the search engine placement, such as
     /// `projects/*/locations/global/catalogs/default_catalog/placements/default_search`
     /// or
@@ -8021,8 +7861,7 @@ pub struct ConversationalSearchRequest {
     pub conversation_id: std::string::String,
 
     /// Optional. Search parameters.
-    pub search_params:
-        std::option::Option<crate::model::conversational_search_request::SearchParams>,
+    pub search_params: std::option::Option<crate::model::conversational_search_request::SearchParams>,
 
     /// Required. A unique identifier for tracking visitors. For example, this
     /// could be implemented with an HTTP cookie, which should be able to uniquely
@@ -8043,9 +7882,7 @@ pub struct ConversationalSearchRequest {
 
     /// Optional. This field specifies all conversational filtering related
     /// parameters.
-    pub conversational_filtering_spec: std::option::Option<
-        crate::model::conversational_search_request::ConversationalFilteringSpec,
-    >,
+    pub conversational_filtering_spec: std::option::Option<crate::model::conversational_search_request::ConversationalFilteringSpec>,
 
     /// Optional. The user labels applied to a resource must meet the following
     /// requirements:
@@ -8065,7 +7902,7 @@ pub struct ConversationalSearchRequest {
     /// See [Google Cloud
     /// Document](https://cloud.google.com/resource-manager/docs/creating-managing-labels#requirements)
     /// for more details.
-    pub user_labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub user_labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. The safety settings to be applied to the generated content.
     pub safety_settings: std::vec::Vec<crate::model::SafetySetting>,
@@ -8124,7 +7961,7 @@ impl ConversationalSearchRequest {
     pub fn set_page_categories<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.page_categories = v.into_iter().map(|i| i.into()).collect();
@@ -8152,8 +7989,7 @@ impl ConversationalSearchRequest {
     /// let x = ConversationalSearchRequest::new().set_search_params(SearchParams::default()/* use setters */);
     /// ```
     pub fn set_search_params<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::conversational_search_request::SearchParams>,
+    where T: std::convert::Into<crate::model::conversational_search_request::SearchParams>
     {
         self.search_params = std::option::Option::Some(v.into());
         self
@@ -8169,8 +8005,7 @@ impl ConversationalSearchRequest {
     /// let x = ConversationalSearchRequest::new().set_or_clear_search_params(None::<SearchParams>);
     /// ```
     pub fn set_or_clear_search_params<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::conversational_search_request::SearchParams>,
+    where T: std::convert::Into<crate::model::conversational_search_request::SearchParams>
     {
         self.search_params = v.map(|x| x.into());
         self
@@ -8197,8 +8032,7 @@ impl ConversationalSearchRequest {
     /// let x = ConversationalSearchRequest::new().set_user_info(UserInfo::default()/* use setters */);
     /// ```
     pub fn set_user_info<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::UserInfo>,
+    where T: std::convert::Into<crate::model::UserInfo>
     {
         self.user_info = std::option::Option::Some(v.into());
         self
@@ -8214,8 +8048,7 @@ impl ConversationalSearchRequest {
     /// let x = ConversationalSearchRequest::new().set_or_clear_user_info(None::<UserInfo>);
     /// ```
     pub fn set_or_clear_user_info<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::UserInfo>,
+    where T: std::convert::Into<crate::model::UserInfo>
     {
         self.user_info = v.map(|x| x.into());
         self
@@ -8230,10 +8063,7 @@ impl ConversationalSearchRequest {
     /// let x = ConversationalSearchRequest::new().set_conversational_filtering_spec(ConversationalFilteringSpec::default()/* use setters */);
     /// ```
     pub fn set_conversational_filtering_spec<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<
-                crate::model::conversational_search_request::ConversationalFilteringSpec,
-            >,
+    where T: std::convert::Into<crate::model::conversational_search_request::ConversationalFilteringSpec>
     {
         self.conversational_filtering_spec = std::option::Option::Some(v.into());
         self
@@ -8248,14 +8078,8 @@ impl ConversationalSearchRequest {
     /// let x = ConversationalSearchRequest::new().set_or_clear_conversational_filtering_spec(Some(ConversationalFilteringSpec::default()/* use setters */));
     /// let x = ConversationalSearchRequest::new().set_or_clear_conversational_filtering_spec(None::<ConversationalFilteringSpec>);
     /// ```
-    pub fn set_or_clear_conversational_filtering_spec<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<
-                crate::model::conversational_search_request::ConversationalFilteringSpec,
-            >,
+    pub fn set_or_clear_conversational_filtering_spec<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<crate::model::conversational_search_request::ConversationalFilteringSpec>
     {
         self.conversational_filtering_spec = v.map(|x| x.into());
         self
@@ -8297,7 +8121,7 @@ impl ConversationalSearchRequest {
     pub fn set_safety_settings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::SafetySetting>,
+        V: std::convert::Into<crate::model::SafetySetting>
     {
         use std::iter::Iterator;
         self.safety_settings = v.into_iter().map(|i| i.into()).collect();
@@ -8316,10 +8140,12 @@ pub mod conversational_search_request {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Search parameters.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SearchParams {
+
         /// Optional. The filter string to restrict search results.
         ///
         /// The syntax of the filter string is the same as
@@ -8377,10 +8203,7 @@ pub mod conversational_search_request {
         /// # use google_cloud_retail_v2::model::conversational_search_request::SearchParams;
         /// let x = SearchParams::new().set_canonical_filter("example");
         /// ```
-        pub fn set_canonical_filter<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_canonical_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.canonical_filter = v.into();
             self
         }
@@ -8406,8 +8229,7 @@ pub mod conversational_search_request {
         /// let x = SearchParams::new().set_boost_spec(BoostSpec::default()/* use setters */);
         /// ```
         pub fn set_boost_spec<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::search_request::BoostSpec>,
+        where T: std::convert::Into<crate::model::search_request::BoostSpec>
         {
             self.boost_spec = std::option::Option::Some(v.into());
             self
@@ -8423,8 +8245,7 @@ pub mod conversational_search_request {
         /// let x = SearchParams::new().set_or_clear_boost_spec(None::<BoostSpec>);
         /// ```
         pub fn set_or_clear_boost_spec<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::search_request::BoostSpec>,
+        where T: std::convert::Into<crate::model::search_request::BoostSpec>
         {
             self.boost_spec = v.map(|x| x.into());
             self
@@ -8443,9 +8264,9 @@ pub mod conversational_search_request {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct UserAnswer {
+
         /// This field specifies the type of user answer.
-        pub r#type:
-            std::option::Option<crate::model::conversational_search_request::user_answer::Type>,
+        pub r#type: std::option::Option<crate::model::conversational_search_request::user_answer::Type>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -8466,16 +8287,8 @@ pub mod conversational_search_request {
         /// use google_cloud_retail_v2::model::conversational_search_request::user_answer::Type;
         /// let x = UserAnswer::new().set_type(Some(Type::TextAnswer("example".to_string())));
         /// ```
-        pub fn set_type<
-            T: std::convert::Into<
-                    std::option::Option<
-                        crate::model::conversational_search_request::user_answer::Type,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_type<T: std::convert::Into<std::option::Option<crate::model::conversational_search_request::user_answer::Type>>>(mut self, v: T) -> Self
+        {
             self.r#type = v.into();
             self
         }
@@ -8486,9 +8299,7 @@ pub mod conversational_search_request {
         pub fn text_answer(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.r#type.as_ref().and_then(|v| match v {
-                crate::model::conversational_search_request::user_answer::Type::TextAnswer(v) => {
-                    std::option::Option::Some(v)
-                }
+                crate::model::conversational_search_request::user_answer::Type::TextAnswer(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
@@ -8509,8 +8320,8 @@ pub mod conversational_search_request {
         pub fn set_text_answer<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.r#type = std::option::Option::Some(
                 crate::model::conversational_search_request::user_answer::Type::TextAnswer(
-                    v.into(),
-                ),
+                    v.into()
+                )
             );
             self
         }
@@ -8518,18 +8329,10 @@ pub mod conversational_search_request {
         /// The value of [r#type][crate::model::conversational_search_request::UserAnswer::r#type]
         /// if it holds a `SelectedAnswer`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn selected_answer(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<
-                crate::model::conversational_search_request::user_answer::SelectedAnswer,
-            >,
-        > {
+        pub fn selected_answer(&self) -> std::option::Option<&std::boxed::Box<crate::model::conversational_search_request::user_answer::SelectedAnswer>> {
             #[allow(unreachable_patterns)]
             self.r#type.as_ref().and_then(|v| match v {
-                crate::model::conversational_search_request::user_answer::Type::SelectedAnswer(
-                    v,
-                ) => std::option::Option::Some(v),
+                crate::model::conversational_search_request::user_answer::Type::SelectedAnswer(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
@@ -8548,20 +8351,11 @@ pub mod conversational_search_request {
         /// assert!(x.selected_answer().is_some());
         /// assert!(x.text_answer().is_none());
         /// ```
-        pub fn set_selected_answer<
-            T: std::convert::Into<
-                    std::boxed::Box<
-                        crate::model::conversational_search_request::user_answer::SelectedAnswer,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_selected_answer<T: std::convert::Into<std::boxed::Box<crate::model::conversational_search_request::user_answer::SelectedAnswer>>>(mut self, v: T) -> Self {
             self.r#type = std::option::Option::Some(
                 crate::model::conversational_search_request::user_answer::Type::SelectedAnswer(
-                    v.into(),
-                ),
+                    v.into()
+                )
             );
             self
         }
@@ -8578,11 +8372,13 @@ pub mod conversational_search_request {
         #[allow(unused_imports)]
         use super::*;
 
+
         /// This field specifies the selected answers during the conversational
         /// search.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct SelectedAnswer {
+
             /// Optional. This field specifies the selected answer which is a attribute
             /// key-value.
             pub product_attribute_value: std::option::Option<crate::model::ProductAttributeValue>,
@@ -8604,8 +8400,7 @@ pub mod conversational_search_request {
             /// let x = SelectedAnswer::new().set_product_attribute_value(ProductAttributeValue::default()/* use setters */);
             /// ```
             pub fn set_product_attribute_value<T>(mut self, v: T) -> Self
-            where
-                T: std::convert::Into<crate::model::ProductAttributeValue>,
+            where T: std::convert::Into<crate::model::ProductAttributeValue>
             {
                 self.product_attribute_value = std::option::Option::Some(v.into());
                 self
@@ -8620,12 +8415,8 @@ pub mod conversational_search_request {
             /// let x = SelectedAnswer::new().set_or_clear_product_attribute_value(Some(ProductAttributeValue::default()/* use setters */));
             /// let x = SelectedAnswer::new().set_or_clear_product_attribute_value(None::<ProductAttributeValue>);
             /// ```
-            pub fn set_or_clear_product_attribute_value<T>(
-                mut self,
-                v: std::option::Option<T>,
-            ) -> Self
-            where
-                T: std::convert::Into<crate::model::ProductAttributeValue>,
+            pub fn set_or_clear_product_attribute_value<T>(mut self, v: std::option::Option<T>) -> Self
+            where T: std::convert::Into<crate::model::ProductAttributeValue>
             {
                 self.product_attribute_value = v.map(|x| x.into());
                 self
@@ -8648,11 +8439,7 @@ pub mod conversational_search_request {
             /// Optional. This field specifies the selected answer during the
             /// conversational search. This should be a subset of
             /// [ConversationalSearchResponse.followup_question.suggested_answers][].
-            SelectedAnswer(
-                std::boxed::Box<
-                    crate::model::conversational_search_request::user_answer::SelectedAnswer,
-                >,
-            ),
+            SelectedAnswer(std::boxed::Box<crate::model::conversational_search_request::user_answer::SelectedAnswer>),
         }
     }
 
@@ -8661,6 +8448,7 @@ pub mod conversational_search_request {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ConversationalFilteringSpec {
+
         /// Optional. This field is deprecated. Please use
         /// [ConversationalFilteringSpec.conversational_filtering_mode][google.cloud.retail.v2.ConversationalSearchRequest.ConversationalFilteringSpec.conversational_filtering_mode]
         /// instead.
@@ -8672,8 +8460,7 @@ pub mod conversational_search_request {
         /// Optional. This field specifies the current user answer during the
         /// conversational filtering search. It can be either user selected from
         /// suggested answers or user input plain text.
-        pub user_answer:
-            std::option::Option<crate::model::conversational_search_request::UserAnswer>,
+        pub user_answer: std::option::Option<crate::model::conversational_search_request::UserAnswer>,
 
         /// Optional. Mode to control Conversational Filtering.
         /// Defaults to
@@ -8681,8 +8468,7 @@ pub mod conversational_search_request {
         /// if it's unset.
         ///
         /// [google.cloud.retail.v2.ConversationalSearchRequest.ConversationalFilteringSpec.Mode.DISABLED]: crate::model::conversational_search_request::conversational_filtering_spec::Mode::Disabled
-        pub conversational_filtering_mode:
-            crate::model::conversational_search_request::conversational_filtering_spec::Mode,
+        pub conversational_filtering_mode: crate::model::conversational_search_request::conversational_filtering_spec::Mode,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -8700,10 +8486,7 @@ pub mod conversational_search_request {
         /// let x = ConversationalFilteringSpec::new().set_enable_conversational_filtering(true);
         /// ```
         #[deprecated]
-        pub fn set_enable_conversational_filtering<T: std::convert::Into<bool>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_enable_conversational_filtering<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.enable_conversational_filtering = v.into();
             self
         }
@@ -8717,8 +8500,7 @@ pub mod conversational_search_request {
         /// let x = ConversationalFilteringSpec::new().set_user_answer(UserAnswer::default()/* use setters */);
         /// ```
         pub fn set_user_answer<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::conversational_search_request::UserAnswer>,
+        where T: std::convert::Into<crate::model::conversational_search_request::UserAnswer>
         {
             self.user_answer = std::option::Option::Some(v.into());
             self
@@ -8734,8 +8516,7 @@ pub mod conversational_search_request {
         /// let x = ConversationalFilteringSpec::new().set_or_clear_user_answer(None::<UserAnswer>);
         /// ```
         pub fn set_or_clear_user_answer<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::conversational_search_request::UserAnswer>,
+        where T: std::convert::Into<crate::model::conversational_search_request::UserAnswer>
         {
             self.user_answer = v.map(|x| x.into());
             self
@@ -8751,7 +8532,7 @@ pub mod conversational_search_request {
         /// let x1 = ConversationalFilteringSpec::new().set_conversational_filtering_mode(Mode::Enabled);
         /// let x2 = ConversationalFilteringSpec::new().set_conversational_filtering_mode(Mode::ConversationalFilterOnly);
         /// ```
-        pub fn set_conversational_filtering_mode<T: std::convert::Into<crate::model::conversational_search_request::conversational_filtering_spec::Mode>>(mut self, v: T) -> Self{
+        pub fn set_conversational_filtering_mode<T: std::convert::Into<crate::model::conversational_search_request::conversational_filtering_spec::Mode>>(mut self, v: T) -> Self {
             self.conversational_filtering_mode = v.into();
             self
         }
@@ -8767,6 +8548,7 @@ pub mod conversational_search_request {
     pub mod conversational_filtering_spec {
         #[allow(unused_imports)]
         use super::*;
+
 
         /// Enum to control Conversational Filtering mode.
         /// A single conversation session including multiple turns supports modes for
@@ -8836,9 +8618,7 @@ pub mod conversational_search_request {
                     Self::Unspecified => std::option::Option::Some("MODE_UNSPECIFIED"),
                     Self::Disabled => std::option::Option::Some("DISABLED"),
                     Self::Enabled => std::option::Option::Some("ENABLED"),
-                    Self::ConversationalFilterOnly => {
-                        std::option::Option::Some("CONVERSATIONAL_FILTER_ONLY")
-                    }
+                    Self::ConversationalFilterOnly => std::option::Option::Some("CONVERSATIONAL_FILTER_ONLY"),
                     Self::UnknownValue(u) => u.0.name(),
                 }
             }
@@ -8852,10 +8632,7 @@ pub mod conversational_search_request {
         }
 
         impl std::fmt::Display for Mode {
-            fn fmt(
-                &self,
-                f: &mut std::fmt::Formatter<'_>,
-            ) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -8867,9 +8644,7 @@ pub mod conversational_search_request {
                     1 => Self::Disabled,
                     2 => Self::Enabled,
                     3 => Self::ConversationalFilterOnly,
-                    _ => Self::UnknownValue(mode::UnknownValue(
-                        wkt::internal::UnknownEnumValue::Integer(value),
-                    )),
+                    _ => Self::UnknownValue(mode::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
                 }
             }
         }
@@ -8882,9 +8657,7 @@ pub mod conversational_search_request {
                     "DISABLED" => Self::Disabled,
                     "ENABLED" => Self::Enabled,
                     "CONVERSATIONAL_FILTER_ONLY" => Self::ConversationalFilterOnly,
-                    _ => Self::UnknownValue(mode::UnknownValue(
-                        wkt::internal::UnknownEnumValue::String(value.to_string()),
-                    )),
+                    _ => Self::UnknownValue(mode::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
                 }
             }
         }
@@ -8922,6 +8695,7 @@ pub mod conversational_search_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConversationalSearchResponse {
+
     /// The types Retail classifies the search query as.
     ///
     /// Supported values are:
@@ -8943,8 +8717,7 @@ pub struct ConversationalSearchResponse {
     pub conversational_text_response: std::string::String,
 
     /// The conversational followup question generated for Intent refinement.
-    pub followup_question:
-        std::option::Option<crate::model::conversational_search_response::FollowupQuestion>,
+    pub followup_question: std::option::Option<crate::model::conversational_search_response::FollowupQuestion>,
 
     /// Conversation UUID. This field will be stored in client side storage to
     /// maintain the conversation session with server and will be used for next
@@ -8962,9 +8735,7 @@ pub struct ConversationalSearchResponse {
 
     /// This field specifies all related information that is needed on client
     /// side for UI rendering of conversational filtering search.
-    pub conversational_filtering_result: std::option::Option<
-        crate::model::conversational_search_response::ConversationalFilteringResult,
-    >,
+    pub conversational_filtering_result: std::option::Option<crate::model::conversational_search_response::ConversationalFilteringResult>,
 
     /// Output only. The state of the response generation.
     pub state: crate::model::conversational_search_response::State,
@@ -8987,7 +8758,7 @@ impl ConversationalSearchResponse {
     pub fn set_user_query_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.user_query_types = v.into_iter().map(|i| i.into()).collect();
@@ -9001,10 +8772,7 @@ impl ConversationalSearchResponse {
     /// # use google_cloud_retail_v2::model::ConversationalSearchResponse;
     /// let x = ConversationalSearchResponse::new().set_conversational_text_response("example");
     /// ```
-    pub fn set_conversational_text_response<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_conversational_text_response<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.conversational_text_response = v.into();
         self
     }
@@ -9018,8 +8786,7 @@ impl ConversationalSearchResponse {
     /// let x = ConversationalSearchResponse::new().set_followup_question(FollowupQuestion::default()/* use setters */);
     /// ```
     pub fn set_followup_question<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::conversational_search_response::FollowupQuestion>,
+    where T: std::convert::Into<crate::model::conversational_search_response::FollowupQuestion>
     {
         self.followup_question = std::option::Option::Some(v.into());
         self
@@ -9035,8 +8802,7 @@ impl ConversationalSearchResponse {
     /// let x = ConversationalSearchResponse::new().set_or_clear_followup_question(None::<FollowupQuestion>);
     /// ```
     pub fn set_or_clear_followup_question<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::conversational_search_response::FollowupQuestion>,
+    where T: std::convert::Into<crate::model::conversational_search_response::FollowupQuestion>
     {
         self.followup_question = v.map(|x| x.into());
         self
@@ -9069,7 +8835,7 @@ impl ConversationalSearchResponse {
     pub fn set_refined_search<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::conversational_search_response::RefinedSearch>,
+        V: std::convert::Into<crate::model::conversational_search_response::RefinedSearch>
     {
         use std::iter::Iterator;
         self.refined_search = v.into_iter().map(|i| i.into()).collect();
@@ -9085,10 +8851,7 @@ impl ConversationalSearchResponse {
     /// let x = ConversationalSearchResponse::new().set_conversational_filtering_result(ConversationalFilteringResult::default()/* use setters */);
     /// ```
     pub fn set_conversational_filtering_result<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<
-                crate::model::conversational_search_response::ConversationalFilteringResult,
-            >,
+    where T: std::convert::Into<crate::model::conversational_search_response::ConversationalFilteringResult>
     {
         self.conversational_filtering_result = std::option::Option::Some(v.into());
         self
@@ -9103,14 +8866,8 @@ impl ConversationalSearchResponse {
     /// let x = ConversationalSearchResponse::new().set_or_clear_conversational_filtering_result(Some(ConversationalFilteringResult::default()/* use setters */));
     /// let x = ConversationalSearchResponse::new().set_or_clear_conversational_filtering_result(None::<ConversationalFilteringResult>);
     /// ```
-    pub fn set_or_clear_conversational_filtering_result<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<
-                crate::model::conversational_search_response::ConversationalFilteringResult,
-            >,
+    pub fn set_or_clear_conversational_filtering_result<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<crate::model::conversational_search_response::ConversationalFilteringResult>
     {
         self.conversational_filtering_result = v.map(|x| x.into());
         self
@@ -9125,10 +8882,7 @@ impl ConversationalSearchResponse {
     /// let x0 = ConversationalSearchResponse::new().set_state(State::Streaming);
     /// let x1 = ConversationalSearchResponse::new().set_state(State::Succeeded);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::conversational_search_response::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::conversational_search_response::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -9145,17 +8899,17 @@ pub mod conversational_search_response {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// The conversational followup question generated for Intent refinement.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct FollowupQuestion {
+
         /// The conversational followup question generated for Intent refinement.
         pub followup_question: std::string::String,
 
         /// The answer options provided to client for the follow-up question.
-        pub suggested_answers: std::vec::Vec<
-            crate::model::conversational_search_response::followup_question::SuggestedAnswer,
-        >,
+        pub suggested_answers: std::vec::Vec<crate::model::conversational_search_response::followup_question::SuggestedAnswer>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -9172,10 +8926,7 @@ pub mod conversational_search_response {
         /// # use google_cloud_retail_v2::model::conversational_search_response::FollowupQuestion;
         /// let x = FollowupQuestion::new().set_followup_question("example");
         /// ```
-        pub fn set_followup_question<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_followup_question<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.followup_question = v.into();
             self
         }
@@ -9214,12 +8965,14 @@ pub mod conversational_search_response {
         #[allow(unused_imports)]
         use super::*;
 
+
         /// Suggested answers to the follow-up question.
         /// If it's numerical attribute, only ProductAttributeInterval will be set.
         /// If it's textual attribute, only productAttributeValue will be set.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct SuggestedAnswer {
+
             /// Product attribute value, including an attribute key and an
             /// attribute value. Other types can be added here in the future.
             pub product_attribute_value: std::option::Option<crate::model::ProductAttributeValue>,
@@ -9241,8 +8994,7 @@ pub mod conversational_search_response {
             /// let x = SuggestedAnswer::new().set_product_attribute_value(ProductAttributeValue::default()/* use setters */);
             /// ```
             pub fn set_product_attribute_value<T>(mut self, v: T) -> Self
-            where
-                T: std::convert::Into<crate::model::ProductAttributeValue>,
+            where T: std::convert::Into<crate::model::ProductAttributeValue>
             {
                 self.product_attribute_value = std::option::Option::Some(v.into());
                 self
@@ -9257,12 +9009,8 @@ pub mod conversational_search_response {
             /// let x = SuggestedAnswer::new().set_or_clear_product_attribute_value(Some(ProductAttributeValue::default()/* use setters */));
             /// let x = SuggestedAnswer::new().set_or_clear_product_attribute_value(None::<ProductAttributeValue>);
             /// ```
-            pub fn set_or_clear_product_attribute_value<T>(
-                mut self,
-                v: std::option::Option<T>,
-            ) -> Self
-            where
-                T: std::convert::Into<crate::model::ProductAttributeValue>,
+            pub fn set_or_clear_product_attribute_value<T>(mut self, v: std::option::Option<T>) -> Self
+            where T: std::convert::Into<crate::model::ProductAttributeValue>
             {
                 self.product_attribute_value = v.map(|x| x.into());
                 self
@@ -9282,6 +9030,7 @@ pub mod conversational_search_response {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct RefinedSearch {
+
         /// The query to be used for search.
         pub query: std::string::String,
 
@@ -9347,8 +9096,7 @@ pub mod conversational_search_response {
         /// let x = ConversationalFilteringResult::new().set_followup_question(FollowupQuestion::default()/* use setters */);
         /// ```
         pub fn set_followup_question<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::conversational_search_response::FollowupQuestion>,
+        where T: std::convert::Into<crate::model::conversational_search_response::FollowupQuestion>
         {
             self.followup_question = std::option::Option::Some(v.into());
             self
@@ -9364,8 +9112,7 @@ pub mod conversational_search_response {
         /// let x = ConversationalFilteringResult::new().set_or_clear_followup_question(None::<FollowupQuestion>);
         /// ```
         pub fn set_or_clear_followup_question<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::conversational_search_response::FollowupQuestion>,
+        where T: std::convert::Into<crate::model::conversational_search_response::FollowupQuestion>
         {
             self.followup_question = v.map(|x| x.into());
             self
@@ -9414,10 +9161,12 @@ pub mod conversational_search_response {
         #[allow(unused_imports)]
         use super::*;
 
+
         /// Additional filter that client side need to apply.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct AdditionalFilter {
+
             /// Product attribute value, including an attribute key and an
             /// attribute value. Other types can be added here in the future.
             pub product_attribute_value: std::option::Option<crate::model::ProductAttributeValue>,
@@ -9439,8 +9188,7 @@ pub mod conversational_search_response {
             /// let x = AdditionalFilter::new().set_product_attribute_value(ProductAttributeValue::default()/* use setters */);
             /// ```
             pub fn set_product_attribute_value<T>(mut self, v: T) -> Self
-            where
-                T: std::convert::Into<crate::model::ProductAttributeValue>,
+            where T: std::convert::Into<crate::model::ProductAttributeValue>
             {
                 self.product_attribute_value = std::option::Option::Some(v.into());
                 self
@@ -9455,12 +9203,8 @@ pub mod conversational_search_response {
             /// let x = AdditionalFilter::new().set_or_clear_product_attribute_value(Some(ProductAttributeValue::default()/* use setters */));
             /// let x = AdditionalFilter::new().set_or_clear_product_attribute_value(None::<ProductAttributeValue>);
             /// ```
-            pub fn set_or_clear_product_attribute_value<T>(
-                mut self,
-                v: std::option::Option<T>,
-            ) -> Self
-            where
-                T: std::convert::Into<crate::model::ProductAttributeValue>,
+            pub fn set_or_clear_product_attribute_value<T>(mut self, v: std::option::Option<T>) -> Self
+            where T: std::convert::Into<crate::model::ProductAttributeValue>
             {
                 self.product_attribute_value = v.map(|x| x.into());
                 self
@@ -9560,9 +9304,7 @@ pub mod conversational_search_response {
                 0 => Self::Unspecified,
                 1 => Self::Streaming,
                 2 => Self::Succeeded,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -9574,9 +9316,7 @@ pub mod conversational_search_response {
                 "STATE_UNSPECIFIED" => Self::Unspecified,
                 "STREAMING" => Self::Streaming,
                 "SUCCEEDED" => Self::Succeeded,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -9601,8 +9341,7 @@ pub mod conversational_search_response {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.retail.v2.ConversationalSearchResponse.State",
-            ))
+                ".google.cloud.retail.v2.ConversationalSearchResponse.State"))
         }
     }
 }
@@ -9611,6 +9350,7 @@ pub mod conversational_search_response {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OutputConfig {
+
     /// The configuration of destination for holding output data.
     pub destination: std::option::Option<crate::model::output_config::Destination>,
 
@@ -9634,12 +9374,8 @@ impl OutputConfig {
     /// let x = OutputConfig::new().set_destination(Some(
     ///     google_cloud_retail_v2::model::output_config::Destination::GcsDestination(GcsDestination::default().into())));
     /// ```
-    pub fn set_destination<
-        T: std::convert::Into<std::option::Option<crate::model::output_config::Destination>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_destination<T: std::convert::Into<std::option::Option<crate::model::output_config::Destination>>>(mut self, v: T) -> Self
+    {
         self.destination = v.into();
         self
     }
@@ -9647,14 +9383,10 @@ impl OutputConfig {
     /// The value of [destination][crate::model::OutputConfig::destination]
     /// if it holds a `GcsDestination`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn gcs_destination(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::output_config::GcsDestination>> {
+    pub fn gcs_destination(&self) -> std::option::Option<&std::boxed::Box<crate::model::output_config::GcsDestination>> {
         #[allow(unreachable_patterns)]
         self.destination.as_ref().and_then(|v| match v {
-            crate::model::output_config::Destination::GcsDestination(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::output_config::Destination::GcsDestination(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -9673,14 +9405,11 @@ impl OutputConfig {
     /// assert!(x.gcs_destination().is_some());
     /// assert!(x.bigquery_destination().is_none());
     /// ```
-    pub fn set_gcs_destination<
-        T: std::convert::Into<std::boxed::Box<crate::model::output_config::GcsDestination>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_gcs_destination<T: std::convert::Into<std::boxed::Box<crate::model::output_config::GcsDestination>>>(mut self, v: T) -> Self {
         self.destination = std::option::Option::Some(
-            crate::model::output_config::Destination::GcsDestination(v.into()),
+            crate::model::output_config::Destination::GcsDestination(
+                v.into()
+            )
         );
         self
     }
@@ -9688,15 +9417,10 @@ impl OutputConfig {
     /// The value of [destination][crate::model::OutputConfig::destination]
     /// if it holds a `BigqueryDestination`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn bigquery_destination(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::output_config::BigQueryDestination>>
-    {
+    pub fn bigquery_destination(&self) -> std::option::Option<&std::boxed::Box<crate::model::output_config::BigQueryDestination>> {
         #[allow(unreachable_patterns)]
         self.destination.as_ref().and_then(|v| match v {
-            crate::model::output_config::Destination::BigqueryDestination(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::output_config::Destination::BigqueryDestination(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -9715,14 +9439,11 @@ impl OutputConfig {
     /// assert!(x.bigquery_destination().is_some());
     /// assert!(x.gcs_destination().is_none());
     /// ```
-    pub fn set_bigquery_destination<
-        T: std::convert::Into<std::boxed::Box<crate::model::output_config::BigQueryDestination>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_bigquery_destination<T: std::convert::Into<std::boxed::Box<crate::model::output_config::BigQueryDestination>>>(mut self, v: T) -> Self {
         self.destination = std::option::Option::Some(
-            crate::model::output_config::Destination::BigqueryDestination(v.into()),
+            crate::model::output_config::Destination::BigqueryDestination(
+                v.into()
+            )
         );
         self
     }
@@ -9739,10 +9460,12 @@ pub mod output_config {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// The Google Cloud Storage output destination configuration.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GcsDestination {
+
         /// Required. The output uri prefix for saving output data to json files.
         /// Some mapping examples are as follows:
         /// output_uri_prefix         sample output(assuming the object is foo.json)
@@ -9767,10 +9490,7 @@ pub mod output_config {
         /// # use google_cloud_retail_v2::model::output_config::GcsDestination;
         /// let x = GcsDestination::new().set_output_uri_prefix("example");
         /// ```
-        pub fn set_output_uri_prefix<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_output_uri_prefix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.output_uri_prefix = v.into();
             self
         }
@@ -9786,6 +9506,7 @@ pub mod output_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct BigQueryDestination {
+
         /// Required. The ID of a BigQuery Dataset.
         pub dataset_id: std::string::String,
 
@@ -9825,10 +9546,7 @@ pub mod output_config {
         /// # use google_cloud_retail_v2::model::output_config::BigQueryDestination;
         /// let x = BigQueryDestination::new().set_table_id_prefix("example");
         /// ```
-        pub fn set_table_id_prefix<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_table_id_prefix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.table_id_prefix = v.into();
             self
         }
@@ -9867,6 +9585,7 @@ pub mod output_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportErrorsConfig {
+
     /// Required. Errors destination.
     pub destination: std::option::Option<crate::model::export_errors_config::Destination>,
 
@@ -9889,12 +9608,8 @@ impl ExportErrorsConfig {
     /// use google_cloud_retail_v2::model::export_errors_config::Destination;
     /// let x = ExportErrorsConfig::new().set_destination(Some(Destination::GcsPrefix("example".to_string())));
     /// ```
-    pub fn set_destination<
-        T: std::convert::Into<std::option::Option<crate::model::export_errors_config::Destination>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_destination<T: std::convert::Into<std::option::Option<crate::model::export_errors_config::Destination>>>(mut self, v: T) -> Self
+    {
         self.destination = v.into();
         self
     }
@@ -9905,9 +9620,7 @@ impl ExportErrorsConfig {
     pub fn gcs_prefix(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.destination.as_ref().and_then(|v| match v {
-            crate::model::export_errors_config::Destination::GcsPrefix(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::export_errors_config::Destination::GcsPrefix(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -9926,7 +9639,9 @@ impl ExportErrorsConfig {
     /// ```
     pub fn set_gcs_prefix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.destination = std::option::Option::Some(
-            crate::model::export_errors_config::Destination::GcsPrefix(v.into()),
+            crate::model::export_errors_config::Destination::GcsPrefix(
+                v.into()
+            )
         );
         self
     }
@@ -9942,6 +9657,7 @@ impl wkt::message::Message for ExportErrorsConfig {
 pub mod export_errors_config {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Required. Errors destination.
     #[derive(Clone, Debug, PartialEq)]
@@ -9959,6 +9675,7 @@ pub mod export_errors_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportAnalyticsMetricsRequest {
+
     /// Required. Full resource name of the parent catalog.
     /// Expected format: `projects/*/locations/*/catalogs/*`
     pub catalog: std::string::String,
@@ -10014,8 +9731,7 @@ impl ExportAnalyticsMetricsRequest {
     /// let x = ExportAnalyticsMetricsRequest::new().set_output_config(OutputConfig::default()/* use setters */);
     /// ```
     pub fn set_output_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::OutputConfig>,
+    where T: std::convert::Into<crate::model::OutputConfig>
     {
         self.output_config = std::option::Option::Some(v.into());
         self
@@ -10031,8 +9747,7 @@ impl ExportAnalyticsMetricsRequest {
     /// let x = ExportAnalyticsMetricsRequest::new().set_or_clear_output_config(None::<OutputConfig>);
     /// ```
     pub fn set_or_clear_output_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::OutputConfig>,
+    where T: std::convert::Into<crate::model::OutputConfig>
     {
         self.output_config = v.map(|x| x.into());
         self
@@ -10062,6 +9777,7 @@ impl wkt::message::Message for ExportAnalyticsMetricsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportMetadata {
+
     /// Operation create time.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
@@ -10086,8 +9802,7 @@ impl ExportMetadata {
     /// let x = ExportMetadata::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -10103,8 +9818,7 @@ impl ExportMetadata {
     /// let x = ExportMetadata::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -10119,8 +9833,7 @@ impl ExportMetadata {
     /// let x = ExportMetadata::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -10136,8 +9849,7 @@ impl ExportMetadata {
     /// let x = ExportMetadata::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -10156,6 +9868,7 @@ impl wkt::message::Message for ExportMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportAnalyticsMetricsResponse {
+
     /// A sample of errors encountered while processing the request.
     pub error_samples: std::vec::Vec<rpc::model::Status>,
 
@@ -10188,7 +9901,7 @@ impl ExportAnalyticsMetricsResponse {
     pub fn set_error_samples<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc::model::Status>,
+        V: std::convert::Into<rpc::model::Status>
     {
         use std::iter::Iterator;
         self.error_samples = v.into_iter().map(|i| i.into()).collect();
@@ -10204,8 +9917,7 @@ impl ExportAnalyticsMetricsResponse {
     /// let x = ExportAnalyticsMetricsResponse::new().set_errors_config(ExportErrorsConfig::default()/* use setters */);
     /// ```
     pub fn set_errors_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ExportErrorsConfig>,
+    where T: std::convert::Into<crate::model::ExportErrorsConfig>
     {
         self.errors_config = std::option::Option::Some(v.into());
         self
@@ -10221,8 +9933,7 @@ impl ExportAnalyticsMetricsResponse {
     /// let x = ExportAnalyticsMetricsResponse::new().set_or_clear_errors_config(None::<ExportErrorsConfig>);
     /// ```
     pub fn set_or_clear_errors_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ExportErrorsConfig>,
+    where T: std::convert::Into<crate::model::ExportErrorsConfig>
     {
         self.errors_config = v.map(|x| x.into());
         self
@@ -10237,8 +9948,7 @@ impl ExportAnalyticsMetricsResponse {
     /// let x = ExportAnalyticsMetricsResponse::new().set_output_result(OutputResult::default()/* use setters */);
     /// ```
     pub fn set_output_result<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::OutputResult>,
+    where T: std::convert::Into<crate::model::OutputResult>
     {
         self.output_result = std::option::Option::Some(v.into());
         self
@@ -10254,8 +9964,7 @@ impl ExportAnalyticsMetricsResponse {
     /// let x = ExportAnalyticsMetricsResponse::new().set_or_clear_output_result(None::<OutputResult>);
     /// ```
     pub fn set_or_clear_output_result<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::OutputResult>,
+    where T: std::convert::Into<crate::model::OutputResult>
     {
         self.output_result = v.map(|x| x.into());
         self
@@ -10273,6 +9982,7 @@ impl wkt::message::Message for ExportAnalyticsMetricsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OutputResult {
+
     /// The BigQuery location where the result is stored.
     pub bigquery_result: std::vec::Vec<crate::model::BigQueryOutputResult>,
 
@@ -10302,7 +10012,7 @@ impl OutputResult {
     pub fn set_bigquery_result<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::BigQueryOutputResult>,
+        V: std::convert::Into<crate::model::BigQueryOutputResult>
     {
         use std::iter::Iterator;
         self.bigquery_result = v.into_iter().map(|i| i.into()).collect();
@@ -10324,7 +10034,7 @@ impl OutputResult {
     pub fn set_gcs_result<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::GcsOutputResult>,
+        V: std::convert::Into<crate::model::GcsOutputResult>
     {
         use std::iter::Iterator;
         self.gcs_result = v.into_iter().map(|i| i.into()).collect();
@@ -10342,6 +10052,7 @@ impl wkt::message::Message for OutputResult {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BigQueryOutputResult {
+
     /// The ID of a BigQuery Dataset.
     pub dataset_id: std::string::String,
 
@@ -10391,6 +10102,7 @@ impl wkt::message::Message for BigQueryOutputResult {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GcsOutputResult {
+
     /// The uri of Gcs output
     pub output_uri: std::string::String,
 
@@ -10425,6 +10137,7 @@ impl wkt::message::Message for GcsOutputResult {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerativeQuestionsFeatureConfig {
+
     /// Required. Resource name of the affected catalog.
     /// Format: projects/{project}/locations/{location}/catalogs/{catalog}
     pub catalog: std::string::String,
@@ -10493,6 +10206,7 @@ impl wkt::message::Message for GenerativeQuestionsFeatureConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerativeQuestionConfig {
+
     /// Required. Resource name of the catalog.
     /// Format: projects/{project}/locations/{location}/catalogs/{catalog}
     pub catalog: std::string::String,
@@ -10556,10 +10270,7 @@ impl GenerativeQuestionConfig {
     /// # use google_cloud_retail_v2::model::GenerativeQuestionConfig;
     /// let x = GenerativeQuestionConfig::new().set_generated_question("example");
     /// ```
-    pub fn set_generated_question<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_generated_question<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.generated_question = v.into();
         self
     }
@@ -10586,7 +10297,7 @@ impl GenerativeQuestionConfig {
     pub fn set_example_values<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.example_values = v.into_iter().map(|i| i.into()).collect();
@@ -10628,9 +10339,9 @@ impl wkt::message::Message for GenerativeQuestionConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateGenerativeQuestionsFeatureConfigRequest {
+
     /// Required. The configuration managing the feature state.
-    pub generative_questions_feature_config:
-        std::option::Option<crate::model::GenerativeQuestionsFeatureConfig>,
+    pub generative_questions_feature_config: std::option::Option<crate::model::GenerativeQuestionsFeatureConfig>,
 
     /// Optional. Indicates which fields in the provided
     /// [GenerativeQuestionsFeatureConfig][google.cloud.retail.v2.GenerativeQuestionsFeatureConfig]
@@ -10656,8 +10367,7 @@ impl UpdateGenerativeQuestionsFeatureConfigRequest {
     /// let x = UpdateGenerativeQuestionsFeatureConfigRequest::new().set_generative_questions_feature_config(GenerativeQuestionsFeatureConfig::default()/* use setters */);
     /// ```
     pub fn set_generative_questions_feature_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::GenerativeQuestionsFeatureConfig>,
+    where T: std::convert::Into<crate::model::GenerativeQuestionsFeatureConfig>
     {
         self.generative_questions_feature_config = std::option::Option::Some(v.into());
         self
@@ -10672,12 +10382,8 @@ impl UpdateGenerativeQuestionsFeatureConfigRequest {
     /// let x = UpdateGenerativeQuestionsFeatureConfigRequest::new().set_or_clear_generative_questions_feature_config(Some(GenerativeQuestionsFeatureConfig::default()/* use setters */));
     /// let x = UpdateGenerativeQuestionsFeatureConfigRequest::new().set_or_clear_generative_questions_feature_config(None::<GenerativeQuestionsFeatureConfig>);
     /// ```
-    pub fn set_or_clear_generative_questions_feature_config<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<crate::model::GenerativeQuestionsFeatureConfig>,
+    pub fn set_or_clear_generative_questions_feature_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<crate::model::GenerativeQuestionsFeatureConfig>
     {
         self.generative_questions_feature_config = v.map(|x| x.into());
         self
@@ -10692,8 +10398,7 @@ impl UpdateGenerativeQuestionsFeatureConfigRequest {
     /// let x = UpdateGenerativeQuestionsFeatureConfigRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -10709,8 +10414,7 @@ impl UpdateGenerativeQuestionsFeatureConfigRequest {
     /// let x = UpdateGenerativeQuestionsFeatureConfigRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -10727,6 +10431,7 @@ impl wkt::message::Message for UpdateGenerativeQuestionsFeatureConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetGenerativeQuestionsFeatureConfigRequest {
+
     /// Required. Resource name of the parent catalog.
     /// Format: projects/{project}/locations/{location}/catalogs/{catalog}
     pub catalog: std::string::String,
@@ -10762,6 +10467,7 @@ impl wkt::message::Message for GetGenerativeQuestionsFeatureConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListGenerativeQuestionConfigsRequest {
+
     /// Required. Resource name of the parent catalog.
     /// Format: projects/{project}/locations/{location}/catalogs/{catalog}
     pub parent: std::string::String,
@@ -10797,6 +10503,7 @@ impl wkt::message::Message for ListGenerativeQuestionConfigsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListGenerativeQuestionConfigsResponse {
+
     /// All the questions for a given catalog.
     pub generative_question_configs: std::vec::Vec<crate::model::GenerativeQuestionConfig>,
 
@@ -10823,7 +10530,7 @@ impl ListGenerativeQuestionConfigsResponse {
     pub fn set_generative_question_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::GenerativeQuestionConfig>,
+        V: std::convert::Into<crate::model::GenerativeQuestionConfig>
     {
         use std::iter::Iterator;
         self.generative_question_configs = v.into_iter().map(|i| i.into()).collect();
@@ -10841,6 +10548,7 @@ impl wkt::message::Message for ListGenerativeQuestionConfigsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateGenerativeQuestionConfigRequest {
+
     /// Required. The question to update.
     pub generative_question_config: std::option::Option<crate::model::GenerativeQuestionConfig>,
 
@@ -10873,8 +10581,7 @@ impl UpdateGenerativeQuestionConfigRequest {
     /// let x = UpdateGenerativeQuestionConfigRequest::new().set_generative_question_config(GenerativeQuestionConfig::default()/* use setters */);
     /// ```
     pub fn set_generative_question_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::GenerativeQuestionConfig>,
+    where T: std::convert::Into<crate::model::GenerativeQuestionConfig>
     {
         self.generative_question_config = std::option::Option::Some(v.into());
         self
@@ -10890,8 +10597,7 @@ impl UpdateGenerativeQuestionConfigRequest {
     /// let x = UpdateGenerativeQuestionConfigRequest::new().set_or_clear_generative_question_config(None::<GenerativeQuestionConfig>);
     /// ```
     pub fn set_or_clear_generative_question_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::GenerativeQuestionConfig>,
+    where T: std::convert::Into<crate::model::GenerativeQuestionConfig>
     {
         self.generative_question_config = v.map(|x| x.into());
         self
@@ -10906,8 +10612,7 @@ impl UpdateGenerativeQuestionConfigRequest {
     /// let x = UpdateGenerativeQuestionConfigRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -10923,8 +10628,7 @@ impl UpdateGenerativeQuestionConfigRequest {
     /// let x = UpdateGenerativeQuestionConfigRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -10941,6 +10645,7 @@ impl wkt::message::Message for UpdateGenerativeQuestionConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchUpdateGenerativeQuestionConfigsRequest {
+
     /// Optional. Resource name of the parent catalog.
     /// Format: projects/{project}/locations/{location}/catalogs/{catalog}
     pub parent: std::string::String,
@@ -10983,7 +10688,7 @@ impl BatchUpdateGenerativeQuestionConfigsRequest {
     pub fn set_requests<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::UpdateGenerativeQuestionConfigRequest>,
+        V: std::convert::Into<crate::model::UpdateGenerativeQuestionConfigRequest>
     {
         use std::iter::Iterator;
         self.requests = v.into_iter().map(|i| i.into()).collect();
@@ -11001,6 +10706,7 @@ impl wkt::message::Message for BatchUpdateGenerativeQuestionConfigsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchUpdateGenerativeQuestionConfigsResponse {
+
     /// Optional. The updates question configs.
     pub generative_question_configs: std::vec::Vec<crate::model::GenerativeQuestionConfig>,
 
@@ -11027,7 +10733,7 @@ impl BatchUpdateGenerativeQuestionConfigsResponse {
     pub fn set_generative_question_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::GenerativeQuestionConfig>,
+        V: std::convert::Into<crate::model::GenerativeQuestionConfig>
     {
         use std::iter::Iterator;
         self.generative_question_configs = v.into_iter().map(|i| i.into()).collect();
@@ -11045,6 +10751,7 @@ impl wkt::message::Message for BatchUpdateGenerativeQuestionConfigsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GcsSource {
+
     /// Required. Google Cloud Storage URIs to input files. URI can be up to
     /// 2000 characters long. URIs can match the full object path (for example,
     /// `gs://bucket/directory/object.json`) or a pattern matching one or more
@@ -11107,7 +10814,7 @@ impl GcsSource {
     pub fn set_input_uris<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.input_uris = v.into_iter().map(|i| i.into()).collect();
@@ -11137,6 +10844,7 @@ impl wkt::message::Message for GcsSource {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BigQuerySource {
+
     /// The project ID (can be project # or ID) that the BigQuery source is in with
     /// a length limit of 128 characters. If not specified, inherits the project
     /// ID from the parent request.
@@ -11271,12 +10979,8 @@ impl BigQuerySource {
     /// let x = BigQuerySource::new().set_partition(Some(
     ///     google_cloud_retail_v2::model::big_query_source::Partition::PartitionDate(Date::default().into())));
     /// ```
-    pub fn set_partition<
-        T: std::convert::Into<std::option::Option<crate::model::big_query_source::Partition>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_partition<T: std::convert::Into<std::option::Option<crate::model::big_query_source::Partition>>>(mut self, v: T) -> Self
+    {
         self.partition = v.into();
         self
     }
@@ -11287,9 +10991,7 @@ impl BigQuerySource {
     pub fn partition_date(&self) -> std::option::Option<&std::boxed::Box<gtype::model::Date>> {
         #[allow(unreachable_patterns)]
         self.partition.as_ref().and_then(|v| match v {
-            crate::model::big_query_source::Partition::PartitionDate(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::big_query_source::Partition::PartitionDate(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -11307,12 +11009,11 @@ impl BigQuerySource {
     /// let x = BigQuerySource::new().set_partition_date(Date::default()/* use setters */);
     /// assert!(x.partition_date().is_some());
     /// ```
-    pub fn set_partition_date<T: std::convert::Into<std::boxed::Box<gtype::model::Date>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_partition_date<T: std::convert::Into<std::boxed::Box<gtype::model::Date>>>(mut self, v: T) -> Self {
         self.partition = std::option::Option::Some(
-            crate::model::big_query_source::Partition::PartitionDate(v.into()),
+            crate::model::big_query_source::Partition::PartitionDate(
+                v.into()
+            )
         );
         self
     }
@@ -11329,6 +11030,7 @@ pub mod big_query_source {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// BigQuery table partition info. Leave this empty if the BigQuery table
     /// is not partitioned.
     #[derive(Clone, Debug, PartialEq)]
@@ -11343,6 +11045,7 @@ pub mod big_query_source {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProductInlineSource {
+
     /// Required. A list of products to update/create. Each product must have a
     /// valid [Product.id][google.cloud.retail.v2.Product.id]. Recommended max of
     /// 100 items.
@@ -11373,7 +11076,7 @@ impl ProductInlineSource {
     pub fn set_products<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Product>,
+        V: std::convert::Into<crate::model::Product>
     {
         use std::iter::Iterator;
         self.products = v.into_iter().map(|i| i.into()).collect();
@@ -11391,6 +11094,7 @@ impl wkt::message::Message for ProductInlineSource {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UserEventInlineSource {
+
     /// Required. A list of user events to import. Recommended max of 10k items.
     pub user_events: std::vec::Vec<crate::model::UserEvent>,
 
@@ -11417,7 +11121,7 @@ impl UserEventInlineSource {
     pub fn set_user_events<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::UserEvent>,
+        V: std::convert::Into<crate::model::UserEvent>
     {
         use std::iter::Iterator;
         self.user_events = v.into_iter().map(|i| i.into()).collect();
@@ -11435,6 +11139,7 @@ impl wkt::message::Message for UserEventInlineSource {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportErrorsConfig {
+
     /// Required. Errors destination.
     pub destination: std::option::Option<crate::model::import_errors_config::Destination>,
 
@@ -11457,12 +11162,8 @@ impl ImportErrorsConfig {
     /// use google_cloud_retail_v2::model::import_errors_config::Destination;
     /// let x = ImportErrorsConfig::new().set_destination(Some(Destination::GcsPrefix("example".to_string())));
     /// ```
-    pub fn set_destination<
-        T: std::convert::Into<std::option::Option<crate::model::import_errors_config::Destination>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_destination<T: std::convert::Into<std::option::Option<crate::model::import_errors_config::Destination>>>(mut self, v: T) -> Self
+    {
         self.destination = v.into();
         self
     }
@@ -11473,9 +11174,7 @@ impl ImportErrorsConfig {
     pub fn gcs_prefix(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.destination.as_ref().and_then(|v| match v {
-            crate::model::import_errors_config::Destination::GcsPrefix(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::import_errors_config::Destination::GcsPrefix(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -11494,7 +11193,9 @@ impl ImportErrorsConfig {
     /// ```
     pub fn set_gcs_prefix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.destination = std::option::Option::Some(
-            crate::model::import_errors_config::Destination::GcsPrefix(v.into()),
+            crate::model::import_errors_config::Destination::GcsPrefix(
+                v.into()
+            )
         );
         self
     }
@@ -11510,6 +11211,7 @@ impl wkt::message::Message for ImportErrorsConfig {
 pub mod import_errors_config {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Required. Errors destination.
     #[derive(Clone, Debug, PartialEq)]
@@ -11527,6 +11229,7 @@ pub mod import_errors_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportProductsRequest {
+
     /// Required.
     /// `projects/1234/locations/global/catalogs/default_catalog/branches/default_branch`
     ///
@@ -11620,8 +11323,7 @@ impl ImportProductsRequest {
     /// let x = ImportProductsRequest::new().set_input_config(ProductInputConfig::default()/* use setters */);
     /// ```
     pub fn set_input_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ProductInputConfig>,
+    where T: std::convert::Into<crate::model::ProductInputConfig>
     {
         self.input_config = std::option::Option::Some(v.into());
         self
@@ -11637,8 +11339,7 @@ impl ImportProductsRequest {
     /// let x = ImportProductsRequest::new().set_or_clear_input_config(None::<ProductInputConfig>);
     /// ```
     pub fn set_or_clear_input_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ProductInputConfig>,
+    where T: std::convert::Into<crate::model::ProductInputConfig>
     {
         self.input_config = v.map(|x| x.into());
         self
@@ -11653,8 +11354,7 @@ impl ImportProductsRequest {
     /// let x = ImportProductsRequest::new().set_errors_config(ImportErrorsConfig::default()/* use setters */);
     /// ```
     pub fn set_errors_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ImportErrorsConfig>,
+    where T: std::convert::Into<crate::model::ImportErrorsConfig>
     {
         self.errors_config = std::option::Option::Some(v.into());
         self
@@ -11670,8 +11370,7 @@ impl ImportProductsRequest {
     /// let x = ImportProductsRequest::new().set_or_clear_errors_config(None::<ImportErrorsConfig>);
     /// ```
     pub fn set_or_clear_errors_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ImportErrorsConfig>,
+    where T: std::convert::Into<crate::model::ImportErrorsConfig>
     {
         self.errors_config = v.map(|x| x.into());
         self
@@ -11686,8 +11385,7 @@ impl ImportProductsRequest {
     /// let x = ImportProductsRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -11703,8 +11401,7 @@ impl ImportProductsRequest {
     /// let x = ImportProductsRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -11719,12 +11416,7 @@ impl ImportProductsRequest {
     /// let x0 = ImportProductsRequest::new().set_reconciliation_mode(ReconciliationMode::Incremental);
     /// let x1 = ImportProductsRequest::new().set_reconciliation_mode(ReconciliationMode::Full);
     /// ```
-    pub fn set_reconciliation_mode<
-        T: std::convert::Into<crate::model::import_products_request::ReconciliationMode>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_reconciliation_mode<T: std::convert::Into<crate::model::import_products_request::ReconciliationMode>>(mut self, v: T) -> Self {
         self.reconciliation_mode = v.into();
         self
     }
@@ -11736,10 +11428,7 @@ impl ImportProductsRequest {
     /// # use google_cloud_retail_v2::model::ImportProductsRequest;
     /// let x = ImportProductsRequest::new().set_notification_pubsub_topic("example");
     /// ```
-    pub fn set_notification_pubsub_topic<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_notification_pubsub_topic<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.notification_pubsub_topic = v.into();
         self
     }
@@ -11755,6 +11444,7 @@ impl wkt::message::Message for ImportProductsRequest {
 pub mod import_products_request {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Indicates how imported products are reconciled with the existing products
     /// created or imported before.
@@ -11844,9 +11534,7 @@ pub mod import_products_request {
                 0 => Self::Unspecified,
                 1 => Self::Incremental,
                 2 => Self::Full,
-                _ => Self::UnknownValue(reconciliation_mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(reconciliation_mode::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -11858,9 +11546,7 @@ pub mod import_products_request {
                 "RECONCILIATION_MODE_UNSPECIFIED" => Self::Unspecified,
                 "INCREMENTAL" => Self::Incremental,
                 "FULL" => Self::Full,
-                _ => Self::UnknownValue(reconciliation_mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(reconciliation_mode::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -11885,8 +11571,7 @@ pub mod import_products_request {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<ReconciliationMode>::new(
-                ".google.cloud.retail.v2.ImportProductsRequest.ReconciliationMode",
-            ))
+                ".google.cloud.retail.v2.ImportProductsRequest.ReconciliationMode"))
         }
     }
 }
@@ -11895,6 +11580,7 @@ pub mod import_products_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportUserEventsRequest {
+
     /// Required. `projects/1234/locations/global/catalogs/default_catalog`
     pub parent: std::string::String,
 
@@ -11934,8 +11620,7 @@ impl ImportUserEventsRequest {
     /// let x = ImportUserEventsRequest::new().set_input_config(UserEventInputConfig::default()/* use setters */);
     /// ```
     pub fn set_input_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::UserEventInputConfig>,
+    where T: std::convert::Into<crate::model::UserEventInputConfig>
     {
         self.input_config = std::option::Option::Some(v.into());
         self
@@ -11951,8 +11636,7 @@ impl ImportUserEventsRequest {
     /// let x = ImportUserEventsRequest::new().set_or_clear_input_config(None::<UserEventInputConfig>);
     /// ```
     pub fn set_or_clear_input_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::UserEventInputConfig>,
+    where T: std::convert::Into<crate::model::UserEventInputConfig>
     {
         self.input_config = v.map(|x| x.into());
         self
@@ -11967,8 +11651,7 @@ impl ImportUserEventsRequest {
     /// let x = ImportUserEventsRequest::new().set_errors_config(ImportErrorsConfig::default()/* use setters */);
     /// ```
     pub fn set_errors_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ImportErrorsConfig>,
+    where T: std::convert::Into<crate::model::ImportErrorsConfig>
     {
         self.errors_config = std::option::Option::Some(v.into());
         self
@@ -11984,8 +11667,7 @@ impl ImportUserEventsRequest {
     /// let x = ImportUserEventsRequest::new().set_or_clear_errors_config(None::<ImportErrorsConfig>);
     /// ```
     pub fn set_or_clear_errors_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ImportErrorsConfig>,
+    where T: std::convert::Into<crate::model::ImportErrorsConfig>
     {
         self.errors_config = v.map(|x| x.into());
         self
@@ -12002,6 +11684,7 @@ impl wkt::message::Message for ImportUserEventsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportCompletionDataRequest {
+
     /// Required. The catalog which the suggestions dataset belongs to.
     ///
     /// Format: `projects/1234/locations/global/catalogs/default_catalog`.
@@ -12048,8 +11731,7 @@ impl ImportCompletionDataRequest {
     /// let x = ImportCompletionDataRequest::new().set_input_config(CompletionDataInputConfig::default()/* use setters */);
     /// ```
     pub fn set_input_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CompletionDataInputConfig>,
+    where T: std::convert::Into<crate::model::CompletionDataInputConfig>
     {
         self.input_config = std::option::Option::Some(v.into());
         self
@@ -12065,8 +11747,7 @@ impl ImportCompletionDataRequest {
     /// let x = ImportCompletionDataRequest::new().set_or_clear_input_config(None::<CompletionDataInputConfig>);
     /// ```
     pub fn set_or_clear_input_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CompletionDataInputConfig>,
+    where T: std::convert::Into<crate::model::CompletionDataInputConfig>
     {
         self.input_config = v.map(|x| x.into());
         self
@@ -12079,10 +11760,7 @@ impl ImportCompletionDataRequest {
     /// # use google_cloud_retail_v2::model::ImportCompletionDataRequest;
     /// let x = ImportCompletionDataRequest::new().set_notification_pubsub_topic("example");
     /// ```
-    pub fn set_notification_pubsub_topic<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_notification_pubsub_topic<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.notification_pubsub_topic = v.into();
         self
     }
@@ -12098,6 +11776,7 @@ impl wkt::message::Message for ImportCompletionDataRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProductInputConfig {
+
     /// Required. The source of the input.
     pub source: std::option::Option<crate::model::product_input_config::Source>,
 
@@ -12121,12 +11800,8 @@ impl ProductInputConfig {
     /// let x = ProductInputConfig::new().set_source(Some(
     ///     google_cloud_retail_v2::model::product_input_config::Source::ProductInlineSource(ProductInlineSource::default().into())));
     /// ```
-    pub fn set_source<
-        T: std::convert::Into<std::option::Option<crate::model::product_input_config::Source>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source<T: std::convert::Into<std::option::Option<crate::model::product_input_config::Source>>>(mut self, v: T) -> Self
+    {
         self.source = v.into();
         self
     }
@@ -12134,14 +11809,10 @@ impl ProductInputConfig {
     /// The value of [source][crate::model::ProductInputConfig::source]
     /// if it holds a `ProductInlineSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn product_inline_source(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::ProductInlineSource>> {
+    pub fn product_inline_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::ProductInlineSource>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
-            crate::model::product_input_config::Source::ProductInlineSource(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::product_input_config::Source::ProductInlineSource(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -12161,14 +11832,11 @@ impl ProductInputConfig {
     /// assert!(x.gcs_source().is_none());
     /// assert!(x.big_query_source().is_none());
     /// ```
-    pub fn set_product_inline_source<
-        T: std::convert::Into<std::boxed::Box<crate::model::ProductInlineSource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_product_inline_source<T: std::convert::Into<std::boxed::Box<crate::model::ProductInlineSource>>>(mut self, v: T) -> Self {
         self.source = std::option::Option::Some(
-            crate::model::product_input_config::Source::ProductInlineSource(v.into()),
+            crate::model::product_input_config::Source::ProductInlineSource(
+                v.into()
+            )
         );
         self
     }
@@ -12179,9 +11847,7 @@ impl ProductInputConfig {
     pub fn gcs_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsSource>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
-            crate::model::product_input_config::Source::GcsSource(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::product_input_config::Source::GcsSource(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -12201,12 +11867,11 @@ impl ProductInputConfig {
     /// assert!(x.product_inline_source().is_none());
     /// assert!(x.big_query_source().is_none());
     /// ```
-    pub fn set_gcs_source<T: std::convert::Into<std::boxed::Box<crate::model::GcsSource>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_gcs_source<T: std::convert::Into<std::boxed::Box<crate::model::GcsSource>>>(mut self, v: T) -> Self {
         self.source = std::option::Option::Some(
-            crate::model::product_input_config::Source::GcsSource(v.into()),
+            crate::model::product_input_config::Source::GcsSource(
+                v.into()
+            )
         );
         self
     }
@@ -12214,14 +11879,10 @@ impl ProductInputConfig {
     /// The value of [source][crate::model::ProductInputConfig::source]
     /// if it holds a `BigQuerySource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn big_query_source(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::BigQuerySource>> {
+    pub fn big_query_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::BigQuerySource>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
-            crate::model::product_input_config::Source::BigQuerySource(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::product_input_config::Source::BigQuerySource(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -12241,14 +11902,11 @@ impl ProductInputConfig {
     /// assert!(x.product_inline_source().is_none());
     /// assert!(x.gcs_source().is_none());
     /// ```
-    pub fn set_big_query_source<
-        T: std::convert::Into<std::boxed::Box<crate::model::BigQuerySource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_big_query_source<T: std::convert::Into<std::boxed::Box<crate::model::BigQuerySource>>>(mut self, v: T) -> Self {
         self.source = std::option::Option::Some(
-            crate::model::product_input_config::Source::BigQuerySource(v.into()),
+            crate::model::product_input_config::Source::BigQuerySource(
+                v.into()
+            )
         );
         self
     }
@@ -12264,6 +11922,7 @@ impl wkt::message::Message for ProductInputConfig {
 pub mod product_input_config {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Required. The source of the input.
     #[derive(Clone, Debug, PartialEq)]
@@ -12282,6 +11941,7 @@ pub mod product_input_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UserEventInputConfig {
+
     /// The source of the input.
     pub source: std::option::Option<crate::model::user_event_input_config::Source>,
 
@@ -12305,12 +11965,8 @@ impl UserEventInputConfig {
     /// let x = UserEventInputConfig::new().set_source(Some(
     ///     google_cloud_retail_v2::model::user_event_input_config::Source::UserEventInlineSource(UserEventInlineSource::default().into())));
     /// ```
-    pub fn set_source<
-        T: std::convert::Into<std::option::Option<crate::model::user_event_input_config::Source>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source<T: std::convert::Into<std::option::Option<crate::model::user_event_input_config::Source>>>(mut self, v: T) -> Self
+    {
         self.source = v.into();
         self
     }
@@ -12318,14 +11974,10 @@ impl UserEventInputConfig {
     /// The value of [source][crate::model::UserEventInputConfig::source]
     /// if it holds a `UserEventInlineSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn user_event_inline_source(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::UserEventInlineSource>> {
+    pub fn user_event_inline_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::UserEventInlineSource>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
-            crate::model::user_event_input_config::Source::UserEventInlineSource(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::user_event_input_config::Source::UserEventInlineSource(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -12345,14 +11997,11 @@ impl UserEventInputConfig {
     /// assert!(x.gcs_source().is_none());
     /// assert!(x.big_query_source().is_none());
     /// ```
-    pub fn set_user_event_inline_source<
-        T: std::convert::Into<std::boxed::Box<crate::model::UserEventInlineSource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_user_event_inline_source<T: std::convert::Into<std::boxed::Box<crate::model::UserEventInlineSource>>>(mut self, v: T) -> Self {
         self.source = std::option::Option::Some(
-            crate::model::user_event_input_config::Source::UserEventInlineSource(v.into()),
+            crate::model::user_event_input_config::Source::UserEventInlineSource(
+                v.into()
+            )
         );
         self
     }
@@ -12363,9 +12012,7 @@ impl UserEventInputConfig {
     pub fn gcs_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsSource>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
-            crate::model::user_event_input_config::Source::GcsSource(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::user_event_input_config::Source::GcsSource(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -12385,12 +12032,11 @@ impl UserEventInputConfig {
     /// assert!(x.user_event_inline_source().is_none());
     /// assert!(x.big_query_source().is_none());
     /// ```
-    pub fn set_gcs_source<T: std::convert::Into<std::boxed::Box<crate::model::GcsSource>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_gcs_source<T: std::convert::Into<std::boxed::Box<crate::model::GcsSource>>>(mut self, v: T) -> Self {
         self.source = std::option::Option::Some(
-            crate::model::user_event_input_config::Source::GcsSource(v.into()),
+            crate::model::user_event_input_config::Source::GcsSource(
+                v.into()
+            )
         );
         self
     }
@@ -12398,14 +12044,10 @@ impl UserEventInputConfig {
     /// The value of [source][crate::model::UserEventInputConfig::source]
     /// if it holds a `BigQuerySource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn big_query_source(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::BigQuerySource>> {
+    pub fn big_query_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::BigQuerySource>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
-            crate::model::user_event_input_config::Source::BigQuerySource(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::user_event_input_config::Source::BigQuerySource(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -12425,14 +12067,11 @@ impl UserEventInputConfig {
     /// assert!(x.user_event_inline_source().is_none());
     /// assert!(x.gcs_source().is_none());
     /// ```
-    pub fn set_big_query_source<
-        T: std::convert::Into<std::boxed::Box<crate::model::BigQuerySource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_big_query_source<T: std::convert::Into<std::boxed::Box<crate::model::BigQuerySource>>>(mut self, v: T) -> Self {
         self.source = std::option::Option::Some(
-            crate::model::user_event_input_config::Source::BigQuerySource(v.into()),
+            crate::model::user_event_input_config::Source::BigQuerySource(
+                v.into()
+            )
         );
         self
     }
@@ -12448,6 +12087,7 @@ impl wkt::message::Message for UserEventInputConfig {
 pub mod user_event_input_config {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The source of the input.
     #[derive(Clone, Debug, PartialEq)]
@@ -12466,6 +12106,7 @@ pub mod user_event_input_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CompletionDataInputConfig {
+
     /// The source of the input.
     ///
     /// Supported
@@ -12499,12 +12140,8 @@ impl CompletionDataInputConfig {
     /// let x = CompletionDataInputConfig::new().set_source(Some(
     ///     google_cloud_retail_v2::model::completion_data_input_config::Source::BigQuerySource(BigQuerySource::default().into())));
     /// ```
-    pub fn set_source<
-        T: std::convert::Into<std::option::Option<crate::model::completion_data_input_config::Source>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source<T: std::convert::Into<std::option::Option<crate::model::completion_data_input_config::Source>>>(mut self, v: T) -> Self
+    {
         self.source = v.into();
         self
     }
@@ -12512,14 +12149,10 @@ impl CompletionDataInputConfig {
     /// The value of [source][crate::model::CompletionDataInputConfig::source]
     /// if it holds a `BigQuerySource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn big_query_source(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::BigQuerySource>> {
+    pub fn big_query_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::BigQuerySource>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
-            crate::model::completion_data_input_config::Source::BigQuerySource(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::completion_data_input_config::Source::BigQuerySource(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -12537,14 +12170,11 @@ impl CompletionDataInputConfig {
     /// let x = CompletionDataInputConfig::new().set_big_query_source(BigQuerySource::default()/* use setters */);
     /// assert!(x.big_query_source().is_some());
     /// ```
-    pub fn set_big_query_source<
-        T: std::convert::Into<std::boxed::Box<crate::model::BigQuerySource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_big_query_source<T: std::convert::Into<std::boxed::Box<crate::model::BigQuerySource>>>(mut self, v: T) -> Self {
         self.source = std::option::Option::Some(
-            crate::model::completion_data_input_config::Source::BigQuerySource(v.into()),
+            crate::model::completion_data_input_config::Source::BigQuerySource(
+                v.into()
+            )
         );
         self
     }
@@ -12560,6 +12190,7 @@ impl wkt::message::Message for CompletionDataInputConfig {
 pub mod completion_data_input_config {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The source of the input.
     ///
@@ -12589,6 +12220,7 @@ pub mod completion_data_input_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportMetadata {
+
     /// Operation create time.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
@@ -12632,8 +12264,7 @@ impl ImportMetadata {
     /// let x = ImportMetadata::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -12649,8 +12280,7 @@ impl ImportMetadata {
     /// let x = ImportMetadata::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -12665,8 +12295,7 @@ impl ImportMetadata {
     /// let x = ImportMetadata::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -12682,8 +12311,7 @@ impl ImportMetadata {
     /// let x = ImportMetadata::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -12733,10 +12361,7 @@ impl ImportMetadata {
     /// # use google_cloud_retail_v2::model::ImportMetadata;
     /// let x = ImportMetadata::new().set_notification_pubsub_topic("example");
     /// ```
-    pub fn set_notification_pubsub_topic<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_notification_pubsub_topic<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.notification_pubsub_topic = v.into();
         self
     }
@@ -12757,6 +12382,7 @@ impl wkt::message::Message for ImportMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportProductsResponse {
+
     /// A sample of errors encountered while processing the request.
     pub error_samples: std::vec::Vec<rpc::model::Status>,
 
@@ -12786,7 +12412,7 @@ impl ImportProductsResponse {
     pub fn set_error_samples<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc::model::Status>,
+        V: std::convert::Into<rpc::model::Status>
     {
         use std::iter::Iterator;
         self.error_samples = v.into_iter().map(|i| i.into()).collect();
@@ -12802,8 +12428,7 @@ impl ImportProductsResponse {
     /// let x = ImportProductsResponse::new().set_errors_config(ImportErrorsConfig::default()/* use setters */);
     /// ```
     pub fn set_errors_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ImportErrorsConfig>,
+    where T: std::convert::Into<crate::model::ImportErrorsConfig>
     {
         self.errors_config = std::option::Option::Some(v.into());
         self
@@ -12819,8 +12444,7 @@ impl ImportProductsResponse {
     /// let x = ImportProductsResponse::new().set_or_clear_errors_config(None::<ImportErrorsConfig>);
     /// ```
     pub fn set_or_clear_errors_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ImportErrorsConfig>,
+    where T: std::convert::Into<crate::model::ImportErrorsConfig>
     {
         self.errors_config = v.map(|x| x.into());
         self
@@ -12839,6 +12463,7 @@ impl wkt::message::Message for ImportProductsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportUserEventsResponse {
+
     /// A sample of errors encountered while processing the request.
     pub error_samples: std::vec::Vec<rpc::model::Status>,
 
@@ -12872,7 +12497,7 @@ impl ImportUserEventsResponse {
     pub fn set_error_samples<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc::model::Status>,
+        V: std::convert::Into<rpc::model::Status>
     {
         use std::iter::Iterator;
         self.error_samples = v.into_iter().map(|i| i.into()).collect();
@@ -12888,8 +12513,7 @@ impl ImportUserEventsResponse {
     /// let x = ImportUserEventsResponse::new().set_errors_config(ImportErrorsConfig::default()/* use setters */);
     /// ```
     pub fn set_errors_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ImportErrorsConfig>,
+    where T: std::convert::Into<crate::model::ImportErrorsConfig>
     {
         self.errors_config = std::option::Option::Some(v.into());
         self
@@ -12905,8 +12529,7 @@ impl ImportUserEventsResponse {
     /// let x = ImportUserEventsResponse::new().set_or_clear_errors_config(None::<ImportErrorsConfig>);
     /// ```
     pub fn set_or_clear_errors_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ImportErrorsConfig>,
+    where T: std::convert::Into<crate::model::ImportErrorsConfig>
     {
         self.errors_config = v.map(|x| x.into());
         self
@@ -12921,8 +12544,7 @@ impl ImportUserEventsResponse {
     /// let x = ImportUserEventsResponse::new().set_import_summary(UserEventImportSummary::default()/* use setters */);
     /// ```
     pub fn set_import_summary<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::UserEventImportSummary>,
+    where T: std::convert::Into<crate::model::UserEventImportSummary>
     {
         self.import_summary = std::option::Option::Some(v.into());
         self
@@ -12938,8 +12560,7 @@ impl ImportUserEventsResponse {
     /// let x = ImportUserEventsResponse::new().set_or_clear_import_summary(None::<UserEventImportSummary>);
     /// ```
     pub fn set_or_clear_import_summary<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::UserEventImportSummary>,
+    where T: std::convert::Into<crate::model::UserEventImportSummary>
     {
         self.import_summary = v.map(|x| x.into());
         self
@@ -12957,6 +12578,7 @@ impl wkt::message::Message for ImportUserEventsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UserEventImportSummary {
+
     /// Count of user events imported with complete existing catalog information.
     pub joined_events_count: i64,
 
@@ -13012,6 +12634,7 @@ impl wkt::message::Message for UserEventImportSummary {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportCompletionDataResponse {
+
     /// A sample of errors encountered while processing the request.
     pub error_samples: std::vec::Vec<rpc::model::Status>,
 
@@ -13038,7 +12661,7 @@ impl ImportCompletionDataResponse {
     pub fn set_error_samples<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc::model::Status>,
+        V: std::convert::Into<rpc::model::Status>
     {
         use std::iter::Iterator;
         self.error_samples = v.into_iter().map(|i| i.into()).collect();
@@ -13063,6 +12686,7 @@ impl wkt::message::Message for ImportCompletionDataResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Model {
+
     /// Required. The fully qualified resource name of the model.
     ///
     /// Format:
@@ -13223,10 +12847,7 @@ impl Model {
     /// let x0 = Model::new().set_training_state(TrainingState::Paused);
     /// let x1 = Model::new().set_training_state(TrainingState::Training);
     /// ```
-    pub fn set_training_state<T: std::convert::Into<crate::model::model::TrainingState>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_training_state<T: std::convert::Into<crate::model::model::TrainingState>>(mut self, v: T) -> Self {
         self.training_state = v.into();
         self
     }
@@ -13241,10 +12862,7 @@ impl Model {
     /// let x1 = Model::new().set_serving_state(ServingState::Active);
     /// let x2 = Model::new().set_serving_state(ServingState::Tuned);
     /// ```
-    pub fn set_serving_state<T: std::convert::Into<crate::model::model::ServingState>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_serving_state<T: std::convert::Into<crate::model::model::ServingState>>(mut self, v: T) -> Self {
         self.serving_state = v.into();
         self
     }
@@ -13258,8 +12876,7 @@ impl Model {
     /// let x = Model::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -13275,8 +12892,7 @@ impl Model {
     /// let x = Model::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -13291,8 +12907,7 @@ impl Model {
     /// let x = Model::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -13308,8 +12923,7 @@ impl Model {
     /// let x = Model::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -13334,10 +12948,7 @@ impl Model {
     /// # use google_cloud_retail_v2::model::Model;
     /// let x = Model::new().set_optimization_objective("example");
     /// ```
-    pub fn set_optimization_objective<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_optimization_objective<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.optimization_objective = v.into();
         self
     }
@@ -13352,12 +12963,7 @@ impl Model {
     /// let x1 = Model::new().set_periodic_tuning_state(PeriodicTuningState::AllTuningDisabled);
     /// let x2 = Model::new().set_periodic_tuning_state(PeriodicTuningState::PeriodicTuningEnabled);
     /// ```
-    pub fn set_periodic_tuning_state<
-        T: std::convert::Into<crate::model::model::PeriodicTuningState>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_periodic_tuning_state<T: std::convert::Into<crate::model::model::PeriodicTuningState>>(mut self, v: T) -> Self {
         self.periodic_tuning_state = v.into();
         self
     }
@@ -13371,8 +12977,7 @@ impl Model {
     /// let x = Model::new().set_last_tune_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_last_tune_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.last_tune_time = std::option::Option::Some(v.into());
         self
@@ -13388,8 +12993,7 @@ impl Model {
     /// let x = Model::new().set_or_clear_last_tune_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_last_tune_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.last_tune_time = v.map(|x| x.into());
         self
@@ -13402,10 +13006,7 @@ impl Model {
     /// # use google_cloud_retail_v2::model::Model;
     /// let x = Model::new().set_tuning_operation("example");
     /// ```
-    pub fn set_tuning_operation<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_tuning_operation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.tuning_operation = v.into();
         self
     }
@@ -13419,10 +13020,7 @@ impl Model {
     /// let x0 = Model::new().set_data_state(DataState::DataOk);
     /// let x1 = Model::new().set_data_state(DataState::DataError);
     /// ```
-    pub fn set_data_state<T: std::convert::Into<crate::model::model::DataState>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_data_state<T: std::convert::Into<crate::model::model::DataState>>(mut self, v: T) -> Self {
         self.data_state = v.into();
         self
     }
@@ -13436,12 +13034,7 @@ impl Model {
     /// let x0 = Model::new().set_filtering_option(RecommendationsFilteringOption::RecommendationsFilteringDisabled);
     /// let x1 = Model::new().set_filtering_option(RecommendationsFilteringOption::RecommendationsFilteringEnabled);
     /// ```
-    pub fn set_filtering_option<
-        T: std::convert::Into<crate::model::RecommendationsFilteringOption>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_filtering_option<T: std::convert::Into<crate::model::RecommendationsFilteringOption>>(mut self, v: T) -> Self {
         self.filtering_option = v.into();
         self
     }
@@ -13461,7 +13054,7 @@ impl Model {
     pub fn set_serving_config_lists<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::model::ServingConfigList>,
+        V: std::convert::Into<crate::model::model::ServingConfigList>
     {
         use std::iter::Iterator;
         self.serving_config_lists = v.into_iter().map(|i| i.into()).collect();
@@ -13477,8 +13070,7 @@ impl Model {
     /// let x = Model::new().set_model_features_config(ModelFeaturesConfig::default()/* use setters */);
     /// ```
     pub fn set_model_features_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::model::ModelFeaturesConfig>,
+    where T: std::convert::Into<crate::model::model::ModelFeaturesConfig>
     {
         self.model_features_config = std::option::Option::Some(v.into());
         self
@@ -13494,8 +13086,7 @@ impl Model {
     /// let x = Model::new().set_or_clear_model_features_config(None::<ModelFeaturesConfig>);
     /// ```
     pub fn set_or_clear_model_features_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::model::ModelFeaturesConfig>,
+    where T: std::convert::Into<crate::model::model::ModelFeaturesConfig>
     {
         self.model_features_config = v.map(|x| x.into());
         self
@@ -13513,11 +13104,13 @@ pub mod model {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Represents an ordered combination of valid serving configs, which
     /// can be used for `PAGE_OPTIMIZATION` recommendations.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ServingConfigList {
+
         /// Optional. A set of valid serving configs that may be used for
         /// `PAGE_OPTIMIZATION`.
         pub serving_config_ids: std::vec::Vec<std::string::String>,
@@ -13540,7 +13133,7 @@ pub mod model {
         pub fn set_serving_config_ids<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.serving_config_ids = v.into_iter().map(|i| i.into()).collect();
@@ -13558,6 +13151,7 @@ pub mod model {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct FrequentlyBoughtTogetherFeaturesConfig {
+
         /// Optional. Specifies the context of the model when it is used in predict
         /// requests. Can only be set for the `frequently-bought-together` type. If
         /// it isn't specified, it defaults to
@@ -13583,12 +13177,7 @@ pub mod model {
         /// let x0 = FrequentlyBoughtTogetherFeaturesConfig::new().set_context_products_type(ContextProductsType::SingleContextProduct);
         /// let x1 = FrequentlyBoughtTogetherFeaturesConfig::new().set_context_products_type(ContextProductsType::MultipleContextProducts);
         /// ```
-        pub fn set_context_products_type<
-            T: std::convert::Into<crate::model::model::ContextProductsType>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_context_products_type<T: std::convert::Into<crate::model::model::ContextProductsType>>(mut self, v: T) -> Self {
             self.context_products_type = v.into();
             self
         }
@@ -13604,8 +13193,8 @@ pub mod model {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ModelFeaturesConfig {
-        pub type_dedicated_config:
-            std::option::Option<crate::model::model::model_features_config::TypeDedicatedConfig>,
+
+        pub type_dedicated_config: std::option::Option<crate::model::model::model_features_config::TypeDedicatedConfig>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -13627,16 +13216,8 @@ pub mod model {
         /// let x = ModelFeaturesConfig::new().set_type_dedicated_config(Some(
         ///     google_cloud_retail_v2::model::model::model_features_config::TypeDedicatedConfig::FrequentlyBoughtTogetherConfig(FrequentlyBoughtTogetherFeaturesConfig::default().into())));
         /// ```
-        pub fn set_type_dedicated_config<
-            T: std::convert::Into<
-                    std::option::Option<
-                        crate::model::model::model_features_config::TypeDedicatedConfig,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_type_dedicated_config<T: std::convert::Into<std::option::Option<crate::model::model::model_features_config::TypeDedicatedConfig>>>(mut self, v: T) -> Self
+        {
             self.type_dedicated_config = v.into();
             self
         }
@@ -13644,11 +13225,7 @@ pub mod model {
         /// The value of [type_dedicated_config][crate::model::model::ModelFeaturesConfig::type_dedicated_config]
         /// if it holds a `FrequentlyBoughtTogetherConfig`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn frequently_bought_together_config(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<crate::model::model::FrequentlyBoughtTogetherFeaturesConfig>,
-        > {
+        pub fn frequently_bought_together_config(&self) -> std::option::Option<&std::boxed::Box<crate::model::model::FrequentlyBoughtTogetherFeaturesConfig>> {
             #[allow(unreachable_patterns)]
             self.type_dedicated_config.as_ref().and_then(|v| match v {
                 crate::model::model::model_features_config::TypeDedicatedConfig::FrequentlyBoughtTogetherConfig(v) => std::option::Option::Some(v),
@@ -13669,14 +13246,7 @@ pub mod model {
         /// let x = ModelFeaturesConfig::new().set_frequently_bought_together_config(FrequentlyBoughtTogetherFeaturesConfig::default()/* use setters */);
         /// assert!(x.frequently_bought_together_config().is_some());
         /// ```
-        pub fn set_frequently_bought_together_config<
-            T: std::convert::Into<
-                    std::boxed::Box<crate::model::model::FrequentlyBoughtTogetherFeaturesConfig>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_frequently_bought_together_config<T: std::convert::Into<std::boxed::Box<crate::model::model::FrequentlyBoughtTogetherFeaturesConfig>>>(mut self, v: T) -> Self {
             self.type_dedicated_config = std::option::Option::Some(
                 crate::model::model::model_features_config::TypeDedicatedConfig::FrequentlyBoughtTogetherConfig(
                     v.into()
@@ -13697,13 +13267,12 @@ pub mod model {
         #[allow(unused_imports)]
         use super::*;
 
+
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum TypeDedicatedConfig {
             /// Additional configs for frequently-bought-together models.
-            FrequentlyBoughtTogetherConfig(
-                std::boxed::Box<crate::model::model::FrequentlyBoughtTogetherFeaturesConfig>,
-            ),
+            FrequentlyBoughtTogetherConfig(std::boxed::Box<crate::model::model::FrequentlyBoughtTogetherFeaturesConfig>),
         }
     }
 
@@ -13799,9 +13368,7 @@ pub mod model {
                 1 => Self::Inactive,
                 2 => Self::Active,
                 3 => Self::Tuned,
-                _ => Self::UnknownValue(serving_state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(serving_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -13814,9 +13381,7 @@ pub mod model {
                 "INACTIVE" => Self::Inactive,
                 "ACTIVE" => Self::Active,
                 "TUNED" => Self::Tuned,
-                _ => Self::UnknownValue(serving_state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(serving_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -13842,8 +13407,7 @@ pub mod model {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<ServingState>::new(
-                ".google.cloud.retail.v2.Model.ServingState",
-            ))
+                ".google.cloud.retail.v2.Model.ServingState"))
         }
     }
 
@@ -13933,9 +13497,7 @@ pub mod model {
                 0 => Self::Unspecified,
                 1 => Self::Paused,
                 2 => Self::Training,
-                _ => Self::UnknownValue(training_state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(training_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -13947,9 +13509,7 @@ pub mod model {
                 "TRAINING_STATE_UNSPECIFIED" => Self::Unspecified,
                 "PAUSED" => Self::Paused,
                 "TRAINING" => Self::Training,
-                _ => Self::UnknownValue(training_state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(training_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -13974,8 +13534,7 @@ pub mod model {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<TrainingState>::new(
-                ".google.cloud.retail.v2.Model.TrainingState",
-            ))
+                ".google.cloud.retail.v2.Model.TrainingState"))
         }
     }
 
@@ -14053,9 +13612,7 @@ pub mod model {
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
                 Self::Unspecified => std::option::Option::Some("PERIODIC_TUNING_STATE_UNSPECIFIED"),
-                Self::PeriodicTuningDisabled => {
-                    std::option::Option::Some("PERIODIC_TUNING_DISABLED")
-                }
+                Self::PeriodicTuningDisabled => std::option::Option::Some("PERIODIC_TUNING_DISABLED"),
                 Self::AllTuningDisabled => std::option::Option::Some("ALL_TUNING_DISABLED"),
                 Self::PeriodicTuningEnabled => std::option::Option::Some("PERIODIC_TUNING_ENABLED"),
                 Self::UnknownValue(u) => u.0.name(),
@@ -14083,9 +13640,7 @@ pub mod model {
                 1 => Self::PeriodicTuningDisabled,
                 2 => Self::PeriodicTuningEnabled,
                 3 => Self::AllTuningDisabled,
-                _ => Self::UnknownValue(periodic_tuning_state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(periodic_tuning_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -14098,9 +13653,7 @@ pub mod model {
                 "PERIODIC_TUNING_DISABLED" => Self::PeriodicTuningDisabled,
                 "ALL_TUNING_DISABLED" => Self::AllTuningDisabled,
                 "PERIODIC_TUNING_ENABLED" => Self::PeriodicTuningEnabled,
-                _ => Self::UnknownValue(periodic_tuning_state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(periodic_tuning_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -14126,8 +13679,7 @@ pub mod model {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<PeriodicTuningState>::new(
-                ".google.cloud.retail.v2.Model.PeriodicTuningState",
-            ))
+                ".google.cloud.retail.v2.Model.PeriodicTuningState"))
         }
     }
 
@@ -14219,9 +13771,7 @@ pub mod model {
                 0 => Self::Unspecified,
                 1 => Self::DataOk,
                 2 => Self::DataError,
-                _ => Self::UnknownValue(data_state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(data_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -14233,9 +13783,7 @@ pub mod model {
                 "DATA_STATE_UNSPECIFIED" => Self::Unspecified,
                 "DATA_OK" => Self::DataOk,
                 "DATA_ERROR" => Self::DataError,
-                _ => Self::UnknownValue(data_state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(data_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -14260,8 +13808,7 @@ pub mod model {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<DataState>::new(
-                ".google.cloud.retail.v2.Model.DataState",
-            ))
+                ".google.cloud.retail.v2.Model.DataState"))
         }
     }
 
@@ -14332,9 +13879,7 @@ pub mod model {
             match self {
                 Self::Unspecified => std::option::Option::Some("CONTEXT_PRODUCTS_TYPE_UNSPECIFIED"),
                 Self::SingleContextProduct => std::option::Option::Some("SINGLE_CONTEXT_PRODUCT"),
-                Self::MultipleContextProducts => {
-                    std::option::Option::Some("MULTIPLE_CONTEXT_PRODUCTS")
-                }
+                Self::MultipleContextProducts => std::option::Option::Some("MULTIPLE_CONTEXT_PRODUCTS"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -14359,9 +13904,7 @@ pub mod model {
                 0 => Self::Unspecified,
                 1 => Self::SingleContextProduct,
                 2 => Self::MultipleContextProducts,
-                _ => Self::UnknownValue(context_products_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(context_products_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -14373,9 +13916,7 @@ pub mod model {
                 "CONTEXT_PRODUCTS_TYPE_UNSPECIFIED" => Self::Unspecified,
                 "SINGLE_CONTEXT_PRODUCT" => Self::SingleContextProduct,
                 "MULTIPLE_CONTEXT_PRODUCTS" => Self::MultipleContextProducts,
-                _ => Self::UnknownValue(context_products_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(context_products_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -14400,8 +13941,7 @@ pub mod model {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<ContextProductsType>::new(
-                ".google.cloud.retail.v2.Model.ContextProductsType",
-            ))
+                ".google.cloud.retail.v2.Model.ContextProductsType"))
         }
     }
 }
@@ -14410,6 +13950,7 @@ pub mod model {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateModelRequest {
+
     /// Required. The parent resource under which to create the model. Format:
     /// `projects/{project_number}/locations/{location_id}/catalogs/{catalog_id}`
     pub parent: std::string::String,
@@ -14453,8 +13994,7 @@ impl CreateModelRequest {
     /// let x = CreateModelRequest::new().set_model(Model::default()/* use setters */);
     /// ```
     pub fn set_model<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Model>,
+    where T: std::convert::Into<crate::model::Model>
     {
         self.model = std::option::Option::Some(v.into());
         self
@@ -14470,8 +14010,7 @@ impl CreateModelRequest {
     /// let x = CreateModelRequest::new().set_or_clear_model(None::<Model>);
     /// ```
     pub fn set_or_clear_model<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Model>,
+    where T: std::convert::Into<crate::model::Model>
     {
         self.model = v.map(|x| x.into());
         self
@@ -14500,6 +14039,7 @@ impl wkt::message::Message for CreateModelRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateModelRequest {
+
     /// Required. The body of the updated [Model][google.cloud.retail.v2.Model].
     ///
     /// [google.cloud.retail.v2.Model]: crate::model::Model
@@ -14526,8 +14066,7 @@ impl UpdateModelRequest {
     /// let x = UpdateModelRequest::new().set_model(Model::default()/* use setters */);
     /// ```
     pub fn set_model<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Model>,
+    where T: std::convert::Into<crate::model::Model>
     {
         self.model = std::option::Option::Some(v.into());
         self
@@ -14543,8 +14082,7 @@ impl UpdateModelRequest {
     /// let x = UpdateModelRequest::new().set_or_clear_model(None::<Model>);
     /// ```
     pub fn set_or_clear_model<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Model>,
+    where T: std::convert::Into<crate::model::Model>
     {
         self.model = v.map(|x| x.into());
         self
@@ -14559,8 +14097,7 @@ impl UpdateModelRequest {
     /// let x = UpdateModelRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -14576,8 +14113,7 @@ impl UpdateModelRequest {
     /// let x = UpdateModelRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -14594,6 +14130,7 @@ impl wkt::message::Message for UpdateModelRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetModelRequest {
+
     /// Required. The resource name of the [Model][google.cloud.retail.v2.Model] to
     /// get. Format:
     /// `projects/{project_number}/locations/{location_id}/catalogs/{catalog}/models/{model_id}`
@@ -14632,6 +14169,7 @@ impl wkt::message::Message for GetModelRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PauseModelRequest {
+
     /// Required. The name of the model to pause.
     /// Format:
     /// `projects/{project_number}/locations/{location_id}/catalogs/{catalog_id}/models/{model_id}`
@@ -14668,6 +14206,7 @@ impl wkt::message::Message for PauseModelRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResumeModelRequest {
+
     /// Required. The name of the model to resume.
     /// Format:
     /// `projects/{project_number}/locations/{location_id}/catalogs/{catalog_id}/models/{model_id}`
@@ -14704,6 +14243,7 @@ impl wkt::message::Message for ResumeModelRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListModelsRequest {
+
     /// Required. The parent for which to list models.
     /// Format:
     /// `projects/{project_number}/locations/{location_id}/catalogs/{catalog_id}`
@@ -14772,6 +14312,7 @@ impl wkt::message::Message for ListModelsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteModelRequest {
+
     /// Required. The resource name of the [Model][google.cloud.retail.v2.Model] to
     /// delete. Format:
     /// `projects/{project_number}/locations/{location_id}/catalogs/{catalog_id}/models/{model_id}`
@@ -14810,6 +14351,7 @@ impl wkt::message::Message for DeleteModelRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListModelsResponse {
+
     /// List of Models.
     pub models: std::vec::Vec<crate::model::Model>,
 
@@ -14839,7 +14381,7 @@ impl ListModelsResponse {
     pub fn set_models<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Model>,
+        V: std::convert::Into<crate::model::Model>
     {
         use std::iter::Iterator;
         self.models = v.into_iter().map(|i| i.into()).collect();
@@ -14884,6 +14426,7 @@ impl gax::paginator::internal::PageableResponse for ListModelsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TuneModelRequest {
+
     /// Required. The resource name of the model to tune.
     /// Format:
     /// `projects/{project_number}/locations/{location_id}/catalogs/{catalog_id}/models/{model_id}`
@@ -14920,6 +14463,7 @@ impl wkt::message::Message for TuneModelRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateModelMetadata {
+
     /// The resource name of the model that this create applies to.
     /// Format:
     /// `projects/{project_number}/locations/{location_id}/catalogs/{catalog_id}/models/{model_id}`
@@ -14956,6 +14500,7 @@ impl wkt::message::Message for CreateModelMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TuneModelMetadata {
+
     /// The resource name of the model that this tune applies to.
     /// Format:
     /// `projects/{project_number}/locations/{location_id}/catalogs/{catalog_id}/models/{model_id}`
@@ -14992,6 +14537,7 @@ impl wkt::message::Message for TuneModelMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TuneModelResponse {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -15011,6 +14557,7 @@ impl wkt::message::Message for TuneModelResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PredictRequest {
+
     /// Required. Full resource name of the format:
     /// `{placement=projects/*/locations/global/catalogs/default_catalog/servingConfigs/*}`
     /// or
@@ -15131,7 +14678,7 @@ pub struct PredictRequest {
     ///   category.
     /// * `filterSyntaxV2`: Boolean. False by default. If set to true, the `filter`
     ///   field is interpreteted according to the new, attribute-based syntax.
-    pub params: std::collections::HashMap<std::string::String, wkt::Value>,
+    pub params: std::collections::HashMap<std::string::String,wkt::Value>,
 
     /// The labels applied to a resource must meet the following requirements:
     ///
@@ -15150,7 +14697,7 @@ pub struct PredictRequest {
     /// See [Google Cloud
     /// Document](https://cloud.google.com/resource-manager/docs/creating-managing-labels#requirements)
     /// for more details.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -15181,8 +14728,7 @@ impl PredictRequest {
     /// let x = PredictRequest::new().set_user_event(UserEvent::default()/* use setters */);
     /// ```
     pub fn set_user_event<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::UserEvent>,
+    where T: std::convert::Into<crate::model::UserEvent>
     {
         self.user_event = std::option::Option::Some(v.into());
         self
@@ -15198,8 +14744,7 @@ impl PredictRequest {
     /// let x = PredictRequest::new().set_or_clear_user_event(None::<UserEvent>);
     /// ```
     pub fn set_or_clear_user_event<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::UserEvent>,
+    where T: std::convert::Into<crate::model::UserEvent>
     {
         self.user_event = v.map(|x| x.into());
         self
@@ -15308,6 +14853,7 @@ impl wkt::message::Message for PredictRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PredictResponse {
+
     /// A list of recommended products. The order represents the ranking (from the
     /// most relevant product to the least).
     pub results: std::vec::Vec<crate::model::predict_response::PredictionResult>,
@@ -15349,7 +14895,7 @@ impl PredictResponse {
     pub fn set_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::predict_response::PredictionResult>,
+        V: std::convert::Into<crate::model::predict_response::PredictionResult>
     {
         use std::iter::Iterator;
         self.results = v.into_iter().map(|i| i.into()).collect();
@@ -15363,10 +14909,7 @@ impl PredictResponse {
     /// # use google_cloud_retail_v2::model::PredictResponse;
     /// let x = PredictResponse::new().set_attribution_token("example");
     /// ```
-    pub fn set_attribution_token<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_attribution_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.attribution_token = v.into();
         self
     }
@@ -15381,7 +14924,7 @@ impl PredictResponse {
     pub fn set_missing_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.missing_ids = v.into_iter().map(|i| i.into()).collect();
@@ -15412,10 +14955,12 @@ pub mod predict_response {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// PredictionResult represents the recommendation prediction results.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PredictionResult {
+
         /// ID of the recommended product
         pub id: std::string::String,
 
@@ -15427,7 +14972,7 @@ pub mod predict_response {
         ///   `returnProduct` is set to true in `PredictRequest.params`.
         /// * `score`: Prediction score in double value. Is set if
         ///   `returnScore` is set to true in `PredictRequest.params`.
-        pub metadata: std::collections::HashMap<std::string::String, wkt::Value>,
+        pub metadata: std::collections::HashMap<std::string::String,wkt::Value>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -15484,6 +15029,7 @@ pub mod predict_response {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Product {
+
     /// Immutable. Full resource name of the product, such as
     /// `projects/*/locations/global/catalogs/default_catalog/branches/default_branch/products/product_id`.
     pub name: std::string::String,
@@ -15688,7 +15234,7 @@ pub struct Product {
     ///   allowed. Each value must be a non-empty UTF-8 encoded string with a
     ///   length limit of 256 characters.
     /// * For number attributes, at most 400 values are allowed.
-    pub attributes: std::collections::HashMap<std::string::String, crate::model::CustomAttribute>,
+    pub attributes: std::collections::HashMap<std::string::String,crate::model::CustomAttribute>,
 
     /// Custom tags associated with the product.
     ///
@@ -16053,10 +15599,7 @@ impl Product {
     /// # use google_cloud_retail_v2::model::Product;
     /// let x = Product::new().set_primary_product_id("example");
     /// ```
-    pub fn set_primary_product_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_primary_product_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.primary_product_id = v.into();
         self
     }
@@ -16071,7 +15614,7 @@ impl Product {
     pub fn set_collection_member_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.collection_member_ids = v.into_iter().map(|i| i.into()).collect();
@@ -16100,7 +15643,7 @@ impl Product {
     pub fn set_categories<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.categories = v.into_iter().map(|i| i.into()).collect();
@@ -16129,7 +15672,7 @@ impl Product {
     pub fn set_brands<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.brands = v.into_iter().map(|i| i.into()).collect();
@@ -16192,7 +15735,7 @@ impl Product {
     pub fn set_tags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.tags = v.into_iter().map(|i| i.into()).collect();
@@ -16208,8 +15751,7 @@ impl Product {
     /// let x = Product::new().set_price_info(PriceInfo::default()/* use setters */);
     /// ```
     pub fn set_price_info<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::PriceInfo>,
+    where T: std::convert::Into<crate::model::PriceInfo>
     {
         self.price_info = std::option::Option::Some(v.into());
         self
@@ -16225,8 +15767,7 @@ impl Product {
     /// let x = Product::new().set_or_clear_price_info(None::<PriceInfo>);
     /// ```
     pub fn set_or_clear_price_info<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::PriceInfo>,
+    where T: std::convert::Into<crate::model::PriceInfo>
     {
         self.price_info = v.map(|x| x.into());
         self
@@ -16241,8 +15782,7 @@ impl Product {
     /// let x = Product::new().set_rating(Rating::default()/* use setters */);
     /// ```
     pub fn set_rating<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Rating>,
+    where T: std::convert::Into<crate::model::Rating>
     {
         self.rating = std::option::Option::Some(v.into());
         self
@@ -16258,8 +15798,7 @@ impl Product {
     /// let x = Product::new().set_or_clear_rating(None::<Rating>);
     /// ```
     pub fn set_or_clear_rating<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Rating>,
+    where T: std::convert::Into<crate::model::Rating>
     {
         self.rating = v.map(|x| x.into());
         self
@@ -16274,8 +15813,7 @@ impl Product {
     /// let x = Product::new().set_available_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_available_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.available_time = std::option::Option::Some(v.into());
         self
@@ -16291,8 +15829,7 @@ impl Product {
     /// let x = Product::new().set_or_clear_available_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_available_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.available_time = v.map(|x| x.into());
         self
@@ -16308,10 +15845,7 @@ impl Product {
     /// let x1 = Product::new().set_availability(Availability::OutOfStock);
     /// let x2 = Product::new().set_availability(Availability::Preorder);
     /// ```
-    pub fn set_availability<T: std::convert::Into<crate::model::product::Availability>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_availability<T: std::convert::Into<crate::model::product::Availability>>(mut self, v: T) -> Self {
         self.availability = v.into();
         self
     }
@@ -16325,8 +15859,7 @@ impl Product {
     /// let x = Product::new().set_available_quantity(Int32Value::default()/* use setters */);
     /// ```
     pub fn set_available_quantity<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Int32Value>,
+    where T: std::convert::Into<wkt::Int32Value>
     {
         self.available_quantity = std::option::Option::Some(v.into());
         self
@@ -16342,8 +15875,7 @@ impl Product {
     /// let x = Product::new().set_or_clear_available_quantity(None::<Int32Value>);
     /// ```
     pub fn set_or_clear_available_quantity<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Int32Value>,
+    where T: std::convert::Into<wkt::Int32Value>
     {
         self.available_quantity = v.map(|x| x.into());
         self
@@ -16364,7 +15896,7 @@ impl Product {
     pub fn set_fulfillment_info<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::FulfillmentInfo>,
+        V: std::convert::Into<crate::model::FulfillmentInfo>
     {
         use std::iter::Iterator;
         self.fulfillment_info = v.into_iter().map(|i| i.into()).collect();
@@ -16398,7 +15930,7 @@ impl Product {
     pub fn set_images<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Image>,
+        V: std::convert::Into<crate::model::Image>
     {
         use std::iter::Iterator;
         self.images = v.into_iter().map(|i| i.into()).collect();
@@ -16414,8 +15946,7 @@ impl Product {
     /// let x = Product::new().set_audience(Audience::default()/* use setters */);
     /// ```
     pub fn set_audience<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Audience>,
+    where T: std::convert::Into<crate::model::Audience>
     {
         self.audience = std::option::Option::Some(v.into());
         self
@@ -16431,8 +15962,7 @@ impl Product {
     /// let x = Product::new().set_or_clear_audience(None::<Audience>);
     /// ```
     pub fn set_or_clear_audience<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Audience>,
+    where T: std::convert::Into<crate::model::Audience>
     {
         self.audience = v.map(|x| x.into());
         self
@@ -16447,8 +15977,7 @@ impl Product {
     /// let x = Product::new().set_color_info(ColorInfo::default()/* use setters */);
     /// ```
     pub fn set_color_info<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ColorInfo>,
+    where T: std::convert::Into<crate::model::ColorInfo>
     {
         self.color_info = std::option::Option::Some(v.into());
         self
@@ -16464,8 +15993,7 @@ impl Product {
     /// let x = Product::new().set_or_clear_color_info(None::<ColorInfo>);
     /// ```
     pub fn set_or_clear_color_info<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ColorInfo>,
+    where T: std::convert::Into<crate::model::ColorInfo>
     {
         self.color_info = v.map(|x| x.into());
         self
@@ -16481,7 +16009,7 @@ impl Product {
     pub fn set_sizes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.sizes = v.into_iter().map(|i| i.into()).collect();
@@ -16498,7 +16026,7 @@ impl Product {
     pub fn set_materials<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.materials = v.into_iter().map(|i| i.into()).collect();
@@ -16515,7 +16043,7 @@ impl Product {
     pub fn set_patterns<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.patterns = v.into_iter().map(|i| i.into()).collect();
@@ -16532,7 +16060,7 @@ impl Product {
     pub fn set_conditions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.conditions = v.into_iter().map(|i| i.into()).collect();
@@ -16554,7 +16082,7 @@ impl Product {
     pub fn set_promotions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Promotion>,
+        V: std::convert::Into<crate::model::Promotion>
     {
         use std::iter::Iterator;
         self.promotions = v.into_iter().map(|i| i.into()).collect();
@@ -16570,8 +16098,7 @@ impl Product {
     /// let x = Product::new().set_publish_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_publish_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.publish_time = std::option::Option::Some(v.into());
         self
@@ -16587,8 +16114,7 @@ impl Product {
     /// let x = Product::new().set_or_clear_publish_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_publish_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.publish_time = v.map(|x| x.into());
         self
@@ -16604,8 +16130,7 @@ impl Product {
     /// ```
     #[deprecated]
     pub fn set_retrievable_fields<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.retrievable_fields = std::option::Option::Some(v.into());
         self
@@ -16622,8 +16147,7 @@ impl Product {
     /// ```
     #[deprecated]
     pub fn set_or_clear_retrievable_fields<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.retrievable_fields = v.map(|x| x.into());
         self
@@ -16643,7 +16167,7 @@ impl Product {
     pub fn set_variants<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Product>,
+        V: std::convert::Into<crate::model::Product>
     {
         use std::iter::Iterator;
         self.variants = v.into_iter().map(|i| i.into()).collect();
@@ -16665,7 +16189,7 @@ impl Product {
     pub fn set_local_inventories<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::LocalInventory>,
+        V: std::convert::Into<crate::model::LocalInventory>
     {
         use std::iter::Iterator;
         self.local_inventories = v.into_iter().map(|i| i.into()).collect();
@@ -16684,12 +16208,8 @@ impl Product {
     /// let x = Product::new().set_expiration(Some(
     ///     google_cloud_retail_v2::model::product::Expiration::ExpireTime(Timestamp::default().into())));
     /// ```
-    pub fn set_expiration<
-        T: std::convert::Into<std::option::Option<crate::model::product::Expiration>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_expiration<T: std::convert::Into<std::option::Option<crate::model::product::Expiration>>>(mut self, v: T) -> Self
+    {
         self.expiration = v.into();
         self
     }
@@ -16719,12 +16239,12 @@ impl Product {
     /// assert!(x.expire_time().is_some());
     /// assert!(x.ttl().is_none());
     /// ```
-    pub fn set_expire_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.expiration =
-            std::option::Option::Some(crate::model::product::Expiration::ExpireTime(v.into()));
+    pub fn set_expire_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(mut self, v: T) -> Self {
+        self.expiration = std::option::Option::Some(
+            crate::model::product::Expiration::ExpireTime(
+                v.into()
+            )
+        );
         self
     }
 
@@ -16754,8 +16274,11 @@ impl Product {
     /// assert!(x.expire_time().is_none());
     /// ```
     pub fn set_ttl<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(mut self, v: T) -> Self {
-        self.expiration =
-            std::option::Option::Some(crate::model::product::Expiration::Ttl(v.into()));
+        self.expiration = std::option::Option::Some(
+            crate::model::product::Expiration::Ttl(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -16770,6 +16293,7 @@ impl wkt::message::Message for Product {
 pub mod product {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The type of this product.
     ///
@@ -16896,9 +16420,7 @@ pub mod product {
                 1 => Self::Primary,
                 2 => Self::Variant,
                 3 => Self::Collection,
-                _ => Self::UnknownValue(r#type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -16911,9 +16433,7 @@ pub mod product {
                 "PRIMARY" => Self::Primary,
                 "VARIANT" => Self::Variant,
                 "COLLECTION" => Self::Collection,
-                _ => Self::UnknownValue(r#type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -16939,8 +16459,7 @@ pub mod product {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
-                ".google.cloud.retail.v2.Product.Type",
-            ))
+                ".google.cloud.retail.v2.Product.Type"))
         }
     }
 
@@ -17045,9 +16564,7 @@ pub mod product {
                 2 => Self::OutOfStock,
                 3 => Self::Preorder,
                 4 => Self::Backorder,
-                _ => Self::UnknownValue(availability::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(availability::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -17061,9 +16578,7 @@ pub mod product {
                 "OUT_OF_STOCK" => Self::OutOfStock,
                 "PREORDER" => Self::Preorder,
                 "BACKORDER" => Self::Backorder,
-                _ => Self::UnknownValue(availability::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(availability::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -17090,8 +16605,7 @@ pub mod product {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Availability>::new(
-                ".google.cloud.retail.v2.Product.Availability",
-            ))
+                ".google.cloud.retail.v2.Product.Availability"))
         }
     }
 
@@ -17176,6 +16690,7 @@ pub mod product {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateProductRequest {
+
     /// Required. The parent catalog resource name, such as
     /// `projects/*/locations/global/catalogs/default_catalog/branches/default_branch`.
     pub parent: std::string::String,
@@ -17235,8 +16750,7 @@ impl CreateProductRequest {
     /// let x = CreateProductRequest::new().set_product(Product::default()/* use setters */);
     /// ```
     pub fn set_product<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Product>,
+    where T: std::convert::Into<crate::model::Product>
     {
         self.product = std::option::Option::Some(v.into());
         self
@@ -17252,8 +16766,7 @@ impl CreateProductRequest {
     /// let x = CreateProductRequest::new().set_or_clear_product(None::<Product>);
     /// ```
     pub fn set_or_clear_product<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Product>,
+    where T: std::convert::Into<crate::model::Product>
     {
         self.product = v.map(|x| x.into());
         self
@@ -17286,6 +16799,7 @@ impl wkt::message::Message for CreateProductRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetProductRequest {
+
     /// Required. Full resource name of [Product][google.cloud.retail.v2.Product],
     /// such as
     /// `projects/*/locations/global/catalogs/default_catalog/branches/default_branch/products/some_product_id`.
@@ -17335,6 +16849,7 @@ impl wkt::message::Message for GetProductRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateProductRequest {
+
     /// Required. The product to update/create.
     ///
     /// If the caller does not have permission to update the
@@ -17390,8 +16905,7 @@ impl UpdateProductRequest {
     /// let x = UpdateProductRequest::new().set_product(Product::default()/* use setters */);
     /// ```
     pub fn set_product<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Product>,
+    where T: std::convert::Into<crate::model::Product>
     {
         self.product = std::option::Option::Some(v.into());
         self
@@ -17407,8 +16921,7 @@ impl UpdateProductRequest {
     /// let x = UpdateProductRequest::new().set_or_clear_product(None::<Product>);
     /// ```
     pub fn set_or_clear_product<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Product>,
+    where T: std::convert::Into<crate::model::Product>
     {
         self.product = v.map(|x| x.into());
         self
@@ -17423,8 +16936,7 @@ impl UpdateProductRequest {
     /// let x = UpdateProductRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -17440,8 +16952,7 @@ impl UpdateProductRequest {
     /// let x = UpdateProductRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -17474,6 +16985,7 @@ impl wkt::message::Message for UpdateProductRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteProductRequest {
+
     /// Required. Full resource name of [Product][google.cloud.retail.v2.Product],
     /// such as
     /// `projects/*/locations/global/catalogs/default_catalog/branches/default_branch/products/some_product_id`.
@@ -17537,6 +17049,7 @@ impl wkt::message::Message for DeleteProductRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListProductsRequest {
+
     /// Required. The parent branch resource name, such as
     /// `projects/*/locations/global/catalogs/default_catalog/branches/0`. Use
     /// `default_branch` as the branch ID, to list products under the default
@@ -17702,8 +17215,7 @@ impl ListProductsRequest {
     /// let x = ListProductsRequest::new().set_read_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_read_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.read_mask = std::option::Option::Some(v.into());
         self
@@ -17719,8 +17231,7 @@ impl ListProductsRequest {
     /// let x = ListProductsRequest::new().set_or_clear_read_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.read_mask = v.map(|x| x.into());
         self
@@ -17741,6 +17252,7 @@ impl wkt::message::Message for ListProductsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListProductsResponse {
+
     /// The [Product][google.cloud.retail.v2.Product]s.
     ///
     /// [google.cloud.retail.v2.Product]: crate::model::Product
@@ -17777,7 +17289,7 @@ impl ListProductsResponse {
     pub fn set_products<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Product>,
+        V: std::convert::Into<crate::model::Product>
     {
         use std::iter::Iterator;
         self.products = v.into_iter().map(|i| i.into()).collect();
@@ -17825,6 +17337,7 @@ impl gax::paginator::internal::PageableResponse for ListProductsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SetInventoryRequest {
+
     /// Required. The inventory information to update. The allowable fields to
     /// update are:
     ///
@@ -17941,8 +17454,7 @@ impl SetInventoryRequest {
     /// let x = SetInventoryRequest::new().set_inventory(Product::default()/* use setters */);
     /// ```
     pub fn set_inventory<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Product>,
+    where T: std::convert::Into<crate::model::Product>
     {
         self.inventory = std::option::Option::Some(v.into());
         self
@@ -17958,8 +17470,7 @@ impl SetInventoryRequest {
     /// let x = SetInventoryRequest::new().set_or_clear_inventory(None::<Product>);
     /// ```
     pub fn set_or_clear_inventory<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Product>,
+    where T: std::convert::Into<crate::model::Product>
     {
         self.inventory = v.map(|x| x.into());
         self
@@ -17974,8 +17485,7 @@ impl SetInventoryRequest {
     /// let x = SetInventoryRequest::new().set_set_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_set_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.set_mask = std::option::Option::Some(v.into());
         self
@@ -17991,8 +17501,7 @@ impl SetInventoryRequest {
     /// let x = SetInventoryRequest::new().set_or_clear_set_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_set_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.set_mask = v.map(|x| x.into());
         self
@@ -18007,8 +17516,7 @@ impl SetInventoryRequest {
     /// let x = SetInventoryRequest::new().set_set_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_set_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.set_time = std::option::Option::Some(v.into());
         self
@@ -18024,8 +17532,7 @@ impl SetInventoryRequest {
     /// let x = SetInventoryRequest::new().set_or_clear_set_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_set_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.set_time = v.map(|x| x.into());
         self
@@ -18059,6 +17566,7 @@ impl wkt::message::Message for SetInventoryRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SetInventoryMetadata {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -18083,6 +17591,7 @@ impl wkt::message::Message for SetInventoryMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SetInventoryResponse {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -18106,6 +17615,7 @@ impl wkt::message::Message for SetInventoryResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AddFulfillmentPlacesRequest {
+
     /// Required. Full resource name of [Product][google.cloud.retail.v2.Product],
     /// such as
     /// `projects/*/locations/global/catalogs/default_catalog/branches/default_branch/products/some_product_id`.
@@ -18217,7 +17727,7 @@ impl AddFulfillmentPlacesRequest {
     pub fn set_place_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.place_ids = v.into_iter().map(|i| i.into()).collect();
@@ -18233,8 +17743,7 @@ impl AddFulfillmentPlacesRequest {
     /// let x = AddFulfillmentPlacesRequest::new().set_add_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_add_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.add_time = std::option::Option::Some(v.into());
         self
@@ -18250,8 +17759,7 @@ impl AddFulfillmentPlacesRequest {
     /// let x = AddFulfillmentPlacesRequest::new().set_or_clear_add_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_add_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.add_time = v.map(|x| x.into());
         self
@@ -18285,6 +17793,7 @@ impl wkt::message::Message for AddFulfillmentPlacesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AddFulfillmentPlacesMetadata {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -18309,6 +17818,7 @@ impl wkt::message::Message for AddFulfillmentPlacesMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AddFulfillmentPlacesResponse {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -18332,6 +17842,7 @@ impl wkt::message::Message for AddFulfillmentPlacesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AddLocalInventoriesRequest {
+
     /// Required. Full resource name of [Product][google.cloud.retail.v2.Product],
     /// such as
     /// `projects/*/locations/global/catalogs/default_catalog/branches/default_branch/products/some_product_id`.
@@ -18416,7 +17927,7 @@ impl AddLocalInventoriesRequest {
     pub fn set_local_inventories<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::LocalInventory>,
+        V: std::convert::Into<crate::model::LocalInventory>
     {
         use std::iter::Iterator;
         self.local_inventories = v.into_iter().map(|i| i.into()).collect();
@@ -18432,8 +17943,7 @@ impl AddLocalInventoriesRequest {
     /// let x = AddLocalInventoriesRequest::new().set_add_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_add_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.add_mask = std::option::Option::Some(v.into());
         self
@@ -18449,8 +17959,7 @@ impl AddLocalInventoriesRequest {
     /// let x = AddLocalInventoriesRequest::new().set_or_clear_add_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_add_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.add_mask = v.map(|x| x.into());
         self
@@ -18465,8 +17974,7 @@ impl AddLocalInventoriesRequest {
     /// let x = AddLocalInventoriesRequest::new().set_add_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_add_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.add_time = std::option::Option::Some(v.into());
         self
@@ -18482,8 +17990,7 @@ impl AddLocalInventoriesRequest {
     /// let x = AddLocalInventoriesRequest::new().set_or_clear_add_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_add_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.add_time = v.map(|x| x.into());
         self
@@ -18517,6 +18024,7 @@ impl wkt::message::Message for AddLocalInventoriesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AddLocalInventoriesMetadata {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -18543,6 +18051,7 @@ impl wkt::message::Message for AddLocalInventoriesMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AddLocalInventoriesResponse {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -18566,6 +18075,7 @@ impl wkt::message::Message for AddLocalInventoriesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RemoveLocalInventoriesRequest {
+
     /// Required. Full resource name of [Product][google.cloud.retail.v2.Product],
     /// such as
     /// `projects/*/locations/global/catalogs/default_catalog/branches/default_branch/products/some_product_id`.
@@ -18626,7 +18136,7 @@ impl RemoveLocalInventoriesRequest {
     pub fn set_place_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.place_ids = v.into_iter().map(|i| i.into()).collect();
@@ -18642,8 +18152,7 @@ impl RemoveLocalInventoriesRequest {
     /// let x = RemoveLocalInventoriesRequest::new().set_remove_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_remove_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.remove_time = std::option::Option::Some(v.into());
         self
@@ -18659,8 +18168,7 @@ impl RemoveLocalInventoriesRequest {
     /// let x = RemoveLocalInventoriesRequest::new().set_or_clear_remove_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_remove_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.remove_time = v.map(|x| x.into());
         self
@@ -18694,6 +18202,7 @@ impl wkt::message::Message for RemoveLocalInventoriesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RemoveLocalInventoriesMetadata {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -18720,6 +18229,7 @@ impl wkt::message::Message for RemoveLocalInventoriesMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RemoveLocalInventoriesResponse {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -18743,6 +18253,7 @@ impl wkt::message::Message for RemoveLocalInventoriesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RemoveFulfillmentPlacesRequest {
+
     /// Required. Full resource name of [Product][google.cloud.retail.v2.Product],
     /// such as
     /// `projects/*/locations/global/catalogs/default_catalog/branches/default_branch/products/some_product_id`.
@@ -18849,7 +18360,7 @@ impl RemoveFulfillmentPlacesRequest {
     pub fn set_place_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.place_ids = v.into_iter().map(|i| i.into()).collect();
@@ -18865,8 +18376,7 @@ impl RemoveFulfillmentPlacesRequest {
     /// let x = RemoveFulfillmentPlacesRequest::new().set_remove_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_remove_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.remove_time = std::option::Option::Some(v.into());
         self
@@ -18882,8 +18392,7 @@ impl RemoveFulfillmentPlacesRequest {
     /// let x = RemoveFulfillmentPlacesRequest::new().set_or_clear_remove_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_remove_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.remove_time = v.map(|x| x.into());
         self
@@ -18917,6 +18426,7 @@ impl wkt::message::Message for RemoveFulfillmentPlacesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RemoveFulfillmentPlacesMetadata {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -18941,6 +18451,7 @@ impl wkt::message::Message for RemoveFulfillmentPlacesMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RemoveFulfillmentPlacesResponse {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -18960,6 +18471,7 @@ impl wkt::message::Message for RemoveFulfillmentPlacesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Promotion {
+
     /// ID of the promotion. For example, "free gift".
     ///
     /// The value must be a UTF-8 encoded string with a length limit of 128
@@ -19003,6 +18515,7 @@ impl wkt::message::Message for Promotion {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PurgeMetadata {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -19023,6 +18536,7 @@ impl wkt::message::Message for PurgeMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PurgeProductsMetadata {
+
     /// Operation create time.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
@@ -19053,8 +18567,7 @@ impl PurgeProductsMetadata {
     /// let x = PurgeProductsMetadata::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -19070,8 +18583,7 @@ impl PurgeProductsMetadata {
     /// let x = PurgeProductsMetadata::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -19086,8 +18598,7 @@ impl PurgeProductsMetadata {
     /// let x = PurgeProductsMetadata::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -19103,8 +18614,7 @@ impl PurgeProductsMetadata {
     /// let x = PurgeProductsMetadata::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -19145,6 +18655,7 @@ impl wkt::message::Message for PurgeProductsMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PurgeProductsRequest {
+
     /// Required. The resource name of the branch under which the products are
     /// created. The format is
     /// `projects/${projectId}/locations/global/catalogs/${catalogId}/branches/${branchId}`
@@ -19257,6 +18768,7 @@ impl wkt::message::Message for PurgeProductsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PurgeProductsResponse {
+
     /// The total count of products purged as a result of the operation.
     pub purge_count: i64,
 
@@ -19295,7 +18807,7 @@ impl PurgeProductsResponse {
     pub fn set_purge_sample<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.purge_sample = v.into_iter().map(|i| i.into()).collect();
@@ -19313,6 +18825,7 @@ impl wkt::message::Message for PurgeProductsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PurgeUserEventsRequest {
+
     /// Required. The resource name of the catalog under which the events are
     /// created. The format is
     /// `projects/${projectId}/locations/global/catalogs/${catalogId}`
@@ -19407,6 +18920,7 @@ impl wkt::message::Message for PurgeUserEventsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PurgeUserEventsResponse {
+
     /// The total count of events purged as a result of the operation.
     pub purged_events_count: i64,
 
@@ -19441,6 +18955,7 @@ impl wkt::message::Message for PurgeUserEventsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SafetySetting {
+
     /// Harm category.
     pub category: crate::model::HarmCategory,
 
@@ -19484,12 +18999,7 @@ impl SafetySetting {
     /// let x1 = SafetySetting::new().set_threshold(HarmBlockThreshold::BlockMediumAndAbove);
     /// let x2 = SafetySetting::new().set_threshold(HarmBlockThreshold::BlockOnlyHigh);
     /// ```
-    pub fn set_threshold<
-        T: std::convert::Into<crate::model::safety_setting::HarmBlockThreshold>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_threshold<T: std::convert::Into<crate::model::safety_setting::HarmBlockThreshold>>(mut self, v: T) -> Self {
         self.threshold = v.into();
         self
     }
@@ -19503,10 +19013,7 @@ impl SafetySetting {
     /// let x0 = SafetySetting::new().set_method(HarmBlockMethod::Severity);
     /// let x1 = SafetySetting::new().set_method(HarmBlockMethod::Probability);
     /// ```
-    pub fn set_method<T: std::convert::Into<crate::model::safety_setting::HarmBlockMethod>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_method<T: std::convert::Into<crate::model::safety_setting::HarmBlockMethod>>(mut self, v: T) -> Self {
         self.method = v.into();
         self
     }
@@ -19522,6 +19029,7 @@ impl wkt::message::Message for SafetySetting {
 pub mod safety_setting {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Probability based thresholds levels for blocking.
     ///
@@ -19624,9 +19132,7 @@ pub mod safety_setting {
                 3 => Self::BlockOnlyHigh,
                 4 => Self::BlockNone,
                 5 => Self::Off,
-                _ => Self::UnknownValue(harm_block_threshold::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(harm_block_threshold::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -19641,9 +19147,7 @@ pub mod safety_setting {
                 "BLOCK_ONLY_HIGH" => Self::BlockOnlyHigh,
                 "BLOCK_NONE" => Self::BlockNone,
                 "OFF" => Self::Off,
-                _ => Self::UnknownValue(harm_block_threshold::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(harm_block_threshold::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -19671,8 +19175,7 @@ pub mod safety_setting {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<HarmBlockThreshold>::new(
-                ".google.cloud.retail.v2.SafetySetting.HarmBlockThreshold",
-            ))
+                ".google.cloud.retail.v2.SafetySetting.HarmBlockThreshold"))
         }
     }
 
@@ -19762,9 +19265,7 @@ pub mod safety_setting {
                 0 => Self::Unspecified,
                 1 => Self::Severity,
                 2 => Self::Probability,
-                _ => Self::UnknownValue(harm_block_method::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(harm_block_method::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -19776,9 +19277,7 @@ pub mod safety_setting {
                 "HARM_BLOCK_METHOD_UNSPECIFIED" => Self::Unspecified,
                 "SEVERITY" => Self::Severity,
                 "PROBABILITY" => Self::Probability,
-                _ => Self::UnknownValue(harm_block_method::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(harm_block_method::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -19803,8 +19302,7 @@ pub mod safety_setting {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<HarmBlockMethod>::new(
-                ".google.cloud.retail.v2.SafetySetting.HarmBlockMethod",
-            ))
+                ".google.cloud.retail.v2.SafetySetting.HarmBlockMethod"))
         }
     }
 }
@@ -19815,6 +19313,7 @@ pub mod safety_setting {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProductAttributeValue {
+
     /// The attribute name.
     pub name: std::string::String,
 
@@ -19864,6 +19363,7 @@ impl wkt::message::Message for ProductAttributeValue {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProductAttributeInterval {
+
     /// The attribute name (e.g. "length")
     pub name: std::string::String,
 
@@ -19899,8 +19399,7 @@ impl ProductAttributeInterval {
     /// let x = ProductAttributeInterval::new().set_interval(Interval::default()/* use setters */);
     /// ```
     pub fn set_interval<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Interval>,
+    where T: std::convert::Into<crate::model::Interval>
     {
         self.interval = std::option::Option::Some(v.into());
         self
@@ -19916,8 +19415,7 @@ impl ProductAttributeInterval {
     /// let x = ProductAttributeInterval::new().set_or_clear_interval(None::<Interval>);
     /// ```
     pub fn set_or_clear_interval<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Interval>,
+    where T: std::convert::Into<crate::model::Interval>
     {
         self.interval = v.map(|x| x.into());
         self
@@ -19936,6 +19434,7 @@ impl wkt::message::Message for ProductAttributeInterval {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Tile {
+
     /// The representative product id for this tile.
     pub representative_product_id: std::string::String,
 
@@ -19957,10 +19456,7 @@ impl Tile {
     /// # use google_cloud_retail_v2::model::Tile;
     /// let x = Tile::new().set_representative_product_id("example");
     /// ```
-    pub fn set_representative_product_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_representative_product_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.representative_product_id = v.into();
         self
     }
@@ -19977,12 +19473,8 @@ impl Tile {
     /// let x = Tile::new().set_product_attribute(Some(
     ///     google_cloud_retail_v2::model::tile::ProductAttribute::ProductAttributeValue(ProductAttributeValue::default().into())));
     /// ```
-    pub fn set_product_attribute<
-        T: std::convert::Into<std::option::Option<crate::model::tile::ProductAttribute>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_product_attribute<T: std::convert::Into<std::option::Option<crate::model::tile::ProductAttribute>>>(mut self, v: T) -> Self
+    {
         self.product_attribute = v.into();
         self
     }
@@ -19990,14 +19482,10 @@ impl Tile {
     /// The value of [product_attribute][crate::model::Tile::product_attribute]
     /// if it holds a `ProductAttributeValue`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn product_attribute_value(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::ProductAttributeValue>> {
+    pub fn product_attribute_value(&self) -> std::option::Option<&std::boxed::Box<crate::model::ProductAttributeValue>> {
         #[allow(unreachable_patterns)]
         self.product_attribute.as_ref().and_then(|v| match v {
-            crate::model::tile::ProductAttribute::ProductAttributeValue(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::tile::ProductAttribute::ProductAttributeValue(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -20016,14 +19504,11 @@ impl Tile {
     /// assert!(x.product_attribute_value().is_some());
     /// assert!(x.product_attribute_interval().is_none());
     /// ```
-    pub fn set_product_attribute_value<
-        T: std::convert::Into<std::boxed::Box<crate::model::ProductAttributeValue>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_product_attribute_value<T: std::convert::Into<std::boxed::Box<crate::model::ProductAttributeValue>>>(mut self, v: T) -> Self {
         self.product_attribute = std::option::Option::Some(
-            crate::model::tile::ProductAttribute::ProductAttributeValue(v.into()),
+            crate::model::tile::ProductAttribute::ProductAttributeValue(
+                v.into()
+            )
         );
         self
     }
@@ -20031,14 +19516,10 @@ impl Tile {
     /// The value of [product_attribute][crate::model::Tile::product_attribute]
     /// if it holds a `ProductAttributeInterval`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn product_attribute_interval(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::ProductAttributeInterval>> {
+    pub fn product_attribute_interval(&self) -> std::option::Option<&std::boxed::Box<crate::model::ProductAttributeInterval>> {
         #[allow(unreachable_patterns)]
         self.product_attribute.as_ref().and_then(|v| match v {
-            crate::model::tile::ProductAttribute::ProductAttributeInterval(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::tile::ProductAttribute::ProductAttributeInterval(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -20057,14 +19538,11 @@ impl Tile {
     /// assert!(x.product_attribute_interval().is_some());
     /// assert!(x.product_attribute_value().is_none());
     /// ```
-    pub fn set_product_attribute_interval<
-        T: std::convert::Into<std::boxed::Box<crate::model::ProductAttributeInterval>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_product_attribute_interval<T: std::convert::Into<std::boxed::Box<crate::model::ProductAttributeInterval>>>(mut self, v: T) -> Self {
         self.product_attribute = std::option::Option::Some(
-            crate::model::tile::ProductAttribute::ProductAttributeInterval(v.into()),
+            crate::model::tile::ProductAttribute::ProductAttributeInterval(
+                v.into()
+            )
         );
         self
     }
@@ -20080,6 +19558,7 @@ impl wkt::message::Message for Tile {
 pub mod tile {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The attribute key and value for the tile.
     #[derive(Clone, Debug, PartialEq)]
@@ -20099,6 +19578,7 @@ pub mod tile {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchRequest {
+
     /// Required. The resource name of the Retail Search serving config, such as
     /// `projects/*/locations/global/catalogs/default_catalog/servingConfigs/default_serving_config`
     /// or the name of the legacy placement resource, such as
@@ -20361,8 +19841,7 @@ pub struct SearchRequest {
     ///
     /// [google.cloud.retail.v2.SearchRequest.personalization_spec]: crate::model::SearchRequest::personalization_spec
     /// [google.cloud.retail.v2.ServingConfig.personalization_spec]: crate::model::ServingConfig::personalization_spec
-    pub personalization_spec:
-        std::option::Option<crate::model::search_request::PersonalizationSpec>,
+    pub personalization_spec: std::option::Option<crate::model::search_request::PersonalizationSpec>,
 
     /// The labels applied to a resource must meet the following requirements:
     ///
@@ -20381,12 +19860,11 @@ pub struct SearchRequest {
     /// For more information, see [Requirements for
     /// labels](https://cloud.google.com/resource-manager/docs/creating-managing-labels#requirements)
     /// in the Resource Manager documentation.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// The spell correction specification that specifies the mode under
     /// which spell correction will take effect.
-    pub spell_correction_spec:
-        std::option::Option<crate::model::search_request::SpellCorrectionSpec>,
+    pub spell_correction_spec: std::option::Option<crate::model::search_request::SpellCorrectionSpec>,
 
     /// The entity for customers that may run multiple different entities, domains,
     /// sites or regions, for example, `Google US`, `Google Ads`, `Waymo`,
@@ -20400,8 +19878,7 @@ pub struct SearchRequest {
 
     /// Optional. This field specifies all conversational related parameters
     /// addition to traditional retail search.
-    pub conversational_search_spec:
-        std::option::Option<crate::model::search_request::ConversationalSearchSpec>,
+    pub conversational_search_spec: std::option::Option<crate::model::search_request::ConversationalSearchSpec>,
 
     /// Optional. This field specifies tile navigation related parameters.
     pub tile_navigation_spec: std::option::Option<crate::model::search_request::TileNavigationSpec>,
@@ -20450,7 +19927,7 @@ pub struct SearchRequest {
     /// }
     /// }
     /// ]
-    pub user_attributes: std::collections::HashMap<std::string::String, crate::model::StringList>,
+    pub user_attributes: std::collections::HashMap<std::string::String,crate::model::StringList>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -20517,8 +19994,7 @@ impl SearchRequest {
     /// let x = SearchRequest::new().set_user_info(UserInfo::default()/* use setters */);
     /// ```
     pub fn set_user_info<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::UserInfo>,
+    where T: std::convert::Into<crate::model::UserInfo>
     {
         self.user_info = std::option::Option::Some(v.into());
         self
@@ -20534,8 +20010,7 @@ impl SearchRequest {
     /// let x = SearchRequest::new().set_or_clear_user_info(None::<UserInfo>);
     /// ```
     pub fn set_or_clear_user_info<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::UserInfo>,
+    where T: std::convert::Into<crate::model::UserInfo>
     {
         self.user_info = v.map(|x| x.into());
         self
@@ -20596,10 +20071,7 @@ impl SearchRequest {
     /// # use google_cloud_retail_v2::model::SearchRequest;
     /// let x = SearchRequest::new().set_canonical_filter("example");
     /// ```
-    pub fn set_canonical_filter<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_canonical_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.canonical_filter = v.into();
         self
     }
@@ -20631,7 +20103,7 @@ impl SearchRequest {
     pub fn set_facet_specs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::search_request::FacetSpec>,
+        V: std::convert::Into<crate::model::search_request::FacetSpec>
     {
         use std::iter::Iterator;
         self.facet_specs = v.into_iter().map(|i| i.into()).collect();
@@ -20648,8 +20120,7 @@ impl SearchRequest {
     /// ```
     #[deprecated]
     pub fn set_dynamic_facet_spec<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::search_request::DynamicFacetSpec>,
+    where T: std::convert::Into<crate::model::search_request::DynamicFacetSpec>
     {
         self.dynamic_facet_spec = std::option::Option::Some(v.into());
         self
@@ -20666,8 +20137,7 @@ impl SearchRequest {
     /// ```
     #[deprecated]
     pub fn set_or_clear_dynamic_facet_spec<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::search_request::DynamicFacetSpec>,
+    where T: std::convert::Into<crate::model::search_request::DynamicFacetSpec>
     {
         self.dynamic_facet_spec = v.map(|x| x.into());
         self
@@ -20682,8 +20152,7 @@ impl SearchRequest {
     /// let x = SearchRequest::new().set_boost_spec(BoostSpec::default()/* use setters */);
     /// ```
     pub fn set_boost_spec<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::search_request::BoostSpec>,
+    where T: std::convert::Into<crate::model::search_request::BoostSpec>
     {
         self.boost_spec = std::option::Option::Some(v.into());
         self
@@ -20699,8 +20168,7 @@ impl SearchRequest {
     /// let x = SearchRequest::new().set_or_clear_boost_spec(None::<BoostSpec>);
     /// ```
     pub fn set_or_clear_boost_spec<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::search_request::BoostSpec>,
+    where T: std::convert::Into<crate::model::search_request::BoostSpec>
     {
         self.boost_spec = v.map(|x| x.into());
         self
@@ -20715,8 +20183,7 @@ impl SearchRequest {
     /// let x = SearchRequest::new().set_query_expansion_spec(QueryExpansionSpec::default()/* use setters */);
     /// ```
     pub fn set_query_expansion_spec<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::search_request::QueryExpansionSpec>,
+    where T: std::convert::Into<crate::model::search_request::QueryExpansionSpec>
     {
         self.query_expansion_spec = std::option::Option::Some(v.into());
         self
@@ -20732,8 +20199,7 @@ impl SearchRequest {
     /// let x = SearchRequest::new().set_or_clear_query_expansion_spec(None::<QueryExpansionSpec>);
     /// ```
     pub fn set_or_clear_query_expansion_spec<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::search_request::QueryExpansionSpec>,
+    where T: std::convert::Into<crate::model::search_request::QueryExpansionSpec>
     {
         self.query_expansion_spec = v.map(|x| x.into());
         self
@@ -20749,7 +20215,7 @@ impl SearchRequest {
     pub fn set_variant_rollup_keys<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.variant_rollup_keys = v.into_iter().map(|i| i.into()).collect();
@@ -20766,7 +20232,7 @@ impl SearchRequest {
     pub fn set_page_categories<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.page_categories = v.into_iter().map(|i| i.into()).collect();
@@ -20782,10 +20248,7 @@ impl SearchRequest {
     /// let x0 = SearchRequest::new().set_search_mode(SearchMode::ProductSearchOnly);
     /// let x1 = SearchRequest::new().set_search_mode(SearchMode::FacetedSearchOnly);
     /// ```
-    pub fn set_search_mode<T: std::convert::Into<crate::model::search_request::SearchMode>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_search_mode<T: std::convert::Into<crate::model::search_request::SearchMode>>(mut self, v: T) -> Self {
         self.search_mode = v.into();
         self
     }
@@ -20799,8 +20262,7 @@ impl SearchRequest {
     /// let x = SearchRequest::new().set_personalization_spec(PersonalizationSpec::default()/* use setters */);
     /// ```
     pub fn set_personalization_spec<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::search_request::PersonalizationSpec>,
+    where T: std::convert::Into<crate::model::search_request::PersonalizationSpec>
     {
         self.personalization_spec = std::option::Option::Some(v.into());
         self
@@ -20816,8 +20278,7 @@ impl SearchRequest {
     /// let x = SearchRequest::new().set_or_clear_personalization_spec(None::<PersonalizationSpec>);
     /// ```
     pub fn set_or_clear_personalization_spec<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::search_request::PersonalizationSpec>,
+    where T: std::convert::Into<crate::model::search_request::PersonalizationSpec>
     {
         self.personalization_spec = v.map(|x| x.into());
         self
@@ -20853,8 +20314,7 @@ impl SearchRequest {
     /// let x = SearchRequest::new().set_spell_correction_spec(SpellCorrectionSpec::default()/* use setters */);
     /// ```
     pub fn set_spell_correction_spec<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::search_request::SpellCorrectionSpec>,
+    where T: std::convert::Into<crate::model::search_request::SpellCorrectionSpec>
     {
         self.spell_correction_spec = std::option::Option::Some(v.into());
         self
@@ -20870,8 +20330,7 @@ impl SearchRequest {
     /// let x = SearchRequest::new().set_or_clear_spell_correction_spec(None::<SpellCorrectionSpec>);
     /// ```
     pub fn set_or_clear_spell_correction_spec<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::search_request::SpellCorrectionSpec>,
+    where T: std::convert::Into<crate::model::search_request::SpellCorrectionSpec>
     {
         self.spell_correction_spec = v.map(|x| x.into());
         self
@@ -20898,8 +20357,7 @@ impl SearchRequest {
     /// let x = SearchRequest::new().set_conversational_search_spec(ConversationalSearchSpec::default()/* use setters */);
     /// ```
     pub fn set_conversational_search_spec<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::search_request::ConversationalSearchSpec>,
+    where T: std::convert::Into<crate::model::search_request::ConversationalSearchSpec>
     {
         self.conversational_search_spec = std::option::Option::Some(v.into());
         self
@@ -20915,8 +20373,7 @@ impl SearchRequest {
     /// let x = SearchRequest::new().set_or_clear_conversational_search_spec(None::<ConversationalSearchSpec>);
     /// ```
     pub fn set_or_clear_conversational_search_spec<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::search_request::ConversationalSearchSpec>,
+    where T: std::convert::Into<crate::model::search_request::ConversationalSearchSpec>
     {
         self.conversational_search_spec = v.map(|x| x.into());
         self
@@ -20931,8 +20388,7 @@ impl SearchRequest {
     /// let x = SearchRequest::new().set_tile_navigation_spec(TileNavigationSpec::default()/* use setters */);
     /// ```
     pub fn set_tile_navigation_spec<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::search_request::TileNavigationSpec>,
+    where T: std::convert::Into<crate::model::search_request::TileNavigationSpec>
     {
         self.tile_navigation_spec = std::option::Option::Some(v.into());
         self
@@ -20948,8 +20404,7 @@ impl SearchRequest {
     /// let x = SearchRequest::new().set_or_clear_tile_navigation_spec(None::<TileNavigationSpec>);
     /// ```
     pub fn set_or_clear_tile_navigation_spec<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::search_request::TileNavigationSpec>,
+    where T: std::convert::Into<crate::model::search_request::TileNavigationSpec>
     {
         self.tile_navigation_spec = v.map(|x| x.into());
         self
@@ -21025,10 +20480,12 @@ pub mod search_request {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// A facet specification to perform faceted search.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct FacetSpec {
+
         /// Required. The facet key specification.
         pub facet_key: std::option::Option<crate::model::search_request::facet_spec::FacetKey>,
 
@@ -21118,8 +20575,7 @@ pub mod search_request {
         /// let x = FacetSpec::new().set_facet_key(FacetKey::default()/* use setters */);
         /// ```
         pub fn set_facet_key<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::search_request::facet_spec::FacetKey>,
+        where T: std::convert::Into<crate::model::search_request::facet_spec::FacetKey>
         {
             self.facet_key = std::option::Option::Some(v.into());
             self
@@ -21135,8 +20591,7 @@ pub mod search_request {
         /// let x = FacetSpec::new().set_or_clear_facet_key(None::<FacetKey>);
         /// ```
         pub fn set_or_clear_facet_key<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::search_request::facet_spec::FacetKey>,
+        where T: std::convert::Into<crate::model::search_request::facet_spec::FacetKey>
         {
             self.facet_key = v.map(|x| x.into());
             self
@@ -21164,7 +20619,7 @@ pub mod search_request {
         pub fn set_excluded_filter_keys<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.excluded_filter_keys = v.into_iter().map(|i| i.into()).collect();
@@ -21195,10 +20650,12 @@ pub mod search_request {
         #[allow(unused_imports)]
         use super::*;
 
+
         /// Specifies how a facet is computed.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct FacetKey {
+
             /// Required. Supported textual and numerical facet keys in
             /// [Product][google.cloud.retail.v2.Product] object, over which the facet
             /// values are computed. Facet key is case-sensitive.
@@ -21407,7 +20864,7 @@ pub mod search_request {
             pub fn set_intervals<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<crate::model::Interval>,
+                V: std::convert::Into<crate::model::Interval>
             {
                 use std::iter::Iterator;
                 self.intervals = v.into_iter().map(|i| i.into()).collect();
@@ -21424,7 +20881,7 @@ pub mod search_request {
             pub fn set_restricted_values<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<std::string::String>,
+                V: std::convert::Into<std::string::String>
             {
                 use std::iter::Iterator;
                 self.restricted_values = v.into_iter().map(|i| i.into()).collect();
@@ -21441,7 +20898,7 @@ pub mod search_request {
             pub fn set_prefixes<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<std::string::String>,
+                V: std::convert::Into<std::string::String>
             {
                 use std::iter::Iterator;
                 self.prefixes = v.into_iter().map(|i| i.into()).collect();
@@ -21458,7 +20915,7 @@ pub mod search_request {
             pub fn set_contains<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<std::string::String>,
+                V: std::convert::Into<std::string::String>
             {
                 use std::iter::Iterator;
                 self.contains = v.into_iter().map(|i| i.into()).collect();
@@ -21484,10 +20941,7 @@ pub mod search_request {
             /// # use google_cloud_retail_v2::model::search_request::facet_spec::FacetKey;
             /// let x = FacetKey::new().set_order_by("example");
             /// ```
-            pub fn set_order_by<T: std::convert::Into<std::string::String>>(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.order_by = v.into();
                 self
             }
@@ -21528,6 +20982,7 @@ pub mod search_request {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DynamicFacetSpec {
+
         /// Mode of the DynamicFacet feature.
         /// Defaults to
         /// [Mode.DISABLED][google.cloud.retail.v2.SearchRequest.DynamicFacetSpec.Mode.DISABLED]
@@ -21553,12 +21008,7 @@ pub mod search_request {
         /// let x0 = DynamicFacetSpec::new().set_mode(Mode::Disabled);
         /// let x1 = DynamicFacetSpec::new().set_mode(Mode::Enabled);
         /// ```
-        pub fn set_mode<
-            T: std::convert::Into<crate::model::search_request::dynamic_facet_spec::Mode>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_mode<T: std::convert::Into<crate::model::search_request::dynamic_facet_spec::Mode>>(mut self, v: T) -> Self {
             self.mode = v.into();
             self
         }
@@ -21574,6 +21024,7 @@ pub mod search_request {
     pub mod dynamic_facet_spec {
         #[allow(unused_imports)]
         use super::*;
+
 
         /// Enum to control DynamicFacet mode
         ///
@@ -21650,10 +21101,7 @@ pub mod search_request {
         }
 
         impl std::fmt::Display for Mode {
-            fn fmt(
-                &self,
-                f: &mut std::fmt::Formatter<'_>,
-            ) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -21664,9 +21112,7 @@ pub mod search_request {
                     0 => Self::Unspecified,
                     1 => Self::Disabled,
                     2 => Self::Enabled,
-                    _ => Self::UnknownValue(mode::UnknownValue(
-                        wkt::internal::UnknownEnumValue::Integer(value),
-                    )),
+                    _ => Self::UnknownValue(mode::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
                 }
             }
         }
@@ -21678,9 +21124,7 @@ pub mod search_request {
                     "MODE_UNSPECIFIED" => Self::Unspecified,
                     "DISABLED" => Self::Disabled,
                     "ENABLED" => Self::Enabled,
-                    _ => Self::UnknownValue(mode::UnknownValue(
-                        wkt::internal::UnknownEnumValue::String(value.to_string()),
-                    )),
+                    _ => Self::UnknownValue(mode::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
                 }
             }
         }
@@ -21705,8 +21149,7 @@ pub mod search_request {
                 D: serde::Deserializer<'de>,
             {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<Mode>::new(
-                    ".google.cloud.retail.v2.SearchRequest.DynamicFacetSpec.Mode",
-                ))
+                    ".google.cloud.retail.v2.SearchRequest.DynamicFacetSpec.Mode"))
             }
         }
     }
@@ -21715,12 +21158,12 @@ pub mod search_request {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct BoostSpec {
+
         /// Condition boost specifications. If a product matches multiple conditions
         /// in the specifications, boost scores from these specifications are all
         /// applied and combined in a non-linear way. Maximum number of
         /// specifications is 20.
-        pub condition_boost_specs:
-            std::vec::Vec<crate::model::search_request::boost_spec::ConditionBoostSpec>,
+        pub condition_boost_specs: std::vec::Vec<crate::model::search_request::boost_spec::ConditionBoostSpec>,
 
         /// Whether to skip boostspec validation. If this field is set to true,
         /// invalid
@@ -21755,7 +21198,7 @@ pub mod search_request {
         pub fn set_condition_boost_specs<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::search_request::boost_spec::ConditionBoostSpec>,
+            V: std::convert::Into<crate::model::search_request::boost_spec::ConditionBoostSpec>
         {
             use std::iter::Iterator;
             self.condition_boost_specs = v.into_iter().map(|i| i.into()).collect();
@@ -21770,8 +21213,7 @@ pub mod search_request {
         /// let x = BoostSpec::new().set_skip_boost_spec_validation(true);
         /// ```
         pub fn set_skip_boost_spec_validation<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
+        where T: std::convert::Into<bool>
         {
             self.skip_boost_spec_validation = std::option::Option::Some(v.into());
             self
@@ -21785,12 +21227,8 @@ pub mod search_request {
         /// let x = BoostSpec::new().set_or_clear_skip_boost_spec_validation(Some(false));
         /// let x = BoostSpec::new().set_or_clear_skip_boost_spec_validation(None::<bool>);
         /// ```
-        pub fn set_or_clear_skip_boost_spec_validation<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<bool>,
+        pub fn set_or_clear_skip_boost_spec_validation<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<bool>
         {
             self.skip_boost_spec_validation = v.map(|x| x.into());
             self
@@ -21808,10 +21246,12 @@ pub mod search_request {
         #[allow(unused_imports)]
         use super::*;
 
+
         /// Boost applies to products which match a condition.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct ConditionBoostSpec {
+
             /// An expression which specifies a boost condition. The syntax and
             /// supported fields are the same as a filter expression. See
             /// [SearchRequest.filter][google.cloud.retail.v2.SearchRequest.filter] for
@@ -21862,10 +21302,7 @@ pub mod search_request {
             /// # use google_cloud_retail_v2::model::search_request::boost_spec::ConditionBoostSpec;
             /// let x = ConditionBoostSpec::new().set_condition("example");
             /// ```
-            pub fn set_condition<T: std::convert::Into<std::string::String>>(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_condition<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.condition = v.into();
                 self
             }
@@ -21895,6 +21332,7 @@ pub mod search_request {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct QueryExpansionSpec {
+
         /// The condition under which query expansion should occur. Default to
         /// [Condition.DISABLED][google.cloud.retail.v2.SearchRequest.QueryExpansionSpec.Condition.DISABLED].
         ///
@@ -21924,12 +21362,7 @@ pub mod search_request {
         /// let x0 = QueryExpansionSpec::new().set_condition(Condition::Disabled);
         /// let x1 = QueryExpansionSpec::new().set_condition(Condition::Auto);
         /// ```
-        pub fn set_condition<
-            T: std::convert::Into<crate::model::search_request::query_expansion_spec::Condition>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_condition<T: std::convert::Into<crate::model::search_request::query_expansion_spec::Condition>>(mut self, v: T) -> Self {
             self.condition = v.into();
             self
         }
@@ -21957,6 +21390,7 @@ pub mod search_request {
     pub mod query_expansion_spec {
         #[allow(unused_imports)]
         use super::*;
+
 
         /// Enum describing under which condition query expansion should occur.
         ///
@@ -22041,10 +21475,7 @@ pub mod search_request {
         }
 
         impl std::fmt::Display for Condition {
-            fn fmt(
-                &self,
-                f: &mut std::fmt::Formatter<'_>,
-            ) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -22055,9 +21486,7 @@ pub mod search_request {
                     0 => Self::Unspecified,
                     1 => Self::Disabled,
                     3 => Self::Auto,
-                    _ => Self::UnknownValue(condition::UnknownValue(
-                        wkt::internal::UnknownEnumValue::Integer(value),
-                    )),
+                    _ => Self::UnknownValue(condition::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
                 }
             }
         }
@@ -22069,9 +21498,7 @@ pub mod search_request {
                     "CONDITION_UNSPECIFIED" => Self::Unspecified,
                     "DISABLED" => Self::Disabled,
                     "AUTO" => Self::Auto,
-                    _ => Self::UnknownValue(condition::UnknownValue(
-                        wkt::internal::UnknownEnumValue::String(value.to_string()),
-                    )),
+                    _ => Self::UnknownValue(condition::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
                 }
             }
         }
@@ -22096,8 +21523,7 @@ pub mod search_request {
                 D: serde::Deserializer<'de>,
             {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<Condition>::new(
-                    ".google.cloud.retail.v2.SearchRequest.QueryExpansionSpec.Condition",
-                ))
+                    ".google.cloud.retail.v2.SearchRequest.QueryExpansionSpec.Condition"))
             }
         }
     }
@@ -22106,6 +21532,7 @@ pub mod search_request {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PersonalizationSpec {
+
         /// Defaults to
         /// [Mode.AUTO][google.cloud.retail.v2.SearchRequest.PersonalizationSpec.Mode.AUTO].
         ///
@@ -22129,12 +21556,7 @@ pub mod search_request {
         /// let x0 = PersonalizationSpec::new().set_mode(Mode::Auto);
         /// let x1 = PersonalizationSpec::new().set_mode(Mode::Disabled);
         /// ```
-        pub fn set_mode<
-            T: std::convert::Into<crate::model::search_request::personalization_spec::Mode>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_mode<T: std::convert::Into<crate::model::search_request::personalization_spec::Mode>>(mut self, v: T) -> Self {
             self.mode = v.into();
             self
         }
@@ -22150,6 +21572,7 @@ pub mod search_request {
     pub mod personalization_spec {
         #[allow(unused_imports)]
         use super::*;
+
 
         /// The personalization mode of each search request.
         ///
@@ -22230,10 +21653,7 @@ pub mod search_request {
         }
 
         impl std::fmt::Display for Mode {
-            fn fmt(
-                &self,
-                f: &mut std::fmt::Formatter<'_>,
-            ) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -22244,9 +21664,7 @@ pub mod search_request {
                     0 => Self::Unspecified,
                     1 => Self::Auto,
                     2 => Self::Disabled,
-                    _ => Self::UnknownValue(mode::UnknownValue(
-                        wkt::internal::UnknownEnumValue::Integer(value),
-                    )),
+                    _ => Self::UnknownValue(mode::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
                 }
             }
         }
@@ -22258,9 +21676,7 @@ pub mod search_request {
                     "MODE_UNSPECIFIED" => Self::Unspecified,
                     "AUTO" => Self::Auto,
                     "DISABLED" => Self::Disabled,
-                    _ => Self::UnknownValue(mode::UnknownValue(
-                        wkt::internal::UnknownEnumValue::String(value.to_string()),
-                    )),
+                    _ => Self::UnknownValue(mode::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
                 }
             }
         }
@@ -22285,8 +21701,7 @@ pub mod search_request {
                 D: serde::Deserializer<'de>,
             {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<Mode>::new(
-                    ".google.cloud.retail.v2.SearchRequest.PersonalizationSpec.Mode",
-                ))
+                    ".google.cloud.retail.v2.SearchRequest.PersonalizationSpec.Mode"))
             }
         }
     }
@@ -22295,6 +21710,7 @@ pub mod search_request {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SpellCorrectionSpec {
+
         /// The mode under which spell correction should take effect to
         /// replace the original search query. Default to
         /// [Mode.AUTO][google.cloud.retail.v2.SearchRequest.SpellCorrectionSpec.Mode.AUTO].
@@ -22319,12 +21735,7 @@ pub mod search_request {
         /// let x0 = SpellCorrectionSpec::new().set_mode(Mode::SuggestionOnly);
         /// let x1 = SpellCorrectionSpec::new().set_mode(Mode::Auto);
         /// ```
-        pub fn set_mode<
-            T: std::convert::Into<crate::model::search_request::spell_correction_spec::Mode>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_mode<T: std::convert::Into<crate::model::search_request::spell_correction_spec::Mode>>(mut self, v: T) -> Self {
             self.mode = v.into();
             self
         }
@@ -22340,6 +21751,7 @@ pub mod search_request {
     pub mod spell_correction_spec {
         #[allow(unused_imports)]
         use super::*;
+
 
         /// Enum describing under which mode spell correction should occur.
         ///
@@ -22426,10 +21838,7 @@ pub mod search_request {
         }
 
         impl std::fmt::Display for Mode {
-            fn fmt(
-                &self,
-                f: &mut std::fmt::Formatter<'_>,
-            ) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -22440,9 +21849,7 @@ pub mod search_request {
                     0 => Self::Unspecified,
                     1 => Self::SuggestionOnly,
                     2 => Self::Auto,
-                    _ => Self::UnknownValue(mode::UnknownValue(
-                        wkt::internal::UnknownEnumValue::Integer(value),
-                    )),
+                    _ => Self::UnknownValue(mode::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
                 }
             }
         }
@@ -22454,9 +21861,7 @@ pub mod search_request {
                     "MODE_UNSPECIFIED" => Self::Unspecified,
                     "SUGGESTION_ONLY" => Self::SuggestionOnly,
                     "AUTO" => Self::Auto,
-                    _ => Self::UnknownValue(mode::UnknownValue(
-                        wkt::internal::UnknownEnumValue::String(value.to_string()),
-                    )),
+                    _ => Self::UnknownValue(mode::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
                 }
             }
         }
@@ -22481,8 +21886,7 @@ pub mod search_request {
                 D: serde::Deserializer<'de>,
             {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<Mode>::new(
-                    ".google.cloud.retail.v2.SearchRequest.SpellCorrectionSpec.Mode",
-                ))
+                    ".google.cloud.retail.v2.SearchRequest.SpellCorrectionSpec.Mode"))
             }
         }
     }
@@ -22492,6 +21896,7 @@ pub mod search_request {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ConversationalSearchSpec {
+
         /// This field specifies whether the customer would like to do conversational
         /// search. If this field is set to true, conversational related extra
         /// information will be returned from server side, including follow-up
@@ -22507,9 +21912,7 @@ pub mod search_request {
         /// This field specifies the current user answer during the conversational
         /// search. This can be either user selected from suggested answers or user
         /// input plain text.
-        pub user_answer: std::option::Option<
-            crate::model::search_request::conversational_search_spec::UserAnswer,
-        >,
+        pub user_answer: std::option::Option<crate::model::search_request::conversational_search_spec::UserAnswer>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -22526,10 +21929,7 @@ pub mod search_request {
         /// # use google_cloud_retail_v2::model::search_request::ConversationalSearchSpec;
         /// let x = ConversationalSearchSpec::new().set_followup_conversation_requested(true);
         /// ```
-        pub fn set_followup_conversation_requested<T: std::convert::Into<bool>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_followup_conversation_requested<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.followup_conversation_requested = v.into();
             self
         }
@@ -22541,10 +21941,7 @@ pub mod search_request {
         /// # use google_cloud_retail_v2::model::search_request::ConversationalSearchSpec;
         /// let x = ConversationalSearchSpec::new().set_conversation_id("example");
         /// ```
-        pub fn set_conversation_id<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_conversation_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.conversation_id = v.into();
             self
         }
@@ -22558,10 +21955,7 @@ pub mod search_request {
         /// let x = ConversationalSearchSpec::new().set_user_answer(UserAnswer::default()/* use setters */);
         /// ```
         pub fn set_user_answer<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<
-                    crate::model::search_request::conversational_search_spec::UserAnswer,
-                >,
+        where T: std::convert::Into<crate::model::search_request::conversational_search_spec::UserAnswer>
         {
             self.user_answer = std::option::Option::Some(v.into());
             self
@@ -22577,10 +21971,7 @@ pub mod search_request {
         /// let x = ConversationalSearchSpec::new().set_or_clear_user_answer(None::<UserAnswer>);
         /// ```
         pub fn set_or_clear_user_answer<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<
-                    crate::model::search_request::conversational_search_spec::UserAnswer,
-                >,
+        where T: std::convert::Into<crate::model::search_request::conversational_search_spec::UserAnswer>
         {
             self.user_answer = v.map(|x| x.into());
             self
@@ -22598,16 +21989,16 @@ pub mod search_request {
         #[allow(unused_imports)]
         use super::*;
 
+
         /// This field specifies the current user answer during the conversational
         /// search. This can be either user selected from suggested answers or user
         /// input plain text.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct UserAnswer {
+
             /// This field specifies the type of user answer.
-            pub r#type: std::option::Option<
-                crate::model::search_request::conversational_search_spec::user_answer::Type,
-            >,
+            pub r#type: std::option::Option<crate::model::search_request::conversational_search_spec::user_answer::Type>,
 
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
@@ -22658,10 +22049,7 @@ pub mod search_request {
             /// assert!(x.text_answer().is_some());
             /// assert!(x.selected_answer().is_none());
             /// ```
-            pub fn set_text_answer<T: std::convert::Into<std::string::String>>(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_text_answer<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.r#type = std::option::Option::Some(
                     crate::model::search_request::conversational_search_spec::user_answer::Type::TextAnswer(
                         v.into()
@@ -22673,7 +22061,7 @@ pub mod search_request {
             /// The value of [r#type][crate::model::search_request::conversational_search_spec::UserAnswer::r#type]
             /// if it holds a `SelectedAnswer`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn selected_answer(&self) -> std::option::Option<&std::boxed::Box<crate::model::search_request::conversational_search_spec::user_answer::SelectedAnswer>>{
+            pub fn selected_answer(&self) -> std::option::Option<&std::boxed::Box<crate::model::search_request::conversational_search_spec::user_answer::SelectedAnswer>> {
                 #[allow(unreachable_patterns)]
                 self.r#type.as_ref().and_then(|v| match v {
                     crate::model::search_request::conversational_search_spec::user_answer::Type::SelectedAnswer(v) => std::option::Option::Some(v),
@@ -22695,7 +22083,7 @@ pub mod search_request {
             /// assert!(x.selected_answer().is_some());
             /// assert!(x.text_answer().is_none());
             /// ```
-            pub fn set_selected_answer<T: std::convert::Into<std::boxed::Box<crate::model::search_request::conversational_search_spec::user_answer::SelectedAnswer>>>(mut self, v: T) -> Self{
+            pub fn set_selected_answer<T: std::convert::Into<std::boxed::Box<crate::model::search_request::conversational_search_spec::user_answer::SelectedAnswer>>>(mut self, v: T) -> Self {
                 self.r#type = std::option::Option::Some(
                     crate::model::search_request::conversational_search_spec::user_answer::Type::SelectedAnswer(
                         v.into()
@@ -22716,19 +22104,20 @@ pub mod search_request {
             #[allow(unused_imports)]
             use super::*;
 
+
             /// This field specifies the selected answers during the conversational
             /// search.
             #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct SelectedAnswer {
+
                 /// This field is deprecated and should not be set.
                 #[deprecated]
                 pub product_attribute_values: std::vec::Vec<crate::model::ProductAttributeValue>,
 
                 /// This field specifies the selected answer which is a attribute
                 /// key-value.
-                pub product_attribute_value:
-                    std::option::Option<crate::model::ProductAttributeValue>,
+                pub product_attribute_value: std::option::Option<crate::model::ProductAttributeValue>,
 
                 pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
@@ -22754,7 +22143,7 @@ pub mod search_request {
                 pub fn set_product_attribute_values<T, V>(mut self, v: T) -> Self
                 where
                     T: std::iter::IntoIterator<Item = V>,
-                    V: std::convert::Into<crate::model::ProductAttributeValue>,
+                    V: std::convert::Into<crate::model::ProductAttributeValue>
                 {
                     use std::iter::Iterator;
                     self.product_attribute_values = v.into_iter().map(|i| i.into()).collect();
@@ -22770,8 +22159,7 @@ pub mod search_request {
                 /// let x = SelectedAnswer::new().set_product_attribute_value(ProductAttributeValue::default()/* use setters */);
                 /// ```
                 pub fn set_product_attribute_value<T>(mut self, v: T) -> Self
-                where
-                    T: std::convert::Into<crate::model::ProductAttributeValue>,
+                where T: std::convert::Into<crate::model::ProductAttributeValue>
                 {
                     self.product_attribute_value = std::option::Option::Some(v.into());
                     self
@@ -22786,12 +22174,8 @@ pub mod search_request {
                 /// let x = SelectedAnswer::new().set_or_clear_product_attribute_value(Some(ProductAttributeValue::default()/* use setters */));
                 /// let x = SelectedAnswer::new().set_or_clear_product_attribute_value(None::<ProductAttributeValue>);
                 /// ```
-                pub fn set_or_clear_product_attribute_value<T>(
-                    mut self,
-                    v: std::option::Option<T>,
-                ) -> Self
-                where
-                    T: std::convert::Into<crate::model::ProductAttributeValue>,
+                pub fn set_or_clear_product_attribute_value<T>(mut self, v: std::option::Option<T>) -> Self
+                where T: std::convert::Into<crate::model::ProductAttributeValue>
                 {
                     self.product_attribute_value = v.map(|x| x.into());
                     self
@@ -22823,6 +22207,7 @@ pub mod search_request {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TileNavigationSpec {
+
         /// This field specifies whether the customer would like to request tile
         /// navigation.
         pub tile_navigation_requested: bool,
@@ -22875,7 +22260,7 @@ pub mod search_request {
         pub fn set_applied_tiles<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::Tile>,
+            V: std::convert::Into<crate::model::Tile>
         {
             use std::iter::Iterator;
             self.applied_tiles = v.into_iter().map(|i| i.into()).collect();
@@ -23014,9 +22399,7 @@ pub mod search_request {
                 0 => Self::Unspecified,
                 1 => Self::ProductSearchOnly,
                 2 => Self::FacetedSearchOnly,
-                _ => Self::UnknownValue(search_mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(search_mode::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -23028,9 +22411,7 @@ pub mod search_request {
                 "SEARCH_MODE_UNSPECIFIED" => Self::Unspecified,
                 "PRODUCT_SEARCH_ONLY" => Self::ProductSearchOnly,
                 "FACETED_SEARCH_ONLY" => Self::FacetedSearchOnly,
-                _ => Self::UnknownValue(search_mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(search_mode::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -23055,8 +22436,7 @@ pub mod search_request {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<SearchMode>::new(
-                ".google.cloud.retail.v2.SearchRequest.SearchMode",
-            ))
+                ".google.cloud.retail.v2.SearchRequest.SearchMode"))
         }
     }
 }
@@ -23068,6 +22448,7 @@ pub mod search_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchResponse {
+
     /// A list of matched items. The order represents the ranking.
     pub results: std::vec::Vec<crate::model::search_response::SearchResult>,
 
@@ -23105,8 +22486,7 @@ pub struct SearchResponse {
     pub next_page_token: std::string::String,
 
     /// Query expansion information for the returned results.
-    pub query_expansion_info:
-        std::option::Option<crate::model::search_response::QueryExpansionInfo>,
+    pub query_expansion_info: std::option::Option<crate::model::search_response::QueryExpansionInfo>,
 
     /// The URI of a customer-defined redirect page. If redirect action is
     /// triggered, no search is performed, and only
@@ -23135,8 +22515,7 @@ pub struct SearchResponse {
     /// that are not applied during serving.
     ///
     /// [google.cloud.retail.v2.SearchRequest.BoostSpec.condition_boost_specs]: crate::model::search_request::BoostSpec::condition_boost_specs
-    pub invalid_condition_boost_specs:
-        std::vec::Vec<crate::model::search_request::boost_spec::ConditionBoostSpec>,
+    pub invalid_condition_boost_specs: std::vec::Vec<crate::model::search_request::boost_spec::ConditionBoostSpec>,
 
     /// Metadata related to A/B testing experiment associated with this
     /// response. Only exists when an experiment is triggered.
@@ -23144,13 +22523,11 @@ pub struct SearchResponse {
 
     /// This field specifies all related information that is needed on client
     /// side for UI rendering of conversational retail search.
-    pub conversational_search_result:
-        std::option::Option<crate::model::search_response::ConversationalSearchResult>,
+    pub conversational_search_result: std::option::Option<crate::model::search_response::ConversationalSearchResult>,
 
     /// This field specifies all related information for tile navigation that will
     /// be used in client side.
-    pub tile_navigation_result:
-        std::option::Option<crate::model::search_response::TileNavigationResult>,
+    pub tile_navigation_result: std::option::Option<crate::model::search_response::TileNavigationResult>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -23175,7 +22552,7 @@ impl SearchResponse {
     pub fn set_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::search_response::SearchResult>,
+        V: std::convert::Into<crate::model::search_response::SearchResult>
     {
         use std::iter::Iterator;
         self.results = v.into_iter().map(|i| i.into()).collect();
@@ -23197,7 +22574,7 @@ impl SearchResponse {
     pub fn set_facets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::search_response::Facet>,
+        V: std::convert::Into<crate::model::search_response::Facet>
     {
         use std::iter::Iterator;
         self.facets = v.into_iter().map(|i| i.into()).collect();
@@ -23235,10 +22612,7 @@ impl SearchResponse {
     /// # use google_cloud_retail_v2::model::SearchResponse;
     /// let x = SearchResponse::new().set_attribution_token("example");
     /// ```
-    pub fn set_attribution_token<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_attribution_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.attribution_token = v.into();
         self
     }
@@ -23264,8 +22638,7 @@ impl SearchResponse {
     /// let x = SearchResponse::new().set_query_expansion_info(QueryExpansionInfo::default()/* use setters */);
     /// ```
     pub fn set_query_expansion_info<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::search_response::QueryExpansionInfo>,
+    where T: std::convert::Into<crate::model::search_response::QueryExpansionInfo>
     {
         self.query_expansion_info = std::option::Option::Some(v.into());
         self
@@ -23281,8 +22654,7 @@ impl SearchResponse {
     /// let x = SearchResponse::new().set_or_clear_query_expansion_info(None::<QueryExpansionInfo>);
     /// ```
     pub fn set_or_clear_query_expansion_info<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::search_response::QueryExpansionInfo>,
+    where T: std::convert::Into<crate::model::search_response::QueryExpansionInfo>
     {
         self.query_expansion_info = v.map(|x| x.into());
         self
@@ -23310,7 +22682,7 @@ impl SearchResponse {
     pub fn set_applied_controls<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.applied_controls = v.into_iter().map(|i| i.into()).collect();
@@ -23326,8 +22698,7 @@ impl SearchResponse {
     /// let x = SearchResponse::new().set_pin_control_metadata(PinControlMetadata::default()/* use setters */);
     /// ```
     pub fn set_pin_control_metadata<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::PinControlMetadata>,
+    where T: std::convert::Into<crate::model::PinControlMetadata>
     {
         self.pin_control_metadata = std::option::Option::Some(v.into());
         self
@@ -23343,8 +22714,7 @@ impl SearchResponse {
     /// let x = SearchResponse::new().set_or_clear_pin_control_metadata(None::<PinControlMetadata>);
     /// ```
     pub fn set_or_clear_pin_control_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::PinControlMetadata>,
+    where T: std::convert::Into<crate::model::PinControlMetadata>
     {
         self.pin_control_metadata = v.map(|x| x.into());
         self
@@ -23365,7 +22735,7 @@ impl SearchResponse {
     pub fn set_invalid_condition_boost_specs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::search_request::boost_spec::ConditionBoostSpec>,
+        V: std::convert::Into<crate::model::search_request::boost_spec::ConditionBoostSpec>
     {
         use std::iter::Iterator;
         self.invalid_condition_boost_specs = v.into_iter().map(|i| i.into()).collect();
@@ -23387,7 +22757,7 @@ impl SearchResponse {
     pub fn set_experiment_info<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ExperimentInfo>,
+        V: std::convert::Into<crate::model::ExperimentInfo>
     {
         use std::iter::Iterator;
         self.experiment_info = v.into_iter().map(|i| i.into()).collect();
@@ -23403,8 +22773,7 @@ impl SearchResponse {
     /// let x = SearchResponse::new().set_conversational_search_result(ConversationalSearchResult::default()/* use setters */);
     /// ```
     pub fn set_conversational_search_result<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::search_response::ConversationalSearchResult>,
+    where T: std::convert::Into<crate::model::search_response::ConversationalSearchResult>
     {
         self.conversational_search_result = std::option::Option::Some(v.into());
         self
@@ -23420,8 +22789,7 @@ impl SearchResponse {
     /// let x = SearchResponse::new().set_or_clear_conversational_search_result(None::<ConversationalSearchResult>);
     /// ```
     pub fn set_or_clear_conversational_search_result<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::search_response::ConversationalSearchResult>,
+    where T: std::convert::Into<crate::model::search_response::ConversationalSearchResult>
     {
         self.conversational_search_result = v.map(|x| x.into());
         self
@@ -23436,8 +22804,7 @@ impl SearchResponse {
     /// let x = SearchResponse::new().set_tile_navigation_result(TileNavigationResult::default()/* use setters */);
     /// ```
     pub fn set_tile_navigation_result<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::search_response::TileNavigationResult>,
+    where T: std::convert::Into<crate::model::search_response::TileNavigationResult>
     {
         self.tile_navigation_result = std::option::Option::Some(v.into());
         self
@@ -23453,8 +22820,7 @@ impl SearchResponse {
     /// let x = SearchResponse::new().set_or_clear_tile_navigation_result(None::<TileNavigationResult>);
     /// ```
     pub fn set_or_clear_tile_navigation_result<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::search_response::TileNavigationResult>,
+    where T: std::convert::Into<crate::model::search_response::TileNavigationResult>
     {
         self.tile_navigation_result = v.map(|x| x.into());
         self
@@ -23486,10 +22852,12 @@ pub mod search_response {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Represents the search results.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SearchResult {
+
         /// [Product.id][google.cloud.retail.v2.Product.id] of the searched
         /// [Product][google.cloud.retail.v2.Product].
         ///
@@ -23541,7 +22909,7 @@ pub mod search_response {
         /// [google.cloud.retail.v2.Product]: crate::model::Product
         /// [google.cloud.retail.v2.Product.Type.VARIANT]: crate::model::product::Type::Variant
         /// [google.cloud.retail.v2.Product.name]: crate::model::Product::name
-        pub matching_variant_fields: std::collections::HashMap<std::string::String, wkt::FieldMask>,
+        pub matching_variant_fields: std::collections::HashMap<std::string::String,wkt::FieldMask>,
 
         /// The rollup matching
         /// [variant][google.cloud.retail.v2.Product.Type.VARIANT]
@@ -23583,7 +22951,7 @@ pub mod search_response {
         /// [google.cloud.retail.v2.SearchRequest.variant_rollup_keys]: crate::model::SearchRequest::variant_rollup_keys
         /// [google.protobuf.ListValue]: wkt::ListValue
         /// [google.protobuf.Value]: wkt::Value
-        pub variant_rollup_values: std::collections::HashMap<std::string::String, wkt::Value>,
+        pub variant_rollup_values: std::collections::HashMap<std::string::String,wkt::Value>,
 
         /// Specifies previous events related to this product for this user based on
         /// [UserEvent][google.cloud.retail.v2.UserEvent] with same
@@ -23607,7 +22975,7 @@ pub mod search_response {
         pub personal_labels: std::vec::Vec<std::string::String>,
 
         /// Google provided available scores.
-        pub model_scores: std::collections::HashMap<std::string::String, crate::model::DoubleList>,
+        pub model_scores: std::collections::HashMap<std::string::String,crate::model::DoubleList>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -23638,8 +23006,7 @@ pub mod search_response {
         /// let x = SearchResult::new().set_product(Product::default()/* use setters */);
         /// ```
         pub fn set_product<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Product>,
+        where T: std::convert::Into<crate::model::Product>
         {
             self.product = std::option::Option::Some(v.into());
             self
@@ -23655,8 +23022,7 @@ pub mod search_response {
         /// let x = SearchResult::new().set_or_clear_product(None::<Product>);
         /// ```
         pub fn set_or_clear_product<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Product>,
+        where T: std::convert::Into<crate::model::Product>
         {
             self.product = v.map(|x| x.into());
             self
@@ -23692,8 +23058,7 @@ pub mod search_response {
             V: std::convert::Into<wkt::FieldMask>,
         {
             use std::iter::Iterator;
-            self.matching_variant_fields =
-                v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self.matching_variant_fields = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
 
@@ -23729,7 +23094,7 @@ pub mod search_response {
         pub fn set_personal_labels<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.personal_labels = v.into_iter().map(|i| i.into()).collect();
@@ -23769,6 +23134,7 @@ pub mod search_response {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Facet {
+
         /// The key for this facet. E.g., "colorFamilies" or "price" or
         /// "attributes.attr1".
         pub key: std::string::String,
@@ -23814,7 +23180,7 @@ pub mod search_response {
         pub fn set_values<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::search_response::facet::FacetValue>,
+            V: std::convert::Into<crate::model::search_response::facet::FacetValue>
         {
             use std::iter::Iterator;
             self.values = v.into_iter().map(|i| i.into()).collect();
@@ -23845,10 +23211,12 @@ pub mod search_response {
         #[allow(unused_imports)]
         use super::*;
 
+
         /// A facet value which contains value names and their count.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct FacetValue {
+
             /// Number of items that have this facet value.
             pub count: i64,
 
@@ -23873,8 +23241,7 @@ pub mod search_response {
             pub max_value: f64,
 
             /// A facet value which contains values.
-            pub facet_value:
-                std::option::Option<crate::model::search_response::facet::facet_value::FacetValue>,
+            pub facet_value: std::option::Option<crate::model::search_response::facet::facet_value::FacetValue>,
 
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
@@ -23931,16 +23298,8 @@ pub mod search_response {
             /// use google_cloud_retail_v2::model::search_response::facet::facet_value::FacetValue as FacetValueOneOf;
             /// let x = FacetValue::new().set_facet_value(Some(FacetValueOneOf::Value("example".to_string())));
             /// ```
-            pub fn set_facet_value<
-                T: std::convert::Into<
-                        std::option::Option<
-                            crate::model::search_response::facet::facet_value::FacetValue,
-                        >,
-                    >,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_facet_value<T: std::convert::Into<std::option::Option<crate::model::search_response::facet::facet_value::FacetValue>>>(mut self, v: T) -> Self
+            {
                 self.facet_value = v.into();
                 self
             }
@@ -23951,9 +23310,7 @@ pub mod search_response {
             pub fn value(&self) -> std::option::Option<&std::string::String> {
                 #[allow(unreachable_patterns)]
                 self.facet_value.as_ref().and_then(|v| match v {
-                    crate::model::search_response::facet::facet_value::FacetValue::Value(v) => {
-                        std::option::Option::Some(v)
-                    }
+                    crate::model::search_response::facet::facet_value::FacetValue::Value(v) => std::option::Option::Some(v),
                     _ => std::option::Option::None,
                 })
             }
@@ -23973,7 +23330,9 @@ pub mod search_response {
             /// ```
             pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.facet_value = std::option::Option::Some(
-                    crate::model::search_response::facet::facet_value::FacetValue::Value(v.into()),
+                    crate::model::search_response::facet::facet_value::FacetValue::Value(
+                        v.into()
+                    )
                 );
                 self
             }
@@ -23981,14 +23340,10 @@ pub mod search_response {
             /// The value of [facet_value][crate::model::search_response::facet::FacetValue::facet_value]
             /// if it holds a `Interval`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn interval(
-                &self,
-            ) -> std::option::Option<&std::boxed::Box<crate::model::Interval>> {
+            pub fn interval(&self) -> std::option::Option<&std::boxed::Box<crate::model::Interval>> {
                 #[allow(unreachable_patterns)]
                 self.facet_value.as_ref().and_then(|v| match v {
-                    crate::model::search_response::facet::facet_value::FacetValue::Interval(v) => {
-                        std::option::Option::Some(v)
-                    }
+                    crate::model::search_response::facet::facet_value::FacetValue::Interval(v) => std::option::Option::Some(v),
                     _ => std::option::Option::None,
                 })
             }
@@ -24007,14 +23362,11 @@ pub mod search_response {
             /// assert!(x.interval().is_some());
             /// assert!(x.value().is_none());
             /// ```
-            pub fn set_interval<T: std::convert::Into<std::boxed::Box<crate::model::Interval>>>(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_interval<T: std::convert::Into<std::boxed::Box<crate::model::Interval>>>(mut self, v: T) -> Self {
                 self.facet_value = std::option::Option::Some(
                     crate::model::search_response::facet::facet_value::FacetValue::Interval(
-                        v.into(),
-                    ),
+                        v.into()
+                    )
                 );
                 self
             }
@@ -24030,6 +23382,7 @@ pub mod search_response {
         pub mod facet_value {
             #[allow(unused_imports)]
             use super::*;
+
 
             /// A facet value which contains values.
             #[derive(Clone, Debug, PartialEq)]
@@ -24048,6 +23401,7 @@ pub mod search_response {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct QueryExpansionInfo {
+
         /// Bool describing whether query expansion has occurred.
         pub expanded_query: bool,
 
@@ -24103,6 +23457,7 @@ pub mod search_response {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ConversationalSearchResult {
+
         /// Conversation UUID. This field will be stored in client side storage to
         /// maintain the conversation session with server and will be used for next
         /// search request's
@@ -24129,17 +23484,13 @@ pub mod search_response {
         /// There is expected to have only one additional filter and the value will
         /// be the same to the same as field `additional_filter`.
         #[deprecated]
-        pub additional_filters: std::vec::Vec<
-            crate::model::search_response::conversational_search_result::AdditionalFilter,
-        >,
+        pub additional_filters: std::vec::Vec<crate::model::search_response::conversational_search_result::AdditionalFilter>,
 
         /// The follow-up question. e.g., `What is the color?`
         pub followup_question: std::string::String,
 
         /// The answer options provided to client for the follow-up question.
-        pub suggested_answers: std::vec::Vec<
-            crate::model::search_response::conversational_search_result::SuggestedAnswer,
-        >,
+        pub suggested_answers: std::vec::Vec<crate::model::search_response::conversational_search_result::SuggestedAnswer>,
 
         /// This is the incremental additional filters implied from the current
         /// user answer. User should add the suggested addition filters to the
@@ -24148,9 +23499,7 @@ pub mod search_response {
         /// use the merged filter in the follow up search request.
         ///
         /// [google.cloud.retail.v2.SearchRequest.filter]: crate::model::SearchRequest::filter
-        pub additional_filter: std::option::Option<
-            crate::model::search_response::conversational_search_result::AdditionalFilter,
-        >,
+        pub additional_filter: std::option::Option<crate::model::search_response::conversational_search_result::AdditionalFilter>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -24167,10 +23516,7 @@ pub mod search_response {
         /// # use google_cloud_retail_v2::model::search_response::ConversationalSearchResult;
         /// let x = ConversationalSearchResult::new().set_conversation_id("example");
         /// ```
-        pub fn set_conversation_id<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_conversation_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.conversation_id = v.into();
             self
         }
@@ -24182,10 +23528,7 @@ pub mod search_response {
         /// # use google_cloud_retail_v2::model::search_response::ConversationalSearchResult;
         /// let x = ConversationalSearchResult::new().set_refined_query("example");
         /// ```
-        pub fn set_refined_query<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_refined_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.refined_query = v.into();
             self
         }
@@ -24206,9 +23549,7 @@ pub mod search_response {
         pub fn set_additional_filters<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<
-                    crate::model::search_response::conversational_search_result::AdditionalFilter,
-                >,
+            V: std::convert::Into<crate::model::search_response::conversational_search_result::AdditionalFilter>
         {
             use std::iter::Iterator;
             self.additional_filters = v.into_iter().map(|i| i.into()).collect();
@@ -24222,10 +23563,7 @@ pub mod search_response {
         /// # use google_cloud_retail_v2::model::search_response::ConversationalSearchResult;
         /// let x = ConversationalSearchResult::new().set_followup_question("example");
         /// ```
-        pub fn set_followup_question<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_followup_question<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.followup_question = v.into();
             self
         }
@@ -24245,9 +23583,7 @@ pub mod search_response {
         pub fn set_suggested_answers<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<
-                    crate::model::search_response::conversational_search_result::SuggestedAnswer,
-                >,
+            V: std::convert::Into<crate::model::search_response::conversational_search_result::SuggestedAnswer>
         {
             use std::iter::Iterator;
             self.suggested_answers = v.into_iter().map(|i| i.into()).collect();
@@ -24263,10 +23599,7 @@ pub mod search_response {
         /// let x = ConversationalSearchResult::new().set_additional_filter(AdditionalFilter::default()/* use setters */);
         /// ```
         pub fn set_additional_filter<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<
-                    crate::model::search_response::conversational_search_result::AdditionalFilter,
-                >,
+        where T: std::convert::Into<crate::model::search_response::conversational_search_result::AdditionalFilter>
         {
             self.additional_filter = std::option::Option::Some(v.into());
             self
@@ -24282,10 +23615,7 @@ pub mod search_response {
         /// let x = ConversationalSearchResult::new().set_or_clear_additional_filter(None::<AdditionalFilter>);
         /// ```
         pub fn set_or_clear_additional_filter<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<
-                    crate::model::search_response::conversational_search_result::AdditionalFilter,
-                >,
+        where T: std::convert::Into<crate::model::search_response::conversational_search_result::AdditionalFilter>
         {
             self.additional_filter = v.map(|x| x.into());
             self
@@ -24303,10 +23633,12 @@ pub mod search_response {
         #[allow(unused_imports)]
         use super::*;
 
+
         /// Suggested answers to the follow-up question.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct SuggestedAnswer {
+
             /// Product attribute value, including an attribute key and an
             /// attribute value. Other types can be added here in the future.
             pub product_attribute_value: std::option::Option<crate::model::ProductAttributeValue>,
@@ -24328,8 +23660,7 @@ pub mod search_response {
             /// let x = SuggestedAnswer::new().set_product_attribute_value(ProductAttributeValue::default()/* use setters */);
             /// ```
             pub fn set_product_attribute_value<T>(mut self, v: T) -> Self
-            where
-                T: std::convert::Into<crate::model::ProductAttributeValue>,
+            where T: std::convert::Into<crate::model::ProductAttributeValue>
             {
                 self.product_attribute_value = std::option::Option::Some(v.into());
                 self
@@ -24344,12 +23675,8 @@ pub mod search_response {
             /// let x = SuggestedAnswer::new().set_or_clear_product_attribute_value(Some(ProductAttributeValue::default()/* use setters */));
             /// let x = SuggestedAnswer::new().set_or_clear_product_attribute_value(None::<ProductAttributeValue>);
             /// ```
-            pub fn set_or_clear_product_attribute_value<T>(
-                mut self,
-                v: std::option::Option<T>,
-            ) -> Self
-            where
-                T: std::convert::Into<crate::model::ProductAttributeValue>,
+            pub fn set_or_clear_product_attribute_value<T>(mut self, v: std::option::Option<T>) -> Self
+            where T: std::convert::Into<crate::model::ProductAttributeValue>
             {
                 self.product_attribute_value = v.map(|x| x.into());
                 self
@@ -24366,6 +23693,7 @@ pub mod search_response {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct AdditionalFilter {
+
             /// Product attribute value, including an attribute key and an
             /// attribute value. Other types can be added here in the future.
             pub product_attribute_value: std::option::Option<crate::model::ProductAttributeValue>,
@@ -24387,8 +23715,7 @@ pub mod search_response {
             /// let x = AdditionalFilter::new().set_product_attribute_value(ProductAttributeValue::default()/* use setters */);
             /// ```
             pub fn set_product_attribute_value<T>(mut self, v: T) -> Self
-            where
-                T: std::convert::Into<crate::model::ProductAttributeValue>,
+            where T: std::convert::Into<crate::model::ProductAttributeValue>
             {
                 self.product_attribute_value = std::option::Option::Some(v.into());
                 self
@@ -24403,12 +23730,8 @@ pub mod search_response {
             /// let x = AdditionalFilter::new().set_or_clear_product_attribute_value(Some(ProductAttributeValue::default()/* use setters */));
             /// let x = AdditionalFilter::new().set_or_clear_product_attribute_value(None::<ProductAttributeValue>);
             /// ```
-            pub fn set_or_clear_product_attribute_value<T>(
-                mut self,
-                v: std::option::Option<T>,
-            ) -> Self
-            where
-                T: std::convert::Into<crate::model::ProductAttributeValue>,
+            pub fn set_or_clear_product_attribute_value<T>(mut self, v: std::option::Option<T>) -> Self
+            where T: std::convert::Into<crate::model::ProductAttributeValue>
             {
                 self.product_attribute_value = v.map(|x| x.into());
                 self
@@ -24427,6 +23750,7 @@ pub mod search_response {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TileNavigationResult {
+
         /// The current tiles that are used for tile navigation, sorted by
         /// engagement.
         pub tiles: std::vec::Vec<crate::model::Tile>,
@@ -24454,7 +23778,7 @@ pub mod search_response {
         pub fn set_tiles<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::Tile>,
+            V: std::convert::Into<crate::model::Tile>
         {
             use std::iter::Iterator;
             self.tiles = v.into_iter().map(|i| i.into()).collect();
@@ -24473,6 +23797,7 @@ pub mod search_response {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExperimentInfo {
+
     /// The fully qualified resource name of the experiment that provides the
     /// serving config under test, should an active experiment exist. For example:
     /// `projects/*/locations/global/catalogs/default_catalog/experiments/experiment_id`
@@ -24513,12 +23838,8 @@ impl ExperimentInfo {
     /// let x = ExperimentInfo::new().set_experiment_metadata(Some(
     ///     google_cloud_retail_v2::model::experiment_info::ExperimentMetadata::ServingConfigExperiment(ServingConfigExperiment::default().into())));
     /// ```
-    pub fn set_experiment_metadata<
-        T: std::convert::Into<std::option::Option<crate::model::experiment_info::ExperimentMetadata>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_experiment_metadata<T: std::convert::Into<std::option::Option<crate::model::experiment_info::ExperimentMetadata>>>(mut self, v: T) -> Self
+    {
         self.experiment_metadata = v.into();
         self
     }
@@ -24526,15 +23847,10 @@ impl ExperimentInfo {
     /// The value of [experiment_metadata][crate::model::ExperimentInfo::experiment_metadata]
     /// if it holds a `ServingConfigExperiment`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn serving_config_experiment(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::experiment_info::ServingConfigExperiment>>
-    {
+    pub fn serving_config_experiment(&self) -> std::option::Option<&std::boxed::Box<crate::model::experiment_info::ServingConfigExperiment>> {
         #[allow(unreachable_patterns)]
         self.experiment_metadata.as_ref().and_then(|v| match v {
-            crate::model::experiment_info::ExperimentMetadata::ServingConfigExperiment(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::experiment_info::ExperimentMetadata::ServingConfigExperiment(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -24552,14 +23868,11 @@ impl ExperimentInfo {
     /// let x = ExperimentInfo::new().set_serving_config_experiment(ServingConfigExperiment::default()/* use setters */);
     /// assert!(x.serving_config_experiment().is_some());
     /// ```
-    pub fn set_serving_config_experiment<
-        T: std::convert::Into<std::boxed::Box<crate::model::experiment_info::ServingConfigExperiment>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_serving_config_experiment<T: std::convert::Into<std::boxed::Box<crate::model::experiment_info::ServingConfigExperiment>>>(mut self, v: T) -> Self {
         self.experiment_metadata = std::option::Option::Some(
-            crate::model::experiment_info::ExperimentMetadata::ServingConfigExperiment(v.into()),
+            crate::model::experiment_info::ExperimentMetadata::ServingConfigExperiment(
+                v.into()
+            )
         );
         self
     }
@@ -24576,10 +23889,12 @@ pub mod experiment_info {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Metadata for active serving config A/B tests.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ServingConfigExperiment {
+
         /// The fully qualified resource name of the original
         /// [SearchRequest.placement][google.cloud.retail.v2.SearchRequest.placement]
         /// in the search request prior to reassignment by experiment API. For
@@ -24609,10 +23924,7 @@ pub mod experiment_info {
         /// # use google_cloud_retail_v2::model::experiment_info::ServingConfigExperiment;
         /// let x = ServingConfigExperiment::new().set_original_serving_config("example");
         /// ```
-        pub fn set_original_serving_config<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_original_serving_config<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.original_serving_config = v.into();
             self
         }
@@ -24624,10 +23936,7 @@ pub mod experiment_info {
         /// # use google_cloud_retail_v2::model::experiment_info::ServingConfigExperiment;
         /// let x = ServingConfigExperiment::new().set_experiment_serving_config("example");
         /// ```
-        pub fn set_experiment_serving_config<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_experiment_serving_config<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.experiment_serving_config = v.into();
             self
         }
@@ -24647,9 +23956,7 @@ pub mod experiment_info {
         /// [ServingConfig][google.cloud.retail.v2.ServingConfig]s.
         ///
         /// [google.cloud.retail.v2.ServingConfig]: crate::model::ServingConfig
-        ServingConfigExperiment(
-            std::boxed::Box<crate::model::experiment_info::ServingConfigExperiment>,
-        ),
+        ServingConfigExperiment(std::boxed::Box<crate::model::experiment_info::ServingConfigExperiment>),
     }
 }
 
@@ -24658,6 +23965,7 @@ pub mod experiment_info {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ServingConfig {
+
     /// Immutable. Fully qualified name
     /// `projects/*/locations/global/catalogs/*/servingConfig/*`
     pub name: std::string::String,
@@ -24924,8 +24232,7 @@ pub struct ServingConfig {
     /// [google.cloud.retail.v2.ServingConfig.personalization_spec]: crate::model::ServingConfig::personalization_spec
     /// [google.cloud.retail.v2.ServingConfig.solution_types]: crate::model::ServingConfig::solution_types
     /// [google.cloud.retail.v2.SolutionType.SOLUTION_TYPE_SEARCH]: crate::model::SolutionType::Search
-    pub personalization_spec:
-        std::option::Option<crate::model::search_request::PersonalizationSpec>,
+    pub personalization_spec: std::option::Option<crate::model::search_request::PersonalizationSpec>,
 
     /// Required. Immutable. Specifies the solution types that a serving config can
     /// be associated with. Currently we support setting only one type of solution.
@@ -24982,10 +24289,7 @@ impl ServingConfig {
     /// # use google_cloud_retail_v2::model::ServingConfig;
     /// let x = ServingConfig::new().set_price_reranking_level("example");
     /// ```
-    pub fn set_price_reranking_level<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_price_reranking_level<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.price_reranking_level = v.into();
         self
     }
@@ -25000,7 +24304,7 @@ impl ServingConfig {
     pub fn set_facet_control_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.facet_control_ids = v.into_iter().map(|i| i.into()).collect();
@@ -25016,8 +24320,7 @@ impl ServingConfig {
     /// let x = ServingConfig::new().set_dynamic_facet_spec(DynamicFacetSpec::default()/* use setters */);
     /// ```
     pub fn set_dynamic_facet_spec<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::search_request::DynamicFacetSpec>,
+    where T: std::convert::Into<crate::model::search_request::DynamicFacetSpec>
     {
         self.dynamic_facet_spec = std::option::Option::Some(v.into());
         self
@@ -25033,8 +24336,7 @@ impl ServingConfig {
     /// let x = ServingConfig::new().set_or_clear_dynamic_facet_spec(None::<DynamicFacetSpec>);
     /// ```
     pub fn set_or_clear_dynamic_facet_spec<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::search_request::DynamicFacetSpec>,
+    where T: std::convert::Into<crate::model::search_request::DynamicFacetSpec>
     {
         self.dynamic_facet_spec = v.map(|x| x.into());
         self
@@ -25050,7 +24352,7 @@ impl ServingConfig {
     pub fn set_boost_control_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.boost_control_ids = v.into_iter().map(|i| i.into()).collect();
@@ -25067,7 +24369,7 @@ impl ServingConfig {
     pub fn set_filter_control_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.filter_control_ids = v.into_iter().map(|i| i.into()).collect();
@@ -25084,7 +24386,7 @@ impl ServingConfig {
     pub fn set_redirect_control_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.redirect_control_ids = v.into_iter().map(|i| i.into()).collect();
@@ -25101,7 +24403,7 @@ impl ServingConfig {
     pub fn set_twoway_synonyms_control_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.twoway_synonyms_control_ids = v.into_iter().map(|i| i.into()).collect();
@@ -25118,7 +24420,7 @@ impl ServingConfig {
     pub fn set_oneway_synonyms_control_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.oneway_synonyms_control_ids = v.into_iter().map(|i| i.into()).collect();
@@ -25135,7 +24437,7 @@ impl ServingConfig {
     pub fn set_do_not_associate_control_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.do_not_associate_control_ids = v.into_iter().map(|i| i.into()).collect();
@@ -25152,7 +24454,7 @@ impl ServingConfig {
     pub fn set_replacement_control_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.replacement_control_ids = v.into_iter().map(|i| i.into()).collect();
@@ -25169,7 +24471,7 @@ impl ServingConfig {
     pub fn set_ignore_control_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.ignore_control_ids = v.into_iter().map(|i| i.into()).collect();
@@ -25197,12 +24499,7 @@ impl ServingConfig {
     /// let x0 = ServingConfig::new().set_diversity_type(DiversityType::RuleBasedDiversity);
     /// let x1 = ServingConfig::new().set_diversity_type(DiversityType::DataDrivenDiversity);
     /// ```
-    pub fn set_diversity_type<
-        T: std::convert::Into<crate::model::serving_config::DiversityType>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_diversity_type<T: std::convert::Into<crate::model::serving_config::DiversityType>>(mut self, v: T) -> Self {
         self.diversity_type = v.into();
         self
     }
@@ -25214,10 +24511,7 @@ impl ServingConfig {
     /// # use google_cloud_retail_v2::model::ServingConfig;
     /// let x = ServingConfig::new().set_enable_category_filter_level("example");
     /// ```
-    pub fn set_enable_category_filter_level<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_enable_category_filter_level<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.enable_category_filter_level = v.into();
         self
     }
@@ -25243,8 +24537,7 @@ impl ServingConfig {
     /// let x = ServingConfig::new().set_personalization_spec(PersonalizationSpec::default()/* use setters */);
     /// ```
     pub fn set_personalization_spec<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::search_request::PersonalizationSpec>,
+    where T: std::convert::Into<crate::model::search_request::PersonalizationSpec>
     {
         self.personalization_spec = std::option::Option::Some(v.into());
         self
@@ -25260,8 +24553,7 @@ impl ServingConfig {
     /// let x = ServingConfig::new().set_or_clear_personalization_spec(None::<PersonalizationSpec>);
     /// ```
     pub fn set_or_clear_personalization_spec<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::search_request::PersonalizationSpec>,
+    where T: std::convert::Into<crate::model::search_request::PersonalizationSpec>
     {
         self.personalization_spec = v.map(|x| x.into());
         self
@@ -25281,7 +24573,7 @@ impl ServingConfig {
     pub fn set_solution_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::SolutionType>,
+        V: std::convert::Into<crate::model::SolutionType>
     {
         use std::iter::Iterator;
         self.solution_types = v.into_iter().map(|i| i.into()).collect();
@@ -25299,6 +24591,7 @@ impl wkt::message::Message for ServingConfig {
 pub mod serving_config {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// What type of diversity - data or rule based.
     ///
@@ -25386,9 +24679,7 @@ pub mod serving_config {
                 0 => Self::Unspecified,
                 2 => Self::RuleBasedDiversity,
                 3 => Self::DataDrivenDiversity,
-                _ => Self::UnknownValue(diversity_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(diversity_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -25400,9 +24691,7 @@ pub mod serving_config {
                 "DIVERSITY_TYPE_UNSPECIFIED" => Self::Unspecified,
                 "RULE_BASED_DIVERSITY" => Self::RuleBasedDiversity,
                 "DATA_DRIVEN_DIVERSITY" => Self::DataDrivenDiversity,
-                _ => Self::UnknownValue(diversity_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(diversity_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -25427,8 +24716,7 @@ pub mod serving_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<DiversityType>::new(
-                ".google.cloud.retail.v2.ServingConfig.DiversityType",
-            ))
+                ".google.cloud.retail.v2.ServingConfig.DiversityType"))
         }
     }
 }
@@ -25437,6 +24725,7 @@ pub mod serving_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateServingConfigRequest {
+
     /// Required. Full resource name of parent. Format:
     /// `projects/{project_number}/locations/{location_id}/catalogs/{catalog_id}`
     pub parent: std::string::String,
@@ -25480,8 +24769,7 @@ impl CreateServingConfigRequest {
     /// let x = CreateServingConfigRequest::new().set_serving_config(ServingConfig::default()/* use setters */);
     /// ```
     pub fn set_serving_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ServingConfig>,
+    where T: std::convert::Into<crate::model::ServingConfig>
     {
         self.serving_config = std::option::Option::Some(v.into());
         self
@@ -25497,8 +24785,7 @@ impl CreateServingConfigRequest {
     /// let x = CreateServingConfigRequest::new().set_or_clear_serving_config(None::<ServingConfig>);
     /// ```
     pub fn set_or_clear_serving_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ServingConfig>,
+    where T: std::convert::Into<crate::model::ServingConfig>
     {
         self.serving_config = v.map(|x| x.into());
         self
@@ -25511,10 +24798,7 @@ impl CreateServingConfigRequest {
     /// # use google_cloud_retail_v2::model::CreateServingConfigRequest;
     /// let x = CreateServingConfigRequest::new().set_serving_config_id("example");
     /// ```
-    pub fn set_serving_config_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_serving_config_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.serving_config_id = v.into();
         self
     }
@@ -25530,6 +24814,7 @@ impl wkt::message::Message for CreateServingConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateServingConfigRequest {
+
     /// Required. The ServingConfig to update.
     pub serving_config: std::option::Option<crate::model::ServingConfig>,
 
@@ -25562,8 +24847,7 @@ impl UpdateServingConfigRequest {
     /// let x = UpdateServingConfigRequest::new().set_serving_config(ServingConfig::default()/* use setters */);
     /// ```
     pub fn set_serving_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ServingConfig>,
+    where T: std::convert::Into<crate::model::ServingConfig>
     {
         self.serving_config = std::option::Option::Some(v.into());
         self
@@ -25579,8 +24863,7 @@ impl UpdateServingConfigRequest {
     /// let x = UpdateServingConfigRequest::new().set_or_clear_serving_config(None::<ServingConfig>);
     /// ```
     pub fn set_or_clear_serving_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ServingConfig>,
+    where T: std::convert::Into<crate::model::ServingConfig>
     {
         self.serving_config = v.map(|x| x.into());
         self
@@ -25595,8 +24878,7 @@ impl UpdateServingConfigRequest {
     /// let x = UpdateServingConfigRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -25612,8 +24894,7 @@ impl UpdateServingConfigRequest {
     /// let x = UpdateServingConfigRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -25630,6 +24911,7 @@ impl wkt::message::Message for UpdateServingConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteServingConfigRequest {
+
     /// Required. The resource name of the ServingConfig to delete. Format:
     /// `projects/{project_number}/locations/{location_id}/catalogs/{catalog_id}/servingConfigs/{serving_config_id}`
     pub name: std::string::String,
@@ -25665,6 +24947,7 @@ impl wkt::message::Message for DeleteServingConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetServingConfigRequest {
+
     /// Required. The resource name of the ServingConfig to get. Format:
     /// `projects/{project_number}/locations/{location_id}/catalogs/{catalog_id}/servingConfigs/{serving_config_id}`
     pub name: std::string::String,
@@ -25700,6 +24983,7 @@ impl wkt::message::Message for GetServingConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServingConfigsRequest {
+
     /// Required. The catalog resource name. Format:
     /// `projects/{project_number}/locations/{location_id}/catalogs/{catalog_id}`
     pub parent: std::string::String,
@@ -25768,6 +25052,7 @@ impl wkt::message::Message for ListServingConfigsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServingConfigsResponse {
+
     /// All the ServingConfigs for a given catalog.
     pub serving_configs: std::vec::Vec<crate::model::ServingConfig>,
 
@@ -25797,7 +25082,7 @@ impl ListServingConfigsResponse {
     pub fn set_serving_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ServingConfig>,
+        V: std::convert::Into<crate::model::ServingConfig>
     {
         use std::iter::Iterator;
         self.serving_configs = v.into_iter().map(|i| i.into()).collect();
@@ -25841,6 +25126,7 @@ impl gax::paginator::internal::PageableResponse for ListServingConfigsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AddControlRequest {
+
     /// Required. The source ServingConfig resource name . Format:
     /// `projects/{project_number}/locations/{location_id}/catalogs/{catalog_id}/servingConfigs/{serving_config_id}`
     pub serving_config: std::string::String,
@@ -25892,6 +25178,7 @@ impl wkt::message::Message for AddControlRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RemoveControlRequest {
+
     /// Required. The source ServingConfig resource name . Format:
     /// `projects/{project_number}/locations/{location_id}/catalogs/{catalog_id}/servingConfigs/{serving_config_id}`
     pub serving_config: std::string::String,
@@ -25944,6 +25231,7 @@ impl wkt::message::Message for RemoveControlRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UserEvent {
+
     /// Required. User event type. Allowed values are:
     ///
     /// * `add-to-cart`: Products being added to cart.
@@ -26078,7 +25366,7 @@ pub struct UserEvent {
     /// traffic_channel, which is how a user arrives at the site. Users can arrive
     /// at the site by coming to the site directly, coming through Google
     /// search, or in other ways.
-    pub attributes: std::collections::HashMap<std::string::String, crate::model::CustomAttribute>,
+    pub attributes: std::collections::HashMap<std::string::String,crate::model::CustomAttribute>,
 
     /// The ID or name of the associated shopping cart. This ID is used
     /// to associate multiple items added or present in the cart before purchase.
@@ -26260,8 +25548,7 @@ impl UserEvent {
     /// let x = UserEvent::new().set_event_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_event_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.event_time = std::option::Option::Some(v.into());
         self
@@ -26277,8 +25564,7 @@ impl UserEvent {
     /// let x = UserEvent::new().set_or_clear_event_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_event_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.event_time = v.map(|x| x.into());
         self
@@ -26294,7 +25580,7 @@ impl UserEvent {
     pub fn set_experiment_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.experiment_ids = v.into_iter().map(|i| i.into()).collect();
@@ -26308,10 +25594,7 @@ impl UserEvent {
     /// # use google_cloud_retail_v2::model::UserEvent;
     /// let x = UserEvent::new().set_attribution_token("example");
     /// ```
-    pub fn set_attribution_token<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_attribution_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.attribution_token = v.into();
         self
     }
@@ -26331,7 +25614,7 @@ impl UserEvent {
     pub fn set_product_details<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ProductDetail>,
+        V: std::convert::Into<crate::model::ProductDetail>
     {
         use std::iter::Iterator;
         self.product_details = v.into_iter().map(|i| i.into()).collect();
@@ -26347,8 +25630,7 @@ impl UserEvent {
     /// let x = UserEvent::new().set_completion_detail(CompletionDetail::default()/* use setters */);
     /// ```
     pub fn set_completion_detail<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CompletionDetail>,
+    where T: std::convert::Into<crate::model::CompletionDetail>
     {
         self.completion_detail = std::option::Option::Some(v.into());
         self
@@ -26364,8 +25646,7 @@ impl UserEvent {
     /// let x = UserEvent::new().set_or_clear_completion_detail(None::<CompletionDetail>);
     /// ```
     pub fn set_or_clear_completion_detail<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CompletionDetail>,
+    where T: std::convert::Into<crate::model::CompletionDetail>
     {
         self.completion_detail = v.map(|x| x.into());
         self
@@ -26414,8 +25695,7 @@ impl UserEvent {
     /// let x = UserEvent::new().set_purchase_transaction(PurchaseTransaction::default()/* use setters */);
     /// ```
     pub fn set_purchase_transaction<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::PurchaseTransaction>,
+    where T: std::convert::Into<crate::model::PurchaseTransaction>
     {
         self.purchase_transaction = std::option::Option::Some(v.into());
         self
@@ -26431,8 +25711,7 @@ impl UserEvent {
     /// let x = UserEvent::new().set_or_clear_purchase_transaction(None::<PurchaseTransaction>);
     /// ```
     pub fn set_or_clear_purchase_transaction<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::PurchaseTransaction>,
+    where T: std::convert::Into<crate::model::PurchaseTransaction>
     {
         self.purchase_transaction = v.map(|x| x.into());
         self
@@ -26496,7 +25775,7 @@ impl UserEvent {
     pub fn set_page_categories<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.page_categories = v.into_iter().map(|i| i.into()).collect();
@@ -26512,8 +25791,7 @@ impl UserEvent {
     /// let x = UserEvent::new().set_user_info(UserInfo::default()/* use setters */);
     /// ```
     pub fn set_user_info<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::UserInfo>,
+    where T: std::convert::Into<crate::model::UserInfo>
     {
         self.user_info = std::option::Option::Some(v.into());
         self
@@ -26529,8 +25807,7 @@ impl UserEvent {
     /// let x = UserEvent::new().set_or_clear_user_info(None::<UserInfo>);
     /// ```
     pub fn set_or_clear_user_info<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::UserInfo>,
+    where T: std::convert::Into<crate::model::UserInfo>
     {
         self.user_info = v.map(|x| x.into());
         self
@@ -26595,6 +25872,7 @@ impl wkt::message::Message for UserEvent {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProductDetail {
+
     /// Required. [Product][google.cloud.retail.v2.Product] information.
     ///
     /// Required field(s):
@@ -26642,8 +25920,7 @@ impl ProductDetail {
     /// let x = ProductDetail::new().set_product(Product::default()/* use setters */);
     /// ```
     pub fn set_product<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Product>,
+    where T: std::convert::Into<crate::model::Product>
     {
         self.product = std::option::Option::Some(v.into());
         self
@@ -26659,8 +25936,7 @@ impl ProductDetail {
     /// let x = ProductDetail::new().set_or_clear_product(None::<Product>);
     /// ```
     pub fn set_or_clear_product<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Product>,
+    where T: std::convert::Into<crate::model::Product>
     {
         self.product = v.map(|x| x.into());
         self
@@ -26675,8 +25951,7 @@ impl ProductDetail {
     /// let x = ProductDetail::new().set_quantity(Int32Value::default()/* use setters */);
     /// ```
     pub fn set_quantity<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Int32Value>,
+    where T: std::convert::Into<wkt::Int32Value>
     {
         self.quantity = std::option::Option::Some(v.into());
         self
@@ -26692,8 +25967,7 @@ impl ProductDetail {
     /// let x = ProductDetail::new().set_or_clear_quantity(None::<Int32Value>);
     /// ```
     pub fn set_or_clear_quantity<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Int32Value>,
+    where T: std::convert::Into<wkt::Int32Value>
     {
         self.quantity = v.map(|x| x.into());
         self
@@ -26711,6 +25985,7 @@ impl wkt::message::Message for ProductDetail {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CompletionDetail {
+
     /// Completion attribution token in
     /// [CompleteQueryResponse.attribution_token][google.cloud.retail.v2.CompleteQueryResponse.attribution_token].
     ///
@@ -26745,10 +26020,7 @@ impl CompletionDetail {
     /// # use google_cloud_retail_v2::model::CompletionDetail;
     /// let x = CompletionDetail::new().set_completion_attribution_token("example");
     /// ```
-    pub fn set_completion_attribution_token<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_completion_attribution_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.completion_attribution_token = v.into();
         self
     }
@@ -26760,10 +26032,7 @@ impl CompletionDetail {
     /// # use google_cloud_retail_v2::model::CompletionDetail;
     /// let x = CompletionDetail::new().set_selected_suggestion("example");
     /// ```
-    pub fn set_selected_suggestion<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_selected_suggestion<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.selected_suggestion = v.into();
         self
     }
@@ -26791,6 +26060,7 @@ impl wkt::message::Message for CompletionDetail {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PurchaseTransaction {
+
     /// The transaction ID with a length limit of 128 characters.
     pub id: std::string::String,
 
@@ -26898,6 +26168,7 @@ impl wkt::message::Message for PurchaseTransaction {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WriteUserEventRequest {
+
     /// Required. The parent catalog resource name, such as
     /// `projects/1234/locations/global/catalogs/default_catalog`.
     pub parent: std::string::String,
@@ -26940,8 +26211,7 @@ impl WriteUserEventRequest {
     /// let x = WriteUserEventRequest::new().set_user_event(UserEvent::default()/* use setters */);
     /// ```
     pub fn set_user_event<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::UserEvent>,
+    where T: std::convert::Into<crate::model::UserEvent>
     {
         self.user_event = std::option::Option::Some(v.into());
         self
@@ -26957,8 +26227,7 @@ impl WriteUserEventRequest {
     /// let x = WriteUserEventRequest::new().set_or_clear_user_event(None::<UserEvent>);
     /// ```
     pub fn set_or_clear_user_event<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::UserEvent>,
+    where T: std::convert::Into<crate::model::UserEvent>
     {
         self.user_event = v.map(|x| x.into());
         self
@@ -26987,6 +26256,7 @@ impl wkt::message::Message for WriteUserEventRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CollectUserEventRequest {
+
     /// Required. The parent catalog name, such as
     /// `projects/1234/locations/global/catalogs/default_catalog`.
     pub parent: std::string::String,
@@ -27014,8 +26284,7 @@ pub struct CollectUserEventRequest {
 
     /// The rule that can convert the raw_json to a user event. It is needed
     /// only when the raw_json is set.
-    pub conversion_rule:
-        std::option::Option<crate::model::collect_user_event_request::ConversionRule>,
+    pub conversion_rule: std::option::Option<crate::model::collect_user_event_request::ConversionRule>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -27096,14 +26365,8 @@ impl CollectUserEventRequest {
     /// use google_cloud_retail_v2::model::collect_user_event_request::ConversionRule;
     /// let x = CollectUserEventRequest::new().set_conversion_rule(Some(ConversionRule::PrebuiltRule("example".to_string())));
     /// ```
-    pub fn set_conversion_rule<
-        T: std::convert::Into<
-                std::option::Option<crate::model::collect_user_event_request::ConversionRule>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_conversion_rule<T: std::convert::Into<std::option::Option<crate::model::collect_user_event_request::ConversionRule>>>(mut self, v: T) -> Self
+    {
         self.conversion_rule = v.into();
         self
     }
@@ -27114,9 +26377,7 @@ impl CollectUserEventRequest {
     pub fn prebuilt_rule(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.conversion_rule.as_ref().and_then(|v| match v {
-            crate::model::collect_user_event_request::ConversionRule::PrebuiltRule(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::collect_user_event_request::ConversionRule::PrebuiltRule(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -27135,7 +26396,9 @@ impl CollectUserEventRequest {
     /// ```
     pub fn set_prebuilt_rule<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.conversion_rule = std::option::Option::Some(
-            crate::model::collect_user_event_request::ConversionRule::PrebuiltRule(v.into()),
+            crate::model::collect_user_event_request::ConversionRule::PrebuiltRule(
+                v.into()
+            )
         );
         self
     }
@@ -27152,6 +26415,7 @@ pub mod collect_user_event_request {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// The rule that can convert the raw_json to a user event. It is needed
     /// only when the raw_json is set.
     #[derive(Clone, Debug, PartialEq)]
@@ -27167,6 +26431,7 @@ pub mod collect_user_event_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RejoinUserEventsRequest {
+
     /// Required. The parent catalog resource name, such as
     /// `projects/1234/locations/global/catalogs/default_catalog`.
     pub parent: std::string::String,
@@ -27206,12 +26471,7 @@ impl RejoinUserEventsRequest {
     /// let x0 = RejoinUserEventsRequest::new().set_user_event_rejoin_scope(UserEventRejoinScope::JoinedEvents);
     /// let x1 = RejoinUserEventsRequest::new().set_user_event_rejoin_scope(UserEventRejoinScope::UnjoinedEvents);
     /// ```
-    pub fn set_user_event_rejoin_scope<
-        T: std::convert::Into<crate::model::rejoin_user_events_request::UserEventRejoinScope>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_user_event_rejoin_scope<T: std::convert::Into<crate::model::rejoin_user_events_request::UserEventRejoinScope>>(mut self, v: T) -> Self {
         self.user_event_rejoin_scope = v.into();
         self
     }
@@ -27227,6 +26487,7 @@ impl wkt::message::Message for RejoinUserEventsRequest {
 pub mod rejoin_user_events_request {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The scope of user events to be rejoined with the latest product catalog.
     /// If the rejoining aims at reducing number of unjoined events, set
@@ -27294,9 +26555,7 @@ pub mod rejoin_user_events_request {
         /// the integer representation of enums.
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
-                Self::Unspecified => {
-                    std::option::Option::Some("USER_EVENT_REJOIN_SCOPE_UNSPECIFIED")
-                }
+                Self::Unspecified => std::option::Option::Some("USER_EVENT_REJOIN_SCOPE_UNSPECIFIED"),
                 Self::JoinedEvents => std::option::Option::Some("JOINED_EVENTS"),
                 Self::UnjoinedEvents => std::option::Option::Some("UNJOINED_EVENTS"),
                 Self::UnknownValue(u) => u.0.name(),
@@ -27323,9 +26582,7 @@ pub mod rejoin_user_events_request {
                 0 => Self::Unspecified,
                 1 => Self::JoinedEvents,
                 2 => Self::UnjoinedEvents,
-                _ => Self::UnknownValue(user_event_rejoin_scope::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(user_event_rejoin_scope::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -27337,9 +26594,7 @@ pub mod rejoin_user_events_request {
                 "USER_EVENT_REJOIN_SCOPE_UNSPECIFIED" => Self::Unspecified,
                 "JOINED_EVENTS" => Self::JoinedEvents,
                 "UNJOINED_EVENTS" => Self::UnjoinedEvents,
-                _ => Self::UnknownValue(user_event_rejoin_scope::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(user_event_rejoin_scope::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -27364,8 +26619,7 @@ pub mod rejoin_user_events_request {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<UserEventRejoinScope>::new(
-                ".google.cloud.retail.v2.RejoinUserEventsRequest.UserEventRejoinScope",
-            ))
+                ".google.cloud.retail.v2.RejoinUserEventsRequest.UserEventRejoinScope"))
         }
     }
 }
@@ -27374,6 +26628,7 @@ pub mod rejoin_user_events_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RejoinUserEventsResponse {
+
     /// Number of user events that were joined with latest product catalog.
     pub rejoined_user_events_count: i64,
 
@@ -27408,6 +26663,7 @@ impl wkt::message::Message for RejoinUserEventsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RejoinUserEventsMetadata {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -27490,12 +26746,8 @@ impl AttributeConfigLevel {
     pub fn name(&self) -> std::option::Option<&str> {
         match self {
             Self::Unspecified => std::option::Option::Some("ATTRIBUTE_CONFIG_LEVEL_UNSPECIFIED"),
-            Self::ProductLevelAttributeConfig => {
-                std::option::Option::Some("PRODUCT_LEVEL_ATTRIBUTE_CONFIG")
-            }
-            Self::CatalogLevelAttributeConfig => {
-                std::option::Option::Some("CATALOG_LEVEL_ATTRIBUTE_CONFIG")
-            }
+            Self::ProductLevelAttributeConfig => std::option::Option::Some("PRODUCT_LEVEL_ATTRIBUTE_CONFIG"),
+            Self::CatalogLevelAttributeConfig => std::option::Option::Some("CATALOG_LEVEL_ATTRIBUTE_CONFIG"),
             Self::UnknownValue(u) => u.0.name(),
         }
     }
@@ -27520,9 +26772,7 @@ impl std::convert::From<i32> for AttributeConfigLevel {
             0 => Self::Unspecified,
             1 => Self::ProductLevelAttributeConfig,
             2 => Self::CatalogLevelAttributeConfig,
-            _ => Self::UnknownValue(attribute_config_level::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(attribute_config_level::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -27534,9 +26784,7 @@ impl std::convert::From<&str> for AttributeConfigLevel {
             "ATTRIBUTE_CONFIG_LEVEL_UNSPECIFIED" => Self::Unspecified,
             "PRODUCT_LEVEL_ATTRIBUTE_CONFIG" => Self::ProductLevelAttributeConfig,
             "CATALOG_LEVEL_ATTRIBUTE_CONFIG" => Self::CatalogLevelAttributeConfig,
-            _ => Self::UnknownValue(attribute_config_level::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(attribute_config_level::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -27561,8 +26809,7 @@ impl<'de> serde::de::Deserialize<'de> for AttributeConfigLevel {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<AttributeConfigLevel>::new(
-            ".google.cloud.retail.v2.AttributeConfigLevel",
-        ))
+            ".google.cloud.retail.v2.AttributeConfigLevel"))
     }
 }
 
@@ -27652,9 +26899,7 @@ impl std::convert::From<i32> for SolutionType {
             0 => Self::Unspecified,
             1 => Self::Recommendation,
             2 => Self::Search,
-            _ => Self::UnknownValue(solution_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(solution_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -27666,9 +26911,7 @@ impl std::convert::From<&str> for SolutionType {
             "SOLUTION_TYPE_UNSPECIFIED" => Self::Unspecified,
             "SOLUTION_TYPE_RECOMMENDATION" => Self::Recommendation,
             "SOLUTION_TYPE_SEARCH" => Self::Search,
-            _ => Self::UnknownValue(solution_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(solution_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -27693,8 +26936,7 @@ impl<'de> serde::de::Deserialize<'de> for SolutionType {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<SolutionType>::new(
-            ".google.cloud.retail.v2.SolutionType",
-        ))
+            ".google.cloud.retail.v2.SolutionType"))
     }
 }
 
@@ -27761,15 +27003,9 @@ impl RecommendationsFilteringOption {
     /// the integer representation of enums.
     pub fn name(&self) -> std::option::Option<&str> {
         match self {
-            Self::Unspecified => {
-                std::option::Option::Some("RECOMMENDATIONS_FILTERING_OPTION_UNSPECIFIED")
-            }
-            Self::RecommendationsFilteringDisabled => {
-                std::option::Option::Some("RECOMMENDATIONS_FILTERING_DISABLED")
-            }
-            Self::RecommendationsFilteringEnabled => {
-                std::option::Option::Some("RECOMMENDATIONS_FILTERING_ENABLED")
-            }
+            Self::Unspecified => std::option::Option::Some("RECOMMENDATIONS_FILTERING_OPTION_UNSPECIFIED"),
+            Self::RecommendationsFilteringDisabled => std::option::Option::Some("RECOMMENDATIONS_FILTERING_DISABLED"),
+            Self::RecommendationsFilteringEnabled => std::option::Option::Some("RECOMMENDATIONS_FILTERING_ENABLED"),
             Self::UnknownValue(u) => u.0.name(),
         }
     }
@@ -27794,9 +27030,7 @@ impl std::convert::From<i32> for RecommendationsFilteringOption {
             0 => Self::Unspecified,
             1 => Self::RecommendationsFilteringDisabled,
             3 => Self::RecommendationsFilteringEnabled,
-            _ => Self::UnknownValue(recommendations_filtering_option::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(recommendations_filtering_option::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -27808,9 +27042,7 @@ impl std::convert::From<&str> for RecommendationsFilteringOption {
             "RECOMMENDATIONS_FILTERING_OPTION_UNSPECIFIED" => Self::Unspecified,
             "RECOMMENDATIONS_FILTERING_DISABLED" => Self::RecommendationsFilteringDisabled,
             "RECOMMENDATIONS_FILTERING_ENABLED" => Self::RecommendationsFilteringEnabled,
-            _ => Self::UnknownValue(recommendations_filtering_option::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(recommendations_filtering_option::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -27834,11 +27066,8 @@ impl<'de> serde::de::Deserialize<'de> for RecommendationsFilteringOption {
     where
         D: serde::Deserializer<'de>,
     {
-        deserializer.deserialize_any(
-            wkt::internal::EnumVisitor::<RecommendationsFilteringOption>::new(
-                ".google.cloud.retail.v2.RecommendationsFilteringOption",
-            ),
-        )
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<RecommendationsFilteringOption>::new(
+            ".google.cloud.retail.v2.RecommendationsFilteringOption"))
     }
 }
 
@@ -27937,9 +27166,7 @@ impl std::convert::From<i32> for SearchSolutionUseCase {
             0 => Self::Unspecified,
             1 => Self::Search,
             2 => Self::Browse,
-            _ => Self::UnknownValue(search_solution_use_case::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(search_solution_use_case::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -27951,9 +27178,7 @@ impl std::convert::From<&str> for SearchSolutionUseCase {
             "SEARCH_SOLUTION_USE_CASE_UNSPECIFIED" => Self::Unspecified,
             "SEARCH_SOLUTION_USE_CASE_SEARCH" => Self::Search,
             "SEARCH_SOLUTION_USE_CASE_BROWSE" => Self::Browse,
-            _ => Self::UnknownValue(search_solution_use_case::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(search_solution_use_case::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -27978,8 +27203,7 @@ impl<'de> serde::de::Deserialize<'de> for SearchSolutionUseCase {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<SearchSolutionUseCase>::new(
-            ".google.cloud.retail.v2.SearchSolutionUseCase",
-        ))
+            ".google.cloud.retail.v2.SearchSolutionUseCase"))
     }
 }
 
@@ -28084,9 +27308,7 @@ impl std::convert::From<i32> for HarmCategory {
             3 => Self::Harassment,
             4 => Self::SexuallyExplicit,
             5 => Self::CivicIntegrity,
-            _ => Self::UnknownValue(harm_category::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(harm_category::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -28101,9 +27323,7 @@ impl std::convert::From<&str> for HarmCategory {
             "HARM_CATEGORY_HARASSMENT" => Self::Harassment,
             "HARM_CATEGORY_SEXUALLY_EXPLICIT" => Self::SexuallyExplicit,
             "HARM_CATEGORY_CIVIC_INTEGRITY" => Self::CivicIntegrity,
-            _ => Self::UnknownValue(harm_category::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(harm_category::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -28131,7 +27351,6 @@ impl<'de> serde::de::Deserialize<'de> for HarmCategory {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<HarmCategory>::new(
-            ".google.cloud.retail.v2.HarmCategory",
-        ))
+            ".google.cloud.retail.v2.HarmCategory"))
     }
 }

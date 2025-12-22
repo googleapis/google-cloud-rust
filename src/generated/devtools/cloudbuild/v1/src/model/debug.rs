@@ -110,6 +110,7 @@ impl std::fmt::Debug for super::RepoSource {
     }
 }
 
+
 impl std::fmt::Debug for super::StorageSourceManifest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StorageSourceManifest");
@@ -354,6 +355,8 @@ impl std::fmt::Debug for super::build::FailureInfo {
     }
 }
 
+
+
 impl std::fmt::Debug for super::Dependency {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Dependency");
@@ -525,14 +528,8 @@ impl std::fmt::Debug for super::SourceProvenance {
         let mut debug_struct = f.debug_struct("SourceProvenance");
         debug_struct.field("resolved_storage_source", &self.resolved_storage_source);
         debug_struct.field("resolved_repo_source", &self.resolved_repo_source);
-        debug_struct.field(
-            "resolved_storage_source_manifest",
-            &self.resolved_storage_source_manifest,
-        );
-        debug_struct.field(
-            "resolved_connected_repository",
-            &self.resolved_connected_repository,
-        );
+        debug_struct.field("resolved_storage_source_manifest", &self.resolved_storage_source_manifest);
+        debug_struct.field("resolved_connected_repository", &self.resolved_connected_repository);
         debug_struct.field("resolved_git_source", &self.resolved_git_source);
         debug_struct.field("file_hashes", &self.file_hashes);
         if !self._unknown_fields.is_empty() {
@@ -790,6 +787,7 @@ impl std::fmt::Debug for super::BuildTrigger {
     }
 }
 
+
 impl std::fmt::Debug for super::RepositoryEventConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RepositoryEventConfig");
@@ -964,10 +962,7 @@ impl std::fmt::Debug for super::BuildOptions {
         debug_struct.field("env", &self.env);
         debug_struct.field("secret_env", &self.secret_env);
         debug_struct.field("volumes", &self.volumes);
-        debug_struct.field(
-            "default_logs_bucket_behavior",
-            &self.default_logs_bucket_behavior,
-        );
+        debug_struct.field("default_logs_bucket_behavior", &self.default_logs_bucket_behavior);
         debug_struct.field("enable_structured_logging", &self.enable_structured_logging);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1035,15 +1030,9 @@ impl std::fmt::Debug for super::GitHubEnterpriseSecrets {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GitHubEnterpriseSecrets");
         debug_struct.field("private_key_version_name", &self.private_key_version_name);
-        debug_struct.field(
-            "webhook_secret_version_name",
-            &self.webhook_secret_version_name,
-        );
+        debug_struct.field("webhook_secret_version_name", &self.webhook_secret_version_name);
         debug_struct.field("oauth_secret_version_name", &self.oauth_secret_version_name);
-        debug_struct.field(
-            "oauth_client_id_version_name",
-            &self.oauth_client_id_version_name,
-        );
+        debug_struct.field("oauth_client_id_version_name", &self.oauth_client_id_version_name);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1071,6 +1060,7 @@ impl std::fmt::Debug for super::WorkerPool {
     }
 }
 
+
 impl std::fmt::Debug for super::PrivatePoolV1Config {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PrivatePoolV1Config");
@@ -1089,10 +1079,7 @@ impl std::fmt::Debug for super::private_pool_v_1_config::WorkerConfig {
         let mut debug_struct = f.debug_struct("WorkerConfig");
         debug_struct.field("machine_type", &self.machine_type);
         debug_struct.field("disk_size_gb", &self.disk_size_gb);
-        debug_struct.field(
-            "enable_nested_virtualization",
-            &self.enable_nested_virtualization,
-        );
+        debug_struct.field("enable_nested_virtualization", &self.enable_nested_virtualization);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1117,10 +1104,7 @@ impl std::fmt::Debug for super::private_pool_v_1_config::PrivateServiceConnect {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PrivateServiceConnect");
         debug_struct.field("network_attachment", &self.network_attachment);
-        debug_struct.field(
-            "public_ip_address_disabled",
-            &self.public_ip_address_disabled,
-        );
+        debug_struct.field("public_ip_address_disabled", &self.public_ip_address_disabled);
         debug_struct.field("route_all_traffic", &self.route_all_traffic);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);

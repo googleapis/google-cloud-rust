@@ -51,12 +51,8 @@ impl<'de> serde::de::Deserialize<'de> for super::SheetsAddOnManifest {
                         match value {
                             "homepageTrigger" => Ok(__FieldTag::__homepage_trigger),
                             "homepage_trigger" => Ok(__FieldTag::__homepage_trigger),
-                            "onFileScopeGrantedTrigger" => {
-                                Ok(__FieldTag::__on_file_scope_granted_trigger)
-                            }
-                            "on_file_scope_granted_trigger" => {
-                                Ok(__FieldTag::__on_file_scope_granted_trigger)
-                            }
+                            "onFileScopeGrantedTrigger" => Ok(__FieldTag::__on_file_scope_granted_trigger),
+                            "on_file_scope_granted_trigger" => Ok(__FieldTag::__on_file_scope_granted_trigger),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -74,9 +70,9 @@ impl<'de> serde::de::Deserialize<'de> for super::SheetsAddOnManifest {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
-                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -84,27 +80,22 @@ impl<'de> serde::de::Deserialize<'de> for super::SheetsAddOnManifest {
                     match tag {
                         __FieldTag::__homepage_trigger => {
                             if !fields.insert(__FieldTag::__homepage_trigger) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for homepage_trigger",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for homepage_trigger"));
                             }
-                            result.homepage_trigger = map.next_value::<std::option::Option<
-                                apps_script_type::model::HomepageExtensionPoint,
-                            >>()?;
-                        }
+                            result.homepage_trigger = map.next_value::<std::option::Option<apps_script_type::model::HomepageExtensionPoint>>()?
+                                ;
+                        },
                         __FieldTag::__on_file_scope_granted_trigger => {
                             if !fields.insert(__FieldTag::__on_file_scope_granted_trigger) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for on_file_scope_granted_trigger",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for on_file_scope_granted_trigger"));
                             }
                             result.on_file_scope_granted_trigger = map.next_value::<std::option::Option<crate::model::SheetsExtensionPoint>>()?
                                 ;
-                        }
+                        },
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        }
+                        },
                     }
                 }
                 std::result::Result::Ok(result)
@@ -164,9 +155,9 @@ impl<'de> serde::de::Deserialize<'de> for super::SheetsExtensionPoint {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
-                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -174,18 +165,14 @@ impl<'de> serde::de::Deserialize<'de> for super::SheetsExtensionPoint {
                     match tag {
                         __FieldTag::__run_function => {
                             if !fields.insert(__FieldTag::__run_function) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for run_function",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for run_function"));
                             }
-                            result.run_function = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.run_function = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        }
+                        },
                     }
                 }
                 std::result::Result::Ok(result)

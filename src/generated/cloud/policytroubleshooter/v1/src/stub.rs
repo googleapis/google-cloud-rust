@@ -38,16 +38,14 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait IamChecker: std::fmt::Debug + Send + Sync {
+
     /// Implements [super::client::IamChecker::troubleshoot_iam_policy].
     fn troubleshoot_iam_policy(
         &self,
         _req: crate::model::TroubleshootIamPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::TroubleshootIamPolicyResponse>,
-        >,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::TroubleshootIamPolicyResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 }
+

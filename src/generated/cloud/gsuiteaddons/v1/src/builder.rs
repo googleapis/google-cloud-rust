@@ -39,10 +39,7 @@ pub mod g_suite_add_ons {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = GSuiteAddOns;
             type Credentials = gaxi::options::Credentials;
-            async fn build(
-                self,
-                config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -57,12 +54,8 @@ pub mod g_suite_add_ons {
     }
 
     impl<R> RequestBuilder<R>
-    where
-        R: std::default::Default,
-    {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::GSuiteAddOns>,
-        ) -> Self {
+    where R: std::default::Default {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GSuiteAddOns>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -92,17 +85,14 @@ pub mod g_suite_add_ons {
     pub struct GetAuthorization(RequestBuilder<crate::model::GetAuthorizationRequest>);
 
     impl GetAuthorization {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::GSuiteAddOns>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GSuiteAddOns>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetAuthorizationRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetAuthorizationRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -115,10 +105,7 @@ pub mod g_suite_add_ons {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Authorization> {
-            (*self.0.stub)
-                .get_authorization(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_authorization(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAuthorizationRequest::name].
@@ -158,17 +145,14 @@ pub mod g_suite_add_ons {
     pub struct CreateDeployment(RequestBuilder<crate::model::CreateDeploymentRequest>);
 
     impl CreateDeployment {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::GSuiteAddOns>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GSuiteAddOns>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateDeploymentRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateDeploymentRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -181,10 +165,7 @@ pub mod g_suite_add_ons {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Deployment> {
-            (*self.0.stub)
-                .create_deployment(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_deployment(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateDeploymentRequest::parent].
@@ -207,8 +188,7 @@ pub mod g_suite_add_ons {
         ///
         /// This is a **required** field for requests.
         pub fn set_deployment<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Deployment>,
+        where T: std::convert::Into<crate::model::Deployment>
         {
             self.0.request.deployment = std::option::Option::Some(v.into());
             self
@@ -218,8 +198,7 @@ pub mod g_suite_add_ons {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_deployment<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Deployment>,
+        where T: std::convert::Into<crate::model::Deployment>
         {
             self.0.request.deployment = v.map(|x| x.into());
             self
@@ -254,17 +233,14 @@ pub mod g_suite_add_ons {
     pub struct ReplaceDeployment(RequestBuilder<crate::model::ReplaceDeploymentRequest>);
 
     impl ReplaceDeployment {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::GSuiteAddOns>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GSuiteAddOns>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ReplaceDeploymentRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ReplaceDeploymentRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -277,18 +253,14 @@ pub mod g_suite_add_ons {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Deployment> {
-            (*self.0.stub)
-                .replace_deployment(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).replace_deployment(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [deployment][crate::model::ReplaceDeploymentRequest::deployment].
         ///
         /// This is a **required** field for requests.
         pub fn set_deployment<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Deployment>,
+        where T: std::convert::Into<crate::model::Deployment>
         {
             self.0.request.deployment = std::option::Option::Some(v.into());
             self
@@ -298,8 +270,7 @@ pub mod g_suite_add_ons {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_deployment<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Deployment>,
+        where T: std::convert::Into<crate::model::Deployment>
         {
             self.0.request.deployment = v.map(|x| x.into());
             self
@@ -334,10 +305,10 @@ pub mod g_suite_add_ons {
     pub struct GetDeployment(RequestBuilder<crate::model::GetDeploymentRequest>);
 
     impl GetDeployment {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::GSuiteAddOns>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GSuiteAddOns>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -354,10 +325,7 @@ pub mod g_suite_add_ons {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Deployment> {
-            (*self.0.stub)
-                .get_deployment(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_deployment(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetDeploymentRequest::name].
@@ -401,10 +369,10 @@ pub mod g_suite_add_ons {
     pub struct ListDeployments(RequestBuilder<crate::model::ListDeploymentsRequest>);
 
     impl ListDeployments {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::GSuiteAddOns>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GSuiteAddOns>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -421,17 +389,11 @@ pub mod g_suite_add_ons {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListDeploymentsResponse> {
-            (*self.0.stub)
-                .list_deployments(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_deployments(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListDeploymentsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListDeploymentsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -443,10 +405,7 @@ pub mod g_suite_add_ons {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListDeploymentsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListDeploymentsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -500,17 +459,14 @@ pub mod g_suite_add_ons {
     pub struct DeleteDeployment(RequestBuilder<crate::model::DeleteDeploymentRequest>);
 
     impl DeleteDeployment {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::GSuiteAddOns>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GSuiteAddOns>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteDeploymentRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteDeploymentRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -523,10 +479,7 @@ pub mod g_suite_add_ons {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .delete_deployment(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_deployment(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteDeploymentRequest::name].
@@ -572,17 +525,14 @@ pub mod g_suite_add_ons {
     pub struct InstallDeployment(RequestBuilder<crate::model::InstallDeploymentRequest>);
 
     impl InstallDeployment {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::GSuiteAddOns>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GSuiteAddOns>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::InstallDeploymentRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::InstallDeploymentRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -595,10 +545,7 @@ pub mod g_suite_add_ons {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .install_deployment(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).install_deployment(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::InstallDeploymentRequest::name].
@@ -638,17 +585,14 @@ pub mod g_suite_add_ons {
     pub struct UninstallDeployment(RequestBuilder<crate::model::UninstallDeploymentRequest>);
 
     impl UninstallDeployment {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::GSuiteAddOns>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GSuiteAddOns>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UninstallDeploymentRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UninstallDeploymentRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -661,10 +605,7 @@ pub mod g_suite_add_ons {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .uninstall_deployment(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).uninstall_deployment(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UninstallDeploymentRequest::name].
@@ -704,17 +645,14 @@ pub mod g_suite_add_ons {
     pub struct GetInstallStatus(RequestBuilder<crate::model::GetInstallStatusRequest>);
 
     impl GetInstallStatus {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::GSuiteAddOns>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GSuiteAddOns>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetInstallStatusRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetInstallStatusRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -727,10 +665,7 @@ pub mod g_suite_add_ons {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::InstallStatus> {
-            (*self.0.stub)
-                .get_install_status(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_install_status(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetInstallStatusRequest::name].
@@ -748,4 +683,5 @@ pub mod g_suite_add_ons {
             &mut self.0.options
         }
     }
+
 }

@@ -78,9 +78,7 @@ impl CloudShellService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::cloud_shell_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::cloud_shell_service::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::cloud_shell_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -88,47 +86,49 @@ impl CloudShellService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::CloudShellService + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::CloudShellService + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CloudShellService>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CloudShellService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::CloudShellService> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::CloudShellService> {
         super::transport::CloudShellService::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::CloudShellService> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::CloudShellService::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::CloudShellService> {
+        Self::build_transport(conf).await.map(super::tracing::CloudShellService::new)
     }
 
     /// Gets an environment. Returns NOT_FOUND if the environment does not exist.
-    pub fn get_environment(&self) -> super::builder::cloud_shell_service::GetEnvironment {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_shell_v1::client::CloudShellService;
+    /// async fn sample(
+    ///    client: &CloudShellService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_environment()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_environment(&self) -> super::builder::cloud_shell_service::GetEnvironment
+    {
         super::builder::cloud_shell_service::GetEnvironment::new(self.inner.clone())
     }
 
@@ -148,7 +148,8 @@ impl CloudShellService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn start_environment(&self) -> super::builder::cloud_shell_service::StartEnvironment {
+    pub fn start_environment(&self) -> super::builder::cloud_shell_service::StartEnvironment
+    {
         super::builder::cloud_shell_service::StartEnvironment::new(self.inner.clone())
     }
 
@@ -166,9 +167,8 @@ impl CloudShellService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn authorize_environment(
-        &self,
-    ) -> super::builder::cloud_shell_service::AuthorizeEnvironment {
+    pub fn authorize_environment(&self) -> super::builder::cloud_shell_service::AuthorizeEnvironment
+    {
         super::builder::cloud_shell_service::AuthorizeEnvironment::new(self.inner.clone())
     }
 
@@ -185,7 +185,8 @@ impl CloudShellService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn add_public_key(&self) -> super::builder::cloud_shell_service::AddPublicKey {
+    pub fn add_public_key(&self) -> super::builder::cloud_shell_service::AddPublicKey
+    {
         super::builder::cloud_shell_service::AddPublicKey::new(self.inner.clone())
     }
 
@@ -203,14 +204,32 @@ impl CloudShellService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn remove_public_key(&self) -> super::builder::cloud_shell_service::RemovePublicKey {
+    pub fn remove_public_key(&self) -> super::builder::cloud_shell_service::RemovePublicKey
+    {
         super::builder::cloud_shell_service::RemovePublicKey::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::cloud_shell_service::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_shell_v1::client::CloudShellService;
+    /// async fn sample(
+    ///    client: &CloudShellService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::cloud_shell_service::GetOperation
+    {
         super::builder::cloud_shell_service::GetOperation::new(self.inner.clone())
     }
 }

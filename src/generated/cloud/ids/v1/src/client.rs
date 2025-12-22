@@ -80,51 +80,55 @@ impl Ids {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::Ids + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::Ids + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Ids>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Ids>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Ids> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Ids> {
         super::transport::Ids::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Ids> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::Ids::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Ids> {
+        Self::build_transport(conf).await.map(super::tracing::Ids::new)
     }
 
     /// Lists Endpoints in a given project and location.
-    pub fn list_endpoints(&self) -> super::builder::ids::ListEndpoints {
+    pub fn list_endpoints(&self) -> super::builder::ids::ListEndpoints
+    {
         super::builder::ids::ListEndpoints::new(self.inner.clone())
     }
 
     /// Gets details of a single Endpoint.
-    pub fn get_endpoint(&self) -> super::builder::ids::GetEndpoint {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_ids_v1::client::Ids;
+    /// async fn sample(
+    ///    client: &Ids
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_endpoint()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_endpoint(&self) -> super::builder::ids::GetEndpoint
+    {
         super::builder::ids::GetEndpoint::new(self.inner.clone())
     }
 
@@ -139,7 +143,8 @@ impl Ids {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_endpoint(&self) -> super::builder::ids::CreateEndpoint {
+    pub fn create_endpoint(&self) -> super::builder::ids::CreateEndpoint
+    {
         super::builder::ids::CreateEndpoint::new(self.inner.clone())
     }
 
@@ -154,35 +159,86 @@ impl Ids {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_endpoint(&self) -> super::builder::ids::DeleteEndpoint {
+    pub fn delete_endpoint(&self) -> super::builder::ids::DeleteEndpoint
+    {
         super::builder::ids::DeleteEndpoint::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::ids::ListOperations {
+    pub fn list_operations(&self) -> super::builder::ids::ListOperations
+    {
         super::builder::ids::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::ids::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_ids_v1::client::Ids;
+    /// async fn sample(
+    ///    client: &Ids
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::ids::GetOperation
+    {
         super::builder::ids::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(&self) -> super::builder::ids::DeleteOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_ids_v1::client::Ids;
+    /// async fn sample(
+    ///    client: &Ids
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_operation(&self) -> super::builder::ids::DeleteOperation
+    {
         super::builder::ids::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(&self) -> super::builder::ids::CancelOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_ids_v1::client::Ids;
+    /// async fn sample(
+    ///    client: &Ids
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_operation(&self) -> super::builder::ids::CancelOperation
+    {
         super::builder::ids::CancelOperation::new(self.inner.clone())
     }
 }

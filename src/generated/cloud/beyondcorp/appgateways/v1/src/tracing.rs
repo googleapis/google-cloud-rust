@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [AppGatewaysService](super::stub::AppGatewaysService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct AppGatewaysService<T>
-where
-    T: super::stub::AppGatewaysService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::AppGatewaysService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> AppGatewaysService<T>
-where
-    T: super::stub::AppGatewaysService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::AppGatewaysService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::AppGatewaysService for AppGatewaysService<T>
-where
-    T: super::stub::AppGatewaysService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::AppGatewaysService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn list_app_gateways(
         &self,
@@ -154,6 +148,7 @@ where
         self.inner.cancel_operation(req, options).await
     }
 
+
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -168,3 +163,4 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 }
+

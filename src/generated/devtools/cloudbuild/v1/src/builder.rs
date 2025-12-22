@@ -39,10 +39,7 @@ pub mod cloud_build {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = CloudBuild;
             type Credentials = gaxi::options::Credentials;
-            async fn build(
-                self,
-                config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -57,12 +54,8 @@ pub mod cloud_build {
     }
 
     impl<R> RequestBuilder<R>
-    where
-        R: std::default::Default,
-    {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>,
-        ) -> Self {
+    where R: std::default::Default {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -93,10 +86,10 @@ pub mod cloud_build {
     pub struct CreateBuild(RequestBuilder<crate::model::CreateBuildRequest>);
 
     impl CreateBuild {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -118,18 +111,16 @@ pub mod cloud_build {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_build][crate::client::CloudBuild::create_build].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .create_build(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_build(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_build`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::Build, crate::model::BuildOperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Build, crate::model::BuildOperationMetadata>;
+            self
+        ) ->
+            impl lro::Poller<crate::model::Build, crate::model::BuildOperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::Build, crate::model::BuildOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -175,8 +166,7 @@ pub mod cloud_build {
         ///
         /// This is a **required** field for requests.
         pub fn set_build<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Build>,
+        where T: std::convert::Into<crate::model::Build>
         {
             self.0.request.build = std::option::Option::Some(v.into());
             self
@@ -186,8 +176,7 @@ pub mod cloud_build {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_build<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Build>,
+        where T: std::convert::Into<crate::model::Build>
         {
             self.0.request.build = v.map(|x| x.into());
             self
@@ -222,10 +211,10 @@ pub mod cloud_build {
     pub struct GetBuild(RequestBuilder<crate::model::GetBuildRequest>);
 
     impl GetBuild {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -242,10 +231,7 @@ pub mod cloud_build {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Build> {
-            (*self.0.stub)
-                .get_build(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_build(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetBuildRequest::name].
@@ -303,10 +289,10 @@ pub mod cloud_build {
     pub struct ListBuilds(RequestBuilder<crate::model::ListBuildsRequest>);
 
     impl ListBuilds {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -323,17 +309,11 @@ pub mod cloud_build {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListBuildsResponse> {
-            (*self.0.stub)
-                .list_builds(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_builds(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListBuildsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListBuildsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -345,10 +325,7 @@ pub mod cloud_build {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListBuildsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListBuildsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -414,10 +391,10 @@ pub mod cloud_build {
     pub struct CancelBuild(RequestBuilder<crate::model::CancelBuildRequest>);
 
     impl CancelBuild {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -434,10 +411,7 @@ pub mod cloud_build {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Build> {
-            (*self.0.stub)
-                .cancel_build(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).cancel_build(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::CancelBuildRequest::name].
@@ -492,10 +466,10 @@ pub mod cloud_build {
     pub struct RetryBuild(RequestBuilder<crate::model::RetryBuildRequest>);
 
     impl RetryBuild {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -517,18 +491,16 @@ pub mod cloud_build {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [retry_build][crate::client::CloudBuild::retry_build].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .retry_build(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).retry_build(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `retry_build`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::Build, crate::model::BuildOperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Build, crate::model::BuildOperationMetadata>;
+            self
+        ) ->
+            impl lro::Poller<crate::model::Build, crate::model::BuildOperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::Build, crate::model::BuildOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -608,10 +580,10 @@ pub mod cloud_build {
     pub struct ApproveBuild(RequestBuilder<crate::model::ApproveBuildRequest>);
 
     impl ApproveBuild {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -633,18 +605,16 @@ pub mod cloud_build {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [approve_build][crate::client::CloudBuild::approve_build].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .approve_build(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).approve_build(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `approve_build`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::Build, crate::model::BuildOperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Build, crate::model::BuildOperationMetadata>;
+            self
+        ) ->
+            impl lro::Poller<crate::model::Build, crate::model::BuildOperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::Build, crate::model::BuildOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -682,8 +652,7 @@ pub mod cloud_build {
 
         /// Sets the value of [approval_result][crate::model::ApproveBuildRequest::approval_result].
         pub fn set_approval_result<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::ApprovalResult>,
+        where T: std::convert::Into<crate::model::ApprovalResult>
         {
             self.0.request.approval_result = std::option::Option::Some(v.into());
             self
@@ -691,8 +660,7 @@ pub mod cloud_build {
 
         /// Sets or clears the value of [approval_result][crate::model::ApproveBuildRequest::approval_result].
         pub fn set_or_clear_approval_result<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::ApprovalResult>,
+        where T: std::convert::Into<crate::model::ApprovalResult>
         {
             self.0.request.approval_result = v.map(|x| x.into());
             self
@@ -727,17 +695,14 @@ pub mod cloud_build {
     pub struct CreateBuildTrigger(RequestBuilder<crate::model::CreateBuildTriggerRequest>);
 
     impl CreateBuildTrigger {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateBuildTriggerRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateBuildTriggerRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -750,10 +715,7 @@ pub mod cloud_build {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::BuildTrigger> {
-            (*self.0.stub)
-                .create_build_trigger(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_build_trigger(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateBuildTriggerRequest::parent].
@@ -774,8 +736,7 @@ pub mod cloud_build {
         ///
         /// This is a **required** field for requests.
         pub fn set_trigger<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::BuildTrigger>,
+        where T: std::convert::Into<crate::model::BuildTrigger>
         {
             self.0.request.trigger = std::option::Option::Some(v.into());
             self
@@ -785,8 +746,7 @@ pub mod cloud_build {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_trigger<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::BuildTrigger>,
+        where T: std::convert::Into<crate::model::BuildTrigger>
         {
             self.0.request.trigger = v.map(|x| x.into());
             self
@@ -821,10 +781,10 @@ pub mod cloud_build {
     pub struct GetBuildTrigger(RequestBuilder<crate::model::GetBuildTriggerRequest>);
 
     impl GetBuildTrigger {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -841,10 +801,7 @@ pub mod cloud_build {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::BuildTrigger> {
-            (*self.0.stub)
-                .get_build_trigger(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_build_trigger(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetBuildTriggerRequest::name].
@@ -902,17 +859,14 @@ pub mod cloud_build {
     pub struct ListBuildTriggers(RequestBuilder<crate::model::ListBuildTriggersRequest>);
 
     impl ListBuildTriggers {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListBuildTriggersRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListBuildTriggersRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -925,17 +879,11 @@ pub mod cloud_build {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListBuildTriggersResponse> {
-            (*self.0.stub)
-                .list_build_triggers(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_build_triggers(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListBuildTriggersResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListBuildTriggersResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -947,10 +895,7 @@ pub mod cloud_build {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListBuildTriggersResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListBuildTriggersResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1010,17 +955,14 @@ pub mod cloud_build {
     pub struct DeleteBuildTrigger(RequestBuilder<crate::model::DeleteBuildTriggerRequest>);
 
     impl DeleteBuildTrigger {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteBuildTriggerRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteBuildTriggerRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1033,10 +975,7 @@ pub mod cloud_build {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .delete_build_trigger(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_build_trigger(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteBuildTriggerRequest::name].
@@ -1090,17 +1029,14 @@ pub mod cloud_build {
     pub struct UpdateBuildTrigger(RequestBuilder<crate::model::UpdateBuildTriggerRequest>);
 
     impl UpdateBuildTrigger {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateBuildTriggerRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateBuildTriggerRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1113,10 +1049,7 @@ pub mod cloud_build {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::BuildTrigger> {
-            (*self.0.stub)
-                .update_build_trigger(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_build_trigger(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::UpdateBuildTriggerRequest::project_id].
@@ -1139,8 +1072,7 @@ pub mod cloud_build {
         ///
         /// This is a **required** field for requests.
         pub fn set_trigger<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::BuildTrigger>,
+        where T: std::convert::Into<crate::model::BuildTrigger>
         {
             self.0.request.trigger = std::option::Option::Some(v.into());
             self
@@ -1150,8 +1082,7 @@ pub mod cloud_build {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_trigger<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::BuildTrigger>,
+        where T: std::convert::Into<crate::model::BuildTrigger>
         {
             self.0.request.trigger = v.map(|x| x.into());
             self
@@ -1159,8 +1090,7 @@ pub mod cloud_build {
 
         /// Sets the value of [update_mask][crate::model::UpdateBuildTriggerRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -1168,8 +1098,7 @@ pub mod cloud_build {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateBuildTriggerRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -1205,10 +1134,10 @@ pub mod cloud_build {
     pub struct RunBuildTrigger(RequestBuilder<crate::model::RunBuildTriggerRequest>);
 
     impl RunBuildTrigger {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1230,18 +1159,16 @@ pub mod cloud_build {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [run_build_trigger][crate::client::CloudBuild::run_build_trigger].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .run_build_trigger(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).run_build_trigger(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `run_build_trigger`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::Build, crate::model::BuildOperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Build, crate::model::BuildOperationMetadata>;
+            self
+        ) ->
+            impl lro::Poller<crate::model::Build, crate::model::BuildOperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::Build, crate::model::BuildOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1293,8 +1220,7 @@ pub mod cloud_build {
 
         /// Sets the value of [source][crate::model::RunBuildTriggerRequest::source].
         pub fn set_source<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::RepoSource>,
+        where T: std::convert::Into<crate::model::RepoSource>
         {
             self.0.request.source = std::option::Option::Some(v.into());
             self
@@ -1302,8 +1228,7 @@ pub mod cloud_build {
 
         /// Sets or clears the value of [source][crate::model::RunBuildTriggerRequest::source].
         pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::RepoSource>,
+        where T: std::convert::Into<crate::model::RepoSource>
         {
             self.0.request.source = v.map(|x| x.into());
             self
@@ -1338,17 +1263,14 @@ pub mod cloud_build {
     pub struct ReceiveTriggerWebhook(RequestBuilder<crate::model::ReceiveTriggerWebhookRequest>);
 
     impl ReceiveTriggerWebhook {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ReceiveTriggerWebhookRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ReceiveTriggerWebhookRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1361,10 +1283,7 @@ pub mod cloud_build {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ReceiveTriggerWebhookResponse> {
-            (*self.0.stub)
-                .receive_trigger_webhook(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).receive_trigger_webhook(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ReceiveTriggerWebhookRequest::name].
@@ -1375,8 +1294,7 @@ pub mod cloud_build {
 
         /// Sets the value of [body][crate::model::ReceiveTriggerWebhookRequest::body].
         pub fn set_body<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<api::model::HttpBody>,
+        where T: std::convert::Into<api::model::HttpBody>
         {
             self.0.request.body = std::option::Option::Some(v.into());
             self
@@ -1384,8 +1302,7 @@ pub mod cloud_build {
 
         /// Sets or clears the value of [body][crate::model::ReceiveTriggerWebhookRequest::body].
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<api::model::HttpBody>,
+        where T: std::convert::Into<api::model::HttpBody>
         {
             self.0.request.body = v.map(|x| x.into());
             self
@@ -1439,17 +1356,14 @@ pub mod cloud_build {
     pub struct CreateWorkerPool(RequestBuilder<crate::model::CreateWorkerPoolRequest>);
 
     impl CreateWorkerPool {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateWorkerPoolRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateWorkerPoolRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1467,21 +1381,16 @@ pub mod cloud_build {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_worker_pool][crate::client::CloudBuild::create_worker_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .create_worker_pool(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_worker_pool(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_worker_pool`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::WorkerPool, crate::model::CreateWorkerPoolOperationMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::WorkerPool, crate::model::CreateWorkerPoolOperationMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::WorkerPool,
-                crate::model::CreateWorkerPoolOperationMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::WorkerPool, crate::model::CreateWorkerPoolOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1521,8 +1430,7 @@ pub mod cloud_build {
         ///
         /// This is a **required** field for requests.
         pub fn set_worker_pool<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::WorkerPool>,
+        where T: std::convert::Into<crate::model::WorkerPool>
         {
             self.0.request.worker_pool = std::option::Option::Some(v.into());
             self
@@ -1532,8 +1440,7 @@ pub mod cloud_build {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_worker_pool<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::WorkerPool>,
+        where T: std::convert::Into<crate::model::WorkerPool>
         {
             self.0.request.worker_pool = v.map(|x| x.into());
             self
@@ -1582,10 +1489,10 @@ pub mod cloud_build {
     pub struct GetWorkerPool(RequestBuilder<crate::model::GetWorkerPoolRequest>);
 
     impl GetWorkerPool {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1602,10 +1509,7 @@ pub mod cloud_build {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::WorkerPool> {
-            (*self.0.stub)
-                .get_worker_pool(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_worker_pool(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetWorkerPoolRequest::name].
@@ -1646,17 +1550,14 @@ pub mod cloud_build {
     pub struct DeleteWorkerPool(RequestBuilder<crate::model::DeleteWorkerPoolRequest>);
 
     impl DeleteWorkerPool {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteWorkerPoolRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteWorkerPoolRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1674,20 +1575,16 @@ pub mod cloud_build {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_worker_pool][crate::client::CloudBuild::delete_worker_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .delete_worker_pool(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_worker_pool(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_worker_pool`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<(), crate::model::DeleteWorkerPoolOperationMetadata> {
-            type Operation = lro::internal::Operation<
-                wkt::Empty,
-                crate::model::DeleteWorkerPoolOperationMetadata,
-            >;
+            self
+        ) ->
+            impl lro::Poller<(), crate::model::DeleteWorkerPoolOperationMetadata>
+        {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::DeleteWorkerPoolOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1712,12 +1609,7 @@ pub mod cloud_build {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteWorkerPoolRequest::name].
@@ -1776,17 +1668,14 @@ pub mod cloud_build {
     pub struct UpdateWorkerPool(RequestBuilder<crate::model::UpdateWorkerPoolRequest>);
 
     impl UpdateWorkerPool {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateWorkerPoolRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateWorkerPoolRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1804,21 +1693,16 @@ pub mod cloud_build {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_worker_pool][crate::client::CloudBuild::update_worker_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .update_worker_pool(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_worker_pool(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_worker_pool`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::WorkerPool, crate::model::UpdateWorkerPoolOperationMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::WorkerPool, crate::model::UpdateWorkerPoolOperationMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::WorkerPool,
-                crate::model::UpdateWorkerPoolOperationMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::WorkerPool, crate::model::UpdateWorkerPoolOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1850,8 +1734,7 @@ pub mod cloud_build {
         ///
         /// This is a **required** field for requests.
         pub fn set_worker_pool<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::WorkerPool>,
+        where T: std::convert::Into<crate::model::WorkerPool>
         {
             self.0.request.worker_pool = std::option::Option::Some(v.into());
             self
@@ -1861,8 +1744,7 @@ pub mod cloud_build {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_worker_pool<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::WorkerPool>,
+        where T: std::convert::Into<crate::model::WorkerPool>
         {
             self.0.request.worker_pool = v.map(|x| x.into());
             self
@@ -1870,8 +1752,7 @@ pub mod cloud_build {
 
         /// Sets the value of [update_mask][crate::model::UpdateWorkerPoolRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -1879,8 +1760,7 @@ pub mod cloud_build {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateWorkerPoolRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -1925,10 +1805,10 @@ pub mod cloud_build {
     pub struct ListWorkerPools(RequestBuilder<crate::model::ListWorkerPoolsRequest>);
 
     impl ListWorkerPools {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1945,17 +1825,11 @@ pub mod cloud_build {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListWorkerPoolsResponse> {
-            (*self.0.stub)
-                .list_worker_pools(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_worker_pools(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListWorkerPoolsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListWorkerPoolsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1967,10 +1841,7 @@ pub mod cloud_build {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListWorkerPoolsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListWorkerPoolsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2021,22 +1892,17 @@ pub mod cloud_build {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetDefaultServiceAccount(
-        RequestBuilder<crate::model::GetDefaultServiceAccountRequest>,
-    );
+    pub struct GetDefaultServiceAccount(RequestBuilder<crate::model::GetDefaultServiceAccountRequest>);
 
     impl GetDefaultServiceAccount {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetDefaultServiceAccountRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetDefaultServiceAccountRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2049,10 +1915,7 @@ pub mod cloud_build {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::DefaultServiceAccount> {
-            (*self.0.stub)
-                .get_default_service_account(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_default_service_account(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetDefaultServiceAccountRequest::name].
@@ -2092,17 +1955,14 @@ pub mod cloud_build {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2115,10 +1975,7 @@ pub mod cloud_build {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .get_operation(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -2156,17 +2013,14 @@ pub mod cloud_build {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2179,10 +2033,7 @@ pub mod cloud_build {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .cancel_operation(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).cancel_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -2198,4 +2049,5 @@ pub mod cloud_build {
             &mut self.0.options
         }
     }
+
 }

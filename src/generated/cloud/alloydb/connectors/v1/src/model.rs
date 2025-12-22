@@ -17,11 +17,11 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate bytes;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate wkt;
 
 mod debug;
@@ -37,6 +37,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MetadataExchangeRequest {
+
     /// Optional. Connector information.
     pub user_agent: std::string::String,
 
@@ -76,12 +77,7 @@ impl MetadataExchangeRequest {
     /// let x0 = MetadataExchangeRequest::new().set_auth_type(AuthType::DbNative);
     /// let x1 = MetadataExchangeRequest::new().set_auth_type(AuthType::AutoIam);
     /// ```
-    pub fn set_auth_type<
-        T: std::convert::Into<crate::model::metadata_exchange_request::AuthType>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_auth_type<T: std::convert::Into<crate::model::metadata_exchange_request::AuthType>>(mut self, v: T) -> Self {
         self.auth_type = v.into();
         self
     }
@@ -109,6 +105,7 @@ impl wkt::message::Message for MetadataExchangeRequest {
 pub mod metadata_exchange_request {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// AuthType contains all supported authentication types.
     ///
@@ -196,9 +193,7 @@ pub mod metadata_exchange_request {
                 0 => Self::Unspecified,
                 1 => Self::DbNative,
                 2 => Self::AutoIam,
-                _ => Self::UnknownValue(auth_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(auth_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -210,9 +205,7 @@ pub mod metadata_exchange_request {
                 "AUTH_TYPE_UNSPECIFIED" => Self::Unspecified,
                 "DB_NATIVE" => Self::DbNative,
                 "AUTO_IAM" => Self::AutoIam,
-                _ => Self::UnknownValue(auth_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(auth_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -237,8 +230,7 @@ pub mod metadata_exchange_request {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<AuthType>::new(
-                ".google.cloud.alloydb.connectors.v1.MetadataExchangeRequest.AuthType",
-            ))
+                ".google.cloud.alloydb.connectors.v1.MetadataExchangeRequest.AuthType"))
         }
     }
 }
@@ -249,6 +241,7 @@ pub mod metadata_exchange_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MetadataExchangeResponse {
+
     /// Response code.
     pub response_code: crate::model::metadata_exchange_response::ResponseCode,
 
@@ -272,12 +265,7 @@ impl MetadataExchangeResponse {
     /// let x0 = MetadataExchangeResponse::new().set_response_code(ResponseCode::Ok);
     /// let x1 = MetadataExchangeResponse::new().set_response_code(ResponseCode::Error);
     /// ```
-    pub fn set_response_code<
-        T: std::convert::Into<crate::model::metadata_exchange_response::ResponseCode>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_response_code<T: std::convert::Into<crate::model::metadata_exchange_response::ResponseCode>>(mut self, v: T) -> Self {
         self.response_code = v.into();
         self
     }
@@ -305,6 +293,7 @@ impl wkt::message::Message for MetadataExchangeResponse {
 pub mod metadata_exchange_response {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Response code.
     ///
@@ -392,9 +381,7 @@ pub mod metadata_exchange_response {
                 0 => Self::Unspecified,
                 1 => Self::Ok,
                 2 => Self::Error,
-                _ => Self::UnknownValue(response_code::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(response_code::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -406,9 +393,7 @@ pub mod metadata_exchange_response {
                 "RESPONSE_CODE_UNSPECIFIED" => Self::Unspecified,
                 "OK" => Self::Ok,
                 "ERROR" => Self::Error,
-                _ => Self::UnknownValue(response_code::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(response_code::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -433,8 +418,7 @@ pub mod metadata_exchange_response {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<ResponseCode>::new(
-                ".google.cloud.alloydb.connectors.v1.MetadataExchangeResponse.ResponseCode",
-            ))
+                ".google.cloud.alloydb.connectors.v1.MetadataExchangeResponse.ResponseCode"))
         }
     }
 }

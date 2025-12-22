@@ -160,14 +160,8 @@ impl std::fmt::Debug for super::Amount {
 impl std::fmt::Debug for super::Cost {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Cost");
-        debug_struct.field(
-            "cost_per_million_output_tokens",
-            &self.cost_per_million_output_tokens,
-        );
-        debug_struct.field(
-            "cost_per_million_input_tokens",
-            &self.cost_per_million_input_tokens,
-        );
+        debug_struct.field("cost_per_million_output_tokens", &self.cost_per_million_output_tokens);
+        debug_struct.field("cost_per_million_input_tokens", &self.cost_per_million_input_tokens);
         debug_struct.field("pricing_model", &self.pricing_model);
         debug_struct.field("output_input_cost_ratio", &self.output_input_cost_ratio);
         if !self._unknown_fields.is_empty() {

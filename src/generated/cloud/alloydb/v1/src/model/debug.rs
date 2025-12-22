@@ -202,6 +202,7 @@ impl std::fmt::Debug for super::automated_backup_policy::QuantityBasedRetention 
     }
 }
 
+
 impl std::fmt::Debug for super::ContinuousBackupConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ContinuousBackupConfig");
@@ -381,10 +382,7 @@ impl std::fmt::Debug for super::cluster::PscConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PscConfig");
         debug_struct.field("psc_enabled", &self.psc_enabled);
-        debug_struct.field(
-            "service_owned_project_number",
-            &self.service_owned_project_number,
-        );
+        debug_struct.field("service_owned_project_number", &self.service_owned_project_number);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -405,6 +403,9 @@ impl std::fmt::Debug for super::cluster::TrialMetadata {
         debug_struct.finish()
     }
 }
+
+
+
 
 impl std::fmt::Debug for super::Instance {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -436,10 +437,7 @@ impl std::fmt::Debug for super::Instance {
         debug_struct.field("satisfies_pzs", &self.satisfies_pzs);
         debug_struct.field("psc_instance_config", &self.psc_instance_config);
         debug_struct.field("network_config", &self.network_config);
-        debug_struct.field(
-            "outbound_public_ip_addresses",
-            &self.outbound_public_ip_addresses,
-        );
+        debug_struct.field("outbound_public_ip_addresses", &self.outbound_public_ip_addresses);
         debug_struct.field("activation_policy", &self.activation_policy);
         debug_struct.field("connection_pool_config", &self.connection_pool_config);
         if !self._unknown_fields.is_empty() {
@@ -533,10 +531,7 @@ impl std::fmt::Debug for super::instance::ClientConnectionConfig {
 impl std::fmt::Debug for super::instance::PscInterfaceConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PscInterfaceConfig");
-        debug_struct.field(
-            "network_attachment_resource",
-            &self.network_attachment_resource,
-        );
+        debug_struct.field("network_attachment_resource", &self.network_attachment_resource);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -577,17 +572,11 @@ impl std::fmt::Debug for super::instance::PscInstanceConfig {
 impl std::fmt::Debug for super::instance::InstanceNetworkConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("InstanceNetworkConfig");
-        debug_struct.field(
-            "authorized_external_networks",
-            &self.authorized_external_networks,
-        );
+        debug_struct.field("authorized_external_networks", &self.authorized_external_networks);
         debug_struct.field("enable_public_ip", &self.enable_public_ip);
         debug_struct.field("enable_outbound_public_ip", &self.enable_outbound_public_ip);
         debug_struct.field("network", &self.network);
-        debug_struct.field(
-            "allocated_ip_range_override",
-            &self.allocated_ip_range_override,
-        );
+        debug_struct.field("allocated_ip_range_override", &self.allocated_ip_range_override);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -618,6 +607,9 @@ impl std::fmt::Debug for super::instance::ConnectionPoolConfig {
         debug_struct.finish()
     }
 }
+
+
+
 
 impl std::fmt::Debug for super::ConnectionInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -678,6 +670,9 @@ impl std::fmt::Debug for super::backup::QuantityBasedExpiry {
         debug_struct.finish()
     }
 }
+
+
+
 
 impl std::fmt::Debug for super::SupportedDatabaseFlag {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -1314,10 +1309,7 @@ impl std::fmt::Debug for super::ExecuteSqlMetadata {
         let mut debug_struct = f.debug_struct("ExecuteSqlMetadata");
         debug_struct.field("message", &self.message);
         debug_struct.field("partial_result", &self.partial_result);
-        debug_struct.field(
-            "sql_statement_execution_duration",
-            &self.sql_statement_execution_duration,
-        );
+        debug_struct.field("sql_statement_execution_duration", &self.sql_statement_execution_duration);
         debug_struct.field("status", &self.status);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1546,9 +1538,7 @@ impl std::fmt::Debug for super::upgrade_cluster_status::ReadPoolInstancesUpgrade
     }
 }
 
-impl std::fmt::Debug
-    for super::upgrade_cluster_status::read_pool_instances_upgrade_stage_status::Stats
-{
+impl std::fmt::Debug for super::upgrade_cluster_status::read_pool_instances_upgrade_stage_status::Stats {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Stats");
         debug_struct.field("not_started", &self.not_started);

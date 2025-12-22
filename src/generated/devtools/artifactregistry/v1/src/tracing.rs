@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [ArtifactRegistry](super::stub::ArtifactRegistry) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct ArtifactRegistry<T>
-where
-    T: super::stub::ArtifactRegistry + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ArtifactRegistry + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> ArtifactRegistry<T>
-where
-    T: super::stub::ArtifactRegistry + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ArtifactRegistry + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::ArtifactRegistry for ArtifactRegistry<T>
-where
-    T: super::stub::ArtifactRegistry + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ArtifactRegistry + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn list_docker_images(
         &self,
@@ -514,6 +508,7 @@ where
         self.inner.get_operation(req, options).await
     }
 
+
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -528,3 +523,4 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 }
+

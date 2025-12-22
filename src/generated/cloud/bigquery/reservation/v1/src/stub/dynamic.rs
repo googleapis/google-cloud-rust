@@ -190,6 +190,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
         req: crate::model::ListReservationGroupsRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::ListReservationGroupsResponse>>;
+
 }
 
 /// All implementations of [super::ReservationService] also implement [ReservationService].
@@ -455,4 +456,5 @@ impl<T: super::ReservationService> ReservationService for T {
     ) -> crate::Result<gax::response::Response<crate::model::ListReservationGroupsResponse>> {
         T::list_reservation_groups(self, req, options).await
     }
+
 }

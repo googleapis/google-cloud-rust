@@ -96,36 +96,21 @@ impl std::fmt::Debug for super::Dataset {
         debug_struct.field("dataset_reference", &self.dataset_reference);
         debug_struct.field("friendly_name", &self.friendly_name);
         debug_struct.field("description", &self.description);
-        debug_struct.field(
-            "default_table_expiration_ms",
-            &self.default_table_expiration_ms,
-        );
-        debug_struct.field(
-            "default_partition_expiration_ms",
-            &self.default_partition_expiration_ms,
-        );
+        debug_struct.field("default_table_expiration_ms", &self.default_table_expiration_ms);
+        debug_struct.field("default_partition_expiration_ms", &self.default_partition_expiration_ms);
         debug_struct.field("labels", &self.labels);
         debug_struct.field("access", &self.access);
         debug_struct.field("creation_time", &self.creation_time);
         debug_struct.field("last_modified_time", &self.last_modified_time);
         debug_struct.field("location", &self.location);
-        debug_struct.field(
-            "default_encryption_configuration",
-            &self.default_encryption_configuration,
-        );
+        debug_struct.field("default_encryption_configuration", &self.default_encryption_configuration);
         debug_struct.field("satisfies_pzs", &self.satisfies_pzs);
         debug_struct.field("satisfies_pzi", &self.satisfies_pzi);
         debug_struct.field("r#type", &self.r#type);
         debug_struct.field("linked_dataset_source", &self.linked_dataset_source);
         debug_struct.field("linked_dataset_metadata", &self.linked_dataset_metadata);
-        debug_struct.field(
-            "external_dataset_reference",
-            &self.external_dataset_reference,
-        );
-        debug_struct.field(
-            "external_catalog_dataset_options",
-            &self.external_catalog_dataset_options,
-        );
+        debug_struct.field("external_dataset_reference", &self.external_dataset_reference);
+        debug_struct.field("external_catalog_dataset_options", &self.external_catalog_dataset_options);
         debug_struct.field("is_case_insensitive", &self.is_case_insensitive);
         debug_struct.field("default_collation", &self.default_collation);
         debug_struct.field("default_rounding_mode", &self.default_rounding_mode);
@@ -140,6 +125,8 @@ impl std::fmt::Debug for super::Dataset {
         debug_struct.finish()
     }
 }
+
+
 
 impl std::fmt::Debug for super::GcpTag {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -254,10 +241,7 @@ impl std::fmt::Debug for super::ListFormatDataset {
         debug_struct.field("labels", &self.labels);
         debug_struct.field("friendly_name", &self.friendly_name);
         debug_struct.field("location", &self.location);
-        debug_struct.field(
-            "external_dataset_reference",
-            &self.external_dataset_reference,
-        );
+        debug_struct.field("external_dataset_reference", &self.external_dataset_reference);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -334,10 +318,7 @@ impl std::fmt::Debug for super::ExternalCatalogDatasetOptions {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ExternalCatalogDatasetOptions");
         debug_struct.field("parameters", &self.parameters);
-        debug_struct.field(
-            "default_storage_location_uri",
-            &self.default_storage_location_uri,
-        );
+        debug_struct.field("default_storage_location_uri", &self.default_storage_location_uri);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -418,10 +399,7 @@ impl std::fmt::Debug for super::CsvOptions {
         debug_struct.field("allow_quoted_newlines", &self.allow_quoted_newlines);
         debug_struct.field("allow_jagged_rows", &self.allow_jagged_rows);
         debug_struct.field("encoding", &self.encoding);
-        debug_struct.field(
-            "preserve_ascii_control_characters",
-            &self.preserve_ascii_control_characters,
-        );
+        debug_struct.field("preserve_ascii_control_characters", &self.preserve_ascii_control_characters);
         debug_struct.field("null_marker", &self.null_marker);
         debug_struct.field("null_markers", &self.null_markers);
         debug_struct.field("source_column_match", &self.source_column_match);
@@ -478,15 +456,9 @@ impl std::fmt::Debug for super::BigtableOptions {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BigtableOptions");
         debug_struct.field("column_families", &self.column_families);
-        debug_struct.field(
-            "ignore_unspecified_column_families",
-            &self.ignore_unspecified_column_families,
-        );
+        debug_struct.field("ignore_unspecified_column_families", &self.ignore_unspecified_column_families);
         debug_struct.field("read_rowkey_as_string", &self.read_rowkey_as_string);
-        debug_struct.field(
-            "output_column_families_as_json",
-            &self.output_column_families_as_json,
-        );
+        debug_struct.field("output_column_families_as_json", &self.output_column_families_as_json);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -535,10 +507,7 @@ impl std::fmt::Debug for super::ExternalDataConfiguration {
         debug_struct.field("datetime_format", &self.datetime_format);
         debug_struct.field("time_format", &self.time_format);
         debug_struct.field("timestamp_format", &self.timestamp_format);
-        debug_struct.field(
-            "timestamp_target_precision",
-            &self.timestamp_target_precision,
-        );
+        debug_struct.field("timestamp_target_precision", &self.timestamp_target_precision);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -772,10 +741,7 @@ impl std::fmt::Debug for super::QueryRequest {
         debug_struct.field("timeout_ms", &self.timeout_ms);
         debug_struct.field("job_timeout_ms", &self.job_timeout_ms);
         debug_struct.field("max_slots", &self.max_slots);
-        debug_struct.field(
-            "destination_encryption_configuration",
-            &self.destination_encryption_configuration,
-        );
+        debug_struct.field("destination_encryption_configuration", &self.destination_encryption_configuration);
         debug_struct.field("dry_run", &self.dry_run);
         debug_struct.field("use_query_cache", &self.use_query_cache);
         debug_struct.field("use_legacy_sql", &self.use_legacy_sql);
@@ -797,6 +763,7 @@ impl std::fmt::Debug for super::QueryRequest {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::QueryResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -859,14 +826,8 @@ impl std::fmt::Debug for super::JobConfigurationQuery {
         let mut debug_struct = f.debug_struct("JobConfigurationQuery");
         debug_struct.field("query", &self.query);
         debug_struct.field("destination_table", &self.destination_table);
-        debug_struct.field(
-            "external_table_definitions",
-            &self.external_table_definitions,
-        );
-        debug_struct.field(
-            "user_defined_function_resources",
-            &self.user_defined_function_resources,
-        );
+        debug_struct.field("external_table_definitions", &self.external_table_definitions);
+        debug_struct.field("user_defined_function_resources", &self.user_defined_function_resources);
         debug_struct.field("create_disposition", &self.create_disposition);
         debug_struct.field("write_disposition", &self.write_disposition);
         debug_struct.field("default_dataset", &self.default_dataset);
@@ -883,10 +844,7 @@ impl std::fmt::Debug for super::JobConfigurationQuery {
         debug_struct.field("time_partitioning", &self.time_partitioning);
         debug_struct.field("range_partitioning", &self.range_partitioning);
         debug_struct.field("clustering", &self.clustering);
-        debug_struct.field(
-            "destination_encryption_configuration",
-            &self.destination_encryption_configuration,
-        );
+        debug_struct.field("destination_encryption_configuration", &self.destination_encryption_configuration);
         debug_struct.field("script_options", &self.script_options);
         debug_struct.field("connection_properties", &self.connection_properties);
         debug_struct.field("create_session", &self.create_session);
@@ -919,10 +877,7 @@ impl std::fmt::Debug for super::JobConfigurationLoad {
         debug_struct.field("file_set_spec_type", &self.file_set_spec_type);
         debug_struct.field("schema", &self.schema);
         debug_struct.field("destination_table", &self.destination_table);
-        debug_struct.field(
-            "destination_table_properties",
-            &self.destination_table_properties,
-        );
+        debug_struct.field("destination_table_properties", &self.destination_table_properties);
         debug_struct.field("create_disposition", &self.create_disposition);
         debug_struct.field("write_disposition", &self.write_disposition);
         debug_struct.field("null_marker", &self.null_marker);
@@ -941,20 +896,14 @@ impl std::fmt::Debug for super::JobConfigurationLoad {
         debug_struct.field("time_partitioning", &self.time_partitioning);
         debug_struct.field("range_partitioning", &self.range_partitioning);
         debug_struct.field("clustering", &self.clustering);
-        debug_struct.field(
-            "destination_encryption_configuration",
-            &self.destination_encryption_configuration,
-        );
+        debug_struct.field("destination_encryption_configuration", &self.destination_encryption_configuration);
         debug_struct.field("use_avro_logical_types", &self.use_avro_logical_types);
         debug_struct.field("reference_file_schema_uri", &self.reference_file_schema_uri);
         debug_struct.field("hive_partitioning_options", &self.hive_partitioning_options);
         debug_struct.field("decimal_target_types", &self.decimal_target_types);
         debug_struct.field("json_extension", &self.json_extension);
         debug_struct.field("parquet_options", &self.parquet_options);
-        debug_struct.field(
-            "preserve_ascii_control_characters",
-            &self.preserve_ascii_control_characters,
-        );
+        debug_struct.field("preserve_ascii_control_characters", &self.preserve_ascii_control_characters);
         debug_struct.field("connection_properties", &self.connection_properties);
         debug_struct.field("create_session", &self.create_session);
         debug_struct.field("column_name_character_map", &self.column_name_character_map);
@@ -966,10 +915,7 @@ impl std::fmt::Debug for super::JobConfigurationLoad {
         debug_struct.field("time_format", &self.time_format);
         debug_struct.field("timestamp_format", &self.timestamp_format);
         debug_struct.field("source_column_match", &self.source_column_match);
-        debug_struct.field(
-            "timestamp_target_precision",
-            &self.timestamp_target_precision,
-        );
+        debug_struct.field("timestamp_target_precision", &self.timestamp_target_precision);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -985,15 +931,9 @@ impl std::fmt::Debug for super::JobConfigurationTableCopy {
         debug_struct.field("destination_table", &self.destination_table);
         debug_struct.field("create_disposition", &self.create_disposition);
         debug_struct.field("write_disposition", &self.write_disposition);
-        debug_struct.field(
-            "destination_encryption_configuration",
-            &self.destination_encryption_configuration,
-        );
+        debug_struct.field("destination_encryption_configuration", &self.destination_encryption_configuration);
         debug_struct.field("operation_type", &self.operation_type);
-        debug_struct.field(
-            "destination_expiration_time",
-            &self.destination_expiration_time,
-        );
+        debug_struct.field("destination_expiration_time", &self.destination_expiration_time);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1111,10 +1051,7 @@ impl std::fmt::Debug for super::ExplainQueryStage {
         debug_struct.field("write_ratio_max", &self.write_ratio_max);
         debug_struct.field("write_ms_max", &self.write_ms_max);
         debug_struct.field("shuffle_output_bytes", &self.shuffle_output_bytes);
-        debug_struct.field(
-            "shuffle_output_bytes_spilled",
-            &self.shuffle_output_bytes_spilled,
-        );
+        debug_struct.field("shuffle_output_bytes_spilled", &self.shuffle_output_bytes_spilled);
         debug_struct.field("records_read", &self.records_read);
         debug_struct.field("records_written", &self.records_written);
         debug_struct.field("parallel_inputs", &self.parallel_inputs);
@@ -1218,14 +1155,8 @@ impl std::fmt::Debug for super::IndexPruningStats {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("IndexPruningStats");
         debug_struct.field("base_table", &self.base_table);
-        debug_struct.field(
-            "pre_index_pruning_parallel_input_count",
-            &self.pre_index_pruning_parallel_input_count,
-        );
-        debug_struct.field(
-            "post_index_pruning_parallel_input_count",
-            &self.post_index_pruning_parallel_input_count,
-        );
+        debug_struct.field("pre_index_pruning_parallel_input_count", &self.pre_index_pruning_parallel_input_count);
+        debug_struct.field("post_index_pruning_parallel_input_count", &self.post_index_pruning_parallel_input_count);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1238,10 +1169,7 @@ impl std::fmt::Debug for super::StoredColumnsUsage {
         let mut debug_struct = f.debug_struct("StoredColumnsUsage");
         debug_struct.field("is_query_accelerated", &self.is_query_accelerated);
         debug_struct.field("base_table", &self.base_table);
-        debug_struct.field(
-            "stored_columns_unused_reasons",
-            &self.stored_columns_unused_reasons,
-        );
+        debug_struct.field("stored_columns_unused_reasons", &self.stored_columns_unused_reasons);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1318,14 +1246,8 @@ impl std::fmt::Debug for super::IncrementalResultStats {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("IncrementalResultStats");
         debug_struct.field("disabled_reason", &self.disabled_reason);
-        debug_struct.field(
-            "result_set_last_replace_time",
-            &self.result_set_last_replace_time,
-        );
-        debug_struct.field(
-            "result_set_last_modify_time",
-            &self.result_set_last_modify_time,
-        );
+        debug_struct.field("result_set_last_replace_time", &self.result_set_last_replace_time);
+        debug_struct.field("result_set_last_modify_time", &self.result_set_last_modify_time);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1339,44 +1261,26 @@ impl std::fmt::Debug for super::JobStatistics2 {
         debug_struct.field("query_plan", &self.query_plan);
         debug_struct.field("estimated_bytes_processed", &self.estimated_bytes_processed);
         debug_struct.field("timeline", &self.timeline);
-        debug_struct.field(
-            "total_partitions_processed",
-            &self.total_partitions_processed,
-        );
+        debug_struct.field("total_partitions_processed", &self.total_partitions_processed);
         debug_struct.field("total_bytes_processed", &self.total_bytes_processed);
-        debug_struct.field(
-            "total_bytes_processed_accuracy",
-            &self.total_bytes_processed_accuracy,
-        );
+        debug_struct.field("total_bytes_processed_accuracy", &self.total_bytes_processed_accuracy);
         debug_struct.field("total_bytes_billed", &self.total_bytes_billed);
         debug_struct.field("billing_tier", &self.billing_tier);
         debug_struct.field("total_slot_ms", &self.total_slot_ms);
-        debug_struct.field(
-            "total_services_sku_slot_ms",
-            &self.total_services_sku_slot_ms,
-        );
+        debug_struct.field("total_services_sku_slot_ms", &self.total_services_sku_slot_ms);
         debug_struct.field("cache_hit", &self.cache_hit);
         debug_struct.field("referenced_tables", &self.referenced_tables);
         debug_struct.field("referenced_routines", &self.referenced_routines);
         debug_struct.field("schema", &self.schema);
         debug_struct.field("num_dml_affected_rows", &self.num_dml_affected_rows);
         debug_struct.field("dml_stats", &self.dml_stats);
-        debug_struct.field(
-            "undeclared_query_parameters",
-            &self.undeclared_query_parameters,
-        );
+        debug_struct.field("undeclared_query_parameters", &self.undeclared_query_parameters);
         debug_struct.field("statement_type", &self.statement_type);
         debug_struct.field("ddl_operation_performed", &self.ddl_operation_performed);
         debug_struct.field("ddl_target_table", &self.ddl_target_table);
         debug_struct.field("ddl_destination_table", &self.ddl_destination_table);
-        debug_struct.field(
-            "ddl_target_row_access_policy",
-            &self.ddl_target_row_access_policy,
-        );
-        debug_struct.field(
-            "ddl_affected_row_access_policy_count",
-            &self.ddl_affected_row_access_policy_count,
-        );
+        debug_struct.field("ddl_target_row_access_policy", &self.ddl_target_row_access_policy);
+        debug_struct.field("ddl_affected_row_access_policy_count", &self.ddl_affected_row_access_policy_count);
         debug_struct.field("ddl_target_routine", &self.ddl_target_routine);
         debug_struct.field("ddl_target_dataset", &self.ddl_target_dataset);
         debug_struct.field("ml_statistics", &self.ml_statistics);
@@ -1393,10 +1297,7 @@ impl std::fmt::Debug for super::JobStatistics2 {
         debug_struct.field("query_info", &self.query_info);
         debug_struct.field("spark_statistics", &self.spark_statistics);
         debug_struct.field("transferred_bytes", &self.transferred_bytes);
-        debug_struct.field(
-            "materialized_view_statistics",
-            &self.materialized_view_statistics,
-        );
+        debug_struct.field("materialized_view_statistics", &self.materialized_view_statistics);
         debug_struct.field("metadata_cache_statistics", &self.metadata_cache_statistics);
         debug_struct.field("incremental_result_stats", &self.incremental_result_stats);
         if !self._unknown_fields.is_empty() {
@@ -1425,10 +1326,7 @@ impl std::fmt::Debug for super::JobStatistics3 {
 impl std::fmt::Debug for super::JobStatistics4 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("JobStatistics4");
-        debug_struct.field(
-            "destination_uri_file_counts",
-            &self.destination_uri_file_counts,
-        );
+        debug_struct.field("destination_uri_file_counts", &self.destination_uri_file_counts);
         debug_struct.field("input_bytes", &self.input_bytes);
         debug_struct.field("timeline", &self.timeline);
         if !self._unknown_fields.is_empty() {
@@ -1496,10 +1394,7 @@ impl std::fmt::Debug for super::script_statistics::ScriptStackFrame {
 impl std::fmt::Debug for super::RowLevelSecurityStatistics {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RowLevelSecurityStatistics");
-        debug_struct.field(
-            "row_level_security_applied",
-            &self.row_level_security_applied,
-        );
+        debug_struct.field("row_level_security_applied", &self.row_level_security_applied);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1536,17 +1431,11 @@ impl std::fmt::Debug for super::JobStatistics {
         debug_struct.field("num_child_jobs", &self.num_child_jobs);
         debug_struct.field("parent_job_id", &self.parent_job_id);
         debug_struct.field("script_statistics", &self.script_statistics);
-        debug_struct.field(
-            "row_level_security_statistics",
-            &self.row_level_security_statistics,
-        );
+        debug_struct.field("row_level_security_statistics", &self.row_level_security_statistics);
         debug_struct.field("data_masking_statistics", &self.data_masking_statistics);
         debug_struct.field("transaction_info", &self.transaction_info);
         debug_struct.field("session_info", &self.session_info);
-        debug_struct.field(
-            "final_execution_duration_ms",
-            &self.final_execution_duration_ms,
-        );
+        debug_struct.field("final_execution_duration_ms", &self.final_execution_duration_ms);
         debug_struct.field("edition", &self.edition);
         debug_struct.field("reservation_group_path", &self.reservation_group_path);
         if !self._unknown_fields.is_empty() {
@@ -1584,14 +1473,8 @@ impl std::fmt::Debug for super::PerformanceInsights {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PerformanceInsights");
         debug_struct.field("avg_previous_execution_ms", &self.avg_previous_execution_ms);
-        debug_struct.field(
-            "stage_performance_standalone_insights",
-            &self.stage_performance_standalone_insights,
-        );
-        debug_struct.field(
-            "stage_performance_change_insights",
-            &self.stage_performance_change_insights,
-        );
+        debug_struct.field("stage_performance_standalone_insights", &self.stage_performance_standalone_insights);
+        debug_struct.field("stage_performance_change_insights", &self.stage_performance_change_insights);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1614,10 +1497,7 @@ impl std::fmt::Debug for super::StagePerformanceChangeInsight {
 impl std::fmt::Debug for super::InputDataChange {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("InputDataChange");
-        debug_struct.field(
-            "records_read_diff_percentage",
-            &self.records_read_diff_percentage,
-        );
+        debug_struct.field("records_read_diff_percentage", &self.records_read_diff_percentage);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1630,10 +1510,7 @@ impl std::fmt::Debug for super::StagePerformanceStandaloneInsight {
         let mut debug_struct = f.debug_struct("StagePerformanceStandaloneInsight");
         debug_struct.field("stage_id", &self.stage_id);
         debug_struct.field("slot_contention", &self.slot_contention);
-        debug_struct.field(
-            "insufficient_shuffle_quota",
-            &self.insufficient_shuffle_quota,
-        );
+        debug_struct.field("insufficient_shuffle_quota", &self.insufficient_shuffle_quota);
         debug_struct.field("bi_engine_reasons", &self.bi_engine_reasons);
         debug_struct.field("high_cardinality_joins", &self.high_cardinality_joins);
         debug_struct.field("partition_skew", &self.partition_skew);
@@ -1708,6 +1585,7 @@ impl std::fmt::Debug for super::spark_statistics::LoggingInfo {
     }
 }
 
+
 impl std::fmt::Debug for super::MaterializedViewStatistics {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MaterializedViewStatistics");
@@ -1736,18 +1614,9 @@ impl std::fmt::Debug for super::MaterializedView {
 impl std::fmt::Debug for super::PruningStats {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PruningStats");
-        debug_struct.field(
-            "post_cmeta_pruning_partition_count",
-            &self.post_cmeta_pruning_partition_count,
-        );
-        debug_struct.field(
-            "pre_cmeta_pruning_parallel_input_count",
-            &self.pre_cmeta_pruning_parallel_input_count,
-        );
-        debug_struct.field(
-            "post_cmeta_pruning_parallel_input_count",
-            &self.post_cmeta_pruning_parallel_input_count,
-        );
+        debug_struct.field("post_cmeta_pruning_partition_count", &self.post_cmeta_pruning_partition_count);
+        debug_struct.field("pre_cmeta_pruning_parallel_input_count", &self.pre_cmeta_pruning_parallel_input_count);
+        debug_struct.field("post_cmeta_pruning_parallel_input_count", &self.post_cmeta_pruning_parallel_input_count);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1774,10 +1643,7 @@ impl std::fmt::Debug for super::TableMetadataCacheUsage {
 impl std::fmt::Debug for super::MetadataCacheStatistics {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MetadataCacheStatistics");
-        debug_struct.field(
-            "table_metadata_cache_usage",
-            &self.table_metadata_cache_usage,
-        );
+        debug_struct.field("table_metadata_cache_usage", &self.table_metadata_cache_usage);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1942,14 +1808,8 @@ impl std::fmt::Debug for super::model::AggregateClassificationMetrics {
 impl std::fmt::Debug for super::model::BinaryClassificationMetrics {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BinaryClassificationMetrics");
-        debug_struct.field(
-            "aggregate_classification_metrics",
-            &self.aggregate_classification_metrics,
-        );
-        debug_struct.field(
-            "binary_confusion_matrix_list",
-            &self.binary_confusion_matrix_list,
-        );
+        debug_struct.field("aggregate_classification_metrics", &self.aggregate_classification_metrics);
+        debug_struct.field("binary_confusion_matrix_list", &self.binary_confusion_matrix_list);
         debug_struct.field("positive_label", &self.positive_label);
         debug_struct.field("negative_label", &self.negative_label);
         if !self._unknown_fields.is_empty() {
@@ -1981,10 +1841,7 @@ impl std::fmt::Debug for super::model::binary_classification_metrics::BinaryConf
 impl std::fmt::Debug for super::model::MultiClassClassificationMetrics {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MultiClassClassificationMetrics");
-        debug_struct.field(
-            "aggregate_classification_metrics",
-            &self.aggregate_classification_metrics,
-        );
+        debug_struct.field("aggregate_classification_metrics", &self.aggregate_classification_metrics);
         debug_struct.field("confusion_matrix_list", &self.confusion_matrix_list);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -2067,9 +1924,7 @@ impl std::fmt::Debug for super::model::clustering_metrics::cluster::FeatureValue
     }
 }
 
-impl std::fmt::Debug
-    for super::model::clustering_metrics::cluster::feature_value::CategoricalValue
-{
+impl std::fmt::Debug for super::model::clustering_metrics::cluster::feature_value::CategoricalValue {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CategoricalValue");
         debug_struct.field("category_counts", &self.category_counts);
@@ -2080,9 +1935,7 @@ impl std::fmt::Debug
     }
 }
 
-impl std::fmt::Debug
-    for super::model::clustering_metrics::cluster::feature_value::categorical_value::CategoryCount
-{
+impl std::fmt::Debug for super::model::clustering_metrics::cluster::feature_value::categorical_value::CategoryCount {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CategoryCount");
         debug_struct.field("category", &self.category);
@@ -2099,10 +1952,7 @@ impl std::fmt::Debug for super::model::RankingMetrics {
         let mut debug_struct = f.debug_struct("RankingMetrics");
         debug_struct.field("mean_average_precision", &self.mean_average_precision);
         debug_struct.field("mean_squared_error", &self.mean_squared_error);
-        debug_struct.field(
-            "normalized_discounted_cumulative_gain",
-            &self.normalized_discounted_cumulative_gain,
-        );
+        debug_struct.field("normalized_discounted_cumulative_gain", &self.normalized_discounted_cumulative_gain);
         debug_struct.field("average_rank", &self.average_rank);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -2114,10 +1964,7 @@ impl std::fmt::Debug for super::model::RankingMetrics {
 impl std::fmt::Debug for super::model::ArimaForecastingMetrics {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ArimaForecastingMetrics");
-        debug_struct.field(
-            "arima_single_model_forecasting_metrics",
-            &self.arima_single_model_forecasting_metrics,
-        );
+        debug_struct.field("arima_single_model_forecasting_metrics", &self.arima_single_model_forecasting_metrics);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2125,9 +1972,7 @@ impl std::fmt::Debug for super::model::ArimaForecastingMetrics {
     }
 }
 
-impl std::fmt::Debug
-    for super::model::arima_forecasting_metrics::ArimaSingleModelForecastingMetrics
-{
+impl std::fmt::Debug for super::model::arima_forecasting_metrics::ArimaSingleModelForecastingMetrics {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ArimaSingleModelForecastingMetrics");
         debug_struct.field("non_seasonal_order", &self.non_seasonal_order);
@@ -2149,10 +1994,7 @@ impl std::fmt::Debug
 impl std::fmt::Debug for super::model::DimensionalityReductionMetrics {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DimensionalityReductionMetrics");
-        debug_struct.field(
-            "total_explained_variance_ratio",
-            &self.total_explained_variance_ratio,
-        );
+        debug_struct.field("total_explained_variance_ratio", &self.total_explained_variance_ratio);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2272,14 +2114,8 @@ impl std::fmt::Debug for super::model::TrainingRun {
         debug_struct.field("results", &self.results);
         debug_struct.field("evaluation_metrics", &self.evaluation_metrics);
         debug_struct.field("data_split_result", &self.data_split_result);
-        debug_struct.field(
-            "model_level_global_explanation",
-            &self.model_level_global_explanation,
-        );
-        debug_struct.field(
-            "class_level_global_explanations",
-            &self.class_level_global_explanations,
-        );
+        debug_struct.field("model_level_global_explanation", &self.model_level_global_explanation);
+        debug_struct.field("class_level_global_explanations", &self.class_level_global_explanations);
         debug_struct.field("vertex_ai_model_id", &self.vertex_ai_model_id);
         debug_struct.field("vertex_ai_model_version", &self.vertex_ai_model_version);
         if !self._unknown_fields.is_empty() {
@@ -2330,18 +2166,9 @@ impl std::fmt::Debug for super::model::training_run::TrainingOptions {
         debug_struct.field("num_factors", &self.num_factors);
         debug_struct.field("feedback_type", &self.feedback_type);
         debug_struct.field("wals_alpha", &self.wals_alpha);
-        debug_struct.field(
-            "kmeans_initialization_method",
-            &self.kmeans_initialization_method,
-        );
-        debug_struct.field(
-            "kmeans_initialization_column",
-            &self.kmeans_initialization_column,
-        );
-        debug_struct.field(
-            "time_series_timestamp_column",
-            &self.time_series_timestamp_column,
-        );
+        debug_struct.field("kmeans_initialization_method", &self.kmeans_initialization_method);
+        debug_struct.field("kmeans_initialization_column", &self.kmeans_initialization_column);
+        debug_struct.field("time_series_timestamp_column", &self.time_series_timestamp_column);
         debug_struct.field("time_series_data_column", &self.time_series_data_column);
         debug_struct.field("auto_arima", &self.auto_arima);
         debug_struct.field("non_seasonal_order", &self.non_seasonal_order);
@@ -2352,14 +2179,8 @@ impl std::fmt::Debug for super::model::training_run::TrainingOptions {
         debug_struct.field("holiday_regions", &self.holiday_regions);
         debug_struct.field("time_series_id_column", &self.time_series_id_column);
         debug_struct.field("time_series_id_columns", &self.time_series_id_columns);
-        debug_struct.field(
-            "forecast_limit_lower_bound",
-            &self.forecast_limit_lower_bound,
-        );
-        debug_struct.field(
-            "forecast_limit_upper_bound",
-            &self.forecast_limit_upper_bound,
-        );
+        debug_struct.field("forecast_limit_lower_bound", &self.forecast_limit_lower_bound);
+        debug_struct.field("forecast_limit_upper_bound", &self.forecast_limit_upper_bound);
         debug_struct.field("horizon", &self.horizon);
         debug_struct.field("auto_arima_max_order", &self.auto_arima_max_order);
         debug_struct.field("auto_arima_min_order", &self.auto_arima_min_order);
@@ -2371,35 +2192,20 @@ impl std::fmt::Debug for super::model::training_run::TrainingOptions {
         debug_struct.field("adjust_step_changes", &self.adjust_step_changes);
         debug_struct.field("enable_global_explain", &self.enable_global_explain);
         debug_struct.field("sampled_shapley_num_paths", &self.sampled_shapley_num_paths);
-        debug_struct.field(
-            "integrated_gradients_num_steps",
-            &self.integrated_gradients_num_steps,
-        );
+        debug_struct.field("integrated_gradients_num_steps", &self.integrated_gradients_num_steps);
         debug_struct.field("category_encoding_method", &self.category_encoding_method);
         debug_struct.field("tf_version", &self.tf_version);
         debug_struct.field("color_space", &self.color_space);
         debug_struct.field("instance_weight_column", &self.instance_weight_column);
-        debug_struct.field(
-            "trend_smoothing_window_size",
-            &self.trend_smoothing_window_size,
-        );
-        debug_struct.field(
-            "time_series_length_fraction",
-            &self.time_series_length_fraction,
-        );
+        debug_struct.field("trend_smoothing_window_size", &self.trend_smoothing_window_size);
+        debug_struct.field("time_series_length_fraction", &self.time_series_length_fraction);
         debug_struct.field("min_time_series_length", &self.min_time_series_length);
         debug_struct.field("max_time_series_length", &self.max_time_series_length);
         debug_struct.field("xgboost_version", &self.xgboost_version);
-        debug_struct.field(
-            "approx_global_feature_contrib",
-            &self.approx_global_feature_contrib,
-        );
+        debug_struct.field("approx_global_feature_contrib", &self.approx_global_feature_contrib);
         debug_struct.field("fit_intercept", &self.fit_intercept);
         debug_struct.field("num_principal_components", &self.num_principal_components);
-        debug_struct.field(
-            "pca_explained_variance_ratio",
-            &self.pca_explained_variance_ratio,
-        );
+        debug_struct.field("pca_explained_variance_ratio", &self.pca_explained_variance_ratio);
         debug_struct.field("scale_features", &self.scale_features);
         debug_struct.field("pca_solver", &self.pca_solver);
         debug_struct.field("auto_class_weights", &self.auto_class_weights);
@@ -2409,10 +2215,7 @@ impl std::fmt::Debug for super::model::training_run::TrainingOptions {
         debug_struct.field("standardize_features", &self.standardize_features);
         debug_struct.field("l1_reg_activation", &self.l1_reg_activation);
         debug_struct.field("model_registry", &self.model_registry);
-        debug_struct.field(
-            "vertex_ai_model_version_aliases",
-            &self.vertex_ai_model_version_aliases,
-        );
+        debug_struct.field("vertex_ai_model_version_aliases", &self.vertex_ai_model_version_aliases);
         debug_struct.field("dimension_id_columns", &self.dimension_id_columns);
         debug_struct.field("contribution_metric", &self.contribution_metric);
         debug_struct.field("is_test_column", &self.is_test_column);
@@ -2423,10 +2226,7 @@ impl std::fmt::Debug for super::model::training_run::TrainingOptions {
         debug_struct.field("max_replica_count", &self.max_replica_count);
         debug_struct.field("reservation_affinity_type", &self.reservation_affinity_type);
         debug_struct.field("reservation_affinity_key", &self.reservation_affinity_key);
-        debug_struct.field(
-            "reservation_affinity_values",
-            &self.reservation_affinity_values,
-        );
+        debug_struct.field("reservation_affinity_values", &self.reservation_affinity_values);
         debug_struct.field("external_model_id", &self.external_model_id);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -2434,6 +2234,7 @@ impl std::fmt::Debug for super::model::training_run::TrainingOptions {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::model::training_run::IterationResult {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -2478,19 +2279,11 @@ impl std::fmt::Debug for super::model::training_run::iteration_result::ArimaResu
     }
 }
 
-impl std::fmt::Debug
-    for super::model::training_run::iteration_result::arima_result::ArimaCoefficients
-{
+impl std::fmt::Debug for super::model::training_run::iteration_result::arima_result::ArimaCoefficients {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ArimaCoefficients");
-        debug_struct.field(
-            "auto_regressive_coefficients",
-            &self.auto_regressive_coefficients,
-        );
-        debug_struct.field(
-            "moving_average_coefficients",
-            &self.moving_average_coefficients,
-        );
+        debug_struct.field("auto_regressive_coefficients", &self.auto_regressive_coefficients);
+        debug_struct.field("moving_average_coefficients", &self.moving_average_coefficients);
         debug_struct.field("intercept_coefficient", &self.intercept_coefficient);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -2499,9 +2292,7 @@ impl std::fmt::Debug
     }
 }
 
-impl std::fmt::Debug
-    for super::model::training_run::iteration_result::arima_result::ArimaModelInfo
-{
+impl std::fmt::Debug for super::model::training_run::iteration_result::arima_result::ArimaModelInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ArimaModelInfo");
         debug_struct.field("non_seasonal_order", &self.non_seasonal_order);
@@ -2527,10 +2318,7 @@ impl std::fmt::Debug for super::model::training_run::iteration_result::Principal
         debug_struct.field("principal_component_id", &self.principal_component_id);
         debug_struct.field("explained_variance", &self.explained_variance);
         debug_struct.field("explained_variance_ratio", &self.explained_variance_ratio);
-        debug_struct.field(
-            "cumulative_explained_variance_ratio",
-            &self.cumulative_explained_variance_ratio,
-        );
+        debug_struct.field("cumulative_explained_variance_ratio", &self.cumulative_explained_variance_ratio);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2683,16 +2471,14 @@ impl std::fmt::Debug for super::model::HparamTuningTrial {
         debug_struct.field("error_message", &self.error_message);
         debug_struct.field("training_loss", &self.training_loss);
         debug_struct.field("eval_loss", &self.eval_loss);
-        debug_struct.field(
-            "hparam_tuning_evaluation_metrics",
-            &self.hparam_tuning_evaluation_metrics,
-        );
+        debug_struct.field("hparam_tuning_evaluation_metrics", &self.hparam_tuning_evaluation_metrics);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::GetModelRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -3279,10 +3065,7 @@ impl std::fmt::Debug for super::RowAccessPolicy {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RowAccessPolicy");
         debug_struct.field("etag", &self.etag);
-        debug_struct.field(
-            "row_access_policy_reference",
-            &self.row_access_policy_reference,
-        );
+        debug_struct.field("row_access_policy_reference", &self.row_access_policy_reference);
         debug_struct.field("filter_predicate", &self.filter_predicate);
         debug_struct.field("creation_time", &self.creation_time);
         debug_struct.field("last_modified_time", &self.last_modified_time);
@@ -3382,10 +3165,7 @@ impl std::fmt::Debug for super::TableReplicationInfo {
         let mut debug_struct = f.debug_struct("TableReplicationInfo");
         debug_struct.field("source_table", &self.source_table);
         debug_struct.field("replication_interval_ms", &self.replication_interval_ms);
-        debug_struct.field(
-            "replicated_source_last_refresh_time",
-            &self.replicated_source_last_refresh_time,
-        );
+        debug_struct.field("replicated_source_last_refresh_time", &self.replicated_source_last_refresh_time);
         debug_struct.field("replication_status", &self.replication_status);
         debug_struct.field("replication_error", &self.replication_error);
         if !self._unknown_fields.is_empty() {
@@ -3399,10 +3179,7 @@ impl std::fmt::Debug for super::ViewDefinition {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ViewDefinition");
         debug_struct.field("query", &self.query);
-        debug_struct.field(
-            "user_defined_function_resources",
-            &self.user_defined_function_resources,
-        );
+        debug_struct.field("user_defined_function_resources", &self.user_defined_function_resources);
         debug_struct.field("use_legacy_sql", &self.use_legacy_sql);
         debug_struct.field("use_explicit_column_names", &self.use_explicit_column_names);
         debug_struct.field("privacy_policy", &self.privacy_policy);
@@ -3433,10 +3210,7 @@ impl std::fmt::Debug for super::MaterializedViewDefinition {
         debug_struct.field("last_refresh_time", &self.last_refresh_time);
         debug_struct.field("enable_refresh", &self.enable_refresh);
         debug_struct.field("refresh_interval_ms", &self.refresh_interval_ms);
-        debug_struct.field(
-            "allow_non_incremental_definition",
-            &self.allow_non_incremental_definition,
-        );
+        debug_struct.field("allow_non_incremental_definition", &self.allow_non_incremental_definition);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3521,10 +3295,7 @@ impl std::fmt::Debug for super::Table {
         debug_struct.field("view", &self.view);
         debug_struct.field("materialized_view", &self.materialized_view);
         debug_struct.field("materialized_view_status", &self.materialized_view_status);
-        debug_struct.field(
-            "external_data_configuration",
-            &self.external_data_configuration,
-        );
+        debug_struct.field("external_data_configuration", &self.external_data_configuration);
         debug_struct.field("biglake_configuration", &self.biglake_configuration);
         debug_struct.field("managed_table_type", &self.managed_table_type);
         debug_struct.field("location", &self.location);
@@ -3534,26 +3305,14 @@ impl std::fmt::Debug for super::Table {
         debug_struct.field("default_collation", &self.default_collation);
         debug_struct.field("default_rounding_mode", &self.default_rounding_mode);
         debug_struct.field("clone_definition", &self.clone_definition);
-        debug_struct.field(
-            "num_time_travel_physical_bytes",
-            &self.num_time_travel_physical_bytes,
-        );
+        debug_struct.field("num_time_travel_physical_bytes", &self.num_time_travel_physical_bytes);
         debug_struct.field("num_total_logical_bytes", &self.num_total_logical_bytes);
         debug_struct.field("num_active_logical_bytes", &self.num_active_logical_bytes);
-        debug_struct.field(
-            "num_long_term_logical_bytes",
-            &self.num_long_term_logical_bytes,
-        );
-        debug_struct.field(
-            "num_current_physical_bytes",
-            &self.num_current_physical_bytes,
-        );
+        debug_struct.field("num_long_term_logical_bytes", &self.num_long_term_logical_bytes);
+        debug_struct.field("num_current_physical_bytes", &self.num_current_physical_bytes);
         debug_struct.field("num_total_physical_bytes", &self.num_total_physical_bytes);
         debug_struct.field("num_active_physical_bytes", &self.num_active_physical_bytes);
-        debug_struct.field(
-            "num_long_term_physical_bytes",
-            &self.num_long_term_physical_bytes,
-        );
+        debug_struct.field("num_long_term_physical_bytes", &self.num_long_term_physical_bytes);
         debug_struct.field("num_partitions", &self.num_partitions);
         debug_struct.field("max_staleness", &self.max_staleness);
         debug_struct.field("restrictions", &self.restrictions);
@@ -3561,10 +3320,7 @@ impl std::fmt::Debug for super::Table {
         debug_struct.field("resource_tags", &self.resource_tags);
         debug_struct.field("table_replication_info", &self.table_replication_info);
         debug_struct.field("replicas", &self.replicas);
-        debug_struct.field(
-            "external_catalog_table_options",
-            &self.external_catalog_table_options,
-        );
+        debug_struct.field("external_catalog_table_options", &self.external_catalog_table_options);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

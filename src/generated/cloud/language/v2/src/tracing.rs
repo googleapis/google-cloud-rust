@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [LanguageService](super::stub::LanguageService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct LanguageService<T>
-where
-    T: super::stub::LanguageService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::LanguageService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> LanguageService<T>
-where
-    T: super::stub::LanguageService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::LanguageService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::LanguageService for LanguageService<T>
-where
-    T: super::stub::LanguageService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::LanguageService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn analyze_sentiment(
         &self,
@@ -81,4 +75,6 @@ where
     ) -> Result<gax::response::Response<crate::model::AnnotateTextResponse>> {
         self.inner.annotate_text(req, options).await
     }
+
 }
+

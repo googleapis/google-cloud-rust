@@ -26,12 +26,8 @@ pub mod storage_control {
     }
 
     impl<R> RequestBuilder<R>
-    where
-        R: std::default::Default,
-    {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
-        ) -> Self {
+    where R: std::default::Default {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -61,10 +57,10 @@ pub mod storage_control {
     pub struct DeleteBucket(RequestBuilder<crate::model::DeleteBucketRequest>);
 
     impl DeleteBucket {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -81,10 +77,7 @@ pub mod storage_control {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .delete_bucket(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_bucket(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteBucketRequest::name].
@@ -97,8 +90,7 @@ pub mod storage_control {
 
         /// Sets the value of [if_metageneration_match][crate::model::DeleteBucketRequest::if_metageneration_match].
         pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_metageneration_match = std::option::Option::Some(v.into());
             self
@@ -106,8 +98,7 @@ pub mod storage_control {
 
         /// Sets or clears the value of [if_metageneration_match][crate::model::DeleteBucketRequest::if_metageneration_match].
         pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_metageneration_match = v.map(|x| x.into());
             self
@@ -115,20 +106,15 @@ pub mod storage_control {
 
         /// Sets the value of [if_metageneration_not_match][crate::model::DeleteBucketRequest::if_metageneration_not_match].
         pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_metageneration_not_match = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [if_metageneration_not_match][crate::model::DeleteBucketRequest::if_metageneration_not_match].
-        pub fn set_or_clear_if_metageneration_not_match<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<i64>,
+        pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_metageneration_not_match = v.map(|x| x.into());
             self
@@ -163,10 +149,10 @@ pub mod storage_control {
     pub struct GetBucket(RequestBuilder<crate::model::GetBucketRequest>);
 
     impl GetBucket {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -183,10 +169,7 @@ pub mod storage_control {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Bucket> {
-            (*self.0.stub)
-                .get_bucket(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_bucket(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetBucketRequest::name].
@@ -199,8 +182,7 @@ pub mod storage_control {
 
         /// Sets the value of [if_metageneration_match][crate::model::GetBucketRequest::if_metageneration_match].
         pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_metageneration_match = std::option::Option::Some(v.into());
             self
@@ -208,8 +190,7 @@ pub mod storage_control {
 
         /// Sets or clears the value of [if_metageneration_match][crate::model::GetBucketRequest::if_metageneration_match].
         pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_metageneration_match = v.map(|x| x.into());
             self
@@ -217,20 +198,15 @@ pub mod storage_control {
 
         /// Sets the value of [if_metageneration_not_match][crate::model::GetBucketRequest::if_metageneration_not_match].
         pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_metageneration_not_match = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [if_metageneration_not_match][crate::model::GetBucketRequest::if_metageneration_not_match].
-        pub fn set_or_clear_if_metageneration_not_match<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<i64>,
+        pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_metageneration_not_match = v.map(|x| x.into());
             self
@@ -238,8 +214,7 @@ pub mod storage_control {
 
         /// Sets the value of [read_mask][crate::model::GetBucketRequest::read_mask].
         pub fn set_read_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.read_mask = std::option::Option::Some(v.into());
             self
@@ -247,8 +222,7 @@ pub mod storage_control {
 
         /// Sets or clears the value of [read_mask][crate::model::GetBucketRequest::read_mask].
         pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.read_mask = v.map(|x| x.into());
             self
@@ -283,10 +257,10 @@ pub mod storage_control {
     pub struct CreateBucket(RequestBuilder<crate::model::CreateBucketRequest>);
 
     impl CreateBucket {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -303,10 +277,7 @@ pub mod storage_control {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Bucket> {
-            (*self.0.stub)
-                .create_bucket(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_bucket(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateBucketRequest::parent].
@@ -319,8 +290,7 @@ pub mod storage_control {
 
         /// Sets the value of [bucket][crate::model::CreateBucketRequest::bucket].
         pub fn set_bucket<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Bucket>,
+        where T: std::convert::Into<crate::model::Bucket>
         {
             self.0.request.bucket = std::option::Option::Some(v.into());
             self
@@ -328,8 +298,7 @@ pub mod storage_control {
 
         /// Sets or clears the value of [bucket][crate::model::CreateBucketRequest::bucket].
         pub fn set_or_clear_bucket<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Bucket>,
+        where T: std::convert::Into<crate::model::Bucket>
         {
             self.0.request.bucket = v.map(|x| x.into());
             self
@@ -350,10 +319,7 @@ pub mod storage_control {
         }
 
         /// Sets the value of [predefined_default_object_acl][crate::model::CreateBucketRequest::predefined_default_object_acl].
-        pub fn set_predefined_default_object_acl<T: Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_predefined_default_object_acl<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.predefined_default_object_acl = v.into();
             self
         }
@@ -397,10 +363,10 @@ pub mod storage_control {
     pub struct ListBuckets(RequestBuilder<crate::model::ListBucketsRequest>);
 
     impl ListBuckets {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -417,17 +383,11 @@ pub mod storage_control {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListBucketsResponse> {
-            (*self.0.stub)
-                .list_buckets(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_buckets(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListBucketsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListBucketsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -439,10 +399,7 @@ pub mod storage_control {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListBucketsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListBucketsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -475,8 +432,7 @@ pub mod storage_control {
 
         /// Sets the value of [read_mask][crate::model::ListBucketsRequest::read_mask].
         pub fn set_read_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.read_mask = std::option::Option::Some(v.into());
             self
@@ -484,8 +440,7 @@ pub mod storage_control {
 
         /// Sets or clears the value of [read_mask][crate::model::ListBucketsRequest::read_mask].
         pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.read_mask = v.map(|x| x.into());
             self
@@ -523,22 +478,17 @@ pub mod storage_control {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct LockBucketRetentionPolicy(
-        RequestBuilder<crate::model::LockBucketRetentionPolicyRequest>,
-    );
+    pub struct LockBucketRetentionPolicy(RequestBuilder<crate::model::LockBucketRetentionPolicyRequest>);
 
     impl LockBucketRetentionPolicy {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::LockBucketRetentionPolicyRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::LockBucketRetentionPolicyRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -551,10 +501,7 @@ pub mod storage_control {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Bucket> {
-            (*self.0.stub)
-                .lock_bucket_retention_policy(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).lock_bucket_retention_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [bucket][crate::model::LockBucketRetentionPolicyRequest::bucket].
@@ -602,10 +549,10 @@ pub mod storage_control {
     pub struct UpdateBucket(RequestBuilder<crate::model::UpdateBucketRequest>);
 
     impl UpdateBucket {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -622,18 +569,14 @@ pub mod storage_control {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Bucket> {
-            (*self.0.stub)
-                .update_bucket(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_bucket(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [bucket][crate::model::UpdateBucketRequest::bucket].
         ///
         /// This is a **required** field for requests.
         pub fn set_bucket<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Bucket>,
+        where T: std::convert::Into<crate::model::Bucket>
         {
             self.0.request.bucket = std::option::Option::Some(v.into());
             self
@@ -643,8 +586,7 @@ pub mod storage_control {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_bucket<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Bucket>,
+        where T: std::convert::Into<crate::model::Bucket>
         {
             self.0.request.bucket = v.map(|x| x.into());
             self
@@ -652,8 +594,7 @@ pub mod storage_control {
 
         /// Sets the value of [if_metageneration_match][crate::model::UpdateBucketRequest::if_metageneration_match].
         pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_metageneration_match = std::option::Option::Some(v.into());
             self
@@ -661,8 +602,7 @@ pub mod storage_control {
 
         /// Sets or clears the value of [if_metageneration_match][crate::model::UpdateBucketRequest::if_metageneration_match].
         pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_metageneration_match = v.map(|x| x.into());
             self
@@ -670,20 +610,15 @@ pub mod storage_control {
 
         /// Sets the value of [if_metageneration_not_match][crate::model::UpdateBucketRequest::if_metageneration_not_match].
         pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_metageneration_not_match = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [if_metageneration_not_match][crate::model::UpdateBucketRequest::if_metageneration_not_match].
-        pub fn set_or_clear_if_metageneration_not_match<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<i64>,
+        pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_metageneration_not_match = v.map(|x| x.into());
             self
@@ -696,10 +631,7 @@ pub mod storage_control {
         }
 
         /// Sets the value of [predefined_default_object_acl][crate::model::UpdateBucketRequest::predefined_default_object_acl].
-        pub fn set_predefined_default_object_acl<T: Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_predefined_default_object_acl<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.predefined_default_object_acl = v.into();
             self
         }
@@ -708,8 +640,7 @@ pub mod storage_control {
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -719,8 +650,7 @@ pub mod storage_control {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -755,10 +685,10 @@ pub mod storage_control {
     pub struct ComposeObject(RequestBuilder<crate::model::ComposeObjectRequest>);
 
     impl ComposeObject {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -775,18 +705,14 @@ pub mod storage_control {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Object> {
-            (*self.0.stub)
-                .compose_object(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).compose_object(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [destination][crate::model::ComposeObjectRequest::destination].
         ///
         /// This is a **required** field for requests.
         pub fn set_destination<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Object>,
+        where T: std::convert::Into<crate::model::Object>
         {
             self.0.request.destination = std::option::Option::Some(v.into());
             self
@@ -796,8 +722,7 @@ pub mod storage_control {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_destination<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Object>,
+        where T: std::convert::Into<crate::model::Object>
         {
             self.0.request.destination = v.map(|x| x.into());
             self
@@ -807,7 +732,7 @@ pub mod storage_control {
         pub fn set_source_objects<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::compose_object_request::SourceObject>,
+            V: std::convert::Into<crate::model::compose_object_request::SourceObject>
         {
             use std::iter::Iterator;
             self.0.request.source_objects = v.into_iter().map(|i| i.into()).collect();
@@ -815,18 +740,14 @@ pub mod storage_control {
         }
 
         /// Sets the value of [destination_predefined_acl][crate::model::ComposeObjectRequest::destination_predefined_acl].
-        pub fn set_destination_predefined_acl<T: Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_destination_predefined_acl<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.destination_predefined_acl = v.into();
             self
         }
 
         /// Sets the value of [if_generation_match][crate::model::ComposeObjectRequest::if_generation_match].
         pub fn set_if_generation_match<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_generation_match = std::option::Option::Some(v.into());
             self
@@ -834,8 +755,7 @@ pub mod storage_control {
 
         /// Sets or clears the value of [if_generation_match][crate::model::ComposeObjectRequest::if_generation_match].
         pub fn set_or_clear_if_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_generation_match = v.map(|x| x.into());
             self
@@ -843,8 +763,7 @@ pub mod storage_control {
 
         /// Sets the value of [if_metageneration_match][crate::model::ComposeObjectRequest::if_metageneration_match].
         pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_metageneration_match = std::option::Option::Some(v.into());
             self
@@ -852,8 +771,7 @@ pub mod storage_control {
 
         /// Sets or clears the value of [if_metageneration_match][crate::model::ComposeObjectRequest::if_metageneration_match].
         pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_metageneration_match = v.map(|x| x.into());
             self
@@ -867,20 +785,15 @@ pub mod storage_control {
 
         /// Sets the value of [common_object_request_params][crate::model::ComposeObjectRequest::common_object_request_params].
         pub fn set_common_object_request_params<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::CommonObjectRequestParams>,
+        where T: std::convert::Into<crate::model::CommonObjectRequestParams>
         {
             self.0.request.common_object_request_params = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [common_object_request_params][crate::model::ComposeObjectRequest::common_object_request_params].
-        pub fn set_or_clear_common_object_request_params<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<crate::model::CommonObjectRequestParams>,
+        pub fn set_or_clear_common_object_request_params<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<crate::model::CommonObjectRequestParams>
         {
             self.0.request.common_object_request_params = v.map(|x| x.into());
             self
@@ -888,8 +801,7 @@ pub mod storage_control {
 
         /// Sets the value of [object_checksums][crate::model::ComposeObjectRequest::object_checksums].
         pub fn set_object_checksums<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::ObjectChecksums>,
+        where T: std::convert::Into<crate::model::ObjectChecksums>
         {
             self.0.request.object_checksums = std::option::Option::Some(v.into());
             self
@@ -897,8 +809,7 @@ pub mod storage_control {
 
         /// Sets or clears the value of [object_checksums][crate::model::ComposeObjectRequest::object_checksums].
         pub fn set_or_clear_object_checksums<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::ObjectChecksums>,
+        where T: std::convert::Into<crate::model::ObjectChecksums>
         {
             self.0.request.object_checksums = v.map(|x| x.into());
             self
@@ -933,10 +844,10 @@ pub mod storage_control {
     pub struct DeleteObject(RequestBuilder<crate::model::DeleteObjectRequest>);
 
     impl DeleteObject {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -953,10 +864,7 @@ pub mod storage_control {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .delete_object(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_object(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [bucket][crate::model::DeleteObjectRequest::bucket].
@@ -983,8 +891,7 @@ pub mod storage_control {
 
         /// Sets the value of [if_generation_match][crate::model::DeleteObjectRequest::if_generation_match].
         pub fn set_if_generation_match<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_generation_match = std::option::Option::Some(v.into());
             self
@@ -992,8 +899,7 @@ pub mod storage_control {
 
         /// Sets or clears the value of [if_generation_match][crate::model::DeleteObjectRequest::if_generation_match].
         pub fn set_or_clear_if_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_generation_match = v.map(|x| x.into());
             self
@@ -1001,8 +907,7 @@ pub mod storage_control {
 
         /// Sets the value of [if_generation_not_match][crate::model::DeleteObjectRequest::if_generation_not_match].
         pub fn set_if_generation_not_match<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_generation_not_match = std::option::Option::Some(v.into());
             self
@@ -1010,8 +915,7 @@ pub mod storage_control {
 
         /// Sets or clears the value of [if_generation_not_match][crate::model::DeleteObjectRequest::if_generation_not_match].
         pub fn set_or_clear_if_generation_not_match<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_generation_not_match = v.map(|x| x.into());
             self
@@ -1019,8 +923,7 @@ pub mod storage_control {
 
         /// Sets the value of [if_metageneration_match][crate::model::DeleteObjectRequest::if_metageneration_match].
         pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_metageneration_match = std::option::Option::Some(v.into());
             self
@@ -1028,8 +931,7 @@ pub mod storage_control {
 
         /// Sets or clears the value of [if_metageneration_match][crate::model::DeleteObjectRequest::if_metageneration_match].
         pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_metageneration_match = v.map(|x| x.into());
             self
@@ -1037,20 +939,15 @@ pub mod storage_control {
 
         /// Sets the value of [if_metageneration_not_match][crate::model::DeleteObjectRequest::if_metageneration_not_match].
         pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_metageneration_not_match = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [if_metageneration_not_match][crate::model::DeleteObjectRequest::if_metageneration_not_match].
-        pub fn set_or_clear_if_metageneration_not_match<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<i64>,
+        pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_metageneration_not_match = v.map(|x| x.into());
             self
@@ -1058,20 +955,15 @@ pub mod storage_control {
 
         /// Sets the value of [common_object_request_params][crate::model::DeleteObjectRequest::common_object_request_params].
         pub fn set_common_object_request_params<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::CommonObjectRequestParams>,
+        where T: std::convert::Into<crate::model::CommonObjectRequestParams>
         {
             self.0.request.common_object_request_params = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [common_object_request_params][crate::model::DeleteObjectRequest::common_object_request_params].
-        pub fn set_or_clear_common_object_request_params<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<crate::model::CommonObjectRequestParams>,
+        pub fn set_or_clear_common_object_request_params<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<crate::model::CommonObjectRequestParams>
         {
             self.0.request.common_object_request_params = v.map(|x| x.into());
             self
@@ -1106,10 +998,10 @@ pub mod storage_control {
     pub struct RestoreObject(RequestBuilder<crate::model::RestoreObjectRequest>);
 
     impl RestoreObject {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1126,10 +1018,7 @@ pub mod storage_control {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Object> {
-            (*self.0.stub)
-                .restore_object(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).restore_object(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [bucket][crate::model::RestoreObjectRequest::bucket].
@@ -1164,8 +1053,7 @@ pub mod storage_control {
 
         /// Sets the value of [if_generation_match][crate::model::RestoreObjectRequest::if_generation_match].
         pub fn set_if_generation_match<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_generation_match = std::option::Option::Some(v.into());
             self
@@ -1173,8 +1061,7 @@ pub mod storage_control {
 
         /// Sets or clears the value of [if_generation_match][crate::model::RestoreObjectRequest::if_generation_match].
         pub fn set_or_clear_if_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_generation_match = v.map(|x| x.into());
             self
@@ -1182,8 +1069,7 @@ pub mod storage_control {
 
         /// Sets the value of [if_generation_not_match][crate::model::RestoreObjectRequest::if_generation_not_match].
         pub fn set_if_generation_not_match<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_generation_not_match = std::option::Option::Some(v.into());
             self
@@ -1191,8 +1077,7 @@ pub mod storage_control {
 
         /// Sets or clears the value of [if_generation_not_match][crate::model::RestoreObjectRequest::if_generation_not_match].
         pub fn set_or_clear_if_generation_not_match<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_generation_not_match = v.map(|x| x.into());
             self
@@ -1200,8 +1085,7 @@ pub mod storage_control {
 
         /// Sets the value of [if_metageneration_match][crate::model::RestoreObjectRequest::if_metageneration_match].
         pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_metageneration_match = std::option::Option::Some(v.into());
             self
@@ -1209,8 +1093,7 @@ pub mod storage_control {
 
         /// Sets or clears the value of [if_metageneration_match][crate::model::RestoreObjectRequest::if_metageneration_match].
         pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_metageneration_match = v.map(|x| x.into());
             self
@@ -1218,20 +1101,15 @@ pub mod storage_control {
 
         /// Sets the value of [if_metageneration_not_match][crate::model::RestoreObjectRequest::if_metageneration_not_match].
         pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_metageneration_not_match = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [if_metageneration_not_match][crate::model::RestoreObjectRequest::if_metageneration_not_match].
-        pub fn set_or_clear_if_metageneration_not_match<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<i64>,
+        pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_metageneration_not_match = v.map(|x| x.into());
             self
@@ -1239,8 +1117,7 @@ pub mod storage_control {
 
         /// Sets the value of [copy_source_acl][crate::model::RestoreObjectRequest::copy_source_acl].
         pub fn set_copy_source_acl<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
+        where T: std::convert::Into<bool>
         {
             self.0.request.copy_source_acl = std::option::Option::Some(v.into());
             self
@@ -1248,8 +1125,7 @@ pub mod storage_control {
 
         /// Sets or clears the value of [copy_source_acl][crate::model::RestoreObjectRequest::copy_source_acl].
         pub fn set_or_clear_copy_source_acl<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
+        where T: std::convert::Into<bool>
         {
             self.0.request.copy_source_acl = v.map(|x| x.into());
             self
@@ -1257,20 +1133,15 @@ pub mod storage_control {
 
         /// Sets the value of [common_object_request_params][crate::model::RestoreObjectRequest::common_object_request_params].
         pub fn set_common_object_request_params<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::CommonObjectRequestParams>,
+        where T: std::convert::Into<crate::model::CommonObjectRequestParams>
         {
             self.0.request.common_object_request_params = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [common_object_request_params][crate::model::RestoreObjectRequest::common_object_request_params].
-        pub fn set_or_clear_common_object_request_params<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<crate::model::CommonObjectRequestParams>,
+        pub fn set_or_clear_common_object_request_params<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<crate::model::CommonObjectRequestParams>
         {
             self.0.request.common_object_request_params = v.map(|x| x.into());
             self
@@ -1305,10 +1176,10 @@ pub mod storage_control {
     pub struct GetObject(RequestBuilder<crate::model::GetObjectRequest>);
 
     impl GetObject {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1325,10 +1196,7 @@ pub mod storage_control {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Object> {
-            (*self.0.stub)
-                .get_object(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_object(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [bucket][crate::model::GetObjectRequest::bucket].
@@ -1355,8 +1223,7 @@ pub mod storage_control {
 
         /// Sets the value of [soft_deleted][crate::model::GetObjectRequest::soft_deleted].
         pub fn set_soft_deleted<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
+        where T: std::convert::Into<bool>
         {
             self.0.request.soft_deleted = std::option::Option::Some(v.into());
             self
@@ -1364,8 +1231,7 @@ pub mod storage_control {
 
         /// Sets or clears the value of [soft_deleted][crate::model::GetObjectRequest::soft_deleted].
         pub fn set_or_clear_soft_deleted<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
+        where T: std::convert::Into<bool>
         {
             self.0.request.soft_deleted = v.map(|x| x.into());
             self
@@ -1373,8 +1239,7 @@ pub mod storage_control {
 
         /// Sets the value of [if_generation_match][crate::model::GetObjectRequest::if_generation_match].
         pub fn set_if_generation_match<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_generation_match = std::option::Option::Some(v.into());
             self
@@ -1382,8 +1247,7 @@ pub mod storage_control {
 
         /// Sets or clears the value of [if_generation_match][crate::model::GetObjectRequest::if_generation_match].
         pub fn set_or_clear_if_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_generation_match = v.map(|x| x.into());
             self
@@ -1391,8 +1255,7 @@ pub mod storage_control {
 
         /// Sets the value of [if_generation_not_match][crate::model::GetObjectRequest::if_generation_not_match].
         pub fn set_if_generation_not_match<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_generation_not_match = std::option::Option::Some(v.into());
             self
@@ -1400,8 +1263,7 @@ pub mod storage_control {
 
         /// Sets or clears the value of [if_generation_not_match][crate::model::GetObjectRequest::if_generation_not_match].
         pub fn set_or_clear_if_generation_not_match<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_generation_not_match = v.map(|x| x.into());
             self
@@ -1409,8 +1271,7 @@ pub mod storage_control {
 
         /// Sets the value of [if_metageneration_match][crate::model::GetObjectRequest::if_metageneration_match].
         pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_metageneration_match = std::option::Option::Some(v.into());
             self
@@ -1418,8 +1279,7 @@ pub mod storage_control {
 
         /// Sets or clears the value of [if_metageneration_match][crate::model::GetObjectRequest::if_metageneration_match].
         pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_metageneration_match = v.map(|x| x.into());
             self
@@ -1427,20 +1287,15 @@ pub mod storage_control {
 
         /// Sets the value of [if_metageneration_not_match][crate::model::GetObjectRequest::if_metageneration_not_match].
         pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_metageneration_not_match = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [if_metageneration_not_match][crate::model::GetObjectRequest::if_metageneration_not_match].
-        pub fn set_or_clear_if_metageneration_not_match<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<i64>,
+        pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_metageneration_not_match = v.map(|x| x.into());
             self
@@ -1448,20 +1303,15 @@ pub mod storage_control {
 
         /// Sets the value of [common_object_request_params][crate::model::GetObjectRequest::common_object_request_params].
         pub fn set_common_object_request_params<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::CommonObjectRequestParams>,
+        where T: std::convert::Into<crate::model::CommonObjectRequestParams>
         {
             self.0.request.common_object_request_params = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [common_object_request_params][crate::model::GetObjectRequest::common_object_request_params].
-        pub fn set_or_clear_common_object_request_params<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<crate::model::CommonObjectRequestParams>,
+        pub fn set_or_clear_common_object_request_params<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<crate::model::CommonObjectRequestParams>
         {
             self.0.request.common_object_request_params = v.map(|x| x.into());
             self
@@ -1469,8 +1319,7 @@ pub mod storage_control {
 
         /// Sets the value of [read_mask][crate::model::GetObjectRequest::read_mask].
         pub fn set_read_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.read_mask = std::option::Option::Some(v.into());
             self
@@ -1478,8 +1327,7 @@ pub mod storage_control {
 
         /// Sets or clears the value of [read_mask][crate::model::GetObjectRequest::read_mask].
         pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.read_mask = v.map(|x| x.into());
             self
@@ -1520,10 +1368,10 @@ pub mod storage_control {
     pub struct UpdateObject(RequestBuilder<crate::model::UpdateObjectRequest>);
 
     impl UpdateObject {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1540,18 +1388,14 @@ pub mod storage_control {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Object> {
-            (*self.0.stub)
-                .update_object(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_object(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [object][crate::model::UpdateObjectRequest::object].
         ///
         /// This is a **required** field for requests.
         pub fn set_object<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Object>,
+        where T: std::convert::Into<crate::model::Object>
         {
             self.0.request.object = std::option::Option::Some(v.into());
             self
@@ -1561,8 +1405,7 @@ pub mod storage_control {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_object<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Object>,
+        where T: std::convert::Into<crate::model::Object>
         {
             self.0.request.object = v.map(|x| x.into());
             self
@@ -1570,8 +1413,7 @@ pub mod storage_control {
 
         /// Sets the value of [if_generation_match][crate::model::UpdateObjectRequest::if_generation_match].
         pub fn set_if_generation_match<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_generation_match = std::option::Option::Some(v.into());
             self
@@ -1579,8 +1421,7 @@ pub mod storage_control {
 
         /// Sets or clears the value of [if_generation_match][crate::model::UpdateObjectRequest::if_generation_match].
         pub fn set_or_clear_if_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_generation_match = v.map(|x| x.into());
             self
@@ -1588,8 +1429,7 @@ pub mod storage_control {
 
         /// Sets the value of [if_generation_not_match][crate::model::UpdateObjectRequest::if_generation_not_match].
         pub fn set_if_generation_not_match<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_generation_not_match = std::option::Option::Some(v.into());
             self
@@ -1597,8 +1437,7 @@ pub mod storage_control {
 
         /// Sets or clears the value of [if_generation_not_match][crate::model::UpdateObjectRequest::if_generation_not_match].
         pub fn set_or_clear_if_generation_not_match<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_generation_not_match = v.map(|x| x.into());
             self
@@ -1606,8 +1445,7 @@ pub mod storage_control {
 
         /// Sets the value of [if_metageneration_match][crate::model::UpdateObjectRequest::if_metageneration_match].
         pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_metageneration_match = std::option::Option::Some(v.into());
             self
@@ -1615,8 +1453,7 @@ pub mod storage_control {
 
         /// Sets or clears the value of [if_metageneration_match][crate::model::UpdateObjectRequest::if_metageneration_match].
         pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_metageneration_match = v.map(|x| x.into());
             self
@@ -1624,20 +1461,15 @@ pub mod storage_control {
 
         /// Sets the value of [if_metageneration_not_match][crate::model::UpdateObjectRequest::if_metageneration_not_match].
         pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_metageneration_not_match = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [if_metageneration_not_match][crate::model::UpdateObjectRequest::if_metageneration_not_match].
-        pub fn set_or_clear_if_metageneration_not_match<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<i64>,
+        pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_metageneration_not_match = v.map(|x| x.into());
             self
@@ -1653,8 +1485,7 @@ pub mod storage_control {
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -1664,8 +1495,7 @@ pub mod storage_control {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -1673,20 +1503,15 @@ pub mod storage_control {
 
         /// Sets the value of [common_object_request_params][crate::model::UpdateObjectRequest::common_object_request_params].
         pub fn set_common_object_request_params<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::CommonObjectRequestParams>,
+        where T: std::convert::Into<crate::model::CommonObjectRequestParams>
         {
             self.0.request.common_object_request_params = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [common_object_request_params][crate::model::UpdateObjectRequest::common_object_request_params].
-        pub fn set_or_clear_common_object_request_params<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<crate::model::CommonObjectRequestParams>,
+        pub fn set_or_clear_common_object_request_params<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<crate::model::CommonObjectRequestParams>
         {
             self.0.request.common_object_request_params = v.map(|x| x.into());
             self
@@ -1731,10 +1556,10 @@ pub mod storage_control {
     pub struct ListObjects(RequestBuilder<crate::model::ListObjectsRequest>);
 
     impl ListObjects {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1751,17 +1576,11 @@ pub mod storage_control {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListObjectsResponse> {
-            (*self.0.stub)
-                .list_objects(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_objects(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListObjectsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListObjectsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1773,10 +1592,7 @@ pub mod storage_control {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListObjectsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListObjectsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1827,8 +1643,7 @@ pub mod storage_control {
 
         /// Sets the value of [read_mask][crate::model::ListObjectsRequest::read_mask].
         pub fn set_read_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.read_mask = std::option::Option::Some(v.into());
             self
@@ -1836,8 +1651,7 @@ pub mod storage_control {
 
         /// Sets or clears the value of [read_mask][crate::model::ListObjectsRequest::read_mask].
         pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.read_mask = v.map(|x| x.into());
             self
@@ -1908,10 +1722,10 @@ pub mod storage_control {
     pub struct RewriteObject(RequestBuilder<crate::model::RewriteObjectRequest>);
 
     impl RewriteObject {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1928,10 +1742,7 @@ pub mod storage_control {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::RewriteResponse> {
-            (*self.0.stub)
-                .rewrite_object(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).rewrite_object(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [destination_name][crate::model::RewriteObjectRequest::destination_name].
@@ -1958,8 +1769,7 @@ pub mod storage_control {
 
         /// Sets the value of [destination][crate::model::RewriteObjectRequest::destination].
         pub fn set_destination<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Object>,
+        where T: std::convert::Into<crate::model::Object>
         {
             self.0.request.destination = std::option::Option::Some(v.into());
             self
@@ -1967,8 +1777,7 @@ pub mod storage_control {
 
         /// Sets or clears the value of [destination][crate::model::RewriteObjectRequest::destination].
         pub fn set_or_clear_destination<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Object>,
+        where T: std::convert::Into<crate::model::Object>
         {
             self.0.request.destination = v.map(|x| x.into());
             self
@@ -2003,18 +1812,14 @@ pub mod storage_control {
         }
 
         /// Sets the value of [destination_predefined_acl][crate::model::RewriteObjectRequest::destination_predefined_acl].
-        pub fn set_destination_predefined_acl<T: Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_destination_predefined_acl<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.destination_predefined_acl = v.into();
             self
         }
 
         /// Sets the value of [if_generation_match][crate::model::RewriteObjectRequest::if_generation_match].
         pub fn set_if_generation_match<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_generation_match = std::option::Option::Some(v.into());
             self
@@ -2022,8 +1827,7 @@ pub mod storage_control {
 
         /// Sets or clears the value of [if_generation_match][crate::model::RewriteObjectRequest::if_generation_match].
         pub fn set_or_clear_if_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_generation_match = v.map(|x| x.into());
             self
@@ -2031,8 +1835,7 @@ pub mod storage_control {
 
         /// Sets the value of [if_generation_not_match][crate::model::RewriteObjectRequest::if_generation_not_match].
         pub fn set_if_generation_not_match<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_generation_not_match = std::option::Option::Some(v.into());
             self
@@ -2040,8 +1843,7 @@ pub mod storage_control {
 
         /// Sets or clears the value of [if_generation_not_match][crate::model::RewriteObjectRequest::if_generation_not_match].
         pub fn set_or_clear_if_generation_not_match<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_generation_not_match = v.map(|x| x.into());
             self
@@ -2049,8 +1851,7 @@ pub mod storage_control {
 
         /// Sets the value of [if_metageneration_match][crate::model::RewriteObjectRequest::if_metageneration_match].
         pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_metageneration_match = std::option::Option::Some(v.into());
             self
@@ -2058,8 +1859,7 @@ pub mod storage_control {
 
         /// Sets or clears the value of [if_metageneration_match][crate::model::RewriteObjectRequest::if_metageneration_match].
         pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_metageneration_match = v.map(|x| x.into());
             self
@@ -2067,20 +1867,15 @@ pub mod storage_control {
 
         /// Sets the value of [if_metageneration_not_match][crate::model::RewriteObjectRequest::if_metageneration_not_match].
         pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_metageneration_not_match = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [if_metageneration_not_match][crate::model::RewriteObjectRequest::if_metageneration_not_match].
-        pub fn set_or_clear_if_metageneration_not_match<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<i64>,
+        pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_metageneration_not_match = v.map(|x| x.into());
             self
@@ -2088,20 +1883,15 @@ pub mod storage_control {
 
         /// Sets the value of [if_source_generation_match][crate::model::RewriteObjectRequest::if_source_generation_match].
         pub fn set_if_source_generation_match<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_source_generation_match = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [if_source_generation_match][crate::model::RewriteObjectRequest::if_source_generation_match].
-        pub fn set_or_clear_if_source_generation_match<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<i64>,
+        pub fn set_or_clear_if_source_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_source_generation_match = v.map(|x| x.into());
             self
@@ -2109,20 +1899,15 @@ pub mod storage_control {
 
         /// Sets the value of [if_source_generation_not_match][crate::model::RewriteObjectRequest::if_source_generation_not_match].
         pub fn set_if_source_generation_not_match<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_source_generation_not_match = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [if_source_generation_not_match][crate::model::RewriteObjectRequest::if_source_generation_not_match].
-        pub fn set_or_clear_if_source_generation_not_match<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<i64>,
+        pub fn set_or_clear_if_source_generation_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_source_generation_not_match = v.map(|x| x.into());
             self
@@ -2130,20 +1915,15 @@ pub mod storage_control {
 
         /// Sets the value of [if_source_metageneration_match][crate::model::RewriteObjectRequest::if_source_metageneration_match].
         pub fn set_if_source_metageneration_match<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_source_metageneration_match = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [if_source_metageneration_match][crate::model::RewriteObjectRequest::if_source_metageneration_match].
-        pub fn set_or_clear_if_source_metageneration_match<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<i64>,
+        pub fn set_or_clear_if_source_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_source_metageneration_match = v.map(|x| x.into());
             self
@@ -2151,20 +1931,15 @@ pub mod storage_control {
 
         /// Sets the value of [if_source_metageneration_not_match][crate::model::RewriteObjectRequest::if_source_metageneration_not_match].
         pub fn set_if_source_metageneration_not_match<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_source_metageneration_not_match = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [if_source_metageneration_not_match][crate::model::RewriteObjectRequest::if_source_metageneration_not_match].
-        pub fn set_or_clear_if_source_metageneration_not_match<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<i64>,
+        pub fn set_or_clear_if_source_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_source_metageneration_not_match = v.map(|x| x.into());
             self
@@ -2177,48 +1952,34 @@ pub mod storage_control {
         }
 
         /// Sets the value of [copy_source_encryption_algorithm][crate::model::RewriteObjectRequest::copy_source_encryption_algorithm].
-        pub fn set_copy_source_encryption_algorithm<T: Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_copy_source_encryption_algorithm<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.copy_source_encryption_algorithm = v.into();
             self
         }
 
         /// Sets the value of [copy_source_encryption_key_bytes][crate::model::RewriteObjectRequest::copy_source_encryption_key_bytes].
-        pub fn set_copy_source_encryption_key_bytes<T: Into<::bytes::Bytes>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_copy_source_encryption_key_bytes<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.copy_source_encryption_key_bytes = v.into();
             self
         }
 
         /// Sets the value of [copy_source_encryption_key_sha256_bytes][crate::model::RewriteObjectRequest::copy_source_encryption_key_sha256_bytes].
-        pub fn set_copy_source_encryption_key_sha256_bytes<T: Into<::bytes::Bytes>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_copy_source_encryption_key_sha256_bytes<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.copy_source_encryption_key_sha256_bytes = v.into();
             self
         }
 
         /// Sets the value of [common_object_request_params][crate::model::RewriteObjectRequest::common_object_request_params].
         pub fn set_common_object_request_params<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::CommonObjectRequestParams>,
+        where T: std::convert::Into<crate::model::CommonObjectRequestParams>
         {
             self.0.request.common_object_request_params = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [common_object_request_params][crate::model::RewriteObjectRequest::common_object_request_params].
-        pub fn set_or_clear_common_object_request_params<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<crate::model::CommonObjectRequestParams>,
+        pub fn set_or_clear_common_object_request_params<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<crate::model::CommonObjectRequestParams>
         {
             self.0.request.common_object_request_params = v.map(|x| x.into());
             self
@@ -2226,8 +1987,7 @@ pub mod storage_control {
 
         /// Sets the value of [object_checksums][crate::model::RewriteObjectRequest::object_checksums].
         pub fn set_object_checksums<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::ObjectChecksums>,
+        where T: std::convert::Into<crate::model::ObjectChecksums>
         {
             self.0.request.object_checksums = std::option::Option::Some(v.into());
             self
@@ -2235,8 +1995,7 @@ pub mod storage_control {
 
         /// Sets or clears the value of [object_checksums][crate::model::RewriteObjectRequest::object_checksums].
         pub fn set_or_clear_object_checksums<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::ObjectChecksums>,
+        where T: std::convert::Into<crate::model::ObjectChecksums>
         {
             self.0.request.object_checksums = v.map(|x| x.into());
             self
@@ -2271,10 +2030,10 @@ pub mod storage_control {
     pub struct MoveObject(RequestBuilder<crate::model::MoveObjectRequest>);
 
     impl MoveObject {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2291,10 +2050,7 @@ pub mod storage_control {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Object> {
-            (*self.0.stub)
-                .move_object(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).move_object(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [bucket][crate::model::MoveObjectRequest::bucket].
@@ -2323,20 +2079,15 @@ pub mod storage_control {
 
         /// Sets the value of [if_source_generation_match][crate::model::MoveObjectRequest::if_source_generation_match].
         pub fn set_if_source_generation_match<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_source_generation_match = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [if_source_generation_match][crate::model::MoveObjectRequest::if_source_generation_match].
-        pub fn set_or_clear_if_source_generation_match<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<i64>,
+        pub fn set_or_clear_if_source_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_source_generation_match = v.map(|x| x.into());
             self
@@ -2344,20 +2095,15 @@ pub mod storage_control {
 
         /// Sets the value of [if_source_generation_not_match][crate::model::MoveObjectRequest::if_source_generation_not_match].
         pub fn set_if_source_generation_not_match<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_source_generation_not_match = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [if_source_generation_not_match][crate::model::MoveObjectRequest::if_source_generation_not_match].
-        pub fn set_or_clear_if_source_generation_not_match<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<i64>,
+        pub fn set_or_clear_if_source_generation_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_source_generation_not_match = v.map(|x| x.into());
             self
@@ -2365,20 +2111,15 @@ pub mod storage_control {
 
         /// Sets the value of [if_source_metageneration_match][crate::model::MoveObjectRequest::if_source_metageneration_match].
         pub fn set_if_source_metageneration_match<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_source_metageneration_match = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [if_source_metageneration_match][crate::model::MoveObjectRequest::if_source_metageneration_match].
-        pub fn set_or_clear_if_source_metageneration_match<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<i64>,
+        pub fn set_or_clear_if_source_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_source_metageneration_match = v.map(|x| x.into());
             self
@@ -2386,20 +2127,15 @@ pub mod storage_control {
 
         /// Sets the value of [if_source_metageneration_not_match][crate::model::MoveObjectRequest::if_source_metageneration_not_match].
         pub fn set_if_source_metageneration_not_match<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_source_metageneration_not_match = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [if_source_metageneration_not_match][crate::model::MoveObjectRequest::if_source_metageneration_not_match].
-        pub fn set_or_clear_if_source_metageneration_not_match<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<i64>,
+        pub fn set_or_clear_if_source_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_source_metageneration_not_match = v.map(|x| x.into());
             self
@@ -2407,8 +2143,7 @@ pub mod storage_control {
 
         /// Sets the value of [if_generation_match][crate::model::MoveObjectRequest::if_generation_match].
         pub fn set_if_generation_match<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_generation_match = std::option::Option::Some(v.into());
             self
@@ -2416,8 +2151,7 @@ pub mod storage_control {
 
         /// Sets or clears the value of [if_generation_match][crate::model::MoveObjectRequest::if_generation_match].
         pub fn set_or_clear_if_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_generation_match = v.map(|x| x.into());
             self
@@ -2425,8 +2159,7 @@ pub mod storage_control {
 
         /// Sets the value of [if_generation_not_match][crate::model::MoveObjectRequest::if_generation_not_match].
         pub fn set_if_generation_not_match<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_generation_not_match = std::option::Option::Some(v.into());
             self
@@ -2434,8 +2167,7 @@ pub mod storage_control {
 
         /// Sets or clears the value of [if_generation_not_match][crate::model::MoveObjectRequest::if_generation_not_match].
         pub fn set_or_clear_if_generation_not_match<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_generation_not_match = v.map(|x| x.into());
             self
@@ -2443,8 +2175,7 @@ pub mod storage_control {
 
         /// Sets the value of [if_metageneration_match][crate::model::MoveObjectRequest::if_metageneration_match].
         pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_metageneration_match = std::option::Option::Some(v.into());
             self
@@ -2452,8 +2183,7 @@ pub mod storage_control {
 
         /// Sets or clears the value of [if_metageneration_match][crate::model::MoveObjectRequest::if_metageneration_match].
         pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_metageneration_match = v.map(|x| x.into());
             self
@@ -2461,20 +2191,15 @@ pub mod storage_control {
 
         /// Sets the value of [if_metageneration_not_match][crate::model::MoveObjectRequest::if_metageneration_not_match].
         pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_metageneration_not_match = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [if_metageneration_not_match][crate::model::MoveObjectRequest::if_metageneration_not_match].
-        pub fn set_or_clear_if_metageneration_not_match<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<i64>,
+        pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_metageneration_not_match = v.map(|x| x.into());
             self
@@ -2487,4 +2212,5 @@ pub mod storage_control {
             &mut self.0.options
         }
     }
+
 }

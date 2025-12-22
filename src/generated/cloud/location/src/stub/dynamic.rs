@@ -28,6 +28,7 @@ pub trait Locations: std::fmt::Debug + Send + Sync {
         req: crate::model::GetLocationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Location>>;
+
 }
 
 /// All implementations of [super::Locations] also implement [Locations].
@@ -50,4 +51,5 @@ impl<T: super::Locations> Locations for T {
     ) -> crate::Result<gax::response::Response<crate::model::Location>> {
         T::get_location(self, req, options).await
     }
+
 }

@@ -273,8 +273,7 @@ impl<T: super::Datastream> Datastream for T {
         &self,
         req: crate::model::DiscoverConnectionProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::DiscoverConnectionProfileResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::DiscoverConnectionProfileResponse>> {
         T::discover_connection_profile(self, req, options).await
     }
 

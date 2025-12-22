@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [NetApp](super::stub::NetApp) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct NetApp<T>
-where
-    T: super::stub::NetApp + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::NetApp + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> NetApp<T>
-where
-    T: super::stub::NetApp + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::NetApp + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::NetApp for NetApp<T>
-where
-    T: super::stub::NetApp + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::NetApp + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn list_storage_pools(
         &self,
@@ -631,6 +625,7 @@ where
         self.inner.cancel_operation(req, options).await
     }
 
+
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -645,3 +640,4 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 }
+

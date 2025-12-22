@@ -23,9 +23,9 @@ impl serde::ser::Serialize for super::AttributeContext {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.origin.is_some() {
             state.serialize_entry("origin", &self.origin)?;
@@ -66,9 +66,9 @@ impl serde::ser::Serialize for super::attribute_context::Peer {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.ip.is_empty() {
             state.serialize_entry("ip", &self.ip)?;
@@ -109,9 +109,9 @@ impl serde::ser::Serialize for super::attribute_context::Api {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.service.is_empty() {
             state.serialize_entry("service", &self.service)?;
@@ -140,9 +140,9 @@ impl serde::ser::Serialize for super::attribute_context::Auth {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.principal.is_empty() {
             state.serialize_entry("principal", &self.principal)?;
@@ -174,9 +174,9 @@ impl serde::ser::Serialize for super::attribute_context::Request {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.id.is_empty() {
             state.serialize_entry("id", &self.id)?;
@@ -238,9 +238,9 @@ impl serde::ser::Serialize for super::attribute_context::Response {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.code) {
             struct __With<'a>(&'a i64);
@@ -290,9 +290,9 @@ impl serde::ser::Serialize for super::attribute_context::Resource {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.service.is_empty() {
             state.serialize_entry("service", &self.service)?;
@@ -345,9 +345,9 @@ impl serde::ser::Serialize for super::AuditContext {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.audit_log.is_empty() {
             struct __With<'a>(&'a ::bytes::Bytes);
@@ -377,10 +377,7 @@ impl serde::ser::Serialize for super::AuditContext {
                     serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
                 }
             }
-            state.serialize_entry(
-                "scrubbedResponseItemCount",
-                &__With(&self.scrubbed_response_item_count),
-            )?;
+            state.serialize_entry("scrubbedResponseItemCount", &__With(&self.scrubbed_response_item_count))?;
         }
         if !self.target_resource.is_empty() {
             state.serialize_entry("targetResource", &self.target_resource)?;

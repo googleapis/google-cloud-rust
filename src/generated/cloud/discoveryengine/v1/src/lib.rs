@@ -57,6 +57,7 @@
 //! * [UserLicenseService](client/struct.UserLicenseService.html)
 
 #![cfg_attr(docsrs, feature(doc_cfg))]
+
 #![allow(deprecated)]
 
 /// The messages and enums that are part of this client library.
@@ -83,54 +84,10 @@ pub(crate) mod tracing;
 pub(crate) mod transport;
 
 /// The default host used by the service.
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "cmek-config-service",
-    feature = "completion-service",
-    feature = "control-service",
-    feature = "conversational-search-service",
-    feature = "data-store-service",
-    feature = "document-service",
-    feature = "engine-service",
-    feature = "grounded-generation-service",
-    feature = "identity-mapping-store-service",
-    feature = "project-service",
-    feature = "rank-service",
-    feature = "recommendation-service",
-    feature = "schema-service",
-    feature = "search-service",
-    feature = "search-tuning-service",
-    feature = "serving-config-service",
-    feature = "session-service",
-    feature = "site-search-engine-service",
-    feature = "user-event-service",
-    feature = "user-license-service",
-))]
+#[cfg(any(feature = "assistant-service",feature = "cmek-config-service",feature = "completion-service",feature = "control-service",feature = "conversational-search-service",feature = "data-store-service",feature = "document-service",feature = "engine-service",feature = "grounded-generation-service",feature = "identity-mapping-store-service",feature = "project-service",feature = "rank-service",feature = "recommendation-service",feature = "schema-service",feature = "search-service",feature = "search-tuning-service",feature = "serving-config-service",feature = "session-service",feature = "site-search-engine-service",feature = "user-event-service",feature = "user-license-service",))]
 const DEFAULT_HOST: &str = "https://discoveryengine.googleapis.com/";
 
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "cmek-config-service",
-    feature = "completion-service",
-    feature = "control-service",
-    feature = "conversational-search-service",
-    feature = "data-store-service",
-    feature = "document-service",
-    feature = "engine-service",
-    feature = "grounded-generation-service",
-    feature = "identity-mapping-store-service",
-    feature = "project-service",
-    feature = "rank-service",
-    feature = "recommendation-service",
-    feature = "schema-service",
-    feature = "search-service",
-    feature = "search-tuning-service",
-    feature = "serving-config-service",
-    feature = "session-service",
-    feature = "site-search-engine-service",
-    feature = "user-event-service",
-    feature = "user-license-service",
-))]
+#[cfg(any(feature = "assistant-service",feature = "cmek-config-service",feature = "completion-service",feature = "control-service",feature = "conversational-search-service",feature = "data-store-service",feature = "document-service",feature = "engine-service",feature = "grounded-generation-service",feature = "identity-mapping-store-service",feature = "project-service",feature = "rank-service",feature = "recommendation-service",feature = "schema-service",feature = "search-service",feature = "search-tuning-service",feature = "serving-config-service",feature = "session-service",feature = "site-search-engine-service",feature = "user-event-service",feature = "user-license-service",))]
 pub(crate) mod info {
     const NAME: &str = env!("CARGO_PKG_NAME");
     const VERSION: &str = env!("CARGO_PKG_VERSION");
@@ -145,3 +102,4 @@ pub(crate) mod info {
         };
     }
 }
+

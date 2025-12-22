@@ -76,9 +76,7 @@ impl CertificateAuthorityService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::certificate_authority_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::certificate_authority_service::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::certificate_authority_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -86,44 +84,28 @@ impl CertificateAuthorityService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::CertificateAuthorityService + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::CertificateAuthorityService + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<
-        std::sync::Arc<dyn super::stub::dynamic::CertificateAuthorityService>,
-    > {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CertificateAuthorityService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::CertificateAuthorityService> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::CertificateAuthorityService> {
         super::transport::CertificateAuthorityService::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::CertificateAuthorityService> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::CertificateAuthorityService::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::CertificateAuthorityService> {
+        Self::build_transport(conf).await.map(super::tracing::CertificateAuthorityService::new)
     }
 
     /// Create a new [Certificate][google.cloud.security.privateca.v1.Certificate]
@@ -132,34 +114,80 @@ impl CertificateAuthorityService {
     ///
     /// [google.cloud.security.privateca.v1.CaPool]: crate::model::CaPool
     /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
-    pub fn create_certificate(
-        &self,
-    ) -> super::builder::certificate_authority_service::CreateCertificate {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::client::CertificateAuthorityService;
+    /// async fn sample(
+    ///    client: &CertificateAuthorityService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_certificate()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_certificate(&self) -> super::builder::certificate_authority_service::CreateCertificate
+    {
         super::builder::certificate_authority_service::CreateCertificate::new(self.inner.clone())
     }
 
     /// Returns a [Certificate][google.cloud.security.privateca.v1.Certificate].
     ///
     /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
-    pub fn get_certificate(&self) -> super::builder::certificate_authority_service::GetCertificate {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::client::CertificateAuthorityService;
+    /// async fn sample(
+    ///    client: &CertificateAuthorityService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_certificate()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_certificate(&self) -> super::builder::certificate_authority_service::GetCertificate
+    {
         super::builder::certificate_authority_service::GetCertificate::new(self.inner.clone())
     }
 
     /// Lists [Certificates][google.cloud.security.privateca.v1.Certificate].
     ///
     /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
-    pub fn list_certificates(
-        &self,
-    ) -> super::builder::certificate_authority_service::ListCertificates {
+    pub fn list_certificates(&self) -> super::builder::certificate_authority_service::ListCertificates
+    {
         super::builder::certificate_authority_service::ListCertificates::new(self.inner.clone())
     }
 
     /// Revoke a [Certificate][google.cloud.security.privateca.v1.Certificate].
     ///
     /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
-    pub fn revoke_certificate(
-        &self,
-    ) -> super::builder::certificate_authority_service::RevokeCertificate {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::client::CertificateAuthorityService;
+    /// async fn sample(
+    ///    client: &CertificateAuthorityService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .revoke_certificate()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn revoke_certificate(&self) -> super::builder::certificate_authority_service::RevokeCertificate
+    {
         super::builder::certificate_authority_service::RevokeCertificate::new(self.inner.clone())
     }
 
@@ -169,9 +197,24 @@ impl CertificateAuthorityService {
     ///
     /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
     /// [google.cloud.security.privateca.v1.Certificate.labels]: crate::model::Certificate::labels
-    pub fn update_certificate(
-        &self,
-    ) -> super::builder::certificate_authority_service::UpdateCertificate {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::client::CertificateAuthorityService;
+    /// async fn sample(
+    ///    client: &CertificateAuthorityService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_certificate()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_certificate(&self) -> super::builder::certificate_authority_service::UpdateCertificate
+    {
         super::builder::certificate_authority_service::UpdateCertificate::new(self.inner.clone())
     }
 
@@ -200,12 +243,9 @@ impl CertificateAuthorityService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn activate_certificate_authority(
-        &self,
-    ) -> super::builder::certificate_authority_service::ActivateCertificateAuthority {
-        super::builder::certificate_authority_service::ActivateCertificateAuthority::new(
-            self.inner.clone(),
-        )
+    pub fn activate_certificate_authority(&self) -> super::builder::certificate_authority_service::ActivateCertificateAuthority
+    {
+        super::builder::certificate_authority_service::ActivateCertificateAuthority::new(self.inner.clone())
     }
 
     /// Create a new
@@ -223,12 +263,9 @@ impl CertificateAuthorityService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_certificate_authority(
-        &self,
-    ) -> super::builder::certificate_authority_service::CreateCertificateAuthority {
-        super::builder::certificate_authority_service::CreateCertificateAuthority::new(
-            self.inner.clone(),
-        )
+    pub fn create_certificate_authority(&self) -> super::builder::certificate_authority_service::CreateCertificateAuthority
+    {
+        super::builder::certificate_authority_service::CreateCertificateAuthority::new(self.inner.clone())
     }
 
     /// Disable a
@@ -245,12 +282,9 @@ impl CertificateAuthorityService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn disable_certificate_authority(
-        &self,
-    ) -> super::builder::certificate_authority_service::DisableCertificateAuthority {
-        super::builder::certificate_authority_service::DisableCertificateAuthority::new(
-            self.inner.clone(),
-        )
+    pub fn disable_certificate_authority(&self) -> super::builder::certificate_authority_service::DisableCertificateAuthority
+    {
+        super::builder::certificate_authority_service::DisableCertificateAuthority::new(self.inner.clone())
     }
 
     /// Enable a
@@ -267,12 +301,9 @@ impl CertificateAuthorityService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn enable_certificate_authority(
-        &self,
-    ) -> super::builder::certificate_authority_service::EnableCertificateAuthority {
-        super::builder::certificate_authority_service::EnableCertificateAuthority::new(
-            self.inner.clone(),
-        )
+    pub fn enable_certificate_authority(&self) -> super::builder::certificate_authority_service::EnableCertificateAuthority
+    {
+        super::builder::certificate_authority_service::EnableCertificateAuthority::new(self.inner.clone())
     }
 
     /// Fetch a certificate signing request (CSR) from a
@@ -291,36 +322,59 @@ impl CertificateAuthorityService {
     /// [google.cloud.security.privateca.v1.CertificateAuthority.State.AWAITING_USER_ACTIVATION]: crate::model::certificate_authority::State::AwaitingUserActivation
     /// [google.cloud.security.privateca.v1.CertificateAuthority.Type.SUBORDINATE]: crate::model::certificate_authority::Type::Subordinate
     /// [google.cloud.security.privateca.v1.CertificateAuthorityService.ActivateCertificateAuthority]: crate::client::CertificateAuthorityService::activate_certificate_authority
-    pub fn fetch_certificate_authority_csr(
-        &self,
-    ) -> super::builder::certificate_authority_service::FetchCertificateAuthorityCsr {
-        super::builder::certificate_authority_service::FetchCertificateAuthorityCsr::new(
-            self.inner.clone(),
-        )
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::client::CertificateAuthorityService;
+    /// async fn sample(
+    ///    client: &CertificateAuthorityService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .fetch_certificate_authority_csr()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn fetch_certificate_authority_csr(&self) -> super::builder::certificate_authority_service::FetchCertificateAuthorityCsr
+    {
+        super::builder::certificate_authority_service::FetchCertificateAuthorityCsr::new(self.inner.clone())
     }
 
     /// Returns a
     /// [CertificateAuthority][google.cloud.security.privateca.v1.CertificateAuthority].
     ///
     /// [google.cloud.security.privateca.v1.CertificateAuthority]: crate::model::CertificateAuthority
-    pub fn get_certificate_authority(
-        &self,
-    ) -> super::builder::certificate_authority_service::GetCertificateAuthority {
-        super::builder::certificate_authority_service::GetCertificateAuthority::new(
-            self.inner.clone(),
-        )
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::client::CertificateAuthorityService;
+    /// async fn sample(
+    ///    client: &CertificateAuthorityService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_certificate_authority()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_certificate_authority(&self) -> super::builder::certificate_authority_service::GetCertificateAuthority
+    {
+        super::builder::certificate_authority_service::GetCertificateAuthority::new(self.inner.clone())
     }
 
     /// Lists
     /// [CertificateAuthorities][google.cloud.security.privateca.v1.CertificateAuthority].
     ///
     /// [google.cloud.security.privateca.v1.CertificateAuthority]: crate::model::CertificateAuthority
-    pub fn list_certificate_authorities(
-        &self,
-    ) -> super::builder::certificate_authority_service::ListCertificateAuthorities {
-        super::builder::certificate_authority_service::ListCertificateAuthorities::new(
-            self.inner.clone(),
-        )
+    pub fn list_certificate_authorities(&self) -> super::builder::certificate_authority_service::ListCertificateAuthorities
+    {
+        super::builder::certificate_authority_service::ListCertificateAuthorities::new(self.inner.clone())
     }
 
     /// Undelete a
@@ -338,12 +392,9 @@ impl CertificateAuthorityService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn undelete_certificate_authority(
-        &self,
-    ) -> super::builder::certificate_authority_service::UndeleteCertificateAuthority {
-        super::builder::certificate_authority_service::UndeleteCertificateAuthority::new(
-            self.inner.clone(),
-        )
+    pub fn undelete_certificate_authority(&self) -> super::builder::certificate_authority_service::UndeleteCertificateAuthority
+    {
+        super::builder::certificate_authority_service::UndeleteCertificateAuthority::new(self.inner.clone())
     }
 
     /// Delete a
@@ -360,12 +411,9 @@ impl CertificateAuthorityService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_certificate_authority(
-        &self,
-    ) -> super::builder::certificate_authority_service::DeleteCertificateAuthority {
-        super::builder::certificate_authority_service::DeleteCertificateAuthority::new(
-            self.inner.clone(),
-        )
+    pub fn delete_certificate_authority(&self) -> super::builder::certificate_authority_service::DeleteCertificateAuthority
+    {
+        super::builder::certificate_authority_service::DeleteCertificateAuthority::new(self.inner.clone())
     }
 
     /// Update a
@@ -382,12 +430,9 @@ impl CertificateAuthorityService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_certificate_authority(
-        &self,
-    ) -> super::builder::certificate_authority_service::UpdateCertificateAuthority {
-        super::builder::certificate_authority_service::UpdateCertificateAuthority::new(
-            self.inner.clone(),
-        )
+    pub fn update_certificate_authority(&self) -> super::builder::certificate_authority_service::UpdateCertificateAuthority
+    {
+        super::builder::certificate_authority_service::UpdateCertificateAuthority::new(self.inner.clone())
     }
 
     /// Create a [CaPool][google.cloud.security.privateca.v1.CaPool].
@@ -403,7 +448,8 @@ impl CertificateAuthorityService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_ca_pool(&self) -> super::builder::certificate_authority_service::CreateCaPool {
+    pub fn create_ca_pool(&self) -> super::builder::certificate_authority_service::CreateCaPool
+    {
         super::builder::certificate_authority_service::CreateCaPool::new(self.inner.clone())
     }
 
@@ -420,21 +466,40 @@ impl CertificateAuthorityService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_ca_pool(&self) -> super::builder::certificate_authority_service::UpdateCaPool {
+    pub fn update_ca_pool(&self) -> super::builder::certificate_authority_service::UpdateCaPool
+    {
         super::builder::certificate_authority_service::UpdateCaPool::new(self.inner.clone())
     }
 
     /// Returns a [CaPool][google.cloud.security.privateca.v1.CaPool].
     ///
     /// [google.cloud.security.privateca.v1.CaPool]: crate::model::CaPool
-    pub fn get_ca_pool(&self) -> super::builder::certificate_authority_service::GetCaPool {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::client::CertificateAuthorityService;
+    /// async fn sample(
+    ///    client: &CertificateAuthorityService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_ca_pool()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_ca_pool(&self) -> super::builder::certificate_authority_service::GetCaPool
+    {
         super::builder::certificate_authority_service::GetCaPool::new(self.inner.clone())
     }
 
     /// Lists [CaPools][google.cloud.security.privateca.v1.CaPool].
     ///
     /// [google.cloud.security.privateca.v1.CaPool]: crate::model::CaPool
-    pub fn list_ca_pools(&self) -> super::builder::certificate_authority_service::ListCaPools {
+    pub fn list_ca_pools(&self) -> super::builder::certificate_authority_service::ListCaPools
+    {
         super::builder::certificate_authority_service::ListCaPools::new(self.inner.clone())
     }
 
@@ -451,7 +516,8 @@ impl CertificateAuthorityService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_ca_pool(&self) -> super::builder::certificate_authority_service::DeleteCaPool {
+    pub fn delete_ca_pool(&self) -> super::builder::certificate_authority_service::DeleteCaPool
+    {
         super::builder::certificate_authority_service::DeleteCaPool::new(self.inner.clone())
     }
 
@@ -461,7 +527,24 @@ impl CertificateAuthorityService {
     /// DISABLED, or STAGED states.
     ///
     /// [google.cloud.security.privateca.v1.CaPool]: crate::model::CaPool
-    pub fn fetch_ca_certs(&self) -> super::builder::certificate_authority_service::FetchCaCerts {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::client::CertificateAuthorityService;
+    /// async fn sample(
+    ///    client: &CertificateAuthorityService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .fetch_ca_certs()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn fetch_ca_certs(&self) -> super::builder::certificate_authority_service::FetchCaCerts
+    {
         super::builder::certificate_authority_service::FetchCaCerts::new(self.inner.clone())
     }
 
@@ -469,24 +552,34 @@ impl CertificateAuthorityService {
     /// [CertificateRevocationList][google.cloud.security.privateca.v1.CertificateRevocationList].
     ///
     /// [google.cloud.security.privateca.v1.CertificateRevocationList]: crate::model::CertificateRevocationList
-    pub fn get_certificate_revocation_list(
-        &self,
-    ) -> super::builder::certificate_authority_service::GetCertificateRevocationList {
-        super::builder::certificate_authority_service::GetCertificateRevocationList::new(
-            self.inner.clone(),
-        )
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::client::CertificateAuthorityService;
+    /// async fn sample(
+    ///    client: &CertificateAuthorityService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_certificate_revocation_list()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_certificate_revocation_list(&self) -> super::builder::certificate_authority_service::GetCertificateRevocationList
+    {
+        super::builder::certificate_authority_service::GetCertificateRevocationList::new(self.inner.clone())
     }
 
     /// Lists
     /// [CertificateRevocationLists][google.cloud.security.privateca.v1.CertificateRevocationList].
     ///
     /// [google.cloud.security.privateca.v1.CertificateRevocationList]: crate::model::CertificateRevocationList
-    pub fn list_certificate_revocation_lists(
-        &self,
-    ) -> super::builder::certificate_authority_service::ListCertificateRevocationLists {
-        super::builder::certificate_authority_service::ListCertificateRevocationLists::new(
-            self.inner.clone(),
-        )
+    pub fn list_certificate_revocation_lists(&self) -> super::builder::certificate_authority_service::ListCertificateRevocationLists
+    {
+        super::builder::certificate_authority_service::ListCertificateRevocationLists::new(self.inner.clone())
     }
 
     /// Update a
@@ -503,12 +596,9 @@ impl CertificateAuthorityService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_certificate_revocation_list(
-        &self,
-    ) -> super::builder::certificate_authority_service::UpdateCertificateRevocationList {
-        super::builder::certificate_authority_service::UpdateCertificateRevocationList::new(
-            self.inner.clone(),
-        )
+    pub fn update_certificate_revocation_list(&self) -> super::builder::certificate_authority_service::UpdateCertificateRevocationList
+    {
+        super::builder::certificate_authority_service::UpdateCertificateRevocationList::new(self.inner.clone())
     }
 
     /// Create a new
@@ -526,12 +616,9 @@ impl CertificateAuthorityService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_certificate_template(
-        &self,
-    ) -> super::builder::certificate_authority_service::CreateCertificateTemplate {
-        super::builder::certificate_authority_service::CreateCertificateTemplate::new(
-            self.inner.clone(),
-        )
+    pub fn create_certificate_template(&self) -> super::builder::certificate_authority_service::CreateCertificateTemplate
+    {
+        super::builder::certificate_authority_service::CreateCertificateTemplate::new(self.inner.clone())
     }
 
     /// DeleteCertificateTemplate deletes a
@@ -548,36 +635,43 @@ impl CertificateAuthorityService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_certificate_template(
-        &self,
-    ) -> super::builder::certificate_authority_service::DeleteCertificateTemplate {
-        super::builder::certificate_authority_service::DeleteCertificateTemplate::new(
-            self.inner.clone(),
-        )
+    pub fn delete_certificate_template(&self) -> super::builder::certificate_authority_service::DeleteCertificateTemplate
+    {
+        super::builder::certificate_authority_service::DeleteCertificateTemplate::new(self.inner.clone())
     }
 
     /// Returns a
     /// [CertificateTemplate][google.cloud.security.privateca.v1.CertificateTemplate].
     ///
     /// [google.cloud.security.privateca.v1.CertificateTemplate]: crate::model::CertificateTemplate
-    pub fn get_certificate_template(
-        &self,
-    ) -> super::builder::certificate_authority_service::GetCertificateTemplate {
-        super::builder::certificate_authority_service::GetCertificateTemplate::new(
-            self.inner.clone(),
-        )
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::client::CertificateAuthorityService;
+    /// async fn sample(
+    ///    client: &CertificateAuthorityService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_certificate_template()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_certificate_template(&self) -> super::builder::certificate_authority_service::GetCertificateTemplate
+    {
+        super::builder::certificate_authority_service::GetCertificateTemplate::new(self.inner.clone())
     }
 
     /// Lists
     /// [CertificateTemplates][google.cloud.security.privateca.v1.CertificateTemplate].
     ///
     /// [google.cloud.security.privateca.v1.CertificateTemplate]: crate::model::CertificateTemplate
-    pub fn list_certificate_templates(
-        &self,
-    ) -> super::builder::certificate_authority_service::ListCertificateTemplates {
-        super::builder::certificate_authority_service::ListCertificateTemplates::new(
-            self.inner.clone(),
-        )
+    pub fn list_certificate_templates(&self) -> super::builder::certificate_authority_service::ListCertificateTemplates
+    {
+        super::builder::certificate_authority_service::ListCertificateTemplates::new(self.inner.clone())
     }
 
     /// Update a
@@ -594,21 +688,36 @@ impl CertificateAuthorityService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_certificate_template(
-        &self,
-    ) -> super::builder::certificate_authority_service::UpdateCertificateTemplate {
-        super::builder::certificate_authority_service::UpdateCertificateTemplate::new(
-            self.inner.clone(),
-        )
+    pub fn update_certificate_template(&self) -> super::builder::certificate_authority_service::UpdateCertificateTemplate
+    {
+        super::builder::certificate_authority_service::UpdateCertificateTemplate::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::certificate_authority_service::ListLocations {
+    pub fn list_locations(&self) -> super::builder::certificate_authority_service::ListLocations
+    {
         super::builder::certificate_authority_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(&self) -> super::builder::certificate_authority_service::GetLocation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::client::CertificateAuthorityService;
+    /// async fn sample(
+    ///    client: &CertificateAuthorityService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_location(&self) -> super::builder::certificate_authority_service::GetLocation
+    {
         super::builder::certificate_authority_service::GetLocation::new(self.inner.clone())
     }
 
@@ -617,13 +726,47 @@ impl CertificateAuthorityService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
-    pub fn set_iam_policy(&self) -> super::builder::certificate_authority_service::SetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::client::CertificateAuthorityService;
+    /// async fn sample(
+    ///    client: &CertificateAuthorityService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::certificate_authority_service::SetIamPolicy
+    {
         super::builder::certificate_authority_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
-    pub fn get_iam_policy(&self) -> super::builder::certificate_authority_service::GetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::client::CertificateAuthorityService;
+    /// async fn sample(
+    ///    client: &CertificateAuthorityService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::certificate_authority_service::GetIamPolicy
+    {
         super::builder::certificate_authority_service::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -634,41 +777,102 @@ impl CertificateAuthorityService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
-    pub fn test_iam_permissions(
-        &self,
-    ) -> super::builder::certificate_authority_service::TestIamPermissions {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::client::CertificateAuthorityService;
+    /// async fn sample(
+    ///    client: &CertificateAuthorityService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::certificate_authority_service::TestIamPermissions
+    {
         super::builder::certificate_authority_service::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::certificate_authority_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::certificate_authority_service::ListOperations
+    {
         super::builder::certificate_authority_service::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::certificate_authority_service::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::client::CertificateAuthorityService;
+    /// async fn sample(
+    ///    client: &CertificateAuthorityService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::certificate_authority_service::GetOperation
+    {
         super::builder::certificate_authority_service::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-    ) -> super::builder::certificate_authority_service::DeleteOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::client::CertificateAuthorityService;
+    /// async fn sample(
+    ///    client: &CertificateAuthorityService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_operation(&self) -> super::builder::certificate_authority_service::DeleteOperation
+    {
         super::builder::certificate_authority_service::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-    ) -> super::builder::certificate_authority_service::CancelOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::client::CertificateAuthorityService;
+    /// async fn sample(
+    ///    client: &CertificateAuthorityService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_operation(&self) -> super::builder::certificate_authority_service::CancelOperation
+    {
         super::builder::certificate_authority_service::CancelOperation::new(self.inner.clone())
     }
 }

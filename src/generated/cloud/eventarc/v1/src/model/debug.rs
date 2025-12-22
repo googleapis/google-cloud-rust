@@ -38,6 +38,7 @@ impl std::fmt::Debug for super::Channel {
     }
 }
 
+
 impl std::fmt::Debug for super::ChannelConnection {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ChannelConnection");
@@ -809,6 +810,8 @@ impl std::fmt::Debug for super::google_api_source::OrganizationSubscription {
     }
 }
 
+
+
 impl std::fmt::Debug for super::GoogleChannelConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GoogleChannelConfig");
@@ -973,10 +976,7 @@ impl std::fmt::Debug for super::pipeline::destination::HttpEndpoint {
 impl std::fmt::Debug for super::pipeline::destination::AuthenticationConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AuthenticationConfig");
-        debug_struct.field(
-            "authentication_method_descriptor",
-            &self.authentication_method_descriptor,
-        );
+        debug_struct.field("authentication_method_descriptor", &self.authentication_method_descriptor);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1043,6 +1043,8 @@ impl std::fmt::Debug for super::pipeline::RetryPolicy {
     }
 }
 
+
+
 impl std::fmt::Debug for super::Trigger {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Trigger");
@@ -1078,6 +1080,8 @@ impl std::fmt::Debug for super::trigger::RetryPolicy {
         debug_struct.finish()
     }
 }
+
+
 
 impl std::fmt::Debug for super::EventFilter {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

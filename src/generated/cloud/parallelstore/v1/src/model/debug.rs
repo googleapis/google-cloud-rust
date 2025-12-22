@@ -31,10 +31,7 @@ impl std::fmt::Debug for super::Instance {
         debug_struct.field("access_points", &self.access_points);
         debug_struct.field("network", &self.network);
         debug_struct.field("reserved_ip_range", &self.reserved_ip_range);
-        debug_struct.field(
-            "effective_reserved_ip_range",
-            &self.effective_reserved_ip_range,
-        );
+        debug_struct.field("effective_reserved_ip_range", &self.effective_reserved_ip_range);
         debug_struct.field("file_stripe_level", &self.file_stripe_level);
         debug_struct.field("directory_stripe_level", &self.directory_stripe_level);
         debug_struct.field("deployment_type", &self.deployment_type);
@@ -44,6 +41,7 @@ impl std::fmt::Debug for super::Instance {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::TransferMetadataOptions {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

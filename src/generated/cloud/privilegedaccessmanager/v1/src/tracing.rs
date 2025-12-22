@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [PrivilegedAccessManager](super::stub::PrivilegedAccessManager) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct PrivilegedAccessManager<T>
-where
-    T: super::stub::PrivilegedAccessManager + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::PrivilegedAccessManager + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> PrivilegedAccessManager<T>
-where
-    T: super::stub::PrivilegedAccessManager + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::PrivilegedAccessManager + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::PrivilegedAccessManager for PrivilegedAccessManager<T>
-where
-    T: super::stub::PrivilegedAccessManager + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::PrivilegedAccessManager + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn check_onboarding_status(
         &self,
@@ -208,6 +202,7 @@ where
         self.inner.delete_operation(req, options).await
     }
 
+
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -222,3 +217,4 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 }
+

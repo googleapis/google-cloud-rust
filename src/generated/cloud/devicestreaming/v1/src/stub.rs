@@ -38,14 +38,13 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait DirectAccessService: std::fmt::Debug + Send + Sync {
+
     /// Implements [super::client::DirectAccessService::create_device_session].
     fn create_device_session(
         &self,
         _req: crate::model::CreateDeviceSessionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::DeviceSession>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::DeviceSession>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -54,9 +53,7 @@ pub trait DirectAccessService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListDeviceSessionsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListDeviceSessionsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListDeviceSessionsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -65,9 +62,7 @@ pub trait DirectAccessService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetDeviceSessionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::DeviceSession>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::DeviceSession>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -85,9 +80,8 @@ pub trait DirectAccessService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateDeviceSessionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::DeviceSession>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::DeviceSession>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 }
+

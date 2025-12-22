@@ -112,14 +112,8 @@ impl std::fmt::Debug for super::CompensationInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CompensationInfo");
         debug_struct.field("entries", &self.entries);
-        debug_struct.field(
-            "annualized_base_compensation_range",
-            &self.annualized_base_compensation_range,
-        );
-        debug_struct.field(
-            "annualized_total_compensation_range",
-            &self.annualized_total_compensation_range,
-        );
+        debug_struct.field("annualized_base_compensation_range", &self.annualized_base_compensation_range);
+        debug_struct.field("annualized_total_compensation_range", &self.annualized_total_compensation_range);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -185,10 +179,7 @@ impl std::fmt::Debug for super::Company {
         debug_struct.field("website_uri", &self.website_uri);
         debug_struct.field("career_site_uri", &self.career_site_uri);
         debug_struct.field("image_uri", &self.image_uri);
-        debug_struct.field(
-            "keyword_searchable_job_custom_attributes",
-            &self.keyword_searchable_job_custom_attributes,
-        );
+        debug_struct.field("keyword_searchable_job_custom_attributes", &self.keyword_searchable_job_custom_attributes);
         debug_struct.field("derived_info", &self.derived_info);
         debug_struct.field("suspended", &self.suspended);
         if !self._unknown_fields.is_empty() {
@@ -408,10 +399,7 @@ impl std::fmt::Debug for super::CompensationFilter {
         debug_struct.field("r#type", &self.r#type);
         debug_struct.field("units", &self.units);
         debug_struct.field("range", &self.range);
-        debug_struct.field(
-            "include_jobs_with_unspecified_compensation_range",
-            &self.include_jobs_with_unspecified_compensation_range,
-        );
+        debug_struct.field("include_jobs_with_unspecified_compensation_range", &self.include_jobs_with_unspecified_compensation_range);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -525,10 +513,7 @@ impl std::fmt::Debug for super::job::DerivedInfo {
 impl std::fmt::Debug for super::job::ProcessingOptions {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ProcessingOptions");
-        debug_struct.field(
-            "disable_street_address_resolution",
-            &self.disable_street_address_resolution,
-        );
+        debug_struct.field("disable_street_address_resolution", &self.disable_street_address_resolution);
         debug_struct.field("html_sanitization", &self.html_sanitization);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -536,6 +521,7 @@ impl std::fmt::Debug for super::job::ProcessingOptions {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::CreateJobRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -658,10 +644,7 @@ impl std::fmt::Debug for super::SearchJobsResponse {
         debug_struct.field("location_filters", &self.location_filters);
         debug_struct.field("total_size", &self.total_size);
         debug_struct.field("metadata", &self.metadata);
-        debug_struct.field(
-            "broadened_query_jobs_count",
-            &self.broadened_query_jobs_count,
-        );
+        debug_struct.field("broadened_query_jobs_count", &self.broadened_query_jobs_count);
         debug_struct.field("spell_correction", &self.spell_correction);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);

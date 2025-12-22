@@ -118,6 +118,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<location::model::Location>>;
+
 }
 
 /// All implementations of [super::SecretManagerService] also implement [SecretManagerService].
@@ -275,4 +276,5 @@ impl<T: super::SecretManagerService> SecretManagerService for T {
     ) -> crate::Result<gax::response::Response<location::model::Location>> {
         T::get_location(self, req, options).await
     }
+
 }

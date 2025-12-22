@@ -39,10 +39,7 @@ pub mod edge_container {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = EdgeContainer;
             type Credentials = gaxi::options::Credentials;
-            async fn build(
-                self,
-                config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -57,12 +54,8 @@ pub mod edge_container {
     }
 
     impl<R> RequestBuilder<R>
-    where
-        R: std::default::Default,
-    {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
-        ) -> Self {
+    where R: std::default::Default {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -96,10 +89,10 @@ pub mod edge_container {
     pub struct ListClusters(RequestBuilder<crate::model::ListClustersRequest>);
 
     impl ListClusters {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -116,17 +109,11 @@ pub mod edge_container {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListClustersResponse> {
-            (*self.0.stub)
-                .list_clusters(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_clusters(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListClustersResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListClustersResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -138,10 +125,7 @@ pub mod edge_container {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListClustersResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListClustersResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -207,10 +191,10 @@ pub mod edge_container {
     pub struct GetCluster(RequestBuilder<crate::model::GetClusterRequest>);
 
     impl GetCluster {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -227,10 +211,7 @@ pub mod edge_container {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Cluster> {
-            (*self.0.stub)
-                .get_cluster(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_cluster(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetClusterRequest::name].
@@ -271,10 +252,10 @@ pub mod edge_container {
     pub struct CreateCluster(RequestBuilder<crate::model::CreateClusterRequest>);
 
     impl CreateCluster {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -296,18 +277,16 @@ pub mod edge_container {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_cluster][crate::client::EdgeContainer::create_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .create_cluster(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_cluster(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_cluster`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::Cluster, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
+            self
+        ) ->
+            impl lro::Poller<crate::model::Cluster, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -355,8 +334,7 @@ pub mod edge_container {
         ///
         /// This is a **required** field for requests.
         pub fn set_cluster<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Cluster>,
+        where T: std::convert::Into<crate::model::Cluster>
         {
             self.0.request.cluster = std::option::Option::Some(v.into());
             self
@@ -366,8 +344,7 @@ pub mod edge_container {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Cluster>,
+        where T: std::convert::Into<crate::model::Cluster>
         {
             self.0.request.cluster = v.map(|x| x.into());
             self
@@ -409,10 +386,10 @@ pub mod edge_container {
     pub struct UpdateCluster(RequestBuilder<crate::model::UpdateClusterRequest>);
 
     impl UpdateCluster {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -434,18 +411,16 @@ pub mod edge_container {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_cluster][crate::client::EdgeContainer::update_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .update_cluster(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_cluster(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_cluster`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::Cluster, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
+            self
+        ) ->
+            impl lro::Poller<crate::model::Cluster, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -475,8 +450,7 @@ pub mod edge_container {
 
         /// Sets the value of [update_mask][crate::model::UpdateClusterRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -484,8 +458,7 @@ pub mod edge_container {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateClusterRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -493,8 +466,7 @@ pub mod edge_container {
 
         /// Sets the value of [cluster][crate::model::UpdateClusterRequest::cluster].
         pub fn set_cluster<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Cluster>,
+        where T: std::convert::Into<crate::model::Cluster>
         {
             self.0.request.cluster = std::option::Option::Some(v.into());
             self
@@ -502,8 +474,7 @@ pub mod edge_container {
 
         /// Sets or clears the value of [cluster][crate::model::UpdateClusterRequest::cluster].
         pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Cluster>,
+        where T: std::convert::Into<crate::model::Cluster>
         {
             self.0.request.cluster = v.map(|x| x.into());
             self
@@ -545,10 +516,10 @@ pub mod edge_container {
     pub struct UpgradeCluster(RequestBuilder<crate::model::UpgradeClusterRequest>);
 
     impl UpgradeCluster {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -570,18 +541,16 @@ pub mod edge_container {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [upgrade_cluster][crate::client::EdgeContainer::upgrade_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .upgrade_cluster(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).upgrade_cluster(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `upgrade_cluster`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::Cluster, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
+            self
+        ) ->
+            impl lro::Poller<crate::model::Cluster, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -626,10 +595,7 @@ pub mod edge_container {
         }
 
         /// Sets the value of [schedule][crate::model::UpgradeClusterRequest::schedule].
-        pub fn set_schedule<T: Into<crate::model::upgrade_cluster_request::Schedule>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_schedule<T: Into<crate::model::upgrade_cluster_request::Schedule>>(mut self, v: T) -> Self {
             self.0.request.schedule = v.into();
             self
         }
@@ -670,10 +636,10 @@ pub mod edge_container {
     pub struct DeleteCluster(RequestBuilder<crate::model::DeleteClusterRequest>);
 
     impl DeleteCluster {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -695,14 +661,15 @@ pub mod edge_container {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_cluster][crate::client::EdgeContainer::delete_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .delete_cluster(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_cluster(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_cluster`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+        pub fn poller(
+            self
+        ) ->
+            impl lro::Poller<(), crate::model::OperationMetadata>
+        {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -728,12 +695,7 @@ pub mod edge_container {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteClusterRequest::name].
@@ -779,17 +741,14 @@ pub mod edge_container {
     pub struct GenerateAccessToken(RequestBuilder<crate::model::GenerateAccessTokenRequest>);
 
     impl GenerateAccessToken {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GenerateAccessTokenRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GenerateAccessTokenRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -802,10 +761,7 @@ pub mod edge_container {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::GenerateAccessTokenResponse> {
-            (*self.0.stub)
-                .generate_access_token(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).generate_access_token(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [cluster][crate::model::GenerateAccessTokenRequest::cluster].
@@ -842,22 +798,17 @@ pub mod edge_container {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GenerateOfflineCredential(
-        RequestBuilder<crate::model::GenerateOfflineCredentialRequest>,
-    );
+    pub struct GenerateOfflineCredential(RequestBuilder<crate::model::GenerateOfflineCredentialRequest>);
 
     impl GenerateOfflineCredential {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GenerateOfflineCredentialRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GenerateOfflineCredentialRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -870,10 +821,7 @@ pub mod edge_container {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::GenerateOfflineCredentialResponse> {
-            (*self.0.stub)
-                .generate_offline_credential(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).generate_offline_credential(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [cluster][crate::model::GenerateOfflineCredentialRequest::cluster].
@@ -917,10 +865,10 @@ pub mod edge_container {
     pub struct ListNodePools(RequestBuilder<crate::model::ListNodePoolsRequest>);
 
     impl ListNodePools {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -937,17 +885,11 @@ pub mod edge_container {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListNodePoolsResponse> {
-            (*self.0.stub)
-                .list_node_pools(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_node_pools(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListNodePoolsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListNodePoolsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -959,10 +901,7 @@ pub mod edge_container {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListNodePoolsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListNodePoolsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1028,10 +967,10 @@ pub mod edge_container {
     pub struct GetNodePool(RequestBuilder<crate::model::GetNodePoolRequest>);
 
     impl GetNodePool {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1048,10 +987,7 @@ pub mod edge_container {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::NodePool> {
-            (*self.0.stub)
-                .get_node_pool(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_node_pool(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetNodePoolRequest::name].
@@ -1092,10 +1028,10 @@ pub mod edge_container {
     pub struct CreateNodePool(RequestBuilder<crate::model::CreateNodePoolRequest>);
 
     impl CreateNodePool {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1117,18 +1053,16 @@ pub mod edge_container {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_node_pool][crate::client::EdgeContainer::create_node_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .create_node_pool(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_node_pool(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_node_pool`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::NodePool, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::NodePool, crate::model::OperationMetadata>;
+            self
+        ) ->
+            impl lro::Poller<crate::model::NodePool, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::NodePool, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1176,8 +1110,7 @@ pub mod edge_container {
         ///
         /// This is a **required** field for requests.
         pub fn set_node_pool<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::NodePool>,
+        where T: std::convert::Into<crate::model::NodePool>
         {
             self.0.request.node_pool = std::option::Option::Some(v.into());
             self
@@ -1187,8 +1120,7 @@ pub mod edge_container {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_node_pool<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::NodePool>,
+        where T: std::convert::Into<crate::model::NodePool>
         {
             self.0.request.node_pool = v.map(|x| x.into());
             self
@@ -1230,10 +1162,10 @@ pub mod edge_container {
     pub struct UpdateNodePool(RequestBuilder<crate::model::UpdateNodePoolRequest>);
 
     impl UpdateNodePool {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1255,18 +1187,16 @@ pub mod edge_container {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_node_pool][crate::client::EdgeContainer::update_node_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .update_node_pool(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_node_pool(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_node_pool`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::NodePool, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::NodePool, crate::model::OperationMetadata>;
+            self
+        ) ->
+            impl lro::Poller<crate::model::NodePool, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::NodePool, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1296,8 +1226,7 @@ pub mod edge_container {
 
         /// Sets the value of [update_mask][crate::model::UpdateNodePoolRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -1305,8 +1234,7 @@ pub mod edge_container {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateNodePoolRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -1314,8 +1242,7 @@ pub mod edge_container {
 
         /// Sets the value of [node_pool][crate::model::UpdateNodePoolRequest::node_pool].
         pub fn set_node_pool<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::NodePool>,
+        where T: std::convert::Into<crate::model::NodePool>
         {
             self.0.request.node_pool = std::option::Option::Some(v.into());
             self
@@ -1323,8 +1250,7 @@ pub mod edge_container {
 
         /// Sets or clears the value of [node_pool][crate::model::UpdateNodePoolRequest::node_pool].
         pub fn set_or_clear_node_pool<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::NodePool>,
+        where T: std::convert::Into<crate::model::NodePool>
         {
             self.0.request.node_pool = v.map(|x| x.into());
             self
@@ -1366,10 +1292,10 @@ pub mod edge_container {
     pub struct DeleteNodePool(RequestBuilder<crate::model::DeleteNodePoolRequest>);
 
     impl DeleteNodePool {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1391,14 +1317,15 @@ pub mod edge_container {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_node_pool][crate::client::EdgeContainer::delete_node_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .delete_node_pool(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_node_pool(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_node_pool`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+        pub fn poller(
+            self
+        ) ->
+            impl lro::Poller<(), crate::model::OperationMetadata>
+        {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -1424,12 +1351,7 @@ pub mod edge_container {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteNodePoolRequest::name].
@@ -1479,10 +1401,10 @@ pub mod edge_container {
     pub struct ListMachines(RequestBuilder<crate::model::ListMachinesRequest>);
 
     impl ListMachines {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1499,17 +1421,11 @@ pub mod edge_container {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListMachinesResponse> {
-            (*self.0.stub)
-                .list_machines(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_machines(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListMachinesResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListMachinesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1521,10 +1437,7 @@ pub mod edge_container {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListMachinesResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListMachinesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1590,10 +1503,10 @@ pub mod edge_container {
     pub struct GetMachine(RequestBuilder<crate::model::GetMachineRequest>);
 
     impl GetMachine {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1610,10 +1523,7 @@ pub mod edge_container {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Machine> {
-            (*self.0.stub)
-                .get_machine(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_machine(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetMachineRequest::name].
@@ -1657,17 +1567,14 @@ pub mod edge_container {
     pub struct ListVpnConnections(RequestBuilder<crate::model::ListVpnConnectionsRequest>);
 
     impl ListVpnConnections {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListVpnConnectionsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListVpnConnectionsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1680,17 +1587,11 @@ pub mod edge_container {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListVpnConnectionsResponse> {
-            (*self.0.stub)
-                .list_vpn_connections(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_vpn_connections(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListVpnConnectionsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListVpnConnectionsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1702,12 +1603,7 @@ pub mod edge_container {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListVpnConnectionsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListVpnConnectionsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1773,17 +1669,14 @@ pub mod edge_container {
     pub struct GetVpnConnection(RequestBuilder<crate::model::GetVpnConnectionRequest>);
 
     impl GetVpnConnection {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetVpnConnectionRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetVpnConnectionRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1796,10 +1689,7 @@ pub mod edge_container {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::VpnConnection> {
-            (*self.0.stub)
-                .get_vpn_connection(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_vpn_connection(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetVpnConnectionRequest::name].
@@ -1840,17 +1730,14 @@ pub mod edge_container {
     pub struct CreateVpnConnection(RequestBuilder<crate::model::CreateVpnConnectionRequest>);
 
     impl CreateVpnConnection {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateVpnConnectionRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateVpnConnectionRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1868,21 +1755,16 @@ pub mod edge_container {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_vpn_connection][crate::client::EdgeContainer::create_vpn_connection].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .create_vpn_connection(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_vpn_connection(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_vpn_connection`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::VpnConnection, crate::model::OperationMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::VpnConnection, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::VpnConnection,
-                crate::model::OperationMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::VpnConnection, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1930,8 +1812,7 @@ pub mod edge_container {
         ///
         /// This is a **required** field for requests.
         pub fn set_vpn_connection<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::VpnConnection>,
+        where T: std::convert::Into<crate::model::VpnConnection>
         {
             self.0.request.vpn_connection = std::option::Option::Some(v.into());
             self
@@ -1941,8 +1822,7 @@ pub mod edge_container {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_vpn_connection<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::VpnConnection>,
+        where T: std::convert::Into<crate::model::VpnConnection>
         {
             self.0.request.vpn_connection = v.map(|x| x.into());
             self
@@ -1984,17 +1864,14 @@ pub mod edge_container {
     pub struct DeleteVpnConnection(RequestBuilder<crate::model::DeleteVpnConnectionRequest>);
 
     impl DeleteVpnConnection {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteVpnConnectionRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteVpnConnectionRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2012,14 +1889,15 @@ pub mod edge_container {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_vpn_connection][crate::client::EdgeContainer::delete_vpn_connection].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .delete_vpn_connection(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_vpn_connection(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_vpn_connection`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+        pub fn poller(
+            self
+        ) ->
+            impl lro::Poller<(), crate::model::OperationMetadata>
+        {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -2045,12 +1923,7 @@ pub mod edge_container {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteVpnConnectionRequest::name].
@@ -2096,10 +1969,10 @@ pub mod edge_container {
     pub struct GetServerConfig(RequestBuilder<crate::model::GetServerConfigRequest>);
 
     impl GetServerConfig {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2116,10 +1989,7 @@ pub mod edge_container {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ServerConfig> {
-            (*self.0.stub)
-                .get_server_config(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_server_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetServerConfigRequest::name].
@@ -2163,17 +2033,14 @@ pub mod edge_container {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2186,17 +2053,11 @@ pub mod edge_container {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::ListLocationsResponse> {
-            (*self.0.stub)
-                .list_locations(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_locations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2208,10 +2069,7 @@ pub mod edge_container {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2269,10 +2127,10 @@ pub mod edge_container {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2289,10 +2147,7 @@ pub mod edge_container {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::Location> {
-            (*self.0.stub)
-                .get_location(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_location(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -2334,17 +2189,14 @@ pub mod edge_container {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2357,17 +2209,11 @@ pub mod edge_container {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::ListOperationsResponse> {
-            (*self.0.stub)
-                .list_operations(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_operations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2379,12 +2225,7 @@ pub mod edge_container {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            longrunning::model::ListOperationsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2448,17 +2289,14 @@ pub mod edge_container {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2471,10 +2309,7 @@ pub mod edge_container {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .get_operation(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -2512,17 +2347,14 @@ pub mod edge_container {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2535,10 +2367,7 @@ pub mod edge_container {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .delete_operation(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -2576,17 +2405,14 @@ pub mod edge_container {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2599,10 +2425,7 @@ pub mod edge_container {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .cancel_operation(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).cancel_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -2618,4 +2441,5 @@ pub mod edge_container {
             &mut self.0.options
         }
     }
+
 }

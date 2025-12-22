@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [CloudBilling](super::stub::CloudBilling) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct CloudBilling<T>
-where
-    T: super::stub::CloudBilling + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::CloudBilling + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> CloudBilling<T>
-where
-    T: super::stub::CloudBilling + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::CloudBilling + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::CloudBilling for CloudBilling<T>
-where
-    T: super::stub::CloudBilling + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::CloudBilling + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn get_billing_account(
         &self,
@@ -135,30 +129,25 @@ where
     ) -> Result<gax::response::Response<crate::model::BillingAccount>> {
         self.inner.move_billing_account(req, options).await
     }
+
 }
 
 /// Implements a [CloudCatalog](super::stub::CloudCatalog) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct CloudCatalog<T>
-where
-    T: super::stub::CloudCatalog + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::CloudCatalog + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> CloudCatalog<T>
-where
-    T: super::stub::CloudCatalog + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::CloudCatalog + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::CloudCatalog for CloudCatalog<T>
-where
-    T: super::stub::CloudCatalog + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::CloudCatalog + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn list_services(
         &self,
@@ -176,4 +165,6 @@ where
     ) -> Result<gax::response::Response<crate::model::ListSkusResponse>> {
         self.inner.list_skus(req, options).await
     }
+
 }
+

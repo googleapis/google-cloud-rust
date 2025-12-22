@@ -39,10 +39,7 @@ pub mod recaptcha_enterprise_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = RecaptchaEnterpriseService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(
-                self,
-                config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -57,12 +54,8 @@ pub mod recaptcha_enterprise_service {
     }
 
     impl<R> RequestBuilder<R>
-    where
-        R: std::default::Default,
-    {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
-        ) -> Self {
+    where R: std::default::Default {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -92,17 +85,14 @@ pub mod recaptcha_enterprise_service {
     pub struct CreateAssessment(RequestBuilder<crate::model::CreateAssessmentRequest>);
 
     impl CreateAssessment {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateAssessmentRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateAssessmentRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -115,10 +105,7 @@ pub mod recaptcha_enterprise_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Assessment> {
-            (*self.0.stub)
-                .create_assessment(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_assessment(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateAssessmentRequest::parent].
@@ -133,8 +120,7 @@ pub mod recaptcha_enterprise_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_assessment<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Assessment>,
+        where T: std::convert::Into<crate::model::Assessment>
         {
             self.0.request.assessment = std::option::Option::Some(v.into());
             self
@@ -144,8 +130,7 @@ pub mod recaptcha_enterprise_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_assessment<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Assessment>,
+        where T: std::convert::Into<crate::model::Assessment>
         {
             self.0.request.assessment = v.map(|x| x.into());
             self
@@ -180,17 +165,14 @@ pub mod recaptcha_enterprise_service {
     pub struct AnnotateAssessment(RequestBuilder<crate::model::AnnotateAssessmentRequest>);
 
     impl AnnotateAssessment {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::AnnotateAssessmentRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::AnnotateAssessmentRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -203,10 +185,7 @@ pub mod recaptcha_enterprise_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::AnnotateAssessmentResponse> {
-            (*self.0.stub)
-                .annotate_assessment(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).annotate_assessment(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::AnnotateAssessmentRequest::name].
@@ -218,10 +197,7 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets the value of [annotation][crate::model::AnnotateAssessmentRequest::annotation].
-        pub fn set_annotation<T: Into<crate::model::annotate_assessment_request::Annotation>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_annotation<T: Into<crate::model::annotate_assessment_request::Annotation>>(mut self, v: T) -> Self {
             self.0.request.annotation = v.into();
             self
         }
@@ -230,7 +206,7 @@ pub mod recaptcha_enterprise_service {
         pub fn set_reasons<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::annotate_assessment_request::Reason>,
+            V: std::convert::Into<crate::model::annotate_assessment_request::Reason>
         {
             use std::iter::Iterator;
             self.0.request.reasons = v.into_iter().map(|i| i.into()).collect();
@@ -251,8 +227,7 @@ pub mod recaptcha_enterprise_service {
 
         /// Sets the value of [transaction_event][crate::model::AnnotateAssessmentRequest::transaction_event].
         pub fn set_transaction_event<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::TransactionEvent>,
+        where T: std::convert::Into<crate::model::TransactionEvent>
         {
             self.0.request.transaction_event = std::option::Option::Some(v.into());
             self
@@ -260,8 +235,7 @@ pub mod recaptcha_enterprise_service {
 
         /// Sets or clears the value of [transaction_event][crate::model::AnnotateAssessmentRequest::transaction_event].
         pub fn set_or_clear_transaction_event<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::TransactionEvent>,
+        where T: std::convert::Into<crate::model::TransactionEvent>
         {
             self.0.request.transaction_event = v.map(|x| x.into());
             self
@@ -296,10 +270,10 @@ pub mod recaptcha_enterprise_service {
     pub struct CreateKey(RequestBuilder<crate::model::CreateKeyRequest>);
 
     impl CreateKey {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -316,10 +290,7 @@ pub mod recaptcha_enterprise_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Key> {
-            (*self.0.stub)
-                .create_key(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_key(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateKeyRequest::parent].
@@ -334,8 +305,7 @@ pub mod recaptcha_enterprise_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_key<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Key>,
+        where T: std::convert::Into<crate::model::Key>
         {
             self.0.request.key = std::option::Option::Some(v.into());
             self
@@ -345,8 +315,7 @@ pub mod recaptcha_enterprise_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_key<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Key>,
+        where T: std::convert::Into<crate::model::Key>
         {
             self.0.request.key = v.map(|x| x.into());
             self
@@ -385,10 +354,10 @@ pub mod recaptcha_enterprise_service {
     pub struct ListKeys(RequestBuilder<crate::model::ListKeysRequest>);
 
     impl ListKeys {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -405,17 +374,11 @@ pub mod recaptcha_enterprise_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListKeysResponse> {
-            (*self.0.stub)
-                .list_keys(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_keys(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListKeysResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListKeysResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -427,10 +390,7 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListKeysResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListKeysResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -481,22 +441,17 @@ pub mod recaptcha_enterprise_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RetrieveLegacySecretKey(
-        RequestBuilder<crate::model::RetrieveLegacySecretKeyRequest>,
-    );
+    pub struct RetrieveLegacySecretKey(RequestBuilder<crate::model::RetrieveLegacySecretKeyRequest>);
 
     impl RetrieveLegacySecretKey {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::RetrieveLegacySecretKeyRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::RetrieveLegacySecretKeyRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -509,10 +464,7 @@ pub mod recaptcha_enterprise_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::RetrieveLegacySecretKeyResponse> {
-            (*self.0.stub)
-                .retrieve_legacy_secret_key(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).retrieve_legacy_secret_key(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [key][crate::model::RetrieveLegacySecretKeyRequest::key].
@@ -552,10 +504,10 @@ pub mod recaptcha_enterprise_service {
     pub struct GetKey(RequestBuilder<crate::model::GetKeyRequest>);
 
     impl GetKey {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -572,10 +524,7 @@ pub mod recaptcha_enterprise_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Key> {
-            (*self.0.stub)
-                .get_key(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_key(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetKeyRequest::name].
@@ -615,10 +564,10 @@ pub mod recaptcha_enterprise_service {
     pub struct UpdateKey(RequestBuilder<crate::model::UpdateKeyRequest>);
 
     impl UpdateKey {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -635,18 +584,14 @@ pub mod recaptcha_enterprise_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Key> {
-            (*self.0.stub)
-                .update_key(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_key(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [key][crate::model::UpdateKeyRequest::key].
         ///
         /// This is a **required** field for requests.
         pub fn set_key<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Key>,
+        where T: std::convert::Into<crate::model::Key>
         {
             self.0.request.key = std::option::Option::Some(v.into());
             self
@@ -656,8 +601,7 @@ pub mod recaptcha_enterprise_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_key<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Key>,
+        where T: std::convert::Into<crate::model::Key>
         {
             self.0.request.key = v.map(|x| x.into());
             self
@@ -665,8 +609,7 @@ pub mod recaptcha_enterprise_service {
 
         /// Sets the value of [update_mask][crate::model::UpdateKeyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -674,8 +617,7 @@ pub mod recaptcha_enterprise_service {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateKeyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -710,10 +652,10 @@ pub mod recaptcha_enterprise_service {
     pub struct DeleteKey(RequestBuilder<crate::model::DeleteKeyRequest>);
 
     impl DeleteKey {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -730,10 +672,7 @@ pub mod recaptcha_enterprise_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .delete_key(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_key(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteKeyRequest::name].
@@ -773,10 +712,10 @@ pub mod recaptcha_enterprise_service {
     pub struct MigrateKey(RequestBuilder<crate::model::MigrateKeyRequest>);
 
     impl MigrateKey {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -793,10 +732,7 @@ pub mod recaptcha_enterprise_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Key> {
-            (*self.0.stub)
-                .migrate_key(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).migrate_key(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::MigrateKeyRequest::name].
@@ -842,10 +778,10 @@ pub mod recaptcha_enterprise_service {
     pub struct AddIpOverride(RequestBuilder<crate::model::AddIpOverrideRequest>);
 
     impl AddIpOverride {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -862,10 +798,7 @@ pub mod recaptcha_enterprise_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::AddIpOverrideResponse> {
-            (*self.0.stub)
-                .add_ip_override(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).add_ip_override(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::AddIpOverrideRequest::name].
@@ -880,8 +813,7 @@ pub mod recaptcha_enterprise_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_ip_override_data<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::IpOverrideData>,
+        where T: std::convert::Into<crate::model::IpOverrideData>
         {
             self.0.request.ip_override_data = std::option::Option::Some(v.into());
             self
@@ -891,8 +823,7 @@ pub mod recaptcha_enterprise_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_ip_override_data<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::IpOverrideData>,
+        where T: std::convert::Into<crate::model::IpOverrideData>
         {
             self.0.request.ip_override_data = v.map(|x| x.into());
             self
@@ -927,17 +858,14 @@ pub mod recaptcha_enterprise_service {
     pub struct RemoveIpOverride(RequestBuilder<crate::model::RemoveIpOverrideRequest>);
 
     impl RemoveIpOverride {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::RemoveIpOverrideRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::RemoveIpOverrideRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -950,10 +878,7 @@ pub mod recaptcha_enterprise_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::RemoveIpOverrideResponse> {
-            (*self.0.stub)
-                .remove_ip_override(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).remove_ip_override(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::RemoveIpOverrideRequest::name].
@@ -968,8 +893,7 @@ pub mod recaptcha_enterprise_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_ip_override_data<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::IpOverrideData>,
+        where T: std::convert::Into<crate::model::IpOverrideData>
         {
             self.0.request.ip_override_data = std::option::Option::Some(v.into());
             self
@@ -979,8 +903,7 @@ pub mod recaptcha_enterprise_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_ip_override_data<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::IpOverrideData>,
+        where T: std::convert::Into<crate::model::IpOverrideData>
         {
             self.0.request.ip_override_data = v.map(|x| x.into());
             self
@@ -1019,10 +942,10 @@ pub mod recaptcha_enterprise_service {
     pub struct ListIpOverrides(RequestBuilder<crate::model::ListIpOverridesRequest>);
 
     impl ListIpOverrides {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1039,17 +962,11 @@ pub mod recaptcha_enterprise_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListIpOverridesResponse> {
-            (*self.0.stub)
-                .list_ip_overrides(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_ip_overrides(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListIpOverridesResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListIpOverridesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1061,10 +978,7 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListIpOverridesResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListIpOverridesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1118,10 +1032,10 @@ pub mod recaptcha_enterprise_service {
     pub struct GetMetrics(RequestBuilder<crate::model::GetMetricsRequest>);
 
     impl GetMetrics {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1138,10 +1052,7 @@ pub mod recaptcha_enterprise_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Metrics> {
-            (*self.0.stub)
-                .get_metrics(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_metrics(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetMetricsRequest::name].
@@ -1181,17 +1092,14 @@ pub mod recaptcha_enterprise_service {
     pub struct CreateFirewallPolicy(RequestBuilder<crate::model::CreateFirewallPolicyRequest>);
 
     impl CreateFirewallPolicy {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateFirewallPolicyRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateFirewallPolicyRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1204,10 +1112,7 @@ pub mod recaptcha_enterprise_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::FirewallPolicy> {
-            (*self.0.stub)
-                .create_firewall_policy(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_firewall_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateFirewallPolicyRequest::parent].
@@ -1222,8 +1127,7 @@ pub mod recaptcha_enterprise_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_firewall_policy<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::FirewallPolicy>,
+        where T: std::convert::Into<crate::model::FirewallPolicy>
         {
             self.0.request.firewall_policy = std::option::Option::Some(v.into());
             self
@@ -1233,8 +1137,7 @@ pub mod recaptcha_enterprise_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_firewall_policy<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::FirewallPolicy>,
+        where T: std::convert::Into<crate::model::FirewallPolicy>
         {
             self.0.request.firewall_policy = v.map(|x| x.into());
             self
@@ -1273,17 +1176,14 @@ pub mod recaptcha_enterprise_service {
     pub struct ListFirewallPolicies(RequestBuilder<crate::model::ListFirewallPoliciesRequest>);
 
     impl ListFirewallPolicies {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListFirewallPoliciesRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListFirewallPoliciesRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1296,17 +1196,11 @@ pub mod recaptcha_enterprise_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListFirewallPoliciesResponse> {
-            (*self.0.stub)
-                .list_firewall_policies(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_firewall_policies(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListFirewallPoliciesResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListFirewallPoliciesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1318,12 +1212,7 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListFirewallPoliciesResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListFirewallPoliciesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1377,17 +1266,14 @@ pub mod recaptcha_enterprise_service {
     pub struct GetFirewallPolicy(RequestBuilder<crate::model::GetFirewallPolicyRequest>);
 
     impl GetFirewallPolicy {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetFirewallPolicyRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetFirewallPolicyRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1400,10 +1286,7 @@ pub mod recaptcha_enterprise_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::FirewallPolicy> {
-            (*self.0.stub)
-                .get_firewall_policy(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_firewall_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetFirewallPolicyRequest::name].
@@ -1443,17 +1326,14 @@ pub mod recaptcha_enterprise_service {
     pub struct UpdateFirewallPolicy(RequestBuilder<crate::model::UpdateFirewallPolicyRequest>);
 
     impl UpdateFirewallPolicy {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateFirewallPolicyRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateFirewallPolicyRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1466,18 +1346,14 @@ pub mod recaptcha_enterprise_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::FirewallPolicy> {
-            (*self.0.stub)
-                .update_firewall_policy(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_firewall_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [firewall_policy][crate::model::UpdateFirewallPolicyRequest::firewall_policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_firewall_policy<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::FirewallPolicy>,
+        where T: std::convert::Into<crate::model::FirewallPolicy>
         {
             self.0.request.firewall_policy = std::option::Option::Some(v.into());
             self
@@ -1487,8 +1363,7 @@ pub mod recaptcha_enterprise_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_firewall_policy<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::FirewallPolicy>,
+        where T: std::convert::Into<crate::model::FirewallPolicy>
         {
             self.0.request.firewall_policy = v.map(|x| x.into());
             self
@@ -1496,8 +1371,7 @@ pub mod recaptcha_enterprise_service {
 
         /// Sets the value of [update_mask][crate::model::UpdateFirewallPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -1505,8 +1379,7 @@ pub mod recaptcha_enterprise_service {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateFirewallPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -1541,17 +1414,14 @@ pub mod recaptcha_enterprise_service {
     pub struct DeleteFirewallPolicy(RequestBuilder<crate::model::DeleteFirewallPolicyRequest>);
 
     impl DeleteFirewallPolicy {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteFirewallPolicyRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteFirewallPolicyRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1564,10 +1434,7 @@ pub mod recaptcha_enterprise_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .delete_firewall_policy(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_firewall_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteFirewallPolicyRequest::name].
@@ -1604,22 +1471,17 @@ pub mod recaptcha_enterprise_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ReorderFirewallPolicies(
-        RequestBuilder<crate::model::ReorderFirewallPoliciesRequest>,
-    );
+    pub struct ReorderFirewallPolicies(RequestBuilder<crate::model::ReorderFirewallPoliciesRequest>);
 
     impl ReorderFirewallPolicies {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ReorderFirewallPoliciesRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ReorderFirewallPoliciesRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1632,10 +1494,7 @@ pub mod recaptcha_enterprise_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ReorderFirewallPoliciesResponse> {
-            (*self.0.stub)
-                .reorder_firewall_policies(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).reorder_firewall_policies(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ReorderFirewallPoliciesRequest::parent].
@@ -1652,7 +1511,7 @@ pub mod recaptcha_enterprise_service {
         pub fn set_names<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.0.request.names = v.into_iter().map(|i| i.into()).collect();
@@ -1689,22 +1548,17 @@ pub mod recaptcha_enterprise_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListRelatedAccountGroups(
-        RequestBuilder<crate::model::ListRelatedAccountGroupsRequest>,
-    );
+    pub struct ListRelatedAccountGroups(RequestBuilder<crate::model::ListRelatedAccountGroupsRequest>);
 
     impl ListRelatedAccountGroups {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListRelatedAccountGroupsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListRelatedAccountGroupsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1717,19 +1571,11 @@ pub mod recaptcha_enterprise_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListRelatedAccountGroupsResponse> {
-            (*self.0.stub)
-                .list_related_account_groups(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_related_account_groups(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<
-            crate::model::ListRelatedAccountGroupsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListRelatedAccountGroupsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1741,12 +1587,7 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListRelatedAccountGroupsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListRelatedAccountGroupsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1801,22 +1642,17 @@ pub mod recaptcha_enterprise_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListRelatedAccountGroupMemberships(
-        RequestBuilder<crate::model::ListRelatedAccountGroupMembershipsRequest>,
-    );
+    pub struct ListRelatedAccountGroupMemberships(RequestBuilder<crate::model::ListRelatedAccountGroupMembershipsRequest>);
 
     impl ListRelatedAccountGroupMemberships {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListRelatedAccountGroupMembershipsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListRelatedAccountGroupMembershipsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1828,22 +1664,12 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sends the request.
-        pub async fn send(
-            self,
-        ) -> Result<crate::model::ListRelatedAccountGroupMembershipsResponse> {
-            (*self.0.stub)
-                .list_related_account_group_memberships(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+        pub async fn send(self) -> Result<crate::model::ListRelatedAccountGroupMembershipsResponse> {
+            (*self.0.stub).list_related_account_group_memberships(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<
-            crate::model::ListRelatedAccountGroupMembershipsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListRelatedAccountGroupMembershipsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1855,12 +1681,7 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListRelatedAccountGroupMembershipsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListRelatedAccountGroupMembershipsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1915,22 +1736,17 @@ pub mod recaptcha_enterprise_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SearchRelatedAccountGroupMemberships(
-        RequestBuilder<crate::model::SearchRelatedAccountGroupMembershipsRequest>,
-    );
+    pub struct SearchRelatedAccountGroupMemberships(RequestBuilder<crate::model::SearchRelatedAccountGroupMembershipsRequest>);
 
     impl SearchRelatedAccountGroupMemberships {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SearchRelatedAccountGroupMembershipsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::SearchRelatedAccountGroupMembershipsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1942,22 +1758,12 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sends the request.
-        pub async fn send(
-            self,
-        ) -> Result<crate::model::SearchRelatedAccountGroupMembershipsResponse> {
-            (*self.0.stub)
-                .search_related_account_group_memberships(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+        pub async fn send(self) -> Result<crate::model::SearchRelatedAccountGroupMembershipsResponse> {
+            (*self.0.stub).search_related_account_group_memberships(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<
-            crate::model::SearchRelatedAccountGroupMembershipsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::SearchRelatedAccountGroupMembershipsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1969,12 +1775,7 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::SearchRelatedAccountGroupMembershipsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::SearchRelatedAccountGroupMembershipsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2019,4 +1820,5 @@ pub mod recaptcha_enterprise_service {
             &mut self.0.options
         }
     }
+
 }

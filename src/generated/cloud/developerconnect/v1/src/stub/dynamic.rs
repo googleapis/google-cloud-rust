@@ -315,8 +315,7 @@ impl<T: super::DeveloperConnect> DeveloperConnect for T {
         &self,
         req: crate::model::FetchLinkableGitRepositoriesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::FetchLinkableGitRepositoriesResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::FetchLinkableGitRepositoriesResponse>> {
         T::fetch_linkable_git_repositories(self, req, options).await
     }
 
@@ -325,8 +324,7 @@ impl<T: super::DeveloperConnect> DeveloperConnect for T {
         &self,
         req: crate::model::FetchGitHubInstallationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::FetchGitHubInstallationsResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::FetchGitHubInstallationsResponse>> {
         T::fetch_git_hub_installations(self, req, options).await
     }
 
