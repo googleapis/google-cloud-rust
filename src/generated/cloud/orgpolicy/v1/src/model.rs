@@ -320,11 +320,15 @@ pub mod policy {
     /// same as values with no prefix.
     ///
     /// Ancestry subtrees must be in one of the following formats:
-    /// - "projects/\<project-id\>", e.g. "projects/tokyo-rain-123"
-    /// - "folders/\<folder-id\>", e.g. "folders/1234"
-    /// - "organizations/\<organization-id\>", e.g. "organizations/1234"
+    ///
+    /// ```norust
+    /// - "projects/<project-id>", e.g. "projects/tokyo-rain-123"
+    /// - "folders/<folder-id>", e.g. "folders/1234"
+    /// - "organizations/<organization-id>", e.g. "organizations/1234"
+    /// ```
     ///
     /// The `supports_under` field of the associated `Constraint`  defines whether
+    ///
     /// ancestry prefixes can be used. You can set `allowed_values` and
     /// `denied_values` in the same `Policy` if `all_values` is
     /// `ALL_VALUES_UNSPECIFIED`. `ALLOW` or `DENY` are used to allow or deny all
