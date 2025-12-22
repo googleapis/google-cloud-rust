@@ -39,3 +39,6 @@ mutants.out.old/
 
 # Allow local customization for development.
 /.cargo/config.toml
+
+# tmp to compare
+.sidekick.toml
