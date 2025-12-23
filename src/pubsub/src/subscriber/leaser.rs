@@ -106,6 +106,19 @@ pub(crate) mod tests {
         }
     }
 
+    #[async_trait::async_trait]
+    impl Leaser for Arc<Mutex<MockLeaser>> {
+        async fn ack(&self, ack_ids: Vec<String>) {
+            self.lock().await.ack(ack_ids).await
+        }
+        async fn nack(&self, ack_ids: Vec<String>) {
+            self.lock().await.nack(ack_ids).await
+        }
+        async fn extend(&self, ack_ids: Vec<String>) {
+            self.lock().await.extend(ack_ids).await
+        }
+    }
+
     #[tokio::test]
     async fn ack() {
         let mut mock = MockStub::new();
@@ -182,18 +195,5 @@ pub(crate) mod tests {
             10,
         );
         leaser.extend(test_ids(0..10)).await;
-    }
-
-    #[async_trait::async_trait]
-    impl Leaser for Arc<Mutex<MockLeaser>> {
-        async fn ack(&self, ack_ids: Vec<String>) {
-            self.lock().await.ack(ack_ids).await
-        }
-        async fn nack(&self, ack_ids: Vec<String>) {
-            self.lock().await.nack(ack_ids).await
-        }
-        async fn extend(&self, ack_ids: Vec<String>) {
-            self.lock().await.extend(ack_ids).await
-        }
     }
 }
