@@ -92,6 +92,8 @@ pub(crate) mod tests {
     use super::super::stub::tests::MockStub;
     use super::*;
     use gax::response::Response;
+    use std::sync::Arc;
+    use tokio::sync::Mutex;
 
     mockall::mock! {
         #[derive(Debug)]
@@ -180,5 +182,18 @@ pub(crate) mod tests {
             10,
         );
         leaser.extend(test_ids(0..10)).await;
+    }
+
+    #[async_trait::async_trait]
+    impl Leaser for Arc<Mutex<MockLeaser>> {
+        async fn ack(&self, ack_ids: Vec<String>) {
+            self.lock().await.ack(ack_ids).await
+        }
+        async fn nack(&self, ack_ids: Vec<String>) {
+            self.lock().await.nack(ack_ids).await
+        }
+        async fn extend(&self, ack_ids: Vec<String>) {
+            self.lock().await.extend(ack_ids).await
+        }
     }
 }
