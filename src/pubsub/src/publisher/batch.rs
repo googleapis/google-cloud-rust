@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use tokio::task::JoinSet;
+
 use crate::generated::gapic_dataplane::client::Publisher as GapicPublisher;
 use crate::publisher::worker::BundledMessage;
 use std::sync::Arc;
@@ -30,10 +32,6 @@ impl Batch {
             messages_byte_size: initial_size,
             ..Batch::default()
         }
-    }
-
-    pub(crate) fn is_empty(&self) -> bool {
-        self.messages.is_empty()
     }
 
     pub(crate) fn len(&self) -> usize {
@@ -70,14 +68,15 @@ impl Batch {
         &mut self,
         client: GapicPublisher,
         topic: String,
-    ) -> tokio::task::JoinHandle<()> {
+        inflight: &mut JoinSet<()>,
+    ) {
         let batch_to_send = Self {
             initial_size: self.initial_size,
             messages: self.messages.drain(..).collect(),
             messages_byte_size: self.messages_byte_size,
         };
         self.messages_byte_size = self.initial_size;
-        tokio::spawn(batch_to_send.send(client, topic))
+        inflight.spawn(batch_to_send.send(client, topic));
     }
 
     /// Send the batch to the service and process the results.
@@ -122,6 +121,7 @@ mod tests {
         publisher::batch::Batch,
         publisher::worker::BundledMessage,
     };
+    use tokio::task::JoinSet;
 
     mockall::mock! {
         #[derive(Debug)]
@@ -134,7 +134,7 @@ mod tests {
     #[tokio::test]
     async fn test_push_and_flush_batch() {
         let mut batch = Batch::new("topic".len() as u32);
-        assert!(batch.is_empty());
+        assert_eq!(batch.len(), 0);
 
         let (message_a, _rx_a) = create_bundled_message_from_bytes("hello");
         batch.push(message_a);
@@ -157,8 +157,8 @@ mod tests {
             }
         });
         let client = GapicPublisher::from_stub(mock);
-        // Also apply pressure on inflight to validate the mock.
-        batch.flush(client, "topic".to_string());
+        let mut inflight = JoinSet::new();
+        batch.flush(client, "topic".to_string(), &mut inflight);
         assert_eq!(batch.len(), 0);
     }
 
@@ -200,7 +200,8 @@ mod tests {
             }
         });
         let client = GapicPublisher::from_stub(mock);
-        batch.flush(client, "topic".to_string());
+        let mut inflight = JoinSet::new();
+        batch.flush(client, "topic".to_string(), &mut inflight);
         assert_eq!(batch.size(), "topic".len() as u32);
     }
 
