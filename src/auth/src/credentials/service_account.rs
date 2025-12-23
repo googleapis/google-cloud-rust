@@ -278,7 +278,7 @@ impl Builder {
     ///
     /// # Errors
     ///
-    /// Returns a [CredentialsError] if the `service_account_key`
+    /// Returns an error if the `service_account_key`
     /// provided to [`Builder::new`] cannot be successfully deserialized into the
     /// expected format for a service account key. This typically happens if the
     /// JSON value is malformed or missing required fields.
@@ -318,7 +318,7 @@ impl Builder {
     ///
     /// # Errors
     ///
-    /// Returns a [CredentialsError] if the `service_account_key`
+    /// Returns an error if the `service_account_key`
     /// provided to [`Builder::new`] cannot be successfully deserialized into the
     /// expected format for a service account key. This typically happens if the
     /// JSON value is malformed or missing required fields.
