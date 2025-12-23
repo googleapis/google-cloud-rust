@@ -169,12 +169,11 @@ where
 pub(crate) mod tests {
     use super::super::leaser::tests::MockLeaser;
     use super::*;
+    use tokio::time::interval;
 
+    // Any valid `Interval` will do.
     fn test_interval() -> Interval {
-        interval_at(
-            Instant::now() + Duration::from_secs(900),
-            Duration::from_secs(900),
-        )
+        interval(Duration::from_secs(1))
     }
 
     fn make_state<L, A, N>(under_lease: L, to_ack: A, to_nack: N) -> LeaseState<MockLeaser>
