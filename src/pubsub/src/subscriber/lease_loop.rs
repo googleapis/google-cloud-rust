@@ -19,13 +19,13 @@ use tokio::sync::mpsc::{UnboundedSender, unbounded_channel};
 use tokio::task::JoinHandle;
 use tokio_util::sync::CancellationToken;
 
-/// A convenience struct that groups the components of the lease loop
+/// A convenience struct that groups the components of the lease loop.
 pub(crate) struct LeaseLoop {
-    /// A handle to the task running the lease loop
+    /// A handle to the task running the lease loop.
     handle: JoinHandle<()>,
-    /// For sending messages from the stream to the lease loop
+    /// For sending messages from the stream to the lease loop.
     message_tx: UnboundedSender<String>,
-    /// For sending acks/nacks from the application to the lease loop
+    /// For sending acks/nacks from the application to the lease loop.
     ack_tx: UnboundedSender<AckResult>,
 }
 
