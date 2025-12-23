@@ -241,7 +241,7 @@ impl BatchWorker {
         let mut inflight = JoinSet::new();
         loop {
             tokio::select! {
-                _ = inflight.join_next(), if inflight.len() > 0 => {
+                _ = inflight.join_next(), if !inflight.is_empty() => {
                     self.move_to_batch();
                     if self.at_batch_threshold() {
                         self.pending_batch.flush(self.client.clone(), self.topic.clone(), &mut inflight);
@@ -252,16 +252,16 @@ impl BatchWorker {
                         Some(ToBatchWorker::Publish(msg)) => {
                             self.pending_msges.push_back(msg);
                             self.move_to_batch();
-                            if self.at_batch_threshold() && inflight.len() == 0 {
+                            if self.at_batch_threshold() && inflight.is_empty() {
                                 self.pending_batch.flush(self.client.clone(), self.topic.clone(), &mut inflight);
                             }
                         },
                         Some(ToBatchWorker::Flush(tx)) => {
-                            if inflight.len() > 0 {
+                            if !inflight.is_empty() {
                                 inflight.join_next().await;
                             }
                             loop {
-                                if (self.pending_batch.len() == 0) && (self.pending_msges.len() == 0) {
+                                if self.pending_batch.is_empty() && self.pending_msges.is_empty() {
                                     break;
                                 }
                                 self.move_to_batch();

@@ -790,6 +790,7 @@ mod tests {
     }
 
     #[tokio::test(start_paused = true)]
+    #[allow(clippy::get_first)]
     async fn test_ordering_key_only_one_outstanding_batch() {
         // Verify that Publisher must only have 1 outstanding batch inflight at a time.
         // This is done by validating that the 2 expected publish calls are done in sequence
@@ -843,7 +844,7 @@ mod tests {
             .set_delay_threshold(std::time::Duration::MAX)
             .build();
 
-        let messages = vec![
+        let messages = [
             PubsubMessage::new()
                 .set_data("hello 1".to_string())
                 .set_ordering_key("ordering key"),

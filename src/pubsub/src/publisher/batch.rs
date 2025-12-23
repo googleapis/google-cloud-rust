@@ -34,6 +34,10 @@ impl Batch {
         }
     }
 
+    pub(crate) fn is_empty(&self) -> bool {
+        self.messages.is_empty()
+    }
+
     pub(crate) fn len(&self) -> usize {
         self.messages.len()
     }
@@ -134,7 +138,7 @@ mod tests {
     #[tokio::test]
     async fn test_push_and_flush_batch() {
         let mut batch = Batch::new("topic".len() as u32);
-        assert_eq!(batch.len(), 0);
+        assert!(batch.is_empty());
 
         let (message_a, _rx_a) = create_bundled_message_from_bytes("hello");
         batch.push(message_a);
