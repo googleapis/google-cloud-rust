@@ -18,7 +18,7 @@ use gax::options::RequestOptions;
 use gax::retry_policy::NeverRetry;
 use std::sync::Arc;
 
-/// A trait representing leaser actions
+/// A trait representing leaser actions.
 ///
 /// We stub out the interface, in order to test the lease management.
 #[async_trait::async_trait]
@@ -65,12 +65,18 @@ where
     T: Stub,
 {
     async fn ack(&self, ack_ids: Vec<String>) {
+        if ack_ids.is_empty() {
+            return;
+        }
         let req = AcknowledgeRequest::new()
             .set_subscription(self.subscription.clone())
             .set_ack_ids(ack_ids);
         let _ = self.inner.acknowledge(req, no_retry()).await;
     }
     async fn nack(&self, ack_ids: Vec<String>) {
+        if ack_ids.is_empty() {
+            return;
+        }
         let req = ModifyAckDeadlineRequest::new()
             .set_subscription(self.subscription.clone())
             .set_ack_ids(ack_ids)
@@ -78,6 +84,9 @@ where
         let _ = self.inner.modify_ack_deadline(req, no_retry()).await;
     }
     async fn extend(&self, ack_ids: Vec<String>) {
+        if ack_ids.is_empty() {
+            return;
+        }
         let req = ModifyAckDeadlineRequest::new()
             .set_subscription(self.subscription.clone())
             .set_ack_ids(ack_ids)
@@ -195,5 +204,21 @@ pub(crate) mod tests {
             10,
         );
         leaser.extend(test_ids(0..10)).await;
+    }
+
+    #[tokio::test]
+    async fn empty_is_noop() {
+        let mock = MockStub::new();
+        // We expect no calls on the mock stub, as there is no reason to send an
+        // RPC with an empty list of ack IDs.
+
+        let leaser = DefaultLeaser::new(
+            Arc::new(mock),
+            "projects/my-project/subscriptions/my-subscription".to_string(),
+            10,
+        );
+        leaser.ack(Vec::new()).await;
+        leaser.nack(Vec::new()).await;
+        leaser.extend(Vec::new()).await;
     }
 }
