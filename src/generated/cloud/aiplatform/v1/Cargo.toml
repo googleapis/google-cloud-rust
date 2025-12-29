@@ -129,6 +129,9 @@ vertex-rag-service = []
 # Enables `client::VizierService` and all the types it depends on.
 vizier-service = []
 
+[package.metadata.docs.rs]
+all-features = true
+
 [dependencies]
 api.workspace        = true
 async-trait.workspace = true

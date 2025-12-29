@@ -42,7 +42,7 @@ const MAX_BYTES: u32 = 1e7 as u32; // 10MB
 /// let message_id = publisher.publish(PubsubMessage::new().set_data("Hello, World"));
 /// # Ok(()) }
 /// ```
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Publisher {
     #[allow(dead_code)]
     pub(crate) batching_options: BatchingOptions,

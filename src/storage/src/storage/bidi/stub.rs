@@ -22,14 +22,14 @@ pub(crate) mod dynamic {
 
     #[async_trait::async_trait]
     pub trait ObjectDescriptor: std::fmt::Debug + Send + Sync {
-        fn object(&self) -> &Object;
+        fn object(&self) -> Object;
         async fn read_range(&self, range: ReadRange) -> ReadObjectResponse;
-        fn headers(&self) -> &HeaderMap;
+        fn headers(&self) -> HeaderMap;
     }
 
     #[async_trait::async_trait]
     impl<T: crate::stub::ObjectDescriptor> ObjectDescriptor for T {
-        fn object(&self) -> &Object {
+        fn object(&self) -> Object {
             T::object(self)
         }
 
@@ -37,7 +37,7 @@ pub(crate) mod dynamic {
             T::read_range(self, range).await
         }
 
-        fn headers(&self) -> &HeaderMap {
+        fn headers(&self) -> HeaderMap {
             T::headers(self)
         }
     }

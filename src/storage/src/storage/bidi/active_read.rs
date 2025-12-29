@@ -64,12 +64,6 @@ impl ActiveRead {
         )))
     }
 
-    pub(super) async fn handle_error(&mut self, error: ReadError) {
-        if let Err(e) = self.sender.send(Err(error)).await {
-            tracing::error!("cannot notify reader (dropped?) about: {e:?}");
-        }
-    }
-
     pub(super) async fn interrupted(&mut self, error: Arc<crate::Error>) {
         if let Err(e) = self
             .sender
@@ -227,42 +221,10 @@ mod tests {
             .handle_data(Some(data), proto_range, false)
             .unwrap_err();
         assert!(
-            matches!(err, ReadError::OutOfOrderBidiResponse{ ref got, ref expected } if *got == 25 && *expected == 0),
+            matches!(err, ReadError::InvalidBidiStreamingReadResponse(_)),
             "err={err:?} range={range:?}"
         );
         Ok(())
-    }
-
-    #[tokio::test]
-    async fn handle_error() {
-        let (tx, mut rx) = tokio::sync::mpsc::channel(1);
-        let requested = ReadRange::all().0;
-        let mut range = ActiveRead::new(tx, requested);
-        range
-            .handle_error(ReadError::MissingRangeInBidiResponse)
-            .await;
-        let got = rx
-            .recv()
-            .await
-            .expect("the active reader propagates error messages")
-            .unwrap_err();
-        assert!(
-            matches!(got, ReadError::MissingRangeInBidiResponse),
-            "{got:?}"
-        );
-
-        // Sending errors on closed stream does not panic and gets logged.
-        let capture = CaptureEvents::new();
-        let _guard = tracing::subscriber::set_default(capture.clone());
-        rx.close();
-        range
-            .handle_error(ReadError::MissingRangeInBidiResponse)
-            .await;
-        let events = capture.events();
-        let got = events
-            .iter()
-            .find(|m| m.contains("cannot notify reader (dropped?) about: "));
-        assert!(got.is_some(), "{events:?}");
     }
 
     #[tokio::test]

@@ -15,7 +15,6 @@
 //! Benchmark random-reads using the Cloud Storage client library for Rust.
 
 mod args;
-#[cfg(google_cloud_unstable_storage_bidi)]
 mod bidi;
 mod dataset;
 mod experiment;
@@ -32,6 +31,7 @@ use google_cloud_auth::credentials::Builder as CredentialsBuilder;
 use google_cloud_storage::client::Storage;
 use google_cloud_storage::read_resume_policy::Recommended;
 use sample::Sample;
+use std::sync::atomic::{AtomicU64, Ordering};
 use std::time::Instant;
 use tokio::sync::mpsc;
 
@@ -45,6 +45,8 @@ const DESCRIPTION: &str = concat!(
     " The benchmark runs multiple tasks concurrently, all running identical loops."
 );
 
+static SAMPLE_COUNT: AtomicU64 = AtomicU64::new(0);
+
 #[tokio::main]
 async fn main() -> Result<()> {
     let args = Args::parse();
@@ -56,7 +58,6 @@ async fn main() -> Result<()> {
     let builder = Storage::builder()
         .with_credentials(credentials.clone())
         .with_read_resume_policy(Instrumented::new(Recommended));
-    #[cfg(google_cloud_unstable_storage_bidi)]
     let builder = args
         .grpc_subchannel_count
         .iter()
@@ -112,11 +113,16 @@ async fn runner(
     }
 
     let json = json::Runner::new(client.clone()).await?;
-    #[cfg(google_cloud_unstable_storage_bidi)]
     let bidi = bidi::Runner::new(&args, objects.clone(), client.clone()).await?;
 
     let generator = experiment::ExperimentGenerator::new(&args, objects)?;
     for iteration in 0..args.iterations {
+        // When performing long runs with many tasks, some may become idle very
+        // early. The program finishes faster if all tasks continue doing useful
+        // work until the required number of iterations is completed.
+        if SAMPLE_COUNT.load(Ordering::Acquire) >= args.iterations {
+            break;
+        }
         let experiment = generator.generate();
         let range_count = experiment.ranges.len();
         let protocol = experiment.protocol;
@@ -124,7 +130,6 @@ async fn runner(
         let start = Instant::now();
         let attempts = match experiment.protocol {
             Protocol::Json => json.iteration(&experiment).await,
-            #[cfg(google_cloud_unstable_storage_bidi)]
             Protocol::Bidi => bidi.iteration(&experiment).await,
         };
         let elapsed = start.elapsed();
@@ -159,6 +164,7 @@ async fn runner(
                         object: range.object_name,
                     }
                 });
+        SAMPLE_COUNT.fetch_add(samples.len() as u64, Ordering::SeqCst);
         for s in samples {
             let _ = tx.send(s).await;
         }

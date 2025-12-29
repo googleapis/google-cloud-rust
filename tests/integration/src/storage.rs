@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#[cfg(google_cloud_unstable_storage_bidi)]
 pub mod bidi_read;
 pub mod read_object;
 pub mod write_object;

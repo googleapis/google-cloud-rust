@@ -14,7 +14,6 @@
 
 use super::active_read::ActiveRead;
 use super::range_reader::RangeReader;
-use crate::error::ReadError;
 use crate::model::Object;
 use crate::model_ext::ReadRange;
 use crate::read_object::ReadObjectResponse;
@@ -23,8 +22,6 @@ use crate::{Error, Result};
 use http::HeaderMap;
 use std::sync::Arc;
 use tokio::sync::mpsc::Sender;
-
-type ReadResult<T> = std::result::Result<T, ReadError>;
 
 #[derive(Debug)]
 pub struct ObjectDescriptorTransport {
@@ -59,14 +56,20 @@ impl ObjectDescriptorTransport {
 }
 
 impl ObjectDescriptor for ObjectDescriptorTransport {
-    fn object(&self) -> &Object {
-        self.object.as_ref()
+    fn object(&self) -> Object {
+        // self.object is Arc<Object>, calling `.clone()` directly would clone
+        // the `Arc<>`. Calling `.as_ref()` returns `&Object` and then we can
+        // clone.
+        self.object.as_ref().clone()
     }
 
     async fn read_range(&self, range: ReadRange) -> ReadObjectResponse {
         let (tx, rx) = tokio::sync::mpsc::channel(100);
         let range = ActiveRead::new(tx, range.0);
-        let _error = self.tx.send(range).await;
+        self.tx
+            .send(range)
+            .await
+            .expect("worker never exits while ObjectDescriptor is live");
         ReadObjectResponse::new(Box::new(RangeReader::new(
             rx,
             self.object.clone(),
@@ -74,8 +77,8 @@ impl ObjectDescriptor for ObjectDescriptorTransport {
         )))
     }
 
-    fn headers(&self) -> &HeaderMap {
-        &self.headers
+    fn headers(&self) -> HeaderMap {
+        self.headers.clone()
     }
 }
 
@@ -83,6 +86,7 @@ impl ObjectDescriptor for ObjectDescriptorTransport {
 mod tests {
     use super::super::mocks::{MockTestClient, mock_connector};
     use super::*;
+    use crate::error::ReadError;
     use crate::google::storage::v2::{
         BidiReadHandle, BidiReadObjectResponse, ChecksummedData, Object as ProtoObject,
         ObjectRangeData, ReadRange as ProtoRange,
@@ -124,7 +128,7 @@ mod tests {
             .set_bucket("projects/_/buckets/test-bucket")
             .set_name("test-object")
             .set_generation(123456);
-        assert_eq!(transport.object(), &want, "{transport:?}");
+        assert_eq!(transport.object(), want, "{transport:?}");
 
         // At this point the mock has executed and we can fetch the data it
         // captured:
@@ -165,6 +169,87 @@ mod tests {
         assert_eq!(got, Some(content));
         // Because `range_end` is true, the reader should be closed.
         let got = reader.next().await.transpose()?;
+        assert!(got.is_none(), "{got:?}");
+
+        Ok(())
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    async fn read_range_error() -> anyhow::Result<()> {
+        use std::error::Error as _;
+
+        let (connect_tx, connect_rx) =
+            tokio::sync::mpsc::channel::<tonic::Result<BidiReadObjectResponse>>(8);
+        let initial = BidiReadObjectResponse {
+            metadata: Some(ProtoObject {
+                bucket: "projects/_/buckets/test-bucket".into(),
+                name: "test-object".into(),
+                generation: 123456,
+                ..ProtoObject::default()
+            }),
+            read_handle: Some(BidiReadHandle {
+                handle: bytes::Bytes::from_static(b"test-read-handle"),
+            }),
+            ..BidiReadObjectResponse::default()
+        };
+        connect_tx.send(Ok(initial)).await?;
+        let connect_stream = tonic::Response::from(connect_rx);
+
+        // Save the receivers sent to the mock connector.
+        let mut mock = MockTestClient::new();
+        let mut seq = mockall::Sequence::new();
+        mock.expect_start()
+            .times(1)
+            .in_sequence(&mut seq)
+            .return_once(move |_, _, _, _, _, _| Ok(Ok(connect_stream)));
+        let connector = mock_connector(mock);
+
+        let transport = ObjectDescriptorTransport::new(connector).await?;
+        let want = Object::new()
+            .set_bucket("projects/_/buckets/test-bucket")
+            .set_name("test-object")
+            .set_generation(123456);
+        assert_eq!(transport.object(), want, "{transport:?}");
+
+        let mut existing = transport.read_range(ReadRange::segment(100, 200)).await;
+
+        // Close the mock connection with an unrecoverable error.
+        // This should terminate the worker task, and the object descriptor
+        // should stop accepting requests.
+        connect_tx
+            .send(Err(tonic::Status::permission_denied("uh-oh")))
+            .await?;
+
+        // Wait for the worker to stop the main loop and drop the transport.tx receiver.
+        let err = existing.next().await.transpose().unwrap_err();
+        let source = err.source().and_then(|e| e.downcast_ref::<ReadError>());
+        assert!(
+            matches!(
+                source,
+                Some(ReadError::UnrecoverableBidiReadInterrupt(e)) if e.status().is_some()
+            ),
+            "{err:?}"
+        );
+        let got = existing.next().await;
+        assert!(got.is_none(), "{got:?}");
+
+        // Close the mock I/O stream. From this point the `transport.read_range()`
+        // calls should fail.
+        drop(connect_tx);
+
+        // Now we know this call will fail, and we verify we get the correct
+        // error.
+        let mut reader = transport.read_range(ReadRange::segment(100, 200)).await;
+        let err = reader.next().await.transpose().unwrap_err();
+        let source = err.source().and_then(|e| e.downcast_ref::<ReadError>());
+        assert!(
+            matches!(
+                source,
+                Some(ReadError::UnrecoverableBidiReadInterrupt(e)) if e.status().is_some()
+            ),
+            "{err:?}"
+        );
+        let got = reader.next().await;
         assert!(got.is_none(), "{got:?}");
 
         Ok(())

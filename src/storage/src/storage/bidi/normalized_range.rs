@@ -47,7 +47,9 @@ impl NormalizedRange {
     /// Creates a new unbounded range starting at a given offset.
     pub fn new(offset: i64) -> ReadResult<Self> {
         if offset < 0 {
-            return Err(ReadError::BadOffsetInBidiResponse(offset));
+            return Err(ReadError::InvalidBidiStreamingReadResponse(
+                format!("invalid offset ({offset})").into(),
+            ));
         }
         Ok(Self {
             offset,
@@ -58,7 +60,9 @@ impl NormalizedRange {
     /// Sets the length.
     pub fn with_length(mut self, length: i64) -> ReadResult<Self> {
         if length < 0 {
-            return Err(ReadError::BadLengthInBidiResponse(length));
+            return Err(ReadError::InvalidBidiStreamingReadResponse(
+                format!("invalid length ({length})").into(),
+            ));
         }
         self.length = Some(length);
         Ok(self)
@@ -70,10 +74,6 @@ impl NormalizedRange {
             (o, 0) => Self::new(o),
             (o, l) => Self::new(o)?.with_length(l),
         }
-    }
-
-    pub fn offset(&self) -> i64 {
-        self.offset
     }
 
     pub fn length(&self) -> Option<i64> {
@@ -88,17 +88,10 @@ impl NormalizedRange {
         }
     }
 
-    pub fn matching_offset(&self, requested_offset: u64) -> bool {
-        self.offset as u64 == requested_offset
-    }
-
     pub fn update(&mut self, response: ProtoRange) -> ReadResult<()> {
         let update = NormalizedRange::from_proto(response)?;
         if update.offset != self.offset {
-            return Err(ReadError::OutOfOrderBidiResponse {
-                got: update.offset,
-                expected: self.offset,
-            });
+            return Err(ReadError::bidi_out_of_order(self.offset, update.offset));
         }
         self.length = match (self.length, update.length) {
             (None, _) => None,
@@ -139,7 +132,6 @@ mod tests {
             length: None,
         };
         assert_eq!(got, want);
-        assert_eq!(got.offset(), 100, "{got:?}");
         assert!(got.length().is_none(), "{got:?}");
 
         let proto = got.as_proto(123456);
@@ -150,9 +142,6 @@ mod tests {
         };
         assert_eq!(proto, want);
 
-        assert!(got.matching_offset(100_u64), "{got:?}");
-        assert!(!got.matching_offset(105_u64), "{got:?}");
-
         Ok(())
     }
 
@@ -160,7 +149,7 @@ mod tests {
     fn bad_offset() {
         let got = NormalizedRange::new(-100);
         assert!(
-            matches!(got, Err(ReadError::BadOffsetInBidiResponse(_))),
+            matches!(got, Err(ReadError::InvalidBidiStreamingReadResponse(_))),
             "{got:?}"
         );
     }
@@ -175,7 +164,6 @@ mod tests {
             length: Some(50),
         };
         assert_eq!(got, want);
-        assert_eq!(got.offset(), 100, "{got:?}");
         assert_eq!(got.length(), Some(50), "{got:?}");
 
         let proto = got.as_proto(123456);
@@ -186,9 +174,6 @@ mod tests {
         };
         assert_eq!(proto, want);
 
-        assert!(got.matching_offset(100_u64), "{got:?}");
-        assert!(!got.matching_offset(105_u64), "{got:?}");
-
         Ok(())
     }
 
@@ -196,7 +181,7 @@ mod tests {
     fn bad_length() -> anyhow::Result<()> {
         let got = NormalizedRange::new(100)?.with_length(-50);
         assert!(
-            matches!(got, Err(ReadError::BadLengthInBidiResponse(_))),
+            matches!(got, Err(ReadError::InvalidBidiStreamingReadResponse(_))),
             "{got:?}"
         );
         Ok(())
@@ -216,14 +201,14 @@ mod tests {
         let response = proto_range(50, 0);
         let got = normalized.update(response);
         assert!(
-            matches!(got, Err(ReadError::OutOfOrderBidiResponse { .. })),
+            matches!(got, Err(ReadError::InvalidBidiStreamingReadResponse(_))),
             "{got:?}"
         );
 
         let response = proto_range(200, 0);
         let got = normalized.update(response);
         assert!(
-            matches!(got, Err(ReadError::OutOfOrderBidiResponse { .. })),
+            matches!(got, Err(ReadError::InvalidBidiStreamingReadResponse(_))),
             "{got:?}"
         );
         Ok(())
@@ -234,15 +219,15 @@ mod tests {
         let mut normalized = NormalizedRange::new(100)?.with_length(200)?;
         let response = proto_range(100, 25);
         normalized.update(response)?;
-        assert_eq!((normalized.offset(), normalized.length()), (125, Some(175)));
+        assert_eq!((normalized.offset, normalized.length()), (125, Some(175)));
 
         let response = proto_range(125, 50);
         normalized.update(response)?;
-        assert_eq!((normalized.offset(), normalized.length()), (175, Some(125)));
+        assert_eq!((normalized.offset, normalized.length()), (175, Some(125)));
 
         let response = proto_range(175, 0);
         normalized.update(response)?;
-        assert_eq!((normalized.offset(), normalized.length()), (175, Some(125)));
+        assert_eq!((normalized.offset, normalized.length()), (175, Some(125)));
         Ok(())
     }
 
@@ -251,15 +236,15 @@ mod tests {
         let mut normalized = NormalizedRange::new(100)?;
         let response = proto_range(100, 25);
         normalized.update(response)?;
-        assert_eq!((normalized.offset(), normalized.length()), (125, None));
+        assert_eq!((normalized.offset, normalized.length()), (125, None));
 
         let response = proto_range(125, 50);
         normalized.update(response)?;
-        assert_eq!((normalized.offset(), normalized.length()), (175, None));
+        assert_eq!((normalized.offset, normalized.length()), (175, None));
 
         let response = proto_range(175, 0);
         normalized.update(response)?;
-        assert_eq!((normalized.offset(), normalized.length()), (175, None));
+        assert_eq!((normalized.offset, normalized.length()), (175, None));
         Ok(())
     }
 

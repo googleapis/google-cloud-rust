@@ -12,11 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::error::ReadError;
 use crate::google::storage::v2::ReadRange as ProtoRange;
 use crate::model_ext::RequestedRange;
-
-type ReadResult<T> = std::result::Result<T, ReadError>;
 
 /// Additional functions to use `RequestedRange` in pending requests.
 ///

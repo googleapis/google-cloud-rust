@@ -18,7 +18,6 @@ use crate::model_ext::WriteObjectRequest;
 use crate::read_object::ReadObjectResponse;
 use crate::storage::request_options::RequestOptions;
 use crate::streaming_source::{Seek, StreamingSource};
-#[cfg(google_cloud_unstable_storage_bidi)]
 use crate::{
     model_ext::{OpenObjectRequest, ReadRange},
     object_descriptor::HeaderMap,
@@ -73,18 +72,17 @@ pub trait Storage: std::fmt::Debug + Send + Sync {
         unimplemented_stub::<Object>()
     }
 
-    #[cfg(google_cloud_unstable_storage_bidi)]
     /// Implements [crate::client::Storage::open_object].
     fn open_object(
         &self,
         _request: OpenObjectRequest,
         _options: RequestOptions,
-    ) -> impl std::future::Future<Output = Result<Descriptor>> + Send {
-        unimplemented_stub::<Descriptor>()
+    ) -> impl std::future::Future<Output = Result<(Descriptor, Vec<ReadObjectResponse>)>> + Send
+    {
+        unimplemented_stub::<(Descriptor, Vec<ReadObjectResponse>)>()
     }
 }
 
-#[cfg(google_cloud_unstable_storage_bidi)]
 /// Defines the trait used to implement [crate::object_descriptor::ObjectDescriptor].
 ///
 /// Application developers may need to implement this trait to mock
@@ -93,7 +91,7 @@ pub trait Storage: std::fmt::Debug + Send + Sync {
 /// with this trait or its implementations.
 pub trait ObjectDescriptor: std::fmt::Debug + Send + Sync {
     /// The implementation for [ObjectDescriptor::object][Descriptor::object].
-    fn object(&self) -> &Object;
+    fn object(&self) -> Object;
 
     /// The implementation for [ObjectDescriptor::read_range][Descriptor::read_range].
     fn read_range(
@@ -102,7 +100,7 @@ pub trait ObjectDescriptor: std::fmt::Debug + Send + Sync {
     ) -> impl Future<Output = ReadObjectResponse> + Send + Sync;
 
     /// The implementation for [ObjectDescriptor::headers][Descriptor::headers].
-    fn headers(&self) -> &HeaderMap;
+    fn headers(&self) -> HeaderMap;
 }
 
 async fn unimplemented_stub<T>() -> gax::Result<T> {

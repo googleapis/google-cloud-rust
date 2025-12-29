@@ -1,4 +1,4 @@
-// Copyright 2024 Google LLC
+// Copyright 2025 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -13,5 +13,17 @@
 // limitations under the License.
 
 fn main() {
-    println!("Coming Soon: Google Cloud Client Libraries for Rust")
+    #[cfg(feature = "_generate-protos")]
+    {
+        let mut config = prost_build::Config::default();
+        config.disable_comments(["."]);
+        tonic_prost_build::configure()
+            .out_dir("src/generated/protos")
+            .compile_with_config(
+                config,
+                &["protos/google/pubsub/v1/pubsub.proto"],
+                &["protos"],
+            )
+            .expect("error compiling protos");
+    }
 }

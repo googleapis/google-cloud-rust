@@ -58,15 +58,15 @@ where
         // Note how this loop only exits when the `requests` queue is
         // closed. A successfully closed stream and unrecoverable errors
         // return immediately.
-        loop {
+        let error = loop {
             tokio::select! {
                 m = rx.next_message() => {
                     match self.handle_response(m).await {
                         // Successful end of stream, return without error.
-                        None => return Ok(()),
+                        None => break None,
                         // An unrecoverable in the stream or its data, return
                         // the error.
-                        Some(Err(e)) => return Err(e),
+                        Some(Err(e)) => break Some(e),
                         // New message on the stream handled successfully,
                         // continue.
                         Some(Ok(None)) => {},
@@ -79,16 +79,24 @@ where
                 },
                 r = requests.recv_many(&mut ranges, 16) => {
                     if r == 0 {
-                        break;
+                        break None;
                     };
                     self.insert_ranges(tx.clone(), std::mem::take(&mut ranges)).await;
                 },
             }
+        };
+        drop(rx);
+        drop(tx);
+        let Some(e) = error else {
+            // A successfully closed stream *and* there are no more readers.
+            return Ok(());
+        };
+        // Return errors for any future readers.
+        while let Some(mut r) = requests.recv().await {
+            println!("sending error after closed stream: {e:?}");
+            r.interrupted(e.clone()).await;
         }
-        // No need to continue reading. The `requests` queue closes
-        // only when the ObjectDescriptor is gone and when all the
-        // associated ReadResponseReaders are gone.
-        Ok(())
+        Err(e)
     }
 
     async fn handle_response(
@@ -163,6 +171,7 @@ where
             closing.push(active.interrupted(error.clone()));
         }
         let _ = closing.count().await;
+        guard.clear();
     }
 
     async fn insert_ranges(&mut self, tx: Sender<BidiReadObjectRequest>, readers: Vec<ActiveRead>) {
@@ -193,19 +202,23 @@ where
     ) -> ReadResult<()> {
         let range = response
             .read_range
-            .ok_or(ReadError::MissingRangeInBidiResponse)?;
+            .ok_or(ReadError::InvalidBidiStreamingReadResponse(
+                "missing range".into(),
+            ))?;
         let handler = if response.range_end {
-            let mut pending = ranges
-                .lock()
-                .await
-                .remove(&range.read_id)
-                .ok_or(ReadError::UnknownBidiRangeId(range.read_id))?;
+            let mut pending = ranges.lock().await.remove(&range.read_id).ok_or(
+                ReadError::InvalidBidiStreamingReadResponse(
+                    format!("unknown read id ({})", range.read_id).into(),
+                ),
+            )?;
             pending.handle_data(response.checksummed_data, range, true)?
         } else {
             let mut guard = ranges.lock().await;
-            let pending = guard
-                .get_mut(&range.read_id)
-                .ok_or(ReadError::UnknownBidiRangeId(range.read_id))?;
+            let pending = guard.get_mut(&range.read_id).ok_or(
+                ReadError::InvalidBidiStreamingReadResponse(
+                    format!("unknown read id ({}", range.read_id).into(),
+                ),
+            )?;
             pending.handle_data(response.checksummed_data, range, false)?
         };
         handler.send().await;
@@ -230,17 +243,19 @@ mod tests {
     async fn run_immediately_closed() -> anyhow::Result<()> {
         let (request_tx, _request_rx) = tokio::sync::mpsc::channel(1);
         let (response_tx, response_rx) = mock_stream();
-        let (_tx, rx) = tokio::sync::mpsc::channel(1);
+        let (tx, rx) = tokio::sync::mpsc::channel(1);
         let connection = Connection::new(request_tx, response_rx);
 
-        // Closing the stream without an error should not attempt a reconnect.
-        drop(response_tx);
         let mut mock = MockTestClient::new();
         mock.expect_start().never();
 
         let connector = mock_connector(mock);
         let worker = Worker::new(connector);
-        let result = worker.run(connection, rx).await;
+        let handle = tokio::spawn(worker.run(connection, rx));
+        // Closing the stream without an error should not attempt a reconnect.
+        drop(response_tx);
+        drop(tx);
+        let result = handle.await?;
         assert!(result.is_ok(), "{result:?}");
         Ok(())
     }
@@ -251,7 +266,7 @@ mod tests {
     async fn run_bad_response(range_end: bool) -> anyhow::Result<()> {
         let (request_tx, _request_rx) = tokio::sync::mpsc::channel(1);
         let (response_tx, response_rx) = mock_stream();
-        let (_tx, rx) = tokio::sync::mpsc::channel(1);
+        let (tx, rx) = tokio::sync::mpsc::channel(1);
         let connection = Connection::new(request_tx, response_rx);
 
         // Simulate a response for an unexpected read id.
@@ -269,11 +284,16 @@ mod tests {
 
         let connector = mock_connector(mock);
         let worker = Worker::new(connector);
-        let err = worker.run(connection, rx).await.unwrap_err();
+        let handle = tokio::spawn(worker.run(connection, rx));
+        // Wait until the response_tx/response_rx pair is closed, then close the
+        // request queue to terminate the worker thread.
+        response_tx.closed().await;
+        drop(tx);
+        let err = handle.await?.unwrap_err();
         assert!(err.is_transport(), "{err:?}");
         let source = err.source().and_then(|e| e.downcast_ref::<ReadError>());
         assert!(
-            matches!(source, Some(ReadError::UnknownBidiRangeId(r)) if *r == -123),
+            matches!(source, Some(ReadError::InvalidBidiStreamingReadResponse(_))),
             "{err:?}"
         );
         Ok(())
@@ -283,7 +303,7 @@ mod tests {
     async fn run_reconnect() -> anyhow::Result<()> {
         let (request_tx, _request_rx) = tokio::sync::mpsc::channel(1);
         let (response_tx, response_rx) = mock_stream();
-        let (_tx, rx) = tokio::sync::mpsc::channel(1);
+        let (tx, rx) = tokio::sync::mpsc::channel(1);
         let connection = Connection::new(request_tx, response_rx);
 
         // Simulate a redirect response.
@@ -291,12 +311,20 @@ mod tests {
             .send(Err(redirect_status("redirect-01")))
             .await?;
         let mut mock = MockTestClient::new();
-        mock.expect_start()
-            .return_once(|_, _, _, _, _, _| Err(permanent_error()));
+        let (reconnected_tx, reconnected_rx) = tokio::sync::oneshot::channel();
+        mock.expect_start().return_once(move |_, _, _, _, _, _| {
+            let _ = reconnected_tx.send(());
+            Err(permanent_error())
+        });
 
         let connector = mock_connector(mock);
         let worker = Worker::new(connector);
-        let err = worker.run(connection, rx).await.unwrap_err();
+        let handle = tokio::spawn(worker.run(connection, rx));
+        // Wait until the reconnect call is made, then close the
+        // request queue to terminate the worker thread.
+        reconnected_rx.await?;
+        drop(tx);
+        let err = handle.await?.unwrap_err();
         assert_eq!(err.status(), permanent_error().status());
         Ok(())
     }
@@ -634,6 +662,7 @@ mod tests {
         );
 
         // Wait for the worker to finish.
+        drop(tx);
         let err = worker.await?.unwrap_err();
         assert_eq!(err.status(), permanent_error().status());
         Ok(())
@@ -864,7 +893,7 @@ mod tests {
         assert!(err.is_transport(), "{err:?}");
         let source = err.source().and_then(|e| e.downcast_ref::<ReadError>());
         assert!(
-            matches!(source, Some(ReadError::UnknownBidiRangeId(r)) if *r == -123456),
+            matches!(source, Some(ReadError::InvalidBidiStreamingReadResponse(_))),
             "{err:?}"
         );
         Ok(())

@@ -91,7 +91,7 @@ steps:
       #!/usr/bin/env bash
       set -euv
       apt update && apt install -y clang-format git
-      git ls-files -z -- '*.proto' ':!:**/testdata/googleapis/**' | \
+      git ls-files -z -- '*.proto' ':!:**/testdata/googleapis/**' ':!:**/grpc-mock/**' | \
         xargs -0 -r -P "$(nproc)" -n 50 clang-format -i
     waitFor: ['-']
   - name: 'python:${_PYTHON_VERSION}'
@@ -129,7 +129,7 @@ substitutions:
   _SCCACHE_SHA256: 'b0e89ead6899224a4ba2b90e9073bf1ce036d95bab30f3dc33c1e1468bc4ad44'
   _POOL_REGION: us-central1
   _POOL_ID: rust-sdk-pool
-  _RUST_VERSION: '1.91'
+  _RUST_VERSION: '1.92'
   _GO_VERSION: '1.25.4'
   _PYTHON_VERSION: '3.14'
   _TERRAFORM_VERSION: '1.14.0'

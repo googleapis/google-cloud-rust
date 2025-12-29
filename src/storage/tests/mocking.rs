@@ -24,7 +24,6 @@ mod tests {
     use gcs::read_object::ReadObjectResponse;
     use gcs::request_options::RequestOptions;
     use gcs::streaming_source::{BytesSource, Payload, Seek, StreamingSource};
-    #[cfg(google_cloud_unstable_storage_bidi)]
     use gcs::{
         model_ext::{OpenObjectRequest, ReadRange},
         object_descriptor::{HeaderMap, ObjectDescriptor},
@@ -49,23 +48,21 @@ mod tests {
                 _req: WriteObjectRequest,
                 _options: RequestOptions,
             ) -> Result<Object>;
-            #[cfg(google_cloud_unstable_storage_bidi)]
             async fn open_object(
                 &self,
                 _request: OpenObjectRequest,
                 _options: RequestOptions,
-            ) -> Result<ObjectDescriptor>;
+            ) -> Result<(ObjectDescriptor, Vec<ReadObjectResponse>)>;
         }
     }
 
-    #[cfg(google_cloud_unstable_storage_bidi)]
     mockall::mock! {
         #[derive(Debug)]
         Descriptor {}
         impl gcs::stub::ObjectDescriptor for Descriptor {
-            fn object(&self) -> &Object;
+            fn object(&self) -> Object;
             async fn read_range(&self, range: ReadRange) -> ReadObjectResponse;
-            fn headers(&self) -> &HeaderMap;
+            fn headers(&self) -> HeaderMap;
         }
     }
 
@@ -145,7 +142,6 @@ mod tests {
     }
 
     #[tokio::test]
-    #[cfg(google_cloud_unstable_storage_bidi)]
     async fn mock_open_object_fail() {
         let status = Status::default().set_code(Code::Aborted);
         let want = status.clone();
@@ -162,7 +158,6 @@ mod tests {
     }
 
     #[tokio::test]
-    #[cfg(google_cloud_unstable_storage_bidi)]
     async fn mock_open_object_success() -> anyhow::Result<()> {
         const LAZY: &str = "the quick brown fox jumps over the lazy dog";
         let object = Object::new().set_etag("custom-etag");
@@ -184,14 +179,14 @@ mod tests {
 
         let mut mock = MockStorage::new();
         mock.expect_open_object()
-            .return_once(move |_, _| Ok(ObjectDescriptor::new(mock_descriptor)));
+            .return_once(move |_, _| Ok((ObjectDescriptor::new(mock_descriptor), Vec::new())));
 
         let client = gcs::client::Storage::from_stub(mock);
         let descriptor = client
             .open_object("projects/_/buckets/my-bucket", "my-object")
             .send()
             .await?;
-        assert_eq!(&object, descriptor.object());
+        assert_eq!(object, descriptor.object());
 
         let mut reader = descriptor.read_range(ReadRange::offset(123)).await;
         assert_eq!(&highlights, &reader.object());

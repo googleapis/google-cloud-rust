@@ -42,7 +42,6 @@ pub struct OpenObject<S = crate::storage::transport::Storage> {
     stub: Arc<S>,
     request: OpenObjectRequest,
     options: RequestOptions,
-    reconnect_attempts: u32,
 }
 
 impl<S> OpenObject<S>
@@ -63,7 +62,8 @@ where
     /// # Ok(()) }
     /// ```
     pub async fn send(self) -> Result<ObjectDescriptor> {
-        self.stub.open_object(self.request, self.options).await
+        let (descriptor, _) = self.stub.open_object(self.request, self.options).await?;
+        Ok(descriptor)
     }
 }
 
@@ -81,7 +81,6 @@ impl<S> OpenObject<S> {
             request,
             options,
             stub,
-            reconnect_attempts: 0_u32,
         }
     }
 
@@ -338,31 +337,32 @@ mod tests {
     use anyhow::Result;
     use auth::credentials::anonymous::Builder as Anonymous;
     use http::HeaderValue;
+    use static_assertions::assert_impl_all;
     use storage_grpc_mock::google::storage::v2::{BidiReadObjectResponse, Object as ProtoObject};
     use storage_grpc_mock::{MockStorage, start};
 
     // Verify `open_object()` meets normal Send, Sync, requirements.
     #[tokio::test]
-    async fn test_open_object_is_send_and_static() -> Result<()> {
+    async fn traits() -> Result<()> {
+        assert_impl_all!(OpenObject: Clone, std::fmt::Debug);
+        assert_impl_all!(OpenObject: Send, Sync);
+
         let client = Storage::builder()
             .with_credentials(Anonymous::new().build())
             .build()
             .await?;
 
         fn need_send<T: Send>(_val: &T) {}
-        fn need_sync<T: Sync>(_val: &T) {}
         fn need_static<T: 'static>(_val: &T) {}
 
-        let open = client.read_object("projects/_/buckets/test-bucket", "test-object");
-        need_send(&open);
-        need_sync(&open);
+        let open = client.open_object("projects/_/buckets/test-bucket", "test-object");
         need_static(&open);
 
-        let open = client
+        let fut = client
             .open_object("projects/_/buckets/test-bucket", "test-object")
             .send();
-        need_send(&open);
-        need_static(&open);
+        need_send(&fut);
+        need_static(&fut);
         Ok(())
     }
 
@@ -404,7 +404,7 @@ mod tests {
             .set_name("test-object")
             .set_generation(123456)
             .set_size(42);
-        assert_eq!(got, &want);
+        assert_eq!(got, want);
 
         Ok(())
     }
@@ -525,9 +525,6 @@ mod tests {
             .return_once(|_| Ok(tonic::Response::from(rx)));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
 
-        let mut config = gaxi::options::ClientConfig::default();
-        config.cred = Some(auth::credentials::anonymous::Builder::new().build());
-        config.endpoint = Some(endpoint.clone());
         let client = Storage::builder()
             .with_credentials(Anonymous::new().build())
             .with_endpoint(endpoint.clone())
@@ -542,7 +539,7 @@ mod tests {
             .set_bucket("projects/_/buckets/test-bucket")
             .set_name("test-object")
             .set_generation(123456);
-        assert_eq!(descriptor.object(), &want, "{descriptor:?}");
+        assert_eq!(descriptor.object(), want, "{descriptor:?}");
         assert_eq!(
             descriptor.headers().get("content-type"),
             Some(&HeaderValue::from_static("application/grpc")),
@@ -555,11 +552,4 @@ mod tests {
     #[derive(Debug)]
     struct StorageStub;
     impl crate::stub::Storage for StorageStub {}
-
-    async fn test_grpc_client() -> Result<gaxi::grpc::Client> {
-        let mut config = gaxi::options::ClientConfig::default();
-        config.cred = Some(auth::credentials::anonymous::Builder::new().build());
-        let client = gaxi::grpc::Client::new(config, "http://storage.googleapis.com").await?;
-        Ok(client)
-    }
 }

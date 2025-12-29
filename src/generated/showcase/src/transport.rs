@@ -39,7 +39,7 @@ impl Compliance {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         #[cfg(google_cloud_unstable_tracing)]
         let inner = if tracing_is_enabled {
-            inner.with_instrumentation(&crate::info::INSTRUMENTATION_CLIENT_INFO)
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
         } else {
             inner
         };
@@ -1540,7 +1540,7 @@ impl Echo {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         #[cfg(google_cloud_unstable_tracing)]
         let inner = if tracing_is_enabled {
-            inner.with_instrumentation(&crate::info::INSTRUMENTATION_CLIENT_INFO)
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
         } else {
             inner
         };
@@ -2715,7 +2715,7 @@ impl Identity {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         #[cfg(google_cloud_unstable_tracing)]
         let inner = if tracing_is_enabled {
-            inner.with_instrumentation(&crate::info::INSTRUMENTATION_CLIENT_INFO)
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
         } else {
             inner
         };
@@ -3848,7 +3848,7 @@ impl Messaging {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         #[cfg(google_cloud_unstable_tracing)]
         let inner = if tracing_is_enabled {
-            inner.with_instrumentation(&crate::info::INSTRUMENTATION_CLIENT_INFO)
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
         } else {
             inner
         };
@@ -5645,7 +5645,7 @@ impl SequenceService {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         #[cfg(google_cloud_unstable_tracing)]
         let inner = if tracing_is_enabled {
-            inner.with_instrumentation(&crate::info::INSTRUMENTATION_CLIENT_INFO)
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
         } else {
             inner
         };
@@ -6784,7 +6784,7 @@ impl Testing {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         #[cfg(google_cloud_unstable_tracing)]
         let inner = if tracing_is_enabled {
-            inner.with_instrumentation(&crate::info::INSTRUMENTATION_CLIENT_INFO)
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
         } else {
             inner
         };

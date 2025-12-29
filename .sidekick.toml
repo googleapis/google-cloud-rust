@@ -21,23 +21,27 @@ ignored-directories = [
 ]
 
 [source]
-# By default only search in the `googleapis-root` directory.
-roots                       = 'googleapis'
-showcase-extracted-name     = 'gapic-showcase-0.36.2'
-showcase-root               = 'https://github.com/googleapis/gapic-showcase/archive/refs/tags/v0.36.2.tar.gz'
-showcase-sha256             = '0914bdbb088713aa087a53b355ff6631ad95e4769afd8bbd97d5d9e78d4cdf09'
-googleapis-root             = 'https://github.com/googleapis/googleapis/archive/35365cb31245ac9ee3f3ed37bd052ea246ed732b.tar.gz'
-googleapis-sha256           = 'de0831d253510c43282d607de44b60b650f00a4e3a9f388927fe3db11871f6fa'
-discovery-extracted-name    = 'discovery-artifact-manager-0bb1100f52bf0bae06f4b4d76742e7eba5c59793'
-discovery-root              = 'https://github.com/googleapis/discovery-artifact-manager/archive/0bb1100f52bf0bae06f4b4d76742e7eba5c59793.tar.gz'
-discovery-sha256            = '3c57742b69ee88c628dac5585be11064c243457ee24fca122805c7cf287a1a02'
-protobuf-src-extracted-name = 'protobuf-29.3'
-protobuf-src-root           = 'https://github.com/protocolbuffers/protobuf/releases/download/v29.3/protobuf-29.3.tar.gz'
-protobuf-src-sha256         = '008a11cc56f9b96679b4c285fd05f46d317d685be3ab524b2a310be0fbad987e'
+# By default, only search in the `googleapis-root` directory.
+roots = 'googleapis'
+# This is the commit SHA for v0.36.2.
+showcase-extracted-name  = 'gapic-showcase-69bdd62035d793f3d23a0c960dee547023c1c5ac'
+showcase-root            = 'https://github.com/googleapis/gapic-showcase/archive/69bdd62035d793f3d23a0c960dee547023c1c5ac.tar.gz'
+showcase-sha256          = '96491310ba1b5c0c71738d3d80327a95196c1b6ac16f033e3fa440870efbbf5c'
+googleapis-root          = 'https://github.com/googleapis/googleapis/archive/35365cb31245ac9ee3f3ed37bd052ea246ed732b.tar.gz'
+googleapis-sha256        = 'de0831d253510c43282d607de44b60b650f00a4e3a9f388927fe3db11871f6fa'
+discovery-extracted-name = 'discovery-artifact-manager-0bb1100f52bf0bae06f4b4d76742e7eba5c59793'
+discovery-root           = 'https://github.com/googleapis/discovery-artifact-manager/archive/0bb1100f52bf0bae06f4b4d76742e7eba5c59793.tar.gz'
+discovery-sha256         = '3c57742b69ee88c628dac5585be11064c243457ee24fca122805c7cf287a1a02'
+# This is the commit SHA for v29.3.
+# We prefer using the SHA because it will make the migration to the librarian configuration much easier.
+protobuf-src-extracted-name = 'protobuf-b407e8416e3893036aee5af9a12bd9b6a0e2b2e6'
+protobuf-src-root           = 'https://github.com/protocolbuffers/protobuf/archive/b407e8416e3893036aee5af9a12bd9b6a0e2b2e6.tar.gz'
+protobuf-src-sha256         = '55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d'
 protobuf-src-subdir         = 'src'
-conformance-extracted-name  = 'protobuf-29.3'
-conformance-root            = 'https://github.com/protocolbuffers/protobuf/releases/download/v29.3/protobuf-29.3.tar.gz'
-conformance-sha256          = '008a11cc56f9b96679b4c285fd05f46d317d685be3ab524b2a310be0fbad987e'
+# This is the commit SHA for v29.3.
+conformance-extracted-name = 'protobuf-b407e8416e3893036aee5af9a12bd9b6a0e2b2e6'
+conformance-root           = 'https://github.com/protocolbuffers/protobuf/archive/b407e8416e3893036aee5af9a12bd9b6a0e2b2e6.tar.gz'
+conformance-sha256         = '55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d'
 
 [codec]
 # The default version for all crates. This can be overridden in the crate's

@@ -18,6 +18,7 @@ use crate::model::Object;
 use crate::model_ext::ReadRange;
 use crate::read_object::ReadObjectResponse;
 use crate::storage::bidi::stub::dynamic::ObjectDescriptor as ObjectDescriptorStub;
+use std::sync::Arc;
 
 /// The `open_object()` metadata attributes.
 pub use http::HeaderMap;
@@ -55,9 +56,9 @@ pub use http::HeaderMap;
 /// You should actively read from all concurrent reads: the client library uses
 /// separate buffers for each `read_range()` call, but once a buffer is full the
 /// library will stop delivering data to **all** the concurrent reads.
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct ObjectDescriptor {
-    inner: Box<dyn ObjectDescriptorStub>,
+    inner: Arc<dyn ObjectDescriptorStub>,
 }
 
 impl ObjectDescriptor {
@@ -77,7 +78,7 @@ impl ObjectDescriptor {
     /// # Ok(()) }
     /// ```
     ///
-    pub fn object(&self) -> &Object {
+    pub fn object(&self) -> Object {
         self.inner.object()
     }
 
@@ -122,8 +123,8 @@ impl ObjectDescriptor {
     /// # async fn sample() -> anyhow::Result<()> {
     /// let descriptor = open();
     /// // Often useful when troubleshooting problems with Google Support.
-    /// let header = descriptor.headers().get("x-guploader-uploadid");
-    /// println!("debugging header = {:?}", header);
+    /// let headers = descriptor.headers();
+    /// println!("debugging header = {:?}", headers.get("x-guploader-uploadid"));
     ///
     /// fn open() -> ObjectDescriptor {
     /// # panic!()
@@ -131,17 +132,20 @@ impl ObjectDescriptor {
     /// }
     /// # Ok(()) }
     /// ```
-    pub fn headers(&self) -> &HeaderMap {
+    pub fn headers(&self) -> HeaderMap {
         self.inner.headers()
     }
 
     /// Create a new instance.
+    ///
+    /// Application developers should only need to create an `ObjectDescriptor`
+    /// in unit tests.
     pub fn new<T>(inner: T) -> Self
     where
-        T: ObjectDescriptorStub + 'static,
+        T: crate::stub::ObjectDescriptor + 'static,
     {
         Self {
-            inner: Box::new(inner),
+            inner: Arc::new(inner),
         }
     }
 }
@@ -153,6 +157,12 @@ mod tests {
     use crate::read_object::ReadObjectResponse;
     use http::{HeaderName, HeaderValue};
     use mockall::mock;
+    use static_assertions::assert_impl_all;
+
+    #[test]
+    fn impls() {
+        assert_impl_all!(ObjectDescriptor: Clone, std::fmt::Debug);
+    }
 
     // Verify this can be mocked inside the crate.
     // TODO(#3838) - support mocking outside the crate too.
@@ -175,8 +185,8 @@ mod tests {
         mock.expect_headers().times(1).return_const(headers.clone());
 
         let descriptor = ObjectDescriptor::new(mock);
-        assert_eq!(descriptor.object(), &object);
-        assert_eq!(descriptor.headers(), &headers);
+        assert_eq!(descriptor.object(), object);
+        assert_eq!(descriptor.headers(), headers);
 
         let _reader = descriptor.read_range(ReadRange::segment(100, 200)).await;
         Ok(())
@@ -187,9 +197,9 @@ mod tests {
         Descriptor {}
 
         impl crate::stub::ObjectDescriptor for Descriptor {
-            fn object(&self) -> &Object;
+            fn object(&self) -> Object;
             async fn read_range(&self, range: ReadRange) -> ReadObjectResponse;
-            fn headers(&self) -> &HeaderMap;
+            fn headers(&self) -> HeaderMap;
         }
     }
 

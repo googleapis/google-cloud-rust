@@ -76,7 +76,7 @@ use crate::build_errors::Error as BuilderError;
 use crate::constants::DEFAULT_SCOPE;
 use crate::credentials::dynamic::{AccessTokenCredentialsProvider, CredentialsProvider};
 use crate::credentials::{AccessToken, AccessTokenCredentials, CacheableResource, Credentials};
-use crate::errors::{self, CredentialsError};
+use crate::errors::{self};
 use crate::headers_util::build_cacheable_headers;
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
@@ -86,7 +86,7 @@ use http::{Extensions, HeaderMap};
 use jws::{CLOCK_SKEW_FUDGE, DEFAULT_TOKEN_TIMEOUT, JwsClaims, JwsHeader};
 use rustls::crypto::CryptoProvider;
 use rustls::sign::Signer;
-use rustls_pemfile::Item;
+use rustls_pki_types::{PrivateKeyDer, pem::PemObject};
 use serde_json::Value;
 use std::sync::Arc;
 use time::OffsetDateTime;
@@ -278,7 +278,7 @@ impl Builder {
     ///
     /// # Errors
     ///
-    /// Returns a [CredentialsError] if the `service_account_key`
+    /// Returns an error if the `service_account_key`
     /// provided to [`Builder::new`] cannot be successfully deserialized into the
     /// expected format for a service account key. This typically happens if the
     /// JSON value is malformed or missing required fields.
@@ -318,7 +318,7 @@ impl Builder {
     ///
     /// # Errors
     ///
-    /// Returns a [CredentialsError] if the `service_account_key`
+    /// Returns an error if the `service_account_key`
     /// provided to [`Builder::new`] cannot be successfully deserialized into the
     /// expected format for a service account key. This typically happens if the
     /// JSON value is malformed or missing required fields.
@@ -377,26 +377,31 @@ impl ServiceAccountKey {
             |p| p.key_provider,
         );
 
-        let private_key = rustls_pemfile::read_one(&mut private_key.as_bytes())
-            .map_err(errors::non_retryable)?
-            .ok_or_else(|| {
-                errors::non_retryable_from_str("missing PEM section in service account key")
-            })?;
-        let pk = match private_key {
-            Item::Pkcs8Key(item) => key_provider.load_private_key(item.into()),
-            other => {
-                return Err(Self::unexpected_private_key_error(other));
+        let key_der = PrivateKeyDer::from_pem_slice(private_key.as_bytes()).map_err(|e| {
+            errors::non_retryable_from_str(format!(
+                "Failed to parse service account private key PEM: {}",
+                e
+            ))
+        })?;
+
+        let pkcs8_der = match key_der {
+            PrivateKeyDer::Pkcs8(der) => der,
+            _ => {
+                return Err(errors::non_retryable_from_str(format!(
+                    "expected key to be in form of PKCS8, found {:?}",
+                    key_der
+                )));
             }
         };
-        let sk = pk.map_err(errors::non_retryable)?;
-        sk.choose_scheme(&[rustls::SignatureScheme::RSA_PKCS1_SHA256])
-            .ok_or_else(|| errors::non_retryable_from_str("Unable to choose RSA_PKCS1_SHA256 signing scheme as it is not supported by current signer"))
-    }
 
-    fn unexpected_private_key_error(private_key_format: Item) -> CredentialsError {
-        errors::non_retryable_from_str(format!(
-            "expected key to be in form of PKCS8, found {private_key_format:?}",
-        ))
+        let pk = key_provider
+            .load_private_key(PrivateKeyDer::Pkcs8(pkcs8_der))
+            .map_err(errors::non_retryable)?;
+
+        pk.choose_scheme(&[rustls::SignatureScheme::RSA_PKCS1_SHA256])
+            .ok_or_else(||{
+                errors::non_retryable_from_str("Unable to choose RSA_PKCS1_SHA256 signing scheme as it is not supported by current signer")
+            })
     }
 }
 
@@ -557,7 +562,6 @@ mod tests {
     use http::header::AUTHORIZATION;
     use rsa::pkcs1::EncodeRsaPrivateKey;
     use rsa::pkcs8::LineEnding;
-    use rustls_pemfile::Item;
     use serde_json::Value;
     use serde_json::json;
     use std::error::Error as _;
@@ -706,7 +710,7 @@ mod tests {
 
         service_account_key["private_key"] = Value::from(key);
         let cred = Builder::new(service_account_key).build()?;
-        let expected_error_message = "expected key to be in form of PKCS8, found Pkcs1Key";
+        let expected_error_message = "expected key to be in form of PKCS8, found ";
         assert!(
             cred.headers(Extensions::new())
                 .await
@@ -821,20 +825,28 @@ mod tests {
         };
 
         let signer = tg.service_account_key.signer();
-        let expected_error_message = "missing PEM section in service account key";
+        let expected_error_message = "Failed to parse service account private key PEM";
         assert!(signer.is_err_and(|e| e.to_string().contains(expected_error_message)));
         Ok(())
     }
 
     #[test]
-    fn unexpected_private_key_error_message() -> TestResult {
-        let expected_message = format!(
-            "expected key to be in form of PKCS8, found {:?}",
-            Item::Crl(Vec::new().into()) // Example unsupported key type
+    fn signer_fails_on_invalid_pem_type() -> TestResult {
+        let invalid_pem = concat!(
+            "-----BEGI X509 CRL-----\n",
+            "MIIBmzCBja... (truncated) ...\n",
+            "-----END X509 CRL-----"
         );
 
-        let error = ServiceAccountKey::unexpected_private_key_error(Item::Crl(Vec::new().into()));
-        assert!(error.to_string().contains(&expected_message));
+        let mut key = ServiceAccountKey {
+            private_key: invalid_pem.to_string(),
+            ..Default::default()
+        };
+        key.private_key = invalid_pem.to_string();
+        let result = key.signer();
+        assert!(result.is_err());
+        let error_msg = result.unwrap_err().to_string();
+        assert!(error_msg.contains("Failed to parse service account private key PEM"));
         Ok(())
     }
 

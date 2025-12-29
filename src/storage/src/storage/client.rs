@@ -17,7 +17,6 @@ use crate::Error;
 use crate::builder::storage::ReadObject;
 use crate::builder::storage::WriteObject;
 use crate::read_resume_policy::ReadResumePolicy;
-#[cfg(google_cloud_unstable_storage_bidi)]
 use crate::storage::bidi::OpenObject;
 use crate::storage::common_options::CommonOptions;
 use crate::streaming_source::Payload;
@@ -106,7 +105,6 @@ pub(crate) struct StorageInner {
     pub cred: auth::credentials::Credentials,
     pub endpoint: String,
     pub options: RequestOptions,
-    #[cfg(google_cloud_unstable_storage_bidi)]
     pub grpc: gaxi::grpc::Client,
 }
 
@@ -231,7 +229,6 @@ where
         ReadObject::new(self.stub.clone(), bucket, object, self.options.clone())
     }
 
-    #[cfg(google_cloud_unstable_storage_bidi)]
     /// Opens an object to read its contents using concurrent ranged reads.
     ///
     /// # Example
@@ -300,14 +297,13 @@ impl StorageInner {
         cred: Credentials,
         endpoint: String,
         options: RequestOptions,
-        #[cfg(google_cloud_unstable_storage_bidi)] grpc: gaxi::grpc::Client,
+        grpc: gaxi::grpc::Client,
     ) -> Self {
         Self {
             client,
             cred,
             endpoint,
             options,
-            #[cfg(google_cloud_unstable_storage_bidi)]
             grpc,
         }
     }
@@ -331,7 +327,6 @@ impl StorageInner {
             cred,
             endpoint,
             options,
-            #[cfg(google_cloud_unstable_storage_bidi)]
             gaxi::grpc::Client::new(config, super::DEFAULT_HOST).await?,
         );
         Ok(inner)
@@ -385,7 +380,6 @@ impl ClientBuilder {
         let mut config = ClientConfig::default();
         config.retry_policy = Some(Arc::new(crate::retry_policy::storage_default()));
         config.backoff_policy = Some(Arc::new(crate::backoff_policy::default()));
-        #[cfg(google_cloud_unstable_storage_bidi)]
         {
             let count = std::thread::available_parallelism().ok();
             config.grpc_subchannel_count = Some(count.map(|x| x.get()).unwrap_or(1));
@@ -639,20 +633,27 @@ impl ClientBuilder {
 
     /// Configure the number of subchannels used by the client.
     ///
-    /// gRPC-based clients may exhibit high latency if many requests need to be
-    /// demuxed over a single HTTP/2 connection (often called a *subchannel* in gRPC).
-    /// Using more subchannels may provide better throughput and/or latency.
-    ///
     /// # Example
     /// ```
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample() -> anyhow::Result<()> {
+    /// // By default the client uses `count` subchannels.
+    /// let count = std::thread::available_parallelism()?.get();
     /// let client = Storage::builder()
-    ///     .with_grpc_subchannel_count(50)
-    ///     .build().await?;
+    ///     .with_grpc_subchannel_count(std::cmp::max(1, count / 2))
+    ///     .build()
+    ///     .await?;
     /// # Ok(()) }
     /// ```
-    #[cfg(google_cloud_unstable_storage_bidi)]
+    ///
+    /// gRPC-based clients may exhibit high latency if many requests need to be
+    /// demuxed over a single HTTP/2 connection (often called a *subchannel* in gRPC).
+    /// Consider using more subchannels if your application makes many
+    /// concurrent requests. Consider using fewer subchannels if your
+    /// application needs the file descriptors for other purposes.
+    ///
+    /// Keep in mind that Google Cloud limits the number of concurrent RPCs in
+    /// a single connection to about 100.
     pub fn with_grpc_subchannel_count(mut self, v: usize) -> Self {
         self.config.grpc_subchannel_count = Some(v);
         self
@@ -759,7 +760,6 @@ pub(crate) mod tests {
         let config = builder.config;
         assert!(config.retry_policy.is_some(), "{config:?}");
         assert!(config.backoff_policy.is_some(), "{config:?}");
-        #[cfg(google_cloud_unstable_storage_bidi)]
         {
             assert!(
                 config.grpc_subchannel_count.is_some_and(|v| v >= 1),
@@ -769,7 +769,6 @@ pub(crate) mod tests {
     }
 
     #[test]
-    #[cfg(google_cloud_unstable_storage_bidi)]
     fn subchannel_count() {
         let builder = ClientBuilder::new()
             .with_credentials(Anonymous::new().build())
