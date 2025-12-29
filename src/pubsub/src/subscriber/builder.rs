@@ -15,6 +15,8 @@
 use super::stub::Stub;
 use std::sync::Arc;
 
+const MIB: i64 = 1024 * 1024;
+
 /// Builder for the `client::Subscriber::streaming_pull` method.
 pub struct StreamingPull<S>
 where
@@ -38,7 +40,7 @@ where
             subscription,
             ack_deadline_seconds: 10,
             max_outstanding_messages: 1000,
-            max_outstanding_bytes: 100 * 1024 * 1024,
+            max_outstanding_bytes: 100 * MIB,
         }
     }
 
@@ -48,12 +50,14 @@ where
     /// incoming message. Note that this value is independent of the deadline
     /// configured on the server-side subscription.
     ///
+    /// If the server does not hear back from the client within this deadline
+    /// (e.g. if an application crashes), it will resend any unacknowledged
+    /// messages to another subscriber.
+    ///
     /// The minimum deadline you can specify is 10 seconds. The maximum deadline
     /// you can specify is 600 seconds (10 minutes).
     ///
     /// The default value is 10 seconds.
-    ///
-    /// To use the server-side subscription deadline, specify a value of `0`.
     ///
     /// # Example
     ///
@@ -81,6 +85,8 @@ where
     ///
     /// Use a value <= 0 to set no limit on the number of outstanding messages.
     ///
+    /// The default value is 1000 messages.
+    ///
     /// # Example
     ///
     /// ```no_rust
@@ -88,7 +94,7 @@ where
     /// # async fn sample() -> anyhow::Result<()> {
     /// # let client = Subscriber::builder().build().await?;
     /// let session = client.streaming_pull("projects/my-project/subscriptions/my-subscription")
-    ///     .set_max_outstanding_messages(100000)
+    ///     .set_max_outstanding_messages(2000)
     ///     .start();
     /// # Ok(()) }
     /// ```
@@ -107,14 +113,17 @@ where
     ///
     /// Use a value <= 0 to set no limit on the number of outstanding bytes.
     ///
+    /// The default value is 100 MiB.
+    ///
     /// # Example
     ///
     /// ```no_rust
     /// # use google_cloud_pubsub::client::Subscriber;
     /// # async fn sample() -> anyhow::Result<()> {
     /// # let client = Subscriber::builder().build().await?;
+    /// const MIB: i64 = 1024 * 1024;
     /// let session = client.streaming_pull("projects/my-project/subscriptions/my-subscription")
-    ///     .set_max_outstanding_bytes(1024 * 1024 * 1024)
+    ///     .set_max_outstanding_bytes(200 * MIB)
     ///     .start();
     /// # Ok(()) }
     /// ```
@@ -129,6 +138,8 @@ mod tests {
     use super::super::stub::tests::MockStub;
     use super::*;
 
+    const KIB: i64 = 1024;
+
     #[test]
     fn reasonable_defaults() {
         let mock = MockStub::new();
@@ -142,14 +153,14 @@ mod tests {
         );
         assert_eq!(builder.ack_deadline_seconds, 10);
         assert!(
-            1000000 > builder.max_outstanding_messages && builder.max_outstanding_messages > 100,
-            "{}",
+            100_000 > builder.max_outstanding_messages && builder.max_outstanding_messages > 100,
+            "max_outstanding_messages={}",
             builder.max_outstanding_messages
         );
         assert!(
-            builder.max_outstanding_bytes > 100000,
-            "{}",
-            builder.max_outstanding_messages
+            builder.max_outstanding_bytes > 100 * KIB,
+            "max_outstanding_bytes={}",
+            builder.max_outstanding_bytes
         );
     }
 
@@ -162,13 +173,13 @@ mod tests {
         )
         .set_ack_deadline_seconds(20)
         .set_max_outstanding_messages(12345)
-        .set_max_outstanding_bytes(6789000);
+        .set_max_outstanding_bytes(6789 * KIB);
         assert_eq!(
             builder.subscription,
             "projects/my-project/subscriptions/my-subscription"
         );
         assert_eq!(builder.ack_deadline_seconds, 20);
         assert_eq!(builder.max_outstanding_messages, 12345);
-        assert_eq!(builder.max_outstanding_bytes, 6789000);
+        assert_eq!(builder.max_outstanding_bytes, 6789 * KIB);
     }
 }
