@@ -331,7 +331,7 @@ rustls                = { default-features = false, version = "0.23" }
 rustls-pki-types      = { default-features = false, version = "1.13" }
 semver                = { default-features = false, version = "1.0.21" }
 serde                 = { default-features = false, version = "1.0.228", features = ["serde_derive"] }
-serde_json            = { default-features = false, version = "1.0.146", features = ["std"] }
+serde_json            = { default-features = false, version = "1.0.148", features = ["std"] }
 serde_with            = { default-features = false, version = "3", features = ["base64", "macros", "std"] }
 sha2                  = { default-features = false, version = "0.10" }
 thiserror             = { default-features = false, version = "2" }
