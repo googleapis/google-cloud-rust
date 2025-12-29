@@ -344,7 +344,7 @@ tonic                 = { default-features = false, version = "0.14.1", features
 tonic-prost           = { default-features = false, version = "0.14.2" }
 tonic-prost-build     = { default-features = false, version = "0.14.1" }
 tower                 = { default-features = false, version = "0.5", features = ["util"] }
-tracing               = { default-features = false, version = "0.1.43", features = ["attributes"] }
+tracing               = { default-features = false, version = "0.1.44", features = ["attributes"] }
 tracing-log           = { default-features = false, version = "0.2" }
 tracing-opentelemetry = { default-features = false, version = "0.32" }
 tracing-subscriber    = { default-features = false, version = "0.3.22" }
