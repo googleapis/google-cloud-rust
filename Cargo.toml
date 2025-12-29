@@ -382,7 +382,7 @@ rustc_version     = { default-features = false, version = "0.4" }
 scoped-env        = { default-features = false, version = "2.1" }
 serial_test       = { default-features = false, version = "3" }
 static_assertions = { default-features = false, version = "1.1" }
-tempfile          = { default-features = false, version = "3.23" }
+tempfile          = { default-features = false, version = "3.24" }
 test-case         = { default-features = false, version = "3.3" }
 tokio-stream      = { default-features = false, version = "0.1" }
 tokio-test        = { default-features = false, version = "0.4" }
