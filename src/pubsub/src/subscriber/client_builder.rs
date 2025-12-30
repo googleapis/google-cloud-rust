@@ -104,8 +104,8 @@ mod tests {
     #[test]
     fn defaults() {
         let builder = ClientBuilder::new();
-        assert!(!builder.config.endpoint.is_some());
-        assert!(!builder.config.cred.is_some());
+        assert!(builder.config.endpoint.is_none());
+        assert!(builder.config.cred.is_none());
     }
 
     #[test]
