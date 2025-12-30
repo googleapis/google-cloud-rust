@@ -19475,6 +19475,10 @@ impl std::fmt::Debug for super::StoragePool {
         );
         debug_struct.field("creation_timestamp", &self.creation_timestamp);
         debug_struct.field("description", &self.description);
+        debug_struct.field(
+            "exapool_provisioned_capacity_gb",
+            &self.exapool_provisioned_capacity_gb,
+        );
         debug_struct.field("id", &self.id);
         debug_struct.field("kind", &self.kind);
         debug_struct.field("label_fingerprint", &self.label_fingerprint);
@@ -19568,6 +19572,20 @@ impl std::fmt::Debug for super::StoragePoolDisk {
         debug_struct.field("status", &self.status);
         debug_struct.field("r#type", &self.r#type);
         debug_struct.field("used_bytes", &self.used_bytes);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "storage-pools")]
+impl std::fmt::Debug for super::StoragePoolExapoolProvisionedCapacityGb {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StoragePoolExapoolProvisionedCapacityGb");
+        debug_struct.field("capacity_optimized", &self.capacity_optimized);
+        debug_struct.field("read_optimized", &self.read_optimized);
+        debug_struct.field("write_optimized", &self.write_optimized);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -19672,6 +19690,16 @@ impl std::fmt::Debug for super::StoragePoolResourceStatus {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StoragePoolResourceStatus");
         debug_struct.field("disk_count", &self.disk_count);
+        debug_struct.field("exapool_max_read_iops", &self.exapool_max_read_iops);
+        debug_struct.field(
+            "exapool_max_read_throughput",
+            &self.exapool_max_read_throughput,
+        );
+        debug_struct.field("exapool_max_write_iops", &self.exapool_max_write_iops);
+        debug_struct.field(
+            "exapool_max_write_throughput",
+            &self.exapool_max_write_throughput,
+        );
         debug_struct.field("last_resize_timestamp", &self.last_resize_timestamp);
         debug_struct.field(
             "max_total_provisioned_disk_capacity_gb",
