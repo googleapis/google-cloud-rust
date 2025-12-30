@@ -73,21 +73,21 @@ wkt.workspace         = true
 unstable-stream = ["reqwest/stream"]
 
 [dev-dependencies]
-anyhow.workspace         = true
-flate2                   = { workspace = true, features = ["zlib-rs"] }
-http-body-util.workspace = true
-httptest.workspace       = true
-mockall.workspace        = true
-multer.workspace         = true
-pastey.workspace         = true
-scoped-env.workspace     = true
-serial_test.workspace    = true
-static_assertions        = { workspace = true }
-test-case.workspace      = true
-tempfile.workspace       = true
-tokio-test.workspace     = true
-tokio.workspace          = true
-pretty_assertions        = { workspace = true }
+anyhow.workspace            = true
+flate2                      = { workspace = true, features = ["zlib-rs"] }
+http-body-util.workspace    = true
+httptest.workspace          = true
+mockall.workspace           = true
+multer.workspace            = true
+pastey.workspace            = true
+scoped-env.workspace        = true
+serial_test.workspace       = true
+static_assertions           = { workspace = true }
+test-case.workspace         = true
+tempfile.workspace          = true
+tokio-test.workspace        = true
+tokio.workspace             = true
+pretty_assertions.workspace = true
 # The tests use `unstable-stream`, which is not enabled by default.
 google-cloud-storage = { path = ".", features = ["unstable-stream"] }
 storage-grpc-mock    = { path = "grpc-mock" }
