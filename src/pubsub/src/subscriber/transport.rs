@@ -15,7 +15,7 @@
 use super::stub::Stub;
 use crate::Result;
 use crate::generated::gapic_dataplane::stub::dynamic::Subscriber as GapicStub;
-use crate::generated::gapic_dataplane::transport::Subscriber as Transport;
+pub(crate) use crate::generated::gapic_dataplane::transport::Subscriber as Transport;
 use crate::google::pubsub::v1::{StreamingPullRequest, StreamingPullResponse};
 use tokio::sync::mpsc::Receiver;
 use tokio_stream::wrappers::ReceiverStream;
