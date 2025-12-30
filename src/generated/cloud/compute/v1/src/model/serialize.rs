@@ -43362,6 +43362,12 @@ impl serde::ser::Serialize for super::StoragePool {
         if self.description.is_some() {
             state.serialize_entry("description", &self.description)?;
         }
+        if self.exapool_provisioned_capacity_gb.is_some() {
+            state.serialize_entry(
+                "exapoolProvisionedCapacityGb",
+                &self.exapool_provisioned_capacity_gb,
+            )?;
+        }
         if self.id.is_some() {
             struct __With<'a>(&'a std::option::Option<u64>);
             impl<'a> serde::ser::Serialize for __With<'a> {
@@ -43686,6 +43692,68 @@ impl serde::ser::Serialize for super::StoragePoolDisk {
 
 #[cfg(feature = "storage-pools")]
 #[doc(hidden)]
+impl serde::ser::Serialize for super::StoragePoolExapoolProvisionedCapacityGb {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.capacity_optimized.is_some() {
+            struct __With<'a>(&'a std::option::Option<i64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("capacityOptimized", &__With(&self.capacity_optimized))?;
+        }
+        if self.read_optimized.is_some() {
+            struct __With<'a>(&'a std::option::Option<i64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("readOptimized", &__With(&self.read_optimized))?;
+        }
+        if self.write_optimized.is_some() {
+            struct __With<'a>(&'a std::option::Option<i64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("writeOptimized", &__With(&self.write_optimized))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "storage-pools")]
+#[doc(hidden)]
 impl serde::ser::Serialize for super::StoragePoolList {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -43906,6 +43974,68 @@ impl serde::ser::Serialize for super::StoragePoolResourceStatus {
                 }
             }
             state.serialize_entry("diskCount", &__With(&self.disk_count))?;
+        }
+        if self.exapool_max_read_iops.is_some() {
+            struct __With<'a>(&'a std::option::Option<i64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("exapoolMaxReadIops", &__With(&self.exapool_max_read_iops))?;
+        }
+        if self.exapool_max_read_throughput.is_some() {
+            struct __With<'a>(&'a std::option::Option<i64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry(
+                "exapoolMaxReadThroughput",
+                &__With(&self.exapool_max_read_throughput),
+            )?;
+        }
+        if self.exapool_max_write_iops.is_some() {
+            struct __With<'a>(&'a std::option::Option<i64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("exapoolMaxWriteIops", &__With(&self.exapool_max_write_iops))?;
+        }
+        if self.exapool_max_write_throughput.is_some() {
+            struct __With<'a>(&'a std::option::Option<i64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry(
+                "exapoolMaxWriteThroughput",
+                &__With(&self.exapool_max_write_throughput),
+            )?;
         }
         if self.last_resize_timestamp.is_some() {
             state.serialize_entry("lastResizeTimestamp", &self.last_resize_timestamp)?;
