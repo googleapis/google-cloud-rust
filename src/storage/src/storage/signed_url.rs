@@ -14,6 +14,7 @@
 
 use crate::{error::SigningError, signed_url::UrlStyle, storage::client::ENCODED_CHARS};
 use auth::signer::Signer;
+use chrono::{DateTime, Utc};
 use percent_encoding::{AsciiSet, utf8_percent_encode};
 use std::collections::BTreeMap;
 
@@ -57,6 +58,7 @@ pub struct SignedUrlBuilder {
     endpoint: Option<String>,
     universe_domain: String,
     client_email: Option<String>,
+    timestamp: DateTime<Utc>,
     url_style: UrlStyle,
 }
 
@@ -126,6 +128,15 @@ impl SigningScope {
     }
 }
 
+// Used to check conformance test expectations.
+struct SigningComponents {
+    #[cfg(test)]
+    canonical_request: String,
+    #[cfg(test)]
+    string_to_sign: String,
+    signed_url: String,
+}
+
 impl SignedUrlBuilder {
     fn new(scope: SigningScope) -> Self {
         Self {
@@ -137,6 +148,7 @@ impl SignedUrlBuilder {
             endpoint: None,
             universe_domain: "googleapis.com".to_string(),
             client_email: None,
+            timestamp: Utc::now(),
             url_style: UrlStyle::PathStyle,
         }
     }
@@ -193,6 +205,13 @@ impl SignedUrlBuilder {
         B: Into<String>,
     {
         Self::new(SigningScope::Bucket(bucket.into()))
+    }
+
+    #[cfg(test)]
+    /// Sets the timestamp for the signed URL. Only used in tests.
+    fn with_timestamp(mut self, timestamp: DateTime<Utc>) -> Self {
+        self.timestamp = timestamp;
+        self
     }
 
     /// Sets the HTTP method for the signed URL. The default is "GET".
@@ -391,15 +410,12 @@ impl SignedUrlBuilder {
     }
 
     /// Generates the signed URL using the provided signer.
-    ///
-    /// # Arguments
-    ///
-    /// * `signer` - The signer to use for signing the URL.
-    ///
-    /// # Returns
-    ///
-    /// A `Result` containing the signed URL as a `String` or a `SigningError`.
-    pub async fn sign_with(self, _signer: &Signer) -> std::result::Result<String, SigningError> {
+    /// Returns the signed URL, the string to sign, and the canonical request.
+    /// Used to check conformance test expectations.
+    async fn sign_internal(
+        self,
+        _signer: &Signer,
+    ) -> std::result::Result<SigningComponents, SigningError> {
         let (endpoint_url, host) = self.resolve_endpoint_url()?;
         let scheme = endpoint_url.scheme();
         let _canonical_url = self
@@ -409,12 +425,31 @@ impl SignedUrlBuilder {
         // TODO(#3645): implement gcs logic for signed url generation.
         Err(SigningError::signing("not implemented".to_string()))
     }
+
+    /// Generates the signed URL using the provided signer.
+    ///
+    /// # Arguments
+    ///
+    /// * `signer` - The signer to use for signing the URL.
+    ///
+    /// # Returns
+    ///
+    /// A `Result` containing the signed URL as a `String` or a `SigningError`.
+    pub async fn sign_with(self, signer: &Signer) -> std::result::Result<String, SigningError> {
+        let components = self.sign_internal(signer).await?;
+        Ok(components.signed_url)
+    }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+    use auth::credentials::service_account::Builder as ServiceAccount;
     use auth::signer::{Signer, SigningProvider};
+    use chrono::DateTime;
+    use scoped_env::ScopedEnv;
+    use serde::Deserialize;
+    use std::collections::HashMap;
     use tokio::time::Duration;
 
     type TestResult = anyhow::Result<()>;
@@ -528,6 +563,162 @@ mod tests {
             .canonical_url(endpoint_url.scheme(), &host, builder.url_style);
         assert_eq!(url, expected_url);
 
+        Ok(())
+    }
+
+    #[derive(Deserialize)]
+    #[serde(rename_all = "camelCase")]
+    struct SignedUrlTestSuite {
+        signing_v4_tests: Vec<SignedUrlTest>,
+    }
+
+    #[derive(Deserialize)]
+    #[serde(rename_all = "camelCase")]
+    struct SignedUrlTest {
+        description: String,
+        bucket: String,
+        object: Option<String>,
+        method: String,
+        expiration: u64,
+        timestamp: String,
+        expected_url: String,
+        headers: Option<HashMap<String, String>>,
+        query_parameters: Option<HashMap<String, String>>,
+        scheme: Option<String>,
+        url_style: Option<String>,
+        bucket_bound_hostname: Option<String>,
+        expected_canonical_request: String,
+        expected_string_to_sign: String,
+        hostname: Option<String>,
+        client_endpoint: Option<String>,
+        emulator_hostname: Option<String>,
+        universe_domain: Option<String>,
+    }
+
+    #[tokio::test]
+    async fn signed_url_conformance() -> anyhow::Result<()> {
+        let service_account_key = serde_json::from_slice(include_bytes!(
+            "conformance/test_service_account.not-a-test.json"
+        ))?;
+
+        let signer = ServiceAccount::new(service_account_key)
+            .build_signer()
+            .expect("failed to build signer");
+
+        let suite: SignedUrlTestSuite =
+            serde_json::from_slice(include_bytes!("conformance/v4_signatures.json"))?;
+
+        let mut failed_tests = Vec::new();
+        let mut passed_tests = Vec::new();
+        let total_tests = suite.signing_v4_tests.len();
+        for test in suite.signing_v4_tests {
+            let timestamp =
+                DateTime::parse_from_rfc3339(&test.timestamp).expect("invalid timestamp");
+            let method = http::Method::from_bytes(test.method.as_bytes()).expect("invalid method");
+            let scheme = test.scheme.unwrap_or("https".to_string());
+            let url_style = match test.url_style {
+                Some(url_style) => match url_style.as_str() {
+                    "VIRTUAL_HOSTED_STYLE" => UrlStyle::VirtualHostedStyle,
+                    "BUCKET_BOUND_HOSTNAME" => UrlStyle::BucketBoundHostname,
+                    _ => UrlStyle::PathStyle,
+                },
+                None => UrlStyle::PathStyle,
+            };
+            let builder = match test.object {
+                Some(object) => SignedUrlBuilder::for_object(test.bucket, object),
+                None => SignedUrlBuilder::for_bucket(test.bucket),
+            };
+
+            let emulator_hostname = test.emulator_hostname.unwrap_or_default();
+            let _e = ScopedEnv::set("STORAGE_EMULATOR_HOST", emulator_hostname.as_str());
+
+            let builder = builder
+                .with_method(method)
+                .with_url_style(url_style)
+                .with_expiration(Duration::from_secs(test.expiration))
+                .with_timestamp(timestamp.into());
+
+            let builder = test
+                .universe_domain
+                .iter()
+                .fold(builder, |builder, universe_domain| {
+                    builder.with_universe_domain(universe_domain)
+                });
+            let builder = test
+                .client_endpoint
+                .iter()
+                .fold(builder, |builder, client_endpoint| {
+                    builder.with_endpoint(client_endpoint)
+                });
+            let builder = test
+                .bucket_bound_hostname
+                .iter()
+                .fold(builder, |builder, hostname| {
+                    builder.with_endpoint(format!("{}://{}", scheme, hostname))
+                });
+            let builder = test.hostname.iter().fold(builder, |builder, hostname| {
+                builder.with_endpoint(format!("{}://{}", scheme, hostname))
+            });
+            let builder = test.headers.iter().fold(builder, |builder, headers| {
+                headers.iter().fold(builder, |builder, (k, v)| {
+                    builder.with_header(k.clone(), v.clone())
+                })
+            });
+            let builder = test
+                .query_parameters
+                .iter()
+                .fold(builder, |builder, query_params| {
+                    query_params.iter().fold(builder, |builder, (k, v)| {
+                        builder.with_query_param(k.clone(), v.clone())
+                    })
+                });
+
+            let components = builder.sign_internal(&signer).await;
+            let components = match components {
+                Ok(components) => components,
+                Err(e) => {
+                    println!("❌ Failed test: {}", test.description);
+                    println!("Error: {}", e);
+                    failed_tests.push(test.description);
+                    continue;
+                }
+            };
+            let canonical_request = components.canonical_request;
+            let string_to_sign = components.string_to_sign;
+            let signed_url = components.signed_url;
+
+            if canonical_request != test.expected_canonical_request
+                || string_to_sign != test.expected_string_to_sign
+                || signed_url != test.expected_url
+            {
+                println!("❌ Failed test: {}", test.description);
+                let diff = pretty_assertions::StrComparison::new(
+                    &canonical_request,
+                    &test.expected_canonical_request,
+                );
+                println!("Canonical request diff: {}", diff);
+                let diff = pretty_assertions::StrComparison::new(
+                    &string_to_sign,
+                    &test.expected_string_to_sign,
+                );
+                println!("String to sign diff: {}", diff);
+                let diff = pretty_assertions::StrComparison::new(&signed_url, &test.expected_url);
+                println!("Signed URL diff: {}", diff);
+                failed_tests.push(test.description);
+                continue;
+            }
+            passed_tests.push(test.description);
+        }
+        let total_passed = passed_tests.len();
+        for test in passed_tests {
+            println!("✅ Passed test: {}", test);
+        }
+        for test in failed_tests {
+            println!("❌ Failed test: {}", test);
+        }
+        println!("{}/{} tests passed", total_passed, total_tests);
+
+        // TODO: for now, all tests will fail
         Ok(())
     }
 }
