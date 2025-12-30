@@ -83,6 +83,31 @@ impl serde::ser::Serialize for super::TransactionEvent {
 }
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::PhoneAuthenticationEvent {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.phone_number.is_empty() {
+            state.serialize_entry("phoneNumber", &self.phone_number)?;
+        }
+        if self.event_time.is_some() {
+            state.serialize_entry("eventTime", &self.event_time)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::AnnotateAssessmentRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -118,6 +143,9 @@ impl serde::ser::Serialize for super::AnnotateAssessmentRequest {
         }
         if self.transaction_event.is_some() {
             state.serialize_entry("transactionEvent", &self.transaction_event)?;
+        }
+        if self.phone_authentication_event.is_some() {
+            state.serialize_entry("phoneAuthenticationEvent", &self.phone_authentication_event)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -753,6 +781,34 @@ impl serde::ser::Serialize for super::RiskAnalysis {
         if !wkt::internal::is_default(&self.challenge) {
             state.serialize_entry("challenge", &self.challenge)?;
         }
+        if !self.verified_bots.is_empty() {
+            state.serialize_entry("verifiedBots", &self.verified_bots)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::Bot {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !wkt::internal::is_default(&self.bot_type) {
+            state.serialize_entry("botType", &self.bot_type)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -824,6 +880,9 @@ impl serde::ser::Serialize for super::FraudPreventionAssessment {
             }
             state.serialize_entry("transactionRisk", &__With(&self.transaction_risk))?;
         }
+        if !self.risk_reasons.is_empty() {
+            state.serialize_entry("riskReasons", &self.risk_reasons)?;
+        }
         if self.stolen_instrument_verdict.is_some() {
             state.serialize_entry("stolenInstrumentVerdict", &self.stolen_instrument_verdict)?;
         }
@@ -832,6 +891,28 @@ impl serde::ser::Serialize for super::FraudPreventionAssessment {
         }
         if self.behavioral_trust_verdict.is_some() {
             state.serialize_entry("behavioralTrustVerdict", &self.behavioral_trust_verdict)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::fraud_prevention_assessment::RiskReason {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.reason) {
+            state.serialize_entry("reason", &self.reason)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1694,6 +1775,65 @@ impl serde::ser::Serialize for super::WebKeySettings {
                 "challengeSecurityPreference",
                 &self.challenge_security_preference,
             )?;
+        }
+        if self.challenge_settings.is_some() {
+            state.serialize_entry("challengeSettings", &self.challenge_settings)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::web_key_settings::ActionSettings {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.score_threshold) {
+            struct __With<'a>(&'a f32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("scoreThreshold", &__With(&self.score_threshold))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::web_key_settings::ChallengeSettings {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.default_settings.is_some() {
+            state.serialize_entry("defaultSettings", &self.default_settings)?;
+        }
+        if !self.action_settings.is_empty() {
+            state.serialize_entry("actionSettings", &self.action_settings)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

@@ -266,6 +266,27 @@ pub mod recaptcha_enterprise_service {
             self.0.request.transaction_event = v.map(|x| x.into());
             self
         }
+
+        /// Sets the value of [phone_authentication_event][crate::model::AnnotateAssessmentRequest::phone_authentication_event].
+        pub fn set_phone_authentication_event<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PhoneAuthenticationEvent>,
+        {
+            self.0.request.phone_authentication_event = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [phone_authentication_event][crate::model::AnnotateAssessmentRequest::phone_authentication_event].
+        pub fn set_or_clear_phone_authentication_event<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::PhoneAuthenticationEvent>,
+        {
+            self.0.request.phone_authentication_event = v.map(|x| x.into());
+            self
+        }
     }
 
     #[doc(hidden)]

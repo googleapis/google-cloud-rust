@@ -52,13 +52,22 @@ impl<'de> serde::de::Deserialize<'de> for super::Instance {
             __psc_attachment_details,
             __endpoints,
             __mode,
+            __simulate_maintenance_event,
             __ondemand_maintenance,
+            __satisfies_pzs,
+            __satisfies_pzi,
             __maintenance_policy,
             __maintenance_schedule,
             __cross_instance_replication_config,
             __async_instance_endpoints_deletion_enabled,
+            __kms_key,
+            __encryption_info,
             __backup_collection,
             __automated_backup_config,
+            __maintenance_version,
+            __effective_maintenance_version,
+            __available_maintenance_versions,
+            __allow_fewer_zones_deployment,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -129,8 +138,18 @@ impl<'de> serde::de::Deserialize<'de> for super::Instance {
                             "psc_attachment_details" => Ok(__FieldTag::__psc_attachment_details),
                             "endpoints" => Ok(__FieldTag::__endpoints),
                             "mode" => Ok(__FieldTag::__mode),
+                            "simulateMaintenanceEvent" => {
+                                Ok(__FieldTag::__simulate_maintenance_event)
+                            }
+                            "simulate_maintenance_event" => {
+                                Ok(__FieldTag::__simulate_maintenance_event)
+                            }
                             "ondemandMaintenance" => Ok(__FieldTag::__ondemand_maintenance),
                             "ondemand_maintenance" => Ok(__FieldTag::__ondemand_maintenance),
+                            "satisfiesPzs" => Ok(__FieldTag::__satisfies_pzs),
+                            "satisfies_pzs" => Ok(__FieldTag::__satisfies_pzs),
+                            "satisfiesPzi" => Ok(__FieldTag::__satisfies_pzi),
+                            "satisfies_pzi" => Ok(__FieldTag::__satisfies_pzi),
                             "maintenancePolicy" => Ok(__FieldTag::__maintenance_policy),
                             "maintenance_policy" => Ok(__FieldTag::__maintenance_policy),
                             "maintenanceSchedule" => Ok(__FieldTag::__maintenance_schedule),
@@ -147,10 +166,34 @@ impl<'de> serde::de::Deserialize<'de> for super::Instance {
                             "async_instance_endpoints_deletion_enabled" => {
                                 Ok(__FieldTag::__async_instance_endpoints_deletion_enabled)
                             }
+                            "kmsKey" => Ok(__FieldTag::__kms_key),
+                            "kms_key" => Ok(__FieldTag::__kms_key),
+                            "encryptionInfo" => Ok(__FieldTag::__encryption_info),
+                            "encryption_info" => Ok(__FieldTag::__encryption_info),
                             "backupCollection" => Ok(__FieldTag::__backup_collection),
                             "backup_collection" => Ok(__FieldTag::__backup_collection),
                             "automatedBackupConfig" => Ok(__FieldTag::__automated_backup_config),
                             "automated_backup_config" => Ok(__FieldTag::__automated_backup_config),
+                            "maintenanceVersion" => Ok(__FieldTag::__maintenance_version),
+                            "maintenance_version" => Ok(__FieldTag::__maintenance_version),
+                            "effectiveMaintenanceVersion" => {
+                                Ok(__FieldTag::__effective_maintenance_version)
+                            }
+                            "effective_maintenance_version" => {
+                                Ok(__FieldTag::__effective_maintenance_version)
+                            }
+                            "availableMaintenanceVersions" => {
+                                Ok(__FieldTag::__available_maintenance_versions)
+                            }
+                            "available_maintenance_versions" => {
+                                Ok(__FieldTag::__available_maintenance_versions)
+                            }
+                            "allowFewerZonesDeployment" => {
+                                Ok(__FieldTag::__allow_fewer_zones_deployment)
+                            }
+                            "allow_fewer_zones_deployment" => {
+                                Ok(__FieldTag::__allow_fewer_zones_deployment)
+                            }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -476,6 +519,15 @@ impl<'de> serde::de::Deserialize<'de> for super::Instance {
                                 .next_value::<std::option::Option<crate::model::instance::Mode>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__simulate_maintenance_event => {
+                            if !fields.insert(__FieldTag::__simulate_maintenance_event) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for simulate_maintenance_event",
+                                ));
+                            }
+                            result.simulate_maintenance_event =
+                                map.next_value::<std::option::Option<bool>>()?;
+                        }
                         __FieldTag::__ondemand_maintenance => {
                             if !fields.insert(__FieldTag::__ondemand_maintenance) {
                                 return std::result::Result::Err(A::Error::duplicate_field(
@@ -484,6 +536,22 @@ impl<'de> serde::de::Deserialize<'de> for super::Instance {
                             }
                             result.ondemand_maintenance =
                                 map.next_value::<std::option::Option<bool>>()?;
+                        }
+                        __FieldTag::__satisfies_pzs => {
+                            if !fields.insert(__FieldTag::__satisfies_pzs) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for satisfies_pzs",
+                                ));
+                            }
+                            result.satisfies_pzs = map.next_value::<std::option::Option<bool>>()?;
+                        }
+                        __FieldTag::__satisfies_pzi => {
+                            if !fields.insert(__FieldTag::__satisfies_pzi) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for satisfies_pzi",
+                                ));
+                            }
+                            result.satisfies_pzi = map.next_value::<std::option::Option<bool>>()?;
                         }
                         __FieldTag::__maintenance_policy => {
                             if !fields.insert(__FieldTag::__maintenance_policy) {
@@ -526,6 +594,25 @@ impl<'de> serde::de::Deserialize<'de> for super::Instance {
                             result.async_instance_endpoints_deletion_enabled =
                                 map.next_value::<std::option::Option<bool>>()?;
                         }
+                        __FieldTag::__kms_key => {
+                            if !fields.insert(__FieldTag::__kms_key) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for kms_key",
+                                ));
+                            }
+                            result.kms_key =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
+                        }
+                        __FieldTag::__encryption_info => {
+                            if !fields.insert(__FieldTag::__encryption_info) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for encryption_info",
+                                ));
+                            }
+                            result.encryption_info = map
+                                .next_value::<std::option::Option<crate::model::EncryptionInfo>>(
+                                )?;
+                        }
                         __FieldTag::__backup_collection => {
                             if !fields.insert(__FieldTag::__backup_collection) {
                                 return std::result::Result::Err(A::Error::duplicate_field(
@@ -543,6 +630,42 @@ impl<'de> serde::de::Deserialize<'de> for super::Instance {
                             }
                             result.automated_backup_config = map.next_value::<std::option::Option<crate::model::AutomatedBackupConfig>>()?
                                 ;
+                        }
+                        __FieldTag::__maintenance_version => {
+                            if !fields.insert(__FieldTag::__maintenance_version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for maintenance_version",
+                                ));
+                            }
+                            result.maintenance_version =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
+                        }
+                        __FieldTag::__effective_maintenance_version => {
+                            if !fields.insert(__FieldTag::__effective_maintenance_version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for effective_maintenance_version",
+                                ));
+                            }
+                            result.effective_maintenance_version =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
+                        }
+                        __FieldTag::__available_maintenance_versions => {
+                            if !fields.insert(__FieldTag::__available_maintenance_versions) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for available_maintenance_versions",
+                                ));
+                            }
+                            result.available_maintenance_versions = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__allow_fewer_zones_deployment => {
+                            if !fields.insert(__FieldTag::__allow_fewer_zones_deployment) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for allow_fewer_zones_deployment",
+                                ));
+                            }
+                            result.allow_fewer_zones_deployment = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -1346,6 +1469,9 @@ impl<'de> serde::de::Deserialize<'de> for super::BackupCollection {
             __kms_key,
             __uid,
             __create_time,
+            __total_backup_size_bytes,
+            __total_backup_count,
+            __last_backup_time,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -1375,6 +1501,12 @@ impl<'de> serde::de::Deserialize<'de> for super::BackupCollection {
                             "uid" => Ok(__FieldTag::__uid),
                             "createTime" => Ok(__FieldTag::__create_time),
                             "create_time" => Ok(__FieldTag::__create_time),
+                            "totalBackupSizeBytes" => Ok(__FieldTag::__total_backup_size_bytes),
+                            "total_backup_size_bytes" => Ok(__FieldTag::__total_backup_size_bytes),
+                            "totalBackupCount" => Ok(__FieldTag::__total_backup_count),
+                            "total_backup_count" => Ok(__FieldTag::__total_backup_count),
+                            "lastBackupTime" => Ok(__FieldTag::__last_backup_time),
+                            "last_backup_time" => Ok(__FieldTag::__last_backup_time),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -1459,6 +1591,55 @@ impl<'de> serde::de::Deserialize<'de> for super::BackupCollection {
                             result.create_time =
                                 map.next_value::<std::option::Option<wkt::Timestamp>>()?;
                         }
+                        __FieldTag::__total_backup_size_bytes => {
+                            if !fields.insert(__FieldTag::__total_backup_size_bytes) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for total_backup_size_bytes",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.total_backup_size_bytes =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__total_backup_count => {
+                            if !fields.insert(__FieldTag::__total_backup_count) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for total_backup_count",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.total_backup_count =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__last_backup_time => {
+                            if !fields.insert(__FieldTag::__last_backup_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for last_backup_time",
+                                ));
+                            }
+                            result.last_backup_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -1495,6 +1676,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Backup {
             __shard_count,
             __backup_type,
             __state,
+            __encryption_info,
             __uid,
             Unknown(std::string::String),
         }
@@ -1539,6 +1721,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Backup {
                             "backupType" => Ok(__FieldTag::__backup_type),
                             "backup_type" => Ok(__FieldTag::__backup_type),
                             "state" => Ok(__FieldTag::__state),
+                            "encryptionInfo" => Ok(__FieldTag::__encryption_info),
+                            "encryption_info" => Ok(__FieldTag::__encryption_info),
                             "uid" => Ok(__FieldTag::__uid),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
@@ -1715,6 +1899,16 @@ impl<'de> serde::de::Deserialize<'de> for super::Backup {
                             result.state = map
                                 .next_value::<std::option::Option<crate::model::backup::State>>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::__encryption_info => {
+                            if !fields.insert(__FieldTag::__encryption_info) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for encryption_info",
+                                ));
+                            }
+                            result.encryption_info = map
+                                .next_value::<std::option::Option<crate::model::EncryptionInfo>>(
+                                )?;
                         }
                         __FieldTag::__uid => {
                             if !fields.insert(__FieldTag::__uid) {
@@ -5658,6 +5852,119 @@ impl<'de> serde::de::Deserialize<'de> for super::OperationMetadata {
                             result.api_version = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::EncryptionInfo {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __encryption_type,
+            __kms_key_versions,
+            __kms_key_primary_state,
+            __last_update_time,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for EncryptionInfo")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "encryptionType" => Ok(__FieldTag::__encryption_type),
+                            "encryption_type" => Ok(__FieldTag::__encryption_type),
+                            "kmsKeyVersions" => Ok(__FieldTag::__kms_key_versions),
+                            "kms_key_versions" => Ok(__FieldTag::__kms_key_versions),
+                            "kmsKeyPrimaryState" => Ok(__FieldTag::__kms_key_primary_state),
+                            "kms_key_primary_state" => Ok(__FieldTag::__kms_key_primary_state),
+                            "lastUpdateTime" => Ok(__FieldTag::__last_update_time),
+                            "last_update_time" => Ok(__FieldTag::__last_update_time),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::EncryptionInfo;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct EncryptionInfo")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__encryption_type => {
+                            if !fields.insert(__FieldTag::__encryption_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for encryption_type",
+                                ));
+                            }
+                            result.encryption_type = map.next_value::<std::option::Option<crate::model::encryption_info::Type>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__kms_key_versions => {
+                            if !fields.insert(__FieldTag::__kms_key_versions) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for kms_key_versions",
+                                ));
+                            }
+                            result.kms_key_versions = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__kms_key_primary_state => {
+                            if !fields.insert(__FieldTag::__kms_key_primary_state) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for kms_key_primary_state",
+                                ));
+                            }
+                            result.kms_key_primary_state = map.next_value::<std::option::Option<crate::model::encryption_info::KmsKeyState>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__last_update_time => {
+                            if !fields.insert(__FieldTag::__last_update_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for last_update_time",
+                                ));
+                            }
+                            result.last_update_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

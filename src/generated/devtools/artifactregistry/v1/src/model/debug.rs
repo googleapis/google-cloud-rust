@@ -1301,6 +1301,7 @@ impl std::fmt::Debug for super::Version {
         debug_struct.field("related_tags", &self.related_tags);
         debug_struct.field("metadata", &self.metadata);
         debug_struct.field("annotations", &self.annotations);
+        debug_struct.field("fingerprints", &self.fingerprints);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

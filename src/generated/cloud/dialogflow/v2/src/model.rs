@@ -1681,6 +1681,589 @@ impl wkt::message::Message for GetValidationResultRequest {
     }
 }
 
+/// Agent Coaching instructions that customer can configure.
+#[cfg(any(
+    feature = "answer-records",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+))]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AgentCoachingInstruction {
+    /// Optional. Display name for the instruction.
+    pub display_name: std::string::String,
+
+    /// Optional. The detailed description of this instruction.
+    pub display_details: std::string::String,
+
+    /// Optional. The condition of the instruction. For example, "the customer
+    /// wants to cancel an order".  If the users want the instruction to be
+    /// triggered unconditionally, the condition can be empty.
+    pub condition: std::string::String,
+
+    /// Optional. The action that human agent should take. For example, "apologize
+    /// for the slow shipping". If the users only want to use agent coaching for
+    /// intent detection, agent_action can be empty
+    pub agent_action: std::string::String,
+
+    /// Optional. The action that system should take. For example,
+    /// "call GetOrderTime with order_number={order number provided by the
+    /// customer}". If the users don't have plugins or don't want to trigger
+    /// plugins, the system_action can be empty
+    pub system_action: std::string::String,
+
+    /// Output only. Duplication check for the AgentCoachingInstruction.
+    pub duplicate_check_result:
+        std::option::Option<crate::model::agent_coaching_instruction::DuplicateCheckResult>,
+
+    /// Optional. The event that should trigger this instruction.
+    /// If UNSPECIFIED, the instruction triggering will be same as the generator's
+    /// trigger_event.
+    pub triggering_event: crate::model::agent_coaching_instruction::TriggerEvent,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+))]
+impl AgentCoachingInstruction {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [display_name][crate::model::AgentCoachingInstruction::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::AgentCoachingInstruction;
+    /// let x = AgentCoachingInstruction::new().set_display_name("example");
+    /// ```
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
+        self
+    }
+
+    /// Sets the value of [display_details][crate::model::AgentCoachingInstruction::display_details].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::AgentCoachingInstruction;
+    /// let x = AgentCoachingInstruction::new().set_display_details("example");
+    /// ```
+    pub fn set_display_details<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_details = v.into();
+        self
+    }
+
+    /// Sets the value of [condition][crate::model::AgentCoachingInstruction::condition].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::AgentCoachingInstruction;
+    /// let x = AgentCoachingInstruction::new().set_condition("example");
+    /// ```
+    pub fn set_condition<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.condition = v.into();
+        self
+    }
+
+    /// Sets the value of [agent_action][crate::model::AgentCoachingInstruction::agent_action].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::AgentCoachingInstruction;
+    /// let x = AgentCoachingInstruction::new().set_agent_action("example");
+    /// ```
+    pub fn set_agent_action<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.agent_action = v.into();
+        self
+    }
+
+    /// Sets the value of [system_action][crate::model::AgentCoachingInstruction::system_action].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::AgentCoachingInstruction;
+    /// let x = AgentCoachingInstruction::new().set_system_action("example");
+    /// ```
+    pub fn set_system_action<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.system_action = v.into();
+        self
+    }
+
+    /// Sets the value of [duplicate_check_result][crate::model::AgentCoachingInstruction::duplicate_check_result].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::AgentCoachingInstruction;
+    /// use google_cloud_dialogflow_v2::model::agent_coaching_instruction::DuplicateCheckResult;
+    /// let x = AgentCoachingInstruction::new().set_duplicate_check_result(DuplicateCheckResult::default()/* use setters */);
+    /// ```
+    pub fn set_duplicate_check_result<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::agent_coaching_instruction::DuplicateCheckResult>,
+    {
+        self.duplicate_check_result = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [duplicate_check_result][crate::model::AgentCoachingInstruction::duplicate_check_result].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::AgentCoachingInstruction;
+    /// use google_cloud_dialogflow_v2::model::agent_coaching_instruction::DuplicateCheckResult;
+    /// let x = AgentCoachingInstruction::new().set_or_clear_duplicate_check_result(Some(DuplicateCheckResult::default()/* use setters */));
+    /// let x = AgentCoachingInstruction::new().set_or_clear_duplicate_check_result(None::<DuplicateCheckResult>);
+    /// ```
+    pub fn set_or_clear_duplicate_check_result<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::agent_coaching_instruction::DuplicateCheckResult>,
+    {
+        self.duplicate_check_result = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [triggering_event][crate::model::AgentCoachingInstruction::triggering_event].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::AgentCoachingInstruction;
+    /// use google_cloud_dialogflow_v2::model::agent_coaching_instruction::TriggerEvent;
+    /// let x0 = AgentCoachingInstruction::new().set_triggering_event(TriggerEvent::EndOfUtterance);
+    /// let x1 = AgentCoachingInstruction::new().set_triggering_event(TriggerEvent::ManualCall);
+    /// let x2 = AgentCoachingInstruction::new().set_triggering_event(TriggerEvent::CustomerMessage);
+    /// ```
+    pub fn set_triggering_event<
+        T: std::convert::Into<crate::model::agent_coaching_instruction::TriggerEvent>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.triggering_event = v.into();
+        self
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+))]
+impl wkt::message::Message for AgentCoachingInstruction {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.AgentCoachingInstruction"
+    }
+}
+
+/// Defines additional types related to [AgentCoachingInstruction].
+#[cfg(any(
+    feature = "answer-records",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+))]
+pub mod agent_coaching_instruction {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Duplication check for the suggestion.
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+        feature = "participants",
+    ))]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct DuplicateCheckResult {
+        /// Output only. The duplicate suggestions.
+        pub duplicate_suggestions: std::vec::Vec<
+            crate::model::agent_coaching_instruction::duplicate_check_result::DuplicateSuggestion,
+        >,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+        feature = "participants",
+    ))]
+    impl DuplicateCheckResult {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [duplicate_suggestions][crate::model::agent_coaching_instruction::DuplicateCheckResult::duplicate_suggestions].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::agent_coaching_instruction::DuplicateCheckResult;
+        /// use google_cloud_dialogflow_v2::model::agent_coaching_instruction::duplicate_check_result::DuplicateSuggestion;
+        /// let x = DuplicateCheckResult::new()
+        ///     .set_duplicate_suggestions([
+        ///         DuplicateSuggestion::default()/* use setters */,
+        ///         DuplicateSuggestion::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_duplicate_suggestions<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::agent_coaching_instruction::duplicate_check_result::DuplicateSuggestion>
+        {
+            use std::iter::Iterator;
+            self.duplicate_suggestions = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+        feature = "participants",
+    ))]
+    impl wkt::message::Message for DuplicateCheckResult {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.v2.AgentCoachingInstruction.DuplicateCheckResult"
+        }
+    }
+
+    /// Defines additional types related to [DuplicateCheckResult].
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+        feature = "participants",
+    ))]
+    pub mod duplicate_check_result {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// The duplicate suggestion details.
+        #[cfg(any(
+            feature = "answer-records",
+            feature = "conversations",
+            feature = "generator-evaluations",
+            feature = "generators",
+            feature = "participants",
+        ))]
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct DuplicateSuggestion {
+            /// Output only. The answer record id of the past duplicate suggestion.
+            pub answer_record: std::string::String,
+
+            /// Output only. The index of the duplicate suggestion in the past
+            /// suggestion list.
+            pub suggestion_index: i32,
+
+            /// Output only. The similarity score of between the past and current
+            /// suggestion.
+            pub similarity_score: f32,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        #[cfg(any(
+            feature = "answer-records",
+            feature = "conversations",
+            feature = "generator-evaluations",
+            feature = "generators",
+            feature = "participants",
+        ))]
+        impl DuplicateSuggestion {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [answer_record][crate::model::agent_coaching_instruction::duplicate_check_result::DuplicateSuggestion::answer_record].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_v2::model::agent_coaching_instruction::duplicate_check_result::DuplicateSuggestion;
+            /// let x = DuplicateSuggestion::new().set_answer_record("example");
+            /// ```
+            pub fn set_answer_record<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.answer_record = v.into();
+                self
+            }
+
+            /// Sets the value of [suggestion_index][crate::model::agent_coaching_instruction::duplicate_check_result::DuplicateSuggestion::suggestion_index].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_v2::model::agent_coaching_instruction::duplicate_check_result::DuplicateSuggestion;
+            /// let x = DuplicateSuggestion::new().set_suggestion_index(42);
+            /// ```
+            pub fn set_suggestion_index<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+                self.suggestion_index = v.into();
+                self
+            }
+
+            /// Sets the value of [similarity_score][crate::model::agent_coaching_instruction::duplicate_check_result::DuplicateSuggestion::similarity_score].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_v2::model::agent_coaching_instruction::duplicate_check_result::DuplicateSuggestion;
+            /// let x = DuplicateSuggestion::new().set_similarity_score(42.0);
+            /// ```
+            pub fn set_similarity_score<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
+                self.similarity_score = v.into();
+                self
+            }
+        }
+
+        #[cfg(any(
+            feature = "answer-records",
+            feature = "conversations",
+            feature = "generator-evaluations",
+            feature = "generators",
+            feature = "participants",
+        ))]
+        impl wkt::message::Message for DuplicateSuggestion {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.dialogflow.v2.AgentCoachingInstruction.DuplicateCheckResult.DuplicateSuggestion"
+            }
+        }
+    }
+
+    /// The event that should trigger this instruction.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+        feature = "participants",
+    ))]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum TriggerEvent {
+        /// Default value for TriggerEvent.
+        Unspecified,
+        /// Triggers when each chat message or voice utterance ends.
+        EndOfUtterance,
+        /// Triggers on the conversation manually by API calls.
+        ManualCall,
+        /// Triggers after each customer message.
+        CustomerMessage,
+        /// Triggers after each agent message.
+        AgentMessage,
+        /// Triggers on tool call completion.
+        ToolCallCompletion,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [TriggerEvent::value] or
+        /// [TriggerEvent::name].
+        UnknownValue(trigger_event::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+        feature = "participants",
+    ))]
+    pub mod trigger_event {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+        feature = "participants",
+    ))]
+    impl TriggerEvent {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::EndOfUtterance => std::option::Option::Some(1),
+                Self::ManualCall => std::option::Option::Some(2),
+                Self::CustomerMessage => std::option::Option::Some(3),
+                Self::AgentMessage => std::option::Option::Some(4),
+                Self::ToolCallCompletion => std::option::Option::Some(5),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("TRIGGER_EVENT_UNSPECIFIED"),
+                Self::EndOfUtterance => std::option::Option::Some("END_OF_UTTERANCE"),
+                Self::ManualCall => std::option::Option::Some("MANUAL_CALL"),
+                Self::CustomerMessage => std::option::Option::Some("CUSTOMER_MESSAGE"),
+                Self::AgentMessage => std::option::Option::Some("AGENT_MESSAGE"),
+                Self::ToolCallCompletion => std::option::Option::Some("TOOL_CALL_COMPLETION"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+        feature = "participants",
+    ))]
+    impl std::default::Default for TriggerEvent {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+        feature = "participants",
+    ))]
+    impl std::fmt::Display for TriggerEvent {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+        feature = "participants",
+    ))]
+    impl std::convert::From<i32> for TriggerEvent {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::EndOfUtterance,
+                2 => Self::ManualCall,
+                3 => Self::CustomerMessage,
+                4 => Self::AgentMessage,
+                5 => Self::ToolCallCompletion,
+                _ => Self::UnknownValue(trigger_event::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+        feature = "participants",
+    ))]
+    impl std::convert::From<&str> for TriggerEvent {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "TRIGGER_EVENT_UNSPECIFIED" => Self::Unspecified,
+                "END_OF_UTTERANCE" => Self::EndOfUtterance,
+                "MANUAL_CALL" => Self::ManualCall,
+                "CUSTOMER_MESSAGE" => Self::CustomerMessage,
+                "AGENT_MESSAGE" => Self::AgentMessage,
+                "TOOL_CALL_COMPLETION" => Self::ToolCallCompletion,
+                _ => Self::UnknownValue(trigger_event::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+        feature = "participants",
+    ))]
+    impl serde::ser::Serialize for TriggerEvent {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::EndOfUtterance => serializer.serialize_i32(1),
+                Self::ManualCall => serializer.serialize_i32(2),
+                Self::CustomerMessage => serializer.serialize_i32(3),
+                Self::AgentMessage => serializer.serialize_i32(4),
+                Self::ToolCallCompletion => serializer.serialize_i32(5),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+        feature = "participants",
+    ))]
+    impl<'de> serde::de::Deserialize<'de> for TriggerEvent {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<TriggerEvent>::new(
+                ".google.cloud.dialogflow.v2.AgentCoachingInstruction.TriggerEvent",
+            ))
+        }
+    }
+}
+
 /// Answer records are records to manage answer history and feedbacks for
 /// Dialogflow.
 ///
@@ -3548,6 +4131,7 @@ impl AgentAssistantRecord {
     /// assert!(x.article_suggestion_answer().is_some());
     /// assert!(x.faq_answer().is_none());
     /// assert!(x.dialogflow_assist_answer().is_none());
+    /// assert!(x.generator_suggestion().is_none());
     /// ```
     pub fn set_article_suggestion_answer<
         T: std::convert::Into<std::boxed::Box<crate::model::ArticleAnswer>>,
@@ -3588,6 +4172,7 @@ impl AgentAssistantRecord {
     /// assert!(x.faq_answer().is_some());
     /// assert!(x.article_suggestion_answer().is_none());
     /// assert!(x.dialogflow_assist_answer().is_none());
+    /// assert!(x.generator_suggestion().is_none());
     /// ```
     pub fn set_faq_answer<T: std::convert::Into<std::boxed::Box<crate::model::FaqAnswer>>>(
         mut self,
@@ -3628,6 +4213,7 @@ impl AgentAssistantRecord {
     /// assert!(x.dialogflow_assist_answer().is_some());
     /// assert!(x.article_suggestion_answer().is_none());
     /// assert!(x.faq_answer().is_none());
+    /// assert!(x.generator_suggestion().is_none());
     /// ```
     pub fn set_dialogflow_assist_answer<
         T: std::convert::Into<std::boxed::Box<crate::model::DialogflowAssistAnswer>>,
@@ -3637,6 +4223,49 @@ impl AgentAssistantRecord {
     ) -> Self {
         self.answer = std::option::Option::Some(
             crate::model::agent_assistant_record::Answer::DialogflowAssistAnswer(v.into()),
+        );
+        self
+    }
+
+    /// The value of [answer][crate::model::AgentAssistantRecord::answer]
+    /// if it holds a `GeneratorSuggestion`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn generator_suggestion(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::GeneratorSuggestion>> {
+        #[allow(unreachable_patterns)]
+        self.answer.as_ref().and_then(|v| match v {
+            crate::model::agent_assistant_record::Answer::GeneratorSuggestion(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [answer][crate::model::AgentAssistantRecord::answer]
+    /// to hold a `GeneratorSuggestion`.
+    ///
+    /// Note that all the setters affecting `answer` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::AgentAssistantRecord;
+    /// use google_cloud_dialogflow_v2::model::GeneratorSuggestion;
+    /// let x = AgentAssistantRecord::new().set_generator_suggestion(GeneratorSuggestion::default()/* use setters */);
+    /// assert!(x.generator_suggestion().is_some());
+    /// assert!(x.article_suggestion_answer().is_none());
+    /// assert!(x.faq_answer().is_none());
+    /// assert!(x.dialogflow_assist_answer().is_none());
+    /// ```
+    pub fn set_generator_suggestion<
+        T: std::convert::Into<std::boxed::Box<crate::model::GeneratorSuggestion>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.answer = std::option::Option::Some(
+            crate::model::agent_assistant_record::Answer::GeneratorSuggestion(v.into()),
         );
         self
     }
@@ -3666,6 +4295,8 @@ pub mod agent_assistant_record {
         FaqAnswer(std::boxed::Box<crate::model::FaqAnswer>),
         /// Output only. Dialogflow assist answer.
         DialogflowAssistAnswer(std::boxed::Box<crate::model::DialogflowAssistAnswer>),
+        /// Output only. The generator suggestion.
+        GeneratorSuggestion(std::boxed::Box<crate::model::GeneratorSuggestion>),
     }
 }
 
@@ -3900,6 +4531,10 @@ pub struct InputAudioConfig {
     /// Support](https://cloud.google.com/dialogflow/docs/reference/language)
     /// for a list of the currently supported language codes. Note that queries in
     /// the same session do not necessarily need to specify the same language.
+    /// If not set, the language is inferred from the
+    /// [ConversationProfile.stt_config][google.cloud.dialogflow.v2.ConversationProfile.stt_config].
+    ///
+    /// [google.cloud.dialogflow.v2.ConversationProfile.stt_config]: crate::model::ConversationProfile::stt_config
     pub language_code: std::string::String,
 
     /// If `true`, Dialogflow returns
@@ -4317,6 +4952,9 @@ pub struct SynthesizeSpeechConfig {
     /// Optional. The desired voice of the synthesized audio.
     pub voice: std::option::Option<crate::model::VoiceSelectionParams>,
 
+    /// Optional. The custom pronunciations for the synthesized audio.
+    pub pronunciations: std::vec::Vec<crate::model::CustomPronunciationParams>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -4417,6 +5055,28 @@ impl SynthesizeSpeechConfig {
         self.voice = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [pronunciations][crate::model::SynthesizeSpeechConfig::pronunciations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::SynthesizeSpeechConfig;
+    /// use google_cloud_dialogflow_v2::model::CustomPronunciationParams;
+    /// let x = SynthesizeSpeechConfig::new()
+    ///     .set_pronunciations([
+    ///         CustomPronunciationParams::default()/* use setters */,
+    ///         CustomPronunciationParams::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_pronunciations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::CustomPronunciationParams>,
+    {
+        use std::iter::Iterator;
+        self.pronunciations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
 }
 
 #[cfg(any(
@@ -4429,6 +5089,311 @@ impl SynthesizeSpeechConfig {
 impl wkt::message::Message for SynthesizeSpeechConfig {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.v2.SynthesizeSpeechConfig"
+    }
+}
+
+/// Pronunciation customization for a phrase.
+#[cfg(any(
+    feature = "conversation-profiles",
+    feature = "conversations",
+    feature = "environments",
+    feature = "participants",
+    feature = "sessions",
+))]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CustomPronunciationParams {
+    /// The phrase to which the customization is applied.
+    /// The phrase can be multiple words, such as proper nouns, but shouldn't span
+    /// the length of the sentence.
+    pub phrase: std::string::String,
+
+    /// The phonetic encoding of the phrase.
+    pub phonetic_encoding: crate::model::custom_pronunciation_params::PhoneticEncoding,
+
+    /// The pronunciation of the phrase. This must be in the phonetic encoding
+    /// specified above.
+    pub pronunciation: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(any(
+    feature = "conversation-profiles",
+    feature = "conversations",
+    feature = "environments",
+    feature = "participants",
+    feature = "sessions",
+))]
+impl CustomPronunciationParams {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [phrase][crate::model::CustomPronunciationParams::phrase].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::CustomPronunciationParams;
+    /// let x = CustomPronunciationParams::new().set_phrase("example");
+    /// ```
+    pub fn set_phrase<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.phrase = v.into();
+        self
+    }
+
+    /// Sets the value of [phonetic_encoding][crate::model::CustomPronunciationParams::phonetic_encoding].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::CustomPronunciationParams;
+    /// use google_cloud_dialogflow_v2::model::custom_pronunciation_params::PhoneticEncoding;
+    /// let x0 = CustomPronunciationParams::new().set_phonetic_encoding(PhoneticEncoding::Ipa);
+    /// let x1 = CustomPronunciationParams::new().set_phonetic_encoding(PhoneticEncoding::XSampa);
+    /// ```
+    pub fn set_phonetic_encoding<
+        T: std::convert::Into<crate::model::custom_pronunciation_params::PhoneticEncoding>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.phonetic_encoding = v.into();
+        self
+    }
+
+    /// Sets the value of [pronunciation][crate::model::CustomPronunciationParams::pronunciation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::CustomPronunciationParams;
+    /// let x = CustomPronunciationParams::new().set_pronunciation("example");
+    /// ```
+    pub fn set_pronunciation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.pronunciation = v.into();
+        self
+    }
+}
+
+#[cfg(any(
+    feature = "conversation-profiles",
+    feature = "conversations",
+    feature = "environments",
+    feature = "participants",
+    feature = "sessions",
+))]
+impl wkt::message::Message for CustomPronunciationParams {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.CustomPronunciationParams"
+    }
+}
+
+/// Defines additional types related to [CustomPronunciationParams].
+#[cfg(any(
+    feature = "conversation-profiles",
+    feature = "conversations",
+    feature = "environments",
+    feature = "participants",
+    feature = "sessions",
+))]
+pub mod custom_pronunciation_params {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The phonetic encoding of the phrase.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(any(
+        feature = "conversation-profiles",
+        feature = "conversations",
+        feature = "environments",
+        feature = "participants",
+        feature = "sessions",
+    ))]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum PhoneticEncoding {
+        /// Not specified.
+        Unspecified,
+        /// IPA, such as apple -> ˈæpəl.
+        /// <https://en.wikipedia.org/wiki/International_Phonetic_Alphabet>
+        Ipa,
+        /// X-SAMPA, such as apple -> "{p@l".
+        /// <https://en.wikipedia.org/wiki/X-SAMPA>
+        XSampa,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [PhoneticEncoding::value] or
+        /// [PhoneticEncoding::name].
+        UnknownValue(phonetic_encoding::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    #[cfg(any(
+        feature = "conversation-profiles",
+        feature = "conversations",
+        feature = "environments",
+        feature = "participants",
+        feature = "sessions",
+    ))]
+    pub mod phonetic_encoding {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    #[cfg(any(
+        feature = "conversation-profiles",
+        feature = "conversations",
+        feature = "environments",
+        feature = "participants",
+        feature = "sessions",
+    ))]
+    impl PhoneticEncoding {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Ipa => std::option::Option::Some(1),
+                Self::XSampa => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("PHONETIC_ENCODING_UNSPECIFIED"),
+                Self::Ipa => std::option::Option::Some("PHONETIC_ENCODING_IPA"),
+                Self::XSampa => std::option::Option::Some("PHONETIC_ENCODING_X_SAMPA"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    #[cfg(any(
+        feature = "conversation-profiles",
+        feature = "conversations",
+        feature = "environments",
+        feature = "participants",
+        feature = "sessions",
+    ))]
+    impl std::default::Default for PhoneticEncoding {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    #[cfg(any(
+        feature = "conversation-profiles",
+        feature = "conversations",
+        feature = "environments",
+        feature = "participants",
+        feature = "sessions",
+    ))]
+    impl std::fmt::Display for PhoneticEncoding {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    #[cfg(any(
+        feature = "conversation-profiles",
+        feature = "conversations",
+        feature = "environments",
+        feature = "participants",
+        feature = "sessions",
+    ))]
+    impl std::convert::From<i32> for PhoneticEncoding {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Ipa,
+                2 => Self::XSampa,
+                _ => Self::UnknownValue(phonetic_encoding::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    #[cfg(any(
+        feature = "conversation-profiles",
+        feature = "conversations",
+        feature = "environments",
+        feature = "participants",
+        feature = "sessions",
+    ))]
+    impl std::convert::From<&str> for PhoneticEncoding {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "PHONETIC_ENCODING_UNSPECIFIED" => Self::Unspecified,
+                "PHONETIC_ENCODING_IPA" => Self::Ipa,
+                "PHONETIC_ENCODING_X_SAMPA" => Self::XSampa,
+                _ => Self::UnknownValue(phonetic_encoding::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    #[cfg(any(
+        feature = "conversation-profiles",
+        feature = "conversations",
+        feature = "environments",
+        feature = "participants",
+        feature = "sessions",
+    ))]
+    impl serde::ser::Serialize for PhoneticEncoding {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Ipa => serializer.serialize_i32(1),
+                Self::XSampa => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    #[cfg(any(
+        feature = "conversation-profiles",
+        feature = "conversations",
+        feature = "environments",
+        feature = "participants",
+        feature = "sessions",
+    ))]
+    impl<'de> serde::de::Deserialize<'de> for PhoneticEncoding {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<PhoneticEncoding>::new(
+                ".google.cloud.dialogflow.v2.CustomPronunciationParams.PhoneticEncoding",
+            ))
+        }
     }
 }
 
@@ -4644,6 +5609,11 @@ pub struct SpeechToTextConfig {
     /// Support](https://cloud.google.com/dialogflow/docs/reference/language)
     /// for a list of the currently supported language codes. Note that queries in
     /// the same session do not necessarily need to specify the same language.
+    /// If not specified, the default language configured at
+    /// [ConversationProfile][google.cloud.dialogflow.v2.ConversationProfile] is
+    /// used.
+    ///
+    /// [google.cloud.dialogflow.v2.ConversationProfile]: crate::model::ConversationProfile
     pub language_code: std::string::String,
 
     /// If `true`, Dialogflow returns
@@ -5729,8 +6699,9 @@ pub mod conversation {
         /// Output only. The number dialed to connect this call in E.164 format.
         pub dialed_number: std::string::String,
 
-        /// Optional. SDP of the call. It's initially the SDP answer to the endpoint,
-        /// but maybe later updated for the purpose of making the link active, etc.
+        /// Optional. SDP of the call. It's initially the SDP answer to the incoming
+        /// call, but maybe later updated for the purpose of making the link active,
+        /// etc.
         pub sdp: std::string::String,
 
         /// Output only. The SIP headers from the initial SIP INVITE.
@@ -6092,6 +7063,12 @@ pub mod conversation {
             /// relevant context reference.
             pub ingestion_time: std::option::Option<wkt::Timestamp>,
 
+            /// If the context content was generated from a tool call, specify the
+            /// answer record associated with the tool call.
+            /// Format: `projects/<Project ID>/locations/<Location
+            /// ID>/answerRecords/<Answer Record ID>`.
+            pub answer_record: std::string::String,
+
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
@@ -6157,6 +7134,21 @@ pub mod conversation {
                 T: std::convert::Into<wkt::Timestamp>,
             {
                 self.ingestion_time = v.map(|x| x.into());
+                self
+            }
+
+            /// Sets the value of [answer_record][crate::model::conversation::context_reference::ContextContent::answer_record].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_v2::model::conversation::context_reference::ContextContent;
+            /// let x = ContextContent::new().set_answer_record("example");
+            /// ```
+            pub fn set_answer_record<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.answer_record = v.into();
                 self
             }
         }
@@ -8227,6 +9219,16 @@ pub struct GenerateStatelessSuggestionRequest {
     /// it's trigger event is included here.
     pub trigger_events: std::vec::Vec<crate::model::TriggerEvent>,
 
+    /// Optional. Name of the CX SecuritySettings which is used to redact generated
+    /// response. If this field is empty, try to fetch v2 security_settings, which
+    /// is a project level setting. If this field is empty and no v2
+    /// security_settings set up in this project, no redaction will be done.
+    ///
+    /// Format:
+    /// `projects/<Project ID>/locations/<Location ID>/securitySettings/<Security
+    /// Settings ID>`.
+    pub security_settings: std::string::String,
+
     /// Generator.
     pub generator_resource:
         std::option::Option<crate::model::generate_stateless_suggestion_request::GeneratorResource>,
@@ -8326,6 +9328,21 @@ impl GenerateStatelessSuggestionRequest {
     {
         use std::iter::Iterator;
         self.trigger_events = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [security_settings][crate::model::GenerateStatelessSuggestionRequest::security_settings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::GenerateStatelessSuggestionRequest;
+    /// let x = GenerateStatelessSuggestionRequest::new().set_security_settings("example");
+    /// ```
+    pub fn set_security_settings<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.security_settings = v.into();
         self
     }
 
@@ -11423,12 +12440,15 @@ impl wkt::message::Message for DeleteConversationDatasetOperationMetadata {
     feature = "entity-types",
     feature = "environments",
     feature = "fulfillments",
+    feature = "generator-evaluations",
     feature = "generators",
     feature = "intents",
     feature = "knowledge-bases",
     feature = "participants",
     feature = "session-entity-types",
     feature = "sessions",
+    feature = "sip-trunks",
+    feature = "tools",
     feature = "versions",
 ))]
 #[derive(Clone, Default, PartialEq)]
@@ -11465,12 +12485,15 @@ pub struct ConversationEvent {
     feature = "entity-types",
     feature = "environments",
     feature = "fulfillments",
+    feature = "generator-evaluations",
     feature = "generators",
     feature = "intents",
     feature = "knowledge-bases",
     feature = "participants",
     feature = "session-entity-types",
     feature = "sessions",
+    feature = "sip-trunks",
+    feature = "tools",
     feature = "versions",
 ))]
 impl ConversationEvent {
@@ -11659,12 +12682,15 @@ impl ConversationEvent {
     feature = "entity-types",
     feature = "environments",
     feature = "fulfillments",
+    feature = "generator-evaluations",
     feature = "generators",
     feature = "intents",
     feature = "knowledge-bases",
     feature = "participants",
     feature = "session-entity-types",
     feature = "sessions",
+    feature = "sip-trunks",
+    feature = "tools",
     feature = "versions",
 ))]
 impl wkt::message::Message for ConversationEvent {
@@ -11687,12 +12713,15 @@ impl wkt::message::Message for ConversationEvent {
     feature = "entity-types",
     feature = "environments",
     feature = "fulfillments",
+    feature = "generator-evaluations",
     feature = "generators",
     feature = "intents",
     feature = "knowledge-bases",
     feature = "participants",
     feature = "session-entity-types",
     feature = "sessions",
+    feature = "sip-trunks",
+    feature = "tools",
     feature = "versions",
 ))]
 pub mod conversation_event {
@@ -11727,12 +12756,15 @@ pub mod conversation_event {
         feature = "entity-types",
         feature = "environments",
         feature = "fulfillments",
+        feature = "generator-evaluations",
         feature = "generators",
         feature = "intents",
         feature = "knowledge-bases",
         feature = "participants",
         feature = "session-entity-types",
         feature = "sessions",
+        feature = "sip-trunks",
+        feature = "tools",
         feature = "versions",
     ))]
     #[derive(Clone, Debug, PartialEq)]
@@ -11745,6 +12777,8 @@ pub mod conversation_event {
         ConversationStarted,
         /// An existing conversation has closed. This is fired when a telephone call
         /// is terminated, or a conversation is closed via the API.
+        /// The event is fired for every CompleteConversation call, even if the
+        /// conversation is already closed.
         ConversationFinished,
         /// An existing conversation has received notification from Dialogflow that
         /// human intervention is required.
@@ -11792,12 +12826,15 @@ pub mod conversation_event {
         feature = "entity-types",
         feature = "environments",
         feature = "fulfillments",
+        feature = "generator-evaluations",
         feature = "generators",
         feature = "intents",
         feature = "knowledge-bases",
         feature = "participants",
         feature = "session-entity-types",
         feature = "sessions",
+        feature = "sip-trunks",
+        feature = "tools",
         feature = "versions",
     ))]
     pub mod r#type {
@@ -11820,12 +12857,15 @@ pub mod conversation_event {
         feature = "entity-types",
         feature = "environments",
         feature = "fulfillments",
+        feature = "generator-evaluations",
         feature = "generators",
         feature = "intents",
         feature = "knowledge-bases",
         feature = "participants",
         feature = "session-entity-types",
         feature = "sessions",
+        feature = "sip-trunks",
+        feature = "tools",
         feature = "versions",
     ))]
     impl Type {
@@ -11879,12 +12919,15 @@ pub mod conversation_event {
         feature = "entity-types",
         feature = "environments",
         feature = "fulfillments",
+        feature = "generator-evaluations",
         feature = "generators",
         feature = "intents",
         feature = "knowledge-bases",
         feature = "participants",
         feature = "session-entity-types",
         feature = "sessions",
+        feature = "sip-trunks",
+        feature = "tools",
         feature = "versions",
     ))]
     impl std::default::Default for Type {
@@ -11907,12 +12950,15 @@ pub mod conversation_event {
         feature = "entity-types",
         feature = "environments",
         feature = "fulfillments",
+        feature = "generator-evaluations",
         feature = "generators",
         feature = "intents",
         feature = "knowledge-bases",
         feature = "participants",
         feature = "session-entity-types",
         feature = "sessions",
+        feature = "sip-trunks",
+        feature = "tools",
         feature = "versions",
     ))]
     impl std::fmt::Display for Type {
@@ -11934,12 +12980,15 @@ pub mod conversation_event {
         feature = "entity-types",
         feature = "environments",
         feature = "fulfillments",
+        feature = "generator-evaluations",
         feature = "generators",
         feature = "intents",
         feature = "knowledge-bases",
         feature = "participants",
         feature = "session-entity-types",
         feature = "sessions",
+        feature = "sip-trunks",
+        feature = "tools",
         feature = "versions",
     ))]
     impl std::convert::From<i32> for Type {
@@ -11972,12 +13021,15 @@ pub mod conversation_event {
         feature = "entity-types",
         feature = "environments",
         feature = "fulfillments",
+        feature = "generator-evaluations",
         feature = "generators",
         feature = "intents",
         feature = "knowledge-bases",
         feature = "participants",
         feature = "session-entity-types",
         feature = "sessions",
+        feature = "sip-trunks",
+        feature = "tools",
         feature = "versions",
     ))]
     impl std::convert::From<&str> for Type {
@@ -12011,12 +13063,15 @@ pub mod conversation_event {
         feature = "entity-types",
         feature = "environments",
         feature = "fulfillments",
+        feature = "generator-evaluations",
         feature = "generators",
         feature = "intents",
         feature = "knowledge-bases",
         feature = "participants",
         feature = "session-entity-types",
         feature = "sessions",
+        feature = "sip-trunks",
+        feature = "tools",
         feature = "versions",
     ))]
     impl serde::ser::Serialize for Type {
@@ -12050,12 +13105,15 @@ pub mod conversation_event {
         feature = "entity-types",
         feature = "environments",
         feature = "fulfillments",
+        feature = "generator-evaluations",
         feature = "generators",
         feature = "intents",
         feature = "knowledge-bases",
         feature = "participants",
         feature = "session-entity-types",
         feature = "sessions",
+        feature = "sip-trunks",
+        feature = "tools",
         feature = "versions",
     ))]
     impl<'de> serde::de::Deserialize<'de> for Type {
@@ -14268,6 +15326,9 @@ pub struct CreateConversationModelOperationMetadata {
     /// time is measured on server side.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
+    /// The time when the operation finished.
+    pub done_time: std::option::Option<wkt::Timestamp>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -14342,6 +15403,39 @@ impl CreateConversationModelOperationMetadata {
         T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [done_time][crate::model::CreateConversationModelOperationMetadata::done_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::CreateConversationModelOperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = CreateConversationModelOperationMetadata::new().set_done_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_done_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.done_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [done_time][crate::model::CreateConversationModelOperationMetadata::done_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::CreateConversationModelOperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = CreateConversationModelOperationMetadata::new().set_or_clear_done_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CreateConversationModelOperationMetadata::new().set_or_clear_done_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_done_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.done_time = v.map(|x| x.into());
         self
     }
 }
@@ -14548,6 +15642,9 @@ pub struct DeployConversationModelOperationMetadata {
     /// is measured on server side.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
+    /// The time when the operation finished.
+    pub done_time: std::option::Option<wkt::Timestamp>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -14604,6 +15701,39 @@ impl DeployConversationModelOperationMetadata {
         self.create_time = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [done_time][crate::model::DeployConversationModelOperationMetadata::done_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::DeployConversationModelOperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = DeployConversationModelOperationMetadata::new().set_done_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_done_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.done_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [done_time][crate::model::DeployConversationModelOperationMetadata::done_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::DeployConversationModelOperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = DeployConversationModelOperationMetadata::new().set_or_clear_done_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DeployConversationModelOperationMetadata::new().set_or_clear_done_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_done_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.done_time = v.map(|x| x.into());
+        self
+    }
 }
 
 #[cfg(feature = "conversation-models")]
@@ -14629,6 +15759,9 @@ pub struct UndeployConversationModelOperationMetadata {
     /// Timestamp when the request to undeploy conversation model was submitted.
     /// The time is measured on server side.
     pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// The time when the operation finished.
+    pub done_time: std::option::Option<wkt::Timestamp>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -14686,6 +15819,39 @@ impl UndeployConversationModelOperationMetadata {
         self.create_time = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [done_time][crate::model::UndeployConversationModelOperationMetadata::done_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::UndeployConversationModelOperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = UndeployConversationModelOperationMetadata::new().set_done_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_done_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.done_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [done_time][crate::model::UndeployConversationModelOperationMetadata::done_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::UndeployConversationModelOperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = UndeployConversationModelOperationMetadata::new().set_or_clear_done_time(Some(Timestamp::default()/* use setters */));
+    /// let x = UndeployConversationModelOperationMetadata::new().set_or_clear_done_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_done_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.done_time = v.map(|x| x.into());
+        self
+    }
 }
 
 #[cfg(feature = "conversation-models")]
@@ -14711,6 +15877,9 @@ pub struct DeleteConversationModelOperationMetadata {
     /// Timestamp when delete conversation model request was created. The time is
     /// measured on server side.
     pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// The time when the operation finished.
+    pub done_time: std::option::Option<wkt::Timestamp>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -14766,6 +15935,39 @@ impl DeleteConversationModelOperationMetadata {
         T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [done_time][crate::model::DeleteConversationModelOperationMetadata::done_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::DeleteConversationModelOperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = DeleteConversationModelOperationMetadata::new().set_done_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_done_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.done_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [done_time][crate::model::DeleteConversationModelOperationMetadata::done_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::DeleteConversationModelOperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = DeleteConversationModelOperationMetadata::new().set_or_clear_done_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DeleteConversationModelOperationMetadata::new().set_or_clear_done_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_done_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.done_time = v.map(|x| x.into());
         self
     }
 }
@@ -16383,6 +17585,20 @@ pub mod human_agent_assistant_config {
         /// Supported features: KNOWLEDGE_ASSIST
         pub enable_query_suggestion_only: bool,
 
+        /// Optional. Enable returning detailed reasons for suggestion results.
+        ///
+        /// For example, with this field disabled, Knowledge Search feature returns
+        /// NotFound error when no answer is found for the input query. Enabling this
+        /// field will change the behavior to return an OK response with
+        /// detailed information indicating the lack of results.
+        ///
+        /// Supported features: KNOWLEDGE_SEARCH, KNOWLEDGE_ASSIST
+        pub enable_response_debug_info: bool,
+
+        /// Optional. Settings for Responsible AI checks.
+        /// Supported features:  KNOWLEDGE_ASSIST
+        pub rai_settings: std::option::Option<crate::model::RaiSettings>,
+
         /// Settings of suggestion trigger.
         ///
         /// Currently, only ARTICLE_SUGGESTION and FAQ will use this field.
@@ -16518,6 +17734,51 @@ pub mod human_agent_assistant_config {
             v: T,
         ) -> Self {
             self.enable_query_suggestion_only = v.into();
+            self
+        }
+
+        /// Sets the value of [enable_response_debug_info][crate::model::human_agent_assistant_config::SuggestionFeatureConfig::enable_response_debug_info].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::human_agent_assistant_config::SuggestionFeatureConfig;
+        /// let x = SuggestionFeatureConfig::new().set_enable_response_debug_info(true);
+        /// ```
+        pub fn set_enable_response_debug_info<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.enable_response_debug_info = v.into();
+            self
+        }
+
+        /// Sets the value of [rai_settings][crate::model::human_agent_assistant_config::SuggestionFeatureConfig::rai_settings].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::human_agent_assistant_config::SuggestionFeatureConfig;
+        /// use google_cloud_dialogflow_v2::model::RaiSettings;
+        /// let x = SuggestionFeatureConfig::new().set_rai_settings(RaiSettings::default()/* use setters */);
+        /// ```
+        pub fn set_rai_settings<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RaiSettings>,
+        {
+            self.rai_settings = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [rai_settings][crate::model::human_agent_assistant_config::SuggestionFeatureConfig::rai_settings].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::human_agent_assistant_config::SuggestionFeatureConfig;
+        /// use google_cloud_dialogflow_v2::model::RaiSettings;
+        /// let x = SuggestionFeatureConfig::new().set_or_clear_rai_settings(Some(RaiSettings::default()/* use setters */));
+        /// let x = SuggestionFeatureConfig::new().set_or_clear_rai_settings(None::<RaiSettings>);
+        /// ```
+        pub fn set_or_clear_rai_settings<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RaiSettings>,
+        {
+            self.rai_settings = v.map(|x| x.into());
             self
         }
 
@@ -16721,6 +17982,23 @@ pub mod human_agent_assistant_config {
         /// KNOWLEDGE_ASSIST
         pub disable_high_latency_features_sync_delivery: bool,
 
+        /// Optional. Enable skipping event based suggestion if the suggestion is
+        /// empty.
+        ///
+        /// For example, with this field disabled, Knowledge Assist feature sends
+        /// a Pub/Sub message when there are no suggestions. Enabling this field
+        /// will change the behavior to skip the Pub/Sub message in this situation.
+        pub skip_empty_event_based_suggestion: bool,
+
+        /// Optional. If true,
+        /// use unredacted transcript data (Supported features: AI_COACH) and
+        /// use unredacted ingested context (Supported features: All Agent Assist
+        /// features)
+        pub use_unredacted_conversation_data: bool,
+
+        /// Optional. If true, enable asynchronous execution of tools.
+        pub enable_async_tool_call: bool,
+
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -16795,6 +18073,48 @@ pub mod human_agent_assistant_config {
             v: T,
         ) -> Self {
             self.disable_high_latency_features_sync_delivery = v.into();
+            self
+        }
+
+        /// Sets the value of [skip_empty_event_based_suggestion][crate::model::human_agent_assistant_config::SuggestionConfig::skip_empty_event_based_suggestion].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::human_agent_assistant_config::SuggestionConfig;
+        /// let x = SuggestionConfig::new().set_skip_empty_event_based_suggestion(true);
+        /// ```
+        pub fn set_skip_empty_event_based_suggestion<T: std::convert::Into<bool>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.skip_empty_event_based_suggestion = v.into();
+            self
+        }
+
+        /// Sets the value of [use_unredacted_conversation_data][crate::model::human_agent_assistant_config::SuggestionConfig::use_unredacted_conversation_data].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::human_agent_assistant_config::SuggestionConfig;
+        /// let x = SuggestionConfig::new().set_use_unredacted_conversation_data(true);
+        /// ```
+        pub fn set_use_unredacted_conversation_data<T: std::convert::Into<bool>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.use_unredacted_conversation_data = v.into();
+            self
+        }
+
+        /// Sets the value of [enable_async_tool_call][crate::model::human_agent_assistant_config::SuggestionConfig::enable_async_tool_call].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::human_agent_assistant_config::SuggestionConfig;
+        /// let x = SuggestionConfig::new().set_enable_async_tool_call(true);
+        /// ```
+        pub fn set_enable_async_tool_call<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.enable_async_tool_call = v.into();
             self
         }
     }
@@ -17663,7 +18983,7 @@ pub mod human_agent_assistant_config {
     /// Custom conversation models used in agent assist feature.
     ///
     /// Supported feature: ARTICLE_SUGGESTION, SMART_COMPOSE, SMART_REPLY,
-    /// CONVERSATION_SUMMARIZATION.
+    /// CONVERSATION_SUMMARIZATION
     #[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
@@ -21013,6 +22333,9 @@ pub struct KnowledgeOperationMetadata {
     /// The name of the knowledge base interacted with during the operation.
     pub knowledge_base: std::string::String,
 
+    /// The time when the operation finished.
+    pub done_time: std::option::Option<wkt::Timestamp>,
+
     /// Additional metadata for the Knowledge operation.
     pub operation_metadata:
         std::option::Option<crate::model::knowledge_operation_metadata::OperationMetadata>,
@@ -21053,6 +22376,39 @@ impl KnowledgeOperationMetadata {
     /// ```
     pub fn set_knowledge_base<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.knowledge_base = v.into();
+        self
+    }
+
+    /// Sets the value of [done_time][crate::model::KnowledgeOperationMetadata::done_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::KnowledgeOperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = KnowledgeOperationMetadata::new().set_done_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_done_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.done_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [done_time][crate::model::KnowledgeOperationMetadata::done_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::KnowledgeOperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = KnowledgeOperationMetadata::new().set_or_clear_done_time(Some(Timestamp::default()/* use setters */));
+    /// let x = KnowledgeOperationMetadata::new().set_or_clear_done_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_done_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.done_time = v.map(|x| x.into());
         self
     }
 
@@ -25722,7 +27078,11 @@ impl wkt::message::Message for UpdateGeneratorRequest {
 }
 
 /// Represents a message entry of a conversation.
-#[cfg(any(feature = "conversations", feature = "generators",))]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MessageEntry {
@@ -25743,7 +27103,11 @@ pub struct MessageEntry {
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
-#[cfg(any(feature = "conversations", feature = "generators",))]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
 impl MessageEntry {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -25825,7 +27189,11 @@ impl MessageEntry {
     }
 }
 
-#[cfg(any(feature = "conversations", feature = "generators",))]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
 impl wkt::message::Message for MessageEntry {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.v2.MessageEntry"
@@ -25833,7 +27201,11 @@ impl wkt::message::Message for MessageEntry {
 }
 
 /// Defines additional types related to [MessageEntry].
-#[cfg(any(feature = "conversations", feature = "generators",))]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
 pub mod message_entry {
     #[allow(unused_imports)]
     use super::*;
@@ -25853,7 +27225,11 @@ pub mod message_entry {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
-    #[cfg(any(feature = "conversations", feature = "generators",))]
+    #[cfg(any(
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+    ))]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Role {
@@ -25874,7 +27250,11 @@ pub mod message_entry {
     }
 
     #[doc(hidden)]
-    #[cfg(any(feature = "conversations", feature = "generators",))]
+    #[cfg(any(
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+    ))]
     pub mod role {
         #[allow(unused_imports)]
         use super::*;
@@ -25882,7 +27262,11 @@ pub mod message_entry {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
-    #[cfg(any(feature = "conversations", feature = "generators",))]
+    #[cfg(any(
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+    ))]
     impl Role {
         /// Gets the enum value.
         ///
@@ -25913,7 +27297,11 @@ pub mod message_entry {
         }
     }
 
-    #[cfg(any(feature = "conversations", feature = "generators",))]
+    #[cfg(any(
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+    ))]
     impl std::default::Default for Role {
         fn default() -> Self {
             use std::convert::From;
@@ -25921,14 +27309,22 @@ pub mod message_entry {
         }
     }
 
-    #[cfg(any(feature = "conversations", feature = "generators",))]
+    #[cfg(any(
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+    ))]
     impl std::fmt::Display for Role {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
-    #[cfg(any(feature = "conversations", feature = "generators",))]
+    #[cfg(any(
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+    ))]
     impl std::convert::From<i32> for Role {
         fn from(value: i32) -> Self {
             match value {
@@ -25943,7 +27339,11 @@ pub mod message_entry {
         }
     }
 
-    #[cfg(any(feature = "conversations", feature = "generators",))]
+    #[cfg(any(
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+    ))]
     impl std::convert::From<&str> for Role {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -25959,7 +27359,11 @@ pub mod message_entry {
         }
     }
 
-    #[cfg(any(feature = "conversations", feature = "generators",))]
+    #[cfg(any(
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+    ))]
     impl serde::ser::Serialize for Role {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -25975,7 +27379,11 @@ pub mod message_entry {
         }
     }
 
-    #[cfg(any(feature = "conversations", feature = "generators",))]
+    #[cfg(any(
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+    ))]
     impl<'de> serde::de::Deserialize<'de> for Role {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -25989,7 +27397,11 @@ pub mod message_entry {
 }
 
 /// Context of the conversation, including transcripts.
-#[cfg(any(feature = "conversations", feature = "generators",))]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConversationContext {
@@ -25999,7 +27411,11 @@ pub struct ConversationContext {
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
-#[cfg(any(feature = "conversations", feature = "generators",))]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
 impl ConversationContext {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -26028,7 +27444,11 @@ impl ConversationContext {
     }
 }
 
-#[cfg(any(feature = "conversations", feature = "generators",))]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
 impl wkt::message::Message for ConversationContext {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.v2.ConversationContext"
@@ -26036,7 +27456,11 @@ impl wkt::message::Message for ConversationContext {
 }
 
 /// List of summarization sections.
-#[cfg(any(feature = "conversations", feature = "generators",))]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SummarizationSectionList {
@@ -26046,7 +27470,11 @@ pub struct SummarizationSectionList {
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
-#[cfg(any(feature = "conversations", feature = "generators",))]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
 impl SummarizationSectionList {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -26075,7 +27503,11 @@ impl SummarizationSectionList {
     }
 }
 
-#[cfg(any(feature = "conversations", feature = "generators",))]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
 impl wkt::message::Message for SummarizationSectionList {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.v2.SummarizationSectionList"
@@ -26084,7 +27516,11 @@ impl wkt::message::Message for SummarizationSectionList {
 
 /// Providing examples in the generator (i.e. building a few-shot generator)
 /// helps convey the desired format of the LLM response.
-#[cfg(any(feature = "conversations", feature = "generators",))]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FewShotExample {
@@ -26105,7 +27541,11 @@ pub struct FewShotExample {
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
-#[cfg(any(feature = "conversations", feature = "generators",))]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
 impl FewShotExample {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -26261,7 +27701,11 @@ impl FewShotExample {
     }
 }
 
-#[cfg(any(feature = "conversations", feature = "generators",))]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
 impl wkt::message::Message for FewShotExample {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.v2.FewShotExample"
@@ -26269,13 +27713,21 @@ impl wkt::message::Message for FewShotExample {
 }
 
 /// Defines additional types related to [FewShotExample].
-#[cfg(any(feature = "conversations", feature = "generators",))]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
 pub mod few_shot_example {
     #[allow(unused_imports)]
     use super::*;
 
     /// Instruction list of this few_shot example.
-    #[cfg(any(feature = "conversations", feature = "generators",))]
+    #[cfg(any(
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+    ))]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum InstructionList {
@@ -26285,7 +27737,11 @@ pub mod few_shot_example {
 }
 
 /// The parameters of inference.
-#[cfg(any(feature = "conversations", feature = "generators",))]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InferenceParameter {
@@ -26321,7 +27777,11 @@ pub struct InferenceParameter {
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
-#[cfg(any(feature = "conversations", feature = "generators",))]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
 impl InferenceParameter {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -26452,15 +27912,135 @@ impl InferenceParameter {
     }
 }
 
-#[cfg(any(feature = "conversations", feature = "generators",))]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
 impl wkt::message::Message for InferenceParameter {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.v2.InferenceParameter"
     }
 }
 
+/// Agent Coaching context that customer can configure.
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AgentCoachingContext {
+    /// Optional. The overarching guidance for the agent coaching. This should be
+    /// set only for v1.5 and later versions.
+    pub overarching_guidance: std::string::String,
+
+    /// Optional. Customized instructions for agent coaching.
+    pub instructions: std::vec::Vec<crate::model::AgentCoachingInstruction>,
+
+    /// Optional. Version of the feature. If not set, default to latest version.
+    /// Current candidates are ["1.2"].
+    pub version: std::string::String,
+
+    /// Optional. Output language code.
+    pub output_language_code: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
+impl AgentCoachingContext {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [overarching_guidance][crate::model::AgentCoachingContext::overarching_guidance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::AgentCoachingContext;
+    /// let x = AgentCoachingContext::new().set_overarching_guidance("example");
+    /// ```
+    pub fn set_overarching_guidance<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.overarching_guidance = v.into();
+        self
+    }
+
+    /// Sets the value of [instructions][crate::model::AgentCoachingContext::instructions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::AgentCoachingContext;
+    /// use google_cloud_dialogflow_v2::model::AgentCoachingInstruction;
+    /// let x = AgentCoachingContext::new()
+    ///     .set_instructions([
+    ///         AgentCoachingInstruction::default()/* use setters */,
+    ///         AgentCoachingInstruction::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_instructions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AgentCoachingInstruction>,
+    {
+        use std::iter::Iterator;
+        self.instructions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [version][crate::model::AgentCoachingContext::version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::AgentCoachingContext;
+    /// let x = AgentCoachingContext::new().set_version("example");
+    /// ```
+    pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.version = v.into();
+        self
+    }
+
+    /// Sets the value of [output_language_code][crate::model::AgentCoachingContext::output_language_code].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::AgentCoachingContext;
+    /// let x = AgentCoachingContext::new().set_output_language_code("example");
+    /// ```
+    pub fn set_output_language_code<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.output_language_code = v.into();
+        self
+    }
+}
+
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
+impl wkt::message::Message for AgentCoachingContext {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.AgentCoachingContext"
+    }
+}
+
 /// Represents the section of summarization.
-#[cfg(any(feature = "conversations", feature = "generators",))]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SummarizationSection {
@@ -26477,7 +28057,11 @@ pub struct SummarizationSection {
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
-#[cfg(any(feature = "conversations", feature = "generators",))]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
 impl SummarizationSection {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -26526,7 +28110,11 @@ impl SummarizationSection {
     }
 }
 
-#[cfg(any(feature = "conversations", feature = "generators",))]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
 impl wkt::message::Message for SummarizationSection {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.v2.SummarizationSection"
@@ -26534,7 +28122,11 @@ impl wkt::message::Message for SummarizationSection {
 }
 
 /// Defines additional types related to [SummarizationSection].
-#[cfg(any(feature = "conversations", feature = "generators",))]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
 pub mod summarization_section {
     #[allow(unused_imports)]
     use super::*;
@@ -26554,7 +28146,11 @@ pub mod summarization_section {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
-    #[cfg(any(feature = "conversations", feature = "generators",))]
+    #[cfg(any(
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+    ))]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Type {
@@ -26598,7 +28194,11 @@ pub mod summarization_section {
     }
 
     #[doc(hidden)]
-    #[cfg(any(feature = "conversations", feature = "generators",))]
+    #[cfg(any(
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+    ))]
     pub mod r#type {
         #[allow(unused_imports)]
         use super::*;
@@ -26606,7 +28206,11 @@ pub mod summarization_section {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
-    #[cfg(any(feature = "conversations", feature = "generators",))]
+    #[cfg(any(
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+    ))]
     impl Type {
         /// Gets the enum value.
         ///
@@ -26649,7 +28253,11 @@ pub mod summarization_section {
         }
     }
 
-    #[cfg(any(feature = "conversations", feature = "generators",))]
+    #[cfg(any(
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+    ))]
     impl std::default::Default for Type {
         fn default() -> Self {
             use std::convert::From;
@@ -26657,14 +28265,22 @@ pub mod summarization_section {
         }
     }
 
-    #[cfg(any(feature = "conversations", feature = "generators",))]
+    #[cfg(any(
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+    ))]
     impl std::fmt::Display for Type {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
-    #[cfg(any(feature = "conversations", feature = "generators",))]
+    #[cfg(any(
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+    ))]
     impl std::convert::From<i32> for Type {
         fn from(value: i32) -> Self {
             match value {
@@ -26685,7 +28301,11 @@ pub mod summarization_section {
         }
     }
 
-    #[cfg(any(feature = "conversations", feature = "generators",))]
+    #[cfg(any(
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+    ))]
     impl std::convert::From<&str> for Type {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -26707,7 +28327,11 @@ pub mod summarization_section {
         }
     }
 
-    #[cfg(any(feature = "conversations", feature = "generators",))]
+    #[cfg(any(
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+    ))]
     impl serde::ser::Serialize for Type {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -26729,7 +28353,11 @@ pub mod summarization_section {
         }
     }
 
-    #[cfg(any(feature = "conversations", feature = "generators",))]
+    #[cfg(any(
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+    ))]
     impl<'de> serde::de::Deserialize<'de> for Type {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -26743,7 +28371,11 @@ pub mod summarization_section {
 }
 
 /// Summarization context that customer can configure.
-#[cfg(any(feature = "conversations", feature = "generators",))]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SummarizationContext {
@@ -26766,7 +28398,11 @@ pub struct SummarizationContext {
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
-#[cfg(any(feature = "conversations", feature = "generators",))]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
 impl SummarizationContext {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -26844,7 +28480,11 @@ impl SummarizationContext {
     }
 }
 
-#[cfg(any(feature = "conversations", feature = "generators",))]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
 impl wkt::message::Message for SummarizationContext {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.v2.SummarizationContext"
@@ -26852,7 +28492,11 @@ impl wkt::message::Message for SummarizationContext {
 }
 
 /// Free form generator context that customer can configure.
-#[cfg(any(feature = "conversations", feature = "generators",))]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FreeFormContext {
@@ -26862,7 +28506,11 @@ pub struct FreeFormContext {
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
-#[cfg(any(feature = "conversations", feature = "generators",))]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
 impl FreeFormContext {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -26881,7 +28529,11 @@ impl FreeFormContext {
     }
 }
 
-#[cfg(any(feature = "conversations", feature = "generators",))]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
 impl wkt::message::Message for FreeFormContext {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.v2.FreeFormContext"
@@ -26889,7 +28541,11 @@ impl wkt::message::Message for FreeFormContext {
 }
 
 /// LLM generator.
-#[cfg(any(feature = "conversations", feature = "generators",))]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Generator {
@@ -26913,6 +28569,14 @@ pub struct Generator {
     /// Output only. Update time of this generator.
     pub update_time: std::option::Option<wkt::Timestamp>,
 
+    /// Optional. Resource names of the tools that the generator can choose from.
+    /// Format: `projects/<Project ID>/locations/<Location ID>/tools/<tool ID>`.
+    pub tools: std::vec::Vec<std::string::String>,
+
+    /// Optional. Configuration for suggestion deduping. This is only applicable to
+    /// AI Coach feature.
+    pub suggestion_deduping_config: std::option::Option<crate::model::SuggestionDedupingConfig>,
+
     /// Required. Input context of the generator.
     pub context: std::option::Option<crate::model::generator::Context>,
 
@@ -26924,7 +28588,11 @@ pub struct Generator {
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
-#[cfg(any(feature = "conversations", feature = "generators",))]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
 impl Generator {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -27071,6 +28739,56 @@ impl Generator {
         self
     }
 
+    /// Sets the value of [tools][crate::model::Generator::tools].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::Generator;
+    /// let x = Generator::new().set_tools(["a", "b", "c"]);
+    /// ```
+    pub fn set_tools<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.tools = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [suggestion_deduping_config][crate::model::Generator::suggestion_deduping_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::Generator;
+    /// use google_cloud_dialogflow_v2::model::SuggestionDedupingConfig;
+    /// let x = Generator::new().set_suggestion_deduping_config(SuggestionDedupingConfig::default()/* use setters */);
+    /// ```
+    pub fn set_suggestion_deduping_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SuggestionDedupingConfig>,
+    {
+        self.suggestion_deduping_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [suggestion_deduping_config][crate::model::Generator::suggestion_deduping_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::Generator;
+    /// use google_cloud_dialogflow_v2::model::SuggestionDedupingConfig;
+    /// let x = Generator::new().set_or_clear_suggestion_deduping_config(Some(SuggestionDedupingConfig::default()/* use setters */));
+    /// let x = Generator::new().set_or_clear_suggestion_deduping_config(None::<SuggestionDedupingConfig>);
+    /// ```
+    pub fn set_or_clear_suggestion_deduping_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SuggestionDedupingConfig>,
+    {
+        self.suggestion_deduping_config = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [context][crate::model::Generator::context].
     ///
     /// Note that all the setters affecting `context` are mutually
@@ -27118,6 +28836,7 @@ impl Generator {
     /// use google_cloud_dialogflow_v2::model::FreeFormContext;
     /// let x = Generator::new().set_free_form_context(FreeFormContext::default()/* use setters */);
     /// assert!(x.free_form_context().is_some());
+    /// assert!(x.agent_coaching_context().is_none());
     /// assert!(x.summarization_context().is_none());
     /// ```
     pub fn set_free_form_context<
@@ -27128,6 +28847,48 @@ impl Generator {
     ) -> Self {
         self.context =
             std::option::Option::Some(crate::model::generator::Context::FreeFormContext(v.into()));
+        self
+    }
+
+    /// The value of [context][crate::model::Generator::context]
+    /// if it holds a `AgentCoachingContext`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn agent_coaching_context(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::AgentCoachingContext>> {
+        #[allow(unreachable_patterns)]
+        self.context.as_ref().and_then(|v| match v {
+            crate::model::generator::Context::AgentCoachingContext(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [context][crate::model::Generator::context]
+    /// to hold a `AgentCoachingContext`.
+    ///
+    /// Note that all the setters affecting `context` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::Generator;
+    /// use google_cloud_dialogflow_v2::model::AgentCoachingContext;
+    /// let x = Generator::new().set_agent_coaching_context(AgentCoachingContext::default()/* use setters */);
+    /// assert!(x.agent_coaching_context().is_some());
+    /// assert!(x.free_form_context().is_none());
+    /// assert!(x.summarization_context().is_none());
+    /// ```
+    pub fn set_agent_coaching_context<
+        T: std::convert::Into<std::boxed::Box<crate::model::AgentCoachingContext>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.context = std::option::Option::Some(
+            crate::model::generator::Context::AgentCoachingContext(v.into()),
+        );
         self
     }
 
@@ -27159,6 +28920,7 @@ impl Generator {
     /// let x = Generator::new().set_summarization_context(SummarizationContext::default()/* use setters */);
     /// assert!(x.summarization_context().is_some());
     /// assert!(x.free_form_context().is_none());
+    /// assert!(x.agent_coaching_context().is_none());
     /// ```
     pub fn set_summarization_context<
         T: std::convert::Into<std::boxed::Box<crate::model::SummarizationContext>>,
@@ -27226,7 +28988,11 @@ impl Generator {
     }
 }
 
-#[cfg(any(feature = "conversations", feature = "generators",))]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
 impl wkt::message::Message for Generator {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.v2.Generator"
@@ -27234,18 +29000,28 @@ impl wkt::message::Message for Generator {
 }
 
 /// Defines additional types related to [Generator].
-#[cfg(any(feature = "conversations", feature = "generators",))]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
 pub mod generator {
     #[allow(unused_imports)]
     use super::*;
 
     /// Required. Input context of the generator.
-    #[cfg(any(feature = "conversations", feature = "generators",))]
+    #[cfg(any(
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+    ))]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Context {
         /// Input of free from generator to LLM.
         FreeFormContext(std::boxed::Box<crate::model::FreeFormContext>),
+        /// Input of prebuilt Agent Coaching feature.
+        AgentCoachingContext(std::boxed::Box<crate::model::AgentCoachingContext>),
         /// Input of prebuilt Summarization feature.
         SummarizationContext(std::boxed::Box<crate::model::SummarizationContext>),
     }
@@ -27253,7 +29029,11 @@ pub mod generator {
     /// The foundation model to use for generating suggestions. If a foundation
     /// model isn't specified here, a model specifically tuned for the feature
     /// type (and version when applicable) will be used.
-    #[cfg(any(feature = "conversations", feature = "generators",))]
+    #[cfg(any(
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+    ))]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum FoundationModel {
@@ -27269,7 +29049,9 @@ pub mod generator {
 
 /// Suggestion generated using free form generator.
 #[cfg(any(
+    feature = "answer-records",
     feature = "conversations",
+    feature = "generator-evaluations",
     feature = "generators",
     feature = "participants",
 ))]
@@ -27283,7 +29065,9 @@ pub struct FreeFormSuggestion {
 }
 
 #[cfg(any(
+    feature = "answer-records",
     feature = "conversations",
+    feature = "generator-evaluations",
     feature = "generators",
     feature = "participants",
 ))]
@@ -27306,7 +29090,9 @@ impl FreeFormSuggestion {
 }
 
 #[cfg(any(
+    feature = "answer-records",
     feature = "conversations",
+    feature = "generator-evaluations",
     feature = "generators",
     feature = "participants",
 ))]
@@ -27318,7 +29104,9 @@ impl wkt::message::Message for FreeFormSuggestion {
 
 /// Suggested summary of the conversation.
 #[cfg(any(
+    feature = "answer-records",
     feature = "conversations",
+    feature = "generator-evaluations",
     feature = "generators",
     feature = "participants",
 ))]
@@ -27332,7 +29120,9 @@ pub struct SummarySuggestion {
 }
 
 #[cfg(any(
+    feature = "answer-records",
     feature = "conversations",
+    feature = "generator-evaluations",
     feature = "generators",
     feature = "participants",
 ))]
@@ -27365,7 +29155,9 @@ impl SummarySuggestion {
 }
 
 #[cfg(any(
+    feature = "answer-records",
     feature = "conversations",
+    feature = "generator-evaluations",
     feature = "generators",
     feature = "participants",
 ))]
@@ -27377,7 +29169,9 @@ impl wkt::message::Message for SummarySuggestion {
 
 /// Defines additional types related to [SummarySuggestion].
 #[cfg(any(
+    feature = "answer-records",
     feature = "conversations",
+    feature = "generator-evaluations",
     feature = "generators",
     feature = "participants",
 ))]
@@ -27387,7 +29181,9 @@ pub mod summary_suggestion {
 
     /// A component of the generated summary.
     #[cfg(any(
+        feature = "answer-records",
         feature = "conversations",
+        feature = "generator-evaluations",
         feature = "generators",
         feature = "participants",
     ))]
@@ -27404,7 +29200,9 @@ pub mod summary_suggestion {
     }
 
     #[cfg(any(
+        feature = "answer-records",
         feature = "conversations",
+        feature = "generator-evaluations",
         feature = "generators",
         feature = "participants",
     ))]
@@ -27439,7 +29237,9 @@ pub mod summary_suggestion {
     }
 
     #[cfg(any(
+        feature = "answer-records",
         feature = "conversations",
+        feature = "generator-evaluations",
         feature = "generators",
         feature = "participants",
     ))]
@@ -27450,15 +29250,681 @@ pub mod summary_suggestion {
     }
 }
 
+/// Suggestion for coaching agents.
+#[cfg(any(
+    feature = "answer-records",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+))]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AgentCoachingSuggestion {
+    /// Optional. Instructions applicable based on the current context.
+    pub applicable_instructions: std::vec::Vec<crate::model::AgentCoachingInstruction>,
+
+    /// Optional. Suggested actions for the agent to take.
+    pub agent_action_suggestions:
+        std::vec::Vec<crate::model::agent_coaching_suggestion::AgentActionSuggestion>,
+
+    /// Optional. Sample response for the Agent.
+    pub sample_responses: std::vec::Vec<crate::model::agent_coaching_suggestion::SampleResponse>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+))]
+impl AgentCoachingSuggestion {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [applicable_instructions][crate::model::AgentCoachingSuggestion::applicable_instructions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::AgentCoachingSuggestion;
+    /// use google_cloud_dialogflow_v2::model::AgentCoachingInstruction;
+    /// let x = AgentCoachingSuggestion::new()
+    ///     .set_applicable_instructions([
+    ///         AgentCoachingInstruction::default()/* use setters */,
+    ///         AgentCoachingInstruction::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_applicable_instructions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AgentCoachingInstruction>,
+    {
+        use std::iter::Iterator;
+        self.applicable_instructions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [agent_action_suggestions][crate::model::AgentCoachingSuggestion::agent_action_suggestions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::AgentCoachingSuggestion;
+    /// use google_cloud_dialogflow_v2::model::agent_coaching_suggestion::AgentActionSuggestion;
+    /// let x = AgentCoachingSuggestion::new()
+    ///     .set_agent_action_suggestions([
+    ///         AgentActionSuggestion::default()/* use setters */,
+    ///         AgentActionSuggestion::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_agent_action_suggestions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::agent_coaching_suggestion::AgentActionSuggestion>,
+    {
+        use std::iter::Iterator;
+        self.agent_action_suggestions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [sample_responses][crate::model::AgentCoachingSuggestion::sample_responses].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::AgentCoachingSuggestion;
+    /// use google_cloud_dialogflow_v2::model::agent_coaching_suggestion::SampleResponse;
+    /// let x = AgentCoachingSuggestion::new()
+    ///     .set_sample_responses([
+    ///         SampleResponse::default()/* use setters */,
+    ///         SampleResponse::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_sample_responses<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::agent_coaching_suggestion::SampleResponse>,
+    {
+        use std::iter::Iterator;
+        self.sample_responses = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+))]
+impl wkt::message::Message for AgentCoachingSuggestion {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.AgentCoachingSuggestion"
+    }
+}
+
+/// Defines additional types related to [AgentCoachingSuggestion].
+#[cfg(any(
+    feature = "answer-records",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+))]
+pub mod agent_coaching_suggestion {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Sources for the suggestion.
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+        feature = "participants",
+    ))]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct Sources {
+        /// Output only. Source instruction indexes for the suggestion. This is the
+        /// index of the applicable_instructions field.
+        pub instruction_indexes: std::vec::Vec<i32>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+        feature = "participants",
+    ))]
+    impl Sources {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [instruction_indexes][crate::model::agent_coaching_suggestion::Sources::instruction_indexes].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::agent_coaching_suggestion::Sources;
+        /// let x = Sources::new().set_instruction_indexes([1, 2, 3]);
+        /// ```
+        pub fn set_instruction_indexes<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<i32>,
+        {
+            use std::iter::Iterator;
+            self.instruction_indexes = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+        feature = "participants",
+    ))]
+    impl wkt::message::Message for Sources {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.v2.AgentCoachingSuggestion.Sources"
+        }
+    }
+
+    /// Duplication check for the suggestion.
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+        feature = "participants",
+    ))]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct DuplicateCheckResult {
+        /// Output only. The duplicate suggestions.
+        pub duplicate_suggestions: std::vec::Vec<
+            crate::model::agent_coaching_suggestion::duplicate_check_result::DuplicateSuggestion,
+        >,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+        feature = "participants",
+    ))]
+    impl DuplicateCheckResult {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [duplicate_suggestions][crate::model::agent_coaching_suggestion::DuplicateCheckResult::duplicate_suggestions].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::agent_coaching_suggestion::DuplicateCheckResult;
+        /// use google_cloud_dialogflow_v2::model::agent_coaching_suggestion::duplicate_check_result::DuplicateSuggestion;
+        /// let x = DuplicateCheckResult::new()
+        ///     .set_duplicate_suggestions([
+        ///         DuplicateSuggestion::default()/* use setters */,
+        ///         DuplicateSuggestion::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_duplicate_suggestions<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::agent_coaching_suggestion::duplicate_check_result::DuplicateSuggestion>
+        {
+            use std::iter::Iterator;
+            self.duplicate_suggestions = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+        feature = "participants",
+    ))]
+    impl wkt::message::Message for DuplicateCheckResult {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.v2.AgentCoachingSuggestion.DuplicateCheckResult"
+        }
+    }
+
+    /// Defines additional types related to [DuplicateCheckResult].
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+        feature = "participants",
+    ))]
+    pub mod duplicate_check_result {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// The duplicate suggestion details.
+        /// Keeping answer_record and sources together as they are identifiers for
+        /// duplicate suggestions.
+        #[cfg(any(
+            feature = "answer-records",
+            feature = "conversations",
+            feature = "generator-evaluations",
+            feature = "generators",
+            feature = "participants",
+        ))]
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct DuplicateSuggestion {
+            /// Output only. The answer record id of the past duplicate suggestion.
+            pub answer_record: std::string::String,
+
+            /// Output only. Sources for the suggestion.
+            pub sources: std::option::Option<crate::model::agent_coaching_suggestion::Sources>,
+
+            /// Output only. The index of the duplicate suggestion in the past
+            /// suggestion list.
+            pub suggestion_index: i32,
+
+            /// Output only. The similarity score of between the past and current
+            /// suggestion.
+            pub similarity_score: f32,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        #[cfg(any(
+            feature = "answer-records",
+            feature = "conversations",
+            feature = "generator-evaluations",
+            feature = "generators",
+            feature = "participants",
+        ))]
+        impl DuplicateSuggestion {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [answer_record][crate::model::agent_coaching_suggestion::duplicate_check_result::DuplicateSuggestion::answer_record].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_v2::model::agent_coaching_suggestion::duplicate_check_result::DuplicateSuggestion;
+            /// let x = DuplicateSuggestion::new().set_answer_record("example");
+            /// ```
+            pub fn set_answer_record<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.answer_record = v.into();
+                self
+            }
+
+            /// Sets the value of [sources][crate::model::agent_coaching_suggestion::duplicate_check_result::DuplicateSuggestion::sources].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_v2::model::agent_coaching_suggestion::duplicate_check_result::DuplicateSuggestion;
+            /// use google_cloud_dialogflow_v2::model::agent_coaching_suggestion::Sources;
+            /// let x = DuplicateSuggestion::new().set_sources(Sources::default()/* use setters */);
+            /// ```
+            pub fn set_sources<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<crate::model::agent_coaching_suggestion::Sources>,
+            {
+                self.sources = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [sources][crate::model::agent_coaching_suggestion::duplicate_check_result::DuplicateSuggestion::sources].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_v2::model::agent_coaching_suggestion::duplicate_check_result::DuplicateSuggestion;
+            /// use google_cloud_dialogflow_v2::model::agent_coaching_suggestion::Sources;
+            /// let x = DuplicateSuggestion::new().set_or_clear_sources(Some(Sources::default()/* use setters */));
+            /// let x = DuplicateSuggestion::new().set_or_clear_sources(None::<Sources>);
+            /// ```
+            pub fn set_or_clear_sources<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<crate::model::agent_coaching_suggestion::Sources>,
+            {
+                self.sources = v.map(|x| x.into());
+                self
+            }
+
+            /// Sets the value of [suggestion_index][crate::model::agent_coaching_suggestion::duplicate_check_result::DuplicateSuggestion::suggestion_index].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_v2::model::agent_coaching_suggestion::duplicate_check_result::DuplicateSuggestion;
+            /// let x = DuplicateSuggestion::new().set_suggestion_index(42);
+            /// ```
+            pub fn set_suggestion_index<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+                self.suggestion_index = v.into();
+                self
+            }
+
+            /// Sets the value of [similarity_score][crate::model::agent_coaching_suggestion::duplicate_check_result::DuplicateSuggestion::similarity_score].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_v2::model::agent_coaching_suggestion::duplicate_check_result::DuplicateSuggestion;
+            /// let x = DuplicateSuggestion::new().set_similarity_score(42.0);
+            /// ```
+            pub fn set_similarity_score<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
+                self.similarity_score = v.into();
+                self
+            }
+        }
+
+        #[cfg(any(
+            feature = "answer-records",
+            feature = "conversations",
+            feature = "generator-evaluations",
+            feature = "generators",
+            feature = "participants",
+        ))]
+        impl wkt::message::Message for DuplicateSuggestion {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.dialogflow.v2.AgentCoachingSuggestion.DuplicateCheckResult.DuplicateSuggestion"
+            }
+        }
+    }
+
+    /// Actions suggested for the agent. This is based on applicable instructions.
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+        feature = "participants",
+    ))]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct AgentActionSuggestion {
+        /// Optional. The suggested action for the agent.
+        pub agent_action: std::string::String,
+
+        /// Output only. Sources for the agent action suggestion.
+        pub sources: std::option::Option<crate::model::agent_coaching_suggestion::Sources>,
+
+        /// Output only. Duplicate check result for the agent action suggestion.
+        pub duplicate_check_result:
+            std::option::Option<crate::model::agent_coaching_suggestion::DuplicateCheckResult>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+        feature = "participants",
+    ))]
+    impl AgentActionSuggestion {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [agent_action][crate::model::agent_coaching_suggestion::AgentActionSuggestion::agent_action].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::agent_coaching_suggestion::AgentActionSuggestion;
+        /// let x = AgentActionSuggestion::new().set_agent_action("example");
+        /// ```
+        pub fn set_agent_action<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.agent_action = v.into();
+            self
+        }
+
+        /// Sets the value of [sources][crate::model::agent_coaching_suggestion::AgentActionSuggestion::sources].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::agent_coaching_suggestion::AgentActionSuggestion;
+        /// use google_cloud_dialogflow_v2::model::agent_coaching_suggestion::Sources;
+        /// let x = AgentActionSuggestion::new().set_sources(Sources::default()/* use setters */);
+        /// ```
+        pub fn set_sources<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::agent_coaching_suggestion::Sources>,
+        {
+            self.sources = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [sources][crate::model::agent_coaching_suggestion::AgentActionSuggestion::sources].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::agent_coaching_suggestion::AgentActionSuggestion;
+        /// use google_cloud_dialogflow_v2::model::agent_coaching_suggestion::Sources;
+        /// let x = AgentActionSuggestion::new().set_or_clear_sources(Some(Sources::default()/* use setters */));
+        /// let x = AgentActionSuggestion::new().set_or_clear_sources(None::<Sources>);
+        /// ```
+        pub fn set_or_clear_sources<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::agent_coaching_suggestion::Sources>,
+        {
+            self.sources = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [duplicate_check_result][crate::model::agent_coaching_suggestion::AgentActionSuggestion::duplicate_check_result].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::agent_coaching_suggestion::AgentActionSuggestion;
+        /// use google_cloud_dialogflow_v2::model::agent_coaching_suggestion::DuplicateCheckResult;
+        /// let x = AgentActionSuggestion::new().set_duplicate_check_result(DuplicateCheckResult::default()/* use setters */);
+        /// ```
+        pub fn set_duplicate_check_result<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::agent_coaching_suggestion::DuplicateCheckResult>,
+        {
+            self.duplicate_check_result = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [duplicate_check_result][crate::model::agent_coaching_suggestion::AgentActionSuggestion::duplicate_check_result].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::agent_coaching_suggestion::AgentActionSuggestion;
+        /// use google_cloud_dialogflow_v2::model::agent_coaching_suggestion::DuplicateCheckResult;
+        /// let x = AgentActionSuggestion::new().set_or_clear_duplicate_check_result(Some(DuplicateCheckResult::default()/* use setters */));
+        /// let x = AgentActionSuggestion::new().set_or_clear_duplicate_check_result(None::<DuplicateCheckResult>);
+        /// ```
+        pub fn set_or_clear_duplicate_check_result<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::agent_coaching_suggestion::DuplicateCheckResult>,
+        {
+            self.duplicate_check_result = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+        feature = "participants",
+    ))]
+    impl wkt::message::Message for AgentActionSuggestion {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.v2.AgentCoachingSuggestion.AgentActionSuggestion"
+        }
+    }
+
+    /// Sample response that the agent can use. This could be based on applicable
+    /// instructions and ingested data from other systems.
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+        feature = "participants",
+    ))]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct SampleResponse {
+        /// Optional. Sample response for Agent in text.
+        pub response_text: std::string::String,
+
+        /// Output only. Sources for the Sample Response.
+        pub sources: std::option::Option<crate::model::agent_coaching_suggestion::Sources>,
+
+        /// Output only. Duplicate check result for the sample response.
+        pub duplicate_check_result:
+            std::option::Option<crate::model::agent_coaching_suggestion::DuplicateCheckResult>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+        feature = "participants",
+    ))]
+    impl SampleResponse {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [response_text][crate::model::agent_coaching_suggestion::SampleResponse::response_text].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::agent_coaching_suggestion::SampleResponse;
+        /// let x = SampleResponse::new().set_response_text("example");
+        /// ```
+        pub fn set_response_text<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.response_text = v.into();
+            self
+        }
+
+        /// Sets the value of [sources][crate::model::agent_coaching_suggestion::SampleResponse::sources].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::agent_coaching_suggestion::SampleResponse;
+        /// use google_cloud_dialogflow_v2::model::agent_coaching_suggestion::Sources;
+        /// let x = SampleResponse::new().set_sources(Sources::default()/* use setters */);
+        /// ```
+        pub fn set_sources<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::agent_coaching_suggestion::Sources>,
+        {
+            self.sources = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [sources][crate::model::agent_coaching_suggestion::SampleResponse::sources].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::agent_coaching_suggestion::SampleResponse;
+        /// use google_cloud_dialogflow_v2::model::agent_coaching_suggestion::Sources;
+        /// let x = SampleResponse::new().set_or_clear_sources(Some(Sources::default()/* use setters */));
+        /// let x = SampleResponse::new().set_or_clear_sources(None::<Sources>);
+        /// ```
+        pub fn set_or_clear_sources<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::agent_coaching_suggestion::Sources>,
+        {
+            self.sources = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [duplicate_check_result][crate::model::agent_coaching_suggestion::SampleResponse::duplicate_check_result].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::agent_coaching_suggestion::SampleResponse;
+        /// use google_cloud_dialogflow_v2::model::agent_coaching_suggestion::DuplicateCheckResult;
+        /// let x = SampleResponse::new().set_duplicate_check_result(DuplicateCheckResult::default()/* use setters */);
+        /// ```
+        pub fn set_duplicate_check_result<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::agent_coaching_suggestion::DuplicateCheckResult>,
+        {
+            self.duplicate_check_result = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [duplicate_check_result][crate::model::agent_coaching_suggestion::SampleResponse::duplicate_check_result].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::agent_coaching_suggestion::SampleResponse;
+        /// use google_cloud_dialogflow_v2::model::agent_coaching_suggestion::DuplicateCheckResult;
+        /// let x = SampleResponse::new().set_or_clear_duplicate_check_result(Some(DuplicateCheckResult::default()/* use setters */));
+        /// let x = SampleResponse::new().set_or_clear_duplicate_check_result(None::<DuplicateCheckResult>);
+        /// ```
+        pub fn set_or_clear_duplicate_check_result<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::agent_coaching_suggestion::DuplicateCheckResult>,
+        {
+            self.duplicate_check_result = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+        feature = "participants",
+    ))]
+    impl wkt::message::Message for SampleResponse {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.v2.AgentCoachingSuggestion.SampleResponse"
+        }
+    }
+}
+
 /// Suggestion generated using a Generator.
 #[cfg(any(
+    feature = "answer-records",
     feature = "conversations",
+    feature = "generator-evaluations",
     feature = "generators",
     feature = "participants",
 ))]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GeneratorSuggestion {
+    /// Optional. List of request and response for tool calls executed.
+    pub tool_call_info: std::vec::Vec<crate::model::generator_suggestion::ToolCallInfo>,
+
     /// The suggestion could be one of the many types
     pub suggestion: std::option::Option<crate::model::generator_suggestion::Suggestion>,
 
@@ -27466,13 +29932,37 @@ pub struct GeneratorSuggestion {
 }
 
 #[cfg(any(
+    feature = "answer-records",
     feature = "conversations",
+    feature = "generator-evaluations",
     feature = "generators",
     feature = "participants",
 ))]
 impl GeneratorSuggestion {
     pub fn new() -> Self {
         std::default::Default::default()
+    }
+
+    /// Sets the value of [tool_call_info][crate::model::GeneratorSuggestion::tool_call_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::GeneratorSuggestion;
+    /// use google_cloud_dialogflow_v2::model::generator_suggestion::ToolCallInfo;
+    /// let x = GeneratorSuggestion::new()
+    ///     .set_tool_call_info([
+    ///         ToolCallInfo::default()/* use setters */,
+    ///         ToolCallInfo::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_tool_call_info<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::generator_suggestion::ToolCallInfo>,
+    {
+        use std::iter::Iterator;
+        self.tool_call_info = v.into_iter().map(|i| i.into()).collect();
+        self
     }
 
     /// Sets the value of [suggestion][crate::model::GeneratorSuggestion::suggestion].
@@ -27525,6 +30015,7 @@ impl GeneratorSuggestion {
     /// let x = GeneratorSuggestion::new().set_free_form_suggestion(FreeFormSuggestion::default()/* use setters */);
     /// assert!(x.free_form_suggestion().is_some());
     /// assert!(x.summary_suggestion().is_none());
+    /// assert!(x.agent_coaching_suggestion().is_none());
     /// ```
     pub fn set_free_form_suggestion<
         T: std::convert::Into<std::boxed::Box<crate::model::FreeFormSuggestion>>,
@@ -27566,6 +30057,7 @@ impl GeneratorSuggestion {
     /// let x = GeneratorSuggestion::new().set_summary_suggestion(SummarySuggestion::default()/* use setters */);
     /// assert!(x.summary_suggestion().is_some());
     /// assert!(x.free_form_suggestion().is_none());
+    /// assert!(x.agent_coaching_suggestion().is_none());
     /// ```
     pub fn set_summary_suggestion<
         T: std::convert::Into<std::boxed::Box<crate::model::SummarySuggestion>>,
@@ -27578,10 +30070,54 @@ impl GeneratorSuggestion {
         );
         self
     }
+
+    /// The value of [suggestion][crate::model::GeneratorSuggestion::suggestion]
+    /// if it holds a `AgentCoachingSuggestion`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn agent_coaching_suggestion(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::AgentCoachingSuggestion>> {
+        #[allow(unreachable_patterns)]
+        self.suggestion.as_ref().and_then(|v| match v {
+            crate::model::generator_suggestion::Suggestion::AgentCoachingSuggestion(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [suggestion][crate::model::GeneratorSuggestion::suggestion]
+    /// to hold a `AgentCoachingSuggestion`.
+    ///
+    /// Note that all the setters affecting `suggestion` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::GeneratorSuggestion;
+    /// use google_cloud_dialogflow_v2::model::AgentCoachingSuggestion;
+    /// let x = GeneratorSuggestion::new().set_agent_coaching_suggestion(AgentCoachingSuggestion::default()/* use setters */);
+    /// assert!(x.agent_coaching_suggestion().is_some());
+    /// assert!(x.free_form_suggestion().is_none());
+    /// assert!(x.summary_suggestion().is_none());
+    /// ```
+    pub fn set_agent_coaching_suggestion<
+        T: std::convert::Into<std::boxed::Box<crate::model::AgentCoachingSuggestion>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.suggestion = std::option::Option::Some(
+            crate::model::generator_suggestion::Suggestion::AgentCoachingSuggestion(v.into()),
+        );
+        self
+    }
 }
 
 #[cfg(any(
+    feature = "answer-records",
     feature = "conversations",
+    feature = "generator-evaluations",
     feature = "generators",
     feature = "participants",
 ))]
@@ -27593,7 +30129,9 @@ impl wkt::message::Message for GeneratorSuggestion {
 
 /// Defines additional types related to [GeneratorSuggestion].
 #[cfg(any(
+    feature = "answer-records",
     feature = "conversations",
+    feature = "generator-evaluations",
     feature = "generators",
     feature = "participants",
 ))]
@@ -27601,9 +30139,123 @@ pub mod generator_suggestion {
     #[allow(unused_imports)]
     use super::*;
 
+    /// Request and response for a tool call.
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+        feature = "participants",
+    ))]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct ToolCallInfo {
+        /// Required. Request for a tool call.
+        pub tool_call: std::option::Option<crate::model::ToolCall>,
+
+        /// Required. Response for a tool call.
+        pub tool_call_result: std::option::Option<crate::model::ToolCallResult>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+        feature = "participants",
+    ))]
+    impl ToolCallInfo {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [tool_call][crate::model::generator_suggestion::ToolCallInfo::tool_call].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::generator_suggestion::ToolCallInfo;
+        /// use google_cloud_dialogflow_v2::model::ToolCall;
+        /// let x = ToolCallInfo::new().set_tool_call(ToolCall::default()/* use setters */);
+        /// ```
+        pub fn set_tool_call<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ToolCall>,
+        {
+            self.tool_call = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [tool_call][crate::model::generator_suggestion::ToolCallInfo::tool_call].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::generator_suggestion::ToolCallInfo;
+        /// use google_cloud_dialogflow_v2::model::ToolCall;
+        /// let x = ToolCallInfo::new().set_or_clear_tool_call(Some(ToolCall::default()/* use setters */));
+        /// let x = ToolCallInfo::new().set_or_clear_tool_call(None::<ToolCall>);
+        /// ```
+        pub fn set_or_clear_tool_call<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ToolCall>,
+        {
+            self.tool_call = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [tool_call_result][crate::model::generator_suggestion::ToolCallInfo::tool_call_result].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::generator_suggestion::ToolCallInfo;
+        /// use google_cloud_dialogflow_v2::model::ToolCallResult;
+        /// let x = ToolCallInfo::new().set_tool_call_result(ToolCallResult::default()/* use setters */);
+        /// ```
+        pub fn set_tool_call_result<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ToolCallResult>,
+        {
+            self.tool_call_result = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [tool_call_result][crate::model::generator_suggestion::ToolCallInfo::tool_call_result].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::generator_suggestion::ToolCallInfo;
+        /// use google_cloud_dialogflow_v2::model::ToolCallResult;
+        /// let x = ToolCallInfo::new().set_or_clear_tool_call_result(Some(ToolCallResult::default()/* use setters */));
+        /// let x = ToolCallInfo::new().set_or_clear_tool_call_result(None::<ToolCallResult>);
+        /// ```
+        pub fn set_or_clear_tool_call_result<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ToolCallResult>,
+        {
+            self.tool_call_result = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+        feature = "participants",
+    ))]
+    impl wkt::message::Message for ToolCallInfo {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.v2.GeneratorSuggestion.ToolCallInfo"
+        }
+    }
+
     /// The suggestion could be one of the many types
     #[cfg(any(
+        feature = "answer-records",
         feature = "conversations",
+        feature = "generator-evaluations",
         feature = "generators",
         feature = "participants",
     ))]
@@ -27614,6 +30266,3890 @@ pub mod generator_suggestion {
         FreeFormSuggestion(std::boxed::Box<crate::model::FreeFormSuggestion>),
         /// Optional. Suggested summary.
         SummarySuggestion(std::boxed::Box<crate::model::SummarySuggestion>),
+        /// Optional. Suggestion to coach the agent.
+        AgentCoachingSuggestion(std::boxed::Box<crate::model::AgentCoachingSuggestion>),
+    }
+}
+
+/// Config for suggestion deduping.
+/// NEXT_ID: 3
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SuggestionDedupingConfig {
+    /// Optional. Whether to enable suggestion deduping.
+    pub enable_deduping: bool,
+
+    /// Optional. The threshold for similarity between two suggestions.
+    /// Acceptable value is [0.0, 1.0], default to 0.8
+    pub similarity_threshold: f32,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
+impl SuggestionDedupingConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [enable_deduping][crate::model::SuggestionDedupingConfig::enable_deduping].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::SuggestionDedupingConfig;
+    /// let x = SuggestionDedupingConfig::new().set_enable_deduping(true);
+    /// ```
+    pub fn set_enable_deduping<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.enable_deduping = v.into();
+        self
+    }
+
+    /// Sets the value of [similarity_threshold][crate::model::SuggestionDedupingConfig::similarity_threshold].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::SuggestionDedupingConfig;
+    /// let x = SuggestionDedupingConfig::new().set_similarity_threshold(42.0);
+    /// ```
+    pub fn set_similarity_threshold<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
+        self.similarity_threshold = v.into();
+        self
+    }
+}
+
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
+impl wkt::message::Message for SuggestionDedupingConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.SuggestionDedupingConfig"
+    }
+}
+
+/// Settings for Responsible AI checks.
+#[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct RaiSettings {
+    /// Configuration for a set of RAI categories.
+    pub rai_category_configs: std::vec::Vec<crate::model::rai_settings::RaiCategoryConfig>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
+impl RaiSettings {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [rai_category_configs][crate::model::RaiSettings::rai_category_configs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::RaiSettings;
+    /// use google_cloud_dialogflow_v2::model::rai_settings::RaiCategoryConfig;
+    /// let x = RaiSettings::new()
+    ///     .set_rai_category_configs([
+    ///         RaiCategoryConfig::default()/* use setters */,
+    ///         RaiCategoryConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_rai_category_configs<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::rai_settings::RaiCategoryConfig>,
+    {
+        use std::iter::Iterator;
+        self.rai_category_configs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+#[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
+impl wkt::message::Message for RaiSettings {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.RaiSettings"
+    }
+}
+
+/// Defines additional types related to [RaiSettings].
+#[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
+pub mod rai_settings {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Configuration for a specific RAI category.
+    #[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct RaiCategoryConfig {
+        /// Optional. The RAI category.
+        pub category: crate::model::rai_settings::rai_category_config::RaiCategory,
+
+        /// Optional. The sensitivity level for this category.
+        pub sensitivity_level: crate::model::rai_settings::rai_category_config::SensitivityLevel,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
+    impl RaiCategoryConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [category][crate::model::rai_settings::RaiCategoryConfig::category].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::rai_settings::RaiCategoryConfig;
+        /// use google_cloud_dialogflow_v2::model::rai_settings::rai_category_config::RaiCategory;
+        /// let x0 = RaiCategoryConfig::new().set_category(RaiCategory::DangerousContent);
+        /// let x1 = RaiCategoryConfig::new().set_category(RaiCategory::SexuallyExplicit);
+        /// let x2 = RaiCategoryConfig::new().set_category(RaiCategory::Harassment);
+        /// ```
+        pub fn set_category<
+            T: std::convert::Into<crate::model::rai_settings::rai_category_config::RaiCategory>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.category = v.into();
+            self
+        }
+
+        /// Sets the value of [sensitivity_level][crate::model::rai_settings::RaiCategoryConfig::sensitivity_level].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::rai_settings::RaiCategoryConfig;
+        /// use google_cloud_dialogflow_v2::model::rai_settings::rai_category_config::SensitivityLevel;
+        /// let x0 = RaiCategoryConfig::new().set_sensitivity_level(SensitivityLevel::BlockMost);
+        /// let x1 = RaiCategoryConfig::new().set_sensitivity_level(SensitivityLevel::BlockSome);
+        /// let x2 = RaiCategoryConfig::new().set_sensitivity_level(SensitivityLevel::BlockFew);
+        /// ```
+        pub fn set_sensitivity_level<
+            T: std::convert::Into<crate::model::rai_settings::rai_category_config::SensitivityLevel>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.sensitivity_level = v.into();
+            self
+        }
+    }
+
+    #[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
+    impl wkt::message::Message for RaiCategoryConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.v2.RaiSettings.RaiCategoryConfig"
+        }
+    }
+
+    /// Defines additional types related to [RaiCategoryConfig].
+    #[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
+    pub mod rai_category_config {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Enum for RAI category.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum RaiCategory {
+            /// Default value.
+            Unspecified,
+            /// Dangerous content.
+            DangerousContent,
+            /// Sexually explicit content.
+            SexuallyExplicit,
+            /// Harassment content.
+            Harassment,
+            /// Hate speech content.
+            HateSpeech,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [RaiCategory::value] or
+            /// [RaiCategory::name].
+            UnknownValue(rai_category::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        #[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
+        pub mod rai_category {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        #[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
+        impl RaiCategory {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::DangerousContent => std::option::Option::Some(1),
+                    Self::SexuallyExplicit => std::option::Option::Some(2),
+                    Self::Harassment => std::option::Option::Some(3),
+                    Self::HateSpeech => std::option::Option::Some(4),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("RAI_CATEGORY_UNSPECIFIED"),
+                    Self::DangerousContent => std::option::Option::Some("DANGEROUS_CONTENT"),
+                    Self::SexuallyExplicit => std::option::Option::Some("SEXUALLY_EXPLICIT"),
+                    Self::Harassment => std::option::Option::Some("HARASSMENT"),
+                    Self::HateSpeech => std::option::Option::Some("HATE_SPEECH"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        #[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
+        impl std::default::Default for RaiCategory {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        #[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
+        impl std::fmt::Display for RaiCategory {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        #[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
+        impl std::convert::From<i32> for RaiCategory {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::DangerousContent,
+                    2 => Self::SexuallyExplicit,
+                    3 => Self::Harassment,
+                    4 => Self::HateSpeech,
+                    _ => Self::UnknownValue(rai_category::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        #[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
+        impl std::convert::From<&str> for RaiCategory {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "RAI_CATEGORY_UNSPECIFIED" => Self::Unspecified,
+                    "DANGEROUS_CONTENT" => Self::DangerousContent,
+                    "SEXUALLY_EXPLICIT" => Self::SexuallyExplicit,
+                    "HARASSMENT" => Self::Harassment,
+                    "HATE_SPEECH" => Self::HateSpeech,
+                    _ => Self::UnknownValue(rai_category::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        #[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
+        impl serde::ser::Serialize for RaiCategory {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::DangerousContent => serializer.serialize_i32(1),
+                    Self::SexuallyExplicit => serializer.serialize_i32(2),
+                    Self::Harassment => serializer.serialize_i32(3),
+                    Self::HateSpeech => serializer.serialize_i32(4),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        #[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
+        impl<'de> serde::de::Deserialize<'de> for RaiCategory {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<RaiCategory>::new(
+                    ".google.cloud.dialogflow.v2.RaiSettings.RaiCategoryConfig.RaiCategory",
+                ))
+            }
+        }
+
+        /// Enum for user-configurable sensitivity levels.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum SensitivityLevel {
+            /// Default value.
+            /// If unspecified, the default behavior is:
+            ///
+            /// - DANGEROUS_CONTENT: BLOCK_FEW
+            /// - SEXUALLY_EXPLICIT: BLOCK_SOME
+            /// - HARASSMENT: BLOCK_SOME
+            /// - HATE_SPEECH: BLOCK_SOME
+            Unspecified,
+            /// Block most potentially sensitive responses.
+            BlockMost,
+            /// Block some potentially sensitive responses.
+            BlockSome,
+            /// Block a few potentially sensitive responses.
+            BlockFew,
+            /// No filtering for this category.
+            BlockNone,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [SensitivityLevel::value] or
+            /// [SensitivityLevel::name].
+            UnknownValue(sensitivity_level::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        #[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
+        pub mod sensitivity_level {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        #[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
+        impl SensitivityLevel {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::BlockMost => std::option::Option::Some(1),
+                    Self::BlockSome => std::option::Option::Some(2),
+                    Self::BlockFew => std::option::Option::Some(3),
+                    Self::BlockNone => std::option::Option::Some(4),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("SENSITIVITY_LEVEL_UNSPECIFIED"),
+                    Self::BlockMost => std::option::Option::Some("BLOCK_MOST"),
+                    Self::BlockSome => std::option::Option::Some("BLOCK_SOME"),
+                    Self::BlockFew => std::option::Option::Some("BLOCK_FEW"),
+                    Self::BlockNone => std::option::Option::Some("BLOCK_NONE"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        #[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
+        impl std::default::Default for SensitivityLevel {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        #[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
+        impl std::fmt::Display for SensitivityLevel {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        #[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
+        impl std::convert::From<i32> for SensitivityLevel {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::BlockMost,
+                    2 => Self::BlockSome,
+                    3 => Self::BlockFew,
+                    4 => Self::BlockNone,
+                    _ => Self::UnknownValue(sensitivity_level::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        #[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
+        impl std::convert::From<&str> for SensitivityLevel {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "SENSITIVITY_LEVEL_UNSPECIFIED" => Self::Unspecified,
+                    "BLOCK_MOST" => Self::BlockMost,
+                    "BLOCK_SOME" => Self::BlockSome,
+                    "BLOCK_FEW" => Self::BlockFew,
+                    "BLOCK_NONE" => Self::BlockNone,
+                    _ => Self::UnknownValue(sensitivity_level::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        #[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
+        impl serde::ser::Serialize for SensitivityLevel {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::BlockMost => serializer.serialize_i32(1),
+                    Self::BlockSome => serializer.serialize_i32(2),
+                    Self::BlockFew => serializer.serialize_i32(3),
+                    Self::BlockNone => serializer.serialize_i32(4),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        #[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
+        impl<'de> serde::de::Deserialize<'de> for SensitivityLevel {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<SensitivityLevel>::new(
+                    ".google.cloud.dialogflow.v2.RaiSettings.RaiCategoryConfig.SensitivityLevel",
+                ))
+            }
+        }
+    }
+}
+
+/// Request of CreateGeneratorEvaluation.
+#[cfg(feature = "generator-evaluations")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateGeneratorEvaluationRequest {
+    /// Required. The generator resource name. Format:
+    /// `projects/<Project ID>/locations/<Location ID>/generators/<Generator ID>`
+    pub parent: std::string::String,
+
+    /// Required. The generator evaluation to be created.
+    pub generator_evaluation: std::option::Option<crate::model::GeneratorEvaluation>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "generator-evaluations")]
+impl CreateGeneratorEvaluationRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateGeneratorEvaluationRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::CreateGeneratorEvaluationRequest;
+    /// let x = CreateGeneratorEvaluationRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [generator_evaluation][crate::model::CreateGeneratorEvaluationRequest::generator_evaluation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::CreateGeneratorEvaluationRequest;
+    /// use google_cloud_dialogflow_v2::model::GeneratorEvaluation;
+    /// let x = CreateGeneratorEvaluationRequest::new().set_generator_evaluation(GeneratorEvaluation::default()/* use setters */);
+    /// ```
+    pub fn set_generator_evaluation<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::GeneratorEvaluation>,
+    {
+        self.generator_evaluation = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [generator_evaluation][crate::model::CreateGeneratorEvaluationRequest::generator_evaluation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::CreateGeneratorEvaluationRequest;
+    /// use google_cloud_dialogflow_v2::model::GeneratorEvaluation;
+    /// let x = CreateGeneratorEvaluationRequest::new().set_or_clear_generator_evaluation(Some(GeneratorEvaluation::default()/* use setters */));
+    /// let x = CreateGeneratorEvaluationRequest::new().set_or_clear_generator_evaluation(None::<GeneratorEvaluation>);
+    /// ```
+    pub fn set_or_clear_generator_evaluation<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::GeneratorEvaluation>,
+    {
+        self.generator_evaluation = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+impl wkt::message::Message for CreateGeneratorEvaluationRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.CreateGeneratorEvaluationRequest"
+    }
+}
+
+/// Request of GetGeneratorEvaluation.
+#[cfg(feature = "generator-evaluations")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetGeneratorEvaluationRequest {
+    /// Required. The generator evaluation resource name. Format:
+    /// `projects/<Project ID>/locations/<Location ID>/generators/<Generator
+    /// ID>/evaluations/<Evaluation ID>`
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "generator-evaluations")]
+impl GetGeneratorEvaluationRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetGeneratorEvaluationRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::GetGeneratorEvaluationRequest;
+    /// let x = GetGeneratorEvaluationRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+impl wkt::message::Message for GetGeneratorEvaluationRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.GetGeneratorEvaluationRequest"
+    }
+}
+
+/// Request of ListGeneratorEvaluations.
+#[cfg(feature = "generator-evaluations")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListGeneratorEvaluationsRequest {
+    /// Required. The generator resource name. Format:
+    /// `projects/<Project ID>/locations/<Location ID>/generators/<Generator ID>`
+    /// Wildcard value `-` is supported on generator_id to list evaluations across
+    /// all generators under same project.
+    pub parent: std::string::String,
+
+    /// Optional. Maximum number of evaluations to return in a
+    /// single page. By default 100 and at most 1000.
+    pub page_size: i32,
+
+    /// Optional. The next_page_token value returned from a previous list request.
+    pub page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "generator-evaluations")]
+impl ListGeneratorEvaluationsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListGeneratorEvaluationsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::ListGeneratorEvaluationsRequest;
+    /// let x = ListGeneratorEvaluationsRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListGeneratorEvaluationsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::ListGeneratorEvaluationsRequest;
+    /// let x = ListGeneratorEvaluationsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListGeneratorEvaluationsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::ListGeneratorEvaluationsRequest;
+    /// let x = ListGeneratorEvaluationsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+impl wkt::message::Message for ListGeneratorEvaluationsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.ListGeneratorEvaluationsRequest"
+    }
+}
+
+/// Response of ListGeneratorEvaluations.
+#[cfg(feature = "generator-evaluations")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListGeneratorEvaluationsResponse {
+    /// The list of evaluations to return.
+    pub generator_evaluations: std::vec::Vec<crate::model::GeneratorEvaluation>,
+
+    /// Token to retrieve the next page of results, or empty if there are no more
+    /// results in the list.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "generator-evaluations")]
+impl ListGeneratorEvaluationsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [generator_evaluations][crate::model::ListGeneratorEvaluationsResponse::generator_evaluations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::ListGeneratorEvaluationsResponse;
+    /// use google_cloud_dialogflow_v2::model::GeneratorEvaluation;
+    /// let x = ListGeneratorEvaluationsResponse::new()
+    ///     .set_generator_evaluations([
+    ///         GeneratorEvaluation::default()/* use setters */,
+    ///         GeneratorEvaluation::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_generator_evaluations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::GeneratorEvaluation>,
+    {
+        use std::iter::Iterator;
+        self.generator_evaluations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListGeneratorEvaluationsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::ListGeneratorEvaluationsResponse;
+    /// let x = ListGeneratorEvaluationsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+impl wkt::message::Message for ListGeneratorEvaluationsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.ListGeneratorEvaluationsResponse"
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListGeneratorEvaluationsResponse {
+    type PageItem = crate::model::GeneratorEvaluation;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.generator_evaluations
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request of DeleteGeneratorEvaluation.
+#[cfg(feature = "generator-evaluations")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteGeneratorEvaluationRequest {
+    /// Required. The generator evaluation resource name. Format:
+    /// `projects/<Project ID>/locations/<Location ID>/generators/<Generator ID>/
+    /// evaluations/<Evaluation ID>`
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "generator-evaluations")]
+impl DeleteGeneratorEvaluationRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteGeneratorEvaluationRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::DeleteGeneratorEvaluationRequest;
+    /// let x = DeleteGeneratorEvaluationRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+impl wkt::message::Message for DeleteGeneratorEvaluationRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.DeleteGeneratorEvaluationRequest"
+    }
+}
+
+/// Represents evaluation result of a generator.
+#[cfg(feature = "generator-evaluations")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GeneratorEvaluation {
+    /// Output only. Identifier. The resource name of the evaluation. Format:
+    /// `projects/<Project ID>/locations/<Location ID>/generators/<Generator ID>/
+    /// evaluations/<Evaluation ID>`
+    pub name: std::string::String,
+
+    /// Optional. The display name of the generator evaluation. At most 64 bytes
+    /// long.
+    pub display_name: std::string::String,
+
+    /// Required. The configuration of the evaluation task.
+    pub generator_evaluation_config: std::option::Option<crate::model::GeneratorEvaluationConfig>,
+
+    /// Output only. Creation time of this generator evaluation.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Completion time of this generator evaluation.
+    pub complete_time: std::option::Option<wkt::Timestamp>,
+
+    /// Required. The initial generator that was used when creating this
+    /// evaluation. This is a copy of the generator read from storage when creating
+    /// the evaluation.
+    pub initial_generator: std::option::Option<crate::model::Generator>,
+
+    /// Output only. The result status of the evaluation pipeline. Provides the
+    /// status information including if the evaluation is still in progress,
+    /// completed or failed with certain error and user actionable message.
+    pub evaluation_status: std::option::Option<crate::model::EvaluationStatus>,
+
+    /// Output only. A read only boolean field reflecting Zone Separation
+    /// status of the model. The field is an aggregated
+    /// value of ZS status of its underlying dependencies. See more details in
+    /// go/zicy-resource-placement#resource-status
+    pub satisfies_pzs: std::option::Option<bool>,
+
+    /// Output only. A read only boolean field reflecting Zone Isolation status
+    /// of the model. The field is an aggregated value of
+    /// ZI status of its underlying dependencies. See more details in
+    /// go/zicy-resource-placement#resource-status
+    pub satisfies_pzi: std::option::Option<bool>,
+
+    /// Metrics details.
+    pub metrics: std::option::Option<crate::model::generator_evaluation::Metrics>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "generator-evaluations")]
+impl GeneratorEvaluation {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GeneratorEvaluation::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::GeneratorEvaluation;
+    /// let x = GeneratorEvaluation::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [display_name][crate::model::GeneratorEvaluation::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::GeneratorEvaluation;
+    /// let x = GeneratorEvaluation::new().set_display_name("example");
+    /// ```
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
+        self
+    }
+
+    /// Sets the value of [generator_evaluation_config][crate::model::GeneratorEvaluation::generator_evaluation_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::GeneratorEvaluation;
+    /// use google_cloud_dialogflow_v2::model::GeneratorEvaluationConfig;
+    /// let x = GeneratorEvaluation::new().set_generator_evaluation_config(GeneratorEvaluationConfig::default()/* use setters */);
+    /// ```
+    pub fn set_generator_evaluation_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::GeneratorEvaluationConfig>,
+    {
+        self.generator_evaluation_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [generator_evaluation_config][crate::model::GeneratorEvaluation::generator_evaluation_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::GeneratorEvaluation;
+    /// use google_cloud_dialogflow_v2::model::GeneratorEvaluationConfig;
+    /// let x = GeneratorEvaluation::new().set_or_clear_generator_evaluation_config(Some(GeneratorEvaluationConfig::default()/* use setters */));
+    /// let x = GeneratorEvaluation::new().set_or_clear_generator_evaluation_config(None::<GeneratorEvaluationConfig>);
+    /// ```
+    pub fn set_or_clear_generator_evaluation_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::GeneratorEvaluationConfig>,
+    {
+        self.generator_evaluation_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::GeneratorEvaluation::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::GeneratorEvaluation;
+    /// use wkt::Timestamp;
+    /// let x = GeneratorEvaluation::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::GeneratorEvaluation::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::GeneratorEvaluation;
+    /// use wkt::Timestamp;
+    /// let x = GeneratorEvaluation::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = GeneratorEvaluation::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [complete_time][crate::model::GeneratorEvaluation::complete_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::GeneratorEvaluation;
+    /// use wkt::Timestamp;
+    /// let x = GeneratorEvaluation::new().set_complete_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_complete_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.complete_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [complete_time][crate::model::GeneratorEvaluation::complete_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::GeneratorEvaluation;
+    /// use wkt::Timestamp;
+    /// let x = GeneratorEvaluation::new().set_or_clear_complete_time(Some(Timestamp::default()/* use setters */));
+    /// let x = GeneratorEvaluation::new().set_or_clear_complete_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_complete_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.complete_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [initial_generator][crate::model::GeneratorEvaluation::initial_generator].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::GeneratorEvaluation;
+    /// use google_cloud_dialogflow_v2::model::Generator;
+    /// let x = GeneratorEvaluation::new().set_initial_generator(Generator::default()/* use setters */);
+    /// ```
+    pub fn set_initial_generator<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Generator>,
+    {
+        self.initial_generator = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [initial_generator][crate::model::GeneratorEvaluation::initial_generator].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::GeneratorEvaluation;
+    /// use google_cloud_dialogflow_v2::model::Generator;
+    /// let x = GeneratorEvaluation::new().set_or_clear_initial_generator(Some(Generator::default()/* use setters */));
+    /// let x = GeneratorEvaluation::new().set_or_clear_initial_generator(None::<Generator>);
+    /// ```
+    pub fn set_or_clear_initial_generator<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Generator>,
+    {
+        self.initial_generator = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [evaluation_status][crate::model::GeneratorEvaluation::evaluation_status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::GeneratorEvaluation;
+    /// use google_cloud_dialogflow_v2::model::EvaluationStatus;
+    /// let x = GeneratorEvaluation::new().set_evaluation_status(EvaluationStatus::default()/* use setters */);
+    /// ```
+    pub fn set_evaluation_status<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::EvaluationStatus>,
+    {
+        self.evaluation_status = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [evaluation_status][crate::model::GeneratorEvaluation::evaluation_status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::GeneratorEvaluation;
+    /// use google_cloud_dialogflow_v2::model::EvaluationStatus;
+    /// let x = GeneratorEvaluation::new().set_or_clear_evaluation_status(Some(EvaluationStatus::default()/* use setters */));
+    /// let x = GeneratorEvaluation::new().set_or_clear_evaluation_status(None::<EvaluationStatus>);
+    /// ```
+    pub fn set_or_clear_evaluation_status<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::EvaluationStatus>,
+    {
+        self.evaluation_status = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [satisfies_pzs][crate::model::GeneratorEvaluation::satisfies_pzs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::GeneratorEvaluation;
+    /// let x = GeneratorEvaluation::new().set_satisfies_pzs(true);
+    /// ```
+    pub fn set_satisfies_pzs<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.satisfies_pzs = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [satisfies_pzs][crate::model::GeneratorEvaluation::satisfies_pzs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::GeneratorEvaluation;
+    /// let x = GeneratorEvaluation::new().set_or_clear_satisfies_pzs(Some(false));
+    /// let x = GeneratorEvaluation::new().set_or_clear_satisfies_pzs(None::<bool>);
+    /// ```
+    pub fn set_or_clear_satisfies_pzs<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.satisfies_pzs = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [satisfies_pzi][crate::model::GeneratorEvaluation::satisfies_pzi].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::GeneratorEvaluation;
+    /// let x = GeneratorEvaluation::new().set_satisfies_pzi(true);
+    /// ```
+    pub fn set_satisfies_pzi<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.satisfies_pzi = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [satisfies_pzi][crate::model::GeneratorEvaluation::satisfies_pzi].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::GeneratorEvaluation;
+    /// let x = GeneratorEvaluation::new().set_or_clear_satisfies_pzi(Some(false));
+    /// let x = GeneratorEvaluation::new().set_or_clear_satisfies_pzi(None::<bool>);
+    /// ```
+    pub fn set_or_clear_satisfies_pzi<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.satisfies_pzi = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [metrics][crate::model::GeneratorEvaluation::metrics].
+    ///
+    /// Note that all the setters affecting `metrics` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::GeneratorEvaluation;
+    /// use google_cloud_dialogflow_v2::model::SummarizationEvaluationMetrics;
+    /// let x = GeneratorEvaluation::new().set_metrics(Some(
+    ///     google_cloud_dialogflow_v2::model::generator_evaluation::Metrics::SummarizationMetrics(SummarizationEvaluationMetrics::default().into())));
+    /// ```
+    pub fn set_metrics<
+        T: std::convert::Into<std::option::Option<crate::model::generator_evaluation::Metrics>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.metrics = v.into();
+        self
+    }
+
+    /// The value of [metrics][crate::model::GeneratorEvaluation::metrics]
+    /// if it holds a `SummarizationMetrics`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn summarization_metrics(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SummarizationEvaluationMetrics>> {
+        #[allow(unreachable_patterns)]
+        self.metrics.as_ref().and_then(|v| match v {
+            crate::model::generator_evaluation::Metrics::SummarizationMetrics(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [metrics][crate::model::GeneratorEvaluation::metrics]
+    /// to hold a `SummarizationMetrics`.
+    ///
+    /// Note that all the setters affecting `metrics` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::GeneratorEvaluation;
+    /// use google_cloud_dialogflow_v2::model::SummarizationEvaluationMetrics;
+    /// let x = GeneratorEvaluation::new().set_summarization_metrics(SummarizationEvaluationMetrics::default()/* use setters */);
+    /// assert!(x.summarization_metrics().is_some());
+    /// ```
+    pub fn set_summarization_metrics<
+        T: std::convert::Into<std::boxed::Box<crate::model::SummarizationEvaluationMetrics>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.metrics = std::option::Option::Some(
+            crate::model::generator_evaluation::Metrics::SummarizationMetrics(v.into()),
+        );
+        self
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+impl wkt::message::Message for GeneratorEvaluation {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.GeneratorEvaluation"
+    }
+}
+
+/// Defines additional types related to [GeneratorEvaluation].
+#[cfg(feature = "generator-evaluations")]
+pub mod generator_evaluation {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Metrics details.
+    #[cfg(feature = "generator-evaluations")]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Metrics {
+        /// Output only. Only available when the summarization generator is provided.
+        SummarizationMetrics(std::boxed::Box<crate::model::SummarizationEvaluationMetrics>),
+    }
+}
+
+/// Evaluation metrics for summarization generator.
+#[cfg(feature = "generator-evaluations")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SummarizationEvaluationMetrics {
+    /// Output only. A list of evaluation results per conversation(&summary),
+    /// metric and section.
+    pub summarization_evaluation_results: std::vec::Vec<
+        crate::model::summarization_evaluation_metrics::SummarizationEvaluationResult,
+    >,
+
+    /// Output only. User bucket uri for merged evaluation score and aggregation
+    /// score csv.
+    pub summarization_evaluation_merged_results_uri: std::string::String,
+
+    /// Output only. A list of aggregated(average) scores per metric section.
+    pub overall_metrics:
+        std::vec::Vec<crate::model::summarization_evaluation_metrics::OverallScoresByMetric>,
+
+    /// Output only. Overall token per section. This is an aggregated(sum) result
+    /// of input token of summary acorss all conversations that are selected for
+    /// summarization evaluation.
+    pub overall_section_tokens:
+        std::vec::Vec<crate::model::summarization_evaluation_metrics::SectionToken>,
+
+    /// Output only. List of conversation details.
+    pub conversation_details:
+        std::vec::Vec<crate::model::summarization_evaluation_metrics::ConversationDetail>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "generator-evaluations")]
+impl SummarizationEvaluationMetrics {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [summarization_evaluation_results][crate::model::SummarizationEvaluationMetrics::summarization_evaluation_results].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::SummarizationEvaluationMetrics;
+    /// use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::SummarizationEvaluationResult;
+    /// let x = SummarizationEvaluationMetrics::new()
+    ///     .set_summarization_evaluation_results([
+    ///         SummarizationEvaluationResult::default()/* use setters */,
+    ///         SummarizationEvaluationResult::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_summarization_evaluation_results<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<
+                crate::model::summarization_evaluation_metrics::SummarizationEvaluationResult,
+            >,
+    {
+        use std::iter::Iterator;
+        self.summarization_evaluation_results = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [summarization_evaluation_merged_results_uri][crate::model::SummarizationEvaluationMetrics::summarization_evaluation_merged_results_uri].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::SummarizationEvaluationMetrics;
+    /// let x = SummarizationEvaluationMetrics::new().set_summarization_evaluation_merged_results_uri("example");
+    /// ```
+    pub fn set_summarization_evaluation_merged_results_uri<
+        T: std::convert::Into<std::string::String>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.summarization_evaluation_merged_results_uri = v.into();
+        self
+    }
+
+    /// Sets the value of [overall_metrics][crate::model::SummarizationEvaluationMetrics::overall_metrics].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::SummarizationEvaluationMetrics;
+    /// use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::OverallScoresByMetric;
+    /// let x = SummarizationEvaluationMetrics::new()
+    ///     .set_overall_metrics([
+    ///         OverallScoresByMetric::default()/* use setters */,
+    ///         OverallScoresByMetric::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_overall_metrics<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<
+                crate::model::summarization_evaluation_metrics::OverallScoresByMetric,
+            >,
+    {
+        use std::iter::Iterator;
+        self.overall_metrics = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [overall_section_tokens][crate::model::SummarizationEvaluationMetrics::overall_section_tokens].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::SummarizationEvaluationMetrics;
+    /// use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::SectionToken;
+    /// let x = SummarizationEvaluationMetrics::new()
+    ///     .set_overall_section_tokens([
+    ///         SectionToken::default()/* use setters */,
+    ///         SectionToken::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_overall_section_tokens<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::summarization_evaluation_metrics::SectionToken>,
+    {
+        use std::iter::Iterator;
+        self.overall_section_tokens = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [conversation_details][crate::model::SummarizationEvaluationMetrics::conversation_details].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::SummarizationEvaluationMetrics;
+    /// use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::ConversationDetail;
+    /// let x = SummarizationEvaluationMetrics::new()
+    ///     .set_conversation_details([
+    ///         ConversationDetail::default()/* use setters */,
+    ///         ConversationDetail::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_conversation_details<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::summarization_evaluation_metrics::ConversationDetail>,
+    {
+        use std::iter::Iterator;
+        self.conversation_details = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+impl wkt::message::Message for SummarizationEvaluationMetrics {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.SummarizationEvaluationMetrics"
+    }
+}
+
+/// Defines additional types related to [SummarizationEvaluationMetrics].
+#[cfg(feature = "generator-evaluations")]
+pub mod summarization_evaluation_metrics {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Decomposition details for accuracy.
+    #[cfg(feature = "generator-evaluations")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct AccuracyDecomposition {
+        /// Output only. The breakdown point of the summary.
+        pub point: std::string::String,
+
+        /// Output only. The accuracy reasoning of the breakdown point.
+        pub accuracy_reasoning: std::string::String,
+
+        /// Output only. Whether the breakdown point is accurate or not.
+        pub is_accurate: std::option::Option<bool>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "generator-evaluations")]
+    impl AccuracyDecomposition {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [point][crate::model::summarization_evaluation_metrics::AccuracyDecomposition::point].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::AccuracyDecomposition;
+        /// let x = AccuracyDecomposition::new().set_point("example");
+        /// ```
+        pub fn set_point<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.point = v.into();
+            self
+        }
+
+        /// Sets the value of [accuracy_reasoning][crate::model::summarization_evaluation_metrics::AccuracyDecomposition::accuracy_reasoning].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::AccuracyDecomposition;
+        /// let x = AccuracyDecomposition::new().set_accuracy_reasoning("example");
+        /// ```
+        pub fn set_accuracy_reasoning<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.accuracy_reasoning = v.into();
+            self
+        }
+
+        /// Sets the value of [is_accurate][crate::model::summarization_evaluation_metrics::AccuracyDecomposition::is_accurate].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::AccuracyDecomposition;
+        /// let x = AccuracyDecomposition::new().set_is_accurate(true);
+        /// ```
+        pub fn set_is_accurate<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.is_accurate = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [is_accurate][crate::model::summarization_evaluation_metrics::AccuracyDecomposition::is_accurate].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::AccuracyDecomposition;
+        /// let x = AccuracyDecomposition::new().set_or_clear_is_accurate(Some(false));
+        /// let x = AccuracyDecomposition::new().set_or_clear_is_accurate(None::<bool>);
+        /// ```
+        pub fn set_or_clear_is_accurate<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.is_accurate = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[cfg(feature = "generator-evaluations")]
+    impl wkt::message::Message for AccuracyDecomposition {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.v2.SummarizationEvaluationMetrics.AccuracyDecomposition"
+        }
+    }
+
+    /// Decomposition details for adherence.
+    #[cfg(feature = "generator-evaluations")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    #[deprecated]
+    pub struct AdherenceDecomposition {
+        /// Output only. The breakdown point of the given instructions.
+        pub point: std::string::String,
+
+        /// Output only. The adherence reasoning of the breakdown point.
+        pub adherence_reasoning: std::string::String,
+
+        /// Output only. Whether the breakdown point is adherent or not.
+        pub is_adherent: bool,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "generator-evaluations")]
+    impl AdherenceDecomposition {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [point][crate::model::summarization_evaluation_metrics::AdherenceDecomposition::point].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::AdherenceDecomposition;
+        /// let x = AdherenceDecomposition::new().set_point("example");
+        /// ```
+        pub fn set_point<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.point = v.into();
+            self
+        }
+
+        /// Sets the value of [adherence_reasoning][crate::model::summarization_evaluation_metrics::AdherenceDecomposition::adherence_reasoning].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::AdherenceDecomposition;
+        /// let x = AdherenceDecomposition::new().set_adherence_reasoning("example");
+        /// ```
+        pub fn set_adherence_reasoning<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.adherence_reasoning = v.into();
+            self
+        }
+
+        /// Sets the value of [is_adherent][crate::model::summarization_evaluation_metrics::AdherenceDecomposition::is_adherent].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::AdherenceDecomposition;
+        /// let x = AdherenceDecomposition::new().set_is_adherent(true);
+        /// ```
+        pub fn set_is_adherent<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.is_adherent = v.into();
+            self
+        }
+    }
+
+    #[cfg(feature = "generator-evaluations")]
+    impl wkt::message::Message for AdherenceDecomposition {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.v2.SummarizationEvaluationMetrics.AdherenceDecomposition"
+        }
+    }
+
+    /// Rubric result of the adherence evaluation. A rubric is ued to determine
+    /// if the summary adheres to all aspects of the given instructions.
+    #[cfg(feature = "generator-evaluations")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct AdherenceRubric {
+        /// Output only. The question generated from instruction that used to
+        /// evaluate summary.
+        pub question: std::string::String,
+
+        /// Output only. The reasoning of the rubric question is addressed or not.
+        pub reasoning: std::string::String,
+
+        /// Output only. A boolean that indicates whether the rubric question is
+        /// addressed or not.
+        pub is_addressed: std::option::Option<bool>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "generator-evaluations")]
+    impl AdherenceRubric {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [question][crate::model::summarization_evaluation_metrics::AdherenceRubric::question].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::AdherenceRubric;
+        /// let x = AdherenceRubric::new().set_question("example");
+        /// ```
+        pub fn set_question<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.question = v.into();
+            self
+        }
+
+        /// Sets the value of [reasoning][crate::model::summarization_evaluation_metrics::AdherenceRubric::reasoning].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::AdherenceRubric;
+        /// let x = AdherenceRubric::new().set_reasoning("example");
+        /// ```
+        pub fn set_reasoning<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.reasoning = v.into();
+            self
+        }
+
+        /// Sets the value of [is_addressed][crate::model::summarization_evaluation_metrics::AdherenceRubric::is_addressed].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::AdherenceRubric;
+        /// let x = AdherenceRubric::new().set_is_addressed(true);
+        /// ```
+        pub fn set_is_addressed<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.is_addressed = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [is_addressed][crate::model::summarization_evaluation_metrics::AdherenceRubric::is_addressed].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::AdherenceRubric;
+        /// let x = AdherenceRubric::new().set_or_clear_is_addressed(Some(false));
+        /// let x = AdherenceRubric::new().set_or_clear_is_addressed(None::<bool>);
+        /// ```
+        pub fn set_or_clear_is_addressed<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.is_addressed = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[cfg(feature = "generator-evaluations")]
+    impl wkt::message::Message for AdherenceRubric {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.v2.SummarizationEvaluationMetrics.AdherenceRubric"
+        }
+    }
+
+    /// Rubric details of the completeness evaluation result.
+    #[cfg(feature = "generator-evaluations")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct CompletenessRubric {
+        /// Output only. The question generated from instruction that used to
+        /// evaluate summary.
+        pub question: std::string::String,
+
+        /// Output only. A boolean that indicates whether the rubric question is
+        /// addressed or not.
+        pub is_addressed: std::option::Option<bool>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "generator-evaluations")]
+    impl CompletenessRubric {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [question][crate::model::summarization_evaluation_metrics::CompletenessRubric::question].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::CompletenessRubric;
+        /// let x = CompletenessRubric::new().set_question("example");
+        /// ```
+        pub fn set_question<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.question = v.into();
+            self
+        }
+
+        /// Sets the value of [is_addressed][crate::model::summarization_evaluation_metrics::CompletenessRubric::is_addressed].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::CompletenessRubric;
+        /// let x = CompletenessRubric::new().set_is_addressed(true);
+        /// ```
+        pub fn set_is_addressed<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.is_addressed = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [is_addressed][crate::model::summarization_evaluation_metrics::CompletenessRubric::is_addressed].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::CompletenessRubric;
+        /// let x = CompletenessRubric::new().set_or_clear_is_addressed(Some(false));
+        /// let x = CompletenessRubric::new().set_or_clear_is_addressed(None::<bool>);
+        /// ```
+        pub fn set_or_clear_is_addressed<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.is_addressed = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[cfg(feature = "generator-evaluations")]
+    impl wkt::message::Message for CompletenessRubric {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.v2.SummarizationEvaluationMetrics.CompletenessRubric"
+        }
+    }
+
+    /// Decomposition details
+    #[cfg(feature = "generator-evaluations")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    #[deprecated]
+    pub struct Decomposition {
+        /// One of decomposition details.
+        pub decomposition: std::option::Option<
+            crate::model::summarization_evaluation_metrics::decomposition::Decomposition,
+        >,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "generator-evaluations")]
+    impl Decomposition {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [decomposition][crate::model::summarization_evaluation_metrics::Decomposition::decomposition].
+        ///
+        /// Note that all the setters affecting `decomposition` are mutually
+        /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::Decomposition;
+        /// use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::AccuracyDecomposition;
+        /// let x = Decomposition::new().set_decomposition(Some(
+        ///     google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::decomposition::Decomposition::AccuracyDecomposition(AccuracyDecomposition::default().into())));
+        /// ```
+        pub fn set_decomposition<T: std::convert::Into<std::option::Option<crate::model::summarization_evaluation_metrics::decomposition::Decomposition>>>(mut self, v: T) -> Self
+        {
+            self.decomposition = v.into();
+            self
+        }
+
+        /// The value of [decomposition][crate::model::summarization_evaluation_metrics::Decomposition::decomposition]
+        /// if it holds a `AccuracyDecomposition`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn accuracy_decomposition(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::summarization_evaluation_metrics::AccuracyDecomposition>,
+        > {
+            #[allow(unreachable_patterns)]
+            self.decomposition.as_ref().and_then(|v| match v {
+                crate::model::summarization_evaluation_metrics::decomposition::Decomposition::AccuracyDecomposition(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [decomposition][crate::model::summarization_evaluation_metrics::Decomposition::decomposition]
+        /// to hold a `AccuracyDecomposition`.
+        ///
+        /// Note that all the setters affecting `decomposition` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::Decomposition;
+        /// use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::AccuracyDecomposition;
+        /// let x = Decomposition::new().set_accuracy_decomposition(AccuracyDecomposition::default()/* use setters */);
+        /// assert!(x.accuracy_decomposition().is_some());
+        /// assert!(x.adherence_decomposition().is_none());
+        /// ```
+        pub fn set_accuracy_decomposition<
+            T: std::convert::Into<
+                    std::boxed::Box<
+                        crate::model::summarization_evaluation_metrics::AccuracyDecomposition,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.decomposition = std::option::Option::Some(
+                crate::model::summarization_evaluation_metrics::decomposition::Decomposition::AccuracyDecomposition(
+                    v.into()
+                )
+            );
+            self
+        }
+
+        /// The value of [decomposition][crate::model::summarization_evaluation_metrics::Decomposition::decomposition]
+        /// if it holds a `AdherenceDecomposition`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn adherence_decomposition(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<
+                crate::model::summarization_evaluation_metrics::AdherenceDecomposition,
+            >,
+        > {
+            #[allow(unreachable_patterns)]
+            self.decomposition.as_ref().and_then(|v| match v {
+                crate::model::summarization_evaluation_metrics::decomposition::Decomposition::AdherenceDecomposition(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [decomposition][crate::model::summarization_evaluation_metrics::Decomposition::decomposition]
+        /// to hold a `AdherenceDecomposition`.
+        ///
+        /// Note that all the setters affecting `decomposition` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::Decomposition;
+        /// use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::AdherenceDecomposition;
+        /// let x = Decomposition::new().set_adherence_decomposition(AdherenceDecomposition::default()/* use setters */);
+        /// assert!(x.adherence_decomposition().is_some());
+        /// assert!(x.accuracy_decomposition().is_none());
+        /// ```
+        pub fn set_adherence_decomposition<
+            T: std::convert::Into<
+                    std::boxed::Box<
+                        crate::model::summarization_evaluation_metrics::AdherenceDecomposition,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.decomposition = std::option::Option::Some(
+                crate::model::summarization_evaluation_metrics::decomposition::Decomposition::AdherenceDecomposition(
+                    v.into()
+                )
+            );
+            self
+        }
+    }
+
+    #[cfg(feature = "generator-evaluations")]
+    impl wkt::message::Message for Decomposition {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.v2.SummarizationEvaluationMetrics.Decomposition"
+        }
+    }
+
+    /// Defines additional types related to [Decomposition].
+    #[cfg(feature = "generator-evaluations")]
+    pub mod decomposition {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// One of decomposition details.
+        #[cfg(feature = "generator-evaluations")]
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Decomposition {
+            /// only available for accuracy metric.
+            AccuracyDecomposition(
+                std::boxed::Box<
+                    crate::model::summarization_evaluation_metrics::AccuracyDecomposition,
+                >,
+            ),
+            /// only available for adherence metric.
+            AdherenceDecomposition(
+                std::boxed::Box<
+                    crate::model::summarization_evaluation_metrics::AdherenceDecomposition,
+                >,
+            ),
+        }
+    }
+
+    /// Evaluation result that contains one of accuracy, adherence or completeness
+    /// evaluation result.
+    #[cfg(feature = "generator-evaluations")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct EvaluationResult {
+        /// One of evaluation result details.
+        pub result: std::option::Option<
+            crate::model::summarization_evaluation_metrics::evaluation_result::Result,
+        >,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "generator-evaluations")]
+    impl EvaluationResult {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [result][crate::model::summarization_evaluation_metrics::EvaluationResult::result].
+        ///
+        /// Note that all the setters affecting `result` are mutually
+        /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::EvaluationResult;
+        /// use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::AccuracyDecomposition;
+        /// let x = EvaluationResult::new().set_result(Some(
+        ///     google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::evaluation_result::Result::AccuracyDecomposition(AccuracyDecomposition::default().into())));
+        /// ```
+        pub fn set_result<
+            T: std::convert::Into<
+                    std::option::Option<
+                        crate::model::summarization_evaluation_metrics::evaluation_result::Result,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.result = v.into();
+            self
+        }
+
+        /// The value of [result][crate::model::summarization_evaluation_metrics::EvaluationResult::result]
+        /// if it holds a `AccuracyDecomposition`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn accuracy_decomposition(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::summarization_evaluation_metrics::AccuracyDecomposition>,
+        > {
+            #[allow(unreachable_patterns)]
+            self.result.as_ref().and_then(|v| match v {
+                crate::model::summarization_evaluation_metrics::evaluation_result::Result::AccuracyDecomposition(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [result][crate::model::summarization_evaluation_metrics::EvaluationResult::result]
+        /// to hold a `AccuracyDecomposition`.
+        ///
+        /// Note that all the setters affecting `result` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::EvaluationResult;
+        /// use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::AccuracyDecomposition;
+        /// let x = EvaluationResult::new().set_accuracy_decomposition(AccuracyDecomposition::default()/* use setters */);
+        /// assert!(x.accuracy_decomposition().is_some());
+        /// assert!(x.adherence_rubric().is_none());
+        /// assert!(x.completeness_rubric().is_none());
+        /// ```
+        pub fn set_accuracy_decomposition<
+            T: std::convert::Into<
+                    std::boxed::Box<
+                        crate::model::summarization_evaluation_metrics::AccuracyDecomposition,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.result = std::option::Option::Some(
+                crate::model::summarization_evaluation_metrics::evaluation_result::Result::AccuracyDecomposition(
+                    v.into()
+                )
+            );
+            self
+        }
+
+        /// The value of [result][crate::model::summarization_evaluation_metrics::EvaluationResult::result]
+        /// if it holds a `AdherenceRubric`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn adherence_rubric(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::summarization_evaluation_metrics::AdherenceRubric>,
+        > {
+            #[allow(unreachable_patterns)]
+            self.result.as_ref().and_then(|v| match v {
+                crate::model::summarization_evaluation_metrics::evaluation_result::Result::AdherenceRubric(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [result][crate::model::summarization_evaluation_metrics::EvaluationResult::result]
+        /// to hold a `AdherenceRubric`.
+        ///
+        /// Note that all the setters affecting `result` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::EvaluationResult;
+        /// use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::AdherenceRubric;
+        /// let x = EvaluationResult::new().set_adherence_rubric(AdherenceRubric::default()/* use setters */);
+        /// assert!(x.adherence_rubric().is_some());
+        /// assert!(x.accuracy_decomposition().is_none());
+        /// assert!(x.completeness_rubric().is_none());
+        /// ```
+        pub fn set_adherence_rubric<
+            T: std::convert::Into<
+                    std::boxed::Box<
+                        crate::model::summarization_evaluation_metrics::AdherenceRubric,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.result = std::option::Option::Some(
+                crate::model::summarization_evaluation_metrics::evaluation_result::Result::AdherenceRubric(
+                    v.into()
+                )
+            );
+            self
+        }
+
+        /// The value of [result][crate::model::summarization_evaluation_metrics::EvaluationResult::result]
+        /// if it holds a `CompletenessRubric`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn completeness_rubric(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::summarization_evaluation_metrics::CompletenessRubric>,
+        > {
+            #[allow(unreachable_patterns)]
+            self.result.as_ref().and_then(|v| match v {
+                crate::model::summarization_evaluation_metrics::evaluation_result::Result::CompletenessRubric(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [result][crate::model::summarization_evaluation_metrics::EvaluationResult::result]
+        /// to hold a `CompletenessRubric`.
+        ///
+        /// Note that all the setters affecting `result` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::EvaluationResult;
+        /// use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::CompletenessRubric;
+        /// let x = EvaluationResult::new().set_completeness_rubric(CompletenessRubric::default()/* use setters */);
+        /// assert!(x.completeness_rubric().is_some());
+        /// assert!(x.accuracy_decomposition().is_none());
+        /// assert!(x.adherence_rubric().is_none());
+        /// ```
+        pub fn set_completeness_rubric<
+            T: std::convert::Into<
+                    std::boxed::Box<
+                        crate::model::summarization_evaluation_metrics::CompletenessRubric,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.result = std::option::Option::Some(
+                crate::model::summarization_evaluation_metrics::evaluation_result::Result::CompletenessRubric(
+                    v.into()
+                )
+            );
+            self
+        }
+    }
+
+    #[cfg(feature = "generator-evaluations")]
+    impl wkt::message::Message for EvaluationResult {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.v2.SummarizationEvaluationMetrics.EvaluationResult"
+        }
+    }
+
+    /// Defines additional types related to [EvaluationResult].
+    #[cfg(feature = "generator-evaluations")]
+    pub mod evaluation_result {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// One of evaluation result details.
+        #[cfg(feature = "generator-evaluations")]
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Result {
+            /// Only available for accuracy metric.
+            AccuracyDecomposition(
+                std::boxed::Box<
+                    crate::model::summarization_evaluation_metrics::AccuracyDecomposition,
+                >,
+            ),
+            /// Only available for adherence metric.
+            AdherenceRubric(
+                std::boxed::Box<crate::model::summarization_evaluation_metrics::AdherenceRubric>,
+            ),
+            /// Only available for completeness metric.
+            CompletenessRubric(
+                std::boxed::Box<crate::model::summarization_evaluation_metrics::CompletenessRubric>,
+            ),
+        }
+    }
+
+    /// Evaluation result per conversation(&summary), metric and section.
+    #[cfg(feature = "generator-evaluations")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct SummarizationEvaluationResult {
+        /// Output only. conversation session id
+        #[deprecated]
+        pub session_id: std::string::String,
+
+        /// Output only. metric name, e.g. accuracy, completeness, adherence, etc.
+        pub metric: std::string::String,
+
+        /// Output only. section/task name, e.g. action, situation, etc
+        pub section: std::string::String,
+
+        /// Output only. score calculated from decompositions
+        pub score: f32,
+
+        /// Output only. Summary of this section
+        pub section_summary: std::string::String,
+
+        /// Output only. List of decompostion details
+        #[deprecated]
+        pub decompositions:
+            std::vec::Vec<crate::model::summarization_evaluation_metrics::Decomposition>,
+
+        /// Output only. List of evaluation results.
+        pub evaluation_results:
+            std::vec::Vec<crate::model::summarization_evaluation_metrics::EvaluationResult>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "generator-evaluations")]
+    impl SummarizationEvaluationResult {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [session_id][crate::model::summarization_evaluation_metrics::SummarizationEvaluationResult::session_id].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::SummarizationEvaluationResult;
+        /// let x = SummarizationEvaluationResult::new().set_session_id("example");
+        /// ```
+        #[deprecated]
+        pub fn set_session_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.session_id = v.into();
+            self
+        }
+
+        /// Sets the value of [metric][crate::model::summarization_evaluation_metrics::SummarizationEvaluationResult::metric].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::SummarizationEvaluationResult;
+        /// let x = SummarizationEvaluationResult::new().set_metric("example");
+        /// ```
+        pub fn set_metric<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.metric = v.into();
+            self
+        }
+
+        /// Sets the value of [section][crate::model::summarization_evaluation_metrics::SummarizationEvaluationResult::section].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::SummarizationEvaluationResult;
+        /// let x = SummarizationEvaluationResult::new().set_section("example");
+        /// ```
+        pub fn set_section<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.section = v.into();
+            self
+        }
+
+        /// Sets the value of [score][crate::model::summarization_evaluation_metrics::SummarizationEvaluationResult::score].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::SummarizationEvaluationResult;
+        /// let x = SummarizationEvaluationResult::new().set_score(42.0);
+        /// ```
+        pub fn set_score<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
+            self.score = v.into();
+            self
+        }
+
+        /// Sets the value of [section_summary][crate::model::summarization_evaluation_metrics::SummarizationEvaluationResult::section_summary].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::SummarizationEvaluationResult;
+        /// let x = SummarizationEvaluationResult::new().set_section_summary("example");
+        /// ```
+        pub fn set_section_summary<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.section_summary = v.into();
+            self
+        }
+
+        /// Sets the value of [decompositions][crate::model::summarization_evaluation_metrics::SummarizationEvaluationResult::decompositions].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::SummarizationEvaluationResult;
+        /// use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::Decomposition;
+        /// let x = SummarizationEvaluationResult::new()
+        ///     .set_decompositions([
+        ///         Decomposition::default()/* use setters */,
+        ///         Decomposition::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        #[deprecated]
+        pub fn set_decompositions<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::summarization_evaluation_metrics::Decomposition>,
+        {
+            use std::iter::Iterator;
+            self.decompositions = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [evaluation_results][crate::model::summarization_evaluation_metrics::SummarizationEvaluationResult::evaluation_results].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::SummarizationEvaluationResult;
+        /// use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::EvaluationResult;
+        /// let x = SummarizationEvaluationResult::new()
+        ///     .set_evaluation_results([
+        ///         EvaluationResult::default()/* use setters */,
+        ///         EvaluationResult::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_evaluation_results<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::summarization_evaluation_metrics::EvaluationResult>,
+        {
+            use std::iter::Iterator;
+            self.evaluation_results = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    #[cfg(feature = "generator-evaluations")]
+    impl wkt::message::Message for SummarizationEvaluationResult {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.v2.SummarizationEvaluationMetrics.SummarizationEvaluationResult"
+        }
+    }
+
+    /// Overall performance per metric. This is the aggregated score for each
+    /// metric across all conversations that are selected for summarization
+    /// evaluation.
+    #[cfg(feature = "generator-evaluations")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct OverallScoresByMetric {
+        /// Output only. Metric name. e.g. accuracy, adherence, completeness.
+        pub metric: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "generator-evaluations")]
+    impl OverallScoresByMetric {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [metric][crate::model::summarization_evaluation_metrics::OverallScoresByMetric::metric].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::OverallScoresByMetric;
+        /// let x = OverallScoresByMetric::new().set_metric("example");
+        /// ```
+        pub fn set_metric<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.metric = v.into();
+            self
+        }
+    }
+
+    #[cfg(feature = "generator-evaluations")]
+    impl wkt::message::Message for OverallScoresByMetric {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.v2.SummarizationEvaluationMetrics.OverallScoresByMetric"
+        }
+    }
+
+    /// A pair of section name and input token count of the input summary section.
+    #[cfg(feature = "generator-evaluations")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct SectionToken {
+        /// Output only. The name of the summary instruction.
+        pub section: std::string::String,
+
+        /// Output only. Token count.
+        pub token_count: std::option::Option<i64>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "generator-evaluations")]
+    impl SectionToken {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [section][crate::model::summarization_evaluation_metrics::SectionToken::section].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::SectionToken;
+        /// let x = SectionToken::new().set_section("example");
+        /// ```
+        pub fn set_section<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.section = v.into();
+            self
+        }
+
+        /// Sets the value of [token_count][crate::model::summarization_evaluation_metrics::SectionToken::token_count].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::SectionToken;
+        /// let x = SectionToken::new().set_token_count(42);
+        /// ```
+        pub fn set_token_count<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.token_count = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [token_count][crate::model::summarization_evaluation_metrics::SectionToken::token_count].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::SectionToken;
+        /// let x = SectionToken::new().set_or_clear_token_count(Some(42));
+        /// let x = SectionToken::new().set_or_clear_token_count(None::<i32>);
+        /// ```
+        pub fn set_or_clear_token_count<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.token_count = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[cfg(feature = "generator-evaluations")]
+    impl wkt::message::Message for SectionToken {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.v2.SummarizationEvaluationMetrics.SectionToken"
+        }
+    }
+
+    /// Aggregated evaluation result on conversation level. This conatins
+    /// evaluation results of all the metrics and sections.
+    #[cfg(feature = "generator-evaluations")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct ConversationDetail {
+        /// Output only. Conversation transcript that used for summarization
+        /// evaluation as a reference.
+        pub message_entries: std::vec::Vec<crate::model::MessageEntry>,
+
+        /// Output only. Summary sections that used for summarization evaluation as a
+        /// reference.
+        pub summary_sections: std::vec::Vec<crate::model::summary_suggestion::SummarySection>,
+
+        /// Output only. List of metric details.
+        pub metric_details: std::vec::Vec<
+            crate::model::summarization_evaluation_metrics::conversation_detail::MetricDetail,
+        >,
+
+        /// Output only. Conversation level token count per section. This is an
+        /// aggregated(sum) result of input token of summary acorss all metrics for a
+        /// single conversation.
+        pub section_tokens:
+            std::vec::Vec<crate::model::summarization_evaluation_metrics::SectionToken>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "generator-evaluations")]
+    impl ConversationDetail {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [message_entries][crate::model::summarization_evaluation_metrics::ConversationDetail::message_entries].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::ConversationDetail;
+        /// use google_cloud_dialogflow_v2::model::MessageEntry;
+        /// let x = ConversationDetail::new()
+        ///     .set_message_entries([
+        ///         MessageEntry::default()/* use setters */,
+        ///         MessageEntry::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_message_entries<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::MessageEntry>,
+        {
+            use std::iter::Iterator;
+            self.message_entries = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [summary_sections][crate::model::summarization_evaluation_metrics::ConversationDetail::summary_sections].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::ConversationDetail;
+        /// use google_cloud_dialogflow_v2::model::summary_suggestion::SummarySection;
+        /// let x = ConversationDetail::new()
+        ///     .set_summary_sections([
+        ///         SummarySection::default()/* use setters */,
+        ///         SummarySection::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_summary_sections<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::summary_suggestion::SummarySection>,
+        {
+            use std::iter::Iterator;
+            self.summary_sections = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [metric_details][crate::model::summarization_evaluation_metrics::ConversationDetail::metric_details].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::ConversationDetail;
+        /// use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::conversation_detail::MetricDetail;
+        /// let x = ConversationDetail::new()
+        ///     .set_metric_details([
+        ///         MetricDetail::default()/* use setters */,
+        ///         MetricDetail::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_metric_details<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::summarization_evaluation_metrics::conversation_detail::MetricDetail>
+        {
+            use std::iter::Iterator;
+            self.metric_details = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [section_tokens][crate::model::summarization_evaluation_metrics::ConversationDetail::section_tokens].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::ConversationDetail;
+        /// use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::SectionToken;
+        /// let x = ConversationDetail::new()
+        ///     .set_section_tokens([
+        ///         SectionToken::default()/* use setters */,
+        ///         SectionToken::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_section_tokens<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::summarization_evaluation_metrics::SectionToken>,
+        {
+            use std::iter::Iterator;
+            self.section_tokens = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    #[cfg(feature = "generator-evaluations")]
+    impl wkt::message::Message for ConversationDetail {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.v2.SummarizationEvaluationMetrics.ConversationDetail"
+        }
+    }
+
+    /// Defines additional types related to [ConversationDetail].
+    #[cfg(feature = "generator-evaluations")]
+    pub mod conversation_detail {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Aggregated result on metric level. This conatins the evaluation results
+        /// of all the sections.
+        #[cfg(feature = "generator-evaluations")]
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct MetricDetail {
+
+            /// Output only. Metrics name. e.g. accuracy, adherence, completeness.
+            pub metric: std::string::String,
+
+            /// Output only. Aggregated(average) score on this metric across all
+            /// sections.
+            pub score: std::option::Option<f32>,
+
+            /// Output only. List of section details.
+            pub section_details: std::vec::Vec<crate::model::summarization_evaluation_metrics::conversation_detail::metric_detail::SectionDetail>,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        #[cfg(feature = "generator-evaluations")]
+        impl MetricDetail {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [metric][crate::model::summarization_evaluation_metrics::conversation_detail::MetricDetail::metric].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::conversation_detail::MetricDetail;
+            /// let x = MetricDetail::new().set_metric("example");
+            /// ```
+            pub fn set_metric<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.metric = v.into();
+                self
+            }
+
+            /// Sets the value of [score][crate::model::summarization_evaluation_metrics::conversation_detail::MetricDetail::score].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::conversation_detail::MetricDetail;
+            /// let x = MetricDetail::new().set_score(42.0);
+            /// ```
+            pub fn set_score<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<f32>,
+            {
+                self.score = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [score][crate::model::summarization_evaluation_metrics::conversation_detail::MetricDetail::score].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::conversation_detail::MetricDetail;
+            /// let x = MetricDetail::new().set_or_clear_score(Some(42.0));
+            /// let x = MetricDetail::new().set_or_clear_score(None::<f32>);
+            /// ```
+            pub fn set_or_clear_score<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<f32>,
+            {
+                self.score = v.map(|x| x.into());
+                self
+            }
+
+            /// Sets the value of [section_details][crate::model::summarization_evaluation_metrics::conversation_detail::MetricDetail::section_details].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::conversation_detail::MetricDetail;
+            /// use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::conversation_detail::metric_detail::SectionDetail;
+            /// let x = MetricDetail::new()
+            ///     .set_section_details([
+            ///         SectionDetail::default()/* use setters */,
+            ///         SectionDetail::default()/* use (different) setters */,
+            ///     ]);
+            /// ```
+            pub fn set_section_details<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<crate::model::summarization_evaluation_metrics::conversation_detail::metric_detail::SectionDetail>
+            {
+                use std::iter::Iterator;
+                self.section_details = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+        }
+
+        #[cfg(feature = "generator-evaluations")]
+        impl wkt::message::Message for MetricDetail {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.dialogflow.v2.SummarizationEvaluationMetrics.ConversationDetail.MetricDetail"
+            }
+        }
+
+        /// Defines additional types related to [MetricDetail].
+        #[cfg(feature = "generator-evaluations")]
+        pub mod metric_detail {
+            #[allow(unused_imports)]
+            use super::*;
+
+            /// Section level result.
+            #[cfg(feature = "generator-evaluations")]
+            #[derive(Clone, Default, PartialEq)]
+            #[non_exhaustive]
+            pub struct SectionDetail {
+                /// Output only. The name of the summary instruction.
+                pub section: std::string::String,
+
+                /// Output only. Aggregated(average) score on this section across all
+                /// evaluation results. Either decompositions or rubrics.
+                pub score: std::option::Option<f32>,
+
+                /// Output only. Summary for this section
+                pub section_summary: std::string::String,
+
+                /// Output only. List of evaluation result. The list only contains one
+                /// kind of the evaluation result.
+                pub evaluation_results:
+                    std::vec::Vec<crate::model::summarization_evaluation_metrics::EvaluationResult>,
+
+                pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+            }
+
+            #[cfg(feature = "generator-evaluations")]
+            impl SectionDetail {
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
+                /// Sets the value of [section][crate::model::summarization_evaluation_metrics::conversation_detail::metric_detail::SectionDetail::section].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::conversation_detail::metric_detail::SectionDetail;
+                /// let x = SectionDetail::new().set_section("example");
+                /// ```
+                pub fn set_section<T: std::convert::Into<std::string::String>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.section = v.into();
+                    self
+                }
+
+                /// Sets the value of [score][crate::model::summarization_evaluation_metrics::conversation_detail::metric_detail::SectionDetail::score].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::conversation_detail::metric_detail::SectionDetail;
+                /// let x = SectionDetail::new().set_score(42.0);
+                /// ```
+                pub fn set_score<T>(mut self, v: T) -> Self
+                where
+                    T: std::convert::Into<f32>,
+                {
+                    self.score = std::option::Option::Some(v.into());
+                    self
+                }
+
+                /// Sets or clears the value of [score][crate::model::summarization_evaluation_metrics::conversation_detail::metric_detail::SectionDetail::score].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::conversation_detail::metric_detail::SectionDetail;
+                /// let x = SectionDetail::new().set_or_clear_score(Some(42.0));
+                /// let x = SectionDetail::new().set_or_clear_score(None::<f32>);
+                /// ```
+                pub fn set_or_clear_score<T>(mut self, v: std::option::Option<T>) -> Self
+                where
+                    T: std::convert::Into<f32>,
+                {
+                    self.score = v.map(|x| x.into());
+                    self
+                }
+
+                /// Sets the value of [section_summary][crate::model::summarization_evaluation_metrics::conversation_detail::metric_detail::SectionDetail::section_summary].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::conversation_detail::metric_detail::SectionDetail;
+                /// let x = SectionDetail::new().set_section_summary("example");
+                /// ```
+                pub fn set_section_summary<T: std::convert::Into<std::string::String>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.section_summary = v.into();
+                    self
+                }
+
+                /// Sets the value of [evaluation_results][crate::model::summarization_evaluation_metrics::conversation_detail::metric_detail::SectionDetail::evaluation_results].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::conversation_detail::metric_detail::SectionDetail;
+                /// use google_cloud_dialogflow_v2::model::summarization_evaluation_metrics::EvaluationResult;
+                /// let x = SectionDetail::new()
+                ///     .set_evaluation_results([
+                ///         EvaluationResult::default()/* use setters */,
+                ///         EvaluationResult::default()/* use (different) setters */,
+                ///     ]);
+                /// ```
+                pub fn set_evaluation_results<T, V>(mut self, v: T) -> Self
+                where
+                    T: std::iter::IntoIterator<Item = V>,
+                    V: std::convert::Into<
+                            crate::model::summarization_evaluation_metrics::EvaluationResult,
+                        >,
+                {
+                    use std::iter::Iterator;
+                    self.evaluation_results = v.into_iter().map(|i| i.into()).collect();
+                    self
+                }
+            }
+
+            #[cfg(feature = "generator-evaluations")]
+            impl wkt::message::Message for SectionDetail {
+                fn typename() -> &'static str {
+                    "type.googleapis.com/google.cloud.dialogflow.v2.SummarizationEvaluationMetrics.ConversationDetail.MetricDetail.SectionDetail"
+                }
+            }
+        }
+    }
+}
+
+/// Generator evaluation input config.
+#[cfg(feature = "generator-evaluations")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GeneratorEvaluationConfig {
+    /// Required. The config/source of input data.
+    pub input_data_config:
+        std::option::Option<crate::model::generator_evaluation_config::InputDataConfig>,
+
+    /// Required. The output Cloud Storage bucket path to store eval files, e.g.
+    /// per_summary_accuracy_score report. This path is provided by customer and
+    /// files stored in it are visible to customer, no internal data should be
+    /// stored in this path.
+    pub output_gcs_bucket_path: std::string::String,
+
+    /// Feature used for evaluation.
+    pub evaluation_feature_config:
+        std::option::Option<crate::model::generator_evaluation_config::EvaluationFeatureConfig>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "generator-evaluations")]
+impl GeneratorEvaluationConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [input_data_config][crate::model::GeneratorEvaluationConfig::input_data_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::GeneratorEvaluationConfig;
+    /// use google_cloud_dialogflow_v2::model::generator_evaluation_config::InputDataConfig;
+    /// let x = GeneratorEvaluationConfig::new().set_input_data_config(InputDataConfig::default()/* use setters */);
+    /// ```
+    pub fn set_input_data_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::generator_evaluation_config::InputDataConfig>,
+    {
+        self.input_data_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [input_data_config][crate::model::GeneratorEvaluationConfig::input_data_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::GeneratorEvaluationConfig;
+    /// use google_cloud_dialogflow_v2::model::generator_evaluation_config::InputDataConfig;
+    /// let x = GeneratorEvaluationConfig::new().set_or_clear_input_data_config(Some(InputDataConfig::default()/* use setters */));
+    /// let x = GeneratorEvaluationConfig::new().set_or_clear_input_data_config(None::<InputDataConfig>);
+    /// ```
+    pub fn set_or_clear_input_data_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::generator_evaluation_config::InputDataConfig>,
+    {
+        self.input_data_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [output_gcs_bucket_path][crate::model::GeneratorEvaluationConfig::output_gcs_bucket_path].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::GeneratorEvaluationConfig;
+    /// let x = GeneratorEvaluationConfig::new().set_output_gcs_bucket_path("example");
+    /// ```
+    pub fn set_output_gcs_bucket_path<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.output_gcs_bucket_path = v.into();
+        self
+    }
+
+    /// Sets the value of [evaluation_feature_config][crate::model::GeneratorEvaluationConfig::evaluation_feature_config].
+    ///
+    /// Note that all the setters affecting `evaluation_feature_config` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::GeneratorEvaluationConfig;
+    /// use google_cloud_dialogflow_v2::model::generator_evaluation_config::SummarizationConfig;
+    /// let x = GeneratorEvaluationConfig::new().set_evaluation_feature_config(Some(
+    ///     google_cloud_dialogflow_v2::model::generator_evaluation_config::EvaluationFeatureConfig::SummarizationConfig(SummarizationConfig::default().into())));
+    /// ```
+    pub fn set_evaluation_feature_config<
+        T: std::convert::Into<
+                std::option::Option<
+                    crate::model::generator_evaluation_config::EvaluationFeatureConfig,
+                >,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.evaluation_feature_config = v.into();
+        self
+    }
+
+    /// The value of [evaluation_feature_config][crate::model::GeneratorEvaluationConfig::evaluation_feature_config]
+    /// if it holds a `SummarizationConfig`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn summarization_config(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::generator_evaluation_config::SummarizationConfig>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.evaluation_feature_config.as_ref().and_then(|v| match v {
+            crate::model::generator_evaluation_config::EvaluationFeatureConfig::SummarizationConfig(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [evaluation_feature_config][crate::model::GeneratorEvaluationConfig::evaluation_feature_config]
+    /// to hold a `SummarizationConfig`.
+    ///
+    /// Note that all the setters affecting `evaluation_feature_config` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::GeneratorEvaluationConfig;
+    /// use google_cloud_dialogflow_v2::model::generator_evaluation_config::SummarizationConfig;
+    /// let x = GeneratorEvaluationConfig::new().set_summarization_config(SummarizationConfig::default()/* use setters */);
+    /// assert!(x.summarization_config().is_some());
+    /// ```
+    pub fn set_summarization_config<
+        T: std::convert::Into<
+                std::boxed::Box<crate::model::generator_evaluation_config::SummarizationConfig>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.evaluation_feature_config = std::option::Option::Some(
+            crate::model::generator_evaluation_config::EvaluationFeatureConfig::SummarizationConfig(
+                v.into(),
+            ),
+        );
+        self
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+impl wkt::message::Message for GeneratorEvaluationConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.GeneratorEvaluationConfig"
+    }
+}
+
+/// Defines additional types related to [GeneratorEvaluationConfig].
+#[cfg(feature = "generator-evaluations")]
+pub mod generator_evaluation_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The distinctive configs for Agent Assist conversations as the conversation
+    /// source.
+    #[cfg(feature = "generator-evaluations")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct AgentAssistInputDataConfig {
+        /// Required. The start of the time range for conversations to be evaluated.
+        /// Only conversations created at or after this timestamp will be sampled.
+        pub start_time: std::option::Option<wkt::Timestamp>,
+
+        /// Required. The end of the time range for conversations to be evaluated.
+        /// Only conversations ended at or before this timestamp will be sampled.
+        pub end_time: std::option::Option<wkt::Timestamp>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "generator-evaluations")]
+    impl AgentAssistInputDataConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [start_time][crate::model::generator_evaluation_config::AgentAssistInputDataConfig::start_time].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::generator_evaluation_config::AgentAssistInputDataConfig;
+        /// use wkt::Timestamp;
+        /// let x = AgentAssistInputDataConfig::new().set_start_time(Timestamp::default()/* use setters */);
+        /// ```
+        pub fn set_start_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.start_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [start_time][crate::model::generator_evaluation_config::AgentAssistInputDataConfig::start_time].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::generator_evaluation_config::AgentAssistInputDataConfig;
+        /// use wkt::Timestamp;
+        /// let x = AgentAssistInputDataConfig::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+        /// let x = AgentAssistInputDataConfig::new().set_or_clear_start_time(None::<Timestamp>);
+        /// ```
+        pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.start_time = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [end_time][crate::model::generator_evaluation_config::AgentAssistInputDataConfig::end_time].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::generator_evaluation_config::AgentAssistInputDataConfig;
+        /// use wkt::Timestamp;
+        /// let x = AgentAssistInputDataConfig::new().set_end_time(Timestamp::default()/* use setters */);
+        /// ```
+        pub fn set_end_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.end_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [end_time][crate::model::generator_evaluation_config::AgentAssistInputDataConfig::end_time].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::generator_evaluation_config::AgentAssistInputDataConfig;
+        /// use wkt::Timestamp;
+        /// let x = AgentAssistInputDataConfig::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+        /// let x = AgentAssistInputDataConfig::new().set_or_clear_end_time(None::<Timestamp>);
+        /// ```
+        pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.end_time = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[cfg(feature = "generator-evaluations")]
+    impl wkt::message::Message for AgentAssistInputDataConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.v2.GeneratorEvaluationConfig.AgentAssistInputDataConfig"
+        }
+    }
+
+    /// The distinctive configs for dataset as the conversation source.
+    #[cfg(feature = "generator-evaluations")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct DatasetInputDataConfig {
+        /// Required. The identifier of the dataset to be evaluated.
+        /// Format:
+        /// `projects/<ProjectId>/locations/<LocationID>/datasets/<DatasetID>`.
+        pub dataset: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "generator-evaluations")]
+    impl DatasetInputDataConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [dataset][crate::model::generator_evaluation_config::DatasetInputDataConfig::dataset].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::generator_evaluation_config::DatasetInputDataConfig;
+        /// let x = DatasetInputDataConfig::new().set_dataset("example");
+        /// ```
+        pub fn set_dataset<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.dataset = v.into();
+            self
+        }
+    }
+
+    #[cfg(feature = "generator-evaluations")]
+    impl wkt::message::Message for DatasetInputDataConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.v2.GeneratorEvaluationConfig.DatasetInputDataConfig"
+        }
+    }
+
+    /// Input data config details
+    #[cfg(feature = "generator-evaluations")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct InputDataConfig {
+        /// Required. The source type of input data.
+        #[deprecated]
+        pub input_data_source_type: crate::model::generator_evaluation_config::InputDataSourceType,
+
+        /// Optional. The start timestamp to fetch conversation data.
+        #[deprecated]
+        pub start_time: std::option::Option<wkt::Timestamp>,
+
+        /// Optional. The end timestamp to fetch conversation data.
+        #[deprecated]
+        pub end_time: std::option::Option<wkt::Timestamp>,
+
+        /// Optional. Desired number of conversation-summary pairs to be evaluated.
+        pub sample_size: i32,
+
+        /// Optional. Whether the summary generation is allowed when the pre-existing
+        /// qualified summaries are insufficient to cover the sample size.
+        #[deprecated]
+        pub is_summary_generation_allowed: bool,
+
+        /// Optional. Option to control whether summaries are generated during
+        /// evaluation.
+        pub summary_generation_option:
+            crate::model::generator_evaluation_config::input_data_config::SummaryGenerationOption,
+
+        /// The source specific config for the input data.
+        pub source_specific_config: std::option::Option<
+            crate::model::generator_evaluation_config::input_data_config::SourceSpecificConfig,
+        >,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "generator-evaluations")]
+    impl InputDataConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [input_data_source_type][crate::model::generator_evaluation_config::InputDataConfig::input_data_source_type].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::generator_evaluation_config::InputDataConfig;
+        /// use google_cloud_dialogflow_v2::model::generator_evaluation_config::InputDataSourceType;
+        /// let x0 = InputDataConfig::new().set_input_data_source_type(InputDataSourceType::AgentAssistConversations);
+        /// let x1 = InputDataConfig::new().set_input_data_source_type(InputDataSourceType::InsightsConversations);
+        /// ```
+        #[deprecated]
+        pub fn set_input_data_source_type<
+            T: std::convert::Into<crate::model::generator_evaluation_config::InputDataSourceType>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.input_data_source_type = v.into();
+            self
+        }
+
+        /// Sets the value of [start_time][crate::model::generator_evaluation_config::InputDataConfig::start_time].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::generator_evaluation_config::InputDataConfig;
+        /// use wkt::Timestamp;
+        /// let x = InputDataConfig::new().set_start_time(Timestamp::default()/* use setters */);
+        /// ```
+        #[deprecated]
+        pub fn set_start_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.start_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [start_time][crate::model::generator_evaluation_config::InputDataConfig::start_time].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::generator_evaluation_config::InputDataConfig;
+        /// use wkt::Timestamp;
+        /// let x = InputDataConfig::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+        /// let x = InputDataConfig::new().set_or_clear_start_time(None::<Timestamp>);
+        /// ```
+        #[deprecated]
+        pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.start_time = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [end_time][crate::model::generator_evaluation_config::InputDataConfig::end_time].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::generator_evaluation_config::InputDataConfig;
+        /// use wkt::Timestamp;
+        /// let x = InputDataConfig::new().set_end_time(Timestamp::default()/* use setters */);
+        /// ```
+        #[deprecated]
+        pub fn set_end_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.end_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [end_time][crate::model::generator_evaluation_config::InputDataConfig::end_time].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::generator_evaluation_config::InputDataConfig;
+        /// use wkt::Timestamp;
+        /// let x = InputDataConfig::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+        /// let x = InputDataConfig::new().set_or_clear_end_time(None::<Timestamp>);
+        /// ```
+        #[deprecated]
+        pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.end_time = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [sample_size][crate::model::generator_evaluation_config::InputDataConfig::sample_size].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::generator_evaluation_config::InputDataConfig;
+        /// let x = InputDataConfig::new().set_sample_size(42);
+        /// ```
+        pub fn set_sample_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.sample_size = v.into();
+            self
+        }
+
+        /// Sets the value of [is_summary_generation_allowed][crate::model::generator_evaluation_config::InputDataConfig::is_summary_generation_allowed].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::generator_evaluation_config::InputDataConfig;
+        /// let x = InputDataConfig::new().set_is_summary_generation_allowed(true);
+        /// ```
+        #[deprecated]
+        pub fn set_is_summary_generation_allowed<T: std::convert::Into<bool>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.is_summary_generation_allowed = v.into();
+            self
+        }
+
+        /// Sets the value of [summary_generation_option][crate::model::generator_evaluation_config::InputDataConfig::summary_generation_option].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::generator_evaluation_config::InputDataConfig;
+        /// use google_cloud_dialogflow_v2::model::generator_evaluation_config::input_data_config::SummaryGenerationOption;
+        /// let x0 = InputDataConfig::new().set_summary_generation_option(SummaryGenerationOption::AlwaysGenerate);
+        /// let x1 = InputDataConfig::new().set_summary_generation_option(SummaryGenerationOption::GenerateIfMissing);
+        /// let x2 = InputDataConfig::new().set_summary_generation_option(SummaryGenerationOption::DoNotGenerate);
+        /// ```
+        pub fn set_summary_generation_option<T: std::convert::Into<crate::model::generator_evaluation_config::input_data_config::SummaryGenerationOption>>(mut self, v: T) -> Self{
+            self.summary_generation_option = v.into();
+            self
+        }
+
+        /// Sets the value of [source_specific_config][crate::model::generator_evaluation_config::InputDataConfig::source_specific_config].
+        ///
+        /// Note that all the setters affecting `source_specific_config` are mutually
+        /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::generator_evaluation_config::InputDataConfig;
+        /// use google_cloud_dialogflow_v2::model::generator_evaluation_config::AgentAssistInputDataConfig;
+        /// let x = InputDataConfig::new().set_source_specific_config(Some(
+        ///     google_cloud_dialogflow_v2::model::generator_evaluation_config::input_data_config::SourceSpecificConfig::AgentAssistInputDataConfig(AgentAssistInputDataConfig::default().into())));
+        /// ```
+        pub fn set_source_specific_config<T: std::convert::Into<std::option::Option<crate::model::generator_evaluation_config::input_data_config::SourceSpecificConfig>>>(mut self, v: T) -> Self
+        {
+            self.source_specific_config = v.into();
+            self
+        }
+
+        /// The value of [source_specific_config][crate::model::generator_evaluation_config::InputDataConfig::source_specific_config]
+        /// if it holds a `AgentAssistInputDataConfig`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn agent_assist_input_data_config(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::generator_evaluation_config::AgentAssistInputDataConfig>,
+        > {
+            #[allow(unreachable_patterns)]
+            self.source_specific_config.as_ref().and_then(|v| match v {
+                crate::model::generator_evaluation_config::input_data_config::SourceSpecificConfig::AgentAssistInputDataConfig(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [source_specific_config][crate::model::generator_evaluation_config::InputDataConfig::source_specific_config]
+        /// to hold a `AgentAssistInputDataConfig`.
+        ///
+        /// Note that all the setters affecting `source_specific_config` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::generator_evaluation_config::InputDataConfig;
+        /// use google_cloud_dialogflow_v2::model::generator_evaluation_config::AgentAssistInputDataConfig;
+        /// let x = InputDataConfig::new().set_agent_assist_input_data_config(AgentAssistInputDataConfig::default()/* use setters */);
+        /// assert!(x.agent_assist_input_data_config().is_some());
+        /// assert!(x.dataset_input_data_config().is_none());
+        /// ```
+        pub fn set_agent_assist_input_data_config<
+            T: std::convert::Into<
+                    std::boxed::Box<
+                        crate::model::generator_evaluation_config::AgentAssistInputDataConfig,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.source_specific_config = std::option::Option::Some(
+                crate::model::generator_evaluation_config::input_data_config::SourceSpecificConfig::AgentAssistInputDataConfig(
+                    v.into()
+                )
+            );
+            self
+        }
+
+        /// The value of [source_specific_config][crate::model::generator_evaluation_config::InputDataConfig::source_specific_config]
+        /// if it holds a `DatasetInputDataConfig`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn dataset_input_data_config(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::generator_evaluation_config::DatasetInputDataConfig>,
+        > {
+            #[allow(unreachable_patterns)]
+            self.source_specific_config.as_ref().and_then(|v| match v {
+                crate::model::generator_evaluation_config::input_data_config::SourceSpecificConfig::DatasetInputDataConfig(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [source_specific_config][crate::model::generator_evaluation_config::InputDataConfig::source_specific_config]
+        /// to hold a `DatasetInputDataConfig`.
+        ///
+        /// Note that all the setters affecting `source_specific_config` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::generator_evaluation_config::InputDataConfig;
+        /// use google_cloud_dialogflow_v2::model::generator_evaluation_config::DatasetInputDataConfig;
+        /// let x = InputDataConfig::new().set_dataset_input_data_config(DatasetInputDataConfig::default()/* use setters */);
+        /// assert!(x.dataset_input_data_config().is_some());
+        /// assert!(x.agent_assist_input_data_config().is_none());
+        /// ```
+        pub fn set_dataset_input_data_config<
+            T: std::convert::Into<
+                    std::boxed::Box<
+                        crate::model::generator_evaluation_config::DatasetInputDataConfig,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.source_specific_config = std::option::Option::Some(
+                crate::model::generator_evaluation_config::input_data_config::SourceSpecificConfig::DatasetInputDataConfig(
+                    v.into()
+                )
+            );
+            self
+        }
+    }
+
+    #[cfg(feature = "generator-evaluations")]
+    impl wkt::message::Message for InputDataConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.v2.GeneratorEvaluationConfig.InputDataConfig"
+        }
+    }
+
+    /// Defines additional types related to [InputDataConfig].
+    #[cfg(feature = "generator-evaluations")]
+    pub mod input_data_config {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Summary generation options.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[cfg(feature = "generator-evaluations")]
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum SummaryGenerationOption {
+            /// Default option will not be used
+            Unspecified,
+            /// Always Generate summary for all conversations.
+            AlwaysGenerate,
+            /// Gnerate only missing summaries.
+            GenerateIfMissing,
+            /// Do not generate new summaries. Only use existing summaries found.
+            DoNotGenerate,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [SummaryGenerationOption::value] or
+            /// [SummaryGenerationOption::name].
+            UnknownValue(summary_generation_option::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        #[cfg(feature = "generator-evaluations")]
+        pub mod summary_generation_option {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        #[cfg(feature = "generator-evaluations")]
+        impl SummaryGenerationOption {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::AlwaysGenerate => std::option::Option::Some(1),
+                    Self::GenerateIfMissing => std::option::Option::Some(2),
+                    Self::DoNotGenerate => std::option::Option::Some(3),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => {
+                        std::option::Option::Some("SUMMARY_GENERATION_OPTION_UNSPECIFIED")
+                    }
+                    Self::AlwaysGenerate => std::option::Option::Some("ALWAYS_GENERATE"),
+                    Self::GenerateIfMissing => std::option::Option::Some("GENERATE_IF_MISSING"),
+                    Self::DoNotGenerate => std::option::Option::Some("DO_NOT_GENERATE"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        #[cfg(feature = "generator-evaluations")]
+        impl std::default::Default for SummaryGenerationOption {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        #[cfg(feature = "generator-evaluations")]
+        impl std::fmt::Display for SummaryGenerationOption {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        #[cfg(feature = "generator-evaluations")]
+        impl std::convert::From<i32> for SummaryGenerationOption {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::AlwaysGenerate,
+                    2 => Self::GenerateIfMissing,
+                    3 => Self::DoNotGenerate,
+                    _ => Self::UnknownValue(summary_generation_option::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        #[cfg(feature = "generator-evaluations")]
+        impl std::convert::From<&str> for SummaryGenerationOption {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "SUMMARY_GENERATION_OPTION_UNSPECIFIED" => Self::Unspecified,
+                    "ALWAYS_GENERATE" => Self::AlwaysGenerate,
+                    "GENERATE_IF_MISSING" => Self::GenerateIfMissing,
+                    "DO_NOT_GENERATE" => Self::DoNotGenerate,
+                    _ => Self::UnknownValue(summary_generation_option::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        #[cfg(feature = "generator-evaluations")]
+        impl serde::ser::Serialize for SummaryGenerationOption {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::AlwaysGenerate => serializer.serialize_i32(1),
+                    Self::GenerateIfMissing => serializer.serialize_i32(2),
+                    Self::DoNotGenerate => serializer.serialize_i32(3),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        #[cfg(feature = "generator-evaluations")]
+        impl<'de> serde::de::Deserialize<'de> for SummaryGenerationOption {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<SummaryGenerationOption>::new(
+                    ".google.cloud.dialogflow.v2.GeneratorEvaluationConfig.InputDataConfig.SummaryGenerationOption"))
+            }
+        }
+
+        /// The source specific config for the input data.
+        #[cfg(feature = "generator-evaluations")]
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum SourceSpecificConfig {
+            /// The distinctive configs for Agent Assist conversations as the
+            /// conversation source.
+            AgentAssistInputDataConfig(
+                std::boxed::Box<
+                    crate::model::generator_evaluation_config::AgentAssistInputDataConfig,
+                >,
+            ),
+            /// The distinctive configs for dataset as the conversation source.
+            DatasetInputDataConfig(
+                std::boxed::Box<crate::model::generator_evaluation_config::DatasetInputDataConfig>,
+            ),
+        }
+    }
+
+    /// Evaluation configs for summarization generator.
+    #[cfg(feature = "generator-evaluations")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct SummarizationConfig {
+        /// Optional. Enable accuracy evaluation.
+        #[deprecated]
+        pub enable_accuracy_evaluation: bool,
+
+        /// Optional. Version for summarization accuracy. This will determine the
+        /// prompt and model used at backend.
+        #[deprecated]
+        pub accuracy_evaluation_version: std::string::String,
+
+        /// Optional. Enable completeness evaluation.
+        #[deprecated]
+        pub enable_completeness_evaluation: bool,
+
+        /// Optional. Version for summarization completeness. This will determine the
+        /// prompt and model used at backend.
+        #[deprecated]
+        pub completeness_evaluation_version: std::string::String,
+
+        /// Optional. Version for summarization evaluation.
+        pub evaluator_version: std::option::Option<std::string::String>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "generator-evaluations")]
+    impl SummarizationConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [enable_accuracy_evaluation][crate::model::generator_evaluation_config::SummarizationConfig::enable_accuracy_evaluation].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::generator_evaluation_config::SummarizationConfig;
+        /// let x = SummarizationConfig::new().set_enable_accuracy_evaluation(true);
+        /// ```
+        #[deprecated]
+        pub fn set_enable_accuracy_evaluation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.enable_accuracy_evaluation = v.into();
+            self
+        }
+
+        /// Sets the value of [accuracy_evaluation_version][crate::model::generator_evaluation_config::SummarizationConfig::accuracy_evaluation_version].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::generator_evaluation_config::SummarizationConfig;
+        /// let x = SummarizationConfig::new().set_accuracy_evaluation_version("example");
+        /// ```
+        #[deprecated]
+        pub fn set_accuracy_evaluation_version<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.accuracy_evaluation_version = v.into();
+            self
+        }
+
+        /// Sets the value of [enable_completeness_evaluation][crate::model::generator_evaluation_config::SummarizationConfig::enable_completeness_evaluation].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::generator_evaluation_config::SummarizationConfig;
+        /// let x = SummarizationConfig::new().set_enable_completeness_evaluation(true);
+        /// ```
+        #[deprecated]
+        pub fn set_enable_completeness_evaluation<T: std::convert::Into<bool>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.enable_completeness_evaluation = v.into();
+            self
+        }
+
+        /// Sets the value of [completeness_evaluation_version][crate::model::generator_evaluation_config::SummarizationConfig::completeness_evaluation_version].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::generator_evaluation_config::SummarizationConfig;
+        /// let x = SummarizationConfig::new().set_completeness_evaluation_version("example");
+        /// ```
+        #[deprecated]
+        pub fn set_completeness_evaluation_version<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.completeness_evaluation_version = v.into();
+            self
+        }
+
+        /// Sets the value of [evaluator_version][crate::model::generator_evaluation_config::SummarizationConfig::evaluator_version].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::generator_evaluation_config::SummarizationConfig;
+        /// let x = SummarizationConfig::new().set_evaluator_version("example");
+        /// ```
+        pub fn set_evaluator_version<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.evaluator_version = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [evaluator_version][crate::model::generator_evaluation_config::SummarizationConfig::evaluator_version].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::generator_evaluation_config::SummarizationConfig;
+        /// let x = SummarizationConfig::new().set_or_clear_evaluator_version(Some("example"));
+        /// let x = SummarizationConfig::new().set_or_clear_evaluator_version(None::<String>);
+        /// ```
+        pub fn set_or_clear_evaluator_version<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.evaluator_version = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[cfg(feature = "generator-evaluations")]
+    impl wkt::message::Message for SummarizationConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.v2.GeneratorEvaluationConfig.SummarizationConfig"
+        }
+    }
+
+    /// Enumeration of input data source type.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "generator-evaluations")]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum InputDataSourceType {
+        /// Unspecified InputDataSourceType. Should not be used.
+        Unspecified,
+        /// Fetch data from Agent Assist storage. If this source type is chosen,
+        /// input_data_config.start_time and input_data_config.end_timestamp must be
+        /// provided.
+        AgentAssistConversations,
+        /// Fetch data from Insights storage. If this source type is chosen,
+        /// input_data_config.start_time and input_data_config.end_timestamp must be
+        /// provided.
+        InsightsConversations,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [InputDataSourceType::value] or
+        /// [InputDataSourceType::name].
+        UnknownValue(input_data_source_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    #[cfg(feature = "generator-evaluations")]
+    pub mod input_data_source_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    #[cfg(feature = "generator-evaluations")]
+    impl InputDataSourceType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::AgentAssistConversations => std::option::Option::Some(1),
+                Self::InsightsConversations => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("INPUT_DATA_SOURCE_TYPE_UNSPECIFIED")
+                }
+                Self::AgentAssistConversations => {
+                    std::option::Option::Some("AGENT_ASSIST_CONVERSATIONS")
+                }
+                Self::InsightsConversations => std::option::Option::Some("INSIGHTS_CONVERSATIONS"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    #[cfg(feature = "generator-evaluations")]
+    impl std::default::Default for InputDataSourceType {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    #[cfg(feature = "generator-evaluations")]
+    impl std::fmt::Display for InputDataSourceType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    #[cfg(feature = "generator-evaluations")]
+    impl std::convert::From<i32> for InputDataSourceType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::AgentAssistConversations,
+                2 => Self::InsightsConversations,
+                _ => Self::UnknownValue(input_data_source_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "generator-evaluations")]
+    impl std::convert::From<&str> for InputDataSourceType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "INPUT_DATA_SOURCE_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "AGENT_ASSIST_CONVERSATIONS" => Self::AgentAssistConversations,
+                "INSIGHTS_CONVERSATIONS" => Self::InsightsConversations,
+                _ => Self::UnknownValue(input_data_source_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "generator-evaluations")]
+    impl serde::ser::Serialize for InputDataSourceType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::AgentAssistConversations => serializer.serialize_i32(1),
+                Self::InsightsConversations => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    #[cfg(feature = "generator-evaluations")]
+    impl<'de> serde::de::Deserialize<'de> for InputDataSourceType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<InputDataSourceType>::new(
+                ".google.cloud.dialogflow.v2.GeneratorEvaluationConfig.InputDataSourceType",
+            ))
+        }
+    }
+
+    /// Feature used for evaluation.
+    #[cfg(feature = "generator-evaluations")]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum EvaluationFeatureConfig {
+        /// Evaluation configs for summarization generator.
+        SummarizationConfig(
+            std::boxed::Box<crate::model::generator_evaluation_config::SummarizationConfig>,
+        ),
+    }
+}
+
+/// A common evalaution pipeline status.
+#[cfg(feature = "generator-evaluations")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct EvaluationStatus {
+    /// Output only. If the value is `false`, it means the evaluation is still in
+    /// progress. If `true`, the operation is completed, and either `error` or
+    /// `response` is available.
+    pub done: std::option::Option<bool>,
+
+    /// Output only. The error result of the evaluation in case of failure in
+    /// evaluation pipeline.
+    pub pipeline_status: std::option::Option<rpc::model::Status>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "generator-evaluations")]
+impl EvaluationStatus {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [done][crate::model::EvaluationStatus::done].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::EvaluationStatus;
+    /// let x = EvaluationStatus::new().set_done(true);
+    /// ```
+    pub fn set_done<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.done = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [done][crate::model::EvaluationStatus::done].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::EvaluationStatus;
+    /// let x = EvaluationStatus::new().set_or_clear_done(Some(false));
+    /// let x = EvaluationStatus::new().set_or_clear_done(None::<bool>);
+    /// ```
+    pub fn set_or_clear_done<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.done = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [pipeline_status][crate::model::EvaluationStatus::pipeline_status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::EvaluationStatus;
+    /// use rpc::model::Status;
+    /// let x = EvaluationStatus::new().set_pipeline_status(Status::default()/* use setters */);
+    /// ```
+    pub fn set_pipeline_status<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<rpc::model::Status>,
+    {
+        self.pipeline_status = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [pipeline_status][crate::model::EvaluationStatus::pipeline_status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::EvaluationStatus;
+    /// use rpc::model::Status;
+    /// let x = EvaluationStatus::new().set_or_clear_pipeline_status(Some(Status::default()/* use setters */));
+    /// let x = EvaluationStatus::new().set_or_clear_pipeline_status(None::<Status>);
+    /// ```
+    pub fn set_or_clear_pipeline_status<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<rpc::model::Status>,
+    {
+        self.pipeline_status = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+impl wkt::message::Message for EvaluationStatus {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.EvaluationStatus"
     }
 }
 
@@ -27632,12 +34168,15 @@ pub mod generator_suggestion {
     feature = "entity-types",
     feature = "environments",
     feature = "fulfillments",
+    feature = "generator-evaluations",
     feature = "generators",
     feature = "intents",
     feature = "knowledge-bases",
     feature = "participants",
     feature = "session-entity-types",
     feature = "sessions",
+    feature = "sip-trunks",
+    feature = "tools",
     feature = "versions",
 ))]
 #[derive(Clone, Default, PartialEq)]
@@ -27671,12 +34210,15 @@ pub struct HumanAgentAssistantEvent {
     feature = "entity-types",
     feature = "environments",
     feature = "fulfillments",
+    feature = "generator-evaluations",
     feature = "generators",
     feature = "intents",
     feature = "knowledge-bases",
     feature = "participants",
     feature = "session-entity-types",
     feature = "sessions",
+    feature = "sip-trunks",
+    feature = "tools",
     feature = "versions",
 ))]
 impl HumanAgentAssistantEvent {
@@ -27744,12 +34286,15 @@ impl HumanAgentAssistantEvent {
     feature = "entity-types",
     feature = "environments",
     feature = "fulfillments",
+    feature = "generator-evaluations",
     feature = "generators",
     feature = "intents",
     feature = "knowledge-bases",
     feature = "participants",
     feature = "session-entity-types",
     feature = "sessions",
+    feature = "sip-trunks",
+    feature = "tools",
     feature = "versions",
 ))]
 impl wkt::message::Message for HumanAgentAssistantEvent {
@@ -35295,6 +41840,52 @@ impl wkt::message::Message for UpdateKnowledgeBaseRequest {
     }
 }
 
+/// Metadata for a
+/// [GeneratorEvaluations.CreateGeneratorEvaluation][google.cloud.dialogflow.v2.GeneratorEvaluations.CreateGeneratorEvaluation]
+/// operation.
+///
+/// [google.cloud.dialogflow.v2.GeneratorEvaluations.CreateGeneratorEvaluation]: crate::client::GeneratorEvaluations::create_generator_evaluation
+#[cfg(feature = "generator-evaluations")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GeneratorEvaluationOperationMetadata {
+    /// Output only. The resource name of the generator evaluation. Format:
+    /// `projects/<Project ID>/locations/<Location
+    /// ID>/generators/<Generator ID>/evaluations/<Evaluation ID>`
+    pub generator_evaluation: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "generator-evaluations")]
+impl GeneratorEvaluationOperationMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [generator_evaluation][crate::model::GeneratorEvaluationOperationMetadata::generator_evaluation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::GeneratorEvaluationOperationMetadata;
+    /// let x = GeneratorEvaluationOperationMetadata::new().set_generator_evaluation("example");
+    /// ```
+    pub fn set_generator_evaluation<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.generator_evaluation = v.into();
+        self
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+impl wkt::message::Message for GeneratorEvaluationOperationMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.GeneratorEvaluationOperationMetadata"
+    }
+}
+
 /// Represents a conversation participant (human agent, virtual agent, end-user).
 #[cfg(any(
     feature = "conversation-profiles",
@@ -35383,6 +41974,21 @@ pub struct Participant {
     /// [google.cloud.dialogflow.v2.Document.metadata]: crate::model::Document::metadata
     pub documents_metadata_filters:
         std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Optional. For tracking the utilization of prebuilt Agent Assist integration
+    /// modules. This field is only inscope for Integration type that include UI
+    /// Modules, Backend Modules, and Agent Desktop connector, it is out of scope
+    /// for CCaaS and Direct Integration.
+    /// For each human agent, prebuilt UI Modules needs to trigger the
+    /// UpdateParticipant API to update this field. Both
+    /// [CreateParticipantRequest][google.cloud.dialogflow.v2.CreateParticipantRequest.participant]
+    /// and
+    /// [UpdateParticipantRequest][google.cloud.dialogflow.v2.UpdateParticipantRequest.participant]
+    /// will be supported.
+    ///
+    /// [google.cloud.dialogflow.v2.CreateParticipantRequest.participant]: crate::model::CreateParticipantRequest::participant
+    /// [google.cloud.dialogflow.v2.UpdateParticipantRequest.participant]: crate::model::UpdateParticipantRequest::participant
+    pub agent_desktop_source: crate::model::participant::AgentDesktopSource,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -35476,6 +42082,26 @@ impl Participant {
         use std::iter::Iterator;
         self.documents_metadata_filters =
             v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [agent_desktop_source][crate::model::Participant::agent_desktop_source].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::Participant;
+    /// use google_cloud_dialogflow_v2::model::participant::AgentDesktopSource;
+    /// let x0 = Participant::new().set_agent_desktop_source(AgentDesktopSource::LivePerson);
+    /// let x1 = Participant::new().set_agent_desktop_source(AgentDesktopSource::GenesysCloud);
+    /// let x2 = Participant::new().set_agent_desktop_source(AgentDesktopSource::Twilio);
+    /// ```
+    pub fn set_agent_desktop_source<
+        T: std::convert::Into<crate::model::participant::AgentDesktopSource>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.agent_desktop_source = v.into();
         self
     }
 }
@@ -35682,6 +42308,206 @@ pub mod participant {
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Role>::new(
                 ".google.cloud.dialogflow.v2.Participant.Role",
+            ))
+        }
+    }
+
+    /// Enumeration of the Agent Desktop Source when using prebuilt Agent
+    /// Assist integration modules.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(any(
+        feature = "conversation-profiles",
+        feature = "conversations",
+        feature = "participants",
+    ))]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum AgentDesktopSource {
+        /// Agent Desktop Source is not specified.
+        Unspecified,
+        /// Agent Desktop Source is Live Person.
+        LivePerson,
+        /// Agent Desktop Source is Genesys Cloud.
+        GenesysCloud,
+        /// Agent Desktop Source is Twilio.
+        Twilio,
+        /// Agent Desktop Source is Salesforce.
+        Salesforce,
+        /// UI Modules are in use but the desktop is either not currently released or
+        /// setting this field to the applicable desktop.
+        Other,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [AgentDesktopSource::value] or
+        /// [AgentDesktopSource::name].
+        UnknownValue(agent_desktop_source::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    #[cfg(any(
+        feature = "conversation-profiles",
+        feature = "conversations",
+        feature = "participants",
+    ))]
+    pub mod agent_desktop_source {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    #[cfg(any(
+        feature = "conversation-profiles",
+        feature = "conversations",
+        feature = "participants",
+    ))]
+    impl AgentDesktopSource {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::LivePerson => std::option::Option::Some(1),
+                Self::GenesysCloud => std::option::Option::Some(2),
+                Self::Twilio => std::option::Option::Some(3),
+                Self::Salesforce => std::option::Option::Some(4),
+                Self::Other => std::option::Option::Some(8),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("AGENT_DESKTOP_SOURCE_UNSPECIFIED"),
+                Self::LivePerson => std::option::Option::Some("LIVE_PERSON"),
+                Self::GenesysCloud => std::option::Option::Some("GENESYS_CLOUD"),
+                Self::Twilio => std::option::Option::Some("TWILIO"),
+                Self::Salesforce => std::option::Option::Some("SALESFORCE"),
+                Self::Other => std::option::Option::Some("OTHER"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    #[cfg(any(
+        feature = "conversation-profiles",
+        feature = "conversations",
+        feature = "participants",
+    ))]
+    impl std::default::Default for AgentDesktopSource {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    #[cfg(any(
+        feature = "conversation-profiles",
+        feature = "conversations",
+        feature = "participants",
+    ))]
+    impl std::fmt::Display for AgentDesktopSource {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    #[cfg(any(
+        feature = "conversation-profiles",
+        feature = "conversations",
+        feature = "participants",
+    ))]
+    impl std::convert::From<i32> for AgentDesktopSource {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::LivePerson,
+                2 => Self::GenesysCloud,
+                3 => Self::Twilio,
+                4 => Self::Salesforce,
+                8 => Self::Other,
+                _ => Self::UnknownValue(agent_desktop_source::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    #[cfg(any(
+        feature = "conversation-profiles",
+        feature = "conversations",
+        feature = "participants",
+    ))]
+    impl std::convert::From<&str> for AgentDesktopSource {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "AGENT_DESKTOP_SOURCE_UNSPECIFIED" => Self::Unspecified,
+                "LIVE_PERSON" => Self::LivePerson,
+                "GENESYS_CLOUD" => Self::GenesysCloud,
+                "TWILIO" => Self::Twilio,
+                "SALESFORCE" => Self::Salesforce,
+                "OTHER" => Self::Other,
+                _ => Self::UnknownValue(agent_desktop_source::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    #[cfg(any(
+        feature = "conversation-profiles",
+        feature = "conversations",
+        feature = "participants",
+    ))]
+    impl serde::ser::Serialize for AgentDesktopSource {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::LivePerson => serializer.serialize_i32(1),
+                Self::GenesysCloud => serializer.serialize_i32(2),
+                Self::Twilio => serializer.serialize_i32(3),
+                Self::Salesforce => serializer.serialize_i32(4),
+                Self::Other => serializer.serialize_i32(8),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    #[cfg(any(
+        feature = "conversation-profiles",
+        feature = "conversations",
+        feature = "participants",
+    ))]
+    impl<'de> serde::de::Deserialize<'de> for AgentDesktopSource {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<AgentDesktopSource>::new(
+                ".google.cloud.dialogflow.v2.Participant.AgentDesktopSource",
             ))
         }
     }
@@ -40416,18 +47242,27 @@ impl wkt::message::Message for MessageAnnotation {
     }
 }
 
-/// Represents the selection of a suggestion.
+/// Represents the action to take for a tool call that requires confirmation.
 #[cfg(feature = "participants")]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SuggestionInput {
-    /// Required. The ID of a suggestion selected by the human agent.
-    /// The suggestion(s) were generated in a previous call to
-    /// request Dialogflow assist.
-    /// The format is:
-    /// `projects/<Project ID>/locations/<Location ID>/answerRecords/<Answer Record
-    /// ID>` where \<Answer Record ID\> is an alphanumeric string.
+    /// Required. Format: `projects/<Project ID>/locations/<Location
+    /// ID>/answerRecords/<Answer Record ID>`
+    /// The answer record associated with the tool call.
     pub answer_record: std::string::String,
+
+    /// Optional. Parameters to be used for the tool call.  If not provided, the
+    /// tool will be called without any parameters.
+    pub parameters: std::option::Option<wkt::Struct>,
+
+    /// Optional. The type of action to take with the tool.
+    pub action: crate::model::suggestion_input::Action,
+
+    /// Optional. Time when the current suggest input is sent. For tool calls, this
+    /// timestamp (along with the answer record) will be included in the
+    /// corresponding tool call result so that it can be identified.
+    pub send_time: std::option::Option<wkt::Timestamp>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -40449,12 +47284,255 @@ impl SuggestionInput {
         self.answer_record = v.into();
         self
     }
+
+    /// Sets the value of [parameters][crate::model::SuggestionInput::parameters].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::SuggestionInput;
+    /// use wkt::Struct;
+    /// let x = SuggestionInput::new().set_parameters(Struct::default()/* use setters */);
+    /// ```
+    pub fn set_parameters<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.parameters = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [parameters][crate::model::SuggestionInput::parameters].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::SuggestionInput;
+    /// use wkt::Struct;
+    /// let x = SuggestionInput::new().set_or_clear_parameters(Some(Struct::default()/* use setters */));
+    /// let x = SuggestionInput::new().set_or_clear_parameters(None::<Struct>);
+    /// ```
+    pub fn set_or_clear_parameters<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.parameters = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [action][crate::model::SuggestionInput::action].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::SuggestionInput;
+    /// use google_cloud_dialogflow_v2::model::suggestion_input::Action;
+    /// let x0 = SuggestionInput::new().set_action(Action::Cancel);
+    /// let x1 = SuggestionInput::new().set_action(Action::Revise);
+    /// let x2 = SuggestionInput::new().set_action(Action::Confirm);
+    /// ```
+    pub fn set_action<T: std::convert::Into<crate::model::suggestion_input::Action>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.action = v.into();
+        self
+    }
+
+    /// Sets the value of [send_time][crate::model::SuggestionInput::send_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::SuggestionInput;
+    /// use wkt::Timestamp;
+    /// let x = SuggestionInput::new().set_send_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_send_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.send_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [send_time][crate::model::SuggestionInput::send_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::SuggestionInput;
+    /// use wkt::Timestamp;
+    /// let x = SuggestionInput::new().set_or_clear_send_time(Some(Timestamp::default()/* use setters */));
+    /// let x = SuggestionInput::new().set_or_clear_send_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_send_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.send_time = v.map(|x| x.into());
+        self
+    }
 }
 
 #[cfg(feature = "participants")]
 impl wkt::message::Message for SuggestionInput {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.v2.SuggestionInput"
+    }
+}
+
+/// Defines additional types related to [SuggestionInput].
+#[cfg(feature = "participants")]
+pub mod suggestion_input {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Indicate what type of action to take with the tool call.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "participants")]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Action {
+        /// Action not specified.
+        Unspecified,
+        /// Indicates the user chooses to not make the tool call. It
+        /// is only applicable to tool calls that are waiting for user
+        /// confirmation.
+        Cancel,
+        /// Makes the tool call with provided parameters. This action is intended
+        /// for tool calls that only read but not write data.
+        Revise,
+        /// Makes the tool call with provided parameters. This action is intended
+        /// for tool calls that may write data.
+        Confirm,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Action::value] or
+        /// [Action::name].
+        UnknownValue(action::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    #[cfg(feature = "participants")]
+    pub mod action {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    #[cfg(feature = "participants")]
+    impl Action {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Cancel => std::option::Option::Some(1),
+                Self::Revise => std::option::Option::Some(2),
+                Self::Confirm => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("ACTION_UNSPECIFIED"),
+                Self::Cancel => std::option::Option::Some("CANCEL"),
+                Self::Revise => std::option::Option::Some("REVISE"),
+                Self::Confirm => std::option::Option::Some("CONFIRM"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    #[cfg(feature = "participants")]
+    impl std::default::Default for Action {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    #[cfg(feature = "participants")]
+    impl std::fmt::Display for Action {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    #[cfg(feature = "participants")]
+    impl std::convert::From<i32> for Action {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Cancel,
+                2 => Self::Revise,
+                3 => Self::Confirm,
+                _ => Self::UnknownValue(action::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "participants")]
+    impl std::convert::From<&str> for Action {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "ACTION_UNSPECIFIED" => Self::Unspecified,
+                "CANCEL" => Self::Cancel,
+                "REVISE" => Self::Revise,
+                "CONFIRM" => Self::Confirm,
+                _ => Self::UnknownValue(action::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "participants")]
+    impl serde::ser::Serialize for Action {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Cancel => serializer.serialize_i32(1),
+                Self::Revise => serializer.serialize_i32(2),
+                Self::Confirm => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    #[cfg(feature = "participants")]
+    impl<'de> serde::de::Deserialize<'de> for Action {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Action>::new(
+                ".google.cloud.dialogflow.v2.SuggestionInput.Action",
+            ))
+        }
     }
 }
 
@@ -45192,6 +52270,5261 @@ impl wkt::message::Message for DeleteSessionEntityTypeRequest {
     }
 }
 
+/// The request message for
+/// [SipTrunks.CreateSipTrunk][google.cloud.dialogflow.v2.SipTrunks.CreateSipTrunk].
+///
+/// [google.cloud.dialogflow.v2.SipTrunks.CreateSipTrunk]: crate::client::SipTrunks::create_sip_trunk
+#[cfg(feature = "sip-trunks")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateSipTrunkRequest {
+    /// Required. The location to create a SIP trunk for.
+    /// Format: `projects/<Project ID>/locations/<Location ID>`.
+    pub parent: std::string::String,
+
+    /// Required. The SIP trunk to create.
+    pub sip_trunk: std::option::Option<crate::model::SipTrunk>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "sip-trunks")]
+impl CreateSipTrunkRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateSipTrunkRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::CreateSipTrunkRequest;
+    /// let x = CreateSipTrunkRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [sip_trunk][crate::model::CreateSipTrunkRequest::sip_trunk].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::CreateSipTrunkRequest;
+    /// use google_cloud_dialogflow_v2::model::SipTrunk;
+    /// let x = CreateSipTrunkRequest::new().set_sip_trunk(SipTrunk::default()/* use setters */);
+    /// ```
+    pub fn set_sip_trunk<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SipTrunk>,
+    {
+        self.sip_trunk = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [sip_trunk][crate::model::CreateSipTrunkRequest::sip_trunk].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::CreateSipTrunkRequest;
+    /// use google_cloud_dialogflow_v2::model::SipTrunk;
+    /// let x = CreateSipTrunkRequest::new().set_or_clear_sip_trunk(Some(SipTrunk::default()/* use setters */));
+    /// let x = CreateSipTrunkRequest::new().set_or_clear_sip_trunk(None::<SipTrunk>);
+    /// ```
+    pub fn set_or_clear_sip_trunk<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SipTrunk>,
+    {
+        self.sip_trunk = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(feature = "sip-trunks")]
+impl wkt::message::Message for CreateSipTrunkRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.CreateSipTrunkRequest"
+    }
+}
+
+/// The request message for
+/// [SipTrunks.DeleteSipTrunk][google.cloud.dialogflow.v2.SipTrunks.DeleteSipTrunk].
+///
+/// [google.cloud.dialogflow.v2.SipTrunks.DeleteSipTrunk]: crate::client::SipTrunks::delete_sip_trunk
+#[cfg(feature = "sip-trunks")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteSipTrunkRequest {
+    /// Required. The name of the SIP trunk to delete.
+    /// Format: `projects/<Project ID>/locations/<Location ID>/sipTrunks/<SipTrunk
+    /// ID>`.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "sip-trunks")]
+impl DeleteSipTrunkRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteSipTrunkRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::DeleteSipTrunkRequest;
+    /// let x = DeleteSipTrunkRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+#[cfg(feature = "sip-trunks")]
+impl wkt::message::Message for DeleteSipTrunkRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.DeleteSipTrunkRequest"
+    }
+}
+
+/// The request message for
+/// [SipTrunks.ListSipTrunks][google.cloud.dialogflow.v2.SipTrunks.ListSipTrunks].
+///
+/// [google.cloud.dialogflow.v2.SipTrunks.ListSipTrunks]: crate::client::SipTrunks::list_sip_trunks
+#[cfg(feature = "sip-trunks")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListSipTrunksRequest {
+    /// Required. The location to list SIP trunks from.
+    /// Format: `projects/<Project ID>/locations/<Location ID>`.
+    pub parent: std::string::String,
+
+    /// Optional. The maximum number of items to return in a single page. By
+    /// default 100 and at most 1000.
+    pub page_size: i32,
+
+    /// Optional. The next_page_token value returned from a previous list request.
+    pub page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "sip-trunks")]
+impl ListSipTrunksRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListSipTrunksRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::ListSipTrunksRequest;
+    /// let x = ListSipTrunksRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListSipTrunksRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::ListSipTrunksRequest;
+    /// let x = ListSipTrunksRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListSipTrunksRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::ListSipTrunksRequest;
+    /// let x = ListSipTrunksRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+#[cfg(feature = "sip-trunks")]
+impl wkt::message::Message for ListSipTrunksRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.ListSipTrunksRequest"
+    }
+}
+
+/// The response message for
+/// [SipTrunks.ListSipTrunks][google.cloud.dialogflow.v2.SipTrunks.ListSipTrunks].
+///
+/// [google.cloud.dialogflow.v2.SipTrunks.ListSipTrunks]: crate::client::SipTrunks::list_sip_trunks
+#[cfg(feature = "sip-trunks")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListSipTrunksResponse {
+    /// The list of SIP trunks.
+    pub sip_trunks: std::vec::Vec<crate::model::SipTrunk>,
+
+    /// Token to retrieve the next page of results, or empty if there are no
+    /// more results in the list.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "sip-trunks")]
+impl ListSipTrunksResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [sip_trunks][crate::model::ListSipTrunksResponse::sip_trunks].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::ListSipTrunksResponse;
+    /// use google_cloud_dialogflow_v2::model::SipTrunk;
+    /// let x = ListSipTrunksResponse::new()
+    ///     .set_sip_trunks([
+    ///         SipTrunk::default()/* use setters */,
+    ///         SipTrunk::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_sip_trunks<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SipTrunk>,
+    {
+        use std::iter::Iterator;
+        self.sip_trunks = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListSipTrunksResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::ListSipTrunksResponse;
+    /// let x = ListSipTrunksResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+#[cfg(feature = "sip-trunks")]
+impl wkt::message::Message for ListSipTrunksResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.ListSipTrunksResponse"
+    }
+}
+
+#[cfg(feature = "sip-trunks")]
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListSipTrunksResponse {
+    type PageItem = crate::model::SipTrunk;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.sip_trunks
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// The request message for
+/// [SipTrunks.GetSipTrunk][google.cloud.dialogflow.v2.SipTrunks.GetSipTrunk].
+///
+/// [google.cloud.dialogflow.v2.SipTrunks.GetSipTrunk]: crate::client::SipTrunks::get_sip_trunk
+#[cfg(feature = "sip-trunks")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetSipTrunkRequest {
+    /// Required. The name of the SIP trunk to delete.
+    /// Format: `projects/<Project ID>/locations/<Location ID>/sipTrunks/<SipTrunk
+    /// ID>`.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "sip-trunks")]
+impl GetSipTrunkRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetSipTrunkRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::GetSipTrunkRequest;
+    /// let x = GetSipTrunkRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+#[cfg(feature = "sip-trunks")]
+impl wkt::message::Message for GetSipTrunkRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.GetSipTrunkRequest"
+    }
+}
+
+/// The request message for
+/// [SipTrunks.UpdateSipTrunk][google.cloud.dialogflow.v2.SipTrunks.UpdateSipTrunk].
+///
+/// [google.cloud.dialogflow.v2.SipTrunks.UpdateSipTrunk]: crate::client::SipTrunks::update_sip_trunk
+#[cfg(feature = "sip-trunks")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateSipTrunkRequest {
+    /// Required. The SipTrunk to update.
+    pub sip_trunk: std::option::Option<crate::model::SipTrunk>,
+
+    /// Optional. The mask to control which fields get updated. If the mask is not
+    /// present, all fields will be updated.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "sip-trunks")]
+impl UpdateSipTrunkRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [sip_trunk][crate::model::UpdateSipTrunkRequest::sip_trunk].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::UpdateSipTrunkRequest;
+    /// use google_cloud_dialogflow_v2::model::SipTrunk;
+    /// let x = UpdateSipTrunkRequest::new().set_sip_trunk(SipTrunk::default()/* use setters */);
+    /// ```
+    pub fn set_sip_trunk<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SipTrunk>,
+    {
+        self.sip_trunk = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [sip_trunk][crate::model::UpdateSipTrunkRequest::sip_trunk].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::UpdateSipTrunkRequest;
+    /// use google_cloud_dialogflow_v2::model::SipTrunk;
+    /// let x = UpdateSipTrunkRequest::new().set_or_clear_sip_trunk(Some(SipTrunk::default()/* use setters */));
+    /// let x = UpdateSipTrunkRequest::new().set_or_clear_sip_trunk(None::<SipTrunk>);
+    /// ```
+    pub fn set_or_clear_sip_trunk<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SipTrunk>,
+    {
+        self.sip_trunk = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateSipTrunkRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::UpdateSipTrunkRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateSipTrunkRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateSipTrunkRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::UpdateSipTrunkRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateSipTrunkRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateSipTrunkRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(feature = "sip-trunks")]
+impl wkt::message::Message for UpdateSipTrunkRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.UpdateSipTrunkRequest"
+    }
+}
+
+/// SipTrunk is the resource that represents a SIP trunk to connect to Google
+/// Telephony platform SIP trunking service.
+#[cfg(feature = "sip-trunks")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SipTrunk {
+    /// Identifier. The unique identifier of the SIP trunk.
+    /// Format: `projects/<Project ID>/locations/<Location ID>/sipTrunks/<SipTrunk
+    /// ID>`.
+    pub name: std::string::String,
+
+    /// Required. The expected hostnames in the peer certificate from partner that
+    /// is used for TLS authentication.
+    pub expected_hostname: std::vec::Vec<std::string::String>,
+
+    /// Output only. Connections of the SIP trunk.
+    pub connections: std::vec::Vec<crate::model::Connection>,
+
+    /// Optional. Human readable alias for this trunk.
+    pub display_name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "sip-trunks")]
+impl SipTrunk {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::SipTrunk::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::SipTrunk;
+    /// let x = SipTrunk::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [expected_hostname][crate::model::SipTrunk::expected_hostname].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::SipTrunk;
+    /// let x = SipTrunk::new().set_expected_hostname(["a", "b", "c"]);
+    /// ```
+    pub fn set_expected_hostname<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.expected_hostname = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [connections][crate::model::SipTrunk::connections].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::SipTrunk;
+    /// use google_cloud_dialogflow_v2::model::Connection;
+    /// let x = SipTrunk::new()
+    ///     .set_connections([
+    ///         Connection::default()/* use setters */,
+    ///         Connection::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_connections<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Connection>,
+    {
+        use std::iter::Iterator;
+        self.connections = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [display_name][crate::model::SipTrunk::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::SipTrunk;
+    /// let x = SipTrunk::new().set_display_name("example");
+    /// ```
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
+        self
+    }
+}
+
+#[cfg(feature = "sip-trunks")]
+impl wkt::message::Message for SipTrunk {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.SipTrunk"
+    }
+}
+
+/// Represents a connection for SIP Trunk.
+#[cfg(feature = "sip-trunks")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Connection {
+    /// Output only. The unique identifier of the SIP Trunk connection.
+    pub connection_id: std::string::String,
+
+    /// Output only. State of the connection.
+    pub state: crate::model::connection::State,
+
+    /// Output only. When the connection status changed.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The error details for the connection. Only populated when
+    /// authentication errors occur.
+    pub error_details: std::option::Option<crate::model::connection::ErrorDetails>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "sip-trunks")]
+impl Connection {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [connection_id][crate::model::Connection::connection_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::Connection;
+    /// let x = Connection::new().set_connection_id("example");
+    /// ```
+    pub fn set_connection_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.connection_id = v.into();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::Connection::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::Connection;
+    /// use google_cloud_dialogflow_v2::model::connection::State;
+    /// let x0 = Connection::new().set_state(State::Connected);
+    /// let x1 = Connection::new().set_state(State::Disconnected);
+    /// let x2 = Connection::new().set_state(State::AuthenticationFailed);
+    /// ```
+    pub fn set_state<T: std::convert::Into<crate::model::connection::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::Connection::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::Connection;
+    /// use wkt::Timestamp;
+    /// let x = Connection::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::Connection::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::Connection;
+    /// use wkt::Timestamp;
+    /// let x = Connection::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Connection::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [error_details][crate::model::Connection::error_details].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::Connection;
+    /// use google_cloud_dialogflow_v2::model::connection::ErrorDetails;
+    /// let x = Connection::new().set_error_details(ErrorDetails::default()/* use setters */);
+    /// ```
+    pub fn set_error_details<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::connection::ErrorDetails>,
+    {
+        self.error_details = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [error_details][crate::model::Connection::error_details].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::Connection;
+    /// use google_cloud_dialogflow_v2::model::connection::ErrorDetails;
+    /// let x = Connection::new().set_or_clear_error_details(Some(ErrorDetails::default()/* use setters */));
+    /// let x = Connection::new().set_or_clear_error_details(None::<ErrorDetails>);
+    /// ```
+    pub fn set_or_clear_error_details<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::connection::ErrorDetails>,
+    {
+        self.error_details = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(feature = "sip-trunks")]
+impl wkt::message::Message for Connection {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.Connection"
+    }
+}
+
+/// Defines additional types related to [Connection].
+#[cfg(feature = "sip-trunks")]
+pub mod connection {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The error details of Sip Trunk connection authentication.
+    #[cfg(feature = "sip-trunks")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct ErrorDetails {
+        /// Output only. The status of the certificate authentication.
+        pub certificate_state: std::option::Option<crate::model::connection::CertificateState>,
+
+        /// The error message provided from SIP trunking auth service
+        pub error_message: std::option::Option<std::string::String>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "sip-trunks")]
+    impl ErrorDetails {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [certificate_state][crate::model::connection::ErrorDetails::certificate_state].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::connection::ErrorDetails;
+        /// use google_cloud_dialogflow_v2::model::connection::CertificateState;
+        /// let x0 = ErrorDetails::new().set_certificate_state(CertificateState::CertificateValid);
+        /// let x1 = ErrorDetails::new().set_certificate_state(CertificateState::CertificateInvalid);
+        /// let x2 = ErrorDetails::new().set_certificate_state(CertificateState::CertificateExpired);
+        /// ```
+        pub fn set_certificate_state<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::connection::CertificateState>,
+        {
+            self.certificate_state = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [certificate_state][crate::model::connection::ErrorDetails::certificate_state].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::connection::ErrorDetails;
+        /// use google_cloud_dialogflow_v2::model::connection::CertificateState;
+        /// let x0 = ErrorDetails::new().set_or_clear_certificate_state(Some(CertificateState::CertificateValid));
+        /// let x1 = ErrorDetails::new().set_or_clear_certificate_state(Some(CertificateState::CertificateInvalid));
+        /// let x2 = ErrorDetails::new().set_or_clear_certificate_state(Some(CertificateState::CertificateExpired));
+        /// let x_none = ErrorDetails::new().set_or_clear_certificate_state(None::<CertificateState>);
+        /// ```
+        pub fn set_or_clear_certificate_state<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::connection::CertificateState>,
+        {
+            self.certificate_state = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [error_message][crate::model::connection::ErrorDetails::error_message].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::connection::ErrorDetails;
+        /// let x = ErrorDetails::new().set_error_message("example");
+        /// ```
+        pub fn set_error_message<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.error_message = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [error_message][crate::model::connection::ErrorDetails::error_message].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::connection::ErrorDetails;
+        /// let x = ErrorDetails::new().set_or_clear_error_message(Some("example"));
+        /// let x = ErrorDetails::new().set_or_clear_error_message(None::<String>);
+        /// ```
+        pub fn set_or_clear_error_message<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.error_message = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[cfg(feature = "sip-trunks")]
+    impl wkt::message::Message for ErrorDetails {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.v2.Connection.ErrorDetails"
+        }
+    }
+
+    /// The state of Sip Trunk connection.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "sip-trunks")]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// SIP Trunk connection state is Not specified.
+        Unspecified,
+        /// SIP Trunk connection is connected.
+        Connected,
+        /// SIP Trunk connection is disconnected.
+        Disconnected,
+        /// SIP Trunk connection has authentication error.
+        AuthenticationFailed,
+        /// SIP Trunk connection is keepalive.
+        Keepalive,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    #[cfg(feature = "sip-trunks")]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    #[cfg(feature = "sip-trunks")]
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Connected => std::option::Option::Some(1),
+                Self::Disconnected => std::option::Option::Some(2),
+                Self::AuthenticationFailed => std::option::Option::Some(3),
+                Self::Keepalive => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Connected => std::option::Option::Some("CONNECTED"),
+                Self::Disconnected => std::option::Option::Some("DISCONNECTED"),
+                Self::AuthenticationFailed => std::option::Option::Some("AUTHENTICATION_FAILED"),
+                Self::Keepalive => std::option::Option::Some("KEEPALIVE"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    #[cfg(feature = "sip-trunks")]
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    #[cfg(feature = "sip-trunks")]
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    #[cfg(feature = "sip-trunks")]
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Connected,
+                2 => Self::Disconnected,
+                3 => Self::AuthenticationFailed,
+                4 => Self::Keepalive,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "sip-trunks")]
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "CONNECTED" => Self::Connected,
+                "DISCONNECTED" => Self::Disconnected,
+                "AUTHENTICATION_FAILED" => Self::AuthenticationFailed,
+                "KEEPALIVE" => Self::Keepalive,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "sip-trunks")]
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Connected => serializer.serialize_i32(1),
+                Self::Disconnected => serializer.serialize_i32(2),
+                Self::AuthenticationFailed => serializer.serialize_i32(3),
+                Self::Keepalive => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    #[cfg(feature = "sip-trunks")]
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.dialogflow.v2.Connection.State",
+            ))
+        }
+    }
+
+    /// The state of Sip Trunk certificate authentication.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "sip-trunks")]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum CertificateState {
+        /// Certificate state is not specified.
+        Unspecified,
+        /// Certificate is valid.
+        CertificateValid,
+        /// Catch all for any error not specified.
+        CertificateInvalid,
+        /// Certificate leaf node has expired.
+        CertificateExpired,
+        /// There is no hostname defined to authenticate in SipTrunkingServer.
+        CertificateHostnameNotFound,
+        /// No path found from the leaf certificate to any root.
+        CertificateUnauthenticated,
+        /// Trust store does not exist.
+        CertificateTrustStoreNotFound,
+        /// Hostname has invalid format.
+        CertificateHostnameInvalidFormat,
+        /// Certificate has exhausted its quota.
+        CertificateQuotaExceeded,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [CertificateState::value] or
+        /// [CertificateState::name].
+        UnknownValue(certificate_state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    #[cfg(feature = "sip-trunks")]
+    pub mod certificate_state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    #[cfg(feature = "sip-trunks")]
+    impl CertificateState {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::CertificateValid => std::option::Option::Some(1),
+                Self::CertificateInvalid => std::option::Option::Some(2),
+                Self::CertificateExpired => std::option::Option::Some(3),
+                Self::CertificateHostnameNotFound => std::option::Option::Some(4),
+                Self::CertificateUnauthenticated => std::option::Option::Some(5),
+                Self::CertificateTrustStoreNotFound => std::option::Option::Some(6),
+                Self::CertificateHostnameInvalidFormat => std::option::Option::Some(7),
+                Self::CertificateQuotaExceeded => std::option::Option::Some(8),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("CERTIFICATE_STATE_UNSPECIFIED"),
+                Self::CertificateValid => std::option::Option::Some("CERTIFICATE_VALID"),
+                Self::CertificateInvalid => std::option::Option::Some("CERTIFICATE_INVALID"),
+                Self::CertificateExpired => std::option::Option::Some("CERTIFICATE_EXPIRED"),
+                Self::CertificateHostnameNotFound => {
+                    std::option::Option::Some("CERTIFICATE_HOSTNAME_NOT_FOUND")
+                }
+                Self::CertificateUnauthenticated => {
+                    std::option::Option::Some("CERTIFICATE_UNAUTHENTICATED")
+                }
+                Self::CertificateTrustStoreNotFound => {
+                    std::option::Option::Some("CERTIFICATE_TRUST_STORE_NOT_FOUND")
+                }
+                Self::CertificateHostnameInvalidFormat => {
+                    std::option::Option::Some("CERTIFICATE_HOSTNAME_INVALID_FORMAT")
+                }
+                Self::CertificateQuotaExceeded => {
+                    std::option::Option::Some("CERTIFICATE_QUOTA_EXCEEDED")
+                }
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    #[cfg(feature = "sip-trunks")]
+    impl std::default::Default for CertificateState {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    #[cfg(feature = "sip-trunks")]
+    impl std::fmt::Display for CertificateState {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    #[cfg(feature = "sip-trunks")]
+    impl std::convert::From<i32> for CertificateState {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::CertificateValid,
+                2 => Self::CertificateInvalid,
+                3 => Self::CertificateExpired,
+                4 => Self::CertificateHostnameNotFound,
+                5 => Self::CertificateUnauthenticated,
+                6 => Self::CertificateTrustStoreNotFound,
+                7 => Self::CertificateHostnameInvalidFormat,
+                8 => Self::CertificateQuotaExceeded,
+                _ => Self::UnknownValue(certificate_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "sip-trunks")]
+    impl std::convert::From<&str> for CertificateState {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CERTIFICATE_STATE_UNSPECIFIED" => Self::Unspecified,
+                "CERTIFICATE_VALID" => Self::CertificateValid,
+                "CERTIFICATE_INVALID" => Self::CertificateInvalid,
+                "CERTIFICATE_EXPIRED" => Self::CertificateExpired,
+                "CERTIFICATE_HOSTNAME_NOT_FOUND" => Self::CertificateHostnameNotFound,
+                "CERTIFICATE_UNAUTHENTICATED" => Self::CertificateUnauthenticated,
+                "CERTIFICATE_TRUST_STORE_NOT_FOUND" => Self::CertificateTrustStoreNotFound,
+                "CERTIFICATE_HOSTNAME_INVALID_FORMAT" => Self::CertificateHostnameInvalidFormat,
+                "CERTIFICATE_QUOTA_EXCEEDED" => Self::CertificateQuotaExceeded,
+                _ => Self::UnknownValue(certificate_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "sip-trunks")]
+    impl serde::ser::Serialize for CertificateState {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::CertificateValid => serializer.serialize_i32(1),
+                Self::CertificateInvalid => serializer.serialize_i32(2),
+                Self::CertificateExpired => serializer.serialize_i32(3),
+                Self::CertificateHostnameNotFound => serializer.serialize_i32(4),
+                Self::CertificateUnauthenticated => serializer.serialize_i32(5),
+                Self::CertificateTrustStoreNotFound => serializer.serialize_i32(6),
+                Self::CertificateHostnameInvalidFormat => serializer.serialize_i32(7),
+                Self::CertificateQuotaExceeded => serializer.serialize_i32(8),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    #[cfg(feature = "sip-trunks")]
+    impl<'de> serde::de::Deserialize<'de> for CertificateState {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<CertificateState>::new(
+                ".google.cloud.dialogflow.v2.Connection.CertificateState",
+            ))
+        }
+    }
+}
+
+/// Request message of CreateTool.
+#[cfg(feature = "tools")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateToolRequest {
+    /// Required. The project/location to create tool for. Format:
+    /// `projects/<Project ID>/locations/<Location ID>`
+    pub parent: std::string::String,
+
+    /// Required. The tool to create.
+    pub tool: std::option::Option<crate::model::Tool>,
+
+    /// Optional. The ID to use for the tool, which will become the final
+    /// component of the tool's resource name.
+    ///
+    /// The tool ID must be compliant with the regression formula
+    /// `[a-zA-Z][a-zA-Z0-9_-]*` with the characters length in range of [3,64].
+    /// If the field is not provide, an Id will be auto-generated.
+    /// If the field is provided, the caller is responsible for
+    ///
+    /// 1. the uniqueness of the ID, otherwise the request will be rejected.
+    /// 1. the consistency for whether to use custom ID or not under a project to
+    ///    better ensure uniqueness.
+    pub tool_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "tools")]
+impl CreateToolRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateToolRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::CreateToolRequest;
+    /// let x = CreateToolRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [tool][crate::model::CreateToolRequest::tool].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::CreateToolRequest;
+    /// use google_cloud_dialogflow_v2::model::Tool;
+    /// let x = CreateToolRequest::new().set_tool(Tool::default()/* use setters */);
+    /// ```
+    pub fn set_tool<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Tool>,
+    {
+        self.tool = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [tool][crate::model::CreateToolRequest::tool].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::CreateToolRequest;
+    /// use google_cloud_dialogflow_v2::model::Tool;
+    /// let x = CreateToolRequest::new().set_or_clear_tool(Some(Tool::default()/* use setters */));
+    /// let x = CreateToolRequest::new().set_or_clear_tool(None::<Tool>);
+    /// ```
+    pub fn set_or_clear_tool<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Tool>,
+    {
+        self.tool = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [tool_id][crate::model::CreateToolRequest::tool_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::CreateToolRequest;
+    /// let x = CreateToolRequest::new().set_tool_id("example");
+    /// ```
+    pub fn set_tool_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.tool_id = v.into();
+        self
+    }
+}
+
+#[cfg(feature = "tools")]
+impl wkt::message::Message for CreateToolRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.CreateToolRequest"
+    }
+}
+
+/// Request message of GetTool.
+#[cfg(feature = "tools")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetToolRequest {
+    /// Required. The tool resource name to retrieve. Format:
+    /// `projects/<Project ID>/locations/<Location ID>/tools/<Tool ID>`
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "tools")]
+impl GetToolRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetToolRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::GetToolRequest;
+    /// let x = GetToolRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+#[cfg(feature = "tools")]
+impl wkt::message::Message for GetToolRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.GetToolRequest"
+    }
+}
+
+/// Request message of ListTools.
+#[cfg(feature = "tools")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListToolsRequest {
+    /// Required. The project/location to list tools for. Format:
+    /// `projects/<Project ID>/locations/<Location ID>`
+    pub parent: std::string::String,
+
+    /// Optional. Maximum number of conversation models to return in a single page.
+    /// Default to 10.
+    pub page_size: i32,
+
+    /// Optional. The next_page_token value returned from a previous list request.
+    pub page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "tools")]
+impl ListToolsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListToolsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::ListToolsRequest;
+    /// let x = ListToolsRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListToolsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::ListToolsRequest;
+    /// let x = ListToolsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListToolsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::ListToolsRequest;
+    /// let x = ListToolsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+#[cfg(feature = "tools")]
+impl wkt::message::Message for ListToolsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.ListToolsRequest"
+    }
+}
+
+/// Response of ListTools.
+#[cfg(feature = "tools")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListToolsResponse {
+    /// List of tools retrieved.
+    pub tools: std::vec::Vec<crate::model::Tool>,
+
+    /// Token to retrieve the next page of results, or empty if there are no more
+    /// results in the list.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "tools")]
+impl ListToolsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [tools][crate::model::ListToolsResponse::tools].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::ListToolsResponse;
+    /// use google_cloud_dialogflow_v2::model::Tool;
+    /// let x = ListToolsResponse::new()
+    ///     .set_tools([
+    ///         Tool::default()/* use setters */,
+    ///         Tool::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_tools<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Tool>,
+    {
+        use std::iter::Iterator;
+        self.tools = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListToolsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::ListToolsResponse;
+    /// let x = ListToolsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+#[cfg(feature = "tools")]
+impl wkt::message::Message for ListToolsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.ListToolsResponse"
+    }
+}
+
+#[cfg(feature = "tools")]
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListToolsResponse {
+    type PageItem = crate::model::Tool;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.tools
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request of DeleteTool.
+#[cfg(feature = "tools")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteToolRequest {
+    /// Required. The tool resource name to delete. Format:
+    /// `projects/<Project ID>/locations/<Location ID>/tools/<Tool ID>`
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "tools")]
+impl DeleteToolRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteToolRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::DeleteToolRequest;
+    /// let x = DeleteToolRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+#[cfg(feature = "tools")]
+impl wkt::message::Message for DeleteToolRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.DeleteToolRequest"
+    }
+}
+
+/// Request of UpdateTool.
+#[cfg(feature = "tools")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateToolRequest {
+    /// Required. The tool to update.
+    /// The name field of tool is to identify the tool to
+    /// update.
+    pub tool: std::option::Option<crate::model::Tool>,
+
+    /// Optional. The list of fields to update.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "tools")]
+impl UpdateToolRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [tool][crate::model::UpdateToolRequest::tool].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::UpdateToolRequest;
+    /// use google_cloud_dialogflow_v2::model::Tool;
+    /// let x = UpdateToolRequest::new().set_tool(Tool::default()/* use setters */);
+    /// ```
+    pub fn set_tool<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Tool>,
+    {
+        self.tool = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [tool][crate::model::UpdateToolRequest::tool].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::UpdateToolRequest;
+    /// use google_cloud_dialogflow_v2::model::Tool;
+    /// let x = UpdateToolRequest::new().set_or_clear_tool(Some(Tool::default()/* use setters */));
+    /// let x = UpdateToolRequest::new().set_or_clear_tool(None::<Tool>);
+    /// ```
+    pub fn set_or_clear_tool<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Tool>,
+    {
+        self.tool = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateToolRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::UpdateToolRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateToolRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateToolRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::UpdateToolRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateToolRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateToolRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(feature = "tools")]
+impl wkt::message::Message for UpdateToolRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.UpdateToolRequest"
+    }
+}
+
+/// Represents a tool.
+#[cfg(feature = "tools")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Tool {
+    /// Output only. Identifier. The resource name of the tool. Format:
+    /// `projects/<Project ID>/locations/<Location ID>/tools/<Tool ID>`.
+    pub name: std::string::String,
+
+    /// Required. A human readable short name of the tool, which should be unique
+    /// within the project. It should only contain letters, numbers, and
+    /// underscores, and it will be used by LLM to identify the tool.
+    pub tool_key: std::string::String,
+
+    /// Optional. A human readable short name of the tool, to be shown on the UI.
+    pub display_name: std::string::String,
+
+    /// Optional. A human readable description of the tool.
+    pub description: std::string::String,
+
+    /// Optional. Confirmation requirement for the actions. Each key is an action
+    /// name in the action_schemas. If an action's confirmation requirement is
+    /// unspecified (either the key is not present, or its value is
+    /// CONFIRMATION_REQUIREMENT_UNSPECIFIED), the requirement is inferred from the
+    /// action's method_type - confirmation is not required if and only if
+    /// method_type is GET.
+    pub action_confirmation_requirement:
+        std::collections::HashMap<std::string::String, crate::model::tool::ConfirmationRequirement>,
+
+    /// Output only. Creation time of this tool.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Update time of this tool.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. A read only boolean field reflecting Zone Separation
+    /// status of the tool. If the field is absent, it means the status is unknown.
+    pub satisfies_pzs: std::option::Option<bool>,
+
+    /// Output only. A read only boolean field reflecting Zone Isolation status
+    /// of the tool. If the field is absent, it means the status is unknown.
+    pub satisfies_pzi: std::option::Option<bool>,
+
+    /// Specification of the Tool.
+    pub specification: std::option::Option<crate::model::tool::Specification>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "tools")]
+impl Tool {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::Tool::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::Tool;
+    /// let x = Tool::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [tool_key][crate::model::Tool::tool_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::Tool;
+    /// let x = Tool::new().set_tool_key("example");
+    /// ```
+    pub fn set_tool_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.tool_key = v.into();
+        self
+    }
+
+    /// Sets the value of [display_name][crate::model::Tool::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::Tool;
+    /// let x = Tool::new().set_display_name("example");
+    /// ```
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::Tool::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::Tool;
+    /// let x = Tool::new().set_description("example");
+    /// ```
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [action_confirmation_requirement][crate::model::Tool::action_confirmation_requirement].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::Tool;
+    /// use google_cloud_dialogflow_v2::model::tool::ConfirmationRequirement;
+    /// let x = Tool::new().set_action_confirmation_requirement([
+    ///     ("key0", ConfirmationRequirement::Required),
+    ///     ("key1", ConfirmationRequirement::NotRequired),
+    /// ]);
+    /// ```
+    pub fn set_action_confirmation_requirement<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::tool::ConfirmationRequirement>,
+    {
+        use std::iter::Iterator;
+        self.action_confirmation_requirement =
+            v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::Tool::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::Tool;
+    /// use wkt::Timestamp;
+    /// let x = Tool::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::Tool::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::Tool;
+    /// use wkt::Timestamp;
+    /// let x = Tool::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Tool::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::Tool::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::Tool;
+    /// use wkt::Timestamp;
+    /// let x = Tool::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::Tool::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::Tool;
+    /// use wkt::Timestamp;
+    /// let x = Tool::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Tool::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [satisfies_pzs][crate::model::Tool::satisfies_pzs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::Tool;
+    /// let x = Tool::new().set_satisfies_pzs(true);
+    /// ```
+    pub fn set_satisfies_pzs<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.satisfies_pzs = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [satisfies_pzs][crate::model::Tool::satisfies_pzs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::Tool;
+    /// let x = Tool::new().set_or_clear_satisfies_pzs(Some(false));
+    /// let x = Tool::new().set_or_clear_satisfies_pzs(None::<bool>);
+    /// ```
+    pub fn set_or_clear_satisfies_pzs<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.satisfies_pzs = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [satisfies_pzi][crate::model::Tool::satisfies_pzi].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::Tool;
+    /// let x = Tool::new().set_satisfies_pzi(true);
+    /// ```
+    pub fn set_satisfies_pzi<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.satisfies_pzi = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [satisfies_pzi][crate::model::Tool::satisfies_pzi].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::Tool;
+    /// let x = Tool::new().set_or_clear_satisfies_pzi(Some(false));
+    /// let x = Tool::new().set_or_clear_satisfies_pzi(None::<bool>);
+    /// ```
+    pub fn set_or_clear_satisfies_pzi<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.satisfies_pzi = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [specification][crate::model::Tool::specification].
+    ///
+    /// Note that all the setters affecting `specification` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::Tool;
+    /// use google_cloud_dialogflow_v2::model::tool::FunctionTool;
+    /// let x = Tool::new().set_specification(Some(
+    ///     google_cloud_dialogflow_v2::model::tool::Specification::FunctionSpec(FunctionTool::default().into())));
+    /// ```
+    pub fn set_specification<
+        T: std::convert::Into<std::option::Option<crate::model::tool::Specification>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.specification = v.into();
+        self
+    }
+
+    /// The value of [specification][crate::model::Tool::specification]
+    /// if it holds a `ExtensionSpec`, `None` if the field is not set or
+    /// holds a different branch.
+    #[deprecated]
+    pub fn extension_spec(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::tool::ExtensionTool>> {
+        #[allow(unreachable_patterns)]
+        self.specification.as_ref().and_then(|v| match v {
+            crate::model::tool::Specification::ExtensionSpec(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [specification][crate::model::Tool::specification]
+    /// to hold a `ExtensionSpec`.
+    ///
+    /// Note that all the setters affecting `specification` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::Tool;
+    /// use google_cloud_dialogflow_v2::model::tool::ExtensionTool;
+    /// let x = Tool::new().set_extension_spec(ExtensionTool::default()/* use setters */);
+    /// assert!(x.extension_spec().is_some());
+    /// assert!(x.function_spec().is_none());
+    /// assert!(x.connector_spec().is_none());
+    /// assert!(x.open_api_spec().is_none());
+    /// ```
+    #[deprecated]
+    pub fn set_extension_spec<
+        T: std::convert::Into<std::boxed::Box<crate::model::tool::ExtensionTool>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.specification =
+            std::option::Option::Some(crate::model::tool::Specification::ExtensionSpec(v.into()));
+        self
+    }
+
+    /// The value of [specification][crate::model::Tool::specification]
+    /// if it holds a `FunctionSpec`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn function_spec(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::tool::FunctionTool>> {
+        #[allow(unreachable_patterns)]
+        self.specification.as_ref().and_then(|v| match v {
+            crate::model::tool::Specification::FunctionSpec(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [specification][crate::model::Tool::specification]
+    /// to hold a `FunctionSpec`.
+    ///
+    /// Note that all the setters affecting `specification` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::Tool;
+    /// use google_cloud_dialogflow_v2::model::tool::FunctionTool;
+    /// let x = Tool::new().set_function_spec(FunctionTool::default()/* use setters */);
+    /// assert!(x.function_spec().is_some());
+    /// assert!(x.extension_spec().is_none());
+    /// assert!(x.connector_spec().is_none());
+    /// assert!(x.open_api_spec().is_none());
+    /// ```
+    pub fn set_function_spec<
+        T: std::convert::Into<std::boxed::Box<crate::model::tool::FunctionTool>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.specification =
+            std::option::Option::Some(crate::model::tool::Specification::FunctionSpec(v.into()));
+        self
+    }
+
+    /// The value of [specification][crate::model::Tool::specification]
+    /// if it holds a `ConnectorSpec`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn connector_spec(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::tool::ConnectorTool>> {
+        #[allow(unreachable_patterns)]
+        self.specification.as_ref().and_then(|v| match v {
+            crate::model::tool::Specification::ConnectorSpec(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [specification][crate::model::Tool::specification]
+    /// to hold a `ConnectorSpec`.
+    ///
+    /// Note that all the setters affecting `specification` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::Tool;
+    /// use google_cloud_dialogflow_v2::model::tool::ConnectorTool;
+    /// let x = Tool::new().set_connector_spec(ConnectorTool::default()/* use setters */);
+    /// assert!(x.connector_spec().is_some());
+    /// assert!(x.extension_spec().is_none());
+    /// assert!(x.function_spec().is_none());
+    /// assert!(x.open_api_spec().is_none());
+    /// ```
+    pub fn set_connector_spec<
+        T: std::convert::Into<std::boxed::Box<crate::model::tool::ConnectorTool>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.specification =
+            std::option::Option::Some(crate::model::tool::Specification::ConnectorSpec(v.into()));
+        self
+    }
+
+    /// The value of [specification][crate::model::Tool::specification]
+    /// if it holds a `OpenApiSpec`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn open_api_spec(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::tool::OpenApiTool>> {
+        #[allow(unreachable_patterns)]
+        self.specification.as_ref().and_then(|v| match v {
+            crate::model::tool::Specification::OpenApiSpec(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [specification][crate::model::Tool::specification]
+    /// to hold a `OpenApiSpec`.
+    ///
+    /// Note that all the setters affecting `specification` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::Tool;
+    /// use google_cloud_dialogflow_v2::model::tool::OpenApiTool;
+    /// let x = Tool::new().set_open_api_spec(OpenApiTool::default()/* use setters */);
+    /// assert!(x.open_api_spec().is_some());
+    /// assert!(x.extension_spec().is_none());
+    /// assert!(x.function_spec().is_none());
+    /// assert!(x.connector_spec().is_none());
+    /// ```
+    pub fn set_open_api_spec<
+        T: std::convert::Into<std::boxed::Box<crate::model::tool::OpenApiTool>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.specification =
+            std::option::Option::Some(crate::model::tool::Specification::OpenApiSpec(v.into()));
+        self
+    }
+}
+
+#[cfg(feature = "tools")]
+impl wkt::message::Message for Tool {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.Tool"
+    }
+}
+
+/// Defines additional types related to [Tool].
+#[cfg(feature = "tools")]
+pub mod tool {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// An ExtensionTool is a way to use Vertex Extensions as a tool.
+    #[cfg(feature = "tools")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct ExtensionTool {
+        /// Required. The full name of the referenced vertex extension.
+        /// Format:
+        /// `projects/{project}/locations/{location}/extensions/{extension}`
+        pub name: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "tools")]
+    impl ExtensionTool {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [name][crate::model::tool::ExtensionTool::name].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::tool::ExtensionTool;
+        /// let x = ExtensionTool::new().set_name("example");
+        /// ```
+        pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.name = v.into();
+            self
+        }
+    }
+
+    #[cfg(feature = "tools")]
+    impl wkt::message::Message for ExtensionTool {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.v2.Tool.ExtensionTool"
+        }
+    }
+
+    /// A Function tool describes the functions to be invoked on the client side.
+    #[cfg(feature = "tools")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct FunctionTool {
+        /// Optional. The JSON schema is encapsulated in a
+        /// [google.protobuf.Struct][google.protobuf.Struct] to describe the input of
+        /// the function. This input is a JSON object that contains the function's
+        /// parameters as properties of the object.
+        ///
+        /// [google.protobuf.Struct]: wkt::Struct
+        pub input_schema: std::option::Option<wkt::Struct>,
+
+        /// Optional. The JSON schema is encapsulated in a
+        /// [google.protobuf.Struct][google.protobuf.Struct] to describe the output
+        /// of the function. This output is a JSON object that contains the
+        /// function's parameters as properties of the object.
+        ///
+        /// [google.protobuf.Struct]: wkt::Struct
+        pub output_schema: std::option::Option<wkt::Struct>,
+
+        /// Optional. The method type of the function. If not specified, the default
+        /// value is GET.
+        pub method_type: crate::model::tool::MethodType,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "tools")]
+    impl FunctionTool {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [input_schema][crate::model::tool::FunctionTool::input_schema].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::tool::FunctionTool;
+        /// use wkt::Struct;
+        /// let x = FunctionTool::new().set_input_schema(Struct::default()/* use setters */);
+        /// ```
+        pub fn set_input_schema<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Struct>,
+        {
+            self.input_schema = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [input_schema][crate::model::tool::FunctionTool::input_schema].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::tool::FunctionTool;
+        /// use wkt::Struct;
+        /// let x = FunctionTool::new().set_or_clear_input_schema(Some(Struct::default()/* use setters */));
+        /// let x = FunctionTool::new().set_or_clear_input_schema(None::<Struct>);
+        /// ```
+        pub fn set_or_clear_input_schema<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Struct>,
+        {
+            self.input_schema = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [output_schema][crate::model::tool::FunctionTool::output_schema].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::tool::FunctionTool;
+        /// use wkt::Struct;
+        /// let x = FunctionTool::new().set_output_schema(Struct::default()/* use setters */);
+        /// ```
+        pub fn set_output_schema<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Struct>,
+        {
+            self.output_schema = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [output_schema][crate::model::tool::FunctionTool::output_schema].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::tool::FunctionTool;
+        /// use wkt::Struct;
+        /// let x = FunctionTool::new().set_or_clear_output_schema(Some(Struct::default()/* use setters */));
+        /// let x = FunctionTool::new().set_or_clear_output_schema(None::<Struct>);
+        /// ```
+        pub fn set_or_clear_output_schema<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Struct>,
+        {
+            self.output_schema = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [method_type][crate::model::tool::FunctionTool::method_type].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::tool::FunctionTool;
+        /// use google_cloud_dialogflow_v2::model::tool::MethodType;
+        /// let x0 = FunctionTool::new().set_method_type(MethodType::Get);
+        /// let x1 = FunctionTool::new().set_method_type(MethodType::Post);
+        /// let x2 = FunctionTool::new().set_method_type(MethodType::Put);
+        /// ```
+        pub fn set_method_type<T: std::convert::Into<crate::model::tool::MethodType>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.method_type = v.into();
+            self
+        }
+    }
+
+    #[cfg(feature = "tools")]
+    impl wkt::message::Message for FunctionTool {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.v2.Tool.FunctionTool"
+        }
+    }
+
+    /// An OpenAPI tool is a way to provide the Tool specifications in the Open API
+    /// schema format.
+    #[cfg(feature = "tools")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct OpenApiTool {
+        /// Optional. Authentication information required by the API.
+        pub authentication: std::option::Option<crate::model::tool::Authentication>,
+
+        /// Optional. TLS configuration for the HTTPS verification.
+        pub tls_config: std::option::Option<crate::model::tool::TLSConfig>,
+
+        /// Optional. Service Directory configuration.
+        pub service_directory_config:
+            std::option::Option<crate::model::tool::ServiceDirectoryConfig>,
+
+        /// Schema representation.
+        pub schema: std::option::Option<crate::model::tool::open_api_tool::Schema>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "tools")]
+    impl OpenApiTool {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [authentication][crate::model::tool::OpenApiTool::authentication].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::tool::OpenApiTool;
+        /// use google_cloud_dialogflow_v2::model::tool::Authentication;
+        /// let x = OpenApiTool::new().set_authentication(Authentication::default()/* use setters */);
+        /// ```
+        pub fn set_authentication<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::tool::Authentication>,
+        {
+            self.authentication = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [authentication][crate::model::tool::OpenApiTool::authentication].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::tool::OpenApiTool;
+        /// use google_cloud_dialogflow_v2::model::tool::Authentication;
+        /// let x = OpenApiTool::new().set_or_clear_authentication(Some(Authentication::default()/* use setters */));
+        /// let x = OpenApiTool::new().set_or_clear_authentication(None::<Authentication>);
+        /// ```
+        pub fn set_or_clear_authentication<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::tool::Authentication>,
+        {
+            self.authentication = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [tls_config][crate::model::tool::OpenApiTool::tls_config].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::tool::OpenApiTool;
+        /// use google_cloud_dialogflow_v2::model::tool::TLSConfig;
+        /// let x = OpenApiTool::new().set_tls_config(TLSConfig::default()/* use setters */);
+        /// ```
+        pub fn set_tls_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::tool::TLSConfig>,
+        {
+            self.tls_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [tls_config][crate::model::tool::OpenApiTool::tls_config].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::tool::OpenApiTool;
+        /// use google_cloud_dialogflow_v2::model::tool::TLSConfig;
+        /// let x = OpenApiTool::new().set_or_clear_tls_config(Some(TLSConfig::default()/* use setters */));
+        /// let x = OpenApiTool::new().set_or_clear_tls_config(None::<TLSConfig>);
+        /// ```
+        pub fn set_or_clear_tls_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::tool::TLSConfig>,
+        {
+            self.tls_config = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [service_directory_config][crate::model::tool::OpenApiTool::service_directory_config].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::tool::OpenApiTool;
+        /// use google_cloud_dialogflow_v2::model::tool::ServiceDirectoryConfig;
+        /// let x = OpenApiTool::new().set_service_directory_config(ServiceDirectoryConfig::default()/* use setters */);
+        /// ```
+        pub fn set_service_directory_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::tool::ServiceDirectoryConfig>,
+        {
+            self.service_directory_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [service_directory_config][crate::model::tool::OpenApiTool::service_directory_config].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::tool::OpenApiTool;
+        /// use google_cloud_dialogflow_v2::model::tool::ServiceDirectoryConfig;
+        /// let x = OpenApiTool::new().set_or_clear_service_directory_config(Some(ServiceDirectoryConfig::default()/* use setters */));
+        /// let x = OpenApiTool::new().set_or_clear_service_directory_config(None::<ServiceDirectoryConfig>);
+        /// ```
+        pub fn set_or_clear_service_directory_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::tool::ServiceDirectoryConfig>,
+        {
+            self.service_directory_config = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [schema][crate::model::tool::OpenApiTool::schema].
+        ///
+        /// Note that all the setters affecting `schema` are mutually
+        /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::tool::OpenApiTool;
+        /// use google_cloud_dialogflow_v2::model::tool::open_api_tool::Schema;
+        /// let x = OpenApiTool::new().set_schema(Some(Schema::TextSchema("example".to_string())));
+        /// ```
+        pub fn set_schema<
+            T: std::convert::Into<std::option::Option<crate::model::tool::open_api_tool::Schema>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.schema = v.into();
+            self
+        }
+
+        /// The value of [schema][crate::model::tool::OpenApiTool::schema]
+        /// if it holds a `TextSchema`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn text_schema(&self) -> std::option::Option<&std::string::String> {
+            #[allow(unreachable_patterns)]
+            self.schema.as_ref().and_then(|v| match v {
+                crate::model::tool::open_api_tool::Schema::TextSchema(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [schema][crate::model::tool::OpenApiTool::schema]
+        /// to hold a `TextSchema`.
+        ///
+        /// Note that all the setters affecting `schema` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::tool::OpenApiTool;
+        /// let x = OpenApiTool::new().set_text_schema("example");
+        /// assert!(x.text_schema().is_some());
+        /// ```
+        pub fn set_text_schema<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.schema = std::option::Option::Some(
+                crate::model::tool::open_api_tool::Schema::TextSchema(v.into()),
+            );
+            self
+        }
+    }
+
+    #[cfg(feature = "tools")]
+    impl wkt::message::Message for OpenApiTool {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.v2.Tool.OpenApiTool"
+        }
+    }
+
+    /// Defines additional types related to [OpenApiTool].
+    #[cfg(feature = "tools")]
+    pub mod open_api_tool {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Schema representation.
+        #[cfg(feature = "tools")]
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Schema {
+            /// Required. The OpenAPI schema specified as a text.
+            TextSchema(std::string::String),
+        }
+    }
+
+    /// A ConnectorTool enabling using Integration Connectors Connections as tools.
+    #[cfg(feature = "tools")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct ConnectorTool {
+        /// Required. The full resource name of the referenced Integration Connectors
+        /// Connection. Format: 'projects/*/locations/*/connections/*'
+        pub name: std::string::String,
+
+        /// Required. Actions for the tool to use.
+        pub actions: std::vec::Vec<crate::model::tool::connector_tool::Action>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "tools")]
+    impl ConnectorTool {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [name][crate::model::tool::ConnectorTool::name].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::tool::ConnectorTool;
+        /// let x = ConnectorTool::new().set_name("example");
+        /// ```
+        pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.name = v.into();
+            self
+        }
+
+        /// Sets the value of [actions][crate::model::tool::ConnectorTool::actions].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::tool::ConnectorTool;
+        /// use google_cloud_dialogflow_v2::model::tool::connector_tool::Action;
+        /// let x = ConnectorTool::new()
+        ///     .set_actions([
+        ///         Action::default()/* use setters */,
+        ///         Action::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_actions<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::tool::connector_tool::Action>,
+        {
+            use std::iter::Iterator;
+            self.actions = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    #[cfg(feature = "tools")]
+    impl wkt::message::Message for ConnectorTool {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.v2.Tool.ConnectorTool"
+        }
+    }
+
+    /// Defines additional types related to [ConnectorTool].
+    #[cfg(feature = "tools")]
+    pub mod connector_tool {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Configuration of a Connection operation for the tool to use.
+        #[cfg(feature = "tools")]
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct Action {
+            /// Optional. Entity fields to use as inputs for the operation.
+            /// If no fields are specified, all fields of the Entity will be used.
+            pub input_fields: std::vec::Vec<std::string::String>,
+
+            /// Optional. Entity fields to return from the operation.
+            /// If no fields are specified, all fields of the Entity will be returned.
+            pub output_fields: std::vec::Vec<std::string::String>,
+
+            /// Required. Specification for an action to configure for the tool to use.
+            pub action_spec:
+                std::option::Option<crate::model::tool::connector_tool::action::ActionSpec>,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        #[cfg(feature = "tools")]
+        impl Action {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [input_fields][crate::model::tool::connector_tool::Action::input_fields].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_v2::model::tool::connector_tool::Action;
+            /// let x = Action::new().set_input_fields(["a", "b", "c"]);
+            /// ```
+            pub fn set_input_fields<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<std::string::String>,
+            {
+                use std::iter::Iterator;
+                self.input_fields = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
+            /// Sets the value of [output_fields][crate::model::tool::connector_tool::Action::output_fields].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_v2::model::tool::connector_tool::Action;
+            /// let x = Action::new().set_output_fields(["a", "b", "c"]);
+            /// ```
+            pub fn set_output_fields<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<std::string::String>,
+            {
+                use std::iter::Iterator;
+                self.output_fields = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
+            /// Sets the value of [action_spec][crate::model::tool::connector_tool::Action::action_spec].
+            ///
+            /// Note that all the setters affecting `action_spec` are mutually
+            /// exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_v2::model::tool::connector_tool::Action;
+            /// use google_cloud_dialogflow_v2::model::tool::connector_tool::action::ActionSpec;
+            /// let x = Action::new().set_action_spec(Some(ActionSpec::ConnectionActionId("example".to_string())));
+            /// ```
+            pub fn set_action_spec<
+                T: std::convert::Into<
+                        std::option::Option<crate::model::tool::connector_tool::action::ActionSpec>,
+                    >,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.action_spec = v.into();
+                self
+            }
+
+            /// The value of [action_spec][crate::model::tool::connector_tool::Action::action_spec]
+            /// if it holds a `ConnectionActionId`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn connection_action_id(&self) -> std::option::Option<&std::string::String> {
+                #[allow(unreachable_patterns)]
+                self.action_spec.as_ref().and_then(|v| match v {
+                    crate::model::tool::connector_tool::action::ActionSpec::ConnectionActionId(
+                        v,
+                    ) => std::option::Option::Some(v),
+                    _ => std::option::Option::None,
+                })
+            }
+
+            /// Sets the value of [action_spec][crate::model::tool::connector_tool::Action::action_spec]
+            /// to hold a `ConnectionActionId`.
+            ///
+            /// Note that all the setters affecting `action_spec` are
+            /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_v2::model::tool::connector_tool::Action;
+            /// let x = Action::new().set_connection_action_id("example");
+            /// assert!(x.connection_action_id().is_some());
+            /// assert!(x.entity_operation().is_none());
+            /// ```
+            pub fn set_connection_action_id<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.action_spec = std::option::Option::Some(
+                    crate::model::tool::connector_tool::action::ActionSpec::ConnectionActionId(
+                        v.into(),
+                    ),
+                );
+                self
+            }
+
+            /// The value of [action_spec][crate::model::tool::connector_tool::Action::action_spec]
+            /// if it holds a `EntityOperation`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn entity_operation(
+                &self,
+            ) -> std::option::Option<
+                &std::boxed::Box<crate::model::tool::connector_tool::action::EntityOperation>,
+            > {
+                #[allow(unreachable_patterns)]
+                self.action_spec.as_ref().and_then(|v| match v {
+                    crate::model::tool::connector_tool::action::ActionSpec::EntityOperation(v) => {
+                        std::option::Option::Some(v)
+                    }
+                    _ => std::option::Option::None,
+                })
+            }
+
+            /// Sets the value of [action_spec][crate::model::tool::connector_tool::Action::action_spec]
+            /// to hold a `EntityOperation`.
+            ///
+            /// Note that all the setters affecting `action_spec` are
+            /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_v2::model::tool::connector_tool::Action;
+            /// use google_cloud_dialogflow_v2::model::tool::connector_tool::action::EntityOperation;
+            /// let x = Action::new().set_entity_operation(EntityOperation::default()/* use setters */);
+            /// assert!(x.entity_operation().is_some());
+            /// assert!(x.connection_action_id().is_none());
+            /// ```
+            pub fn set_entity_operation<
+                T: std::convert::Into<
+                        std::boxed::Box<
+                            crate::model::tool::connector_tool::action::EntityOperation,
+                        >,
+                    >,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.action_spec = std::option::Option::Some(
+                    crate::model::tool::connector_tool::action::ActionSpec::EntityOperation(
+                        v.into(),
+                    ),
+                );
+                self
+            }
+        }
+
+        #[cfg(feature = "tools")]
+        impl wkt::message::Message for Action {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.dialogflow.v2.Tool.ConnectorTool.Action"
+            }
+        }
+
+        /// Defines additional types related to [Action].
+        #[cfg(feature = "tools")]
+        pub mod action {
+            #[allow(unused_imports)]
+            use super::*;
+
+            /// Entity CRUD operation specification.
+            #[cfg(feature = "tools")]
+            #[derive(Clone, Default, PartialEq)]
+            #[non_exhaustive]
+            pub struct EntityOperation {
+                /// Required. ID of the entity.
+                pub entity_id: std::string::String,
+
+                /// Required. Operation to perform on the entity.
+                pub operation:
+                    crate::model::tool::connector_tool::action::entity_operation::OperationType,
+
+                pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+            }
+
+            #[cfg(feature = "tools")]
+            impl EntityOperation {
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
+                /// Sets the value of [entity_id][crate::model::tool::connector_tool::action::EntityOperation::entity_id].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_dialogflow_v2::model::tool::connector_tool::action::EntityOperation;
+                /// let x = EntityOperation::new().set_entity_id("example");
+                /// ```
+                pub fn set_entity_id<T: std::convert::Into<std::string::String>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.entity_id = v.into();
+                    self
+                }
+
+                /// Sets the value of [operation][crate::model::tool::connector_tool::action::EntityOperation::operation].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_dialogflow_v2::model::tool::connector_tool::action::EntityOperation;
+                /// use google_cloud_dialogflow_v2::model::tool::connector_tool::action::entity_operation::OperationType;
+                /// let x0 = EntityOperation::new().set_operation(OperationType::List);
+                /// let x1 = EntityOperation::new().set_operation(OperationType::Get);
+                /// let x2 = EntityOperation::new().set_operation(OperationType::Create);
+                /// ```
+                pub fn set_operation<T: std::convert::Into<crate::model::tool::connector_tool::action::entity_operation::OperationType>>(mut self, v: T) -> Self{
+                    self.operation = v.into();
+                    self
+                }
+            }
+
+            #[cfg(feature = "tools")]
+            impl wkt::message::Message for EntityOperation {
+                fn typename() -> &'static str {
+                    "type.googleapis.com/google.cloud.dialogflow.v2.Tool.ConnectorTool.Action.EntityOperation"
+                }
+            }
+
+            /// Defines additional types related to [EntityOperation].
+            #[cfg(feature = "tools")]
+            pub mod entity_operation {
+                #[allow(unused_imports)]
+                use super::*;
+
+                /// The operation to perform on the entity.
+                ///
+                /// # Working with unknown values
+                ///
+                /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+                /// additional enum variants at any time. Adding new variants is not considered
+                /// a breaking change. Applications should write their code in anticipation of:
+                ///
+                /// - New values appearing in future releases of the client library, **and**
+                /// - New values received dynamically, without application changes.
+                ///
+                /// Please consult the [Working with enums] section in the user guide for some
+                /// guidelines.
+                ///
+                /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+                #[cfg(feature = "tools")]
+                #[derive(Clone, Debug, PartialEq)]
+                #[non_exhaustive]
+                pub enum OperationType {
+                    /// Operation type unspecified. Invalid, ConnectorTool create/update
+                    /// will fail.
+                    Unspecified,
+                    /// List operation.
+                    List,
+                    /// Get operation.
+                    Get,
+                    /// Create operation.
+                    Create,
+                    /// Update operation.
+                    Update,
+                    /// Delete operation.
+                    Delete,
+                    /// If set, the enum was initialized with an unknown value.
+                    ///
+                    /// Applications can examine the value using [OperationType::value] or
+                    /// [OperationType::name].
+                    UnknownValue(operation_type::UnknownValue),
+                }
+
+                #[doc(hidden)]
+                #[cfg(feature = "tools")]
+                pub mod operation_type {
+                    #[allow(unused_imports)]
+                    use super::*;
+                    #[derive(Clone, Debug, PartialEq)]
+                    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+                }
+
+                #[cfg(feature = "tools")]
+                impl OperationType {
+                    /// Gets the enum value.
+                    ///
+                    /// Returns `None` if the enum contains an unknown value deserialized from
+                    /// the string representation of enums.
+                    pub fn value(&self) -> std::option::Option<i32> {
+                        match self {
+                            Self::Unspecified => std::option::Option::Some(0),
+                            Self::List => std::option::Option::Some(1),
+                            Self::Get => std::option::Option::Some(2),
+                            Self::Create => std::option::Option::Some(3),
+                            Self::Update => std::option::Option::Some(4),
+                            Self::Delete => std::option::Option::Some(5),
+                            Self::UnknownValue(u) => u.0.value(),
+                        }
+                    }
+
+                    /// Gets the enum value as a string.
+                    ///
+                    /// Returns `None` if the enum contains an unknown value deserialized from
+                    /// the integer representation of enums.
+                    pub fn name(&self) -> std::option::Option<&str> {
+                        match self {
+                            Self::Unspecified => {
+                                std::option::Option::Some("OPERATION_TYPE_UNSPECIFIED")
+                            }
+                            Self::List => std::option::Option::Some("LIST"),
+                            Self::Get => std::option::Option::Some("GET"),
+                            Self::Create => std::option::Option::Some("CREATE"),
+                            Self::Update => std::option::Option::Some("UPDATE"),
+                            Self::Delete => std::option::Option::Some("DELETE"),
+                            Self::UnknownValue(u) => u.0.name(),
+                        }
+                    }
+                }
+
+                #[cfg(feature = "tools")]
+                impl std::default::Default for OperationType {
+                    fn default() -> Self {
+                        use std::convert::From;
+                        Self::from(0)
+                    }
+                }
+
+                #[cfg(feature = "tools")]
+                impl std::fmt::Display for OperationType {
+                    fn fmt(
+                        &self,
+                        f: &mut std::fmt::Formatter<'_>,
+                    ) -> std::result::Result<(), std::fmt::Error> {
+                        wkt::internal::display_enum(f, self.name(), self.value())
+                    }
+                }
+
+                #[cfg(feature = "tools")]
+                impl std::convert::From<i32> for OperationType {
+                    fn from(value: i32) -> Self {
+                        match value {
+                            0 => Self::Unspecified,
+                            1 => Self::List,
+                            2 => Self::Get,
+                            3 => Self::Create,
+                            4 => Self::Update,
+                            5 => Self::Delete,
+                            _ => Self::UnknownValue(operation_type::UnknownValue(
+                                wkt::internal::UnknownEnumValue::Integer(value),
+                            )),
+                        }
+                    }
+                }
+
+                #[cfg(feature = "tools")]
+                impl std::convert::From<&str> for OperationType {
+                    fn from(value: &str) -> Self {
+                        use std::string::ToString;
+                        match value {
+                            "OPERATION_TYPE_UNSPECIFIED" => Self::Unspecified,
+                            "LIST" => Self::List,
+                            "GET" => Self::Get,
+                            "CREATE" => Self::Create,
+                            "UPDATE" => Self::Update,
+                            "DELETE" => Self::Delete,
+                            _ => Self::UnknownValue(operation_type::UnknownValue(
+                                wkt::internal::UnknownEnumValue::String(value.to_string()),
+                            )),
+                        }
+                    }
+                }
+
+                #[cfg(feature = "tools")]
+                impl serde::ser::Serialize for OperationType {
+                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                    where
+                        S: serde::Serializer,
+                    {
+                        match self {
+                            Self::Unspecified => serializer.serialize_i32(0),
+                            Self::List => serializer.serialize_i32(1),
+                            Self::Get => serializer.serialize_i32(2),
+                            Self::Create => serializer.serialize_i32(3),
+                            Self::Update => serializer.serialize_i32(4),
+                            Self::Delete => serializer.serialize_i32(5),
+                            Self::UnknownValue(u) => u.0.serialize(serializer),
+                        }
+                    }
+                }
+
+                #[cfg(feature = "tools")]
+                impl<'de> serde::de::Deserialize<'de> for OperationType {
+                    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                    where
+                        D: serde::Deserializer<'de>,
+                    {
+                        deserializer.deserialize_any(wkt::internal::EnumVisitor::<OperationType>::new(
+                            ".google.cloud.dialogflow.v2.Tool.ConnectorTool.Action.EntityOperation.OperationType"))
+                    }
+                }
+            }
+
+            /// Required. Specification for an action to configure for the tool to use.
+            #[cfg(feature = "tools")]
+            #[derive(Clone, Debug, PartialEq)]
+            #[non_exhaustive]
+            pub enum ActionSpec {
+                /// ID of a Connection action for the tool to use.
+                ConnectionActionId(std::string::String),
+                /// Entity operation configuration for the tool to use.
+                EntityOperation(
+                    std::boxed::Box<crate::model::tool::connector_tool::action::EntityOperation>,
+                ),
+            }
+        }
+    }
+
+    /// Authentication information required for API calls
+    #[cfg(feature = "tools")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct Authentication {
+        /// The auth configuration.
+        pub auth_config: std::option::Option<crate::model::tool::authentication::AuthConfig>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "tools")]
+    impl Authentication {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [auth_config][crate::model::tool::Authentication::auth_config].
+        ///
+        /// Note that all the setters affecting `auth_config` are mutually
+        /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::tool::Authentication;
+        /// use google_cloud_dialogflow_v2::model::tool::authentication::ApiKeyConfig;
+        /// let x = Authentication::new().set_auth_config(Some(
+        ///     google_cloud_dialogflow_v2::model::tool::authentication::AuthConfig::ApiKeyConfig(ApiKeyConfig::default().into())));
+        /// ```
+        pub fn set_auth_config<
+            T: std::convert::Into<std::option::Option<crate::model::tool::authentication::AuthConfig>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.auth_config = v.into();
+            self
+        }
+
+        /// The value of [auth_config][crate::model::tool::Authentication::auth_config]
+        /// if it holds a `ApiKeyConfig`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn api_key_config(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::tool::authentication::ApiKeyConfig>>
+        {
+            #[allow(unreachable_patterns)]
+            self.auth_config.as_ref().and_then(|v| match v {
+                crate::model::tool::authentication::AuthConfig::ApiKeyConfig(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [auth_config][crate::model::tool::Authentication::auth_config]
+        /// to hold a `ApiKeyConfig`.
+        ///
+        /// Note that all the setters affecting `auth_config` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::tool::Authentication;
+        /// use google_cloud_dialogflow_v2::model::tool::authentication::ApiKeyConfig;
+        /// let x = Authentication::new().set_api_key_config(ApiKeyConfig::default()/* use setters */);
+        /// assert!(x.api_key_config().is_some());
+        /// assert!(x.oauth_config().is_none());
+        /// assert!(x.service_agent_auth_config().is_none());
+        /// assert!(x.bearer_token_config().is_none());
+        /// ```
+        pub fn set_api_key_config<
+            T: std::convert::Into<std::boxed::Box<crate::model::tool::authentication::ApiKeyConfig>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.auth_config = std::option::Option::Some(
+                crate::model::tool::authentication::AuthConfig::ApiKeyConfig(v.into()),
+            );
+            self
+        }
+
+        /// The value of [auth_config][crate::model::tool::Authentication::auth_config]
+        /// if it holds a `OauthConfig`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn oauth_config(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::tool::authentication::OAuthConfig>>
+        {
+            #[allow(unreachable_patterns)]
+            self.auth_config.as_ref().and_then(|v| match v {
+                crate::model::tool::authentication::AuthConfig::OauthConfig(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [auth_config][crate::model::tool::Authentication::auth_config]
+        /// to hold a `OauthConfig`.
+        ///
+        /// Note that all the setters affecting `auth_config` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::tool::Authentication;
+        /// use google_cloud_dialogflow_v2::model::tool::authentication::OAuthConfig;
+        /// let x = Authentication::new().set_oauth_config(OAuthConfig::default()/* use setters */);
+        /// assert!(x.oauth_config().is_some());
+        /// assert!(x.api_key_config().is_none());
+        /// assert!(x.service_agent_auth_config().is_none());
+        /// assert!(x.bearer_token_config().is_none());
+        /// ```
+        pub fn set_oauth_config<
+            T: std::convert::Into<std::boxed::Box<crate::model::tool::authentication::OAuthConfig>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.auth_config = std::option::Option::Some(
+                crate::model::tool::authentication::AuthConfig::OauthConfig(v.into()),
+            );
+            self
+        }
+
+        /// The value of [auth_config][crate::model::tool::Authentication::auth_config]
+        /// if it holds a `ServiceAgentAuthConfig`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn service_agent_auth_config(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::tool::authentication::ServiceAgentAuthConfig>,
+        > {
+            #[allow(unreachable_patterns)]
+            self.auth_config.as_ref().and_then(|v| match v {
+                crate::model::tool::authentication::AuthConfig::ServiceAgentAuthConfig(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [auth_config][crate::model::tool::Authentication::auth_config]
+        /// to hold a `ServiceAgentAuthConfig`.
+        ///
+        /// Note that all the setters affecting `auth_config` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::tool::Authentication;
+        /// use google_cloud_dialogflow_v2::model::tool::authentication::ServiceAgentAuthConfig;
+        /// let x = Authentication::new().set_service_agent_auth_config(ServiceAgentAuthConfig::default()/* use setters */);
+        /// assert!(x.service_agent_auth_config().is_some());
+        /// assert!(x.api_key_config().is_none());
+        /// assert!(x.oauth_config().is_none());
+        /// assert!(x.bearer_token_config().is_none());
+        /// ```
+        pub fn set_service_agent_auth_config<
+            T: std::convert::Into<
+                    std::boxed::Box<crate::model::tool::authentication::ServiceAgentAuthConfig>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.auth_config = std::option::Option::Some(
+                crate::model::tool::authentication::AuthConfig::ServiceAgentAuthConfig(v.into()),
+            );
+            self
+        }
+
+        /// The value of [auth_config][crate::model::tool::Authentication::auth_config]
+        /// if it holds a `BearerTokenConfig`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn bearer_token_config(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::tool::authentication::BearerTokenConfig>,
+        > {
+            #[allow(unreachable_patterns)]
+            self.auth_config.as_ref().and_then(|v| match v {
+                crate::model::tool::authentication::AuthConfig::BearerTokenConfig(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [auth_config][crate::model::tool::Authentication::auth_config]
+        /// to hold a `BearerTokenConfig`.
+        ///
+        /// Note that all the setters affecting `auth_config` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::tool::Authentication;
+        /// use google_cloud_dialogflow_v2::model::tool::authentication::BearerTokenConfig;
+        /// let x = Authentication::new().set_bearer_token_config(BearerTokenConfig::default()/* use setters */);
+        /// assert!(x.bearer_token_config().is_some());
+        /// assert!(x.api_key_config().is_none());
+        /// assert!(x.oauth_config().is_none());
+        /// assert!(x.service_agent_auth_config().is_none());
+        /// ```
+        pub fn set_bearer_token_config<
+            T: std::convert::Into<
+                    std::boxed::Box<crate::model::tool::authentication::BearerTokenConfig>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.auth_config = std::option::Option::Some(
+                crate::model::tool::authentication::AuthConfig::BearerTokenConfig(v.into()),
+            );
+            self
+        }
+    }
+
+    #[cfg(feature = "tools")]
+    impl wkt::message::Message for Authentication {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.v2.Tool.Authentication"
+        }
+    }
+
+    /// Defines additional types related to [Authentication].
+    #[cfg(feature = "tools")]
+    pub mod authentication {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Config for authentication with API key.
+        #[cfg(feature = "tools")]
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct ApiKeyConfig {
+            /// Required. The parameter name or the header name of the API key.
+            /// E.g., If the API request is "<https://example.com/act?X-Api-Key=>\<API
+            /// KEY\>", "X-Api-Key" would be the parameter name.
+            pub key_name: std::string::String,
+
+            /// Optional. The API key. If the `secret_version_for_api_key` field is
+            /// set, this field will be ignored.
+            pub api_key: std::string::String,
+
+            /// Optional. The name of the SecretManager secret version resource storing
+            /// the API key. If this field is set, the `api_key` field will be ignored.
+            /// Format: `projects/{project}/secrets/{secret}/versions/{version}`
+            pub secret_version_for_api_key: std::string::String,
+
+            /// Required. Key location in the request.
+            pub request_location: crate::model::tool::authentication::RequestLocation,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        #[cfg(feature = "tools")]
+        impl ApiKeyConfig {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [key_name][crate::model::tool::authentication::ApiKeyConfig::key_name].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_v2::model::tool::authentication::ApiKeyConfig;
+            /// let x = ApiKeyConfig::new().set_key_name("example");
+            /// ```
+            pub fn set_key_name<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.key_name = v.into();
+                self
+            }
+
+            /// Sets the value of [api_key][crate::model::tool::authentication::ApiKeyConfig::api_key].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_v2::model::tool::authentication::ApiKeyConfig;
+            /// let x = ApiKeyConfig::new().set_api_key("example");
+            /// ```
+            pub fn set_api_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.api_key = v.into();
+                self
+            }
+
+            /// Sets the value of [secret_version_for_api_key][crate::model::tool::authentication::ApiKeyConfig::secret_version_for_api_key].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_v2::model::tool::authentication::ApiKeyConfig;
+            /// let x = ApiKeyConfig::new().set_secret_version_for_api_key("example");
+            /// ```
+            pub fn set_secret_version_for_api_key<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.secret_version_for_api_key = v.into();
+                self
+            }
+
+            /// Sets the value of [request_location][crate::model::tool::authentication::ApiKeyConfig::request_location].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_v2::model::tool::authentication::ApiKeyConfig;
+            /// use google_cloud_dialogflow_v2::model::tool::authentication::RequestLocation;
+            /// let x0 = ApiKeyConfig::new().set_request_location(RequestLocation::Header);
+            /// let x1 = ApiKeyConfig::new().set_request_location(RequestLocation::QueryString);
+            /// ```
+            pub fn set_request_location<
+                T: std::convert::Into<crate::model::tool::authentication::RequestLocation>,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.request_location = v.into();
+                self
+            }
+        }
+
+        #[cfg(feature = "tools")]
+        impl wkt::message::Message for ApiKeyConfig {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.dialogflow.v2.Tool.Authentication.ApiKeyConfig"
+            }
+        }
+
+        /// Config for authentication with OAuth.
+        #[cfg(feature = "tools")]
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct OAuthConfig {
+            /// Required. OAuth grant types.
+            pub oauth_grant_type: crate::model::tool::authentication::o_auth_config::OauthGrantType,
+
+            /// Required. The client ID from the OAuth provider.
+            pub client_id: std::string::String,
+
+            /// Optional. The client secret from the OAuth provider. If the
+            /// `secret_version_for_client_secret` field is set, this field will be
+            /// ignored.
+            pub client_secret: std::string::String,
+
+            /// Optional. The name of the SecretManager secret version resource storing
+            /// the client secret. If this field is set, the `client_secret` field will
+            /// be ignored. Format:
+            /// `projects/{project}/secrets/{secret}/versions/{version}`
+            pub secret_version_for_client_secret: std::string::String,
+
+            /// Required. The token endpoint in the OAuth provider to exchange for an
+            /// access token.
+            pub token_endpoint: std::string::String,
+
+            /// Optional. The OAuth scopes to grant.
+            pub scopes: std::vec::Vec<std::string::String>,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        #[cfg(feature = "tools")]
+        impl OAuthConfig {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [oauth_grant_type][crate::model::tool::authentication::OAuthConfig::oauth_grant_type].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_v2::model::tool::authentication::OAuthConfig;
+            /// use google_cloud_dialogflow_v2::model::tool::authentication::o_auth_config::OauthGrantType;
+            /// let x0 = OAuthConfig::new().set_oauth_grant_type(OauthGrantType::ClientCredential);
+            /// ```
+            pub fn set_oauth_grant_type<
+                T: std::convert::Into<
+                        crate::model::tool::authentication::o_auth_config::OauthGrantType,
+                    >,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.oauth_grant_type = v.into();
+                self
+            }
+
+            /// Sets the value of [client_id][crate::model::tool::authentication::OAuthConfig::client_id].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_v2::model::tool::authentication::OAuthConfig;
+            /// let x = OAuthConfig::new().set_client_id("example");
+            /// ```
+            pub fn set_client_id<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.client_id = v.into();
+                self
+            }
+
+            /// Sets the value of [client_secret][crate::model::tool::authentication::OAuthConfig::client_secret].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_v2::model::tool::authentication::OAuthConfig;
+            /// let x = OAuthConfig::new().set_client_secret("example");
+            /// ```
+            pub fn set_client_secret<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.client_secret = v.into();
+                self
+            }
+
+            /// Sets the value of [secret_version_for_client_secret][crate::model::tool::authentication::OAuthConfig::secret_version_for_client_secret].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_v2::model::tool::authentication::OAuthConfig;
+            /// let x = OAuthConfig::new().set_secret_version_for_client_secret("example");
+            /// ```
+            pub fn set_secret_version_for_client_secret<
+                T: std::convert::Into<std::string::String>,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.secret_version_for_client_secret = v.into();
+                self
+            }
+
+            /// Sets the value of [token_endpoint][crate::model::tool::authentication::OAuthConfig::token_endpoint].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_v2::model::tool::authentication::OAuthConfig;
+            /// let x = OAuthConfig::new().set_token_endpoint("example");
+            /// ```
+            pub fn set_token_endpoint<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.token_endpoint = v.into();
+                self
+            }
+
+            /// Sets the value of [scopes][crate::model::tool::authentication::OAuthConfig::scopes].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_v2::model::tool::authentication::OAuthConfig;
+            /// let x = OAuthConfig::new().set_scopes(["a", "b", "c"]);
+            /// ```
+            pub fn set_scopes<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<std::string::String>,
+            {
+                use std::iter::Iterator;
+                self.scopes = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+        }
+
+        #[cfg(feature = "tools")]
+        impl wkt::message::Message for OAuthConfig {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.dialogflow.v2.Tool.Authentication.OAuthConfig"
+            }
+        }
+
+        /// Defines additional types related to [OAuthConfig].
+        #[cfg(feature = "tools")]
+        pub mod o_auth_config {
+            #[allow(unused_imports)]
+            use super::*;
+
+            /// OAuth grant types. Only [client credential
+            /// grant](https://oauth.net/2/grant-types/client-credentials) is
+            /// supported.
+            ///
+            /// # Working with unknown values
+            ///
+            /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+            /// additional enum variants at any time. Adding new variants is not considered
+            /// a breaking change. Applications should write their code in anticipation of:
+            ///
+            /// - New values appearing in future releases of the client library, **and**
+            /// - New values received dynamically, without application changes.
+            ///
+            /// Please consult the [Working with enums] section in the user guide for some
+            /// guidelines.
+            ///
+            /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+            #[cfg(feature = "tools")]
+            #[derive(Clone, Debug, PartialEq)]
+            #[non_exhaustive]
+            pub enum OauthGrantType {
+                /// Default value. This value is unused.
+                Unspecified,
+                /// Represents the [client credential
+                /// flow](https://oauth.net/2/grant-types/client-credentials).
+                ClientCredential,
+                /// If set, the enum was initialized with an unknown value.
+                ///
+                /// Applications can examine the value using [OauthGrantType::value] or
+                /// [OauthGrantType::name].
+                UnknownValue(oauth_grant_type::UnknownValue),
+            }
+
+            #[doc(hidden)]
+            #[cfg(feature = "tools")]
+            pub mod oauth_grant_type {
+                #[allow(unused_imports)]
+                use super::*;
+                #[derive(Clone, Debug, PartialEq)]
+                pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+            }
+
+            #[cfg(feature = "tools")]
+            impl OauthGrantType {
+                /// Gets the enum value.
+                ///
+                /// Returns `None` if the enum contains an unknown value deserialized from
+                /// the string representation of enums.
+                pub fn value(&self) -> std::option::Option<i32> {
+                    match self {
+                        Self::Unspecified => std::option::Option::Some(0),
+                        Self::ClientCredential => std::option::Option::Some(1),
+                        Self::UnknownValue(u) => u.0.value(),
+                    }
+                }
+
+                /// Gets the enum value as a string.
+                ///
+                /// Returns `None` if the enum contains an unknown value deserialized from
+                /// the integer representation of enums.
+                pub fn name(&self) -> std::option::Option<&str> {
+                    match self {
+                        Self::Unspecified => {
+                            std::option::Option::Some("OAUTH_GRANT_TYPE_UNSPECIFIED")
+                        }
+                        Self::ClientCredential => std::option::Option::Some("CLIENT_CREDENTIAL"),
+                        Self::UnknownValue(u) => u.0.name(),
+                    }
+                }
+            }
+
+            #[cfg(feature = "tools")]
+            impl std::default::Default for OauthGrantType {
+                fn default() -> Self {
+                    use std::convert::From;
+                    Self::from(0)
+                }
+            }
+
+            #[cfg(feature = "tools")]
+            impl std::fmt::Display for OauthGrantType {
+                fn fmt(
+                    &self,
+                    f: &mut std::fmt::Formatter<'_>,
+                ) -> std::result::Result<(), std::fmt::Error> {
+                    wkt::internal::display_enum(f, self.name(), self.value())
+                }
+            }
+
+            #[cfg(feature = "tools")]
+            impl std::convert::From<i32> for OauthGrantType {
+                fn from(value: i32) -> Self {
+                    match value {
+                        0 => Self::Unspecified,
+                        1 => Self::ClientCredential,
+                        _ => Self::UnknownValue(oauth_grant_type::UnknownValue(
+                            wkt::internal::UnknownEnumValue::Integer(value),
+                        )),
+                    }
+                }
+            }
+
+            #[cfg(feature = "tools")]
+            impl std::convert::From<&str> for OauthGrantType {
+                fn from(value: &str) -> Self {
+                    use std::string::ToString;
+                    match value {
+                        "OAUTH_GRANT_TYPE_UNSPECIFIED" => Self::Unspecified,
+                        "CLIENT_CREDENTIAL" => Self::ClientCredential,
+                        _ => Self::UnknownValue(oauth_grant_type::UnknownValue(
+                            wkt::internal::UnknownEnumValue::String(value.to_string()),
+                        )),
+                    }
+                }
+            }
+
+            #[cfg(feature = "tools")]
+            impl serde::ser::Serialize for OauthGrantType {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    match self {
+                        Self::Unspecified => serializer.serialize_i32(0),
+                        Self::ClientCredential => serializer.serialize_i32(1),
+                        Self::UnknownValue(u) => u.0.serialize(serializer),
+                    }
+                }
+            }
+
+            #[cfg(feature = "tools")]
+            impl<'de> serde::de::Deserialize<'de> for OauthGrantType {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    deserializer.deserialize_any(wkt::internal::EnumVisitor::<OauthGrantType>::new(
+                        ".google.cloud.dialogflow.v2.Tool.Authentication.OAuthConfig.OauthGrantType"))
+                }
+            }
+        }
+
+        /// Config for auth using [Dialogflow service
+        /// agent](https://cloud.google.com/iam/docs/service-agents#dialogflow-service-agent).
+        #[cfg(feature = "tools")]
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct ServiceAgentAuthConfig {
+            /// Optional. Indicate the auth token type generated from the [Diglogflow
+            /// service
+            /// agent](https://cloud.google.com/iam/docs/service-agents#dialogflow-service-agent).
+            /// The generated token is sent in the Authorization header.
+            pub service_agent_auth:
+                crate::model::tool::authentication::service_agent_auth_config::ServiceAgentAuth,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        #[cfg(feature = "tools")]
+        impl ServiceAgentAuthConfig {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [service_agent_auth][crate::model::tool::authentication::ServiceAgentAuthConfig::service_agent_auth].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_v2::model::tool::authentication::ServiceAgentAuthConfig;
+            /// use google_cloud_dialogflow_v2::model::tool::authentication::service_agent_auth_config::ServiceAgentAuth;
+            /// let x0 = ServiceAgentAuthConfig::new().set_service_agent_auth(ServiceAgentAuth::IdToken);
+            /// let x1 = ServiceAgentAuthConfig::new().set_service_agent_auth(ServiceAgentAuth::AccessToken);
+            /// ```
+            pub fn set_service_agent_auth<T: std::convert::Into<crate::model::tool::authentication::service_agent_auth_config::ServiceAgentAuth>>(mut self, v: T) -> Self{
+                self.service_agent_auth = v.into();
+                self
+            }
+        }
+
+        #[cfg(feature = "tools")]
+        impl wkt::message::Message for ServiceAgentAuthConfig {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.dialogflow.v2.Tool.Authentication.ServiceAgentAuthConfig"
+            }
+        }
+
+        /// Defines additional types related to [ServiceAgentAuthConfig].
+        #[cfg(feature = "tools")]
+        pub mod service_agent_auth_config {
+            #[allow(unused_imports)]
+            use super::*;
+
+            /// Indicate the auth token type generated from the [Diaglogflow service
+            /// agent](https://cloud.google.com/iam/docs/service-agents#dialogflow-service-agent).
+            ///
+            /// # Working with unknown values
+            ///
+            /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+            /// additional enum variants at any time. Adding new variants is not considered
+            /// a breaking change. Applications should write their code in anticipation of:
+            ///
+            /// - New values appearing in future releases of the client library, **and**
+            /// - New values received dynamically, without application changes.
+            ///
+            /// Please consult the [Working with enums] section in the user guide for some
+            /// guidelines.
+            ///
+            /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+            #[cfg(feature = "tools")]
+            #[derive(Clone, Debug, PartialEq)]
+            #[non_exhaustive]
+            pub enum ServiceAgentAuth {
+                /// Service agent auth type unspecified. Default to ID_TOKEN.
+                Unspecified,
+                /// Use [ID
+                /// token](https://cloud.google.com/docs/authentication/token-types#id)
+                /// generated from service agent. This can be used to access Cloud
+                /// Function and Cloud Run after you grant Invoker role to
+                /// `service-<PROJECT-NUMBER>@gcp-sa-dialogflow.iam.gserviceaccount.com`.
+                IdToken,
+                /// Use [access
+                /// token](https://cloud.google.com/docs/authentication/token-types#access)
+                /// generated from service agent. This can be used to access other Google
+                /// Cloud APIs after you grant required roles to
+                /// `service-<PROJECT-NUMBER>@gcp-sa-dialogflow.iam.gserviceaccount.com`.
+                AccessToken,
+                /// If set, the enum was initialized with an unknown value.
+                ///
+                /// Applications can examine the value using [ServiceAgentAuth::value] or
+                /// [ServiceAgentAuth::name].
+                UnknownValue(service_agent_auth::UnknownValue),
+            }
+
+            #[doc(hidden)]
+            #[cfg(feature = "tools")]
+            pub mod service_agent_auth {
+                #[allow(unused_imports)]
+                use super::*;
+                #[derive(Clone, Debug, PartialEq)]
+                pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+            }
+
+            #[cfg(feature = "tools")]
+            impl ServiceAgentAuth {
+                /// Gets the enum value.
+                ///
+                /// Returns `None` if the enum contains an unknown value deserialized from
+                /// the string representation of enums.
+                pub fn value(&self) -> std::option::Option<i32> {
+                    match self {
+                        Self::Unspecified => std::option::Option::Some(0),
+                        Self::IdToken => std::option::Option::Some(1),
+                        Self::AccessToken => std::option::Option::Some(2),
+                        Self::UnknownValue(u) => u.0.value(),
+                    }
+                }
+
+                /// Gets the enum value as a string.
+                ///
+                /// Returns `None` if the enum contains an unknown value deserialized from
+                /// the integer representation of enums.
+                pub fn name(&self) -> std::option::Option<&str> {
+                    match self {
+                        Self::Unspecified => {
+                            std::option::Option::Some("SERVICE_AGENT_AUTH_UNSPECIFIED")
+                        }
+                        Self::IdToken => std::option::Option::Some("ID_TOKEN"),
+                        Self::AccessToken => std::option::Option::Some("ACCESS_TOKEN"),
+                        Self::UnknownValue(u) => u.0.name(),
+                    }
+                }
+            }
+
+            #[cfg(feature = "tools")]
+            impl std::default::Default for ServiceAgentAuth {
+                fn default() -> Self {
+                    use std::convert::From;
+                    Self::from(0)
+                }
+            }
+
+            #[cfg(feature = "tools")]
+            impl std::fmt::Display for ServiceAgentAuth {
+                fn fmt(
+                    &self,
+                    f: &mut std::fmt::Formatter<'_>,
+                ) -> std::result::Result<(), std::fmt::Error> {
+                    wkt::internal::display_enum(f, self.name(), self.value())
+                }
+            }
+
+            #[cfg(feature = "tools")]
+            impl std::convert::From<i32> for ServiceAgentAuth {
+                fn from(value: i32) -> Self {
+                    match value {
+                        0 => Self::Unspecified,
+                        1 => Self::IdToken,
+                        2 => Self::AccessToken,
+                        _ => Self::UnknownValue(service_agent_auth::UnknownValue(
+                            wkt::internal::UnknownEnumValue::Integer(value),
+                        )),
+                    }
+                }
+            }
+
+            #[cfg(feature = "tools")]
+            impl std::convert::From<&str> for ServiceAgentAuth {
+                fn from(value: &str) -> Self {
+                    use std::string::ToString;
+                    match value {
+                        "SERVICE_AGENT_AUTH_UNSPECIFIED" => Self::Unspecified,
+                        "ID_TOKEN" => Self::IdToken,
+                        "ACCESS_TOKEN" => Self::AccessToken,
+                        _ => Self::UnknownValue(service_agent_auth::UnknownValue(
+                            wkt::internal::UnknownEnumValue::String(value.to_string()),
+                        )),
+                    }
+                }
+            }
+
+            #[cfg(feature = "tools")]
+            impl serde::ser::Serialize for ServiceAgentAuth {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    match self {
+                        Self::Unspecified => serializer.serialize_i32(0),
+                        Self::IdToken => serializer.serialize_i32(1),
+                        Self::AccessToken => serializer.serialize_i32(2),
+                        Self::UnknownValue(u) => u.0.serialize(serializer),
+                    }
+                }
+            }
+
+            #[cfg(feature = "tools")]
+            impl<'de> serde::de::Deserialize<'de> for ServiceAgentAuth {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    deserializer.deserialize_any(wkt::internal::EnumVisitor::<ServiceAgentAuth>::new(
+                        ".google.cloud.dialogflow.v2.Tool.Authentication.ServiceAgentAuthConfig.ServiceAgentAuth"))
+                }
+            }
+        }
+
+        /// Config for authentication using bearer token.
+        #[cfg(feature = "tools")]
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct BearerTokenConfig {
+            /// Optional. The text token appended to the text `Bearer` to the request
+            /// Authorization header.
+            /// [Session parameters
+            /// reference](https://cloud.google.com/dialogflow/cx/docs/concept/parameter#session-ref)
+            /// can be used to pass the token dynamically, e.g.
+            /// `$session.params.parameter-id`.
+            pub token: std::string::String,
+
+            /// Optional. The name of the SecretManager secret version resource storing
+            /// the Bearer token. If this field is set, the `token` field will be
+            /// ignored. Format:
+            /// `projects/{project}/secrets/{secret}/versions/{version}`
+            pub secret_version_for_token: std::string::String,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        #[cfg(feature = "tools")]
+        impl BearerTokenConfig {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [token][crate::model::tool::authentication::BearerTokenConfig::token].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_v2::model::tool::authentication::BearerTokenConfig;
+            /// let x = BearerTokenConfig::new().set_token("example");
+            /// ```
+            pub fn set_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.token = v.into();
+                self
+            }
+
+            /// Sets the value of [secret_version_for_token][crate::model::tool::authentication::BearerTokenConfig::secret_version_for_token].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_v2::model::tool::authentication::BearerTokenConfig;
+            /// let x = BearerTokenConfig::new().set_secret_version_for_token("example");
+            /// ```
+            pub fn set_secret_version_for_token<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.secret_version_for_token = v.into();
+                self
+            }
+        }
+
+        #[cfg(feature = "tools")]
+        impl wkt::message::Message for BearerTokenConfig {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.dialogflow.v2.Tool.Authentication.BearerTokenConfig"
+            }
+        }
+
+        /// The location of the API key in the request.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[cfg(feature = "tools")]
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum RequestLocation {
+            /// Default value. This value is unused.
+            Unspecified,
+            /// Represents the key in http header.
+            Header,
+            /// Represents the key in query string.
+            QueryString,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [RequestLocation::value] or
+            /// [RequestLocation::name].
+            UnknownValue(request_location::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        #[cfg(feature = "tools")]
+        pub mod request_location {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        #[cfg(feature = "tools")]
+        impl RequestLocation {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::Header => std::option::Option::Some(1),
+                    Self::QueryString => std::option::Option::Some(2),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("REQUEST_LOCATION_UNSPECIFIED"),
+                    Self::Header => std::option::Option::Some("HEADER"),
+                    Self::QueryString => std::option::Option::Some("QUERY_STRING"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        #[cfg(feature = "tools")]
+        impl std::default::Default for RequestLocation {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        #[cfg(feature = "tools")]
+        impl std::fmt::Display for RequestLocation {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        #[cfg(feature = "tools")]
+        impl std::convert::From<i32> for RequestLocation {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::Header,
+                    2 => Self::QueryString,
+                    _ => Self::UnknownValue(request_location::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        #[cfg(feature = "tools")]
+        impl std::convert::From<&str> for RequestLocation {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "REQUEST_LOCATION_UNSPECIFIED" => Self::Unspecified,
+                    "HEADER" => Self::Header,
+                    "QUERY_STRING" => Self::QueryString,
+                    _ => Self::UnknownValue(request_location::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        #[cfg(feature = "tools")]
+        impl serde::ser::Serialize for RequestLocation {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::Header => serializer.serialize_i32(1),
+                    Self::QueryString => serializer.serialize_i32(2),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        #[cfg(feature = "tools")]
+        impl<'de> serde::de::Deserialize<'de> for RequestLocation {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<RequestLocation>::new(
+                    ".google.cloud.dialogflow.v2.Tool.Authentication.RequestLocation",
+                ))
+            }
+        }
+
+        /// The auth configuration.
+        #[cfg(feature = "tools")]
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum AuthConfig {
+            /// Config for API key auth.
+            ApiKeyConfig(std::boxed::Box<crate::model::tool::authentication::ApiKeyConfig>),
+            /// Config for OAuth.
+            OauthConfig(std::boxed::Box<crate::model::tool::authentication::OAuthConfig>),
+            /// Config for [Diglogflow service
+            /// agent](https://cloud.google.com/iam/docs/service-agents#dialogflow-service-agent)
+            /// auth.
+            ServiceAgentAuthConfig(
+                std::boxed::Box<crate::model::tool::authentication::ServiceAgentAuthConfig>,
+            ),
+            /// Config for bearer token auth.
+            BearerTokenConfig(
+                std::boxed::Box<crate::model::tool::authentication::BearerTokenConfig>,
+            ),
+        }
+    }
+
+    /// The TLS configuration.
+    #[cfg(feature = "tools")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct TLSConfig {
+        /// Required. Specifies a list of allowed custom CA certificates for HTTPS
+        /// verification.
+        pub ca_certs: std::vec::Vec<crate::model::tool::tls_config::CACert>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "tools")]
+    impl TLSConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [ca_certs][crate::model::tool::TLSConfig::ca_certs].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::tool::TLSConfig;
+        /// use google_cloud_dialogflow_v2::model::tool::tls_config::CACert;
+        /// let x = TLSConfig::new()
+        ///     .set_ca_certs([
+        ///         CACert::default()/* use setters */,
+        ///         CACert::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_ca_certs<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::tool::tls_config::CACert>,
+        {
+            use std::iter::Iterator;
+            self.ca_certs = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    #[cfg(feature = "tools")]
+    impl wkt::message::Message for TLSConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.v2.Tool.TLSConfig"
+        }
+    }
+
+    /// Defines additional types related to [TLSConfig].
+    #[cfg(feature = "tools")]
+    pub mod tls_config {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// The CA certificate.
+        #[cfg(feature = "tools")]
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct CACert {
+            /// Required. The name of the allowed custom CA certificates. This
+            /// can be used to disambiguate the custom CA certificates.
+            pub display_name: std::string::String,
+
+            /// Required. The allowed custom CA certificates (in DER format) for
+            /// HTTPS verification. This overrides the default SSL trust store. If this
+            /// is empty or unspecified, Dialogflow will use Google's default trust
+            /// store to verify certificates. N.B. Make sure the HTTPS server
+            /// certificates are signed with "subject alt name". For instance a
+            /// certificate can be self-signed using the following command,
+            ///
+            /// ```norust
+            ///    openssl x509 -req -days 200 -in example.com.csr \
+            ///      -signkey example.com.key \
+            ///      -out example.com.crt \
+            ///      -extfile <(printf "\nsubjectAltName='DNS:www.example.com'")
+            /// ```
+            pub cert: ::bytes::Bytes,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        #[cfg(feature = "tools")]
+        impl CACert {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [display_name][crate::model::tool::tls_config::CACert::display_name].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_v2::model::tool::tls_config::CACert;
+            /// let x = CACert::new().set_display_name("example");
+            /// ```
+            pub fn set_display_name<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.display_name = v.into();
+                self
+            }
+
+            /// Sets the value of [cert][crate::model::tool::tls_config::CACert::cert].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_v2::model::tool::tls_config::CACert;
+            /// let x = CACert::new().set_cert(bytes::Bytes::from_static(b"example"));
+            /// ```
+            pub fn set_cert<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+                self.cert = v.into();
+                self
+            }
+        }
+
+        #[cfg(feature = "tools")]
+        impl wkt::message::Message for CACert {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.dialogflow.v2.Tool.TLSConfig.CACert"
+            }
+        }
+    }
+
+    /// Configuration for tools using Service Directory.
+    #[cfg(feature = "tools")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct ServiceDirectoryConfig {
+        /// Required. The name of [Service
+        /// Directory](https://cloud.google.com/service-directory) service.
+        /// Format:
+        /// `projects/<ProjectID>/locations/<LocationID>/namespaces/<NamespaceID>/services/<ServiceID>`.
+        /// `LocationID` of the service directory must be the same as the location
+        /// of the tool.
+        pub service: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "tools")]
+    impl ServiceDirectoryConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [service][crate::model::tool::ServiceDirectoryConfig::service].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::tool::ServiceDirectoryConfig;
+        /// let x = ServiceDirectoryConfig::new().set_service("example");
+        /// ```
+        pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.service = v.into();
+            self
+        }
+    }
+
+    #[cfg(feature = "tools")]
+    impl wkt::message::Message for ServiceDirectoryConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.v2.Tool.ServiceDirectoryConfig"
+        }
+    }
+
+    /// Types of confirmation requirement.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "tools")]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ConfirmationRequirement {
+        /// Unspecified. Whether the action requires confirmation is inferred from
+        /// method_type.
+        Unspecified,
+        /// Conformation is required.
+        Required,
+        /// Conformation is not required.
+        NotRequired,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ConfirmationRequirement::value] or
+        /// [ConfirmationRequirement::name].
+        UnknownValue(confirmation_requirement::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    #[cfg(feature = "tools")]
+    pub mod confirmation_requirement {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    #[cfg(feature = "tools")]
+    impl ConfirmationRequirement {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Required => std::option::Option::Some(1),
+                Self::NotRequired => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("CONFIRMATION_REQUIREMENT_UNSPECIFIED")
+                }
+                Self::Required => std::option::Option::Some("REQUIRED"),
+                Self::NotRequired => std::option::Option::Some("NOT_REQUIRED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    #[cfg(feature = "tools")]
+    impl std::default::Default for ConfirmationRequirement {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    #[cfg(feature = "tools")]
+    impl std::fmt::Display for ConfirmationRequirement {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    #[cfg(feature = "tools")]
+    impl std::convert::From<i32> for ConfirmationRequirement {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Required,
+                2 => Self::NotRequired,
+                _ => Self::UnknownValue(confirmation_requirement::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "tools")]
+    impl std::convert::From<&str> for ConfirmationRequirement {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CONFIRMATION_REQUIREMENT_UNSPECIFIED" => Self::Unspecified,
+                "REQUIRED" => Self::Required,
+                "NOT_REQUIRED" => Self::NotRequired,
+                _ => Self::UnknownValue(confirmation_requirement::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "tools")]
+    impl serde::ser::Serialize for ConfirmationRequirement {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Required => serializer.serialize_i32(1),
+                Self::NotRequired => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    #[cfg(feature = "tools")]
+    impl<'de> serde::de::Deserialize<'de> for ConfirmationRequirement {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(
+                wkt::internal::EnumVisitor::<ConfirmationRequirement>::new(
+                    ".google.cloud.dialogflow.v2.Tool.ConfirmationRequirement",
+                ),
+            )
+        }
+    }
+
+    /// The method type of the tool.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "tools")]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum MethodType {
+        /// Unspecified.
+        Unspecified,
+        /// GET method.
+        Get,
+        /// POST method.
+        Post,
+        /// PUT method.
+        Put,
+        /// DELETE method.
+        Delete,
+        /// PATCH method.
+        Patch,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [MethodType::value] or
+        /// [MethodType::name].
+        UnknownValue(method_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    #[cfg(feature = "tools")]
+    pub mod method_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    #[cfg(feature = "tools")]
+    impl MethodType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Get => std::option::Option::Some(1),
+                Self::Post => std::option::Option::Some(2),
+                Self::Put => std::option::Option::Some(3),
+                Self::Delete => std::option::Option::Some(4),
+                Self::Patch => std::option::Option::Some(5),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("METHOD_TYPE_UNSPECIFIED"),
+                Self::Get => std::option::Option::Some("GET"),
+                Self::Post => std::option::Option::Some("POST"),
+                Self::Put => std::option::Option::Some("PUT"),
+                Self::Delete => std::option::Option::Some("DELETE"),
+                Self::Patch => std::option::Option::Some("PATCH"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    #[cfg(feature = "tools")]
+    impl std::default::Default for MethodType {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    #[cfg(feature = "tools")]
+    impl std::fmt::Display for MethodType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    #[cfg(feature = "tools")]
+    impl std::convert::From<i32> for MethodType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Get,
+                2 => Self::Post,
+                3 => Self::Put,
+                4 => Self::Delete,
+                5 => Self::Patch,
+                _ => Self::UnknownValue(method_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "tools")]
+    impl std::convert::From<&str> for MethodType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "METHOD_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "GET" => Self::Get,
+                "POST" => Self::Post,
+                "PUT" => Self::Put,
+                "DELETE" => Self::Delete,
+                "PATCH" => Self::Patch,
+                _ => Self::UnknownValue(method_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "tools")]
+    impl serde::ser::Serialize for MethodType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Get => serializer.serialize_i32(1),
+                Self::Post => serializer.serialize_i32(2),
+                Self::Put => serializer.serialize_i32(3),
+                Self::Delete => serializer.serialize_i32(4),
+                Self::Patch => serializer.serialize_i32(5),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    #[cfg(feature = "tools")]
+    impl<'de> serde::de::Deserialize<'de> for MethodType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<MethodType>::new(
+                ".google.cloud.dialogflow.v2.Tool.MethodType",
+            ))
+        }
+    }
+
+    /// Specification of the Tool.
+    #[cfg(feature = "tools")]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Specification {
+        /// Vertex extension tool specification.
+        #[deprecated]
+        ExtensionSpec(std::boxed::Box<crate::model::tool::ExtensionTool>),
+        /// Client side executed function specification.
+        FunctionSpec(std::boxed::Box<crate::model::tool::FunctionTool>),
+        /// Integration connectors tool specification.
+        ConnectorSpec(std::boxed::Box<crate::model::tool::ConnectorTool>),
+        /// OpenAPI tool.
+        OpenApiSpec(std::boxed::Box<crate::model::tool::OpenApiTool>),
+    }
+}
+
+/// Represents a call of a specific tool's action with the specified inputs.
+#[cfg(any(
+    feature = "answer-records",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+))]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ToolCall {
+    /// Optional. A human readable short name of the tool, to be shown on the UI.
+    pub tool_display_name: std::string::String,
+
+    /// Optional. A human readable description of the tool.
+    pub tool_display_details: std::string::String,
+
+    /// Optional. The name of the tool's action associated with this call.
+    pub action: std::string::String,
+
+    /// Optional. The action's input parameters.
+    pub input_parameters: std::option::Option<wkt::Struct>,
+
+    /// Output only. Create time of the tool call.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. The answer record associated with this tool call.
+    pub answer_record: std::string::String,
+
+    /// Output only. State of the tool call.
+    pub state: crate::model::tool_call::State,
+
+    /// Specifies the source of this tool call.
+    pub source: std::option::Option<crate::model::tool_call::Source>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+))]
+impl ToolCall {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [tool_display_name][crate::model::ToolCall::tool_display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::ToolCall;
+    /// let x = ToolCall::new().set_tool_display_name("example");
+    /// ```
+    pub fn set_tool_display_name<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.tool_display_name = v.into();
+        self
+    }
+
+    /// Sets the value of [tool_display_details][crate::model::ToolCall::tool_display_details].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::ToolCall;
+    /// let x = ToolCall::new().set_tool_display_details("example");
+    /// ```
+    pub fn set_tool_display_details<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.tool_display_details = v.into();
+        self
+    }
+
+    /// Sets the value of [action][crate::model::ToolCall::action].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::ToolCall;
+    /// let x = ToolCall::new().set_action("example");
+    /// ```
+    pub fn set_action<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.action = v.into();
+        self
+    }
+
+    /// Sets the value of [input_parameters][crate::model::ToolCall::input_parameters].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::ToolCall;
+    /// use wkt::Struct;
+    /// let x = ToolCall::new().set_input_parameters(Struct::default()/* use setters */);
+    /// ```
+    pub fn set_input_parameters<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.input_parameters = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [input_parameters][crate::model::ToolCall::input_parameters].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::ToolCall;
+    /// use wkt::Struct;
+    /// let x = ToolCall::new().set_or_clear_input_parameters(Some(Struct::default()/* use setters */));
+    /// let x = ToolCall::new().set_or_clear_input_parameters(None::<Struct>);
+    /// ```
+    pub fn set_or_clear_input_parameters<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.input_parameters = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::ToolCall::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::ToolCall;
+    /// use wkt::Timestamp;
+    /// let x = ToolCall::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::ToolCall::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::ToolCall;
+    /// use wkt::Timestamp;
+    /// let x = ToolCall::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ToolCall::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [answer_record][crate::model::ToolCall::answer_record].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::ToolCall;
+    /// let x = ToolCall::new().set_answer_record("example");
+    /// ```
+    pub fn set_answer_record<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.answer_record = v.into();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::ToolCall::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::ToolCall;
+    /// use google_cloud_dialogflow_v2::model::tool_call::State;
+    /// let x0 = ToolCall::new().set_state(State::Triggered);
+    /// let x1 = ToolCall::new().set_state(State::NeedsConfirmation);
+    /// ```
+    pub fn set_state<T: std::convert::Into<crate::model::tool_call::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [source][crate::model::ToolCall::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::ToolCall;
+    /// use google_cloud_dialogflow_v2::model::tool_call::Source;
+    /// let x = ToolCall::new().set_source(Some(Source::Tool("example".to_string())));
+    /// ```
+    pub fn set_source<
+        T: std::convert::Into<std::option::Option<crate::model::tool_call::Source>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source = v.into();
+        self
+    }
+
+    /// The value of [source][crate::model::ToolCall::source]
+    /// if it holds a `Tool`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn tool(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.source.as_ref().and_then(|v| match v {
+            crate::model::tool_call::Source::Tool(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [source][crate::model::ToolCall::source]
+    /// to hold a `Tool`.
+    ///
+    /// Note that all the setters affecting `source` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::ToolCall;
+    /// let x = ToolCall::new().set_tool("example");
+    /// assert!(x.tool().is_some());
+    /// ```
+    pub fn set_tool<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.source = std::option::Option::Some(crate::model::tool_call::Source::Tool(v.into()));
+        self
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+))]
+impl wkt::message::Message for ToolCall {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.ToolCall"
+    }
+}
+
+/// Defines additional types related to [ToolCall].
+#[cfg(any(
+    feature = "answer-records",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+))]
+pub mod tool_call {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Tool call states.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+        feature = "participants",
+    ))]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// Default value.
+        Unspecified,
+        /// The tool call has been triggered.
+        Triggered,
+        /// The tool call requires confirmation from a human.
+        NeedsConfirmation,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+        feature = "participants",
+    ))]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+        feature = "participants",
+    ))]
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Triggered => std::option::Option::Some(1),
+                Self::NeedsConfirmation => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Triggered => std::option::Option::Some("TRIGGERED"),
+                Self::NeedsConfirmation => std::option::Option::Some("NEEDS_CONFIRMATION"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+        feature = "participants",
+    ))]
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+        feature = "participants",
+    ))]
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+        feature = "participants",
+    ))]
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Triggered,
+                2 => Self::NeedsConfirmation,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+        feature = "participants",
+    ))]
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "TRIGGERED" => Self::Triggered,
+                "NEEDS_CONFIRMATION" => Self::NeedsConfirmation,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+        feature = "participants",
+    ))]
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Triggered => serializer.serialize_i32(1),
+                Self::NeedsConfirmation => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+        feature = "participants",
+    ))]
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.dialogflow.v2.ToolCall.State",
+            ))
+        }
+    }
+
+    /// Specifies the source of this tool call.
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+        feature = "participants",
+    ))]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Source {
+        /// Optional. The [tool][google.cloud.dialogflow.v2.Tool] associated with
+        /// this call. Format:
+        /// `projects/<ProjectID>/locations/<LocationID>/tools/<ToolID>`.
+        ///
+        /// [google.cloud.dialogflow.v2.Tool]: crate::model::Tool
+        Tool(std::string::String),
+    }
+}
+
+/// The result of calling a tool's action.
+#[cfg(any(
+    feature = "answer-records",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+))]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ToolCallResult {
+    /// Optional. The name of the tool's action associated with this call.
+    pub action: std::string::String,
+
+    /// Output only. Create time of the tool call result.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. The answer record associated with this tool call result.
+    pub answer_record: std::string::String,
+
+    /// Specifies the source of this tool call.
+    pub source: std::option::Option<crate::model::tool_call_result::Source>,
+
+    /// The tool call's result.
+    pub result: std::option::Option<crate::model::tool_call_result::Result>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+))]
+impl ToolCallResult {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [action][crate::model::ToolCallResult::action].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::ToolCallResult;
+    /// let x = ToolCallResult::new().set_action("example");
+    /// ```
+    pub fn set_action<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.action = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::ToolCallResult::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::ToolCallResult;
+    /// use wkt::Timestamp;
+    /// let x = ToolCallResult::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::ToolCallResult::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::ToolCallResult;
+    /// use wkt::Timestamp;
+    /// let x = ToolCallResult::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ToolCallResult::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [answer_record][crate::model::ToolCallResult::answer_record].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::ToolCallResult;
+    /// let x = ToolCallResult::new().set_answer_record("example");
+    /// ```
+    pub fn set_answer_record<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.answer_record = v.into();
+        self
+    }
+
+    /// Sets the value of [source][crate::model::ToolCallResult::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::ToolCallResult;
+    /// use google_cloud_dialogflow_v2::model::tool_call_result::Source;
+    /// let x = ToolCallResult::new().set_source(Some(Source::Tool("example".to_string())));
+    /// ```
+    pub fn set_source<
+        T: std::convert::Into<std::option::Option<crate::model::tool_call_result::Source>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source = v.into();
+        self
+    }
+
+    /// The value of [source][crate::model::ToolCallResult::source]
+    /// if it holds a `Tool`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn tool(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.source.as_ref().and_then(|v| match v {
+            crate::model::tool_call_result::Source::Tool(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [source][crate::model::ToolCallResult::source]
+    /// to hold a `Tool`.
+    ///
+    /// Note that all the setters affecting `source` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::ToolCallResult;
+    /// let x = ToolCallResult::new().set_tool("example");
+    /// assert!(x.tool().is_some());
+    /// ```
+    pub fn set_tool<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.source =
+            std::option::Option::Some(crate::model::tool_call_result::Source::Tool(v.into()));
+        self
+    }
+
+    /// Sets the value of [result][crate::model::ToolCallResult::result].
+    ///
+    /// Note that all the setters affecting `result` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::ToolCallResult;
+    /// use google_cloud_dialogflow_v2::model::tool_call_result::Result;
+    /// let x = ToolCallResult::new().set_result(Some(Result::RawContent(bytes::Bytes::from_static(b"example"))));
+    /// ```
+    pub fn set_result<
+        T: std::convert::Into<std::option::Option<crate::model::tool_call_result::Result>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.result = v.into();
+        self
+    }
+
+    /// The value of [result][crate::model::ToolCallResult::result]
+    /// if it holds a `Error`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn error(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::tool_call_result::Error>> {
+        #[allow(unreachable_patterns)]
+        self.result.as_ref().and_then(|v| match v {
+            crate::model::tool_call_result::Result::Error(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [result][crate::model::ToolCallResult::result]
+    /// to hold a `Error`.
+    ///
+    /// Note that all the setters affecting `result` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::ToolCallResult;
+    /// use google_cloud_dialogflow_v2::model::tool_call_result::Error;
+    /// let x = ToolCallResult::new().set_error(Error::default()/* use setters */);
+    /// assert!(x.error().is_some());
+    /// assert!(x.raw_content().is_none());
+    /// assert!(x.content().is_none());
+    /// ```
+    pub fn set_error<
+        T: std::convert::Into<std::boxed::Box<crate::model::tool_call_result::Error>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.result =
+            std::option::Option::Some(crate::model::tool_call_result::Result::Error(v.into()));
+        self
+    }
+
+    /// The value of [result][crate::model::ToolCallResult::result]
+    /// if it holds a `RawContent`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn raw_content(&self) -> std::option::Option<&::bytes::Bytes> {
+        #[allow(unreachable_patterns)]
+        self.result.as_ref().and_then(|v| match v {
+            crate::model::tool_call_result::Result::RawContent(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [result][crate::model::ToolCallResult::result]
+    /// to hold a `RawContent`.
+    ///
+    /// Note that all the setters affecting `result` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::ToolCallResult;
+    /// let x = ToolCallResult::new().set_raw_content(bytes::Bytes::from_static(b"example"));
+    /// assert!(x.raw_content().is_some());
+    /// assert!(x.error().is_none());
+    /// assert!(x.content().is_none());
+    /// ```
+    pub fn set_raw_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+        self.result =
+            std::option::Option::Some(crate::model::tool_call_result::Result::RawContent(v.into()));
+        self
+    }
+
+    /// The value of [result][crate::model::ToolCallResult::result]
+    /// if it holds a `Content`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn content(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.result.as_ref().and_then(|v| match v {
+            crate::model::tool_call_result::Result::Content(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [result][crate::model::ToolCallResult::result]
+    /// to hold a `Content`.
+    ///
+    /// Note that all the setters affecting `result` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::ToolCallResult;
+    /// let x = ToolCallResult::new().set_content("example");
+    /// assert!(x.content().is_some());
+    /// assert!(x.error().is_none());
+    /// assert!(x.raw_content().is_none());
+    /// ```
+    pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.result =
+            std::option::Option::Some(crate::model::tool_call_result::Result::Content(v.into()));
+        self
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+))]
+impl wkt::message::Message for ToolCallResult {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.ToolCallResult"
+    }
+}
+
+/// Defines additional types related to [ToolCallResult].
+#[cfg(any(
+    feature = "answer-records",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+))]
+pub mod tool_call_result {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// An error produced by the tool call.
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+        feature = "participants",
+    ))]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct Error {
+        /// Optional. The error message of the function.
+        pub message: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+        feature = "participants",
+    ))]
+    impl Error {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [message][crate::model::tool_call_result::Error::message].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::tool_call_result::Error;
+        /// let x = Error::new().set_message("example");
+        /// ```
+        pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.message = v.into();
+            self
+        }
+    }
+
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+        feature = "participants",
+    ))]
+    impl wkt::message::Message for Error {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.v2.ToolCallResult.Error"
+        }
+    }
+
+    /// Specifies the source of this tool call.
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+        feature = "participants",
+    ))]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Source {
+        /// Optional. The [tool][google.cloud.dialogflow.v2.Tool] associated with
+        /// this call. Format:
+        /// `projects/<ProjectID>/locations/<LocationID>/tools/<ToolID>`.
+        ///
+        /// [google.cloud.dialogflow.v2.Tool]: crate::model::Tool
+        Tool(std::string::String),
+    }
+
+    /// The tool call's result.
+    #[cfg(any(
+        feature = "answer-records",
+        feature = "conversations",
+        feature = "generator-evaluations",
+        feature = "generators",
+        feature = "participants",
+    ))]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Result {
+        /// The tool call's error.
+        Error(std::boxed::Box<crate::model::tool_call_result::Error>),
+        /// Only populated if the response content is not utf-8 encoded.
+        /// (by definition byte fields are base64 encoded).
+        RawContent(::bytes::Bytes),
+        /// Only populated if the response content is utf-8 encoded.
+        Content(std::string::String),
+    }
+}
+
 /// Represents a single validation error.
 #[cfg(feature = "agents")]
 #[derive(Clone, Default, PartialEq)]
@@ -46239,12 +58572,15 @@ impl wkt::message::Message for DeleteVersionRequest {
     feature = "entity-types",
     feature = "environments",
     feature = "fulfillments",
+    feature = "generator-evaluations",
     feature = "generators",
     feature = "intents",
     feature = "knowledge-bases",
     feature = "participants",
     feature = "session-entity-types",
     feature = "sessions",
+    feature = "sip-trunks",
+    feature = "tools",
     feature = "versions",
 ))]
 #[derive(Clone, Default, PartialEq)]
@@ -46286,12 +58622,15 @@ pub struct WebhookRequest {
     feature = "entity-types",
     feature = "environments",
     feature = "fulfillments",
+    feature = "generator-evaluations",
     feature = "generators",
     feature = "intents",
     feature = "knowledge-bases",
     feature = "participants",
     feature = "session-entity-types",
     feature = "sessions",
+    feature = "sip-trunks",
+    feature = "tools",
     feature = "versions",
 ))]
 impl WebhookRequest {
@@ -46406,12 +58745,15 @@ impl WebhookRequest {
     feature = "entity-types",
     feature = "environments",
     feature = "fulfillments",
+    feature = "generator-evaluations",
     feature = "generators",
     feature = "intents",
     feature = "knowledge-bases",
     feature = "participants",
     feature = "session-entity-types",
     feature = "sessions",
+    feature = "sip-trunks",
+    feature = "tools",
     feature = "versions",
 ))]
 impl wkt::message::Message for WebhookRequest {
@@ -46450,12 +58792,15 @@ impl wkt::message::Message for WebhookRequest {
     feature = "entity-types",
     feature = "environments",
     feature = "fulfillments",
+    feature = "generator-evaluations",
     feature = "generators",
     feature = "intents",
     feature = "knowledge-bases",
     feature = "participants",
     feature = "session-entity-types",
     feature = "sessions",
+    feature = "sip-trunks",
+    feature = "tools",
     feature = "versions",
 ))]
 #[derive(Clone, Default, PartialEq)]
@@ -46542,12 +58887,15 @@ pub struct WebhookResponse {
     feature = "entity-types",
     feature = "environments",
     feature = "fulfillments",
+    feature = "generator-evaluations",
     feature = "generators",
     feature = "intents",
     feature = "knowledge-bases",
     feature = "participants",
     feature = "session-entity-types",
     feature = "sessions",
+    feature = "sip-trunks",
+    feature = "tools",
     feature = "versions",
 ))]
 impl WebhookResponse {
@@ -46728,12 +59076,15 @@ impl WebhookResponse {
     feature = "entity-types",
     feature = "environments",
     feature = "fulfillments",
+    feature = "generator-evaluations",
     feature = "generators",
     feature = "intents",
     feature = "knowledge-bases",
     feature = "participants",
     feature = "session-entity-types",
     feature = "sessions",
+    feature = "sip-trunks",
+    feature = "tools",
     feature = "versions",
 ))]
 impl wkt::message::Message for WebhookResponse {
@@ -46757,12 +59108,15 @@ impl wkt::message::Message for WebhookResponse {
     feature = "entity-types",
     feature = "environments",
     feature = "fulfillments",
+    feature = "generator-evaluations",
     feature = "generators",
     feature = "intents",
     feature = "knowledge-bases",
     feature = "participants",
     feature = "session-entity-types",
     feature = "sessions",
+    feature = "sip-trunks",
+    feature = "tools",
     feature = "versions",
 ))]
 #[derive(Clone, Default, PartialEq)]
@@ -46804,12 +59158,15 @@ pub struct OriginalDetectIntentRequest {
     feature = "entity-types",
     feature = "environments",
     feature = "fulfillments",
+    feature = "generator-evaluations",
     feature = "generators",
     feature = "intents",
     feature = "knowledge-bases",
     feature = "participants",
     feature = "session-entity-types",
     feature = "sessions",
+    feature = "sip-trunks",
+    feature = "tools",
     feature = "versions",
 ))]
 impl OriginalDetectIntentRequest {
@@ -46888,12 +59245,15 @@ impl OriginalDetectIntentRequest {
     feature = "entity-types",
     feature = "environments",
     feature = "fulfillments",
+    feature = "generator-evaluations",
     feature = "generators",
     feature = "intents",
     feature = "knowledge-bases",
     feature = "participants",
     feature = "session-entity-types",
     feature = "sessions",
+    feature = "sip-trunks",
+    feature = "tools",
     feature = "versions",
 ))]
 impl wkt::message::Message for OriginalDetectIntentRequest {
@@ -48049,7 +60409,11 @@ impl<'de> serde::de::Deserialize<'de> for OutputAudioEncoding {
 /// guidelines.
 ///
 /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
-#[cfg(any(feature = "conversations", feature = "generators",))]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum TriggerEvent {
@@ -48073,7 +60437,11 @@ pub enum TriggerEvent {
 }
 
 #[doc(hidden)]
-#[cfg(any(feature = "conversations", feature = "generators",))]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
 pub mod trigger_event {
     #[allow(unused_imports)]
     use super::*;
@@ -48081,7 +60449,11 @@ pub mod trigger_event {
     pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
 }
 
-#[cfg(any(feature = "conversations", feature = "generators",))]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
 impl TriggerEvent {
     /// Gets the enum value.
     ///
@@ -48114,7 +60486,11 @@ impl TriggerEvent {
     }
 }
 
-#[cfg(any(feature = "conversations", feature = "generators",))]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
 impl std::default::Default for TriggerEvent {
     fn default() -> Self {
         use std::convert::From;
@@ -48122,14 +60498,22 @@ impl std::default::Default for TriggerEvent {
     }
 }
 
-#[cfg(any(feature = "conversations", feature = "generators",))]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
 impl std::fmt::Display for TriggerEvent {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         wkt::internal::display_enum(f, self.name(), self.value())
     }
 }
 
-#[cfg(any(feature = "conversations", feature = "generators",))]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
 impl std::convert::From<i32> for TriggerEvent {
     fn from(value: i32) -> Self {
         match value {
@@ -48145,7 +60529,11 @@ impl std::convert::From<i32> for TriggerEvent {
     }
 }
 
-#[cfg(any(feature = "conversations", feature = "generators",))]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
 impl std::convert::From<&str> for TriggerEvent {
     fn from(value: &str) -> Self {
         use std::string::ToString;
@@ -48162,7 +60550,11 @@ impl std::convert::From<&str> for TriggerEvent {
     }
 }
 
-#[cfg(any(feature = "conversations", feature = "generators",))]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
 impl serde::ser::Serialize for TriggerEvent {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -48179,7 +60571,11 @@ impl serde::ser::Serialize for TriggerEvent {
     }
 }
 
-#[cfg(any(feature = "conversations", feature = "generators",))]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
 impl<'de> serde::de::Deserialize<'de> for TriggerEvent {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where

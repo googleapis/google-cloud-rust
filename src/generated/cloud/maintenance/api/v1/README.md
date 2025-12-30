@@ -5,7 +5,7 @@
 The Maintenance API provides a centralized view of planned disruptive
 maintenance events across supported Google Cloud products. It offers users
 visibility into upcoming, ongoing, and completed maintenance, along with
-controls to manage certain maintenance activities, such as mainteance
+controls to manage certain maintenance activities, such as maintenance
 windows, rescheduling, and on-demand updates.
 
 The client library types and functions are stable and not expected to change.

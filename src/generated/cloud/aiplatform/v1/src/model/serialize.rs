@@ -2427,6 +2427,9 @@ impl serde::ser::Serialize for super::WorkerPoolSpec {
         if !self.nfs_mounts.is_empty() {
             state.serialize_entry("nfsMounts", &self.nfs_mounts)?;
         }
+        if !self.lustre_mounts.is_empty() {
+            state.serialize_entry("lustreMounts", &self.lustre_mounts)?;
+        }
         if self.disk_spec.is_some() {
             state.serialize_entry("diskSpec", &self.disk_spec)?;
         }
@@ -19875,6 +19878,38 @@ impl serde::ser::Serialize for super::NfsMount {
     }
 }
 
+#[cfg(feature = "job-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::LustreMount {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.instance_ip.is_empty() {
+            state.serialize_entry("instanceIp", &self.instance_ip)?;
+        }
+        if !self.volume_handle.is_empty() {
+            state.serialize_entry("volumeHandle", &self.volume_handle)?;
+        }
+        if !self.filesystem.is_empty() {
+            state.serialize_entry("filesystem", &self.filesystem)?;
+        }
+        if !self.mount_point.is_empty() {
+            state.serialize_entry("mountPoint", &self.mount_point)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 #[cfg(any(
     feature = "deployment-resource-pool-service",
     feature = "endpoint-service",
@@ -34793,6 +34828,66 @@ impl serde::ser::Serialize for super::FunctionCall {
         if self.args.is_some() {
             state.serialize_entry("args", &self.args)?;
         }
+        if !self.partial_args.is_empty() {
+            state.serialize_entry("partialArgs", &self.partial_args)?;
+        }
+        if !wkt::internal::is_default(&self.will_continue) {
+            state.serialize_entry("willContinue", &self.will_continue)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(
+    feature = "data-foundry-service",
+    feature = "gen-ai-cache-service",
+    feature = "gen-ai-tuning-service",
+    feature = "llm-utility-service",
+    feature = "prediction-service",
+    feature = "vertex-rag-service",
+))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::PartialArg {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.null_value() {
+            state.serialize_entry("nullValue", value)?;
+        }
+        if let Some(value) = self.number_value() {
+            struct __With<'a>(&'a f64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("numberValue", &__With(value))?;
+        }
+        if let Some(value) = self.string_value() {
+            state.serialize_entry("stringValue", value)?;
+        }
+        if let Some(value) = self.bool_value() {
+            state.serialize_entry("boolValue", value)?;
+        }
+        if !self.json_path.is_empty() {
+            state.serialize_entry("jsonPath", &self.json_path)?;
+        }
+        if !wkt::internal::is_default(&self.will_continue) {
+            state.serialize_entry("willContinue", &self.will_continue)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -35389,6 +35484,12 @@ impl serde::ser::Serialize for super::FunctionCallingConfig {
         }
         if !self.allowed_function_names.is_empty() {
             state.serialize_entry("allowedFunctionNames", &self.allowed_function_names)?;
+        }
+        if !wkt::internal::is_default(&self.stream_function_call_arguments) {
+            state.serialize_entry(
+                "streamFunctionCallArguments",
+                &self.stream_function_call_arguments,
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

@@ -299,6 +299,9 @@ impl serde::ser::Serialize for super::Job {
         if !wkt::internal::is_default(&self.state) {
             state.serialize_entry("state", &self.state)?;
         }
+        if !wkt::internal::is_default(&self.dry_run) {
+            state.serialize_entry("dryRun", &self.dry_run)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -475,6 +478,31 @@ impl serde::ser::Serialize for super::RewriteObject {
 }
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::ObjectRetention {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.retain_until_time.is_some() {
+            state.serialize_entry("retainUntilTime", &self.retain_until_time)?;
+        }
+        if self.retention_mode.is_some() {
+            state.serialize_entry("retentionMode", &self.retention_mode)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::PutMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -504,6 +532,9 @@ impl serde::ser::Serialize for super::PutMetadata {
         }
         if !self.custom_metadata.is_empty() {
             state.serialize_entry("customMetadata", &self.custom_metadata)?;
+        }
+        if self.object_retention.is_some() {
+            state.serialize_entry("objectRetention", &self.object_retention)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -624,6 +655,20 @@ impl serde::ser::Serialize for super::Counters {
                 }
             }
             state.serialize_entry("failedObjectCount", &__With(&self.failed_object_count))?;
+        }
+        if self.total_bytes_found.is_some() {
+            struct __With<'a>(&'a std::option::Option<i64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("totalBytesFound", &__With(&self.total_bytes_found))?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

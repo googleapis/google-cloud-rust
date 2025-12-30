@@ -961,6 +961,7 @@ impl std::fmt::Debug for super::WorkerPoolSpec {
         debug_struct.field("machine_spec", &self.machine_spec);
         debug_struct.field("replica_count", &self.replica_count);
         debug_struct.field("nfs_mounts", &self.nfs_mounts);
+        debug_struct.field("lustre_mounts", &self.lustre_mounts);
         debug_struct.field("disk_spec", &self.disk_spec);
         debug_struct.field("task", &self.task);
         if !self._unknown_fields.is_empty() {
@@ -8641,6 +8642,21 @@ impl std::fmt::Debug for super::NfsMount {
     }
 }
 
+#[cfg(feature = "job-service")]
+impl std::fmt::Debug for super::LustreMount {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LustreMount");
+        debug_struct.field("instance_ip", &self.instance_ip);
+        debug_struct.field("volume_handle", &self.volume_handle);
+        debug_struct.field("filesystem", &self.filesystem);
+        debug_struct.field("mount_point", &self.mount_point);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 #[cfg(any(
     feature = "deployment-resource-pool-service",
     feature = "endpoint-service",
@@ -15322,6 +15338,29 @@ impl std::fmt::Debug for super::FunctionCall {
         let mut debug_struct = f.debug_struct("FunctionCall");
         debug_struct.field("name", &self.name);
         debug_struct.field("args", &self.args);
+        debug_struct.field("partial_args", &self.partial_args);
+        debug_struct.field("will_continue", &self.will_continue);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "data-foundry-service",
+    feature = "gen-ai-cache-service",
+    feature = "gen-ai-tuning-service",
+    feature = "llm-utility-service",
+    feature = "prediction-service",
+    feature = "vertex-rag-service",
+))]
+impl std::fmt::Debug for super::PartialArg {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PartialArg");
+        debug_struct.field("json_path", &self.json_path);
+        debug_struct.field("will_continue", &self.will_continue);
+        debug_struct.field("delta", &self.delta);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -15628,6 +15667,10 @@ impl std::fmt::Debug for super::FunctionCallingConfig {
         let mut debug_struct = f.debug_struct("FunctionCallingConfig");
         debug_struct.field("mode", &self.mode);
         debug_struct.field("allowed_function_names", &self.allowed_function_names);
+        debug_struct.field(
+            "stream_function_call_arguments",
+            &self.stream_function_call_arguments,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

@@ -10785,6 +10785,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Version {
             __related_tags,
             __metadata,
             __annotations,
+            __fingerprints,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -10815,6 +10816,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Version {
                             "related_tags" => Ok(__FieldTag::__related_tags),
                             "metadata" => Ok(__FieldTag::__metadata),
                             "annotations" => Ok(__FieldTag::__annotations),
+                            "fingerprints" => Ok(__FieldTag::__fingerprints),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -10909,6 +10911,14 @@ impl<'de> serde::de::Deserialize<'de> for super::Version {
                                     >,
                                 >>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::__fingerprints => {
+                            if !fields.insert(__FieldTag::__fingerprints) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for fingerprints",
+                                ));
+                            }
+                            result.fingerprints = map.next_value::<std::option::Option<std::vec::Vec<crate::model::Hash>>>()?.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

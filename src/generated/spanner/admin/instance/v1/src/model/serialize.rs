@@ -346,6 +346,21 @@ impl serde::ser::Serialize for super::autoscaling_config::AutoscalingTargets {
                 &__With(&self.high_priority_cpu_utilization_percent),
             )?;
         }
+        if !wkt::internal::is_default(&self.total_cpu_utilization_percent) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry(
+                "totalCpuUtilizationPercent",
+                &__With(&self.total_cpu_utilization_percent),
+            )?;
+        }
         if !wkt::internal::is_default(&self.storage_utilization_percent) {
             struct __With<'a>(&'a i32);
             impl<'a> serde::ser::Serialize for __With<'a> {
@@ -425,6 +440,33 @@ impl serde::ser::Serialize
             state.serialize_entry(
                 "autoscalingTargetHighPriorityCpuUtilizationPercent",
                 &__With(&self.autoscaling_target_high_priority_cpu_utilization_percent),
+            )?;
+        }
+        if !wkt::internal::is_default(&self.autoscaling_target_total_cpu_utilization_percent) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry(
+                "autoscalingTargetTotalCpuUtilizationPercent",
+                &__With(&self.autoscaling_target_total_cpu_utilization_percent),
+            )?;
+        }
+        if !wkt::internal::is_default(&self.disable_high_priority_cpu_autoscaling) {
+            state.serialize_entry(
+                "disableHighPriorityCpuAutoscaling",
+                &self.disable_high_priority_cpu_autoscaling,
+            )?;
+        }
+        if !wkt::internal::is_default(&self.disable_total_cpu_autoscaling) {
+            state.serialize_entry(
+                "disableTotalCpuAutoscaling",
+                &self.disable_total_cpu_autoscaling,
             )?;
         }
         if !self._unknown_fields.is_empty() {

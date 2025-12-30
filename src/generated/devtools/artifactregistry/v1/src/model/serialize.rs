@@ -2970,6 +2970,9 @@ impl serde::ser::Serialize for super::Version {
         if !self.annotations.is_empty() {
             state.serialize_entry("annotations", &self.annotations)?;
         }
+        if !self.fingerprints.is_empty() {
+            state.serialize_entry("fingerprints", &self.fingerprints)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
