@@ -130,9 +130,9 @@ impl SigningScope {
 }
 
 struct SigningComponents {
-    #[allow(dead_code)]
+    #[cfg(test)]
     canonical_request: String,
-    #[allow(dead_code)]
+    #[cfg(test)]
     string_to_sign: String,
     signed_url: String,
 }
@@ -209,7 +209,7 @@ impl SignedUrlBuilder {
 
     #[cfg(test)]
     /// Sets the timestamp for the signed URL. Only used in tests.
-    pub fn with_timestamp(mut self, timestamp: DateTime<Utc>) -> Self {
+    fn with_timestamp(mut self, timestamp: DateTime<Utc>) -> Self {
         self.timestamp = timestamp;
         self
     }
@@ -551,7 +551,9 @@ impl SignedUrlBuilder {
         );
 
         Ok(SigningComponents {
+            #[cfg(test)]
             canonical_request,
+            #[cfg(test)]
             string_to_sign,
             signed_url,
         })
@@ -768,12 +770,13 @@ mod tests {
     }
 
     #[derive(Deserialize)]
+    #[serde(rename_all = "camelCase")]
     struct SignedUrlTestSuite {
-        #[serde(rename = "signingV4Tests")]
         signing_v4_tests: Vec<SignedUrlTest>,
     }
 
     #[derive(Deserialize)]
+    #[serde(rename_all = "camelCase")]
     struct SignedUrlTest {
         description: String,
         bucket: String,
@@ -781,26 +784,17 @@ mod tests {
         method: String,
         expiration: u64,
         timestamp: String,
-        #[serde(rename = "expectedUrl")]
         expected_url: String,
         headers: Option<HashMap<String, String>>,
-        #[serde(rename = "queryParameters")]
         query_parameters: Option<HashMap<String, String>>,
         scheme: Option<String>,
-        #[serde(rename = "urlStyle")]
         url_style: Option<String>,
-        #[serde(rename = "bucketBoundHostname")]
         bucket_bound_hostname: Option<String>,
-        #[serde(rename = "expectedCanonicalRequest")]
         expected_canonical_request: String,
-        #[serde(rename = "expectedStringToSign")]
         expected_string_to_sign: String,
         hostname: Option<String>,
-        #[serde(rename = "clientEndpoint")]
         client_endpoint: Option<String>,
-        #[serde(rename = "emulatorHostname")]
         emulator_hostname: Option<String>,
-        #[serde(rename = "universeDomain")]
         universe_domain: Option<String>,
     }
 
