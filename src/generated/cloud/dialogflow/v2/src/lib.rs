@@ -47,11 +47,14 @@
 //! * [Environments](client/struct.Environments.html)
 //! * [Fulfillments](client/struct.Fulfillments.html)
 //! * [Generators](client/struct.Generators.html)
+//! * [GeneratorEvaluations](client/struct.GeneratorEvaluations.html)
 //! * [Intents](client/struct.Intents.html)
 //! * [KnowledgeBases](client/struct.KnowledgeBases.html)
 //! * [Participants](client/struct.Participants.html)
 //! * [Sessions](client/struct.Sessions.html)
 //! * [SessionEntityTypes](client/struct.SessionEntityTypes.html)
+//! * [SipTrunks](client/struct.SipTrunks.html)
+//! * [Tools](client/struct.Tools.html)
 //! * [Versions](client/struct.Versions.html)
 
 #![cfg_attr(docsrs, feature(doc_cfg))]
@@ -95,11 +98,14 @@ pub(crate) mod transport;
     feature = "environments",
     feature = "fulfillments",
     feature = "generators",
+    feature = "generator-evaluations",
     feature = "intents",
     feature = "knowledge-bases",
     feature = "participants",
     feature = "sessions",
     feature = "session-entity-types",
+    feature = "sip-trunks",
+    feature = "tools",
     feature = "versions",
 ))]
 const DEFAULT_HOST: &str = "https://dialogflow.googleapis.com/";
@@ -118,11 +124,14 @@ const DEFAULT_HOST: &str = "https://dialogflow.googleapis.com/";
     feature = "environments",
     feature = "fulfillments",
     feature = "generators",
+    feature = "generator-evaluations",
     feature = "intents",
     feature = "knowledge-bases",
     feature = "participants",
     feature = "sessions",
     feature = "session-entity-types",
+    feature = "sip-trunks",
+    feature = "tools",
     feature = "versions",
 ))]
 pub(crate) mod info {

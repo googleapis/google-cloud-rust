@@ -1034,6 +1034,31 @@ impl serde::ser::Serialize for super::JsonOptions {
 }
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::BigtableProtoConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.schema_bundle_id.is_empty() {
+            state.serialize_entry("schemaBundleId", &self.schema_bundle_id)?;
+        }
+        if !self.proto_message_name.is_empty() {
+            state.serialize_entry("protoMessageName", &self.proto_message_name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::BigtableColumn {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -1072,6 +1097,9 @@ impl serde::ser::Serialize for super::BigtableColumn {
         if self.only_read_latest.is_some() {
             state.serialize_entry("onlyReadLatest", &self.only_read_latest)?;
         }
+        if self.proto_config.is_some() {
+            state.serialize_entry("protoConfig", &self.proto_config)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1105,6 +1133,9 @@ impl serde::ser::Serialize for super::BigtableColumnFamily {
         }
         if self.only_read_latest.is_some() {
             state.serialize_entry("onlyReadLatest", &self.only_read_latest)?;
+        }
+        if self.proto_config.is_some() {
+            state.serialize_entry("protoConfig", &self.proto_config)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -3660,6 +3691,9 @@ impl serde::ser::Serialize for super::IndexPruningStats {
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.base_table.is_some() {
             state.serialize_entry("baseTable", &self.base_table)?;
+        }
+        if self.index_id.is_some() {
+            state.serialize_entry("indexId", &self.index_id)?;
         }
         if self.pre_index_pruning_parallel_input_count.is_some() {
             struct __With<'a>(&'a std::option::Option<i64>);

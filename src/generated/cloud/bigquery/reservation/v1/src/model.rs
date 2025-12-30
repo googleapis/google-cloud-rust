@@ -3269,14 +3269,12 @@ pub struct Assignment {
     /// Output only. State of the assignment.
     pub state: crate::model::assignment::State,
 
-    /// Optional. This field controls if "Gemini in BigQuery"
+    /// Optional. Deprecated: "Gemini in BigQuery" is now available by
+    /// default for all BigQuery editions and should not be explicitly set.
+    /// Controls if "Gemini in BigQuery"
     /// (<https://cloud.google.com/gemini/docs/bigquery/overview>) features should be
-    /// enabled for this reservation assignment, which is not on by default.
-    /// "Gemini in BigQuery" has a distinct compliance posture from BigQuery.  If
-    /// this field is set to true, the assignment job type is QUERY, and
-    /// the parent reservation edition is ENTERPRISE_PLUS, then the assignment will
-    /// give the grantee project/organization access to "Gemini in BigQuery"
-    /// features.
+    /// enabled for this reservation assignment.
+    #[deprecated]
     pub enable_gemini_in_bigquery: bool,
 
     /// Optional. The scheduling policy to use for jobs and queries of this
@@ -3361,6 +3359,7 @@ impl Assignment {
     /// # use google_cloud_bigquery_reservation_v1::model::Assignment;
     /// let x = Assignment::new().set_enable_gemini_in_bigquery(true);
     /// ```
+    #[deprecated]
     pub fn set_enable_gemini_in_bigquery<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_gemini_in_bigquery = v.into();
         self

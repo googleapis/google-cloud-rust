@@ -2817,6 +2817,8 @@ pub struct Topic {
     /// resource. For example:
     /// "123/environment": "production",
     /// "123/costCenter": "marketing"
+    /// See <https://docs.cloud.google.com/pubsub/docs/tags> for more information on
+    /// using tags with Pub/Sub resources.
     pub tags: std::collections::HashMap<std::string::String, std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -3992,6 +3994,8 @@ pub struct Subscription {
     /// resource. For example:
     /// "123/environment": "production",
     /// "123/costCenter": "marketing"
+    /// See <https://docs.cloud.google.com/pubsub/docs/tags> for more information on
+    /// using tags with Pub/Sub resources.
     pub tags: std::collections::HashMap<std::string::String, std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -6628,6 +6632,8 @@ pub struct CreateSnapshotRequest {
     /// resource. For example:
     /// "123/environment": "production",
     /// "123/costCenter": "marketing"
+    /// See <https://docs.cloud.google.com/pubsub/docs/tags> for more information on
+    /// using tags with Pub/Sub resources.
     pub tags: std::collections::HashMap<std::string::String, std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,

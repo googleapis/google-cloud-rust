@@ -43,6 +43,18 @@ impl std::fmt::Debug for super::TransactionEvent {
     }
 }
 
+impl std::fmt::Debug for super::PhoneAuthenticationEvent {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PhoneAuthenticationEvent");
+        debug_struct.field("phone_number", &self.phone_number);
+        debug_struct.field("event_time", &self.event_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::AnnotateAssessmentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AnnotateAssessmentRequest");
@@ -52,6 +64,10 @@ impl std::fmt::Debug for super::AnnotateAssessmentRequest {
         debug_struct.field("account_id", &self.account_id);
         debug_struct.field("hashed_account_id", &self.hashed_account_id);
         debug_struct.field("transaction_event", &self.transaction_event);
+        debug_struct.field(
+            "phone_authentication_event",
+            &self.phone_authentication_event,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -299,6 +315,19 @@ impl std::fmt::Debug for super::RiskAnalysis {
         debug_struct.field("reasons", &self.reasons);
         debug_struct.field("extended_verdict_reasons", &self.extended_verdict_reasons);
         debug_struct.field("challenge", &self.challenge);
+        debug_struct.field("verified_bots", &self.verified_bots);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::Bot {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Bot");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("bot_type", &self.bot_type);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -327,9 +356,21 @@ impl std::fmt::Debug for super::FraudPreventionAssessment {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FraudPreventionAssessment");
         debug_struct.field("transaction_risk", &self.transaction_risk);
+        debug_struct.field("risk_reasons", &self.risk_reasons);
         debug_struct.field("stolen_instrument_verdict", &self.stolen_instrument_verdict);
         debug_struct.field("card_testing_verdict", &self.card_testing_verdict);
         debug_struct.field("behavioral_trust_verdict", &self.behavioral_trust_verdict);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::fraud_prevention_assessment::RiskReason {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RiskReason");
+        debug_struct.field("reason", &self.reason);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -702,6 +743,30 @@ impl std::fmt::Debug for super::WebKeySettings {
             "challenge_security_preference",
             &self.challenge_security_preference,
         );
+        debug_struct.field("challenge_settings", &self.challenge_settings);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::web_key_settings::ActionSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ActionSettings");
+        debug_struct.field("score_threshold", &self.score_threshold);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::web_key_settings::ChallengeSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ChallengeSettings");
+        debug_struct.field("default_settings", &self.default_settings);
+        debug_struct.field("action_settings", &self.action_settings);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

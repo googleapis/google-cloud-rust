@@ -125,8 +125,17 @@ impl serde::ser::Serialize for super::Instance {
         if !wkt::internal::is_default(&self.mode) {
             state.serialize_entry("mode", &self.mode)?;
         }
+        if self.simulate_maintenance_event.is_some() {
+            state.serialize_entry("simulateMaintenanceEvent", &self.simulate_maintenance_event)?;
+        }
         if self.ondemand_maintenance.is_some() {
             state.serialize_entry("ondemandMaintenance", &self.ondemand_maintenance)?;
+        }
+        if self.satisfies_pzs.is_some() {
+            state.serialize_entry("satisfiesPzs", &self.satisfies_pzs)?;
+        }
+        if self.satisfies_pzi.is_some() {
+            state.serialize_entry("satisfiesPzi", &self.satisfies_pzi)?;
         }
         if self.maintenance_policy.is_some() {
             state.serialize_entry("maintenancePolicy", &self.maintenance_policy)?;
@@ -146,11 +155,38 @@ impl serde::ser::Serialize for super::Instance {
                 &self.async_instance_endpoints_deletion_enabled,
             )?;
         }
+        if self.kms_key.is_some() {
+            state.serialize_entry("kmsKey", &self.kms_key)?;
+        }
+        if self.encryption_info.is_some() {
+            state.serialize_entry("encryptionInfo", &self.encryption_info)?;
+        }
         if self.backup_collection.is_some() {
             state.serialize_entry("backupCollection", &self.backup_collection)?;
         }
         if self.automated_backup_config.is_some() {
             state.serialize_entry("automatedBackupConfig", &self.automated_backup_config)?;
+        }
+        if self.maintenance_version.is_some() {
+            state.serialize_entry("maintenanceVersion", &self.maintenance_version)?;
+        }
+        if self.effective_maintenance_version.is_some() {
+            state.serialize_entry(
+                "effectiveMaintenanceVersion",
+                &self.effective_maintenance_version,
+            )?;
+        }
+        if !self.available_maintenance_versions.is_empty() {
+            state.serialize_entry(
+                "availableMaintenanceVersions",
+                &self.available_maintenance_versions,
+            )?;
+        }
+        if !wkt::internal::is_default(&self.allow_fewer_zones_deployment) {
+            state.serialize_entry(
+                "allowFewerZonesDeployment",
+                &self.allow_fewer_zones_deployment,
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -405,6 +441,36 @@ impl serde::ser::Serialize for super::BackupCollection {
         if self.create_time.is_some() {
             state.serialize_entry("createTime", &self.create_time)?;
         }
+        if !wkt::internal::is_default(&self.total_backup_size_bytes) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry(
+                "totalBackupSizeBytes",
+                &__With(&self.total_backup_size_bytes),
+            )?;
+        }
+        if !wkt::internal::is_default(&self.total_backup_count) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("totalBackupCount", &__With(&self.total_backup_count))?;
+        }
+        if self.last_backup_time.is_some() {
+            state.serialize_entry("lastBackupTime", &self.last_backup_time)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -489,6 +555,9 @@ impl serde::ser::Serialize for super::Backup {
         }
         if !wkt::internal::is_default(&self.state) {
             state.serialize_entry("state", &self.state)?;
+        }
+        if self.encryption_info.is_some() {
+            state.serialize_entry("encryptionInfo", &self.encryption_info)?;
         }
         if !self.uid.is_empty() {
             state.serialize_entry("uid", &self.uid)?;
@@ -1584,6 +1653,37 @@ impl serde::ser::Serialize for super::OperationMetadata {
         }
         if !self.api_version.is_empty() {
             state.serialize_entry("apiVersion", &self.api_version)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::EncryptionInfo {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.encryption_type) {
+            state.serialize_entry("encryptionType", &self.encryption_type)?;
+        }
+        if !self.kms_key_versions.is_empty() {
+            state.serialize_entry("kmsKeyVersions", &self.kms_key_versions)?;
+        }
+        if !wkt::internal::is_default(&self.kms_key_primary_state) {
+            state.serialize_entry("kmsKeyPrimaryState", &self.kms_key_primary_state)?;
+        }
+        if self.last_update_time.is_some() {
+            state.serialize_entry("lastUpdateTime", &self.last_update_time)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

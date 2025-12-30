@@ -77,8 +77,12 @@ pub struct Instance {
     /// Optional. Number of shards for the instance.
     pub shard_count: i32,
 
-    /// Output only. Deprecated: Use the endpoints.connections.psc_auto_connection
-    /// or endpoints.connections.psc_connection values instead.
+    /// Output only. Deprecated: The discovery_endpoints parameter is deprecated.
+    /// As a result, it will not be populated if the connections are created using
+    /// endpoints parameter. Instead of this parameter, for discovery, use
+    /// endpoints.connections.pscConnection and
+    /// endpoints.connections.pscAutoConnection
+    /// with connectionType CONNECTION_TYPE_DISCOVERY.
     #[deprecated]
     pub discovery_endpoints: std::vec::Vec<crate::model::DiscoveryEndpoint>,
 
@@ -118,8 +122,18 @@ pub struct Instance {
     /// Optional. The mode config for the instance.
     pub mode: crate::model::instance::Mode,
 
+    /// Optional. Input only. Simulate a maintenance event.
+    pub simulate_maintenance_event: std::option::Option<bool>,
+
     /// Optional. Input only. Ondemand maintenance for the instance.
+    #[deprecated]
     pub ondemand_maintenance: std::option::Option<bool>,
+
+    /// Optional. Output only. Reserved for future use.
+    pub satisfies_pzs: std::option::Option<bool>,
+
+    /// Optional. Output only. Reserved for future use.
+    pub satisfies_pzi: std::option::Option<bool>,
 
     /// Optional. The maintenance policy for the instance. If not provided,
     /// the maintenance event will be performed based on Memorystore
@@ -139,12 +153,35 @@ pub struct Instance {
     /// are deleted.
     pub async_instance_endpoints_deletion_enabled: std::option::Option<bool>,
 
+    /// Optional. The KMS key used to encrypt the at-rest data of the cluster.
+    pub kms_key: std::option::Option<std::string::String>,
+
+    /// Output only. Encryption information of the data at rest of the cluster.
+    pub encryption_info: std::option::Option<crate::model::EncryptionInfo>,
+
     /// Output only. The backup collection full resource name. Example:
     /// projects/{project}/locations/{location}/backupCollections/{collection}
     pub backup_collection: std::option::Option<std::string::String>,
 
     /// Optional. The automated backup config for the instance.
     pub automated_backup_config: std::option::Option<crate::model::AutomatedBackupConfig>,
+
+    /// Optional. This field can be used to trigger self service update to indicate
+    /// the desired maintenance version. The input to this field can be determined
+    /// by the available_maintenance_versions field.
+    pub maintenance_version: std::option::Option<std::string::String>,
+
+    /// Output only. This field represents the actual maintenance version of the
+    /// instance.
+    pub effective_maintenance_version: std::option::Option<std::string::String>,
+
+    /// Output only. This field is used to determine the available maintenance
+    /// versions for the self service update.
+    pub available_maintenance_versions: std::vec::Vec<std::string::String>,
+
+    /// Optional. Immutable. Deprecated, do not use.
+    #[deprecated]
+    pub allow_fewer_zones_deployment: bool,
 
     /// The source to import from.
     pub import_sources: std::option::Option<crate::model::instance::ImportSources>,
@@ -682,6 +719,37 @@ impl Instance {
         self
     }
 
+    /// Sets the value of [simulate_maintenance_event][crate::model::Instance::simulate_maintenance_event].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// let x = Instance::new().set_simulate_maintenance_event(true);
+    /// ```
+    pub fn set_simulate_maintenance_event<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.simulate_maintenance_event = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [simulate_maintenance_event][crate::model::Instance::simulate_maintenance_event].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// let x = Instance::new().set_or_clear_simulate_maintenance_event(Some(false));
+    /// let x = Instance::new().set_or_clear_simulate_maintenance_event(None::<bool>);
+    /// ```
+    pub fn set_or_clear_simulate_maintenance_event<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.simulate_maintenance_event = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [ondemand_maintenance][crate::model::Instance::ondemand_maintenance].
     ///
     /// # Example
@@ -689,6 +757,7 @@ impl Instance {
     /// # use google_cloud_memorystore_v1::model::Instance;
     /// let x = Instance::new().set_ondemand_maintenance(true);
     /// ```
+    #[deprecated]
     pub fn set_ondemand_maintenance<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -705,11 +774,74 @@ impl Instance {
     /// let x = Instance::new().set_or_clear_ondemand_maintenance(Some(false));
     /// let x = Instance::new().set_or_clear_ondemand_maintenance(None::<bool>);
     /// ```
+    #[deprecated]
     pub fn set_or_clear_ondemand_maintenance<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
     {
         self.ondemand_maintenance = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [satisfies_pzs][crate::model::Instance::satisfies_pzs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// let x = Instance::new().set_satisfies_pzs(true);
+    /// ```
+    pub fn set_satisfies_pzs<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.satisfies_pzs = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [satisfies_pzs][crate::model::Instance::satisfies_pzs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// let x = Instance::new().set_or_clear_satisfies_pzs(Some(false));
+    /// let x = Instance::new().set_or_clear_satisfies_pzs(None::<bool>);
+    /// ```
+    pub fn set_or_clear_satisfies_pzs<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.satisfies_pzs = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [satisfies_pzi][crate::model::Instance::satisfies_pzi].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// let x = Instance::new().set_satisfies_pzi(true);
+    /// ```
+    pub fn set_satisfies_pzi<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.satisfies_pzi = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [satisfies_pzi][crate::model::Instance::satisfies_pzi].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// let x = Instance::new().set_or_clear_satisfies_pzi(Some(false));
+    /// let x = Instance::new().set_or_clear_satisfies_pzi(None::<bool>);
+    /// ```
+    pub fn set_or_clear_satisfies_pzi<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.satisfies_pzi = v.map(|x| x.into());
         self
     }
 
@@ -849,6 +981,70 @@ impl Instance {
         self
     }
 
+    /// Sets the value of [kms_key][crate::model::Instance::kms_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// let x = Instance::new().set_kms_key("example");
+    /// ```
+    pub fn set_kms_key<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kms_key = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [kms_key][crate::model::Instance::kms_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// let x = Instance::new().set_or_clear_kms_key(Some("example"));
+    /// let x = Instance::new().set_or_clear_kms_key(None::<String>);
+    /// ```
+    pub fn set_or_clear_kms_key<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kms_key = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [encryption_info][crate::model::Instance::encryption_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// use google_cloud_memorystore_v1::model::EncryptionInfo;
+    /// let x = Instance::new().set_encryption_info(EncryptionInfo::default()/* use setters */);
+    /// ```
+    pub fn set_encryption_info<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::EncryptionInfo>,
+    {
+        self.encryption_info = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [encryption_info][crate::model::Instance::encryption_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// use google_cloud_memorystore_v1::model::EncryptionInfo;
+    /// let x = Instance::new().set_or_clear_encryption_info(Some(EncryptionInfo::default()/* use setters */));
+    /// let x = Instance::new().set_or_clear_encryption_info(None::<EncryptionInfo>);
+    /// ```
+    pub fn set_or_clear_encryption_info<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::EncryptionInfo>,
+    {
+        self.encryption_info = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [backup_collection][crate::model::Instance::backup_collection].
     ///
     /// # Example
@@ -910,6 +1106,101 @@ impl Instance {
         T: std::convert::Into<crate::model::AutomatedBackupConfig>,
     {
         self.automated_backup_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [maintenance_version][crate::model::Instance::maintenance_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// let x = Instance::new().set_maintenance_version("example");
+    /// ```
+    pub fn set_maintenance_version<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.maintenance_version = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [maintenance_version][crate::model::Instance::maintenance_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// let x = Instance::new().set_or_clear_maintenance_version(Some("example"));
+    /// let x = Instance::new().set_or_clear_maintenance_version(None::<String>);
+    /// ```
+    pub fn set_or_clear_maintenance_version<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.maintenance_version = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [effective_maintenance_version][crate::model::Instance::effective_maintenance_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// let x = Instance::new().set_effective_maintenance_version("example");
+    /// ```
+    pub fn set_effective_maintenance_version<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.effective_maintenance_version = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [effective_maintenance_version][crate::model::Instance::effective_maintenance_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// let x = Instance::new().set_or_clear_effective_maintenance_version(Some("example"));
+    /// let x = Instance::new().set_or_clear_effective_maintenance_version(None::<String>);
+    /// ```
+    pub fn set_or_clear_effective_maintenance_version<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.effective_maintenance_version = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [available_maintenance_versions][crate::model::Instance::available_maintenance_versions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// let x = Instance::new().set_available_maintenance_versions(["a", "b", "c"]);
+    /// ```
+    pub fn set_available_maintenance_versions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.available_maintenance_versions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [allow_fewer_zones_deployment][crate::model::Instance::allow_fewer_zones_deployment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// let x = Instance::new().set_allow_fewer_zones_deployment(true);
+    /// ```
+    #[deprecated]
+    pub fn set_allow_fewer_zones_deployment<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.allow_fewer_zones_deployment = v.into();
         self
     }
 
@@ -2658,6 +2949,15 @@ pub struct BackupCollection {
     /// Output only. The time when the backup collection was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
+    /// Output only. Total size of all backups in the backup collection.
+    pub total_backup_size_bytes: i64,
+
+    /// Output only. Total number of backups in the backup collection.
+    pub total_backup_count: i64,
+
+    /// Output only. The last time a backup was created in the backup collection.
+    pub last_backup_time: std::option::Option<wkt::Timestamp>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2758,6 +3058,63 @@ impl BackupCollection {
         self.create_time = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [total_backup_size_bytes][crate::model::BackupCollection::total_backup_size_bytes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::BackupCollection;
+    /// let x = BackupCollection::new().set_total_backup_size_bytes(42);
+    /// ```
+    pub fn set_total_backup_size_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.total_backup_size_bytes = v.into();
+        self
+    }
+
+    /// Sets the value of [total_backup_count][crate::model::BackupCollection::total_backup_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::BackupCollection;
+    /// let x = BackupCollection::new().set_total_backup_count(42);
+    /// ```
+    pub fn set_total_backup_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.total_backup_count = v.into();
+        self
+    }
+
+    /// Sets the value of [last_backup_time][crate::model::BackupCollection::last_backup_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::BackupCollection;
+    /// use wkt::Timestamp;
+    /// let x = BackupCollection::new().set_last_backup_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_last_backup_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.last_backup_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [last_backup_time][crate::model::BackupCollection::last_backup_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::BackupCollection;
+    /// use wkt::Timestamp;
+    /// let x = BackupCollection::new().set_or_clear_last_backup_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BackupCollection::new().set_or_clear_last_backup_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_last_backup_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.last_backup_time = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for BackupCollection {
@@ -2811,6 +3168,9 @@ pub struct Backup {
 
     /// Output only. State of the backup.
     pub state: crate::model::backup::State,
+
+    /// Output only. Encryption information of the backup.
+    pub encryption_info: std::option::Option<crate::model::EncryptionInfo>,
 
     /// Output only. System assigned unique identifier of the backup.
     pub uid: std::string::String,
@@ -3042,6 +3402,39 @@ impl Backup {
     /// ```
     pub fn set_state<T: std::convert::Into<crate::model::backup::State>>(mut self, v: T) -> Self {
         self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [encryption_info][crate::model::Backup::encryption_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Backup;
+    /// use google_cloud_memorystore_v1::model::EncryptionInfo;
+    /// let x = Backup::new().set_encryption_info(EncryptionInfo::default()/* use setters */);
+    /// ```
+    pub fn set_encryption_info<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::EncryptionInfo>,
+    {
+        self.encryption_info = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [encryption_info][crate::model::Backup::encryption_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Backup;
+    /// use google_cloud_memorystore_v1::model::EncryptionInfo;
+    /// let x = Backup::new().set_or_clear_encryption_info(Some(EncryptionInfo::default()/* use setters */));
+    /// let x = Backup::new().set_or_clear_encryption_info(None::<EncryptionInfo>);
+    /// ```
+    pub fn set_or_clear_encryption_info<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::EncryptionInfo>,
+    {
+        self.encryption_info = v.map(|x| x.into());
         self
     }
 
@@ -7572,6 +7965,447 @@ impl OperationMetadata {
 impl wkt::message::Message for OperationMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.memorystore.v1.OperationMetadata"
+    }
+}
+
+/// EncryptionInfo describes the encryption information of a cluster.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct EncryptionInfo {
+    /// Output only. Type of encryption.
+    pub encryption_type: crate::model::encryption_info::Type,
+
+    /// Output only. KMS key versions that are being used to protect the data
+    /// at-rest.
+    pub kms_key_versions: std::vec::Vec<std::string::String>,
+
+    /// Output only. The state of the primary version of the KMS key perceived by
+    /// the system. This field is not populated in backups.
+    pub kms_key_primary_state: crate::model::encryption_info::KmsKeyState,
+
+    /// Output only. The most recent time when the encryption info was updated.
+    pub last_update_time: std::option::Option<wkt::Timestamp>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl EncryptionInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [encryption_type][crate::model::EncryptionInfo::encryption_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::EncryptionInfo;
+    /// use google_cloud_memorystore_v1::model::encryption_info::Type;
+    /// let x0 = EncryptionInfo::new().set_encryption_type(Type::GoogleDefaultEncryption);
+    /// let x1 = EncryptionInfo::new().set_encryption_type(Type::CustomerManagedEncryption);
+    /// ```
+    pub fn set_encryption_type<T: std::convert::Into<crate::model::encryption_info::Type>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.encryption_type = v.into();
+        self
+    }
+
+    /// Sets the value of [kms_key_versions][crate::model::EncryptionInfo::kms_key_versions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::EncryptionInfo;
+    /// let x = EncryptionInfo::new().set_kms_key_versions(["a", "b", "c"]);
+    /// ```
+    pub fn set_kms_key_versions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.kms_key_versions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [kms_key_primary_state][crate::model::EncryptionInfo::kms_key_primary_state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::EncryptionInfo;
+    /// use google_cloud_memorystore_v1::model::encryption_info::KmsKeyState;
+    /// let x0 = EncryptionInfo::new().set_kms_key_primary_state(KmsKeyState::Enabled);
+    /// let x1 = EncryptionInfo::new().set_kms_key_primary_state(KmsKeyState::PermissionDenied);
+    /// let x2 = EncryptionInfo::new().set_kms_key_primary_state(KmsKeyState::Disabled);
+    /// ```
+    pub fn set_kms_key_primary_state<
+        T: std::convert::Into<crate::model::encryption_info::KmsKeyState>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.kms_key_primary_state = v.into();
+        self
+    }
+
+    /// Sets the value of [last_update_time][crate::model::EncryptionInfo::last_update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::EncryptionInfo;
+    /// use wkt::Timestamp;
+    /// let x = EncryptionInfo::new().set_last_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_last_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.last_update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [last_update_time][crate::model::EncryptionInfo::last_update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::EncryptionInfo;
+    /// use wkt::Timestamp;
+    /// let x = EncryptionInfo::new().set_or_clear_last_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = EncryptionInfo::new().set_or_clear_last_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_last_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.last_update_time = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for EncryptionInfo {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.memorystore.v1.EncryptionInfo"
+    }
+}
+
+/// Defines additional types related to [EncryptionInfo].
+pub mod encryption_info {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Possible encryption types.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Type {
+        /// Encryption type not specified. Defaults to GOOGLE_DEFAULT_ENCRYPTION.
+        Unspecified,
+        /// The data is encrypted at rest with a key that is fully managed by Google.
+        /// No key version will be populated. This is the default state.
+        GoogleDefaultEncryption,
+        /// The data is encrypted at rest with a key that is managed by the customer.
+        /// KMS key versions will be populated.
+        CustomerManagedEncryption,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Type::value] or
+        /// [Type::name].
+        UnknownValue(r#type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod r#type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Type {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::GoogleDefaultEncryption => std::option::Option::Some(1),
+                Self::CustomerManagedEncryption => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("TYPE_UNSPECIFIED"),
+                Self::GoogleDefaultEncryption => {
+                    std::option::Option::Some("GOOGLE_DEFAULT_ENCRYPTION")
+                }
+                Self::CustomerManagedEncryption => {
+                    std::option::Option::Some("CUSTOMER_MANAGED_ENCRYPTION")
+                }
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Type {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::GoogleDefaultEncryption,
+                2 => Self::CustomerManagedEncryption,
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Type {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "TYPE_UNSPECIFIED" => Self::Unspecified,
+                "GOOGLE_DEFAULT_ENCRYPTION" => Self::GoogleDefaultEncryption,
+                "CUSTOMER_MANAGED_ENCRYPTION" => Self::CustomerManagedEncryption,
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Type {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::GoogleDefaultEncryption => serializer.serialize_i32(1),
+                Self::CustomerManagedEncryption => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Type {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
+                ".google.cloud.memorystore.v1.EncryptionInfo.Type",
+            ))
+        }
+    }
+
+    /// The state of the KMS key perceived by the system. Refer to the public
+    /// documentation for the impact of each state.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum KmsKeyState {
+        /// The default value. This value is unused.
+        Unspecified,
+        /// The KMS key is enabled and correctly configured.
+        Enabled,
+        /// Permission denied on the KMS key.
+        PermissionDenied,
+        /// The KMS key is disabled.
+        Disabled,
+        /// The KMS key is destroyed.
+        Destroyed,
+        /// The KMS key is scheduled to be destroyed.
+        DestroyScheduled,
+        /// The EKM key is unreachable.
+        EkmKeyUnreachableDetected,
+        /// Billing is disabled for the project.
+        BillingDisabled,
+        /// All other unknown failures.
+        UnknownFailure,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [KmsKeyState::value] or
+        /// [KmsKeyState::name].
+        UnknownValue(kms_key_state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod kms_key_state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl KmsKeyState {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Enabled => std::option::Option::Some(1),
+                Self::PermissionDenied => std::option::Option::Some(2),
+                Self::Disabled => std::option::Option::Some(3),
+                Self::Destroyed => std::option::Option::Some(4),
+                Self::DestroyScheduled => std::option::Option::Some(5),
+                Self::EkmKeyUnreachableDetected => std::option::Option::Some(6),
+                Self::BillingDisabled => std::option::Option::Some(7),
+                Self::UnknownFailure => std::option::Option::Some(8),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("KMS_KEY_STATE_UNSPECIFIED"),
+                Self::Enabled => std::option::Option::Some("ENABLED"),
+                Self::PermissionDenied => std::option::Option::Some("PERMISSION_DENIED"),
+                Self::Disabled => std::option::Option::Some("DISABLED"),
+                Self::Destroyed => std::option::Option::Some("DESTROYED"),
+                Self::DestroyScheduled => std::option::Option::Some("DESTROY_SCHEDULED"),
+                Self::EkmKeyUnreachableDetected => {
+                    std::option::Option::Some("EKM_KEY_UNREACHABLE_DETECTED")
+                }
+                Self::BillingDisabled => std::option::Option::Some("BILLING_DISABLED"),
+                Self::UnknownFailure => std::option::Option::Some("UNKNOWN_FAILURE"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for KmsKeyState {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for KmsKeyState {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for KmsKeyState {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Enabled,
+                2 => Self::PermissionDenied,
+                3 => Self::Disabled,
+                4 => Self::Destroyed,
+                5 => Self::DestroyScheduled,
+                6 => Self::EkmKeyUnreachableDetected,
+                7 => Self::BillingDisabled,
+                8 => Self::UnknownFailure,
+                _ => Self::UnknownValue(kms_key_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for KmsKeyState {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "KMS_KEY_STATE_UNSPECIFIED" => Self::Unspecified,
+                "ENABLED" => Self::Enabled,
+                "PERMISSION_DENIED" => Self::PermissionDenied,
+                "DISABLED" => Self::Disabled,
+                "DESTROYED" => Self::Destroyed,
+                "DESTROY_SCHEDULED" => Self::DestroyScheduled,
+                "EKM_KEY_UNREACHABLE_DETECTED" => Self::EkmKeyUnreachableDetected,
+                "BILLING_DISABLED" => Self::BillingDisabled,
+                "UNKNOWN_FAILURE" => Self::UnknownFailure,
+                _ => Self::UnknownValue(kms_key_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for KmsKeyState {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Enabled => serializer.serialize_i32(1),
+                Self::PermissionDenied => serializer.serialize_i32(2),
+                Self::Disabled => serializer.serialize_i32(3),
+                Self::Destroyed => serializer.serialize_i32(4),
+                Self::DestroyScheduled => serializer.serialize_i32(5),
+                Self::EkmKeyUnreachableDetected => serializer.serialize_i32(6),
+                Self::BillingDisabled => serializer.serialize_i32(7),
+                Self::UnknownFailure => serializer.serialize_i32(8),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for KmsKeyState {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<KmsKeyState>::new(
+                ".google.cloud.memorystore.v1.EncryptionInfo.KmsKeyState",
+            ))
+        }
     }
 }
 

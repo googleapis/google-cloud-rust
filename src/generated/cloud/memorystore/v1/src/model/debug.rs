@@ -46,7 +46,13 @@ impl std::fmt::Debug for super::Instance {
         debug_struct.field("psc_attachment_details", &self.psc_attachment_details);
         debug_struct.field("endpoints", &self.endpoints);
         debug_struct.field("mode", &self.mode);
+        debug_struct.field(
+            "simulate_maintenance_event",
+            &self.simulate_maintenance_event,
+        );
         debug_struct.field("ondemand_maintenance", &self.ondemand_maintenance);
+        debug_struct.field("satisfies_pzs", &self.satisfies_pzs);
+        debug_struct.field("satisfies_pzi", &self.satisfies_pzi);
         debug_struct.field("maintenance_policy", &self.maintenance_policy);
         debug_struct.field("maintenance_schedule", &self.maintenance_schedule);
         debug_struct.field(
@@ -57,8 +63,23 @@ impl std::fmt::Debug for super::Instance {
             "async_instance_endpoints_deletion_enabled",
             &self.async_instance_endpoints_deletion_enabled,
         );
+        debug_struct.field("kms_key", &self.kms_key);
+        debug_struct.field("encryption_info", &self.encryption_info);
         debug_struct.field("backup_collection", &self.backup_collection);
         debug_struct.field("automated_backup_config", &self.automated_backup_config);
+        debug_struct.field("maintenance_version", &self.maintenance_version);
+        debug_struct.field(
+            "effective_maintenance_version",
+            &self.effective_maintenance_version,
+        );
+        debug_struct.field(
+            "available_maintenance_versions",
+            &self.available_maintenance_versions,
+        );
+        debug_struct.field(
+            "allow_fewer_zones_deployment",
+            &self.allow_fewer_zones_deployment,
+        );
         debug_struct.field("import_sources", &self.import_sources);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -169,6 +190,9 @@ impl std::fmt::Debug for super::BackupCollection {
         debug_struct.field("kms_key", &self.kms_key);
         debug_struct.field("uid", &self.uid);
         debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("total_backup_size_bytes", &self.total_backup_size_bytes);
+        debug_struct.field("total_backup_count", &self.total_backup_count);
+        debug_struct.field("last_backup_time", &self.last_backup_time);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -192,6 +216,7 @@ impl std::fmt::Debug for super::Backup {
         debug_struct.field("shard_count", &self.shard_count);
         debug_struct.field("backup_type", &self.backup_type);
         debug_struct.field("state", &self.state);
+        debug_struct.field("encryption_info", &self.encryption_info);
         debug_struct.field("uid", &self.uid);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -668,6 +693,20 @@ impl std::fmt::Debug for super::OperationMetadata {
         debug_struct.field("status_message", &self.status_message);
         debug_struct.field("requested_cancellation", &self.requested_cancellation);
         debug_struct.field("api_version", &self.api_version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::EncryptionInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EncryptionInfo");
+        debug_struct.field("encryption_type", &self.encryption_type);
+        debug_struct.field("kms_key_versions", &self.kms_key_versions);
+        debug_struct.field("kms_key_primary_state", &self.kms_key_primary_state);
+        debug_struct.field("last_update_time", &self.last_update_time);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
