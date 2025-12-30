@@ -33,7 +33,7 @@ rustup show active-toolchain -v
 
 echo "Regenerate all the code"
 version=$(cat /workspace/.sidekick-version.txt)
-go run github.com/googleapis/librarian/cmd/sidekick@${version} refreshall
+go run github.com/googleapis/librarian/cmd/librarian@${version} generate --all
 
 echo "Reformat the generated code"
 cargo fmt
