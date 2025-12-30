@@ -4939,6 +4939,67 @@ impl wkt::message::Message for JsonOptions {
     }
 }
 
+/// Information related to a Bigtable protobuf column.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BigtableProtoConfig {
+    /// Optional. The ID of the Bigtable SchemaBundle resource associated with this
+    /// protobuf. The ID should be referred to within the parent table, e.g.,
+    /// `foo` rather than
+    /// `projects/{project}/instances/{instance}/tables/{table}/schemaBundles/foo`.
+    /// See [more details on Bigtable
+    /// SchemaBundles](https://docs.cloud.google.com/bigtable/docs/create-manage-protobuf-schemas).
+    pub schema_bundle_id: std::string::String,
+
+    /// Optional. The fully qualified proto message name of the protobuf. In the
+    /// format of "foo.bar.Message".
+    pub proto_message_name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BigtableProtoConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [schema_bundle_id][crate::model::BigtableProtoConfig::schema_bundle_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::BigtableProtoConfig;
+    /// let x = BigtableProtoConfig::new().set_schema_bundle_id("example");
+    /// ```
+    pub fn set_schema_bundle_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.schema_bundle_id = v.into();
+        self
+    }
+
+    /// Sets the value of [proto_message_name][crate::model::BigtableProtoConfig::proto_message_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::BigtableProtoConfig;
+    /// let x = BigtableProtoConfig::new().set_proto_message_name("example");
+    /// ```
+    pub fn set_proto_message_name<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.proto_message_name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for BigtableProtoConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.BigtableProtoConfig"
+    }
+}
+
 /// Information related to a Bigtable column.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -4984,6 +5045,9 @@ pub struct BigtableColumn {
     /// TEXT - indicates values are alphanumeric text strings.
     /// BINARY - indicates values are encoded using HBase Bytes.toBytes family of
     /// functions.
+    /// PROTO_BINARY - indicates values are encoded using serialized proto
+    /// messages. This can only be used in combination with JSON
+    /// type.
     /// 'encoding' can also be set at the column family level. However, the setting
     /// at this level takes precedence if 'encoding' is set at both levels.
     pub encoding: std::string::String,
@@ -4994,6 +5058,10 @@ pub struct BigtableColumn {
     /// setting at this level takes precedence if 'onlyReadLatest' is set at both
     /// levels.
     pub only_read_latest: std::option::Option<wkt::BoolValue>,
+
+    /// Optional. Protobuf-specific configurations, only takes effect when the
+    /// encoding is PROTO_BINARY.
+    pub proto_config: std::option::Option<crate::model::BigtableProtoConfig>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -5137,6 +5205,39 @@ impl BigtableColumn {
         self.only_read_latest = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [proto_config][crate::model::BigtableColumn::proto_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::BigtableColumn;
+    /// use google_cloud_bigquery_v2::model::BigtableProtoConfig;
+    /// let x = BigtableColumn::new().set_proto_config(BigtableProtoConfig::default()/* use setters */);
+    /// ```
+    pub fn set_proto_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::BigtableProtoConfig>,
+    {
+        self.proto_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [proto_config][crate::model::BigtableColumn::proto_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::BigtableColumn;
+    /// use google_cloud_bigquery_v2::model::BigtableProtoConfig;
+    /// let x = BigtableColumn::new().set_or_clear_proto_config(Some(BigtableProtoConfig::default()/* use setters */));
+    /// let x = BigtableColumn::new().set_or_clear_proto_config(None::<BigtableProtoConfig>);
+    /// ```
+    pub fn set_or_clear_proto_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::BigtableProtoConfig>,
+    {
+        self.proto_config = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for BigtableColumn {
@@ -5174,6 +5275,9 @@ pub struct BigtableColumnFamily {
     /// TEXT - indicates values are alphanumeric text strings.
     /// BINARY - indicates values are encoded using HBase Bytes.toBytes family of
     /// functions.
+    /// PROTO_BINARY - indicates values are encoded using serialized proto
+    /// messages. This can only be used in combination with JSON
+    /// type.
     /// This can be overridden for a specific column by listing that column in
     /// 'columns' and specifying an encoding for it.
     pub encoding: std::string::String,
@@ -5192,6 +5296,10 @@ pub struct BigtableColumnFamily {
     /// 'columns' and specifying a different setting
     /// for that column.
     pub only_read_latest: std::option::Option<wkt::BoolValue>,
+
+    /// Optional. Protobuf-specific configurations, only takes effect when the
+    /// encoding is PROTO_BINARY.
+    pub proto_config: std::option::Option<crate::model::BigtableProtoConfig>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -5289,6 +5397,39 @@ impl BigtableColumnFamily {
         T: std::convert::Into<wkt::BoolValue>,
     {
         self.only_read_latest = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [proto_config][crate::model::BigtableColumnFamily::proto_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::BigtableColumnFamily;
+    /// use google_cloud_bigquery_v2::model::BigtableProtoConfig;
+    /// let x = BigtableColumnFamily::new().set_proto_config(BigtableProtoConfig::default()/* use setters */);
+    /// ```
+    pub fn set_proto_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::BigtableProtoConfig>,
+    {
+        self.proto_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [proto_config][crate::model::BigtableColumnFamily::proto_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::BigtableColumnFamily;
+    /// use google_cloud_bigquery_v2::model::BigtableProtoConfig;
+    /// let x = BigtableColumnFamily::new().set_or_clear_proto_config(Some(BigtableProtoConfig::default()/* use setters */));
+    /// let x = BigtableColumnFamily::new().set_or_clear_proto_config(None::<BigtableProtoConfig>);
+    /// ```
+    pub fn set_or_clear_proto_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::BigtableProtoConfig>,
+    {
+        self.proto_config = v.map(|x| x.into());
         self
     }
 }
@@ -18319,6 +18460,9 @@ pub struct IndexPruningStats {
     /// The base table reference.
     pub base_table: std::option::Option<crate::model::TableReference>,
 
+    /// The index id.
+    pub index_id: std::option::Option<std::string::String>,
+
     /// The number of parallel inputs before index pruning.
     pub pre_index_pruning_parallel_input_count: std::option::Option<i64>,
 
@@ -18363,6 +18507,37 @@ impl IndexPruningStats {
         T: std::convert::Into<crate::model::TableReference>,
     {
         self.base_table = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [index_id][crate::model::IndexPruningStats::index_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::IndexPruningStats;
+    /// let x = IndexPruningStats::new().set_index_id("example");
+    /// ```
+    pub fn set_index_id<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.index_id = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [index_id][crate::model::IndexPruningStats::index_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::IndexPruningStats;
+    /// let x = IndexPruningStats::new().set_or_clear_index_id(Some("example"));
+    /// let x = IndexPruningStats::new().set_or_clear_index_id(None::<String>);
+    /// ```
+    pub fn set_or_clear_index_id<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.index_id = v.map(|x| x.into());
         self
     }
 

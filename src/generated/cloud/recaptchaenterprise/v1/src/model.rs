@@ -225,6 +225,7 @@ pub mod transaction_event {
     use super::*;
 
     /// Enum that represents an event in the payment transaction lifecycle.
+    /// Ensure that applications can handle values not explicitly listed.
     ///
     /// # Working with unknown values
     ///
@@ -511,6 +512,78 @@ pub mod transaction_event {
     }
 }
 
+/// Details on a phone authentication event
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct PhoneAuthenticationEvent {
+    /// Required. Phone number in E.164 format for which a multi-factor
+    /// authentication challenge was initiated, succeeded, or failed.
+    pub phone_number: std::string::String,
+
+    /// Optional. The time at which the multi-factor authentication event
+    /// (challenge or verification) occurred.
+    pub event_time: std::option::Option<wkt::Timestamp>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl PhoneAuthenticationEvent {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [phone_number][crate::model::PhoneAuthenticationEvent::phone_number].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recaptchaenterprise_v1::model::PhoneAuthenticationEvent;
+    /// let x = PhoneAuthenticationEvent::new().set_phone_number("example");
+    /// ```
+    pub fn set_phone_number<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.phone_number = v.into();
+        self
+    }
+
+    /// Sets the value of [event_time][crate::model::PhoneAuthenticationEvent::event_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recaptchaenterprise_v1::model::PhoneAuthenticationEvent;
+    /// use wkt::Timestamp;
+    /// let x = PhoneAuthenticationEvent::new().set_event_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_event_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.event_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [event_time][crate::model::PhoneAuthenticationEvent::event_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recaptchaenterprise_v1::model::PhoneAuthenticationEvent;
+    /// use wkt::Timestamp;
+    /// let x = PhoneAuthenticationEvent::new().set_or_clear_event_time(Some(Timestamp::default()/* use setters */));
+    /// let x = PhoneAuthenticationEvent::new().set_or_clear_event_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_event_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.event_time = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for PhoneAuthenticationEvent {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.recaptchaenterprise.v1.PhoneAuthenticationEvent"
+    }
+}
+
 /// The request message to annotate an Assessment.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -541,6 +614,10 @@ pub struct AnnotateAssessmentRequest {
     /// Optional. If the assessment is part of a payment transaction, provide
     /// details on payment lifecycle events that occur in the transaction.
     pub transaction_event: std::option::Option<crate::model::TransactionEvent>,
+
+    /// Optional. If using an external multi-factor authentication provider,
+    /// provide phone authentication details for fraud detection purposes.
+    pub phone_authentication_event: std::option::Option<crate::model::PhoneAuthenticationEvent>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -657,6 +734,39 @@ impl AnnotateAssessmentRequest {
         T: std::convert::Into<crate::model::TransactionEvent>,
     {
         self.transaction_event = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [phone_authentication_event][crate::model::AnnotateAssessmentRequest::phone_authentication_event].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recaptchaenterprise_v1::model::AnnotateAssessmentRequest;
+    /// use google_cloud_recaptchaenterprise_v1::model::PhoneAuthenticationEvent;
+    /// let x = AnnotateAssessmentRequest::new().set_phone_authentication_event(PhoneAuthenticationEvent::default()/* use setters */);
+    /// ```
+    pub fn set_phone_authentication_event<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PhoneAuthenticationEvent>,
+    {
+        self.phone_authentication_event = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [phone_authentication_event][crate::model::AnnotateAssessmentRequest::phone_authentication_event].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recaptchaenterprise_v1::model::AnnotateAssessmentRequest;
+    /// use google_cloud_recaptchaenterprise_v1::model::PhoneAuthenticationEvent;
+    /// let x = AnnotateAssessmentRequest::new().set_or_clear_phone_authentication_event(Some(PhoneAuthenticationEvent::default()/* use setters */));
+    /// let x = AnnotateAssessmentRequest::new().set_or_clear_phone_authentication_event(None::<PhoneAuthenticationEvent>);
+    /// ```
+    pub fn set_or_clear_phone_authentication_event<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::PhoneAuthenticationEvent>,
+    {
+        self.phone_authentication_event = v.map(|x| x.into());
         self
     }
 }
@@ -1362,6 +1472,7 @@ pub mod account_verification_info {
 
     /// Result of the account verification as contained in the verdict token issued
     /// at the end of the verification flow.
+    /// Ensure that applications can handle values not explicitly listed.
     ///
     /// # Working with unknown values
     ///
@@ -2146,7 +2257,7 @@ pub struct Event {
     /// Optional. The URI resource the user requested that triggered an assessment.
     pub requested_uri: std::string::String,
 
-    /// Optional. Flag for running WAF token assessment.
+    /// Optional. Flag for running Web Application Firewall (WAF) token assessment.
     /// If enabled, the token must be specified, and have been created by a
     /// WAF-enabled key.
     pub waf_token_assessment: bool,
@@ -2447,6 +2558,7 @@ pub mod event {
     use super::*;
 
     /// Setting that controls Fraud Prevention assessments.
+    /// Ensure that applications can handle values not explicitly listed.
     ///
     /// # Working with unknown values
     ///
@@ -3623,9 +3735,13 @@ pub struct RiskAnalysis {
     /// The set of possible reasons is subject to change.
     pub extended_verdict_reasons: std::vec::Vec<std::string::String>,
 
-    /// Output only. Challenge information for SCORE_AND_CHALLENGE and INVISIBLE
-    /// keys
+    /// Output only. Challenge information for POLICY_BASED_CHALLENGE and INVISIBLE
+    /// keys.
     pub challenge: crate::model::risk_analysis::Challenge,
+
+    /// Output only. Bots with identities that have been verified by reCAPTCHA and
+    /// detected in the event.
+    pub verified_bots: std::vec::Vec<crate::model::Bot>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -3703,6 +3819,28 @@ impl RiskAnalysis {
         self.challenge = v.into();
         self
     }
+
+    /// Sets the value of [verified_bots][crate::model::RiskAnalysis::verified_bots].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recaptchaenterprise_v1::model::RiskAnalysis;
+    /// use google_cloud_recaptchaenterprise_v1::model::Bot;
+    /// let x = RiskAnalysis::new()
+    ///     .set_verified_bots([
+    ///         Bot::default()/* use setters */,
+    ///         Bot::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_verified_bots<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Bot>,
+    {
+        use std::iter::Iterator;
+        self.verified_bots = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
 }
 
 impl wkt::message::Message for RiskAnalysis {
@@ -3717,6 +3855,7 @@ pub mod risk_analysis {
     use super::*;
 
     /// Reasons contributing to the risk analysis verdict.
+    /// Ensure that applications can handle values not explicitly listed.
     ///
     /// # Working with unknown values
     ///
@@ -3887,7 +4026,8 @@ pub mod risk_analysis {
         }
     }
 
-    /// Challenge information for SCORE_AND_CHALLENGE and INVISIBLE keys
+    /// Challenge information for POLICY_BASED_CHALLENGE and INVISIBLE keys.
+    /// Ensure that applications can handle values not explicitly listed.
     ///
     /// # Working with unknown values
     ///
@@ -4023,6 +4163,207 @@ pub mod risk_analysis {
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Challenge>::new(
                 ".google.cloud.recaptchaenterprise.v1.RiskAnalysis.Challenge",
+            ))
+        }
+    }
+}
+
+/// Bot information and metadata.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Bot {
+    /// Optional. Enumerated string value that indicates the identity of the bot,
+    /// formatted in kebab-case.
+    pub name: std::string::String,
+
+    /// Optional. Enumerated field representing the type of bot.
+    pub bot_type: crate::model::bot::BotType,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl Bot {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::Bot::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recaptchaenterprise_v1::model::Bot;
+    /// let x = Bot::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [bot_type][crate::model::Bot::bot_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recaptchaenterprise_v1::model::Bot;
+    /// use google_cloud_recaptchaenterprise_v1::model::bot::BotType;
+    /// let x0 = Bot::new().set_bot_type(BotType::AiAgent);
+    /// let x1 = Bot::new().set_bot_type(BotType::ContentScraper);
+    /// let x2 = Bot::new().set_bot_type(BotType::SearchIndexer);
+    /// ```
+    pub fn set_bot_type<T: std::convert::Into<crate::model::bot::BotType>>(mut self, v: T) -> Self {
+        self.bot_type = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for Bot {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.recaptchaenterprise.v1.Bot"
+    }
+}
+
+/// Defines additional types related to [Bot].
+pub mod bot {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Types of bots.
+    /// Ensure that applications can handle values not explicitly listed.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum BotType {
+        /// Default unspecified type.
+        Unspecified,
+        /// Software program that interacts with a site and performs tasks
+        /// autonomously.
+        AiAgent,
+        /// Software that extracts specific data from sites for use.
+        ContentScraper,
+        /// Software that crawls sites and stores content for the purpose of
+        /// efficient retrieval, likely as part of a search engine.
+        SearchIndexer,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [BotType::value] or
+        /// [BotType::name].
+        UnknownValue(bot_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod bot_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl BotType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::AiAgent => std::option::Option::Some(1),
+                Self::ContentScraper => std::option::Option::Some(2),
+                Self::SearchIndexer => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("BOT_TYPE_UNSPECIFIED"),
+                Self::AiAgent => std::option::Option::Some("AI_AGENT"),
+                Self::ContentScraper => std::option::Option::Some("CONTENT_SCRAPER"),
+                Self::SearchIndexer => std::option::Option::Some("SEARCH_INDEXER"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for BotType {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for BotType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for BotType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::AiAgent,
+                2 => Self::ContentScraper,
+                3 => Self::SearchIndexer,
+                _ => Self::UnknownValue(bot_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for BotType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "BOT_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "AI_AGENT" => Self::AiAgent,
+                "CONTENT_SCRAPER" => Self::ContentScraper,
+                "SEARCH_INDEXER" => Self::SearchIndexer,
+                _ => Self::UnknownValue(bot_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for BotType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::AiAgent => serializer.serialize_i32(1),
+                Self::ContentScraper => serializer.serialize_i32(2),
+                Self::SearchIndexer => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for BotType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<BotType>::new(
+                ".google.cloud.recaptchaenterprise.v1.Bot.BotType",
             ))
         }
     }
@@ -4197,6 +4538,7 @@ pub mod token_properties {
     use super::*;
 
     /// Enum that represents the types of invalid token reasons.
+    /// Ensure that applications can handle values not explicitly listed.
     ///
     /// # Working with unknown values
     ///
@@ -4229,6 +4571,15 @@ pub mod token_properties {
         /// A retriable error (such as network failure) occurred on the browser.
         /// Could easily be simulated by an attacker.
         BrowserError,
+        /// The action provided at token generation was different than
+        /// the `expected_action` in the assessment request. The comparison is
+        /// case-insensitive. This reason can only be returned if all of the
+        /// following are true:
+        ///
+        /// - your `site_key` has the POLICY_BASED_CHALLENGE integration type
+        /// - you set an action score threshold higher than 0.0
+        /// - you provided a non-empty `expected_action`
+        UnexpectedAction,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [InvalidReason::value] or
@@ -4258,6 +4609,7 @@ pub mod token_properties {
                 Self::Dupe => std::option::Option::Some(4),
                 Self::Missing => std::option::Option::Some(5),
                 Self::BrowserError => std::option::Option::Some(6),
+                Self::UnexpectedAction => std::option::Option::Some(7),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -4275,6 +4627,7 @@ pub mod token_properties {
                 Self::Dupe => std::option::Option::Some("DUPE"),
                 Self::Missing => std::option::Option::Some("MISSING"),
                 Self::BrowserError => std::option::Option::Some("BROWSER_ERROR"),
+                Self::UnexpectedAction => std::option::Option::Some("UNEXPECTED_ACTION"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -4303,6 +4656,7 @@ pub mod token_properties {
                 4 => Self::Dupe,
                 5 => Self::Missing,
                 6 => Self::BrowserError,
+                7 => Self::UnexpectedAction,
                 _ => Self::UnknownValue(invalid_reason::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -4321,6 +4675,7 @@ pub mod token_properties {
                 "DUPE" => Self::Dupe,
                 "MISSING" => Self::Missing,
                 "BROWSER_ERROR" => Self::BrowserError,
+                "UNEXPECTED_ACTION" => Self::UnexpectedAction,
                 _ => Self::UnknownValue(invalid_reason::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -4341,6 +4696,7 @@ pub mod token_properties {
                 Self::Dupe => serializer.serialize_i32(4),
                 Self::Missing => serializer.serialize_i32(5),
                 Self::BrowserError => serializer.serialize_i32(6),
+                Self::UnexpectedAction => serializer.serialize_i32(7),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -4366,6 +4722,10 @@ pub struct FraudPreventionAssessment {
     /// the combined risk of attack vectors below. Values are from 0.0 (lowest)
     /// to 1.0 (highest).
     pub transaction_risk: f32,
+
+    /// Output only. Reasons why the transaction is probably fraudulent and
+    /// received a high transaction risk score.
+    pub risk_reasons: std::vec::Vec<crate::model::fraud_prevention_assessment::RiskReason>,
 
     /// Output only. Assessment of this transaction for risk of a stolen
     /// instrument.
@@ -4398,6 +4758,28 @@ impl FraudPreventionAssessment {
     /// ```
     pub fn set_transaction_risk<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.transaction_risk = v.into();
+        self
+    }
+
+    /// Sets the value of [risk_reasons][crate::model::FraudPreventionAssessment::risk_reasons].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recaptchaenterprise_v1::model::FraudPreventionAssessment;
+    /// use google_cloud_recaptchaenterprise_v1::model::fraud_prevention_assessment::RiskReason;
+    /// let x = FraudPreventionAssessment::new()
+    ///     .set_risk_reasons([
+    ///         RiskReason::default()/* use setters */,
+    ///         RiskReason::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_risk_reasons<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::fraud_prevention_assessment::RiskReason>,
+    {
+        use std::iter::Iterator;
+        self.risk_reasons = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -4511,6 +4893,225 @@ impl wkt::message::Message for FraudPreventionAssessment {
 pub mod fraud_prevention_assessment {
     #[allow(unused_imports)]
     use super::*;
+
+    /// Risk reasons applicable to the Fraud Prevention assessment.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct RiskReason {
+        /// Output only. Risk reasons applicable to the Fraud Prevention assessment.
+        pub reason: crate::model::fraud_prevention_assessment::risk_reason::Reason,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl RiskReason {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [reason][crate::model::fraud_prevention_assessment::RiskReason::reason].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_recaptchaenterprise_v1::model::fraud_prevention_assessment::RiskReason;
+        /// use google_cloud_recaptchaenterprise_v1::model::fraud_prevention_assessment::risk_reason::Reason;
+        /// let x0 = RiskReason::new().set_reason(Reason::HighTransactionVelocity);
+        /// let x1 = RiskReason::new().set_reason(Reason::ExcessiveEnumerationPattern);
+        /// let x2 = RiskReason::new().set_reason(Reason::ShortIdentityHistory);
+        /// ```
+        pub fn set_reason<
+            T: std::convert::Into<crate::model::fraud_prevention_assessment::risk_reason::Reason>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.reason = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for RiskReason {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.recaptchaenterprise.v1.FraudPreventionAssessment.RiskReason"
+        }
+    }
+
+    /// Defines additional types related to [RiskReason].
+    pub mod risk_reason {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Risk reasons applicable to the Fraud Prevention assessment. New risk
+        /// reasons will be added over time.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Reason {
+            /// Default unspecified type.
+            Unspecified,
+            /// A suspiciously high number of recent transactions have used identifiers
+            /// present in this transaction.
+            HighTransactionVelocity,
+            /// User is cycling through a suspiciously large number of identifiers,
+            /// suggesting enumeration or validation attacks within a potential fraud
+            /// network.
+            ExcessiveEnumerationPattern,
+            /// User has a short history or no history in the reCAPTCHA network,
+            /// suggesting the possibility of synthetic identity generation.
+            ShortIdentityHistory,
+            /// Identifiers used in this transaction originate from an unusual or
+            /// conflicting set of geolocations.
+            GeolocationDiscrepancy,
+            /// This transaction is linked to a cluster of known fraudulent activity.
+            AssociatedWithFraudCluster,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [Reason::value] or
+            /// [Reason::name].
+            UnknownValue(reason::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod reason {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        impl Reason {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::HighTransactionVelocity => std::option::Option::Some(1),
+                    Self::ExcessiveEnumerationPattern => std::option::Option::Some(2),
+                    Self::ShortIdentityHistory => std::option::Option::Some(3),
+                    Self::GeolocationDiscrepancy => std::option::Option::Some(4),
+                    Self::AssociatedWithFraudCluster => std::option::Option::Some(5),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("REASON_UNSPECIFIED"),
+                    Self::HighTransactionVelocity => {
+                        std::option::Option::Some("HIGH_TRANSACTION_VELOCITY")
+                    }
+                    Self::ExcessiveEnumerationPattern => {
+                        std::option::Option::Some("EXCESSIVE_ENUMERATION_PATTERN")
+                    }
+                    Self::ShortIdentityHistory => {
+                        std::option::Option::Some("SHORT_IDENTITY_HISTORY")
+                    }
+                    Self::GeolocationDiscrepancy => {
+                        std::option::Option::Some("GEOLOCATION_DISCREPANCY")
+                    }
+                    Self::AssociatedWithFraudCluster => {
+                        std::option::Option::Some("ASSOCIATED_WITH_FRAUD_CLUSTER")
+                    }
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        impl std::default::Default for Reason {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for Reason {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for Reason {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::HighTransactionVelocity,
+                    2 => Self::ExcessiveEnumerationPattern,
+                    3 => Self::ShortIdentityHistory,
+                    4 => Self::GeolocationDiscrepancy,
+                    5 => Self::AssociatedWithFraudCluster,
+                    _ => Self::UnknownValue(reason::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for Reason {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "REASON_UNSPECIFIED" => Self::Unspecified,
+                    "HIGH_TRANSACTION_VELOCITY" => Self::HighTransactionVelocity,
+                    "EXCESSIVE_ENUMERATION_PATTERN" => Self::ExcessiveEnumerationPattern,
+                    "SHORT_IDENTITY_HISTORY" => Self::ShortIdentityHistory,
+                    "GEOLOCATION_DISCREPANCY" => Self::GeolocationDiscrepancy,
+                    "ASSOCIATED_WITH_FRAUD_CLUSTER" => Self::AssociatedWithFraudCluster,
+                    _ => Self::UnknownValue(reason::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for Reason {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::HighTransactionVelocity => serializer.serialize_i32(1),
+                    Self::ExcessiveEnumerationPattern => serializer.serialize_i32(2),
+                    Self::ShortIdentityHistory => serializer.serialize_i32(3),
+                    Self::GeolocationDiscrepancy => serializer.serialize_i32(4),
+                    Self::AssociatedWithFraudCluster => serializer.serialize_i32(5),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for Reason {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<Reason>::new(
+                    ".google.cloud.recaptchaenterprise.v1.FraudPreventionAssessment.RiskReason.Reason"))
+            }
+        }
+    }
 
     /// Information about stolen instrument fraud, where the user is not the
     /// legitimate owner of the instrument being used for the purchase.
@@ -4821,6 +5422,7 @@ pub mod fraud_signals {
 
         /// Risk labels describing the card being assessed, such as its funding
         /// mechanism.
+        /// Ensure that applications can handle values not explicitly listed.
         ///
         /// # Working with unknown values
         ///
@@ -5030,6 +5632,7 @@ pub mod sms_toll_fraud_verdict {
     use super::*;
 
     /// Reasons contributing to the SMS toll fraud verdict.
+    /// Ensure that applications can handle values not explicitly listed.
     ///
     /// # Working with unknown values
     ///
@@ -5260,6 +5863,7 @@ pub mod account_defender_assessment {
     use super::*;
 
     /// Labels returned by account defender for this request.
+    /// Ensure that applications can handle values not explicitly listed.
     ///
     /// # Working with unknown values
     ///
@@ -6286,7 +6890,7 @@ pub struct MigrateKeyRequest {
     /// Optional. If true, skips the billing check.
     /// A reCAPTCHA Enterprise key or migrated key behaves differently than a
     /// reCAPTCHA (non-Enterprise version) key when you reach a quota limit (see
-    /// <https://cloud.google.com/recaptcha/quotas#quota_limit>). To avoid
+    /// <https://docs.cloud.google.com/recaptcha/quotas#quota_limit>). To avoid
     /// any disruption of your usage, we check that a billing account is present.
     /// If your usage of reCAPTCHA is under the free quota, you can safely skip the
     /// billing check and proceed with the migration. See
@@ -6555,7 +7159,7 @@ pub struct Key {
     /// Optional. Options for user acceptance testing.
     pub testing_options: std::option::Option<crate::model::TestingOptions>,
 
-    /// Optional. Settings for WAF
+    /// Optional. Settings for Web Application Firewall (WAF).
     pub waf_settings: std::option::Option<crate::model::WafSettings>,
 
     /// Platform-specific settings for this key. The key can only be used on a
@@ -6990,8 +7594,9 @@ pub mod testing_options {
     #[allow(unused_imports)]
     use super::*;
 
-    /// Enum that represents the challenge option for challenge-based (CHECKBOX,
-    /// INVISIBLE) testing keys.
+    /// Enum that represents the challenge option for challenge-based (for example,
+    /// CHECKBOX and INVISIBLE) testing keys.
+    /// Ensure that applications can handle values not explicitly listed.
     ///
     /// # Working with unknown values
     ///
@@ -7138,6 +7743,10 @@ pub struct WebKeySettings {
     /// subdomains of an allowed domain are automatically allowed. A valid domain
     /// requires a host and must not include any path, port, query or fragment.
     /// Examples: 'example.com' or 'subdomain.example.com'
+    /// Each key supports a maximum of 250 domains. To use a key on more domains,
+    /// set `allow_all_domains` to true. When this is set, you are responsible for
+    /// validating the hostname by checking the `token_properties.hostname` field
+    /// in each assessment response against your list of allowed domains.
     pub allowed_domains: std::vec::Vec<std::string::String>,
 
     /// Optional. If set to true, the key can be used on AMP (Accelerated Mobile
@@ -7149,8 +7758,11 @@ pub struct WebKeySettings {
 
     /// Optional. Settings for the frequency and difficulty at which this key
     /// triggers captcha challenges. This should only be specified for
-    /// IntegrationTypes CHECKBOX and INVISIBLE and SCORE_AND_CHALLENGE.
+    /// `IntegrationType` CHECKBOX, INVISIBLE or POLICY_BASED_CHALLENGE.
     pub challenge_security_preference: crate::model::web_key_settings::ChallengeSecurityPreference,
+
+    /// Optional. Challenge settings.
+    pub challenge_settings: std::option::Option<crate::model::web_key_settings::ChallengeSettings>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -7240,6 +7852,39 @@ impl WebKeySettings {
         self.challenge_security_preference = v.into();
         self
     }
+
+    /// Sets the value of [challenge_settings][crate::model::WebKeySettings::challenge_settings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recaptchaenterprise_v1::model::WebKeySettings;
+    /// use google_cloud_recaptchaenterprise_v1::model::web_key_settings::ChallengeSettings;
+    /// let x = WebKeySettings::new().set_challenge_settings(ChallengeSettings::default()/* use setters */);
+    /// ```
+    pub fn set_challenge_settings<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::web_key_settings::ChallengeSettings>,
+    {
+        self.challenge_settings = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [challenge_settings][crate::model::WebKeySettings::challenge_settings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recaptchaenterprise_v1::model::WebKeySettings;
+    /// use google_cloud_recaptchaenterprise_v1::model::web_key_settings::ChallengeSettings;
+    /// let x = WebKeySettings::new().set_or_clear_challenge_settings(Some(ChallengeSettings::default()/* use setters */));
+    /// let x = WebKeySettings::new().set_or_clear_challenge_settings(None::<ChallengeSettings>);
+    /// ```
+    pub fn set_or_clear_challenge_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::web_key_settings::ChallengeSettings>,
+    {
+        self.challenge_settings = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for WebKeySettings {
@@ -7253,7 +7898,134 @@ pub mod web_key_settings {
     #[allow(unused_imports)]
     use super::*;
 
+    /// Per-action challenge settings.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct ActionSettings {
+        /// Required. A challenge is triggered if the end-user score is below that
+        /// threshold. Value must be between 0 and 1 (inclusive).
+        pub score_threshold: f32,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl ActionSettings {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [score_threshold][crate::model::web_key_settings::ActionSettings::score_threshold].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_recaptchaenterprise_v1::model::web_key_settings::ActionSettings;
+        /// let x = ActionSettings::new().set_score_threshold(42.0);
+        /// ```
+        pub fn set_score_threshold<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
+            self.score_threshold = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for ActionSettings {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.recaptchaenterprise.v1.WebKeySettings.ActionSettings"
+        }
+    }
+
+    /// Settings for POLICY_BASED_CHALLENGE keys to control when a challenge is
+    /// triggered.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct ChallengeSettings {
+        /// Required. Defines when a challenge is triggered (unless the default
+        /// threshold is overridden for the given action, see `action_settings`).
+        pub default_settings: std::option::Option<crate::model::web_key_settings::ActionSettings>,
+
+        /// Optional. The action to score threshold map.
+        /// The action name should be the same as the action name passed in the
+        /// `data-action` attribute
+        /// (see <https://cloud.google.com/recaptcha/docs/actions-website>).
+        /// Action names are case-insensitive.
+        /// There is a maximum of 100 action settings.
+        /// An action name has a maximum length of 100.
+        pub action_settings: std::collections::HashMap<
+            std::string::String,
+            crate::model::web_key_settings::ActionSettings,
+        >,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl ChallengeSettings {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [default_settings][crate::model::web_key_settings::ChallengeSettings::default_settings].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_recaptchaenterprise_v1::model::web_key_settings::ChallengeSettings;
+        /// use google_cloud_recaptchaenterprise_v1::model::web_key_settings::ActionSettings;
+        /// let x = ChallengeSettings::new().set_default_settings(ActionSettings::default()/* use setters */);
+        /// ```
+        pub fn set_default_settings<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::web_key_settings::ActionSettings>,
+        {
+            self.default_settings = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [default_settings][crate::model::web_key_settings::ChallengeSettings::default_settings].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_recaptchaenterprise_v1::model::web_key_settings::ChallengeSettings;
+        /// use google_cloud_recaptchaenterprise_v1::model::web_key_settings::ActionSettings;
+        /// let x = ChallengeSettings::new().set_or_clear_default_settings(Some(ActionSettings::default()/* use setters */));
+        /// let x = ChallengeSettings::new().set_or_clear_default_settings(None::<ActionSettings>);
+        /// ```
+        pub fn set_or_clear_default_settings<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::web_key_settings::ActionSettings>,
+        {
+            self.default_settings = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [action_settings][crate::model::web_key_settings::ChallengeSettings::action_settings].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_recaptchaenterprise_v1::model::web_key_settings::ChallengeSettings;
+        /// use google_cloud_recaptchaenterprise_v1::model::web_key_settings::ActionSettings;
+        /// let x = ChallengeSettings::new().set_action_settings([
+        ///     ("key0", ActionSettings::default()/* use setters */),
+        ///     ("key1", ActionSettings::default()/* use (different) setters */),
+        /// ]);
+        /// ```
+        pub fn set_action_settings<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<crate::model::web_key_settings::ActionSettings>,
+        {
+            use std::iter::Iterator;
+            self.action_settings = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for ChallengeSettings {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.recaptchaenterprise.v1.WebKeySettings.ChallengeSettings"
+        }
+    }
+
     /// Enum that represents the integration types for web keys.
+    /// Ensure that applications can handle values not explicitly listed.
     ///
     /// # Working with unknown values
     ///
@@ -7284,6 +8056,9 @@ pub mod web_key_settings {
         /// Doesn't display the "I'm not a robot" checkbox, but may show captcha
         /// challenges after risk analysis.
         Invisible,
+        /// Displays a visual challenge or not depending on the user risk analysis
+        /// score.
+        PolicyBasedChallenge,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [IntegrationType::value] or
@@ -7310,6 +8085,7 @@ pub mod web_key_settings {
                 Self::Score => std::option::Option::Some(1),
                 Self::Checkbox => std::option::Option::Some(2),
                 Self::Invisible => std::option::Option::Some(3),
+                Self::PolicyBasedChallenge => std::option::Option::Some(5),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -7324,6 +8100,7 @@ pub mod web_key_settings {
                 Self::Score => std::option::Option::Some("SCORE"),
                 Self::Checkbox => std::option::Option::Some("CHECKBOX"),
                 Self::Invisible => std::option::Option::Some("INVISIBLE"),
+                Self::PolicyBasedChallenge => std::option::Option::Some("POLICY_BASED_CHALLENGE"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -7349,6 +8126,7 @@ pub mod web_key_settings {
                 1 => Self::Score,
                 2 => Self::Checkbox,
                 3 => Self::Invisible,
+                5 => Self::PolicyBasedChallenge,
                 _ => Self::UnknownValue(integration_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -7364,6 +8142,7 @@ pub mod web_key_settings {
                 "SCORE" => Self::Score,
                 "CHECKBOX" => Self::Checkbox,
                 "INVISIBLE" => Self::Invisible,
+                "POLICY_BASED_CHALLENGE" => Self::PolicyBasedChallenge,
                 _ => Self::UnknownValue(integration_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -7381,6 +8160,7 @@ pub mod web_key_settings {
                 Self::Score => serializer.serialize_i32(1),
                 Self::Checkbox => serializer.serialize_i32(2),
                 Self::Invisible => serializer.serialize_i32(3),
+                Self::PolicyBasedChallenge => serializer.serialize_i32(5),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -7399,6 +8179,7 @@ pub mod web_key_settings {
 
     /// Enum that represents the possible challenge frequency and difficulty
     /// configurations for a web key.
+    /// Ensure that applications can handle values not explicitly listed.
     ///
     /// # Working with unknown values
     ///
@@ -7548,6 +8329,11 @@ pub struct AndroidKeySettings {
 
     /// Optional. Android package names of apps allowed to use the key.
     /// Example: 'com.companyname.appname'
+    /// Each key supports a maximum of 250 package names. To use a key on more
+    /// apps, set `allow_all_package_names` to true. When this is set, you
+    /// are responsible for validating the package name by checking the
+    /// `token_properties.android_package_name` field in each assessment response
+    /// against your list of allowed package names.
     pub allowed_package_names: std::vec::Vec<std::string::String>,
 
     /// Optional. Set to true for keys that are used in an Android application that
@@ -7621,8 +8407,13 @@ pub struct IOSKeySettings {
     /// Optional. If set to true, allowed_bundle_ids are not enforced.
     pub allow_all_bundle_ids: bool,
 
-    /// Optional. iOS bundle ids of apps allowed to use the key.
+    /// Optional. iOS bundle IDs of apps allowed to use the key.
     /// Example: 'com.companyname.productname.appname'
+    /// Each key supports a maximum of 250 bundle IDs. To use a key on more
+    /// apps, set `allow_all_bundle_ids` to true. When this is set, you
+    /// are responsible for validating the bundle id by checking the
+    /// `token_properties.ios_bundle_id` field in each assessment response
+    /// against your list of allowed bundle IDs.
     pub allowed_bundle_ids: std::vec::Vec<std::string::String>,
 
     /// Optional. Apple Developer account details for the app that is protected by
@@ -9660,10 +10451,11 @@ impl wkt::message::Message for RelatedAccountGroup {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WafSettings {
-    /// Required. The WAF service that uses this key.
+    /// Required. The Web Application Firewall (WAF) service that uses this key.
     pub waf_service: crate::model::waf_settings::WafService,
 
-    /// Required. The WAF feature for which this key is enabled.
+    /// Required. The Web Application Firewall (WAF) feature for which this key is
+    /// enabled.
     pub waf_feature: crate::model::waf_settings::WafFeature,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -9724,6 +10516,7 @@ pub mod waf_settings {
 
     /// Supported WAF features. For more information, see
     /// <https://cloud.google.com/recaptcha/docs/usecase#comparison_of_features>.
+    /// Ensure that applications can handle values not explicitly listed.
     ///
     /// # Working with unknown values
     ///
@@ -9750,8 +10543,8 @@ pub mod waf_settings {
         SessionToken,
         /// Use reCAPTCHA action-tokens to protect user actions.
         ActionToken,
-        /// Use reCAPTCHA WAF express protection to protect any content other than
-        /// web pages, like APIs and IoT devices.
+        /// Deprecated: Use `express_settings` instead.
+        #[deprecated]
         Express,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -9871,7 +10664,8 @@ pub mod waf_settings {
         }
     }
 
-    /// Web Application Firewalls supported by reCAPTCHA.
+    /// Web Application Firewalls that reCAPTCHA supports.
+    /// Ensure that applications can handle values not explicitly listed.
     ///
     /// # Working with unknown values
     ///
@@ -10027,9 +10821,9 @@ pub struct AssessmentEnvironment {
     /// request. This can be the link to the client module's project. Examples
     /// include:
     ///
-    /// - "github.com/GoogleCloudPlatform/recaptcha-enterprise-google-tag-manager"
-    /// - "cloud.google.com/recaptcha/docs/implement-waf-akamai"
-    /// - "cloud.google.com/recaptcha/docs/implement-waf-cloudflare"
+    ///
+    /// "github.com/GoogleCloudPlatform/recaptcha-enterprise-google-tag-manager"
+    ///
     /// - "wordpress.org/plugins/recaptcha-something"
     pub client: std::string::String,
 
@@ -10142,6 +10936,7 @@ pub mod ip_override_data {
     use super::*;
 
     /// Enum that represents the type of IP override.
+    /// Ensure that applications can handle values not explicitly listed.
     ///
     /// # Working with unknown values
     ///

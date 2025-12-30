@@ -12303,6 +12303,11 @@ pub struct Version {
     /// Optional. Client specified annotations.
     pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
 
+    /// Output only. Immutable reference for the version, calculated based on the
+    /// version's content. Currently we only support dirsum_sha256 hash algorithm.
+    /// Additional hash algorithms may be added in the future.
+    pub fingerprints: std::vec::Vec<crate::model::Hash>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -12474,6 +12479,28 @@ impl Version {
     {
         use std::iter::Iterator;
         self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [fingerprints][crate::model::Version::fingerprints].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_artifactregistry_v1::model::Version;
+    /// use google_cloud_artifactregistry_v1::model::Hash;
+    /// let x = Version::new()
+    ///     .set_fingerprints([
+    ///         Hash::default()/* use setters */,
+    ///         Hash::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_fingerprints<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Hash>,
+    {
+        use std::iter::Iterator;
+        self.fingerprints = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }

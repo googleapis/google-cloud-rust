@@ -78,7 +78,7 @@ impl wkt::message::Message for GetDefaultServiceAccountRequest {
 #[non_exhaustive]
 pub struct DefaultServiceAccount {
     /// Identifier. Format:
-    /// `projects/{project}/locations/{location}/defaultServiceAccount
+    /// `projects/{project}/locations/{location}/defaultServiceAccount`
     pub name: std::string::String,
 
     /// Output only. The email address of the service account identity that will be

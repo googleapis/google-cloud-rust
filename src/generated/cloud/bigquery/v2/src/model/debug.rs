@@ -443,6 +443,18 @@ impl std::fmt::Debug for super::JsonOptions {
     }
 }
 
+impl std::fmt::Debug for super::BigtableProtoConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BigtableProtoConfig");
+        debug_struct.field("schema_bundle_id", &self.schema_bundle_id);
+        debug_struct.field("proto_message_name", &self.proto_message_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::BigtableColumn {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BigtableColumn");
@@ -452,6 +464,7 @@ impl std::fmt::Debug for super::BigtableColumn {
         debug_struct.field("r#type", &self.r#type);
         debug_struct.field("encoding", &self.encoding);
         debug_struct.field("only_read_latest", &self.only_read_latest);
+        debug_struct.field("proto_config", &self.proto_config);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -467,6 +480,7 @@ impl std::fmt::Debug for super::BigtableColumnFamily {
         debug_struct.field("encoding", &self.encoding);
         debug_struct.field("columns", &self.columns);
         debug_struct.field("only_read_latest", &self.only_read_latest);
+        debug_struct.field("proto_config", &self.proto_config);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1218,6 +1232,7 @@ impl std::fmt::Debug for super::IndexPruningStats {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("IndexPruningStats");
         debug_struct.field("base_table", &self.base_table);
+        debug_struct.field("index_id", &self.index_id);
         debug_struct.field(
             "pre_index_pruning_parallel_input_count",
             &self.pre_index_pruning_parallel_input_count,

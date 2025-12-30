@@ -19818,6 +19818,7 @@ impl Action {
     /// The value of [action][crate::model::Action::action]
     /// if it holds a `PublishFindingsToCloudDataCatalog`, `None` if the field is not set or
     /// holds a different branch.
+    #[deprecated]
     pub fn publish_findings_to_cloud_data_catalog(
         &self,
     ) -> std::option::Option<
@@ -19852,6 +19853,7 @@ impl Action {
     /// assert!(x.job_notification_emails().is_none());
     /// assert!(x.publish_to_stackdriver().is_none());
     /// ```
+    #[deprecated]
     pub fn set_publish_findings_to_cloud_data_catalog<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::action::PublishFindingsToCloudDataCatalog>,
@@ -20577,7 +20579,10 @@ pub mod action {
         PubSub(std::boxed::Box<crate::model::action::PublishToPubSub>),
         /// Publish summary to Cloud Security Command Center (Alpha).
         PublishSummaryToCscc(std::boxed::Box<crate::model::action::PublishSummaryToCscc>),
-        /// Publish findings to Cloud Datahub.
+        /// Deprecated because Data Catalog is being turned down. Use
+        /// publish_findings_to_dataplex_catalog to publish findings to Dataplex
+        /// Universal Catalog.
+        #[deprecated]
         PublishFindingsToCloudDataCatalog(
             std::boxed::Box<crate::model::action::PublishFindingsToCloudDataCatalog>,
         ),
@@ -32632,12 +32637,16 @@ impl wkt::message::Message for VertexDatasetRegex {
     }
 }
 
-/// Identifies a single Vertex AI dataset.
+/// Identifies a single Vertex AI resource. Only datasets are
+/// supported.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VertexDatasetResourceReference {
-    /// Required. The name of the dataset resource. If set within a project-level
+    /// Required. The name of the Vertex AI resource. If set within a project-level
     /// configuration, the specified resource must be within the project.
+    /// Examples:
+    ///
+    /// * `projects/{project}/locations/{location}/datasets/{dataset}`
     pub dataset_resource_name: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -43293,7 +43302,7 @@ impl wkt::message::Message for DeleteTableDataProfileRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataSourceType {
-    /// Output only. An identifying string to the type of resource being profiled.
+    /// A string that identifies the type of resource being profiled.
     /// Current values:
     ///
     /// * google/bigquery/table
@@ -50111,7 +50120,7 @@ impl<'de> serde::de::Deserialize<'de> for RelationalOperator {
 
 /// Type of the match which can be applied to different ways of matching, like
 /// Dictionary, regular expression and intersecting with findings of another
-/// info type.
+/// infoType.
 ///
 /// # Working with unknown values
 ///
@@ -50133,21 +50142,21 @@ pub enum MatchingType {
     Unspecified,
     /// Full match.
     ///
-    /// - Dictionary: join of Dictionary results matched complete finding quote
-    /// - Regex: all regex matches fill a finding quote start to end
-    /// - Exclude info type: completely inside affecting info types findings
+    /// - Dictionary: join of Dictionary results matched the complete finding quote
+    /// - Regex: all regex matches fill a finding quote from start to end
+    /// - Exclude infoType: completely inside affecting infoTypes findings
     FullMatch,
     /// Partial match.
     ///
     /// - Dictionary: at least one of the tokens in the finding matches
     /// - Regex: substring of the finding matches
-    /// - Exclude info type: intersects with affecting info types findings
+    /// - Exclude infoType: intersects with affecting infoTypes findings
     PartialMatch,
     /// Inverse match.
     ///
     /// - Dictionary: no tokens in the finding match the dictionary
     /// - Regex: finding doesn't match the regex
-    /// - Exclude info type: no intersection with affecting info types findings
+    /// - Exclude infoType: no intersection with affecting infoTypes findings
     InverseMatch,
     /// If set, the enum was initialized with an unknown value.
     ///

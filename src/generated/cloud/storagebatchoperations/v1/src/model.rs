@@ -713,6 +713,11 @@ pub struct Job {
     /// Output only. State of the job.
     pub state: crate::model::job::State,
 
+    /// Optional. If true, the job will run in dry run mode, returning the total
+    /// object count and, if the object configuration is a prefix list, the bytes
+    /// found from source. No transformations will be performed.
+    pub dry_run: bool,
+
     /// Specifies objects to be transformed.
     pub source: std::option::Option<crate::model::job::Source>,
 
@@ -950,6 +955,18 @@ impl Job {
     /// ```
     pub fn set_state<T: std::convert::Into<crate::model::job::State>>(mut self, v: T) -> Self {
         self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [dry_run][crate::model::Job::dry_run].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storagebatchoperations_v1::model::Job;
+    /// let x = Job::new().set_dry_run(true);
+    /// ```
+    pub fn set_dry_run<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.dry_run = v.into();
         self
     }
 
@@ -1579,15 +1596,12 @@ pub struct Manifest {
     /// a CSV file in a Google Cloud Storage bucket. Each row in the file must
     /// include the object details i.e. BucketId and Name. Generation may
     /// optionally be specified. When it is not specified the live object is acted
-    /// upon.
-    /// `manifest_location` should either be
-    ///
-    /// 1. An absolute path to the object in the format of
-    ///    `gs://bucket_name/path/file_name.csv`.
-    /// 1. An absolute path with a single wildcard character in the file name, for
-    ///    example `gs://bucket_name/path/file_name*.csv`.
-    ///    If manifest location is specified with a wildcard, objects in all manifest
-    ///    files matching the pattern will be acted upon.
+    /// upon. `manifest_location` should either be 1) An absolute path to the
+    /// object in the format of `gs://bucket_name/path/file_name.csv`. 2) An
+    /// absolute path with a single wildcard character in the file name, for
+    /// example `gs://bucket_name/path/file_name*.csv`.
+    /// If manifest location is specified with a wildcard, objects in all manifest
+    /// files matching the pattern will be acted upon.
     pub manifest_location: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1972,6 +1986,237 @@ impl wkt::message::Message for RewriteObject {
     }
 }
 
+/// Describes options for object retention update.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ObjectRetention {
+    /// Required. The time when the object will be retained until. UNSET will clear
+    /// the retention. Must be specified in RFC 3339 format e.g.
+    /// YYYY-MM-DD'T'HH:MM:SS.SS'Z' or YYYY-MM-DD'T'HH:MM:SS'Z'.
+    pub retain_until_time: std::option::Option<std::string::String>,
+
+    /// Required. The retention mode of the object.
+    pub retention_mode: std::option::Option<crate::model::object_retention::RetentionMode>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ObjectRetention {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [retain_until_time][crate::model::ObjectRetention::retain_until_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storagebatchoperations_v1::model::ObjectRetention;
+    /// let x = ObjectRetention::new().set_retain_until_time("example");
+    /// ```
+    pub fn set_retain_until_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.retain_until_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [retain_until_time][crate::model::ObjectRetention::retain_until_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storagebatchoperations_v1::model::ObjectRetention;
+    /// let x = ObjectRetention::new().set_or_clear_retain_until_time(Some("example"));
+    /// let x = ObjectRetention::new().set_or_clear_retain_until_time(None::<String>);
+    /// ```
+    pub fn set_or_clear_retain_until_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.retain_until_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [retention_mode][crate::model::ObjectRetention::retention_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storagebatchoperations_v1::model::ObjectRetention;
+    /// use google_cloud_storagebatchoperations_v1::model::object_retention::RetentionMode;
+    /// let x0 = ObjectRetention::new().set_retention_mode(RetentionMode::Locked);
+    /// let x1 = ObjectRetention::new().set_retention_mode(RetentionMode::Unlocked);
+    /// ```
+    pub fn set_retention_mode<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::object_retention::RetentionMode>,
+    {
+        self.retention_mode = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [retention_mode][crate::model::ObjectRetention::retention_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storagebatchoperations_v1::model::ObjectRetention;
+    /// use google_cloud_storagebatchoperations_v1::model::object_retention::RetentionMode;
+    /// let x0 = ObjectRetention::new().set_or_clear_retention_mode(Some(RetentionMode::Locked));
+    /// let x1 = ObjectRetention::new().set_or_clear_retention_mode(Some(RetentionMode::Unlocked));
+    /// let x_none = ObjectRetention::new().set_or_clear_retention_mode(None::<RetentionMode>);
+    /// ```
+    pub fn set_or_clear_retention_mode<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::object_retention::RetentionMode>,
+    {
+        self.retention_mode = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for ObjectRetention {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.storagebatchoperations.v1.ObjectRetention"
+    }
+}
+
+/// Defines additional types related to [ObjectRetention].
+pub mod object_retention {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Describes the retention mode.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum RetentionMode {
+        /// If set and retain_until_time is empty, clears the retention.
+        Unspecified,
+        /// Sets the retention mode to locked.
+        Locked,
+        /// Sets the retention mode to unlocked.
+        Unlocked,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [RetentionMode::value] or
+        /// [RetentionMode::name].
+        UnknownValue(retention_mode::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod retention_mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl RetentionMode {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Locked => std::option::Option::Some(1),
+                Self::Unlocked => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("RETENTION_MODE_UNSPECIFIED"),
+                Self::Locked => std::option::Option::Some("LOCKED"),
+                Self::Unlocked => std::option::Option::Some("UNLOCKED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for RetentionMode {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for RetentionMode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for RetentionMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Locked,
+                2 => Self::Unlocked,
+                _ => Self::UnknownValue(retention_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for RetentionMode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "RETENTION_MODE_UNSPECIFIED" => Self::Unspecified,
+                "LOCKED" => Self::Locked,
+                "UNLOCKED" => Self::Unlocked,
+                _ => Self::UnknownValue(retention_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for RetentionMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Locked => serializer.serialize_i32(1),
+                Self::Unlocked => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for RetentionMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<RetentionMode>::new(
+                ".google.cloud.storagebatchoperations.v1.ObjectRetention.RetentionMode",
+            ))
+        }
+    }
+}
+
 /// Describes options for object metadata update.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -1996,16 +2241,13 @@ pub struct PutMetadata {
     pub content_language: std::option::Option<std::string::String>,
 
     /// Optional. Updates objects Content-Type fixed metadata. Unset values will be
-    /// ignored.
-    /// Set empty values to clear the metadata. Refer to documentation in
+    /// ignored. Set empty values to clear the metadata. Refer to documentation in
     /// <https://cloud.google.com/storage/docs/metadata#content-type>
     pub content_type: std::option::Option<std::string::String>,
 
     /// Optional. Updates objects Cache-Control fixed metadata. Unset values will
-    /// be
-    /// ignored. Set empty values to clear the metadata.
-    /// Additionally, the value for Custom-Time cannot decrease. Refer to
-    /// documentation in
+    /// be ignored. Set empty values to clear the metadata. Additionally, the value
+    /// for Custom-Time cannot decrease. Refer to documentation in
     /// <https://cloud.google.com/storage/docs/metadata#caching_data>.
     pub cache_control: std::option::Option<std::string::String>,
 
@@ -2020,6 +2262,13 @@ pub struct PutMetadata {
     /// specified with this flag is not changed. Refer to documentation in
     /// <https://cloud.google.com/storage/docs/metadata#custom-metadata>
     pub custom_metadata: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Optional. Updates objects retention lock configuration. Unset values will
+    /// be ignored. Set empty values to clear the retention for the object with
+    /// existing `Unlocked` retention mode. Object with existing `Locked` retention
+    /// mode cannot be cleared or reduce retain_until_time. Refer to documentation
+    /// in <https://cloud.google.com/storage/docs/object-lock>
+    pub object_retention: std::option::Option<crate::model::ObjectRetention>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2235,6 +2484,39 @@ impl PutMetadata {
         self.custom_metadata = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
+
+    /// Sets the value of [object_retention][crate::model::PutMetadata::object_retention].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storagebatchoperations_v1::model::PutMetadata;
+    /// use google_cloud_storagebatchoperations_v1::model::ObjectRetention;
+    /// let x = PutMetadata::new().set_object_retention(ObjectRetention::default()/* use setters */);
+    /// ```
+    pub fn set_object_retention<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ObjectRetention>,
+    {
+        self.object_retention = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [object_retention][crate::model::PutMetadata::object_retention].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storagebatchoperations_v1::model::PutMetadata;
+    /// use google_cloud_storagebatchoperations_v1::model::ObjectRetention;
+    /// let x = PutMetadata::new().set_or_clear_object_retention(Some(ObjectRetention::default()/* use setters */));
+    /// let x = PutMetadata::new().set_or_clear_object_retention(None::<ObjectRetention>);
+    /// ```
+    pub fn set_or_clear_object_retention<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ObjectRetention>,
+    {
+        self.object_retention = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for PutMetadata {
@@ -2389,6 +2671,10 @@ pub struct Counters {
     /// Output only. Number of objects failed.
     pub failed_object_count: i64,
 
+    /// Output only. Number of bytes found from source. This field is only
+    /// populated for jobs with a prefix list object configuration.
+    pub total_bytes_found: std::option::Option<i64>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2430,6 +2716,37 @@ impl Counters {
     /// ```
     pub fn set_failed_object_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.failed_object_count = v.into();
+        self
+    }
+
+    /// Sets the value of [total_bytes_found][crate::model::Counters::total_bytes_found].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storagebatchoperations_v1::model::Counters;
+    /// let x = Counters::new().set_total_bytes_found(42);
+    /// ```
+    pub fn set_total_bytes_found<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.total_bytes_found = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [total_bytes_found][crate::model::Counters::total_bytes_found].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storagebatchoperations_v1::model::Counters;
+    /// let x = Counters::new().set_or_clear_total_bytes_found(Some(42));
+    /// let x = Counters::new().set_or_clear_total_bytes_found(None::<i32>);
+    /// ```
+    pub fn set_or_clear_total_bytes_found<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.total_bytes_found = v.map(|x| x.into());
         self
     }
 }

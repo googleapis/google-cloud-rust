@@ -180,6 +180,70 @@ impl std::fmt::Debug for super::GetValidationResultRequest {
     }
 }
 
+#[cfg(any(
+    feature = "answer-records",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+))]
+impl std::fmt::Debug for super::AgentCoachingInstruction {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AgentCoachingInstruction");
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("display_details", &self.display_details);
+        debug_struct.field("condition", &self.condition);
+        debug_struct.field("agent_action", &self.agent_action);
+        debug_struct.field("system_action", &self.system_action);
+        debug_struct.field("duplicate_check_result", &self.duplicate_check_result);
+        debug_struct.field("triggering_event", &self.triggering_event);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+))]
+impl std::fmt::Debug for super::agent_coaching_instruction::DuplicateCheckResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DuplicateCheckResult");
+        debug_struct.field("duplicate_suggestions", &self.duplicate_suggestions);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+))]
+impl std::fmt::Debug
+    for super::agent_coaching_instruction::duplicate_check_result::DuplicateSuggestion
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DuplicateSuggestion");
+        debug_struct.field("answer_record", &self.answer_record);
+        debug_struct.field("suggestion_index", &self.suggestion_index);
+        debug_struct.field("similarity_score", &self.similarity_score);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 #[cfg(feature = "answer-records")]
 impl std::fmt::Debug for super::AnswerRecord {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -417,6 +481,27 @@ impl std::fmt::Debug for super::SynthesizeSpeechConfig {
         debug_struct.field("volume_gain_db", &self.volume_gain_db);
         debug_struct.field("effects_profile_id", &self.effects_profile_id);
         debug_struct.field("voice", &self.voice);
+        debug_struct.field("pronunciations", &self.pronunciations);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "conversation-profiles",
+    feature = "conversations",
+    feature = "environments",
+    feature = "participants",
+    feature = "sessions",
+))]
+impl std::fmt::Debug for super::CustomPronunciationParams {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CustomPronunciationParams");
+        debug_struct.field("phrase", &self.phrase);
+        debug_struct.field("phonetic_encoding", &self.phonetic_encoding);
+        debug_struct.field("pronunciation", &self.pronunciation);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -667,6 +752,7 @@ impl std::fmt::Debug for super::conversation::context_reference::ContextContent 
         debug_struct.field("content", &self.content);
         debug_struct.field("content_format", &self.content_format);
         debug_struct.field("ingestion_time", &self.ingestion_time);
+        debug_struct.field("answer_record", &self.answer_record);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -917,6 +1003,7 @@ impl std::fmt::Debug for super::GenerateStatelessSuggestionRequest {
         debug_struct.field("context_references", &self.context_references);
         debug_struct.field("conversation_context", &self.conversation_context);
         debug_struct.field("trigger_events", &self.trigger_events);
+        debug_struct.field("security_settings", &self.security_settings);
         debug_struct.field("generator_resource", &self.generator_resource);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1294,12 +1381,15 @@ impl std::fmt::Debug for super::DeleteConversationDatasetOperationMetadata {
     feature = "entity-types",
     feature = "environments",
     feature = "fulfillments",
+    feature = "generator-evaluations",
     feature = "generators",
     feature = "intents",
     feature = "knowledge-bases",
     feature = "participants",
     feature = "session-entity-types",
     feature = "sessions",
+    feature = "sip-trunks",
+    feature = "tools",
     feature = "versions",
 ))]
 impl std::fmt::Debug for super::ConversationEvent {
@@ -1611,6 +1701,7 @@ impl std::fmt::Debug for super::CreateConversationModelOperationMetadata {
         debug_struct.field("conversation_model", &self.conversation_model);
         debug_struct.field("state", &self.state);
         debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("done_time", &self.done_time);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1624,6 +1715,7 @@ impl std::fmt::Debug for super::DeployConversationModelOperationMetadata {
         let mut debug_struct = f.debug_struct("DeployConversationModelOperationMetadata");
         debug_struct.field("conversation_model", &self.conversation_model);
         debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("done_time", &self.done_time);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1637,6 +1729,7 @@ impl std::fmt::Debug for super::UndeployConversationModelOperationMetadata {
         let mut debug_struct = f.debug_struct("UndeployConversationModelOperationMetadata");
         debug_struct.field("conversation_model", &self.conversation_model);
         debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("done_time", &self.done_time);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1650,6 +1743,7 @@ impl std::fmt::Debug for super::DeleteConversationModelOperationMetadata {
         let mut debug_struct = f.debug_struct("DeleteConversationModelOperationMetadata");
         debug_struct.field("conversation_model", &self.conversation_model);
         debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("done_time", &self.done_time);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1864,6 +1958,11 @@ impl std::fmt::Debug for super::human_agent_assistant_config::SuggestionFeatureC
             &self.enable_query_suggestion_only,
         );
         debug_struct.field(
+            "enable_response_debug_info",
+            &self.enable_response_debug_info,
+        );
+        debug_struct.field("rai_settings", &self.rai_settings);
+        debug_struct.field(
             "suggestion_trigger_settings",
             &self.suggestion_trigger_settings,
         );
@@ -1894,6 +1993,15 @@ impl std::fmt::Debug for super::human_agent_assistant_config::SuggestionConfig {
             "disable_high_latency_features_sync_delivery",
             &self.disable_high_latency_features_sync_delivery,
         );
+        debug_struct.field(
+            "skip_empty_event_based_suggestion",
+            &self.skip_empty_event_based_suggestion,
+        );
+        debug_struct.field(
+            "use_unredacted_conversation_data",
+            &self.use_unredacted_conversation_data,
+        );
+        debug_struct.field("enable_async_tool_call", &self.enable_async_tool_call);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2391,6 +2499,7 @@ impl std::fmt::Debug for super::KnowledgeOperationMetadata {
         let mut debug_struct = f.debug_struct("KnowledgeOperationMetadata");
         debug_struct.field("state", &self.state);
         debug_struct.field("knowledge_base", &self.knowledge_base);
+        debug_struct.field("done_time", &self.done_time);
         debug_struct.field("operation_metadata", &self.operation_metadata);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -3003,7 +3112,11 @@ impl std::fmt::Debug for super::UpdateGeneratorRequest {
     }
 }
 
-#[cfg(any(feature = "conversations", feature = "generators",))]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
 impl std::fmt::Debug for super::MessageEntry {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MessageEntry");
@@ -3018,7 +3131,11 @@ impl std::fmt::Debug for super::MessageEntry {
     }
 }
 
-#[cfg(any(feature = "conversations", feature = "generators",))]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
 impl std::fmt::Debug for super::ConversationContext {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ConversationContext");
@@ -3030,7 +3147,11 @@ impl std::fmt::Debug for super::ConversationContext {
     }
 }
 
-#[cfg(any(feature = "conversations", feature = "generators",))]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
 impl std::fmt::Debug for super::SummarizationSectionList {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SummarizationSectionList");
@@ -3042,7 +3163,11 @@ impl std::fmt::Debug for super::SummarizationSectionList {
     }
 }
 
-#[cfg(any(feature = "conversations", feature = "generators",))]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
 impl std::fmt::Debug for super::FewShotExample {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FewShotExample");
@@ -3057,7 +3182,11 @@ impl std::fmt::Debug for super::FewShotExample {
     }
 }
 
-#[cfg(any(feature = "conversations", feature = "generators",))]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
 impl std::fmt::Debug for super::InferenceParameter {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("InferenceParameter");
@@ -3072,7 +3201,30 @@ impl std::fmt::Debug for super::InferenceParameter {
     }
 }
 
-#[cfg(any(feature = "conversations", feature = "generators",))]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
+impl std::fmt::Debug for super::AgentCoachingContext {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AgentCoachingContext");
+        debug_struct.field("overarching_guidance", &self.overarching_guidance);
+        debug_struct.field("instructions", &self.instructions);
+        debug_struct.field("version", &self.version);
+        debug_struct.field("output_language_code", &self.output_language_code);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
 impl std::fmt::Debug for super::SummarizationSection {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SummarizationSection");
@@ -3086,7 +3238,11 @@ impl std::fmt::Debug for super::SummarizationSection {
     }
 }
 
-#[cfg(any(feature = "conversations", feature = "generators",))]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
 impl std::fmt::Debug for super::SummarizationContext {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SummarizationContext");
@@ -3101,7 +3257,11 @@ impl std::fmt::Debug for super::SummarizationContext {
     }
 }
 
-#[cfg(any(feature = "conversations", feature = "generators",))]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
 impl std::fmt::Debug for super::FreeFormContext {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FreeFormContext");
@@ -3113,7 +3273,11 @@ impl std::fmt::Debug for super::FreeFormContext {
     }
 }
 
-#[cfg(any(feature = "conversations", feature = "generators",))]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
 impl std::fmt::Debug for super::Generator {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Generator");
@@ -3123,6 +3287,11 @@ impl std::fmt::Debug for super::Generator {
         debug_struct.field("trigger_event", &self.trigger_event);
         debug_struct.field("create_time", &self.create_time);
         debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("tools", &self.tools);
+        debug_struct.field(
+            "suggestion_deduping_config",
+            &self.suggestion_deduping_config,
+        );
         debug_struct.field("context", &self.context);
         debug_struct.field("foundation_model", &self.foundation_model);
         if !self._unknown_fields.is_empty() {
@@ -3133,7 +3302,9 @@ impl std::fmt::Debug for super::Generator {
 }
 
 #[cfg(any(
+    feature = "answer-records",
     feature = "conversations",
+    feature = "generator-evaluations",
     feature = "generators",
     feature = "participants",
 ))]
@@ -3149,7 +3320,9 @@ impl std::fmt::Debug for super::FreeFormSuggestion {
 }
 
 #[cfg(any(
+    feature = "answer-records",
     feature = "conversations",
+    feature = "generator-evaluations",
     feature = "generators",
     feature = "participants",
 ))]
@@ -3165,7 +3338,9 @@ impl std::fmt::Debug for super::SummarySuggestion {
 }
 
 #[cfg(any(
+    feature = "answer-records",
     feature = "conversations",
+    feature = "generator-evaluations",
     feature = "generators",
     feature = "participants",
 ))]
@@ -3182,14 +3357,578 @@ impl std::fmt::Debug for super::summary_suggestion::SummarySection {
 }
 
 #[cfg(any(
+    feature = "answer-records",
     feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+))]
+impl std::fmt::Debug for super::AgentCoachingSuggestion {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AgentCoachingSuggestion");
+        debug_struct.field("applicable_instructions", &self.applicable_instructions);
+        debug_struct.field("agent_action_suggestions", &self.agent_action_suggestions);
+        debug_struct.field("sample_responses", &self.sample_responses);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+))]
+impl std::fmt::Debug for super::agent_coaching_suggestion::Sources {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Sources");
+        debug_struct.field("instruction_indexes", &self.instruction_indexes);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+))]
+impl std::fmt::Debug for super::agent_coaching_suggestion::DuplicateCheckResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DuplicateCheckResult");
+        debug_struct.field("duplicate_suggestions", &self.duplicate_suggestions);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+))]
+impl std::fmt::Debug
+    for super::agent_coaching_suggestion::duplicate_check_result::DuplicateSuggestion
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DuplicateSuggestion");
+        debug_struct.field("answer_record", &self.answer_record);
+        debug_struct.field("sources", &self.sources);
+        debug_struct.field("suggestion_index", &self.suggestion_index);
+        debug_struct.field("similarity_score", &self.similarity_score);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+))]
+impl std::fmt::Debug for super::agent_coaching_suggestion::AgentActionSuggestion {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AgentActionSuggestion");
+        debug_struct.field("agent_action", &self.agent_action);
+        debug_struct.field("sources", &self.sources);
+        debug_struct.field("duplicate_check_result", &self.duplicate_check_result);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+))]
+impl std::fmt::Debug for super::agent_coaching_suggestion::SampleResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SampleResponse");
+        debug_struct.field("response_text", &self.response_text);
+        debug_struct.field("sources", &self.sources);
+        debug_struct.field("duplicate_check_result", &self.duplicate_check_result);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "conversations",
+    feature = "generator-evaluations",
     feature = "generators",
     feature = "participants",
 ))]
 impl std::fmt::Debug for super::GeneratorSuggestion {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GeneratorSuggestion");
+        debug_struct.field("tool_call_info", &self.tool_call_info);
         debug_struct.field("suggestion", &self.suggestion);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+))]
+impl std::fmt::Debug for super::generator_suggestion::ToolCallInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ToolCallInfo");
+        debug_struct.field("tool_call", &self.tool_call);
+        debug_struct.field("tool_call_result", &self.tool_call_result);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
+impl std::fmt::Debug for super::SuggestionDedupingConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SuggestionDedupingConfig");
+        debug_struct.field("enable_deduping", &self.enable_deduping);
+        debug_struct.field("similarity_threshold", &self.similarity_threshold);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
+impl std::fmt::Debug for super::RaiSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RaiSettings");
+        debug_struct.field("rai_category_configs", &self.rai_category_configs);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
+impl std::fmt::Debug for super::rai_settings::RaiCategoryConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RaiCategoryConfig");
+        debug_struct.field("category", &self.category);
+        debug_struct.field("sensitivity_level", &self.sensitivity_level);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+impl std::fmt::Debug for super::CreateGeneratorEvaluationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateGeneratorEvaluationRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("generator_evaluation", &self.generator_evaluation);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+impl std::fmt::Debug for super::GetGeneratorEvaluationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetGeneratorEvaluationRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+impl std::fmt::Debug for super::ListGeneratorEvaluationsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListGeneratorEvaluationsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+impl std::fmt::Debug for super::ListGeneratorEvaluationsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListGeneratorEvaluationsResponse");
+        debug_struct.field("generator_evaluations", &self.generator_evaluations);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+impl std::fmt::Debug for super::DeleteGeneratorEvaluationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteGeneratorEvaluationRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+impl std::fmt::Debug for super::GeneratorEvaluation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GeneratorEvaluation");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field(
+            "generator_evaluation_config",
+            &self.generator_evaluation_config,
+        );
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("complete_time", &self.complete_time);
+        debug_struct.field("initial_generator", &self.initial_generator);
+        debug_struct.field("evaluation_status", &self.evaluation_status);
+        debug_struct.field("satisfies_pzs", &self.satisfies_pzs);
+        debug_struct.field("satisfies_pzi", &self.satisfies_pzi);
+        debug_struct.field("metrics", &self.metrics);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+impl std::fmt::Debug for super::SummarizationEvaluationMetrics {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SummarizationEvaluationMetrics");
+        debug_struct.field(
+            "summarization_evaluation_results",
+            &self.summarization_evaluation_results,
+        );
+        debug_struct.field(
+            "summarization_evaluation_merged_results_uri",
+            &self.summarization_evaluation_merged_results_uri,
+        );
+        debug_struct.field("overall_metrics", &self.overall_metrics);
+        debug_struct.field("overall_section_tokens", &self.overall_section_tokens);
+        debug_struct.field("conversation_details", &self.conversation_details);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+impl std::fmt::Debug for super::summarization_evaluation_metrics::AccuracyDecomposition {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AccuracyDecomposition");
+        debug_struct.field("point", &self.point);
+        debug_struct.field("accuracy_reasoning", &self.accuracy_reasoning);
+        debug_struct.field("is_accurate", &self.is_accurate);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+impl std::fmt::Debug for super::summarization_evaluation_metrics::AdherenceDecomposition {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AdherenceDecomposition");
+        debug_struct.field("point", &self.point);
+        debug_struct.field("adherence_reasoning", &self.adherence_reasoning);
+        debug_struct.field("is_adherent", &self.is_adherent);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+impl std::fmt::Debug for super::summarization_evaluation_metrics::AdherenceRubric {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AdherenceRubric");
+        debug_struct.field("question", &self.question);
+        debug_struct.field("reasoning", &self.reasoning);
+        debug_struct.field("is_addressed", &self.is_addressed);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+impl std::fmt::Debug for super::summarization_evaluation_metrics::CompletenessRubric {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CompletenessRubric");
+        debug_struct.field("question", &self.question);
+        debug_struct.field("is_addressed", &self.is_addressed);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+impl std::fmt::Debug for super::summarization_evaluation_metrics::Decomposition {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Decomposition");
+        debug_struct.field("decomposition", &self.decomposition);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+impl std::fmt::Debug for super::summarization_evaluation_metrics::EvaluationResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EvaluationResult");
+        debug_struct.field("result", &self.result);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+impl std::fmt::Debug for super::summarization_evaluation_metrics::SummarizationEvaluationResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SummarizationEvaluationResult");
+        debug_struct.field("session_id", &self.session_id);
+        debug_struct.field("metric", &self.metric);
+        debug_struct.field("section", &self.section);
+        debug_struct.field("score", &self.score);
+        debug_struct.field("section_summary", &self.section_summary);
+        debug_struct.field("decompositions", &self.decompositions);
+        debug_struct.field("evaluation_results", &self.evaluation_results);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+impl std::fmt::Debug for super::summarization_evaluation_metrics::OverallScoresByMetric {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OverallScoresByMetric");
+        debug_struct.field("metric", &self.metric);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+impl std::fmt::Debug for super::summarization_evaluation_metrics::SectionToken {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SectionToken");
+        debug_struct.field("section", &self.section);
+        debug_struct.field("token_count", &self.token_count);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+impl std::fmt::Debug for super::summarization_evaluation_metrics::ConversationDetail {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ConversationDetail");
+        debug_struct.field("message_entries", &self.message_entries);
+        debug_struct.field("summary_sections", &self.summary_sections);
+        debug_struct.field("metric_details", &self.metric_details);
+        debug_struct.field("section_tokens", &self.section_tokens);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+impl std::fmt::Debug
+    for super::summarization_evaluation_metrics::conversation_detail::MetricDetail
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MetricDetail");
+        debug_struct.field("metric", &self.metric);
+        debug_struct.field("score", &self.score);
+        debug_struct.field("section_details", &self.section_details);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+impl std::fmt::Debug
+    for super::summarization_evaluation_metrics::conversation_detail::metric_detail::SectionDetail
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SectionDetail");
+        debug_struct.field("section", &self.section);
+        debug_struct.field("score", &self.score);
+        debug_struct.field("section_summary", &self.section_summary);
+        debug_struct.field("evaluation_results", &self.evaluation_results);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+impl std::fmt::Debug for super::GeneratorEvaluationConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GeneratorEvaluationConfig");
+        debug_struct.field("input_data_config", &self.input_data_config);
+        debug_struct.field("output_gcs_bucket_path", &self.output_gcs_bucket_path);
+        debug_struct.field("evaluation_feature_config", &self.evaluation_feature_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+impl std::fmt::Debug for super::generator_evaluation_config::AgentAssistInputDataConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AgentAssistInputDataConfig");
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+impl std::fmt::Debug for super::generator_evaluation_config::DatasetInputDataConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DatasetInputDataConfig");
+        debug_struct.field("dataset", &self.dataset);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+impl std::fmt::Debug for super::generator_evaluation_config::InputDataConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InputDataConfig");
+        debug_struct.field("input_data_source_type", &self.input_data_source_type);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("sample_size", &self.sample_size);
+        debug_struct.field(
+            "is_summary_generation_allowed",
+            &self.is_summary_generation_allowed,
+        );
+        debug_struct.field("summary_generation_option", &self.summary_generation_option);
+        debug_struct.field("source_specific_config", &self.source_specific_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+impl std::fmt::Debug for super::generator_evaluation_config::SummarizationConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SummarizationConfig");
+        debug_struct.field(
+            "enable_accuracy_evaluation",
+            &self.enable_accuracy_evaluation,
+        );
+        debug_struct.field(
+            "accuracy_evaluation_version",
+            &self.accuracy_evaluation_version,
+        );
+        debug_struct.field(
+            "enable_completeness_evaluation",
+            &self.enable_completeness_evaluation,
+        );
+        debug_struct.field(
+            "completeness_evaluation_version",
+            &self.completeness_evaluation_version,
+        );
+        debug_struct.field("evaluator_version", &self.evaluator_version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+impl std::fmt::Debug for super::EvaluationStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EvaluationStatus");
+        debug_struct.field("done", &self.done);
+        debug_struct.field("pipeline_status", &self.pipeline_status);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3210,12 +3949,15 @@ impl std::fmt::Debug for super::GeneratorSuggestion {
     feature = "entity-types",
     feature = "environments",
     feature = "fulfillments",
+    feature = "generator-evaluations",
     feature = "generators",
     feature = "intents",
     feature = "knowledge-bases",
     feature = "participants",
     feature = "session-entity-types",
     feature = "sessions",
+    feature = "sip-trunks",
+    feature = "tools",
     feature = "versions",
 ))]
 impl std::fmt::Debug for super::HumanAgentAssistantEvent {
@@ -4108,6 +4850,18 @@ impl std::fmt::Debug for super::UpdateKnowledgeBaseRequest {
     }
 }
 
+#[cfg(feature = "generator-evaluations")]
+impl std::fmt::Debug for super::GeneratorEvaluationOperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GeneratorEvaluationOperationMetadata");
+        debug_struct.field("generator_evaluation", &self.generator_evaluation);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 #[cfg(any(
     feature = "conversation-profiles",
     feature = "conversations",
@@ -4127,6 +4881,7 @@ impl std::fmt::Debug for super::Participant {
             "documents_metadata_filters",
             &self.documents_metadata_filters,
         );
+        debug_struct.field("agent_desktop_source", &self.agent_desktop_source);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4616,6 +5371,9 @@ impl std::fmt::Debug for super::SuggestionInput {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SuggestionInput");
         debug_struct.field("answer_record", &self.answer_record);
+        debug_struct.field("parameters", &self.parameters);
+        debug_struct.field("action", &self.action);
+        debug_struct.field("send_time", &self.send_time);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5136,6 +5894,486 @@ impl std::fmt::Debug for super::DeleteSessionEntityTypeRequest {
     }
 }
 
+#[cfg(feature = "sip-trunks")]
+impl std::fmt::Debug for super::CreateSipTrunkRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateSipTrunkRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("sip_trunk", &self.sip_trunk);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "sip-trunks")]
+impl std::fmt::Debug for super::DeleteSipTrunkRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteSipTrunkRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "sip-trunks")]
+impl std::fmt::Debug for super::ListSipTrunksRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListSipTrunksRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "sip-trunks")]
+impl std::fmt::Debug for super::ListSipTrunksResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListSipTrunksResponse");
+        debug_struct.field("sip_trunks", &self.sip_trunks);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "sip-trunks")]
+impl std::fmt::Debug for super::GetSipTrunkRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetSipTrunkRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "sip-trunks")]
+impl std::fmt::Debug for super::UpdateSipTrunkRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateSipTrunkRequest");
+        debug_struct.field("sip_trunk", &self.sip_trunk);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "sip-trunks")]
+impl std::fmt::Debug for super::SipTrunk {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SipTrunk");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("expected_hostname", &self.expected_hostname);
+        debug_struct.field("connections", &self.connections);
+        debug_struct.field("display_name", &self.display_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "sip-trunks")]
+impl std::fmt::Debug for super::Connection {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Connection");
+        debug_struct.field("connection_id", &self.connection_id);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("error_details", &self.error_details);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "sip-trunks")]
+impl std::fmt::Debug for super::connection::ErrorDetails {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ErrorDetails");
+        debug_struct.field("certificate_state", &self.certificate_state);
+        debug_struct.field("error_message", &self.error_message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "tools")]
+impl std::fmt::Debug for super::CreateToolRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateToolRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("tool", &self.tool);
+        debug_struct.field("tool_id", &self.tool_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "tools")]
+impl std::fmt::Debug for super::GetToolRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetToolRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "tools")]
+impl std::fmt::Debug for super::ListToolsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListToolsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "tools")]
+impl std::fmt::Debug for super::ListToolsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListToolsResponse");
+        debug_struct.field("tools", &self.tools);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "tools")]
+impl std::fmt::Debug for super::DeleteToolRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteToolRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "tools")]
+impl std::fmt::Debug for super::UpdateToolRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateToolRequest");
+        debug_struct.field("tool", &self.tool);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "tools")]
+impl std::fmt::Debug for super::Tool {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Tool");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("tool_key", &self.tool_key);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field(
+            "action_confirmation_requirement",
+            &self.action_confirmation_requirement,
+        );
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("satisfies_pzs", &self.satisfies_pzs);
+        debug_struct.field("satisfies_pzi", &self.satisfies_pzi);
+        debug_struct.field("specification", &self.specification);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "tools")]
+impl std::fmt::Debug for super::tool::ExtensionTool {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExtensionTool");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "tools")]
+impl std::fmt::Debug for super::tool::FunctionTool {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FunctionTool");
+        debug_struct.field("input_schema", &self.input_schema);
+        debug_struct.field("output_schema", &self.output_schema);
+        debug_struct.field("method_type", &self.method_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "tools")]
+impl std::fmt::Debug for super::tool::OpenApiTool {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OpenApiTool");
+        debug_struct.field("authentication", &self.authentication);
+        debug_struct.field("tls_config", &self.tls_config);
+        debug_struct.field("service_directory_config", &self.service_directory_config);
+        debug_struct.field("schema", &self.schema);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "tools")]
+impl std::fmt::Debug for super::tool::ConnectorTool {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ConnectorTool");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("actions", &self.actions);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "tools")]
+impl std::fmt::Debug for super::tool::connector_tool::Action {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Action");
+        debug_struct.field("input_fields", &self.input_fields);
+        debug_struct.field("output_fields", &self.output_fields);
+        debug_struct.field("action_spec", &self.action_spec);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "tools")]
+impl std::fmt::Debug for super::tool::connector_tool::action::EntityOperation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EntityOperation");
+        debug_struct.field("entity_id", &self.entity_id);
+        debug_struct.field("operation", &self.operation);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "tools")]
+impl std::fmt::Debug for super::tool::Authentication {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Authentication");
+        debug_struct.field("auth_config", &self.auth_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "tools")]
+impl std::fmt::Debug for super::tool::authentication::ApiKeyConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ApiKeyConfig");
+        debug_struct.field("key_name", &self.key_name);
+        debug_struct.field("api_key", &self.api_key);
+        debug_struct.field(
+            "secret_version_for_api_key",
+            &self.secret_version_for_api_key,
+        );
+        debug_struct.field("request_location", &self.request_location);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "tools")]
+impl std::fmt::Debug for super::tool::authentication::OAuthConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OAuthConfig");
+        debug_struct.field("oauth_grant_type", &self.oauth_grant_type);
+        debug_struct.field("client_id", &self.client_id);
+        debug_struct.field("client_secret", &self.client_secret);
+        debug_struct.field(
+            "secret_version_for_client_secret",
+            &self.secret_version_for_client_secret,
+        );
+        debug_struct.field("token_endpoint", &self.token_endpoint);
+        debug_struct.field("scopes", &self.scopes);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "tools")]
+impl std::fmt::Debug for super::tool::authentication::ServiceAgentAuthConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ServiceAgentAuthConfig");
+        debug_struct.field("service_agent_auth", &self.service_agent_auth);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "tools")]
+impl std::fmt::Debug for super::tool::authentication::BearerTokenConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BearerTokenConfig");
+        debug_struct.field("token", &self.token);
+        debug_struct.field("secret_version_for_token", &self.secret_version_for_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "tools")]
+impl std::fmt::Debug for super::tool::TLSConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TLSConfig");
+        debug_struct.field("ca_certs", &self.ca_certs);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "tools")]
+impl std::fmt::Debug for super::tool::tls_config::CACert {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CACert");
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("cert", &self.cert);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "tools")]
+impl std::fmt::Debug for super::tool::ServiceDirectoryConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ServiceDirectoryConfig");
+        debug_struct.field("service", &self.service);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+))]
+impl std::fmt::Debug for super::ToolCall {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ToolCall");
+        debug_struct.field("tool_display_name", &self.tool_display_name);
+        debug_struct.field("tool_display_details", &self.tool_display_details);
+        debug_struct.field("action", &self.action);
+        debug_struct.field("input_parameters", &self.input_parameters);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("answer_record", &self.answer_record);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("source", &self.source);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+))]
+impl std::fmt::Debug for super::ToolCallResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ToolCallResult");
+        debug_struct.field("action", &self.action);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("answer_record", &self.answer_record);
+        debug_struct.field("source", &self.source);
+        debug_struct.field("result", &self.result);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+))]
+impl std::fmt::Debug for super::tool_call_result::Error {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Error");
+        debug_struct.field("message", &self.message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 #[cfg(feature = "agents")]
 impl std::fmt::Debug for super::ValidationError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -5268,12 +6506,15 @@ impl std::fmt::Debug for super::DeleteVersionRequest {
     feature = "entity-types",
     feature = "environments",
     feature = "fulfillments",
+    feature = "generator-evaluations",
     feature = "generators",
     feature = "intents",
     feature = "knowledge-bases",
     feature = "participants",
     feature = "session-entity-types",
     feature = "sessions",
+    feature = "sip-trunks",
+    feature = "tools",
     feature = "versions",
 ))]
 impl std::fmt::Debug for super::WebhookRequest {
@@ -5306,12 +6547,15 @@ impl std::fmt::Debug for super::WebhookRequest {
     feature = "entity-types",
     feature = "environments",
     feature = "fulfillments",
+    feature = "generator-evaluations",
     feature = "generators",
     feature = "intents",
     feature = "knowledge-bases",
     feature = "participants",
     feature = "session-entity-types",
     feature = "sessions",
+    feature = "sip-trunks",
+    feature = "tools",
     feature = "versions",
 ))]
 impl std::fmt::Debug for super::WebhookResponse {
@@ -5344,12 +6588,15 @@ impl std::fmt::Debug for super::WebhookResponse {
     feature = "entity-types",
     feature = "environments",
     feature = "fulfillments",
+    feature = "generator-evaluations",
     feature = "generators",
     feature = "intents",
     feature = "knowledge-bases",
     feature = "participants",
     feature = "session-entity-types",
     feature = "sessions",
+    feature = "sip-trunks",
+    feature = "tools",
     feature = "versions",
 ))]
 impl std::fmt::Debug for super::OriginalDetectIntentRequest {
