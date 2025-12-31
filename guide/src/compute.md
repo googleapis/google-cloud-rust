@@ -52,7 +52,7 @@ can list all the VMs in a project using the `list()` function of this type:
 
 [billing enabled]: https://cloud.google.com/billing/docs/how-to/verify-billing-enabled#confirm_billing_is_enabled_on_a_project
 [compute engine]: https://cloud.google.com/compute
-[google cloud project]: https://cloud.google.com/resource-manager/docs/creating-managing-projects
-[Compute Engine client libraries]: https://cloud.google.com/compute/docs/api/libraries
-[working with long-running operations]: working_with_long_running_operations.md
+[compute engine client libraries]: https://cloud.google.com/compute/docs/api/libraries
 [configuring polling policies]: configuring_polling_policies.md
+[google cloud project]: https://cloud.google.com/resource-manager/docs/creating-managing-projects
+[working with long-running operations]: working_with_long_running_operations.md
