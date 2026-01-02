@@ -132,6 +132,7 @@ impl std::fmt::Debug for super::Job {
         debug_struct.field("counters", &self.counters);
         debug_struct.field("error_summaries", &self.error_summaries);
         debug_struct.field("state", &self.state);
+        debug_struct.field("dry_run", &self.dry_run);
         debug_struct.field("source", &self.source);
         debug_struct.field("transformation", &self.transformation);
         if !self._unknown_fields.is_empty() {
@@ -223,6 +224,18 @@ impl std::fmt::Debug for super::RewriteObject {
     }
 }
 
+impl std::fmt::Debug for super::ObjectRetention {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ObjectRetention");
+        debug_struct.field("retain_until_time", &self.retain_until_time);
+        debug_struct.field("retention_mode", &self.retention_mode);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::PutMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PutMetadata");
@@ -233,6 +246,7 @@ impl std::fmt::Debug for super::PutMetadata {
         debug_struct.field("cache_control", &self.cache_control);
         debug_struct.field("custom_time", &self.custom_time);
         debug_struct.field("custom_metadata", &self.custom_metadata);
+        debug_struct.field("object_retention", &self.object_retention);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -271,6 +285,7 @@ impl std::fmt::Debug for super::Counters {
         debug_struct.field("total_object_count", &self.total_object_count);
         debug_struct.field("succeeded_object_count", &self.succeeded_object_count);
         debug_struct.field("failed_object_count", &self.failed_object_count);
+        debug_struct.field("total_bytes_found", &self.total_bytes_found);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

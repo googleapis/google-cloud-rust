@@ -40,12 +40,15 @@ default = [
     "entity-types",
     "environments",
     "fulfillments",
+    "generator-evaluations",
     "generators",
     "intents",
     "knowledge-bases",
     "participants",
     "session-entity-types",
     "sessions",
+    "sip-trunks",
+    "tools",
     "versions",
 ]
 # Enables `client::Agents` and all the types it depends on.
@@ -74,6 +77,8 @@ environments = []
 fulfillments = []
 # Enables `client::Generators` and all the types it depends on.
 generators = []
+# Enables `client::GeneratorEvaluations` and all the types it depends on.
+generator-evaluations = []
 # Enables `client::Intents` and all the types it depends on.
 intents = []
 # Enables `client::KnowledgeBases` and all the types it depends on.
@@ -84,6 +89,10 @@ participants = []
 sessions = []
 # Enables `client::SessionEntityTypes` and all the types it depends on.
 session-entity-types = []
+# Enables `client::SipTrunks` and all the types it depends on.
+sip-trunks = []
+# Enables `client::Tools` and all the types it depends on.
+tools = []
 # Enables `client::Versions` and all the types it depends on.
 versions = []
 

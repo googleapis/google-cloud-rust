@@ -407,6 +407,137 @@ impl serde::ser::Serialize for super::GetValidationResultRequest {
     }
 }
 
+#[cfg(any(
+    feature = "answer-records",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::AgentCoachingInstruction {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.display_name.is_empty() {
+            state.serialize_entry("displayName", &self.display_name)?;
+        }
+        if !self.display_details.is_empty() {
+            state.serialize_entry("displayDetails", &self.display_details)?;
+        }
+        if !self.condition.is_empty() {
+            state.serialize_entry("condition", &self.condition)?;
+        }
+        if !self.agent_action.is_empty() {
+            state.serialize_entry("agentAction", &self.agent_action)?;
+        }
+        if !self.system_action.is_empty() {
+            state.serialize_entry("systemAction", &self.system_action)?;
+        }
+        if self.duplicate_check_result.is_some() {
+            state.serialize_entry("duplicateCheckResult", &self.duplicate_check_result)?;
+        }
+        if !wkt::internal::is_default(&self.triggering_event) {
+            state.serialize_entry("triggeringEvent", &self.triggering_event)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::agent_coaching_instruction::DuplicateCheckResult {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.duplicate_suggestions.is_empty() {
+            state.serialize_entry("duplicateSuggestions", &self.duplicate_suggestions)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+))]
+#[doc(hidden)]
+impl serde::ser::Serialize
+    for super::agent_coaching_instruction::duplicate_check_result::DuplicateSuggestion
+{
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.answer_record.is_empty() {
+            state.serialize_entry("answerRecord", &self.answer_record)?;
+        }
+        if !wkt::internal::is_default(&self.suggestion_index) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("suggestionIndex", &__With(&self.suggestion_index))?;
+        }
+        if !wkt::internal::is_default(&self.similarity_score) {
+            struct __With<'a>(&'a f32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("similarityScore", &__With(&self.similarity_score))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 #[cfg(feature = "answer-records")]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::AnswerRecord {
@@ -709,6 +840,9 @@ impl serde::ser::Serialize for super::AgentAssistantRecord {
         if let Some(value) = self.dialogflow_assist_answer() {
             state.serialize_entry("dialogflowAssistAnswer", value)?;
         }
+        if let Some(value) = self.generator_suggestion() {
+            state.serialize_entry("generatorSuggestion", value)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -961,6 +1095,44 @@ impl serde::ser::Serialize for super::SynthesizeSpeechConfig {
         }
         if self.voice.is_some() {
             state.serialize_entry("voice", &self.voice)?;
+        }
+        if !self.pronunciations.is_empty() {
+            state.serialize_entry("pronunciations", &self.pronunciations)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(
+    feature = "conversation-profiles",
+    feature = "conversations",
+    feature = "environments",
+    feature = "participants",
+    feature = "sessions",
+))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::CustomPronunciationParams {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.phrase.is_empty() {
+            state.serialize_entry("phrase", &self.phrase)?;
+        }
+        if !wkt::internal::is_default(&self.phonetic_encoding) {
+            state.serialize_entry("phoneticEncoding", &self.phonetic_encoding)?;
+        }
+        if !self.pronunciation.is_empty() {
+            state.serialize_entry("pronunciation", &self.pronunciation)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1511,6 +1683,9 @@ impl serde::ser::Serialize for super::conversation::context_reference::ContextCo
         }
         if self.ingestion_time.is_some() {
             state.serialize_entry("ingestionTime", &self.ingestion_time)?;
+        }
+        if !self.answer_record.is_empty() {
+            state.serialize_entry("answerRecord", &self.answer_record)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -2090,6 +2265,9 @@ impl serde::ser::Serialize for super::GenerateStatelessSuggestionRequest {
         }
         if !self.trigger_events.is_empty() {
             state.serialize_entry("triggerEvents", &self.trigger_events)?;
+        }
+        if !self.security_settings.is_empty() {
+            state.serialize_entry("securitySettings", &self.security_settings)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -2886,12 +3064,15 @@ impl serde::ser::Serialize for super::DeleteConversationDatasetOperationMetadata
     feature = "entity-types",
     feature = "environments",
     feature = "fulfillments",
+    feature = "generator-evaluations",
     feature = "generators",
     feature = "intents",
     feature = "knowledge-bases",
     feature = "participants",
     feature = "session-entity-types",
     feature = "sessions",
+    feature = "sip-trunks",
+    feature = "tools",
     feature = "versions",
 ))]
 #[doc(hidden)]
@@ -3596,6 +3777,9 @@ impl serde::ser::Serialize for super::CreateConversationModelOperationMetadata {
         if self.create_time.is_some() {
             state.serialize_entry("createTime", &self.create_time)?;
         }
+        if self.done_time.is_some() {
+            state.serialize_entry("doneTime", &self.done_time)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -3621,6 +3805,9 @@ impl serde::ser::Serialize for super::DeployConversationModelOperationMetadata {
         }
         if self.create_time.is_some() {
             state.serialize_entry("createTime", &self.create_time)?;
+        }
+        if self.done_time.is_some() {
+            state.serialize_entry("doneTime", &self.done_time)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -3648,6 +3835,9 @@ impl serde::ser::Serialize for super::UndeployConversationModelOperationMetadata
         if self.create_time.is_some() {
             state.serialize_entry("createTime", &self.create_time)?;
         }
+        if self.done_time.is_some() {
+            state.serialize_entry("doneTime", &self.done_time)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -3673,6 +3863,9 @@ impl serde::ser::Serialize for super::DeleteConversationModelOperationMetadata {
         }
         if self.create_time.is_some() {
             state.serialize_entry("createTime", &self.create_time)?;
+        }
+        if self.done_time.is_some() {
+            state.serialize_entry("doneTime", &self.done_time)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -4088,6 +4281,12 @@ impl serde::ser::Serialize for super::human_agent_assistant_config::SuggestionFe
                 &self.enable_query_suggestion_only,
             )?;
         }
+        if !wkt::internal::is_default(&self.enable_response_debug_info) {
+            state.serialize_entry("enableResponseDebugInfo", &self.enable_response_debug_info)?;
+        }
+        if self.rai_settings.is_some() {
+            state.serialize_entry("raiSettings", &self.rai_settings)?;
+        }
         if self.suggestion_trigger_settings.is_some() {
             state.serialize_entry(
                 "suggestionTriggerSettings",
@@ -4140,6 +4339,21 @@ impl serde::ser::Serialize for super::human_agent_assistant_config::SuggestionCo
                 "disableHighLatencyFeaturesSyncDelivery",
                 &self.disable_high_latency_features_sync_delivery,
             )?;
+        }
+        if !wkt::internal::is_default(&self.skip_empty_event_based_suggestion) {
+            state.serialize_entry(
+                "skipEmptyEventBasedSuggestion",
+                &self.skip_empty_event_based_suggestion,
+            )?;
+        }
+        if !wkt::internal::is_default(&self.use_unredacted_conversation_data) {
+            state.serialize_entry(
+                "useUnredactedConversationData",
+                &self.use_unredacted_conversation_data,
+            )?;
+        }
+        if !wkt::internal::is_default(&self.enable_async_tool_call) {
+            state.serialize_entry("enableAsyncToolCall", &self.enable_async_tool_call)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -5189,6 +5403,9 @@ impl serde::ser::Serialize for super::KnowledgeOperationMetadata {
         }
         if let Some(value) = self.export_operation_metadata() {
             state.serialize_entry("exportOperationMetadata", value)?;
+        }
+        if self.done_time.is_some() {
+            state.serialize_entry("doneTime", &self.done_time)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -6461,7 +6678,11 @@ impl serde::ser::Serialize for super::UpdateGeneratorRequest {
     }
 }
 
-#[cfg(any(feature = "conversations", feature = "generators",))]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::MessageEntry {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -6493,7 +6714,11 @@ impl serde::ser::Serialize for super::MessageEntry {
     }
 }
 
-#[cfg(any(feature = "conversations", feature = "generators",))]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::ConversationContext {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -6516,7 +6741,11 @@ impl serde::ser::Serialize for super::ConversationContext {
     }
 }
 
-#[cfg(any(feature = "conversations", feature = "generators",))]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::SummarizationSectionList {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -6539,7 +6768,11 @@ impl serde::ser::Serialize for super::SummarizationSectionList {
     }
 }
 
-#[cfg(any(feature = "conversations", feature = "generators",))]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::FewShotExample {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -6571,7 +6804,11 @@ impl serde::ser::Serialize for super::FewShotExample {
     }
 }
 
-#[cfg(any(feature = "conversations", feature = "generators",))]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::InferenceParameter {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -6647,7 +6884,47 @@ impl serde::ser::Serialize for super::InferenceParameter {
     }
 }
 
-#[cfg(any(feature = "conversations", feature = "generators",))]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::AgentCoachingContext {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.overarching_guidance.is_empty() {
+            state.serialize_entry("overarchingGuidance", &self.overarching_guidance)?;
+        }
+        if !self.instructions.is_empty() {
+            state.serialize_entry("instructions", &self.instructions)?;
+        }
+        if !self.version.is_empty() {
+            state.serialize_entry("version", &self.version)?;
+        }
+        if !self.output_language_code.is_empty() {
+            state.serialize_entry("outputLanguageCode", &self.output_language_code)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::SummarizationSection {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -6676,7 +6953,11 @@ impl serde::ser::Serialize for super::SummarizationSection {
     }
 }
 
-#[cfg(any(feature = "conversations", feature = "generators",))]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::SummarizationContext {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -6708,7 +6989,11 @@ impl serde::ser::Serialize for super::SummarizationContext {
     }
 }
 
-#[cfg(any(feature = "conversations", feature = "generators",))]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::FreeFormContext {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -6731,7 +7016,11 @@ impl serde::ser::Serialize for super::FreeFormContext {
     }
 }
 
-#[cfg(any(feature = "conversations", feature = "generators",))]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::Generator {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -6751,6 +7040,9 @@ impl serde::ser::Serialize for super::Generator {
         if let Some(value) = self.free_form_context() {
             state.serialize_entry("freeFormContext", value)?;
         }
+        if let Some(value) = self.agent_coaching_context() {
+            state.serialize_entry("agentCoachingContext", value)?;
+        }
         if let Some(value) = self.summarization_context() {
             state.serialize_entry("summarizationContext", value)?;
         }
@@ -6769,6 +7061,12 @@ impl serde::ser::Serialize for super::Generator {
         if self.update_time.is_some() {
             state.serialize_entry("updateTime", &self.update_time)?;
         }
+        if !self.tools.is_empty() {
+            state.serialize_entry("tools", &self.tools)?;
+        }
+        if self.suggestion_deduping_config.is_some() {
+            state.serialize_entry("suggestionDedupingConfig", &self.suggestion_deduping_config)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -6779,7 +7077,9 @@ impl serde::ser::Serialize for super::Generator {
 }
 
 #[cfg(any(
+    feature = "answer-records",
     feature = "conversations",
+    feature = "generator-evaluations",
     feature = "generators",
     feature = "participants",
 ))]
@@ -6806,7 +7106,9 @@ impl serde::ser::Serialize for super::FreeFormSuggestion {
 }
 
 #[cfg(any(
+    feature = "answer-records",
     feature = "conversations",
+    feature = "generator-evaluations",
     feature = "generators",
     feature = "participants",
 ))]
@@ -6833,7 +7135,9 @@ impl serde::ser::Serialize for super::SummarySuggestion {
 }
 
 #[cfg(any(
+    feature = "answer-records",
     feature = "conversations",
+    feature = "generator-evaluations",
     feature = "generators",
     feature = "participants",
 ))]
@@ -6863,7 +7167,241 @@ impl serde::ser::Serialize for super::summary_suggestion::SummarySection {
 }
 
 #[cfg(any(
+    feature = "answer-records",
     feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::AgentCoachingSuggestion {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.applicable_instructions.is_empty() {
+            state.serialize_entry("applicableInstructions", &self.applicable_instructions)?;
+        }
+        if !self.agent_action_suggestions.is_empty() {
+            state.serialize_entry("agentActionSuggestions", &self.agent_action_suggestions)?;
+        }
+        if !self.sample_responses.is_empty() {
+            state.serialize_entry("sampleResponses", &self.sample_responses)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::agent_coaching_suggestion::Sources {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.instruction_indexes.is_empty() {
+            struct __With<'a>(&'a std::vec::Vec<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::vec::Vec<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("instructionIndexes", &__With(&self.instruction_indexes))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::agent_coaching_suggestion::DuplicateCheckResult {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.duplicate_suggestions.is_empty() {
+            state.serialize_entry("duplicateSuggestions", &self.duplicate_suggestions)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+))]
+#[doc(hidden)]
+impl serde::ser::Serialize
+    for super::agent_coaching_suggestion::duplicate_check_result::DuplicateSuggestion
+{
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.answer_record.is_empty() {
+            state.serialize_entry("answerRecord", &self.answer_record)?;
+        }
+        if self.sources.is_some() {
+            state.serialize_entry("sources", &self.sources)?;
+        }
+        if !wkt::internal::is_default(&self.suggestion_index) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("suggestionIndex", &__With(&self.suggestion_index))?;
+        }
+        if !wkt::internal::is_default(&self.similarity_score) {
+            struct __With<'a>(&'a f32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("similarityScore", &__With(&self.similarity_score))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::agent_coaching_suggestion::AgentActionSuggestion {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.agent_action.is_empty() {
+            state.serialize_entry("agentAction", &self.agent_action)?;
+        }
+        if self.sources.is_some() {
+            state.serialize_entry("sources", &self.sources)?;
+        }
+        if self.duplicate_check_result.is_some() {
+            state.serialize_entry("duplicateCheckResult", &self.duplicate_check_result)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::agent_coaching_suggestion::SampleResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.response_text.is_empty() {
+            state.serialize_entry("responseText", &self.response_text)?;
+        }
+        if self.sources.is_some() {
+            state.serialize_entry("sources", &self.sources)?;
+        }
+        if self.duplicate_check_result.is_some() {
+            state.serialize_entry("duplicateCheckResult", &self.duplicate_check_result)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "conversations",
+    feature = "generator-evaluations",
     feature = "generators",
     feature = "participants",
 ))]
@@ -6882,6 +7420,965 @@ impl serde::ser::Serialize for super::GeneratorSuggestion {
         }
         if let Some(value) = self.summary_suggestion() {
             state.serialize_entry("summarySuggestion", value)?;
+        }
+        if let Some(value) = self.agent_coaching_suggestion() {
+            state.serialize_entry("agentCoachingSuggestion", value)?;
+        }
+        if !self.tool_call_info.is_empty() {
+            state.serialize_entry("toolCallInfo", &self.tool_call_info)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::generator_suggestion::ToolCallInfo {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.tool_call.is_some() {
+            state.serialize_entry("toolCall", &self.tool_call)?;
+        }
+        if self.tool_call_result.is_some() {
+            state.serialize_entry("toolCallResult", &self.tool_call_result)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::SuggestionDedupingConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.enable_deduping) {
+            state.serialize_entry("enableDeduping", &self.enable_deduping)?;
+        }
+        if !wkt::internal::is_default(&self.similarity_threshold) {
+            struct __With<'a>(&'a f32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("similarityThreshold", &__With(&self.similarity_threshold))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::RaiSettings {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.rai_category_configs.is_empty() {
+            state.serialize_entry("raiCategoryConfigs", &self.rai_category_configs)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::rai_settings::RaiCategoryConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.category) {
+            state.serialize_entry("category", &self.category)?;
+        }
+        if !wkt::internal::is_default(&self.sensitivity_level) {
+            state.serialize_entry("sensitivityLevel", &self.sensitivity_level)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::CreateGeneratorEvaluationRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if self.generator_evaluation.is_some() {
+            state.serialize_entry("generatorEvaluation", &self.generator_evaluation)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GetGeneratorEvaluationRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ListGeneratorEvaluationsRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !wkt::internal::is_default(&self.page_size) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("pageSize", &__With(&self.page_size))?;
+        }
+        if !self.page_token.is_empty() {
+            state.serialize_entry("pageToken", &self.page_token)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ListGeneratorEvaluationsResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.generator_evaluations.is_empty() {
+            state.serialize_entry("generatorEvaluations", &self.generator_evaluations)?;
+        }
+        if !self.next_page_token.is_empty() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::DeleteGeneratorEvaluationRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GeneratorEvaluation {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.display_name.is_empty() {
+            state.serialize_entry("displayName", &self.display_name)?;
+        }
+        if self.generator_evaluation_config.is_some() {
+            state.serialize_entry(
+                "generatorEvaluationConfig",
+                &self.generator_evaluation_config,
+            )?;
+        }
+        if self.create_time.is_some() {
+            state.serialize_entry("createTime", &self.create_time)?;
+        }
+        if self.complete_time.is_some() {
+            state.serialize_entry("completeTime", &self.complete_time)?;
+        }
+        if self.initial_generator.is_some() {
+            state.serialize_entry("initialGenerator", &self.initial_generator)?;
+        }
+        if let Some(value) = self.summarization_metrics() {
+            state.serialize_entry("summarizationMetrics", value)?;
+        }
+        if self.evaluation_status.is_some() {
+            state.serialize_entry("evaluationStatus", &self.evaluation_status)?;
+        }
+        if self.satisfies_pzs.is_some() {
+            state.serialize_entry("satisfiesPzs", &self.satisfies_pzs)?;
+        }
+        if self.satisfies_pzi.is_some() {
+            state.serialize_entry("satisfiesPzi", &self.satisfies_pzi)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::SummarizationEvaluationMetrics {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.summarization_evaluation_results.is_empty() {
+            state.serialize_entry(
+                "summarizationEvaluationResults",
+                &self.summarization_evaluation_results,
+            )?;
+        }
+        if !self.summarization_evaluation_merged_results_uri.is_empty() {
+            state.serialize_entry(
+                "summarizationEvaluationMergedResultsUri",
+                &self.summarization_evaluation_merged_results_uri,
+            )?;
+        }
+        if !self.overall_metrics.is_empty() {
+            state.serialize_entry("overallMetrics", &self.overall_metrics)?;
+        }
+        if !self.overall_section_tokens.is_empty() {
+            state.serialize_entry("overallSectionTokens", &self.overall_section_tokens)?;
+        }
+        if !self.conversation_details.is_empty() {
+            state.serialize_entry("conversationDetails", &self.conversation_details)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::summarization_evaluation_metrics::AccuracyDecomposition {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.point.is_empty() {
+            state.serialize_entry("point", &self.point)?;
+        }
+        if !self.accuracy_reasoning.is_empty() {
+            state.serialize_entry("accuracyReasoning", &self.accuracy_reasoning)?;
+        }
+        if self.is_accurate.is_some() {
+            state.serialize_entry("isAccurate", &self.is_accurate)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::summarization_evaluation_metrics::AdherenceDecomposition {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.point.is_empty() {
+            state.serialize_entry("point", &self.point)?;
+        }
+        if !self.adherence_reasoning.is_empty() {
+            state.serialize_entry("adherenceReasoning", &self.adherence_reasoning)?;
+        }
+        if !wkt::internal::is_default(&self.is_adherent) {
+            state.serialize_entry("isAdherent", &self.is_adherent)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::summarization_evaluation_metrics::AdherenceRubric {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.question.is_empty() {
+            state.serialize_entry("question", &self.question)?;
+        }
+        if !self.reasoning.is_empty() {
+            state.serialize_entry("reasoning", &self.reasoning)?;
+        }
+        if self.is_addressed.is_some() {
+            state.serialize_entry("isAddressed", &self.is_addressed)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::summarization_evaluation_metrics::CompletenessRubric {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.question.is_empty() {
+            state.serialize_entry("question", &self.question)?;
+        }
+        if self.is_addressed.is_some() {
+            state.serialize_entry("isAddressed", &self.is_addressed)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::summarization_evaluation_metrics::Decomposition {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.accuracy_decomposition() {
+            state.serialize_entry("accuracyDecomposition", value)?;
+        }
+        if let Some(value) = self.adherence_decomposition() {
+            state.serialize_entry("adherenceDecomposition", value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::summarization_evaluation_metrics::EvaluationResult {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.accuracy_decomposition() {
+            state.serialize_entry("accuracyDecomposition", value)?;
+        }
+        if let Some(value) = self.adherence_rubric() {
+            state.serialize_entry("adherenceRubric", value)?;
+        }
+        if let Some(value) = self.completeness_rubric() {
+            state.serialize_entry("completenessRubric", value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+#[doc(hidden)]
+impl serde::ser::Serialize
+    for super::summarization_evaluation_metrics::SummarizationEvaluationResult
+{
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.session_id.is_empty() {
+            state.serialize_entry("sessionId", &self.session_id)?;
+        }
+        if !self.metric.is_empty() {
+            state.serialize_entry("metric", &self.metric)?;
+        }
+        if !self.section.is_empty() {
+            state.serialize_entry("section", &self.section)?;
+        }
+        if !wkt::internal::is_default(&self.score) {
+            struct __With<'a>(&'a f32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("score", &__With(&self.score))?;
+        }
+        if !self.section_summary.is_empty() {
+            state.serialize_entry("sectionSummary", &self.section_summary)?;
+        }
+        if !self.decompositions.is_empty() {
+            state.serialize_entry("decompositions", &self.decompositions)?;
+        }
+        if !self.evaluation_results.is_empty() {
+            state.serialize_entry("evaluationResults", &self.evaluation_results)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::summarization_evaluation_metrics::OverallScoresByMetric {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.metric.is_empty() {
+            state.serialize_entry("metric", &self.metric)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::summarization_evaluation_metrics::SectionToken {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.section.is_empty() {
+            state.serialize_entry("section", &self.section)?;
+        }
+        if self.token_count.is_some() {
+            struct __With<'a>(&'a std::option::Option<i64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("tokenCount", &__With(&self.token_count))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::summarization_evaluation_metrics::ConversationDetail {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.message_entries.is_empty() {
+            state.serialize_entry("messageEntries", &self.message_entries)?;
+        }
+        if !self.summary_sections.is_empty() {
+            state.serialize_entry("summarySections", &self.summary_sections)?;
+        }
+        if !self.metric_details.is_empty() {
+            state.serialize_entry("metricDetails", &self.metric_details)?;
+        }
+        if !self.section_tokens.is_empty() {
+            state.serialize_entry("sectionTokens", &self.section_tokens)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+#[doc(hidden)]
+impl serde::ser::Serialize
+    for super::summarization_evaluation_metrics::conversation_detail::MetricDetail
+{
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.metric.is_empty() {
+            state.serialize_entry("metric", &self.metric)?;
+        }
+        if self.score.is_some() {
+            struct __With<'a>(&'a std::option::Option<f32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::F32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("score", &__With(&self.score))?;
+        }
+        if !self.section_details.is_empty() {
+            state.serialize_entry("sectionDetails", &self.section_details)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+#[doc(hidden)]
+impl serde::ser::Serialize
+    for super::summarization_evaluation_metrics::conversation_detail::metric_detail::SectionDetail
+{
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.section.is_empty() {
+            state.serialize_entry("section", &self.section)?;
+        }
+        if self.score.is_some() {
+            struct __With<'a>(&'a std::option::Option<f32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::F32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("score", &__With(&self.score))?;
+        }
+        if !self.section_summary.is_empty() {
+            state.serialize_entry("sectionSummary", &self.section_summary)?;
+        }
+        if !self.evaluation_results.is_empty() {
+            state.serialize_entry("evaluationResults", &self.evaluation_results)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GeneratorEvaluationConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.input_data_config.is_some() {
+            state.serialize_entry("inputDataConfig", &self.input_data_config)?;
+        }
+        if !self.output_gcs_bucket_path.is_empty() {
+            state.serialize_entry("outputGcsBucketPath", &self.output_gcs_bucket_path)?;
+        }
+        if let Some(value) = self.summarization_config() {
+            state.serialize_entry("summarizationConfig", value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::generator_evaluation_config::AgentAssistInputDataConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.start_time.is_some() {
+            state.serialize_entry("startTime", &self.start_time)?;
+        }
+        if self.end_time.is_some() {
+            state.serialize_entry("endTime", &self.end_time)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::generator_evaluation_config::DatasetInputDataConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.dataset.is_empty() {
+            state.serialize_entry("dataset", &self.dataset)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::generator_evaluation_config::InputDataConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.input_data_source_type) {
+            state.serialize_entry("inputDataSourceType", &self.input_data_source_type)?;
+        }
+        if self.start_time.is_some() {
+            state.serialize_entry("startTime", &self.start_time)?;
+        }
+        if self.end_time.is_some() {
+            state.serialize_entry("endTime", &self.end_time)?;
+        }
+        if !wkt::internal::is_default(&self.sample_size) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("sampleSize", &__With(&self.sample_size))?;
+        }
+        if !wkt::internal::is_default(&self.is_summary_generation_allowed) {
+            state.serialize_entry(
+                "isSummaryGenerationAllowed",
+                &self.is_summary_generation_allowed,
+            )?;
+        }
+        if !wkt::internal::is_default(&self.summary_generation_option) {
+            state.serialize_entry("summaryGenerationOption", &self.summary_generation_option)?;
+        }
+        if let Some(value) = self.agent_assist_input_data_config() {
+            state.serialize_entry("agentAssistInputDataConfig", value)?;
+        }
+        if let Some(value) = self.dataset_input_data_config() {
+            state.serialize_entry("datasetInputDataConfig", value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::generator_evaluation_config::SummarizationConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.enable_accuracy_evaluation) {
+            state.serialize_entry("enableAccuracyEvaluation", &self.enable_accuracy_evaluation)?;
+        }
+        if !self.accuracy_evaluation_version.is_empty() {
+            state.serialize_entry(
+                "accuracyEvaluationVersion",
+                &self.accuracy_evaluation_version,
+            )?;
+        }
+        if !wkt::internal::is_default(&self.enable_completeness_evaluation) {
+            state.serialize_entry(
+                "enableCompletenessEvaluation",
+                &self.enable_completeness_evaluation,
+            )?;
+        }
+        if !self.completeness_evaluation_version.is_empty() {
+            state.serialize_entry(
+                "completenessEvaluationVersion",
+                &self.completeness_evaluation_version,
+            )?;
+        }
+        if self.evaluator_version.is_some() {
+            state.serialize_entry("evaluatorVersion", &self.evaluator_version)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "generator-evaluations")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::EvaluationStatus {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.done.is_some() {
+            state.serialize_entry("done", &self.done)?;
+        }
+        if self.pipeline_status.is_some() {
+            state.serialize_entry("pipelineStatus", &self.pipeline_status)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -6905,12 +8402,15 @@ impl serde::ser::Serialize for super::GeneratorSuggestion {
     feature = "entity-types",
     feature = "environments",
     feature = "fulfillments",
+    feature = "generator-evaluations",
     feature = "generators",
     feature = "intents",
     feature = "knowledge-bases",
     feature = "participants",
     feature = "session-entity-types",
     feature = "sessions",
+    feature = "sip-trunks",
+    feature = "tools",
     feature = "versions",
 ))]
 #[doc(hidden)]
@@ -8650,6 +10150,29 @@ impl serde::ser::Serialize for super::UpdateKnowledgeBaseRequest {
     }
 }
 
+#[cfg(feature = "generator-evaluations")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GeneratorEvaluationOperationMetadata {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.generator_evaluation.is_empty() {
+            state.serialize_entry("generatorEvaluation", &self.generator_evaluation)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 #[cfg(any(
     feature = "conversation-profiles",
     feature = "conversations",
@@ -8682,6 +10205,9 @@ impl serde::ser::Serialize for super::Participant {
         }
         if !self.documents_metadata_filters.is_empty() {
             state.serialize_entry("documentsMetadataFilters", &self.documents_metadata_filters)?;
+        }
+        if !wkt::internal::is_default(&self.agent_desktop_source) {
+            state.serialize_entry("agentDesktopSource", &self.agent_desktop_source)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -9841,6 +11367,15 @@ impl serde::ser::Serialize for super::SuggestionInput {
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.answer_record.is_empty() {
             state.serialize_entry("answerRecord", &self.answer_record)?;
+        }
+        if self.parameters.is_some() {
+            state.serialize_entry("parameters", &self.parameters)?;
+        }
+        if !wkt::internal::is_default(&self.action) {
+            state.serialize_entry("action", &self.action)?;
+        }
+        if self.send_time.is_some() {
+            state.serialize_entry("sendTime", &self.send_time)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -11012,6 +12547,1023 @@ impl serde::ser::Serialize for super::DeleteSessionEntityTypeRequest {
     }
 }
 
+#[cfg(feature = "sip-trunks")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::CreateSipTrunkRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if self.sip_trunk.is_some() {
+            state.serialize_entry("sipTrunk", &self.sip_trunk)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "sip-trunks")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::DeleteSipTrunkRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "sip-trunks")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ListSipTrunksRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !wkt::internal::is_default(&self.page_size) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("pageSize", &__With(&self.page_size))?;
+        }
+        if !self.page_token.is_empty() {
+            state.serialize_entry("pageToken", &self.page_token)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "sip-trunks")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ListSipTrunksResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.sip_trunks.is_empty() {
+            state.serialize_entry("sipTrunks", &self.sip_trunks)?;
+        }
+        if !self.next_page_token.is_empty() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "sip-trunks")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GetSipTrunkRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "sip-trunks")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::UpdateSipTrunkRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.sip_trunk.is_some() {
+            state.serialize_entry("sipTrunk", &self.sip_trunk)?;
+        }
+        if self.update_mask.is_some() {
+            state.serialize_entry("updateMask", &self.update_mask)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "sip-trunks")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::SipTrunk {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.expected_hostname.is_empty() {
+            state.serialize_entry("expectedHostname", &self.expected_hostname)?;
+        }
+        if !self.connections.is_empty() {
+            state.serialize_entry("connections", &self.connections)?;
+        }
+        if !self.display_name.is_empty() {
+            state.serialize_entry("displayName", &self.display_name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "sip-trunks")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::Connection {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.connection_id.is_empty() {
+            state.serialize_entry("connectionId", &self.connection_id)?;
+        }
+        if !wkt::internal::is_default(&self.state) {
+            state.serialize_entry("state", &self.state)?;
+        }
+        if self.update_time.is_some() {
+            state.serialize_entry("updateTime", &self.update_time)?;
+        }
+        if self.error_details.is_some() {
+            state.serialize_entry("errorDetails", &self.error_details)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "sip-trunks")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::connection::ErrorDetails {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.certificate_state.is_some() {
+            state.serialize_entry("certificateState", &self.certificate_state)?;
+        }
+        if self.error_message.is_some() {
+            state.serialize_entry("errorMessage", &self.error_message)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "tools")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::CreateToolRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if self.tool.is_some() {
+            state.serialize_entry("tool", &self.tool)?;
+        }
+        if !self.tool_id.is_empty() {
+            state.serialize_entry("toolId", &self.tool_id)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "tools")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GetToolRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "tools")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ListToolsRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !wkt::internal::is_default(&self.page_size) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("pageSize", &__With(&self.page_size))?;
+        }
+        if !self.page_token.is_empty() {
+            state.serialize_entry("pageToken", &self.page_token)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "tools")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ListToolsResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.tools.is_empty() {
+            state.serialize_entry("tools", &self.tools)?;
+        }
+        if !self.next_page_token.is_empty() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "tools")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::DeleteToolRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "tools")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::UpdateToolRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.tool.is_some() {
+            state.serialize_entry("tool", &self.tool)?;
+        }
+        if self.update_mask.is_some() {
+            state.serialize_entry("updateMask", &self.update_mask)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "tools")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::Tool {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.tool_key.is_empty() {
+            state.serialize_entry("toolKey", &self.tool_key)?;
+        }
+        if !self.display_name.is_empty() {
+            state.serialize_entry("displayName", &self.display_name)?;
+        }
+        if !self.description.is_empty() {
+            state.serialize_entry("description", &self.description)?;
+        }
+        if !self.action_confirmation_requirement.is_empty() {
+            state.serialize_entry(
+                "actionConfirmationRequirement",
+                &self.action_confirmation_requirement,
+            )?;
+        }
+        if let Some(value) = self.extension_spec() {
+            state.serialize_entry("extensionSpec", value)?;
+        }
+        if let Some(value) = self.function_spec() {
+            state.serialize_entry("functionSpec", value)?;
+        }
+        if let Some(value) = self.connector_spec() {
+            state.serialize_entry("connectorSpec", value)?;
+        }
+        if let Some(value) = self.open_api_spec() {
+            state.serialize_entry("openApiSpec", value)?;
+        }
+        if self.create_time.is_some() {
+            state.serialize_entry("createTime", &self.create_time)?;
+        }
+        if self.update_time.is_some() {
+            state.serialize_entry("updateTime", &self.update_time)?;
+        }
+        if self.satisfies_pzs.is_some() {
+            state.serialize_entry("satisfiesPzs", &self.satisfies_pzs)?;
+        }
+        if self.satisfies_pzi.is_some() {
+            state.serialize_entry("satisfiesPzi", &self.satisfies_pzi)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "tools")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::tool::ExtensionTool {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "tools")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::tool::FunctionTool {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.input_schema.is_some() {
+            state.serialize_entry("inputSchema", &self.input_schema)?;
+        }
+        if self.output_schema.is_some() {
+            state.serialize_entry("outputSchema", &self.output_schema)?;
+        }
+        if !wkt::internal::is_default(&self.method_type) {
+            state.serialize_entry("methodType", &self.method_type)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "tools")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::tool::OpenApiTool {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.text_schema() {
+            state.serialize_entry("textSchema", value)?;
+        }
+        if self.authentication.is_some() {
+            state.serialize_entry("authentication", &self.authentication)?;
+        }
+        if self.tls_config.is_some() {
+            state.serialize_entry("tlsConfig", &self.tls_config)?;
+        }
+        if self.service_directory_config.is_some() {
+            state.serialize_entry("serviceDirectoryConfig", &self.service_directory_config)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "tools")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::tool::ConnectorTool {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.actions.is_empty() {
+            state.serialize_entry("actions", &self.actions)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "tools")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::tool::connector_tool::Action {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.connection_action_id() {
+            state.serialize_entry("connectionActionId", value)?;
+        }
+        if let Some(value) = self.entity_operation() {
+            state.serialize_entry("entityOperation", value)?;
+        }
+        if !self.input_fields.is_empty() {
+            state.serialize_entry("inputFields", &self.input_fields)?;
+        }
+        if !self.output_fields.is_empty() {
+            state.serialize_entry("outputFields", &self.output_fields)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "tools")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::tool::connector_tool::action::EntityOperation {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.entity_id.is_empty() {
+            state.serialize_entry("entityId", &self.entity_id)?;
+        }
+        if !wkt::internal::is_default(&self.operation) {
+            state.serialize_entry("operation", &self.operation)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "tools")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::tool::Authentication {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.api_key_config() {
+            state.serialize_entry("apiKeyConfig", value)?;
+        }
+        if let Some(value) = self.oauth_config() {
+            state.serialize_entry("oauthConfig", value)?;
+        }
+        if let Some(value) = self.service_agent_auth_config() {
+            state.serialize_entry("serviceAgentAuthConfig", value)?;
+        }
+        if let Some(value) = self.bearer_token_config() {
+            state.serialize_entry("bearerTokenConfig", value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "tools")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::tool::authentication::ApiKeyConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.key_name.is_empty() {
+            state.serialize_entry("keyName", &self.key_name)?;
+        }
+        if !self.api_key.is_empty() {
+            state.serialize_entry("apiKey", &self.api_key)?;
+        }
+        if !self.secret_version_for_api_key.is_empty() {
+            state.serialize_entry("secretVersionForApiKey", &self.secret_version_for_api_key)?;
+        }
+        if !wkt::internal::is_default(&self.request_location) {
+            state.serialize_entry("requestLocation", &self.request_location)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "tools")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::tool::authentication::OAuthConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.oauth_grant_type) {
+            state.serialize_entry("oauthGrantType", &self.oauth_grant_type)?;
+        }
+        if !self.client_id.is_empty() {
+            state.serialize_entry("clientId", &self.client_id)?;
+        }
+        if !self.client_secret.is_empty() {
+            state.serialize_entry("clientSecret", &self.client_secret)?;
+        }
+        if !self.secret_version_for_client_secret.is_empty() {
+            state.serialize_entry(
+                "secretVersionForClientSecret",
+                &self.secret_version_for_client_secret,
+            )?;
+        }
+        if !self.token_endpoint.is_empty() {
+            state.serialize_entry("tokenEndpoint", &self.token_endpoint)?;
+        }
+        if !self.scopes.is_empty() {
+            state.serialize_entry("scopes", &self.scopes)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "tools")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::tool::authentication::ServiceAgentAuthConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.service_agent_auth) {
+            state.serialize_entry("serviceAgentAuth", &self.service_agent_auth)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "tools")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::tool::authentication::BearerTokenConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.token.is_empty() {
+            state.serialize_entry("token", &self.token)?;
+        }
+        if !self.secret_version_for_token.is_empty() {
+            state.serialize_entry("secretVersionForToken", &self.secret_version_for_token)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "tools")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::tool::TLSConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.ca_certs.is_empty() {
+            state.serialize_entry("caCerts", &self.ca_certs)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "tools")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::tool::tls_config::CACert {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.display_name.is_empty() {
+            state.serialize_entry("displayName", &self.display_name)?;
+        }
+        if !self.cert.is_empty() {
+            struct __With<'a>(&'a ::bytes::Bytes);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("cert", &__With(&self.cert))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "tools")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::tool::ServiceDirectoryConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.service.is_empty() {
+            state.serialize_entry("service", &self.service)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ToolCall {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.tool() {
+            state.serialize_entry("tool", value)?;
+        }
+        if !self.tool_display_name.is_empty() {
+            state.serialize_entry("toolDisplayName", &self.tool_display_name)?;
+        }
+        if !self.tool_display_details.is_empty() {
+            state.serialize_entry("toolDisplayDetails", &self.tool_display_details)?;
+        }
+        if !self.action.is_empty() {
+            state.serialize_entry("action", &self.action)?;
+        }
+        if self.input_parameters.is_some() {
+            state.serialize_entry("inputParameters", &self.input_parameters)?;
+        }
+        if self.create_time.is_some() {
+            state.serialize_entry("createTime", &self.create_time)?;
+        }
+        if !self.answer_record.is_empty() {
+            state.serialize_entry("answerRecord", &self.answer_record)?;
+        }
+        if !wkt::internal::is_default(&self.state) {
+            state.serialize_entry("state", &self.state)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ToolCallResult {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.tool() {
+            state.serialize_entry("tool", value)?;
+        }
+        if !self.action.is_empty() {
+            state.serialize_entry("action", &self.action)?;
+        }
+        if let Some(value) = self.error() {
+            state.serialize_entry("error", value)?;
+        }
+        if let Some(value) = self.raw_content() {
+            struct __With<'a>(&'a ::bytes::Bytes);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("rawContent", &__With(value))?;
+        }
+        if let Some(value) = self.content() {
+            state.serialize_entry("content", value)?;
+        }
+        if self.create_time.is_some() {
+            state.serialize_entry("createTime", &self.create_time)?;
+        }
+        if !self.answer_record.is_empty() {
+            state.serialize_entry("answerRecord", &self.answer_record)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(
+    feature = "answer-records",
+    feature = "conversations",
+    feature = "generator-evaluations",
+    feature = "generators",
+    feature = "participants",
+))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::tool_call_result::Error {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.message.is_empty() {
+            state.serialize_entry("message", &self.message)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 #[cfg(feature = "agents")]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::ValidationError {
@@ -11283,12 +13835,15 @@ impl serde::ser::Serialize for super::DeleteVersionRequest {
     feature = "entity-types",
     feature = "environments",
     feature = "fulfillments",
+    feature = "generator-evaluations",
     feature = "generators",
     feature = "intents",
     feature = "knowledge-bases",
     feature = "participants",
     feature = "session-entity-types",
     feature = "sessions",
+    feature = "sip-trunks",
+    feature = "tools",
     feature = "versions",
 ))]
 #[doc(hidden)]
@@ -11338,12 +13893,15 @@ impl serde::ser::Serialize for super::WebhookRequest {
     feature = "entity-types",
     feature = "environments",
     feature = "fulfillments",
+    feature = "generator-evaluations",
     feature = "generators",
     feature = "intents",
     feature = "knowledge-bases",
     feature = "participants",
     feature = "session-entity-types",
     feature = "sessions",
+    feature = "sip-trunks",
+    feature = "tools",
     feature = "versions",
 ))]
 #[doc(hidden)]
@@ -11399,12 +13957,15 @@ impl serde::ser::Serialize for super::WebhookResponse {
     feature = "entity-types",
     feature = "environments",
     feature = "fulfillments",
+    feature = "generator-evaluations",
     feature = "generators",
     feature = "intents",
     feature = "knowledge-bases",
     feature = "participants",
     feature = "session-entity-types",
     feature = "sessions",
+    feature = "sip-trunks",
+    feature = "tools",
     feature = "versions",
 ))]
 #[doc(hidden)]

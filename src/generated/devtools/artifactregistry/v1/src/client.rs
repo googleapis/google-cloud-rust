@@ -497,7 +497,7 @@ impl ArtifactRegistry {
         super::builder::artifact_registry::DeleteAttachment::new(self.inner.clone())
     }
 
-    /// Exports an artifact.
+    /// Exports an artifact to a Cloud Storage bucket.
     ///
     /// # Long running operations
     ///

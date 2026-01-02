@@ -132,6 +132,10 @@ impl std::fmt::Debug for super::autoscaling_config::AutoscalingTargets {
             &self.high_priority_cpu_utilization_percent,
         );
         debug_struct.field(
+            "total_cpu_utilization_percent",
+            &self.total_cpu_utilization_percent,
+        );
+        debug_struct.field(
             "storage_utilization_percent",
             &self.storage_utilization_percent,
         );
@@ -163,6 +167,18 @@ impl std::fmt::Debug
         debug_struct.field(
             "autoscaling_target_high_priority_cpu_utilization_percent",
             &self.autoscaling_target_high_priority_cpu_utilization_percent,
+        );
+        debug_struct.field(
+            "autoscaling_target_total_cpu_utilization_percent",
+            &self.autoscaling_target_total_cpu_utilization_percent,
+        );
+        debug_struct.field(
+            "disable_high_priority_cpu_autoscaling",
+            &self.disable_high_priority_cpu_autoscaling,
+        );
+        debug_struct.field(
+            "disable_total_cpu_autoscaling",
+            &self.disable_total_cpu_autoscaling,
         );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);

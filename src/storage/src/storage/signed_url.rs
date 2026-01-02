@@ -129,6 +129,7 @@ impl SigningScope {
     }
 }
 
+// Used to check conformance test expectations.
 struct SigningComponents {
     #[cfg(test)]
     canonical_request: String,
@@ -876,7 +877,17 @@ mod tests {
                     })
                 });
 
-            let components = builder.sign_internal(&signer).await?;
+            let components = builder.sign_internal(&signer).await;
+            let components = match components {
+                Ok(components) => components,
+                Err(e) => {
+                    println!("❌ Failed test: {}", test.description);
+                    println!("Error: {}", e);
+                    failed_tests.push(test.description);
+                    continue;
+                }
+            };
+
             let canonical_request = components.canonical_request;
             let string_to_sign = components.string_to_sign;
             let signed_url = components.signed_url;

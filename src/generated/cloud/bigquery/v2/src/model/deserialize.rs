@@ -3605,6 +3605,100 @@ impl<'de> serde::de::Deserialize<'de> for super::JsonOptions {
 }
 
 #[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::BigtableProtoConfig {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __schema_bundle_id,
+            __proto_message_name,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for BigtableProtoConfig")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "schemaBundleId" => Ok(__FieldTag::__schema_bundle_id),
+                            "schema_bundle_id" => Ok(__FieldTag::__schema_bundle_id),
+                            "protoMessageName" => Ok(__FieldTag::__proto_message_name),
+                            "proto_message_name" => Ok(__FieldTag::__proto_message_name),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::BigtableProtoConfig;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct BigtableProtoConfig")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__schema_bundle_id => {
+                            if !fields.insert(__FieldTag::__schema_bundle_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for schema_bundle_id",
+                                ));
+                            }
+                            result.schema_bundle_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__proto_message_name => {
+                            if !fields.insert(__FieldTag::__proto_message_name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for proto_message_name",
+                                ));
+                            }
+                            result.proto_message_name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for super::BigtableColumn {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -3620,6 +3714,7 @@ impl<'de> serde::de::Deserialize<'de> for super::BigtableColumn {
             __type,
             __encoding,
             __only_read_latest,
+            __proto_config,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -3650,6 +3745,8 @@ impl<'de> serde::de::Deserialize<'de> for super::BigtableColumn {
                             "encoding" => Ok(__FieldTag::__encoding),
                             "onlyReadLatest" => Ok(__FieldTag::__only_read_latest),
                             "only_read_latest" => Ok(__FieldTag::__only_read_latest),
+                            "protoConfig" => Ok(__FieldTag::__proto_config),
+                            "proto_config" => Ok(__FieldTag::__proto_config),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -3742,6 +3839,15 @@ impl<'de> serde::de::Deserialize<'de> for super::BigtableColumn {
                             result.only_read_latest =
                                 map.next_value::<std::option::Option<wkt::BoolValue>>()?;
                         }
+                        __FieldTag::__proto_config => {
+                            if !fields.insert(__FieldTag::__proto_config) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for proto_config",
+                                ));
+                            }
+                            result.proto_config = map.next_value::<std::option::Option<crate::model::BigtableProtoConfig>>()?
+                                ;
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -3770,6 +3876,7 @@ impl<'de> serde::de::Deserialize<'de> for super::BigtableColumnFamily {
             __encoding,
             __columns,
             __only_read_latest,
+            __proto_config,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -3797,6 +3904,8 @@ impl<'de> serde::de::Deserialize<'de> for super::BigtableColumnFamily {
                             "columns" => Ok(__FieldTag::__columns),
                             "onlyReadLatest" => Ok(__FieldTag::__only_read_latest),
                             "only_read_latest" => Ok(__FieldTag::__only_read_latest),
+                            "protoConfig" => Ok(__FieldTag::__proto_config),
+                            "proto_config" => Ok(__FieldTag::__proto_config),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -3872,6 +3981,15 @@ impl<'de> serde::de::Deserialize<'de> for super::BigtableColumnFamily {
                             }
                             result.only_read_latest =
                                 map.next_value::<std::option::Option<wkt::BoolValue>>()?;
+                        }
+                        __FieldTag::__proto_config => {
+                            if !fields.insert(__FieldTag::__proto_config) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for proto_config",
+                                ));
+                            }
+                            result.proto_config = map.next_value::<std::option::Option<crate::model::BigtableProtoConfig>>()?
+                                ;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -11276,6 +11394,7 @@ impl<'de> serde::de::Deserialize<'de> for super::IndexPruningStats {
         #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __base_table,
+            __index_id,
             __pre_index_pruning_parallel_input_count,
             __post_index_pruning_parallel_input_count,
             Unknown(std::string::String),
@@ -11300,6 +11419,8 @@ impl<'de> serde::de::Deserialize<'de> for super::IndexPruningStats {
                         match value {
                             "baseTable" => Ok(__FieldTag::__base_table),
                             "base_table" => Ok(__FieldTag::__base_table),
+                            "indexId" => Ok(__FieldTag::__index_id),
+                            "index_id" => Ok(__FieldTag::__index_id),
                             "preIndexPruningParallelInputCount" => {
                                 Ok(__FieldTag::__pre_index_pruning_parallel_input_count)
                             }
@@ -11346,6 +11467,15 @@ impl<'de> serde::de::Deserialize<'de> for super::IndexPruningStats {
                             result.base_table = map
                                 .next_value::<std::option::Option<crate::model::TableReference>>(
                                 )?;
+                        }
+                        __FieldTag::__index_id => {
+                            if !fields.insert(__FieldTag::__index_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for index_id",
+                                ));
+                            }
+                            result.index_id =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__pre_index_pruning_parallel_input_count => {
                             if !fields.insert(__FieldTag::__pre_index_pruning_parallel_input_count)

@@ -1895,11 +1895,23 @@ pub mod autoscaling_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AutoscalingTargets {
-        /// Required. The target high priority cpu utilization percentage that the
+        /// Optional. The target high priority cpu utilization percentage that the
         /// autoscaler should be trying to achieve for the instance. This number is
         /// on a scale from 0 (no utilization) to 100 (full utilization). The valid
-        /// range is [10, 90] inclusive.
+        /// range is [10, 90] inclusive. If not specified or set to 0, the autoscaler
+        /// skips scaling based on high priority CPU utilization.
         pub high_priority_cpu_utilization_percent: i32,
+
+        /// Optional. The target total CPU utilization percentage that the autoscaler
+        /// should be trying to achieve for the instance. This number is on a scale
+        /// from 0 (no utilization) to 100 (full utilization). The valid range is
+        /// [10, 90] inclusive. If not specified or set to 0, the autoscaler skips
+        /// scaling based on total CPU utilization. If both
+        /// `high_priority_cpu_utilization_percent` and
+        /// `total_cpu_utilization_percent` are specified, the autoscaler provisions
+        /// the larger of the two required compute capacities to satisfy both
+        /// targets.
+        pub total_cpu_utilization_percent: i32,
 
         /// Required. The target storage utilization percentage that the autoscaler
         /// should be trying to achieve for the instance. This number is on a scale
@@ -1927,6 +1939,21 @@ pub mod autoscaling_config {
             v: T,
         ) -> Self {
             self.high_priority_cpu_utilization_percent = v.into();
+            self
+        }
+
+        /// Sets the value of [total_cpu_utilization_percent][crate::model::autoscaling_config::AutoscalingTargets::total_cpu_utilization_percent].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_spanner_admin_instance_v1::model::autoscaling_config::AutoscalingTargets;
+        /// let x = AutoscalingTargets::new().set_total_cpu_utilization_percent(42);
+        /// ```
+        pub fn set_total_cpu_utilization_percent<T: std::convert::Into<i32>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.total_cpu_utilization_percent = v.into();
             self
         }
 
@@ -2064,6 +2091,67 @@ pub mod autoscaling_config {
             /// configuration for the selected replicas.
             pub autoscaling_target_high_priority_cpu_utilization_percent: i32,
 
+            /// Optional. If specified, overrides the
+            /// autoscaling target `total_cpu_utilization_percent`
+            /// in the top-level autoscaling configuration for the selected replicas.
+            pub autoscaling_target_total_cpu_utilization_percent: i32,
+
+            /// Optional. If true, disables high priority CPU autoscaling for the
+            /// selected replicas and ignores
+            /// [high_priority_cpu_utilization_percent][google.spanner.admin.instance.v1.AutoscalingConfig.AutoscalingTargets.high_priority_cpu_utilization_percent]
+            /// in the top-level autoscaling configuration.
+            ///
+            /// When setting this field to true, setting
+            /// [autoscaling_target_high_priority_cpu_utilization_percent][google.spanner.admin.instance.v1.AutoscalingConfig.AsymmetricAutoscalingOption.AutoscalingConfigOverrides.autoscaling_target_high_priority_cpu_utilization_percent]
+            /// field to a non-zero value for the same replica is not supported.
+            ///
+            /// If false, the
+            /// [autoscaling_target_high_priority_cpu_utilization_percent][google.spanner.admin.instance.v1.AutoscalingConfig.AsymmetricAutoscalingOption.AutoscalingConfigOverrides.autoscaling_target_high_priority_cpu_utilization_percent]
+            /// field in the replica will be used if set to a non-zero value.
+            /// Otherwise, the
+            /// [high_priority_cpu_utilization_percent][google.spanner.admin.instance.v1.AutoscalingConfig.AutoscalingTargets.high_priority_cpu_utilization_percent]
+            /// field in the top-level autoscaling configuration will be used.
+            ///
+            /// Setting both
+            /// [disable_high_priority_cpu_autoscaling][google.spanner.admin.instance.v1.AutoscalingConfig.AsymmetricAutoscalingOption.AutoscalingConfigOverrides.disable_high_priority_cpu_autoscaling]
+            /// and
+            /// [disable_total_cpu_autoscaling][google.spanner.admin.instance.v1.AutoscalingConfig.AsymmetricAutoscalingOption.AutoscalingConfigOverrides.disable_total_cpu_autoscaling]
+            /// to true for the same replica is not supported.
+            ///
+            /// [google.spanner.admin.instance.v1.AutoscalingConfig.AsymmetricAutoscalingOption.AutoscalingConfigOverrides.autoscaling_target_high_priority_cpu_utilization_percent]: crate::model::autoscaling_config::asymmetric_autoscaling_option::AutoscalingConfigOverrides::autoscaling_target_high_priority_cpu_utilization_percent
+            /// [google.spanner.admin.instance.v1.AutoscalingConfig.AsymmetricAutoscalingOption.AutoscalingConfigOverrides.disable_high_priority_cpu_autoscaling]: crate::model::autoscaling_config::asymmetric_autoscaling_option::AutoscalingConfigOverrides::disable_high_priority_cpu_autoscaling
+            /// [google.spanner.admin.instance.v1.AutoscalingConfig.AsymmetricAutoscalingOption.AutoscalingConfigOverrides.disable_total_cpu_autoscaling]: crate::model::autoscaling_config::asymmetric_autoscaling_option::AutoscalingConfigOverrides::disable_total_cpu_autoscaling
+            /// [google.spanner.admin.instance.v1.AutoscalingConfig.AutoscalingTargets.high_priority_cpu_utilization_percent]: crate::model::autoscaling_config::AutoscalingTargets::high_priority_cpu_utilization_percent
+            pub disable_high_priority_cpu_autoscaling: bool,
+
+            /// Optional. If true, disables total CPU autoscaling for the selected
+            /// replicas and ignores
+            /// [total_cpu_utilization_percent][google.spanner.admin.instance.v1.AutoscalingConfig.AutoscalingTargets.total_cpu_utilization_percent]
+            /// in the top-level autoscaling configuration.
+            ///
+            /// When setting this field to true, setting
+            /// [autoscaling_target_total_cpu_utilization_percent][google.spanner.admin.instance.v1.AutoscalingConfig.AsymmetricAutoscalingOption.AutoscalingConfigOverrides.autoscaling_target_total_cpu_utilization_percent]
+            /// field to a non-zero value for the same replica is not supported.
+            ///
+            /// If false, the
+            /// [autoscaling_target_total_cpu_utilization_percent][google.spanner.admin.instance.v1.AutoscalingConfig.AsymmetricAutoscalingOption.AutoscalingConfigOverrides.autoscaling_target_total_cpu_utilization_percent]
+            /// field in the replica will be used if set to a non-zero value.
+            /// Otherwise, the
+            /// [total_cpu_utilization_percent][google.spanner.admin.instance.v1.AutoscalingConfig.AutoscalingTargets.total_cpu_utilization_percent]
+            /// field in the top-level autoscaling configuration will be used.
+            ///
+            /// Setting both
+            /// [disable_high_priority_cpu_autoscaling][google.spanner.admin.instance.v1.AutoscalingConfig.AsymmetricAutoscalingOption.AutoscalingConfigOverrides.disable_high_priority_cpu_autoscaling]
+            /// and
+            /// [disable_total_cpu_autoscaling][google.spanner.admin.instance.v1.AutoscalingConfig.AsymmetricAutoscalingOption.AutoscalingConfigOverrides.disable_total_cpu_autoscaling]
+            /// to true for the same replica is not supported.
+            ///
+            /// [google.spanner.admin.instance.v1.AutoscalingConfig.AsymmetricAutoscalingOption.AutoscalingConfigOverrides.autoscaling_target_total_cpu_utilization_percent]: crate::model::autoscaling_config::asymmetric_autoscaling_option::AutoscalingConfigOverrides::autoscaling_target_total_cpu_utilization_percent
+            /// [google.spanner.admin.instance.v1.AutoscalingConfig.AsymmetricAutoscalingOption.AutoscalingConfigOverrides.disable_high_priority_cpu_autoscaling]: crate::model::autoscaling_config::asymmetric_autoscaling_option::AutoscalingConfigOverrides::disable_high_priority_cpu_autoscaling
+            /// [google.spanner.admin.instance.v1.AutoscalingConfig.AsymmetricAutoscalingOption.AutoscalingConfigOverrides.disable_total_cpu_autoscaling]: crate::model::autoscaling_config::asymmetric_autoscaling_option::AutoscalingConfigOverrides::disable_total_cpu_autoscaling
+            /// [google.spanner.admin.instance.v1.AutoscalingConfig.AutoscalingTargets.total_cpu_utilization_percent]: crate::model::autoscaling_config::AutoscalingTargets::total_cpu_utilization_percent
+            pub disable_total_cpu_autoscaling: bool,
+
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
@@ -2119,6 +2207,53 @@ pub mod autoscaling_config {
                 v: T,
             ) -> Self {
                 self.autoscaling_target_high_priority_cpu_utilization_percent = v.into();
+                self
+            }
+
+            /// Sets the value of [autoscaling_target_total_cpu_utilization_percent][crate::model::autoscaling_config::asymmetric_autoscaling_option::AutoscalingConfigOverrides::autoscaling_target_total_cpu_utilization_percent].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_spanner_admin_instance_v1::model::autoscaling_config::asymmetric_autoscaling_option::AutoscalingConfigOverrides;
+            /// let x = AutoscalingConfigOverrides::new().set_autoscaling_target_total_cpu_utilization_percent(42);
+            /// ```
+            pub fn set_autoscaling_target_total_cpu_utilization_percent<
+                T: std::convert::Into<i32>,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.autoscaling_target_total_cpu_utilization_percent = v.into();
+                self
+            }
+
+            /// Sets the value of [disable_high_priority_cpu_autoscaling][crate::model::autoscaling_config::asymmetric_autoscaling_option::AutoscalingConfigOverrides::disable_high_priority_cpu_autoscaling].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_spanner_admin_instance_v1::model::autoscaling_config::asymmetric_autoscaling_option::AutoscalingConfigOverrides;
+            /// let x = AutoscalingConfigOverrides::new().set_disable_high_priority_cpu_autoscaling(true);
+            /// ```
+            pub fn set_disable_high_priority_cpu_autoscaling<T: std::convert::Into<bool>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.disable_high_priority_cpu_autoscaling = v.into();
+                self
+            }
+
+            /// Sets the value of [disable_total_cpu_autoscaling][crate::model::autoscaling_config::asymmetric_autoscaling_option::AutoscalingConfigOverrides::disable_total_cpu_autoscaling].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_spanner_admin_instance_v1::model::autoscaling_config::asymmetric_autoscaling_option::AutoscalingConfigOverrides;
+            /// let x = AutoscalingConfigOverrides::new().set_disable_total_cpu_autoscaling(true);
+            /// ```
+            pub fn set_disable_total_cpu_autoscaling<T: std::convert::Into<bool>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.disable_total_cpu_autoscaling = v.into();
                 self
             }
         }

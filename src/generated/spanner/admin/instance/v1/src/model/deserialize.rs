@@ -1027,6 +1027,7 @@ impl<'de> serde::de::Deserialize<'de> for super::autoscaling_config::Autoscaling
         #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __high_priority_cpu_utilization_percent,
+            __total_cpu_utilization_percent,
             __storage_utilization_percent,
             Unknown(std::string::String),
         }
@@ -1053,6 +1054,12 @@ impl<'de> serde::de::Deserialize<'de> for super::autoscaling_config::Autoscaling
                             }
                             "high_priority_cpu_utilization_percent" => {
                                 Ok(__FieldTag::__high_priority_cpu_utilization_percent)
+                            }
+                            "totalCpuUtilizationPercent" => {
+                                Ok(__FieldTag::__total_cpu_utilization_percent)
+                            }
+                            "total_cpu_utilization_percent" => {
+                                Ok(__FieldTag::__total_cpu_utilization_percent)
                             }
                             "storageUtilizationPercent" => {
                                 Ok(__FieldTag::__storage_utilization_percent)
@@ -1103,6 +1110,26 @@ impl<'de> serde::de::Deserialize<'de> for super::autoscaling_config::Autoscaling
                                 }
                             }
                             result.high_priority_cpu_utilization_percent =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__total_cpu_utilization_percent => {
+                            if !fields.insert(__FieldTag::__total_cpu_utilization_percent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for total_cpu_utilization_percent",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.total_cpu_utilization_percent =
                                 map.next_value::<__With>()?.0.unwrap_or_default();
                         }
                         __FieldTag::__storage_utilization_percent => {
@@ -1244,6 +1271,9 @@ impl<'de> serde::de::Deserialize<'de>
         enum __FieldTag {
             __autoscaling_limits,
             __autoscaling_target_high_priority_cpu_utilization_percent,
+            __autoscaling_target_total_cpu_utilization_percent,
+            __disable_high_priority_cpu_autoscaling,
+            __disable_total_cpu_autoscaling,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -1268,6 +1298,12 @@ impl<'de> serde::de::Deserialize<'de>
                             "autoscaling_limits" => Ok(__FieldTag::__autoscaling_limits),
                             "autoscalingTargetHighPriorityCpuUtilizationPercent" => Ok(__FieldTag::__autoscaling_target_high_priority_cpu_utilization_percent),
                             "autoscaling_target_high_priority_cpu_utilization_percent" => Ok(__FieldTag::__autoscaling_target_high_priority_cpu_utilization_percent),
+                            "autoscalingTargetTotalCpuUtilizationPercent" => Ok(__FieldTag::__autoscaling_target_total_cpu_utilization_percent),
+                            "autoscaling_target_total_cpu_utilization_percent" => Ok(__FieldTag::__autoscaling_target_total_cpu_utilization_percent),
+                            "disableHighPriorityCpuAutoscaling" => Ok(__FieldTag::__disable_high_priority_cpu_autoscaling),
+                            "disable_high_priority_cpu_autoscaling" => Ok(__FieldTag::__disable_high_priority_cpu_autoscaling),
+                            "disableTotalCpuAutoscaling" => Ok(__FieldTag::__disable_total_cpu_autoscaling),
+                            "disable_total_cpu_autoscaling" => Ok(__FieldTag::__disable_total_cpu_autoscaling),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -1320,6 +1356,48 @@ impl<'de> serde::de::Deserialize<'de>
                             }
                             result.autoscaling_target_high_priority_cpu_utilization_percent =
                                 map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__autoscaling_target_total_cpu_utilization_percent => {
+                            if !fields.insert(
+                                __FieldTag::__autoscaling_target_total_cpu_utilization_percent,
+                            ) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for autoscaling_target_total_cpu_utilization_percent",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.autoscaling_target_total_cpu_utilization_percent =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__disable_high_priority_cpu_autoscaling => {
+                            if !fields.insert(__FieldTag::__disable_high_priority_cpu_autoscaling) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for disable_high_priority_cpu_autoscaling",
+                                ));
+                            }
+                            result.disable_high_priority_cpu_autoscaling = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__disable_total_cpu_autoscaling => {
+                            if !fields.insert(__FieldTag::__disable_total_cpu_autoscaling) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for disable_total_cpu_autoscaling",
+                                ));
+                            }
+                            result.disable_total_cpu_autoscaling = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

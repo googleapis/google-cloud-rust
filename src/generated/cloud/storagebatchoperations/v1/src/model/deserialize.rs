@@ -871,6 +871,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Job {
             __counters,
             __error_summaries,
             __state,
+            __dry_run,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -915,6 +916,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Job {
                             "errorSummaries" => Ok(__FieldTag::__error_summaries),
                             "error_summaries" => Ok(__FieldTag::__error_summaries),
                             "state" => Ok(__FieldTag::__state),
+                            "dryRun" => Ok(__FieldTag::__dry_run),
+                            "dry_run" => Ok(__FieldTag::__dry_run),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -1120,6 +1123,16 @@ impl<'de> serde::de::Deserialize<'de> for super::Job {
                             }
                             result.state = map
                                 .next_value::<std::option::Option<crate::model::job::State>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__dry_run => {
+                            if !fields.insert(__FieldTag::__dry_run) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for dry_run",
+                                ));
+                            }
+                            result.dry_run = map
+                                .next_value::<std::option::Option<bool>>()?
                                 .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
@@ -1760,6 +1773,99 @@ impl<'de> serde::de::Deserialize<'de> for super::RewriteObject {
 }
 
 #[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::ObjectRetention {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __retain_until_time,
+            __retention_mode,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ObjectRetention")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "retainUntilTime" => Ok(__FieldTag::__retain_until_time),
+                            "retain_until_time" => Ok(__FieldTag::__retain_until_time),
+                            "retentionMode" => Ok(__FieldTag::__retention_mode),
+                            "retention_mode" => Ok(__FieldTag::__retention_mode),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::ObjectRetention;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ObjectRetention")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__retain_until_time => {
+                            if !fields.insert(__FieldTag::__retain_until_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for retain_until_time",
+                                ));
+                            }
+                            result.retain_until_time =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
+                        }
+                        __FieldTag::__retention_mode => {
+                            if !fields.insert(__FieldTag::__retention_mode) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for retention_mode",
+                                ));
+                            }
+                            result.retention_mode = map.next_value::<std::option::Option<
+                                crate::model::object_retention::RetentionMode,
+                            >>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for super::PutMetadata {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -1776,6 +1882,7 @@ impl<'de> serde::de::Deserialize<'de> for super::PutMetadata {
             __cache_control,
             __custom_time,
             __custom_metadata,
+            __object_retention,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -1810,6 +1917,8 @@ impl<'de> serde::de::Deserialize<'de> for super::PutMetadata {
                             "custom_time" => Ok(__FieldTag::__custom_time),
                             "customMetadata" => Ok(__FieldTag::__custom_metadata),
                             "custom_metadata" => Ok(__FieldTag::__custom_metadata),
+                            "objectRetention" => Ok(__FieldTag::__object_retention),
+                            "object_retention" => Ok(__FieldTag::__object_retention),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -1903,6 +2012,16 @@ impl<'de> serde::de::Deserialize<'de> for super::PutMetadata {
                                     >,
                                 >>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::__object_retention => {
+                            if !fields.insert(__FieldTag::__object_retention) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for object_retention",
+                                ));
+                            }
+                            result.object_retention = map
+                                .next_value::<std::option::Option<crate::model::ObjectRetention>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -2136,6 +2255,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Counters {
             __total_object_count,
             __succeeded_object_count,
             __failed_object_count,
+            __total_bytes_found,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -2162,6 +2282,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Counters {
                             "succeeded_object_count" => Ok(__FieldTag::__succeeded_object_count),
                             "failedObjectCount" => Ok(__FieldTag::__failed_object_count),
                             "failed_object_count" => Ok(__FieldTag::__failed_object_count),
+                            "totalBytesFound" => Ok(__FieldTag::__total_bytes_found),
+                            "total_bytes_found" => Ok(__FieldTag::__total_bytes_found),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -2246,6 +2368,25 @@ impl<'de> serde::de::Deserialize<'de> for super::Counters {
                             }
                             result.failed_object_count =
                                 map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__total_bytes_found => {
+                            if !fields.insert(__FieldTag::__total_bytes_found) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for total_bytes_found",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.total_bytes_found = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

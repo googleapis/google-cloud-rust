@@ -3021,6 +3021,184 @@ impl Generators {
 /// # Example
 /// ```
 /// # tokio_test::block_on(async {
+/// # use google_cloud_dialogflow_v2::client::GeneratorEvaluations;
+/// let client = GeneratorEvaluations::builder().build().await?;
+/// // use `client` to make requests to the Dialogflow API.
+/// # gax::client_builder::Result::<()>::Ok(()) });
+/// ```
+///
+/// # Service Description
+///
+/// Service for managing generator evaluations.
+///
+/// # Configuration
+///
+/// To configure `GeneratorEvaluations` use the `with_*` methods in the type returned
+/// by [builder()][GeneratorEvaluations::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://dialogflow.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::generator_evaluations::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::generator_evaluations::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `GeneratorEvaluations` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `GeneratorEvaluations` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "generator-evaluations")]
+#[cfg_attr(docsrs, doc(cfg(feature = "generator-evaluations")))]
+#[derive(Clone, Debug)]
+pub struct GeneratorEvaluations {
+    inner: std::sync::Arc<dyn super::stub::dynamic::GeneratorEvaluations>,
+}
+
+#[cfg(feature = "generator-evaluations")]
+impl GeneratorEvaluations {
+    /// Returns a builder for [GeneratorEvaluations].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dialogflow_v2::client::GeneratorEvaluations;
+    /// let client = GeneratorEvaluations::builder().build().await?;
+    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::generator_evaluations::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::generator_evaluations::client::Factory,
+        )
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::GeneratorEvaluations + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::GeneratorEvaluations>>
+    {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::GeneratorEvaluations> {
+        super::transport::GeneratorEvaluations::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::GeneratorEvaluations> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::GeneratorEvaluations::new)
+    }
+
+    /// Creates evaluation of a generator.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn create_generator_evaluation(
+        &self,
+    ) -> super::builder::generator_evaluations::CreateGeneratorEvaluation {
+        super::builder::generator_evaluations::CreateGeneratorEvaluation::new(self.inner.clone())
+    }
+
+    /// Gets an evaluation of generator.
+    pub fn get_generator_evaluation(
+        &self,
+    ) -> super::builder::generator_evaluations::GetGeneratorEvaluation {
+        super::builder::generator_evaluations::GetGeneratorEvaluation::new(self.inner.clone())
+    }
+
+    /// Lists evaluations of generator.
+    pub fn list_generator_evaluations(
+        &self,
+    ) -> super::builder::generator_evaluations::ListGeneratorEvaluations {
+        super::builder::generator_evaluations::ListGeneratorEvaluations::new(self.inner.clone())
+    }
+
+    /// Deletes an evaluation of generator.
+    pub fn delete_generator_evaluation(
+        &self,
+    ) -> super::builder::generator_evaluations::DeleteGeneratorEvaluation {
+        super::builder::generator_evaluations::DeleteGeneratorEvaluation::new(self.inner.clone())
+    }
+
+    /// Lists information about the supported locations for this service.
+    pub fn list_locations(&self) -> super::builder::generator_evaluations::ListLocations {
+        super::builder::generator_evaluations::ListLocations::new(self.inner.clone())
+    }
+
+    /// Gets information about a location.
+    pub fn get_location(&self) -> super::builder::generator_evaluations::GetLocation {
+        super::builder::generator_evaluations::GetLocation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn list_operations(&self) -> super::builder::generator_evaluations::ListOperations {
+        super::builder::generator_evaluations::ListOperations::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn get_operation(&self) -> super::builder::generator_evaluations::GetOperation {
+        super::builder::generator_evaluations::GetOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn cancel_operation(&self) -> super::builder::generator_evaluations::CancelOperation {
+        super::builder::generator_evaluations::CancelOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Dialogflow API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
 /// # use google_cloud_dialogflow_v2::client::Intents;
 /// let client = Intents::builder().build().await?;
 /// // use `client` to make requests to the Dialogflow API.
@@ -3966,6 +4144,334 @@ impl SessionEntityTypes {
     /// [google.longrunning.Operations]: longrunning::client::Operations
     pub fn cancel_operation(&self) -> super::builder::session_entity_types::CancelOperation {
         super::builder::session_entity_types::CancelOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Dialogflow API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_dialogflow_v2::client::SipTrunks;
+/// let client = SipTrunks::builder().build().await?;
+/// // use `client` to make requests to the Dialogflow API.
+/// # gax::client_builder::Result::<()>::Ok(()) });
+/// ```
+///
+/// # Service Description
+///
+/// Service for managing [SipTrunks][google.cloud.dialogflow.v2.SipTrunk].
+///
+/// [google.cloud.dialogflow.v2.SipTrunk]: crate::model::SipTrunk
+///
+/// # Configuration
+///
+/// To configure `SipTrunks` use the `with_*` methods in the type returned
+/// by [builder()][SipTrunks::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://dialogflow.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::sip_trunks::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::sip_trunks::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `SipTrunks` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `SipTrunks` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "sip-trunks")]
+#[cfg_attr(docsrs, doc(cfg(feature = "sip-trunks")))]
+#[derive(Clone, Debug)]
+pub struct SipTrunks {
+    inner: std::sync::Arc<dyn super::stub::dynamic::SipTrunks>,
+}
+
+#[cfg(feature = "sip-trunks")]
+impl SipTrunks {
+    /// Returns a builder for [SipTrunks].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dialogflow_v2::client::SipTrunks;
+    /// let client = SipTrunks::builder().build().await?;
+    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::sip_trunks::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::sip_trunks::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::SipTrunks + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::SipTrunks>> {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::SipTrunks> {
+        super::transport::SipTrunks::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::SipTrunks> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::SipTrunks::new)
+    }
+
+    /// Creates a SipTrunk for a specified location.
+    pub fn create_sip_trunk(&self) -> super::builder::sip_trunks::CreateSipTrunk {
+        super::builder::sip_trunks::CreateSipTrunk::new(self.inner.clone())
+    }
+
+    /// Deletes a specified SipTrunk.
+    pub fn delete_sip_trunk(&self) -> super::builder::sip_trunks::DeleteSipTrunk {
+        super::builder::sip_trunks::DeleteSipTrunk::new(self.inner.clone())
+    }
+
+    /// Returns a list of SipTrunks in the specified location.
+    pub fn list_sip_trunks(&self) -> super::builder::sip_trunks::ListSipTrunks {
+        super::builder::sip_trunks::ListSipTrunks::new(self.inner.clone())
+    }
+
+    /// Retrieves the specified SipTrunk.
+    pub fn get_sip_trunk(&self) -> super::builder::sip_trunks::GetSipTrunk {
+        super::builder::sip_trunks::GetSipTrunk::new(self.inner.clone())
+    }
+
+    /// Updates the specified SipTrunk.
+    pub fn update_sip_trunk(&self) -> super::builder::sip_trunks::UpdateSipTrunk {
+        super::builder::sip_trunks::UpdateSipTrunk::new(self.inner.clone())
+    }
+
+    /// Lists information about the supported locations for this service.
+    pub fn list_locations(&self) -> super::builder::sip_trunks::ListLocations {
+        super::builder::sip_trunks::ListLocations::new(self.inner.clone())
+    }
+
+    /// Gets information about a location.
+    pub fn get_location(&self) -> super::builder::sip_trunks::GetLocation {
+        super::builder::sip_trunks::GetLocation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn list_operations(&self) -> super::builder::sip_trunks::ListOperations {
+        super::builder::sip_trunks::ListOperations::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn get_operation(&self) -> super::builder::sip_trunks::GetOperation {
+        super::builder::sip_trunks::GetOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn cancel_operation(&self) -> super::builder::sip_trunks::CancelOperation {
+        super::builder::sip_trunks::CancelOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Dialogflow API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_dialogflow_v2::client::Tools;
+/// let client = Tools::builder().build().await?;
+/// // use `client` to make requests to the Dialogflow API.
+/// # gax::client_builder::Result::<()>::Ok(()) });
+/// ```
+///
+/// # Service Description
+///
+/// Tool Service for LLM powered Agent Assist. Tools can be used to interact with
+/// remote APIs (e.g. fetching orders) to retrieve additional information as
+/// input to LLM.
+///
+/// # Configuration
+///
+/// To configure `Tools` use the `with_*` methods in the type returned
+/// by [builder()][Tools::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://dialogflow.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::tools::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::tools::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `Tools` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `Tools` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "tools")]
+#[cfg_attr(docsrs, doc(cfg(feature = "tools")))]
+#[derive(Clone, Debug)]
+pub struct Tools {
+    inner: std::sync::Arc<dyn super::stub::dynamic::Tools>,
+}
+
+#[cfg(feature = "tools")]
+impl Tools {
+    /// Returns a builder for [Tools].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dialogflow_v2::client::Tools;
+    /// let client = Tools::builder().build().await?;
+    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::tools::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::tools::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::Tools + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Tools>> {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::Tools> {
+        super::transport::Tools::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::Tools> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::Tools::new)
+    }
+
+    /// Creates a tool.
+    pub fn create_tool(&self) -> super::builder::tools::CreateTool {
+        super::builder::tools::CreateTool::new(self.inner.clone())
+    }
+
+    /// Retrieves a tool.
+    pub fn get_tool(&self) -> super::builder::tools::GetTool {
+        super::builder::tools::GetTool::new(self.inner.clone())
+    }
+
+    /// Lists tools.
+    pub fn list_tools(&self) -> super::builder::tools::ListTools {
+        super::builder::tools::ListTools::new(self.inner.clone())
+    }
+
+    /// Deletes a tool.
+    pub fn delete_tool(&self) -> super::builder::tools::DeleteTool {
+        super::builder::tools::DeleteTool::new(self.inner.clone())
+    }
+
+    /// Updates a tool.
+    pub fn update_tool(&self) -> super::builder::tools::UpdateTool {
+        super::builder::tools::UpdateTool::new(self.inner.clone())
+    }
+
+    /// Lists information about the supported locations for this service.
+    pub fn list_locations(&self) -> super::builder::tools::ListLocations {
+        super::builder::tools::ListLocations::new(self.inner.clone())
+    }
+
+    /// Gets information about a location.
+    pub fn get_location(&self) -> super::builder::tools::GetLocation {
+        super::builder::tools::GetLocation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn list_operations(&self) -> super::builder::tools::ListOperations {
+        super::builder::tools::ListOperations::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn get_operation(&self) -> super::builder::tools::GetOperation {
+        super::builder::tools::GetOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn cancel_operation(&self) -> super::builder::tools::CancelOperation {
+        super::builder::tools::CancelOperation::new(self.inner.clone())
     }
 }
 

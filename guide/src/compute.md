@@ -46,10 +46,13 @@ can list all the VMs in a project using the `list()` function of this type:
 
 ## Next Steps
 
-- [Compute Engine client libraries](https://cloud.google.com/compute/docs/api/libraries)
-- [Working with long-running operations](/working_with_long_running_operations.md)
-- [Configuring polling policies](/configuring_polling_policies.md)
+- [Compute Engine client libraries]
+- [Working with long-running operations]
+- [Configuring polling policies]
 
 [billing enabled]: https://cloud.google.com/billing/docs/how-to/verify-billing-enabled#confirm_billing_is_enabled_on_a_project
 [compute engine]: https://cloud.google.com/compute
+[compute engine client libraries]: https://cloud.google.com/compute/docs/api/libraries
+[configuring polling policies]: configuring_polling_policies.md
 [google cloud project]: https://cloud.google.com/resource-manager/docs/creating-managing-projects
+[working with long-running operations]: working_with_long_running_operations.md
