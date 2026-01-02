@@ -4703,6 +4703,7 @@ dependencies = [
  "google-cloud-storage",
  "google-cloud-type",
  "google-cloud-wkt",
+ "hex",
  "http",
  "http-body",
  "http-body-util",

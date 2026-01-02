@@ -16,6 +16,7 @@ use crate::{error::SigningError, signed_url::UrlStyle, storage::client::ENCODED_
 use auth::signer::Signer;
 use chrono::{DateTime, Utc};
 use percent_encoding::{AsciiSet, utf8_percent_encode};
+use sha2::{Digest, Sha256};
 use std::collections::BTreeMap;
 
 /// Same encoding set as used in https://cloud.google.com/storage/docs/request-endpoints#encoding
@@ -393,20 +394,38 @@ impl SignedUrlBuilder {
         let url = url::Url::parse(&endpoint)
             .map_err(|e| SigningError::invalid_parameter("endpoint", e))?;
 
-        let endpoint_url = url.clone();
-        let host = url
-            .host_str()
-            .ok_or_else(|| SigningError::invalid_parameter("endpoint", "invalid endpoint host"))?;
-        Ok((endpoint_url, host.to_string()))
+        // the host and port pair should be maintained, even if is a known
+        // port like 80/443. The url crate omits the port if it is the default
+        // port for the scheme.
+        let path = url.path();
+        let scheme = format!("{}://", url.scheme());
+        let host = endpoint.trim_start_matches(&scheme).trim_end_matches(path);
+        Ok((url, host.to_string()))
     }
 
     fn resolve_endpoint(&self) -> String {
         match self.endpoint.as_ref() {
-            Some(e) if e.starts_with("http://") => e.clone(),
-            Some(e) if e.starts_with("https://") => e.clone(),
-            Some(e) => format!("https://{}", e),
-            None => format!("https://storage.{}", self.universe_domain),
+            Some(e) if e.starts_with("http://") => return e.clone(),
+            Some(e) if e.starts_with("https://") => return e.clone(),
+            Some(e) => return format!("https://{}", e),
+            None => {}
         }
+
+        let emulator_host = std::env::var("STORAGE_EMULATOR_HOST").ok();
+        match emulator_host {
+            Some(host) if host.starts_with("http://") => return host.clone(),
+            Some(host) if host.starts_with("https://") => return host.clone(),
+            Some(host) if !host.is_empty() => return format!("http://{}", host),
+            Some(_) => {}
+            None => {}
+        }
+
+        format!("https://storage.{}", self.universe_domain)
+    }
+
+    fn canonicalize_header_value(value: &str) -> String {
+        let clean_value = value.replace("\t", " ").trim().to_string();
+        clean_value.split_whitespace().collect::<Vec<_>>().join(" ")
     }
 
     /// Generates the signed URL using the provided signer.
@@ -414,16 +433,131 @@ impl SignedUrlBuilder {
     /// Used to check conformance test expectations.
     async fn sign_internal(
         self,
-        _signer: &Signer,
+        signer: &Signer,
     ) -> std::result::Result<SigningComponents, SigningError> {
+        let now = self.timestamp;
+        let request_timestamp = now.format("%Y%m%dT%H%M%SZ").to_string();
+        let datestamp = now.format("%Y%m%d");
+        let credential_scope = format!("{datestamp}/auto/storage/goog4_request");
+        let client_email = if let Some(email) = self.client_email.clone() {
+            email
+        } else {
+            signer.client_email().await.map_err(SigningError::signing)?
+        };
+        let credential = format!("{client_email}/{credential_scope}");
+
         let (endpoint_url, host) = self.resolve_endpoint_url()?;
         let scheme = endpoint_url.scheme();
-        let _canonical_url = self
+        let canonical_url = self
             .scope
             .canonical_url(scheme, &host, self.url_style.clone());
 
-        // TODO(#3645): implement gcs logic for signed url generation.
-        Err(SigningError::signing("not implemented".to_string()))
+        let endpoint_url = url::Url::parse(&canonical_url)
+            .map_err(|e| SigningError::invalid_parameter("endpoint", e))?;
+        let endpoint_host = endpoint_url
+            .host_str()
+            .ok_or_else(|| SigningError::invalid_parameter("endpoint", "invalid endpoint host"))?;
+
+        let mut headers = self.headers;
+        headers.insert("host".to_string(), endpoint_host.to_string());
+
+        let mut sorted_headers = headers.keys().collect::<Vec<_>>();
+        sorted_headers.sort_by_key(|k| k.to_lowercase());
+
+        let signed_headers = sorted_headers.iter().fold("".to_string(), |acc, k| {
+            format!("{acc}{};", k.to_lowercase())
+        });
+        let signed_headers = signed_headers.trim_end_matches(';').to_string();
+
+        let mut query_parameters = self.query_parameters;
+        query_parameters.insert(
+            "X-Goog-Algorithm".to_string(),
+            "GOOG4-RSA-SHA256".to_string(),
+        );
+        query_parameters.insert("X-Goog-Credential".to_string(), credential);
+        query_parameters.insert("X-Goog-Date".to_string(), request_timestamp.clone());
+        query_parameters.insert(
+            "X-Goog-Expires".to_string(),
+            self.expiration.as_secs().to_string(),
+        );
+        query_parameters.insert("X-Goog-SignedHeaders".to_string(), signed_headers.clone());
+
+        let mut canonical_query = url::form_urlencoded::Serializer::new("".to_string());
+        let mut sorted_query_parameters_keys = query_parameters.keys().collect::<Vec<_>>();
+        sorted_query_parameters_keys.sort_by_key(|k| k.to_string());
+        sorted_query_parameters_keys.iter().for_each(|k| {
+            let value = query_parameters.get(k.as_str());
+            if value.is_none() {
+                return;
+            }
+            let value = value.unwrap();
+            canonical_query.append_pair(k, value);
+        });
+        let canonical_query = canonical_query.finish();
+        let canonical_query = canonical_query
+            .replace("%7E", "~") // rollback to ~
+            .replace("+", "%20"); // missing %20 in +
+
+        let canonical_headers = sorted_headers.iter().fold("".to_string(), |acc, k| {
+            let header_value = headers.get(k.as_str());
+            if header_value.is_none() {
+                return acc;
+            }
+            let header_value = Self::canonicalize_header_value(header_value.unwrap());
+            format!("{acc}{}:{}\n", k.to_lowercase(), header_value)
+        });
+
+        // If the user provides a value for X-Goog-Content-SHA256, we must use
+        // that value in the request string. If not, we use UNSIGNED-PAYLOAD.
+        let signature = "UNSIGNED-PAYLOAD".to_string();
+        let signature = headers.iter().fold(signature, |acc, (k, v)| {
+            if k.to_lowercase().eq("x-goog-content-sha256") {
+                return v.clone();
+            }
+            acc
+        });
+
+        let canonical_uri = self.scope.canonical_uri(self.url_style);
+        let canonical_request = [
+            self.method.to_string(),
+            canonical_uri.clone(),
+            canonical_query.clone(),
+            canonical_headers,
+            signed_headers,
+            signature,
+        ]
+        .join("\n");
+
+        let canonical_request_hash = Sha256::digest(canonical_request.as_bytes());
+        let canonical_request_hash = hex::encode(canonical_request_hash);
+
+        let string_to_sign = [
+            "GOOG4-RSA-SHA256".to_string(),
+            request_timestamp,
+            credential_scope,
+            canonical_request_hash,
+        ]
+        .join("\n");
+
+        let signature = signer
+            .sign(string_to_sign.as_str())
+            .await
+            .map_err(SigningError::signing)?;
+
+        let signature = hex::encode(signature);
+
+        let signed_url = format!(
+            "{}?{}&X-Goog-Signature={}",
+            canonical_url, canonical_query, signature
+        );
+
+        Ok(SigningComponents {
+            #[cfg(test)]
+            canonical_request,
+            #[cfg(test)]
+            string_to_sign,
+            signed_url,
+        })
     }
 
     /// Generates the signed URL using the provided signer.
@@ -473,7 +607,7 @@ mod tests {
             .return_once(|_content| Ok(bytes::Bytes::from("test-signature")));
 
         let signer = Signer::from(mock);
-        let err = SignedUrlBuilder::for_object("test-bucket", "test-object")
+        let res = SignedUrlBuilder::for_object("test-bucket", "test-object")
             .with_method(http::Method::PUT)
             .with_expiration(Duration::from_secs(3600))
             .with_header("x-goog-meta-test", "value")
@@ -482,6 +616,24 @@ mod tests {
             .with_universe_domain("googleapis.com")
             .with_client_email("test@example.com")
             .with_url_style(UrlStyle::PathStyle)
+            .sign_with(&signer)
+            .await;
+
+        assert!(res.is_ok());
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_signed_url_error_signing() -> TestResult {
+        let mut mock = MockSigner::new();
+        mock.expect_client_email()
+            .return_once(|| Ok("test@example.com".to_string()));
+        mock.expect_sign()
+            .return_once(|_content| Err(auth::signer::SigningError::from_msg("test".to_string())));
+
+        let signer = Signer::from(mock);
+        let err = SignedUrlBuilder::for_object("b", "o")
             .sign_with(&signer)
             .await
             .unwrap_err();
@@ -683,6 +835,7 @@ mod tests {
                     continue;
                 }
             };
+
             let canonical_request = components.canonical_request;
             let string_to_sign = components.string_to_sign;
             let signed_url = components.signed_url;
@@ -709,6 +862,8 @@ mod tests {
             }
             passed_tests.push(test.description);
         }
+
+        let failed = !failed_tests.is_empty();
         let total_passed = passed_tests.len();
         for test in passed_tests {
             println!("✅ Passed test: {}", test);
@@ -718,7 +873,10 @@ mod tests {
         }
         println!("{}/{} tests passed", total_passed, total_tests);
 
-        // TODO: for now, all tests will fail
-        Ok(())
+        if failed {
+            Err(anyhow::anyhow!("Some tests failed"))
+        } else {
+            Ok(())
+        }
     }
 }
