@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [Executions](super::stub::Executions) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct Executions<T>
-where
-    T: super::stub::Executions + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Executions + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> Executions<T>
-where
-    T: super::stub::Executions + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Executions + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::Executions for Executions<T>
-where
-    T: super::stub::Executions + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Executions + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn list_executions(
         &self,
@@ -72,4 +66,6 @@ where
     ) -> Result<gax::response::Response<crate::model::Execution>> {
         self.inner.cancel_execution(req, options).await
     }
+
 }
+

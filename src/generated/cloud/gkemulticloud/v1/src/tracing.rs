@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [AttachedClusters](super::stub::AttachedClusters) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct AttachedClusters<T>
-where
-    T: super::stub::AttachedClusters + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::AttachedClusters + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> AttachedClusters<T>
-where
-    T: super::stub::AttachedClusters + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::AttachedClusters + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::AttachedClusters for AttachedClusters<T>
-where
-    T: super::stub::AttachedClusters + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::AttachedClusters + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn create_attached_cluster(
         &self,
@@ -105,11 +99,8 @@ where
         &self,
         req: crate::model::GenerateAttachedClusterInstallManifestRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::GenerateAttachedClusterInstallManifestResponse>>
-    {
-        self.inner
-            .generate_attached_cluster_install_manifest(req, options)
-            .await
+    ) -> Result<gax::response::Response<crate::model::GenerateAttachedClusterInstallManifestResponse>> {
+        self.inner.generate_attached_cluster_install_manifest(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -117,11 +108,8 @@ where
         &self,
         req: crate::model::GenerateAttachedClusterAgentTokenRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::GenerateAttachedClusterAgentTokenResponse>>
-    {
-        self.inner
-            .generate_attached_cluster_agent_token(req, options)
-            .await
+    ) -> Result<gax::response::Response<crate::model::GenerateAttachedClusterAgentTokenResponse>> {
+        self.inner.generate_attached_cluster_agent_token(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -160,6 +148,7 @@ where
         self.inner.cancel_operation(req, options).await
     }
 
+
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -178,25 +167,19 @@ where
 /// Implements a [AwsClusters](super::stub::AwsClusters) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct AwsClusters<T>
-where
-    T: super::stub::AwsClusters + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::AwsClusters + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> AwsClusters<T>
-where
-    T: super::stub::AwsClusters + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::AwsClusters + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::AwsClusters for AwsClusters<T>
-where
-    T: super::stub::AwsClusters + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::AwsClusters + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn create_aws_cluster(
         &self,
@@ -248,9 +231,7 @@ where
         req: crate::model::GenerateAwsClusterAgentTokenRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::GenerateAwsClusterAgentTokenResponse>> {
-        self.inner
-            .generate_aws_cluster_agent_token(req, options)
-            .await
+        self.inner.generate_aws_cluster_agent_token(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -379,6 +360,7 @@ where
         self.inner.cancel_operation(req, options).await
     }
 
+
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -397,25 +379,19 @@ where
 /// Implements a [AzureClusters](super::stub::AzureClusters) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct AzureClusters<T>
-where
-    T: super::stub::AzureClusters + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::AzureClusters + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> AzureClusters<T>
-where
-    T: super::stub::AzureClusters + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::AzureClusters + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::AzureClusters for AzureClusters<T>
-where
-    T: super::stub::AzureClusters + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::AzureClusters + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn create_azure_client(
         &self,
@@ -503,9 +479,7 @@ where
         req: crate::model::GenerateAzureClusterAgentTokenRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::GenerateAzureClusterAgentTokenResponse>> {
-        self.inner
-            .generate_azure_cluster_agent_token(req, options)
-            .await
+        self.inner.generate_azure_cluster_agent_token(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -625,6 +599,7 @@ where
         self.inner.cancel_operation(req, options).await
     }
 
+
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -639,3 +614,4 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 }
+

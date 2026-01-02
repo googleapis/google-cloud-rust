@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -27,7 +28,6 @@ extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -46,6 +46,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Span {
+
     /// Required. The resource name of the span in the following format:
     ///
     /// * `projects/[PROJECT_ID]/traces/[TRACE_ID]/spans/[SPAN_ID]`
@@ -171,8 +172,7 @@ impl Span {
     /// let x = Span::new().set_display_name(TruncatableString::default()/* use setters */);
     /// ```
     pub fn set_display_name<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TruncatableString>,
+    where T: std::convert::Into<crate::model::TruncatableString>
     {
         self.display_name = std::option::Option::Some(v.into());
         self
@@ -188,8 +188,7 @@ impl Span {
     /// let x = Span::new().set_or_clear_display_name(None::<TruncatableString>);
     /// ```
     pub fn set_or_clear_display_name<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TruncatableString>,
+    where T: std::convert::Into<crate::model::TruncatableString>
     {
         self.display_name = v.map(|x| x.into());
         self
@@ -204,8 +203,7 @@ impl Span {
     /// let x = Span::new().set_start_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -221,8 +219,7 @@ impl Span {
     /// let x = Span::new().set_or_clear_start_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -237,8 +234,7 @@ impl Span {
     /// let x = Span::new().set_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -254,8 +250,7 @@ impl Span {
     /// let x = Span::new().set_or_clear_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -270,8 +265,7 @@ impl Span {
     /// let x = Span::new().set_attributes(Attributes::default()/* use setters */);
     /// ```
     pub fn set_attributes<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::span::Attributes>,
+    where T: std::convert::Into<crate::model::span::Attributes>
     {
         self.attributes = std::option::Option::Some(v.into());
         self
@@ -287,8 +281,7 @@ impl Span {
     /// let x = Span::new().set_or_clear_attributes(None::<Attributes>);
     /// ```
     pub fn set_or_clear_attributes<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::span::Attributes>,
+    where T: std::convert::Into<crate::model::span::Attributes>
     {
         self.attributes = v.map(|x| x.into());
         self
@@ -303,8 +296,7 @@ impl Span {
     /// let x = Span::new().set_stack_trace(StackTrace::default()/* use setters */);
     /// ```
     pub fn set_stack_trace<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::StackTrace>,
+    where T: std::convert::Into<crate::model::StackTrace>
     {
         self.stack_trace = std::option::Option::Some(v.into());
         self
@@ -320,8 +312,7 @@ impl Span {
     /// let x = Span::new().set_or_clear_stack_trace(None::<StackTrace>);
     /// ```
     pub fn set_or_clear_stack_trace<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::StackTrace>,
+    where T: std::convert::Into<crate::model::StackTrace>
     {
         self.stack_trace = v.map(|x| x.into());
         self
@@ -336,8 +327,7 @@ impl Span {
     /// let x = Span::new().set_time_events(TimeEvents::default()/* use setters */);
     /// ```
     pub fn set_time_events<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::span::TimeEvents>,
+    where T: std::convert::Into<crate::model::span::TimeEvents>
     {
         self.time_events = std::option::Option::Some(v.into());
         self
@@ -353,8 +343,7 @@ impl Span {
     /// let x = Span::new().set_or_clear_time_events(None::<TimeEvents>);
     /// ```
     pub fn set_or_clear_time_events<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::span::TimeEvents>,
+    where T: std::convert::Into<crate::model::span::TimeEvents>
     {
         self.time_events = v.map(|x| x.into());
         self
@@ -369,8 +358,7 @@ impl Span {
     /// let x = Span::new().set_links(Links::default()/* use setters */);
     /// ```
     pub fn set_links<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::span::Links>,
+    where T: std::convert::Into<crate::model::span::Links>
     {
         self.links = std::option::Option::Some(v.into());
         self
@@ -386,8 +374,7 @@ impl Span {
     /// let x = Span::new().set_or_clear_links(None::<Links>);
     /// ```
     pub fn set_or_clear_links<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::span::Links>,
+    where T: std::convert::Into<crate::model::span::Links>
     {
         self.links = v.map(|x| x.into());
         self
@@ -402,8 +389,7 @@ impl Span {
     /// let x = Span::new().set_status(Status::default()/* use setters */);
     /// ```
     pub fn set_status<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<rpc::model::Status>,
+    where T: std::convert::Into<rpc::model::Status>
     {
         self.status = std::option::Option::Some(v.into());
         self
@@ -419,8 +405,7 @@ impl Span {
     /// let x = Span::new().set_or_clear_status(None::<Status>);
     /// ```
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<rpc::model::Status>,
+    where T: std::convert::Into<rpc::model::Status>
     {
         self.status = v.map(|x| x.into());
         self
@@ -435,8 +420,7 @@ impl Span {
     /// let x = Span::new().set_same_process_as_parent_span(BoolValue::default()/* use setters */);
     /// ```
     pub fn set_same_process_as_parent_span<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.same_process_as_parent_span = std::option::Option::Some(v.into());
         self
@@ -452,8 +436,7 @@ impl Span {
     /// let x = Span::new().set_or_clear_same_process_as_parent_span(None::<BoolValue>);
     /// ```
     pub fn set_or_clear_same_process_as_parent_span<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.same_process_as_parent_span = v.map(|x| x.into());
         self
@@ -468,8 +451,7 @@ impl Span {
     /// let x = Span::new().set_child_span_count(Int32Value::default()/* use setters */);
     /// ```
     pub fn set_child_span_count<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Int32Value>,
+    where T: std::convert::Into<wkt::Int32Value>
     {
         self.child_span_count = std::option::Option::Some(v.into());
         self
@@ -485,8 +467,7 @@ impl Span {
     /// let x = Span::new().set_or_clear_child_span_count(None::<Int32Value>);
     /// ```
     pub fn set_or_clear_child_span_count<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Int32Value>,
+    where T: std::convert::Into<wkt::Int32Value>
     {
         self.child_span_count = v.map(|x| x.into());
         self
@@ -502,10 +483,7 @@ impl Span {
     /// let x1 = Span::new().set_span_kind(SpanKind::Server);
     /// let x2 = Span::new().set_span_kind(SpanKind::Client);
     /// ```
-    pub fn set_span_kind<T: std::convert::Into<crate::model::span::SpanKind>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_span_kind<T: std::convert::Into<crate::model::span::SpanKind>>(mut self, v: T) -> Self {
         self.span_kind = v.into();
         self
     }
@@ -522,10 +500,12 @@ pub mod span {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// A set of attributes as key-value pairs.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Attributes {
+
         /// A set of attributes. Each attribute's key can be up to 128 bytes
         /// long. The value can be a string up to 256 bytes, a signed 64-bit integer,
         /// or the boolean values `true` or `false`. For example:
@@ -535,8 +515,7 @@ pub mod span {
         /// "/http/request_bytes": { "int_value": 300 }
         /// "abc.com/myattribute": { "bool_value": false }
         /// ```
-        pub attribute_map:
-            std::collections::HashMap<std::string::String, crate::model::AttributeValue>,
+        pub attribute_map: std::collections::HashMap<std::string::String,crate::model::AttributeValue>,
 
         /// The number of attributes that were discarded. Attributes can be discarded
         /// because their keys are too long or because there are too many attributes.
@@ -596,6 +575,7 @@ pub mod span {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TimeEvent {
+
         /// The timestamp indicating the time the event occurred.
         pub time: std::option::Option<wkt::Timestamp>,
 
@@ -620,8 +600,7 @@ pub mod span {
         /// let x = TimeEvent::new().set_time(Timestamp::default()/* use setters */);
         /// ```
         pub fn set_time<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.time = std::option::Option::Some(v.into());
             self
@@ -637,8 +616,7 @@ pub mod span {
         /// let x = TimeEvent::new().set_or_clear_time(None::<Timestamp>);
         /// ```
         pub fn set_or_clear_time<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.time = v.map(|x| x.into());
             self
@@ -656,12 +634,8 @@ pub mod span {
         /// let x = TimeEvent::new().set_value(Some(
         ///     google_cloud_trace_v2::model::span::time_event::Value::Annotation(Annotation::default().into())));
         /// ```
-        pub fn set_value<
-            T: std::convert::Into<std::option::Option<crate::model::span::time_event::Value>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_value<T: std::convert::Into<std::option::Option<crate::model::span::time_event::Value>>>(mut self, v: T) -> Self
+        {
             self.value = v.into();
             self
         }
@@ -669,15 +643,10 @@ pub mod span {
         /// The value of [value][crate::model::span::TimeEvent::value]
         /// if it holds a `Annotation`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn annotation(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::span::time_event::Annotation>>
-        {
+        pub fn annotation(&self) -> std::option::Option<&std::boxed::Box<crate::model::span::time_event::Annotation>> {
             #[allow(unreachable_patterns)]
             self.value.as_ref().and_then(|v| match v {
-                crate::model::span::time_event::Value::Annotation(v) => {
-                    std::option::Option::Some(v)
-                }
+                crate::model::span::time_event::Value::Annotation(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
@@ -696,14 +665,11 @@ pub mod span {
         /// assert!(x.annotation().is_some());
         /// assert!(x.message_event().is_none());
         /// ```
-        pub fn set_annotation<
-            T: std::convert::Into<std::boxed::Box<crate::model::span::time_event::Annotation>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_annotation<T: std::convert::Into<std::boxed::Box<crate::model::span::time_event::Annotation>>>(mut self, v: T) -> Self {
             self.value = std::option::Option::Some(
-                crate::model::span::time_event::Value::Annotation(v.into()),
+                crate::model::span::time_event::Value::Annotation(
+                    v.into()
+                )
             );
             self
         }
@@ -711,15 +677,10 @@ pub mod span {
         /// The value of [value][crate::model::span::TimeEvent::value]
         /// if it holds a `MessageEvent`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn message_event(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::span::time_event::MessageEvent>>
-        {
+        pub fn message_event(&self) -> std::option::Option<&std::boxed::Box<crate::model::span::time_event::MessageEvent>> {
             #[allow(unreachable_patterns)]
             self.value.as_ref().and_then(|v| match v {
-                crate::model::span::time_event::Value::MessageEvent(v) => {
-                    std::option::Option::Some(v)
-                }
+                crate::model::span::time_event::Value::MessageEvent(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
@@ -738,14 +699,11 @@ pub mod span {
         /// assert!(x.message_event().is_some());
         /// assert!(x.annotation().is_none());
         /// ```
-        pub fn set_message_event<
-            T: std::convert::Into<std::boxed::Box<crate::model::span::time_event::MessageEvent>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_message_event<T: std::convert::Into<std::boxed::Box<crate::model::span::time_event::MessageEvent>>>(mut self, v: T) -> Self {
             self.value = std::option::Option::Some(
-                crate::model::span::time_event::Value::MessageEvent(v.into()),
+                crate::model::span::time_event::Value::MessageEvent(
+                    v.into()
+                )
             );
             self
         }
@@ -762,10 +720,12 @@ pub mod span {
         #[allow(unused_imports)]
         use super::*;
 
+
         /// Text annotation with a set of attributes.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Annotation {
+
             /// A user-supplied message describing the event. The maximum length for
             /// the description is 256 bytes.
             pub description: std::option::Option<crate::model::TruncatableString>,
@@ -791,8 +751,7 @@ pub mod span {
             /// let x = Annotation::new().set_description(TruncatableString::default()/* use setters */);
             /// ```
             pub fn set_description<T>(mut self, v: T) -> Self
-            where
-                T: std::convert::Into<crate::model::TruncatableString>,
+            where T: std::convert::Into<crate::model::TruncatableString>
             {
                 self.description = std::option::Option::Some(v.into());
                 self
@@ -808,8 +767,7 @@ pub mod span {
             /// let x = Annotation::new().set_or_clear_description(None::<TruncatableString>);
             /// ```
             pub fn set_or_clear_description<T>(mut self, v: std::option::Option<T>) -> Self
-            where
-                T: std::convert::Into<crate::model::TruncatableString>,
+            where T: std::convert::Into<crate::model::TruncatableString>
             {
                 self.description = v.map(|x| x.into());
                 self
@@ -824,8 +782,7 @@ pub mod span {
             /// let x = Annotation::new().set_attributes(Attributes::default()/* use setters */);
             /// ```
             pub fn set_attributes<T>(mut self, v: T) -> Self
-            where
-                T: std::convert::Into<crate::model::span::Attributes>,
+            where T: std::convert::Into<crate::model::span::Attributes>
             {
                 self.attributes = std::option::Option::Some(v.into());
                 self
@@ -841,8 +798,7 @@ pub mod span {
             /// let x = Annotation::new().set_or_clear_attributes(None::<Attributes>);
             /// ```
             pub fn set_or_clear_attributes<T>(mut self, v: std::option::Option<T>) -> Self
-            where
-                T: std::convert::Into<crate::model::span::Attributes>,
+            where T: std::convert::Into<crate::model::span::Attributes>
             {
                 self.attributes = v.map(|x| x.into());
                 self
@@ -859,6 +815,7 @@ pub mod span {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct MessageEvent {
+
             /// Type of MessageEvent. Indicates whether the message was sent or
             /// received.
             pub r#type: crate::model::span::time_event::message_event::Type,
@@ -892,12 +849,7 @@ pub mod span {
             /// let x0 = MessageEvent::new().set_type(Type::Sent);
             /// let x1 = MessageEvent::new().set_type(Type::Received);
             /// ```
-            pub fn set_type<
-                T: std::convert::Into<crate::model::span::time_event::message_event::Type>,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_type<T: std::convert::Into<crate::model::span::time_event::message_event::Type>>(mut self, v: T) -> Self {
                 self.r#type = v.into();
                 self
             }
@@ -949,6 +901,7 @@ pub mod span {
         pub mod message_event {
             #[allow(unused_imports)]
             use super::*;
+
 
             /// Indicates whether the message was sent or received.
             ///
@@ -1025,10 +978,7 @@ pub mod span {
             }
 
             impl std::fmt::Display for Type {
-                fn fmt(
-                    &self,
-                    f: &mut std::fmt::Formatter<'_>,
-                ) -> std::result::Result<(), std::fmt::Error> {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
                     wkt::internal::display_enum(f, self.name(), self.value())
                 }
             }
@@ -1039,9 +989,7 @@ pub mod span {
                         0 => Self::Unspecified,
                         1 => Self::Sent,
                         2 => Self::Received,
-                        _ => Self::UnknownValue(r#type::UnknownValue(
-                            wkt::internal::UnknownEnumValue::Integer(value),
-                        )),
+                        _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
                     }
                 }
             }
@@ -1053,9 +1001,7 @@ pub mod span {
                         "TYPE_UNSPECIFIED" => Self::Unspecified,
                         "SENT" => Self::Sent,
                         "RECEIVED" => Self::Received,
-                        _ => Self::UnknownValue(r#type::UnknownValue(
-                            wkt::internal::UnknownEnumValue::String(value.to_string()),
-                        )),
+                        _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
                     }
                 }
             }
@@ -1080,8 +1026,7 @@ pub mod span {
                     D: serde::Deserializer<'de>,
                 {
                     deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
-                        ".google.devtools.cloudtrace.v2.Span.TimeEvent.MessageEvent.Type",
-                    ))
+                        ".google.devtools.cloudtrace.v2.Span.TimeEvent.MessageEvent.Type"))
                 }
             }
         }
@@ -1104,6 +1049,7 @@ pub mod span {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TimeEvents {
+
         /// A collection of `TimeEvent`s.
         pub time_event: std::vec::Vec<crate::model::span::TimeEvent>,
 
@@ -1138,7 +1084,7 @@ pub mod span {
         pub fn set_time_event<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::span::TimeEvent>,
+            V: std::convert::Into<crate::model::span::TimeEvent>
         {
             use std::iter::Iterator;
             self.time_event = v.into_iter().map(|i| i.into()).collect();
@@ -1164,10 +1110,7 @@ pub mod span {
         /// # use google_cloud_trace_v2::model::span::TimeEvents;
         /// let x = TimeEvents::new().set_dropped_message_events_count(42);
         /// ```
-        pub fn set_dropped_message_events_count<T: std::convert::Into<i32>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_dropped_message_events_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.dropped_message_events_count = v.into();
             self
         }
@@ -1186,6 +1129,7 @@ pub mod span {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Link {
+
         /// The `[TRACE_ID]` for a trace within a project.
         pub trace_id: std::string::String,
 
@@ -1240,10 +1184,7 @@ pub mod span {
         /// let x0 = Link::new().set_type(Type::ChildLinkedSpan);
         /// let x1 = Link::new().set_type(Type::ParentLinkedSpan);
         /// ```
-        pub fn set_type<T: std::convert::Into<crate::model::span::link::Type>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_type<T: std::convert::Into<crate::model::span::link::Type>>(mut self, v: T) -> Self {
             self.r#type = v.into();
             self
         }
@@ -1257,8 +1198,7 @@ pub mod span {
         /// let x = Link::new().set_attributes(Attributes::default()/* use setters */);
         /// ```
         pub fn set_attributes<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::span::Attributes>,
+        where T: std::convert::Into<crate::model::span::Attributes>
         {
             self.attributes = std::option::Option::Some(v.into());
             self
@@ -1274,8 +1214,7 @@ pub mod span {
         /// let x = Link::new().set_or_clear_attributes(None::<Attributes>);
         /// ```
         pub fn set_or_clear_attributes<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::span::Attributes>,
+        where T: std::convert::Into<crate::model::span::Attributes>
         {
             self.attributes = v.map(|x| x.into());
             self
@@ -1292,6 +1231,7 @@ pub mod span {
     pub mod link {
         #[allow(unused_imports)]
         use super::*;
+
 
         /// The relationship of the current span relative to the linked span: child,
         /// parent, or unspecified.
@@ -1369,10 +1309,7 @@ pub mod span {
         }
 
         impl std::fmt::Display for Type {
-            fn fmt(
-                &self,
-                f: &mut std::fmt::Formatter<'_>,
-            ) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -1383,9 +1320,7 @@ pub mod span {
                     0 => Self::Unspecified,
                     1 => Self::ChildLinkedSpan,
                     2 => Self::ParentLinkedSpan,
-                    _ => Self::UnknownValue(r#type::UnknownValue(
-                        wkt::internal::UnknownEnumValue::Integer(value),
-                    )),
+                    _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
                 }
             }
         }
@@ -1397,9 +1332,7 @@ pub mod span {
                     "TYPE_UNSPECIFIED" => Self::Unspecified,
                     "CHILD_LINKED_SPAN" => Self::ChildLinkedSpan,
                     "PARENT_LINKED_SPAN" => Self::ParentLinkedSpan,
-                    _ => Self::UnknownValue(r#type::UnknownValue(
-                        wkt::internal::UnknownEnumValue::String(value.to_string()),
-                    )),
+                    _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
                 }
             }
         }
@@ -1424,8 +1357,7 @@ pub mod span {
                 D: serde::Deserializer<'de>,
             {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
-                    ".google.devtools.cloudtrace.v2.Span.Link.Type",
-                ))
+                    ".google.devtools.cloudtrace.v2.Span.Link.Type"))
             }
         }
     }
@@ -1435,6 +1367,7 @@ pub mod span {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Links {
+
         /// A collection of links.
         pub link: std::vec::Vec<crate::model::span::Link>,
 
@@ -1465,7 +1398,7 @@ pub mod span {
         pub fn set_link<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::span::Link>,
+            V: std::convert::Into<crate::model::span::Link>
         {
             use std::iter::Iterator;
             self.link = v.into_iter().map(|i| i.into()).collect();
@@ -1602,9 +1535,7 @@ pub mod span {
                 3 => Self::Client,
                 4 => Self::Producer,
                 5 => Self::Consumer,
-                _ => Self::UnknownValue(span_kind::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(span_kind::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1619,9 +1550,7 @@ pub mod span {
                 "CLIENT" => Self::Client,
                 "PRODUCER" => Self::Producer,
                 "CONSUMER" => Self::Consumer,
-                _ => Self::UnknownValue(span_kind::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(span_kind::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1649,8 +1578,7 @@ pub mod span {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<SpanKind>::new(
-                ".google.devtools.cloudtrace.v2.Span.SpanKind",
-            ))
+                ".google.devtools.cloudtrace.v2.Span.SpanKind"))
         }
     }
 }
@@ -1659,6 +1587,7 @@ pub mod span {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AttributeValue {
+
     /// The type of the value.
     pub value: std::option::Option<crate::model::attribute_value::Value>,
 
@@ -1681,12 +1610,8 @@ impl AttributeValue {
     /// use google_cloud_trace_v2::model::attribute_value::Value;
     /// let x = AttributeValue::new().set_value(Some(Value::IntValue(42)));
     /// ```
-    pub fn set_value<
-        T: std::convert::Into<std::option::Option<crate::model::attribute_value::Value>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_value<T: std::convert::Into<std::option::Option<crate::model::attribute_value::Value>>>(mut self, v: T) -> Self
+    {
         self.value = v.into();
         self
     }
@@ -1694,9 +1619,7 @@ impl AttributeValue {
     /// The value of [value][crate::model::AttributeValue::value]
     /// if it holds a `StringValue`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn string_value(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::TruncatableString>> {
+    pub fn string_value(&self) -> std::option::Option<&std::boxed::Box<crate::model::TruncatableString>> {
         #[allow(unreachable_patterns)]
         self.value.as_ref().and_then(|v| match v {
             crate::model::attribute_value::Value::StringValue(v) => std::option::Option::Some(v),
@@ -1719,14 +1642,12 @@ impl AttributeValue {
     /// assert!(x.int_value().is_none());
     /// assert!(x.bool_value().is_none());
     /// ```
-    pub fn set_string_value<
-        T: std::convert::Into<std::boxed::Box<crate::model::TruncatableString>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.value =
-            std::option::Option::Some(crate::model::attribute_value::Value::StringValue(v.into()));
+    pub fn set_string_value<T: std::convert::Into<std::boxed::Box<crate::model::TruncatableString>>>(mut self, v: T) -> Self {
+        self.value = std::option::Option::Some(
+            crate::model::attribute_value::Value::StringValue(
+                v.into()
+            )
+        );
         self
     }
 
@@ -1756,8 +1677,11 @@ impl AttributeValue {
     /// assert!(x.bool_value().is_none());
     /// ```
     pub fn set_int_value<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
-        self.value =
-            std::option::Option::Some(crate::model::attribute_value::Value::IntValue(v.into()));
+        self.value = std::option::Option::Some(
+            crate::model::attribute_value::Value::IntValue(
+                v.into()
+            )
+        );
         self
     }
 
@@ -1787,8 +1711,11 @@ impl AttributeValue {
     /// assert!(x.int_value().is_none());
     /// ```
     pub fn set_bool_value<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.value =
-            std::option::Option::Some(crate::model::attribute_value::Value::BoolValue(v.into()));
+        self.value = std::option::Option::Some(
+            crate::model::attribute_value::Value::BoolValue(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -1803,6 +1730,7 @@ impl wkt::message::Message for AttributeValue {
 pub mod attribute_value {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The type of the value.
     #[derive(Clone, Debug, PartialEq)]
@@ -1821,6 +1749,7 @@ pub mod attribute_value {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StackTrace {
+
     /// Stack frames in this stack trace. A maximum of 128 frames are allowed.
     pub stack_frames: std::option::Option<crate::model::stack_trace::StackFrames>,
 
@@ -1852,8 +1781,7 @@ impl StackTrace {
     /// let x = StackTrace::new().set_stack_frames(StackFrames::default()/* use setters */);
     /// ```
     pub fn set_stack_frames<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::stack_trace::StackFrames>,
+    where T: std::convert::Into<crate::model::stack_trace::StackFrames>
     {
         self.stack_frames = std::option::Option::Some(v.into());
         self
@@ -1869,8 +1797,7 @@ impl StackTrace {
     /// let x = StackTrace::new().set_or_clear_stack_frames(None::<StackFrames>);
     /// ```
     pub fn set_or_clear_stack_frames<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::stack_trace::StackFrames>,
+    where T: std::convert::Into<crate::model::stack_trace::StackFrames>
     {
         self.stack_frames = v.map(|x| x.into());
         self
@@ -1900,10 +1827,12 @@ pub mod stack_trace {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Represents a single stack frame in a stack trace.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct StackFrame {
+
         /// The fully-qualified name that uniquely identifies the function or
         /// method that is active in this frame (up to 1024 bytes).
         pub function_name: std::option::Option<crate::model::TruncatableString>,
@@ -1948,8 +1877,7 @@ pub mod stack_trace {
         /// let x = StackFrame::new().set_function_name(TruncatableString::default()/* use setters */);
         /// ```
         pub fn set_function_name<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::TruncatableString>,
+        where T: std::convert::Into<crate::model::TruncatableString>
         {
             self.function_name = std::option::Option::Some(v.into());
             self
@@ -1965,8 +1893,7 @@ pub mod stack_trace {
         /// let x = StackFrame::new().set_or_clear_function_name(None::<TruncatableString>);
         /// ```
         pub fn set_or_clear_function_name<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::TruncatableString>,
+        where T: std::convert::Into<crate::model::TruncatableString>
         {
             self.function_name = v.map(|x| x.into());
             self
@@ -1981,8 +1908,7 @@ pub mod stack_trace {
         /// let x = StackFrame::new().set_original_function_name(TruncatableString::default()/* use setters */);
         /// ```
         pub fn set_original_function_name<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::TruncatableString>,
+        where T: std::convert::Into<crate::model::TruncatableString>
         {
             self.original_function_name = std::option::Option::Some(v.into());
             self
@@ -1998,8 +1924,7 @@ pub mod stack_trace {
         /// let x = StackFrame::new().set_or_clear_original_function_name(None::<TruncatableString>);
         /// ```
         pub fn set_or_clear_original_function_name<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::TruncatableString>,
+        where T: std::convert::Into<crate::model::TruncatableString>
         {
             self.original_function_name = v.map(|x| x.into());
             self
@@ -2014,8 +1939,7 @@ pub mod stack_trace {
         /// let x = StackFrame::new().set_file_name(TruncatableString::default()/* use setters */);
         /// ```
         pub fn set_file_name<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::TruncatableString>,
+        where T: std::convert::Into<crate::model::TruncatableString>
         {
             self.file_name = std::option::Option::Some(v.into());
             self
@@ -2031,8 +1955,7 @@ pub mod stack_trace {
         /// let x = StackFrame::new().set_or_clear_file_name(None::<TruncatableString>);
         /// ```
         pub fn set_or_clear_file_name<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::TruncatableString>,
+        where T: std::convert::Into<crate::model::TruncatableString>
         {
             self.file_name = v.map(|x| x.into());
             self
@@ -2071,8 +1994,7 @@ pub mod stack_trace {
         /// let x = StackFrame::new().set_load_module(Module::default()/* use setters */);
         /// ```
         pub fn set_load_module<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Module>,
+        where T: std::convert::Into<crate::model::Module>
         {
             self.load_module = std::option::Option::Some(v.into());
             self
@@ -2088,8 +2010,7 @@ pub mod stack_trace {
         /// let x = StackFrame::new().set_or_clear_load_module(None::<Module>);
         /// ```
         pub fn set_or_clear_load_module<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Module>,
+        where T: std::convert::Into<crate::model::Module>
         {
             self.load_module = v.map(|x| x.into());
             self
@@ -2104,8 +2025,7 @@ pub mod stack_trace {
         /// let x = StackFrame::new().set_source_version(TruncatableString::default()/* use setters */);
         /// ```
         pub fn set_source_version<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::TruncatableString>,
+        where T: std::convert::Into<crate::model::TruncatableString>
         {
             self.source_version = std::option::Option::Some(v.into());
             self
@@ -2121,8 +2041,7 @@ pub mod stack_trace {
         /// let x = StackFrame::new().set_or_clear_source_version(None::<TruncatableString>);
         /// ```
         pub fn set_or_clear_source_version<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::TruncatableString>,
+        where T: std::convert::Into<crate::model::TruncatableString>
         {
             self.source_version = v.map(|x| x.into());
             self
@@ -2139,6 +2058,7 @@ pub mod stack_trace {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct StackFrames {
+
         /// Stack frames in this call stack.
         pub frame: std::vec::Vec<crate::model::stack_trace::StackFrame>,
 
@@ -2170,7 +2090,7 @@ pub mod stack_trace {
         pub fn set_frame<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::stack_trace::StackFrame>,
+            V: std::convert::Into<crate::model::stack_trace::StackFrame>
         {
             use std::iter::Iterator;
             self.frame = v.into_iter().map(|i| i.into()).collect();
@@ -2201,6 +2121,7 @@ pub mod stack_trace {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Module {
+
     /// For example: main binary, kernel modules, and dynamic libraries
     /// such as libc.so, sharedlib.so (up to 256 bytes).
     pub module: std::option::Option<crate::model::TruncatableString>,
@@ -2226,8 +2147,7 @@ impl Module {
     /// let x = Module::new().set_module(TruncatableString::default()/* use setters */);
     /// ```
     pub fn set_module<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TruncatableString>,
+    where T: std::convert::Into<crate::model::TruncatableString>
     {
         self.module = std::option::Option::Some(v.into());
         self
@@ -2243,8 +2163,7 @@ impl Module {
     /// let x = Module::new().set_or_clear_module(None::<TruncatableString>);
     /// ```
     pub fn set_or_clear_module<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TruncatableString>,
+    where T: std::convert::Into<crate::model::TruncatableString>
     {
         self.module = v.map(|x| x.into());
         self
@@ -2259,8 +2178,7 @@ impl Module {
     /// let x = Module::new().set_build_id(TruncatableString::default()/* use setters */);
     /// ```
     pub fn set_build_id<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TruncatableString>,
+    where T: std::convert::Into<crate::model::TruncatableString>
     {
         self.build_id = std::option::Option::Some(v.into());
         self
@@ -2276,8 +2194,7 @@ impl Module {
     /// let x = Module::new().set_or_clear_build_id(None::<TruncatableString>);
     /// ```
     pub fn set_or_clear_build_id<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TruncatableString>,
+    where T: std::convert::Into<crate::model::TruncatableString>
     {
         self.build_id = v.map(|x| x.into());
         self
@@ -2294,6 +2211,7 @@ impl wkt::message::Message for Module {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TruncatableString {
+
     /// The shortened string. For example, if the original string is 500
     /// bytes long and the limit of the string is 128 bytes, then
     /// `value` contains the first 128 bytes of the 500-byte string.
@@ -2350,6 +2268,7 @@ impl wkt::message::Message for TruncatableString {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchWriteSpansRequest {
+
     /// Required. The name of the project where the spans belong. The format is
     /// `projects/[PROJECT_ID]`.
     pub name: std::string::String,
@@ -2393,7 +2312,7 @@ impl BatchWriteSpansRequest {
     pub fn set_spans<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Span>,
+        V: std::convert::Into<crate::model::Span>
     {
         use std::iter::Iterator;
         self.spans = v.into_iter().map(|i| i.into()).collect();

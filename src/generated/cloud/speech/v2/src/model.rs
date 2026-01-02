@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -30,7 +31,6 @@ extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -45,6 +45,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateRecognizerRequest {
+
     /// Required. The Recognizer to create.
     pub recognizer: std::option::Option<crate::model::Recognizer>,
 
@@ -80,8 +81,7 @@ impl CreateRecognizerRequest {
     /// let x = CreateRecognizerRequest::new().set_recognizer(Recognizer::default()/* use setters */);
     /// ```
     pub fn set_recognizer<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Recognizer>,
+    where T: std::convert::Into<crate::model::Recognizer>
     {
         self.recognizer = std::option::Option::Some(v.into());
         self
@@ -97,8 +97,7 @@ impl CreateRecognizerRequest {
     /// let x = CreateRecognizerRequest::new().set_or_clear_recognizer(None::<Recognizer>);
     /// ```
     pub fn set_or_clear_recognizer<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Recognizer>,
+    where T: std::convert::Into<crate::model::Recognizer>
     {
         self.recognizer = v.map(|x| x.into());
         self
@@ -151,6 +150,7 @@ impl wkt::message::Message for CreateRecognizerRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
+
     /// The time the operation was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
@@ -202,8 +202,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -219,8 +218,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -235,8 +233,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -252,8 +249,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -302,10 +298,7 @@ impl OperationMetadata {
     /// # use google_cloud_speech_v2::model::OperationMetadata;
     /// let x = OperationMetadata::new().set_kms_key_version_name("example");
     /// ```
-    pub fn set_kms_key_version_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_kms_key_version_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key_version_name = v.into();
         self
     }
@@ -334,12 +327,8 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_request(Some(
     ///     google_cloud_speech_v2::model::operation_metadata::Request::BatchRecognizeRequest(BatchRecognizeRequest::default().into())));
     /// ```
-    pub fn set_request<
-        T: std::convert::Into<std::option::Option<crate::model::operation_metadata::Request>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_request<T: std::convert::Into<std::option::Option<crate::model::operation_metadata::Request>>>(mut self, v: T) -> Self
+    {
         self.request = v.into();
         self
     }
@@ -347,14 +336,10 @@ impl OperationMetadata {
     /// The value of [request][crate::model::OperationMetadata::request]
     /// if it holds a `BatchRecognizeRequest`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn batch_recognize_request(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::BatchRecognizeRequest>> {
+    pub fn batch_recognize_request(&self) -> std::option::Option<&std::boxed::Box<crate::model::BatchRecognizeRequest>> {
         #[allow(unreachable_patterns)]
         self.request.as_ref().and_then(|v| match v {
-            crate::model::operation_metadata::Request::BatchRecognizeRequest(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::operation_metadata::Request::BatchRecognizeRequest(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -385,14 +370,11 @@ impl OperationMetadata {
     /// assert!(x.undelete_phrase_set_request().is_none());
     /// assert!(x.update_config_request().is_none());
     /// ```
-    pub fn set_batch_recognize_request<
-        T: std::convert::Into<std::boxed::Box<crate::model::BatchRecognizeRequest>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_batch_recognize_request<T: std::convert::Into<std::boxed::Box<crate::model::BatchRecognizeRequest>>>(mut self, v: T) -> Self {
         self.request = std::option::Option::Some(
-            crate::model::operation_metadata::Request::BatchRecognizeRequest(v.into()),
+            crate::model::operation_metadata::Request::BatchRecognizeRequest(
+                v.into()
+            )
         );
         self
     }
@@ -400,14 +382,10 @@ impl OperationMetadata {
     /// The value of [request][crate::model::OperationMetadata::request]
     /// if it holds a `CreateRecognizerRequest`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn create_recognizer_request(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::CreateRecognizerRequest>> {
+    pub fn create_recognizer_request(&self) -> std::option::Option<&std::boxed::Box<crate::model::CreateRecognizerRequest>> {
         #[allow(unreachable_patterns)]
         self.request.as_ref().and_then(|v| match v {
-            crate::model::operation_metadata::Request::CreateRecognizerRequest(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::operation_metadata::Request::CreateRecognizerRequest(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -438,14 +416,11 @@ impl OperationMetadata {
     /// assert!(x.undelete_phrase_set_request().is_none());
     /// assert!(x.update_config_request().is_none());
     /// ```
-    pub fn set_create_recognizer_request<
-        T: std::convert::Into<std::boxed::Box<crate::model::CreateRecognizerRequest>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_create_recognizer_request<T: std::convert::Into<std::boxed::Box<crate::model::CreateRecognizerRequest>>>(mut self, v: T) -> Self {
         self.request = std::option::Option::Some(
-            crate::model::operation_metadata::Request::CreateRecognizerRequest(v.into()),
+            crate::model::operation_metadata::Request::CreateRecognizerRequest(
+                v.into()
+            )
         );
         self
     }
@@ -453,14 +428,10 @@ impl OperationMetadata {
     /// The value of [request][crate::model::OperationMetadata::request]
     /// if it holds a `UpdateRecognizerRequest`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn update_recognizer_request(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::UpdateRecognizerRequest>> {
+    pub fn update_recognizer_request(&self) -> std::option::Option<&std::boxed::Box<crate::model::UpdateRecognizerRequest>> {
         #[allow(unreachable_patterns)]
         self.request.as_ref().and_then(|v| match v {
-            crate::model::operation_metadata::Request::UpdateRecognizerRequest(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::operation_metadata::Request::UpdateRecognizerRequest(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -491,14 +462,11 @@ impl OperationMetadata {
     /// assert!(x.undelete_phrase_set_request().is_none());
     /// assert!(x.update_config_request().is_none());
     /// ```
-    pub fn set_update_recognizer_request<
-        T: std::convert::Into<std::boxed::Box<crate::model::UpdateRecognizerRequest>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_update_recognizer_request<T: std::convert::Into<std::boxed::Box<crate::model::UpdateRecognizerRequest>>>(mut self, v: T) -> Self {
         self.request = std::option::Option::Some(
-            crate::model::operation_metadata::Request::UpdateRecognizerRequest(v.into()),
+            crate::model::operation_metadata::Request::UpdateRecognizerRequest(
+                v.into()
+            )
         );
         self
     }
@@ -506,14 +474,10 @@ impl OperationMetadata {
     /// The value of [request][crate::model::OperationMetadata::request]
     /// if it holds a `DeleteRecognizerRequest`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn delete_recognizer_request(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::DeleteRecognizerRequest>> {
+    pub fn delete_recognizer_request(&self) -> std::option::Option<&std::boxed::Box<crate::model::DeleteRecognizerRequest>> {
         #[allow(unreachable_patterns)]
         self.request.as_ref().and_then(|v| match v {
-            crate::model::operation_metadata::Request::DeleteRecognizerRequest(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::operation_metadata::Request::DeleteRecognizerRequest(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -544,14 +508,11 @@ impl OperationMetadata {
     /// assert!(x.undelete_phrase_set_request().is_none());
     /// assert!(x.update_config_request().is_none());
     /// ```
-    pub fn set_delete_recognizer_request<
-        T: std::convert::Into<std::boxed::Box<crate::model::DeleteRecognizerRequest>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_delete_recognizer_request<T: std::convert::Into<std::boxed::Box<crate::model::DeleteRecognizerRequest>>>(mut self, v: T) -> Self {
         self.request = std::option::Option::Some(
-            crate::model::operation_metadata::Request::DeleteRecognizerRequest(v.into()),
+            crate::model::operation_metadata::Request::DeleteRecognizerRequest(
+                v.into()
+            )
         );
         self
     }
@@ -559,14 +520,10 @@ impl OperationMetadata {
     /// The value of [request][crate::model::OperationMetadata::request]
     /// if it holds a `UndeleteRecognizerRequest`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn undelete_recognizer_request(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::UndeleteRecognizerRequest>> {
+    pub fn undelete_recognizer_request(&self) -> std::option::Option<&std::boxed::Box<crate::model::UndeleteRecognizerRequest>> {
         #[allow(unreachable_patterns)]
         self.request.as_ref().and_then(|v| match v {
-            crate::model::operation_metadata::Request::UndeleteRecognizerRequest(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::operation_metadata::Request::UndeleteRecognizerRequest(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -597,14 +554,11 @@ impl OperationMetadata {
     /// assert!(x.undelete_phrase_set_request().is_none());
     /// assert!(x.update_config_request().is_none());
     /// ```
-    pub fn set_undelete_recognizer_request<
-        T: std::convert::Into<std::boxed::Box<crate::model::UndeleteRecognizerRequest>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_undelete_recognizer_request<T: std::convert::Into<std::boxed::Box<crate::model::UndeleteRecognizerRequest>>>(mut self, v: T) -> Self {
         self.request = std::option::Option::Some(
-            crate::model::operation_metadata::Request::UndeleteRecognizerRequest(v.into()),
+            crate::model::operation_metadata::Request::UndeleteRecognizerRequest(
+                v.into()
+            )
         );
         self
     }
@@ -612,14 +566,10 @@ impl OperationMetadata {
     /// The value of [request][crate::model::OperationMetadata::request]
     /// if it holds a `CreateCustomClassRequest`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn create_custom_class_request(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::CreateCustomClassRequest>> {
+    pub fn create_custom_class_request(&self) -> std::option::Option<&std::boxed::Box<crate::model::CreateCustomClassRequest>> {
         #[allow(unreachable_patterns)]
         self.request.as_ref().and_then(|v| match v {
-            crate::model::operation_metadata::Request::CreateCustomClassRequest(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::operation_metadata::Request::CreateCustomClassRequest(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -650,14 +600,11 @@ impl OperationMetadata {
     /// assert!(x.undelete_phrase_set_request().is_none());
     /// assert!(x.update_config_request().is_none());
     /// ```
-    pub fn set_create_custom_class_request<
-        T: std::convert::Into<std::boxed::Box<crate::model::CreateCustomClassRequest>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_create_custom_class_request<T: std::convert::Into<std::boxed::Box<crate::model::CreateCustomClassRequest>>>(mut self, v: T) -> Self {
         self.request = std::option::Option::Some(
-            crate::model::operation_metadata::Request::CreateCustomClassRequest(v.into()),
+            crate::model::operation_metadata::Request::CreateCustomClassRequest(
+                v.into()
+            )
         );
         self
     }
@@ -665,14 +612,10 @@ impl OperationMetadata {
     /// The value of [request][crate::model::OperationMetadata::request]
     /// if it holds a `UpdateCustomClassRequest`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn update_custom_class_request(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::UpdateCustomClassRequest>> {
+    pub fn update_custom_class_request(&self) -> std::option::Option<&std::boxed::Box<crate::model::UpdateCustomClassRequest>> {
         #[allow(unreachable_patterns)]
         self.request.as_ref().and_then(|v| match v {
-            crate::model::operation_metadata::Request::UpdateCustomClassRequest(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::operation_metadata::Request::UpdateCustomClassRequest(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -703,14 +646,11 @@ impl OperationMetadata {
     /// assert!(x.undelete_phrase_set_request().is_none());
     /// assert!(x.update_config_request().is_none());
     /// ```
-    pub fn set_update_custom_class_request<
-        T: std::convert::Into<std::boxed::Box<crate::model::UpdateCustomClassRequest>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_update_custom_class_request<T: std::convert::Into<std::boxed::Box<crate::model::UpdateCustomClassRequest>>>(mut self, v: T) -> Self {
         self.request = std::option::Option::Some(
-            crate::model::operation_metadata::Request::UpdateCustomClassRequest(v.into()),
+            crate::model::operation_metadata::Request::UpdateCustomClassRequest(
+                v.into()
+            )
         );
         self
     }
@@ -718,14 +658,10 @@ impl OperationMetadata {
     /// The value of [request][crate::model::OperationMetadata::request]
     /// if it holds a `DeleteCustomClassRequest`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn delete_custom_class_request(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::DeleteCustomClassRequest>> {
+    pub fn delete_custom_class_request(&self) -> std::option::Option<&std::boxed::Box<crate::model::DeleteCustomClassRequest>> {
         #[allow(unreachable_patterns)]
         self.request.as_ref().and_then(|v| match v {
-            crate::model::operation_metadata::Request::DeleteCustomClassRequest(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::operation_metadata::Request::DeleteCustomClassRequest(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -756,14 +692,11 @@ impl OperationMetadata {
     /// assert!(x.undelete_phrase_set_request().is_none());
     /// assert!(x.update_config_request().is_none());
     /// ```
-    pub fn set_delete_custom_class_request<
-        T: std::convert::Into<std::boxed::Box<crate::model::DeleteCustomClassRequest>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_delete_custom_class_request<T: std::convert::Into<std::boxed::Box<crate::model::DeleteCustomClassRequest>>>(mut self, v: T) -> Self {
         self.request = std::option::Option::Some(
-            crate::model::operation_metadata::Request::DeleteCustomClassRequest(v.into()),
+            crate::model::operation_metadata::Request::DeleteCustomClassRequest(
+                v.into()
+            )
         );
         self
     }
@@ -771,14 +704,10 @@ impl OperationMetadata {
     /// The value of [request][crate::model::OperationMetadata::request]
     /// if it holds a `UndeleteCustomClassRequest`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn undelete_custom_class_request(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::UndeleteCustomClassRequest>> {
+    pub fn undelete_custom_class_request(&self) -> std::option::Option<&std::boxed::Box<crate::model::UndeleteCustomClassRequest>> {
         #[allow(unreachable_patterns)]
         self.request.as_ref().and_then(|v| match v {
-            crate::model::operation_metadata::Request::UndeleteCustomClassRequest(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::operation_metadata::Request::UndeleteCustomClassRequest(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -809,14 +738,11 @@ impl OperationMetadata {
     /// assert!(x.undelete_phrase_set_request().is_none());
     /// assert!(x.update_config_request().is_none());
     /// ```
-    pub fn set_undelete_custom_class_request<
-        T: std::convert::Into<std::boxed::Box<crate::model::UndeleteCustomClassRequest>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_undelete_custom_class_request<T: std::convert::Into<std::boxed::Box<crate::model::UndeleteCustomClassRequest>>>(mut self, v: T) -> Self {
         self.request = std::option::Option::Some(
-            crate::model::operation_metadata::Request::UndeleteCustomClassRequest(v.into()),
+            crate::model::operation_metadata::Request::UndeleteCustomClassRequest(
+                v.into()
+            )
         );
         self
     }
@@ -824,14 +750,10 @@ impl OperationMetadata {
     /// The value of [request][crate::model::OperationMetadata::request]
     /// if it holds a `CreatePhraseSetRequest`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn create_phrase_set_request(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::CreatePhraseSetRequest>> {
+    pub fn create_phrase_set_request(&self) -> std::option::Option<&std::boxed::Box<crate::model::CreatePhraseSetRequest>> {
         #[allow(unreachable_patterns)]
         self.request.as_ref().and_then(|v| match v {
-            crate::model::operation_metadata::Request::CreatePhraseSetRequest(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::operation_metadata::Request::CreatePhraseSetRequest(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -862,14 +784,11 @@ impl OperationMetadata {
     /// assert!(x.undelete_phrase_set_request().is_none());
     /// assert!(x.update_config_request().is_none());
     /// ```
-    pub fn set_create_phrase_set_request<
-        T: std::convert::Into<std::boxed::Box<crate::model::CreatePhraseSetRequest>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_create_phrase_set_request<T: std::convert::Into<std::boxed::Box<crate::model::CreatePhraseSetRequest>>>(mut self, v: T) -> Self {
         self.request = std::option::Option::Some(
-            crate::model::operation_metadata::Request::CreatePhraseSetRequest(v.into()),
+            crate::model::operation_metadata::Request::CreatePhraseSetRequest(
+                v.into()
+            )
         );
         self
     }
@@ -877,14 +796,10 @@ impl OperationMetadata {
     /// The value of [request][crate::model::OperationMetadata::request]
     /// if it holds a `UpdatePhraseSetRequest`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn update_phrase_set_request(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::UpdatePhraseSetRequest>> {
+    pub fn update_phrase_set_request(&self) -> std::option::Option<&std::boxed::Box<crate::model::UpdatePhraseSetRequest>> {
         #[allow(unreachable_patterns)]
         self.request.as_ref().and_then(|v| match v {
-            crate::model::operation_metadata::Request::UpdatePhraseSetRequest(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::operation_metadata::Request::UpdatePhraseSetRequest(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -915,14 +830,11 @@ impl OperationMetadata {
     /// assert!(x.undelete_phrase_set_request().is_none());
     /// assert!(x.update_config_request().is_none());
     /// ```
-    pub fn set_update_phrase_set_request<
-        T: std::convert::Into<std::boxed::Box<crate::model::UpdatePhraseSetRequest>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_update_phrase_set_request<T: std::convert::Into<std::boxed::Box<crate::model::UpdatePhraseSetRequest>>>(mut self, v: T) -> Self {
         self.request = std::option::Option::Some(
-            crate::model::operation_metadata::Request::UpdatePhraseSetRequest(v.into()),
+            crate::model::operation_metadata::Request::UpdatePhraseSetRequest(
+                v.into()
+            )
         );
         self
     }
@@ -930,14 +842,10 @@ impl OperationMetadata {
     /// The value of [request][crate::model::OperationMetadata::request]
     /// if it holds a `DeletePhraseSetRequest`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn delete_phrase_set_request(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::DeletePhraseSetRequest>> {
+    pub fn delete_phrase_set_request(&self) -> std::option::Option<&std::boxed::Box<crate::model::DeletePhraseSetRequest>> {
         #[allow(unreachable_patterns)]
         self.request.as_ref().and_then(|v| match v {
-            crate::model::operation_metadata::Request::DeletePhraseSetRequest(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::operation_metadata::Request::DeletePhraseSetRequest(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -968,14 +876,11 @@ impl OperationMetadata {
     /// assert!(x.undelete_phrase_set_request().is_none());
     /// assert!(x.update_config_request().is_none());
     /// ```
-    pub fn set_delete_phrase_set_request<
-        T: std::convert::Into<std::boxed::Box<crate::model::DeletePhraseSetRequest>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_delete_phrase_set_request<T: std::convert::Into<std::boxed::Box<crate::model::DeletePhraseSetRequest>>>(mut self, v: T) -> Self {
         self.request = std::option::Option::Some(
-            crate::model::operation_metadata::Request::DeletePhraseSetRequest(v.into()),
+            crate::model::operation_metadata::Request::DeletePhraseSetRequest(
+                v.into()
+            )
         );
         self
     }
@@ -983,14 +888,10 @@ impl OperationMetadata {
     /// The value of [request][crate::model::OperationMetadata::request]
     /// if it holds a `UndeletePhraseSetRequest`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn undelete_phrase_set_request(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::UndeletePhraseSetRequest>> {
+    pub fn undelete_phrase_set_request(&self) -> std::option::Option<&std::boxed::Box<crate::model::UndeletePhraseSetRequest>> {
         #[allow(unreachable_patterns)]
         self.request.as_ref().and_then(|v| match v {
-            crate::model::operation_metadata::Request::UndeletePhraseSetRequest(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::operation_metadata::Request::UndeletePhraseSetRequest(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -1021,14 +922,11 @@ impl OperationMetadata {
     /// assert!(x.delete_phrase_set_request().is_none());
     /// assert!(x.update_config_request().is_none());
     /// ```
-    pub fn set_undelete_phrase_set_request<
-        T: std::convert::Into<std::boxed::Box<crate::model::UndeletePhraseSetRequest>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_undelete_phrase_set_request<T: std::convert::Into<std::boxed::Box<crate::model::UndeletePhraseSetRequest>>>(mut self, v: T) -> Self {
         self.request = std::option::Option::Some(
-            crate::model::operation_metadata::Request::UndeletePhraseSetRequest(v.into()),
+            crate::model::operation_metadata::Request::UndeletePhraseSetRequest(
+                v.into()
+            )
         );
         self
     }
@@ -1037,14 +935,10 @@ impl OperationMetadata {
     /// if it holds a `UpdateConfigRequest`, `None` if the field is not set or
     /// holds a different branch.
     #[deprecated]
-    pub fn update_config_request(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::UpdateConfigRequest>> {
+    pub fn update_config_request(&self) -> std::option::Option<&std::boxed::Box<crate::model::UpdateConfigRequest>> {
         #[allow(unreachable_patterns)]
         self.request.as_ref().and_then(|v| match v {
-            crate::model::operation_metadata::Request::UpdateConfigRequest(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::operation_metadata::Request::UpdateConfigRequest(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -1076,14 +970,11 @@ impl OperationMetadata {
     /// assert!(x.undelete_phrase_set_request().is_none());
     /// ```
     #[deprecated]
-    pub fn set_update_config_request<
-        T: std::convert::Into<std::boxed::Box<crate::model::UpdateConfigRequest>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_update_config_request<T: std::convert::Into<std::boxed::Box<crate::model::UpdateConfigRequest>>>(mut self, v: T) -> Self {
         self.request = std::option::Option::Some(
-            crate::model::operation_metadata::Request::UpdateConfigRequest(v.into()),
+            crate::model::operation_metadata::Request::UpdateConfigRequest(
+                v.into()
+            )
         );
         self
     }
@@ -1100,12 +991,8 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_metadata(Some(
     ///     google_cloud_speech_v2::model::operation_metadata::Metadata::BatchRecognizeMetadata(BatchRecognizeMetadata::default().into())));
     /// ```
-    pub fn set_metadata<
-        T: std::convert::Into<std::option::Option<crate::model::operation_metadata::Metadata>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_metadata<T: std::convert::Into<std::option::Option<crate::model::operation_metadata::Metadata>>>(mut self, v: T) -> Self
+    {
         self.metadata = v.into();
         self
     }
@@ -1113,14 +1000,10 @@ impl OperationMetadata {
     /// The value of [metadata][crate::model::OperationMetadata::metadata]
     /// if it holds a `BatchRecognizeMetadata`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn batch_recognize_metadata(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::BatchRecognizeMetadata>> {
+    pub fn batch_recognize_metadata(&self) -> std::option::Option<&std::boxed::Box<crate::model::BatchRecognizeMetadata>> {
         #[allow(unreachable_patterns)]
         self.metadata.as_ref().and_then(|v| match v {
-            crate::model::operation_metadata::Metadata::BatchRecognizeMetadata(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::operation_metadata::Metadata::BatchRecognizeMetadata(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -1138,14 +1021,11 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_batch_recognize_metadata(BatchRecognizeMetadata::default()/* use setters */);
     /// assert!(x.batch_recognize_metadata().is_some());
     /// ```
-    pub fn set_batch_recognize_metadata<
-        T: std::convert::Into<std::boxed::Box<crate::model::BatchRecognizeMetadata>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_batch_recognize_metadata<T: std::convert::Into<std::boxed::Box<crate::model::BatchRecognizeMetadata>>>(mut self, v: T) -> Self {
         self.metadata = std::option::Option::Some(
-            crate::model::operation_metadata::Metadata::BatchRecognizeMetadata(v.into()),
+            crate::model::operation_metadata::Metadata::BatchRecognizeMetadata(
+                v.into()
+            )
         );
         self
     }
@@ -1161,6 +1041,7 @@ impl wkt::message::Message for OperationMetadata {
 pub mod operation_metadata {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The request that spawned the Operation.
     #[derive(Clone, Debug, PartialEq)]
@@ -1213,6 +1094,7 @@ pub mod operation_metadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRecognizersRequest {
+
     /// Required. The project and location of Recognizers to list. The expected
     /// format is `projects/{project}/locations/{location}`.
     pub parent: std::string::String,
@@ -1306,6 +1188,7 @@ impl wkt::message::Message for ListRecognizersRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRecognizersResponse {
+
     /// The list of requested Recognizers.
     pub recognizers: std::vec::Vec<crate::model::Recognizer>,
 
@@ -1340,7 +1223,7 @@ impl ListRecognizersResponse {
     pub fn set_recognizers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Recognizer>,
+        V: std::convert::Into<crate::model::Recognizer>
     {
         use std::iter::Iterator;
         self.recognizers = v.into_iter().map(|i| i.into()).collect();
@@ -1387,6 +1270,7 @@ impl gax::paginator::internal::PageableResponse for ListRecognizersResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetRecognizerRequest {
+
     /// Required. The name of the Recognizer to retrieve. The expected format is
     /// `projects/{project}/locations/{location}/recognizers/{recognizer}`.
     pub name: std::string::String,
@@ -1425,6 +1309,7 @@ impl wkt::message::Message for GetRecognizerRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateRecognizerRequest {
+
     /// Required. The Recognizer to update.
     ///
     /// The Recognizer's `name` field is used to identify the Recognizer to update.
@@ -1456,8 +1341,7 @@ impl UpdateRecognizerRequest {
     /// let x = UpdateRecognizerRequest::new().set_recognizer(Recognizer::default()/* use setters */);
     /// ```
     pub fn set_recognizer<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Recognizer>,
+    where T: std::convert::Into<crate::model::Recognizer>
     {
         self.recognizer = std::option::Option::Some(v.into());
         self
@@ -1473,8 +1357,7 @@ impl UpdateRecognizerRequest {
     /// let x = UpdateRecognizerRequest::new().set_or_clear_recognizer(None::<Recognizer>);
     /// ```
     pub fn set_or_clear_recognizer<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Recognizer>,
+    where T: std::convert::Into<crate::model::Recognizer>
     {
         self.recognizer = v.map(|x| x.into());
         self
@@ -1489,8 +1372,7 @@ impl UpdateRecognizerRequest {
     /// let x = UpdateRecognizerRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -1506,8 +1388,7 @@ impl UpdateRecognizerRequest {
     /// let x = UpdateRecognizerRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -1539,6 +1420,7 @@ impl wkt::message::Message for UpdateRecognizerRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteRecognizerRequest {
+
     /// Required. The name of the Recognizer to delete.
     /// Format: `projects/{project}/locations/{location}/recognizers/{recognizer}`
     pub name: std::string::String,
@@ -1627,6 +1509,7 @@ impl wkt::message::Message for DeleteRecognizerRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UndeleteRecognizerRequest {
+
     /// Required. The name of the Recognizer to undelete.
     /// Format: `projects/{project}/locations/{location}/recognizers/{recognizer}`
     pub name: std::string::String,
@@ -1695,6 +1578,7 @@ impl wkt::message::Message for UndeleteRecognizerRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Recognizer {
+
     /// Output only. Identifier. The resource name of the Recognizer.
     /// Format: `projects/{project}/locations/{location}/recognizers/{recognizer}`.
     pub name: std::string::String,
@@ -1759,7 +1643,7 @@ pub struct Recognizer {
     /// Allows users to store small amounts of arbitrary data.
     /// Both the key and the value must be 63 characters or less each.
     /// At most 100 annotations.
-    pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
+    pub annotations: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Output only. The Recognizer lifecycle state.
     pub state: crate::model::recognizer::State,
@@ -1865,7 +1749,7 @@ impl Recognizer {
     pub fn set_language_codes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.language_codes = v.into_iter().map(|i| i.into()).collect();
@@ -1881,8 +1765,7 @@ impl Recognizer {
     /// let x = Recognizer::new().set_default_recognition_config(RecognitionConfig::default()/* use setters */);
     /// ```
     pub fn set_default_recognition_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RecognitionConfig>,
+    where T: std::convert::Into<crate::model::RecognitionConfig>
     {
         self.default_recognition_config = std::option::Option::Some(v.into());
         self
@@ -1898,8 +1781,7 @@ impl Recognizer {
     /// let x = Recognizer::new().set_or_clear_default_recognition_config(None::<RecognitionConfig>);
     /// ```
     pub fn set_or_clear_default_recognition_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RecognitionConfig>,
+    where T: std::convert::Into<crate::model::RecognitionConfig>
     {
         self.default_recognition_config = v.map(|x| x.into());
         self
@@ -1935,10 +1817,7 @@ impl Recognizer {
     /// let x0 = Recognizer::new().set_state(State::Active);
     /// let x1 = Recognizer::new().set_state(State::Deleted);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::recognizer::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::recognizer::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -1952,8 +1831,7 @@ impl Recognizer {
     /// let x = Recognizer::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -1969,8 +1847,7 @@ impl Recognizer {
     /// let x = Recognizer::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -1985,8 +1862,7 @@ impl Recognizer {
     /// let x = Recognizer::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -2002,8 +1878,7 @@ impl Recognizer {
     /// let x = Recognizer::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -2018,8 +1893,7 @@ impl Recognizer {
     /// let x = Recognizer::new().set_delete_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_delete_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.delete_time = std::option::Option::Some(v.into());
         self
@@ -2035,8 +1909,7 @@ impl Recognizer {
     /// let x = Recognizer::new().set_or_clear_delete_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.delete_time = v.map(|x| x.into());
         self
@@ -2051,8 +1924,7 @@ impl Recognizer {
     /// let x = Recognizer::new().set_expire_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_expire_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.expire_time = std::option::Option::Some(v.into());
         self
@@ -2068,8 +1940,7 @@ impl Recognizer {
     /// let x = Recognizer::new().set_or_clear_expire_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.expire_time = v.map(|x| x.into());
         self
@@ -2118,10 +1989,7 @@ impl Recognizer {
     /// # use google_cloud_speech_v2::model::Recognizer;
     /// let x = Recognizer::new().set_kms_key_version_name("example");
     /// ```
-    pub fn set_kms_key_version_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_kms_key_version_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key_version_name = v.into();
         self
     }
@@ -2137,6 +2005,7 @@ impl wkt::message::Message for Recognizer {
 pub mod recognizer {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Set of states that define the lifecycle of a Recognizer.
     ///
@@ -2224,9 +2093,7 @@ pub mod recognizer {
                 0 => Self::Unspecified,
                 2 => Self::Active,
                 4 => Self::Deleted,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -2238,9 +2105,7 @@ pub mod recognizer {
                 "STATE_UNSPECIFIED" => Self::Unspecified,
                 "ACTIVE" => Self::Active,
                 "DELETED" => Self::Deleted,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -2265,8 +2130,7 @@ pub mod recognizer {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.speech.v2.Recognizer.State",
-            ))
+                ".google.cloud.speech.v2.Recognizer.State"))
         }
     }
 }
@@ -2301,6 +2165,7 @@ pub mod recognizer {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutoDetectDecodingConfig {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2320,6 +2185,7 @@ impl wkt::message::Message for AutoDetectDecodingConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExplicitDecodingConfig {
+
     /// Required. Encoding of the audio data sent for recognition.
     pub encoding: crate::model::explicit_decoding_config::AudioEncoding,
 
@@ -2356,12 +2222,7 @@ impl ExplicitDecodingConfig {
     /// let x1 = ExplicitDecodingConfig::new().set_encoding(AudioEncoding::Mulaw);
     /// let x2 = ExplicitDecodingConfig::new().set_encoding(AudioEncoding::Alaw);
     /// ```
-    pub fn set_encoding<
-        T: std::convert::Into<crate::model::explicit_decoding_config::AudioEncoding>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_encoding<T: std::convert::Into<crate::model::explicit_decoding_config::AudioEncoding>>(mut self, v: T) -> Self {
         self.encoding = v.into();
         self
     }
@@ -2401,6 +2262,7 @@ impl wkt::message::Message for ExplicitDecodingConfig {
 pub mod explicit_decoding_config {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Supported audio data encodings.
     ///
@@ -2538,9 +2400,7 @@ pub mod explicit_decoding_config {
                 10 => Self::Mp4Aac,
                 11 => Self::M4AAac,
                 12 => Self::MovAac,
-                _ => Self::UnknownValue(audio_encoding::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(audio_encoding::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -2562,9 +2422,7 @@ pub mod explicit_decoding_config {
                 "MP4_AAC" => Self::Mp4Aac,
                 "M4A_AAC" => Self::M4AAac,
                 "MOV_AAC" => Self::MovAac,
-                _ => Self::UnknownValue(audio_encoding::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(audio_encoding::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -2599,8 +2457,7 @@ pub mod explicit_decoding_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<AudioEncoding>::new(
-                ".google.cloud.speech.v2.ExplicitDecodingConfig.AudioEncoding",
-            ))
+                ".google.cloud.speech.v2.ExplicitDecodingConfig.AudioEncoding"))
         }
     }
 }
@@ -2609,6 +2466,7 @@ pub mod explicit_decoding_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SpeakerDiarizationConfig {
+
     /// Required. Minimum number of speakers in the conversation. This range gives
     /// you more flexibility by allowing the system to automatically determine the
     /// correct number of speakers.
@@ -2666,6 +2524,7 @@ impl wkt::message::Message for SpeakerDiarizationConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RecognitionFeatures {
+
     /// If set to `true`, the server will attempt to filter out profanities,
     /// replacing all but the initial character in each filtered word with
     /// asterisks, for instance, "f***". If set to `false` or omitted, profanities
@@ -2807,12 +2666,7 @@ impl RecognitionFeatures {
     /// use google_cloud_speech_v2::model::recognition_features::MultiChannelMode;
     /// let x0 = RecognitionFeatures::new().set_multi_channel_mode(MultiChannelMode::SeparateRecognitionPerChannel);
     /// ```
-    pub fn set_multi_channel_mode<
-        T: std::convert::Into<crate::model::recognition_features::MultiChannelMode>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_multi_channel_mode<T: std::convert::Into<crate::model::recognition_features::MultiChannelMode>>(mut self, v: T) -> Self {
         self.multi_channel_mode = v.into();
         self
     }
@@ -2826,8 +2680,7 @@ impl RecognitionFeatures {
     /// let x = RecognitionFeatures::new().set_diarization_config(SpeakerDiarizationConfig::default()/* use setters */);
     /// ```
     pub fn set_diarization_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::SpeakerDiarizationConfig>,
+    where T: std::convert::Into<crate::model::SpeakerDiarizationConfig>
     {
         self.diarization_config = std::option::Option::Some(v.into());
         self
@@ -2843,8 +2696,7 @@ impl RecognitionFeatures {
     /// let x = RecognitionFeatures::new().set_or_clear_diarization_config(None::<SpeakerDiarizationConfig>);
     /// ```
     pub fn set_or_clear_diarization_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::SpeakerDiarizationConfig>,
+    where T: std::convert::Into<crate::model::SpeakerDiarizationConfig>
     {
         self.diarization_config = v.map(|x| x.into());
         self
@@ -2873,6 +2725,7 @@ impl wkt::message::Message for RecognitionFeatures {
 pub mod recognition_features {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Options for how to recognize multi-channel audio.
     ///
@@ -2937,9 +2790,7 @@ pub mod recognition_features {
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
                 Self::Unspecified => std::option::Option::Some("MULTI_CHANNEL_MODE_UNSPECIFIED"),
-                Self::SeparateRecognitionPerChannel => {
-                    std::option::Option::Some("SEPARATE_RECOGNITION_PER_CHANNEL")
-                }
+                Self::SeparateRecognitionPerChannel => std::option::Option::Some("SEPARATE_RECOGNITION_PER_CHANNEL"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -2963,9 +2814,7 @@ pub mod recognition_features {
             match value {
                 0 => Self::Unspecified,
                 1 => Self::SeparateRecognitionPerChannel,
-                _ => Self::UnknownValue(multi_channel_mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(multi_channel_mode::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -2976,9 +2825,7 @@ pub mod recognition_features {
             match value {
                 "MULTI_CHANNEL_MODE_UNSPECIFIED" => Self::Unspecified,
                 "SEPARATE_RECOGNITION_PER_CHANNEL" => Self::SeparateRecognitionPerChannel,
-                _ => Self::UnknownValue(multi_channel_mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(multi_channel_mode::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -3002,8 +2849,7 @@ pub mod recognition_features {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<MultiChannelMode>::new(
-                ".google.cloud.speech.v2.RecognitionFeatures.MultiChannelMode",
-            ))
+                ".google.cloud.speech.v2.RecognitionFeatures.MultiChannelMode"))
         }
     }
 }
@@ -3015,6 +2861,7 @@ pub mod recognition_features {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TranscriptNormalization {
+
     /// A list of replacement entries. We will perform replacement with one entry
     /// at a time. For example, the second entry in ["cat" => "dog", "mountain cat"
     /// => "mountain dog"] will never be applied because we will always process the
@@ -3044,7 +2891,7 @@ impl TranscriptNormalization {
     pub fn set_entries<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::transcript_normalization::Entry>,
+        V: std::convert::Into<crate::model::transcript_normalization::Entry>
     {
         use std::iter::Iterator;
         self.entries = v.into_iter().map(|i| i.into()).collect();
@@ -3063,10 +2910,12 @@ pub mod transcript_normalization {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// A single replacement configuration.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Entry {
+
         /// What to replace. Max length is 100 characters.
         pub search: std::string::String,
 
@@ -3133,6 +2982,7 @@ pub mod transcript_normalization {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TranslationConfig {
+
     /// Required. The language code to translate to.
     pub target_language: std::string::String,
 
@@ -3169,6 +3019,7 @@ impl wkt::message::Message for TranslationConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SpeechAdaptation {
+
     /// A list of inline or referenced PhraseSets.
     pub phrase_sets: std::vec::Vec<crate::model::speech_adaptation::AdaptationPhraseSet>,
 
@@ -3199,7 +3050,7 @@ impl SpeechAdaptation {
     pub fn set_phrase_sets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::speech_adaptation::AdaptationPhraseSet>,
+        V: std::convert::Into<crate::model::speech_adaptation::AdaptationPhraseSet>
     {
         use std::iter::Iterator;
         self.phrase_sets = v.into_iter().map(|i| i.into()).collect();
@@ -3221,7 +3072,7 @@ impl SpeechAdaptation {
     pub fn set_custom_classes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::CustomClass>,
+        V: std::convert::Into<crate::model::CustomClass>
     {
         use std::iter::Iterator;
         self.custom_classes = v.into_iter().map(|i| i.into()).collect();
@@ -3240,13 +3091,14 @@ pub mod speech_adaptation {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// A biasing PhraseSet, which can be either a string referencing the name of
     /// an existing PhraseSets resource, or an inline definition of a PhraseSet.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AdaptationPhraseSet {
-        pub value:
-            std::option::Option<crate::model::speech_adaptation::adaptation_phrase_set::Value>,
+
+        pub value: std::option::Option<crate::model::speech_adaptation::adaptation_phrase_set::Value>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -3267,16 +3119,8 @@ pub mod speech_adaptation {
         /// use google_cloud_speech_v2::model::speech_adaptation::adaptation_phrase_set::Value;
         /// let x = AdaptationPhraseSet::new().set_value(Some(Value::PhraseSet("example".to_string())));
         /// ```
-        pub fn set_value<
-            T: std::convert::Into<
-                    std::option::Option<
-                        crate::model::speech_adaptation::adaptation_phrase_set::Value,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_value<T: std::convert::Into<std::option::Option<crate::model::speech_adaptation::adaptation_phrase_set::Value>>>(mut self, v: T) -> Self
+        {
             self.value = v.into();
             self
         }
@@ -3287,9 +3131,7 @@ pub mod speech_adaptation {
         pub fn phrase_set(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.value.as_ref().and_then(|v| match v {
-                crate::model::speech_adaptation::adaptation_phrase_set::Value::PhraseSet(v) => {
-                    std::option::Option::Some(v)
-                }
+                crate::model::speech_adaptation::adaptation_phrase_set::Value::PhraseSet(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
@@ -3309,7 +3151,9 @@ pub mod speech_adaptation {
         /// ```
         pub fn set_phrase_set<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.value = std::option::Option::Some(
-                crate::model::speech_adaptation::adaptation_phrase_set::Value::PhraseSet(v.into()),
+                crate::model::speech_adaptation::adaptation_phrase_set::Value::PhraseSet(
+                    v.into()
+                )
             );
             self
         }
@@ -3317,14 +3161,10 @@ pub mod speech_adaptation {
         /// The value of [value][crate::model::speech_adaptation::AdaptationPhraseSet::value]
         /// if it holds a `InlinePhraseSet`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn inline_phrase_set(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::PhraseSet>> {
+        pub fn inline_phrase_set(&self) -> std::option::Option<&std::boxed::Box<crate::model::PhraseSet>> {
             #[allow(unreachable_patterns)]
             self.value.as_ref().and_then(|v| match v {
-                crate::model::speech_adaptation::adaptation_phrase_set::Value::InlinePhraseSet(
-                    v,
-                ) => std::option::Option::Some(v),
+                crate::model::speech_adaptation::adaptation_phrase_set::Value::InlinePhraseSet(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
@@ -3343,16 +3183,11 @@ pub mod speech_adaptation {
         /// assert!(x.inline_phrase_set().is_some());
         /// assert!(x.phrase_set().is_none());
         /// ```
-        pub fn set_inline_phrase_set<
-            T: std::convert::Into<std::boxed::Box<crate::model::PhraseSet>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_inline_phrase_set<T: std::convert::Into<std::boxed::Box<crate::model::PhraseSet>>>(mut self, v: T) -> Self {
             self.value = std::option::Option::Some(
                 crate::model::speech_adaptation::adaptation_phrase_set::Value::InlinePhraseSet(
-                    v.into(),
-                ),
+                    v.into()
+                )
             );
             self
         }
@@ -3368,6 +3203,7 @@ pub mod speech_adaptation {
     pub mod adaptation_phrase_set {
         #[allow(unused_imports)]
         use super::*;
+
 
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
@@ -3386,6 +3222,7 @@ pub mod speech_adaptation {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DenoiserConfig {
+
     /// Denoise audio before sending to the transcription model.
     pub denoise_audio: bool,
 
@@ -3441,6 +3278,7 @@ impl wkt::message::Message for DenoiserConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RecognitionConfig {
+
     /// Optional. Which model to use for recognition requests. Select the model
     /// best suited to your domain to get best results.
     ///
@@ -3519,7 +3357,7 @@ impl RecognitionConfig {
     pub fn set_language_codes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.language_codes = v.into_iter().map(|i| i.into()).collect();
@@ -3535,8 +3373,7 @@ impl RecognitionConfig {
     /// let x = RecognitionConfig::new().set_features(RecognitionFeatures::default()/* use setters */);
     /// ```
     pub fn set_features<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RecognitionFeatures>,
+    where T: std::convert::Into<crate::model::RecognitionFeatures>
     {
         self.features = std::option::Option::Some(v.into());
         self
@@ -3552,8 +3389,7 @@ impl RecognitionConfig {
     /// let x = RecognitionConfig::new().set_or_clear_features(None::<RecognitionFeatures>);
     /// ```
     pub fn set_or_clear_features<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RecognitionFeatures>,
+    where T: std::convert::Into<crate::model::RecognitionFeatures>
     {
         self.features = v.map(|x| x.into());
         self
@@ -3568,8 +3404,7 @@ impl RecognitionConfig {
     /// let x = RecognitionConfig::new().set_adaptation(SpeechAdaptation::default()/* use setters */);
     /// ```
     pub fn set_adaptation<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::SpeechAdaptation>,
+    where T: std::convert::Into<crate::model::SpeechAdaptation>
     {
         self.adaptation = std::option::Option::Some(v.into());
         self
@@ -3585,8 +3420,7 @@ impl RecognitionConfig {
     /// let x = RecognitionConfig::new().set_or_clear_adaptation(None::<SpeechAdaptation>);
     /// ```
     pub fn set_or_clear_adaptation<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::SpeechAdaptation>,
+    where T: std::convert::Into<crate::model::SpeechAdaptation>
     {
         self.adaptation = v.map(|x| x.into());
         self
@@ -3601,8 +3435,7 @@ impl RecognitionConfig {
     /// let x = RecognitionConfig::new().set_transcript_normalization(TranscriptNormalization::default()/* use setters */);
     /// ```
     pub fn set_transcript_normalization<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TranscriptNormalization>,
+    where T: std::convert::Into<crate::model::TranscriptNormalization>
     {
         self.transcript_normalization = std::option::Option::Some(v.into());
         self
@@ -3618,8 +3451,7 @@ impl RecognitionConfig {
     /// let x = RecognitionConfig::new().set_or_clear_transcript_normalization(None::<TranscriptNormalization>);
     /// ```
     pub fn set_or_clear_transcript_normalization<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TranscriptNormalization>,
+    where T: std::convert::Into<crate::model::TranscriptNormalization>
     {
         self.transcript_normalization = v.map(|x| x.into());
         self
@@ -3634,8 +3466,7 @@ impl RecognitionConfig {
     /// let x = RecognitionConfig::new().set_translation_config(TranslationConfig::default()/* use setters */);
     /// ```
     pub fn set_translation_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TranslationConfig>,
+    where T: std::convert::Into<crate::model::TranslationConfig>
     {
         self.translation_config = std::option::Option::Some(v.into());
         self
@@ -3651,8 +3482,7 @@ impl RecognitionConfig {
     /// let x = RecognitionConfig::new().set_or_clear_translation_config(None::<TranslationConfig>);
     /// ```
     pub fn set_or_clear_translation_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TranslationConfig>,
+    where T: std::convert::Into<crate::model::TranslationConfig>
     {
         self.translation_config = v.map(|x| x.into());
         self
@@ -3667,8 +3497,7 @@ impl RecognitionConfig {
     /// let x = RecognitionConfig::new().set_denoiser_config(DenoiserConfig::default()/* use setters */);
     /// ```
     pub fn set_denoiser_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DenoiserConfig>,
+    where T: std::convert::Into<crate::model::DenoiserConfig>
     {
         self.denoiser_config = std::option::Option::Some(v.into());
         self
@@ -3684,8 +3513,7 @@ impl RecognitionConfig {
     /// let x = RecognitionConfig::new().set_or_clear_denoiser_config(None::<DenoiserConfig>);
     /// ```
     pub fn set_or_clear_denoiser_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DenoiserConfig>,
+    where T: std::convert::Into<crate::model::DenoiserConfig>
     {
         self.denoiser_config = v.map(|x| x.into());
         self
@@ -3703,12 +3531,8 @@ impl RecognitionConfig {
     /// let x = RecognitionConfig::new().set_decoding_config(Some(
     ///     google_cloud_speech_v2::model::recognition_config::DecodingConfig::AutoDecodingConfig(AutoDetectDecodingConfig::default().into())));
     /// ```
-    pub fn set_decoding_config<
-        T: std::convert::Into<std::option::Option<crate::model::recognition_config::DecodingConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_decoding_config<T: std::convert::Into<std::option::Option<crate::model::recognition_config::DecodingConfig>>>(mut self, v: T) -> Self
+    {
         self.decoding_config = v.into();
         self
     }
@@ -3716,14 +3540,10 @@ impl RecognitionConfig {
     /// The value of [decoding_config][crate::model::RecognitionConfig::decoding_config]
     /// if it holds a `AutoDecodingConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn auto_decoding_config(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::AutoDetectDecodingConfig>> {
+    pub fn auto_decoding_config(&self) -> std::option::Option<&std::boxed::Box<crate::model::AutoDetectDecodingConfig>> {
         #[allow(unreachable_patterns)]
         self.decoding_config.as_ref().and_then(|v| match v {
-            crate::model::recognition_config::DecodingConfig::AutoDecodingConfig(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::recognition_config::DecodingConfig::AutoDecodingConfig(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -3742,14 +3562,11 @@ impl RecognitionConfig {
     /// assert!(x.auto_decoding_config().is_some());
     /// assert!(x.explicit_decoding_config().is_none());
     /// ```
-    pub fn set_auto_decoding_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::AutoDetectDecodingConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_auto_decoding_config<T: std::convert::Into<std::boxed::Box<crate::model::AutoDetectDecodingConfig>>>(mut self, v: T) -> Self {
         self.decoding_config = std::option::Option::Some(
-            crate::model::recognition_config::DecodingConfig::AutoDecodingConfig(v.into()),
+            crate::model::recognition_config::DecodingConfig::AutoDecodingConfig(
+                v.into()
+            )
         );
         self
     }
@@ -3757,14 +3574,10 @@ impl RecognitionConfig {
     /// The value of [decoding_config][crate::model::RecognitionConfig::decoding_config]
     /// if it holds a `ExplicitDecodingConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn explicit_decoding_config(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::ExplicitDecodingConfig>> {
+    pub fn explicit_decoding_config(&self) -> std::option::Option<&std::boxed::Box<crate::model::ExplicitDecodingConfig>> {
         #[allow(unreachable_patterns)]
         self.decoding_config.as_ref().and_then(|v| match v {
-            crate::model::recognition_config::DecodingConfig::ExplicitDecodingConfig(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::recognition_config::DecodingConfig::ExplicitDecodingConfig(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -3783,14 +3596,11 @@ impl RecognitionConfig {
     /// assert!(x.explicit_decoding_config().is_some());
     /// assert!(x.auto_decoding_config().is_none());
     /// ```
-    pub fn set_explicit_decoding_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::ExplicitDecodingConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_explicit_decoding_config<T: std::convert::Into<std::boxed::Box<crate::model::ExplicitDecodingConfig>>>(mut self, v: T) -> Self {
         self.decoding_config = std::option::Option::Some(
-            crate::model::recognition_config::DecodingConfig::ExplicitDecodingConfig(v.into()),
+            crate::model::recognition_config::DecodingConfig::ExplicitDecodingConfig(
+                v.into()
+            )
         );
         self
     }
@@ -3806,6 +3616,7 @@ impl wkt::message::Message for RecognitionConfig {
 pub mod recognition_config {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Decoding parameters for audio being sent for recognition.
     #[derive(Clone, Debug, PartialEq)]
@@ -3830,6 +3641,7 @@ pub mod recognition_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RecognizeRequest {
+
     /// Required. The name of the Recognizer to use during recognition. The
     /// expected format is
     /// `projects/{project}/locations/{location}/recognizers/{recognizer}`. The
@@ -3898,8 +3710,7 @@ impl RecognizeRequest {
     /// let x = RecognizeRequest::new().set_config(RecognitionConfig::default()/* use setters */);
     /// ```
     pub fn set_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RecognitionConfig>,
+    where T: std::convert::Into<crate::model::RecognitionConfig>
     {
         self.config = std::option::Option::Some(v.into());
         self
@@ -3915,8 +3726,7 @@ impl RecognizeRequest {
     /// let x = RecognizeRequest::new().set_or_clear_config(None::<RecognitionConfig>);
     /// ```
     pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RecognitionConfig>,
+    where T: std::convert::Into<crate::model::RecognitionConfig>
     {
         self.config = v.map(|x| x.into());
         self
@@ -3931,8 +3741,7 @@ impl RecognizeRequest {
     /// let x = RecognizeRequest::new().set_config_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_config_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.config_mask = std::option::Option::Some(v.into());
         self
@@ -3948,8 +3757,7 @@ impl RecognizeRequest {
     /// let x = RecognizeRequest::new().set_or_clear_config_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_config_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.config_mask = v.map(|x| x.into());
         self
@@ -3966,12 +3774,8 @@ impl RecognizeRequest {
     /// use google_cloud_speech_v2::model::recognize_request::AudioSource;
     /// let x = RecognizeRequest::new().set_audio_source(Some(AudioSource::Content(bytes::Bytes::from_static(b"example"))));
     /// ```
-    pub fn set_audio_source<
-        T: std::convert::Into<std::option::Option<crate::model::recognize_request::AudioSource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_audio_source<T: std::convert::Into<std::option::Option<crate::model::recognize_request::AudioSource>>>(mut self, v: T) -> Self
+    {
         self.audio_source = v.into();
         self
     }
@@ -3982,9 +3786,7 @@ impl RecognizeRequest {
     pub fn content(&self) -> std::option::Option<&::bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.audio_source.as_ref().and_then(|v| match v {
-            crate::model::recognize_request::AudioSource::Content(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::recognize_request::AudioSource::Content(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -4004,7 +3806,9 @@ impl RecognizeRequest {
     /// ```
     pub fn set_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.audio_source = std::option::Option::Some(
-            crate::model::recognize_request::AudioSource::Content(v.into()),
+            crate::model::recognize_request::AudioSource::Content(
+                v.into()
+            )
         );
         self
     }
@@ -4034,8 +3838,11 @@ impl RecognizeRequest {
     /// assert!(x.content().is_none());
     /// ```
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.audio_source =
-            std::option::Option::Some(crate::model::recognize_request::AudioSource::Uri(v.into()));
+        self.audio_source = std::option::Option::Some(
+            crate::model::recognize_request::AudioSource::Uri(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -4050,6 +3857,7 @@ impl wkt::message::Message for RecognizeRequest {
 pub mod recognize_request {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The audio source, which is either inline content or a Google Cloud
     /// Storage URI.
@@ -4081,6 +3889,7 @@ pub mod recognize_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RecognitionResponseMetadata {
+
     /// Global request identifier auto-generated by the API.
     pub request_id: std::string::String,
 
@@ -4116,8 +3925,7 @@ impl RecognitionResponseMetadata {
     /// let x = RecognitionResponseMetadata::new().set_total_billed_duration(Duration::default()/* use setters */);
     /// ```
     pub fn set_total_billed_duration<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.total_billed_duration = std::option::Option::Some(v.into());
         self
@@ -4133,8 +3941,7 @@ impl RecognitionResponseMetadata {
     /// let x = RecognitionResponseMetadata::new().set_or_clear_total_billed_duration(None::<Duration>);
     /// ```
     pub fn set_or_clear_total_billed_duration<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.total_billed_duration = v.map(|x| x.into());
         self
@@ -4151,6 +3958,7 @@ impl wkt::message::Message for RecognitionResponseMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SpeechRecognitionAlternative {
+
     /// Transcript text representing the words that the user spoke.
     pub transcript: std::string::String,
 
@@ -4221,7 +4029,7 @@ impl SpeechRecognitionAlternative {
     pub fn set_words<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::WordInfo>,
+        V: std::convert::Into<crate::model::WordInfo>
     {
         use std::iter::Iterator;
         self.words = v.into_iter().map(|i| i.into()).collect();
@@ -4239,6 +4047,7 @@ impl wkt::message::Message for SpeechRecognitionAlternative {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WordInfo {
+
     /// Time offset relative to the beginning of the audio,
     /// and corresponding to the start of the spoken word.
     /// This field is only set if
@@ -4300,8 +4109,7 @@ impl WordInfo {
     /// let x = WordInfo::new().set_start_offset(Duration::default()/* use setters */);
     /// ```
     pub fn set_start_offset<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.start_offset = std::option::Option::Some(v.into());
         self
@@ -4317,8 +4125,7 @@ impl WordInfo {
     /// let x = WordInfo::new().set_or_clear_start_offset(None::<Duration>);
     /// ```
     pub fn set_or_clear_start_offset<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.start_offset = v.map(|x| x.into());
         self
@@ -4333,8 +4140,7 @@ impl WordInfo {
     /// let x = WordInfo::new().set_end_offset(Duration::default()/* use setters */);
     /// ```
     pub fn set_end_offset<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.end_offset = std::option::Option::Some(v.into());
         self
@@ -4350,8 +4156,7 @@ impl WordInfo {
     /// let x = WordInfo::new().set_or_clear_end_offset(None::<Duration>);
     /// ```
     pub fn set_or_clear_end_offset<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.end_offset = v.map(|x| x.into());
         self
@@ -4404,6 +4209,7 @@ impl wkt::message::Message for WordInfo {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SpeechRecognitionResult {
+
     /// May contain one or more recognition hypotheses. These alternatives are
     /// ordered in terms of accuracy, with the top (first) alternative being the
     /// most probable, as ranked by the recognizer.
@@ -4447,7 +4253,7 @@ impl SpeechRecognitionResult {
     pub fn set_alternatives<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::SpeechRecognitionAlternative>,
+        V: std::convert::Into<crate::model::SpeechRecognitionAlternative>
     {
         use std::iter::Iterator;
         self.alternatives = v.into_iter().map(|i| i.into()).collect();
@@ -4475,8 +4281,7 @@ impl SpeechRecognitionResult {
     /// let x = SpeechRecognitionResult::new().set_result_end_offset(Duration::default()/* use setters */);
     /// ```
     pub fn set_result_end_offset<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.result_end_offset = std::option::Option::Some(v.into());
         self
@@ -4492,8 +4297,7 @@ impl SpeechRecognitionResult {
     /// let x = SpeechRecognitionResult::new().set_or_clear_result_end_offset(None::<Duration>);
     /// ```
     pub fn set_or_clear_result_end_offset<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.result_end_offset = v.map(|x| x.into());
         self
@@ -4525,6 +4329,7 @@ impl wkt::message::Message for SpeechRecognitionResult {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RecognizeResponse {
+
     /// Sequential list of transcription results corresponding to sequential
     /// portions of audio.
     pub results: std::vec::Vec<crate::model::SpeechRecognitionResult>,
@@ -4555,7 +4360,7 @@ impl RecognizeResponse {
     pub fn set_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::SpeechRecognitionResult>,
+        V: std::convert::Into<crate::model::SpeechRecognitionResult>
     {
         use std::iter::Iterator;
         self.results = v.into_iter().map(|i| i.into()).collect();
@@ -4571,8 +4376,7 @@ impl RecognizeResponse {
     /// let x = RecognizeResponse::new().set_metadata(RecognitionResponseMetadata::default()/* use setters */);
     /// ```
     pub fn set_metadata<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RecognitionResponseMetadata>,
+    where T: std::convert::Into<crate::model::RecognitionResponseMetadata>
     {
         self.metadata = std::option::Option::Some(v.into());
         self
@@ -4588,8 +4392,7 @@ impl RecognizeResponse {
     /// let x = RecognizeResponse::new().set_or_clear_metadata(None::<RecognitionResponseMetadata>);
     /// ```
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RecognitionResponseMetadata>,
+    where T: std::convert::Into<crate::model::RecognitionResponseMetadata>
     {
         self.metadata = v.map(|x| x.into());
         self
@@ -4606,6 +4409,7 @@ impl wkt::message::Message for RecognizeResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StreamingRecognitionFeatures {
+
     /// If `true`, responses with voice activity speech events will be returned as
     /// they are detected.
     pub enable_voice_activity_events: bool,
@@ -4618,8 +4422,7 @@ pub struct StreamingRecognitionFeatures {
     /// If set, the server will automatically close the stream after the specified
     /// duration has elapsed after the last VOICE_ACTIVITY speech event has been
     /// sent. The field `voice_activity_events` must also be set to true.
-    pub voice_activity_timeout:
-        std::option::Option<crate::model::streaming_recognition_features::VoiceActivityTimeout>,
+    pub voice_activity_timeout: std::option::Option<crate::model::streaming_recognition_features::VoiceActivityTimeout>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -4662,8 +4465,7 @@ impl StreamingRecognitionFeatures {
     /// let x = StreamingRecognitionFeatures::new().set_voice_activity_timeout(VoiceActivityTimeout::default()/* use setters */);
     /// ```
     pub fn set_voice_activity_timeout<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::streaming_recognition_features::VoiceActivityTimeout>,
+    where T: std::convert::Into<crate::model::streaming_recognition_features::VoiceActivityTimeout>
     {
         self.voice_activity_timeout = std::option::Option::Some(v.into());
         self
@@ -4679,8 +4481,7 @@ impl StreamingRecognitionFeatures {
     /// let x = StreamingRecognitionFeatures::new().set_or_clear_voice_activity_timeout(None::<VoiceActivityTimeout>);
     /// ```
     pub fn set_or_clear_voice_activity_timeout<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::streaming_recognition_features::VoiceActivityTimeout>,
+    where T: std::convert::Into<crate::model::streaming_recognition_features::VoiceActivityTimeout>
     {
         self.voice_activity_timeout = v.map(|x| x.into());
         self
@@ -4698,10 +4499,12 @@ pub mod streaming_recognition_features {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Events that a timeout can be set on for voice activity.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct VoiceActivityTimeout {
+
         /// Duration to timeout the stream if no speech begins. If this is set and
         /// no speech is detected in this duration at the start of the stream, the
         /// server will close the stream.
@@ -4729,8 +4532,7 @@ pub mod streaming_recognition_features {
         /// let x = VoiceActivityTimeout::new().set_speech_start_timeout(Duration::default()/* use setters */);
         /// ```
         pub fn set_speech_start_timeout<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Duration>,
+        where T: std::convert::Into<wkt::Duration>
         {
             self.speech_start_timeout = std::option::Option::Some(v.into());
             self
@@ -4746,8 +4548,7 @@ pub mod streaming_recognition_features {
         /// let x = VoiceActivityTimeout::new().set_or_clear_speech_start_timeout(None::<Duration>);
         /// ```
         pub fn set_or_clear_speech_start_timeout<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Duration>,
+        where T: std::convert::Into<wkt::Duration>
         {
             self.speech_start_timeout = v.map(|x| x.into());
             self
@@ -4762,8 +4563,7 @@ pub mod streaming_recognition_features {
         /// let x = VoiceActivityTimeout::new().set_speech_end_timeout(Duration::default()/* use setters */);
         /// ```
         pub fn set_speech_end_timeout<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Duration>,
+        where T: std::convert::Into<wkt::Duration>
         {
             self.speech_end_timeout = std::option::Option::Some(v.into());
             self
@@ -4779,8 +4579,7 @@ pub mod streaming_recognition_features {
         /// let x = VoiceActivityTimeout::new().set_or_clear_speech_end_timeout(None::<Duration>);
         /// ```
         pub fn set_or_clear_speech_end_timeout<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Duration>,
+        where T: std::convert::Into<wkt::Duration>
         {
             self.speech_end_timeout = v.map(|x| x.into());
             self
@@ -4798,6 +4597,7 @@ pub mod streaming_recognition_features {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StreamingRecognitionConfig {
+
     /// Required. Features and audio metadata to use for the Automatic Speech
     /// Recognition. This field in combination with the
     /// [config_mask][google.cloud.speech.v2.StreamingRecognitionConfig.config_mask]
@@ -4848,8 +4648,7 @@ impl StreamingRecognitionConfig {
     /// let x = StreamingRecognitionConfig::new().set_config(RecognitionConfig::default()/* use setters */);
     /// ```
     pub fn set_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RecognitionConfig>,
+    where T: std::convert::Into<crate::model::RecognitionConfig>
     {
         self.config = std::option::Option::Some(v.into());
         self
@@ -4865,8 +4664,7 @@ impl StreamingRecognitionConfig {
     /// let x = StreamingRecognitionConfig::new().set_or_clear_config(None::<RecognitionConfig>);
     /// ```
     pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RecognitionConfig>,
+    where T: std::convert::Into<crate::model::RecognitionConfig>
     {
         self.config = v.map(|x| x.into());
         self
@@ -4881,8 +4679,7 @@ impl StreamingRecognitionConfig {
     /// let x = StreamingRecognitionConfig::new().set_config_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_config_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.config_mask = std::option::Option::Some(v.into());
         self
@@ -4898,8 +4695,7 @@ impl StreamingRecognitionConfig {
     /// let x = StreamingRecognitionConfig::new().set_or_clear_config_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_config_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.config_mask = v.map(|x| x.into());
         self
@@ -4914,8 +4710,7 @@ impl StreamingRecognitionConfig {
     /// let x = StreamingRecognitionConfig::new().set_streaming_features(StreamingRecognitionFeatures::default()/* use setters */);
     /// ```
     pub fn set_streaming_features<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::StreamingRecognitionFeatures>,
+    where T: std::convert::Into<crate::model::StreamingRecognitionFeatures>
     {
         self.streaming_features = std::option::Option::Some(v.into());
         self
@@ -4931,8 +4726,7 @@ impl StreamingRecognitionConfig {
     /// let x = StreamingRecognitionConfig::new().set_or_clear_streaming_features(None::<StreamingRecognitionFeatures>);
     /// ```
     pub fn set_or_clear_streaming_features<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::StreamingRecognitionFeatures>,
+    where T: std::convert::Into<crate::model::StreamingRecognitionFeatures>
     {
         self.streaming_features = v.map(|x| x.into());
         self
@@ -4974,14 +4768,14 @@ impl wkt::message::Message for StreamingRecognitionConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StreamingRecognizeRequest {
+
     /// Required. The name of the Recognizer to use during recognition. The
     /// expected format is
     /// `projects/{project}/locations/{location}/recognizers/{recognizer}`. The
     /// {recognizer} segment may be set to `_` to use an empty implicit Recognizer.
     pub recognizer: std::string::String,
 
-    pub streaming_request:
-        std::option::Option<crate::model::streaming_recognize_request::StreamingRequest>,
+    pub streaming_request: std::option::Option<crate::model::streaming_recognize_request::StreamingRequest>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -5014,14 +4808,8 @@ impl StreamingRecognizeRequest {
     /// use google_cloud_speech_v2::model::streaming_recognize_request::StreamingRequest;
     /// let x = StreamingRecognizeRequest::new().set_streaming_request(Some(StreamingRequest::Audio(bytes::Bytes::from_static(b"example"))));
     /// ```
-    pub fn set_streaming_request<
-        T: std::convert::Into<
-                std::option::Option<crate::model::streaming_recognize_request::StreamingRequest>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_streaming_request<T: std::convert::Into<std::option::Option<crate::model::streaming_recognize_request::StreamingRequest>>>(mut self, v: T) -> Self
+    {
         self.streaming_request = v.into();
         self
     }
@@ -5029,14 +4817,10 @@ impl StreamingRecognizeRequest {
     /// The value of [streaming_request][crate::model::StreamingRecognizeRequest::streaming_request]
     /// if it holds a `StreamingConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn streaming_config(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::StreamingRecognitionConfig>> {
+    pub fn streaming_config(&self) -> std::option::Option<&std::boxed::Box<crate::model::StreamingRecognitionConfig>> {
         #[allow(unreachable_patterns)]
         self.streaming_request.as_ref().and_then(|v| match v {
-            crate::model::streaming_recognize_request::StreamingRequest::StreamingConfig(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::streaming_recognize_request::StreamingRequest::StreamingConfig(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -5055,14 +4839,11 @@ impl StreamingRecognizeRequest {
     /// assert!(x.streaming_config().is_some());
     /// assert!(x.audio().is_none());
     /// ```
-    pub fn set_streaming_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::StreamingRecognitionConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_streaming_config<T: std::convert::Into<std::boxed::Box<crate::model::StreamingRecognitionConfig>>>(mut self, v: T) -> Self {
         self.streaming_request = std::option::Option::Some(
-            crate::model::streaming_recognize_request::StreamingRequest::StreamingConfig(v.into()),
+            crate::model::streaming_recognize_request::StreamingRequest::StreamingConfig(
+                v.into()
+            )
         );
         self
     }
@@ -5073,9 +4854,7 @@ impl StreamingRecognizeRequest {
     pub fn audio(&self) -> std::option::Option<&::bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.streaming_request.as_ref().and_then(|v| match v {
-            crate::model::streaming_recognize_request::StreamingRequest::Audio(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::streaming_recognize_request::StreamingRequest::Audio(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -5095,7 +4874,9 @@ impl StreamingRecognizeRequest {
     /// ```
     pub fn set_audio<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.streaming_request = std::option::Option::Some(
-            crate::model::streaming_recognize_request::StreamingRequest::Audio(v.into()),
+            crate::model::streaming_recognize_request::StreamingRequest::Audio(
+                v.into()
+            )
         );
         self
     }
@@ -5111,6 +4892,7 @@ impl wkt::message::Message for StreamingRecognizeRequest {
 pub mod streaming_recognize_request {
     #[allow(unused_imports)]
     use super::*;
+
 
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -5133,6 +4915,7 @@ pub mod streaming_recognize_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchRecognizeRequest {
+
     /// Required. The name of the Recognizer to use during recognition. The
     /// expected format is
     /// `projects/{project}/locations/{location}/recognizers/{recognizer}`. The
@@ -5207,8 +4990,7 @@ impl BatchRecognizeRequest {
     /// let x = BatchRecognizeRequest::new().set_config(RecognitionConfig::default()/* use setters */);
     /// ```
     pub fn set_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RecognitionConfig>,
+    where T: std::convert::Into<crate::model::RecognitionConfig>
     {
         self.config = std::option::Option::Some(v.into());
         self
@@ -5224,8 +5006,7 @@ impl BatchRecognizeRequest {
     /// let x = BatchRecognizeRequest::new().set_or_clear_config(None::<RecognitionConfig>);
     /// ```
     pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RecognitionConfig>,
+    where T: std::convert::Into<crate::model::RecognitionConfig>
     {
         self.config = v.map(|x| x.into());
         self
@@ -5240,8 +5021,7 @@ impl BatchRecognizeRequest {
     /// let x = BatchRecognizeRequest::new().set_config_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_config_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.config_mask = std::option::Option::Some(v.into());
         self
@@ -5257,8 +5037,7 @@ impl BatchRecognizeRequest {
     /// let x = BatchRecognizeRequest::new().set_or_clear_config_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_config_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.config_mask = v.map(|x| x.into());
         self
@@ -5279,7 +5058,7 @@ impl BatchRecognizeRequest {
     pub fn set_files<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::BatchRecognizeFileMetadata>,
+        V: std::convert::Into<crate::model::BatchRecognizeFileMetadata>
     {
         use std::iter::Iterator;
         self.files = v.into_iter().map(|i| i.into()).collect();
@@ -5295,8 +5074,7 @@ impl BatchRecognizeRequest {
     /// let x = BatchRecognizeRequest::new().set_recognition_output_config(RecognitionOutputConfig::default()/* use setters */);
     /// ```
     pub fn set_recognition_output_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RecognitionOutputConfig>,
+    where T: std::convert::Into<crate::model::RecognitionOutputConfig>
     {
         self.recognition_output_config = std::option::Option::Some(v.into());
         self
@@ -5312,8 +5090,7 @@ impl BatchRecognizeRequest {
     /// let x = BatchRecognizeRequest::new().set_or_clear_recognition_output_config(None::<RecognitionOutputConfig>);
     /// ```
     pub fn set_or_clear_recognition_output_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RecognitionOutputConfig>,
+    where T: std::convert::Into<crate::model::RecognitionOutputConfig>
     {
         self.recognition_output_config = v.map(|x| x.into());
         self
@@ -5327,12 +5104,7 @@ impl BatchRecognizeRequest {
     /// use google_cloud_speech_v2::model::batch_recognize_request::ProcessingStrategy;
     /// let x0 = BatchRecognizeRequest::new().set_processing_strategy(ProcessingStrategy::DynamicBatching);
     /// ```
-    pub fn set_processing_strategy<
-        T: std::convert::Into<crate::model::batch_recognize_request::ProcessingStrategy>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_processing_strategy<T: std::convert::Into<crate::model::batch_recognize_request::ProcessingStrategy>>(mut self, v: T) -> Self {
         self.processing_strategy = v.into();
         self
     }
@@ -5348,6 +5120,7 @@ impl wkt::message::Message for BatchRecognizeRequest {
 pub mod batch_recognize_request {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Possible processing strategies for batch requests.
     ///
@@ -5432,9 +5205,7 @@ pub mod batch_recognize_request {
             match value {
                 0 => Self::Unspecified,
                 1 => Self::DynamicBatching,
-                _ => Self::UnknownValue(processing_strategy::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(processing_strategy::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -5445,9 +5216,7 @@ pub mod batch_recognize_request {
             match value {
                 "PROCESSING_STRATEGY_UNSPECIFIED" => Self::Unspecified,
                 "DYNAMIC_BATCHING" => Self::DynamicBatching,
-                _ => Self::UnknownValue(processing_strategy::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(processing_strategy::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -5471,8 +5240,7 @@ pub mod batch_recognize_request {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<ProcessingStrategy>::new(
-                ".google.cloud.speech.v2.BatchRecognizeRequest.ProcessingStrategy",
-            ))
+                ".google.cloud.speech.v2.BatchRecognizeRequest.ProcessingStrategy"))
         }
     }
 }
@@ -5481,6 +5249,7 @@ pub mod batch_recognize_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GcsOutputConfig {
+
     /// The Cloud Storage URI prefix with which recognition results will be
     /// written.
     pub uri: std::string::String,
@@ -5516,6 +5285,7 @@ impl wkt::message::Message for GcsOutputConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InlineOutputConfig {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -5535,6 +5305,7 @@ impl wkt::message::Message for InlineOutputConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NativeOutputFileFormatConfig {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -5555,6 +5326,7 @@ impl wkt::message::Message for NativeOutputFileFormatConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VttOutputFileFormatConfig {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -5576,6 +5348,7 @@ impl wkt::message::Message for VttOutputFileFormatConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SrtOutputFileFormatConfig {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -5595,6 +5368,7 @@ impl wkt::message::Message for SrtOutputFileFormatConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OutputFormatConfig {
+
     /// Configuration for the native output format. If this field is set or if no
     /// other output format field is set, then transcripts will be written to the
     /// sink in the native format.
@@ -5625,8 +5399,7 @@ impl OutputFormatConfig {
     /// let x = OutputFormatConfig::new().set_native(NativeOutputFileFormatConfig::default()/* use setters */);
     /// ```
     pub fn set_native<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::NativeOutputFileFormatConfig>,
+    where T: std::convert::Into<crate::model::NativeOutputFileFormatConfig>
     {
         self.native = std::option::Option::Some(v.into());
         self
@@ -5642,8 +5415,7 @@ impl OutputFormatConfig {
     /// let x = OutputFormatConfig::new().set_or_clear_native(None::<NativeOutputFileFormatConfig>);
     /// ```
     pub fn set_or_clear_native<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::NativeOutputFileFormatConfig>,
+    where T: std::convert::Into<crate::model::NativeOutputFileFormatConfig>
     {
         self.native = v.map(|x| x.into());
         self
@@ -5658,8 +5430,7 @@ impl OutputFormatConfig {
     /// let x = OutputFormatConfig::new().set_vtt(VttOutputFileFormatConfig::default()/* use setters */);
     /// ```
     pub fn set_vtt<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::VttOutputFileFormatConfig>,
+    where T: std::convert::Into<crate::model::VttOutputFileFormatConfig>
     {
         self.vtt = std::option::Option::Some(v.into());
         self
@@ -5675,8 +5446,7 @@ impl OutputFormatConfig {
     /// let x = OutputFormatConfig::new().set_or_clear_vtt(None::<VttOutputFileFormatConfig>);
     /// ```
     pub fn set_or_clear_vtt<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::VttOutputFileFormatConfig>,
+    where T: std::convert::Into<crate::model::VttOutputFileFormatConfig>
     {
         self.vtt = v.map(|x| x.into());
         self
@@ -5691,8 +5461,7 @@ impl OutputFormatConfig {
     /// let x = OutputFormatConfig::new().set_srt(SrtOutputFileFormatConfig::default()/* use setters */);
     /// ```
     pub fn set_srt<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::SrtOutputFileFormatConfig>,
+    where T: std::convert::Into<crate::model::SrtOutputFileFormatConfig>
     {
         self.srt = std::option::Option::Some(v.into());
         self
@@ -5708,8 +5477,7 @@ impl OutputFormatConfig {
     /// let x = OutputFormatConfig::new().set_or_clear_srt(None::<SrtOutputFileFormatConfig>);
     /// ```
     pub fn set_or_clear_srt<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::SrtOutputFileFormatConfig>,
+    where T: std::convert::Into<crate::model::SrtOutputFileFormatConfig>
     {
         self.srt = v.map(|x| x.into());
         self
@@ -5726,6 +5494,7 @@ impl wkt::message::Message for OutputFormatConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RecognitionOutputConfig {
+
     /// Optional. Configuration for the format of the results stored to `output`.
     /// If unspecified transcripts will be written in the `NATIVE` format only.
     pub output_format_config: std::option::Option<crate::model::OutputFormatConfig>,
@@ -5749,8 +5518,7 @@ impl RecognitionOutputConfig {
     /// let x = RecognitionOutputConfig::new().set_output_format_config(OutputFormatConfig::default()/* use setters */);
     /// ```
     pub fn set_output_format_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::OutputFormatConfig>,
+    where T: std::convert::Into<crate::model::OutputFormatConfig>
     {
         self.output_format_config = std::option::Option::Some(v.into());
         self
@@ -5766,8 +5534,7 @@ impl RecognitionOutputConfig {
     /// let x = RecognitionOutputConfig::new().set_or_clear_output_format_config(None::<OutputFormatConfig>);
     /// ```
     pub fn set_or_clear_output_format_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::OutputFormatConfig>,
+    where T: std::convert::Into<crate::model::OutputFormatConfig>
     {
         self.output_format_config = v.map(|x| x.into());
         self
@@ -5785,12 +5552,8 @@ impl RecognitionOutputConfig {
     /// let x = RecognitionOutputConfig::new().set_output(Some(
     ///     google_cloud_speech_v2::model::recognition_output_config::Output::GcsOutputConfig(GcsOutputConfig::default().into())));
     /// ```
-    pub fn set_output<
-        T: std::convert::Into<std::option::Option<crate::model::recognition_output_config::Output>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_output<T: std::convert::Into<std::option::Option<crate::model::recognition_output_config::Output>>>(mut self, v: T) -> Self
+    {
         self.output = v.into();
         self
     }
@@ -5798,14 +5561,10 @@ impl RecognitionOutputConfig {
     /// The value of [output][crate::model::RecognitionOutputConfig::output]
     /// if it holds a `GcsOutputConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn gcs_output_config(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::GcsOutputConfig>> {
+    pub fn gcs_output_config(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsOutputConfig>> {
         #[allow(unreachable_patterns)]
         self.output.as_ref().and_then(|v| match v {
-            crate::model::recognition_output_config::Output::GcsOutputConfig(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::recognition_output_config::Output::GcsOutputConfig(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -5824,14 +5583,11 @@ impl RecognitionOutputConfig {
     /// assert!(x.gcs_output_config().is_some());
     /// assert!(x.inline_response_config().is_none());
     /// ```
-    pub fn set_gcs_output_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::GcsOutputConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_gcs_output_config<T: std::convert::Into<std::boxed::Box<crate::model::GcsOutputConfig>>>(mut self, v: T) -> Self {
         self.output = std::option::Option::Some(
-            crate::model::recognition_output_config::Output::GcsOutputConfig(v.into()),
+            crate::model::recognition_output_config::Output::GcsOutputConfig(
+                v.into()
+            )
         );
         self
     }
@@ -5839,14 +5595,10 @@ impl RecognitionOutputConfig {
     /// The value of [output][crate::model::RecognitionOutputConfig::output]
     /// if it holds a `InlineResponseConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn inline_response_config(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::InlineOutputConfig>> {
+    pub fn inline_response_config(&self) -> std::option::Option<&std::boxed::Box<crate::model::InlineOutputConfig>> {
         #[allow(unreachable_patterns)]
         self.output.as_ref().and_then(|v| match v {
-            crate::model::recognition_output_config::Output::InlineResponseConfig(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::recognition_output_config::Output::InlineResponseConfig(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -5865,14 +5617,11 @@ impl RecognitionOutputConfig {
     /// assert!(x.inline_response_config().is_some());
     /// assert!(x.gcs_output_config().is_none());
     /// ```
-    pub fn set_inline_response_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::InlineOutputConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_inline_response_config<T: std::convert::Into<std::boxed::Box<crate::model::InlineOutputConfig>>>(mut self, v: T) -> Self {
         self.output = std::option::Option::Some(
-            crate::model::recognition_output_config::Output::InlineResponseConfig(v.into()),
+            crate::model::recognition_output_config::Output::InlineResponseConfig(
+                v.into()
+            )
         );
         self
     }
@@ -5888,6 +5637,7 @@ impl wkt::message::Message for RecognitionOutputConfig {
 pub mod recognition_output_config {
     #[allow(unused_imports)]
     use super::*;
+
 
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -5916,9 +5666,9 @@ pub mod recognition_output_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchRecognizeResponse {
+
     /// Map from filename to the final result for that file.
-    pub results:
-        std::collections::HashMap<std::string::String, crate::model::BatchRecognizeFileResult>,
+    pub results: std::collections::HashMap<std::string::String,crate::model::BatchRecognizeFileResult>,
 
     /// When available, billed audio seconds for the corresponding request.
     pub total_billed_duration: std::option::Option<wkt::Duration>,
@@ -5962,8 +5712,7 @@ impl BatchRecognizeResponse {
     /// let x = BatchRecognizeResponse::new().set_total_billed_duration(Duration::default()/* use setters */);
     /// ```
     pub fn set_total_billed_duration<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.total_billed_duration = std::option::Option::Some(v.into());
         self
@@ -5979,8 +5728,7 @@ impl BatchRecognizeResponse {
     /// let x = BatchRecognizeResponse::new().set_or_clear_total_billed_duration(None::<Duration>);
     /// ```
     pub fn set_or_clear_total_billed_duration<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.total_billed_duration = v.map(|x| x.into());
         self
@@ -5999,6 +5747,7 @@ impl wkt::message::Message for BatchRecognizeResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchRecognizeResults {
+
     /// Sequential list of transcription results corresponding to sequential
     /// portions of audio.
     pub results: std::vec::Vec<crate::model::SpeechRecognitionResult>,
@@ -6029,7 +5778,7 @@ impl BatchRecognizeResults {
     pub fn set_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::SpeechRecognitionResult>,
+        V: std::convert::Into<crate::model::SpeechRecognitionResult>
     {
         use std::iter::Iterator;
         self.results = v.into_iter().map(|i| i.into()).collect();
@@ -6045,8 +5794,7 @@ impl BatchRecognizeResults {
     /// let x = BatchRecognizeResults::new().set_metadata(RecognitionResponseMetadata::default()/* use setters */);
     /// ```
     pub fn set_metadata<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RecognitionResponseMetadata>,
+    where T: std::convert::Into<crate::model::RecognitionResponseMetadata>
     {
         self.metadata = std::option::Option::Some(v.into());
         self
@@ -6062,8 +5810,7 @@ impl BatchRecognizeResults {
     /// let x = BatchRecognizeResults::new().set_or_clear_metadata(None::<RecognitionResponseMetadata>);
     /// ```
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RecognitionResponseMetadata>,
+    where T: std::convert::Into<crate::model::RecognitionResponseMetadata>
     {
         self.metadata = v.map(|x| x.into());
         self
@@ -6080,6 +5827,7 @@ impl wkt::message::Message for BatchRecognizeResults {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudStorageResult {
+
     /// The Cloud Storage URI to which recognition results were written.
     pub uri: std::string::String,
 
@@ -6146,6 +5894,7 @@ impl wkt::message::Message for CloudStorageResult {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InlineResult {
+
     /// The transcript for the audio file.
     pub transcript: std::option::Option<crate::model::BatchRecognizeResults>,
 
@@ -6174,8 +5923,7 @@ impl InlineResult {
     /// let x = InlineResult::new().set_transcript(BatchRecognizeResults::default()/* use setters */);
     /// ```
     pub fn set_transcript<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::BatchRecognizeResults>,
+    where T: std::convert::Into<crate::model::BatchRecognizeResults>
     {
         self.transcript = std::option::Option::Some(v.into());
         self
@@ -6191,8 +5939,7 @@ impl InlineResult {
     /// let x = InlineResult::new().set_or_clear_transcript(None::<BatchRecognizeResults>);
     /// ```
     pub fn set_or_clear_transcript<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::BatchRecognizeResults>,
+    where T: std::convert::Into<crate::model::BatchRecognizeResults>
     {
         self.transcript = v.map(|x| x.into());
         self
@@ -6233,6 +5980,7 @@ impl wkt::message::Message for InlineResult {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchRecognizeFileResult {
+
     /// Error if one was encountered.
     pub error: std::option::Option<rpc::model::Status>,
 
@@ -6265,8 +6013,7 @@ impl BatchRecognizeFileResult {
     /// let x = BatchRecognizeFileResult::new().set_error(Status::default()/* use setters */);
     /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<rpc::model::Status>,
+    where T: std::convert::Into<rpc::model::Status>
     {
         self.error = std::option::Option::Some(v.into());
         self
@@ -6282,8 +6029,7 @@ impl BatchRecognizeFileResult {
     /// let x = BatchRecognizeFileResult::new().set_or_clear_error(None::<Status>);
     /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<rpc::model::Status>,
+    where T: std::convert::Into<rpc::model::Status>
     {
         self.error = v.map(|x| x.into());
         self
@@ -6298,8 +6044,7 @@ impl BatchRecognizeFileResult {
     /// let x = BatchRecognizeFileResult::new().set_metadata(RecognitionResponseMetadata::default()/* use setters */);
     /// ```
     pub fn set_metadata<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RecognitionResponseMetadata>,
+    where T: std::convert::Into<crate::model::RecognitionResponseMetadata>
     {
         self.metadata = std::option::Option::Some(v.into());
         self
@@ -6315,8 +6060,7 @@ impl BatchRecognizeFileResult {
     /// let x = BatchRecognizeFileResult::new().set_or_clear_metadata(None::<RecognitionResponseMetadata>);
     /// ```
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RecognitionResponseMetadata>,
+    where T: std::convert::Into<crate::model::RecognitionResponseMetadata>
     {
         self.metadata = v.map(|x| x.into());
         self
@@ -6345,8 +6089,7 @@ impl BatchRecognizeFileResult {
     /// ```
     #[deprecated]
     pub fn set_transcript<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::BatchRecognizeResults>,
+    where T: std::convert::Into<crate::model::BatchRecognizeResults>
     {
         self.transcript = std::option::Option::Some(v.into());
         self
@@ -6363,8 +6106,7 @@ impl BatchRecognizeFileResult {
     /// ```
     #[deprecated]
     pub fn set_or_clear_transcript<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::BatchRecognizeResults>,
+    where T: std::convert::Into<crate::model::BatchRecognizeResults>
     {
         self.transcript = v.map(|x| x.into());
         self
@@ -6382,12 +6124,8 @@ impl BatchRecognizeFileResult {
     /// let x = BatchRecognizeFileResult::new().set_result(Some(
     ///     google_cloud_speech_v2::model::batch_recognize_file_result::Result::CloudStorageResult(CloudStorageResult::default().into())));
     /// ```
-    pub fn set_result<
-        T: std::convert::Into<std::option::Option<crate::model::batch_recognize_file_result::Result>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_result<T: std::convert::Into<std::option::Option<crate::model::batch_recognize_file_result::Result>>>(mut self, v: T) -> Self
+    {
         self.result = v.into();
         self
     }
@@ -6395,14 +6133,10 @@ impl BatchRecognizeFileResult {
     /// The value of [result][crate::model::BatchRecognizeFileResult::result]
     /// if it holds a `CloudStorageResult`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn cloud_storage_result(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::CloudStorageResult>> {
+    pub fn cloud_storage_result(&self) -> std::option::Option<&std::boxed::Box<crate::model::CloudStorageResult>> {
         #[allow(unreachable_patterns)]
         self.result.as_ref().and_then(|v| match v {
-            crate::model::batch_recognize_file_result::Result::CloudStorageResult(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::batch_recognize_file_result::Result::CloudStorageResult(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -6421,14 +6155,11 @@ impl BatchRecognizeFileResult {
     /// assert!(x.cloud_storage_result().is_some());
     /// assert!(x.inline_result().is_none());
     /// ```
-    pub fn set_cloud_storage_result<
-        T: std::convert::Into<std::boxed::Box<crate::model::CloudStorageResult>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_cloud_storage_result<T: std::convert::Into<std::boxed::Box<crate::model::CloudStorageResult>>>(mut self, v: T) -> Self {
         self.result = std::option::Option::Some(
-            crate::model::batch_recognize_file_result::Result::CloudStorageResult(v.into()),
+            crate::model::batch_recognize_file_result::Result::CloudStorageResult(
+                v.into()
+            )
         );
         self
     }
@@ -6436,14 +6167,10 @@ impl BatchRecognizeFileResult {
     /// The value of [result][crate::model::BatchRecognizeFileResult::result]
     /// if it holds a `InlineResult`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn inline_result(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::InlineResult>> {
+    pub fn inline_result(&self) -> std::option::Option<&std::boxed::Box<crate::model::InlineResult>> {
         #[allow(unreachable_patterns)]
         self.result.as_ref().and_then(|v| match v {
-            crate::model::batch_recognize_file_result::Result::InlineResult(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::batch_recognize_file_result::Result::InlineResult(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -6462,12 +6189,11 @@ impl BatchRecognizeFileResult {
     /// assert!(x.inline_result().is_some());
     /// assert!(x.cloud_storage_result().is_none());
     /// ```
-    pub fn set_inline_result<T: std::convert::Into<std::boxed::Box<crate::model::InlineResult>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_inline_result<T: std::convert::Into<std::boxed::Box<crate::model::InlineResult>>>(mut self, v: T) -> Self {
         self.result = std::option::Option::Some(
-            crate::model::batch_recognize_file_result::Result::InlineResult(v.into()),
+            crate::model::batch_recognize_file_result::Result::InlineResult(
+                v.into()
+            )
         );
         self
     }
@@ -6483,6 +6209,7 @@ impl wkt::message::Message for BatchRecognizeFileResult {
 pub mod batch_recognize_file_result {
     #[allow(unused_imports)]
     use super::*;
+
 
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -6510,6 +6237,7 @@ pub mod batch_recognize_file_result {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchRecognizeTranscriptionMetadata {
+
     /// How much of the file has been transcribed so far.
     pub progress_percent: i32,
 
@@ -6548,8 +6276,7 @@ impl BatchRecognizeTranscriptionMetadata {
     /// let x = BatchRecognizeTranscriptionMetadata::new().set_error(Status::default()/* use setters */);
     /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<rpc::model::Status>,
+    where T: std::convert::Into<rpc::model::Status>
     {
         self.error = std::option::Option::Some(v.into());
         self
@@ -6565,8 +6292,7 @@ impl BatchRecognizeTranscriptionMetadata {
     /// let x = BatchRecognizeTranscriptionMetadata::new().set_or_clear_error(None::<Status>);
     /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<rpc::model::Status>,
+    where T: std::convert::Into<rpc::model::Status>
     {
         self.error = v.map(|x| x.into());
         self
@@ -6598,11 +6324,9 @@ impl wkt::message::Message for BatchRecognizeTranscriptionMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchRecognizeMetadata {
+
     /// Map from provided filename to the transcription metadata for that file.
-    pub transcription_metadata: std::collections::HashMap<
-        std::string::String,
-        crate::model::BatchRecognizeTranscriptionMetadata,
-    >,
+    pub transcription_metadata: std::collections::HashMap<std::string::String,crate::model::BatchRecognizeTranscriptionMetadata>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -6645,6 +6369,7 @@ impl wkt::message::Message for BatchRecognizeMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchRecognizeFileMetadata {
+
     /// Features and audio metadata to use for the Automatic Speech Recognition.
     /// This field in combination with the
     /// [config_mask][google.cloud.speech.v2.BatchRecognizeFileMetadata.config_mask]
@@ -6697,8 +6422,7 @@ impl BatchRecognizeFileMetadata {
     /// let x = BatchRecognizeFileMetadata::new().set_config(RecognitionConfig::default()/* use setters */);
     /// ```
     pub fn set_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RecognitionConfig>,
+    where T: std::convert::Into<crate::model::RecognitionConfig>
     {
         self.config = std::option::Option::Some(v.into());
         self
@@ -6714,8 +6438,7 @@ impl BatchRecognizeFileMetadata {
     /// let x = BatchRecognizeFileMetadata::new().set_or_clear_config(None::<RecognitionConfig>);
     /// ```
     pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RecognitionConfig>,
+    where T: std::convert::Into<crate::model::RecognitionConfig>
     {
         self.config = v.map(|x| x.into());
         self
@@ -6730,8 +6453,7 @@ impl BatchRecognizeFileMetadata {
     /// let x = BatchRecognizeFileMetadata::new().set_config_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_config_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.config_mask = std::option::Option::Some(v.into());
         self
@@ -6747,8 +6469,7 @@ impl BatchRecognizeFileMetadata {
     /// let x = BatchRecognizeFileMetadata::new().set_or_clear_config_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_config_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.config_mask = v.map(|x| x.into());
         self
@@ -6765,14 +6486,8 @@ impl BatchRecognizeFileMetadata {
     /// use google_cloud_speech_v2::model::batch_recognize_file_metadata::AudioSource;
     /// let x = BatchRecognizeFileMetadata::new().set_audio_source(Some(AudioSource::Uri("example".to_string())));
     /// ```
-    pub fn set_audio_source<
-        T: std::convert::Into<
-                std::option::Option<crate::model::batch_recognize_file_metadata::AudioSource>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_audio_source<T: std::convert::Into<std::option::Option<crate::model::batch_recognize_file_metadata::AudioSource>>>(mut self, v: T) -> Self
+    {
         self.audio_source = v.into();
         self
     }
@@ -6783,9 +6498,7 @@ impl BatchRecognizeFileMetadata {
     pub fn uri(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.audio_source.as_ref().and_then(|v| match v {
-            crate::model::batch_recognize_file_metadata::AudioSource::Uri(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::batch_recognize_file_metadata::AudioSource::Uri(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -6804,7 +6517,9 @@ impl BatchRecognizeFileMetadata {
     /// ```
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.audio_source = std::option::Option::Some(
-            crate::model::batch_recognize_file_metadata::AudioSource::Uri(v.into()),
+            crate::model::batch_recognize_file_metadata::AudioSource::Uri(
+                v.into()
+            )
         );
         self
     }
@@ -6821,6 +6536,7 @@ pub mod batch_recognize_file_metadata {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// The audio source, which is a Google Cloud Storage URI.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -6835,6 +6551,7 @@ pub mod batch_recognize_file_metadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StreamingRecognitionResult {
+
     /// May contain one or more recognition hypotheses. These alternatives are
     /// ordered in terms of accuracy, with the top (first) alternative being the
     /// most probable, as ranked by the recognizer.
@@ -6898,7 +6615,7 @@ impl StreamingRecognitionResult {
     pub fn set_alternatives<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::SpeechRecognitionAlternative>,
+        V: std::convert::Into<crate::model::SpeechRecognitionAlternative>
     {
         use std::iter::Iterator;
         self.alternatives = v.into_iter().map(|i| i.into()).collect();
@@ -6938,8 +6655,7 @@ impl StreamingRecognitionResult {
     /// let x = StreamingRecognitionResult::new().set_result_end_offset(Duration::default()/* use setters */);
     /// ```
     pub fn set_result_end_offset<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.result_end_offset = std::option::Option::Some(v.into());
         self
@@ -6955,8 +6671,7 @@ impl StreamingRecognitionResult {
     /// let x = StreamingRecognitionResult::new().set_or_clear_result_end_offset(None::<Duration>);
     /// ```
     pub fn set_or_clear_result_end_offset<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.result_end_offset = v.map(|x| x.into());
         self
@@ -7046,6 +6761,7 @@ impl wkt::message::Message for StreamingRecognitionResult {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StreamingRecognizeResponse {
+
     /// This repeated list contains zero or more results that
     /// correspond to consecutive portions of the audio currently being processed.
     /// It contains zero or one
@@ -7089,7 +6805,7 @@ impl StreamingRecognizeResponse {
     pub fn set_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::StreamingRecognitionResult>,
+        V: std::convert::Into<crate::model::StreamingRecognitionResult>
     {
         use std::iter::Iterator;
         self.results = v.into_iter().map(|i| i.into()).collect();
@@ -7106,12 +6822,7 @@ impl StreamingRecognizeResponse {
     /// let x1 = StreamingRecognizeResponse::new().set_speech_event_type(SpeechEventType::SpeechActivityBegin);
     /// let x2 = StreamingRecognizeResponse::new().set_speech_event_type(SpeechEventType::SpeechActivityEnd);
     /// ```
-    pub fn set_speech_event_type<
-        T: std::convert::Into<crate::model::streaming_recognize_response::SpeechEventType>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_speech_event_type<T: std::convert::Into<crate::model::streaming_recognize_response::SpeechEventType>>(mut self, v: T) -> Self {
         self.speech_event_type = v.into();
         self
     }
@@ -7125,8 +6836,7 @@ impl StreamingRecognizeResponse {
     /// let x = StreamingRecognizeResponse::new().set_speech_event_offset(Duration::default()/* use setters */);
     /// ```
     pub fn set_speech_event_offset<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.speech_event_offset = std::option::Option::Some(v.into());
         self
@@ -7142,8 +6852,7 @@ impl StreamingRecognizeResponse {
     /// let x = StreamingRecognizeResponse::new().set_or_clear_speech_event_offset(None::<Duration>);
     /// ```
     pub fn set_or_clear_speech_event_offset<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.speech_event_offset = v.map(|x| x.into());
         self
@@ -7158,8 +6867,7 @@ impl StreamingRecognizeResponse {
     /// let x = StreamingRecognizeResponse::new().set_metadata(RecognitionResponseMetadata::default()/* use setters */);
     /// ```
     pub fn set_metadata<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RecognitionResponseMetadata>,
+    where T: std::convert::Into<crate::model::RecognitionResponseMetadata>
     {
         self.metadata = std::option::Option::Some(v.into());
         self
@@ -7175,8 +6883,7 @@ impl StreamingRecognizeResponse {
     /// let x = StreamingRecognizeResponse::new().set_or_clear_metadata(None::<RecognitionResponseMetadata>);
     /// ```
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RecognitionResponseMetadata>,
+    where T: std::convert::Into<crate::model::RecognitionResponseMetadata>
     {
         self.metadata = v.map(|x| x.into());
         self
@@ -7193,6 +6900,7 @@ impl wkt::message::Message for StreamingRecognizeResponse {
 pub mod streaming_recognize_response {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Indicates the type of speech event.
     ///
@@ -7298,9 +7006,7 @@ pub mod streaming_recognize_response {
                 1 => Self::EndOfSingleUtterance,
                 2 => Self::SpeechActivityBegin,
                 3 => Self::SpeechActivityEnd,
-                _ => Self::UnknownValue(speech_event_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(speech_event_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -7313,9 +7019,7 @@ pub mod streaming_recognize_response {
                 "END_OF_SINGLE_UTTERANCE" => Self::EndOfSingleUtterance,
                 "SPEECH_ACTIVITY_BEGIN" => Self::SpeechActivityBegin,
                 "SPEECH_ACTIVITY_END" => Self::SpeechActivityEnd,
-                _ => Self::UnknownValue(speech_event_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(speech_event_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -7341,8 +7045,7 @@ pub mod streaming_recognize_response {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<SpeechEventType>::new(
-                ".google.cloud.speech.v2.StreamingRecognizeResponse.SpeechEventType",
-            ))
+                ".google.cloud.speech.v2.StreamingRecognizeResponse.SpeechEventType"))
         }
     }
 }
@@ -7353,6 +7056,7 @@ pub mod streaming_recognize_response {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Config {
+
     /// Output only. Identifier. The name of the config resource. There is exactly
     /// one config resource per project per location. The expected format is
     /// `projects/{project}/locations/{location}/config`.
@@ -7410,8 +7114,7 @@ impl Config {
     /// let x = Config::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -7427,8 +7130,7 @@ impl Config {
     /// let x = Config::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -7448,6 +7150,7 @@ impl wkt::message::Message for Config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetConfigRequest {
+
     /// Required. The name of the config to retrieve. There is exactly one config
     /// resource per project per location. The expected format is
     /// `projects/{project}/locations/{location}/config`.
@@ -7487,6 +7190,7 @@ impl wkt::message::Message for GetConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateConfigRequest {
+
     /// Required. The config to update.
     ///
     /// The config's `name` field is used to identify the config to be updated.
@@ -7513,8 +7217,7 @@ impl UpdateConfigRequest {
     /// let x = UpdateConfigRequest::new().set_config(Config::default()/* use setters */);
     /// ```
     pub fn set_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Config>,
+    where T: std::convert::Into<crate::model::Config>
     {
         self.config = std::option::Option::Some(v.into());
         self
@@ -7530,8 +7233,7 @@ impl UpdateConfigRequest {
     /// let x = UpdateConfigRequest::new().set_or_clear_config(None::<Config>);
     /// ```
     pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Config>,
+    where T: std::convert::Into<crate::model::Config>
     {
         self.config = v.map(|x| x.into());
         self
@@ -7546,8 +7248,7 @@ impl UpdateConfigRequest {
     /// let x = UpdateConfigRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -7563,8 +7264,7 @@ impl UpdateConfigRequest {
     /// let x = UpdateConfigRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -7583,6 +7283,7 @@ impl wkt::message::Message for UpdateConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CustomClass {
+
     /// Output only. Identifier. The resource name of the CustomClass.
     /// Format:
     /// `projects/{project}/locations/{location}/customClasses/{custom_class}`.
@@ -7616,7 +7317,7 @@ pub struct CustomClass {
     /// Optional. Allows users to store small amounts of arbitrary data.
     /// Both the key and the value must be 63 characters or less each.
     /// At most 100 annotations.
-    pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
+    pub annotations: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Output only. This checksum is computed by the server based on the value of
     /// other fields. This may be sent on update, undelete, and delete requests to
@@ -7698,7 +7399,7 @@ impl CustomClass {
     pub fn set_items<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::custom_class::ClassItem>,
+        V: std::convert::Into<crate::model::custom_class::ClassItem>
     {
         use std::iter::Iterator;
         self.items = v.into_iter().map(|i| i.into()).collect();
@@ -7714,10 +7415,7 @@ impl CustomClass {
     /// let x0 = CustomClass::new().set_state(State::Active);
     /// let x1 = CustomClass::new().set_state(State::Deleted);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::custom_class::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::custom_class::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -7731,8 +7429,7 @@ impl CustomClass {
     /// let x = CustomClass::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -7748,8 +7445,7 @@ impl CustomClass {
     /// let x = CustomClass::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -7764,8 +7460,7 @@ impl CustomClass {
     /// let x = CustomClass::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -7781,8 +7476,7 @@ impl CustomClass {
     /// let x = CustomClass::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -7797,8 +7491,7 @@ impl CustomClass {
     /// let x = CustomClass::new().set_delete_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_delete_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.delete_time = std::option::Option::Some(v.into());
         self
@@ -7814,8 +7507,7 @@ impl CustomClass {
     /// let x = CustomClass::new().set_or_clear_delete_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.delete_time = v.map(|x| x.into());
         self
@@ -7830,8 +7522,7 @@ impl CustomClass {
     /// let x = CustomClass::new().set_expire_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_expire_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.expire_time = std::option::Option::Some(v.into());
         self
@@ -7847,8 +7538,7 @@ impl CustomClass {
     /// let x = CustomClass::new().set_or_clear_expire_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.expire_time = v.map(|x| x.into());
         self
@@ -7918,10 +7608,7 @@ impl CustomClass {
     /// # use google_cloud_speech_v2::model::CustomClass;
     /// let x = CustomClass::new().set_kms_key_version_name("example");
     /// ```
-    pub fn set_kms_key_version_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_kms_key_version_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key_version_name = v.into();
         self
     }
@@ -7938,10 +7625,12 @@ pub mod custom_class {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// An item of the class.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ClassItem {
+
         /// The class item's value.
         pub value: std::string::String,
 
@@ -8059,9 +7748,7 @@ pub mod custom_class {
                 0 => Self::Unspecified,
                 2 => Self::Active,
                 4 => Self::Deleted,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -8073,9 +7760,7 @@ pub mod custom_class {
                 "STATE_UNSPECIFIED" => Self::Unspecified,
                 "ACTIVE" => Self::Active,
                 "DELETED" => Self::Deleted,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -8100,8 +7785,7 @@ pub mod custom_class {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.speech.v2.CustomClass.State",
-            ))
+                ".google.cloud.speech.v2.CustomClass.State"))
         }
     }
 }
@@ -8112,6 +7796,7 @@ pub mod custom_class {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PhraseSet {
+
     /// Output only. Identifier. The resource name of the PhraseSet.
     /// Format: `projects/{project}/locations/{location}/phraseSets/{phrase_set}`.
     pub name: std::string::String,
@@ -8152,7 +7837,7 @@ pub struct PhraseSet {
     /// Allows users to store small amounts of arbitrary data.
     /// Both the key and the value must be 63 characters or less each.
     /// At most 100 annotations.
-    pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
+    pub annotations: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Output only. This checksum is computed by the server based on the value of
     /// other fields. This may be sent on update, undelete, and delete requests to
@@ -8222,7 +7907,7 @@ impl PhraseSet {
     pub fn set_phrases<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::phrase_set::Phrase>,
+        V: std::convert::Into<crate::model::phrase_set::Phrase>
     {
         use std::iter::Iterator;
         self.phrases = v.into_iter().map(|i| i.into()).collect();
@@ -8262,10 +7947,7 @@ impl PhraseSet {
     /// let x0 = PhraseSet::new().set_state(State::Active);
     /// let x1 = PhraseSet::new().set_state(State::Deleted);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::phrase_set::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::phrase_set::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -8279,8 +7961,7 @@ impl PhraseSet {
     /// let x = PhraseSet::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -8296,8 +7977,7 @@ impl PhraseSet {
     /// let x = PhraseSet::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -8312,8 +7992,7 @@ impl PhraseSet {
     /// let x = PhraseSet::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -8329,8 +8008,7 @@ impl PhraseSet {
     /// let x = PhraseSet::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -8345,8 +8023,7 @@ impl PhraseSet {
     /// let x = PhraseSet::new().set_delete_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_delete_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.delete_time = std::option::Option::Some(v.into());
         self
@@ -8362,8 +8039,7 @@ impl PhraseSet {
     /// let x = PhraseSet::new().set_or_clear_delete_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.delete_time = v.map(|x| x.into());
         self
@@ -8378,8 +8054,7 @@ impl PhraseSet {
     /// let x = PhraseSet::new().set_expire_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_expire_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.expire_time = std::option::Option::Some(v.into());
         self
@@ -8395,8 +8070,7 @@ impl PhraseSet {
     /// let x = PhraseSet::new().set_or_clear_expire_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.expire_time = v.map(|x| x.into());
         self
@@ -8466,10 +8140,7 @@ impl PhraseSet {
     /// # use google_cloud_speech_v2::model::PhraseSet;
     /// let x = PhraseSet::new().set_kms_key_version_name("example");
     /// ```
-    pub fn set_kms_key_version_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_kms_key_version_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key_version_name = v.into();
         self
     }
@@ -8486,6 +8157,7 @@ pub mod phrase_set {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// A Phrase contains words and phrase "hints" so that the speech recognition
     /// is more likely to recognize them. This can be used to improve the accuracy
     /// for specific words and phrases, for example, if specific commands are
@@ -8497,6 +8169,7 @@ pub mod phrase_set {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Phrase {
+
         /// The phrase itself.
         pub value: std::string::String,
 
@@ -8638,9 +8311,7 @@ pub mod phrase_set {
                 0 => Self::Unspecified,
                 2 => Self::Active,
                 4 => Self::Deleted,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -8652,9 +8323,7 @@ pub mod phrase_set {
                 "STATE_UNSPECIFIED" => Self::Unspecified,
                 "ACTIVE" => Self::Active,
                 "DELETED" => Self::Deleted,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -8679,8 +8348,7 @@ pub mod phrase_set {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.speech.v2.PhraseSet.State",
-            ))
+                ".google.cloud.speech.v2.PhraseSet.State"))
         }
     }
 }
@@ -8692,6 +8360,7 @@ pub mod phrase_set {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateCustomClassRequest {
+
     /// Required. The CustomClass to create.
     pub custom_class: std::option::Option<crate::model::CustomClass>,
 
@@ -8727,8 +8396,7 @@ impl CreateCustomClassRequest {
     /// let x = CreateCustomClassRequest::new().set_custom_class(CustomClass::default()/* use setters */);
     /// ```
     pub fn set_custom_class<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CustomClass>,
+    where T: std::convert::Into<crate::model::CustomClass>
     {
         self.custom_class = std::option::Option::Some(v.into());
         self
@@ -8744,8 +8412,7 @@ impl CreateCustomClassRequest {
     /// let x = CreateCustomClassRequest::new().set_or_clear_custom_class(None::<CustomClass>);
     /// ```
     pub fn set_or_clear_custom_class<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CustomClass>,
+    where T: std::convert::Into<crate::model::CustomClass>
     {
         self.custom_class = v.map(|x| x.into());
         self
@@ -8801,6 +8468,7 @@ impl wkt::message::Message for CreateCustomClassRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCustomClassesRequest {
+
     /// Required. The project and location of CustomClass resources to list. The
     /// expected format is `projects/{project}/locations/{location}`.
     pub parent: std::string::String,
@@ -8895,6 +8563,7 @@ impl wkt::message::Message for ListCustomClassesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCustomClassesResponse {
+
     /// The list of requested CustomClasses.
     pub custom_classes: std::vec::Vec<crate::model::CustomClass>,
 
@@ -8929,7 +8598,7 @@ impl ListCustomClassesResponse {
     pub fn set_custom_classes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::CustomClass>,
+        V: std::convert::Into<crate::model::CustomClass>
     {
         use std::iter::Iterator;
         self.custom_classes = v.into_iter().map(|i| i.into()).collect();
@@ -8976,6 +8645,7 @@ impl gax::paginator::internal::PageableResponse for ListCustomClassesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetCustomClassRequest {
+
     /// Required. The name of the CustomClass to retrieve. The expected format is
     /// `projects/{project}/locations/{location}/customClasses/{custom_class}`.
     pub name: std::string::String,
@@ -9014,6 +8684,7 @@ impl wkt::message::Message for GetCustomClassRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateCustomClassRequest {
+
     /// Required. The CustomClass to update.
     ///
     /// The CustomClass's `name` field is used to identify the CustomClass to
@@ -9046,8 +8717,7 @@ impl UpdateCustomClassRequest {
     /// let x = UpdateCustomClassRequest::new().set_custom_class(CustomClass::default()/* use setters */);
     /// ```
     pub fn set_custom_class<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CustomClass>,
+    where T: std::convert::Into<crate::model::CustomClass>
     {
         self.custom_class = std::option::Option::Some(v.into());
         self
@@ -9063,8 +8733,7 @@ impl UpdateCustomClassRequest {
     /// let x = UpdateCustomClassRequest::new().set_or_clear_custom_class(None::<CustomClass>);
     /// ```
     pub fn set_or_clear_custom_class<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CustomClass>,
+    where T: std::convert::Into<crate::model::CustomClass>
     {
         self.custom_class = v.map(|x| x.into());
         self
@@ -9079,8 +8748,7 @@ impl UpdateCustomClassRequest {
     /// let x = UpdateCustomClassRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -9096,8 +8764,7 @@ impl UpdateCustomClassRequest {
     /// let x = UpdateCustomClassRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -9129,6 +8796,7 @@ impl wkt::message::Message for UpdateCustomClassRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteCustomClassRequest {
+
     /// Required. The name of the CustomClass to delete.
     /// Format:
     /// `projects/{project}/locations/{location}/customClasses/{custom_class}`
@@ -9218,6 +8886,7 @@ impl wkt::message::Message for DeleteCustomClassRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UndeleteCustomClassRequest {
+
     /// Required. The name of the CustomClass to undelete.
     /// Format:
     /// `projects/{project}/locations/{location}/customClasses/{custom_class}`
@@ -9290,6 +8959,7 @@ impl wkt::message::Message for UndeleteCustomClassRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreatePhraseSetRequest {
+
     /// Required. The PhraseSet to create.
     pub phrase_set: std::option::Option<crate::model::PhraseSet>,
 
@@ -9325,8 +8995,7 @@ impl CreatePhraseSetRequest {
     /// let x = CreatePhraseSetRequest::new().set_phrase_set(PhraseSet::default()/* use setters */);
     /// ```
     pub fn set_phrase_set<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::PhraseSet>,
+    where T: std::convert::Into<crate::model::PhraseSet>
     {
         self.phrase_set = std::option::Option::Some(v.into());
         self
@@ -9342,8 +9011,7 @@ impl CreatePhraseSetRequest {
     /// let x = CreatePhraseSetRequest::new().set_or_clear_phrase_set(None::<PhraseSet>);
     /// ```
     pub fn set_or_clear_phrase_set<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::PhraseSet>,
+    where T: std::convert::Into<crate::model::PhraseSet>
     {
         self.phrase_set = v.map(|x| x.into());
         self
@@ -9399,6 +9067,7 @@ impl wkt::message::Message for CreatePhraseSetRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPhraseSetsRequest {
+
     /// Required. The project and location of PhraseSet resources to list. The
     /// expected format is `projects/{project}/locations/{location}`.
     pub parent: std::string::String,
@@ -9492,6 +9161,7 @@ impl wkt::message::Message for ListPhraseSetsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPhraseSetsResponse {
+
     /// The list of requested PhraseSets.
     pub phrase_sets: std::vec::Vec<crate::model::PhraseSet>,
 
@@ -9526,7 +9196,7 @@ impl ListPhraseSetsResponse {
     pub fn set_phrase_sets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::PhraseSet>,
+        V: std::convert::Into<crate::model::PhraseSet>
     {
         use std::iter::Iterator;
         self.phrase_sets = v.into_iter().map(|i| i.into()).collect();
@@ -9573,6 +9243,7 @@ impl gax::paginator::internal::PageableResponse for ListPhraseSetsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetPhraseSetRequest {
+
     /// Required. The name of the PhraseSet to retrieve. The expected format is
     /// `projects/{project}/locations/{location}/phraseSets/{phrase_set}`.
     pub name: std::string::String,
@@ -9611,6 +9282,7 @@ impl wkt::message::Message for GetPhraseSetRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdatePhraseSetRequest {
+
     /// Required. The PhraseSet to update.
     ///
     /// The PhraseSet's `name` field is used to identify the PhraseSet to update.
@@ -9642,8 +9314,7 @@ impl UpdatePhraseSetRequest {
     /// let x = UpdatePhraseSetRequest::new().set_phrase_set(PhraseSet::default()/* use setters */);
     /// ```
     pub fn set_phrase_set<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::PhraseSet>,
+    where T: std::convert::Into<crate::model::PhraseSet>
     {
         self.phrase_set = std::option::Option::Some(v.into());
         self
@@ -9659,8 +9330,7 @@ impl UpdatePhraseSetRequest {
     /// let x = UpdatePhraseSetRequest::new().set_or_clear_phrase_set(None::<PhraseSet>);
     /// ```
     pub fn set_or_clear_phrase_set<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::PhraseSet>,
+    where T: std::convert::Into<crate::model::PhraseSet>
     {
         self.phrase_set = v.map(|x| x.into());
         self
@@ -9675,8 +9345,7 @@ impl UpdatePhraseSetRequest {
     /// let x = UpdatePhraseSetRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -9692,8 +9361,7 @@ impl UpdatePhraseSetRequest {
     /// let x = UpdatePhraseSetRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -9725,6 +9393,7 @@ impl wkt::message::Message for UpdatePhraseSetRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeletePhraseSetRequest {
+
     /// Required. The name of the PhraseSet to delete.
     /// Format: `projects/{project}/locations/{location}/phraseSets/{phrase_set}`
     pub name: std::string::String,
@@ -9813,6 +9482,7 @@ impl wkt::message::Message for DeletePhraseSetRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UndeletePhraseSetRequest {
+
     /// Required. The name of the PhraseSet to undelete.
     /// Format: `projects/{project}/locations/{location}/phraseSets/{phrase_set}`
     pub name: std::string::String,
@@ -9882,6 +9552,7 @@ impl wkt::message::Message for UndeletePhraseSetRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ModelFeature {
+
     /// The name of the feature (Note: the feature can be `recognizer`)
     pub feature: std::string::String,
 
@@ -9931,6 +9602,7 @@ impl wkt::message::Message for ModelFeature {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ModelFeatures {
+
     /// Repeated field that contains all features of the model
     pub model_feature: std::vec::Vec<crate::model::ModelFeature>,
 
@@ -9957,7 +9629,7 @@ impl ModelFeatures {
     pub fn set_model_feature<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ModelFeature>,
+        V: std::convert::Into<crate::model::ModelFeature>
     {
         use std::iter::Iterator;
         self.model_feature = v.into_iter().map(|i| i.into()).collect();
@@ -9976,8 +9648,9 @@ impl wkt::message::Message for ModelFeatures {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ModelMetadata {
+
     /// Map of the model name -> features of that model
-    pub model_features: std::collections::HashMap<std::string::String, crate::model::ModelFeatures>,
+    pub model_features: std::collections::HashMap<std::string::String,crate::model::ModelFeatures>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -10021,8 +9694,9 @@ impl wkt::message::Message for ModelMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LanguageMetadata {
+
     /// Map of locale (language code) -> models
-    pub models: std::collections::HashMap<std::string::String, crate::model::ModelMetadata>,
+    pub models: std::collections::HashMap<std::string::String,crate::model::ModelMetadata>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -10066,6 +9740,7 @@ impl wkt::message::Message for LanguageMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AccessMetadata {
+
     /// Describes the different types of constraints that are applied.
     pub constraint_type: crate::model::access_metadata::ConstraintType,
 
@@ -10085,12 +9760,7 @@ impl AccessMetadata {
     /// use google_cloud_speech_v2::model::access_metadata::ConstraintType;
     /// let x0 = AccessMetadata::new().set_constraint_type(ConstraintType::ResourceLocationsOrgPolicyCreateConstraint);
     /// ```
-    pub fn set_constraint_type<
-        T: std::convert::Into<crate::model::access_metadata::ConstraintType>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_constraint_type<T: std::convert::Into<crate::model::access_metadata::ConstraintType>>(mut self, v: T) -> Self {
         self.constraint_type = v.into();
         self
     }
@@ -10106,6 +9776,7 @@ impl wkt::message::Message for AccessMetadata {
 pub mod access_metadata {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Describes the different types of constraints that can be applied on a
     /// region.
@@ -10165,9 +9836,7 @@ pub mod access_metadata {
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
                 Self::Unspecified => std::option::Option::Some("CONSTRAINT_TYPE_UNSPECIFIED"),
-                Self::ResourceLocationsOrgPolicyCreateConstraint => {
-                    std::option::Option::Some("RESOURCE_LOCATIONS_ORG_POLICY_CREATE_CONSTRAINT")
-                }
+                Self::ResourceLocationsOrgPolicyCreateConstraint => std::option::Option::Some("RESOURCE_LOCATIONS_ORG_POLICY_CREATE_CONSTRAINT"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -10191,9 +9860,7 @@ pub mod access_metadata {
             match value {
                 0 => Self::Unspecified,
                 1 => Self::ResourceLocationsOrgPolicyCreateConstraint,
-                _ => Self::UnknownValue(constraint_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(constraint_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -10203,12 +9870,8 @@ pub mod access_metadata {
             use std::string::ToString;
             match value {
                 "CONSTRAINT_TYPE_UNSPECIFIED" => Self::Unspecified,
-                "RESOURCE_LOCATIONS_ORG_POLICY_CREATE_CONSTRAINT" => {
-                    Self::ResourceLocationsOrgPolicyCreateConstraint
-                }
-                _ => Self::UnknownValue(constraint_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                "RESOURCE_LOCATIONS_ORG_POLICY_CREATE_CONSTRAINT" => Self::ResourceLocationsOrgPolicyCreateConstraint,
+                _ => Self::UnknownValue(constraint_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -10232,8 +9895,7 @@ pub mod access_metadata {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<ConstraintType>::new(
-                ".google.cloud.speech.v2.AccessMetadata.ConstraintType",
-            ))
+                ".google.cloud.speech.v2.AccessMetadata.ConstraintType"))
         }
     }
 }
@@ -10243,6 +9905,7 @@ pub mod access_metadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LocationsMetadata {
+
     /// Information about available locales, models, and features represented in
     /// the hierarchical structure of locales -> models -> features
     pub languages: std::option::Option<crate::model::LanguageMetadata>,
@@ -10267,8 +9930,7 @@ impl LocationsMetadata {
     /// let x = LocationsMetadata::new().set_languages(LanguageMetadata::default()/* use setters */);
     /// ```
     pub fn set_languages<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::LanguageMetadata>,
+    where T: std::convert::Into<crate::model::LanguageMetadata>
     {
         self.languages = std::option::Option::Some(v.into());
         self
@@ -10284,8 +9946,7 @@ impl LocationsMetadata {
     /// let x = LocationsMetadata::new().set_or_clear_languages(None::<LanguageMetadata>);
     /// ```
     pub fn set_or_clear_languages<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::LanguageMetadata>,
+    where T: std::convert::Into<crate::model::LanguageMetadata>
     {
         self.languages = v.map(|x| x.into());
         self
@@ -10300,8 +9961,7 @@ impl LocationsMetadata {
     /// let x = LocationsMetadata::new().set_access_metadata(AccessMetadata::default()/* use setters */);
     /// ```
     pub fn set_access_metadata<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AccessMetadata>,
+    where T: std::convert::Into<crate::model::AccessMetadata>
     {
         self.access_metadata = std::option::Option::Some(v.into());
         self
@@ -10317,8 +9977,7 @@ impl LocationsMetadata {
     /// let x = LocationsMetadata::new().set_or_clear_access_metadata(None::<AccessMetadata>);
     /// ```
     pub fn set_or_clear_access_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AccessMetadata>,
+    where T: std::convert::Into<crate::model::AccessMetadata>
     {
         self.access_metadata = v.map(|x| x.into());
         self

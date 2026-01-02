@@ -53,10 +53,7 @@ impl std::fmt::Debug for super::DataSource {
         debug_struct.field("client_id", &self.client_id);
         debug_struct.field("scopes", &self.scopes);
         debug_struct.field("transfer_type", &self.transfer_type);
-        debug_struct.field(
-            "supports_multiple_transfers",
-            &self.supports_multiple_transfers,
-        );
+        debug_struct.field("supports_multiple_transfers", &self.supports_multiple_transfers);
         debug_struct.field("update_deadline_seconds", &self.update_deadline_seconds);
         debug_struct.field("default_schedule", &self.default_schedule);
         debug_struct.field("supports_custom_schedule", &self.supports_custom_schedule);
@@ -64,10 +61,7 @@ impl std::fmt::Debug for super::DataSource {
         debug_struct.field("help_url", &self.help_url);
         debug_struct.field("authorization_type", &self.authorization_type);
         debug_struct.field("data_refresh_type", &self.data_refresh_type);
-        debug_struct.field(
-            "default_data_refresh_window_days",
-            &self.default_data_refresh_window_days,
-        );
+        debug_struct.field("default_data_refresh_window_days", &self.default_data_refresh_window_days);
         debug_struct.field("manual_runs_disabled", &self.manual_runs_disabled);
         debug_struct.field("minimum_schedule_interval", &self.minimum_schedule_interval);
         if !self._unknown_fields.is_empty() {

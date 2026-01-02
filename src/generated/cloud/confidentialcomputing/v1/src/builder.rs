@@ -39,10 +39,7 @@ pub mod confidential_computing {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = ConfidentialComputing;
             type Credentials = gaxi::options::Credentials;
-            async fn build(
-                self,
-                config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -57,12 +54,8 @@ pub mod confidential_computing {
     }
 
     impl<R> RequestBuilder<R>
-    where
-        R: std::default::Default,
-    {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfidentialComputing>,
-        ) -> Self {
+    where R: std::default::Default {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfidentialComputing>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -92,10 +85,10 @@ pub mod confidential_computing {
     pub struct CreateChallenge(RequestBuilder<crate::model::CreateChallengeRequest>);
 
     impl CreateChallenge {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfidentialComputing>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfidentialComputing>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -112,10 +105,7 @@ pub mod confidential_computing {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Challenge> {
-            (*self.0.stub)
-                .create_challenge(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_challenge(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateChallengeRequest::parent].
@@ -130,8 +120,7 @@ pub mod confidential_computing {
         ///
         /// This is a **required** field for requests.
         pub fn set_challenge<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Challenge>,
+        where T: std::convert::Into<crate::model::Challenge>
         {
             self.0.request.challenge = std::option::Option::Some(v.into());
             self
@@ -141,8 +130,7 @@ pub mod confidential_computing {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_challenge<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Challenge>,
+        where T: std::convert::Into<crate::model::Challenge>
         {
             self.0.request.challenge = v.map(|x| x.into());
             self
@@ -177,17 +165,14 @@ pub mod confidential_computing {
     pub struct VerifyAttestation(RequestBuilder<crate::model::VerifyAttestationRequest>);
 
     impl VerifyAttestation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfidentialComputing>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfidentialComputing>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::VerifyAttestationRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::VerifyAttestationRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -200,10 +185,7 @@ pub mod confidential_computing {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::VerifyAttestationResponse> {
-            (*self.0.stub)
-                .verify_attestation(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).verify_attestation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [challenge][crate::model::VerifyAttestationRequest::challenge].
@@ -216,8 +198,7 @@ pub mod confidential_computing {
 
         /// Sets the value of [gcp_credentials][crate::model::VerifyAttestationRequest::gcp_credentials].
         pub fn set_gcp_credentials<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::GcpCredentials>,
+        where T: std::convert::Into<crate::model::GcpCredentials>
         {
             self.0.request.gcp_credentials = std::option::Option::Some(v.into());
             self
@@ -225,8 +206,7 @@ pub mod confidential_computing {
 
         /// Sets or clears the value of [gcp_credentials][crate::model::VerifyAttestationRequest::gcp_credentials].
         pub fn set_or_clear_gcp_credentials<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::GcpCredentials>,
+        where T: std::convert::Into<crate::model::GcpCredentials>
         {
             self.0.request.gcp_credentials = v.map(|x| x.into());
             self
@@ -236,8 +216,7 @@ pub mod confidential_computing {
         ///
         /// This is a **required** field for requests.
         pub fn set_tpm_attestation<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::TpmAttestation>,
+        where T: std::convert::Into<crate::model::TpmAttestation>
         {
             self.0.request.tpm_attestation = std::option::Option::Some(v.into());
             self
@@ -247,8 +226,7 @@ pub mod confidential_computing {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_tpm_attestation<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::TpmAttestation>,
+        where T: std::convert::Into<crate::model::TpmAttestation>
         {
             self.0.request.tpm_attestation = v.map(|x| x.into());
             self
@@ -256,8 +234,7 @@ pub mod confidential_computing {
 
         /// Sets the value of [confidential_space_info][crate::model::VerifyAttestationRequest::confidential_space_info].
         pub fn set_confidential_space_info<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::ConfidentialSpaceInfo>,
+        where T: std::convert::Into<crate::model::ConfidentialSpaceInfo>
         {
             self.0.request.confidential_space_info = std::option::Option::Some(v.into());
             self
@@ -265,8 +242,7 @@ pub mod confidential_computing {
 
         /// Sets or clears the value of [confidential_space_info][crate::model::VerifyAttestationRequest::confidential_space_info].
         pub fn set_or_clear_confidential_space_info<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::ConfidentialSpaceInfo>,
+        where T: std::convert::Into<crate::model::ConfidentialSpaceInfo>
         {
             self.0.request.confidential_space_info = v.map(|x| x.into());
             self
@@ -274,8 +250,7 @@ pub mod confidential_computing {
 
         /// Sets the value of [token_options][crate::model::VerifyAttestationRequest::token_options].
         pub fn set_token_options<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::TokenOptions>,
+        where T: std::convert::Into<crate::model::TokenOptions>
         {
             self.0.request.token_options = std::option::Option::Some(v.into());
             self
@@ -283,8 +258,7 @@ pub mod confidential_computing {
 
         /// Sets or clears the value of [token_options][crate::model::VerifyAttestationRequest::token_options].
         pub fn set_or_clear_token_options<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::TokenOptions>,
+        where T: std::convert::Into<crate::model::TokenOptions>
         {
             self.0.request.token_options = v.map(|x| x.into());
             self
@@ -300,12 +274,7 @@ pub mod confidential_computing {
         ///
         /// Note that all the setters affecting `tee_attestation` are
         /// mutually exclusive.
-        pub fn set_tee_attestation<
-            T: Into<Option<crate::model::verify_attestation_request::TeeAttestation>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_tee_attestation<T: Into<Option<crate::model::verify_attestation_request::TeeAttestation>>>(mut self, v: T) ->Self {
             self.0.request.tee_attestation = v.into();
             self
         }
@@ -315,12 +284,7 @@ pub mod confidential_computing {
         ///
         /// Note that all the setters affecting `tee_attestation` are
         /// mutually exclusive.
-        pub fn set_td_ccel<
-            T: std::convert::Into<std::boxed::Box<crate::model::TdxCcelAttestation>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_td_ccel<T: std::convert::Into<std::boxed::Box<crate::model::TdxCcelAttestation>>>(mut self, v: T) -> Self {
             self.0.request = self.0.request.set_td_ccel(v);
             self
         }
@@ -330,12 +294,7 @@ pub mod confidential_computing {
         ///
         /// Note that all the setters affecting `tee_attestation` are
         /// mutually exclusive.
-        pub fn set_sev_snp_attestation<
-            T: std::convert::Into<std::boxed::Box<crate::model::SevSnpAttestation>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_sev_snp_attestation<T: std::convert::Into<std::boxed::Box<crate::model::SevSnpAttestation>>>(mut self, v: T) -> Self {
             self.0.request = self.0.request.set_sev_snp_attestation(v);
             self
         }
@@ -366,22 +325,17 @@ pub mod confidential_computing {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct VerifyConfidentialSpace(
-        RequestBuilder<crate::model::VerifyConfidentialSpaceRequest>,
-    );
+    pub struct VerifyConfidentialSpace(RequestBuilder<crate::model::VerifyConfidentialSpaceRequest>);
 
     impl VerifyConfidentialSpace {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfidentialComputing>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfidentialComputing>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::VerifyConfidentialSpaceRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::VerifyConfidentialSpaceRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -394,10 +348,7 @@ pub mod confidential_computing {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::VerifyConfidentialSpaceResponse> {
-            (*self.0.stub)
-                .verify_confidential_space(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).verify_confidential_space(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [challenge][crate::model::VerifyConfidentialSpaceRequest::challenge].
@@ -410,8 +361,7 @@ pub mod confidential_computing {
 
         /// Sets the value of [gcp_credentials][crate::model::VerifyConfidentialSpaceRequest::gcp_credentials].
         pub fn set_gcp_credentials<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::GcpCredentials>,
+        where T: std::convert::Into<crate::model::GcpCredentials>
         {
             self.0.request.gcp_credentials = std::option::Option::Some(v.into());
             self
@@ -419,8 +369,7 @@ pub mod confidential_computing {
 
         /// Sets or clears the value of [gcp_credentials][crate::model::VerifyConfidentialSpaceRequest::gcp_credentials].
         pub fn set_or_clear_gcp_credentials<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::GcpCredentials>,
+        where T: std::convert::Into<crate::model::GcpCredentials>
         {
             self.0.request.gcp_credentials = v.map(|x| x.into());
             self
@@ -430,7 +379,7 @@ pub mod confidential_computing {
         pub fn set_signed_entities<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::SignedEntity>,
+            V: std::convert::Into<crate::model::SignedEntity>
         {
             use std::iter::Iterator;
             self.0.request.signed_entities = v.into_iter().map(|i| i.into()).collect();
@@ -439,8 +388,7 @@ pub mod confidential_computing {
 
         /// Sets the value of [gce_shielded_identity][crate::model::VerifyConfidentialSpaceRequest::gce_shielded_identity].
         pub fn set_gce_shielded_identity<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::GceShieldedIdentity>,
+        where T: std::convert::Into<crate::model::GceShieldedIdentity>
         {
             self.0.request.gce_shielded_identity = std::option::Option::Some(v.into());
             self
@@ -448,8 +396,7 @@ pub mod confidential_computing {
 
         /// Sets or clears the value of [gce_shielded_identity][crate::model::VerifyConfidentialSpaceRequest::gce_shielded_identity].
         pub fn set_or_clear_gce_shielded_identity<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::GceShieldedIdentity>,
+        where T: std::convert::Into<crate::model::GceShieldedIdentity>
         {
             self.0.request.gce_shielded_identity = v.map(|x| x.into());
             self
@@ -457,10 +404,7 @@ pub mod confidential_computing {
 
         /// Sets the value of [options][crate::model::VerifyConfidentialSpaceRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<
-                    crate::model::verify_confidential_space_request::ConfidentialSpaceOptions,
-                >,
+        where T: std::convert::Into<crate::model::verify_confidential_space_request::ConfidentialSpaceOptions>
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
@@ -468,10 +412,7 @@ pub mod confidential_computing {
 
         /// Sets or clears the value of [options][crate::model::VerifyConfidentialSpaceRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<
-                    crate::model::verify_confidential_space_request::ConfidentialSpaceOptions,
-                >,
+        where T: std::convert::Into<crate::model::verify_confidential_space_request::ConfidentialSpaceOptions>
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -481,12 +422,7 @@ pub mod confidential_computing {
         ///
         /// Note that all the setters affecting `tee_attestation` are
         /// mutually exclusive.
-        pub fn set_tee_attestation<
-            T: Into<Option<crate::model::verify_confidential_space_request::TeeAttestation>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_tee_attestation<T: Into<Option<crate::model::verify_confidential_space_request::TeeAttestation>>>(mut self, v: T) ->Self {
             self.0.request.tee_attestation = v.into();
             self
         }
@@ -496,12 +432,7 @@ pub mod confidential_computing {
         ///
         /// Note that all the setters affecting `tee_attestation` are
         /// mutually exclusive.
-        pub fn set_td_ccel<
-            T: std::convert::Into<std::boxed::Box<crate::model::TdxCcelAttestation>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_td_ccel<T: std::convert::Into<std::boxed::Box<crate::model::TdxCcelAttestation>>>(mut self, v: T) -> Self {
             self.0.request = self.0.request.set_td_ccel(v);
             self
         }
@@ -511,12 +442,7 @@ pub mod confidential_computing {
         ///
         /// Note that all the setters affecting `tee_attestation` are
         /// mutually exclusive.
-        pub fn set_tpm_attestation<
-            T: std::convert::Into<std::boxed::Box<crate::model::TpmAttestation>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_tpm_attestation<T: std::convert::Into<std::boxed::Box<crate::model::TpmAttestation>>>(mut self, v: T) -> Self {
             self.0.request = self.0.request.set_tpm_attestation(v);
             self
         }
@@ -550,17 +476,14 @@ pub mod confidential_computing {
     pub struct VerifyConfidentialGke(RequestBuilder<crate::model::VerifyConfidentialGkeRequest>);
 
     impl VerifyConfidentialGke {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfidentialComputing>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfidentialComputing>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::VerifyConfidentialGkeRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::VerifyConfidentialGkeRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -573,10 +496,7 @@ pub mod confidential_computing {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::VerifyConfidentialGkeResponse> {
-            (*self.0.stub)
-                .verify_confidential_gke(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).verify_confidential_gke(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [challenge][crate::model::VerifyConfidentialGkeRequest::challenge].
@@ -591,12 +511,7 @@ pub mod confidential_computing {
         ///
         /// Note that all the setters affecting `tee_attestation` are
         /// mutually exclusive.
-        pub fn set_tee_attestation<
-            T: Into<Option<crate::model::verify_confidential_gke_request::TeeAttestation>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_tee_attestation<T: Into<Option<crate::model::verify_confidential_gke_request::TeeAttestation>>>(mut self, v: T) ->Self {
             self.0.request.tee_attestation = v.into();
             self
         }
@@ -606,12 +521,7 @@ pub mod confidential_computing {
         ///
         /// Note that all the setters affecting `tee_attestation` are
         /// mutually exclusive.
-        pub fn set_tpm_attestation<
-            T: std::convert::Into<std::boxed::Box<crate::model::TpmAttestation>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_tpm_attestation<T: std::convert::Into<std::boxed::Box<crate::model::TpmAttestation>>>(mut self, v: T) -> Self {
             self.0.request = self.0.request.set_tpm_attestation(v);
             self
         }
@@ -649,17 +559,14 @@ pub mod confidential_computing {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfidentialComputing>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfidentialComputing>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -672,17 +579,11 @@ pub mod confidential_computing {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::ListLocationsResponse> {
-            (*self.0.stub)
-                .list_locations(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_locations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -694,10 +595,7 @@ pub mod confidential_computing {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -755,10 +653,10 @@ pub mod confidential_computing {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfidentialComputing>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfidentialComputing>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -775,10 +673,7 @@ pub mod confidential_computing {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::Location> {
-            (*self.0.stub)
-                .get_location(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_location(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -794,4 +689,5 @@ pub mod confidential_computing {
             &mut self.0.options
         }
     }
+
 }

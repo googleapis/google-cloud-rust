@@ -38,14 +38,13 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait DataTransferService: std::fmt::Debug + Send + Sync {
+
     /// Implements [super::client::DataTransferService::get_data_source].
     fn get_data_source(
         &self,
         _req: crate::model::GetDataSourceRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::DataSource>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::DataSource>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -54,9 +53,7 @@ pub trait DataTransferService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListDataSourcesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListDataSourcesResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListDataSourcesResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -65,9 +62,7 @@ pub trait DataTransferService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateTransferConfigRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::TransferConfig>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::TransferConfig>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -76,9 +71,7 @@ pub trait DataTransferService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateTransferConfigRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::TransferConfig>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::TransferConfig>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -96,9 +89,7 @@ pub trait DataTransferService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetTransferConfigRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::TransferConfig>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::TransferConfig>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -107,9 +98,7 @@ pub trait DataTransferService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListTransferConfigsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListTransferConfigsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListTransferConfigsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -118,9 +107,7 @@ pub trait DataTransferService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ScheduleTransferRunsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ScheduleTransferRunsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ScheduleTransferRunsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -129,11 +116,7 @@ pub trait DataTransferService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::StartManualTransferRunsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::StartManualTransferRunsResponse>,
-        >,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::StartManualTransferRunsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -142,9 +125,7 @@ pub trait DataTransferService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetTransferRunRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::TransferRun>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::TransferRun>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -162,9 +143,7 @@ pub trait DataTransferService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListTransferRunsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListTransferRunsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListTransferRunsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -173,9 +152,7 @@ pub trait DataTransferService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListTransferLogsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListTransferLogsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListTransferLogsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -184,9 +161,7 @@ pub trait DataTransferService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CheckValidCredsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::CheckValidCredsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::CheckValidCredsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -213,9 +188,7 @@ pub trait DataTransferService: std::fmt::Debug + Send + Sync {
         &self,
         _req: location::model::ListLocationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<location::model::ListLocationsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -224,9 +197,8 @@ pub trait DataTransferService: std::fmt::Debug + Send + Sync {
         &self,
         _req: location::model::GetLocationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<location::model::Location>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<location::model::Location>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 }
+

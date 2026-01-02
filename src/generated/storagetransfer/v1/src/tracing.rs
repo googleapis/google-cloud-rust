@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [StorageTransferService](super::stub::StorageTransferService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct StorageTransferService<T>
-where
-    T: super::stub::StorageTransferService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::StorageTransferService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> StorageTransferService<T>
-where
-    T: super::stub::StorageTransferService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::StorageTransferService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::StorageTransferService for StorageTransferService<T>
-where
-    T: super::stub::StorageTransferService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::StorageTransferService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn get_google_service_account(
         &self,
@@ -190,6 +184,7 @@ where
         self.inner.cancel_operation(req, options).await
     }
 
+
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -204,3 +199,4 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 }
+

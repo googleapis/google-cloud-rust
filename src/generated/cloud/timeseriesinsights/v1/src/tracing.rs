@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [TimeseriesInsightsController](super::stub::TimeseriesInsightsController) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct TimeseriesInsightsController<T>
-where
-    T: super::stub::TimeseriesInsightsController + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::TimeseriesInsightsController + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> TimeseriesInsightsController<T>
-where
-    T: super::stub::TimeseriesInsightsController + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::TimeseriesInsightsController + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::TimeseriesInsightsController for TimeseriesInsightsController<T>
-where
-    T: super::stub::TimeseriesInsightsController + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::TimeseriesInsightsController + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn list_data_sets(
         &self,
@@ -99,4 +93,6 @@ where
     ) -> Result<gax::response::Response<crate::model::EvaluatedSlice>> {
         self.inner.evaluate_timeseries(req, options).await
     }
+
 }
+

@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [ReservationService](super::stub::ReservationService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct ReservationService<T>
-where
-    T: super::stub::ReservationService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ReservationService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> ReservationService<T>
-where
-    T: super::stub::ReservationService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ReservationService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::ReservationService for ReservationService<T>
-where
-    T: super::stub::ReservationService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ReservationService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn create_reservation(
         &self,
@@ -297,4 +291,6 @@ where
     ) -> Result<gax::response::Response<crate::model::ListReservationGroupsResponse>> {
         self.inner.list_reservation_groups(req, options).await
     }
+
 }
+

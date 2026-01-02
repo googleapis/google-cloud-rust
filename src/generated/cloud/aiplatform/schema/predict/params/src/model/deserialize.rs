@@ -70,9 +70,9 @@ impl<'de> serde::de::Deserialize<'de> for super::ImageClassificationPredictionPa
             where
                 A: serde::de::MapAccess<'de>,
             {
+                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
-                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -80,48 +80,38 @@ impl<'de> serde::de::Deserialize<'de> for super::ImageClassificationPredictionPa
                     match tag {
                         __FieldTag::__confidence_threshold => {
                             if !fields.insert(__FieldTag::__confidence_threshold) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for confidence_threshold",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for confidence_threshold"));
                             }
-                            struct __With(std::option::Option<f32>);
+                            struct __With( std::option::Option<f32> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(
-                                    deserializer: D,
-                                ) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<wkt::internal::F32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.confidence_threshold =
-                                map.next_value::<__With>()?.0.unwrap_or_default();
-                        }
+                            result.confidence_threshold = map.next_value::< __With >()?.0.unwrap_or_default();
+                        },
                         __FieldTag::__max_predictions => {
                             if !fields.insert(__FieldTag::__max_predictions) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for max_predictions",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for max_predictions"));
                             }
-                            struct __With(std::option::Option<i32>);
+                            struct __With( std::option::Option<i32> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(
-                                    deserializer: D,
-                                ) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.max_predictions =
-                                map.next_value::<__With>()?.0.unwrap_or_default();
-                        }
+                            result.max_predictions = map.next_value::< __With >()?.0.unwrap_or_default();
+                        },
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        }
+                        },
                     }
                 }
                 std::result::Result::Ok(result)
@@ -184,9 +174,9 @@ impl<'de> serde::de::Deserialize<'de> for super::ImageObjectDetectionPredictionP
             where
                 A: serde::de::MapAccess<'de>,
             {
+                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
-                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -194,48 +184,38 @@ impl<'de> serde::de::Deserialize<'de> for super::ImageObjectDetectionPredictionP
                     match tag {
                         __FieldTag::__confidence_threshold => {
                             if !fields.insert(__FieldTag::__confidence_threshold) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for confidence_threshold",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for confidence_threshold"));
                             }
-                            struct __With(std::option::Option<f32>);
+                            struct __With( std::option::Option<f32> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(
-                                    deserializer: D,
-                                ) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<wkt::internal::F32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.confidence_threshold =
-                                map.next_value::<__With>()?.0.unwrap_or_default();
-                        }
+                            result.confidence_threshold = map.next_value::< __With >()?.0.unwrap_or_default();
+                        },
                         __FieldTag::__max_predictions => {
                             if !fields.insert(__FieldTag::__max_predictions) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for max_predictions",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for max_predictions"));
                             }
-                            struct __With(std::option::Option<i32>);
+                            struct __With( std::option::Option<i32> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(
-                                    deserializer: D,
-                                ) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.max_predictions =
-                                map.next_value::<__With>()?.0.unwrap_or_default();
-                        }
+                            result.max_predictions = map.next_value::< __With >()?.0.unwrap_or_default();
+                        },
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        }
+                        },
                     }
                 }
                 std::result::Result::Ok(result)
@@ -295,9 +275,9 @@ impl<'de> serde::de::Deserialize<'de> for super::ImageSegmentationPredictionPara
             where
                 A: serde::de::MapAccess<'de>,
             {
+                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
-                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -305,28 +285,23 @@ impl<'de> serde::de::Deserialize<'de> for super::ImageSegmentationPredictionPara
                     match tag {
                         __FieldTag::__confidence_threshold => {
                             if !fields.insert(__FieldTag::__confidence_threshold) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for confidence_threshold",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for confidence_threshold"));
                             }
-                            struct __With(std::option::Option<f32>);
+                            struct __With( std::option::Option<f32> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(
-                                    deserializer: D,
-                                ) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<wkt::internal::F32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.confidence_threshold =
-                                map.next_value::<__With>()?.0.unwrap_or_default();
-                        }
+                            result.confidence_threshold = map.next_value::< __With >()?.0.unwrap_or_default();
+                        },
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        }
+                        },
                     }
                 }
                 std::result::Result::Ok(result)
@@ -359,8 +334,7 @@ impl<'de> serde::de::Deserialize<'de> for super::VideoActionRecognitionPredictio
                 impl<'de> serde::de::Visitor<'de> for Visitor {
                     type Value = __FieldTag;
                     fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter
-                            .write_str("a field name for VideoActionRecognitionPredictionParams")
+                        formatter.write_str("a field name for VideoActionRecognitionPredictionParams")
                     }
                     fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
                     where
@@ -390,9 +364,9 @@ impl<'de> serde::de::Deserialize<'de> for super::VideoActionRecognitionPredictio
             where
                 A: serde::de::MapAccess<'de>,
             {
+                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
-                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -400,48 +374,38 @@ impl<'de> serde::de::Deserialize<'de> for super::VideoActionRecognitionPredictio
                     match tag {
                         __FieldTag::__confidence_threshold => {
                             if !fields.insert(__FieldTag::__confidence_threshold) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for confidence_threshold",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for confidence_threshold"));
                             }
-                            struct __With(std::option::Option<f32>);
+                            struct __With( std::option::Option<f32> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(
-                                    deserializer: D,
-                                ) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<wkt::internal::F32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.confidence_threshold =
-                                map.next_value::<__With>()?.0.unwrap_or_default();
-                        }
+                            result.confidence_threshold = map.next_value::< __With >()?.0.unwrap_or_default();
+                        },
                         __FieldTag::__max_predictions => {
                             if !fields.insert(__FieldTag::__max_predictions) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for max_predictions",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for max_predictions"));
                             }
-                            struct __With(std::option::Option<i32>);
+                            struct __With( std::option::Option<i32> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(
-                                    deserializer: D,
-                                ) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.max_predictions =
-                                map.next_value::<__With>()?.0.unwrap_or_default();
-                        }
+                            result.max_predictions = map.next_value::< __With >()?.0.unwrap_or_default();
+                        },
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        }
+                        },
                     }
                 }
                 std::result::Result::Ok(result)
@@ -494,12 +458,8 @@ impl<'de> serde::de::Deserialize<'de> for super::VideoClassificationPredictionPa
                             "segment_classification" => Ok(__FieldTag::__segment_classification),
                             "shotClassification" => Ok(__FieldTag::__shot_classification),
                             "shot_classification" => Ok(__FieldTag::__shot_classification),
-                            "oneSecIntervalClassification" => {
-                                Ok(__FieldTag::__one_sec_interval_classification)
-                            }
-                            "one_sec_interval_classification" => {
-                                Ok(__FieldTag::__one_sec_interval_classification)
-                            }
+                            "oneSecIntervalClassification" => Ok(__FieldTag::__one_sec_interval_classification),
+                            "one_sec_interval_classification" => Ok(__FieldTag::__one_sec_interval_classification),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -517,9 +477,9 @@ impl<'de> serde::de::Deserialize<'de> for super::VideoClassificationPredictionPa
             where
                 A: serde::de::MapAccess<'de>,
             {
+                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
-                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -527,78 +487,56 @@ impl<'de> serde::de::Deserialize<'de> for super::VideoClassificationPredictionPa
                     match tag {
                         __FieldTag::__confidence_threshold => {
                             if !fields.insert(__FieldTag::__confidence_threshold) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for confidence_threshold",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for confidence_threshold"));
                             }
-                            struct __With(std::option::Option<f32>);
+                            struct __With( std::option::Option<f32> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(
-                                    deserializer: D,
-                                ) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<wkt::internal::F32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.confidence_threshold =
-                                map.next_value::<__With>()?.0.unwrap_or_default();
-                        }
+                            result.confidence_threshold = map.next_value::< __With >()?.0.unwrap_or_default();
+                        },
                         __FieldTag::__max_predictions => {
                             if !fields.insert(__FieldTag::__max_predictions) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for max_predictions",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for max_predictions"));
                             }
-                            struct __With(std::option::Option<i32>);
+                            struct __With( std::option::Option<i32> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(
-                                    deserializer: D,
-                                ) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.max_predictions =
-                                map.next_value::<__With>()?.0.unwrap_or_default();
-                        }
+                            result.max_predictions = map.next_value::< __With >()?.0.unwrap_or_default();
+                        },
                         __FieldTag::__segment_classification => {
                             if !fields.insert(__FieldTag::__segment_classification) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for segment_classification",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for segment_classification"));
                             }
-                            result.segment_classification = map
-                                .next_value::<std::option::Option<bool>>()?
-                                .unwrap_or_default();
-                        }
+                            result.segment_classification = map.next_value::<std::option::Option<bool>>()?.unwrap_or_default();
+                        },
                         __FieldTag::__shot_classification => {
                             if !fields.insert(__FieldTag::__shot_classification) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for shot_classification",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for shot_classification"));
                             }
-                            result.shot_classification = map
-                                .next_value::<std::option::Option<bool>>()?
-                                .unwrap_or_default();
-                        }
+                            result.shot_classification = map.next_value::<std::option::Option<bool>>()?.unwrap_or_default();
+                        },
                         __FieldTag::__one_sec_interval_classification => {
                             if !fields.insert(__FieldTag::__one_sec_interval_classification) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for one_sec_interval_classification",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for one_sec_interval_classification"));
                             }
-                            result.one_sec_interval_classification = map
-                                .next_value::<std::option::Option<bool>>()?
-                                .unwrap_or_default();
-                        }
+                            result.one_sec_interval_classification = map.next_value::<std::option::Option<bool>>()?.unwrap_or_default();
+                        },
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        }
+                        },
                     }
                 }
                 std::result::Result::Ok(result)
@@ -664,9 +602,9 @@ impl<'de> serde::de::Deserialize<'de> for super::VideoObjectTrackingPredictionPa
             where
                 A: serde::de::MapAccess<'de>,
             {
+                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
-                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -674,68 +612,53 @@ impl<'de> serde::de::Deserialize<'de> for super::VideoObjectTrackingPredictionPa
                     match tag {
                         __FieldTag::__confidence_threshold => {
                             if !fields.insert(__FieldTag::__confidence_threshold) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for confidence_threshold",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for confidence_threshold"));
                             }
-                            struct __With(std::option::Option<f32>);
+                            struct __With( std::option::Option<f32> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(
-                                    deserializer: D,
-                                ) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<wkt::internal::F32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.confidence_threshold =
-                                map.next_value::<__With>()?.0.unwrap_or_default();
-                        }
+                            result.confidence_threshold = map.next_value::< __With >()?.0.unwrap_or_default();
+                        },
                         __FieldTag::__max_predictions => {
                             if !fields.insert(__FieldTag::__max_predictions) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for max_predictions",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for max_predictions"));
                             }
-                            struct __With(std::option::Option<i32>);
+                            struct __With( std::option::Option<i32> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(
-                                    deserializer: D,
-                                ) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.max_predictions =
-                                map.next_value::<__With>()?.0.unwrap_or_default();
-                        }
+                            result.max_predictions = map.next_value::< __With >()?.0.unwrap_or_default();
+                        },
                         __FieldTag::__min_bounding_box_size => {
                             if !fields.insert(__FieldTag::__min_bounding_box_size) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for min_bounding_box_size",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for min_bounding_box_size"));
                             }
-                            struct __With(std::option::Option<f32>);
+                            struct __With( std::option::Option<f32> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(
-                                    deserializer: D,
-                                ) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<wkt::internal::F32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.min_bounding_box_size =
-                                map.next_value::<__With>()?.0.unwrap_or_default();
-                        }
+                            result.min_bounding_box_size = map.next_value::< __With >()?.0.unwrap_or_default();
+                        },
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        }
+                        },
                     }
                 }
                 std::result::Result::Ok(result)

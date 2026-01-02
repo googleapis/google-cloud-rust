@@ -39,10 +39,7 @@ pub mod cluster_manager {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = ClusterManager;
             type Credentials = gaxi::options::Credentials;
-            async fn build(
-                self,
-                config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -57,12 +54,8 @@ pub mod cluster_manager {
     }
 
     impl<R> RequestBuilder<R>
-    where
-        R: std::default::Default,
-    {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
-        ) -> Self {
+    where R: std::default::Default {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -92,10 +85,10 @@ pub mod cluster_manager {
     pub struct ListClusters(RequestBuilder<crate::model::ListClustersRequest>);
 
     impl ListClusters {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -112,10 +105,7 @@ pub mod cluster_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListClustersResponse> {
-            (*self.0.stub)
-                .list_clusters(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_clusters(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::ListClustersRequest::project_id].
@@ -167,10 +157,10 @@ pub mod cluster_manager {
     pub struct GetCluster(RequestBuilder<crate::model::GetClusterRequest>);
 
     impl GetCluster {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -187,10 +177,7 @@ pub mod cluster_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Cluster> {
-            (*self.0.stub)
-                .get_cluster(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_cluster(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::GetClusterRequest::project_id].
@@ -249,10 +236,10 @@ pub mod cluster_manager {
     pub struct CreateCluster(RequestBuilder<crate::model::CreateClusterRequest>);
 
     impl CreateCluster {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -269,10 +256,7 @@ pub mod cluster_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub)
-                .create_cluster(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_cluster(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::CreateClusterRequest::project_id].
@@ -293,8 +277,7 @@ pub mod cluster_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_cluster<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Cluster>,
+        where T: std::convert::Into<crate::model::Cluster>
         {
             self.0.request.cluster = std::option::Option::Some(v.into());
             self
@@ -304,8 +287,7 @@ pub mod cluster_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Cluster>,
+        where T: std::convert::Into<crate::model::Cluster>
         {
             self.0.request.cluster = v.map(|x| x.into());
             self
@@ -346,10 +328,10 @@ pub mod cluster_manager {
     pub struct UpdateCluster(RequestBuilder<crate::model::UpdateClusterRequest>);
 
     impl UpdateCluster {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -366,10 +348,7 @@ pub mod cluster_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub)
-                .update_cluster(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_cluster(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::UpdateClusterRequest::project_id].
@@ -397,8 +376,7 @@ pub mod cluster_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_update<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::ClusterUpdate>,
+        where T: std::convert::Into<crate::model::ClusterUpdate>
         {
             self.0.request.update = std::option::Option::Some(v.into());
             self
@@ -408,8 +386,7 @@ pub mod cluster_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::ClusterUpdate>,
+        where T: std::convert::Into<crate::model::ClusterUpdate>
         {
             self.0.request.update = v.map(|x| x.into());
             self
@@ -450,10 +427,10 @@ pub mod cluster_manager {
     pub struct UpdateNodePool(RequestBuilder<crate::model::UpdateNodePoolRequest>);
 
     impl UpdateNodePool {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -470,10 +447,7 @@ pub mod cluster_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub)
-                .update_node_pool(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_node_pool(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::UpdateNodePoolRequest::project_id].
@@ -530,7 +504,7 @@ pub mod cluster_manager {
         pub fn set_locations<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.0.request.locations = v.into_iter().map(|i| i.into()).collect();
@@ -539,8 +513,7 @@ pub mod cluster_manager {
 
         /// Sets the value of [workload_metadata_config][crate::model::UpdateNodePoolRequest::workload_metadata_config].
         pub fn set_workload_metadata_config<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::WorkloadMetadataConfig>,
+        where T: std::convert::Into<crate::model::WorkloadMetadataConfig>
         {
             self.0.request.workload_metadata_config = std::option::Option::Some(v.into());
             self
@@ -548,8 +521,7 @@ pub mod cluster_manager {
 
         /// Sets or clears the value of [workload_metadata_config][crate::model::UpdateNodePoolRequest::workload_metadata_config].
         pub fn set_or_clear_workload_metadata_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::WorkloadMetadataConfig>,
+        where T: std::convert::Into<crate::model::WorkloadMetadataConfig>
         {
             self.0.request.workload_metadata_config = v.map(|x| x.into());
             self
@@ -557,8 +529,7 @@ pub mod cluster_manager {
 
         /// Sets the value of [upgrade_settings][crate::model::UpdateNodePoolRequest::upgrade_settings].
         pub fn set_upgrade_settings<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::node_pool::UpgradeSettings>,
+        where T: std::convert::Into<crate::model::node_pool::UpgradeSettings>
         {
             self.0.request.upgrade_settings = std::option::Option::Some(v.into());
             self
@@ -566,8 +537,7 @@ pub mod cluster_manager {
 
         /// Sets or clears the value of [upgrade_settings][crate::model::UpdateNodePoolRequest::upgrade_settings].
         pub fn set_or_clear_upgrade_settings<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::node_pool::UpgradeSettings>,
+        where T: std::convert::Into<crate::model::node_pool::UpgradeSettings>
         {
             self.0.request.upgrade_settings = v.map(|x| x.into());
             self
@@ -575,8 +545,7 @@ pub mod cluster_manager {
 
         /// Sets the value of [tags][crate::model::UpdateNodePoolRequest::tags].
         pub fn set_tags<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::NetworkTags>,
+        where T: std::convert::Into<crate::model::NetworkTags>
         {
             self.0.request.tags = std::option::Option::Some(v.into());
             self
@@ -584,8 +553,7 @@ pub mod cluster_manager {
 
         /// Sets or clears the value of [tags][crate::model::UpdateNodePoolRequest::tags].
         pub fn set_or_clear_tags<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::NetworkTags>,
+        where T: std::convert::Into<crate::model::NetworkTags>
         {
             self.0.request.tags = v.map(|x| x.into());
             self
@@ -593,8 +561,7 @@ pub mod cluster_manager {
 
         /// Sets the value of [taints][crate::model::UpdateNodePoolRequest::taints].
         pub fn set_taints<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::NodeTaints>,
+        where T: std::convert::Into<crate::model::NodeTaints>
         {
             self.0.request.taints = std::option::Option::Some(v.into());
             self
@@ -602,8 +569,7 @@ pub mod cluster_manager {
 
         /// Sets or clears the value of [taints][crate::model::UpdateNodePoolRequest::taints].
         pub fn set_or_clear_taints<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::NodeTaints>,
+        where T: std::convert::Into<crate::model::NodeTaints>
         {
             self.0.request.taints = v.map(|x| x.into());
             self
@@ -611,8 +577,7 @@ pub mod cluster_manager {
 
         /// Sets the value of [labels][crate::model::UpdateNodePoolRequest::labels].
         pub fn set_labels<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::NodeLabels>,
+        where T: std::convert::Into<crate::model::NodeLabels>
         {
             self.0.request.labels = std::option::Option::Some(v.into());
             self
@@ -620,8 +585,7 @@ pub mod cluster_manager {
 
         /// Sets or clears the value of [labels][crate::model::UpdateNodePoolRequest::labels].
         pub fn set_or_clear_labels<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::NodeLabels>,
+        where T: std::convert::Into<crate::model::NodeLabels>
         {
             self.0.request.labels = v.map(|x| x.into());
             self
@@ -629,8 +593,7 @@ pub mod cluster_manager {
 
         /// Sets the value of [linux_node_config][crate::model::UpdateNodePoolRequest::linux_node_config].
         pub fn set_linux_node_config<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::LinuxNodeConfig>,
+        where T: std::convert::Into<crate::model::LinuxNodeConfig>
         {
             self.0.request.linux_node_config = std::option::Option::Some(v.into());
             self
@@ -638,8 +601,7 @@ pub mod cluster_manager {
 
         /// Sets or clears the value of [linux_node_config][crate::model::UpdateNodePoolRequest::linux_node_config].
         pub fn set_or_clear_linux_node_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::LinuxNodeConfig>,
+        where T: std::convert::Into<crate::model::LinuxNodeConfig>
         {
             self.0.request.linux_node_config = v.map(|x| x.into());
             self
@@ -647,8 +609,7 @@ pub mod cluster_manager {
 
         /// Sets the value of [kubelet_config][crate::model::UpdateNodePoolRequest::kubelet_config].
         pub fn set_kubelet_config<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::NodeKubeletConfig>,
+        where T: std::convert::Into<crate::model::NodeKubeletConfig>
         {
             self.0.request.kubelet_config = std::option::Option::Some(v.into());
             self
@@ -656,8 +617,7 @@ pub mod cluster_manager {
 
         /// Sets or clears the value of [kubelet_config][crate::model::UpdateNodePoolRequest::kubelet_config].
         pub fn set_or_clear_kubelet_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::NodeKubeletConfig>,
+        where T: std::convert::Into<crate::model::NodeKubeletConfig>
         {
             self.0.request.kubelet_config = v.map(|x| x.into());
             self
@@ -665,8 +625,7 @@ pub mod cluster_manager {
 
         /// Sets the value of [node_network_config][crate::model::UpdateNodePoolRequest::node_network_config].
         pub fn set_node_network_config<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::NodeNetworkConfig>,
+        where T: std::convert::Into<crate::model::NodeNetworkConfig>
         {
             self.0.request.node_network_config = std::option::Option::Some(v.into());
             self
@@ -674,8 +633,7 @@ pub mod cluster_manager {
 
         /// Sets or clears the value of [node_network_config][crate::model::UpdateNodePoolRequest::node_network_config].
         pub fn set_or_clear_node_network_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::NodeNetworkConfig>,
+        where T: std::convert::Into<crate::model::NodeNetworkConfig>
         {
             self.0.request.node_network_config = v.map(|x| x.into());
             self
@@ -683,8 +641,7 @@ pub mod cluster_manager {
 
         /// Sets the value of [gcfs_config][crate::model::UpdateNodePoolRequest::gcfs_config].
         pub fn set_gcfs_config<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::GcfsConfig>,
+        where T: std::convert::Into<crate::model::GcfsConfig>
         {
             self.0.request.gcfs_config = std::option::Option::Some(v.into());
             self
@@ -692,8 +649,7 @@ pub mod cluster_manager {
 
         /// Sets or clears the value of [gcfs_config][crate::model::UpdateNodePoolRequest::gcfs_config].
         pub fn set_or_clear_gcfs_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::GcfsConfig>,
+        where T: std::convert::Into<crate::model::GcfsConfig>
         {
             self.0.request.gcfs_config = v.map(|x| x.into());
             self
@@ -701,8 +657,7 @@ pub mod cluster_manager {
 
         /// Sets the value of [confidential_nodes][crate::model::UpdateNodePoolRequest::confidential_nodes].
         pub fn set_confidential_nodes<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::ConfidentialNodes>,
+        where T: std::convert::Into<crate::model::ConfidentialNodes>
         {
             self.0.request.confidential_nodes = std::option::Option::Some(v.into());
             self
@@ -710,8 +665,7 @@ pub mod cluster_manager {
 
         /// Sets or clears the value of [confidential_nodes][crate::model::UpdateNodePoolRequest::confidential_nodes].
         pub fn set_or_clear_confidential_nodes<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::ConfidentialNodes>,
+        where T: std::convert::Into<crate::model::ConfidentialNodes>
         {
             self.0.request.confidential_nodes = v.map(|x| x.into());
             self
@@ -719,8 +673,7 @@ pub mod cluster_manager {
 
         /// Sets the value of [gvnic][crate::model::UpdateNodePoolRequest::gvnic].
         pub fn set_gvnic<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::VirtualNIC>,
+        where T: std::convert::Into<crate::model::VirtualNIC>
         {
             self.0.request.gvnic = std::option::Option::Some(v.into());
             self
@@ -728,8 +681,7 @@ pub mod cluster_manager {
 
         /// Sets or clears the value of [gvnic][crate::model::UpdateNodePoolRequest::gvnic].
         pub fn set_or_clear_gvnic<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::VirtualNIC>,
+        where T: std::convert::Into<crate::model::VirtualNIC>
         {
             self.0.request.gvnic = v.map(|x| x.into());
             self
@@ -743,8 +695,7 @@ pub mod cluster_manager {
 
         /// Sets the value of [fast_socket][crate::model::UpdateNodePoolRequest::fast_socket].
         pub fn set_fast_socket<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::FastSocket>,
+        where T: std::convert::Into<crate::model::FastSocket>
         {
             self.0.request.fast_socket = std::option::Option::Some(v.into());
             self
@@ -752,8 +703,7 @@ pub mod cluster_manager {
 
         /// Sets or clears the value of [fast_socket][crate::model::UpdateNodePoolRequest::fast_socket].
         pub fn set_or_clear_fast_socket<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::FastSocket>,
+        where T: std::convert::Into<crate::model::FastSocket>
         {
             self.0.request.fast_socket = v.map(|x| x.into());
             self
@@ -761,8 +711,7 @@ pub mod cluster_manager {
 
         /// Sets the value of [logging_config][crate::model::UpdateNodePoolRequest::logging_config].
         pub fn set_logging_config<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::NodePoolLoggingConfig>,
+        where T: std::convert::Into<crate::model::NodePoolLoggingConfig>
         {
             self.0.request.logging_config = std::option::Option::Some(v.into());
             self
@@ -770,8 +719,7 @@ pub mod cluster_manager {
 
         /// Sets or clears the value of [logging_config][crate::model::UpdateNodePoolRequest::logging_config].
         pub fn set_or_clear_logging_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::NodePoolLoggingConfig>,
+        where T: std::convert::Into<crate::model::NodePoolLoggingConfig>
         {
             self.0.request.logging_config = v.map(|x| x.into());
             self
@@ -779,8 +727,7 @@ pub mod cluster_manager {
 
         /// Sets the value of [resource_labels][crate::model::UpdateNodePoolRequest::resource_labels].
         pub fn set_resource_labels<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::ResourceLabels>,
+        where T: std::convert::Into<crate::model::ResourceLabels>
         {
             self.0.request.resource_labels = std::option::Option::Some(v.into());
             self
@@ -788,8 +735,7 @@ pub mod cluster_manager {
 
         /// Sets or clears the value of [resource_labels][crate::model::UpdateNodePoolRequest::resource_labels].
         pub fn set_or_clear_resource_labels<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::ResourceLabels>,
+        where T: std::convert::Into<crate::model::ResourceLabels>
         {
             self.0.request.resource_labels = v.map(|x| x.into());
             self
@@ -797,8 +743,7 @@ pub mod cluster_manager {
 
         /// Sets the value of [windows_node_config][crate::model::UpdateNodePoolRequest::windows_node_config].
         pub fn set_windows_node_config<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::WindowsNodeConfig>,
+        where T: std::convert::Into<crate::model::WindowsNodeConfig>
         {
             self.0.request.windows_node_config = std::option::Option::Some(v.into());
             self
@@ -806,8 +751,7 @@ pub mod cluster_manager {
 
         /// Sets or clears the value of [windows_node_config][crate::model::UpdateNodePoolRequest::windows_node_config].
         pub fn set_or_clear_windows_node_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::WindowsNodeConfig>,
+        where T: std::convert::Into<crate::model::WindowsNodeConfig>
         {
             self.0.request.windows_node_config = v.map(|x| x.into());
             self
@@ -817,7 +761,7 @@ pub mod cluster_manager {
         pub fn set_accelerators<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::AcceleratorConfig>,
+            V: std::convert::Into<crate::model::AcceleratorConfig>
         {
             use std::iter::Iterator;
             self.0.request.accelerators = v.into_iter().map(|i| i.into()).collect();
@@ -844,8 +788,7 @@ pub mod cluster_manager {
 
         /// Sets the value of [resource_manager_tags][crate::model::UpdateNodePoolRequest::resource_manager_tags].
         pub fn set_resource_manager_tags<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::ResourceManagerTags>,
+        where T: std::convert::Into<crate::model::ResourceManagerTags>
         {
             self.0.request.resource_manager_tags = std::option::Option::Some(v.into());
             self
@@ -853,8 +796,7 @@ pub mod cluster_manager {
 
         /// Sets or clears the value of [resource_manager_tags][crate::model::UpdateNodePoolRequest::resource_manager_tags].
         pub fn set_or_clear_resource_manager_tags<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::ResourceManagerTags>,
+        where T: std::convert::Into<crate::model::ResourceManagerTags>
         {
             self.0.request.resource_manager_tags = v.map(|x| x.into());
             self
@@ -862,8 +804,7 @@ pub mod cluster_manager {
 
         /// Sets the value of [containerd_config][crate::model::UpdateNodePoolRequest::containerd_config].
         pub fn set_containerd_config<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::ContainerdConfig>,
+        where T: std::convert::Into<crate::model::ContainerdConfig>
         {
             self.0.request.containerd_config = std::option::Option::Some(v.into());
             self
@@ -871,8 +812,7 @@ pub mod cluster_manager {
 
         /// Sets or clears the value of [containerd_config][crate::model::UpdateNodePoolRequest::containerd_config].
         pub fn set_or_clear_containerd_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::ContainerdConfig>,
+        where T: std::convert::Into<crate::model::ContainerdConfig>
         {
             self.0.request.containerd_config = v.map(|x| x.into());
             self
@@ -880,8 +820,7 @@ pub mod cluster_manager {
 
         /// Sets the value of [queued_provisioning][crate::model::UpdateNodePoolRequest::queued_provisioning].
         pub fn set_queued_provisioning<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::node_pool::QueuedProvisioning>,
+        where T: std::convert::Into<crate::model::node_pool::QueuedProvisioning>
         {
             self.0.request.queued_provisioning = std::option::Option::Some(v.into());
             self
@@ -889,8 +828,7 @@ pub mod cluster_manager {
 
         /// Sets or clears the value of [queued_provisioning][crate::model::UpdateNodePoolRequest::queued_provisioning].
         pub fn set_or_clear_queued_provisioning<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::node_pool::QueuedProvisioning>,
+        where T: std::convert::Into<crate::model::node_pool::QueuedProvisioning>
         {
             self.0.request.queued_provisioning = v.map(|x| x.into());
             self
@@ -900,7 +838,7 @@ pub mod cluster_manager {
         pub fn set_storage_pools<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.0.request.storage_pools = v.into_iter().map(|i| i.into()).collect();
@@ -909,8 +847,7 @@ pub mod cluster_manager {
 
         /// Sets the value of [max_run_duration][crate::model::UpdateNodePoolRequest::max_run_duration].
         pub fn set_max_run_duration<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Duration>,
+        where T: std::convert::Into<wkt::Duration>
         {
             self.0.request.max_run_duration = std::option::Option::Some(v.into());
             self
@@ -918,8 +855,7 @@ pub mod cluster_manager {
 
         /// Sets or clears the value of [max_run_duration][crate::model::UpdateNodePoolRequest::max_run_duration].
         pub fn set_or_clear_max_run_duration<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Duration>,
+        where T: std::convert::Into<wkt::Duration>
         {
             self.0.request.max_run_duration = v.map(|x| x.into());
             self
@@ -927,8 +863,7 @@ pub mod cluster_manager {
 
         /// Sets the value of [flex_start][crate::model::UpdateNodePoolRequest::flex_start].
         pub fn set_flex_start<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
+        where T: std::convert::Into<bool>
         {
             self.0.request.flex_start = std::option::Option::Some(v.into());
             self
@@ -936,8 +871,7 @@ pub mod cluster_manager {
 
         /// Sets or clears the value of [flex_start][crate::model::UpdateNodePoolRequest::flex_start].
         pub fn set_or_clear_flex_start<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<bool>,
+        where T: std::convert::Into<bool>
         {
             self.0.request.flex_start = v.map(|x| x.into());
             self
@@ -945,8 +879,7 @@ pub mod cluster_manager {
 
         /// Sets the value of [boot_disk][crate::model::UpdateNodePoolRequest::boot_disk].
         pub fn set_boot_disk<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::BootDisk>,
+        where T: std::convert::Into<crate::model::BootDisk>
         {
             self.0.request.boot_disk = std::option::Option::Some(v.into());
             self
@@ -954,8 +887,7 @@ pub mod cluster_manager {
 
         /// Sets or clears the value of [boot_disk][crate::model::UpdateNodePoolRequest::boot_disk].
         pub fn set_or_clear_boot_disk<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::BootDisk>,
+        where T: std::convert::Into<crate::model::BootDisk>
         {
             self.0.request.boot_disk = v.map(|x| x.into());
             self
@@ -990,17 +922,14 @@ pub mod cluster_manager {
     pub struct SetNodePoolAutoscaling(RequestBuilder<crate::model::SetNodePoolAutoscalingRequest>);
 
     impl SetNodePoolAutoscaling {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SetNodePoolAutoscalingRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::SetNodePoolAutoscalingRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1013,10 +942,7 @@ pub mod cluster_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub)
-                .set_node_pool_autoscaling(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).set_node_pool_autoscaling(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::SetNodePoolAutoscalingRequest::project_id].
@@ -1051,8 +977,7 @@ pub mod cluster_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_autoscaling<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::NodePoolAutoscaling>,
+        where T: std::convert::Into<crate::model::NodePoolAutoscaling>
         {
             self.0.request.autoscaling = std::option::Option::Some(v.into());
             self
@@ -1062,8 +987,7 @@ pub mod cluster_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_autoscaling<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::NodePoolAutoscaling>,
+        where T: std::convert::Into<crate::model::NodePoolAutoscaling>
         {
             self.0.request.autoscaling = v.map(|x| x.into());
             self
@@ -1104,17 +1028,14 @@ pub mod cluster_manager {
     pub struct SetLoggingService(RequestBuilder<crate::model::SetLoggingServiceRequest>);
 
     impl SetLoggingService {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SetLoggingServiceRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::SetLoggingServiceRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1127,10 +1048,7 @@ pub mod cluster_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub)
-                .set_logging_service(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).set_logging_service(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::SetLoggingServiceRequest::project_id].
@@ -1197,17 +1115,14 @@ pub mod cluster_manager {
     pub struct SetMonitoringService(RequestBuilder<crate::model::SetMonitoringServiceRequest>);
 
     impl SetMonitoringService {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SetMonitoringServiceRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::SetMonitoringServiceRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1220,10 +1135,7 @@ pub mod cluster_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub)
-                .set_monitoring_service(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).set_monitoring_service(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::SetMonitoringServiceRequest::project_id].
@@ -1290,10 +1202,10 @@ pub mod cluster_manager {
     pub struct SetAddonsConfig(RequestBuilder<crate::model::SetAddonsConfigRequest>);
 
     impl SetAddonsConfig {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1310,10 +1222,7 @@ pub mod cluster_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub)
-                .set_addons_config(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).set_addons_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::SetAddonsConfigRequest::project_id].
@@ -1341,8 +1250,7 @@ pub mod cluster_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_addons_config<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::AddonsConfig>,
+        where T: std::convert::Into<crate::model::AddonsConfig>
         {
             self.0.request.addons_config = std::option::Option::Some(v.into());
             self
@@ -1352,8 +1260,7 @@ pub mod cluster_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_addons_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::AddonsConfig>,
+        where T: std::convert::Into<crate::model::AddonsConfig>
         {
             self.0.request.addons_config = v.map(|x| x.into());
             self
@@ -1394,10 +1301,10 @@ pub mod cluster_manager {
     pub struct SetLocations(RequestBuilder<crate::model::SetLocationsRequest>);
 
     impl SetLocations {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1414,10 +1321,7 @@ pub mod cluster_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub)
-                .set_locations(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).set_locations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::SetLocationsRequest::project_id].
@@ -1447,7 +1351,7 @@ pub mod cluster_manager {
         pub fn set_locations<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.0.request.locations = v.into_iter().map(|i| i.into()).collect();
@@ -1489,10 +1393,10 @@ pub mod cluster_manager {
     pub struct UpdateMaster(RequestBuilder<crate::model::UpdateMasterRequest>);
 
     impl UpdateMaster {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1509,10 +1413,7 @@ pub mod cluster_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub)
-                .update_master(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_master(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::UpdateMasterRequest::project_id].
@@ -1579,10 +1480,10 @@ pub mod cluster_manager {
     pub struct SetMasterAuth(RequestBuilder<crate::model::SetMasterAuthRequest>);
 
     impl SetMasterAuth {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1599,10 +1500,7 @@ pub mod cluster_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub)
-                .set_master_auth(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).set_master_auth(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::SetMasterAuthRequest::project_id].
@@ -1629,10 +1527,7 @@ pub mod cluster_manager {
         /// Sets the value of [action][crate::model::SetMasterAuthRequest::action].
         ///
         /// This is a **required** field for requests.
-        pub fn set_action<T: Into<crate::model::set_master_auth_request::Action>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_action<T: Into<crate::model::set_master_auth_request::Action>>(mut self, v: T) -> Self {
             self.0.request.action = v.into();
             self
         }
@@ -1641,8 +1536,7 @@ pub mod cluster_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_update<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::MasterAuth>,
+        where T: std::convert::Into<crate::model::MasterAuth>
         {
             self.0.request.update = std::option::Option::Some(v.into());
             self
@@ -1652,8 +1546,7 @@ pub mod cluster_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::MasterAuth>,
+        where T: std::convert::Into<crate::model::MasterAuth>
         {
             self.0.request.update = v.map(|x| x.into());
             self
@@ -1694,10 +1587,10 @@ pub mod cluster_manager {
     pub struct DeleteCluster(RequestBuilder<crate::model::DeleteClusterRequest>);
 
     impl DeleteCluster {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1714,10 +1607,7 @@ pub mod cluster_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub)
-                .delete_cluster(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_cluster(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::DeleteClusterRequest::project_id].
@@ -1776,10 +1666,10 @@ pub mod cluster_manager {
     pub struct ListOperations(RequestBuilder<crate::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1796,10 +1686,7 @@ pub mod cluster_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListOperationsResponse> {
-            (*self.0.stub)
-                .list_operations(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_operations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::ListOperationsRequest::project_id].
@@ -1851,10 +1738,10 @@ pub mod cluster_manager {
     pub struct GetOperation(RequestBuilder<crate::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1871,10 +1758,7 @@ pub mod cluster_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub)
-                .get_operation(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::GetOperationRequest::project_id].
@@ -1933,10 +1817,10 @@ pub mod cluster_manager {
     pub struct CancelOperation(RequestBuilder<crate::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1953,10 +1837,7 @@ pub mod cluster_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .cancel_operation(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).cancel_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::CancelOperationRequest::project_id].
@@ -2015,10 +1896,10 @@ pub mod cluster_manager {
     pub struct GetServerConfig(RequestBuilder<crate::model::GetServerConfigRequest>);
 
     impl GetServerConfig {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2035,10 +1916,7 @@ pub mod cluster_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ServerConfig> {
-            (*self.0.stub)
-                .get_server_config(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_server_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::GetServerConfigRequest::project_id].
@@ -2090,10 +1968,10 @@ pub mod cluster_manager {
     pub struct GetJSONWebKeys(RequestBuilder<crate::model::GetJSONWebKeysRequest>);
 
     impl GetJSONWebKeys {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2110,10 +1988,7 @@ pub mod cluster_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::GetJSONWebKeysResponse> {
-            (*self.0.stub)
-                .get_json_web_keys(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_json_web_keys(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::GetJSONWebKeysRequest::parent].
@@ -2151,10 +2026,10 @@ pub mod cluster_manager {
     pub struct ListNodePools(RequestBuilder<crate::model::ListNodePoolsRequest>);
 
     impl ListNodePools {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2171,10 +2046,7 @@ pub mod cluster_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListNodePoolsResponse> {
-            (*self.0.stub)
-                .list_node_pools(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_node_pools(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::ListNodePoolsRequest::project_id].
@@ -2233,10 +2105,10 @@ pub mod cluster_manager {
     pub struct GetNodePool(RequestBuilder<crate::model::GetNodePoolRequest>);
 
     impl GetNodePool {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2253,10 +2125,7 @@ pub mod cluster_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::NodePool> {
-            (*self.0.stub)
-                .get_node_pool(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_node_pool(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::GetNodePoolRequest::project_id].
@@ -2322,10 +2191,10 @@ pub mod cluster_manager {
     pub struct CreateNodePool(RequestBuilder<crate::model::CreateNodePoolRequest>);
 
     impl CreateNodePool {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2342,10 +2211,7 @@ pub mod cluster_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub)
-                .create_node_pool(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_node_pool(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::CreateNodePoolRequest::project_id].
@@ -2373,8 +2239,7 @@ pub mod cluster_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_node_pool<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::NodePool>,
+        where T: std::convert::Into<crate::model::NodePool>
         {
             self.0.request.node_pool = std::option::Option::Some(v.into());
             self
@@ -2384,8 +2249,7 @@ pub mod cluster_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_node_pool<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::NodePool>,
+        where T: std::convert::Into<crate::model::NodePool>
         {
             self.0.request.node_pool = v.map(|x| x.into());
             self
@@ -2426,10 +2290,10 @@ pub mod cluster_manager {
     pub struct DeleteNodePool(RequestBuilder<crate::model::DeleteNodePoolRequest>);
 
     impl DeleteNodePool {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2446,10 +2310,7 @@ pub mod cluster_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub)
-                .delete_node_pool(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_node_pool(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::DeleteNodePoolRequest::project_id].
@@ -2512,22 +2373,17 @@ pub mod cluster_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CompleteNodePoolUpgrade(
-        RequestBuilder<crate::model::CompleteNodePoolUpgradeRequest>,
-    );
+    pub struct CompleteNodePoolUpgrade(RequestBuilder<crate::model::CompleteNodePoolUpgradeRequest>);
 
     impl CompleteNodePoolUpgrade {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CompleteNodePoolUpgradeRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CompleteNodePoolUpgradeRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2540,10 +2396,7 @@ pub mod cluster_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .complete_node_pool_upgrade(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).complete_node_pool_upgrade(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::CompleteNodePoolUpgradeRequest::name].
@@ -2578,22 +2431,17 @@ pub mod cluster_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RollbackNodePoolUpgrade(
-        RequestBuilder<crate::model::RollbackNodePoolUpgradeRequest>,
-    );
+    pub struct RollbackNodePoolUpgrade(RequestBuilder<crate::model::RollbackNodePoolUpgradeRequest>);
 
     impl RollbackNodePoolUpgrade {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::RollbackNodePoolUpgradeRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::RollbackNodePoolUpgradeRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2606,10 +2454,7 @@ pub mod cluster_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub)
-                .rollback_node_pool_upgrade(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).rollback_node_pool_upgrade(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::RollbackNodePoolUpgradeRequest::project_id].
@@ -2681,17 +2526,14 @@ pub mod cluster_manager {
     pub struct SetNodePoolManagement(RequestBuilder<crate::model::SetNodePoolManagementRequest>);
 
     impl SetNodePoolManagement {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SetNodePoolManagementRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::SetNodePoolManagementRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2704,10 +2546,7 @@ pub mod cluster_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub)
-                .set_node_pool_management(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).set_node_pool_management(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::SetNodePoolManagementRequest::project_id].
@@ -2742,8 +2581,7 @@ pub mod cluster_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_management<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::NodeManagement>,
+        where T: std::convert::Into<crate::model::NodeManagement>
         {
             self.0.request.management = std::option::Option::Some(v.into());
             self
@@ -2753,8 +2591,7 @@ pub mod cluster_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_management<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::NodeManagement>,
+        where T: std::convert::Into<crate::model::NodeManagement>
         {
             self.0.request.management = v.map(|x| x.into());
             self
@@ -2795,10 +2632,10 @@ pub mod cluster_manager {
     pub struct SetLabels(RequestBuilder<crate::model::SetLabelsRequest>);
 
     impl SetLabels {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2815,10 +2652,7 @@ pub mod cluster_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub)
-                .set_labels(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).set_labels(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::SetLabelsRequest::project_id].
@@ -2851,8 +2685,7 @@ pub mod cluster_manager {
             K: std::convert::Into<std::string::String>,
             V: std::convert::Into<std::string::String>,
         {
-            self.0.request.resource_labels =
-                v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self.0.request.resource_labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
 
@@ -2899,10 +2732,10 @@ pub mod cluster_manager {
     pub struct SetLegacyAbac(RequestBuilder<crate::model::SetLegacyAbacRequest>);
 
     impl SetLegacyAbac {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2919,10 +2752,7 @@ pub mod cluster_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub)
-                .set_legacy_abac(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).set_legacy_abac(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::SetLegacyAbacRequest::project_id].
@@ -2989,10 +2819,10 @@ pub mod cluster_manager {
     pub struct StartIPRotation(RequestBuilder<crate::model::StartIPRotationRequest>);
 
     impl StartIPRotation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3009,10 +2839,7 @@ pub mod cluster_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub)
-                .start_ip_rotation(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).start_ip_rotation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::StartIPRotationRequest::project_id].
@@ -3077,17 +2904,14 @@ pub mod cluster_manager {
     pub struct CompleteIPRotation(RequestBuilder<crate::model::CompleteIPRotationRequest>);
 
     impl CompleteIPRotation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CompleteIPRotationRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CompleteIPRotationRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3100,10 +2924,7 @@ pub mod cluster_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub)
-                .complete_ip_rotation(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).complete_ip_rotation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::CompleteIPRotationRequest::project_id].
@@ -3162,10 +2983,10 @@ pub mod cluster_manager {
     pub struct SetNodePoolSize(RequestBuilder<crate::model::SetNodePoolSizeRequest>);
 
     impl SetNodePoolSize {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3182,10 +3003,7 @@ pub mod cluster_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub)
-                .set_node_pool_size(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).set_node_pool_size(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::SetNodePoolSizeRequest::project_id].
@@ -3259,17 +3077,14 @@ pub mod cluster_manager {
     pub struct SetNetworkPolicy(RequestBuilder<crate::model::SetNetworkPolicyRequest>);
 
     impl SetNetworkPolicy {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SetNetworkPolicyRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::SetNetworkPolicyRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3282,10 +3097,7 @@ pub mod cluster_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub)
-                .set_network_policy(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).set_network_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::SetNetworkPolicyRequest::project_id].
@@ -3313,8 +3125,7 @@ pub mod cluster_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_network_policy<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::NetworkPolicy>,
+        where T: std::convert::Into<crate::model::NetworkPolicy>
         {
             self.0.request.network_policy = std::option::Option::Some(v.into());
             self
@@ -3324,8 +3135,7 @@ pub mod cluster_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_network_policy<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::NetworkPolicy>,
+        where T: std::convert::Into<crate::model::NetworkPolicy>
         {
             self.0.request.network_policy = v.map(|x| x.into());
             self
@@ -3366,17 +3176,14 @@ pub mod cluster_manager {
     pub struct SetMaintenancePolicy(RequestBuilder<crate::model::SetMaintenancePolicyRequest>);
 
     impl SetMaintenancePolicy {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SetMaintenancePolicyRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::SetMaintenancePolicyRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3389,10 +3196,7 @@ pub mod cluster_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub)
-                .set_maintenance_policy(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).set_maintenance_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::SetMaintenancePolicyRequest::project_id].
@@ -3423,8 +3227,7 @@ pub mod cluster_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_maintenance_policy<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::MaintenancePolicy>,
+        where T: std::convert::Into<crate::model::MaintenancePolicy>
         {
             self.0.request.maintenance_policy = std::option::Option::Some(v.into());
             self
@@ -3434,8 +3237,7 @@ pub mod cluster_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_maintenance_policy<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::MaintenancePolicy>,
+        where T: std::convert::Into<crate::model::MaintenancePolicy>
         {
             self.0.request.maintenance_policy = v.map(|x| x.into());
             self
@@ -3480,17 +3282,14 @@ pub mod cluster_manager {
     pub struct ListUsableSubnetworks(RequestBuilder<crate::model::ListUsableSubnetworksRequest>);
 
     impl ListUsableSubnetworks {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListUsableSubnetworksRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListUsableSubnetworksRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3503,17 +3302,11 @@ pub mod cluster_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListUsableSubnetworksResponse> {
-            (*self.0.stub)
-                .list_usable_subnetworks(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_usable_subnetworks(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListUsableSubnetworksResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListUsableSubnetworksResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -3525,12 +3318,7 @@ pub mod cluster_manager {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListUsableSubnetworksResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListUsableSubnetworksResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -3585,22 +3373,17 @@ pub mod cluster_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CheckAutopilotCompatibility(
-        RequestBuilder<crate::model::CheckAutopilotCompatibilityRequest>,
-    );
+    pub struct CheckAutopilotCompatibility(RequestBuilder<crate::model::CheckAutopilotCompatibilityRequest>);
 
     impl CheckAutopilotCompatibility {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CheckAutopilotCompatibilityRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CheckAutopilotCompatibilityRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3613,10 +3396,7 @@ pub mod cluster_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::CheckAutopilotCompatibilityResponse> {
-            (*self.0.stub)
-                .check_autopilot_compatibility(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).check_autopilot_compatibility(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::CheckAutopilotCompatibilityRequest::name].
@@ -3651,22 +3431,17 @@ pub mod cluster_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct FetchClusterUpgradeInfo(
-        RequestBuilder<crate::model::FetchClusterUpgradeInfoRequest>,
-    );
+    pub struct FetchClusterUpgradeInfo(RequestBuilder<crate::model::FetchClusterUpgradeInfoRequest>);
 
     impl FetchClusterUpgradeInfo {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::FetchClusterUpgradeInfoRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::FetchClusterUpgradeInfoRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3679,10 +3454,7 @@ pub mod cluster_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ClusterUpgradeInfo> {
-            (*self.0.stub)
-                .fetch_cluster_upgrade_info(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).fetch_cluster_upgrade_info(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::FetchClusterUpgradeInfoRequest::name].
@@ -3725,22 +3497,17 @@ pub mod cluster_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct FetchNodePoolUpgradeInfo(
-        RequestBuilder<crate::model::FetchNodePoolUpgradeInfoRequest>,
-    );
+    pub struct FetchNodePoolUpgradeInfo(RequestBuilder<crate::model::FetchNodePoolUpgradeInfoRequest>);
 
     impl FetchNodePoolUpgradeInfo {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::FetchNodePoolUpgradeInfoRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::FetchNodePoolUpgradeInfoRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3753,10 +3520,7 @@ pub mod cluster_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::NodePoolUpgradeInfo> {
-            (*self.0.stub)
-                .fetch_node_pool_upgrade_info(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).fetch_node_pool_upgrade_info(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::FetchNodePoolUpgradeInfoRequest::name].
@@ -3780,4 +3544,5 @@ pub mod cluster_manager {
             &mut self.0.options
         }
     }
+
 }

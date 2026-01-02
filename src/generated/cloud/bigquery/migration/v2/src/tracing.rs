@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [MigrationService](super::stub::MigrationService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct MigrationService<T>
-where
-    T: super::stub::MigrationService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::MigrationService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> MigrationService<T>
-where
-    T: super::stub::MigrationService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::MigrationService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::MigrationService for MigrationService<T>
-where
-    T: super::stub::MigrationService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::MigrationService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn create_migration_workflow(
         &self,
@@ -99,4 +93,6 @@ where
     ) -> Result<gax::response::Response<crate::model::ListMigrationSubtasksResponse>> {
         self.inner.list_migration_subtasks(req, options).await
     }
+
 }
+

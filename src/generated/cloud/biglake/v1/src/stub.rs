@@ -38,14 +38,13 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait IcebergCatalogService: std::fmt::Debug + Send + Sync {
+
     /// Implements [super::client::IcebergCatalogService::get_iceberg_catalog_config].
     fn get_iceberg_catalog_config(
         &self,
         _req: crate::model::GetIcebergCatalogConfigRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::IcebergCatalogConfig>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::IcebergCatalogConfig>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -54,11 +53,7 @@ pub trait IcebergCatalogService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListIcebergNamespacesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::ListIcebergNamespacesResponse>,
-        >,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListIcebergNamespacesResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -67,9 +62,7 @@ pub trait IcebergCatalogService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetIcebergNamespaceRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::IcebergNamespace>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::IcebergNamespace>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -78,9 +71,7 @@ pub trait IcebergCatalogService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateIcebergNamespaceRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::IcebergNamespace>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::IcebergNamespace>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -98,11 +89,7 @@ pub trait IcebergCatalogService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateIcebergNamespaceRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::UpdateIcebergNamespaceResponse>,
-        >,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::UpdateIcebergNamespaceResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -111,11 +98,7 @@ pub trait IcebergCatalogService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListIcebergTableIdentifiersRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::ListIcebergTableIdentifiersResponse>,
-        >,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListIcebergTableIdentifiersResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -124,9 +107,7 @@ pub trait IcebergCatalogService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateIcebergTableRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<api::model::HttpBody>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<api::model::HttpBody>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -144,9 +125,7 @@ pub trait IcebergCatalogService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetIcebergTableRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<api::model::HttpBody>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<api::model::HttpBody>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -155,11 +134,7 @@ pub trait IcebergCatalogService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetIcebergTableRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::LoadIcebergTableCredentialsResponse>,
-        >,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::LoadIcebergTableCredentialsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -168,9 +143,7 @@ pub trait IcebergCatalogService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateIcebergTableRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<api::model::HttpBody>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<api::model::HttpBody>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -179,9 +152,7 @@ pub trait IcebergCatalogService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::RegisterIcebergTableRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<api::model::HttpBody>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<api::model::HttpBody>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -190,9 +161,7 @@ pub trait IcebergCatalogService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetIcebergCatalogRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::IcebergCatalog>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::IcebergCatalog>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -201,9 +170,7 @@ pub trait IcebergCatalogService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListIcebergCatalogsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListIcebergCatalogsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListIcebergCatalogsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -221,9 +188,7 @@ pub trait IcebergCatalogService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateIcebergCatalogRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::IcebergCatalog>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::IcebergCatalog>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -232,9 +197,7 @@ pub trait IcebergCatalogService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateIcebergCatalogRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::IcebergCatalog>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::IcebergCatalog>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -243,11 +206,8 @@ pub trait IcebergCatalogService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::FailoverIcebergCatalogRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::FailoverIcebergCatalogResponse>,
-        >,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::FailoverIcebergCatalogResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 }
+

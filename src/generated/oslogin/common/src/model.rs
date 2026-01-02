@@ -17,11 +17,11 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate bytes;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate wkt;
 
 mod debug;
@@ -32,6 +32,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PosixAccount {
+
     /// Only one POSIX account can be marked as primary.
     pub primary: bool,
 
@@ -191,10 +192,7 @@ impl PosixAccount {
     /// let x0 = PosixAccount::new().set_operating_system_type(OperatingSystemType::Linux);
     /// let x1 = PosixAccount::new().set_operating_system_type(OperatingSystemType::Windows);
     /// ```
-    pub fn set_operating_system_type<T: std::convert::Into<crate::model::OperatingSystemType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_operating_system_type<T: std::convert::Into<crate::model::OperatingSystemType>>(mut self, v: T) -> Self {
         self.operating_system_type = v.into();
         self
     }
@@ -222,6 +220,7 @@ impl wkt::message::Message for PosixAccount {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SshPublicKey {
+
     /// Public key text in SSH format, defined by
     /// [RFC4253](https://www.ietf.org/rfc/rfc4253.txt) section 6.6.
     pub key: std::string::String,
@@ -385,9 +384,7 @@ impl std::convert::From<i32> for OperatingSystemType {
             0 => Self::Unspecified,
             1 => Self::Linux,
             2 => Self::Windows,
-            _ => Self::UnknownValue(operating_system_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(operating_system_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -399,9 +396,7 @@ impl std::convert::From<&str> for OperatingSystemType {
             "OPERATING_SYSTEM_TYPE_UNSPECIFIED" => Self::Unspecified,
             "LINUX" => Self::Linux,
             "WINDOWS" => Self::Windows,
-            _ => Self::UnknownValue(operating_system_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(operating_system_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -426,7 +421,6 @@ impl<'de> serde::de::Deserialize<'de> for OperatingSystemType {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<OperatingSystemType>::new(
-            ".google.cloud.oslogin.common.OperatingSystemType",
-        ))
+            ".google.cloud.oslogin.common.OperatingSystemType"))
     }
 }

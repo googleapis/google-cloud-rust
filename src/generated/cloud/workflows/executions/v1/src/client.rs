@@ -81,64 +81,103 @@ impl Executions {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::Executions + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::Executions + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Executions>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Executions>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Executions> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Executions> {
         super::transport::Executions::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Executions> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::Executions::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Executions> {
+        Self::build_transport(conf).await.map(super::tracing::Executions::new)
     }
 
     /// Returns a list of executions which belong to the workflow with
     /// the given name. The method returns executions of all workflow
     /// revisions. Returned executions are ordered by their start time (newest
     /// first).
-    pub fn list_executions(&self) -> super::builder::executions::ListExecutions {
+    pub fn list_executions(&self) -> super::builder::executions::ListExecutions
+    {
         super::builder::executions::ListExecutions::new(self.inner.clone())
     }
 
     /// Creates a new execution using the latest revision of the given workflow.
-    pub fn create_execution(&self) -> super::builder::executions::CreateExecution {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_executions_v1::client::Executions;
+    /// async fn sample(
+    ///    client: &Executions
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_execution()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_execution(&self) -> super::builder::executions::CreateExecution
+    {
         super::builder::executions::CreateExecution::new(self.inner.clone())
     }
 
     /// Returns an execution of the given name.
-    pub fn get_execution(&self) -> super::builder::executions::GetExecution {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_executions_v1::client::Executions;
+    /// async fn sample(
+    ///    client: &Executions,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_execution()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_execution(&self) -> super::builder::executions::GetExecution
+    {
         super::builder::executions::GetExecution::new(self.inner.clone())
     }
 
     /// Cancels an execution of the given name.
-    pub fn cancel_execution(&self) -> super::builder::executions::CancelExecution {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_executions_v1::client::Executions;
+    /// async fn sample(
+    ///    client: &Executions
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .cancel_execution()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_execution(&self) -> super::builder::executions::CancelExecution
+    {
         super::builder::executions::CancelExecution::new(self.inner.clone())
     }
 }

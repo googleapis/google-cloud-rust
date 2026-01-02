@@ -80,53 +80,56 @@ impl DepService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::DepService + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::DepService + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::DepService>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::DepService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::DepService> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::DepService> {
         super::transport::DepService::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::DepService> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::DepService::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::DepService> {
+        Self::build_transport(conf).await.map(super::tracing::DepService::new)
     }
 
     /// Lists `LbTrafficExtension` resources in a given project and location.
-    pub fn list_lb_traffic_extensions(
-        &self,
-    ) -> super::builder::dep_service::ListLbTrafficExtensions {
+    pub fn list_lb_traffic_extensions(&self) -> super::builder::dep_service::ListLbTrafficExtensions
+    {
         super::builder::dep_service::ListLbTrafficExtensions::new(self.inner.clone())
     }
 
     /// Gets details of the specified `LbTrafficExtension` resource.
-    pub fn get_lb_traffic_extension(&self) -> super::builder::dep_service::GetLbTrafficExtension {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::DepService;
+    /// async fn sample(
+    ///    client: &DepService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_lb_traffic_extension()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_lb_traffic_extension(&self) -> super::builder::dep_service::GetLbTrafficExtension
+    {
         super::builder::dep_service::GetLbTrafficExtension::new(self.inner.clone())
     }
 
@@ -142,9 +145,8 @@ impl DepService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_lb_traffic_extension(
-        &self,
-    ) -> super::builder::dep_service::CreateLbTrafficExtension {
+    pub fn create_lb_traffic_extension(&self) -> super::builder::dep_service::CreateLbTrafficExtension
+    {
         super::builder::dep_service::CreateLbTrafficExtension::new(self.inner.clone())
     }
 
@@ -159,9 +161,8 @@ impl DepService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_lb_traffic_extension(
-        &self,
-    ) -> super::builder::dep_service::UpdateLbTrafficExtension {
+    pub fn update_lb_traffic_extension(&self) -> super::builder::dep_service::UpdateLbTrafficExtension
+    {
         super::builder::dep_service::UpdateLbTrafficExtension::new(self.inner.clone())
     }
 
@@ -176,19 +177,37 @@ impl DepService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_lb_traffic_extension(
-        &self,
-    ) -> super::builder::dep_service::DeleteLbTrafficExtension {
+    pub fn delete_lb_traffic_extension(&self) -> super::builder::dep_service::DeleteLbTrafficExtension
+    {
         super::builder::dep_service::DeleteLbTrafficExtension::new(self.inner.clone())
     }
 
     /// Lists `LbRouteExtension` resources in a given project and location.
-    pub fn list_lb_route_extensions(&self) -> super::builder::dep_service::ListLbRouteExtensions {
+    pub fn list_lb_route_extensions(&self) -> super::builder::dep_service::ListLbRouteExtensions
+    {
         super::builder::dep_service::ListLbRouteExtensions::new(self.inner.clone())
     }
 
     /// Gets details of the specified `LbRouteExtension` resource.
-    pub fn get_lb_route_extension(&self) -> super::builder::dep_service::GetLbRouteExtension {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::DepService;
+    /// async fn sample(
+    ///    client: &DepService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_lb_route_extension()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_lb_route_extension(&self) -> super::builder::dep_service::GetLbRouteExtension
+    {
         super::builder::dep_service::GetLbRouteExtension::new(self.inner.clone())
     }
 
@@ -203,7 +222,8 @@ impl DepService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_lb_route_extension(&self) -> super::builder::dep_service::CreateLbRouteExtension {
+    pub fn create_lb_route_extension(&self) -> super::builder::dep_service::CreateLbRouteExtension
+    {
         super::builder::dep_service::CreateLbRouteExtension::new(self.inner.clone())
     }
 
@@ -218,7 +238,8 @@ impl DepService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_lb_route_extension(&self) -> super::builder::dep_service::UpdateLbRouteExtension {
+    pub fn update_lb_route_extension(&self) -> super::builder::dep_service::UpdateLbRouteExtension
+    {
         super::builder::dep_service::UpdateLbRouteExtension::new(self.inner.clone())
     }
 
@@ -233,17 +254,37 @@ impl DepService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_lb_route_extension(&self) -> super::builder::dep_service::DeleteLbRouteExtension {
+    pub fn delete_lb_route_extension(&self) -> super::builder::dep_service::DeleteLbRouteExtension
+    {
         super::builder::dep_service::DeleteLbRouteExtension::new(self.inner.clone())
     }
 
     /// Lists `LbEdgeExtension` resources in a given project and location.
-    pub fn list_lb_edge_extensions(&self) -> super::builder::dep_service::ListLbEdgeExtensions {
+    pub fn list_lb_edge_extensions(&self) -> super::builder::dep_service::ListLbEdgeExtensions
+    {
         super::builder::dep_service::ListLbEdgeExtensions::new(self.inner.clone())
     }
 
     /// Gets details of the specified `LbEdgeExtension` resource.
-    pub fn get_lb_edge_extension(&self) -> super::builder::dep_service::GetLbEdgeExtension {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::DepService;
+    /// async fn sample(
+    ///    client: &DepService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_lb_edge_extension()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_lb_edge_extension(&self) -> super::builder::dep_service::GetLbEdgeExtension
+    {
         super::builder::dep_service::GetLbEdgeExtension::new(self.inner.clone())
     }
 
@@ -258,7 +299,8 @@ impl DepService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_lb_edge_extension(&self) -> super::builder::dep_service::CreateLbEdgeExtension {
+    pub fn create_lb_edge_extension(&self) -> super::builder::dep_service::CreateLbEdgeExtension
+    {
         super::builder::dep_service::CreateLbEdgeExtension::new(self.inner.clone())
     }
 
@@ -273,7 +315,8 @@ impl DepService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_lb_edge_extension(&self) -> super::builder::dep_service::UpdateLbEdgeExtension {
+    pub fn update_lb_edge_extension(&self) -> super::builder::dep_service::UpdateLbEdgeExtension
+    {
         super::builder::dep_service::UpdateLbEdgeExtension::new(self.inner.clone())
     }
 
@@ -288,17 +331,37 @@ impl DepService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_lb_edge_extension(&self) -> super::builder::dep_service::DeleteLbEdgeExtension {
+    pub fn delete_lb_edge_extension(&self) -> super::builder::dep_service::DeleteLbEdgeExtension
+    {
         super::builder::dep_service::DeleteLbEdgeExtension::new(self.inner.clone())
     }
 
     /// Lists `AuthzExtension` resources in a given project and location.
-    pub fn list_authz_extensions(&self) -> super::builder::dep_service::ListAuthzExtensions {
+    pub fn list_authz_extensions(&self) -> super::builder::dep_service::ListAuthzExtensions
+    {
         super::builder::dep_service::ListAuthzExtensions::new(self.inner.clone())
     }
 
     /// Gets details of the specified `AuthzExtension` resource.
-    pub fn get_authz_extension(&self) -> super::builder::dep_service::GetAuthzExtension {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::DepService;
+    /// async fn sample(
+    ///    client: &DepService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_authz_extension()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_authz_extension(&self) -> super::builder::dep_service::GetAuthzExtension
+    {
         super::builder::dep_service::GetAuthzExtension::new(self.inner.clone())
     }
 
@@ -314,7 +377,8 @@ impl DepService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_authz_extension(&self) -> super::builder::dep_service::CreateAuthzExtension {
+    pub fn create_authz_extension(&self) -> super::builder::dep_service::CreateAuthzExtension
+    {
         super::builder::dep_service::CreateAuthzExtension::new(self.inner.clone())
     }
 
@@ -330,7 +394,8 @@ impl DepService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_authz_extension(&self) -> super::builder::dep_service::UpdateAuthzExtension {
+    pub fn update_authz_extension(&self) -> super::builder::dep_service::UpdateAuthzExtension
+    {
         super::builder::dep_service::UpdateAuthzExtension::new(self.inner.clone())
     }
 
@@ -345,17 +410,36 @@ impl DepService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_authz_extension(&self) -> super::builder::dep_service::DeleteAuthzExtension {
+    pub fn delete_authz_extension(&self) -> super::builder::dep_service::DeleteAuthzExtension
+    {
         super::builder::dep_service::DeleteAuthzExtension::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::dep_service::ListLocations {
+    pub fn list_locations(&self) -> super::builder::dep_service::ListLocations
+    {
         super::builder::dep_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(&self) -> super::builder::dep_service::GetLocation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::DepService;
+    /// async fn sample(
+    ///    client: &DepService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_location(&self) -> super::builder::dep_service::GetLocation
+    {
         super::builder::dep_service::GetLocation::new(self.inner.clone())
     }
 
@@ -364,13 +448,47 @@ impl DepService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
-    pub fn set_iam_policy(&self) -> super::builder::dep_service::SetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::DepService;
+    /// async fn sample(
+    ///    client: &DepService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::dep_service::SetIamPolicy
+    {
         super::builder::dep_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
-    pub fn get_iam_policy(&self) -> super::builder::dep_service::GetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::DepService;
+    /// async fn sample(
+    ///    client: &DepService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::dep_service::GetIamPolicy
+    {
         super::builder::dep_service::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -381,35 +499,102 @@ impl DepService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
-    pub fn test_iam_permissions(&self) -> super::builder::dep_service::TestIamPermissions {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::DepService;
+    /// async fn sample(
+    ///    client: &DepService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::dep_service::TestIamPermissions
+    {
         super::builder::dep_service::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::dep_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::dep_service::ListOperations
+    {
         super::builder::dep_service::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::dep_service::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::DepService;
+    /// async fn sample(
+    ///    client: &DepService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::dep_service::GetOperation
+    {
         super::builder::dep_service::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(&self) -> super::builder::dep_service::DeleteOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::DepService;
+    /// async fn sample(
+    ///    client: &DepService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_operation(&self) -> super::builder::dep_service::DeleteOperation
+    {
         super::builder::dep_service::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(&self) -> super::builder::dep_service::CancelOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::DepService;
+    /// async fn sample(
+    ///    client: &DepService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_operation(&self) -> super::builder::dep_service::CancelOperation
+    {
         super::builder::dep_service::CancelOperation::new(self.inner.clone())
     }
 }
@@ -470,9 +655,7 @@ impl NetworkServices {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::network_services::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::network_services::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::network_services::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -480,52 +663,56 @@ impl NetworkServices {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::NetworkServices + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::NetworkServices + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::NetworkServices>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::NetworkServices>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::NetworkServices> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::NetworkServices> {
         super::transport::NetworkServices::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::NetworkServices> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::NetworkServices::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::NetworkServices> {
+        Self::build_transport(conf).await.map(super::tracing::NetworkServices::new)
     }
 
     /// Lists EndpointPolicies in a given project and location.
-    pub fn list_endpoint_policies(&self) -> super::builder::network_services::ListEndpointPolicies {
+    pub fn list_endpoint_policies(&self) -> super::builder::network_services::ListEndpointPolicies
+    {
         super::builder::network_services::ListEndpointPolicies::new(self.inner.clone())
     }
 
     /// Gets details of a single EndpointPolicy.
-    pub fn get_endpoint_policy(&self) -> super::builder::network_services::GetEndpointPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::NetworkServices;
+    /// async fn sample(
+    ///    client: &NetworkServices,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_endpoint_policy()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_endpoint_policy(&self) -> super::builder::network_services::GetEndpointPolicy
+    {
         super::builder::network_services::GetEndpointPolicy::new(self.inner.clone())
     }
 
@@ -540,7 +727,8 @@ impl NetworkServices {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_endpoint_policy(&self) -> super::builder::network_services::CreateEndpointPolicy {
+    pub fn create_endpoint_policy(&self) -> super::builder::network_services::CreateEndpointPolicy
+    {
         super::builder::network_services::CreateEndpointPolicy::new(self.inner.clone())
     }
 
@@ -555,7 +743,8 @@ impl NetworkServices {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_endpoint_policy(&self) -> super::builder::network_services::UpdateEndpointPolicy {
+    pub fn update_endpoint_policy(&self) -> super::builder::network_services::UpdateEndpointPolicy
+    {
         super::builder::network_services::UpdateEndpointPolicy::new(self.inner.clone())
     }
 
@@ -570,22 +759,38 @@ impl NetworkServices {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_endpoint_policy(&self) -> super::builder::network_services::DeleteEndpointPolicy {
+    pub fn delete_endpoint_policy(&self) -> super::builder::network_services::DeleteEndpointPolicy
+    {
         super::builder::network_services::DeleteEndpointPolicy::new(self.inner.clone())
     }
 
     /// Lists `WasmPluginVersion` resources in a given project and
     /// location.
-    pub fn list_wasm_plugin_versions(
-        &self,
-    ) -> super::builder::network_services::ListWasmPluginVersions {
+    pub fn list_wasm_plugin_versions(&self) -> super::builder::network_services::ListWasmPluginVersions
+    {
         super::builder::network_services::ListWasmPluginVersions::new(self.inner.clone())
     }
 
     /// Gets details of the specified `WasmPluginVersion` resource.
-    pub fn get_wasm_plugin_version(
-        &self,
-    ) -> super::builder::network_services::GetWasmPluginVersion {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::NetworkServices;
+    /// async fn sample(
+    ///    client: &NetworkServices,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_wasm_plugin_version()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_wasm_plugin_version(&self) -> super::builder::network_services::GetWasmPluginVersion
+    {
         super::builder::network_services::GetWasmPluginVersion::new(self.inner.clone())
     }
 
@@ -601,9 +806,8 @@ impl NetworkServices {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_wasm_plugin_version(
-        &self,
-    ) -> super::builder::network_services::CreateWasmPluginVersion {
+    pub fn create_wasm_plugin_version(&self) -> super::builder::network_services::CreateWasmPluginVersion
+    {
         super::builder::network_services::CreateWasmPluginVersion::new(self.inner.clone())
     }
 
@@ -618,20 +822,38 @@ impl NetworkServices {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_wasm_plugin_version(
-        &self,
-    ) -> super::builder::network_services::DeleteWasmPluginVersion {
+    pub fn delete_wasm_plugin_version(&self) -> super::builder::network_services::DeleteWasmPluginVersion
+    {
         super::builder::network_services::DeleteWasmPluginVersion::new(self.inner.clone())
     }
 
     /// Lists `WasmPlugin` resources in a given project and
     /// location.
-    pub fn list_wasm_plugins(&self) -> super::builder::network_services::ListWasmPlugins {
+    pub fn list_wasm_plugins(&self) -> super::builder::network_services::ListWasmPlugins
+    {
         super::builder::network_services::ListWasmPlugins::new(self.inner.clone())
     }
 
     /// Gets details of the specified `WasmPlugin` resource.
-    pub fn get_wasm_plugin(&self) -> super::builder::network_services::GetWasmPlugin {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::NetworkServices;
+    /// async fn sample(
+    ///    client: &NetworkServices,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_wasm_plugin()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_wasm_plugin(&self) -> super::builder::network_services::GetWasmPlugin
+    {
         super::builder::network_services::GetWasmPlugin::new(self.inner.clone())
     }
 
@@ -647,7 +869,8 @@ impl NetworkServices {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_wasm_plugin(&self) -> super::builder::network_services::CreateWasmPlugin {
+    pub fn create_wasm_plugin(&self) -> super::builder::network_services::CreateWasmPlugin
+    {
         super::builder::network_services::CreateWasmPlugin::new(self.inner.clone())
     }
 
@@ -662,7 +885,8 @@ impl NetworkServices {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_wasm_plugin(&self) -> super::builder::network_services::UpdateWasmPlugin {
+    pub fn update_wasm_plugin(&self) -> super::builder::network_services::UpdateWasmPlugin
+    {
         super::builder::network_services::UpdateWasmPlugin::new(self.inner.clone())
     }
 
@@ -677,17 +901,37 @@ impl NetworkServices {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_wasm_plugin(&self) -> super::builder::network_services::DeleteWasmPlugin {
+    pub fn delete_wasm_plugin(&self) -> super::builder::network_services::DeleteWasmPlugin
+    {
         super::builder::network_services::DeleteWasmPlugin::new(self.inner.clone())
     }
 
     /// Lists Gateways in a given project and location.
-    pub fn list_gateways(&self) -> super::builder::network_services::ListGateways {
+    pub fn list_gateways(&self) -> super::builder::network_services::ListGateways
+    {
         super::builder::network_services::ListGateways::new(self.inner.clone())
     }
 
     /// Gets details of a single Gateway.
-    pub fn get_gateway(&self) -> super::builder::network_services::GetGateway {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::NetworkServices;
+    /// async fn sample(
+    ///    client: &NetworkServices,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_gateway()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_gateway(&self) -> super::builder::network_services::GetGateway
+    {
         super::builder::network_services::GetGateway::new(self.inner.clone())
     }
 
@@ -702,7 +946,8 @@ impl NetworkServices {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_gateway(&self) -> super::builder::network_services::CreateGateway {
+    pub fn create_gateway(&self) -> super::builder::network_services::CreateGateway
+    {
         super::builder::network_services::CreateGateway::new(self.inner.clone())
     }
 
@@ -717,7 +962,8 @@ impl NetworkServices {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_gateway(&self) -> super::builder::network_services::UpdateGateway {
+    pub fn update_gateway(&self) -> super::builder::network_services::UpdateGateway
+    {
         super::builder::network_services::UpdateGateway::new(self.inner.clone())
     }
 
@@ -732,17 +978,37 @@ impl NetworkServices {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_gateway(&self) -> super::builder::network_services::DeleteGateway {
+    pub fn delete_gateway(&self) -> super::builder::network_services::DeleteGateway
+    {
         super::builder::network_services::DeleteGateway::new(self.inner.clone())
     }
 
     /// Lists GrpcRoutes in a given project and location.
-    pub fn list_grpc_routes(&self) -> super::builder::network_services::ListGrpcRoutes {
+    pub fn list_grpc_routes(&self) -> super::builder::network_services::ListGrpcRoutes
+    {
         super::builder::network_services::ListGrpcRoutes::new(self.inner.clone())
     }
 
     /// Gets details of a single GrpcRoute.
-    pub fn get_grpc_route(&self) -> super::builder::network_services::GetGrpcRoute {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::NetworkServices;
+    /// async fn sample(
+    ///    client: &NetworkServices,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_grpc_route()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_grpc_route(&self) -> super::builder::network_services::GetGrpcRoute
+    {
         super::builder::network_services::GetGrpcRoute::new(self.inner.clone())
     }
 
@@ -757,7 +1023,8 @@ impl NetworkServices {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_grpc_route(&self) -> super::builder::network_services::CreateGrpcRoute {
+    pub fn create_grpc_route(&self) -> super::builder::network_services::CreateGrpcRoute
+    {
         super::builder::network_services::CreateGrpcRoute::new(self.inner.clone())
     }
 
@@ -772,7 +1039,8 @@ impl NetworkServices {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_grpc_route(&self) -> super::builder::network_services::UpdateGrpcRoute {
+    pub fn update_grpc_route(&self) -> super::builder::network_services::UpdateGrpcRoute
+    {
         super::builder::network_services::UpdateGrpcRoute::new(self.inner.clone())
     }
 
@@ -787,17 +1055,37 @@ impl NetworkServices {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_grpc_route(&self) -> super::builder::network_services::DeleteGrpcRoute {
+    pub fn delete_grpc_route(&self) -> super::builder::network_services::DeleteGrpcRoute
+    {
         super::builder::network_services::DeleteGrpcRoute::new(self.inner.clone())
     }
 
     /// Lists HttpRoute in a given project and location.
-    pub fn list_http_routes(&self) -> super::builder::network_services::ListHttpRoutes {
+    pub fn list_http_routes(&self) -> super::builder::network_services::ListHttpRoutes
+    {
         super::builder::network_services::ListHttpRoutes::new(self.inner.clone())
     }
 
     /// Gets details of a single HttpRoute.
-    pub fn get_http_route(&self) -> super::builder::network_services::GetHttpRoute {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::NetworkServices;
+    /// async fn sample(
+    ///    client: &NetworkServices,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_http_route()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_http_route(&self) -> super::builder::network_services::GetHttpRoute
+    {
         super::builder::network_services::GetHttpRoute::new(self.inner.clone())
     }
 
@@ -812,7 +1100,8 @@ impl NetworkServices {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_http_route(&self) -> super::builder::network_services::CreateHttpRoute {
+    pub fn create_http_route(&self) -> super::builder::network_services::CreateHttpRoute
+    {
         super::builder::network_services::CreateHttpRoute::new(self.inner.clone())
     }
 
@@ -827,7 +1116,8 @@ impl NetworkServices {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_http_route(&self) -> super::builder::network_services::UpdateHttpRoute {
+    pub fn update_http_route(&self) -> super::builder::network_services::UpdateHttpRoute
+    {
         super::builder::network_services::UpdateHttpRoute::new(self.inner.clone())
     }
 
@@ -842,17 +1132,37 @@ impl NetworkServices {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_http_route(&self) -> super::builder::network_services::DeleteHttpRoute {
+    pub fn delete_http_route(&self) -> super::builder::network_services::DeleteHttpRoute
+    {
         super::builder::network_services::DeleteHttpRoute::new(self.inner.clone())
     }
 
     /// Lists TcpRoute in a given project and location.
-    pub fn list_tcp_routes(&self) -> super::builder::network_services::ListTcpRoutes {
+    pub fn list_tcp_routes(&self) -> super::builder::network_services::ListTcpRoutes
+    {
         super::builder::network_services::ListTcpRoutes::new(self.inner.clone())
     }
 
     /// Gets details of a single TcpRoute.
-    pub fn get_tcp_route(&self) -> super::builder::network_services::GetTcpRoute {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::NetworkServices;
+    /// async fn sample(
+    ///    client: &NetworkServices,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_tcp_route()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_tcp_route(&self) -> super::builder::network_services::GetTcpRoute
+    {
         super::builder::network_services::GetTcpRoute::new(self.inner.clone())
     }
 
@@ -867,7 +1177,8 @@ impl NetworkServices {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_tcp_route(&self) -> super::builder::network_services::CreateTcpRoute {
+    pub fn create_tcp_route(&self) -> super::builder::network_services::CreateTcpRoute
+    {
         super::builder::network_services::CreateTcpRoute::new(self.inner.clone())
     }
 
@@ -882,7 +1193,8 @@ impl NetworkServices {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_tcp_route(&self) -> super::builder::network_services::UpdateTcpRoute {
+    pub fn update_tcp_route(&self) -> super::builder::network_services::UpdateTcpRoute
+    {
         super::builder::network_services::UpdateTcpRoute::new(self.inner.clone())
     }
 
@@ -897,17 +1209,37 @@ impl NetworkServices {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_tcp_route(&self) -> super::builder::network_services::DeleteTcpRoute {
+    pub fn delete_tcp_route(&self) -> super::builder::network_services::DeleteTcpRoute
+    {
         super::builder::network_services::DeleteTcpRoute::new(self.inner.clone())
     }
 
     /// Lists TlsRoute in a given project and location.
-    pub fn list_tls_routes(&self) -> super::builder::network_services::ListTlsRoutes {
+    pub fn list_tls_routes(&self) -> super::builder::network_services::ListTlsRoutes
+    {
         super::builder::network_services::ListTlsRoutes::new(self.inner.clone())
     }
 
     /// Gets details of a single TlsRoute.
-    pub fn get_tls_route(&self) -> super::builder::network_services::GetTlsRoute {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::NetworkServices;
+    /// async fn sample(
+    ///    client: &NetworkServices,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_tls_route()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_tls_route(&self) -> super::builder::network_services::GetTlsRoute
+    {
         super::builder::network_services::GetTlsRoute::new(self.inner.clone())
     }
 
@@ -922,7 +1254,8 @@ impl NetworkServices {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_tls_route(&self) -> super::builder::network_services::CreateTlsRoute {
+    pub fn create_tls_route(&self) -> super::builder::network_services::CreateTlsRoute
+    {
         super::builder::network_services::CreateTlsRoute::new(self.inner.clone())
     }
 
@@ -937,7 +1270,8 @@ impl NetworkServices {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_tls_route(&self) -> super::builder::network_services::UpdateTlsRoute {
+    pub fn update_tls_route(&self) -> super::builder::network_services::UpdateTlsRoute
+    {
         super::builder::network_services::UpdateTlsRoute::new(self.inner.clone())
     }
 
@@ -952,17 +1286,37 @@ impl NetworkServices {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_tls_route(&self) -> super::builder::network_services::DeleteTlsRoute {
+    pub fn delete_tls_route(&self) -> super::builder::network_services::DeleteTlsRoute
+    {
         super::builder::network_services::DeleteTlsRoute::new(self.inner.clone())
     }
 
     /// Lists ServiceBinding in a given project and location.
-    pub fn list_service_bindings(&self) -> super::builder::network_services::ListServiceBindings {
+    pub fn list_service_bindings(&self) -> super::builder::network_services::ListServiceBindings
+    {
         super::builder::network_services::ListServiceBindings::new(self.inner.clone())
     }
 
     /// Gets details of a single ServiceBinding.
-    pub fn get_service_binding(&self) -> super::builder::network_services::GetServiceBinding {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::NetworkServices;
+    /// async fn sample(
+    ///    client: &NetworkServices,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_service_binding()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_service_binding(&self) -> super::builder::network_services::GetServiceBinding
+    {
         super::builder::network_services::GetServiceBinding::new(self.inner.clone())
     }
 
@@ -977,7 +1331,8 @@ impl NetworkServices {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_service_binding(&self) -> super::builder::network_services::CreateServiceBinding {
+    pub fn create_service_binding(&self) -> super::builder::network_services::CreateServiceBinding
+    {
         super::builder::network_services::CreateServiceBinding::new(self.inner.clone())
     }
 
@@ -992,7 +1347,8 @@ impl NetworkServices {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_service_binding(&self) -> super::builder::network_services::UpdateServiceBinding {
+    pub fn update_service_binding(&self) -> super::builder::network_services::UpdateServiceBinding
+    {
         super::builder::network_services::UpdateServiceBinding::new(self.inner.clone())
     }
 
@@ -1007,17 +1363,37 @@ impl NetworkServices {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_service_binding(&self) -> super::builder::network_services::DeleteServiceBinding {
+    pub fn delete_service_binding(&self) -> super::builder::network_services::DeleteServiceBinding
+    {
         super::builder::network_services::DeleteServiceBinding::new(self.inner.clone())
     }
 
     /// Lists Meshes in a given project and location.
-    pub fn list_meshes(&self) -> super::builder::network_services::ListMeshes {
+    pub fn list_meshes(&self) -> super::builder::network_services::ListMeshes
+    {
         super::builder::network_services::ListMeshes::new(self.inner.clone())
     }
 
     /// Gets details of a single Mesh.
-    pub fn get_mesh(&self) -> super::builder::network_services::GetMesh {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::NetworkServices;
+    /// async fn sample(
+    ///    client: &NetworkServices,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_mesh()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_mesh(&self) -> super::builder::network_services::GetMesh
+    {
         super::builder::network_services::GetMesh::new(self.inner.clone())
     }
 
@@ -1032,7 +1408,8 @@ impl NetworkServices {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_mesh(&self) -> super::builder::network_services::CreateMesh {
+    pub fn create_mesh(&self) -> super::builder::network_services::CreateMesh
+    {
         super::builder::network_services::CreateMesh::new(self.inner.clone())
     }
 
@@ -1047,7 +1424,8 @@ impl NetworkServices {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_mesh(&self) -> super::builder::network_services::UpdateMesh {
+    pub fn update_mesh(&self) -> super::builder::network_services::UpdateMesh
+    {
         super::builder::network_services::UpdateMesh::new(self.inner.clone())
     }
 
@@ -1062,19 +1440,37 @@ impl NetworkServices {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_mesh(&self) -> super::builder::network_services::DeleteMesh {
+    pub fn delete_mesh(&self) -> super::builder::network_services::DeleteMesh
+    {
         super::builder::network_services::DeleteMesh::new(self.inner.clone())
     }
 
     /// Lists ServiceLbPolicies in a given project and location.
-    pub fn list_service_lb_policies(
-        &self,
-    ) -> super::builder::network_services::ListServiceLbPolicies {
+    pub fn list_service_lb_policies(&self) -> super::builder::network_services::ListServiceLbPolicies
+    {
         super::builder::network_services::ListServiceLbPolicies::new(self.inner.clone())
     }
 
     /// Gets details of a single ServiceLbPolicy.
-    pub fn get_service_lb_policy(&self) -> super::builder::network_services::GetServiceLbPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::NetworkServices;
+    /// async fn sample(
+    ///    client: &NetworkServices,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_service_lb_policy()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_service_lb_policy(&self) -> super::builder::network_services::GetServiceLbPolicy
+    {
         super::builder::network_services::GetServiceLbPolicy::new(self.inner.clone())
     }
 
@@ -1089,9 +1485,8 @@ impl NetworkServices {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_service_lb_policy(
-        &self,
-    ) -> super::builder::network_services::CreateServiceLbPolicy {
+    pub fn create_service_lb_policy(&self) -> super::builder::network_services::CreateServiceLbPolicy
+    {
         super::builder::network_services::CreateServiceLbPolicy::new(self.inner.clone())
     }
 
@@ -1106,9 +1501,8 @@ impl NetworkServices {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_service_lb_policy(
-        &self,
-    ) -> super::builder::network_services::UpdateServiceLbPolicy {
+    pub fn update_service_lb_policy(&self) -> super::builder::network_services::UpdateServiceLbPolicy
+    {
         super::builder::network_services::UpdateServiceLbPolicy::new(self.inner.clone())
     }
 
@@ -1123,41 +1517,94 @@ impl NetworkServices {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_service_lb_policy(
-        &self,
-    ) -> super::builder::network_services::DeleteServiceLbPolicy {
+    pub fn delete_service_lb_policy(&self) -> super::builder::network_services::DeleteServiceLbPolicy
+    {
         super::builder::network_services::DeleteServiceLbPolicy::new(self.inner.clone())
     }
 
     /// Get a single RouteView of a Gateway.
-    pub fn get_gateway_route_view(&self) -> super::builder::network_services::GetGatewayRouteView {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::NetworkServices;
+    /// async fn sample(
+    ///    client: &NetworkServices,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_gateway_route_view()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_gateway_route_view(&self) -> super::builder::network_services::GetGatewayRouteView
+    {
         super::builder::network_services::GetGatewayRouteView::new(self.inner.clone())
     }
 
     /// Get a single RouteView of a Mesh.
-    pub fn get_mesh_route_view(&self) -> super::builder::network_services::GetMeshRouteView {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::NetworkServices;
+    /// async fn sample(
+    ///    client: &NetworkServices,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_mesh_route_view()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_mesh_route_view(&self) -> super::builder::network_services::GetMeshRouteView
+    {
         super::builder::network_services::GetMeshRouteView::new(self.inner.clone())
     }
 
     /// Lists RouteViews
-    pub fn list_gateway_route_views(
-        &self,
-    ) -> super::builder::network_services::ListGatewayRouteViews {
+    pub fn list_gateway_route_views(&self) -> super::builder::network_services::ListGatewayRouteViews
+    {
         super::builder::network_services::ListGatewayRouteViews::new(self.inner.clone())
     }
 
     /// Lists RouteViews
-    pub fn list_mesh_route_views(&self) -> super::builder::network_services::ListMeshRouteViews {
+    pub fn list_mesh_route_views(&self) -> super::builder::network_services::ListMeshRouteViews
+    {
         super::builder::network_services::ListMeshRouteViews::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::network_services::ListLocations {
+    pub fn list_locations(&self) -> super::builder::network_services::ListLocations
+    {
         super::builder::network_services::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(&self) -> super::builder::network_services::GetLocation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::NetworkServices;
+    /// async fn sample(
+    ///    client: &NetworkServices
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_location(&self) -> super::builder::network_services::GetLocation
+    {
         super::builder::network_services::GetLocation::new(self.inner.clone())
     }
 
@@ -1166,13 +1613,47 @@ impl NetworkServices {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
-    pub fn set_iam_policy(&self) -> super::builder::network_services::SetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::NetworkServices;
+    /// async fn sample(
+    ///    client: &NetworkServices
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::network_services::SetIamPolicy
+    {
         super::builder::network_services::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
-    pub fn get_iam_policy(&self) -> super::builder::network_services::GetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::NetworkServices;
+    /// async fn sample(
+    ///    client: &NetworkServices
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::network_services::GetIamPolicy
+    {
         super::builder::network_services::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -1183,35 +1664,102 @@ impl NetworkServices {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
-    pub fn test_iam_permissions(&self) -> super::builder::network_services::TestIamPermissions {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::NetworkServices;
+    /// async fn sample(
+    ///    client: &NetworkServices
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::network_services::TestIamPermissions
+    {
         super::builder::network_services::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::network_services::ListOperations {
+    pub fn list_operations(&self) -> super::builder::network_services::ListOperations
+    {
         super::builder::network_services::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::network_services::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::NetworkServices;
+    /// async fn sample(
+    ///    client: &NetworkServices
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::network_services::GetOperation
+    {
         super::builder::network_services::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(&self) -> super::builder::network_services::DeleteOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::NetworkServices;
+    /// async fn sample(
+    ///    client: &NetworkServices
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_operation(&self) -> super::builder::network_services::DeleteOperation
+    {
         super::builder::network_services::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(&self) -> super::builder::network_services::CancelOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::NetworkServices;
+    /// async fn sample(
+    ///    client: &NetworkServices
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_operation(&self) -> super::builder::network_services::CancelOperation
+    {
         super::builder::network_services::CancelOperation::new(self.inner.clone())
     }
 }

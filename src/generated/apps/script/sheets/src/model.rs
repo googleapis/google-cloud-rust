@@ -17,12 +17,12 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate apps_script_type;
 extern crate bytes;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate wkt;
 
 mod debug;
@@ -33,6 +33,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SheetsAddOnManifest {
+
     /// If present, this overrides the configuration from
     /// `addOns.common.homepageTrigger`.
     pub homepage_trigger: std::option::Option<apps_script_type::model::HomepageExtensionPoint>,
@@ -58,8 +59,7 @@ impl SheetsAddOnManifest {
     /// let x = SheetsAddOnManifest::new().set_homepage_trigger(HomepageExtensionPoint::default()/* use setters */);
     /// ```
     pub fn set_homepage_trigger<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<apps_script_type::model::HomepageExtensionPoint>,
+    where T: std::convert::Into<apps_script_type::model::HomepageExtensionPoint>
     {
         self.homepage_trigger = std::option::Option::Some(v.into());
         self
@@ -75,8 +75,7 @@ impl SheetsAddOnManifest {
     /// let x = SheetsAddOnManifest::new().set_or_clear_homepage_trigger(None::<HomepageExtensionPoint>);
     /// ```
     pub fn set_or_clear_homepage_trigger<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<apps_script_type::model::HomepageExtensionPoint>,
+    where T: std::convert::Into<apps_script_type::model::HomepageExtensionPoint>
     {
         self.homepage_trigger = v.map(|x| x.into());
         self
@@ -91,8 +90,7 @@ impl SheetsAddOnManifest {
     /// let x = SheetsAddOnManifest::new().set_on_file_scope_granted_trigger(SheetsExtensionPoint::default()/* use setters */);
     /// ```
     pub fn set_on_file_scope_granted_trigger<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::SheetsExtensionPoint>,
+    where T: std::convert::Into<crate::model::SheetsExtensionPoint>
     {
         self.on_file_scope_granted_trigger = std::option::Option::Some(v.into());
         self
@@ -107,12 +105,8 @@ impl SheetsAddOnManifest {
     /// let x = SheetsAddOnManifest::new().set_or_clear_on_file_scope_granted_trigger(Some(SheetsExtensionPoint::default()/* use setters */));
     /// let x = SheetsAddOnManifest::new().set_or_clear_on_file_scope_granted_trigger(None::<SheetsExtensionPoint>);
     /// ```
-    pub fn set_or_clear_on_file_scope_granted_trigger<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<crate::model::SheetsExtensionPoint>,
+    pub fn set_or_clear_on_file_scope_granted_trigger<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<crate::model::SheetsExtensionPoint>
     {
         self.on_file_scope_granted_trigger = v.map(|x| x.into());
         self
@@ -129,6 +123,7 @@ impl wkt::message::Message for SheetsAddOnManifest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SheetsExtensionPoint {
+
     /// Required. The endpoint to execute when this extension point is activated.
     pub run_function: std::string::String,
 

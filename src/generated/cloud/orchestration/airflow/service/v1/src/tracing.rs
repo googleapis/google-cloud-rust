@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [Environments](super::stub::Environments) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct Environments<T>
-where
-    T: super::stub::Environments + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Environments + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> Environments<T>
-where
-    T: super::stub::Environments + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Environments + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::Environments for Environments<T>
-where
-    T: super::stub::Environments + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Environments + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn create_environment(
         &self,
@@ -178,9 +172,7 @@ where
         req: crate::model::CreateUserWorkloadsConfigMapRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::UserWorkloadsConfigMap>> {
-        self.inner
-            .create_user_workloads_config_map(req, options)
-            .await
+        self.inner.create_user_workloads_config_map(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -198,9 +190,7 @@ where
         req: crate::model::ListUserWorkloadsConfigMapsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListUserWorkloadsConfigMapsResponse>> {
-        self.inner
-            .list_user_workloads_config_maps(req, options)
-            .await
+        self.inner.list_user_workloads_config_maps(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -209,9 +199,7 @@ where
         req: crate::model::UpdateUserWorkloadsConfigMapRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::UserWorkloadsConfigMap>> {
-        self.inner
-            .update_user_workloads_config_map(req, options)
-            .await
+        self.inner.update_user_workloads_config_map(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -220,9 +208,7 @@ where
         req: crate::model::DeleteUserWorkloadsConfigMapRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        self.inner
-            .delete_user_workloads_config_map(req, options)
-            .await
+        self.inner.delete_user_workloads_config_map(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -288,6 +274,7 @@ where
         self.inner.delete_operation(req, options).await
     }
 
+
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -306,25 +293,19 @@ where
 /// Implements a [ImageVersions](super::stub::ImageVersions) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct ImageVersions<T>
-where
-    T: super::stub::ImageVersions + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ImageVersions + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> ImageVersions<T>
-where
-    T: super::stub::ImageVersions + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ImageVersions + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::ImageVersions for ImageVersions<T>
-where
-    T: super::stub::ImageVersions + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ImageVersions + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn list_image_versions(
         &self,
@@ -360,4 +341,6 @@ where
     ) -> Result<gax::response::Response<()>> {
         self.inner.delete_operation(req, options).await
     }
+
 }
+

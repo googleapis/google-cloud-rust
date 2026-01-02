@@ -38,48 +38,27 @@ impl std::fmt::Debug for super::Instance {
         debug_struct.field("engine_configs", &self.engine_configs);
         debug_struct.field("node_config", &self.node_config);
         debug_struct.field("zone_distribution_config", &self.zone_distribution_config);
-        debug_struct.field(
-            "deletion_protection_enabled",
-            &self.deletion_protection_enabled,
-        );
+        debug_struct.field("deletion_protection_enabled", &self.deletion_protection_enabled);
         debug_struct.field("psc_auto_connections", &self.psc_auto_connections);
         debug_struct.field("psc_attachment_details", &self.psc_attachment_details);
         debug_struct.field("endpoints", &self.endpoints);
         debug_struct.field("mode", &self.mode);
-        debug_struct.field(
-            "simulate_maintenance_event",
-            &self.simulate_maintenance_event,
-        );
+        debug_struct.field("simulate_maintenance_event", &self.simulate_maintenance_event);
         debug_struct.field("ondemand_maintenance", &self.ondemand_maintenance);
         debug_struct.field("satisfies_pzs", &self.satisfies_pzs);
         debug_struct.field("satisfies_pzi", &self.satisfies_pzi);
         debug_struct.field("maintenance_policy", &self.maintenance_policy);
         debug_struct.field("maintenance_schedule", &self.maintenance_schedule);
-        debug_struct.field(
-            "cross_instance_replication_config",
-            &self.cross_instance_replication_config,
-        );
-        debug_struct.field(
-            "async_instance_endpoints_deletion_enabled",
-            &self.async_instance_endpoints_deletion_enabled,
-        );
+        debug_struct.field("cross_instance_replication_config", &self.cross_instance_replication_config);
+        debug_struct.field("async_instance_endpoints_deletion_enabled", &self.async_instance_endpoints_deletion_enabled);
         debug_struct.field("kms_key", &self.kms_key);
         debug_struct.field("encryption_info", &self.encryption_info);
         debug_struct.field("backup_collection", &self.backup_collection);
         debug_struct.field("automated_backup_config", &self.automated_backup_config);
         debug_struct.field("maintenance_version", &self.maintenance_version);
-        debug_struct.field(
-            "effective_maintenance_version",
-            &self.effective_maintenance_version,
-        );
-        debug_struct.field(
-            "available_maintenance_versions",
-            &self.available_maintenance_versions,
-        );
-        debug_struct.field(
-            "allow_fewer_zones_deployment",
-            &self.allow_fewer_zones_deployment,
-        );
+        debug_struct.field("effective_maintenance_version", &self.effective_maintenance_version);
+        debug_struct.field("available_maintenance_versions", &self.available_maintenance_versions);
+        debug_struct.field("allow_fewer_zones_deployment", &self.allow_fewer_zones_deployment);
         debug_struct.field("import_sources", &self.import_sources);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -156,6 +135,8 @@ impl std::fmt::Debug for super::instance::ConnectionDetail {
         debug_struct.finish()
     }
 }
+
+
 
 impl std::fmt::Debug for super::AutomatedBackupConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

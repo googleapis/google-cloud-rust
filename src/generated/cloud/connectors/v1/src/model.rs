@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -30,7 +31,6 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -42,6 +42,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AuthConfig {
+
     /// The type of authentication configured.
     pub auth_type: crate::model::AuthType,
 
@@ -89,7 +90,7 @@ impl AuthConfig {
     pub fn set_additional_variables<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ConfigVariable>,
+        V: std::convert::Into<crate::model::ConfigVariable>
     {
         use std::iter::Iterator;
         self.additional_variables = v.into_iter().map(|i| i.into()).collect();
@@ -108,10 +109,8 @@ impl AuthConfig {
     /// let x = AuthConfig::new().set_type(Some(
     ///     google_cloud_connectors_v1::model::auth_config::Type::UserPassword(UserPassword::default().into())));
     /// ```
-    pub fn set_type<T: std::convert::Into<std::option::Option<crate::model::auth_config::Type>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_type<T: std::convert::Into<std::option::Option<crate::model::auth_config::Type>>>(mut self, v: T) -> Self
+    {
         self.r#type = v.into();
         self
     }
@@ -119,9 +118,7 @@ impl AuthConfig {
     /// The value of [r#type][crate::model::AuthConfig::r#type]
     /// if it holds a `UserPassword`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn user_password(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::auth_config::UserPassword>> {
+    pub fn user_password(&self) -> std::option::Option<&std::boxed::Box<crate::model::auth_config::UserPassword>> {
         #[allow(unreachable_patterns)]
         self.r#type.as_ref().and_then(|v| match v {
             crate::model::auth_config::Type::UserPassword(v) => std::option::Option::Some(v),
@@ -145,23 +142,19 @@ impl AuthConfig {
     /// assert!(x.oauth2_client_credentials().is_none());
     /// assert!(x.ssh_public_key().is_none());
     /// ```
-    pub fn set_user_password<
-        T: std::convert::Into<std::boxed::Box<crate::model::auth_config::UserPassword>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.r#type =
-            std::option::Option::Some(crate::model::auth_config::Type::UserPassword(v.into()));
+    pub fn set_user_password<T: std::convert::Into<std::boxed::Box<crate::model::auth_config::UserPassword>>>(mut self, v: T) -> Self {
+        self.r#type = std::option::Option::Some(
+            crate::model::auth_config::Type::UserPassword(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [r#type][crate::model::AuthConfig::r#type]
     /// if it holds a `Oauth2JwtBearer`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn oauth2_jwt_bearer(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::auth_config::Oauth2JwtBearer>> {
+    pub fn oauth2_jwt_bearer(&self) -> std::option::Option<&std::boxed::Box<crate::model::auth_config::Oauth2JwtBearer>> {
         #[allow(unreachable_patterns)]
         self.r#type.as_ref().and_then(|v| match v {
             crate::model::auth_config::Type::Oauth2JwtBearer(v) => std::option::Option::Some(v),
@@ -185,29 +178,22 @@ impl AuthConfig {
     /// assert!(x.oauth2_client_credentials().is_none());
     /// assert!(x.ssh_public_key().is_none());
     /// ```
-    pub fn set_oauth2_jwt_bearer<
-        T: std::convert::Into<std::boxed::Box<crate::model::auth_config::Oauth2JwtBearer>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.r#type =
-            std::option::Option::Some(crate::model::auth_config::Type::Oauth2JwtBearer(v.into()));
+    pub fn set_oauth2_jwt_bearer<T: std::convert::Into<std::boxed::Box<crate::model::auth_config::Oauth2JwtBearer>>>(mut self, v: T) -> Self {
+        self.r#type = std::option::Option::Some(
+            crate::model::auth_config::Type::Oauth2JwtBearer(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [r#type][crate::model::AuthConfig::r#type]
     /// if it holds a `Oauth2ClientCredentials`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn oauth2_client_credentials(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::auth_config::Oauth2ClientCredentials>>
-    {
+    pub fn oauth2_client_credentials(&self) -> std::option::Option<&std::boxed::Box<crate::model::auth_config::Oauth2ClientCredentials>> {
         #[allow(unreachable_patterns)]
         self.r#type.as_ref().and_then(|v| match v {
-            crate::model::auth_config::Type::Oauth2ClientCredentials(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::auth_config::Type::Oauth2ClientCredentials(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -228,14 +214,11 @@ impl AuthConfig {
     /// assert!(x.oauth2_jwt_bearer().is_none());
     /// assert!(x.ssh_public_key().is_none());
     /// ```
-    pub fn set_oauth2_client_credentials<
-        T: std::convert::Into<std::boxed::Box<crate::model::auth_config::Oauth2ClientCredentials>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_oauth2_client_credentials<T: std::convert::Into<std::boxed::Box<crate::model::auth_config::Oauth2ClientCredentials>>>(mut self, v: T) -> Self {
         self.r#type = std::option::Option::Some(
-            crate::model::auth_config::Type::Oauth2ClientCredentials(v.into()),
+            crate::model::auth_config::Type::Oauth2ClientCredentials(
+                v.into()
+            )
         );
         self
     }
@@ -243,9 +226,7 @@ impl AuthConfig {
     /// The value of [r#type][crate::model::AuthConfig::r#type]
     /// if it holds a `SshPublicKey`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn ssh_public_key(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::auth_config::SshPublicKey>> {
+    pub fn ssh_public_key(&self) -> std::option::Option<&std::boxed::Box<crate::model::auth_config::SshPublicKey>> {
         #[allow(unreachable_patterns)]
         self.r#type.as_ref().and_then(|v| match v {
             crate::model::auth_config::Type::SshPublicKey(v) => std::option::Option::Some(v),
@@ -269,14 +250,12 @@ impl AuthConfig {
     /// assert!(x.oauth2_jwt_bearer().is_none());
     /// assert!(x.oauth2_client_credentials().is_none());
     /// ```
-    pub fn set_ssh_public_key<
-        T: std::convert::Into<std::boxed::Box<crate::model::auth_config::SshPublicKey>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.r#type =
-            std::option::Option::Some(crate::model::auth_config::Type::SshPublicKey(v.into()));
+    pub fn set_ssh_public_key<T: std::convert::Into<std::boxed::Box<crate::model::auth_config::SshPublicKey>>>(mut self, v: T) -> Self {
+        self.r#type = std::option::Option::Some(
+            crate::model::auth_config::Type::SshPublicKey(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -292,10 +271,12 @@ pub mod auth_config {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Parameters to support Username and Password Authentication.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct UserPassword {
+
         /// Username.
         pub username: std::string::String,
 
@@ -331,8 +312,7 @@ pub mod auth_config {
         /// let x = UserPassword::new().set_password(Secret::default()/* use setters */);
         /// ```
         pub fn set_password<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Secret>,
+        where T: std::convert::Into<crate::model::Secret>
         {
             self.password = std::option::Option::Some(v.into());
             self
@@ -348,8 +328,7 @@ pub mod auth_config {
         /// let x = UserPassword::new().set_or_clear_password(None::<Secret>);
         /// ```
         pub fn set_or_clear_password<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Secret>,
+        where T: std::convert::Into<crate::model::Secret>
         {
             self.password = v.map(|x| x.into());
             self
@@ -368,6 +347,7 @@ pub mod auth_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Oauth2JwtBearer {
+
         /// Secret version reference containing a PKCS#8 PEM-encoded private
         /// key associated with the Client Certificate. This private key will be
         /// used to sign JWTs used for the jwt-bearer authorization grant.
@@ -375,8 +355,7 @@ pub mod auth_config {
         pub client_key: std::option::Option<crate::model::Secret>,
 
         /// JwtClaims providers fields to generate the token.
-        pub jwt_claims:
-            std::option::Option<crate::model::auth_config::oauth_2_jwt_bearer::JwtClaims>,
+        pub jwt_claims: std::option::Option<crate::model::auth_config::oauth_2_jwt_bearer::JwtClaims>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -395,8 +374,7 @@ pub mod auth_config {
         /// let x = Oauth2JwtBearer::new().set_client_key(Secret::default()/* use setters */);
         /// ```
         pub fn set_client_key<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Secret>,
+        where T: std::convert::Into<crate::model::Secret>
         {
             self.client_key = std::option::Option::Some(v.into());
             self
@@ -412,8 +390,7 @@ pub mod auth_config {
         /// let x = Oauth2JwtBearer::new().set_or_clear_client_key(None::<Secret>);
         /// ```
         pub fn set_or_clear_client_key<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Secret>,
+        where T: std::convert::Into<crate::model::Secret>
         {
             self.client_key = v.map(|x| x.into());
             self
@@ -428,8 +405,7 @@ pub mod auth_config {
         /// let x = Oauth2JwtBearer::new().set_jwt_claims(JwtClaims::default()/* use setters */);
         /// ```
         pub fn set_jwt_claims<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::auth_config::oauth_2_jwt_bearer::JwtClaims>,
+        where T: std::convert::Into<crate::model::auth_config::oauth_2_jwt_bearer::JwtClaims>
         {
             self.jwt_claims = std::option::Option::Some(v.into());
             self
@@ -445,8 +421,7 @@ pub mod auth_config {
         /// let x = Oauth2JwtBearer::new().set_or_clear_jwt_claims(None::<JwtClaims>);
         /// ```
         pub fn set_or_clear_jwt_claims<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::auth_config::oauth_2_jwt_bearer::JwtClaims>,
+        where T: std::convert::Into<crate::model::auth_config::oauth_2_jwt_bearer::JwtClaims>
         {
             self.jwt_claims = v.map(|x| x.into());
             self
@@ -464,10 +439,12 @@ pub mod auth_config {
         #[allow(unused_imports)]
         use super::*;
 
+
         /// JWT claims used for the jwt-bearer authorization grant.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct JwtClaims {
+
             /// Value for the "iss" claim.
             pub issuer: std::string::String,
 
@@ -516,10 +493,7 @@ pub mod auth_config {
             /// # use google_cloud_connectors_v1::model::auth_config::oauth_2_jwt_bearer::JwtClaims;
             /// let x = JwtClaims::new().set_audience("example");
             /// ```
-            pub fn set_audience<T: std::convert::Into<std::string::String>>(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_audience<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.audience = v.into();
                 self
             }
@@ -537,6 +511,7 @@ pub mod auth_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Oauth2ClientCredentials {
+
         /// The client identifier.
         pub client_id: std::string::String,
 
@@ -572,8 +547,7 @@ pub mod auth_config {
         /// let x = Oauth2ClientCredentials::new().set_client_secret(Secret::default()/* use setters */);
         /// ```
         pub fn set_client_secret<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Secret>,
+        where T: std::convert::Into<crate::model::Secret>
         {
             self.client_secret = std::option::Option::Some(v.into());
             self
@@ -589,8 +563,7 @@ pub mod auth_config {
         /// let x = Oauth2ClientCredentials::new().set_or_clear_client_secret(None::<Secret>);
         /// ```
         pub fn set_or_clear_client_secret<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Secret>,
+        where T: std::convert::Into<crate::model::Secret>
         {
             self.client_secret = v.map(|x| x.into());
             self
@@ -607,6 +580,7 @@ pub mod auth_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SshPublicKey {
+
         /// The user account used to authenticate.
         pub username: std::string::String,
 
@@ -648,8 +622,7 @@ pub mod auth_config {
         /// let x = SshPublicKey::new().set_ssh_client_cert(Secret::default()/* use setters */);
         /// ```
         pub fn set_ssh_client_cert<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Secret>,
+        where T: std::convert::Into<crate::model::Secret>
         {
             self.ssh_client_cert = std::option::Option::Some(v.into());
             self
@@ -665,8 +638,7 @@ pub mod auth_config {
         /// let x = SshPublicKey::new().set_or_clear_ssh_client_cert(None::<Secret>);
         /// ```
         pub fn set_or_clear_ssh_client_cert<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Secret>,
+        where T: std::convert::Into<crate::model::Secret>
         {
             self.ssh_client_cert = v.map(|x| x.into());
             self
@@ -693,8 +665,7 @@ pub mod auth_config {
         /// let x = SshPublicKey::new().set_ssh_client_cert_pass(Secret::default()/* use setters */);
         /// ```
         pub fn set_ssh_client_cert_pass<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Secret>,
+        where T: std::convert::Into<crate::model::Secret>
         {
             self.ssh_client_cert_pass = std::option::Option::Some(v.into());
             self
@@ -710,8 +681,7 @@ pub mod auth_config {
         /// let x = SshPublicKey::new().set_or_clear_ssh_client_cert_pass(None::<Secret>);
         /// ```
         pub fn set_or_clear_ssh_client_cert_pass<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Secret>,
+        where T: std::convert::Into<crate::model::Secret>
         {
             self.ssh_client_cert_pass = v.map(|x| x.into());
             self
@@ -733,9 +703,7 @@ pub mod auth_config {
         /// Oauth2JwtBearer.
         Oauth2JwtBearer(std::boxed::Box<crate::model::auth_config::Oauth2JwtBearer>),
         /// Oauth2ClientCredentials.
-        Oauth2ClientCredentials(
-            std::boxed::Box<crate::model::auth_config::Oauth2ClientCredentials>,
-        ),
+        Oauth2ClientCredentials(std::boxed::Box<crate::model::auth_config::Oauth2ClientCredentials>),
         /// SSH Public Key.
         SshPublicKey(std::boxed::Box<crate::model::auth_config::SshPublicKey>),
     }
@@ -745,6 +713,7 @@ pub mod auth_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AuthConfigTemplate {
+
     /// The type of authentication configured.
     pub auth_type: crate::model::AuthType,
 
@@ -795,7 +764,7 @@ impl AuthConfigTemplate {
     pub fn set_config_variable_templates<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ConfigVariableTemplate>,
+        V: std::convert::Into<crate::model::ConfigVariableTemplate>
     {
         use std::iter::Iterator;
         self.config_variable_templates = v.into_iter().map(|i| i.into()).collect();
@@ -837,6 +806,7 @@ impl wkt::message::Message for AuthConfigTemplate {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
+
     /// Output only. The time the operation was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
@@ -881,8 +851,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -898,8 +867,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -914,8 +882,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -931,8 +898,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -1010,6 +976,7 @@ impl wkt::message::Message for OperationMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConfigVariableTemplate {
+
     /// Key of the config variable.
     pub key: std::string::String,
 
@@ -1077,12 +1044,7 @@ impl ConfigVariableTemplate {
     /// let x1 = ConfigVariableTemplate::new().set_value_type(ValueType::Int);
     /// let x2 = ConfigVariableTemplate::new().set_value_type(ValueType::Bool);
     /// ```
-    pub fn set_value_type<
-        T: std::convert::Into<crate::model::config_variable_template::ValueType>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_value_type<T: std::convert::Into<crate::model::config_variable_template::ValueType>>(mut self, v: T) -> Self {
         self.value_type = v.into();
         self
     }
@@ -1118,10 +1080,7 @@ impl ConfigVariableTemplate {
     /// # use google_cloud_connectors_v1::model::ConfigVariableTemplate;
     /// let x = ConfigVariableTemplate::new().set_validation_regex("example");
     /// ```
-    pub fn set_validation_regex<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_validation_regex<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.validation_regex = v.into();
         self
     }
@@ -1147,8 +1106,7 @@ impl ConfigVariableTemplate {
     /// let x = ConfigVariableTemplate::new().set_role_grant(RoleGrant::default()/* use setters */);
     /// ```
     pub fn set_role_grant<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RoleGrant>,
+    where T: std::convert::Into<crate::model::RoleGrant>
     {
         self.role_grant = std::option::Option::Some(v.into());
         self
@@ -1164,8 +1122,7 @@ impl ConfigVariableTemplate {
     /// let x = ConfigVariableTemplate::new().set_or_clear_role_grant(None::<RoleGrant>);
     /// ```
     pub fn set_or_clear_role_grant<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RoleGrant>,
+    where T: std::convert::Into<crate::model::RoleGrant>
     {
         self.role_grant = v.map(|x| x.into());
         self
@@ -1186,7 +1143,7 @@ impl ConfigVariableTemplate {
     pub fn set_enum_options<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::EnumOption>,
+        V: std::convert::Into<crate::model::EnumOption>
     {
         use std::iter::Iterator;
         self.enum_options = v.into_iter().map(|i| i.into()).collect();
@@ -1202,8 +1159,7 @@ impl ConfigVariableTemplate {
     /// let x = ConfigVariableTemplate::new().set_authorization_code_link(AuthorizationCodeLink::default()/* use setters */);
     /// ```
     pub fn set_authorization_code_link<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AuthorizationCodeLink>,
+    where T: std::convert::Into<crate::model::AuthorizationCodeLink>
     {
         self.authorization_code_link = std::option::Option::Some(v.into());
         self
@@ -1219,8 +1175,7 @@ impl ConfigVariableTemplate {
     /// let x = ConfigVariableTemplate::new().set_or_clear_authorization_code_link(None::<AuthorizationCodeLink>);
     /// ```
     pub fn set_or_clear_authorization_code_link<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AuthorizationCodeLink>,
+    where T: std::convert::Into<crate::model::AuthorizationCodeLink>
     {
         self.authorization_code_link = v.map(|x| x.into());
         self
@@ -1235,10 +1190,7 @@ impl ConfigVariableTemplate {
     /// let x0 = ConfigVariableTemplate::new().set_state(State::Active);
     /// let x1 = ConfigVariableTemplate::new().set_state(State::Deprecated);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::config_variable_template::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::config_variable_template::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -1266,6 +1218,7 @@ impl wkt::message::Message for ConfigVariableTemplate {
 pub mod config_variable_template {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// ValueType indicates the data type of the value.
     ///
@@ -1373,9 +1326,7 @@ pub mod config_variable_template {
                 4 => Self::Secret,
                 5 => Self::Enum,
                 6 => Self::AuthorizationCode,
-                _ => Self::UnknownValue(value_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(value_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1391,9 +1342,7 @@ pub mod config_variable_template {
                 "SECRET" => Self::Secret,
                 "ENUM" => Self::Enum,
                 "AUTHORIZATION_CODE" => Self::AuthorizationCode,
-                _ => Self::UnknownValue(value_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(value_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1422,8 +1371,7 @@ pub mod config_variable_template {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<ValueType>::new(
-                ".google.cloud.connectors.v1.ConfigVariableTemplate.ValueType",
-            ))
+                ".google.cloud.connectors.v1.ConfigVariableTemplate.ValueType"))
         }
     }
 
@@ -1513,9 +1461,7 @@ pub mod config_variable_template {
                 0 => Self::Unspecified,
                 1 => Self::Active,
                 2 => Self::Deprecated,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1527,9 +1473,7 @@ pub mod config_variable_template {
                 "STATE_UNSPECIFIED" => Self::Unspecified,
                 "ACTIVE" => Self::Active,
                 "DEPRECATED" => Self::Deprecated,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1554,8 +1498,7 @@ pub mod config_variable_template {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.connectors.v1.ConfigVariableTemplate.State",
-            ))
+                ".google.cloud.connectors.v1.ConfigVariableTemplate.State"))
         }
     }
 }
@@ -1564,6 +1507,7 @@ pub mod config_variable_template {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Secret {
+
     /// The resource name of the secret version in the format,
     /// format as: `projects/*/secrets/*/versions/*`.
     pub secret_version: std::string::String,
@@ -1599,6 +1543,7 @@ impl wkt::message::Message for Secret {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnumOption {
+
     /// Id of the option.
     pub id: std::string::String,
 
@@ -1649,6 +1594,7 @@ impl wkt::message::Message for EnumOption {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConfigVariable {
+
     /// Key of the config variable.
     pub key: std::string::String,
 
@@ -1686,12 +1632,8 @@ impl ConfigVariable {
     /// use google_cloud_connectors_v1::model::config_variable::Value;
     /// let x = ConfigVariable::new().set_value(Some(Value::IntValue(42)));
     /// ```
-    pub fn set_value<
-        T: std::convert::Into<std::option::Option<crate::model::config_variable::Value>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_value<T: std::convert::Into<std::option::Option<crate::model::config_variable::Value>>>(mut self, v: T) -> Self
+    {
         self.value = v.into();
         self
     }
@@ -1723,8 +1665,11 @@ impl ConfigVariable {
     /// assert!(x.secret_value().is_none());
     /// ```
     pub fn set_int_value<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
-        self.value =
-            std::option::Option::Some(crate::model::config_variable::Value::IntValue(v.into()));
+        self.value = std::option::Option::Some(
+            crate::model::config_variable::Value::IntValue(
+                v.into()
+            )
+        );
         self
     }
 
@@ -1755,8 +1700,11 @@ impl ConfigVariable {
     /// assert!(x.secret_value().is_none());
     /// ```
     pub fn set_bool_value<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.value =
-            std::option::Option::Some(crate::model::config_variable::Value::BoolValue(v.into()));
+        self.value = std::option::Option::Some(
+            crate::model::config_variable::Value::BoolValue(
+                v.into()
+            )
+        );
         self
     }
 
@@ -1787,8 +1735,11 @@ impl ConfigVariable {
     /// assert!(x.secret_value().is_none());
     /// ```
     pub fn set_string_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.value =
-            std::option::Option::Some(crate::model::config_variable::Value::StringValue(v.into()));
+        self.value = std::option::Option::Some(
+            crate::model::config_variable::Value::StringValue(
+                v.into()
+            )
+        );
         self
     }
 
@@ -1819,12 +1770,12 @@ impl ConfigVariable {
     /// assert!(x.bool_value().is_none());
     /// assert!(x.string_value().is_none());
     /// ```
-    pub fn set_secret_value<T: std::convert::Into<std::boxed::Box<crate::model::Secret>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.value =
-            std::option::Option::Some(crate::model::config_variable::Value::SecretValue(v.into()));
+    pub fn set_secret_value<T: std::convert::Into<std::boxed::Box<crate::model::Secret>>>(mut self, v: T) -> Self {
+        self.value = std::option::Option::Some(
+            crate::model::config_variable::Value::SecretValue(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -1839,6 +1790,7 @@ impl wkt::message::Message for ConfigVariable {
 pub mod config_variable {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Value type of the config variable.
     #[derive(Clone, Debug, PartialEq)]
@@ -1863,6 +1815,7 @@ pub mod config_variable {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RoleGrant {
+
     /// Prinicipal/Identity for whom the role need to assigned.
     pub principal: crate::model::role_grant::Principal,
 
@@ -1891,10 +1844,7 @@ impl RoleGrant {
     /// use google_cloud_connectors_v1::model::role_grant::Principal;
     /// let x0 = RoleGrant::new().set_principal(Principal::ConnectorSa);
     /// ```
-    pub fn set_principal<T: std::convert::Into<crate::model::role_grant::Principal>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_principal<T: std::convert::Into<crate::model::role_grant::Principal>>(mut self, v: T) -> Self {
         self.principal = v.into();
         self
     }
@@ -1909,7 +1859,7 @@ impl RoleGrant {
     pub fn set_roles<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.roles = v.into_iter().map(|i| i.into()).collect();
@@ -1925,8 +1875,7 @@ impl RoleGrant {
     /// let x = RoleGrant::new().set_resource(Resource::default()/* use setters */);
     /// ```
     pub fn set_resource<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::role_grant::Resource>,
+    where T: std::convert::Into<crate::model::role_grant::Resource>
     {
         self.resource = std::option::Option::Some(v.into());
         self
@@ -1942,8 +1891,7 @@ impl RoleGrant {
     /// let x = RoleGrant::new().set_or_clear_resource(None::<Resource>);
     /// ```
     pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::role_grant::Resource>,
+    where T: std::convert::Into<crate::model::role_grant::Resource>
     {
         self.resource = v.map(|x| x.into());
         self
@@ -1956,10 +1904,7 @@ impl RoleGrant {
     /// # use google_cloud_connectors_v1::model::RoleGrant;
     /// let x = RoleGrant::new().set_helper_text_template("example");
     /// ```
-    pub fn set_helper_text_template<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_helper_text_template<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.helper_text_template = v.into();
         self
     }
@@ -1976,10 +1921,12 @@ pub mod role_grant {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Resource definition
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Resource {
+
         /// Different types of resource supported.
         pub r#type: crate::model::role_grant::resource::Type,
 
@@ -2006,10 +1953,7 @@ pub mod role_grant {
         /// let x1 = Resource::new().set_type(Type::GcpResource);
         /// let x2 = Resource::new().set_type(Type::GcpSecretmanagerSecret);
         /// ```
-        pub fn set_type<T: std::convert::Into<crate::model::role_grant::resource::Type>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_type<T: std::convert::Into<crate::model::role_grant::resource::Type>>(mut self, v: T) -> Self {
             self.r#type = v.into();
             self
         }
@@ -2021,10 +1965,7 @@ pub mod role_grant {
         /// # use google_cloud_connectors_v1::model::role_grant::Resource;
         /// let x = Resource::new().set_path_template("example");
         /// ```
-        pub fn set_path_template<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_path_template<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.path_template = v.into();
             self
         }
@@ -2040,6 +1981,7 @@ pub mod role_grant {
     pub mod resource {
         #[allow(unused_imports)]
         use super::*;
+
 
         /// Resource Type definition.
         ///
@@ -2109,12 +2051,8 @@ pub mod role_grant {
                     Self::Unspecified => std::option::Option::Some("TYPE_UNSPECIFIED"),
                     Self::GcpProject => std::option::Option::Some("GCP_PROJECT"),
                     Self::GcpResource => std::option::Option::Some("GCP_RESOURCE"),
-                    Self::GcpSecretmanagerSecret => {
-                        std::option::Option::Some("GCP_SECRETMANAGER_SECRET")
-                    }
-                    Self::GcpSecretmanagerSecretVersion => {
-                        std::option::Option::Some("GCP_SECRETMANAGER_SECRET_VERSION")
-                    }
+                    Self::GcpSecretmanagerSecret => std::option::Option::Some("GCP_SECRETMANAGER_SECRET"),
+                    Self::GcpSecretmanagerSecretVersion => std::option::Option::Some("GCP_SECRETMANAGER_SECRET_VERSION"),
                     Self::UnknownValue(u) => u.0.name(),
                 }
             }
@@ -2128,10 +2066,7 @@ pub mod role_grant {
         }
 
         impl std::fmt::Display for Type {
-            fn fmt(
-                &self,
-                f: &mut std::fmt::Formatter<'_>,
-            ) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -2144,9 +2079,7 @@ pub mod role_grant {
                     2 => Self::GcpResource,
                     3 => Self::GcpSecretmanagerSecret,
                     4 => Self::GcpSecretmanagerSecretVersion,
-                    _ => Self::UnknownValue(r#type::UnknownValue(
-                        wkt::internal::UnknownEnumValue::Integer(value),
-                    )),
+                    _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
                 }
             }
         }
@@ -2160,9 +2093,7 @@ pub mod role_grant {
                     "GCP_RESOURCE" => Self::GcpResource,
                     "GCP_SECRETMANAGER_SECRET" => Self::GcpSecretmanagerSecret,
                     "GCP_SECRETMANAGER_SECRET_VERSION" => Self::GcpSecretmanagerSecretVersion,
-                    _ => Self::UnknownValue(r#type::UnknownValue(
-                        wkt::internal::UnknownEnumValue::String(value.to_string()),
-                    )),
+                    _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
                 }
             }
         }
@@ -2189,8 +2120,7 @@ pub mod role_grant {
                 D: serde::Deserializer<'de>,
             {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
-                    ".google.cloud.connectors.v1.RoleGrant.Resource.Type",
-                ))
+                    ".google.cloud.connectors.v1.RoleGrant.Resource.Type"))
             }
         }
     }
@@ -2278,9 +2208,7 @@ pub mod role_grant {
             match value {
                 0 => Self::Unspecified,
                 1 => Self::ConnectorSa,
-                _ => Self::UnknownValue(principal::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(principal::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -2291,9 +2219,7 @@ pub mod role_grant {
             match value {
                 "PRINCIPAL_UNSPECIFIED" => Self::Unspecified,
                 "CONNECTOR_SA" => Self::ConnectorSa,
-                _ => Self::UnknownValue(principal::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(principal::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -2317,8 +2243,7 @@ pub mod role_grant {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Principal>::new(
-                ".google.cloud.connectors.v1.RoleGrant.Principal",
-            ))
+                ".google.cloud.connectors.v1.RoleGrant.Principal"))
         }
     }
 }
@@ -2328,6 +2253,7 @@ pub mod role_grant {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AuthorizationCodeLink {
+
     /// The base URI the user must click to trigger the authorization code login
     /// flow.
     pub uri: std::string::String,
@@ -2373,7 +2299,7 @@ impl AuthorizationCodeLink {
     pub fn set_scopes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.scopes = v.into_iter().map(|i| i.into()).collect();
@@ -2415,6 +2341,7 @@ impl wkt::message::Message for AuthorizationCodeLink {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Connection {
+
     /// Output only. Resource name of the Connection.
     /// Format: projects/{project}/locations/{location}/connections/{connection}
     pub name: std::string::String,
@@ -2428,7 +2355,7 @@ pub struct Connection {
     /// Optional. Resource labels to represent user-provided metadata.
     /// Refer to cloud documentation on labels for more details.
     /// <https://cloud.google.com/compute/docs/labeling-resources>
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. Description of the resource.
     pub description: std::string::String,
@@ -2513,8 +2440,7 @@ impl Connection {
     /// let x = Connection::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -2530,8 +2456,7 @@ impl Connection {
     /// let x = Connection::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -2546,8 +2471,7 @@ impl Connection {
     /// let x = Connection::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -2563,8 +2487,7 @@ impl Connection {
     /// let x = Connection::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -2610,10 +2533,7 @@ impl Connection {
     /// # use google_cloud_connectors_v1::model::Connection;
     /// let x = Connection::new().set_connector_version("example");
     /// ```
-    pub fn set_connector_version<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_connector_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.connector_version = v.into();
         self
     }
@@ -2627,8 +2547,7 @@ impl Connection {
     /// let x = Connection::new().set_status(ConnectionStatus::default()/* use setters */);
     /// ```
     pub fn set_status<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ConnectionStatus>,
+    where T: std::convert::Into<crate::model::ConnectionStatus>
     {
         self.status = std::option::Option::Some(v.into());
         self
@@ -2644,8 +2563,7 @@ impl Connection {
     /// let x = Connection::new().set_or_clear_status(None::<ConnectionStatus>);
     /// ```
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ConnectionStatus>,
+    where T: std::convert::Into<crate::model::ConnectionStatus>
     {
         self.status = v.map(|x| x.into());
         self
@@ -2666,7 +2584,7 @@ impl Connection {
     pub fn set_config_variables<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ConfigVariable>,
+        V: std::convert::Into<crate::model::ConfigVariable>
     {
         use std::iter::Iterator;
         self.config_variables = v.into_iter().map(|i| i.into()).collect();
@@ -2682,8 +2600,7 @@ impl Connection {
     /// let x = Connection::new().set_auth_config(AuthConfig::default()/* use setters */);
     /// ```
     pub fn set_auth_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AuthConfig>,
+    where T: std::convert::Into<crate::model::AuthConfig>
     {
         self.auth_config = std::option::Option::Some(v.into());
         self
@@ -2699,8 +2616,7 @@ impl Connection {
     /// let x = Connection::new().set_or_clear_auth_config(None::<AuthConfig>);
     /// ```
     pub fn set_or_clear_auth_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AuthConfig>,
+    where T: std::convert::Into<crate::model::AuthConfig>
     {
         self.auth_config = v.map(|x| x.into());
         self
@@ -2715,8 +2631,7 @@ impl Connection {
     /// let x = Connection::new().set_lock_config(LockConfig::default()/* use setters */);
     /// ```
     pub fn set_lock_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::LockConfig>,
+    where T: std::convert::Into<crate::model::LockConfig>
     {
         self.lock_config = std::option::Option::Some(v.into());
         self
@@ -2732,8 +2647,7 @@ impl Connection {
     /// let x = Connection::new().set_or_clear_lock_config(None::<LockConfig>);
     /// ```
     pub fn set_or_clear_lock_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::LockConfig>,
+    where T: std::convert::Into<crate::model::LockConfig>
     {
         self.lock_config = v.map(|x| x.into());
         self
@@ -2754,7 +2668,7 @@ impl Connection {
     pub fn set_destination_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::DestinationConfig>,
+        V: std::convert::Into<crate::model::DestinationConfig>
     {
         use std::iter::Iterator;
         self.destination_configs = v.into_iter().map(|i| i.into()).collect();
@@ -2792,10 +2706,7 @@ impl Connection {
     /// # use google_cloud_connectors_v1::model::Connection;
     /// let x = Connection::new().set_service_directory("example");
     /// ```
-    pub fn set_service_directory<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_service_directory<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_directory = v.into();
         self
     }
@@ -2807,10 +2718,7 @@ impl Connection {
     /// # use google_cloud_connectors_v1::model::Connection;
     /// let x = Connection::new().set_envoy_image_location("example");
     /// ```
-    pub fn set_envoy_image_location<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_envoy_image_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.envoy_image_location = v.into();
         self
     }
@@ -2836,8 +2744,7 @@ impl Connection {
     /// let x = Connection::new().set_node_config(NodeConfig::default()/* use setters */);
     /// ```
     pub fn set_node_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::NodeConfig>,
+    where T: std::convert::Into<crate::model::NodeConfig>
     {
         self.node_config = std::option::Option::Some(v.into());
         self
@@ -2853,8 +2760,7 @@ impl Connection {
     /// let x = Connection::new().set_or_clear_node_config(None::<NodeConfig>);
     /// ```
     pub fn set_or_clear_node_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::NodeConfig>,
+    where T: std::convert::Into<crate::model::NodeConfig>
     {
         self.node_config = v.map(|x| x.into());
         self
@@ -2869,8 +2775,7 @@ impl Connection {
     /// let x = Connection::new().set_ssl_config(SslConfig::default()/* use setters */);
     /// ```
     pub fn set_ssl_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::SslConfig>,
+    where T: std::convert::Into<crate::model::SslConfig>
     {
         self.ssl_config = std::option::Option::Some(v.into());
         self
@@ -2886,8 +2791,7 @@ impl Connection {
     /// let x = Connection::new().set_or_clear_ssl_config(None::<SslConfig>);
     /// ```
     pub fn set_or_clear_ssl_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::SslConfig>,
+    where T: std::convert::Into<crate::model::SslConfig>
     {
         self.ssl_config = v.map(|x| x.into());
         self
@@ -2904,6 +2808,7 @@ impl wkt::message::Message for Connection {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NodeConfig {
+
     /// Minimum number of nodes in the runtime nodes.
     pub min_node_count: i32,
 
@@ -2955,6 +2860,7 @@ impl wkt::message::Message for NodeConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConnectionSchemaMetadata {
+
     /// Output only. List of entity names.
     pub entities: std::vec::Vec<std::string::String>,
 
@@ -2994,7 +2900,7 @@ impl ConnectionSchemaMetadata {
     pub fn set_entities<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.entities = v.into_iter().map(|i| i.into()).collect();
@@ -3011,7 +2917,7 @@ impl ConnectionSchemaMetadata {
     pub fn set_actions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.actions = v.into_iter().map(|i| i.into()).collect();
@@ -3039,8 +2945,7 @@ impl ConnectionSchemaMetadata {
     /// let x = ConnectionSchemaMetadata::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -3056,8 +2961,7 @@ impl ConnectionSchemaMetadata {
     /// let x = ConnectionSchemaMetadata::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -3072,8 +2976,7 @@ impl ConnectionSchemaMetadata {
     /// let x = ConnectionSchemaMetadata::new().set_refresh_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_refresh_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.refresh_time = std::option::Option::Some(v.into());
         self
@@ -3089,8 +2992,7 @@ impl ConnectionSchemaMetadata {
     /// let x = ConnectionSchemaMetadata::new().set_or_clear_refresh_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_refresh_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.refresh_time = v.map(|x| x.into());
         self
@@ -3105,10 +3007,7 @@ impl ConnectionSchemaMetadata {
     /// let x0 = ConnectionSchemaMetadata::new().set_state(State::Refreshing);
     /// let x1 = ConnectionSchemaMetadata::new().set_state(State::Updated);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::connection_schema_metadata::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::connection_schema_metadata::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -3124,6 +3023,7 @@ impl wkt::message::Message for ConnectionSchemaMetadata {
 pub mod connection_schema_metadata {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// State of connection runtime schema.
     ///
@@ -3211,9 +3111,7 @@ pub mod connection_schema_metadata {
                 0 => Self::Unspecified,
                 1 => Self::Refreshing,
                 2 => Self::Updated,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -3225,9 +3123,7 @@ pub mod connection_schema_metadata {
                 "STATE_UNSPECIFIED" => Self::Unspecified,
                 "REFRESHING" => Self::Refreshing,
                 "UPDATED" => Self::Updated,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -3252,8 +3148,7 @@ pub mod connection_schema_metadata {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.connectors.v1.ConnectionSchemaMetadata.State",
-            ))
+                ".google.cloud.connectors.v1.ConnectionSchemaMetadata.State"))
         }
     }
 }
@@ -3262,6 +3157,7 @@ pub mod connection_schema_metadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RuntimeEntitySchema {
+
     /// Output only. Name of the entity.
     pub entity: std::string::String,
 
@@ -3303,7 +3199,7 @@ impl RuntimeEntitySchema {
     pub fn set_fields<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::runtime_entity_schema::Field>,
+        V: std::convert::Into<crate::model::runtime_entity_schema::Field>
     {
         use std::iter::Iterator;
         self.fields = v.into_iter().map(|i| i.into()).collect();
@@ -3322,10 +3218,12 @@ pub mod runtime_entity_schema {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Metadata of an entity field.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Field {
+
         /// Name of the Field.
         pub field: std::string::String,
 
@@ -3396,10 +3294,7 @@ pub mod runtime_entity_schema {
         /// let x1 = Field::new().set_data_type(DataType::Double);
         /// let x2 = Field::new().set_data_type(DataType::Date);
         /// ```
-        pub fn set_data_type<T: std::convert::Into<crate::model::DataType>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_data_type<T: std::convert::Into<crate::model::DataType>>(mut self, v: T) -> Self {
             self.data_type = v.into();
             self
         }
@@ -3449,8 +3344,7 @@ pub mod runtime_entity_schema {
         /// let x = Field::new().set_default_value(Value::default()/* use setters */);
         /// ```
         pub fn set_default_value<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Value>,
+        where T: std::convert::Into<wkt::Value>
         {
             self.default_value = std::option::Option::Some(v.into());
             self
@@ -3466,8 +3360,7 @@ pub mod runtime_entity_schema {
         /// let x = Field::new().set_or_clear_default_value(None::<Value>);
         /// ```
         pub fn set_or_clear_default_value<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Value>,
+        where T: std::convert::Into<wkt::Value>
         {
             self.default_value = v.map(|x| x.into());
             self
@@ -3482,8 +3375,7 @@ pub mod runtime_entity_schema {
         /// let x = Field::new().set_additional_details(Struct::default()/* use setters */);
         /// ```
         pub fn set_additional_details<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Struct>,
+        where T: std::convert::Into<wkt::Struct>
         {
             self.additional_details = std::option::Option::Some(v.into());
             self
@@ -3499,8 +3391,7 @@ pub mod runtime_entity_schema {
         /// let x = Field::new().set_or_clear_additional_details(None::<Struct>);
         /// ```
         pub fn set_or_clear_additional_details<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Struct>,
+        where T: std::convert::Into<wkt::Struct>
         {
             self.additional_details = v.map(|x| x.into());
             self
@@ -3518,6 +3409,7 @@ pub mod runtime_entity_schema {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RuntimeActionSchema {
+
     /// Output only. Name of the action.
     pub action: std::string::String,
 
@@ -3562,7 +3454,7 @@ impl RuntimeActionSchema {
     pub fn set_input_parameters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::runtime_action_schema::InputParameter>,
+        V: std::convert::Into<crate::model::runtime_action_schema::InputParameter>
     {
         use std::iter::Iterator;
         self.input_parameters = v.into_iter().map(|i| i.into()).collect();
@@ -3584,7 +3476,7 @@ impl RuntimeActionSchema {
     pub fn set_result_metadata<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::runtime_action_schema::ResultMetadata>,
+        V: std::convert::Into<crate::model::runtime_action_schema::ResultMetadata>
     {
         use std::iter::Iterator;
         self.result_metadata = v.into_iter().map(|i| i.into()).collect();
@@ -3603,10 +3495,12 @@ pub mod runtime_action_schema {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Metadata of an input parameter.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct InputParameter {
+
         /// Name of the Parameter.
         pub parameter: std::string::String,
 
@@ -3665,10 +3559,7 @@ pub mod runtime_action_schema {
         /// let x1 = InputParameter::new().set_data_type(DataType::Double);
         /// let x2 = InputParameter::new().set_data_type(DataType::Date);
         /// ```
-        pub fn set_data_type<T: std::convert::Into<crate::model::DataType>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_data_type<T: std::convert::Into<crate::model::DataType>>(mut self, v: T) -> Self {
             self.data_type = v.into();
             self
         }
@@ -3694,8 +3585,7 @@ pub mod runtime_action_schema {
         /// let x = InputParameter::new().set_default_value(Value::default()/* use setters */);
         /// ```
         pub fn set_default_value<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Value>,
+        where T: std::convert::Into<wkt::Value>
         {
             self.default_value = std::option::Option::Some(v.into());
             self
@@ -3711,8 +3601,7 @@ pub mod runtime_action_schema {
         /// let x = InputParameter::new().set_or_clear_default_value(None::<Value>);
         /// ```
         pub fn set_or_clear_default_value<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Value>,
+        where T: std::convert::Into<wkt::Value>
         {
             self.default_value = v.map(|x| x.into());
             self
@@ -3729,6 +3618,7 @@ pub mod runtime_action_schema {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ResultMetadata {
+
         /// Name of the result field.
         pub field: std::string::String,
 
@@ -3780,10 +3670,7 @@ pub mod runtime_action_schema {
         /// let x1 = ResultMetadata::new().set_data_type(DataType::Double);
         /// let x2 = ResultMetadata::new().set_data_type(DataType::Date);
         /// ```
-        pub fn set_data_type<T: std::convert::Into<crate::model::DataType>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_data_type<T: std::convert::Into<crate::model::DataType>>(mut self, v: T) -> Self {
             self.data_type = v.into();
             self
         }
@@ -3801,6 +3688,7 @@ pub mod runtime_action_schema {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LockConfig {
+
     /// Indicates whether or not the connection is locked.
     pub locked: bool,
 
@@ -3850,6 +3738,7 @@ impl wkt::message::Message for LockConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListConnectionsRequest {
+
     /// Required. Parent resource of the Connection, of the form:
     /// `projects/*/locations/*`
     pub parent: std::string::String,
@@ -3963,6 +3852,7 @@ impl wkt::message::Message for ListConnectionsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListConnectionsResponse {
+
     /// Connections.
     pub connections: std::vec::Vec<crate::model::Connection>,
 
@@ -3995,7 +3885,7 @@ impl ListConnectionsResponse {
     pub fn set_connections<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Connection>,
+        V: std::convert::Into<crate::model::Connection>
     {
         use std::iter::Iterator;
         self.connections = v.into_iter().map(|i| i.into()).collect();
@@ -4024,7 +3914,7 @@ impl ListConnectionsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -4056,6 +3946,7 @@ impl gax::paginator::internal::PageableResponse for ListConnectionsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetConnectionRequest {
+
     /// Required. Resource name of the form:
     /// `projects/*/locations/*/connections/*`
     pub name: std::string::String,
@@ -4109,6 +4000,7 @@ impl wkt::message::Message for GetConnectionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateConnectionRequest {
+
     /// Required. Parent resource of the Connection, of the form:
     /// `projects/*/locations/*`
     pub parent: std::string::String,
@@ -4161,8 +4053,7 @@ impl CreateConnectionRequest {
     /// let x = CreateConnectionRequest::new().set_connection(Connection::default()/* use setters */);
     /// ```
     pub fn set_connection<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Connection>,
+    where T: std::convert::Into<crate::model::Connection>
     {
         self.connection = std::option::Option::Some(v.into());
         self
@@ -4178,8 +4069,7 @@ impl CreateConnectionRequest {
     /// let x = CreateConnectionRequest::new().set_or_clear_connection(None::<Connection>);
     /// ```
     pub fn set_or_clear_connection<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Connection>,
+    where T: std::convert::Into<crate::model::Connection>
     {
         self.connection = v.map(|x| x.into());
         self
@@ -4196,6 +4086,7 @@ impl wkt::message::Message for CreateConnectionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateConnectionRequest {
+
     /// Required. Connection resource.
     pub connection: std::option::Option<crate::model::Connection>,
 
@@ -4237,8 +4128,7 @@ impl UpdateConnectionRequest {
     /// let x = UpdateConnectionRequest::new().set_connection(Connection::default()/* use setters */);
     /// ```
     pub fn set_connection<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Connection>,
+    where T: std::convert::Into<crate::model::Connection>
     {
         self.connection = std::option::Option::Some(v.into());
         self
@@ -4254,8 +4144,7 @@ impl UpdateConnectionRequest {
     /// let x = UpdateConnectionRequest::new().set_or_clear_connection(None::<Connection>);
     /// ```
     pub fn set_or_clear_connection<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Connection>,
+    where T: std::convert::Into<crate::model::Connection>
     {
         self.connection = v.map(|x| x.into());
         self
@@ -4270,8 +4159,7 @@ impl UpdateConnectionRequest {
     /// let x = UpdateConnectionRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -4287,8 +4175,7 @@ impl UpdateConnectionRequest {
     /// let x = UpdateConnectionRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -4305,6 +4192,7 @@ impl wkt::message::Message for UpdateConnectionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteConnectionRequest {
+
     /// Required. Resource name of the form:
     /// `projects/*/locations/*/connections/*`
     pub name: std::string::String,
@@ -4340,6 +4228,7 @@ impl wkt::message::Message for DeleteConnectionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetConnectionSchemaMetadataRequest {
+
     /// Required. Connection name
     /// Format:
     /// projects/{project}/locations/{location}/connections/{connection}/connectionSchemaMetadata
@@ -4376,6 +4265,7 @@ impl wkt::message::Message for GetConnectionSchemaMetadataRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RefreshConnectionSchemaMetadataRequest {
+
     /// Required. Resource name.
     /// Format:
     /// projects/{project}/locations/{location}/connections/{connection}/connectionSchemaMetadata
@@ -4415,6 +4305,7 @@ impl wkt::message::Message for RefreshConnectionSchemaMetadataRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRuntimeEntitySchemasRequest {
+
     /// Required. Parent resource of RuntimeEntitySchema
     /// Format:
     /// projects/{project}/locations/{location}/connections/{connection}
@@ -4501,6 +4392,7 @@ impl wkt::message::Message for ListRuntimeEntitySchemasRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRuntimeEntitySchemasResponse {
+
     /// Runtime entity schemas.
     pub runtime_entity_schemas: std::vec::Vec<crate::model::RuntimeEntitySchema>,
 
@@ -4530,7 +4422,7 @@ impl ListRuntimeEntitySchemasResponse {
     pub fn set_runtime_entity_schemas<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::RuntimeEntitySchema>,
+        V: std::convert::Into<crate::model::RuntimeEntitySchema>
     {
         use std::iter::Iterator;
         self.runtime_entity_schemas = v.into_iter().map(|i| i.into()).collect();
@@ -4577,6 +4469,7 @@ impl gax::paginator::internal::PageableResponse for ListRuntimeEntitySchemasResp
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRuntimeActionSchemasRequest {
+
     /// Required. Parent resource of RuntimeActionSchema
     /// Format:
     /// projects/{project}/locations/{location}/connections/{connection}
@@ -4663,6 +4556,7 @@ impl wkt::message::Message for ListRuntimeActionSchemasRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRuntimeActionSchemasResponse {
+
     /// Runtime action schemas.
     pub runtime_action_schemas: std::vec::Vec<crate::model::RuntimeActionSchema>,
 
@@ -4692,7 +4586,7 @@ impl ListRuntimeActionSchemasResponse {
     pub fn set_runtime_action_schemas<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::RuntimeActionSchema>,
+        V: std::convert::Into<crate::model::RuntimeActionSchema>
     {
         use std::iter::Iterator;
         self.runtime_action_schemas = v.into_iter().map(|i| i.into()).collect();
@@ -4736,6 +4630,7 @@ impl gax::paginator::internal::PageableResponse for ListRuntimeActionSchemasResp
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConnectionStatus {
+
     /// State.
     pub state: crate::model::connection_status::State,
 
@@ -4763,10 +4658,7 @@ impl ConnectionStatus {
     /// let x1 = ConnectionStatus::new().set_state(State::Active);
     /// let x2 = ConnectionStatus::new().set_state(State::Inactive);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::connection_status::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::connection_status::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -4806,6 +4698,7 @@ impl wkt::message::Message for ConnectionStatus {
 pub mod connection_status {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// All the possible Connection State.
     ///
@@ -4919,9 +4812,7 @@ pub mod connection_status {
                 5 => Self::Updating,
                 6 => Self::Error,
                 7 => Self::AuthorizationRequired,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -4938,9 +4829,7 @@ pub mod connection_status {
                 "UPDATING" => Self::Updating,
                 "ERROR" => Self::Error,
                 "AUTHORIZATION_REQUIRED" => Self::AuthorizationRequired,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -4970,8 +4859,7 @@ pub mod connection_status {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.connectors.v1.ConnectionStatus.State",
-            ))
+                ".google.cloud.connectors.v1.ConnectionStatus.State"))
         }
     }
 }
@@ -4980,6 +4868,7 @@ pub mod connection_status {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Connector {
+
     /// Output only. Resource name of the Connector.
     /// Format:
     /// projects/{project}/locations/{location}/providers/{provider}/connectors/{connector}
@@ -4995,7 +4884,7 @@ pub struct Connector {
     /// Output only. Resource labels to represent user-provided metadata.
     /// Refer to cloud documentation on labels for more details.
     /// <https://cloud.google.com/compute/docs/labeling-resources>
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Output only. Link to documentation page.
     pub documentation_uri: std::string::String,
@@ -5044,8 +4933,7 @@ impl Connector {
     /// let x = Connector::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -5061,8 +4949,7 @@ impl Connector {
     /// let x = Connector::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -5077,8 +4964,7 @@ impl Connector {
     /// let x = Connector::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -5094,8 +4980,7 @@ impl Connector {
     /// let x = Connector::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -5129,10 +5014,7 @@ impl Connector {
     /// # use google_cloud_connectors_v1::model::Connector;
     /// let x = Connector::new().set_documentation_uri("example");
     /// ```
-    pub fn set_documentation_uri<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_documentation_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.documentation_uri = v.into();
         self
     }
@@ -5168,10 +5050,7 @@ impl Connector {
     /// # use google_cloud_connectors_v1::model::Connector;
     /// let x = Connector::new().set_web_assets_location("example");
     /// ```
-    pub fn set_web_assets_location<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_web_assets_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.web_assets_location = v.into();
         self
     }
@@ -5198,10 +5077,7 @@ impl Connector {
     /// let x1 = Connector::new().set_launch_stage(LaunchStage::Ga);
     /// let x2 = Connector::new().set_launch_stage(LaunchStage::Deprecated);
     /// ```
-    pub fn set_launch_stage<T: std::convert::Into<crate::model::LaunchStage>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_launch_stage<T: std::convert::Into<crate::model::LaunchStage>>(mut self, v: T) -> Self {
         self.launch_stage = v.into();
         self
     }
@@ -5217,6 +5093,7 @@ impl wkt::message::Message for Connector {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetConnectorRequest {
+
     /// Required. Resource name of the form:
     /// `projects/*/locations/*/providers/*/connectors/*`
     /// Only global location is supported for Connector resource.
@@ -5253,6 +5130,7 @@ impl wkt::message::Message for GetConnectorRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListConnectorsRequest {
+
     /// Required. Parent resource of the connectors, of the form:
     /// `projects/*/locations/*/providers/*`
     /// Only global location is supported for Connector resource.
@@ -5319,6 +5197,7 @@ impl wkt::message::Message for ListConnectorsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListConnectorsResponse {
+
     /// A list of connectors.
     pub connectors: std::vec::Vec<crate::model::Connector>,
 
@@ -5351,7 +5230,7 @@ impl ListConnectorsResponse {
     pub fn set_connectors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Connector>,
+        V: std::convert::Into<crate::model::Connector>
     {
         use std::iter::Iterator;
         self.connectors = v.into_iter().map(|i| i.into()).collect();
@@ -5380,7 +5259,7 @@ impl ListConnectorsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -5412,6 +5291,7 @@ impl gax::paginator::internal::PageableResponse for ListConnectorsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConnectorVersion {
+
     /// Output only. Resource name of the Version.
     /// Format:
     /// projects/{project}/locations/{location}/providers/{provider}/connectors/{connector}/versions/{version}
@@ -5427,7 +5307,7 @@ pub struct ConnectorVersion {
     /// Output only. Resource labels to represent user-provided metadata.
     /// Refer to cloud documentation on labels for more details.
     /// <https://cloud.google.com/compute/docs/labeling-resources>
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Output only. Flag to mark the version indicating the launch stage.
     pub launch_stage: crate::model::LaunchStage,
@@ -5490,8 +5370,7 @@ impl ConnectorVersion {
     /// let x = ConnectorVersion::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -5507,8 +5386,7 @@ impl ConnectorVersion {
     /// let x = ConnectorVersion::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -5523,8 +5401,7 @@ impl ConnectorVersion {
     /// let x = ConnectorVersion::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -5540,8 +5417,7 @@ impl ConnectorVersion {
     /// let x = ConnectorVersion::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -5578,10 +5454,7 @@ impl ConnectorVersion {
     /// let x1 = ConnectorVersion::new().set_launch_stage(LaunchStage::Ga);
     /// let x2 = ConnectorVersion::new().set_launch_stage(LaunchStage::Deprecated);
     /// ```
-    pub fn set_launch_stage<T: std::convert::Into<crate::model::LaunchStage>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_launch_stage<T: std::convert::Into<crate::model::LaunchStage>>(mut self, v: T) -> Self {
         self.launch_stage = v.into();
         self
     }
@@ -5613,7 +5486,7 @@ impl ConnectorVersion {
     pub fn set_auth_config_templates<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AuthConfigTemplate>,
+        V: std::convert::Into<crate::model::AuthConfigTemplate>
     {
         use std::iter::Iterator;
         self.auth_config_templates = v.into_iter().map(|i| i.into()).collect();
@@ -5635,7 +5508,7 @@ impl ConnectorVersion {
     pub fn set_config_variable_templates<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ConfigVariableTemplate>,
+        V: std::convert::Into<crate::model::ConfigVariableTemplate>
     {
         use std::iter::Iterator;
         self.config_variable_templates = v.into_iter().map(|i| i.into()).collect();
@@ -5651,8 +5524,7 @@ impl ConnectorVersion {
     /// let x = ConnectorVersion::new().set_supported_runtime_features(SupportedRuntimeFeatures::default()/* use setters */);
     /// ```
     pub fn set_supported_runtime_features<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::SupportedRuntimeFeatures>,
+    where T: std::convert::Into<crate::model::SupportedRuntimeFeatures>
     {
         self.supported_runtime_features = std::option::Option::Some(v.into());
         self
@@ -5668,8 +5540,7 @@ impl ConnectorVersion {
     /// let x = ConnectorVersion::new().set_or_clear_supported_runtime_features(None::<SupportedRuntimeFeatures>);
     /// ```
     pub fn set_or_clear_supported_runtime_features<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::SupportedRuntimeFeatures>,
+    where T: std::convert::Into<crate::model::SupportedRuntimeFeatures>
     {
         self.supported_runtime_features = v.map(|x| x.into());
         self
@@ -5696,8 +5567,7 @@ impl ConnectorVersion {
     /// let x = ConnectorVersion::new().set_egress_control_config(EgressControlConfig::default()/* use setters */);
     /// ```
     pub fn set_egress_control_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::EgressControlConfig>,
+    where T: std::convert::Into<crate::model::EgressControlConfig>
     {
         self.egress_control_config = std::option::Option::Some(v.into());
         self
@@ -5713,8 +5583,7 @@ impl ConnectorVersion {
     /// let x = ConnectorVersion::new().set_or_clear_egress_control_config(None::<EgressControlConfig>);
     /// ```
     pub fn set_or_clear_egress_control_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::EgressControlConfig>,
+    where T: std::convert::Into<crate::model::EgressControlConfig>
     {
         self.egress_control_config = v.map(|x| x.into());
         self
@@ -5735,7 +5604,7 @@ impl ConnectorVersion {
     pub fn set_role_grants<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::RoleGrant>,
+        V: std::convert::Into<crate::model::RoleGrant>
     {
         use std::iter::Iterator;
         self.role_grants = v.into_iter().map(|i| i.into()).collect();
@@ -5751,8 +5620,7 @@ impl ConnectorVersion {
     /// let x = ConnectorVersion::new().set_role_grant(RoleGrant::default()/* use setters */);
     /// ```
     pub fn set_role_grant<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RoleGrant>,
+    where T: std::convert::Into<crate::model::RoleGrant>
     {
         self.role_grant = std::option::Option::Some(v.into());
         self
@@ -5768,8 +5636,7 @@ impl ConnectorVersion {
     /// let x = ConnectorVersion::new().set_or_clear_role_grant(None::<RoleGrant>);
     /// ```
     pub fn set_or_clear_role_grant<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RoleGrant>,
+    where T: std::convert::Into<crate::model::RoleGrant>
     {
         self.role_grant = v.map(|x| x.into());
         self
@@ -5784,8 +5651,7 @@ impl ConnectorVersion {
     /// let x = ConnectorVersion::new().set_ssl_config_template(SslConfigTemplate::default()/* use setters */);
     /// ```
     pub fn set_ssl_config_template<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::SslConfigTemplate>,
+    where T: std::convert::Into<crate::model::SslConfigTemplate>
     {
         self.ssl_config_template = std::option::Option::Some(v.into());
         self
@@ -5801,8 +5667,7 @@ impl ConnectorVersion {
     /// let x = ConnectorVersion::new().set_or_clear_ssl_config_template(None::<SslConfigTemplate>);
     /// ```
     pub fn set_or_clear_ssl_config_template<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::SslConfigTemplate>,
+    where T: std::convert::Into<crate::model::SslConfigTemplate>
     {
         self.ssl_config_template = v.map(|x| x.into());
         self
@@ -5819,6 +5684,7 @@ impl wkt::message::Message for ConnectorVersion {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetConnectorVersionRequest {
+
     /// Required. Resource name of the form:
     /// `projects/*/locations/*/providers/*/connectors/*/versions/*`
     /// Only global location is supported for ConnectorVersion resource.
@@ -5857,10 +5723,7 @@ impl GetConnectorVersionRequest {
     /// let x0 = GetConnectorVersionRequest::new().set_view(ConnectorVersionView::Basic);
     /// let x1 = GetConnectorVersionRequest::new().set_view(ConnectorVersionView::Full);
     /// ```
-    pub fn set_view<T: std::convert::Into<crate::model::ConnectorVersionView>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_view<T: std::convert::Into<crate::model::ConnectorVersionView>>(mut self, v: T) -> Self {
         self.view = v.into();
         self
     }
@@ -5876,6 +5739,7 @@ impl wkt::message::Message for GetConnectorVersionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListConnectorVersionsRequest {
+
     /// Required. Parent resource of the connectors, of the form:
     /// `projects/*/locations/*/providers/*/connectors/*`
     /// Only global location is supported for ConnectorVersion resource.
@@ -5944,10 +5808,7 @@ impl ListConnectorVersionsRequest {
     /// let x0 = ListConnectorVersionsRequest::new().set_view(ConnectorVersionView::Basic);
     /// let x1 = ListConnectorVersionsRequest::new().set_view(ConnectorVersionView::Full);
     /// ```
-    pub fn set_view<T: std::convert::Into<crate::model::ConnectorVersionView>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_view<T: std::convert::Into<crate::model::ConnectorVersionView>>(mut self, v: T) -> Self {
         self.view = v.into();
         self
     }
@@ -5963,6 +5824,7 @@ impl wkt::message::Message for ListConnectorVersionsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListConnectorVersionsResponse {
+
     /// A list of connector versions.
     pub connector_versions: std::vec::Vec<crate::model::ConnectorVersion>,
 
@@ -5995,7 +5857,7 @@ impl ListConnectorVersionsResponse {
     pub fn set_connector_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ConnectorVersion>,
+        V: std::convert::Into<crate::model::ConnectorVersion>
     {
         use std::iter::Iterator;
         self.connector_versions = v.into_iter().map(|i| i.into()).collect();
@@ -6024,7 +5886,7 @@ impl ListConnectorVersionsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -6059,6 +5921,7 @@ impl gax::paginator::internal::PageableResponse for ListConnectorVersionsRespons
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SupportedRuntimeFeatures {
+
     /// Specifies if the connector supports entity apis like 'createEntity'.
     pub entity_apis: bool,
 
@@ -6127,6 +5990,7 @@ impl wkt::message::Message for SupportedRuntimeFeatures {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EgressControlConfig {
+
     pub oneof_backends: std::option::Option<crate::model::egress_control_config::OneofBackends>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -6148,12 +6012,8 @@ impl EgressControlConfig {
     /// use google_cloud_connectors_v1::model::egress_control_config::OneofBackends;
     /// let x = EgressControlConfig::new().set_oneof_backends(Some(OneofBackends::Backends("example".to_string())));
     /// ```
-    pub fn set_oneof_backends<
-        T: std::convert::Into<std::option::Option<crate::model::egress_control_config::OneofBackends>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_oneof_backends<T: std::convert::Into<std::option::Option<crate::model::egress_control_config::OneofBackends>>>(mut self, v: T) -> Self
+    {
         self.oneof_backends = v.into();
         self
     }
@@ -6164,9 +6024,7 @@ impl EgressControlConfig {
     pub fn backends(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.oneof_backends.as_ref().and_then(|v| match v {
-            crate::model::egress_control_config::OneofBackends::Backends(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::egress_control_config::OneofBackends::Backends(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -6186,7 +6044,9 @@ impl EgressControlConfig {
     /// ```
     pub fn set_backends<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.oneof_backends = std::option::Option::Some(
-            crate::model::egress_control_config::OneofBackends::Backends(v.into()),
+            crate::model::egress_control_config::OneofBackends::Backends(
+                v.into()
+            )
         );
         self
     }
@@ -6194,14 +6054,10 @@ impl EgressControlConfig {
     /// The value of [oneof_backends][crate::model::EgressControlConfig::oneof_backends]
     /// if it holds a `ExtractionRules`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn extraction_rules(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::ExtractionRules>> {
+    pub fn extraction_rules(&self) -> std::option::Option<&std::boxed::Box<crate::model::ExtractionRules>> {
         #[allow(unreachable_patterns)]
         self.oneof_backends.as_ref().and_then(|v| match v {
-            crate::model::egress_control_config::OneofBackends::ExtractionRules(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::egress_control_config::OneofBackends::ExtractionRules(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -6220,14 +6076,11 @@ impl EgressControlConfig {
     /// assert!(x.extraction_rules().is_some());
     /// assert!(x.backends().is_none());
     /// ```
-    pub fn set_extraction_rules<
-        T: std::convert::Into<std::boxed::Box<crate::model::ExtractionRules>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_extraction_rules<T: std::convert::Into<std::boxed::Box<crate::model::ExtractionRules>>>(mut self, v: T) -> Self {
         self.oneof_backends = std::option::Option::Some(
-            crate::model::egress_control_config::OneofBackends::ExtractionRules(v.into()),
+            crate::model::egress_control_config::OneofBackends::ExtractionRules(
+                v.into()
+            )
         );
         self
     }
@@ -6243,6 +6096,7 @@ impl wkt::message::Message for EgressControlConfig {
 pub mod egress_control_config {
     #[allow(unused_imports)]
     use super::*;
+
 
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -6262,6 +6116,7 @@ pub mod egress_control_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExtractionRules {
+
     /// Collection of Extraction Rule.
     pub extraction_rule: std::vec::Vec<crate::model::ExtractionRule>,
 
@@ -6288,7 +6143,7 @@ impl ExtractionRules {
     pub fn set_extraction_rule<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ExtractionRule>,
+        V: std::convert::Into<crate::model::ExtractionRule>
     {
         use std::iter::Iterator;
         self.extraction_rule = v.into_iter().map(|i| i.into()).collect();
@@ -6306,6 +6161,7 @@ impl wkt::message::Message for ExtractionRules {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExtractionRule {
+
     /// Source on which the rule is applied.
     pub source: std::option::Option<crate::model::extraction_rule::Source>,
 
@@ -6330,8 +6186,7 @@ impl ExtractionRule {
     /// let x = ExtractionRule::new().set_source(Source::default()/* use setters */);
     /// ```
     pub fn set_source<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::extraction_rule::Source>,
+    where T: std::convert::Into<crate::model::extraction_rule::Source>
     {
         self.source = std::option::Option::Some(v.into());
         self
@@ -6347,8 +6202,7 @@ impl ExtractionRule {
     /// let x = ExtractionRule::new().set_or_clear_source(None::<Source>);
     /// ```
     pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::extraction_rule::Source>,
+    where T: std::convert::Into<crate::model::extraction_rule::Source>
     {
         self.source = v.map(|x| x.into());
         self
@@ -6361,10 +6215,7 @@ impl ExtractionRule {
     /// # use google_cloud_connectors_v1::model::ExtractionRule;
     /// let x = ExtractionRule::new().set_extraction_regex("example");
     /// ```
-    pub fn set_extraction_regex<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_extraction_regex<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.extraction_regex = v.into();
         self
     }
@@ -6381,10 +6232,12 @@ pub mod extraction_rule {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Source to extract the backend from.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Source {
+
         /// Type of the source.
         pub source_type: crate::model::extraction_rule::SourceType,
 
@@ -6407,10 +6260,7 @@ pub mod extraction_rule {
         /// use google_cloud_connectors_v1::model::extraction_rule::SourceType;
         /// let x0 = Source::new().set_source_type(SourceType::ConfigVariable);
         /// ```
-        pub fn set_source_type<T: std::convert::Into<crate::model::extraction_rule::SourceType>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_source_type<T: std::convert::Into<crate::model::extraction_rule::SourceType>>(mut self, v: T) -> Self {
             self.source_type = v.into();
             self
         }
@@ -6515,9 +6365,7 @@ pub mod extraction_rule {
             match value {
                 0 => Self::Unspecified,
                 1 => Self::ConfigVariable,
-                _ => Self::UnknownValue(source_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(source_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -6528,9 +6376,7 @@ pub mod extraction_rule {
             match value {
                 "SOURCE_TYPE_UNSPECIFIED" => Self::Unspecified,
                 "CONFIG_VARIABLE" => Self::ConfigVariable,
-                _ => Self::UnknownValue(source_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(source_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -6554,8 +6400,7 @@ pub mod extraction_rule {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<SourceType>::new(
-                ".google.cloud.connectors.v1.ExtractionRule.SourceType",
-            ))
+                ".google.cloud.connectors.v1.ExtractionRule.SourceType"))
         }
     }
 }
@@ -6564,6 +6409,7 @@ pub mod extraction_rule {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DestinationConfig {
+
     /// The key is the destination identifier that is supported by the Connector.
     pub key: std::string::String,
 
@@ -6605,7 +6451,7 @@ impl DestinationConfig {
     pub fn set_destinations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Destination>,
+        V: std::convert::Into<crate::model::Destination>
     {
         use std::iter::Iterator;
         self.destinations = v.into_iter().map(|i| i.into()).collect();
@@ -6622,6 +6468,7 @@ impl wkt::message::Message for DestinationConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Destination {
+
     /// The port is the target port number that is accepted by the destination.
     pub port: i32,
 
@@ -6658,12 +6505,8 @@ impl Destination {
     /// use google_cloud_connectors_v1::model::destination::Destination as DestinationOneOf;
     /// let x = Destination::new().set_destination(Some(DestinationOneOf::ServiceAttachment("example".to_string())));
     /// ```
-    pub fn set_destination<
-        T: std::convert::Into<std::option::Option<crate::model::destination::Destination>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_destination<T: std::convert::Into<std::option::Option<crate::model::destination::Destination>>>(mut self, v: T) -> Self
+    {
         self.destination = v.into();
         self
     }
@@ -6674,9 +6517,7 @@ impl Destination {
     pub fn service_attachment(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.destination.as_ref().and_then(|v| match v {
-            crate::model::destination::Destination::ServiceAttachment(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::destination::Destination::ServiceAttachment(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -6694,12 +6535,11 @@ impl Destination {
     /// assert!(x.service_attachment().is_some());
     /// assert!(x.host().is_none());
     /// ```
-    pub fn set_service_attachment<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_service_attachment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.destination = std::option::Option::Some(
-            crate::model::destination::Destination::ServiceAttachment(v.into()),
+            crate::model::destination::Destination::ServiceAttachment(
+                v.into()
+            )
         );
         self
     }
@@ -6729,8 +6569,11 @@ impl Destination {
     /// assert!(x.service_attachment().is_none());
     /// ```
     pub fn set_host<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.destination =
-            std::option::Option::Some(crate::model::destination::Destination::Host(v.into()));
+        self.destination = std::option::Option::Some(
+            crate::model::destination::Destination::Host(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -6745,6 +6588,7 @@ impl wkt::message::Message for Destination {
 pub mod destination {
     #[allow(unused_imports)]
     use super::*;
+
 
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -6761,6 +6605,7 @@ pub mod destination {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Provider {
+
     /// Output only. Resource name of the Provider.
     /// Format: projects/{project}/locations/{location}/providers/{provider}
     /// Only global location is supported for Provider resource.
@@ -6775,7 +6620,7 @@ pub struct Provider {
     /// Output only. Resource labels to represent user-provided metadata.
     /// Refer to cloud documentation on labels for more details.
     /// <https://cloud.google.com/compute/docs/labeling-resources>
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Output only. Link to documentation page.
     pub documentation_uri: std::string::String,
@@ -6824,8 +6669,7 @@ impl Provider {
     /// let x = Provider::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -6841,8 +6685,7 @@ impl Provider {
     /// let x = Provider::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -6857,8 +6700,7 @@ impl Provider {
     /// let x = Provider::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -6874,8 +6716,7 @@ impl Provider {
     /// let x = Provider::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -6909,10 +6750,7 @@ impl Provider {
     /// # use google_cloud_connectors_v1::model::Provider;
     /// let x = Provider::new().set_documentation_uri("example");
     /// ```
-    pub fn set_documentation_uri<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_documentation_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.documentation_uri = v.into();
         self
     }
@@ -6948,10 +6786,7 @@ impl Provider {
     /// # use google_cloud_connectors_v1::model::Provider;
     /// let x = Provider::new().set_web_assets_location("example");
     /// ```
-    pub fn set_web_assets_location<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_web_assets_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.web_assets_location = v.into();
         self
     }
@@ -6978,10 +6813,7 @@ impl Provider {
     /// let x1 = Provider::new().set_launch_stage(LaunchStage::Ga);
     /// let x2 = Provider::new().set_launch_stage(LaunchStage::Deprecated);
     /// ```
-    pub fn set_launch_stage<T: std::convert::Into<crate::model::LaunchStage>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_launch_stage<T: std::convert::Into<crate::model::LaunchStage>>(mut self, v: T) -> Self {
         self.launch_stage = v.into();
         self
     }
@@ -6997,6 +6829,7 @@ impl wkt::message::Message for Provider {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetProviderRequest {
+
     /// Required. Resource name of the form:
     /// `projects/*/locations/*/providers/*`
     /// Only global location is supported for Provider resource.
@@ -7033,6 +6866,7 @@ impl wkt::message::Message for GetProviderRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListProvidersRequest {
+
     /// Required. Parent resource of the API, of the form:
     /// `projects/*/locations/*`
     /// Only global location is supported for Provider resource.
@@ -7099,6 +6933,7 @@ impl wkt::message::Message for ListProvidersRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListProvidersResponse {
+
     /// A list of providers.
     pub providers: std::vec::Vec<crate::model::Provider>,
 
@@ -7131,7 +6966,7 @@ impl ListProvidersResponse {
     pub fn set_providers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Provider>,
+        V: std::convert::Into<crate::model::Provider>
     {
         use std::iter::Iterator;
         self.providers = v.into_iter().map(|i| i.into()).collect();
@@ -7160,7 +6995,7 @@ impl ListProvidersResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -7192,6 +7027,7 @@ impl gax::paginator::internal::PageableResponse for ListProvidersResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetRuntimeConfigRequest {
+
     /// Required. Resource name of the form:
     /// `projects/*/locations/*/runtimeConfig`
     pub name: std::string::String,
@@ -7230,6 +7066,7 @@ impl wkt::message::Message for GetRuntimeConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RuntimeConfig {
+
     /// Output only. location_id of the runtime location. E.g. "us-west1".
     pub location_id: std::string::String,
 
@@ -7306,10 +7143,7 @@ impl RuntimeConfig {
     /// # use google_cloud_connectors_v1::model::RuntimeConfig;
     /// let x = RuntimeConfig::new().set_connd_subscription("example");
     /// ```
-    pub fn set_connd_subscription<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_connd_subscription<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.connd_subscription = v.into();
         self
     }
@@ -7321,10 +7155,7 @@ impl RuntimeConfig {
     /// # use google_cloud_connectors_v1::model::RuntimeConfig;
     /// let x = RuntimeConfig::new().set_control_plane_topic("example");
     /// ```
-    pub fn set_control_plane_topic<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_control_plane_topic<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.control_plane_topic = v.into();
         self
     }
@@ -7336,10 +7167,7 @@ impl RuntimeConfig {
     /// # use google_cloud_connectors_v1::model::RuntimeConfig;
     /// let x = RuntimeConfig::new().set_control_plane_subscription("example");
     /// ```
-    pub fn set_control_plane_subscription<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_control_plane_subscription<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.control_plane_subscription = v.into();
         self
     }
@@ -7351,10 +7179,7 @@ impl RuntimeConfig {
     /// # use google_cloud_connectors_v1::model::RuntimeConfig;
     /// let x = RuntimeConfig::new().set_runtime_endpoint("example");
     /// ```
-    pub fn set_runtime_endpoint<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_runtime_endpoint<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.runtime_endpoint = v.into();
         self
     }
@@ -7369,10 +7194,7 @@ impl RuntimeConfig {
     /// let x1 = RuntimeConfig::new().set_state(State::Creating);
     /// let x2 = RuntimeConfig::new().set_state(State::Deleting);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::runtime_config::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::runtime_config::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -7384,10 +7206,7 @@ impl RuntimeConfig {
     /// # use google_cloud_connectors_v1::model::RuntimeConfig;
     /// let x = RuntimeConfig::new().set_schema_gcs_bucket("example");
     /// ```
-    pub fn set_schema_gcs_bucket<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_schema_gcs_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.schema_gcs_bucket = v.into();
         self
     }
@@ -7399,10 +7218,7 @@ impl RuntimeConfig {
     /// # use google_cloud_connectors_v1::model::RuntimeConfig;
     /// let x = RuntimeConfig::new().set_service_directory("example");
     /// ```
-    pub fn set_service_directory<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_service_directory<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_directory = v.into();
         self
     }
@@ -7430,6 +7246,7 @@ impl wkt::message::Message for RuntimeConfig {
 pub mod runtime_config {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// State of the location.
     ///
@@ -7539,9 +7356,7 @@ pub mod runtime_config {
                 4 => Self::Creating,
                 5 => Self::Deleting,
                 6 => Self::Updating,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -7557,9 +7372,7 @@ pub mod runtime_config {
                 "CREATING" => Self::Creating,
                 "DELETING" => Self::Deleting,
                 "UPDATING" => Self::Updating,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -7588,8 +7401,7 @@ pub mod runtime_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.connectors.v1.RuntimeConfig.State",
-            ))
+                ".google.cloud.connectors.v1.RuntimeConfig.State"))
         }
     }
 }
@@ -7598,6 +7410,7 @@ pub mod runtime_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetGlobalSettingsRequest {
+
     /// Required. The resource name of the Settings.
     pub name: std::string::String,
 
@@ -7632,6 +7445,7 @@ impl wkt::message::Message for GetGlobalSettingsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Settings {
+
     /// Output only. Resource name of the Connection.
     /// Format: projects/{project}/locations/global/settings}
     pub name: std::string::String,
@@ -7697,6 +7511,7 @@ impl wkt::message::Message for Settings {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SslConfigTemplate {
+
     /// Controls the ssl type for the given connector version
     pub ssl_type: crate::model::SslType,
 
@@ -7759,7 +7574,7 @@ impl SslConfigTemplate {
     pub fn set_server_cert_type<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::CertType>,
+        V: std::convert::Into<crate::model::CertType>
     {
         use std::iter::Iterator;
         self.server_cert_type = v.into_iter().map(|i| i.into()).collect();
@@ -7779,7 +7594,7 @@ impl SslConfigTemplate {
     pub fn set_client_cert_type<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::CertType>,
+        V: std::convert::Into<crate::model::CertType>
     {
         use std::iter::Iterator;
         self.client_cert_type = v.into_iter().map(|i| i.into()).collect();
@@ -7801,7 +7616,7 @@ impl SslConfigTemplate {
     pub fn set_additional_variables<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ConfigVariableTemplate>,
+        V: std::convert::Into<crate::model::ConfigVariableTemplate>
     {
         use std::iter::Iterator;
         self.additional_variables = v.into_iter().map(|i| i.into()).collect();
@@ -7819,6 +7634,7 @@ impl wkt::message::Message for SslConfigTemplate {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SslConfig {
+
     /// Controls the ssl type for the given connector version.
     pub r#type: crate::model::SslType,
 
@@ -7881,10 +7697,7 @@ impl SslConfig {
     /// let x0 = SslConfig::new().set_trust_model(TrustModel::Private);
     /// let x1 = SslConfig::new().set_trust_model(TrustModel::Insecure);
     /// ```
-    pub fn set_trust_model<T: std::convert::Into<crate::model::ssl_config::TrustModel>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_trust_model<T: std::convert::Into<crate::model::ssl_config::TrustModel>>(mut self, v: T) -> Self {
         self.trust_model = v.into();
         self
     }
@@ -7898,8 +7711,7 @@ impl SslConfig {
     /// let x = SslConfig::new().set_private_server_certificate(Secret::default()/* use setters */);
     /// ```
     pub fn set_private_server_certificate<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Secret>,
+    where T: std::convert::Into<crate::model::Secret>
     {
         self.private_server_certificate = std::option::Option::Some(v.into());
         self
@@ -7915,8 +7727,7 @@ impl SslConfig {
     /// let x = SslConfig::new().set_or_clear_private_server_certificate(None::<Secret>);
     /// ```
     pub fn set_or_clear_private_server_certificate<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Secret>,
+    where T: std::convert::Into<crate::model::Secret>
     {
         self.private_server_certificate = v.map(|x| x.into());
         self
@@ -7931,8 +7742,7 @@ impl SslConfig {
     /// let x = SslConfig::new().set_client_certificate(Secret::default()/* use setters */);
     /// ```
     pub fn set_client_certificate<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Secret>,
+    where T: std::convert::Into<crate::model::Secret>
     {
         self.client_certificate = std::option::Option::Some(v.into());
         self
@@ -7948,8 +7758,7 @@ impl SslConfig {
     /// let x = SslConfig::new().set_or_clear_client_certificate(None::<Secret>);
     /// ```
     pub fn set_or_clear_client_certificate<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Secret>,
+    where T: std::convert::Into<crate::model::Secret>
     {
         self.client_certificate = v.map(|x| x.into());
         self
@@ -7964,8 +7773,7 @@ impl SslConfig {
     /// let x = SslConfig::new().set_client_private_key(Secret::default()/* use setters */);
     /// ```
     pub fn set_client_private_key<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Secret>,
+    where T: std::convert::Into<crate::model::Secret>
     {
         self.client_private_key = std::option::Option::Some(v.into());
         self
@@ -7981,8 +7789,7 @@ impl SslConfig {
     /// let x = SslConfig::new().set_or_clear_client_private_key(None::<Secret>);
     /// ```
     pub fn set_or_clear_client_private_key<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Secret>,
+    where T: std::convert::Into<crate::model::Secret>
     {
         self.client_private_key = v.map(|x| x.into());
         self
@@ -7997,8 +7804,7 @@ impl SslConfig {
     /// let x = SslConfig::new().set_client_private_key_pass(Secret::default()/* use setters */);
     /// ```
     pub fn set_client_private_key_pass<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Secret>,
+    where T: std::convert::Into<crate::model::Secret>
     {
         self.client_private_key_pass = std::option::Option::Some(v.into());
         self
@@ -8014,8 +7820,7 @@ impl SslConfig {
     /// let x = SslConfig::new().set_or_clear_client_private_key_pass(None::<Secret>);
     /// ```
     pub fn set_or_clear_client_private_key_pass<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Secret>,
+    where T: std::convert::Into<crate::model::Secret>
     {
         self.client_private_key_pass = v.map(|x| x.into());
         self
@@ -8029,10 +7834,7 @@ impl SslConfig {
     /// use google_cloud_connectors_v1::model::CertType;
     /// let x0 = SslConfig::new().set_server_cert_type(CertType::Pem);
     /// ```
-    pub fn set_server_cert_type<T: std::convert::Into<crate::model::CertType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_server_cert_type<T: std::convert::Into<crate::model::CertType>>(mut self, v: T) -> Self {
         self.server_cert_type = v.into();
         self
     }
@@ -8045,10 +7847,7 @@ impl SslConfig {
     /// use google_cloud_connectors_v1::model::CertType;
     /// let x0 = SslConfig::new().set_client_cert_type(CertType::Pem);
     /// ```
-    pub fn set_client_cert_type<T: std::convert::Into<crate::model::CertType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_client_cert_type<T: std::convert::Into<crate::model::CertType>>(mut self, v: T) -> Self {
         self.client_cert_type = v.into();
         self
     }
@@ -8080,7 +7879,7 @@ impl SslConfig {
     pub fn set_additional_variables<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ConfigVariable>,
+        V: std::convert::Into<crate::model::ConfigVariable>
     {
         use std::iter::Iterator;
         self.additional_variables = v.into_iter().map(|i| i.into()).collect();
@@ -8098,6 +7897,7 @@ impl wkt::message::Message for SslConfig {
 pub mod ssl_config {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Enum for Ttust Model
     ///
@@ -8185,9 +7985,7 @@ pub mod ssl_config {
                 0 => Self::Public,
                 1 => Self::Private,
                 2 => Self::Insecure,
-                _ => Self::UnknownValue(trust_model::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(trust_model::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -8199,9 +7997,7 @@ pub mod ssl_config {
                 "PUBLIC" => Self::Public,
                 "PRIVATE" => Self::Private,
                 "INSECURE" => Self::Insecure,
-                _ => Self::UnknownValue(trust_model::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(trust_model::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -8226,8 +8022,7 @@ pub mod ssl_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<TrustModel>::new(
-                ".google.cloud.connectors.v1.SslConfig.TrustModel",
-            ))
+                ".google.cloud.connectors.v1.SslConfig.TrustModel"))
         }
     }
 }
@@ -8334,9 +8129,7 @@ impl std::convert::From<i32> for AuthType {
             3 => Self::Oauth2ClientCredentials,
             4 => Self::SshPublicKey,
             5 => Self::Oauth2AuthCodeFlow,
-            _ => Self::UnknownValue(auth_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(auth_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -8351,9 +8144,7 @@ impl std::convert::From<&str> for AuthType {
             "OAUTH2_CLIENT_CREDENTIALS" => Self::Oauth2ClientCredentials,
             "SSH_PUBLIC_KEY" => Self::SshPublicKey,
             "OAUTH2_AUTH_CODE_FLOW" => Self::Oauth2AuthCodeFlow,
-            _ => Self::UnknownValue(auth_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(auth_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -8381,8 +8172,7 @@ impl<'de> serde::de::Deserialize<'de> for AuthType {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<AuthType>::new(
-            ".google.cloud.connectors.v1.AuthType",
-        ))
+            ".google.cloud.connectors.v1.AuthType"))
     }
 }
 
@@ -8483,9 +8273,7 @@ impl std::convert::From<i32> for LaunchStage {
             2 => Self::Ga,
             3 => Self::Deprecated,
             5 => Self::PrivatePreview,
-            _ => Self::UnknownValue(launch_stage::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(launch_stage::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -8499,9 +8287,7 @@ impl std::convert::From<&str> for LaunchStage {
             "GA" => Self::Ga,
             "DEPRECATED" => Self::Deprecated,
             "PRIVATE_PREVIEW" => Self::PrivatePreview,
-            _ => Self::UnknownValue(launch_stage::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(launch_stage::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -8528,8 +8314,7 @@ impl<'de> serde::de::Deserialize<'de> for LaunchStage {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<LaunchStage>::new(
-            ".google.cloud.connectors.v1.LaunchStage",
-        ))
+            ".google.cloud.connectors.v1.LaunchStage"))
     }
 }
 
@@ -8767,9 +8552,7 @@ impl DataType {
             Self::Sqlxml => std::option::Option::Some("DATA_TYPE_SQLXML"),
             Self::RefCursor => std::option::Option::Some("DATA_TYPE_REF_CURSOR"),
             Self::TimeWithTimezone => std::option::Option::Some("DATA_TYPE_TIME_WITH_TIMEZONE"),
-            Self::TimestampWithTimezone => {
-                std::option::Option::Some("DATA_TYPE_TIMESTAMP_WITH_TIMEZONE")
-            }
+            Self::TimestampWithTimezone => std::option::Option::Some("DATA_TYPE_TIMESTAMP_WITH_TIMEZONE"),
             Self::UnknownValue(u) => u.0.name(),
         }
     }
@@ -8836,9 +8619,7 @@ impl std::convert::From<i32> for DataType {
             42 => Self::RefCursor,
             43 => Self::TimeWithTimezone,
             44 => Self::TimestampWithTimezone,
-            _ => Self::UnknownValue(data_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(data_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -8892,9 +8673,7 @@ impl std::convert::From<&str> for DataType {
             "DATA_TYPE_REF_CURSOR" => Self::RefCursor,
             "DATA_TYPE_TIME_WITH_TIMEZONE" => Self::TimeWithTimezone,
             "DATA_TYPE_TIMESTAMP_WITH_TIMEZONE" => Self::TimestampWithTimezone,
-            _ => Self::UnknownValue(data_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(data_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -8961,8 +8740,7 @@ impl<'de> serde::de::Deserialize<'de> for DataType {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<DataType>::new(
-            ".google.cloud.connectors.v1.DataType",
-        ))
+            ".google.cloud.connectors.v1.DataType"))
     }
 }
 
@@ -9052,9 +8830,7 @@ impl std::convert::From<i32> for ConnectionView {
             0 => Self::Unspecified,
             1 => Self::Basic,
             2 => Self::Full,
-            _ => Self::UnknownValue(connection_view::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(connection_view::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -9066,9 +8842,7 @@ impl std::convert::From<&str> for ConnectionView {
             "CONNECTION_VIEW_UNSPECIFIED" => Self::Unspecified,
             "BASIC" => Self::Basic,
             "FULL" => Self::Full,
-            _ => Self::UnknownValue(connection_view::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(connection_view::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -9093,8 +8867,7 @@ impl<'de> serde::de::Deserialize<'de> for ConnectionView {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<ConnectionView>::new(
-            ".google.cloud.connectors.v1.ConnectionView",
-        ))
+            ".google.cloud.connectors.v1.ConnectionView"))
     }
 }
 
@@ -9184,9 +8957,7 @@ impl std::convert::From<i32> for ConnectorVersionView {
             0 => Self::Unspecified,
             1 => Self::Basic,
             2 => Self::Full,
-            _ => Self::UnknownValue(connector_version_view::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(connector_version_view::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -9198,9 +8969,7 @@ impl std::convert::From<&str> for ConnectorVersionView {
             "CONNECTOR_VERSION_VIEW_UNSPECIFIED" => Self::Unspecified,
             "CONNECTOR_VERSION_VIEW_BASIC" => Self::Basic,
             "CONNECTOR_VERSION_VIEW_FULL" => Self::Full,
-            _ => Self::UnknownValue(connector_version_view::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(connector_version_view::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -9225,8 +8994,7 @@ impl<'de> serde::de::Deserialize<'de> for ConnectorVersionView {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<ConnectorVersionView>::new(
-            ".google.cloud.connectors.v1.ConnectorVersionView",
-        ))
+            ".google.cloud.connectors.v1.ConnectorVersionView"))
     }
 }
 
@@ -9316,9 +9084,7 @@ impl std::convert::From<i32> for SslType {
             0 => Self::Unspecified,
             1 => Self::Tls,
             2 => Self::Mtls,
-            _ => Self::UnknownValue(ssl_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(ssl_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -9330,9 +9096,7 @@ impl std::convert::From<&str> for SslType {
             "SSL_TYPE_UNSPECIFIED" => Self::Unspecified,
             "TLS" => Self::Tls,
             "MTLS" => Self::Mtls,
-            _ => Self::UnknownValue(ssl_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(ssl_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -9357,8 +9121,7 @@ impl<'de> serde::de::Deserialize<'de> for SslType {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<SslType>::new(
-            ".google.cloud.connectors.v1.SslType",
-        ))
+            ".google.cloud.connectors.v1.SslType"))
     }
 }
 
@@ -9443,9 +9206,7 @@ impl std::convert::From<i32> for CertType {
         match value {
             0 => Self::Unspecified,
             1 => Self::Pem,
-            _ => Self::UnknownValue(cert_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(cert_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -9456,9 +9217,7 @@ impl std::convert::From<&str> for CertType {
         match value {
             "CERT_TYPE_UNSPECIFIED" => Self::Unspecified,
             "PEM" => Self::Pem,
-            _ => Self::UnknownValue(cert_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(cert_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -9482,7 +9241,6 @@ impl<'de> serde::de::Deserialize<'de> for CertType {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<CertType>::new(
-            ".google.cloud.connectors.v1.CertType",
-        ))
+            ".google.cloud.connectors.v1.CertType"))
     }
 }

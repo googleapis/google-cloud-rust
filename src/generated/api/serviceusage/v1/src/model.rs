@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate api;
 extern crate async_trait;
 extern crate bytes;
@@ -29,7 +30,6 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -41,6 +41,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Service {
+
     /// The resource name of the consumer and service.
     ///
     /// A valid name would be:
@@ -105,8 +106,7 @@ impl Service {
     /// let x = Service::new().set_config(ServiceConfig::default()/* use setters */);
     /// ```
     pub fn set_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ServiceConfig>,
+    where T: std::convert::Into<crate::model::ServiceConfig>
     {
         self.config = std::option::Option::Some(v.into());
         self
@@ -122,8 +122,7 @@ impl Service {
     /// let x = Service::new().set_or_clear_config(None::<ServiceConfig>);
     /// ```
     pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ServiceConfig>,
+    where T: std::convert::Into<crate::model::ServiceConfig>
     {
         self.config = v.map(|x| x.into());
         self
@@ -154,6 +153,7 @@ impl wkt::message::Message for Service {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ServiceConfig {
+
     /// The DNS address at which this service is available.
     ///
     /// An example DNS address would be:
@@ -240,7 +240,7 @@ impl ServiceConfig {
     pub fn set_apis<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<wkt::Api>,
+        V: std::convert::Into<wkt::Api>
     {
         use std::iter::Iterator;
         self.apis = v.into_iter().map(|i| i.into()).collect();
@@ -256,8 +256,7 @@ impl ServiceConfig {
     /// let x = ServiceConfig::new().set_documentation(Documentation::default()/* use setters */);
     /// ```
     pub fn set_documentation<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<api::model::Documentation>,
+    where T: std::convert::Into<api::model::Documentation>
     {
         self.documentation = std::option::Option::Some(v.into());
         self
@@ -273,8 +272,7 @@ impl ServiceConfig {
     /// let x = ServiceConfig::new().set_or_clear_documentation(None::<Documentation>);
     /// ```
     pub fn set_or_clear_documentation<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<api::model::Documentation>,
+    where T: std::convert::Into<api::model::Documentation>
     {
         self.documentation = v.map(|x| x.into());
         self
@@ -289,8 +287,7 @@ impl ServiceConfig {
     /// let x = ServiceConfig::new().set_quota(Quota::default()/* use setters */);
     /// ```
     pub fn set_quota<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<api::model::Quota>,
+    where T: std::convert::Into<api::model::Quota>
     {
         self.quota = std::option::Option::Some(v.into());
         self
@@ -306,8 +303,7 @@ impl ServiceConfig {
     /// let x = ServiceConfig::new().set_or_clear_quota(None::<Quota>);
     /// ```
     pub fn set_or_clear_quota<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<api::model::Quota>,
+    where T: std::convert::Into<api::model::Quota>
     {
         self.quota = v.map(|x| x.into());
         self
@@ -322,8 +318,7 @@ impl ServiceConfig {
     /// let x = ServiceConfig::new().set_authentication(Authentication::default()/* use setters */);
     /// ```
     pub fn set_authentication<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<api::model::Authentication>,
+    where T: std::convert::Into<api::model::Authentication>
     {
         self.authentication = std::option::Option::Some(v.into());
         self
@@ -339,8 +334,7 @@ impl ServiceConfig {
     /// let x = ServiceConfig::new().set_or_clear_authentication(None::<Authentication>);
     /// ```
     pub fn set_or_clear_authentication<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<api::model::Authentication>,
+    where T: std::convert::Into<api::model::Authentication>
     {
         self.authentication = v.map(|x| x.into());
         self
@@ -355,8 +349,7 @@ impl ServiceConfig {
     /// let x = ServiceConfig::new().set_usage(Usage::default()/* use setters */);
     /// ```
     pub fn set_usage<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<api::model::Usage>,
+    where T: std::convert::Into<api::model::Usage>
     {
         self.usage = std::option::Option::Some(v.into());
         self
@@ -372,8 +365,7 @@ impl ServiceConfig {
     /// let x = ServiceConfig::new().set_or_clear_usage(None::<Usage>);
     /// ```
     pub fn set_or_clear_usage<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<api::model::Usage>,
+    where T: std::convert::Into<api::model::Usage>
     {
         self.usage = v.map(|x| x.into());
         self
@@ -394,7 +386,7 @@ impl ServiceConfig {
     pub fn set_endpoints<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<api::model::Endpoint>,
+        V: std::convert::Into<api::model::Endpoint>
     {
         use std::iter::Iterator;
         self.endpoints = v.into_iter().map(|i| i.into()).collect();
@@ -416,7 +408,7 @@ impl ServiceConfig {
     pub fn set_monitored_resources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<api::model::MonitoredResourceDescriptor>,
+        V: std::convert::Into<api::model::MonitoredResourceDescriptor>
     {
         use std::iter::Iterator;
         self.monitored_resources = v.into_iter().map(|i| i.into()).collect();
@@ -432,8 +424,7 @@ impl ServiceConfig {
     /// let x = ServiceConfig::new().set_monitoring(Monitoring::default()/* use setters */);
     /// ```
     pub fn set_monitoring<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<api::model::Monitoring>,
+    where T: std::convert::Into<api::model::Monitoring>
     {
         self.monitoring = std::option::Option::Some(v.into());
         self
@@ -449,8 +440,7 @@ impl ServiceConfig {
     /// let x = ServiceConfig::new().set_or_clear_monitoring(None::<Monitoring>);
     /// ```
     pub fn set_or_clear_monitoring<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<api::model::Monitoring>,
+    where T: std::convert::Into<api::model::Monitoring>
     {
         self.monitoring = v.map(|x| x.into());
         self
@@ -467,6 +457,7 @@ impl wkt::message::Message for ServiceConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
+
     /// The full name of the resources that this operation is directly
     /// associated with.
     pub resource_names: std::vec::Vec<std::string::String>,
@@ -489,7 +480,7 @@ impl OperationMetadata {
     pub fn set_resource_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.resource_names = v.into_iter().map(|i| i.into()).collect();
@@ -507,6 +498,7 @@ impl wkt::message::Message for OperationMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnableServiceRequest {
+
     /// Name of the consumer and service to enable the service on.
     ///
     /// The `EnableService` and `DisableService` methods currently only support
@@ -553,6 +545,7 @@ impl wkt::message::Message for EnableServiceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnableServiceResponse {
+
     /// The new state of the service after enabling.
     pub service: std::option::Option<crate::model::Service>,
 
@@ -573,8 +566,7 @@ impl EnableServiceResponse {
     /// let x = EnableServiceResponse::new().set_service(Service::default()/* use setters */);
     /// ```
     pub fn set_service<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Service>,
+    where T: std::convert::Into<crate::model::Service>
     {
         self.service = std::option::Option::Some(v.into());
         self
@@ -590,8 +582,7 @@ impl EnableServiceResponse {
     /// let x = EnableServiceResponse::new().set_or_clear_service(None::<Service>);
     /// ```
     pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Service>,
+    where T: std::convert::Into<crate::model::Service>
     {
         self.service = v.map(|x| x.into());
         self
@@ -608,6 +599,7 @@ impl wkt::message::Message for EnableServiceResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DisableServiceRequest {
+
     /// Name of the consumer and service to disable the service on.
     ///
     /// The enable and disable methods currently only support projects.
@@ -668,12 +660,7 @@ impl DisableServiceRequest {
     /// let x0 = DisableServiceRequest::new().set_check_if_service_has_usage(CheckIfServiceHasUsage::Skip);
     /// let x1 = DisableServiceRequest::new().set_check_if_service_has_usage(CheckIfServiceHasUsage::Check);
     /// ```
-    pub fn set_check_if_service_has_usage<
-        T: std::convert::Into<crate::model::disable_service_request::CheckIfServiceHasUsage>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_check_if_service_has_usage<T: std::convert::Into<crate::model::disable_service_request::CheckIfServiceHasUsage>>(mut self, v: T) -> Self {
         self.check_if_service_has_usage = v.into();
         self
     }
@@ -689,6 +676,7 @@ impl wkt::message::Message for DisableServiceRequest {
 pub mod disable_service_request {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Enum to determine if service usage should be checked when disabling a
     /// service.
@@ -752,9 +740,7 @@ pub mod disable_service_request {
         /// the integer representation of enums.
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
-                Self::Unspecified => {
-                    std::option::Option::Some("CHECK_IF_SERVICE_HAS_USAGE_UNSPECIFIED")
-                }
+                Self::Unspecified => std::option::Option::Some("CHECK_IF_SERVICE_HAS_USAGE_UNSPECIFIED"),
                 Self::Skip => std::option::Option::Some("SKIP"),
                 Self::Check => std::option::Option::Some("CHECK"),
                 Self::UnknownValue(u) => u.0.name(),
@@ -781,9 +767,7 @@ pub mod disable_service_request {
                 0 => Self::Unspecified,
                 1 => Self::Skip,
                 2 => Self::Check,
-                _ => Self::UnknownValue(check_if_service_has_usage::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(check_if_service_has_usage::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -795,9 +779,7 @@ pub mod disable_service_request {
                 "CHECK_IF_SERVICE_HAS_USAGE_UNSPECIFIED" => Self::Unspecified,
                 "SKIP" => Self::Skip,
                 "CHECK" => Self::Check,
-                _ => Self::UnknownValue(check_if_service_has_usage::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(check_if_service_has_usage::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -822,8 +804,7 @@ pub mod disable_service_request {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<CheckIfServiceHasUsage>::new(
-                ".google.api.serviceusage.v1.DisableServiceRequest.CheckIfServiceHasUsage",
-            ))
+                ".google.api.serviceusage.v1.DisableServiceRequest.CheckIfServiceHasUsage"))
         }
     }
 }
@@ -834,6 +815,7 @@ pub mod disable_service_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DisableServiceResponse {
+
     /// The new state of the service after disabling.
     pub service: std::option::Option<crate::model::Service>,
 
@@ -854,8 +836,7 @@ impl DisableServiceResponse {
     /// let x = DisableServiceResponse::new().set_service(Service::default()/* use setters */);
     /// ```
     pub fn set_service<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Service>,
+    where T: std::convert::Into<crate::model::Service>
     {
         self.service = std::option::Option::Some(v.into());
         self
@@ -871,8 +852,7 @@ impl DisableServiceResponse {
     /// let x = DisableServiceResponse::new().set_or_clear_service(None::<Service>);
     /// ```
     pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Service>,
+    where T: std::convert::Into<crate::model::Service>
     {
         self.service = v.map(|x| x.into());
         self
@@ -889,6 +869,7 @@ impl wkt::message::Message for DisableServiceResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetServiceRequest {
+
     /// Name of the consumer and service to get the `ConsumerState` for.
     ///
     /// An example name would be:
@@ -927,6 +908,7 @@ impl wkt::message::Message for GetServiceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServicesRequest {
+
     /// Parent to search for services on.
     ///
     /// An example name would be:
@@ -1013,6 +995,7 @@ impl wkt::message::Message for ListServicesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServicesResponse {
+
     /// The available services for the requested project.
     pub services: std::vec::Vec<crate::model::Service>,
 
@@ -1043,7 +1026,7 @@ impl ListServicesResponse {
     pub fn set_services<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Service>,
+        V: std::convert::Into<crate::model::Service>
     {
         use std::iter::Iterator;
         self.services = v.into_iter().map(|i| i.into()).collect();
@@ -1087,6 +1070,7 @@ impl gax::paginator::internal::PageableResponse for ListServicesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchEnableServicesRequest {
+
     /// Parent to enable services on.
     ///
     /// An example name would be:
@@ -1138,7 +1122,7 @@ impl BatchEnableServicesRequest {
     pub fn set_service_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.service_ids = v.into_iter().map(|i| i.into()).collect();
@@ -1158,6 +1142,7 @@ impl wkt::message::Message for BatchEnableServicesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchEnableServicesResponse {
+
     /// The new state of the services after enabling.
     pub services: std::vec::Vec<crate::model::Service>,
 
@@ -1188,7 +1173,7 @@ impl BatchEnableServicesResponse {
     pub fn set_services<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Service>,
+        V: std::convert::Into<crate::model::Service>
     {
         use std::iter::Iterator;
         self.services = v.into_iter().map(|i| i.into()).collect();
@@ -1210,7 +1195,7 @@ impl BatchEnableServicesResponse {
     pub fn set_failures<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::batch_enable_services_response::EnableFailure>,
+        V: std::convert::Into<crate::model::batch_enable_services_response::EnableFailure>
     {
         use std::iter::Iterator;
         self.failures = v.into_iter().map(|i| i.into()).collect();
@@ -1229,10 +1214,12 @@ pub mod batch_enable_services_response {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Provides error messages for the failing services.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct EnableFailure {
+
         /// The service id of a service that could not be enabled.
         pub service_id: std::string::String,
 
@@ -1266,10 +1253,7 @@ pub mod batch_enable_services_response {
         /// # use google_cloud_api_serviceusage_v1::model::batch_enable_services_response::EnableFailure;
         /// let x = EnableFailure::new().set_error_message("example");
         /// ```
-        pub fn set_error_message<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_error_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.error_message = v.into();
             self
         }
@@ -1286,6 +1270,7 @@ pub mod batch_enable_services_response {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchGetServicesRequest {
+
     /// Parent to retrieve services from.
     /// If this is set, the parent of all of the services specified in `names` must
     /// match this field. An example name would be: `projects/123` where `123` is
@@ -1331,7 +1316,7 @@ impl BatchGetServicesRequest {
     pub fn set_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.names = v.into_iter().map(|i| i.into()).collect();
@@ -1349,6 +1334,7 @@ impl wkt::message::Message for BatchGetServicesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchGetServicesResponse {
+
     /// The requested Service states.
     pub services: std::vec::Vec<crate::model::Service>,
 
@@ -1375,7 +1361,7 @@ impl BatchGetServicesResponse {
     pub fn set_services<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Service>,
+        V: std::convert::Into<crate::model::Service>
     {
         use std::iter::Iterator;
         self.services = v.into_iter().map(|i| i.into()).collect();
@@ -1478,9 +1464,7 @@ impl std::convert::From<i32> for State {
             0 => Self::Unspecified,
             1 => Self::Disabled,
             2 => Self::Enabled,
-            _ => Self::UnknownValue(state::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -1492,9 +1476,7 @@ impl std::convert::From<&str> for State {
             "STATE_UNSPECIFIED" => Self::Unspecified,
             "DISABLED" => Self::Disabled,
             "ENABLED" => Self::Enabled,
-            _ => Self::UnknownValue(state::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -1519,7 +1501,6 @@ impl<'de> serde::de::Deserialize<'de> for State {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-            ".google.api.serviceusage.v1.State",
-        ))
+            ".google.api.serviceusage.v1.State"))
     }
 }

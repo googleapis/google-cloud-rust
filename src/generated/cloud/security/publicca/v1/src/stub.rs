@@ -38,14 +38,14 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait PublicCertificateAuthorityService: std::fmt::Debug + Send + Sync {
+
     /// Implements [super::client::PublicCertificateAuthorityService::create_external_account_key].
     fn create_external_account_key(
         &self,
         _req: crate::model::CreateExternalAccountKeyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ExternalAccountKey>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ExternalAccountKey>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 }
+

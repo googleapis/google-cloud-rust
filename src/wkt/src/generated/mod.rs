@@ -34,6 +34,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Api {
+
     /// The fully qualified name of this interface, including package name
     /// followed by the interface's simple name.
     pub name: std::string::String,
@@ -112,7 +113,7 @@ impl Api {
     pub fn set_methods<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::Method>,
+        V: std::convert::Into<crate::Method>
     {
         use std::iter::Iterator;
         self.methods = v.into_iter().map(|i| i.into()).collect();
@@ -134,7 +135,7 @@ impl Api {
     pub fn set_options<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::Option>,
+        V: std::convert::Into<crate::Option>
     {
         use std::iter::Iterator;
         self.options = v.into_iter().map(|i| i.into()).collect();
@@ -162,8 +163,7 @@ impl Api {
     /// let x = Api::new().set_source_context(SourceContext::default()/* use setters */);
     /// ```
     pub fn set_source_context<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::SourceContext>,
+    where T: std::convert::Into<crate::SourceContext>
     {
         self.source_context = std::option::Option::Some(v.into());
         self
@@ -179,8 +179,7 @@ impl Api {
     /// let x = Api::new().set_or_clear_source_context(None::<SourceContext>);
     /// ```
     pub fn set_or_clear_source_context<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::SourceContext>,
+    where T: std::convert::Into<crate::SourceContext>
     {
         self.source_context = v.map(|x| x.into());
         self
@@ -201,7 +200,7 @@ impl Api {
     pub fn set_mixins<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::Mixin>,
+        V: std::convert::Into<crate::Mixin>
     {
         use std::iter::Iterator;
         self.mixins = v.into_iter().map(|i| i.into()).collect();
@@ -233,6 +232,7 @@ impl wkt::message::Message for Api {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Method {
+
     /// The simple name of this method.
     pub name: std::string::String,
 
@@ -281,10 +281,7 @@ impl Method {
     /// # use google_cloud_wkt::Method;
     /// let x = Method::new().set_request_type_url("example");
     /// ```
-    pub fn set_request_type_url<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_request_type_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_type_url = v.into();
         self
     }
@@ -308,10 +305,7 @@ impl Method {
     /// # use google_cloud_wkt::Method;
     /// let x = Method::new().set_response_type_url("example");
     /// ```
-    pub fn set_response_type_url<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_response_type_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.response_type_url = v.into();
         self
     }
@@ -343,7 +337,7 @@ impl Method {
     pub fn set_options<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::Option>,
+        V: std::convert::Into<crate::Option>
     {
         use std::iter::Iterator;
         self.options = v.into_iter().map(|i| i.into()).collect();
@@ -465,6 +459,7 @@ impl wkt::message::Message for Method {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Mixin {
+
     /// The fully qualified name of the interface which is included.
     pub name: std::string::String,
 
@@ -516,6 +511,7 @@ impl wkt::message::Message for Mixin {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FileDescriptorSet {
+
     pub file: std::vec::Vec<crate::FileDescriptorProto>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -541,7 +537,7 @@ impl FileDescriptorSet {
     pub fn set_file<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::FileDescriptorProto>,
+        V: std::convert::Into<crate::FileDescriptorProto>
     {
         use std::iter::Iterator;
         self.file = v.into_iter().map(|i| i.into()).collect();
@@ -559,6 +555,7 @@ impl wkt::message::Message for FileDescriptorSet {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FileDescriptorProto {
+
     pub name: std::string::String,
 
     pub package: std::string::String,
@@ -641,7 +638,7 @@ impl FileDescriptorProto {
     pub fn set_dependency<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.dependency = v.into_iter().map(|i| i.into()).collect();
@@ -658,7 +655,7 @@ impl FileDescriptorProto {
     pub fn set_public_dependency<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<i32>,
+        V: std::convert::Into<i32>
     {
         use std::iter::Iterator;
         self.public_dependency = v.into_iter().map(|i| i.into()).collect();
@@ -675,7 +672,7 @@ impl FileDescriptorProto {
     pub fn set_weak_dependency<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<i32>,
+        V: std::convert::Into<i32>
     {
         use std::iter::Iterator;
         self.weak_dependency = v.into_iter().map(|i| i.into()).collect();
@@ -697,7 +694,7 @@ impl FileDescriptorProto {
     pub fn set_message_type<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::DescriptorProto>,
+        V: std::convert::Into<crate::DescriptorProto>
     {
         use std::iter::Iterator;
         self.message_type = v.into_iter().map(|i| i.into()).collect();
@@ -719,7 +716,7 @@ impl FileDescriptorProto {
     pub fn set_enum_type<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::EnumDescriptorProto>,
+        V: std::convert::Into<crate::EnumDescriptorProto>
     {
         use std::iter::Iterator;
         self.enum_type = v.into_iter().map(|i| i.into()).collect();
@@ -741,7 +738,7 @@ impl FileDescriptorProto {
     pub fn set_service<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::ServiceDescriptorProto>,
+        V: std::convert::Into<crate::ServiceDescriptorProto>
     {
         use std::iter::Iterator;
         self.service = v.into_iter().map(|i| i.into()).collect();
@@ -763,7 +760,7 @@ impl FileDescriptorProto {
     pub fn set_extension<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::FieldDescriptorProto>,
+        V: std::convert::Into<crate::FieldDescriptorProto>
     {
         use std::iter::Iterator;
         self.extension = v.into_iter().map(|i| i.into()).collect();
@@ -779,8 +776,7 @@ impl FileDescriptorProto {
     /// let x = FileDescriptorProto::new().set_options(FileOptions::default()/* use setters */);
     /// ```
     pub fn set_options<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::FileOptions>,
+    where T: std::convert::Into<crate::FileOptions>
     {
         self.options = std::option::Option::Some(v.into());
         self
@@ -796,8 +792,7 @@ impl FileDescriptorProto {
     /// let x = FileDescriptorProto::new().set_or_clear_options(None::<FileOptions>);
     /// ```
     pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::FileOptions>,
+    where T: std::convert::Into<crate::FileOptions>
     {
         self.options = v.map(|x| x.into());
         self
@@ -812,8 +807,7 @@ impl FileDescriptorProto {
     /// let x = FileDescriptorProto::new().set_source_code_info(SourceCodeInfo::default()/* use setters */);
     /// ```
     pub fn set_source_code_info<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::SourceCodeInfo>,
+    where T: std::convert::Into<crate::SourceCodeInfo>
     {
         self.source_code_info = std::option::Option::Some(v.into());
         self
@@ -829,8 +823,7 @@ impl FileDescriptorProto {
     /// let x = FileDescriptorProto::new().set_or_clear_source_code_info(None::<SourceCodeInfo>);
     /// ```
     pub fn set_or_clear_source_code_info<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::SourceCodeInfo>,
+    where T: std::convert::Into<crate::SourceCodeInfo>
     {
         self.source_code_info = v.map(|x| x.into());
         self
@@ -874,6 +867,7 @@ impl wkt::message::Message for FileDescriptorProto {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DescriptorProto {
+
     pub name: std::string::String,
 
     pub field: std::vec::Vec<crate::FieldDescriptorProto>,
@@ -931,7 +925,7 @@ impl DescriptorProto {
     pub fn set_field<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::FieldDescriptorProto>,
+        V: std::convert::Into<crate::FieldDescriptorProto>
     {
         use std::iter::Iterator;
         self.field = v.into_iter().map(|i| i.into()).collect();
@@ -953,7 +947,7 @@ impl DescriptorProto {
     pub fn set_extension<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::FieldDescriptorProto>,
+        V: std::convert::Into<crate::FieldDescriptorProto>
     {
         use std::iter::Iterator;
         self.extension = v.into_iter().map(|i| i.into()).collect();
@@ -974,7 +968,7 @@ impl DescriptorProto {
     pub fn set_nested_type<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::DescriptorProto>,
+        V: std::convert::Into<crate::DescriptorProto>
     {
         use std::iter::Iterator;
         self.nested_type = v.into_iter().map(|i| i.into()).collect();
@@ -996,7 +990,7 @@ impl DescriptorProto {
     pub fn set_enum_type<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::EnumDescriptorProto>,
+        V: std::convert::Into<crate::EnumDescriptorProto>
     {
         use std::iter::Iterator;
         self.enum_type = v.into_iter().map(|i| i.into()).collect();
@@ -1018,7 +1012,7 @@ impl DescriptorProto {
     pub fn set_extension_range<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::descriptor_proto::ExtensionRange>,
+        V: std::convert::Into<crate::descriptor_proto::ExtensionRange>
     {
         use std::iter::Iterator;
         self.extension_range = v.into_iter().map(|i| i.into()).collect();
@@ -1040,7 +1034,7 @@ impl DescriptorProto {
     pub fn set_oneof_decl<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::OneofDescriptorProto>,
+        V: std::convert::Into<crate::OneofDescriptorProto>
     {
         use std::iter::Iterator;
         self.oneof_decl = v.into_iter().map(|i| i.into()).collect();
@@ -1056,8 +1050,7 @@ impl DescriptorProto {
     /// let x = DescriptorProto::new().set_options(MessageOptions::default()/* use setters */);
     /// ```
     pub fn set_options<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::MessageOptions>,
+    where T: std::convert::Into<crate::MessageOptions>
     {
         self.options = std::option::Option::Some(v.into());
         self
@@ -1073,8 +1066,7 @@ impl DescriptorProto {
     /// let x = DescriptorProto::new().set_or_clear_options(None::<MessageOptions>);
     /// ```
     pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::MessageOptions>,
+    where T: std::convert::Into<crate::MessageOptions>
     {
         self.options = v.map(|x| x.into());
         self
@@ -1095,7 +1087,7 @@ impl DescriptorProto {
     pub fn set_reserved_range<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::descriptor_proto::ReservedRange>,
+        V: std::convert::Into<crate::descriptor_proto::ReservedRange>
     {
         use std::iter::Iterator;
         self.reserved_range = v.into_iter().map(|i| i.into()).collect();
@@ -1112,7 +1104,7 @@ impl DescriptorProto {
     pub fn set_reserved_name<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.reserved_name = v.into_iter().map(|i| i.into()).collect();
@@ -1131,9 +1123,11 @@ pub mod descriptor_proto {
     #[allow(unused_imports)]
     use super::*;
 
+
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ExtensionRange {
+
         pub start: i32,
 
         pub end: i32,
@@ -1181,8 +1175,7 @@ pub mod descriptor_proto {
         /// let x = ExtensionRange::new().set_options(ExtensionRangeOptions::default()/* use setters */);
         /// ```
         pub fn set_options<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::ExtensionRangeOptions>,
+        where T: std::convert::Into<crate::ExtensionRangeOptions>
         {
             self.options = std::option::Option::Some(v.into());
             self
@@ -1198,8 +1191,7 @@ pub mod descriptor_proto {
         /// let x = ExtensionRange::new().set_or_clear_options(None::<ExtensionRangeOptions>);
         /// ```
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::ExtensionRangeOptions>,
+        where T: std::convert::Into<crate::ExtensionRangeOptions>
         {
             self.options = v.map(|x| x.into());
             self
@@ -1218,6 +1210,7 @@ pub mod descriptor_proto {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ReservedRange {
+
         pub start: i32,
 
         pub end: i32,
@@ -1265,6 +1258,7 @@ pub mod descriptor_proto {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExtensionRangeOptions {
+
     /// The parser stores options it doesn't recognize here. See above.
     pub uninterpreted_option: std::vec::Vec<crate::UninterpretedOption>,
 
@@ -1304,7 +1298,7 @@ impl ExtensionRangeOptions {
     pub fn set_uninterpreted_option<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::UninterpretedOption>,
+        V: std::convert::Into<crate::UninterpretedOption>
     {
         use std::iter::Iterator;
         self.uninterpreted_option = v.into_iter().map(|i| i.into()).collect();
@@ -1326,7 +1320,7 @@ impl ExtensionRangeOptions {
     pub fn set_declaration<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::extension_range_options::Declaration>,
+        V: std::convert::Into<crate::extension_range_options::Declaration>
     {
         use std::iter::Iterator;
         self.declaration = v.into_iter().map(|i| i.into()).collect();
@@ -1342,8 +1336,7 @@ impl ExtensionRangeOptions {
     /// let x = ExtensionRangeOptions::new().set_features(FeatureSet::default()/* use setters */);
     /// ```
     pub fn set_features<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::FeatureSet>,
+    where T: std::convert::Into<crate::FeatureSet>
     {
         self.features = std::option::Option::Some(v.into());
         self
@@ -1359,8 +1352,7 @@ impl ExtensionRangeOptions {
     /// let x = ExtensionRangeOptions::new().set_or_clear_features(None::<FeatureSet>);
     /// ```
     pub fn set_or_clear_features<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::FeatureSet>,
+    where T: std::convert::Into<crate::FeatureSet>
     {
         self.features = v.map(|x| x.into());
         self
@@ -1374,12 +1366,7 @@ impl ExtensionRangeOptions {
     /// use google_cloud_wkt::extension_range_options::VerificationState;
     /// let x0 = ExtensionRangeOptions::new().set_verification(VerificationState::Unverified);
     /// ```
-    pub fn set_verification<
-        T: std::convert::Into<crate::extension_range_options::VerificationState>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_verification<T: std::convert::Into<crate::extension_range_options::VerificationState>>(mut self, v: T) -> Self {
         self.verification = v.into();
         self
     }
@@ -1396,9 +1383,11 @@ pub mod extension_range_options {
     #[allow(unused_imports)]
     use super::*;
 
+
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Declaration {
+
         /// The extension number declared within the extension range.
         pub number: i32,
 
@@ -1575,9 +1564,7 @@ pub mod extension_range_options {
             match value {
                 0 => Self::Declaration,
                 1 => Self::Unverified,
-                _ => Self::UnknownValue(verification_state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(verification_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1588,9 +1575,7 @@ pub mod extension_range_options {
             match value {
                 "DECLARATION" => Self::Declaration,
                 "UNVERIFIED" => Self::Unverified,
-                _ => Self::UnknownValue(verification_state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(verification_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1614,8 +1599,7 @@ pub mod extension_range_options {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<VerificationState>::new(
-                ".google.protobuf.ExtensionRangeOptions.VerificationState",
-            ))
+                ".google.protobuf.ExtensionRangeOptions.VerificationState"))
         }
     }
 }
@@ -1624,6 +1608,7 @@ pub mod extension_range_options {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FieldDescriptorProto {
+
     pub name: std::string::String,
 
     pub number: i32,
@@ -1728,10 +1713,7 @@ impl FieldDescriptorProto {
     /// let x1 = FieldDescriptorProto::new().set_label(Label::Repeated);
     /// let x2 = FieldDescriptorProto::new().set_label(Label::Required);
     /// ```
-    pub fn set_label<T: std::convert::Into<crate::field_descriptor_proto::Label>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_label<T: std::convert::Into<crate::field_descriptor_proto::Label>>(mut self, v: T) -> Self {
         self.label = v.into();
         self
     }
@@ -1746,10 +1728,7 @@ impl FieldDescriptorProto {
     /// let x1 = FieldDescriptorProto::new().set_type(Type::Float);
     /// let x2 = FieldDescriptorProto::new().set_type(Type::Int64);
     /// ```
-    pub fn set_type<T: std::convert::Into<crate::field_descriptor_proto::Type>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_type<T: std::convert::Into<crate::field_descriptor_proto::Type>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
@@ -1823,8 +1802,7 @@ impl FieldDescriptorProto {
     /// let x = FieldDescriptorProto::new().set_options(FieldOptions::default()/* use setters */);
     /// ```
     pub fn set_options<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::FieldOptions>,
+    where T: std::convert::Into<crate::FieldOptions>
     {
         self.options = std::option::Option::Some(v.into());
         self
@@ -1840,8 +1818,7 @@ impl FieldDescriptorProto {
     /// let x = FieldDescriptorProto::new().set_or_clear_options(None::<FieldOptions>);
     /// ```
     pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::FieldOptions>,
+    where T: std::convert::Into<crate::FieldOptions>
     {
         self.options = v.map(|x| x.into());
         self
@@ -1870,6 +1847,7 @@ impl wkt::message::Message for FieldDescriptorProto {
 pub mod field_descriptor_proto {
     #[allow(unused_imports)]
     use super::*;
+
 
     ///
     /// # Working with unknown values
@@ -2025,9 +2003,7 @@ pub mod field_descriptor_proto {
                 16 => Self::Sfixed64,
                 17 => Self::Sint32,
                 18 => Self::Sint64,
-                _ => Self::UnknownValue(r#type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -2054,9 +2030,7 @@ pub mod field_descriptor_proto {
                 "TYPE_SFIXED64" => Self::Sfixed64,
                 "TYPE_SINT32" => Self::Sint32,
                 "TYPE_SINT64" => Self::Sint64,
-                _ => Self::UnknownValue(r#type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -2096,8 +2070,7 @@ pub mod field_descriptor_proto {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
-                ".google.protobuf.FieldDescriptorProto.Type",
-            ))
+                ".google.protobuf.FieldDescriptorProto.Type"))
         }
     }
 
@@ -2187,9 +2160,7 @@ pub mod field_descriptor_proto {
                 1 => Self::Optional,
                 2 => Self::Required,
                 3 => Self::Repeated,
-                _ => Self::UnknownValue(label::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(label::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -2201,9 +2172,7 @@ pub mod field_descriptor_proto {
                 "LABEL_OPTIONAL" => Self::Optional,
                 "LABEL_REPEATED" => Self::Repeated,
                 "LABEL_REQUIRED" => Self::Required,
-                _ => Self::UnknownValue(label::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(label::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -2228,8 +2197,7 @@ pub mod field_descriptor_proto {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Label>::new(
-                ".google.protobuf.FieldDescriptorProto.Label",
-            ))
+                ".google.protobuf.FieldDescriptorProto.Label"))
         }
     }
 }
@@ -2238,6 +2206,7 @@ pub mod field_descriptor_proto {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OneofDescriptorProto {
+
     pub name: std::string::String,
 
     pub options: std::option::Option<crate::OneofOptions>,
@@ -2271,8 +2240,7 @@ impl OneofDescriptorProto {
     /// let x = OneofDescriptorProto::new().set_options(OneofOptions::default()/* use setters */);
     /// ```
     pub fn set_options<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::OneofOptions>,
+    where T: std::convert::Into<crate::OneofOptions>
     {
         self.options = std::option::Option::Some(v.into());
         self
@@ -2288,8 +2256,7 @@ impl OneofDescriptorProto {
     /// let x = OneofDescriptorProto::new().set_or_clear_options(None::<OneofOptions>);
     /// ```
     pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::OneofOptions>,
+    where T: std::convert::Into<crate::OneofOptions>
     {
         self.options = v.map(|x| x.into());
         self
@@ -2306,6 +2273,7 @@ impl wkt::message::Message for OneofDescriptorProto {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnumDescriptorProto {
+
     pub name: std::string::String,
 
     pub value: std::vec::Vec<crate::EnumValueDescriptorProto>,
@@ -2356,7 +2324,7 @@ impl EnumDescriptorProto {
     pub fn set_value<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::EnumValueDescriptorProto>,
+        V: std::convert::Into<crate::EnumValueDescriptorProto>
     {
         use std::iter::Iterator;
         self.value = v.into_iter().map(|i| i.into()).collect();
@@ -2372,8 +2340,7 @@ impl EnumDescriptorProto {
     /// let x = EnumDescriptorProto::new().set_options(EnumOptions::default()/* use setters */);
     /// ```
     pub fn set_options<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::EnumOptions>,
+    where T: std::convert::Into<crate::EnumOptions>
     {
         self.options = std::option::Option::Some(v.into());
         self
@@ -2389,8 +2356,7 @@ impl EnumDescriptorProto {
     /// let x = EnumDescriptorProto::new().set_or_clear_options(None::<EnumOptions>);
     /// ```
     pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::EnumOptions>,
+    where T: std::convert::Into<crate::EnumOptions>
     {
         self.options = v.map(|x| x.into());
         self
@@ -2411,7 +2377,7 @@ impl EnumDescriptorProto {
     pub fn set_reserved_range<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::enum_descriptor_proto::EnumReservedRange>,
+        V: std::convert::Into<crate::enum_descriptor_proto::EnumReservedRange>
     {
         use std::iter::Iterator;
         self.reserved_range = v.into_iter().map(|i| i.into()).collect();
@@ -2428,7 +2394,7 @@ impl EnumDescriptorProto {
     pub fn set_reserved_name<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.reserved_name = v.into_iter().map(|i| i.into()).collect();
@@ -2447,6 +2413,7 @@ pub mod enum_descriptor_proto {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Range of reserved numeric values. Reserved values may not be used by
     /// entries in the same enum. Reserved ranges may not overlap.
     ///
@@ -2456,6 +2423,7 @@ pub mod enum_descriptor_proto {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct EnumReservedRange {
+
         pub start: i32,
 
         pub end: i32,
@@ -2504,6 +2472,7 @@ pub mod enum_descriptor_proto {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnumValueDescriptorProto {
+
     pub name: std::string::String,
 
     pub number: i32,
@@ -2551,8 +2520,7 @@ impl EnumValueDescriptorProto {
     /// let x = EnumValueDescriptorProto::new().set_options(EnumValueOptions::default()/* use setters */);
     /// ```
     pub fn set_options<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::EnumValueOptions>,
+    where T: std::convert::Into<crate::EnumValueOptions>
     {
         self.options = std::option::Option::Some(v.into());
         self
@@ -2568,8 +2536,7 @@ impl EnumValueDescriptorProto {
     /// let x = EnumValueDescriptorProto::new().set_or_clear_options(None::<EnumValueOptions>);
     /// ```
     pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::EnumValueOptions>,
+    where T: std::convert::Into<crate::EnumValueOptions>
     {
         self.options = v.map(|x| x.into());
         self
@@ -2586,6 +2553,7 @@ impl wkt::message::Message for EnumValueDescriptorProto {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ServiceDescriptorProto {
+
     pub name: std::string::String,
 
     pub method: std::vec::Vec<crate::MethodDescriptorProto>,
@@ -2627,7 +2595,7 @@ impl ServiceDescriptorProto {
     pub fn set_method<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::MethodDescriptorProto>,
+        V: std::convert::Into<crate::MethodDescriptorProto>
     {
         use std::iter::Iterator;
         self.method = v.into_iter().map(|i| i.into()).collect();
@@ -2643,8 +2611,7 @@ impl ServiceDescriptorProto {
     /// let x = ServiceDescriptorProto::new().set_options(ServiceOptions::default()/* use setters */);
     /// ```
     pub fn set_options<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::ServiceOptions>,
+    where T: std::convert::Into<crate::ServiceOptions>
     {
         self.options = std::option::Option::Some(v.into());
         self
@@ -2660,8 +2627,7 @@ impl ServiceDescriptorProto {
     /// let x = ServiceDescriptorProto::new().set_or_clear_options(None::<ServiceOptions>);
     /// ```
     pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::ServiceOptions>,
+    where T: std::convert::Into<crate::ServiceOptions>
     {
         self.options = v.map(|x| x.into());
         self
@@ -2678,6 +2644,7 @@ impl wkt::message::Message for ServiceDescriptorProto {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MethodDescriptorProto {
+
     pub name: std::string::String,
 
     /// Input and output type names.  These are resolved in the same way as
@@ -2747,8 +2714,7 @@ impl MethodDescriptorProto {
     /// let x = MethodDescriptorProto::new().set_options(MethodOptions::default()/* use setters */);
     /// ```
     pub fn set_options<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::MethodOptions>,
+    where T: std::convert::Into<crate::MethodOptions>
     {
         self.options = std::option::Option::Some(v.into());
         self
@@ -2764,8 +2730,7 @@ impl MethodDescriptorProto {
     /// let x = MethodDescriptorProto::new().set_or_clear_options(None::<MethodOptions>);
     /// ```
     pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::MethodOptions>,
+    where T: std::convert::Into<crate::MethodOptions>
     {
         self.options = v.map(|x| x.into());
         self
@@ -2805,6 +2770,7 @@ impl wkt::message::Message for MethodDescriptorProto {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FileOptions {
+
     /// Sets the Java package where classes generated from this .proto will be
     /// placed.  By default, the proto package is used, but this is often
     /// inappropriate because proto packages do not normally start with backwards
@@ -2944,10 +2910,7 @@ impl FileOptions {
     /// # use google_cloud_wkt::FileOptions;
     /// let x = FileOptions::new().set_java_outer_classname("example");
     /// ```
-    pub fn set_java_outer_classname<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_java_outer_classname<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.java_outer_classname = v.into();
         self
     }
@@ -2999,10 +2962,7 @@ impl FileOptions {
     /// let x1 = FileOptions::new().set_optimize_for(OptimizeMode::CodeSize);
     /// let x2 = FileOptions::new().set_optimize_for(OptimizeMode::LiteRuntime);
     /// ```
-    pub fn set_optimize_for<T: std::convert::Into<crate::file_options::OptimizeMode>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_optimize_for<T: std::convert::Into<crate::file_options::OptimizeMode>>(mut self, v: T) -> Self {
         self.optimize_for = v.into();
         self
     }
@@ -3086,10 +3046,7 @@ impl FileOptions {
     /// # use google_cloud_wkt::FileOptions;
     /// let x = FileOptions::new().set_objc_class_prefix("example");
     /// ```
-    pub fn set_objc_class_prefix<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_objc_class_prefix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.objc_class_prefix = v.into();
         self
     }
@@ -3101,10 +3058,7 @@ impl FileOptions {
     /// # use google_cloud_wkt::FileOptions;
     /// let x = FileOptions::new().set_csharp_namespace("example");
     /// ```
-    pub fn set_csharp_namespace<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_csharp_namespace<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.csharp_namespace = v.into();
         self
     }
@@ -3128,10 +3082,7 @@ impl FileOptions {
     /// # use google_cloud_wkt::FileOptions;
     /// let x = FileOptions::new().set_php_class_prefix("example");
     /// ```
-    pub fn set_php_class_prefix<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_php_class_prefix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.php_class_prefix = v.into();
         self
     }
@@ -3155,10 +3106,7 @@ impl FileOptions {
     /// # use google_cloud_wkt::FileOptions;
     /// let x = FileOptions::new().set_php_metadata_namespace("example");
     /// ```
-    pub fn set_php_metadata_namespace<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_php_metadata_namespace<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.php_metadata_namespace = v.into();
         self
     }
@@ -3184,8 +3132,7 @@ impl FileOptions {
     /// let x = FileOptions::new().set_features(FeatureSet::default()/* use setters */);
     /// ```
     pub fn set_features<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::FeatureSet>,
+    where T: std::convert::Into<crate::FeatureSet>
     {
         self.features = std::option::Option::Some(v.into());
         self
@@ -3201,8 +3148,7 @@ impl FileOptions {
     /// let x = FileOptions::new().set_or_clear_features(None::<FeatureSet>);
     /// ```
     pub fn set_or_clear_features<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::FeatureSet>,
+    where T: std::convert::Into<crate::FeatureSet>
     {
         self.features = v.map(|x| x.into());
         self
@@ -3223,7 +3169,7 @@ impl FileOptions {
     pub fn set_uninterpreted_option<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::UninterpretedOption>,
+        V: std::convert::Into<crate::UninterpretedOption>
     {
         use std::iter::Iterator;
         self.uninterpreted_option = v.into_iter().map(|i| i.into()).collect();
@@ -3241,6 +3187,7 @@ impl wkt::message::Message for FileOptions {
 pub mod file_options {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Generated classes can be optimized for speed or code size.
     ///
@@ -3326,9 +3273,7 @@ pub mod file_options {
                 1 => Self::Speed,
                 2 => Self::CodeSize,
                 3 => Self::LiteRuntime,
-                _ => Self::UnknownValue(optimize_mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(optimize_mode::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -3340,9 +3285,7 @@ pub mod file_options {
                 "SPEED" => Self::Speed,
                 "CODE_SIZE" => Self::CodeSize,
                 "LITE_RUNTIME" => Self::LiteRuntime,
-                _ => Self::UnknownValue(optimize_mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(optimize_mode::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -3367,8 +3310,7 @@ pub mod file_options {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<OptimizeMode>::new(
-                ".google.protobuf.FileOptions.OptimizeMode",
-            ))
+                ".google.protobuf.FileOptions.OptimizeMode"))
         }
     }
 }
@@ -3376,6 +3318,7 @@ pub mod file_options {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MessageOptions {
+
     /// Set true to use the old proto1 MessageSet wire format for extensions.
     /// This is provided for backwards-compatibility with the MessageSet wire
     /// format.  You should not use this for any other reason:  It's less
@@ -3476,10 +3419,7 @@ impl MessageOptions {
     /// # use google_cloud_wkt::MessageOptions;
     /// let x = MessageOptions::new().set_no_standard_descriptor_accessor(true);
     /// ```
-    pub fn set_no_standard_descriptor_accessor<T: std::convert::Into<bool>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_no_standard_descriptor_accessor<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.no_standard_descriptor_accessor = v.into();
         self
     }
@@ -3516,10 +3456,7 @@ impl MessageOptions {
     /// let x = MessageOptions::new().set_deprecated_legacy_json_field_conflicts(true);
     /// ```
     #[deprecated]
-    pub fn set_deprecated_legacy_json_field_conflicts<T: std::convert::Into<bool>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_deprecated_legacy_json_field_conflicts<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.deprecated_legacy_json_field_conflicts = v.into();
         self
     }
@@ -3533,8 +3470,7 @@ impl MessageOptions {
     /// let x = MessageOptions::new().set_features(FeatureSet::default()/* use setters */);
     /// ```
     pub fn set_features<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::FeatureSet>,
+    where T: std::convert::Into<crate::FeatureSet>
     {
         self.features = std::option::Option::Some(v.into());
         self
@@ -3550,8 +3486,7 @@ impl MessageOptions {
     /// let x = MessageOptions::new().set_or_clear_features(None::<FeatureSet>);
     /// ```
     pub fn set_or_clear_features<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::FeatureSet>,
+    where T: std::convert::Into<crate::FeatureSet>
     {
         self.features = v.map(|x| x.into());
         self
@@ -3572,7 +3507,7 @@ impl MessageOptions {
     pub fn set_uninterpreted_option<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::UninterpretedOption>,
+        V: std::convert::Into<crate::UninterpretedOption>
     {
         use std::iter::Iterator;
         self.uninterpreted_option = v.into_iter().map(|i| i.into()).collect();
@@ -3589,6 +3524,7 @@ impl wkt::message::Message for MessageOptions {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FieldOptions {
+
     /// NOTE: ctype is deprecated. Use `features.(pb.cpp).string_type` instead.
     /// The ctype option instructs the C++ code generator to use a different
     /// representation of the field than it normally would.  See the specific
@@ -3793,10 +3729,7 @@ impl FieldOptions {
     /// let x0 = FieldOptions::new().set_retention(OptionRetention::RetentionRuntime);
     /// let x1 = FieldOptions::new().set_retention(OptionRetention::RetentionSource);
     /// ```
-    pub fn set_retention<T: std::convert::Into<crate::field_options::OptionRetention>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_retention<T: std::convert::Into<crate::field_options::OptionRetention>>(mut self, v: T) -> Self {
         self.retention = v.into();
         self
     }
@@ -3816,7 +3749,7 @@ impl FieldOptions {
     pub fn set_targets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::field_options::OptionTargetType>,
+        V: std::convert::Into<crate::field_options::OptionTargetType>
     {
         use std::iter::Iterator;
         self.targets = v.into_iter().map(|i| i.into()).collect();
@@ -3838,7 +3771,7 @@ impl FieldOptions {
     pub fn set_edition_defaults<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::field_options::EditionDefault>,
+        V: std::convert::Into<crate::field_options::EditionDefault>
     {
         use std::iter::Iterator;
         self.edition_defaults = v.into_iter().map(|i| i.into()).collect();
@@ -3854,8 +3787,7 @@ impl FieldOptions {
     /// let x = FieldOptions::new().set_features(FeatureSet::default()/* use setters */);
     /// ```
     pub fn set_features<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::FeatureSet>,
+    where T: std::convert::Into<crate::FeatureSet>
     {
         self.features = std::option::Option::Some(v.into());
         self
@@ -3871,8 +3803,7 @@ impl FieldOptions {
     /// let x = FieldOptions::new().set_or_clear_features(None::<FeatureSet>);
     /// ```
     pub fn set_or_clear_features<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::FeatureSet>,
+    where T: std::convert::Into<crate::FeatureSet>
     {
         self.features = v.map(|x| x.into());
         self
@@ -3887,8 +3818,7 @@ impl FieldOptions {
     /// let x = FieldOptions::new().set_feature_support(FeatureSupport::default()/* use setters */);
     /// ```
     pub fn set_feature_support<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::field_options::FeatureSupport>,
+    where T: std::convert::Into<crate::field_options::FeatureSupport>
     {
         self.feature_support = std::option::Option::Some(v.into());
         self
@@ -3904,8 +3834,7 @@ impl FieldOptions {
     /// let x = FieldOptions::new().set_or_clear_feature_support(None::<FeatureSupport>);
     /// ```
     pub fn set_or_clear_feature_support<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::field_options::FeatureSupport>,
+    where T: std::convert::Into<crate::field_options::FeatureSupport>
     {
         self.feature_support = v.map(|x| x.into());
         self
@@ -3926,7 +3855,7 @@ impl FieldOptions {
     pub fn set_uninterpreted_option<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::UninterpretedOption>,
+        V: std::convert::Into<crate::UninterpretedOption>
     {
         use std::iter::Iterator;
         self.uninterpreted_option = v.into_iter().map(|i| i.into()).collect();
@@ -3945,9 +3874,11 @@ pub mod field_options {
     #[allow(unused_imports)]
     use super::*;
 
+
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct EditionDefault {
+
         pub edition: crate::Edition,
 
         pub value: std::string::String,
@@ -3998,6 +3929,7 @@ pub mod field_options {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct FeatureSupport {
+
         /// The edition that this feature was first available in.  In editions
         /// earlier than this one, the default assigned to EDITION_LEGACY will be
         /// used, and proto files will not be able to override it.
@@ -4034,10 +3966,7 @@ pub mod field_options {
         /// let x1 = FeatureSupport::new().set_edition_introduced(Edition::Proto2);
         /// let x2 = FeatureSupport::new().set_edition_introduced(Edition::Proto3);
         /// ```
-        pub fn set_edition_introduced<T: std::convert::Into<crate::Edition>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_edition_introduced<T: std::convert::Into<crate::Edition>>(mut self, v: T) -> Self {
             self.edition_introduced = v.into();
             self
         }
@@ -4052,10 +3981,7 @@ pub mod field_options {
         /// let x1 = FeatureSupport::new().set_edition_deprecated(Edition::Proto2);
         /// let x2 = FeatureSupport::new().set_edition_deprecated(Edition::Proto3);
         /// ```
-        pub fn set_edition_deprecated<T: std::convert::Into<crate::Edition>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_edition_deprecated<T: std::convert::Into<crate::Edition>>(mut self, v: T) -> Self {
             self.edition_deprecated = v.into();
             self
         }
@@ -4067,10 +3993,7 @@ pub mod field_options {
         /// # use google_cloud_wkt::field_options::FeatureSupport;
         /// let x = FeatureSupport::new().set_deprecation_warning("example");
         /// ```
-        pub fn set_deprecation_warning<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_deprecation_warning<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.deprecation_warning = v.into();
             self
         }
@@ -4186,9 +4109,7 @@ pub mod field_options {
                 0 => Self::String,
                 1 => Self::Cord,
                 2 => Self::StringPiece,
-                _ => Self::UnknownValue(c_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(c_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -4200,9 +4121,7 @@ pub mod field_options {
                 "STRING" => Self::String,
                 "CORD" => Self::Cord,
                 "STRING_PIECE" => Self::StringPiece,
-                _ => Self::UnknownValue(c_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(c_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -4227,8 +4146,7 @@ pub mod field_options {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<CType>::new(
-                ".google.protobuf.FieldOptions.CType",
-            ))
+                ".google.protobuf.FieldOptions.CType"))
         }
     }
 
@@ -4317,9 +4235,7 @@ pub mod field_options {
                 0 => Self::JsNormal,
                 1 => Self::JsString,
                 2 => Self::JsNumber,
-                _ => Self::UnknownValue(js_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(js_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -4331,9 +4247,7 @@ pub mod field_options {
                 "JS_NORMAL" => Self::JsNormal,
                 "JS_STRING" => Self::JsString,
                 "JS_NUMBER" => Self::JsNumber,
-                _ => Self::UnknownValue(js_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(js_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -4358,8 +4272,7 @@ pub mod field_options {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<JSType>::new(
-                ".google.protobuf.FieldOptions.JSType",
-            ))
+                ".google.protobuf.FieldOptions.JSType"))
         }
     }
 
@@ -4446,9 +4359,7 @@ pub mod field_options {
                 0 => Self::RetentionUnknown,
                 1 => Self::RetentionRuntime,
                 2 => Self::RetentionSource,
-                _ => Self::UnknownValue(option_retention::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(option_retention::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -4460,9 +4371,7 @@ pub mod field_options {
                 "RETENTION_UNKNOWN" => Self::RetentionUnknown,
                 "RETENTION_RUNTIME" => Self::RetentionRuntime,
                 "RETENTION_SOURCE" => Self::RetentionSource,
-                _ => Self::UnknownValue(option_retention::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(option_retention::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -4487,8 +4396,7 @@ pub mod field_options {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<OptionRetention>::new(
-                ".google.protobuf.FieldOptions.OptionRetention",
-            ))
+                ".google.protobuf.FieldOptions.OptionRetention"))
         }
     }
 
@@ -4566,9 +4474,7 @@ pub mod field_options {
             match self {
                 Self::TargetTypeUnknown => std::option::Option::Some("TARGET_TYPE_UNKNOWN"),
                 Self::TargetTypeFile => std::option::Option::Some("TARGET_TYPE_FILE"),
-                Self::TargetTypeExtensionRange => {
-                    std::option::Option::Some("TARGET_TYPE_EXTENSION_RANGE")
-                }
+                Self::TargetTypeExtensionRange => std::option::Option::Some("TARGET_TYPE_EXTENSION_RANGE"),
                 Self::TargetTypeMessage => std::option::Option::Some("TARGET_TYPE_MESSAGE"),
                 Self::TargetTypeField => std::option::Option::Some("TARGET_TYPE_FIELD"),
                 Self::TargetTypeOneof => std::option::Option::Some("TARGET_TYPE_ONEOF"),
@@ -4607,9 +4513,7 @@ pub mod field_options {
                 7 => Self::TargetTypeEnumEntry,
                 8 => Self::TargetTypeService,
                 9 => Self::TargetTypeMethod,
-                _ => Self::UnknownValue(option_target_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(option_target_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -4628,9 +4532,7 @@ pub mod field_options {
                 "TARGET_TYPE_ENUM_ENTRY" => Self::TargetTypeEnumEntry,
                 "TARGET_TYPE_SERVICE" => Self::TargetTypeService,
                 "TARGET_TYPE_METHOD" => Self::TargetTypeMethod,
-                _ => Self::UnknownValue(option_target_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(option_target_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -4662,8 +4564,7 @@ pub mod field_options {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<OptionTargetType>::new(
-                ".google.protobuf.FieldOptions.OptionTargetType",
-            ))
+                ".google.protobuf.FieldOptions.OptionTargetType"))
         }
     }
 }
@@ -4671,6 +4572,7 @@ pub mod field_options {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OneofOptions {
+
     /// Any features defined in the specific edition.
     pub features: std::option::Option<crate::FeatureSet>,
 
@@ -4694,8 +4596,7 @@ impl OneofOptions {
     /// let x = OneofOptions::new().set_features(FeatureSet::default()/* use setters */);
     /// ```
     pub fn set_features<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::FeatureSet>,
+    where T: std::convert::Into<crate::FeatureSet>
     {
         self.features = std::option::Option::Some(v.into());
         self
@@ -4711,8 +4612,7 @@ impl OneofOptions {
     /// let x = OneofOptions::new().set_or_clear_features(None::<FeatureSet>);
     /// ```
     pub fn set_or_clear_features<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::FeatureSet>,
+    where T: std::convert::Into<crate::FeatureSet>
     {
         self.features = v.map(|x| x.into());
         self
@@ -4733,7 +4633,7 @@ impl OneofOptions {
     pub fn set_uninterpreted_option<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::UninterpretedOption>,
+        V: std::convert::Into<crate::UninterpretedOption>
     {
         use std::iter::Iterator;
         self.uninterpreted_option = v.into_iter().map(|i| i.into()).collect();
@@ -4750,6 +4650,7 @@ impl wkt::message::Message for OneofOptions {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnumOptions {
+
     /// Set this option to true to allow mapping different tag names to the same
     /// value.
     pub allow_alias: bool,
@@ -4815,10 +4716,7 @@ impl EnumOptions {
     /// let x = EnumOptions::new().set_deprecated_legacy_json_field_conflicts(true);
     /// ```
     #[deprecated]
-    pub fn set_deprecated_legacy_json_field_conflicts<T: std::convert::Into<bool>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_deprecated_legacy_json_field_conflicts<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.deprecated_legacy_json_field_conflicts = v.into();
         self
     }
@@ -4832,8 +4730,7 @@ impl EnumOptions {
     /// let x = EnumOptions::new().set_features(FeatureSet::default()/* use setters */);
     /// ```
     pub fn set_features<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::FeatureSet>,
+    where T: std::convert::Into<crate::FeatureSet>
     {
         self.features = std::option::Option::Some(v.into());
         self
@@ -4849,8 +4746,7 @@ impl EnumOptions {
     /// let x = EnumOptions::new().set_or_clear_features(None::<FeatureSet>);
     /// ```
     pub fn set_or_clear_features<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::FeatureSet>,
+    where T: std::convert::Into<crate::FeatureSet>
     {
         self.features = v.map(|x| x.into());
         self
@@ -4871,7 +4767,7 @@ impl EnumOptions {
     pub fn set_uninterpreted_option<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::UninterpretedOption>,
+        V: std::convert::Into<crate::UninterpretedOption>
     {
         use std::iter::Iterator;
         self.uninterpreted_option = v.into_iter().map(|i| i.into()).collect();
@@ -4888,6 +4784,7 @@ impl wkt::message::Message for EnumOptions {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnumValueOptions {
+
     /// Is this enum value deprecated?
     /// Depending on the target platform, this can emit Deprecated annotations
     /// for the enum value, or it will be completely ignored; in the very least,
@@ -4937,8 +4834,7 @@ impl EnumValueOptions {
     /// let x = EnumValueOptions::new().set_features(FeatureSet::default()/* use setters */);
     /// ```
     pub fn set_features<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::FeatureSet>,
+    where T: std::convert::Into<crate::FeatureSet>
     {
         self.features = std::option::Option::Some(v.into());
         self
@@ -4954,8 +4850,7 @@ impl EnumValueOptions {
     /// let x = EnumValueOptions::new().set_or_clear_features(None::<FeatureSet>);
     /// ```
     pub fn set_or_clear_features<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::FeatureSet>,
+    where T: std::convert::Into<crate::FeatureSet>
     {
         self.features = v.map(|x| x.into());
         self
@@ -4982,8 +4877,7 @@ impl EnumValueOptions {
     /// let x = EnumValueOptions::new().set_feature_support(FeatureSupport::default()/* use setters */);
     /// ```
     pub fn set_feature_support<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::field_options::FeatureSupport>,
+    where T: std::convert::Into<crate::field_options::FeatureSupport>
     {
         self.feature_support = std::option::Option::Some(v.into());
         self
@@ -4999,8 +4893,7 @@ impl EnumValueOptions {
     /// let x = EnumValueOptions::new().set_or_clear_feature_support(None::<FeatureSupport>);
     /// ```
     pub fn set_or_clear_feature_support<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::field_options::FeatureSupport>,
+    where T: std::convert::Into<crate::field_options::FeatureSupport>
     {
         self.feature_support = v.map(|x| x.into());
         self
@@ -5021,7 +4914,7 @@ impl EnumValueOptions {
     pub fn set_uninterpreted_option<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::UninterpretedOption>,
+        V: std::convert::Into<crate::UninterpretedOption>
     {
         use std::iter::Iterator;
         self.uninterpreted_option = v.into_iter().map(|i| i.into()).collect();
@@ -5038,6 +4931,7 @@ impl wkt::message::Message for EnumValueOptions {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ServiceOptions {
+
     /// Any features defined in the specific edition.
     pub features: std::option::Option<crate::FeatureSet>,
 
@@ -5067,8 +4961,7 @@ impl ServiceOptions {
     /// let x = ServiceOptions::new().set_features(FeatureSet::default()/* use setters */);
     /// ```
     pub fn set_features<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::FeatureSet>,
+    where T: std::convert::Into<crate::FeatureSet>
     {
         self.features = std::option::Option::Some(v.into());
         self
@@ -5084,8 +4977,7 @@ impl ServiceOptions {
     /// let x = ServiceOptions::new().set_or_clear_features(None::<FeatureSet>);
     /// ```
     pub fn set_or_clear_features<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::FeatureSet>,
+    where T: std::convert::Into<crate::FeatureSet>
     {
         self.features = v.map(|x| x.into());
         self
@@ -5118,7 +5010,7 @@ impl ServiceOptions {
     pub fn set_uninterpreted_option<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::UninterpretedOption>,
+        V: std::convert::Into<crate::UninterpretedOption>
     {
         use std::iter::Iterator;
         self.uninterpreted_option = v.into_iter().map(|i| i.into()).collect();
@@ -5135,6 +5027,7 @@ impl wkt::message::Message for ServiceOptions {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MethodOptions {
+
     /// Is this method deprecated?
     /// Depending on the target platform, this can emit Deprecated annotations
     /// for the method, or it will be completely ignored; in the very least,
@@ -5178,10 +5071,7 @@ impl MethodOptions {
     /// let x0 = MethodOptions::new().set_idempotency_level(IdempotencyLevel::NoSideEffects);
     /// let x1 = MethodOptions::new().set_idempotency_level(IdempotencyLevel::Idempotent);
     /// ```
-    pub fn set_idempotency_level<T: std::convert::Into<crate::method_options::IdempotencyLevel>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_idempotency_level<T: std::convert::Into<crate::method_options::IdempotencyLevel>>(mut self, v: T) -> Self {
         self.idempotency_level = v.into();
         self
     }
@@ -5195,8 +5085,7 @@ impl MethodOptions {
     /// let x = MethodOptions::new().set_features(FeatureSet::default()/* use setters */);
     /// ```
     pub fn set_features<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::FeatureSet>,
+    where T: std::convert::Into<crate::FeatureSet>
     {
         self.features = std::option::Option::Some(v.into());
         self
@@ -5212,8 +5101,7 @@ impl MethodOptions {
     /// let x = MethodOptions::new().set_or_clear_features(None::<FeatureSet>);
     /// ```
     pub fn set_or_clear_features<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::FeatureSet>,
+    where T: std::convert::Into<crate::FeatureSet>
     {
         self.features = v.map(|x| x.into());
         self
@@ -5234,7 +5122,7 @@ impl MethodOptions {
     pub fn set_uninterpreted_option<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::UninterpretedOption>,
+        V: std::convert::Into<crate::UninterpretedOption>
     {
         use std::iter::Iterator;
         self.uninterpreted_option = v.into_iter().map(|i| i.into()).collect();
@@ -5252,6 +5140,7 @@ impl wkt::message::Message for MethodOptions {
 pub mod method_options {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Is this method side-effect-free (or safe in HTTP parlance), or idempotent,
     /// or neither? HTTP based RPC implementation may choose GET verb for safe
@@ -5338,9 +5227,7 @@ pub mod method_options {
                 0 => Self::IdempotencyUnknown,
                 1 => Self::NoSideEffects,
                 2 => Self::Idempotent,
-                _ => Self::UnknownValue(idempotency_level::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(idempotency_level::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -5352,9 +5239,7 @@ pub mod method_options {
                 "IDEMPOTENCY_UNKNOWN" => Self::IdempotencyUnknown,
                 "NO_SIDE_EFFECTS" => Self::NoSideEffects,
                 "IDEMPOTENT" => Self::Idempotent,
-                _ => Self::UnknownValue(idempotency_level::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(idempotency_level::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -5379,8 +5264,7 @@ pub mod method_options {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<IdempotencyLevel>::new(
-                ".google.protobuf.MethodOptions.IdempotencyLevel",
-            ))
+                ".google.protobuf.MethodOptions.IdempotencyLevel"))
         }
     }
 }
@@ -5394,6 +5278,7 @@ pub mod method_options {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UninterpretedOption {
+
     pub name: std::vec::Vec<crate::uninterpreted_option::NamePart>,
 
     /// The value of the uninterpreted option, in whatever type the tokenizer
@@ -5433,7 +5318,7 @@ impl UninterpretedOption {
     pub fn set_name<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::uninterpreted_option::NamePart>,
+        V: std::convert::Into<crate::uninterpreted_option::NamePart>
     {
         use std::iter::Iterator;
         self.name = v.into_iter().map(|i| i.into()).collect();
@@ -5447,10 +5332,7 @@ impl UninterpretedOption {
     /// # use google_cloud_wkt::UninterpretedOption;
     /// let x = UninterpretedOption::new().set_identifier_value("example");
     /// ```
-    pub fn set_identifier_value<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_identifier_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.identifier_value = v.into();
         self
     }
@@ -5527,6 +5409,7 @@ pub mod uninterpreted_option {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// The name of the uninterpreted option.  Each string represents a segment in
     /// a dot-separated name.  is_extension is true iff a segment represents an
     /// extension (denoted with parentheses in options specs in .proto files).
@@ -5535,6 +5418,7 @@ pub mod uninterpreted_option {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct NamePart {
+
         pub name_part: std::string::String,
 
         pub is_extension: bool,
@@ -5588,6 +5472,7 @@ pub mod uninterpreted_option {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FeatureSet {
+
     pub field_presence: crate::feature_set::FieldPresence,
 
     pub enum_type: crate::feature_set::EnumType,
@@ -5618,10 +5503,7 @@ impl FeatureSet {
     /// let x1 = FeatureSet::new().set_field_presence(FieldPresence::Implicit);
     /// let x2 = FeatureSet::new().set_field_presence(FieldPresence::LegacyRequired);
     /// ```
-    pub fn set_field_presence<T: std::convert::Into<crate::feature_set::FieldPresence>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_field_presence<T: std::convert::Into<crate::feature_set::FieldPresence>>(mut self, v: T) -> Self {
         self.field_presence = v.into();
         self
     }
@@ -5635,10 +5517,7 @@ impl FeatureSet {
     /// let x0 = FeatureSet::new().set_enum_type(EnumType::Open);
     /// let x1 = FeatureSet::new().set_enum_type(EnumType::Closed);
     /// ```
-    pub fn set_enum_type<T: std::convert::Into<crate::feature_set::EnumType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_enum_type<T: std::convert::Into<crate::feature_set::EnumType>>(mut self, v: T) -> Self {
         self.enum_type = v.into();
         self
     }
@@ -5652,12 +5531,7 @@ impl FeatureSet {
     /// let x0 = FeatureSet::new().set_repeated_field_encoding(RepeatedFieldEncoding::Packed);
     /// let x1 = FeatureSet::new().set_repeated_field_encoding(RepeatedFieldEncoding::Expanded);
     /// ```
-    pub fn set_repeated_field_encoding<
-        T: std::convert::Into<crate::feature_set::RepeatedFieldEncoding>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_repeated_field_encoding<T: std::convert::Into<crate::feature_set::RepeatedFieldEncoding>>(mut self, v: T) -> Self {
         self.repeated_field_encoding = v.into();
         self
     }
@@ -5671,10 +5545,7 @@ impl FeatureSet {
     /// let x0 = FeatureSet::new().set_utf8_validation(Utf8Validation::Verify);
     /// let x1 = FeatureSet::new().set_utf8_validation(Utf8Validation::None);
     /// ```
-    pub fn set_utf8_validation<T: std::convert::Into<crate::feature_set::Utf8Validation>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_utf8_validation<T: std::convert::Into<crate::feature_set::Utf8Validation>>(mut self, v: T) -> Self {
         self.utf8_validation = v.into();
         self
     }
@@ -5688,10 +5559,7 @@ impl FeatureSet {
     /// let x0 = FeatureSet::new().set_message_encoding(MessageEncoding::LengthPrefixed);
     /// let x1 = FeatureSet::new().set_message_encoding(MessageEncoding::Delimited);
     /// ```
-    pub fn set_message_encoding<T: std::convert::Into<crate::feature_set::MessageEncoding>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_message_encoding<T: std::convert::Into<crate::feature_set::MessageEncoding>>(mut self, v: T) -> Self {
         self.message_encoding = v.into();
         self
     }
@@ -5705,10 +5573,7 @@ impl FeatureSet {
     /// let x0 = FeatureSet::new().set_json_format(JsonFormat::Allow);
     /// let x1 = FeatureSet::new().set_json_format(JsonFormat::LegacyBestEffort);
     /// ```
-    pub fn set_json_format<T: std::convert::Into<crate::feature_set::JsonFormat>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_json_format<T: std::convert::Into<crate::feature_set::JsonFormat>>(mut self, v: T) -> Self {
         self.json_format = v.into();
         self
     }
@@ -5724,6 +5589,7 @@ impl wkt::message::Message for FeatureSet {
 pub mod feature_set {
     #[allow(unused_imports)]
     use super::*;
+
 
     ///
     /// # Working with unknown values
@@ -5811,9 +5677,7 @@ pub mod feature_set {
                 1 => Self::Explicit,
                 2 => Self::Implicit,
                 3 => Self::LegacyRequired,
-                _ => Self::UnknownValue(field_presence::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(field_presence::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -5826,9 +5690,7 @@ pub mod feature_set {
                 "EXPLICIT" => Self::Explicit,
                 "IMPLICIT" => Self::Implicit,
                 "LEGACY_REQUIRED" => Self::LegacyRequired,
-                _ => Self::UnknownValue(field_presence::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(field_presence::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -5854,8 +5716,7 @@ pub mod feature_set {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<FieldPresence>::new(
-                ".google.protobuf.FeatureSet.FieldPresence",
-            ))
+                ".google.protobuf.FeatureSet.FieldPresence"))
         }
     }
 
@@ -5941,9 +5802,7 @@ pub mod feature_set {
                 0 => Self::Unknown,
                 1 => Self::Open,
                 2 => Self::Closed,
-                _ => Self::UnknownValue(enum_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(enum_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -5955,9 +5814,7 @@ pub mod feature_set {
                 "ENUM_TYPE_UNKNOWN" => Self::Unknown,
                 "OPEN" => Self::Open,
                 "CLOSED" => Self::Closed,
-                _ => Self::UnknownValue(enum_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(enum_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -5982,8 +5839,7 @@ pub mod feature_set {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<EnumType>::new(
-                ".google.protobuf.FeatureSet.EnumType",
-            ))
+                ".google.protobuf.FeatureSet.EnumType"))
         }
     }
 
@@ -6069,9 +5925,7 @@ pub mod feature_set {
                 0 => Self::Unknown,
                 1 => Self::Packed,
                 2 => Self::Expanded,
-                _ => Self::UnknownValue(repeated_field_encoding::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(repeated_field_encoding::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -6083,9 +5937,7 @@ pub mod feature_set {
                 "REPEATED_FIELD_ENCODING_UNKNOWN" => Self::Unknown,
                 "PACKED" => Self::Packed,
                 "EXPANDED" => Self::Expanded,
-                _ => Self::UnknownValue(repeated_field_encoding::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(repeated_field_encoding::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -6110,8 +5962,7 @@ pub mod feature_set {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<RepeatedFieldEncoding>::new(
-                ".google.protobuf.FeatureSet.RepeatedFieldEncoding",
-            ))
+                ".google.protobuf.FeatureSet.RepeatedFieldEncoding"))
         }
     }
 
@@ -6197,9 +6048,7 @@ pub mod feature_set {
                 0 => Self::Unknown,
                 2 => Self::Verify,
                 3 => Self::None,
-                _ => Self::UnknownValue(utf_8_validation::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(utf_8_validation::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -6211,9 +6060,7 @@ pub mod feature_set {
                 "UTF8_VALIDATION_UNKNOWN" => Self::Unknown,
                 "VERIFY" => Self::Verify,
                 "NONE" => Self::None,
-                _ => Self::UnknownValue(utf_8_validation::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(utf_8_validation::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -6238,8 +6085,7 @@ pub mod feature_set {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Utf8Validation>::new(
-                ".google.protobuf.FeatureSet.Utf8Validation",
-            ))
+                ".google.protobuf.FeatureSet.Utf8Validation"))
         }
     }
 
@@ -6325,9 +6171,7 @@ pub mod feature_set {
                 0 => Self::Unknown,
                 1 => Self::LengthPrefixed,
                 2 => Self::Delimited,
-                _ => Self::UnknownValue(message_encoding::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(message_encoding::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -6339,9 +6183,7 @@ pub mod feature_set {
                 "MESSAGE_ENCODING_UNKNOWN" => Self::Unknown,
                 "LENGTH_PREFIXED" => Self::LengthPrefixed,
                 "DELIMITED" => Self::Delimited,
-                _ => Self::UnknownValue(message_encoding::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(message_encoding::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -6366,8 +6208,7 @@ pub mod feature_set {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<MessageEncoding>::new(
-                ".google.protobuf.FeatureSet.MessageEncoding",
-            ))
+                ".google.protobuf.FeatureSet.MessageEncoding"))
         }
     }
 
@@ -6453,9 +6294,7 @@ pub mod feature_set {
                 0 => Self::Unknown,
                 1 => Self::Allow,
                 2 => Self::LegacyBestEffort,
-                _ => Self::UnknownValue(json_format::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(json_format::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -6467,9 +6306,7 @@ pub mod feature_set {
                 "JSON_FORMAT_UNKNOWN" => Self::Unknown,
                 "ALLOW" => Self::Allow,
                 "LEGACY_BEST_EFFORT" => Self::LegacyBestEffort,
-                _ => Self::UnknownValue(json_format::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(json_format::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -6494,8 +6331,7 @@ pub mod feature_set {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<JsonFormat>::new(
-                ".google.protobuf.FeatureSet.JsonFormat",
-            ))
+                ".google.protobuf.FeatureSet.JsonFormat"))
         }
     }
 }
@@ -6507,6 +6343,7 @@ pub mod feature_set {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FeatureSetDefaults {
+
     pub defaults: std::vec::Vec<crate::feature_set_defaults::FeatureSetEditionDefault>,
 
     /// The minimum supported edition (inclusive) when this was constructed.
@@ -6540,7 +6377,7 @@ impl FeatureSetDefaults {
     pub fn set_defaults<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::feature_set_defaults::FeatureSetEditionDefault>,
+        V: std::convert::Into<crate::feature_set_defaults::FeatureSetEditionDefault>
     {
         use std::iter::Iterator;
         self.defaults = v.into_iter().map(|i| i.into()).collect();
@@ -6589,6 +6426,7 @@ pub mod feature_set_defaults {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// A map from every known edition with a unique set of defaults to its
     /// defaults. Not all editions may be contained here.  For a given edition,
     /// the defaults at the closest matching edition ordered at or before it should
@@ -6596,6 +6434,7 @@ pub mod feature_set_defaults {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct FeatureSetEditionDefault {
+
         pub edition: crate::Edition,
 
         /// Defaults of features that can be overridden in this edition.
@@ -6636,8 +6475,7 @@ pub mod feature_set_defaults {
         /// let x = FeatureSetEditionDefault::new().set_overridable_features(FeatureSet::default()/* use setters */);
         /// ```
         pub fn set_overridable_features<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::FeatureSet>,
+        where T: std::convert::Into<crate::FeatureSet>
         {
             self.overridable_features = std::option::Option::Some(v.into());
             self
@@ -6653,8 +6491,7 @@ pub mod feature_set_defaults {
         /// let x = FeatureSetEditionDefault::new().set_or_clear_overridable_features(None::<FeatureSet>);
         /// ```
         pub fn set_or_clear_overridable_features<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::FeatureSet>,
+        where T: std::convert::Into<crate::FeatureSet>
         {
             self.overridable_features = v.map(|x| x.into());
             self
@@ -6669,8 +6506,7 @@ pub mod feature_set_defaults {
         /// let x = FeatureSetEditionDefault::new().set_fixed_features(FeatureSet::default()/* use setters */);
         /// ```
         pub fn set_fixed_features<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::FeatureSet>,
+        where T: std::convert::Into<crate::FeatureSet>
         {
             self.fixed_features = std::option::Option::Some(v.into());
             self
@@ -6686,8 +6522,7 @@ pub mod feature_set_defaults {
         /// let x = FeatureSetEditionDefault::new().set_or_clear_fixed_features(None::<FeatureSet>);
         /// ```
         pub fn set_or_clear_fixed_features<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::FeatureSet>,
+        where T: std::convert::Into<crate::FeatureSet>
         {
             self.fixed_features = v.map(|x| x.into());
             self
@@ -6706,6 +6541,7 @@ pub mod feature_set_defaults {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SourceCodeInfo {
+
     /// A Location identifies a piece of source code in a .proto file which
     /// corresponds to a particular definition.  This information is intended
     /// to be useful to IDEs, code indexers, documentation generators, and similar
@@ -6775,7 +6611,7 @@ impl SourceCodeInfo {
     pub fn set_location<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::source_code_info::Location>,
+        V: std::convert::Into<crate::source_code_info::Location>
     {
         use std::iter::Iterator;
         self.location = v.into_iter().map(|i| i.into()).collect();
@@ -6794,9 +6630,11 @@ pub mod source_code_info {
     #[allow(unused_imports)]
     use super::*;
 
+
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Location {
+
         /// Identifies which part of the FileDescriptorProto was defined at this
         /// location.
         ///
@@ -6901,7 +6739,7 @@ pub mod source_code_info {
         pub fn set_path<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<i32>,
+            V: std::convert::Into<i32>
         {
             use std::iter::Iterator;
             self.path = v.into_iter().map(|i| i.into()).collect();
@@ -6918,7 +6756,7 @@ pub mod source_code_info {
         pub fn set_span<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<i32>,
+            V: std::convert::Into<i32>
         {
             use std::iter::Iterator;
             self.span = v.into_iter().map(|i| i.into()).collect();
@@ -6932,10 +6770,7 @@ pub mod source_code_info {
         /// # use google_cloud_wkt::source_code_info::Location;
         /// let x = Location::new().set_leading_comments("example");
         /// ```
-        pub fn set_leading_comments<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_leading_comments<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.leading_comments = v.into();
             self
         }
@@ -6947,10 +6782,7 @@ pub mod source_code_info {
         /// # use google_cloud_wkt::source_code_info::Location;
         /// let x = Location::new().set_trailing_comments("example");
         /// ```
-        pub fn set_trailing_comments<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_trailing_comments<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.trailing_comments = v.into();
             self
         }
@@ -6965,7 +6797,7 @@ pub mod source_code_info {
         pub fn set_leading_detached_comments<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.leading_detached_comments = v.into_iter().map(|i| i.into()).collect();
@@ -6986,6 +6818,7 @@ pub mod source_code_info {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GeneratedCodeInfo {
+
     /// An Annotation connects some span of text in generated code to an element
     /// of its generating .proto file.
     pub annotation: std::vec::Vec<crate::generated_code_info::Annotation>,
@@ -7013,7 +6846,7 @@ impl GeneratedCodeInfo {
     pub fn set_annotation<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::generated_code_info::Annotation>,
+        V: std::convert::Into<crate::generated_code_info::Annotation>
     {
         use std::iter::Iterator;
         self.annotation = v.into_iter().map(|i| i.into()).collect();
@@ -7032,9 +6865,11 @@ pub mod generated_code_info {
     #[allow(unused_imports)]
     use super::*;
 
+
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Annotation {
+
         /// Identifies the element in the original source .proto file. This field
         /// is formatted the same as SourceCodeInfo.Location.path.
         pub path: std::vec::Vec<i32>,
@@ -7071,7 +6906,7 @@ pub mod generated_code_info {
         pub fn set_path<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<i32>,
+            V: std::convert::Into<i32>
         {
             use std::iter::Iterator;
             self.path = v.into_iter().map(|i| i.into()).collect();
@@ -7123,12 +6958,7 @@ pub mod generated_code_info {
         /// let x0 = Annotation::new().set_semantic(Semantic::Set);
         /// let x1 = Annotation::new().set_semantic(Semantic::Alias);
         /// ```
-        pub fn set_semantic<
-            T: std::convert::Into<crate::generated_code_info::annotation::Semantic>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_semantic<T: std::convert::Into<crate::generated_code_info::annotation::Semantic>>(mut self, v: T) -> Self {
             self.semantic = v.into();
             self
         }
@@ -7144,6 +6974,7 @@ pub mod generated_code_info {
     pub mod annotation {
         #[allow(unused_imports)]
         use super::*;
+
 
         /// Represents the identified object's effect on the element in the original
         /// .proto file.
@@ -7221,10 +7052,7 @@ pub mod generated_code_info {
         }
 
         impl std::fmt::Display for Semantic {
-            fn fmt(
-                &self,
-                f: &mut std::fmt::Formatter<'_>,
-            ) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -7235,9 +7063,7 @@ pub mod generated_code_info {
                     0 => Self::None,
                     1 => Self::Set,
                     2 => Self::Alias,
-                    _ => Self::UnknownValue(semantic::UnknownValue(
-                        wkt::internal::UnknownEnumValue::Integer(value),
-                    )),
+                    _ => Self::UnknownValue(semantic::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
                 }
             }
         }
@@ -7249,9 +7075,7 @@ pub mod generated_code_info {
                     "NONE" => Self::None,
                     "SET" => Self::Set,
                     "ALIAS" => Self::Alias,
-                    _ => Self::UnknownValue(semantic::UnknownValue(
-                        wkt::internal::UnknownEnumValue::String(value.to_string()),
-                    )),
+                    _ => Self::UnknownValue(semantic::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
                 }
             }
         }
@@ -7276,8 +7100,7 @@ pub mod generated_code_info {
                 D: serde::Deserializer<'de>,
             {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<Semantic>::new(
-                    ".google.protobuf.GeneratedCodeInfo.Annotation.Semantic",
-                ))
+                    ".google.protobuf.GeneratedCodeInfo.Annotation.Semantic"))
             }
         }
     }
@@ -7288,6 +7111,7 @@ pub mod generated_code_info {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SourceContext {
+
     /// The path-qualified name of the .proto file that contained the associated
     /// protobuf element.  For example: `"google/protobuf/source_context.proto"`.
     pub file_name: std::string::String,
@@ -7323,6 +7147,7 @@ impl wkt::message::Message for SourceContext {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Type {
+
     /// The fully qualified message name.
     pub name: std::string::String,
 
@@ -7379,7 +7204,7 @@ impl Type {
     pub fn set_fields<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::Field>,
+        V: std::convert::Into<crate::Field>
     {
         use std::iter::Iterator;
         self.fields = v.into_iter().map(|i| i.into()).collect();
@@ -7396,7 +7221,7 @@ impl Type {
     pub fn set_oneofs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.oneofs = v.into_iter().map(|i| i.into()).collect();
@@ -7418,7 +7243,7 @@ impl Type {
     pub fn set_options<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::Option>,
+        V: std::convert::Into<crate::Option>
     {
         use std::iter::Iterator;
         self.options = v.into_iter().map(|i| i.into()).collect();
@@ -7434,8 +7259,7 @@ impl Type {
     /// let x = Type::new().set_source_context(SourceContext::default()/* use setters */);
     /// ```
     pub fn set_source_context<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::SourceContext>,
+    where T: std::convert::Into<crate::SourceContext>
     {
         self.source_context = std::option::Option::Some(v.into());
         self
@@ -7451,8 +7275,7 @@ impl Type {
     /// let x = Type::new().set_or_clear_source_context(None::<SourceContext>);
     /// ```
     pub fn set_or_clear_source_context<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::SourceContext>,
+    where T: std::convert::Into<crate::SourceContext>
     {
         self.source_context = v.map(|x| x.into());
         self
@@ -7495,6 +7318,7 @@ impl wkt::message::Message for Type {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Field {
+
     /// The field type.
     pub kind: crate::field::Kind,
 
@@ -7560,10 +7384,7 @@ impl Field {
     /// let x1 = Field::new().set_cardinality(Cardinality::Required);
     /// let x2 = Field::new().set_cardinality(Cardinality::Repeated);
     /// ```
-    pub fn set_cardinality<T: std::convert::Into<crate::field::Cardinality>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_cardinality<T: std::convert::Into<crate::field::Cardinality>>(mut self, v: T) -> Self {
         self.cardinality = v.into();
         self
     }
@@ -7643,7 +7464,7 @@ impl Field {
     pub fn set_options<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::Option>,
+        V: std::convert::Into<crate::Option>
     {
         use std::iter::Iterator;
         self.options = v.into_iter().map(|i| i.into()).collect();
@@ -7685,6 +7506,7 @@ impl wkt::message::Message for Field {
 pub mod field {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Basic field types.
     ///
@@ -7852,9 +7674,7 @@ pub mod field {
                 16 => Self::TypeSfixed64,
                 17 => Self::TypeSint32,
                 18 => Self::TypeSint64,
-                _ => Self::UnknownValue(kind::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(kind::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -7882,9 +7702,7 @@ pub mod field {
                 "TYPE_SFIXED64" => Self::TypeSfixed64,
                 "TYPE_SINT32" => Self::TypeSint32,
                 "TYPE_SINT64" => Self::TypeSint64,
-                _ => Self::UnknownValue(kind::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(kind::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -7925,8 +7743,7 @@ pub mod field {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Kind>::new(
-                ".google.protobuf.Field.Kind",
-            ))
+                ".google.protobuf.Field.Kind"))
         }
     }
 
@@ -8021,9 +7838,7 @@ pub mod field {
                 1 => Self::Optional,
                 2 => Self::Required,
                 3 => Self::Repeated,
-                _ => Self::UnknownValue(cardinality::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(cardinality::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -8036,9 +7851,7 @@ pub mod field {
                 "CARDINALITY_OPTIONAL" => Self::Optional,
                 "CARDINALITY_REQUIRED" => Self::Required,
                 "CARDINALITY_REPEATED" => Self::Repeated,
-                _ => Self::UnknownValue(cardinality::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(cardinality::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -8064,8 +7877,7 @@ pub mod field {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Cardinality>::new(
-                ".google.protobuf.Field.Cardinality",
-            ))
+                ".google.protobuf.Field.Cardinality"))
         }
     }
 }
@@ -8074,6 +7886,7 @@ pub mod field {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Enum {
+
     /// Enum type name.
     pub name: std::string::String,
 
@@ -8127,7 +7940,7 @@ impl Enum {
     pub fn set_enumvalue<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::EnumValue>,
+        V: std::convert::Into<crate::EnumValue>
     {
         use std::iter::Iterator;
         self.enumvalue = v.into_iter().map(|i| i.into()).collect();
@@ -8149,7 +7962,7 @@ impl Enum {
     pub fn set_options<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::Option>,
+        V: std::convert::Into<crate::Option>
     {
         use std::iter::Iterator;
         self.options = v.into_iter().map(|i| i.into()).collect();
@@ -8165,8 +7978,7 @@ impl Enum {
     /// let x = Enum::new().set_source_context(SourceContext::default()/* use setters */);
     /// ```
     pub fn set_source_context<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::SourceContext>,
+    where T: std::convert::Into<crate::SourceContext>
     {
         self.source_context = std::option::Option::Some(v.into());
         self
@@ -8182,8 +7994,7 @@ impl Enum {
     /// let x = Enum::new().set_or_clear_source_context(None::<SourceContext>);
     /// ```
     pub fn set_or_clear_source_context<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::SourceContext>,
+    where T: std::convert::Into<crate::SourceContext>
     {
         self.source_context = v.map(|x| x.into());
         self
@@ -8226,6 +8037,7 @@ impl wkt::message::Message for Enum {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnumValue {
+
     /// Enum value name.
     pub name: std::string::String,
 
@@ -8282,7 +8094,7 @@ impl EnumValue {
     pub fn set_options<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::Option>,
+        V: std::convert::Into<crate::Option>
     {
         use std::iter::Iterator;
         self.options = v.into_iter().map(|i| i.into()).collect();
@@ -8301,6 +8113,7 @@ impl wkt::message::Message for EnumValue {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Option {
+
     /// The option's name. For protobuf built-in options (options defined in
     /// descriptor.proto), this is the short name. For example, `"map_entry"`.
     /// For custom options, it should be the fully-qualified name. For example,
@@ -8342,8 +8155,7 @@ impl Option {
     /// let x = Option::new().set_value(Any::default()/* use setters */);
     /// ```
     pub fn set_value<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::Any>,
+    where T: std::convert::Into<crate::Any>
     {
         self.value = std::option::Option::Some(v.into());
         self
@@ -8359,8 +8171,7 @@ impl Option {
     /// let x = Option::new().set_or_clear_value(None::<Any>);
     /// ```
     pub fn set_or_clear_value<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::Any>,
+    where T: std::convert::Into<crate::Any>
     {
         self.value = v.map(|x| x.into());
         self
@@ -8507,9 +8318,7 @@ impl std::convert::From<i32> for Edition {
             99998 => Self::Edition99998TestOnly,
             99999 => Self::Edition99999TestOnly,
             2147483647 => Self::Max,
-            _ => Self::UnknownValue(edition::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(edition::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -8530,9 +8339,7 @@ impl std::convert::From<&str> for Edition {
             "EDITION_99998_TEST_ONLY" => Self::Edition99998TestOnly,
             "EDITION_99999_TEST_ONLY" => Self::Edition99999TestOnly,
             "EDITION_MAX" => Self::Max,
-            _ => Self::UnknownValue(edition::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(edition::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -8566,8 +8373,7 @@ impl<'de> serde::de::Deserialize<'de> for Edition {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<Edition>::new(
-            ".google.protobuf.Edition",
-        ))
+            ".google.protobuf.Edition"))
     }
 }
 
@@ -8657,9 +8463,7 @@ impl std::convert::From<i32> for Syntax {
             0 => Self::Proto2,
             1 => Self::Proto3,
             2 => Self::Editions,
-            _ => Self::UnknownValue(syntax::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(syntax::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -8671,9 +8475,7 @@ impl std::convert::From<&str> for Syntax {
             "SYNTAX_PROTO2" => Self::Proto2,
             "SYNTAX_PROTO3" => Self::Proto3,
             "SYNTAX_EDITIONS" => Self::Editions,
-            _ => Self::UnknownValue(syntax::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(syntax::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -8698,7 +8500,6 @@ impl<'de> serde::de::Deserialize<'de> for Syntax {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<Syntax>::new(
-            ".google.protobuf.Syntax",
-        ))
+            ".google.protobuf.Syntax"))
     }
 }

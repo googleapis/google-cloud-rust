@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [LoggingServiceV2](super::stub::LoggingServiceV2) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct LoggingServiceV2<T>
-where
-    T: super::stub::LoggingServiceV2 + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::LoggingServiceV2 + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> LoggingServiceV2<T>
-where
-    T: super::stub::LoggingServiceV2 + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::LoggingServiceV2 + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::LoggingServiceV2 for LoggingServiceV2<T>
-where
-    T: super::stub::LoggingServiceV2 + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::LoggingServiceV2 + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn delete_log(
         &self,
@@ -69,11 +63,8 @@ where
         &self,
         req: crate::model::ListMonitoredResourceDescriptorsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListMonitoredResourceDescriptorsResponse>>
-    {
-        self.inner
-            .list_monitored_resource_descriptors(req, options)
-            .await
+    ) -> Result<gax::response::Response<crate::model::ListMonitoredResourceDescriptorsResponse>> {
+        self.inner.list_monitored_resource_descriptors(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -111,30 +102,25 @@ where
     ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
+
 }
 
 /// Implements a [ConfigServiceV2](super::stub::ConfigServiceV2) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct ConfigServiceV2<T>
-where
-    T: super::stub::ConfigServiceV2 + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ConfigServiceV2 + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> ConfigServiceV2<T>
-where
-    T: super::stub::ConfigServiceV2 + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ConfigServiceV2 + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::ConfigServiceV2 for ConfigServiceV2<T>
-where
-    T: super::stub::ConfigServiceV2 + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ConfigServiceV2 + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn list_buckets(
         &self,
@@ -450,6 +436,7 @@ where
         self.inner.cancel_operation(req, options).await
     }
 
+
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -468,25 +455,19 @@ where
 /// Implements a [MetricsServiceV2](super::stub::MetricsServiceV2) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct MetricsServiceV2<T>
-where
-    T: super::stub::MetricsServiceV2 + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::MetricsServiceV2 + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> MetricsServiceV2<T>
-where
-    T: super::stub::MetricsServiceV2 + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::MetricsServiceV2 + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::MetricsServiceV2 for MetricsServiceV2<T>
-where
-    T: super::stub::MetricsServiceV2 + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::MetricsServiceV2 + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn list_log_metrics(
         &self,
@@ -558,4 +539,6 @@ where
     ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
+
 }
+

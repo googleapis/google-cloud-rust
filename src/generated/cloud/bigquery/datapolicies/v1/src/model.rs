@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -27,7 +28,6 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -39,6 +39,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateDataPolicyRequest {
+
     /// Required. Resource name of the project that the data policy will belong to.
     /// The format is `projects/{project_number}/locations/{location_id}`.
     pub parent: std::string::String,
@@ -76,8 +77,7 @@ impl CreateDataPolicyRequest {
     /// let x = CreateDataPolicyRequest::new().set_data_policy(DataPolicy::default()/* use setters */);
     /// ```
     pub fn set_data_policy<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DataPolicy>,
+    where T: std::convert::Into<crate::model::DataPolicy>
     {
         self.data_policy = std::option::Option::Some(v.into());
         self
@@ -93,8 +93,7 @@ impl CreateDataPolicyRequest {
     /// let x = CreateDataPolicyRequest::new().set_or_clear_data_policy(None::<DataPolicy>);
     /// ```
     pub fn set_or_clear_data_policy<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DataPolicy>,
+    where T: std::convert::Into<crate::model::DataPolicy>
     {
         self.data_policy = v.map(|x| x.into());
         self
@@ -111,6 +110,7 @@ impl wkt::message::Message for CreateDataPolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateDataPolicyRequest {
+
     /// Required. Update the data policy's metadata.
     ///
     /// The target data policy is determined by the `name` field.
@@ -142,8 +142,7 @@ impl UpdateDataPolicyRequest {
     /// let x = UpdateDataPolicyRequest::new().set_data_policy(DataPolicy::default()/* use setters */);
     /// ```
     pub fn set_data_policy<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DataPolicy>,
+    where T: std::convert::Into<crate::model::DataPolicy>
     {
         self.data_policy = std::option::Option::Some(v.into());
         self
@@ -159,8 +158,7 @@ impl UpdateDataPolicyRequest {
     /// let x = UpdateDataPolicyRequest::new().set_or_clear_data_policy(None::<DataPolicy>);
     /// ```
     pub fn set_or_clear_data_policy<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DataPolicy>,
+    where T: std::convert::Into<crate::model::DataPolicy>
     {
         self.data_policy = v.map(|x| x.into());
         self
@@ -175,8 +173,7 @@ impl UpdateDataPolicyRequest {
     /// let x = UpdateDataPolicyRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -192,8 +189,7 @@ impl UpdateDataPolicyRequest {
     /// let x = UpdateDataPolicyRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -210,6 +206,7 @@ impl wkt::message::Message for UpdateDataPolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RenameDataPolicyRequest {
+
     /// Required. Resource name of the data policy to rename. The format is
     /// `projects/{project_number}/locations/{location_id}/dataPolicies/{data_policy_id}`
     pub name: std::string::String,
@@ -244,10 +241,7 @@ impl RenameDataPolicyRequest {
     /// # use google_cloud_bigquery_datapolicies_v1::model::RenameDataPolicyRequest;
     /// let x = RenameDataPolicyRequest::new().set_new_data_policy_id("example");
     /// ```
-    pub fn set_new_data_policy_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_new_data_policy_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.new_data_policy_id = v.into();
         self
     }
@@ -263,6 +257,7 @@ impl wkt::message::Message for RenameDataPolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteDataPolicyRequest {
+
     /// Required. Resource name of the data policy to delete. Format is
     /// `projects/{project_number}/locations/{location_id}/dataPolicies/{data_policy_id}`.
     pub name: std::string::String,
@@ -298,6 +293,7 @@ impl wkt::message::Message for DeleteDataPolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetDataPolicyRequest {
+
     /// Required. Resource name of the requested data policy. Format is
     /// `projects/{project_number}/locations/{location_id}/dataPolicies/{data_policy_id}`.
     pub name: std::string::String,
@@ -333,6 +329,7 @@ impl wkt::message::Message for GetDataPolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDataPoliciesRequest {
+
     /// Required. Resource name of the project for which to list data policies.
     /// Format is `projects/{project_number}/locations/{location_id}`.
     pub parent: std::string::String,
@@ -423,6 +420,7 @@ impl wkt::message::Message for ListDataPoliciesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDataPoliciesResponse {
+
     /// Data policies that belong to the requested project.
     pub data_policies: std::vec::Vec<crate::model::DataPolicy>,
 
@@ -453,7 +451,7 @@ impl ListDataPoliciesResponse {
     pub fn set_data_policies<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::DataPolicy>,
+        V: std::convert::Into<crate::model::DataPolicy>
     {
         use std::iter::Iterator;
         self.data_policies = v.into_iter().map(|i| i.into()).collect();
@@ -497,6 +495,7 @@ impl gax::paginator::internal::PageableResponse for ListDataPoliciesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataPolicy {
+
     /// Output only. Resource name of this data policy, in the format of
     /// `projects/{project_number}/locations/{location_id}/dataPolicies/{data_policy_id}`.
     pub name: std::string::String,
@@ -544,12 +543,7 @@ impl DataPolicy {
     /// let x0 = DataPolicy::new().set_data_policy_type(DataPolicyType::ColumnLevelSecurityPolicy);
     /// let x1 = DataPolicy::new().set_data_policy_type(DataPolicyType::DataMaskingPolicy);
     /// ```
-    pub fn set_data_policy_type<
-        T: std::convert::Into<crate::model::data_policy::DataPolicyType>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_data_policy_type<T: std::convert::Into<crate::model::data_policy::DataPolicyType>>(mut self, v: T) -> Self {
         self.data_policy_type = v.into();
         self
     }
@@ -577,12 +571,8 @@ impl DataPolicy {
     /// use google_cloud_bigquery_datapolicies_v1::model::data_policy::MatchingLabel;
     /// let x = DataPolicy::new().set_matching_label(Some(MatchingLabel::PolicyTag("example".to_string())));
     /// ```
-    pub fn set_matching_label<
-        T: std::convert::Into<std::option::Option<crate::model::data_policy::MatchingLabel>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_matching_label<T: std::convert::Into<std::option::Option<crate::model::data_policy::MatchingLabel>>>(mut self, v: T) -> Self
+    {
         self.matching_label = v.into();
         self
     }
@@ -612,7 +602,9 @@ impl DataPolicy {
     /// ```
     pub fn set_policy_tag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.matching_label = std::option::Option::Some(
-            crate::model::data_policy::MatchingLabel::PolicyTag(v.into()),
+            crate::model::data_policy::MatchingLabel::PolicyTag(
+                v.into()
+            )
         );
         self
     }
@@ -629,12 +621,8 @@ impl DataPolicy {
     /// let x = DataPolicy::new().set_policy(Some(
     ///     google_cloud_bigquery_datapolicies_v1::model::data_policy::Policy::DataMaskingPolicy(DataMaskingPolicy::default().into())));
     /// ```
-    pub fn set_policy<
-        T: std::convert::Into<std::option::Option<crate::model::data_policy::Policy>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_policy<T: std::convert::Into<std::option::Option<crate::model::data_policy::Policy>>>(mut self, v: T) -> Self
+    {
         self.policy = v.into();
         self
     }
@@ -642,9 +630,7 @@ impl DataPolicy {
     /// The value of [policy][crate::model::DataPolicy::policy]
     /// if it holds a `DataMaskingPolicy`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn data_masking_policy(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::DataMaskingPolicy>> {
+    pub fn data_masking_policy(&self) -> std::option::Option<&std::boxed::Box<crate::model::DataMaskingPolicy>> {
         #[allow(unreachable_patterns)]
         self.policy.as_ref().and_then(|v| match v {
             crate::model::data_policy::Policy::DataMaskingPolicy(v) => std::option::Option::Some(v),
@@ -665,14 +651,11 @@ impl DataPolicy {
     /// let x = DataPolicy::new().set_data_masking_policy(DataMaskingPolicy::default()/* use setters */);
     /// assert!(x.data_masking_policy().is_some());
     /// ```
-    pub fn set_data_masking_policy<
-        T: std::convert::Into<std::boxed::Box<crate::model::DataMaskingPolicy>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_data_masking_policy<T: std::convert::Into<std::boxed::Box<crate::model::DataMaskingPolicy>>>(mut self, v: T) -> Self {
         self.policy = std::option::Option::Some(
-            crate::model::data_policy::Policy::DataMaskingPolicy(v.into()),
+            crate::model::data_policy::Policy::DataMaskingPolicy(
+                v.into()
+            )
         );
         self
     }
@@ -688,6 +671,7 @@ impl wkt::message::Message for DataPolicy {
 pub mod data_policy {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// A list of supported data policy types.
     ///
@@ -750,9 +734,7 @@ pub mod data_policy {
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
                 Self::Unspecified => std::option::Option::Some("DATA_POLICY_TYPE_UNSPECIFIED"),
-                Self::ColumnLevelSecurityPolicy => {
-                    std::option::Option::Some("COLUMN_LEVEL_SECURITY_POLICY")
-                }
+                Self::ColumnLevelSecurityPolicy => std::option::Option::Some("COLUMN_LEVEL_SECURITY_POLICY"),
                 Self::DataMaskingPolicy => std::option::Option::Some("DATA_MASKING_POLICY"),
                 Self::UnknownValue(u) => u.0.name(),
             }
@@ -778,9 +760,7 @@ pub mod data_policy {
                 0 => Self::Unspecified,
                 2 => Self::DataMaskingPolicy,
                 3 => Self::ColumnLevelSecurityPolicy,
-                _ => Self::UnknownValue(data_policy_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(data_policy_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -792,9 +772,7 @@ pub mod data_policy {
                 "DATA_POLICY_TYPE_UNSPECIFIED" => Self::Unspecified,
                 "COLUMN_LEVEL_SECURITY_POLICY" => Self::ColumnLevelSecurityPolicy,
                 "DATA_MASKING_POLICY" => Self::DataMaskingPolicy,
-                _ => Self::UnknownValue(data_policy_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(data_policy_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -819,8 +797,7 @@ pub mod data_policy {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<DataPolicyType>::new(
-                ".google.cloud.bigquery.datapolicies.v1.DataPolicy.DataPolicyType",
-            ))
+                ".google.cloud.bigquery.datapolicies.v1.DataPolicy.DataPolicyType"))
         }
     }
 
@@ -846,9 +823,9 @@ pub mod data_policy {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataMaskingPolicy {
+
     /// A masking expression to bind to the data masking rule.
-    pub masking_expression:
-        std::option::Option<crate::model::data_masking_policy::MaskingExpression>,
+    pub masking_expression: std::option::Option<crate::model::data_masking_policy::MaskingExpression>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -874,14 +851,8 @@ impl DataMaskingPolicy {
     /// let x2 = DataMaskingPolicy::new().set_masking_expression(Some(
     ///     google_cloud_bigquery_datapolicies_v1::model::data_masking_policy::MaskingExpression::PredefinedExpression(PredefinedExpression::DefaultMaskingValue)));
     /// ```
-    pub fn set_masking_expression<
-        T: std::convert::Into<
-                std::option::Option<crate::model::data_masking_policy::MaskingExpression>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_masking_expression<T: std::convert::Into<std::option::Option<crate::model::data_masking_policy::MaskingExpression>>>(mut self, v: T) -> Self
+    {
         self.masking_expression = v.into();
         self
     }
@@ -889,14 +860,10 @@ impl DataMaskingPolicy {
     /// The value of [masking_expression][crate::model::DataMaskingPolicy::masking_expression]
     /// if it holds a `PredefinedExpression`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn predefined_expression(
-        &self,
-    ) -> std::option::Option<&crate::model::data_masking_policy::PredefinedExpression> {
+    pub fn predefined_expression(&self) -> std::option::Option<&crate::model::data_masking_policy::PredefinedExpression> {
         #[allow(unreachable_patterns)]
         self.masking_expression.as_ref().and_then(|v| match v {
-            crate::model::data_masking_policy::MaskingExpression::PredefinedExpression(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::data_masking_policy::MaskingExpression::PredefinedExpression(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -921,14 +888,11 @@ impl DataMaskingPolicy {
     /// assert!(x2.predefined_expression().is_some());
     /// assert!(x2.routine().is_none());
     /// ```
-    pub fn set_predefined_expression<
-        T: std::convert::Into<crate::model::data_masking_policy::PredefinedExpression>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_predefined_expression<T: std::convert::Into<crate::model::data_masking_policy::PredefinedExpression>>(mut self, v: T) -> Self {
         self.masking_expression = std::option::Option::Some(
-            crate::model::data_masking_policy::MaskingExpression::PredefinedExpression(v.into()),
+            crate::model::data_masking_policy::MaskingExpression::PredefinedExpression(
+                v.into()
+            )
         );
         self
     }
@@ -939,9 +903,7 @@ impl DataMaskingPolicy {
     pub fn routine(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.masking_expression.as_ref().and_then(|v| match v {
-            crate::model::data_masking_policy::MaskingExpression::Routine(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::data_masking_policy::MaskingExpression::Routine(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -961,7 +923,9 @@ impl DataMaskingPolicy {
     /// ```
     pub fn set_routine<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.masking_expression = std::option::Option::Some(
-            crate::model::data_masking_policy::MaskingExpression::Routine(v.into()),
+            crate::model::data_masking_policy::MaskingExpression::Routine(
+                v.into()
+            )
         );
         self
     }
@@ -977,6 +941,7 @@ impl wkt::message::Message for DataMaskingPolicy {
 pub mod data_masking_policy {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The available masking rules. Learn more here:
     /// <https://cloud.google.com/bigquery/docs/column-data-masking-intro#masking_options>.
@@ -1138,9 +1103,7 @@ pub mod data_masking_policy {
                 10 => Self::FirstFourCharacters,
                 12 => Self::EmailMask,
                 13 => Self::DateYearMask,
-                _ => Self::UnknownValue(predefined_expression::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(predefined_expression::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1157,9 +1120,7 @@ pub mod data_masking_policy {
                 "FIRST_FOUR_CHARACTERS" => Self::FirstFourCharacters,
                 "EMAIL_MASK" => Self::EmailMask,
                 "DATE_YEAR_MASK" => Self::DateYearMask,
-                _ => Self::UnknownValue(predefined_expression::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(predefined_expression::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1189,8 +1150,7 @@ pub mod data_masking_policy {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<PredefinedExpression>::new(
-                ".google.cloud.bigquery.datapolicies.v1.DataMaskingPolicy.PredefinedExpression",
-            ))
+                ".google.cloud.bigquery.datapolicies.v1.DataMaskingPolicy.PredefinedExpression"))
         }
     }
 

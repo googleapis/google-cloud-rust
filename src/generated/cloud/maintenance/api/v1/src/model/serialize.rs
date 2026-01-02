@@ -23,9 +23,9 @@ impl serde::ser::Serialize for super::SummarizeMaintenancesRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -66,9 +66,9 @@ impl serde::ser::Serialize for super::SummarizeMaintenancesResponse {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.maintenances.is_empty() {
             state.serialize_entry("maintenances", &self.maintenances)?;
@@ -94,9 +94,9 @@ impl serde::ser::Serialize for super::MaintenanceSummary {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.maintenance_name.is_empty() {
             state.serialize_entry("maintenanceName", &self.maintenance_name)?;
@@ -111,16 +111,10 @@ impl serde::ser::Serialize for super::MaintenanceSummary {
             state.serialize_entry("category", &self.category)?;
         }
         if self.maintenance_scheduled_start_time.is_some() {
-            state.serialize_entry(
-                "maintenanceScheduledStartTime",
-                &self.maintenance_scheduled_start_time,
-            )?;
+            state.serialize_entry("maintenanceScheduledStartTime", &self.maintenance_scheduled_start_time)?;
         }
         if self.maintenance_scheduled_end_time.is_some() {
-            state.serialize_entry(
-                "maintenanceScheduledEndTime",
-                &self.maintenance_scheduled_end_time,
-            )?;
+            state.serialize_entry("maintenanceScheduledEndTime", &self.maintenance_scheduled_end_time)?;
         }
         if self.maintenance_start_time.is_some() {
             state.serialize_entry("maintenanceStartTime", &self.maintenance_start_time)?;
@@ -152,9 +146,9 @@ impl serde::ser::Serialize for super::maintenance_summary::Stats {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.group_by.is_empty() {
             state.serialize_entry("groupBy", &self.group_by)?;
@@ -177,9 +171,9 @@ impl serde::ser::Serialize for super::maintenance_summary::Aggregate {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.group.is_empty() {
             state.serialize_entry("group", &self.group)?;
@@ -211,9 +205,9 @@ impl serde::ser::Serialize for super::ResourceMaintenance {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -243,16 +237,10 @@ impl serde::ser::Serialize for super::ResourceMaintenance {
             state.serialize_entry("maintenanceCancelTime", &self.maintenance_cancel_time)?;
         }
         if self.maintenance_scheduled_start_time.is_some() {
-            state.serialize_entry(
-                "maintenanceScheduledStartTime",
-                &self.maintenance_scheduled_start_time,
-            )?;
+            state.serialize_entry("maintenanceScheduledStartTime", &self.maintenance_scheduled_start_time)?;
         }
         if self.maintenance_scheduled_end_time.is_some() {
-            state.serialize_entry(
-                "maintenanceScheduledEndTime",
-                &self.maintenance_scheduled_end_time,
-            )?;
+            state.serialize_entry("maintenanceScheduledEndTime", &self.maintenance_scheduled_end_time)?;
         }
         if !wkt::internal::is_default(&self.user_controllable) {
             state.serialize_entry("userControllable", &self.user_controllable)?;
@@ -287,9 +275,9 @@ impl serde::ser::Serialize for super::resource_maintenance::Resource {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.resource_name.is_empty() {
             state.serialize_entry("resourceName", &self.resource_name)?;
@@ -315,9 +303,9 @@ impl serde::ser::Serialize for super::resource_maintenance::Maintenance {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.maintenance_name.is_empty() {
             state.serialize_entry("maintenanceName", &self.maintenance_name)?;
@@ -340,15 +328,17 @@ impl serde::ser::Serialize for super::resource_maintenance::Maintenance {
     }
 }
 
+
+
 #[doc(hidden)]
 impl serde::ser::Serialize for super::MaintenanceControl {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.control) {
             state.serialize_entry("control", &self.control)?;
@@ -374,9 +364,9 @@ impl serde::ser::Serialize for super::ListResourceMaintenancesRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -417,9 +407,9 @@ impl serde::ser::Serialize for super::ListResourceMaintenancesResponse {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.resource_maintenances.is_empty() {
             state.serialize_entry("resourceMaintenances", &self.resource_maintenances)?;
@@ -445,9 +435,9 @@ impl serde::ser::Serialize for super::GetResourceMaintenanceRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;

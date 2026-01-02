@@ -23,9 +23,9 @@ impl serde::ser::Serialize for super::SetIamPolicyRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.resource.is_empty() {
             state.serialize_entry("resource", &self.resource)?;
@@ -51,9 +51,9 @@ impl serde::ser::Serialize for super::GetIamPolicyRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.resource.is_empty() {
             state.serialize_entry("resource", &self.resource)?;
@@ -76,9 +76,9 @@ impl serde::ser::Serialize for super::TestIamPermissionsRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.resource.is_empty() {
             state.serialize_entry("resource", &self.resource)?;
@@ -101,9 +101,9 @@ impl serde::ser::Serialize for super::TestIamPermissionsResponse {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.permissions.is_empty() {
             state.serialize_entry("permissions", &self.permissions)?;
@@ -123,9 +123,9 @@ impl serde::ser::Serialize for super::GetPolicyOptions {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.requested_policy_version) {
             struct __With<'a>(&'a i32);
@@ -137,10 +137,7 @@ impl serde::ser::Serialize for super::GetPolicyOptions {
                     serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
                 }
             }
-            state.serialize_entry(
-                "requestedPolicyVersion",
-                &__With(&self.requested_policy_version),
-            )?;
+            state.serialize_entry("requestedPolicyVersion", &__With(&self.requested_policy_version))?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -157,9 +154,9 @@ impl serde::ser::Serialize for super::Policy {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.version) {
             struct __With<'a>(&'a i32);
@@ -206,9 +203,9 @@ impl serde::ser::Serialize for super::Binding {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.role.is_empty() {
             state.serialize_entry("role", &self.role)?;
@@ -234,9 +231,9 @@ impl serde::ser::Serialize for super::AuditConfig {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.service.is_empty() {
             state.serialize_entry("service", &self.service)?;
@@ -259,9 +256,9 @@ impl serde::ser::Serialize for super::AuditLogConfig {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.log_type) {
             state.serialize_entry("logType", &self.log_type)?;
@@ -284,9 +281,9 @@ impl serde::ser::Serialize for super::PolicyDelta {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.binding_deltas.is_empty() {
             state.serialize_entry("bindingDeltas", &self.binding_deltas)?;
@@ -309,9 +306,9 @@ impl serde::ser::Serialize for super::BindingDelta {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.action) {
             state.serialize_entry("action", &self.action)?;
@@ -340,9 +337,9 @@ impl serde::ser::Serialize for super::AuditConfigDelta {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.action) {
             state.serialize_entry("action", &self.action)?;
@@ -371,9 +368,9 @@ impl serde::ser::Serialize for super::ResourcePolicyMember {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.iam_policy_name_principal.is_empty() {
             state.serialize_entry("iamPolicyNamePrincipal", &self.iam_policy_name_principal)?;

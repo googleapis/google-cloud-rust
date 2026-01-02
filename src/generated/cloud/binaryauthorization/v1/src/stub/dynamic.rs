@@ -58,6 +58,7 @@ pub trait BinauthzManagementServiceV1: std::fmt::Debug + Send + Sync {
         req: crate::model::DeleteAttestorRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
+
 }
 
 /// All implementations of [super::BinauthzManagementServiceV1] also implement [BinauthzManagementServiceV1].
@@ -125,6 +126,7 @@ impl<T: super::BinauthzManagementServiceV1> BinauthzManagementServiceV1 for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::delete_attestor(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::SystemPolicyV1].
@@ -135,6 +137,7 @@ pub trait SystemPolicyV1: std::fmt::Debug + Send + Sync {
         req: crate::model::GetSystemPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Policy>>;
+
 }
 
 /// All implementations of [super::SystemPolicyV1] also implement [SystemPolicyV1].
@@ -148,6 +151,7 @@ impl<T: super::SystemPolicyV1> SystemPolicyV1 for T {
     ) -> crate::Result<gax::response::Response<crate::model::Policy>> {
         T::get_system_policy(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::ValidationHelperV1].
@@ -158,6 +162,7 @@ pub trait ValidationHelperV1: std::fmt::Debug + Send + Sync {
         req: crate::model::ValidateAttestationOccurrenceRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::ValidateAttestationOccurrenceResponse>>;
+
 }
 
 /// All implementations of [super::ValidationHelperV1] also implement [ValidationHelperV1].
@@ -168,8 +173,8 @@ impl<T: super::ValidationHelperV1> ValidationHelperV1 for T {
         &self,
         req: crate::model::ValidateAttestationOccurrenceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ValidateAttestationOccurrenceResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::ValidateAttestationOccurrenceResponse>> {
         T::validate_attestation_occurrence(self, req, options).await
     }
+
 }

@@ -81,53 +81,58 @@ impl CloudTasks {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::CloudTasks + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::CloudTasks + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CloudTasks>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CloudTasks>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::CloudTasks> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::CloudTasks> {
         super::transport::CloudTasks::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::CloudTasks> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::CloudTasks::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::CloudTasks> {
+        Self::build_transport(conf).await.map(super::tracing::CloudTasks::new)
     }
 
     /// Lists queues.
     ///
     /// Queues are returned in lexicographical order.
-    pub fn list_queues(&self) -> super::builder::cloud_tasks::ListQueues {
+    pub fn list_queues(&self) -> super::builder::cloud_tasks::ListQueues
+    {
         super::builder::cloud_tasks::ListQueues::new(self.inner.clone())
     }
 
     /// Gets a queue.
-    pub fn get_queue(&self) -> super::builder::cloud_tasks::GetQueue {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::client::CloudTasks;
+    /// async fn sample(
+    ///    client: &CloudTasks,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_queue()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_queue(&self) -> super::builder::cloud_tasks::GetQueue
+    {
         super::builder::cloud_tasks::GetQueue::new(self.inner.clone())
     }
 
@@ -143,7 +148,24 @@ impl CloudTasks {
     /// [Overview of Queue Management and
     /// queue.yaml](https://cloud.google.com/tasks/docs/queue-yaml) before using
     /// this method.
-    pub fn create_queue(&self) -> super::builder::cloud_tasks::CreateQueue {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::client::CloudTasks;
+    /// async fn sample(
+    ///    client: &CloudTasks
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_queue()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_queue(&self) -> super::builder::cloud_tasks::CreateQueue
+    {
         super::builder::cloud_tasks::CreateQueue::new(self.inner.clone())
     }
 
@@ -162,7 +184,24 @@ impl CloudTasks {
     /// [Overview of Queue Management and
     /// queue.yaml](https://cloud.google.com/tasks/docs/queue-yaml) before using
     /// this method.
-    pub fn update_queue(&self) -> super::builder::cloud_tasks::UpdateQueue {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::client::CloudTasks;
+    /// async fn sample(
+    ///    client: &CloudTasks
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_queue()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_queue(&self) -> super::builder::cloud_tasks::UpdateQueue
+    {
         super::builder::cloud_tasks::UpdateQueue::new(self.inner.clone())
     }
 
@@ -179,7 +218,23 @@ impl CloudTasks {
     /// [Overview of Queue Management and
     /// queue.yaml](https://cloud.google.com/tasks/docs/queue-yaml) before using
     /// this method.
-    pub fn delete_queue(&self) -> super::builder::cloud_tasks::DeleteQueue {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::client::CloudTasks;
+    /// async fn sample(
+    ///    client: &CloudTasks
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_queue()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_queue(&self) -> super::builder::cloud_tasks::DeleteQueue
+    {
         super::builder::cloud_tasks::DeleteQueue::new(self.inner.clone())
     }
 
@@ -189,7 +244,24 @@ impl CloudTasks {
     ///
     /// Purge operations can take up to one minute to take effect. Tasks
     /// might be dispatched before the purge takes effect. A purge is irreversible.
-    pub fn purge_queue(&self) -> super::builder::cloud_tasks::PurgeQueue {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::client::CloudTasks;
+    /// async fn sample(
+    ///    client: &CloudTasks
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .purge_queue()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn purge_queue(&self) -> super::builder::cloud_tasks::PurgeQueue
+    {
         super::builder::cloud_tasks::PurgeQueue::new(self.inner.clone())
     }
 
@@ -205,7 +277,24 @@ impl CloudTasks {
     /// [google.cloud.tasks.v2.CloudTasks.ResumeQueue]: crate::client::CloudTasks::resume_queue
     /// [google.cloud.tasks.v2.Queue.State.PAUSED]: crate::model::queue::State::Paused
     /// [google.cloud.tasks.v2.Queue.state]: crate::model::Queue::state
-    pub fn pause_queue(&self) -> super::builder::cloud_tasks::PauseQueue {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::client::CloudTasks;
+    /// async fn sample(
+    ///    client: &CloudTasks
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .pause_queue()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn pause_queue(&self) -> super::builder::cloud_tasks::PauseQueue
+    {
         super::builder::cloud_tasks::PauseQueue::new(self.inner.clone())
     }
 
@@ -228,7 +317,24 @@ impl CloudTasks {
     /// [google.cloud.tasks.v2.Queue.State.PAUSED]: crate::model::queue::State::Paused
     /// [google.cloud.tasks.v2.Queue.State.RUNNING]: crate::model::queue::State::Running
     /// [google.cloud.tasks.v2.Queue.state]: crate::model::Queue::state
-    pub fn resume_queue(&self) -> super::builder::cloud_tasks::ResumeQueue {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::client::CloudTasks;
+    /// async fn sample(
+    ///    client: &CloudTasks
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .resume_queue()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn resume_queue(&self) -> super::builder::cloud_tasks::ResumeQueue
+    {
         super::builder::cloud_tasks::ResumeQueue::new(self.inner.clone())
     }
 
@@ -243,7 +349,24 @@ impl CloudTasks {
     /// * `cloudtasks.queues.getIamPolicy`
     ///
     /// [google.cloud.tasks.v2.Queue]: crate::model::Queue
-    pub fn get_iam_policy(&self) -> super::builder::cloud_tasks::GetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::client::CloudTasks;
+    /// async fn sample(
+    ///    client: &CloudTasks
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::cloud_tasks::GetIamPolicy
+    {
         super::builder::cloud_tasks::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -260,7 +383,24 @@ impl CloudTasks {
     /// * `cloudtasks.queues.setIamPolicy`
     ///
     /// [google.cloud.tasks.v2.Queue]: crate::model::Queue
-    pub fn set_iam_policy(&self) -> super::builder::cloud_tasks::SetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::client::CloudTasks;
+    /// async fn sample(
+    ///    client: &CloudTasks
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::cloud_tasks::SetIamPolicy
+    {
         super::builder::cloud_tasks::SetIamPolicy::new(self.inner.clone())
     }
 
@@ -274,7 +414,24 @@ impl CloudTasks {
     /// may "fail open" without warning.
     ///
     /// [google.cloud.tasks.v2.Queue]: crate::model::Queue
-    pub fn test_iam_permissions(&self) -> super::builder::cloud_tasks::TestIamPermissions {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::client::CloudTasks;
+    /// async fn sample(
+    ///    client: &CloudTasks
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::cloud_tasks::TestIamPermissions
+    {
         super::builder::cloud_tasks::TestIamPermissions::new(self.inner.clone())
     }
 
@@ -290,12 +447,31 @@ impl CloudTasks {
     ///
     /// [google.cloud.tasks.v2.ListTasksRequest.response_view]: crate::model::ListTasksRequest::response_view
     /// [google.cloud.tasks.v2.Task.View.BASIC]: crate::model::task::View::Basic
-    pub fn list_tasks(&self) -> super::builder::cloud_tasks::ListTasks {
+    pub fn list_tasks(&self) -> super::builder::cloud_tasks::ListTasks
+    {
         super::builder::cloud_tasks::ListTasks::new(self.inner.clone())
     }
 
     /// Gets a task.
-    pub fn get_task(&self) -> super::builder::cloud_tasks::GetTask {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::client::CloudTasks;
+    /// async fn sample(
+    ///    client: &CloudTasks,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_task()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_task(&self) -> super::builder::cloud_tasks::GetTask
+    {
         super::builder::cloud_tasks::GetTask::new(self.inner.clone())
     }
 
@@ -304,7 +480,24 @@ impl CloudTasks {
     /// Tasks cannot be updated after creation; there is no UpdateTask command.
     ///
     /// * The maximum task size is 100KB.
-    pub fn create_task(&self) -> super::builder::cloud_tasks::CreateTask {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::client::CloudTasks;
+    /// async fn sample(
+    ///    client: &CloudTasks
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_task()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_task(&self) -> super::builder::cloud_tasks::CreateTask
+    {
         super::builder::cloud_tasks::CreateTask::new(self.inner.clone())
     }
 
@@ -313,7 +506,23 @@ impl CloudTasks {
     /// A task can be deleted if it is scheduled or dispatched. A task
     /// cannot be deleted if it has executed successfully or permanently
     /// failed.
-    pub fn delete_task(&self) -> super::builder::cloud_tasks::DeleteTask {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::client::CloudTasks;
+    /// async fn sample(
+    ///    client: &CloudTasks
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_task()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_task(&self) -> super::builder::cloud_tasks::DeleteTask
+    {
         super::builder::cloud_tasks::DeleteTask::new(self.inner.clone())
     }
 
@@ -349,17 +558,52 @@ impl CloudTasks {
     /// [google.cloud.tasks.v2.RateLimits]: crate::model::RateLimits
     /// [google.cloud.tasks.v2.RetryConfig]: crate::model::RetryConfig
     /// [google.cloud.tasks.v2.Task.schedule_time]: crate::model::Task::schedule_time
-    pub fn run_task(&self) -> super::builder::cloud_tasks::RunTask {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::client::CloudTasks;
+    /// async fn sample(
+    ///    client: &CloudTasks
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .run_task()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn run_task(&self) -> super::builder::cloud_tasks::RunTask
+    {
         super::builder::cloud_tasks::RunTask::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::cloud_tasks::ListLocations {
+    pub fn list_locations(&self) -> super::builder::cloud_tasks::ListLocations
+    {
         super::builder::cloud_tasks::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(&self) -> super::builder::cloud_tasks::GetLocation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::client::CloudTasks;
+    /// async fn sample(
+    ///    client: &CloudTasks
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_location(&self) -> super::builder::cloud_tasks::GetLocation
+    {
         super::builder::cloud_tasks::GetLocation::new(self.inner.clone())
     }
 }

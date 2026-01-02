@@ -33,10 +33,7 @@ impl std::fmt::Debug for super::Service {
         debug_struct.field("tier", &self.tier);
         debug_struct.field("maintenance_window", &self.maintenance_window);
         debug_struct.field("uid", &self.uid);
-        debug_struct.field(
-            "metadata_management_activity",
-            &self.metadata_management_activity,
-        );
+        debug_struct.field("metadata_management_activity", &self.metadata_management_activity);
         debug_struct.field("release_channel", &self.release_channel);
         debug_struct.field("encryption_config", &self.encryption_config);
         debug_struct.field("network_config", &self.network_config);
@@ -50,6 +47,7 @@ impl std::fmt::Debug for super::Service {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::MaintenanceWindow {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -77,6 +75,8 @@ impl std::fmt::Debug for super::HiveMetastoreConfig {
         debug_struct.finish()
     }
 }
+
+
 
 impl std::fmt::Debug for super::KerberosConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -520,10 +520,7 @@ impl std::fmt::Debug for super::OperationMetadata {
 impl std::fmt::Debug for super::LocationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("LocationMetadata");
-        debug_struct.field(
-            "supported_hive_metastore_versions",
-            &self.supported_hive_metastore_versions,
-        );
+        debug_struct.field("supported_hive_metastore_versions", &self.supported_hive_metastore_versions);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -653,6 +650,8 @@ impl std::fmt::Debug for super::Federation {
         debug_struct.finish()
     }
 }
+
+
 
 impl std::fmt::Debug for super::BackendMetastore {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

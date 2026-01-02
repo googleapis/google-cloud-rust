@@ -81,51 +81,56 @@ impl CloudDeploy {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::CloudDeploy + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::CloudDeploy + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CloudDeploy>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CloudDeploy>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::CloudDeploy> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::CloudDeploy> {
         super::transport::CloudDeploy::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::CloudDeploy> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::CloudDeploy::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::CloudDeploy> {
+        Self::build_transport(conf).await.map(super::tracing::CloudDeploy::new)
     }
 
     /// Lists DeliveryPipelines in a given project and location.
-    pub fn list_delivery_pipelines(&self) -> super::builder::cloud_deploy::ListDeliveryPipelines {
+    pub fn list_delivery_pipelines(&self) -> super::builder::cloud_deploy::ListDeliveryPipelines
+    {
         super::builder::cloud_deploy::ListDeliveryPipelines::new(self.inner.clone())
     }
 
     /// Gets details of a single DeliveryPipeline.
-    pub fn get_delivery_pipeline(&self) -> super::builder::cloud_deploy::GetDeliveryPipeline {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::client::CloudDeploy;
+    /// async fn sample(
+    ///    client: &CloudDeploy,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_delivery_pipeline()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_delivery_pipeline(&self) -> super::builder::cloud_deploy::GetDeliveryPipeline
+    {
         super::builder::cloud_deploy::GetDeliveryPipeline::new(self.inner.clone())
     }
 
@@ -140,7 +145,8 @@ impl CloudDeploy {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_delivery_pipeline(&self) -> super::builder::cloud_deploy::CreateDeliveryPipeline {
+    pub fn create_delivery_pipeline(&self) -> super::builder::cloud_deploy::CreateDeliveryPipeline
+    {
         super::builder::cloud_deploy::CreateDeliveryPipeline::new(self.inner.clone())
     }
 
@@ -155,7 +161,8 @@ impl CloudDeploy {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_delivery_pipeline(&self) -> super::builder::cloud_deploy::UpdateDeliveryPipeline {
+    pub fn update_delivery_pipeline(&self) -> super::builder::cloud_deploy::UpdateDeliveryPipeline
+    {
         super::builder::cloud_deploy::UpdateDeliveryPipeline::new(self.inner.clone())
     }
 
@@ -170,22 +177,59 @@ impl CloudDeploy {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_delivery_pipeline(&self) -> super::builder::cloud_deploy::DeleteDeliveryPipeline {
+    pub fn delete_delivery_pipeline(&self) -> super::builder::cloud_deploy::DeleteDeliveryPipeline
+    {
         super::builder::cloud_deploy::DeleteDeliveryPipeline::new(self.inner.clone())
     }
 
     /// Lists Targets in a given project and location.
-    pub fn list_targets(&self) -> super::builder::cloud_deploy::ListTargets {
+    pub fn list_targets(&self) -> super::builder::cloud_deploy::ListTargets
+    {
         super::builder::cloud_deploy::ListTargets::new(self.inner.clone())
     }
 
     /// Creates a `Rollout` to roll back the specified target.
-    pub fn rollback_target(&self) -> super::builder::cloud_deploy::RollbackTarget {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::client::CloudDeploy;
+    /// async fn sample(
+    ///    client: &CloudDeploy
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .rollback_target()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn rollback_target(&self) -> super::builder::cloud_deploy::RollbackTarget
+    {
         super::builder::cloud_deploy::RollbackTarget::new(self.inner.clone())
     }
 
     /// Gets details of a single Target.
-    pub fn get_target(&self) -> super::builder::cloud_deploy::GetTarget {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::client::CloudDeploy;
+    /// async fn sample(
+    ///    client: &CloudDeploy,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_target()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_target(&self) -> super::builder::cloud_deploy::GetTarget
+    {
         super::builder::cloud_deploy::GetTarget::new(self.inner.clone())
     }
 
@@ -200,7 +244,8 @@ impl CloudDeploy {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_target(&self) -> super::builder::cloud_deploy::CreateTarget {
+    pub fn create_target(&self) -> super::builder::cloud_deploy::CreateTarget
+    {
         super::builder::cloud_deploy::CreateTarget::new(self.inner.clone())
     }
 
@@ -215,7 +260,8 @@ impl CloudDeploy {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_target(&self) -> super::builder::cloud_deploy::UpdateTarget {
+    pub fn update_target(&self) -> super::builder::cloud_deploy::UpdateTarget
+    {
         super::builder::cloud_deploy::UpdateTarget::new(self.inner.clone())
     }
 
@@ -230,17 +276,37 @@ impl CloudDeploy {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_target(&self) -> super::builder::cloud_deploy::DeleteTarget {
+    pub fn delete_target(&self) -> super::builder::cloud_deploy::DeleteTarget
+    {
         super::builder::cloud_deploy::DeleteTarget::new(self.inner.clone())
     }
 
     /// Lists CustomTargetTypes in a given project and location.
-    pub fn list_custom_target_types(&self) -> super::builder::cloud_deploy::ListCustomTargetTypes {
+    pub fn list_custom_target_types(&self) -> super::builder::cloud_deploy::ListCustomTargetTypes
+    {
         super::builder::cloud_deploy::ListCustomTargetTypes::new(self.inner.clone())
     }
 
     /// Gets details of a single CustomTargetType.
-    pub fn get_custom_target_type(&self) -> super::builder::cloud_deploy::GetCustomTargetType {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::client::CloudDeploy;
+    /// async fn sample(
+    ///    client: &CloudDeploy,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_custom_target_type()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_custom_target_type(&self) -> super::builder::cloud_deploy::GetCustomTargetType
+    {
         super::builder::cloud_deploy::GetCustomTargetType::new(self.inner.clone())
     }
 
@@ -255,9 +321,8 @@ impl CloudDeploy {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_custom_target_type(
-        &self,
-    ) -> super::builder::cloud_deploy::CreateCustomTargetType {
+    pub fn create_custom_target_type(&self) -> super::builder::cloud_deploy::CreateCustomTargetType
+    {
         super::builder::cloud_deploy::CreateCustomTargetType::new(self.inner.clone())
     }
 
@@ -272,9 +337,8 @@ impl CloudDeploy {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_custom_target_type(
-        &self,
-    ) -> super::builder::cloud_deploy::UpdateCustomTargetType {
+    pub fn update_custom_target_type(&self) -> super::builder::cloud_deploy::UpdateCustomTargetType
+    {
         super::builder::cloud_deploy::UpdateCustomTargetType::new(self.inner.clone())
     }
 
@@ -289,19 +353,37 @@ impl CloudDeploy {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_custom_target_type(
-        &self,
-    ) -> super::builder::cloud_deploy::DeleteCustomTargetType {
+    pub fn delete_custom_target_type(&self) -> super::builder::cloud_deploy::DeleteCustomTargetType
+    {
         super::builder::cloud_deploy::DeleteCustomTargetType::new(self.inner.clone())
     }
 
     /// Lists Releases in a given project and location.
-    pub fn list_releases(&self) -> super::builder::cloud_deploy::ListReleases {
+    pub fn list_releases(&self) -> super::builder::cloud_deploy::ListReleases
+    {
         super::builder::cloud_deploy::ListReleases::new(self.inner.clone())
     }
 
     /// Gets details of a single Release.
-    pub fn get_release(&self) -> super::builder::cloud_deploy::GetRelease {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::client::CloudDeploy;
+    /// async fn sample(
+    ///    client: &CloudDeploy,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_release()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_release(&self) -> super::builder::cloud_deploy::GetRelease
+    {
         super::builder::cloud_deploy::GetRelease::new(self.inner.clone())
     }
 
@@ -316,12 +398,30 @@ impl CloudDeploy {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_release(&self) -> super::builder::cloud_deploy::CreateRelease {
+    pub fn create_release(&self) -> super::builder::cloud_deploy::CreateRelease
+    {
         super::builder::cloud_deploy::CreateRelease::new(self.inner.clone())
     }
 
     /// Abandons a Release in the Delivery Pipeline.
-    pub fn abandon_release(&self) -> super::builder::cloud_deploy::AbandonRelease {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::client::CloudDeploy;
+    /// async fn sample(
+    ///    client: &CloudDeploy
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .abandon_release()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn abandon_release(&self) -> super::builder::cloud_deploy::AbandonRelease
+    {
         super::builder::cloud_deploy::AbandonRelease::new(self.inner.clone())
     }
 
@@ -336,7 +436,8 @@ impl CloudDeploy {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_deploy_policy(&self) -> super::builder::cloud_deploy::CreateDeployPolicy {
+    pub fn create_deploy_policy(&self) -> super::builder::cloud_deploy::CreateDeployPolicy
+    {
         super::builder::cloud_deploy::CreateDeployPolicy::new(self.inner.clone())
     }
 
@@ -351,7 +452,8 @@ impl CloudDeploy {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_deploy_policy(&self) -> super::builder::cloud_deploy::UpdateDeployPolicy {
+    pub fn update_deploy_policy(&self) -> super::builder::cloud_deploy::UpdateDeployPolicy
+    {
         super::builder::cloud_deploy::UpdateDeployPolicy::new(self.inner.clone())
     }
 
@@ -366,42 +468,132 @@ impl CloudDeploy {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_deploy_policy(&self) -> super::builder::cloud_deploy::DeleteDeployPolicy {
+    pub fn delete_deploy_policy(&self) -> super::builder::cloud_deploy::DeleteDeployPolicy
+    {
         super::builder::cloud_deploy::DeleteDeployPolicy::new(self.inner.clone())
     }
 
     /// Lists DeployPolicies in a given project and location.
-    pub fn list_deploy_policies(&self) -> super::builder::cloud_deploy::ListDeployPolicies {
+    pub fn list_deploy_policies(&self) -> super::builder::cloud_deploy::ListDeployPolicies
+    {
         super::builder::cloud_deploy::ListDeployPolicies::new(self.inner.clone())
     }
 
     /// Gets details of a single DeployPolicy.
-    pub fn get_deploy_policy(&self) -> super::builder::cloud_deploy::GetDeployPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::client::CloudDeploy;
+    /// async fn sample(
+    ///    client: &CloudDeploy,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_deploy_policy()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_deploy_policy(&self) -> super::builder::cloud_deploy::GetDeployPolicy
+    {
         super::builder::cloud_deploy::GetDeployPolicy::new(self.inner.clone())
     }
 
     /// Approves a Rollout.
-    pub fn approve_rollout(&self) -> super::builder::cloud_deploy::ApproveRollout {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::client::CloudDeploy;
+    /// async fn sample(
+    ///    client: &CloudDeploy
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .approve_rollout()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn approve_rollout(&self) -> super::builder::cloud_deploy::ApproveRollout
+    {
         super::builder::cloud_deploy::ApproveRollout::new(self.inner.clone())
     }
 
     /// Advances a Rollout in a given project and location.
-    pub fn advance_rollout(&self) -> super::builder::cloud_deploy::AdvanceRollout {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::client::CloudDeploy;
+    /// async fn sample(
+    ///    client: &CloudDeploy
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .advance_rollout()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn advance_rollout(&self) -> super::builder::cloud_deploy::AdvanceRollout
+    {
         super::builder::cloud_deploy::AdvanceRollout::new(self.inner.clone())
     }
 
     /// Cancels a Rollout in a given project and location.
-    pub fn cancel_rollout(&self) -> super::builder::cloud_deploy::CancelRollout {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::client::CloudDeploy;
+    /// async fn sample(
+    ///    client: &CloudDeploy
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .cancel_rollout()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_rollout(&self) -> super::builder::cloud_deploy::CancelRollout
+    {
         super::builder::cloud_deploy::CancelRollout::new(self.inner.clone())
     }
 
     /// Lists Rollouts in a given project and location.
-    pub fn list_rollouts(&self) -> super::builder::cloud_deploy::ListRollouts {
+    pub fn list_rollouts(&self) -> super::builder::cloud_deploy::ListRollouts
+    {
         super::builder::cloud_deploy::ListRollouts::new(self.inner.clone())
     }
 
     /// Gets details of a single Rollout.
-    pub fn get_rollout(&self) -> super::builder::cloud_deploy::GetRollout {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::client::CloudDeploy;
+    /// async fn sample(
+    ///    client: &CloudDeploy,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_rollout()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_rollout(&self) -> super::builder::cloud_deploy::GetRollout
+    {
         super::builder::cloud_deploy::GetRollout::new(self.inner.clone())
     }
 
@@ -416,37 +608,126 @@ impl CloudDeploy {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_rollout(&self) -> super::builder::cloud_deploy::CreateRollout {
+    pub fn create_rollout(&self) -> super::builder::cloud_deploy::CreateRollout
+    {
         super::builder::cloud_deploy::CreateRollout::new(self.inner.clone())
     }
 
     /// Ignores the specified Job in a Rollout.
-    pub fn ignore_job(&self) -> super::builder::cloud_deploy::IgnoreJob {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::client::CloudDeploy;
+    /// async fn sample(
+    ///    client: &CloudDeploy
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .ignore_job()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn ignore_job(&self) -> super::builder::cloud_deploy::IgnoreJob
+    {
         super::builder::cloud_deploy::IgnoreJob::new(self.inner.clone())
     }
 
     /// Retries the specified Job in a Rollout.
-    pub fn retry_job(&self) -> super::builder::cloud_deploy::RetryJob {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::client::CloudDeploy;
+    /// async fn sample(
+    ///    client: &CloudDeploy
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .retry_job()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn retry_job(&self) -> super::builder::cloud_deploy::RetryJob
+    {
         super::builder::cloud_deploy::RetryJob::new(self.inner.clone())
     }
 
     /// Lists JobRuns in a given project and location.
-    pub fn list_job_runs(&self) -> super::builder::cloud_deploy::ListJobRuns {
+    pub fn list_job_runs(&self) -> super::builder::cloud_deploy::ListJobRuns
+    {
         super::builder::cloud_deploy::ListJobRuns::new(self.inner.clone())
     }
 
     /// Gets details of a single JobRun.
-    pub fn get_job_run(&self) -> super::builder::cloud_deploy::GetJobRun {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::client::CloudDeploy;
+    /// async fn sample(
+    ///    client: &CloudDeploy,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_job_run()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_job_run(&self) -> super::builder::cloud_deploy::GetJobRun
+    {
         super::builder::cloud_deploy::GetJobRun::new(self.inner.clone())
     }
 
     /// Terminates a Job Run in a given project and location.
-    pub fn terminate_job_run(&self) -> super::builder::cloud_deploy::TerminateJobRun {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::client::CloudDeploy;
+    /// async fn sample(
+    ///    client: &CloudDeploy
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .terminate_job_run()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn terminate_job_run(&self) -> super::builder::cloud_deploy::TerminateJobRun
+    {
         super::builder::cloud_deploy::TerminateJobRun::new(self.inner.clone())
     }
 
     /// Gets the configuration for a location.
-    pub fn get_config(&self) -> super::builder::cloud_deploy::GetConfig {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::client::CloudDeploy;
+    /// async fn sample(
+    ///    client: &CloudDeploy,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_config()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_config(&self) -> super::builder::cloud_deploy::GetConfig
+    {
         super::builder::cloud_deploy::GetConfig::new(self.inner.clone())
     }
 
@@ -461,7 +742,8 @@ impl CloudDeploy {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_automation(&self) -> super::builder::cloud_deploy::CreateAutomation {
+    pub fn create_automation(&self) -> super::builder::cloud_deploy::CreateAutomation
+    {
         super::builder::cloud_deploy::CreateAutomation::new(self.inner.clone())
     }
 
@@ -476,7 +758,8 @@ impl CloudDeploy {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_automation(&self) -> super::builder::cloud_deploy::UpdateAutomation {
+    pub fn update_automation(&self) -> super::builder::cloud_deploy::UpdateAutomation
+    {
         super::builder::cloud_deploy::UpdateAutomation::new(self.inner.clone())
     }
 
@@ -491,27 +774,66 @@ impl CloudDeploy {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_automation(&self) -> super::builder::cloud_deploy::DeleteAutomation {
+    pub fn delete_automation(&self) -> super::builder::cloud_deploy::DeleteAutomation
+    {
         super::builder::cloud_deploy::DeleteAutomation::new(self.inner.clone())
     }
 
     /// Gets details of a single Automation.
-    pub fn get_automation(&self) -> super::builder::cloud_deploy::GetAutomation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::client::CloudDeploy;
+    /// async fn sample(
+    ///    client: &CloudDeploy,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_automation()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_automation(&self) -> super::builder::cloud_deploy::GetAutomation
+    {
         super::builder::cloud_deploy::GetAutomation::new(self.inner.clone())
     }
 
     /// Lists Automations in a given project and location.
-    pub fn list_automations(&self) -> super::builder::cloud_deploy::ListAutomations {
+    pub fn list_automations(&self) -> super::builder::cloud_deploy::ListAutomations
+    {
         super::builder::cloud_deploy::ListAutomations::new(self.inner.clone())
     }
 
     /// Gets details of a single AutomationRun.
-    pub fn get_automation_run(&self) -> super::builder::cloud_deploy::GetAutomationRun {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::client::CloudDeploy;
+    /// async fn sample(
+    ///    client: &CloudDeploy,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_automation_run()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_automation_run(&self) -> super::builder::cloud_deploy::GetAutomationRun
+    {
         super::builder::cloud_deploy::GetAutomationRun::new(self.inner.clone())
     }
 
     /// Lists AutomationRuns in a given project and location.
-    pub fn list_automation_runs(&self) -> super::builder::cloud_deploy::ListAutomationRuns {
+    pub fn list_automation_runs(&self) -> super::builder::cloud_deploy::ListAutomationRuns
+    {
         super::builder::cloud_deploy::ListAutomationRuns::new(self.inner.clone())
     }
 
@@ -519,17 +841,52 @@ impl CloudDeploy {
     /// cancelling is `CANCELLED`. `CancelAutomationRun` can be called on
     /// AutomationRun in the state `IN_PROGRESS` and `PENDING`; AutomationRun
     /// in a different state returns an `FAILED_PRECONDITION` error.
-    pub fn cancel_automation_run(&self) -> super::builder::cloud_deploy::CancelAutomationRun {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::client::CloudDeploy;
+    /// async fn sample(
+    ///    client: &CloudDeploy
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .cancel_automation_run()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_automation_run(&self) -> super::builder::cloud_deploy::CancelAutomationRun
+    {
         super::builder::cloud_deploy::CancelAutomationRun::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::cloud_deploy::ListLocations {
+    pub fn list_locations(&self) -> super::builder::cloud_deploy::ListLocations
+    {
         super::builder::cloud_deploy::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(&self) -> super::builder::cloud_deploy::GetLocation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::client::CloudDeploy;
+    /// async fn sample(
+    ///    client: &CloudDeploy
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_location(&self) -> super::builder::cloud_deploy::GetLocation
+    {
         super::builder::cloud_deploy::GetLocation::new(self.inner.clone())
     }
 
@@ -538,13 +895,47 @@ impl CloudDeploy {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
-    pub fn set_iam_policy(&self) -> super::builder::cloud_deploy::SetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::client::CloudDeploy;
+    /// async fn sample(
+    ///    client: &CloudDeploy
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::cloud_deploy::SetIamPolicy
+    {
         super::builder::cloud_deploy::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
-    pub fn get_iam_policy(&self) -> super::builder::cloud_deploy::GetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::client::CloudDeploy;
+    /// async fn sample(
+    ///    client: &CloudDeploy
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::cloud_deploy::GetIamPolicy
+    {
         super::builder::cloud_deploy::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -555,35 +946,102 @@ impl CloudDeploy {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
-    pub fn test_iam_permissions(&self) -> super::builder::cloud_deploy::TestIamPermissions {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::client::CloudDeploy;
+    /// async fn sample(
+    ///    client: &CloudDeploy
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::cloud_deploy::TestIamPermissions
+    {
         super::builder::cloud_deploy::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::cloud_deploy::ListOperations {
+    pub fn list_operations(&self) -> super::builder::cloud_deploy::ListOperations
+    {
         super::builder::cloud_deploy::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::cloud_deploy::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::client::CloudDeploy;
+    /// async fn sample(
+    ///    client: &CloudDeploy
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::cloud_deploy::GetOperation
+    {
         super::builder::cloud_deploy::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(&self) -> super::builder::cloud_deploy::DeleteOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::client::CloudDeploy;
+    /// async fn sample(
+    ///    client: &CloudDeploy
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_operation(&self) -> super::builder::cloud_deploy::DeleteOperation
+    {
         super::builder::cloud_deploy::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(&self) -> super::builder::cloud_deploy::CancelOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::client::CloudDeploy;
+    /// async fn sample(
+    ///    client: &CloudDeploy
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_operation(&self) -> super::builder::cloud_deploy::CancelOperation
+    {
         super::builder::cloud_deploy::CancelOperation::new(self.inner.clone())
     }
 }

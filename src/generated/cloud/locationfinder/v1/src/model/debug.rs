@@ -26,10 +26,7 @@ impl std::fmt::Debug for super::CloudLocation {
         debug_struct.field("cloud_provider", &self.cloud_provider);
         debug_struct.field("territory_code", &self.territory_code);
         debug_struct.field("cloud_location_type", &self.cloud_location_type);
-        debug_struct.field(
-            "carbon_free_energy_percentage",
-            &self.carbon_free_energy_percentage,
-        );
+        debug_struct.field("carbon_free_energy_percentage", &self.carbon_free_energy_percentage);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

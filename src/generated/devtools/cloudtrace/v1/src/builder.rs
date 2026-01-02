@@ -39,10 +39,7 @@ pub mod trace_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = TraceService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(
-                self,
-                config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -57,12 +54,8 @@ pub mod trace_service {
     }
 
     impl<R> RequestBuilder<R>
-    where
-        R: std::default::Default,
-    {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::TraceService>,
-        ) -> Self {
+    where R: std::default::Default {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TraceService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -96,10 +89,10 @@ pub mod trace_service {
     pub struct ListTraces(RequestBuilder<crate::model::ListTracesRequest>);
 
     impl ListTraces {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::TraceService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TraceService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -116,17 +109,11 @@ pub mod trace_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListTracesResponse> {
-            (*self.0.stub)
-                .list_traces(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_traces(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListTracesResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListTracesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -138,10 +125,7 @@ pub mod trace_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListTracesResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListTracesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -155,10 +139,7 @@ pub mod trace_service {
         }
 
         /// Sets the value of [view][crate::model::ListTracesRequest::view].
-        pub fn set_view<T: Into<crate::model::list_traces_request::ViewType>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_view<T: Into<crate::model::list_traces_request::ViewType>>(mut self, v: T) -> Self {
             self.0.request.view = v.into();
             self
         }
@@ -177,8 +158,7 @@ pub mod trace_service {
 
         /// Sets the value of [start_time][crate::model::ListTracesRequest::start_time].
         pub fn set_start_time<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.0.request.start_time = std::option::Option::Some(v.into());
             self
@@ -186,8 +166,7 @@ pub mod trace_service {
 
         /// Sets or clears the value of [start_time][crate::model::ListTracesRequest::start_time].
         pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.0.request.start_time = v.map(|x| x.into());
             self
@@ -195,8 +174,7 @@ pub mod trace_service {
 
         /// Sets the value of [end_time][crate::model::ListTracesRequest::end_time].
         pub fn set_end_time<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.0.request.end_time = std::option::Option::Some(v.into());
             self
@@ -204,8 +182,7 @@ pub mod trace_service {
 
         /// Sets or clears the value of [end_time][crate::model::ListTracesRequest::end_time].
         pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.0.request.end_time = v.map(|x| x.into());
             self
@@ -252,10 +229,10 @@ pub mod trace_service {
     pub struct GetTrace(RequestBuilder<crate::model::GetTraceRequest>);
 
     impl GetTrace {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::TraceService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TraceService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -272,10 +249,7 @@ pub mod trace_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Trace> {
-            (*self.0.stub)
-                .get_trace(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_trace(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::GetTraceRequest::project_id].
@@ -323,10 +297,10 @@ pub mod trace_service {
     pub struct PatchTraces(RequestBuilder<crate::model::PatchTracesRequest>);
 
     impl PatchTraces {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::TraceService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TraceService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -343,10 +317,7 @@ pub mod trace_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .patch_traces(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).patch_traces(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::PatchTracesRequest::project_id].
@@ -361,8 +332,7 @@ pub mod trace_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_traces<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Traces>,
+        where T: std::convert::Into<crate::model::Traces>
         {
             self.0.request.traces = std::option::Option::Some(v.into());
             self
@@ -372,8 +342,7 @@ pub mod trace_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_traces<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Traces>,
+        where T: std::convert::Into<crate::model::Traces>
         {
             self.0.request.traces = v.map(|x| x.into());
             self
@@ -386,4 +355,5 @@ pub mod trace_service {
             &mut self.0.options
         }
     }
+
 }

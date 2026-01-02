@@ -80,42 +80,28 @@ impl Environments {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::Environments + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::Environments + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Environments>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Environments>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Environments> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Environments> {
         super::transport::Environments::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Environments> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::Environments::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Environments> {
+        Self::build_transport(conf).await.map(super::tracing::Environments::new)
     }
 
     /// Create a new environment.
@@ -129,17 +115,36 @@ impl Environments {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_environment(&self) -> super::builder::environments::CreateEnvironment {
+    pub fn create_environment(&self) -> super::builder::environments::CreateEnvironment
+    {
         super::builder::environments::CreateEnvironment::new(self.inner.clone())
     }
 
     /// Get an existing environment.
-    pub fn get_environment(&self) -> super::builder::environments::GetEnvironment {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orchestration_airflow_service_v1::client::Environments;
+    /// async fn sample(
+    ///    client: &Environments
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_environment()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_environment(&self) -> super::builder::environments::GetEnvironment
+    {
         super::builder::environments::GetEnvironment::new(self.inner.clone())
     }
 
     /// List environments.
-    pub fn list_environments(&self) -> super::builder::environments::ListEnvironments {
+    pub fn list_environments(&self) -> super::builder::environments::ListEnvironments
+    {
         super::builder::environments::ListEnvironments::new(self.inner.clone())
     }
 
@@ -154,7 +159,8 @@ impl Environments {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_environment(&self) -> super::builder::environments::UpdateEnvironment {
+    pub fn update_environment(&self) -> super::builder::environments::UpdateEnvironment
+    {
         super::builder::environments::UpdateEnvironment::new(self.inner.clone())
     }
 
@@ -169,22 +175,74 @@ impl Environments {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_environment(&self) -> super::builder::environments::DeleteEnvironment {
+    pub fn delete_environment(&self) -> super::builder::environments::DeleteEnvironment
+    {
         super::builder::environments::DeleteEnvironment::new(self.inner.clone())
     }
 
     /// Executes Airflow CLI command.
-    pub fn execute_airflow_command(&self) -> super::builder::environments::ExecuteAirflowCommand {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orchestration_airflow_service_v1::client::Environments;
+    /// async fn sample(
+    ///    client: &Environments
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .execute_airflow_command()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn execute_airflow_command(&self) -> super::builder::environments::ExecuteAirflowCommand
+    {
         super::builder::environments::ExecuteAirflowCommand::new(self.inner.clone())
     }
 
     /// Stops Airflow CLI command execution.
-    pub fn stop_airflow_command(&self) -> super::builder::environments::StopAirflowCommand {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orchestration_airflow_service_v1::client::Environments;
+    /// async fn sample(
+    ///    client: &Environments
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .stop_airflow_command()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn stop_airflow_command(&self) -> super::builder::environments::StopAirflowCommand
+    {
         super::builder::environments::StopAirflowCommand::new(self.inner.clone())
     }
 
     /// Polls Airflow CLI command execution and fetches logs.
-    pub fn poll_airflow_command(&self) -> super::builder::environments::PollAirflowCommand {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orchestration_airflow_service_v1::client::Environments;
+    /// async fn sample(
+    ///    client: &Environments
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .poll_airflow_command()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn poll_airflow_command(&self) -> super::builder::environments::PollAirflowCommand
+    {
         super::builder::environments::PollAirflowCommand::new(self.inner.clone())
     }
 
@@ -193,7 +251,8 @@ impl Environments {
     ///
     /// This method is supported for Cloud Composer environments in versions
     /// composer-2.*.*-airflow-*.*.* and newer.
-    pub fn list_workloads(&self) -> super::builder::environments::ListWorkloads {
+    pub fn list_workloads(&self) -> super::builder::environments::ListWorkloads
+    {
         super::builder::environments::ListWorkloads::new(self.inner.clone())
     }
 
@@ -210,7 +269,8 @@ impl Environments {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn check_upgrade(&self) -> super::builder::environments::CheckUpgrade {
+    pub fn check_upgrade(&self) -> super::builder::environments::CheckUpgrade
+    {
         super::builder::environments::CheckUpgrade::new(self.inner.clone())
     }
 
@@ -218,9 +278,24 @@ impl Environments {
     ///
     /// This method is supported for Cloud Composer environments in versions
     /// composer-3-airflow-*.*.*-build.* and newer.
-    pub fn create_user_workloads_secret(
-        &self,
-    ) -> super::builder::environments::CreateUserWorkloadsSecret {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orchestration_airflow_service_v1::client::Environments;
+    /// async fn sample(
+    ///    client: &Environments
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_user_workloads_secret()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_user_workloads_secret(&self) -> super::builder::environments::CreateUserWorkloadsSecret
+    {
         super::builder::environments::CreateUserWorkloadsSecret::new(self.inner.clone())
     }
 
@@ -229,9 +304,25 @@ impl Environments {
     ///
     /// This method is supported for Cloud Composer environments in versions
     /// composer-3-airflow-*.*.*-build.* and newer.
-    pub fn get_user_workloads_secret(
-        &self,
-    ) -> super::builder::environments::GetUserWorkloadsSecret {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orchestration_airflow_service_v1::client::Environments;
+    /// async fn sample(
+    ///    client: &Environments,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_user_workloads_secret()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_user_workloads_secret(&self) -> super::builder::environments::GetUserWorkloadsSecret
+    {
         super::builder::environments::GetUserWorkloadsSecret::new(self.inner.clone())
     }
 
@@ -239,9 +330,8 @@ impl Environments {
     ///
     /// This method is supported for Cloud Composer environments in versions
     /// composer-3-airflow-*.*.*-build.* and newer.
-    pub fn list_user_workloads_secrets(
-        &self,
-    ) -> super::builder::environments::ListUserWorkloadsSecrets {
+    pub fn list_user_workloads_secrets(&self) -> super::builder::environments::ListUserWorkloadsSecrets
+    {
         super::builder::environments::ListUserWorkloadsSecrets::new(self.inner.clone())
     }
 
@@ -249,9 +339,24 @@ impl Environments {
     ///
     /// This method is supported for Cloud Composer environments in versions
     /// composer-3-airflow-*.*.*-build.* and newer.
-    pub fn update_user_workloads_secret(
-        &self,
-    ) -> super::builder::environments::UpdateUserWorkloadsSecret {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orchestration_airflow_service_v1::client::Environments;
+    /// async fn sample(
+    ///    client: &Environments
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_user_workloads_secret()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_user_workloads_secret(&self) -> super::builder::environments::UpdateUserWorkloadsSecret
+    {
         super::builder::environments::UpdateUserWorkloadsSecret::new(self.inner.clone())
     }
 
@@ -259,9 +364,24 @@ impl Environments {
     ///
     /// This method is supported for Cloud Composer environments in versions
     /// composer-3-airflow-*.*.*-build.* and newer.
-    pub fn delete_user_workloads_secret(
-        &self,
-    ) -> super::builder::environments::DeleteUserWorkloadsSecret {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orchestration_airflow_service_v1::client::Environments;
+    /// async fn sample(
+    ///    client: &Environments,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_user_workloads_secret()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_user_workloads_secret(&self) -> super::builder::environments::DeleteUserWorkloadsSecret
+    {
         super::builder::environments::DeleteUserWorkloadsSecret::new(self.inner.clone())
     }
 
@@ -269,9 +389,24 @@ impl Environments {
     ///
     /// This method is supported for Cloud Composer environments in versions
     /// composer-3-airflow-*.*.*-build.* and newer.
-    pub fn create_user_workloads_config_map(
-        &self,
-    ) -> super::builder::environments::CreateUserWorkloadsConfigMap {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orchestration_airflow_service_v1::client::Environments;
+    /// async fn sample(
+    ///    client: &Environments
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_user_workloads_config_map()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_user_workloads_config_map(&self) -> super::builder::environments::CreateUserWorkloadsConfigMap
+    {
         super::builder::environments::CreateUserWorkloadsConfigMap::new(self.inner.clone())
     }
 
@@ -279,9 +414,25 @@ impl Environments {
     ///
     /// This method is supported for Cloud Composer environments in versions
     /// composer-3-airflow-*.*.*-build.* and newer.
-    pub fn get_user_workloads_config_map(
-        &self,
-    ) -> super::builder::environments::GetUserWorkloadsConfigMap {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orchestration_airflow_service_v1::client::Environments;
+    /// async fn sample(
+    ///    client: &Environments,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_user_workloads_config_map()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_user_workloads_config_map(&self) -> super::builder::environments::GetUserWorkloadsConfigMap
+    {
         super::builder::environments::GetUserWorkloadsConfigMap::new(self.inner.clone())
     }
 
@@ -289,9 +440,8 @@ impl Environments {
     ///
     /// This method is supported for Cloud Composer environments in versions
     /// composer-3-airflow-*.*.*-build.* and newer.
-    pub fn list_user_workloads_config_maps(
-        &self,
-    ) -> super::builder::environments::ListUserWorkloadsConfigMaps {
+    pub fn list_user_workloads_config_maps(&self) -> super::builder::environments::ListUserWorkloadsConfigMaps
+    {
         super::builder::environments::ListUserWorkloadsConfigMaps::new(self.inner.clone())
     }
 
@@ -299,9 +449,24 @@ impl Environments {
     ///
     /// This method is supported for Cloud Composer environments in versions
     /// composer-3-airflow-*.*.*-build.* and newer.
-    pub fn update_user_workloads_config_map(
-        &self,
-    ) -> super::builder::environments::UpdateUserWorkloadsConfigMap {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orchestration_airflow_service_v1::client::Environments;
+    /// async fn sample(
+    ///    client: &Environments
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_user_workloads_config_map()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_user_workloads_config_map(&self) -> super::builder::environments::UpdateUserWorkloadsConfigMap
+    {
         super::builder::environments::UpdateUserWorkloadsConfigMap::new(self.inner.clone())
     }
 
@@ -309,9 +474,24 @@ impl Environments {
     ///
     /// This method is supported for Cloud Composer environments in versions
     /// composer-3-airflow-*.*.*-build.* and newer.
-    pub fn delete_user_workloads_config_map(
-        &self,
-    ) -> super::builder::environments::DeleteUserWorkloadsConfigMap {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orchestration_airflow_service_v1::client::Environments;
+    /// async fn sample(
+    ///    client: &Environments,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_user_workloads_config_map()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_user_workloads_config_map(&self) -> super::builder::environments::DeleteUserWorkloadsConfigMap
+    {
         super::builder::environments::DeleteUserWorkloadsConfigMap::new(self.inner.clone())
     }
 
@@ -329,7 +509,8 @@ impl Environments {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn save_snapshot(&self) -> super::builder::environments::SaveSnapshot {
+    pub fn save_snapshot(&self) -> super::builder::environments::SaveSnapshot
+    {
         super::builder::environments::SaveSnapshot::new(self.inner.clone())
     }
 
@@ -347,7 +528,8 @@ impl Environments {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn load_snapshot(&self) -> super::builder::environments::LoadSnapshot {
+    pub fn load_snapshot(&self) -> super::builder::environments::LoadSnapshot
+    {
         super::builder::environments::LoadSnapshot::new(self.inner.clone())
     }
 
@@ -362,35 +544,85 @@ impl Environments {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn database_failover(&self) -> super::builder::environments::DatabaseFailover {
+    pub fn database_failover(&self) -> super::builder::environments::DatabaseFailover
+    {
         super::builder::environments::DatabaseFailover::new(self.inner.clone())
     }
 
     /// Fetches database properties.
-    pub fn fetch_database_properties(
-        &self,
-    ) -> super::builder::environments::FetchDatabaseProperties {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orchestration_airflow_service_v1::client::Environments;
+    /// async fn sample(
+    ///    client: &Environments
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .fetch_database_properties()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn fetch_database_properties(&self) -> super::builder::environments::FetchDatabaseProperties
+    {
         super::builder::environments::FetchDatabaseProperties::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::environments::ListOperations {
+    pub fn list_operations(&self) -> super::builder::environments::ListOperations
+    {
         super::builder::environments::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::environments::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orchestration_airflow_service_v1::client::Environments;
+    /// async fn sample(
+    ///    client: &Environments
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::environments::GetOperation
+    {
         super::builder::environments::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(&self) -> super::builder::environments::DeleteOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orchestration_airflow_service_v1::client::Environments;
+    /// async fn sample(
+    ///    client: &Environments
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_operation(&self) -> super::builder::environments::DeleteOperation
+    {
         super::builder::environments::DeleteOperation::new(self.inner.clone())
     }
 }
@@ -459,67 +691,88 @@ impl ImageVersions {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::ImageVersions + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::ImageVersions + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ImageVersions>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ImageVersions>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ImageVersions> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ImageVersions> {
         super::transport::ImageVersions::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ImageVersions> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::ImageVersions::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ImageVersions> {
+        Self::build_transport(conf).await.map(super::tracing::ImageVersions::new)
     }
 
     /// List ImageVersions for provided location.
-    pub fn list_image_versions(&self) -> super::builder::image_versions::ListImageVersions {
+    pub fn list_image_versions(&self) -> super::builder::image_versions::ListImageVersions
+    {
         super::builder::image_versions::ListImageVersions::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::image_versions::ListOperations {
+    pub fn list_operations(&self) -> super::builder::image_versions::ListOperations
+    {
         super::builder::image_versions::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::image_versions::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orchestration_airflow_service_v1::client::ImageVersions;
+    /// async fn sample(
+    ///    client: &ImageVersions
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::image_versions::GetOperation
+    {
         super::builder::image_versions::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(&self) -> super::builder::image_versions::DeleteOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orchestration_airflow_service_v1::client::ImageVersions;
+    /// async fn sample(
+    ///    client: &ImageVersions
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_operation(&self) -> super::builder::image_versions::DeleteOperation
+    {
         super::builder::image_versions::DeleteOperation::new(self.inner.clone())
     }
 }

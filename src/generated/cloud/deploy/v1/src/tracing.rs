@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [CloudDeploy](super::stub::CloudDeploy) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct CloudDeploy<T>
-where
-    T: super::stub::CloudDeploy + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::CloudDeploy + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> CloudDeploy<T>
-where
-    T: super::stub::CloudDeploy + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::CloudDeploy + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::CloudDeploy for CloudDeploy<T>
-where
-    T: super::stub::CloudDeploy + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::CloudDeploy + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn list_delivery_pipelines(
         &self,
@@ -523,6 +517,7 @@ where
         self.inner.cancel_operation(req, options).await
     }
 
+
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -537,3 +532,4 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 }
+

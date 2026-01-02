@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -27,7 +28,6 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -40,6 +40,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LoginProfile {
+
     /// Required. A unique user ID.
     pub name: std::string::String,
 
@@ -47,8 +48,7 @@ pub struct LoginProfile {
     pub posix_accounts: std::vec::Vec<oslogin_common::model::PosixAccount>,
 
     /// A map from SSH public key fingerprint to the associated key object.
-    pub ssh_public_keys:
-        std::collections::HashMap<std::string::String, oslogin_common::model::SshPublicKey>,
+    pub ssh_public_keys: std::collections::HashMap<std::string::String,oslogin_common::model::SshPublicKey>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -85,7 +85,7 @@ impl LoginProfile {
     pub fn set_posix_accounts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<oslogin_common::model::PosixAccount>,
+        V: std::convert::Into<oslogin_common::model::PosixAccount>
     {
         use std::iter::Iterator;
         self.posix_accounts = v.into_iter().map(|i| i.into()).collect();
@@ -125,6 +125,7 @@ impl wkt::message::Message for LoginProfile {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateSshPublicKeyRequest {
+
     /// Required. The unique ID for the user in format `users/{user}`.
     pub parent: std::string::String,
 
@@ -160,8 +161,7 @@ impl CreateSshPublicKeyRequest {
     /// let x = CreateSshPublicKeyRequest::new().set_ssh_public_key(SshPublicKey::default()/* use setters */);
     /// ```
     pub fn set_ssh_public_key<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<oslogin_common::model::SshPublicKey>,
+    where T: std::convert::Into<oslogin_common::model::SshPublicKey>
     {
         self.ssh_public_key = std::option::Option::Some(v.into());
         self
@@ -177,8 +177,7 @@ impl CreateSshPublicKeyRequest {
     /// let x = CreateSshPublicKeyRequest::new().set_or_clear_ssh_public_key(None::<SshPublicKey>);
     /// ```
     pub fn set_or_clear_ssh_public_key<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<oslogin_common::model::SshPublicKey>,
+    where T: std::convert::Into<oslogin_common::model::SshPublicKey>
     {
         self.ssh_public_key = v.map(|x| x.into());
         self
@@ -195,6 +194,7 @@ impl wkt::message::Message for CreateSshPublicKeyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeletePosixAccountRequest {
+
     /// Required. A reference to the POSIX account to update. POSIX accounts are
     /// identified by the project ID they are associated with. A reference to the
     /// POSIX account is in format `users/{user}/projects/{project}`.
@@ -231,6 +231,7 @@ impl wkt::message::Message for DeletePosixAccountRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteSshPublicKeyRequest {
+
     /// Required. The fingerprint of the public key to update. Public keys are
     /// identified by their SHA-256 fingerprint. The fingerprint of the public key
     /// is in format `users/{user}/sshPublicKeys/{fingerprint}`.
@@ -267,6 +268,7 @@ impl wkt::message::Message for DeleteSshPublicKeyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetLoginProfileRequest {
+
     /// Required. The unique ID for the user in format `users/{user}`.
     pub name: std::string::String,
 
@@ -331,6 +333,7 @@ impl wkt::message::Message for GetLoginProfileRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSshPublicKeyRequest {
+
     /// Required. The fingerprint of the public key to retrieve. Public keys are
     /// identified by their SHA-256 fingerprint. The fingerprint of the public key
     /// is in format `users/{user}/sshPublicKeys/{fingerprint}`.
@@ -367,6 +370,7 @@ impl wkt::message::Message for GetSshPublicKeyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportSshPublicKeyRequest {
+
     /// Required. The unique ID for the user in format `users/{user}`.
     pub parent: std::string::String,
 
@@ -410,8 +414,7 @@ impl ImportSshPublicKeyRequest {
     /// let x = ImportSshPublicKeyRequest::new().set_ssh_public_key(SshPublicKey::default()/* use setters */);
     /// ```
     pub fn set_ssh_public_key<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<oslogin_common::model::SshPublicKey>,
+    where T: std::convert::Into<oslogin_common::model::SshPublicKey>
     {
         self.ssh_public_key = std::option::Option::Some(v.into());
         self
@@ -427,8 +430,7 @@ impl ImportSshPublicKeyRequest {
     /// let x = ImportSshPublicKeyRequest::new().set_or_clear_ssh_public_key(None::<SshPublicKey>);
     /// ```
     pub fn set_or_clear_ssh_public_key<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<oslogin_common::model::SshPublicKey>,
+    where T: std::convert::Into<oslogin_common::model::SshPublicKey>
     {
         self.ssh_public_key = v.map(|x| x.into());
         self
@@ -456,7 +458,7 @@ impl ImportSshPublicKeyRequest {
     pub fn set_regions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.regions = v.into_iter().map(|i| i.into()).collect();
@@ -474,6 +476,7 @@ impl wkt::message::Message for ImportSshPublicKeyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportSshPublicKeyResponse {
+
     /// The login profile information for the user.
     pub login_profile: std::option::Option<crate::model::LoginProfile>,
 
@@ -497,8 +500,7 @@ impl ImportSshPublicKeyResponse {
     /// let x = ImportSshPublicKeyResponse::new().set_login_profile(LoginProfile::default()/* use setters */);
     /// ```
     pub fn set_login_profile<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::LoginProfile>,
+    where T: std::convert::Into<crate::model::LoginProfile>
     {
         self.login_profile = std::option::Option::Some(v.into());
         self
@@ -514,8 +516,7 @@ impl ImportSshPublicKeyResponse {
     /// let x = ImportSshPublicKeyResponse::new().set_or_clear_login_profile(None::<LoginProfile>);
     /// ```
     pub fn set_or_clear_login_profile<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::LoginProfile>,
+    where T: std::convert::Into<crate::model::LoginProfile>
     {
         self.login_profile = v.map(|x| x.into());
         self
@@ -544,6 +545,7 @@ impl wkt::message::Message for ImportSshPublicKeyResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateSshPublicKeyRequest {
+
     /// Required. The fingerprint of the public key to update. Public keys are
     /// identified by their SHA-256 fingerprint. The fingerprint of the public key
     /// is in format `users/{user}/sshPublicKeys/{fingerprint}`.
@@ -584,8 +586,7 @@ impl UpdateSshPublicKeyRequest {
     /// let x = UpdateSshPublicKeyRequest::new().set_ssh_public_key(SshPublicKey::default()/* use setters */);
     /// ```
     pub fn set_ssh_public_key<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<oslogin_common::model::SshPublicKey>,
+    where T: std::convert::Into<oslogin_common::model::SshPublicKey>
     {
         self.ssh_public_key = std::option::Option::Some(v.into());
         self
@@ -601,8 +602,7 @@ impl UpdateSshPublicKeyRequest {
     /// let x = UpdateSshPublicKeyRequest::new().set_or_clear_ssh_public_key(None::<SshPublicKey>);
     /// ```
     pub fn set_or_clear_ssh_public_key<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<oslogin_common::model::SshPublicKey>,
+    where T: std::convert::Into<oslogin_common::model::SshPublicKey>
     {
         self.ssh_public_key = v.map(|x| x.into());
         self
@@ -617,8 +617,7 @@ impl UpdateSshPublicKeyRequest {
     /// let x = UpdateSshPublicKeyRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -634,8 +633,7 @@ impl UpdateSshPublicKeyRequest {
     /// let x = UpdateSshPublicKeyRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self

@@ -23,9 +23,9 @@ impl serde::ser::Serialize for super::ListAppConnectionsRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -66,9 +66,9 @@ impl serde::ser::Serialize for super::ListAppConnectionsResponse {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.app_connections.is_empty() {
             state.serialize_entry("appConnections", &self.app_connections)?;
@@ -94,9 +94,9 @@ impl serde::ser::Serialize for super::GetAppConnectionRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -116,9 +116,9 @@ impl serde::ser::Serialize for super::CreateAppConnectionRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -150,9 +150,9 @@ impl serde::ser::Serialize for super::UpdateAppConnectionRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.update_mask.is_some() {
             state.serialize_entry("updateMask", &self.update_mask)?;
@@ -184,9 +184,9 @@ impl serde::ser::Serialize for super::DeleteAppConnectionRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -212,9 +212,9 @@ impl serde::ser::Serialize for super::ResolveAppConnectionsRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -252,9 +252,9 @@ impl serde::ser::Serialize for super::ResolveAppConnectionsResponse {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.app_connection_details.is_empty() {
             state.serialize_entry("appConnectionDetails", &self.app_connection_details)?;
@@ -280,9 +280,9 @@ impl serde::ser::Serialize for super::resolve_app_connections_response::AppConne
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.app_connection.is_some() {
             state.serialize_entry("appConnection", &self.app_connection)?;
@@ -305,9 +305,9 @@ impl serde::ser::Serialize for super::AppConnection {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -357,9 +357,9 @@ impl serde::ser::Serialize for super::app_connection::ApplicationEndpoint {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.host.is_empty() {
             state.serialize_entry("host", &self.host)?;
@@ -391,9 +391,9 @@ impl serde::ser::Serialize for super::app_connection::Gateway {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.r#type) {
             state.serialize_entry("type", &self.r#type)?;
@@ -425,15 +425,16 @@ impl serde::ser::Serialize for super::app_connection::Gateway {
     }
 }
 
+
 #[doc(hidden)]
 impl serde::ser::Serialize for super::AppConnectionOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.create_time.is_some() {
             state.serialize_entry("createTime", &self.create_time)?;

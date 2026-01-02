@@ -69,6 +69,7 @@ impl std::fmt::Debug for super::Subnet {
     }
 }
 
+
 impl std::fmt::Debug for super::Interconnect {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Interconnect");
@@ -79,21 +80,16 @@ impl std::fmt::Debug for super::Interconnect {
         debug_struct.field("description", &self.description);
         debug_struct.field("interconnect_type", &self.interconnect_type);
         debug_struct.field("uuid", &self.uuid);
-        debug_struct.field(
-            "device_cloud_resource_name",
-            &self.device_cloud_resource_name,
-        );
+        debug_struct.field("device_cloud_resource_name", &self.device_cloud_resource_name);
         debug_struct.field("physical_ports", &self.physical_ports);
-        debug_struct.field(
-            "remote_peering_network_type",
-            &self.remote_peering_network_type,
-        );
+        debug_struct.field("remote_peering_network_type", &self.remote_peering_network_type);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::InterconnectAttachment {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -143,10 +139,7 @@ impl std::fmt::Debug for super::router::Interface {
         debug_struct.field("name", &self.name);
         debug_struct.field("ipv4_cidr", &self.ipv4_cidr);
         debug_struct.field("ipv6_cidr", &self.ipv6_cidr);
-        debug_struct.field(
-            "linked_interconnect_attachment",
-            &self.linked_interconnect_attachment,
-        );
+        debug_struct.field("linked_interconnect_attachment", &self.linked_interconnect_attachment);
         debug_struct.field("subnetwork", &self.subnetwork);
         debug_struct.field("loopback_ip_addresses", &self.loopback_ip_addresses);
         if !self._unknown_fields.is_empty() {
@@ -178,16 +171,14 @@ impl std::fmt::Debug for super::router::Bgp {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Bgp");
         debug_struct.field("asn", &self.asn);
-        debug_struct.field(
-            "keepalive_interval_in_seconds",
-            &self.keepalive_interval_in_seconds,
-        );
+        debug_struct.field("keepalive_interval_in_seconds", &self.keepalive_interval_in_seconds);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::LinkLayerAddress {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -599,10 +590,7 @@ impl std::fmt::Debug for super::CreateInterconnectAttachmentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateInterconnectAttachmentRequest");
         debug_struct.field("parent", &self.parent);
-        debug_struct.field(
-            "interconnect_attachment_id",
-            &self.interconnect_attachment_id,
-        );
+        debug_struct.field("interconnect_attachment_id", &self.interconnect_attachment_id);
         debug_struct.field("interconnect_attachment", &self.interconnect_attachment);
         debug_struct.field("request_id", &self.request_id);
         if !self._unknown_fields.is_empty() {
@@ -746,10 +734,7 @@ impl std::fmt::Debug for super::diagnose_network_response::NetworkStatus {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("NetworkStatus");
         debug_struct.field("subnet_status", &self.subnet_status);
-        debug_struct.field(
-            "macsec_status_internal_links",
-            &self.macsec_status_internal_links,
-        );
+        debug_struct.field("macsec_status_internal_links", &self.macsec_status_internal_links);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

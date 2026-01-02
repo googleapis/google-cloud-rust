@@ -202,6 +202,7 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         req: crate::model::LintPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::LintPolicyResponse>>;
+
 }
 
 /// All implementations of [super::Iam] also implement [Iam].
@@ -464,8 +465,7 @@ impl<T: super::Iam> Iam for T {
         &self,
         req: crate::model::QueryTestablePermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::QueryTestablePermissionsResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::QueryTestablePermissionsResponse>> {
         T::query_testable_permissions(self, req, options).await
     }
 
@@ -486,4 +486,5 @@ impl<T: super::Iam> Iam for T {
     ) -> crate::Result<gax::response::Response<crate::model::LintPolicyResponse>> {
         T::lint_policy(self, req, options).await
     }
+
 }

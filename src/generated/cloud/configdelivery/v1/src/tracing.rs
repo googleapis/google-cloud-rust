@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [ConfigDelivery](super::stub::ConfigDelivery) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct ConfigDelivery<T>
-where
-    T: super::stub::ConfigDelivery + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ConfigDelivery + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> ConfigDelivery<T>
-where
-    T: super::stub::ConfigDelivery + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ConfigDelivery + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::ConfigDelivery for ConfigDelivery<T>
-where
-    T: super::stub::ConfigDelivery + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ConfigDelivery + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn list_resource_bundles(
         &self,
@@ -316,6 +310,7 @@ where
         self.inner.cancel_operation(req, options).await
     }
 
+
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -330,3 +325,4 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 }
+

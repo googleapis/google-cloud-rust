@@ -67,9 +67,9 @@ impl<'de> serde::de::Deserialize<'de> for super::AuditData {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
-                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -77,17 +77,15 @@ impl<'de> serde::de::Deserialize<'de> for super::AuditData {
                     match tag {
                         __FieldTag::__permission_delta => {
                             if !fields.insert(__FieldTag::__permission_delta) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for permission_delta",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for permission_delta"));
                             }
                             result.permission_delta = map.next_value::<std::option::Option<crate::model::audit_data::PermissionDelta>>()?
                                 ;
-                        }
+                        },
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        }
+                        },
                     }
                 }
                 std::result::Result::Ok(result)
@@ -150,9 +148,9 @@ impl<'de> serde::de::Deserialize<'de> for super::audit_data::PermissionDelta {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
-                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -160,24 +158,20 @@ impl<'de> serde::de::Deserialize<'de> for super::audit_data::PermissionDelta {
                     match tag {
                         __FieldTag::__added_permissions => {
                             if !fields.insert(__FieldTag::__added_permissions) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for added_permissions",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for added_permissions"));
                             }
                             result.added_permissions = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
-                        }
+                        },
                         __FieldTag::__removed_permissions => {
                             if !fields.insert(__FieldTag::__removed_permissions) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for removed_permissions",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for removed_permissions"));
                             }
                             result.removed_permissions = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
-                        }
+                        },
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        }
+                        },
                     }
                 }
                 std::result::Result::Ok(result)
@@ -256,9 +250,9 @@ impl<'de> serde::de::Deserialize<'de> for super::ServiceAccount {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
-                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -266,107 +260,71 @@ impl<'de> serde::de::Deserialize<'de> for super::ServiceAccount {
                     match tag {
                         __FieldTag::__name => {
                             if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for name"));
                             }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.name = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::__project_id => {
                             if !fields.insert(__FieldTag::__project_id) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for project_id",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for project_id"));
                             }
-                            result.project_id = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.project_id = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::__unique_id => {
                             if !fields.insert(__FieldTag::__unique_id) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for unique_id",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for unique_id"));
                             }
-                            result.unique_id = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.unique_id = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::__email => {
                             if !fields.insert(__FieldTag::__email) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for email",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for email"));
                             }
-                            result.email = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.email = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::__display_name => {
                             if !fields.insert(__FieldTag::__display_name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for display_name",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for display_name"));
                             }
-                            result.display_name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.display_name = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::__etag => {
                             if !fields.insert(__FieldTag::__etag) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for etag",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for etag"));
                             }
-                            struct __With(std::option::Option<::bytes::Bytes>);
+                            struct __With( std::option::Option<::bytes::Bytes> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(
-                                    deserializer: D,
-                                ) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.etag = map.next_value::<__With>()?.0.unwrap_or_default();
-                        }
+                            result.etag = map.next_value::< __With >()?.0.unwrap_or_default();
+                        },
                         __FieldTag::__description => {
                             if !fields.insert(__FieldTag::__description) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for description",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for description"));
                             }
-                            result.description = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.description = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::__oauth2_client_id => {
                             if !fields.insert(__FieldTag::__oauth2_client_id) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for oauth2_client_id",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for oauth2_client_id"));
                             }
-                            result.oauth2_client_id = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.oauth2_client_id = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::__disabled => {
                             if !fields.insert(__FieldTag::__disabled) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for disabled",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for disabled"));
                             }
-                            result.disabled = map
-                                .next_value::<std::option::Option<bool>>()?
-                                .unwrap_or_default();
-                        }
+                            result.disabled = map.next_value::<std::option::Option<bool>>()?.unwrap_or_default();
+                        },
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        }
+                        },
                     }
                 }
                 std::result::Result::Ok(result)
@@ -431,9 +389,9 @@ impl<'de> serde::de::Deserialize<'de> for super::CreateServiceAccountRequest {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
-                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -441,38 +399,27 @@ impl<'de> serde::de::Deserialize<'de> for super::CreateServiceAccountRequest {
                     match tag {
                         __FieldTag::__name => {
                             if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for name"));
                             }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.name = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::__account_id => {
                             if !fields.insert(__FieldTag::__account_id) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for account_id",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for account_id"));
                             }
-                            result.account_id = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.account_id = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::__service_account => {
                             if !fields.insert(__FieldTag::__service_account) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for service_account",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for service_account"));
                             }
-                            result.service_account = map
-                                .next_value::<std::option::Option<crate::model::ServiceAccount>>(
-                                )?;
-                        }
+                            result.service_account = map.next_value::<std::option::Option<crate::model::ServiceAccount>>()?
+                                ;
+                        },
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        }
+                        },
                     }
                 }
                 std::result::Result::Ok(result)
@@ -537,9 +484,9 @@ impl<'de> serde::de::Deserialize<'de> for super::ListServiceAccountsRequest {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
-                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -547,47 +494,35 @@ impl<'de> serde::de::Deserialize<'de> for super::ListServiceAccountsRequest {
                     match tag {
                         __FieldTag::__name => {
                             if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for name"));
                             }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.name = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::__page_size => {
                             if !fields.insert(__FieldTag::__page_size) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for page_size",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for page_size"));
                             }
-                            struct __With(std::option::Option<i32>);
+                            struct __With( std::option::Option<i32> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(
-                                    deserializer: D,
-                                ) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.page_size = map.next_value::<__With>()?.0.unwrap_or_default();
-                        }
+                            result.page_size = map.next_value::< __With >()?.0.unwrap_or_default();
+                        },
                         __FieldTag::__page_token => {
                             if !fields.insert(__FieldTag::__page_token) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for page_token",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for page_token"));
                             }
-                            result.page_token = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.page_token = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        }
+                        },
                     }
                 }
                 std::result::Result::Ok(result)
@@ -649,9 +584,9 @@ impl<'de> serde::de::Deserialize<'de> for super::ListServiceAccountsResponse {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
-                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -659,30 +594,20 @@ impl<'de> serde::de::Deserialize<'de> for super::ListServiceAccountsResponse {
                     match tag {
                         __FieldTag::__accounts => {
                             if !fields.insert(__FieldTag::__accounts) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for accounts",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for accounts"));
                             }
-                            result.accounts =
-                                map.next_value::<std::option::Option<
-                                    std::vec::Vec<crate::model::ServiceAccount>,
-                                >>()?
-                                .unwrap_or_default();
-                        }
+                            result.accounts = map.next_value::<std::option::Option<std::vec::Vec<crate::model::ServiceAccount>>>()?.unwrap_or_default();
+                        },
                         __FieldTag::__next_page_token => {
                             if !fields.insert(__FieldTag::__next_page_token) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for next_page_token",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for next_page_token"));
                             }
-                            result.next_page_token = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.next_page_token = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        }
+                        },
                     }
                 }
                 std::result::Result::Ok(result)
@@ -741,9 +666,9 @@ impl<'de> serde::de::Deserialize<'de> for super::GetServiceAccountRequest {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
-                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -751,18 +676,14 @@ impl<'de> serde::de::Deserialize<'de> for super::GetServiceAccountRequest {
                     match tag {
                         __FieldTag::__name => {
                             if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for name"));
                             }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.name = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        }
+                        },
                     }
                 }
                 std::result::Result::Ok(result)
@@ -821,9 +742,9 @@ impl<'de> serde::de::Deserialize<'de> for super::DeleteServiceAccountRequest {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
-                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -831,18 +752,14 @@ impl<'de> serde::de::Deserialize<'de> for super::DeleteServiceAccountRequest {
                     match tag {
                         __FieldTag::__name => {
                             if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for name"));
                             }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.name = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        }
+                        },
                     }
                 }
                 std::result::Result::Ok(result)
@@ -905,9 +822,9 @@ impl<'de> serde::de::Deserialize<'de> for super::PatchServiceAccountRequest {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
-                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -915,27 +832,22 @@ impl<'de> serde::de::Deserialize<'de> for super::PatchServiceAccountRequest {
                     match tag {
                         __FieldTag::__service_account => {
                             if !fields.insert(__FieldTag::__service_account) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for service_account",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for service_account"));
                             }
-                            result.service_account = map
-                                .next_value::<std::option::Option<crate::model::ServiceAccount>>(
-                                )?;
-                        }
+                            result.service_account = map.next_value::<std::option::Option<crate::model::ServiceAccount>>()?
+                                ;
+                        },
                         __FieldTag::__update_mask => {
                             if !fields.insert(__FieldTag::__update_mask) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for update_mask",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for update_mask"));
                             }
-                            result.update_mask =
-                                map.next_value::<std::option::Option<wkt::FieldMask>>()?;
-                        }
+                            result.update_mask = map.next_value::<std::option::Option<wkt::FieldMask>>()?
+                                ;
+                        },
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        }
+                        },
                     }
                 }
                 std::result::Result::Ok(result)
@@ -994,9 +906,9 @@ impl<'de> serde::de::Deserialize<'de> for super::UndeleteServiceAccountRequest {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
-                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -1004,18 +916,14 @@ impl<'de> serde::de::Deserialize<'de> for super::UndeleteServiceAccountRequest {
                     match tag {
                         __FieldTag::__name => {
                             if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for name"));
                             }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.name = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        }
+                        },
                     }
                 }
                 std::result::Result::Ok(result)
@@ -1075,9 +983,9 @@ impl<'de> serde::de::Deserialize<'de> for super::UndeleteServiceAccountResponse 
             where
                 A: serde::de::MapAccess<'de>,
             {
+                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
-                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -1085,18 +993,15 @@ impl<'de> serde::de::Deserialize<'de> for super::UndeleteServiceAccountResponse 
                     match tag {
                         __FieldTag::__restored_account => {
                             if !fields.insert(__FieldTag::__restored_account) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for restored_account",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for restored_account"));
                             }
-                            result.restored_account = map
-                                .next_value::<std::option::Option<crate::model::ServiceAccount>>(
-                                )?;
-                        }
+                            result.restored_account = map.next_value::<std::option::Option<crate::model::ServiceAccount>>()?
+                                ;
+                        },
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        }
+                        },
                     }
                 }
                 std::result::Result::Ok(result)
@@ -1155,9 +1060,9 @@ impl<'de> serde::de::Deserialize<'de> for super::EnableServiceAccountRequest {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
-                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -1165,18 +1070,14 @@ impl<'de> serde::de::Deserialize<'de> for super::EnableServiceAccountRequest {
                     match tag {
                         __FieldTag::__name => {
                             if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for name"));
                             }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.name = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        }
+                        },
                     }
                 }
                 std::result::Result::Ok(result)
@@ -1235,9 +1136,9 @@ impl<'de> serde::de::Deserialize<'de> for super::DisableServiceAccountRequest {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
-                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -1245,18 +1146,14 @@ impl<'de> serde::de::Deserialize<'de> for super::DisableServiceAccountRequest {
                     match tag {
                         __FieldTag::__name => {
                             if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for name"));
                             }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.name = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        }
+                        },
                     }
                 }
                 std::result::Result::Ok(result)
@@ -1318,9 +1215,9 @@ impl<'de> serde::de::Deserialize<'de> for super::ListServiceAccountKeysRequest {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
-                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -1328,32 +1225,20 @@ impl<'de> serde::de::Deserialize<'de> for super::ListServiceAccountKeysRequest {
                     match tag {
                         __FieldTag::__name => {
                             if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for name"));
                             }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.name = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::__key_types => {
                             if !fields.insert(__FieldTag::__key_types) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for key_types",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for key_types"));
                             }
-                            result.key_types = map
-                                .next_value::<std::option::Option<
-                                    std::vec::Vec<
-                                        crate::model::list_service_account_keys_request::KeyType,
-                                    >,
-                                >>()?
-                                .unwrap_or_default();
-                        }
+                            result.key_types = map.next_value::<std::option::Option<std::vec::Vec<crate::model::list_service_account_keys_request::KeyType>>>()?.unwrap_or_default();
+                        },
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        }
+                        },
                     }
                 }
                 std::result::Result::Ok(result)
@@ -1412,9 +1297,9 @@ impl<'de> serde::de::Deserialize<'de> for super::ListServiceAccountKeysResponse 
             where
                 A: serde::de::MapAccess<'de>,
             {
+                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
-                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -1422,20 +1307,14 @@ impl<'de> serde::de::Deserialize<'de> for super::ListServiceAccountKeysResponse 
                     match tag {
                         __FieldTag::__keys => {
                             if !fields.insert(__FieldTag::__keys) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for keys",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for keys"));
                             }
-                            result.keys =
-                                map.next_value::<std::option::Option<
-                                    std::vec::Vec<crate::model::ServiceAccountKey>,
-                                >>()?
-                                .unwrap_or_default();
-                        }
+                            result.keys = map.next_value::<std::option::Option<std::vec::Vec<crate::model::ServiceAccountKey>>>()?.unwrap_or_default();
+                        },
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        }
+                        },
                     }
                 }
                 std::result::Result::Ok(result)
@@ -1497,9 +1376,9 @@ impl<'de> serde::de::Deserialize<'de> for super::GetServiceAccountKeyRequest {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
-                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -1507,26 +1386,20 @@ impl<'de> serde::de::Deserialize<'de> for super::GetServiceAccountKeyRequest {
                     match tag {
                         __FieldTag::__name => {
                             if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for name"));
                             }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.name = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::__public_key_type => {
                             if !fields.insert(__FieldTag::__public_key_type) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for public_key_type",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for public_key_type"));
                             }
                             result.public_key_type = map.next_value::<std::option::Option<crate::model::ServiceAccountPublicKeyType>>()?.unwrap_or_default();
-                        }
+                        },
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        }
+                        },
                     }
                 }
                 std::result::Result::Ok(result)
@@ -1611,9 +1484,9 @@ impl<'de> serde::de::Deserialize<'de> for super::ServiceAccountKey {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
-                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -1621,122 +1494,88 @@ impl<'de> serde::de::Deserialize<'de> for super::ServiceAccountKey {
                     match tag {
                         __FieldTag::__name => {
                             if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for name"));
                             }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.name = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::__private_key_type => {
                             if !fields.insert(__FieldTag::__private_key_type) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for private_key_type",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for private_key_type"));
                             }
                             result.private_key_type = map.next_value::<std::option::Option<crate::model::ServiceAccountPrivateKeyType>>()?.unwrap_or_default();
-                        }
+                        },
                         __FieldTag::__key_algorithm => {
                             if !fields.insert(__FieldTag::__key_algorithm) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for key_algorithm",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for key_algorithm"));
                             }
                             result.key_algorithm = map.next_value::<std::option::Option<crate::model::ServiceAccountKeyAlgorithm>>()?.unwrap_or_default();
-                        }
+                        },
                         __FieldTag::__private_key_data => {
                             if !fields.insert(__FieldTag::__private_key_data) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for private_key_data",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for private_key_data"));
                             }
-                            struct __With(std::option::Option<::bytes::Bytes>);
+                            struct __With( std::option::Option<::bytes::Bytes> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(
-                                    deserializer: D,
-                                ) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.private_key_data =
-                                map.next_value::<__With>()?.0.unwrap_or_default();
-                        }
+                            result.private_key_data = map.next_value::< __With >()?.0.unwrap_or_default();
+                        },
                         __FieldTag::__public_key_data => {
                             if !fields.insert(__FieldTag::__public_key_data) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for public_key_data",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for public_key_data"));
                             }
-                            struct __With(std::option::Option<::bytes::Bytes>);
+                            struct __With( std::option::Option<::bytes::Bytes> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(
-                                    deserializer: D,
-                                ) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.public_key_data =
-                                map.next_value::<__With>()?.0.unwrap_or_default();
-                        }
+                            result.public_key_data = map.next_value::< __With >()?.0.unwrap_or_default();
+                        },
                         __FieldTag::__valid_after_time => {
                             if !fields.insert(__FieldTag::__valid_after_time) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for valid_after_time",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for valid_after_time"));
                             }
-                            result.valid_after_time =
-                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
-                        }
+                            result.valid_after_time = map.next_value::<std::option::Option<wkt::Timestamp>>()?
+                                ;
+                        },
                         __FieldTag::__valid_before_time => {
                             if !fields.insert(__FieldTag::__valid_before_time) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for valid_before_time",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for valid_before_time"));
                             }
-                            result.valid_before_time =
-                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
-                        }
+                            result.valid_before_time = map.next_value::<std::option::Option<wkt::Timestamp>>()?
+                                ;
+                        },
                         __FieldTag::__key_origin => {
                             if !fields.insert(__FieldTag::__key_origin) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for key_origin",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for key_origin"));
                             }
                             result.key_origin = map.next_value::<std::option::Option<crate::model::ServiceAccountKeyOrigin>>()?.unwrap_or_default();
-                        }
+                        },
                         __FieldTag::__key_type => {
                             if !fields.insert(__FieldTag::__key_type) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for key_type",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for key_type"));
                             }
-                            result.key_type = map
-                                .next_value::<std::option::Option<
-                                    crate::model::list_service_account_keys_request::KeyType,
-                                >>()?
-                                .unwrap_or_default();
-                        }
+                            result.key_type = map.next_value::<std::option::Option<crate::model::list_service_account_keys_request::KeyType>>()?.unwrap_or_default();
+                        },
                         __FieldTag::__disabled => {
                             if !fields.insert(__FieldTag::__disabled) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for disabled",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for disabled"));
                             }
-                            result.disabled = map
-                                .next_value::<std::option::Option<bool>>()?
-                                .unwrap_or_default();
-                        }
+                            result.disabled = map.next_value::<std::option::Option<bool>>()?.unwrap_or_default();
+                        },
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        }
+                        },
                     }
                 }
                 std::result::Result::Ok(result)
@@ -1801,9 +1640,9 @@ impl<'de> serde::de::Deserialize<'de> for super::CreateServiceAccountKeyRequest 
             where
                 A: serde::de::MapAccess<'de>,
             {
+                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
-                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -1811,34 +1650,26 @@ impl<'de> serde::de::Deserialize<'de> for super::CreateServiceAccountKeyRequest 
                     match tag {
                         __FieldTag::__name => {
                             if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for name"));
                             }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.name = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::__private_key_type => {
                             if !fields.insert(__FieldTag::__private_key_type) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for private_key_type",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for private_key_type"));
                             }
                             result.private_key_type = map.next_value::<std::option::Option<crate::model::ServiceAccountPrivateKeyType>>()?.unwrap_or_default();
-                        }
+                        },
                         __FieldTag::__key_algorithm => {
                             if !fields.insert(__FieldTag::__key_algorithm) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for key_algorithm",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for key_algorithm"));
                             }
                             result.key_algorithm = map.next_value::<std::option::Option<crate::model::ServiceAccountKeyAlgorithm>>()?.unwrap_or_default();
-                        }
+                        },
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        }
+                        },
                     }
                 }
                 std::result::Result::Ok(result)
@@ -1900,9 +1731,9 @@ impl<'de> serde::de::Deserialize<'de> for super::UploadServiceAccountKeyRequest 
             where
                 A: serde::de::MapAccess<'de>,
             {
+                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
-                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -1910,38 +1741,29 @@ impl<'de> serde::de::Deserialize<'de> for super::UploadServiceAccountKeyRequest 
                     match tag {
                         __FieldTag::__name => {
                             if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for name"));
                             }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.name = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::__public_key_data => {
                             if !fields.insert(__FieldTag::__public_key_data) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for public_key_data",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for public_key_data"));
                             }
-                            struct __With(std::option::Option<::bytes::Bytes>);
+                            struct __With( std::option::Option<::bytes::Bytes> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(
-                                    deserializer: D,
-                                ) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.public_key_data =
-                                map.next_value::<__With>()?.0.unwrap_or_default();
-                        }
+                            result.public_key_data = map.next_value::< __With >()?.0.unwrap_or_default();
+                        },
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        }
+                        },
                     }
                 }
                 std::result::Result::Ok(result)
@@ -2000,9 +1822,9 @@ impl<'de> serde::de::Deserialize<'de> for super::DeleteServiceAccountKeyRequest 
             where
                 A: serde::de::MapAccess<'de>,
             {
+                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
-                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -2010,18 +1832,14 @@ impl<'de> serde::de::Deserialize<'de> for super::DeleteServiceAccountKeyRequest 
                     match tag {
                         __FieldTag::__name => {
                             if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for name"));
                             }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.name = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        }
+                        },
                     }
                 }
                 std::result::Result::Ok(result)
@@ -2080,9 +1898,9 @@ impl<'de> serde::de::Deserialize<'de> for super::DisableServiceAccountKeyRequest
             where
                 A: serde::de::MapAccess<'de>,
             {
+                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
-                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -2090,18 +1908,14 @@ impl<'de> serde::de::Deserialize<'de> for super::DisableServiceAccountKeyRequest
                     match tag {
                         __FieldTag::__name => {
                             if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for name"));
                             }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.name = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        }
+                        },
                     }
                 }
                 std::result::Result::Ok(result)
@@ -2160,9 +1974,9 @@ impl<'de> serde::de::Deserialize<'de> for super::EnableServiceAccountKeyRequest 
             where
                 A: serde::de::MapAccess<'de>,
             {
+                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
-                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -2170,18 +1984,14 @@ impl<'de> serde::de::Deserialize<'de> for super::EnableServiceAccountKeyRequest 
                     match tag {
                         __FieldTag::__name => {
                             if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for name"));
                             }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.name = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        }
+                        },
                     }
                 }
                 std::result::Result::Ok(result)
@@ -2243,9 +2053,9 @@ impl<'de> serde::de::Deserialize<'de> for super::SignBlobRequest {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
-                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -2253,38 +2063,29 @@ impl<'de> serde::de::Deserialize<'de> for super::SignBlobRequest {
                     match tag {
                         __FieldTag::__name => {
                             if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for name"));
                             }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.name = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::__bytes_to_sign => {
                             if !fields.insert(__FieldTag::__bytes_to_sign) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for bytes_to_sign",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for bytes_to_sign"));
                             }
-                            struct __With(std::option::Option<::bytes::Bytes>);
+                            struct __With( std::option::Option<::bytes::Bytes> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(
-                                    deserializer: D,
-                                ) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.bytes_to_sign =
-                                map.next_value::<__With>()?.0.unwrap_or_default();
-                        }
+                            result.bytes_to_sign = map.next_value::< __With >()?.0.unwrap_or_default();
+                        },
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        }
+                        },
                     }
                 }
                 std::result::Result::Ok(result)
@@ -2346,9 +2147,9 @@ impl<'de> serde::de::Deserialize<'de> for super::SignBlobResponse {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
-                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -2356,37 +2157,29 @@ impl<'de> serde::de::Deserialize<'de> for super::SignBlobResponse {
                     match tag {
                         __FieldTag::__key_id => {
                             if !fields.insert(__FieldTag::__key_id) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for key_id",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for key_id"));
                             }
-                            result.key_id = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.key_id = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::__signature => {
                             if !fields.insert(__FieldTag::__signature) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for signature",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for signature"));
                             }
-                            struct __With(std::option::Option<::bytes::Bytes>);
+                            struct __With( std::option::Option<::bytes::Bytes> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(
-                                    deserializer: D,
-                                ) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.signature = map.next_value::<__With>()?.0.unwrap_or_default();
-                        }
+                            result.signature = map.next_value::< __With >()?.0.unwrap_or_default();
+                        },
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        }
+                        },
                     }
                 }
                 std::result::Result::Ok(result)
@@ -2447,9 +2240,9 @@ impl<'de> serde::de::Deserialize<'de> for super::SignJwtRequest {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
-                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -2457,28 +2250,20 @@ impl<'de> serde::de::Deserialize<'de> for super::SignJwtRequest {
                     match tag {
                         __FieldTag::__name => {
                             if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for name"));
                             }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.name = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::__payload => {
                             if !fields.insert(__FieldTag::__payload) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for payload",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for payload"));
                             }
-                            result.payload = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.payload = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        }
+                        },
                     }
                 }
                 std::result::Result::Ok(result)
@@ -2541,9 +2326,9 @@ impl<'de> serde::de::Deserialize<'de> for super::SignJwtResponse {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
-                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -2551,28 +2336,20 @@ impl<'de> serde::de::Deserialize<'de> for super::SignJwtResponse {
                     match tag {
                         __FieldTag::__key_id => {
                             if !fields.insert(__FieldTag::__key_id) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for key_id",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for key_id"));
                             }
-                            result.key_id = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.key_id = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::__signed_jwt => {
                             if !fields.insert(__FieldTag::__signed_jwt) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for signed_jwt",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for signed_jwt"));
                             }
-                            result.signed_jwt = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.signed_jwt = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        }
+                        },
                     }
                 }
                 std::result::Result::Ok(result)
@@ -2644,9 +2421,9 @@ impl<'de> serde::de::Deserialize<'de> for super::Role {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
-                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -2654,83 +2431,59 @@ impl<'de> serde::de::Deserialize<'de> for super::Role {
                     match tag {
                         __FieldTag::__name => {
                             if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for name"));
                             }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.name = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::__title => {
                             if !fields.insert(__FieldTag::__title) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for title",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for title"));
                             }
-                            result.title = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.title = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::__description => {
                             if !fields.insert(__FieldTag::__description) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for description",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for description"));
                             }
-                            result.description = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.description = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::__included_permissions => {
                             if !fields.insert(__FieldTag::__included_permissions) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for included_permissions",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for included_permissions"));
                             }
                             result.included_permissions = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
-                        }
+                        },
                         __FieldTag::__stage => {
                             if !fields.insert(__FieldTag::__stage) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for stage",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for stage"));
                             }
                             result.stage = map.next_value::<std::option::Option<crate::model::role::RoleLaunchStage>>()?.unwrap_or_default();
-                        }
+                        },
                         __FieldTag::__etag => {
                             if !fields.insert(__FieldTag::__etag) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for etag",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for etag"));
                             }
-                            struct __With(std::option::Option<::bytes::Bytes>);
+                            struct __With( std::option::Option<::bytes::Bytes> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(
-                                    deserializer: D,
-                                ) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.etag = map.next_value::<__With>()?.0.unwrap_or_default();
-                        }
+                            result.etag = map.next_value::< __With >()?.0.unwrap_or_default();
+                        },
                         __FieldTag::__deleted => {
                             if !fields.insert(__FieldTag::__deleted) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for deleted",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for deleted"));
                             }
-                            result.deleted = map
-                                .next_value::<std::option::Option<bool>>()?
-                                .unwrap_or_default();
-                        }
+                            result.deleted = map.next_value::<std::option::Option<bool>>()?.unwrap_or_default();
+                        },
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        }
+                        },
                     }
                 }
                 std::result::Result::Ok(result)
@@ -2798,9 +2551,9 @@ impl<'de> serde::de::Deserialize<'de> for super::QueryGrantableRolesRequest {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
-                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -2808,57 +2561,41 @@ impl<'de> serde::de::Deserialize<'de> for super::QueryGrantableRolesRequest {
                     match tag {
                         __FieldTag::__full_resource_name => {
                             if !fields.insert(__FieldTag::__full_resource_name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for full_resource_name",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for full_resource_name"));
                             }
-                            result.full_resource_name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.full_resource_name = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::__view => {
                             if !fields.insert(__FieldTag::__view) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for view",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for view"));
                             }
-                            result.view = map
-                                .next_value::<std::option::Option<crate::model::RoleView>>()?
-                                .unwrap_or_default();
-                        }
+                            result.view = map.next_value::<std::option::Option<crate::model::RoleView>>()?.unwrap_or_default();
+                        },
                         __FieldTag::__page_size => {
                             if !fields.insert(__FieldTag::__page_size) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for page_size",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for page_size"));
                             }
-                            struct __With(std::option::Option<i32>);
+                            struct __With( std::option::Option<i32> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(
-                                    deserializer: D,
-                                ) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.page_size = map.next_value::<__With>()?.0.unwrap_or_default();
-                        }
+                            result.page_size = map.next_value::< __With >()?.0.unwrap_or_default();
+                        },
                         __FieldTag::__page_token => {
                             if !fields.insert(__FieldTag::__page_token) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for page_token",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for page_token"));
                             }
-                            result.page_token = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.page_token = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        }
+                        },
                     }
                 }
                 std::result::Result::Ok(result)
@@ -2920,9 +2657,9 @@ impl<'de> serde::de::Deserialize<'de> for super::QueryGrantableRolesResponse {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
-                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -2930,26 +2667,20 @@ impl<'de> serde::de::Deserialize<'de> for super::QueryGrantableRolesResponse {
                     match tag {
                         __FieldTag::__roles => {
                             if !fields.insert(__FieldTag::__roles) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for roles",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for roles"));
                             }
                             result.roles = map.next_value::<std::option::Option<std::vec::Vec<crate::model::Role>>>()?.unwrap_or_default();
-                        }
+                        },
                         __FieldTag::__next_page_token => {
                             if !fields.insert(__FieldTag::__next_page_token) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for next_page_token",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for next_page_token"));
                             }
-                            result.next_page_token = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.next_page_token = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        }
+                        },
                     }
                 }
                 std::result::Result::Ok(result)
@@ -3019,9 +2750,9 @@ impl<'de> serde::de::Deserialize<'de> for super::ListRolesRequest {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
-                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -3029,67 +2760,47 @@ impl<'de> serde::de::Deserialize<'de> for super::ListRolesRequest {
                     match tag {
                         __FieldTag::__parent => {
                             if !fields.insert(__FieldTag::__parent) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for parent",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for parent"));
                             }
-                            result.parent = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.parent = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::__page_size => {
                             if !fields.insert(__FieldTag::__page_size) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for page_size",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for page_size"));
                             }
-                            struct __With(std::option::Option<i32>);
+                            struct __With( std::option::Option<i32> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(
-                                    deserializer: D,
-                                ) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.page_size = map.next_value::<__With>()?.0.unwrap_or_default();
-                        }
+                            result.page_size = map.next_value::< __With >()?.0.unwrap_or_default();
+                        },
                         __FieldTag::__page_token => {
                             if !fields.insert(__FieldTag::__page_token) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for page_token",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for page_token"));
                             }
-                            result.page_token = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.page_token = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::__view => {
                             if !fields.insert(__FieldTag::__view) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for view",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for view"));
                             }
-                            result.view = map
-                                .next_value::<std::option::Option<crate::model::RoleView>>()?
-                                .unwrap_or_default();
-                        }
+                            result.view = map.next_value::<std::option::Option<crate::model::RoleView>>()?.unwrap_or_default();
+                        },
                         __FieldTag::__show_deleted => {
                             if !fields.insert(__FieldTag::__show_deleted) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for show_deleted",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for show_deleted"));
                             }
-                            result.show_deleted = map
-                                .next_value::<std::option::Option<bool>>()?
-                                .unwrap_or_default();
-                        }
+                            result.show_deleted = map.next_value::<std::option::Option<bool>>()?.unwrap_or_default();
+                        },
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        }
+                        },
                     }
                 }
                 std::result::Result::Ok(result)
@@ -3151,9 +2862,9 @@ impl<'de> serde::de::Deserialize<'de> for super::ListRolesResponse {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
-                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -3161,26 +2872,20 @@ impl<'de> serde::de::Deserialize<'de> for super::ListRolesResponse {
                     match tag {
                         __FieldTag::__roles => {
                             if !fields.insert(__FieldTag::__roles) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for roles",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for roles"));
                             }
                             result.roles = map.next_value::<std::option::Option<std::vec::Vec<crate::model::Role>>>()?.unwrap_or_default();
-                        }
+                        },
                         __FieldTag::__next_page_token => {
                             if !fields.insert(__FieldTag::__next_page_token) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for next_page_token",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for next_page_token"));
                             }
-                            result.next_page_token = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.next_page_token = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        }
+                        },
                     }
                 }
                 std::result::Result::Ok(result)
@@ -3239,9 +2944,9 @@ impl<'de> serde::de::Deserialize<'de> for super::GetRoleRequest {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
-                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -3249,18 +2954,14 @@ impl<'de> serde::de::Deserialize<'de> for super::GetRoleRequest {
                     match tag {
                         __FieldTag::__name => {
                             if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for name"));
                             }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.name = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        }
+                        },
                     }
                 }
                 std::result::Result::Ok(result)
@@ -3324,9 +3025,9 @@ impl<'de> serde::de::Deserialize<'de> for super::CreateRoleRequest {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
-                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -3334,37 +3035,27 @@ impl<'de> serde::de::Deserialize<'de> for super::CreateRoleRequest {
                     match tag {
                         __FieldTag::__parent => {
                             if !fields.insert(__FieldTag::__parent) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for parent",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for parent"));
                             }
-                            result.parent = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.parent = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::__role_id => {
                             if !fields.insert(__FieldTag::__role_id) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for role_id",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for role_id"));
                             }
-                            result.role_id = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.role_id = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::__role => {
                             if !fields.insert(__FieldTag::__role) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for role",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for role"));
                             }
-                            result.role =
-                                map.next_value::<std::option::Option<crate::model::Role>>()?;
-                        }
+                            result.role = map.next_value::<std::option::Option<crate::model::Role>>()?
+                                ;
+                        },
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        }
+                        },
                     }
                 }
                 std::result::Result::Ok(result)
@@ -3428,9 +3119,9 @@ impl<'de> serde::de::Deserialize<'de> for super::UpdateRoleRequest {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
-                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -3438,36 +3129,28 @@ impl<'de> serde::de::Deserialize<'de> for super::UpdateRoleRequest {
                     match tag {
                         __FieldTag::__name => {
                             if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for name"));
                             }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.name = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::__role => {
                             if !fields.insert(__FieldTag::__role) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for role",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for role"));
                             }
-                            result.role =
-                                map.next_value::<std::option::Option<crate::model::Role>>()?;
-                        }
+                            result.role = map.next_value::<std::option::Option<crate::model::Role>>()?
+                                ;
+                        },
                         __FieldTag::__update_mask => {
                             if !fields.insert(__FieldTag::__update_mask) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for update_mask",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for update_mask"));
                             }
-                            result.update_mask =
-                                map.next_value::<std::option::Option<wkt::FieldMask>>()?;
-                        }
+                            result.update_mask = map.next_value::<std::option::Option<wkt::FieldMask>>()?
+                                ;
+                        },
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        }
+                        },
                     }
                 }
                 std::result::Result::Ok(result)
@@ -3528,9 +3211,9 @@ impl<'de> serde::de::Deserialize<'de> for super::DeleteRoleRequest {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
-                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -3538,37 +3221,29 @@ impl<'de> serde::de::Deserialize<'de> for super::DeleteRoleRequest {
                     match tag {
                         __FieldTag::__name => {
                             if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for name"));
                             }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.name = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::__etag => {
                             if !fields.insert(__FieldTag::__etag) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for etag",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for etag"));
                             }
-                            struct __With(std::option::Option<::bytes::Bytes>);
+                            struct __With( std::option::Option<::bytes::Bytes> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(
-                                    deserializer: D,
-                                ) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.etag = map.next_value::<__With>()?.0.unwrap_or_default();
-                        }
+                            result.etag = map.next_value::< __With >()?.0.unwrap_or_default();
+                        },
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        }
+                        },
                     }
                 }
                 std::result::Result::Ok(result)
@@ -3629,9 +3304,9 @@ impl<'de> serde::de::Deserialize<'de> for super::UndeleteRoleRequest {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
-                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -3639,37 +3314,29 @@ impl<'de> serde::de::Deserialize<'de> for super::UndeleteRoleRequest {
                     match tag {
                         __FieldTag::__name => {
                             if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for name"));
                             }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.name = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::__etag => {
                             if !fields.insert(__FieldTag::__etag) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for etag",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for etag"));
                             }
-                            struct __With(std::option::Option<::bytes::Bytes>);
+                            struct __With( std::option::Option<::bytes::Bytes> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(
-                                    deserializer: D,
-                                ) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.etag = map.next_value::<__With>()?.0.unwrap_or_default();
-                        }
+                            result.etag = map.next_value::< __With >()?.0.unwrap_or_default();
+                        },
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        }
+                        },
                     }
                 }
                 std::result::Result::Ok(result)
@@ -3721,16 +3388,10 @@ impl<'de> serde::de::Deserialize<'de> for super::Permission {
                             "title" => Ok(__FieldTag::__title),
                             "description" => Ok(__FieldTag::__description),
                             "onlyInPredefinedRoles" => Ok(__FieldTag::__only_in_predefined_roles),
-                            "only_in_predefined_roles" => {
-                                Ok(__FieldTag::__only_in_predefined_roles)
-                            }
+                            "only_in_predefined_roles" => Ok(__FieldTag::__only_in_predefined_roles),
                             "stage" => Ok(__FieldTag::__stage),
-                            "customRolesSupportLevel" => {
-                                Ok(__FieldTag::__custom_roles_support_level)
-                            }
-                            "custom_roles_support_level" => {
-                                Ok(__FieldTag::__custom_roles_support_level)
-                            }
+                            "customRolesSupportLevel" => Ok(__FieldTag::__custom_roles_support_level),
+                            "custom_roles_support_level" => Ok(__FieldTag::__custom_roles_support_level),
                             "apiDisabled" => Ok(__FieldTag::__api_disabled),
                             "api_disabled" => Ok(__FieldTag::__api_disabled),
                             "primaryPermission" => Ok(__FieldTag::__primary_permission),
@@ -3752,9 +3413,9 @@ impl<'de> serde::de::Deserialize<'de> for super::Permission {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
-                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -3762,92 +3423,56 @@ impl<'de> serde::de::Deserialize<'de> for super::Permission {
                     match tag {
                         __FieldTag::__name => {
                             if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for name"));
                             }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.name = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::__title => {
                             if !fields.insert(__FieldTag::__title) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for title",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for title"));
                             }
-                            result.title = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.title = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::__description => {
                             if !fields.insert(__FieldTag::__description) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for description",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for description"));
                             }
-                            result.description = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.description = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::__only_in_predefined_roles => {
                             if !fields.insert(__FieldTag::__only_in_predefined_roles) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for only_in_predefined_roles",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for only_in_predefined_roles"));
                             }
-                            result.only_in_predefined_roles = map
-                                .next_value::<std::option::Option<bool>>()?
-                                .unwrap_or_default();
-                        }
+                            result.only_in_predefined_roles = map.next_value::<std::option::Option<bool>>()?.unwrap_or_default();
+                        },
                         __FieldTag::__stage => {
                             if !fields.insert(__FieldTag::__stage) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for stage",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for stage"));
                             }
-                            result.stage = map
-                                .next_value::<std::option::Option<
-                                    crate::model::permission::PermissionLaunchStage,
-                                >>()?
-                                .unwrap_or_default();
-                        }
+                            result.stage = map.next_value::<std::option::Option<crate::model::permission::PermissionLaunchStage>>()?.unwrap_or_default();
+                        },
                         __FieldTag::__custom_roles_support_level => {
                             if !fields.insert(__FieldTag::__custom_roles_support_level) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for custom_roles_support_level",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for custom_roles_support_level"));
                             }
-                            result.custom_roles_support_level = map
-                                .next_value::<std::option::Option<
-                                    crate::model::permission::CustomRolesSupportLevel,
-                                >>()?
-                                .unwrap_or_default();
-                        }
+                            result.custom_roles_support_level = map.next_value::<std::option::Option<crate::model::permission::CustomRolesSupportLevel>>()?.unwrap_or_default();
+                        },
                         __FieldTag::__api_disabled => {
                             if !fields.insert(__FieldTag::__api_disabled) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for api_disabled",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for api_disabled"));
                             }
-                            result.api_disabled = map
-                                .next_value::<std::option::Option<bool>>()?
-                                .unwrap_or_default();
-                        }
+                            result.api_disabled = map.next_value::<std::option::Option<bool>>()?.unwrap_or_default();
+                        },
                         __FieldTag::__primary_permission => {
                             if !fields.insert(__FieldTag::__primary_permission) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for primary_permission",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for primary_permission"));
                             }
-                            result.primary_permission = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.primary_permission = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        }
+                        },
                     }
                 }
                 std::result::Result::Ok(result)
@@ -3913,9 +3538,9 @@ impl<'de> serde::de::Deserialize<'de> for super::QueryTestablePermissionsRequest
             where
                 A: serde::de::MapAccess<'de>,
             {
+                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
-                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -3923,47 +3548,35 @@ impl<'de> serde::de::Deserialize<'de> for super::QueryTestablePermissionsRequest
                     match tag {
                         __FieldTag::__full_resource_name => {
                             if !fields.insert(__FieldTag::__full_resource_name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for full_resource_name",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for full_resource_name"));
                             }
-                            result.full_resource_name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.full_resource_name = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::__page_size => {
                             if !fields.insert(__FieldTag::__page_size) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for page_size",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for page_size"));
                             }
-                            struct __With(std::option::Option<i32>);
+                            struct __With( std::option::Option<i32> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(
-                                    deserializer: D,
-                                ) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.page_size = map.next_value::<__With>()?.0.unwrap_or_default();
-                        }
+                            result.page_size = map.next_value::< __With >()?.0.unwrap_or_default();
+                        },
                         __FieldTag::__page_token => {
                             if !fields.insert(__FieldTag::__page_token) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for page_token",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for page_token"));
                             }
-                            result.page_token = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.page_token = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        }
+                        },
                     }
                 }
                 std::result::Result::Ok(result)
@@ -4025,9 +3638,9 @@ impl<'de> serde::de::Deserialize<'de> for super::QueryTestablePermissionsRespons
             where
                 A: serde::de::MapAccess<'de>,
             {
+                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
-                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -4035,26 +3648,20 @@ impl<'de> serde::de::Deserialize<'de> for super::QueryTestablePermissionsRespons
                     match tag {
                         __FieldTag::__permissions => {
                             if !fields.insert(__FieldTag::__permissions) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for permissions",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for permissions"));
                             }
                             result.permissions = map.next_value::<std::option::Option<std::vec::Vec<crate::model::Permission>>>()?.unwrap_or_default();
-                        }
+                        },
                         __FieldTag::__next_page_token => {
                             if !fields.insert(__FieldTag::__next_page_token) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for next_page_token",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for next_page_token"));
                             }
-                            result.next_page_token = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.next_page_token = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        }
+                        },
                     }
                 }
                 std::result::Result::Ok(result)
@@ -4114,9 +3721,9 @@ impl<'de> serde::de::Deserialize<'de> for super::QueryAuditableServicesRequest {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
-                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -4124,18 +3731,14 @@ impl<'de> serde::de::Deserialize<'de> for super::QueryAuditableServicesRequest {
                     match tag {
                         __FieldTag::__full_resource_name => {
                             if !fields.insert(__FieldTag::__full_resource_name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for full_resource_name",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for full_resource_name"));
                             }
-                            result.full_resource_name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.full_resource_name = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        }
+                        },
                     }
                 }
                 std::result::Result::Ok(result)
@@ -4194,9 +3797,9 @@ impl<'de> serde::de::Deserialize<'de> for super::QueryAuditableServicesResponse 
             where
                 A: serde::de::MapAccess<'de>,
             {
+                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
-                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -4204,16 +3807,14 @@ impl<'de> serde::de::Deserialize<'de> for super::QueryAuditableServicesResponse 
                     match tag {
                         __FieldTag::__services => {
                             if !fields.insert(__FieldTag::__services) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for services",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for services"));
                             }
                             result.services = map.next_value::<std::option::Option<std::vec::Vec<crate::model::query_auditable_services_response::AuditableService>>>()?.unwrap_or_default();
-                        }
+                        },
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        }
+                        },
                     }
                 }
                 std::result::Result::Ok(result)
@@ -4224,9 +3825,7 @@ impl<'de> serde::de::Deserialize<'de> for super::QueryAuditableServicesResponse 
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de>
-    for super::query_auditable_services_response::AuditableService
-{
+impl<'de> serde::de::Deserialize<'de> for super::query_auditable_services_response::AuditableService {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -4274,9 +3873,9 @@ impl<'de> serde::de::Deserialize<'de>
             where
                 A: serde::de::MapAccess<'de>,
             {
+                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
-                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -4284,18 +3883,14 @@ impl<'de> serde::de::Deserialize<'de>
                     match tag {
                         __FieldTag::__name => {
                             if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for name"));
                             }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.name = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        }
+                        },
                     }
                 }
                 std::result::Result::Ok(result)
@@ -4357,9 +3952,9 @@ impl<'de> serde::de::Deserialize<'de> for super::LintPolicyRequest {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
-                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -4367,39 +3962,29 @@ impl<'de> serde::de::Deserialize<'de> for super::LintPolicyRequest {
                     match tag {
                         __FieldTag::__full_resource_name => {
                             if !fields.insert(__FieldTag::__full_resource_name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for full_resource_name",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for full_resource_name"));
                             }
-                            result.full_resource_name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.full_resource_name = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::__condition => {
                             if !fields.insert(__FieldTag::__condition) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for condition",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for condition"));
                             }
                             if result.lint_object.is_some() {
                                 return std::result::Result::Err(A::Error::duplicate_field(
                                     "multiple values for `lint_object`, a oneof with full ID .google.iam.admin.v1.LintPolicyRequest.condition, latest field was condition",
                                 ));
                             }
-                            result.lint_object =
-                                std::option::Option::Some(
-                                    crate::model::lint_policy_request::LintObject::Condition(
-                                        map.next_value::<std::option::Option<
-                                            std::boxed::Box<gtype::model::Expr>,
-                                        >>()?
-                                        .unwrap_or_default(),
-                                    ),
-                                );
-                        }
+                            result.lint_object = std::option::Option::Some(
+                                crate::model::lint_policy_request::LintObject::Condition(
+                                    map.next_value::<std::option::Option<std::boxed::Box<gtype::model::Expr>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        },
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        }
+                        },
                     }
                 }
                 std::result::Result::Ok(result)
@@ -4472,9 +4057,9 @@ impl<'de> serde::de::Deserialize<'de> for super::LintResult {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
-                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -4482,74 +4067,53 @@ impl<'de> serde::de::Deserialize<'de> for super::LintResult {
                     match tag {
                         __FieldTag::__level => {
                             if !fields.insert(__FieldTag::__level) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for level",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for level"));
                             }
                             result.level = map.next_value::<std::option::Option<crate::model::lint_result::Level>>()?.unwrap_or_default();
-                        }
+                        },
                         __FieldTag::__validation_unit_name => {
                             if !fields.insert(__FieldTag::__validation_unit_name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for validation_unit_name",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for validation_unit_name"));
                             }
-                            result.validation_unit_name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.validation_unit_name = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::__severity => {
                             if !fields.insert(__FieldTag::__severity) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for severity",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for severity"));
                             }
                             result.severity = map.next_value::<std::option::Option<crate::model::lint_result::Severity>>()?.unwrap_or_default();
-                        }
+                        },
                         __FieldTag::__field_name => {
                             if !fields.insert(__FieldTag::__field_name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for field_name",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for field_name"));
                             }
-                            result.field_name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.field_name = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::__location_offset => {
                             if !fields.insert(__FieldTag::__location_offset) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for location_offset",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for location_offset"));
                             }
-                            struct __With(std::option::Option<i32>);
+                            struct __With( std::option::Option<i32> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(
-                                    deserializer: D,
-                                ) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.location_offset =
-                                map.next_value::<__With>()?.0.unwrap_or_default();
-                        }
+                            result.location_offset = map.next_value::< __With >()?.0.unwrap_or_default();
+                        },
                         __FieldTag::__debug_message => {
                             if !fields.insert(__FieldTag::__debug_message) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for debug_message",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for debug_message"));
                             }
-                            result.debug_message = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.debug_message = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        }
+                        },
                     }
                 }
                 std::result::Result::Ok(result)
@@ -4609,9 +4173,9 @@ impl<'de> serde::de::Deserialize<'de> for super::LintPolicyResponse {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
-                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -4619,16 +4183,14 @@ impl<'de> serde::de::Deserialize<'de> for super::LintPolicyResponse {
                     match tag {
                         __FieldTag::__lint_results => {
                             if !fields.insert(__FieldTag::__lint_results) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for lint_results",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for lint_results"));
                             }
                             result.lint_results = map.next_value::<std::option::Option<std::vec::Vec<crate::model::LintResult>>>()?.unwrap_or_default();
-                        }
+                        },
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        }
+                        },
                     }
                 }
                 std::result::Result::Ok(result)

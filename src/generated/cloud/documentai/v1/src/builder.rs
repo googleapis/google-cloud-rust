@@ -39,10 +39,7 @@ pub mod document_processor_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = DocumentProcessorService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(
-                self,
-                config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -57,12 +54,8 @@ pub mod document_processor_service {
     }
 
     impl<R> RequestBuilder<R>
-    where
-        R: std::default::Default,
-    {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
-        ) -> Self {
+    where R: std::default::Default {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -92,10 +85,10 @@ pub mod document_processor_service {
     pub struct ProcessDocument(RequestBuilder<crate::model::ProcessRequest>);
 
     impl ProcessDocument {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -112,10 +105,7 @@ pub mod document_processor_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ProcessResponse> {
-            (*self.0.stub)
-                .process_document(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).process_document(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ProcessRequest::name].
@@ -134,8 +124,7 @@ pub mod document_processor_service {
 
         /// Sets the value of [field_mask][crate::model::ProcessRequest::field_mask].
         pub fn set_field_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.field_mask = std::option::Option::Some(v.into());
             self
@@ -143,8 +132,7 @@ pub mod document_processor_service {
 
         /// Sets or clears the value of [field_mask][crate::model::ProcessRequest::field_mask].
         pub fn set_or_clear_field_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.field_mask = v.map(|x| x.into());
             self
@@ -152,8 +140,7 @@ pub mod document_processor_service {
 
         /// Sets the value of [process_options][crate::model::ProcessRequest::process_options].
         pub fn set_process_options<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::ProcessOptions>,
+        where T: std::convert::Into<crate::model::ProcessOptions>
         {
             self.0.request.process_options = std::option::Option::Some(v.into());
             self
@@ -161,8 +148,7 @@ pub mod document_processor_service {
 
         /// Sets or clears the value of [process_options][crate::model::ProcessRequest::process_options].
         pub fn set_or_clear_process_options<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::ProcessOptions>,
+        where T: std::convert::Into<crate::model::ProcessOptions>
         {
             self.0.request.process_options = v.map(|x| x.into());
             self
@@ -189,10 +175,7 @@ pub mod document_processor_service {
         ///
         /// Note that all the setters affecting `source` are
         /// mutually exclusive.
-        pub fn set_source<T: Into<Option<crate::model::process_request::Source>>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_source<T: Into<Option<crate::model::process_request::Source>>>(mut self, v: T) ->Self {
             self.0.request.source = v.into();
             self
         }
@@ -202,12 +185,7 @@ pub mod document_processor_service {
         ///
         /// Note that all the setters affecting `source` are
         /// mutually exclusive.
-        pub fn set_inline_document<
-            T: std::convert::Into<std::boxed::Box<crate::model::Document>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_inline_document<T: std::convert::Into<std::boxed::Box<crate::model::Document>>>(mut self, v: T) -> Self {
             self.0.request = self.0.request.set_inline_document(v);
             self
         }
@@ -217,12 +195,7 @@ pub mod document_processor_service {
         ///
         /// Note that all the setters affecting `source` are
         /// mutually exclusive.
-        pub fn set_raw_document<
-            T: std::convert::Into<std::boxed::Box<crate::model::RawDocument>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_raw_document<T: std::convert::Into<std::boxed::Box<crate::model::RawDocument>>>(mut self, v: T) -> Self {
             self.0.request = self.0.request.set_raw_document(v);
             self
         }
@@ -232,12 +205,7 @@ pub mod document_processor_service {
         ///
         /// Note that all the setters affecting `source` are
         /// mutually exclusive.
-        pub fn set_gcs_document<
-            T: std::convert::Into<std::boxed::Box<crate::model::GcsDocument>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_gcs_document<T: std::convert::Into<std::boxed::Box<crate::model::GcsDocument>>>(mut self, v: T) -> Self {
             self.0.request = self.0.request.set_gcs_document(v);
             self
         }
@@ -272,10 +240,10 @@ pub mod document_processor_service {
     pub struct BatchProcessDocuments(RequestBuilder<crate::model::BatchProcessRequest>);
 
     impl BatchProcessDocuments {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -297,21 +265,16 @@ pub mod document_processor_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [batch_process_documents][crate::client::DocumentProcessorService::batch_process_documents].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .batch_process_documents(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).batch_process_documents(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `batch_process_documents`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::BatchProcessResponse, crate::model::BatchProcessMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::BatchProcessResponse, crate::model::BatchProcessMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::BatchProcessResponse,
-                crate::model::BatchProcessMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::BatchProcessResponse, crate::model::BatchProcessMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -349,8 +312,7 @@ pub mod document_processor_service {
 
         /// Sets the value of [input_documents][crate::model::BatchProcessRequest::input_documents].
         pub fn set_input_documents<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::BatchDocumentsInputConfig>,
+        where T: std::convert::Into<crate::model::BatchDocumentsInputConfig>
         {
             self.0.request.input_documents = std::option::Option::Some(v.into());
             self
@@ -358,8 +320,7 @@ pub mod document_processor_service {
 
         /// Sets or clears the value of [input_documents][crate::model::BatchProcessRequest::input_documents].
         pub fn set_or_clear_input_documents<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::BatchDocumentsInputConfig>,
+        where T: std::convert::Into<crate::model::BatchDocumentsInputConfig>
         {
             self.0.request.input_documents = v.map(|x| x.into());
             self
@@ -367,8 +328,7 @@ pub mod document_processor_service {
 
         /// Sets the value of [document_output_config][crate::model::BatchProcessRequest::document_output_config].
         pub fn set_document_output_config<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::DocumentOutputConfig>,
+        where T: std::convert::Into<crate::model::DocumentOutputConfig>
         {
             self.0.request.document_output_config = std::option::Option::Some(v.into());
             self
@@ -376,8 +336,7 @@ pub mod document_processor_service {
 
         /// Sets or clears the value of [document_output_config][crate::model::BatchProcessRequest::document_output_config].
         pub fn set_or_clear_document_output_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::DocumentOutputConfig>,
+        where T: std::convert::Into<crate::model::DocumentOutputConfig>
         {
             self.0.request.document_output_config = v.map(|x| x.into());
             self
@@ -391,8 +350,7 @@ pub mod document_processor_service {
 
         /// Sets the value of [process_options][crate::model::BatchProcessRequest::process_options].
         pub fn set_process_options<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::ProcessOptions>,
+        where T: std::convert::Into<crate::model::ProcessOptions>
         {
             self.0.request.process_options = std::option::Option::Some(v.into());
             self
@@ -400,8 +358,7 @@ pub mod document_processor_service {
 
         /// Sets or clears the value of [process_options][crate::model::BatchProcessRequest::process_options].
         pub fn set_or_clear_process_options<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::ProcessOptions>,
+        where T: std::convert::Into<crate::model::ProcessOptions>
         {
             self.0.request.process_options = v.map(|x| x.into());
             self
@@ -447,17 +404,14 @@ pub mod document_processor_service {
     pub struct FetchProcessorTypes(RequestBuilder<crate::model::FetchProcessorTypesRequest>);
 
     impl FetchProcessorTypes {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::FetchProcessorTypesRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::FetchProcessorTypesRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -470,10 +424,7 @@ pub mod document_processor_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::FetchProcessorTypesResponse> {
-            (*self.0.stub)
-                .fetch_processor_types(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).fetch_processor_types(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::FetchProcessorTypesRequest::parent].
@@ -517,17 +468,14 @@ pub mod document_processor_service {
     pub struct ListProcessorTypes(RequestBuilder<crate::model::ListProcessorTypesRequest>);
 
     impl ListProcessorTypes {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListProcessorTypesRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListProcessorTypesRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -540,17 +488,11 @@ pub mod document_processor_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListProcessorTypesResponse> {
-            (*self.0.stub)
-                .list_processor_types(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_processor_types(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListProcessorTypesResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListProcessorTypesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -562,12 +504,7 @@ pub mod document_processor_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListProcessorTypesResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListProcessorTypesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -621,17 +558,14 @@ pub mod document_processor_service {
     pub struct GetProcessorType(RequestBuilder<crate::model::GetProcessorTypeRequest>);
 
     impl GetProcessorType {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetProcessorTypeRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetProcessorTypeRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -644,10 +578,7 @@ pub mod document_processor_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ProcessorType> {
-            (*self.0.stub)
-                .get_processor_type(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_processor_type(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetProcessorTypeRequest::name].
@@ -691,10 +622,10 @@ pub mod document_processor_service {
     pub struct ListProcessors(RequestBuilder<crate::model::ListProcessorsRequest>);
 
     impl ListProcessors {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -711,17 +642,11 @@ pub mod document_processor_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListProcessorsResponse> {
-            (*self.0.stub)
-                .list_processors(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_processors(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListProcessorsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListProcessorsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -733,10 +658,7 @@ pub mod document_processor_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListProcessorsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListProcessorsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -790,10 +712,10 @@ pub mod document_processor_service {
     pub struct GetProcessor(RequestBuilder<crate::model::GetProcessorRequest>);
 
     impl GetProcessor {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -810,10 +732,7 @@ pub mod document_processor_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Processor> {
-            (*self.0.stub)
-                .get_processor(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_processor(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetProcessorRequest::name].
@@ -854,17 +773,14 @@ pub mod document_processor_service {
     pub struct TrainProcessorVersion(RequestBuilder<crate::model::TrainProcessorVersionRequest>);
 
     impl TrainProcessorVersion {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::TrainProcessorVersionRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::TrainProcessorVersionRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -882,23 +798,16 @@ pub mod document_processor_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [train_processor_version][crate::client::DocumentProcessorService::train_processor_version].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .train_processor_version(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).train_processor_version(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `train_processor_version`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<
-            crate::model::TrainProcessorVersionResponse,
-            crate::model::TrainProcessorVersionMetadata,
-        > {
-            type Operation = lro::internal::Operation<
-                crate::model::TrainProcessorVersionResponse,
-                crate::model::TrainProcessorVersionMetadata,
-            >;
+            self
+        ) ->
+            impl lro::Poller<crate::model::TrainProcessorVersionResponse, crate::model::TrainProcessorVersionMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::TrainProcessorVersionResponse, crate::model::TrainProcessorVersionMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -938,8 +847,7 @@ pub mod document_processor_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_processor_version<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::ProcessorVersion>,
+        where T: std::convert::Into<crate::model::ProcessorVersion>
         {
             self.0.request.processor_version = std::option::Option::Some(v.into());
             self
@@ -949,8 +857,7 @@ pub mod document_processor_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_processor_version<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::ProcessorVersion>,
+        where T: std::convert::Into<crate::model::ProcessorVersion>
         {
             self.0.request.processor_version = v.map(|x| x.into());
             self
@@ -958,8 +865,7 @@ pub mod document_processor_service {
 
         /// Sets the value of [document_schema][crate::model::TrainProcessorVersionRequest::document_schema].
         pub fn set_document_schema<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::DocumentSchema>,
+        where T: std::convert::Into<crate::model::DocumentSchema>
         {
             self.0.request.document_schema = std::option::Option::Some(v.into());
             self
@@ -967,8 +873,7 @@ pub mod document_processor_service {
 
         /// Sets or clears the value of [document_schema][crate::model::TrainProcessorVersionRequest::document_schema].
         pub fn set_or_clear_document_schema<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::DocumentSchema>,
+        where T: std::convert::Into<crate::model::DocumentSchema>
         {
             self.0.request.document_schema = v.map(|x| x.into());
             self
@@ -976,8 +881,7 @@ pub mod document_processor_service {
 
         /// Sets the value of [input_data][crate::model::TrainProcessorVersionRequest::input_data].
         pub fn set_input_data<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::train_processor_version_request::InputData>,
+        where T: std::convert::Into<crate::model::train_processor_version_request::InputData>
         {
             self.0.request.input_data = std::option::Option::Some(v.into());
             self
@@ -985,8 +889,7 @@ pub mod document_processor_service {
 
         /// Sets or clears the value of [input_data][crate::model::TrainProcessorVersionRequest::input_data].
         pub fn set_or_clear_input_data<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::train_processor_version_request::InputData>,
+        where T: std::convert::Into<crate::model::train_processor_version_request::InputData>
         {
             self.0.request.input_data = v.map(|x| x.into());
             self
@@ -1002,12 +905,7 @@ pub mod document_processor_service {
         ///
         /// Note that all the setters affecting `processor_flags` are
         /// mutually exclusive.
-        pub fn set_processor_flags<
-            T: Into<Option<crate::model::train_processor_version_request::ProcessorFlags>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_processor_flags<T: Into<Option<crate::model::train_processor_version_request::ProcessorFlags>>>(mut self, v: T) ->Self {
             self.0.request.processor_flags = v.into();
             self
         }
@@ -1017,7 +915,7 @@ pub mod document_processor_service {
         ///
         /// Note that all the setters affecting `processor_flags` are
         /// mutually exclusive.
-        pub fn set_custom_document_extraction_options<T: std::convert::Into<std::boxed::Box<crate::model::train_processor_version_request::CustomDocumentExtractionOptions>>>(mut self, v: T) -> Self{
+        pub fn set_custom_document_extraction_options<T: std::convert::Into<std::boxed::Box<crate::model::train_processor_version_request::CustomDocumentExtractionOptions>>>(mut self, v: T) -> Self {
             self.0.request = self.0.request.set_custom_document_extraction_options(v);
             self
         }
@@ -1027,16 +925,7 @@ pub mod document_processor_service {
         ///
         /// Note that all the setters affecting `processor_flags` are
         /// mutually exclusive.
-        pub fn set_foundation_model_tuning_options<
-            T: std::convert::Into<
-                    std::boxed::Box<
-                        crate::model::train_processor_version_request::FoundationModelTuningOptions,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_foundation_model_tuning_options<T: std::convert::Into<std::boxed::Box<crate::model::train_processor_version_request::FoundationModelTuningOptions>>>(mut self, v: T) -> Self {
             self.0.request = self.0.request.set_foundation_model_tuning_options(v);
             self
         }
@@ -1070,17 +959,14 @@ pub mod document_processor_service {
     pub struct GetProcessorVersion(RequestBuilder<crate::model::GetProcessorVersionRequest>);
 
     impl GetProcessorVersion {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetProcessorVersionRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetProcessorVersionRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1093,10 +979,7 @@ pub mod document_processor_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ProcessorVersion> {
-            (*self.0.stub)
-                .get_processor_version(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_processor_version(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetProcessorVersionRequest::name].
@@ -1140,17 +1023,14 @@ pub mod document_processor_service {
     pub struct ListProcessorVersions(RequestBuilder<crate::model::ListProcessorVersionsRequest>);
 
     impl ListProcessorVersions {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListProcessorVersionsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListProcessorVersionsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1163,17 +1043,11 @@ pub mod document_processor_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListProcessorVersionsResponse> {
-            (*self.0.stub)
-                .list_processor_versions(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_processor_versions(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListProcessorVersionsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListProcessorVersionsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1185,12 +1059,7 @@ pub mod document_processor_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListProcessorVersionsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListProcessorVersionsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1245,17 +1114,14 @@ pub mod document_processor_service {
     pub struct DeleteProcessorVersion(RequestBuilder<crate::model::DeleteProcessorVersionRequest>);
 
     impl DeleteProcessorVersion {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteProcessorVersionRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteProcessorVersionRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1273,16 +1139,16 @@ pub mod document_processor_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_processor_version][crate::client::DocumentProcessorService::delete_processor_version].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .delete_processor_version(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_processor_version(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_processor_version`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteProcessorVersionMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::DeleteProcessorVersionMetadata>;
+        pub fn poller(
+            self
+        ) ->
+            impl lro::Poller<(), crate::model::DeleteProcessorVersionMetadata>
+        {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::DeleteProcessorVersionMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1307,12 +1173,7 @@ pub mod document_processor_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteProcessorVersionRequest::name].
@@ -1353,17 +1214,14 @@ pub mod document_processor_service {
     pub struct DeployProcessorVersion(RequestBuilder<crate::model::DeployProcessorVersionRequest>);
 
     impl DeployProcessorVersion {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeployProcessorVersionRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DeployProcessorVersionRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1381,23 +1239,16 @@ pub mod document_processor_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [deploy_processor_version][crate::client::DocumentProcessorService::deploy_processor_version].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .deploy_processor_version(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).deploy_processor_version(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `deploy_processor_version`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<
-            crate::model::DeployProcessorVersionResponse,
-            crate::model::DeployProcessorVersionMetadata,
-        > {
-            type Operation = lro::internal::Operation<
-                crate::model::DeployProcessorVersionResponse,
-                crate::model::DeployProcessorVersionMetadata,
-            >;
+            self
+        ) ->
+            impl lro::Poller<crate::model::DeployProcessorVersionResponse, crate::model::DeployProcessorVersionMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::DeployProcessorVersionResponse, crate::model::DeployProcessorVersionMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1460,22 +1311,17 @@ pub mod document_processor_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UndeployProcessorVersion(
-        RequestBuilder<crate::model::UndeployProcessorVersionRequest>,
-    );
+    pub struct UndeployProcessorVersion(RequestBuilder<crate::model::UndeployProcessorVersionRequest>);
 
     impl UndeployProcessorVersion {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UndeployProcessorVersionRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UndeployProcessorVersionRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1493,23 +1339,16 @@ pub mod document_processor_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [undeploy_processor_version][crate::client::DocumentProcessorService::undeploy_processor_version].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .undeploy_processor_version(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).undeploy_processor_version(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `undeploy_processor_version`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<
-            crate::model::UndeployProcessorVersionResponse,
-            crate::model::UndeployProcessorVersionMetadata,
-        > {
-            type Operation = lro::internal::Operation<
-                crate::model::UndeployProcessorVersionResponse,
-                crate::model::UndeployProcessorVersionMetadata,
-            >;
+            self
+        ) ->
+            impl lro::Poller<crate::model::UndeployProcessorVersionResponse, crate::model::UndeployProcessorVersionMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::UndeployProcessorVersionResponse, crate::model::UndeployProcessorVersionMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1574,10 +1413,10 @@ pub mod document_processor_service {
     pub struct CreateProcessor(RequestBuilder<crate::model::CreateProcessorRequest>);
 
     impl CreateProcessor {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1594,10 +1433,7 @@ pub mod document_processor_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Processor> {
-            (*self.0.stub)
-                .create_processor(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_processor(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateProcessorRequest::parent].
@@ -1612,8 +1448,7 @@ pub mod document_processor_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_processor<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Processor>,
+        where T: std::convert::Into<crate::model::Processor>
         {
             self.0.request.processor = std::option::Option::Some(v.into());
             self
@@ -1623,8 +1458,7 @@ pub mod document_processor_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_processor<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Processor>,
+        where T: std::convert::Into<crate::model::Processor>
         {
             self.0.request.processor = v.map(|x| x.into());
             self
@@ -1660,10 +1494,10 @@ pub mod document_processor_service {
     pub struct DeleteProcessor(RequestBuilder<crate::model::DeleteProcessorRequest>);
 
     impl DeleteProcessor {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1685,16 +1519,16 @@ pub mod document_processor_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_processor][crate::client::DocumentProcessorService::delete_processor].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .delete_processor(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_processor(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_processor`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteProcessorMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::DeleteProcessorMetadata>;
+        pub fn poller(
+            self
+        ) ->
+            impl lro::Poller<(), crate::model::DeleteProcessorMetadata>
+        {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::DeleteProcessorMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1719,12 +1553,7 @@ pub mod document_processor_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteProcessorRequest::name].
@@ -1765,10 +1594,10 @@ pub mod document_processor_service {
     pub struct EnableProcessor(RequestBuilder<crate::model::EnableProcessorRequest>);
 
     impl EnableProcessor {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1790,21 +1619,16 @@ pub mod document_processor_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [enable_processor][crate::client::DocumentProcessorService::enable_processor].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .enable_processor(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).enable_processor(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `enable_processor`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::EnableProcessorResponse, crate::model::EnableProcessorMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::EnableProcessorResponse, crate::model::EnableProcessorMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::EnableProcessorResponse,
-                crate::model::EnableProcessorMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::EnableProcessorResponse, crate::model::EnableProcessorMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1870,17 +1694,14 @@ pub mod document_processor_service {
     pub struct DisableProcessor(RequestBuilder<crate::model::DisableProcessorRequest>);
 
     impl DisableProcessor {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DisableProcessorRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DisableProcessorRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1898,23 +1719,16 @@ pub mod document_processor_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [disable_processor][crate::client::DocumentProcessorService::disable_processor].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .disable_processor(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).disable_processor(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `disable_processor`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<
-            crate::model::DisableProcessorResponse,
-            crate::model::DisableProcessorMetadata,
-        > {
-            type Operation = lro::internal::Operation<
-                crate::model::DisableProcessorResponse,
-                crate::model::DisableProcessorMetadata,
-            >;
+            self
+        ) ->
+            impl lro::Poller<crate::model::DisableProcessorResponse, crate::model::DisableProcessorMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::DisableProcessorResponse, crate::model::DisableProcessorMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1977,22 +1791,17 @@ pub mod document_processor_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetDefaultProcessorVersion(
-        RequestBuilder<crate::model::SetDefaultProcessorVersionRequest>,
-    );
+    pub struct SetDefaultProcessorVersion(RequestBuilder<crate::model::SetDefaultProcessorVersionRequest>);
 
     impl SetDefaultProcessorVersion {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SetDefaultProcessorVersionRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::SetDefaultProcessorVersionRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2010,23 +1819,16 @@ pub mod document_processor_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [set_default_processor_version][crate::client::DocumentProcessorService::set_default_processor_version].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .set_default_processor_version(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).set_default_processor_version(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `set_default_processor_version`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<
-            crate::model::SetDefaultProcessorVersionResponse,
-            crate::model::SetDefaultProcessorVersionMetadata,
-        > {
-            type Operation = lro::internal::Operation<
-                crate::model::SetDefaultProcessorVersionResponse,
-                crate::model::SetDefaultProcessorVersionMetadata,
-            >;
+            self
+        ) ->
+            impl lro::Poller<crate::model::SetDefaultProcessorVersionResponse, crate::model::SetDefaultProcessorVersionMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::SetDefaultProcessorVersionResponse, crate::model::SetDefaultProcessorVersionMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2100,10 +1902,10 @@ pub mod document_processor_service {
     pub struct ReviewDocument(RequestBuilder<crate::model::ReviewDocumentRequest>);
 
     impl ReviewDocument {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2125,23 +1927,16 @@ pub mod document_processor_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [review_document][crate::client::DocumentProcessorService::review_document].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .review_document(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).review_document(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `review_document`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<
-            crate::model::ReviewDocumentResponse,
-            crate::model::ReviewDocumentOperationMetadata,
-        > {
-            type Operation = lro::internal::Operation<
-                crate::model::ReviewDocumentResponse,
-                crate::model::ReviewDocumentOperationMetadata,
-            >;
+            self
+        ) ->
+            impl lro::Poller<crate::model::ReviewDocumentResponse, crate::model::ReviewDocumentOperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::ReviewDocumentResponse, crate::model::ReviewDocumentOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2184,18 +1979,14 @@ pub mod document_processor_service {
         }
 
         /// Sets the value of [priority][crate::model::ReviewDocumentRequest::priority].
-        pub fn set_priority<T: Into<crate::model::review_document_request::Priority>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_priority<T: Into<crate::model::review_document_request::Priority>>(mut self, v: T) -> Self {
             self.0.request.priority = v.into();
             self
         }
 
         /// Sets the value of [document_schema][crate::model::ReviewDocumentRequest::document_schema].
         pub fn set_document_schema<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::DocumentSchema>,
+        where T: std::convert::Into<crate::model::DocumentSchema>
         {
             self.0.request.document_schema = std::option::Option::Some(v.into());
             self
@@ -2203,8 +1994,7 @@ pub mod document_processor_service {
 
         /// Sets or clears the value of [document_schema][crate::model::ReviewDocumentRequest::document_schema].
         pub fn set_or_clear_document_schema<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::DocumentSchema>,
+        where T: std::convert::Into<crate::model::DocumentSchema>
         {
             self.0.request.document_schema = v.map(|x| x.into());
             self
@@ -2214,10 +2004,7 @@ pub mod document_processor_service {
         ///
         /// Note that all the setters affecting `source` are
         /// mutually exclusive.
-        pub fn set_source<T: Into<Option<crate::model::review_document_request::Source>>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_source<T: Into<Option<crate::model::review_document_request::Source>>>(mut self, v: T) ->Self {
             self.0.request.source = v.into();
             self
         }
@@ -2227,12 +2014,7 @@ pub mod document_processor_service {
         ///
         /// Note that all the setters affecting `source` are
         /// mutually exclusive.
-        pub fn set_inline_document<
-            T: std::convert::Into<std::boxed::Box<crate::model::Document>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_inline_document<T: std::convert::Into<std::boxed::Box<crate::model::Document>>>(mut self, v: T) -> Self {
             self.0.request = self.0.request.set_inline_document(v);
             self
         }
@@ -2264,22 +2046,17 @@ pub mod document_processor_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct EvaluateProcessorVersion(
-        RequestBuilder<crate::model::EvaluateProcessorVersionRequest>,
-    );
+    pub struct EvaluateProcessorVersion(RequestBuilder<crate::model::EvaluateProcessorVersionRequest>);
 
     impl EvaluateProcessorVersion {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::EvaluateProcessorVersionRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::EvaluateProcessorVersionRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2297,23 +2074,16 @@ pub mod document_processor_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [evaluate_processor_version][crate::client::DocumentProcessorService::evaluate_processor_version].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .evaluate_processor_version(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).evaluate_processor_version(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `evaluate_processor_version`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<
-            crate::model::EvaluateProcessorVersionResponse,
-            crate::model::EvaluateProcessorVersionMetadata,
-        > {
-            type Operation = lro::internal::Operation<
-                crate::model::EvaluateProcessorVersionResponse,
-                crate::model::EvaluateProcessorVersionMetadata,
-            >;
+            self
+        ) ->
+            impl lro::Poller<crate::model::EvaluateProcessorVersionResponse, crate::model::EvaluateProcessorVersionMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::EvaluateProcessorVersionResponse, crate::model::EvaluateProcessorVersionMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2351,8 +2121,7 @@ pub mod document_processor_service {
 
         /// Sets the value of [evaluation_documents][crate::model::EvaluateProcessorVersionRequest::evaluation_documents].
         pub fn set_evaluation_documents<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::BatchDocumentsInputConfig>,
+        where T: std::convert::Into<crate::model::BatchDocumentsInputConfig>
         {
             self.0.request.evaluation_documents = std::option::Option::Some(v.into());
             self
@@ -2360,8 +2129,7 @@ pub mod document_processor_service {
 
         /// Sets or clears the value of [evaluation_documents][crate::model::EvaluateProcessorVersionRequest::evaluation_documents].
         pub fn set_or_clear_evaluation_documents<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::BatchDocumentsInputConfig>,
+        where T: std::convert::Into<crate::model::BatchDocumentsInputConfig>
         {
             self.0.request.evaluation_documents = v.map(|x| x.into());
             self
@@ -2396,10 +2164,10 @@ pub mod document_processor_service {
     pub struct GetEvaluation(RequestBuilder<crate::model::GetEvaluationRequest>);
 
     impl GetEvaluation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2416,10 +2184,7 @@ pub mod document_processor_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Evaluation> {
-            (*self.0.stub)
-                .get_evaluation(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_evaluation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetEvaluationRequest::name].
@@ -2463,10 +2228,10 @@ pub mod document_processor_service {
     pub struct ListEvaluations(RequestBuilder<crate::model::ListEvaluationsRequest>);
 
     impl ListEvaluations {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2483,17 +2248,11 @@ pub mod document_processor_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListEvaluationsResponse> {
-            (*self.0.stub)
-                .list_evaluations(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_evaluations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListEvaluationsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListEvaluationsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2505,10 +2264,7 @@ pub mod document_processor_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListEvaluationsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListEvaluationsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2566,17 +2322,14 @@ pub mod document_processor_service {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2589,17 +2342,11 @@ pub mod document_processor_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::ListLocationsResponse> {
-            (*self.0.stub)
-                .list_locations(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_locations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2611,10 +2358,7 @@ pub mod document_processor_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2672,10 +2416,10 @@ pub mod document_processor_service {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2692,10 +2436,7 @@ pub mod document_processor_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::Location> {
-            (*self.0.stub)
-                .get_location(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_location(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -2737,17 +2478,14 @@ pub mod document_processor_service {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2760,17 +2498,11 @@ pub mod document_processor_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::ListOperationsResponse> {
-            (*self.0.stub)
-                .list_operations(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_operations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2782,12 +2514,7 @@ pub mod document_processor_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            longrunning::model::ListOperationsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2851,17 +2578,14 @@ pub mod document_processor_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2874,10 +2598,7 @@ pub mod document_processor_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .get_operation(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -2915,17 +2636,14 @@ pub mod document_processor_service {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2938,10 +2656,7 @@ pub mod document_processor_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .cancel_operation(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).cancel_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -2957,4 +2672,5 @@ pub mod document_processor_service {
             &mut self.0.options
         }
     }
+
 }

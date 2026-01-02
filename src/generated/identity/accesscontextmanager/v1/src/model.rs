@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate accesscontextmanager_type;
 extern crate async_trait;
 extern crate bytes;
@@ -31,7 +32,6 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -43,6 +43,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAccessPoliciesRequest {
+
     /// Required. Resource name for the container to list AccessPolicy instances
     /// from.
     ///
@@ -112,6 +113,7 @@ impl wkt::message::Message for ListAccessPoliciesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAccessPoliciesResponse {
+
     /// List of the AccessPolicy instances.
     pub access_policies: std::vec::Vec<crate::model::AccessPolicy>,
 
@@ -142,7 +144,7 @@ impl ListAccessPoliciesResponse {
     pub fn set_access_policies<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AccessPolicy>,
+        V: std::convert::Into<crate::model::AccessPolicy>
     {
         use std::iter::Iterator;
         self.access_policies = v.into_iter().map(|i| i.into()).collect();
@@ -186,6 +188,7 @@ impl gax::paginator::internal::PageableResponse for ListAccessPoliciesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAccessPolicyRequest {
+
     /// Required. Resource name for the access policy to get.
     ///
     /// Format `accessPolicies/{policy_id}`
@@ -222,6 +225,7 @@ impl wkt::message::Message for GetAccessPolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateAccessPolicyRequest {
+
     /// Required. The updated AccessPolicy.
     pub policy: std::option::Option<crate::model::AccessPolicy>,
 
@@ -245,8 +249,7 @@ impl UpdateAccessPolicyRequest {
     /// let x = UpdateAccessPolicyRequest::new().set_policy(AccessPolicy::default()/* use setters */);
     /// ```
     pub fn set_policy<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AccessPolicy>,
+    where T: std::convert::Into<crate::model::AccessPolicy>
     {
         self.policy = std::option::Option::Some(v.into());
         self
@@ -262,8 +265,7 @@ impl UpdateAccessPolicyRequest {
     /// let x = UpdateAccessPolicyRequest::new().set_or_clear_policy(None::<AccessPolicy>);
     /// ```
     pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AccessPolicy>,
+    where T: std::convert::Into<crate::model::AccessPolicy>
     {
         self.policy = v.map(|x| x.into());
         self
@@ -278,8 +280,7 @@ impl UpdateAccessPolicyRequest {
     /// let x = UpdateAccessPolicyRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -295,8 +296,7 @@ impl UpdateAccessPolicyRequest {
     /// let x = UpdateAccessPolicyRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -313,6 +313,7 @@ impl wkt::message::Message for UpdateAccessPolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteAccessPolicyRequest {
+
     /// Required. Resource name for the access policy to delete.
     ///
     /// Format `accessPolicies/{policy_id}`
@@ -349,6 +350,7 @@ impl wkt::message::Message for DeleteAccessPolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAccessLevelsRequest {
+
     /// Required. Resource name for the access policy to list [Access Levels]
     /// [google.identity.accesscontextmanager.v1.AccessLevel] from.
     ///
@@ -424,10 +426,7 @@ impl ListAccessLevelsRequest {
     /// let x0 = ListAccessLevelsRequest::new().set_access_level_format(LevelFormat::AsDefined);
     /// let x1 = ListAccessLevelsRequest::new().set_access_level_format(LevelFormat::Cel);
     /// ```
-    pub fn set_access_level_format<T: std::convert::Into<crate::model::LevelFormat>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_access_level_format<T: std::convert::Into<crate::model::LevelFormat>>(mut self, v: T) -> Self {
         self.access_level_format = v.into();
         self
     }
@@ -443,6 +442,7 @@ impl wkt::message::Message for ListAccessLevelsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAccessLevelsResponse {
+
     /// List of the [Access Level]
     /// [google.identity.accesscontextmanager.v1.AccessLevel] instances.
     pub access_levels: std::vec::Vec<crate::model::AccessLevel>,
@@ -474,7 +474,7 @@ impl ListAccessLevelsResponse {
     pub fn set_access_levels<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AccessLevel>,
+        V: std::convert::Into<crate::model::AccessLevel>
     {
         use std::iter::Iterator;
         self.access_levels = v.into_iter().map(|i| i.into()).collect();
@@ -518,6 +518,7 @@ impl gax::paginator::internal::PageableResponse for ListAccessLevelsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAccessLevelRequest {
+
     /// Required. Resource name for the [Access Level]
     /// [google.identity.accesscontextmanager.v1.AccessLevel].
     ///
@@ -564,10 +565,7 @@ impl GetAccessLevelRequest {
     /// let x0 = GetAccessLevelRequest::new().set_access_level_format(LevelFormat::AsDefined);
     /// let x1 = GetAccessLevelRequest::new().set_access_level_format(LevelFormat::Cel);
     /// ```
-    pub fn set_access_level_format<T: std::convert::Into<crate::model::LevelFormat>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_access_level_format<T: std::convert::Into<crate::model::LevelFormat>>(mut self, v: T) -> Self {
         self.access_level_format = v.into();
         self
     }
@@ -583,6 +581,7 @@ impl wkt::message::Message for GetAccessLevelRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateAccessLevelRequest {
+
     /// Required. Resource name for the access policy which owns this [Access
     /// Level] [google.identity.accesscontextmanager.v1.AccessLevel].
     ///
@@ -625,8 +624,7 @@ impl CreateAccessLevelRequest {
     /// let x = CreateAccessLevelRequest::new().set_access_level(AccessLevel::default()/* use setters */);
     /// ```
     pub fn set_access_level<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AccessLevel>,
+    where T: std::convert::Into<crate::model::AccessLevel>
     {
         self.access_level = std::option::Option::Some(v.into());
         self
@@ -642,8 +640,7 @@ impl CreateAccessLevelRequest {
     /// let x = CreateAccessLevelRequest::new().set_or_clear_access_level(None::<AccessLevel>);
     /// ```
     pub fn set_or_clear_access_level<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AccessLevel>,
+    where T: std::convert::Into<crate::model::AccessLevel>
     {
         self.access_level = v.map(|x| x.into());
         self
@@ -660,6 +657,7 @@ impl wkt::message::Message for CreateAccessLevelRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateAccessLevelRequest {
+
     /// Required. The updated [Access Level]
     /// [google.identity.accesscontextmanager.v1.AccessLevel]. Syntactic
     /// correctness of the [Access Level]
@@ -687,8 +685,7 @@ impl UpdateAccessLevelRequest {
     /// let x = UpdateAccessLevelRequest::new().set_access_level(AccessLevel::default()/* use setters */);
     /// ```
     pub fn set_access_level<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AccessLevel>,
+    where T: std::convert::Into<crate::model::AccessLevel>
     {
         self.access_level = std::option::Option::Some(v.into());
         self
@@ -704,8 +701,7 @@ impl UpdateAccessLevelRequest {
     /// let x = UpdateAccessLevelRequest::new().set_or_clear_access_level(None::<AccessLevel>);
     /// ```
     pub fn set_or_clear_access_level<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AccessLevel>,
+    where T: std::convert::Into<crate::model::AccessLevel>
     {
         self.access_level = v.map(|x| x.into());
         self
@@ -720,8 +716,7 @@ impl UpdateAccessLevelRequest {
     /// let x = UpdateAccessLevelRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -737,8 +732,7 @@ impl UpdateAccessLevelRequest {
     /// let x = UpdateAccessLevelRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -755,6 +749,7 @@ impl wkt::message::Message for UpdateAccessLevelRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteAccessLevelRequest {
+
     /// Required. Resource name for the [Access Level]
     /// [google.identity.accesscontextmanager.v1.AccessLevel].
     ///
@@ -794,6 +789,7 @@ impl wkt::message::Message for DeleteAccessLevelRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReplaceAccessLevelsRequest {
+
     /// Required. Resource name for the access policy which owns these
     /// [Access Levels]
     /// [google.identity.accesscontextmanager.v1.AccessLevel].
@@ -853,7 +849,7 @@ impl ReplaceAccessLevelsRequest {
     pub fn set_access_levels<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AccessLevel>,
+        V: std::convert::Into<crate::model::AccessLevel>
     {
         use std::iter::Iterator;
         self.access_levels = v.into_iter().map(|i| i.into()).collect();
@@ -884,6 +880,7 @@ impl wkt::message::Message for ReplaceAccessLevelsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReplaceAccessLevelsResponse {
+
     /// List of the [Access Level]
     /// [google.identity.accesscontextmanager.v1.AccessLevel] instances.
     pub access_levels: std::vec::Vec<crate::model::AccessLevel>,
@@ -911,7 +908,7 @@ impl ReplaceAccessLevelsResponse {
     pub fn set_access_levels<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AccessLevel>,
+        V: std::convert::Into<crate::model::AccessLevel>
     {
         use std::iter::Iterator;
         self.access_levels = v.into_iter().map(|i| i.into()).collect();
@@ -929,6 +926,7 @@ impl wkt::message::Message for ReplaceAccessLevelsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServicePerimetersRequest {
+
     /// Required. Resource name for the access policy to list [Service Perimeters]
     /// [google.identity.accesscontextmanager.v1.ServicePerimeter] from.
     ///
@@ -1001,6 +999,7 @@ impl wkt::message::Message for ListServicePerimetersRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServicePerimetersResponse {
+
     /// List of the [Service Perimeter]
     /// [google.identity.accesscontextmanager.v1.ServicePerimeter] instances.
     pub service_perimeters: std::vec::Vec<crate::model::ServicePerimeter>,
@@ -1032,7 +1031,7 @@ impl ListServicePerimetersResponse {
     pub fn set_service_perimeters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ServicePerimeter>,
+        V: std::convert::Into<crate::model::ServicePerimeter>
     {
         use std::iter::Iterator;
         self.service_perimeters = v.into_iter().map(|i| i.into()).collect();
@@ -1076,6 +1075,7 @@ impl gax::paginator::internal::PageableResponse for ListServicePerimetersRespons
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetServicePerimeterRequest {
+
     /// Required. Resource name for the [Service Perimeter]
     /// [google.identity.accesscontextmanager.v1.ServicePerimeter].
     ///
@@ -1114,6 +1114,7 @@ impl wkt::message::Message for GetServicePerimeterRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateServicePerimeterRequest {
+
     /// Required. Resource name for the access policy which owns this [Service
     /// Perimeter] [google.identity.accesscontextmanager.v1.ServicePerimeter].
     ///
@@ -1156,8 +1157,7 @@ impl CreateServicePerimeterRequest {
     /// let x = CreateServicePerimeterRequest::new().set_service_perimeter(ServicePerimeter::default()/* use setters */);
     /// ```
     pub fn set_service_perimeter<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ServicePerimeter>,
+    where T: std::convert::Into<crate::model::ServicePerimeter>
     {
         self.service_perimeter = std::option::Option::Some(v.into());
         self
@@ -1173,8 +1173,7 @@ impl CreateServicePerimeterRequest {
     /// let x = CreateServicePerimeterRequest::new().set_or_clear_service_perimeter(None::<ServicePerimeter>);
     /// ```
     pub fn set_or_clear_service_perimeter<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ServicePerimeter>,
+    where T: std::convert::Into<crate::model::ServicePerimeter>
     {
         self.service_perimeter = v.map(|x| x.into());
         self
@@ -1191,6 +1190,7 @@ impl wkt::message::Message for CreateServicePerimeterRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateServicePerimeterRequest {
+
     /// Required. The updated `ServicePerimeter`. Syntactic correctness of the
     /// `ServicePerimeter` is a precondition for creation.
     pub service_perimeter: std::option::Option<crate::model::ServicePerimeter>,
@@ -1215,8 +1215,7 @@ impl UpdateServicePerimeterRequest {
     /// let x = UpdateServicePerimeterRequest::new().set_service_perimeter(ServicePerimeter::default()/* use setters */);
     /// ```
     pub fn set_service_perimeter<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ServicePerimeter>,
+    where T: std::convert::Into<crate::model::ServicePerimeter>
     {
         self.service_perimeter = std::option::Option::Some(v.into());
         self
@@ -1232,8 +1231,7 @@ impl UpdateServicePerimeterRequest {
     /// let x = UpdateServicePerimeterRequest::new().set_or_clear_service_perimeter(None::<ServicePerimeter>);
     /// ```
     pub fn set_or_clear_service_perimeter<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ServicePerimeter>,
+    where T: std::convert::Into<crate::model::ServicePerimeter>
     {
         self.service_perimeter = v.map(|x| x.into());
         self
@@ -1248,8 +1246,7 @@ impl UpdateServicePerimeterRequest {
     /// let x = UpdateServicePerimeterRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -1265,8 +1262,7 @@ impl UpdateServicePerimeterRequest {
     /// let x = UpdateServicePerimeterRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -1283,6 +1279,7 @@ impl wkt::message::Message for UpdateServicePerimeterRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteServicePerimeterRequest {
+
     /// Required. Resource name for the [Service Perimeter]
     /// [google.identity.accesscontextmanager.v1.ServicePerimeter].
     ///
@@ -1322,6 +1319,7 @@ impl wkt::message::Message for DeleteServicePerimeterRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReplaceServicePerimetersRequest {
+
     /// Required. Resource name for the access policy which owns these
     /// [Service Perimeters]
     /// [google.identity.accesscontextmanager.v1.ServicePerimeter].
@@ -1381,7 +1379,7 @@ impl ReplaceServicePerimetersRequest {
     pub fn set_service_perimeters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ServicePerimeter>,
+        V: std::convert::Into<crate::model::ServicePerimeter>
     {
         use std::iter::Iterator;
         self.service_perimeters = v.into_iter().map(|i| i.into()).collect();
@@ -1412,6 +1410,7 @@ impl wkt::message::Message for ReplaceServicePerimetersRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReplaceServicePerimetersResponse {
+
     /// List of the [Service Perimeter]
     /// [google.identity.accesscontextmanager.v1.ServicePerimeter] instances.
     pub service_perimeters: std::vec::Vec<crate::model::ServicePerimeter>,
@@ -1439,7 +1438,7 @@ impl ReplaceServicePerimetersResponse {
     pub fn set_service_perimeters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ServicePerimeter>,
+        V: std::convert::Into<crate::model::ServicePerimeter>
     {
         use std::iter::Iterator;
         self.service_perimeters = v.into_iter().map(|i| i.into()).collect();
@@ -1461,6 +1460,7 @@ impl wkt::message::Message for ReplaceServicePerimetersResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CommitServicePerimetersRequest {
+
     /// Required. Resource name for the parent [Access Policy]
     /// [google.identity.accesscontextmanager.v1.AccessPolicy] which owns all
     /// [Service Perimeters]
@@ -1523,6 +1523,7 @@ impl wkt::message::Message for CommitServicePerimetersRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CommitServicePerimetersResponse {
+
     /// List of all the [Service Perimeter]
     /// [google.identity.accesscontextmanager.v1.ServicePerimeter] instances in
     /// the [Access Policy]
@@ -1552,7 +1553,7 @@ impl CommitServicePerimetersResponse {
     pub fn set_service_perimeters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ServicePerimeter>,
+        V: std::convert::Into<crate::model::ServicePerimeter>
     {
         use std::iter::Iterator;
         self.service_perimeters = v.into_iter().map(|i| i.into()).collect();
@@ -1571,6 +1572,7 @@ impl wkt::message::Message for CommitServicePerimetersResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListGcpUserAccessBindingsRequest {
+
     /// Required. Example: "organizations/256"
     pub parent: std::string::String,
 
@@ -1640,6 +1642,7 @@ impl wkt::message::Message for ListGcpUserAccessBindingsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListGcpUserAccessBindingsResponse {
+
     /// [GcpUserAccessBinding]
     /// [google.identity.accesscontextmanager.v1.GcpUserAccessBinding]
     pub gcp_user_access_bindings: std::vec::Vec<crate::model::GcpUserAccessBinding>,
@@ -1670,7 +1673,7 @@ impl ListGcpUserAccessBindingsResponse {
     pub fn set_gcp_user_access_bindings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::GcpUserAccessBinding>,
+        V: std::convert::Into<crate::model::GcpUserAccessBinding>
     {
         use std::iter::Iterator;
         self.gcp_user_access_bindings = v.into_iter().map(|i| i.into()).collect();
@@ -1715,6 +1718,7 @@ impl gax::paginator::internal::PageableResponse for ListGcpUserAccessBindingsRes
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetGcpUserAccessBindingRequest {
+
     /// Required. Example: "organizations/256/gcpUserAccessBindings/b3-BhcX_Ud5N"
     pub name: std::string::String,
 
@@ -1750,6 +1754,7 @@ impl wkt::message::Message for GetGcpUserAccessBindingRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateGcpUserAccessBindingRequest {
+
     /// Required. Example: "organizations/256"
     pub parent: std::string::String,
 
@@ -1786,8 +1791,7 @@ impl CreateGcpUserAccessBindingRequest {
     /// let x = CreateGcpUserAccessBindingRequest::new().set_gcp_user_access_binding(GcpUserAccessBinding::default()/* use setters */);
     /// ```
     pub fn set_gcp_user_access_binding<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::GcpUserAccessBinding>,
+    where T: std::convert::Into<crate::model::GcpUserAccessBinding>
     {
         self.gcp_user_access_binding = std::option::Option::Some(v.into());
         self
@@ -1803,8 +1807,7 @@ impl CreateGcpUserAccessBindingRequest {
     /// let x = CreateGcpUserAccessBindingRequest::new().set_or_clear_gcp_user_access_binding(None::<GcpUserAccessBinding>);
     /// ```
     pub fn set_or_clear_gcp_user_access_binding<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::GcpUserAccessBinding>,
+    where T: std::convert::Into<crate::model::GcpUserAccessBinding>
     {
         self.gcp_user_access_binding = v.map(|x| x.into());
         self
@@ -1822,6 +1825,7 @@ impl wkt::message::Message for CreateGcpUserAccessBindingRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateGcpUserAccessBindingRequest {
+
     /// Required. [GcpUserAccessBinding]
     /// [google.identity.accesscontextmanager.v1.GcpUserAccessBinding]
     pub gcp_user_access_binding: std::option::Option<crate::model::GcpUserAccessBinding>,
@@ -1851,8 +1855,7 @@ impl UpdateGcpUserAccessBindingRequest {
     /// let x = UpdateGcpUserAccessBindingRequest::new().set_gcp_user_access_binding(GcpUserAccessBinding::default()/* use setters */);
     /// ```
     pub fn set_gcp_user_access_binding<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::GcpUserAccessBinding>,
+    where T: std::convert::Into<crate::model::GcpUserAccessBinding>
     {
         self.gcp_user_access_binding = std::option::Option::Some(v.into());
         self
@@ -1868,8 +1871,7 @@ impl UpdateGcpUserAccessBindingRequest {
     /// let x = UpdateGcpUserAccessBindingRequest::new().set_or_clear_gcp_user_access_binding(None::<GcpUserAccessBinding>);
     /// ```
     pub fn set_or_clear_gcp_user_access_binding<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::GcpUserAccessBinding>,
+    where T: std::convert::Into<crate::model::GcpUserAccessBinding>
     {
         self.gcp_user_access_binding = v.map(|x| x.into());
         self
@@ -1884,8 +1886,7 @@ impl UpdateGcpUserAccessBindingRequest {
     /// let x = UpdateGcpUserAccessBindingRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -1901,8 +1902,7 @@ impl UpdateGcpUserAccessBindingRequest {
     /// let x = UpdateGcpUserAccessBindingRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -1920,6 +1920,7 @@ impl wkt::message::Message for UpdateGcpUserAccessBindingRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteGcpUserAccessBindingRequest {
+
     /// Required. Example: "organizations/256/gcpUserAccessBindings/b3-BhcX_Ud5N"
     pub name: std::string::String,
 
@@ -1956,6 +1957,7 @@ impl wkt::message::Message for DeleteGcpUserAccessBindingRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GcpUserAccessBindingOperationMetadata {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1975,6 +1977,7 @@ impl wkt::message::Message for GcpUserAccessBindingOperationMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AccessContextManagerOperationMetadata {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1996,6 +1999,7 @@ impl wkt::message::Message for AccessContextManagerOperationMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AccessLevel {
+
     /// Required. Resource name for the Access Level. The `short_name` component
     /// must begin with a letter and only include alphanumeric and '_'. Format:
     /// `accessPolicies/{access_policy}/accessLevels/{access_level}`. The maximum
@@ -2070,8 +2074,7 @@ impl AccessLevel {
     /// let x = AccessLevel::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -2087,8 +2090,7 @@ impl AccessLevel {
     /// let x = AccessLevel::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -2103,8 +2105,7 @@ impl AccessLevel {
     /// let x = AccessLevel::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -2120,8 +2121,7 @@ impl AccessLevel {
     /// let x = AccessLevel::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -2139,12 +2139,8 @@ impl AccessLevel {
     /// let x = AccessLevel::new().set_level(Some(
     ///     google_cloud_identity_accesscontextmanager_v1::model::access_level::Level::Basic(BasicLevel::default().into())));
     /// ```
-    pub fn set_level<
-        T: std::convert::Into<std::option::Option<crate::model::access_level::Level>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_level<T: std::convert::Into<std::option::Option<crate::model::access_level::Level>>>(mut self, v: T) -> Self
+    {
         self.level = v.into();
         self
     }
@@ -2174,11 +2170,12 @@ impl AccessLevel {
     /// assert!(x.basic().is_some());
     /// assert!(x.custom().is_none());
     /// ```
-    pub fn set_basic<T: std::convert::Into<std::boxed::Box<crate::model::BasicLevel>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.level = std::option::Option::Some(crate::model::access_level::Level::Basic(v.into()));
+    pub fn set_basic<T: std::convert::Into<std::boxed::Box<crate::model::BasicLevel>>>(mut self, v: T) -> Self {
+        self.level = std::option::Option::Some(
+            crate::model::access_level::Level::Basic(
+                v.into()
+            )
+        );
         self
     }
 
@@ -2207,11 +2204,12 @@ impl AccessLevel {
     /// assert!(x.custom().is_some());
     /// assert!(x.basic().is_none());
     /// ```
-    pub fn set_custom<T: std::convert::Into<std::boxed::Box<crate::model::CustomLevel>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.level = std::option::Option::Some(crate::model::access_level::Level::Custom(v.into()));
+    pub fn set_custom<T: std::convert::Into<std::boxed::Box<crate::model::CustomLevel>>>(mut self, v: T) -> Self {
+        self.level = std::option::Option::Some(
+            crate::model::access_level::Level::Custom(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -2226,6 +2224,7 @@ impl wkt::message::Message for AccessLevel {
 pub mod access_level {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Required. Describes the necessary conditions for the level to apply.
     #[derive(Clone, Debug, PartialEq)]
@@ -2242,6 +2241,7 @@ pub mod access_level {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BasicLevel {
+
     /// Required. A list of requirements for the `AccessLevel` to be granted.
     pub conditions: std::vec::Vec<crate::model::Condition>,
 
@@ -2275,7 +2275,7 @@ impl BasicLevel {
     pub fn set_conditions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Condition>,
+        V: std::convert::Into<crate::model::Condition>
     {
         use std::iter::Iterator;
         self.conditions = v.into_iter().map(|i| i.into()).collect();
@@ -2290,12 +2290,7 @@ impl BasicLevel {
     /// use google_cloud_identity_accesscontextmanager_v1::model::basic_level::ConditionCombiningFunction;
     /// let x0 = BasicLevel::new().set_combining_function(ConditionCombiningFunction::Or);
     /// ```
-    pub fn set_combining_function<
-        T: std::convert::Into<crate::model::basic_level::ConditionCombiningFunction>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_combining_function<T: std::convert::Into<crate::model::basic_level::ConditionCombiningFunction>>(mut self, v: T) -> Self {
         self.combining_function = v.into();
         self
     }
@@ -2311,6 +2306,7 @@ impl wkt::message::Message for BasicLevel {
 pub mod basic_level {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Options for how the `conditions` list should be combined to determine if
     /// this `AccessLevel` is applied. Default is AND.
@@ -2394,9 +2390,7 @@ pub mod basic_level {
             match value {
                 0 => Self::And,
                 1 => Self::Or,
-                _ => Self::UnknownValue(condition_combining_function::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(condition_combining_function::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -2407,9 +2401,7 @@ pub mod basic_level {
             match value {
                 "AND" => Self::And,
                 "OR" => Self::Or,
-                _ => Self::UnknownValue(condition_combining_function::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(condition_combining_function::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -2446,6 +2438,7 @@ pub mod basic_level {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Condition {
+
     /// CIDR block IP subnetwork specification. May be IPv4 or IPv6. Note that for
     /// a CIDR IP address block, the specified IP address portion must be properly
     /// truncated (i.e. all the host bits must be zero) or the input is considered
@@ -2502,7 +2495,7 @@ impl Condition {
     pub fn set_ip_subnetworks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.ip_subnetworks = v.into_iter().map(|i| i.into()).collect();
@@ -2518,8 +2511,7 @@ impl Condition {
     /// let x = Condition::new().set_device_policy(DevicePolicy::default()/* use setters */);
     /// ```
     pub fn set_device_policy<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DevicePolicy>,
+    where T: std::convert::Into<crate::model::DevicePolicy>
     {
         self.device_policy = std::option::Option::Some(v.into());
         self
@@ -2535,8 +2527,7 @@ impl Condition {
     /// let x = Condition::new().set_or_clear_device_policy(None::<DevicePolicy>);
     /// ```
     pub fn set_or_clear_device_policy<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DevicePolicy>,
+    where T: std::convert::Into<crate::model::DevicePolicy>
     {
         self.device_policy = v.map(|x| x.into());
         self
@@ -2552,7 +2543,7 @@ impl Condition {
     pub fn set_required_access_levels<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.required_access_levels = v.into_iter().map(|i| i.into()).collect();
@@ -2581,7 +2572,7 @@ impl Condition {
     pub fn set_members<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.members = v.into_iter().map(|i| i.into()).collect();
@@ -2598,7 +2589,7 @@ impl Condition {
     pub fn set_regions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.regions = v.into_iter().map(|i| i.into()).collect();
@@ -2618,6 +2609,7 @@ impl wkt::message::Message for Condition {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CustomLevel {
+
     /// Required. A Cloud CEL expression evaluating to a boolean.
     pub expr: std::option::Option<gtype::model::Expr>,
 
@@ -2638,8 +2630,7 @@ impl CustomLevel {
     /// let x = CustomLevel::new().set_expr(Expr::default()/* use setters */);
     /// ```
     pub fn set_expr<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<gtype::model::Expr>,
+    where T: std::convert::Into<gtype::model::Expr>
     {
         self.expr = std::option::Option::Some(v.into());
         self
@@ -2655,8 +2646,7 @@ impl CustomLevel {
     /// let x = CustomLevel::new().set_or_clear_expr(None::<Expr>);
     /// ```
     pub fn set_or_clear_expr<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<gtype::model::Expr>,
+    where T: std::convert::Into<gtype::model::Expr>
     {
         self.expr = v.map(|x| x.into());
         self
@@ -2681,21 +2671,20 @@ impl wkt::message::Message for CustomLevel {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DevicePolicy {
+
     /// Whether or not screenlock is required for the DevicePolicy to be true.
     /// Defaults to `false`.
     pub require_screenlock: bool,
 
     /// Allowed encryptions statuses, an empty list allows all statuses.
-    pub allowed_encryption_statuses:
-        std::vec::Vec<accesscontextmanager_type::model::DeviceEncryptionStatus>,
+    pub allowed_encryption_statuses: std::vec::Vec<accesscontextmanager_type::model::DeviceEncryptionStatus>,
 
     /// Allowed OS versions, an empty list allows all types and all versions.
     pub os_constraints: std::vec::Vec<crate::model::OsConstraint>,
 
     /// Allowed device management levels, an empty list allows all management
     /// levels.
-    pub allowed_device_management_levels:
-        std::vec::Vec<accesscontextmanager_type::model::DeviceManagementLevel>,
+    pub allowed_device_management_levels: std::vec::Vec<accesscontextmanager_type::model::DeviceManagementLevel>,
 
     /// Whether the device needs to be approved by the customer admin.
     pub require_admin_approval: bool,
@@ -2738,7 +2727,7 @@ impl DevicePolicy {
     pub fn set_allowed_encryption_statuses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<accesscontextmanager_type::model::DeviceEncryptionStatus>,
+        V: std::convert::Into<accesscontextmanager_type::model::DeviceEncryptionStatus>
     {
         use std::iter::Iterator;
         self.allowed_encryption_statuses = v.into_iter().map(|i| i.into()).collect();
@@ -2760,7 +2749,7 @@ impl DevicePolicy {
     pub fn set_os_constraints<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::OsConstraint>,
+        V: std::convert::Into<crate::model::OsConstraint>
     {
         use std::iter::Iterator;
         self.os_constraints = v.into_iter().map(|i| i.into()).collect();
@@ -2782,7 +2771,7 @@ impl DevicePolicy {
     pub fn set_allowed_device_management_levels<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<accesscontextmanager_type::model::DeviceManagementLevel>,
+        V: std::convert::Into<accesscontextmanager_type::model::DeviceManagementLevel>
     {
         use std::iter::Iterator;
         self.allowed_device_management_levels = v.into_iter().map(|i| i.into()).collect();
@@ -2824,6 +2813,7 @@ impl wkt::message::Message for DevicePolicy {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OsConstraint {
+
     /// Required. The allowed OS type.
     pub os_type: accesscontextmanager_type::model::OsType,
 
@@ -2856,10 +2846,7 @@ impl OsConstraint {
     /// let x1 = OsConstraint::new().set_os_type(OsType::DesktopWindows);
     /// let x2 = OsConstraint::new().set_os_type(OsType::DesktopLinux);
     /// ```
-    pub fn set_os_type<T: std::convert::Into<accesscontextmanager_type::model::OsType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_os_type<T: std::convert::Into<accesscontextmanager_type::model::OsType>>(mut self, v: T) -> Self {
         self.os_type = v.into();
         self
     }
@@ -2903,6 +2890,7 @@ impl wkt::message::Message for OsConstraint {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AccessPolicy {
+
     /// Output only. Resource name of the `AccessPolicy`. Format:
     /// `accessPolicies/{access_policy}`
     pub name: std::string::String,
@@ -2998,7 +2986,7 @@ impl AccessPolicy {
     pub fn set_scopes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.scopes = v.into_iter().map(|i| i.into()).collect();
@@ -3014,8 +3002,7 @@ impl AccessPolicy {
     /// let x = AccessPolicy::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -3031,8 +3018,7 @@ impl AccessPolicy {
     /// let x = AccessPolicy::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -3047,8 +3033,7 @@ impl AccessPolicy {
     /// let x = AccessPolicy::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -3064,8 +3049,7 @@ impl AccessPolicy {
     /// let x = AccessPolicy::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -3095,6 +3079,7 @@ impl wkt::message::Message for AccessPolicy {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GcpUserAccessBinding {
+
     /// Immutable. Assigned by the server during creation. The last segment has an arbitrary
     /// length and has only URI unreserved characters (as defined by
     /// [RFC 3986 Section 2.3](https://tools.ietf.org/html/rfc3986#section-2.3)).
@@ -3159,7 +3144,7 @@ impl GcpUserAccessBinding {
     pub fn set_access_levels<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.access_levels = v.into_iter().map(|i| i.into()).collect();
@@ -3186,6 +3171,7 @@ impl wkt::message::Message for GcpUserAccessBinding {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ServicePerimeter {
+
     /// Required. Resource name for the ServicePerimeter.  The `short_name`
     /// component must begin with a letter and only include alphanumeric and '_'.
     /// Format:
@@ -3289,8 +3275,7 @@ impl ServicePerimeter {
     /// let x = ServicePerimeter::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -3306,8 +3291,7 @@ impl ServicePerimeter {
     /// let x = ServicePerimeter::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -3322,8 +3306,7 @@ impl ServicePerimeter {
     /// let x = ServicePerimeter::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -3339,8 +3322,7 @@ impl ServicePerimeter {
     /// let x = ServicePerimeter::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -3354,12 +3336,7 @@ impl ServicePerimeter {
     /// use google_cloud_identity_accesscontextmanager_v1::model::service_perimeter::PerimeterType;
     /// let x0 = ServicePerimeter::new().set_perimeter_type(PerimeterType::Bridge);
     /// ```
-    pub fn set_perimeter_type<
-        T: std::convert::Into<crate::model::service_perimeter::PerimeterType>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_perimeter_type<T: std::convert::Into<crate::model::service_perimeter::PerimeterType>>(mut self, v: T) -> Self {
         self.perimeter_type = v.into();
         self
     }
@@ -3373,8 +3350,7 @@ impl ServicePerimeter {
     /// let x = ServicePerimeter::new().set_status(ServicePerimeterConfig::default()/* use setters */);
     /// ```
     pub fn set_status<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ServicePerimeterConfig>,
+    where T: std::convert::Into<crate::model::ServicePerimeterConfig>
     {
         self.status = std::option::Option::Some(v.into());
         self
@@ -3390,8 +3366,7 @@ impl ServicePerimeter {
     /// let x = ServicePerimeter::new().set_or_clear_status(None::<ServicePerimeterConfig>);
     /// ```
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ServicePerimeterConfig>,
+    where T: std::convert::Into<crate::model::ServicePerimeterConfig>
     {
         self.status = v.map(|x| x.into());
         self
@@ -3406,8 +3381,7 @@ impl ServicePerimeter {
     /// let x = ServicePerimeter::new().set_spec(ServicePerimeterConfig::default()/* use setters */);
     /// ```
     pub fn set_spec<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ServicePerimeterConfig>,
+    where T: std::convert::Into<crate::model::ServicePerimeterConfig>
     {
         self.spec = std::option::Option::Some(v.into());
         self
@@ -3423,8 +3397,7 @@ impl ServicePerimeter {
     /// let x = ServicePerimeter::new().set_or_clear_spec(None::<ServicePerimeterConfig>);
     /// ```
     pub fn set_or_clear_spec<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ServicePerimeterConfig>,
+    where T: std::convert::Into<crate::model::ServicePerimeterConfig>
     {
         self.spec = v.map(|x| x.into());
         self
@@ -3453,6 +3426,7 @@ impl wkt::message::Message for ServicePerimeter {
 pub mod service_perimeter {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Specifies the type of the Perimeter. There are two types: regular and
     /// bridge. Regular Service Perimeter contains resources, access levels, and
@@ -3549,9 +3523,7 @@ pub mod service_perimeter {
             match value {
                 0 => Self::Regular,
                 1 => Self::Bridge,
-                _ => Self::UnknownValue(perimeter_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(perimeter_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -3562,9 +3534,7 @@ pub mod service_perimeter {
             match value {
                 "PERIMETER_TYPE_REGULAR" => Self::Regular,
                 "PERIMETER_TYPE_BRIDGE" => Self::Bridge,
-                _ => Self::UnknownValue(perimeter_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(perimeter_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -3588,8 +3558,7 @@ pub mod service_perimeter {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<PerimeterType>::new(
-                ".google.identity.accesscontextmanager.v1.ServicePerimeter.PerimeterType",
-            ))
+                ".google.identity.accesscontextmanager.v1.ServicePerimeter.PerimeterType"))
         }
     }
 }
@@ -3599,6 +3568,7 @@ pub mod service_perimeter {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ServicePerimeterConfig {
+
     /// A list of Google Cloud resources that are inside of the service perimeter.
     /// Currently only projects are allowed. Format: `projects/{project_number}`
     pub resources: std::vec::Vec<std::string::String>,
@@ -3620,8 +3590,7 @@ pub struct ServicePerimeterConfig {
     pub restricted_services: std::vec::Vec<std::string::String>,
 
     /// Configuration for APIs allowed within Perimeter.
-    pub vpc_accessible_services:
-        std::option::Option<crate::model::service_perimeter_config::VpcAccessibleServices>,
+    pub vpc_accessible_services: std::option::Option<crate::model::service_perimeter_config::VpcAccessibleServices>,
 
     /// List of [IngressPolicies]
     /// [google.identity.accesscontextmanager.v1.ServicePerimeterConfig.IngressPolicy]
@@ -3661,7 +3630,7 @@ impl ServicePerimeterConfig {
     pub fn set_resources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.resources = v.into_iter().map(|i| i.into()).collect();
@@ -3678,7 +3647,7 @@ impl ServicePerimeterConfig {
     pub fn set_access_levels<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.access_levels = v.into_iter().map(|i| i.into()).collect();
@@ -3695,7 +3664,7 @@ impl ServicePerimeterConfig {
     pub fn set_restricted_services<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.restricted_services = v.into_iter().map(|i| i.into()).collect();
@@ -3711,8 +3680,7 @@ impl ServicePerimeterConfig {
     /// let x = ServicePerimeterConfig::new().set_vpc_accessible_services(VpcAccessibleServices::default()/* use setters */);
     /// ```
     pub fn set_vpc_accessible_services<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::service_perimeter_config::VpcAccessibleServices>,
+    where T: std::convert::Into<crate::model::service_perimeter_config::VpcAccessibleServices>
     {
         self.vpc_accessible_services = std::option::Option::Some(v.into());
         self
@@ -3728,8 +3696,7 @@ impl ServicePerimeterConfig {
     /// let x = ServicePerimeterConfig::new().set_or_clear_vpc_accessible_services(None::<VpcAccessibleServices>);
     /// ```
     pub fn set_or_clear_vpc_accessible_services<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::service_perimeter_config::VpcAccessibleServices>,
+    where T: std::convert::Into<crate::model::service_perimeter_config::VpcAccessibleServices>
     {
         self.vpc_accessible_services = v.map(|x| x.into());
         self
@@ -3750,7 +3717,7 @@ impl ServicePerimeterConfig {
     pub fn set_ingress_policies<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::service_perimeter_config::IngressPolicy>,
+        V: std::convert::Into<crate::model::service_perimeter_config::IngressPolicy>
     {
         use std::iter::Iterator;
         self.ingress_policies = v.into_iter().map(|i| i.into()).collect();
@@ -3772,7 +3739,7 @@ impl ServicePerimeterConfig {
     pub fn set_egress_policies<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::service_perimeter_config::EgressPolicy>,
+        V: std::convert::Into<crate::model::service_perimeter_config::EgressPolicy>
     {
         use std::iter::Iterator;
         self.egress_policies = v.into_iter().map(|i| i.into()).collect();
@@ -3791,11 +3758,13 @@ pub mod service_perimeter_config {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Specifies how APIs are allowed to communicate within the Service
     /// Perimeter.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct VpcAccessibleServices {
+
         /// Whether to restrict API calls within the Service Perimeter to the list of
         /// APIs specified in 'allowed_services'.
         pub enable_restriction: bool,
@@ -3836,7 +3805,7 @@ pub mod service_perimeter_config {
         pub fn set_allowed_services<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.allowed_services = v.into_iter().map(|i| i.into()).collect();
@@ -3855,9 +3824,9 @@ pub mod service_perimeter_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct MethodSelector {
+
         /// The API method name or Cloud IAM permission name to allow.
-        pub kind:
-            std::option::Option<crate::model::service_perimeter_config::method_selector::Kind>,
+        pub kind: std::option::Option<crate::model::service_perimeter_config::method_selector::Kind>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -3878,16 +3847,8 @@ pub mod service_perimeter_config {
         /// use google_cloud_identity_accesscontextmanager_v1::model::service_perimeter_config::method_selector::Kind;
         /// let x = MethodSelector::new().set_kind(Some(Kind::Method("example".to_string())));
         /// ```
-        pub fn set_kind<
-            T: std::convert::Into<
-                    std::option::Option<
-                        crate::model::service_perimeter_config::method_selector::Kind,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_kind<T: std::convert::Into<std::option::Option<crate::model::service_perimeter_config::method_selector::Kind>>>(mut self, v: T) -> Self
+        {
             self.kind = v.into();
             self
         }
@@ -3898,9 +3859,7 @@ pub mod service_perimeter_config {
         pub fn method(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.kind.as_ref().and_then(|v| match v {
-                crate::model::service_perimeter_config::method_selector::Kind::Method(v) => {
-                    std::option::Option::Some(v)
-                }
+                crate::model::service_perimeter_config::method_selector::Kind::Method(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
@@ -3920,7 +3879,9 @@ pub mod service_perimeter_config {
         /// ```
         pub fn set_method<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.kind = std::option::Option::Some(
-                crate::model::service_perimeter_config::method_selector::Kind::Method(v.into()),
+                crate::model::service_perimeter_config::method_selector::Kind::Method(
+                    v.into()
+                )
             );
             self
         }
@@ -3931,9 +3892,7 @@ pub mod service_perimeter_config {
         pub fn permission(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.kind.as_ref().and_then(|v| match v {
-                crate::model::service_perimeter_config::method_selector::Kind::Permission(v) => {
-                    std::option::Option::Some(v)
-                }
+                crate::model::service_perimeter_config::method_selector::Kind::Permission(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
@@ -3953,7 +3912,9 @@ pub mod service_perimeter_config {
         /// ```
         pub fn set_permission<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.kind = std::option::Option::Some(
-                crate::model::service_perimeter_config::method_selector::Kind::Permission(v.into()),
+                crate::model::service_perimeter_config::method_selector::Kind::Permission(
+                    v.into()
+                )
             );
             self
         }
@@ -3969,6 +3930,7 @@ pub mod service_perimeter_config {
     pub mod method_selector {
         #[allow(unused_imports)]
         use super::*;
+
 
         /// The API method name or Cloud IAM permission name to allow.
         #[derive(Clone, Debug, PartialEq)]
@@ -3991,6 +3953,7 @@ pub mod service_perimeter_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ApiOperation {
+
         /// The name of the API whose methods or permissions the [IngressPolicy]
         /// [google.identity.accesscontextmanager.v1.ServicePerimeterConfig.IngressPolicy]
         /// or [EgressPolicy]
@@ -4023,10 +3986,7 @@ pub mod service_perimeter_config {
         /// # use google_cloud_identity_accesscontextmanager_v1::model::service_perimeter_config::ApiOperation;
         /// let x = ApiOperation::new().set_service_name("example");
         /// ```
-        pub fn set_service_name<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_service_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.service_name = v.into();
             self
         }
@@ -4046,7 +4006,7 @@ pub mod service_perimeter_config {
         pub fn set_method_selectors<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::service_perimeter_config::MethodSelector>,
+            V: std::convert::Into<crate::model::service_perimeter_config::MethodSelector>
         {
             use std::iter::Iterator;
             self.method_selectors = v.into_iter().map(|i| i.into()).collect();
@@ -4066,11 +4026,11 @@ pub mod service_perimeter_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct IngressSource {
+
         /// Allowed ingress source. It can be one of [AccessLevel]
         /// [google.identity.accesscontextmanager.v1.AccessLevel] or Google
         /// Cloud resource.
-        pub source:
-            std::option::Option<crate::model::service_perimeter_config::ingress_source::Source>,
+        pub source: std::option::Option<crate::model::service_perimeter_config::ingress_source::Source>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -4091,16 +4051,8 @@ pub mod service_perimeter_config {
         /// use google_cloud_identity_accesscontextmanager_v1::model::service_perimeter_config::ingress_source::Source;
         /// let x = IngressSource::new().set_source(Some(Source::AccessLevel("example".to_string())));
         /// ```
-        pub fn set_source<
-            T: std::convert::Into<
-                    std::option::Option<
-                        crate::model::service_perimeter_config::ingress_source::Source,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_source<T: std::convert::Into<std::option::Option<crate::model::service_perimeter_config::ingress_source::Source>>>(mut self, v: T) -> Self
+        {
             self.source = v.into();
             self
         }
@@ -4111,9 +4063,7 @@ pub mod service_perimeter_config {
         pub fn access_level(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.source.as_ref().and_then(|v| match v {
-                crate::model::service_perimeter_config::ingress_source::Source::AccessLevel(v) => {
-                    std::option::Option::Some(v)
-                }
+                crate::model::service_perimeter_config::ingress_source::Source::AccessLevel(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
@@ -4131,14 +4081,11 @@ pub mod service_perimeter_config {
         /// assert!(x.access_level().is_some());
         /// assert!(x.resource().is_none());
         /// ```
-        pub fn set_access_level<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_access_level<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.source = std::option::Option::Some(
                 crate::model::service_perimeter_config::ingress_source::Source::AccessLevel(
-                    v.into(),
-                ),
+                    v.into()
+                )
             );
             self
         }
@@ -4149,9 +4096,7 @@ pub mod service_perimeter_config {
         pub fn resource(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.source.as_ref().and_then(|v| match v {
-                crate::model::service_perimeter_config::ingress_source::Source::Resource(v) => {
-                    std::option::Option::Some(v)
-                }
+                crate::model::service_perimeter_config::ingress_source::Source::Resource(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
@@ -4171,7 +4116,9 @@ pub mod service_perimeter_config {
         /// ```
         pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.source = std::option::Option::Some(
-                crate::model::service_perimeter_config::ingress_source::Source::Resource(v.into()),
+                crate::model::service_perimeter_config::ingress_source::Source::Resource(
+                    v.into()
+                )
             );
             self
         }
@@ -4187,6 +4134,7 @@ pub mod service_perimeter_config {
     pub mod ingress_source {
         #[allow(unused_imports)]
         use super::*;
+
 
         /// Allowed ingress source. It can be one of [AccessLevel]
         /// [google.identity.accesscontextmanager.v1.AccessLevel] or Google
@@ -4232,6 +4180,7 @@ pub mod service_perimeter_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct IngressFrom {
+
         /// Sources that this [IngressPolicy]
         /// [google.identity.accesscontextmanager.v1.ServicePerimeterConfig.IngressPolicy]
         /// authorizes access from.
@@ -4270,7 +4219,7 @@ pub mod service_perimeter_config {
         pub fn set_sources<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::service_perimeter_config::IngressSource>,
+            V: std::convert::Into<crate::model::service_perimeter_config::IngressSource>
         {
             use std::iter::Iterator;
             self.sources = v.into_iter().map(|i| i.into()).collect();
@@ -4287,7 +4236,7 @@ pub mod service_perimeter_config {
         pub fn set_identities<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.identities = v.into_iter().map(|i| i.into()).collect();
@@ -4304,12 +4253,7 @@ pub mod service_perimeter_config {
         /// let x1 = IngressFrom::new().set_identity_type(IdentityType::AnyUserAccount);
         /// let x2 = IngressFrom::new().set_identity_type(IdentityType::AnyServiceAccount);
         /// ```
-        pub fn set_identity_type<
-            T: std::convert::Into<crate::model::service_perimeter_config::IdentityType>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_identity_type<T: std::convert::Into<crate::model::service_perimeter_config::IdentityType>>(mut self, v: T) -> Self {
             self.identity_type = v.into();
             self
         }
@@ -4332,6 +4276,7 @@ pub mod service_perimeter_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct IngressTo {
+
         /// A list of [ApiOperations]
         /// [google.identity.accesscontextmanager.v1.ServicePerimeterConfig.ApiOperation]
         /// allowed to be performed by the sources specified in corresponding
@@ -4374,7 +4319,7 @@ pub mod service_perimeter_config {
         pub fn set_operations<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::service_perimeter_config::ApiOperation>,
+            V: std::convert::Into<crate::model::service_perimeter_config::ApiOperation>
         {
             use std::iter::Iterator;
             self.operations = v.into_iter().map(|i| i.into()).collect();
@@ -4391,7 +4336,7 @@ pub mod service_perimeter_config {
         pub fn set_resources<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.resources = v.into_iter().map(|i| i.into()).collect();
@@ -4428,6 +4373,7 @@ pub mod service_perimeter_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct IngressPolicy {
+
         /// Defines the conditions on the source of a request causing this
         /// [IngressPolicy]
         /// [google.identity.accesscontextmanager.v1.ServicePerimeterConfig.IngressPolicy]
@@ -4458,8 +4404,7 @@ pub mod service_perimeter_config {
         /// let x = IngressPolicy::new().set_ingress_from(IngressFrom::default()/* use setters */);
         /// ```
         pub fn set_ingress_from<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::service_perimeter_config::IngressFrom>,
+        where T: std::convert::Into<crate::model::service_perimeter_config::IngressFrom>
         {
             self.ingress_from = std::option::Option::Some(v.into());
             self
@@ -4475,8 +4420,7 @@ pub mod service_perimeter_config {
         /// let x = IngressPolicy::new().set_or_clear_ingress_from(None::<IngressFrom>);
         /// ```
         pub fn set_or_clear_ingress_from<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::service_perimeter_config::IngressFrom>,
+        where T: std::convert::Into<crate::model::service_perimeter_config::IngressFrom>
         {
             self.ingress_from = v.map(|x| x.into());
             self
@@ -4491,8 +4435,7 @@ pub mod service_perimeter_config {
         /// let x = IngressPolicy::new().set_ingress_to(IngressTo::default()/* use setters */);
         /// ```
         pub fn set_ingress_to<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::service_perimeter_config::IngressTo>,
+        where T: std::convert::Into<crate::model::service_perimeter_config::IngressTo>
         {
             self.ingress_to = std::option::Option::Some(v.into());
             self
@@ -4508,8 +4451,7 @@ pub mod service_perimeter_config {
         /// let x = IngressPolicy::new().set_or_clear_ingress_to(None::<IngressTo>);
         /// ```
         pub fn set_or_clear_ingress_to<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::service_perimeter_config::IngressTo>,
+        where T: std::convert::Into<crate::model::service_perimeter_config::IngressTo>
         {
             self.ingress_to = v.map(|x| x.into());
             self
@@ -4536,6 +4478,7 @@ pub mod service_perimeter_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct EgressFrom {
+
         /// A list of identities that are allowed access through this [EgressPolicy].
         /// Should be in the format of email address. The email address should
         /// represent individual user or service account only.
@@ -4564,7 +4507,7 @@ pub mod service_perimeter_config {
         pub fn set_identities<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.identities = v.into_iter().map(|i| i.into()).collect();
@@ -4581,12 +4524,7 @@ pub mod service_perimeter_config {
         /// let x1 = EgressFrom::new().set_identity_type(IdentityType::AnyUserAccount);
         /// let x2 = EgressFrom::new().set_identity_type(IdentityType::AnyServiceAccount);
         /// ```
-        pub fn set_identity_type<
-            T: std::convert::Into<crate::model::service_perimeter_config::IdentityType>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_identity_type<T: std::convert::Into<crate::model::service_perimeter_config::IdentityType>>(mut self, v: T) -> Self {
             self.identity_type = v.into();
             self
         }
@@ -4616,6 +4554,7 @@ pub mod service_perimeter_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct EgressTo {
+
         /// A list of resources, currently only projects in the form
         /// `projects/<projectnumber>`, that are allowed to be accessed by sources
         /// defined in the corresponding [EgressFrom]
@@ -4660,7 +4599,7 @@ pub mod service_perimeter_config {
         pub fn set_resources<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.resources = v.into_iter().map(|i| i.into()).collect();
@@ -4682,7 +4621,7 @@ pub mod service_perimeter_config {
         pub fn set_operations<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::service_perimeter_config::ApiOperation>,
+            V: std::convert::Into<crate::model::service_perimeter_config::ApiOperation>
         {
             use std::iter::Iterator;
             self.operations = v.into_iter().map(|i| i.into()).collect();
@@ -4699,7 +4638,7 @@ pub mod service_perimeter_config {
         pub fn set_external_resources<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.external_resources = v.into_iter().map(|i| i.into()).collect();
@@ -4744,6 +4683,7 @@ pub mod service_perimeter_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct EgressPolicy {
+
         /// Defines conditions on the source of a request causing this [EgressPolicy]
         /// [google.identity.accesscontextmanager.v1.ServicePerimeterConfig.EgressPolicy]
         /// to apply.
@@ -4773,8 +4713,7 @@ pub mod service_perimeter_config {
         /// let x = EgressPolicy::new().set_egress_from(EgressFrom::default()/* use setters */);
         /// ```
         pub fn set_egress_from<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::service_perimeter_config::EgressFrom>,
+        where T: std::convert::Into<crate::model::service_perimeter_config::EgressFrom>
         {
             self.egress_from = std::option::Option::Some(v.into());
             self
@@ -4790,8 +4729,7 @@ pub mod service_perimeter_config {
         /// let x = EgressPolicy::new().set_or_clear_egress_from(None::<EgressFrom>);
         /// ```
         pub fn set_or_clear_egress_from<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::service_perimeter_config::EgressFrom>,
+        where T: std::convert::Into<crate::model::service_perimeter_config::EgressFrom>
         {
             self.egress_from = v.map(|x| x.into());
             self
@@ -4806,8 +4744,7 @@ pub mod service_perimeter_config {
         /// let x = EgressPolicy::new().set_egress_to(EgressTo::default()/* use setters */);
         /// ```
         pub fn set_egress_to<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::service_perimeter_config::EgressTo>,
+        where T: std::convert::Into<crate::model::service_perimeter_config::EgressTo>
         {
             self.egress_to = std::option::Option::Some(v.into());
             self
@@ -4823,8 +4760,7 @@ pub mod service_perimeter_config {
         /// let x = EgressPolicy::new().set_or_clear_egress_to(None::<EgressTo>);
         /// ```
         pub fn set_or_clear_egress_to<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::service_perimeter_config::EgressTo>,
+        where T: std::convert::Into<crate::model::service_perimeter_config::EgressTo>
         {
             self.egress_to = v.map(|x| x.into());
             self
@@ -4933,9 +4869,7 @@ pub mod service_perimeter_config {
                 1 => Self::AnyIdentity,
                 2 => Self::AnyUserAccount,
                 3 => Self::AnyServiceAccount,
-                _ => Self::UnknownValue(identity_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(identity_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -4948,9 +4882,7 @@ pub mod service_perimeter_config {
                 "ANY_IDENTITY" => Self::AnyIdentity,
                 "ANY_USER_ACCOUNT" => Self::AnyUserAccount,
                 "ANY_SERVICE_ACCOUNT" => Self::AnyServiceAccount,
-                _ => Self::UnknownValue(identity_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(identity_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -4976,8 +4908,7 @@ pub mod service_perimeter_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<IdentityType>::new(
-                ".google.identity.accesscontextmanager.v1.ServicePerimeterConfig.IdentityType",
-            ))
+                ".google.identity.accesscontextmanager.v1.ServicePerimeterConfig.IdentityType"))
         }
     }
 }
@@ -5070,9 +5001,7 @@ impl std::convert::From<i32> for LevelFormat {
             0 => Self::Unspecified,
             1 => Self::AsDefined,
             2 => Self::Cel,
-            _ => Self::UnknownValue(level_format::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(level_format::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -5084,9 +5013,7 @@ impl std::convert::From<&str> for LevelFormat {
             "LEVEL_FORMAT_UNSPECIFIED" => Self::Unspecified,
             "AS_DEFINED" => Self::AsDefined,
             "CEL" => Self::Cel,
-            _ => Self::UnknownValue(level_format::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(level_format::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -5111,7 +5038,6 @@ impl<'de> serde::de::Deserialize<'de> for LevelFormat {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<LevelFormat>::new(
-            ".google.identity.accesscontextmanager.v1.LevelFormat",
-        ))
+            ".google.identity.accesscontextmanager.v1.LevelFormat"))
     }
 }

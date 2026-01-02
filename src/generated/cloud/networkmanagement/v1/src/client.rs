@@ -79,9 +79,7 @@ impl ReachabilityService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::reachability_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::reachability_service::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::reachability_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -89,56 +87,56 @@ impl ReachabilityService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::ReachabilityService + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::ReachabilityService + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ReachabilityService>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ReachabilityService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ReachabilityService> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ReachabilityService> {
         super::transport::ReachabilityService::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ReachabilityService> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::ReachabilityService::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ReachabilityService> {
+        Self::build_transport(conf).await.map(super::tracing::ReachabilityService::new)
     }
 
     /// Lists all Connectivity Tests owned by a project.
-    pub fn list_connectivity_tests(
-        &self,
-    ) -> super::builder::reachability_service::ListConnectivityTests {
+    pub fn list_connectivity_tests(&self) -> super::builder::reachability_service::ListConnectivityTests
+    {
         super::builder::reachability_service::ListConnectivityTests::new(self.inner.clone())
     }
 
     /// Gets the details of a specific Connectivity Test.
-    pub fn get_connectivity_test(
-        &self,
-    ) -> super::builder::reachability_service::GetConnectivityTest {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::ReachabilityService;
+    /// async fn sample(
+    ///    client: &ReachabilityService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_connectivity_test()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_connectivity_test(&self) -> super::builder::reachability_service::GetConnectivityTest
+    {
         super::builder::reachability_service::GetConnectivityTest::new(self.inner.clone())
     }
 
@@ -165,9 +163,8 @@ impl ReachabilityService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_connectivity_test(
-        &self,
-    ) -> super::builder::reachability_service::CreateConnectivityTest {
+    pub fn create_connectivity_test(&self) -> super::builder::reachability_service::CreateConnectivityTest
+    {
         super::builder::reachability_service::CreateConnectivityTest::new(self.inner.clone())
     }
 
@@ -195,9 +192,8 @@ impl ReachabilityService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_connectivity_test(
-        &self,
-    ) -> super::builder::reachability_service::UpdateConnectivityTest {
+    pub fn update_connectivity_test(&self) -> super::builder::reachability_service::UpdateConnectivityTest
+    {
         super::builder::reachability_service::UpdateConnectivityTest::new(self.inner.clone())
     }
 
@@ -223,9 +219,8 @@ impl ReachabilityService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn rerun_connectivity_test(
-        &self,
-    ) -> super::builder::reachability_service::RerunConnectivityTest {
+    pub fn rerun_connectivity_test(&self) -> super::builder::reachability_service::RerunConnectivityTest
+    {
         super::builder::reachability_service::RerunConnectivityTest::new(self.inner.clone())
     }
 
@@ -240,19 +235,36 @@ impl ReachabilityService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_connectivity_test(
-        &self,
-    ) -> super::builder::reachability_service::DeleteConnectivityTest {
+    pub fn delete_connectivity_test(&self) -> super::builder::reachability_service::DeleteConnectivityTest
+    {
         super::builder::reachability_service::DeleteConnectivityTest::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::reachability_service::ListLocations {
+    pub fn list_locations(&self) -> super::builder::reachability_service::ListLocations
+    {
         super::builder::reachability_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(&self) -> super::builder::reachability_service::GetLocation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::ReachabilityService;
+    /// async fn sample(
+    ///    client: &ReachabilityService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_location(&self) -> super::builder::reachability_service::GetLocation
+    {
         super::builder::reachability_service::GetLocation::new(self.inner.clone())
     }
 
@@ -261,13 +273,47 @@ impl ReachabilityService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
-    pub fn set_iam_policy(&self) -> super::builder::reachability_service::SetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::ReachabilityService;
+    /// async fn sample(
+    ///    client: &ReachabilityService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::reachability_service::SetIamPolicy
+    {
         super::builder::reachability_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
-    pub fn get_iam_policy(&self) -> super::builder::reachability_service::GetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::ReachabilityService;
+    /// async fn sample(
+    ///    client: &ReachabilityService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::reachability_service::GetIamPolicy
+    {
         super::builder::reachability_service::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -278,35 +324,102 @@ impl ReachabilityService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
-    pub fn test_iam_permissions(&self) -> super::builder::reachability_service::TestIamPermissions {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::ReachabilityService;
+    /// async fn sample(
+    ///    client: &ReachabilityService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::reachability_service::TestIamPermissions
+    {
         super::builder::reachability_service::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::reachability_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::reachability_service::ListOperations
+    {
         super::builder::reachability_service::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::reachability_service::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::ReachabilityService;
+    /// async fn sample(
+    ///    client: &ReachabilityService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::reachability_service::GetOperation
+    {
         super::builder::reachability_service::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(&self) -> super::builder::reachability_service::DeleteOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::ReachabilityService;
+    /// async fn sample(
+    ///    client: &ReachabilityService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_operation(&self) -> super::builder::reachability_service::DeleteOperation
+    {
         super::builder::reachability_service::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(&self) -> super::builder::reachability_service::CancelOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::ReachabilityService;
+    /// async fn sample(
+    ///    client: &ReachabilityService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_operation(&self) -> super::builder::reachability_service::CancelOperation
+    {
         super::builder::reachability_service::CancelOperation::new(self.inner.clone())
     }
 }
@@ -369,9 +482,7 @@ impl VpcFlowLogsService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::vpc_flow_logs_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::vpc_flow_logs_service::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::vpc_flow_logs_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -379,56 +490,56 @@ impl VpcFlowLogsService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::VpcFlowLogsService + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::VpcFlowLogsService + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::VpcFlowLogsService>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::VpcFlowLogsService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::VpcFlowLogsService> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::VpcFlowLogsService> {
         super::transport::VpcFlowLogsService::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::VpcFlowLogsService> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::VpcFlowLogsService::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::VpcFlowLogsService> {
+        Self::build_transport(conf).await.map(super::tracing::VpcFlowLogsService::new)
     }
 
     /// Lists all `VpcFlowLogsConfigs` in a given project.
-    pub fn list_vpc_flow_logs_configs(
-        &self,
-    ) -> super::builder::vpc_flow_logs_service::ListVpcFlowLogsConfigs {
+    pub fn list_vpc_flow_logs_configs(&self) -> super::builder::vpc_flow_logs_service::ListVpcFlowLogsConfigs
+    {
         super::builder::vpc_flow_logs_service::ListVpcFlowLogsConfigs::new(self.inner.clone())
     }
 
     /// Gets the details of a specific `VpcFlowLogsConfig`.
-    pub fn get_vpc_flow_logs_config(
-        &self,
-    ) -> super::builder::vpc_flow_logs_service::GetVpcFlowLogsConfig {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::VpcFlowLogsService;
+    /// async fn sample(
+    ///    client: &VpcFlowLogsService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_vpc_flow_logs_config()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_vpc_flow_logs_config(&self) -> super::builder::vpc_flow_logs_service::GetVpcFlowLogsConfig
+    {
         super::builder::vpc_flow_logs_service::GetVpcFlowLogsConfig::new(self.inner.clone())
     }
 
@@ -457,9 +568,8 @@ impl VpcFlowLogsService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_vpc_flow_logs_config(
-        &self,
-    ) -> super::builder::vpc_flow_logs_service::CreateVpcFlowLogsConfig {
+    pub fn create_vpc_flow_logs_config(&self) -> super::builder::vpc_flow_logs_service::CreateVpcFlowLogsConfig
+    {
         super::builder::vpc_flow_logs_service::CreateVpcFlowLogsConfig::new(self.inner.clone())
     }
 
@@ -488,9 +598,8 @@ impl VpcFlowLogsService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_vpc_flow_logs_config(
-        &self,
-    ) -> super::builder::vpc_flow_logs_service::UpdateVpcFlowLogsConfig {
+    pub fn update_vpc_flow_logs_config(&self) -> super::builder::vpc_flow_logs_service::UpdateVpcFlowLogsConfig
+    {
         super::builder::vpc_flow_logs_service::UpdateVpcFlowLogsConfig::new(self.inner.clone())
     }
 
@@ -505,35 +614,50 @@ impl VpcFlowLogsService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_vpc_flow_logs_config(
-        &self,
-    ) -> super::builder::vpc_flow_logs_service::DeleteVpcFlowLogsConfig {
+    pub fn delete_vpc_flow_logs_config(&self) -> super::builder::vpc_flow_logs_service::DeleteVpcFlowLogsConfig
+    {
         super::builder::vpc_flow_logs_service::DeleteVpcFlowLogsConfig::new(self.inner.clone())
     }
 
     /// QueryOrgVpcFlowLogsConfigs returns a list of all organization-level VPC
     /// Flow Logs configurations applicable to the specified project.
-    pub fn query_org_vpc_flow_logs_configs(
-        &self,
-    ) -> super::builder::vpc_flow_logs_service::QueryOrgVpcFlowLogsConfigs {
+    pub fn query_org_vpc_flow_logs_configs(&self) -> super::builder::vpc_flow_logs_service::QueryOrgVpcFlowLogsConfigs
+    {
         super::builder::vpc_flow_logs_service::QueryOrgVpcFlowLogsConfigs::new(self.inner.clone())
     }
 
     /// ShowEffectiveFlowLogsConfigs returns a list of all VPC Flow Logs
     /// configurations applicable to a specified resource.
-    pub fn show_effective_flow_logs_configs(
-        &self,
-    ) -> super::builder::vpc_flow_logs_service::ShowEffectiveFlowLogsConfigs {
+    pub fn show_effective_flow_logs_configs(&self) -> super::builder::vpc_flow_logs_service::ShowEffectiveFlowLogsConfigs
+    {
         super::builder::vpc_flow_logs_service::ShowEffectiveFlowLogsConfigs::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::vpc_flow_logs_service::ListLocations {
+    pub fn list_locations(&self) -> super::builder::vpc_flow_logs_service::ListLocations
+    {
         super::builder::vpc_flow_logs_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(&self) -> super::builder::vpc_flow_logs_service::GetLocation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::VpcFlowLogsService;
+    /// async fn sample(
+    ///    client: &VpcFlowLogsService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_location(&self) -> super::builder::vpc_flow_logs_service::GetLocation
+    {
         super::builder::vpc_flow_logs_service::GetLocation::new(self.inner.clone())
     }
 
@@ -542,13 +666,47 @@ impl VpcFlowLogsService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
-    pub fn set_iam_policy(&self) -> super::builder::vpc_flow_logs_service::SetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::VpcFlowLogsService;
+    /// async fn sample(
+    ///    client: &VpcFlowLogsService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::vpc_flow_logs_service::SetIamPolicy
+    {
         super::builder::vpc_flow_logs_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
-    pub fn get_iam_policy(&self) -> super::builder::vpc_flow_logs_service::GetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::VpcFlowLogsService;
+    /// async fn sample(
+    ///    client: &VpcFlowLogsService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::vpc_flow_logs_service::GetIamPolicy
+    {
         super::builder::vpc_flow_logs_service::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -559,37 +717,102 @@ impl VpcFlowLogsService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
-    pub fn test_iam_permissions(
-        &self,
-    ) -> super::builder::vpc_flow_logs_service::TestIamPermissions {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::VpcFlowLogsService;
+    /// async fn sample(
+    ///    client: &VpcFlowLogsService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::vpc_flow_logs_service::TestIamPermissions
+    {
         super::builder::vpc_flow_logs_service::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::vpc_flow_logs_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::vpc_flow_logs_service::ListOperations
+    {
         super::builder::vpc_flow_logs_service::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::vpc_flow_logs_service::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::VpcFlowLogsService;
+    /// async fn sample(
+    ///    client: &VpcFlowLogsService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::vpc_flow_logs_service::GetOperation
+    {
         super::builder::vpc_flow_logs_service::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(&self) -> super::builder::vpc_flow_logs_service::DeleteOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::VpcFlowLogsService;
+    /// async fn sample(
+    ///    client: &VpcFlowLogsService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_operation(&self) -> super::builder::vpc_flow_logs_service::DeleteOperation
+    {
         super::builder::vpc_flow_logs_service::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(&self) -> super::builder::vpc_flow_logs_service::CancelOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::VpcFlowLogsService;
+    /// async fn sample(
+    ///    client: &VpcFlowLogsService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_operation(&self) -> super::builder::vpc_flow_logs_service::CancelOperation
+    {
         super::builder::vpc_flow_logs_service::CancelOperation::new(self.inner.clone())
     }
 }
@@ -653,9 +876,7 @@ impl OrganizationVpcFlowLogsService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::organization_vpc_flow_logs_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::organization_vpc_flow_logs_service::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::organization_vpc_flow_logs_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -663,62 +884,57 @@ impl OrganizationVpcFlowLogsService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::OrganizationVpcFlowLogsService + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::OrganizationVpcFlowLogsService + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<
-        std::sync::Arc<dyn super::stub::dynamic::OrganizationVpcFlowLogsService>,
-    > {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::OrganizationVpcFlowLogsService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::OrganizationVpcFlowLogsService> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::OrganizationVpcFlowLogsService> {
         super::transport::OrganizationVpcFlowLogsService::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::OrganizationVpcFlowLogsService> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::OrganizationVpcFlowLogsService::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::OrganizationVpcFlowLogsService> {
+        Self::build_transport(conf).await.map(super::tracing::OrganizationVpcFlowLogsService::new)
     }
 
     /// Lists all `VpcFlowLogsConfigs` in a given organization.
-    pub fn list_vpc_flow_logs_configs(
-        &self,
-    ) -> super::builder::organization_vpc_flow_logs_service::ListVpcFlowLogsConfigs {
-        super::builder::organization_vpc_flow_logs_service::ListVpcFlowLogsConfigs::new(
-            self.inner.clone(),
-        )
+    pub fn list_vpc_flow_logs_configs(&self) -> super::builder::organization_vpc_flow_logs_service::ListVpcFlowLogsConfigs
+    {
+        super::builder::organization_vpc_flow_logs_service::ListVpcFlowLogsConfigs::new(self.inner.clone())
     }
 
     /// Gets the details of a specific `VpcFlowLogsConfig`.
-    pub fn get_vpc_flow_logs_config(
-        &self,
-    ) -> super::builder::organization_vpc_flow_logs_service::GetVpcFlowLogsConfig {
-        super::builder::organization_vpc_flow_logs_service::GetVpcFlowLogsConfig::new(
-            self.inner.clone(),
-        )
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::OrganizationVpcFlowLogsService;
+    /// async fn sample(
+    ///    client: &OrganizationVpcFlowLogsService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_vpc_flow_logs_config()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_vpc_flow_logs_config(&self) -> super::builder::organization_vpc_flow_logs_service::GetVpcFlowLogsConfig
+    {
+        super::builder::organization_vpc_flow_logs_service::GetVpcFlowLogsConfig::new(self.inner.clone())
     }
 
     /// Creates a new `VpcFlowLogsConfig`.
@@ -746,12 +962,9 @@ impl OrganizationVpcFlowLogsService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_vpc_flow_logs_config(
-        &self,
-    ) -> super::builder::organization_vpc_flow_logs_service::CreateVpcFlowLogsConfig {
-        super::builder::organization_vpc_flow_logs_service::CreateVpcFlowLogsConfig::new(
-            self.inner.clone(),
-        )
+    pub fn create_vpc_flow_logs_config(&self) -> super::builder::organization_vpc_flow_logs_service::CreateVpcFlowLogsConfig
+    {
+        super::builder::organization_vpc_flow_logs_service::CreateVpcFlowLogsConfig::new(self.inner.clone())
     }
 
     /// Updates an existing `VpcFlowLogsConfig`.
@@ -779,12 +992,9 @@ impl OrganizationVpcFlowLogsService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_vpc_flow_logs_config(
-        &self,
-    ) -> super::builder::organization_vpc_flow_logs_service::UpdateVpcFlowLogsConfig {
-        super::builder::organization_vpc_flow_logs_service::UpdateVpcFlowLogsConfig::new(
-            self.inner.clone(),
-        )
+    pub fn update_vpc_flow_logs_config(&self) -> super::builder::organization_vpc_flow_logs_service::UpdateVpcFlowLogsConfig
+    {
+        super::builder::organization_vpc_flow_logs_service::UpdateVpcFlowLogsConfig::new(self.inner.clone())
     }
 
     /// Deletes a specific `VpcFlowLogsConfig`.
@@ -798,23 +1008,36 @@ impl OrganizationVpcFlowLogsService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_vpc_flow_logs_config(
-        &self,
-    ) -> super::builder::organization_vpc_flow_logs_service::DeleteVpcFlowLogsConfig {
-        super::builder::organization_vpc_flow_logs_service::DeleteVpcFlowLogsConfig::new(
-            self.inner.clone(),
-        )
+    pub fn delete_vpc_flow_logs_config(&self) -> super::builder::organization_vpc_flow_logs_service::DeleteVpcFlowLogsConfig
+    {
+        super::builder::organization_vpc_flow_logs_service::DeleteVpcFlowLogsConfig::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-    ) -> super::builder::organization_vpc_flow_logs_service::ListLocations {
+    pub fn list_locations(&self) -> super::builder::organization_vpc_flow_logs_service::ListLocations
+    {
         super::builder::organization_vpc_flow_logs_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(&self) -> super::builder::organization_vpc_flow_logs_service::GetLocation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::OrganizationVpcFlowLogsService;
+    /// async fn sample(
+    ///    client: &OrganizationVpcFlowLogsService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_location(&self) -> super::builder::organization_vpc_flow_logs_service::GetLocation
+    {
         super::builder::organization_vpc_flow_logs_service::GetLocation::new(self.inner.clone())
     }
 
@@ -823,17 +1046,47 @@ impl OrganizationVpcFlowLogsService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
-    pub fn set_iam_policy(
-        &self,
-    ) -> super::builder::organization_vpc_flow_logs_service::SetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::OrganizationVpcFlowLogsService;
+    /// async fn sample(
+    ///    client: &OrganizationVpcFlowLogsService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::organization_vpc_flow_logs_service::SetIamPolicy
+    {
         super::builder::organization_vpc_flow_logs_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
-    pub fn get_iam_policy(
-        &self,
-    ) -> super::builder::organization_vpc_flow_logs_service::GetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::OrganizationVpcFlowLogsService;
+    /// async fn sample(
+    ///    client: &OrganizationVpcFlowLogsService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::organization_vpc_flow_logs_service::GetIamPolicy
+    {
         super::builder::organization_vpc_flow_logs_service::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -844,47 +1097,102 @@ impl OrganizationVpcFlowLogsService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
-    pub fn test_iam_permissions(
-        &self,
-    ) -> super::builder::organization_vpc_flow_logs_service::TestIamPermissions {
-        super::builder::organization_vpc_flow_logs_service::TestIamPermissions::new(
-            self.inner.clone(),
-        )
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::OrganizationVpcFlowLogsService;
+    /// async fn sample(
+    ///    client: &OrganizationVpcFlowLogsService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::organization_vpc_flow_logs_service::TestIamPermissions
+    {
+        super::builder::organization_vpc_flow_logs_service::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-    ) -> super::builder::organization_vpc_flow_logs_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::organization_vpc_flow_logs_service::ListOperations
+    {
         super::builder::organization_vpc_flow_logs_service::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-    ) -> super::builder::organization_vpc_flow_logs_service::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::OrganizationVpcFlowLogsService;
+    /// async fn sample(
+    ///    client: &OrganizationVpcFlowLogsService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::organization_vpc_flow_logs_service::GetOperation
+    {
         super::builder::organization_vpc_flow_logs_service::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-    ) -> super::builder::organization_vpc_flow_logs_service::DeleteOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::OrganizationVpcFlowLogsService;
+    /// async fn sample(
+    ///    client: &OrganizationVpcFlowLogsService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_operation(&self) -> super::builder::organization_vpc_flow_logs_service::DeleteOperation
+    {
         super::builder::organization_vpc_flow_logs_service::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-    ) -> super::builder::organization_vpc_flow_logs_service::CancelOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::OrganizationVpcFlowLogsService;
+    /// async fn sample(
+    ///    client: &OrganizationVpcFlowLogsService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_operation(&self) -> super::builder::organization_vpc_flow_logs_service::CancelOperation
+    {
         super::builder::organization_vpc_flow_logs_service::CancelOperation::new(self.inner.clone())
     }
 }

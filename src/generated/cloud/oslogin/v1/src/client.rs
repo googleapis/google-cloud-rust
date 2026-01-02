@@ -75,9 +75,7 @@ impl OsLoginService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::os_login_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::os_login_service::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::os_login_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -85,80 +83,184 @@ impl OsLoginService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::OsLoginService + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::OsLoginService + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::OsLoginService>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::OsLoginService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::OsLoginService> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::OsLoginService> {
         super::transport::OsLoginService::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::OsLoginService> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::OsLoginService::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::OsLoginService> {
+        Self::build_transport(conf).await.map(super::tracing::OsLoginService::new)
     }
 
     /// Create an SSH public key
-    pub fn create_ssh_public_key(&self) -> super::builder::os_login_service::CreateSshPublicKey {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oslogin_v1::client::OsLoginService;
+    /// async fn sample(
+    ///    client: &OsLoginService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_ssh_public_key()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_ssh_public_key(&self) -> super::builder::os_login_service::CreateSshPublicKey
+    {
         super::builder::os_login_service::CreateSshPublicKey::new(self.inner.clone())
     }
 
     /// Deletes a POSIX account.
-    pub fn delete_posix_account(&self) -> super::builder::os_login_service::DeletePosixAccount {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oslogin_v1::client::OsLoginService;
+    /// async fn sample(
+    ///    client: &OsLoginService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_posix_account()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_posix_account(&self) -> super::builder::os_login_service::DeletePosixAccount
+    {
         super::builder::os_login_service::DeletePosixAccount::new(self.inner.clone())
     }
 
     /// Deletes an SSH public key.
-    pub fn delete_ssh_public_key(&self) -> super::builder::os_login_service::DeleteSshPublicKey {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oslogin_v1::client::OsLoginService;
+    /// async fn sample(
+    ///    client: &OsLoginService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_ssh_public_key()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_ssh_public_key(&self) -> super::builder::os_login_service::DeleteSshPublicKey
+    {
         super::builder::os_login_service::DeleteSshPublicKey::new(self.inner.clone())
     }
 
     /// Retrieves the profile information used for logging in to a virtual machine
     /// on Google Compute Engine.
-    pub fn get_login_profile(&self) -> super::builder::os_login_service::GetLoginProfile {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oslogin_v1::client::OsLoginService;
+    /// async fn sample(
+    ///    client: &OsLoginService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_login_profile()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_login_profile(&self) -> super::builder::os_login_service::GetLoginProfile
+    {
         super::builder::os_login_service::GetLoginProfile::new(self.inner.clone())
     }
 
     /// Retrieves an SSH public key.
-    pub fn get_ssh_public_key(&self) -> super::builder::os_login_service::GetSshPublicKey {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oslogin_v1::client::OsLoginService;
+    /// async fn sample(
+    ///    client: &OsLoginService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_ssh_public_key()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_ssh_public_key(&self) -> super::builder::os_login_service::GetSshPublicKey
+    {
         super::builder::os_login_service::GetSshPublicKey::new(self.inner.clone())
     }
 
     /// Adds an SSH public key and returns the profile information. Default POSIX
     /// account information is set when no username and UID exist as part of the
     /// login profile.
-    pub fn import_ssh_public_key(&self) -> super::builder::os_login_service::ImportSshPublicKey {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oslogin_v1::client::OsLoginService;
+    /// async fn sample(
+    ///    client: &OsLoginService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .import_ssh_public_key()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn import_ssh_public_key(&self) -> super::builder::os_login_service::ImportSshPublicKey
+    {
         super::builder::os_login_service::ImportSshPublicKey::new(self.inner.clone())
     }
 
     /// Updates an SSH public key and returns the profile information. This method
     /// supports patch semantics.
-    pub fn update_ssh_public_key(&self) -> super::builder::os_login_service::UpdateSshPublicKey {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oslogin_v1::client::OsLoginService;
+    /// async fn sample(
+    ///    client: &OsLoginService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_ssh_public_key()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_ssh_public_key(&self) -> super::builder::os_login_service::UpdateSshPublicKey
+    {
         super::builder::os_login_service::UpdateSshPublicKey::new(self.inner.clone())
     }
 }

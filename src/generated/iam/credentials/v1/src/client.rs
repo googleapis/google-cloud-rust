@@ -88,61 +88,115 @@ impl IAMCredentials {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::IAMCredentials + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::IAMCredentials + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::IAMCredentials>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::IAMCredentials>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::IAMCredentials> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::IAMCredentials> {
         super::transport::IAMCredentials::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::IAMCredentials> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::IAMCredentials::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::IAMCredentials> {
+        Self::build_transport(conf).await.map(super::tracing::IAMCredentials::new)
     }
 
     /// Generates an OAuth 2.0 access token for a service account.
-    pub fn generate_access_token(&self) -> super::builder::iam_credentials::GenerateAccessToken {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_credentials_v1::client::IAMCredentials;
+    /// async fn sample(
+    ///    client: &IAMCredentials
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .generate_access_token()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn generate_access_token(&self) -> super::builder::iam_credentials::GenerateAccessToken
+    {
         super::builder::iam_credentials::GenerateAccessToken::new(self.inner.clone())
     }
 
     /// Generates an OpenID Connect ID token for a service account.
-    pub fn generate_id_token(&self) -> super::builder::iam_credentials::GenerateIdToken {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_credentials_v1::client::IAMCredentials;
+    /// async fn sample(
+    ///    client: &IAMCredentials
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .generate_id_token()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn generate_id_token(&self) -> super::builder::iam_credentials::GenerateIdToken
+    {
         super::builder::iam_credentials::GenerateIdToken::new(self.inner.clone())
     }
 
     /// Signs a blob using a service account's system-managed private key.
-    pub fn sign_blob(&self) -> super::builder::iam_credentials::SignBlob {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_credentials_v1::client::IAMCredentials;
+    /// async fn sample(
+    ///    client: &IAMCredentials
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .sign_blob()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn sign_blob(&self) -> super::builder::iam_credentials::SignBlob
+    {
         super::builder::iam_credentials::SignBlob::new(self.inner.clone())
     }
 
     /// Signs a JWT using a service account's system-managed private key.
-    pub fn sign_jwt(&self) -> super::builder::iam_credentials::SignJwt {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_credentials_v1::client::IAMCredentials;
+    /// async fn sample(
+    ///    client: &IAMCredentials
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .sign_jwt()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn sign_jwt(&self) -> super::builder::iam_credentials::SignJwt
+    {
         super::builder::iam_credentials::SignJwt::new(self.inner.clone())
     }
 }

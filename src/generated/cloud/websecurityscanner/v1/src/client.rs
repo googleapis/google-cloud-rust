@@ -74,9 +74,7 @@ impl WebSecurityScanner {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::web_security_scanner::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::web_security_scanner::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::web_security_scanner::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -84,110 +82,249 @@ impl WebSecurityScanner {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::WebSecurityScanner + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::WebSecurityScanner + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::WebSecurityScanner>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::WebSecurityScanner>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::WebSecurityScanner> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::WebSecurityScanner> {
         super::transport::WebSecurityScanner::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::WebSecurityScanner> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::WebSecurityScanner::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::WebSecurityScanner> {
+        Self::build_transport(conf).await.map(super::tracing::WebSecurityScanner::new)
     }
 
     /// Creates a new ScanConfig.
-    pub fn create_scan_config(&self) -> super::builder::web_security_scanner::CreateScanConfig {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_websecurityscanner_v1::client::WebSecurityScanner;
+    /// async fn sample(
+    ///    client: &WebSecurityScanner
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_scan_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_scan_config(&self) -> super::builder::web_security_scanner::CreateScanConfig
+    {
         super::builder::web_security_scanner::CreateScanConfig::new(self.inner.clone())
     }
 
     /// Deletes an existing ScanConfig and its child resources.
-    pub fn delete_scan_config(&self) -> super::builder::web_security_scanner::DeleteScanConfig {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_websecurityscanner_v1::client::WebSecurityScanner;
+    /// async fn sample(
+    ///    client: &WebSecurityScanner
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_scan_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_scan_config(&self) -> super::builder::web_security_scanner::DeleteScanConfig
+    {
         super::builder::web_security_scanner::DeleteScanConfig::new(self.inner.clone())
     }
 
     /// Gets a ScanConfig.
-    pub fn get_scan_config(&self) -> super::builder::web_security_scanner::GetScanConfig {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_websecurityscanner_v1::client::WebSecurityScanner;
+    /// async fn sample(
+    ///    client: &WebSecurityScanner
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_scan_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_scan_config(&self) -> super::builder::web_security_scanner::GetScanConfig
+    {
         super::builder::web_security_scanner::GetScanConfig::new(self.inner.clone())
     }
 
     /// Lists ScanConfigs under a given project.
-    pub fn list_scan_configs(&self) -> super::builder::web_security_scanner::ListScanConfigs {
+    pub fn list_scan_configs(&self) -> super::builder::web_security_scanner::ListScanConfigs
+    {
         super::builder::web_security_scanner::ListScanConfigs::new(self.inner.clone())
     }
 
     /// Updates a ScanConfig. This method support partial update of a ScanConfig.
-    pub fn update_scan_config(&self) -> super::builder::web_security_scanner::UpdateScanConfig {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_websecurityscanner_v1::client::WebSecurityScanner;
+    /// async fn sample(
+    ///    client: &WebSecurityScanner
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_scan_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_scan_config(&self) -> super::builder::web_security_scanner::UpdateScanConfig
+    {
         super::builder::web_security_scanner::UpdateScanConfig::new(self.inner.clone())
     }
 
     /// Start a ScanRun according to the given ScanConfig.
-    pub fn start_scan_run(&self) -> super::builder::web_security_scanner::StartScanRun {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_websecurityscanner_v1::client::WebSecurityScanner;
+    /// async fn sample(
+    ///    client: &WebSecurityScanner
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .start_scan_run()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn start_scan_run(&self) -> super::builder::web_security_scanner::StartScanRun
+    {
         super::builder::web_security_scanner::StartScanRun::new(self.inner.clone())
     }
 
     /// Gets a ScanRun.
-    pub fn get_scan_run(&self) -> super::builder::web_security_scanner::GetScanRun {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_websecurityscanner_v1::client::WebSecurityScanner;
+    /// async fn sample(
+    ///    client: &WebSecurityScanner
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_scan_run()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_scan_run(&self) -> super::builder::web_security_scanner::GetScanRun
+    {
         super::builder::web_security_scanner::GetScanRun::new(self.inner.clone())
     }
 
     /// Lists ScanRuns under a given ScanConfig, in descending order of ScanRun
     /// stop time.
-    pub fn list_scan_runs(&self) -> super::builder::web_security_scanner::ListScanRuns {
+    pub fn list_scan_runs(&self) -> super::builder::web_security_scanner::ListScanRuns
+    {
         super::builder::web_security_scanner::ListScanRuns::new(self.inner.clone())
     }
 
     /// Stops a ScanRun. The stopped ScanRun is returned.
-    pub fn stop_scan_run(&self) -> super::builder::web_security_scanner::StopScanRun {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_websecurityscanner_v1::client::WebSecurityScanner;
+    /// async fn sample(
+    ///    client: &WebSecurityScanner
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .stop_scan_run()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn stop_scan_run(&self) -> super::builder::web_security_scanner::StopScanRun
+    {
         super::builder::web_security_scanner::StopScanRun::new(self.inner.clone())
     }
 
     /// List CrawledUrls under a given ScanRun.
-    pub fn list_crawled_urls(&self) -> super::builder::web_security_scanner::ListCrawledUrls {
+    pub fn list_crawled_urls(&self) -> super::builder::web_security_scanner::ListCrawledUrls
+    {
         super::builder::web_security_scanner::ListCrawledUrls::new(self.inner.clone())
     }
 
     /// Gets a Finding.
-    pub fn get_finding(&self) -> super::builder::web_security_scanner::GetFinding {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_websecurityscanner_v1::client::WebSecurityScanner;
+    /// async fn sample(
+    ///    client: &WebSecurityScanner
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_finding()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_finding(&self) -> super::builder::web_security_scanner::GetFinding
+    {
         super::builder::web_security_scanner::GetFinding::new(self.inner.clone())
     }
 
     /// List Findings under a given ScanRun.
-    pub fn list_findings(&self) -> super::builder::web_security_scanner::ListFindings {
+    pub fn list_findings(&self) -> super::builder::web_security_scanner::ListFindings
+    {
         super::builder::web_security_scanner::ListFindings::new(self.inner.clone())
     }
 
     /// List all FindingTypeStats under a given ScanRun.
-    pub fn list_finding_type_stats(
-        &self,
-    ) -> super::builder::web_security_scanner::ListFindingTypeStats {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_websecurityscanner_v1::client::WebSecurityScanner;
+    /// async fn sample(
+    ///    client: &WebSecurityScanner
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .list_finding_type_stats()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_finding_type_stats(&self) -> super::builder::web_security_scanner::ListFindingTypeStats
+    {
         super::builder::web_security_scanner::ListFindingTypeStats::new(self.inner.clone())
     }
 }

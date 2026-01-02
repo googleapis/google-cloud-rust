@@ -72,9 +72,7 @@ impl ConfidentialComputing {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::confidential_computing::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::confidential_computing::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::confidential_computing::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -82,79 +80,146 @@ impl ConfidentialComputing {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::ConfidentialComputing + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::ConfidentialComputing + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ConfidentialComputing>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ConfidentialComputing>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ConfidentialComputing> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ConfidentialComputing> {
         super::transport::ConfidentialComputing::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ConfidentialComputing> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::ConfidentialComputing::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ConfidentialComputing> {
+        Self::build_transport(conf).await.map(super::tracing::ConfidentialComputing::new)
     }
 
     /// Creates a new Challenge in a given project and location.
-    pub fn create_challenge(&self) -> super::builder::confidential_computing::CreateChallenge {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_confidentialcomputing_v1::client::ConfidentialComputing;
+    /// async fn sample(
+    ///    client: &ConfidentialComputing
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_challenge()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_challenge(&self) -> super::builder::confidential_computing::CreateChallenge
+    {
         super::builder::confidential_computing::CreateChallenge::new(self.inner.clone())
     }
 
     /// Verifies the provided attestation info, returning a signed attestation
     /// token.
-    pub fn verify_attestation(&self) -> super::builder::confidential_computing::VerifyAttestation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_confidentialcomputing_v1::client::ConfidentialComputing;
+    /// async fn sample(
+    ///    client: &ConfidentialComputing
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .verify_attestation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn verify_attestation(&self) -> super::builder::confidential_computing::VerifyAttestation
+    {
         super::builder::confidential_computing::VerifyAttestation::new(self.inner.clone())
     }
 
     /// Verifies whether the provided attestation info is valid, returning a signed
     /// attestation token if so.
-    pub fn verify_confidential_space(
-        &self,
-    ) -> super::builder::confidential_computing::VerifyConfidentialSpace {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_confidentialcomputing_v1::client::ConfidentialComputing;
+    /// async fn sample(
+    ///    client: &ConfidentialComputing
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .verify_confidential_space()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn verify_confidential_space(&self) -> super::builder::confidential_computing::VerifyConfidentialSpace
+    {
         super::builder::confidential_computing::VerifyConfidentialSpace::new(self.inner.clone())
     }
 
     /// Verifies the provided Confidential GKE attestation info, returning a signed
     /// OIDC token.
-    pub fn verify_confidential_gke(
-        &self,
-    ) -> super::builder::confidential_computing::VerifyConfidentialGke {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_confidentialcomputing_v1::client::ConfidentialComputing;
+    /// async fn sample(
+    ///    client: &ConfidentialComputing
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .verify_confidential_gke()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn verify_confidential_gke(&self) -> super::builder::confidential_computing::VerifyConfidentialGke
+    {
         super::builder::confidential_computing::VerifyConfidentialGke::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::confidential_computing::ListLocations {
+    pub fn list_locations(&self) -> super::builder::confidential_computing::ListLocations
+    {
         super::builder::confidential_computing::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(&self) -> super::builder::confidential_computing::GetLocation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_confidentialcomputing_v1::client::ConfidentialComputing;
+    /// async fn sample(
+    ///    client: &ConfidentialComputing
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_location(&self) -> super::builder::confidential_computing::GetLocation
+    {
         super::builder::confidential_computing::GetLocation::new(self.inner.clone())
     }
 }

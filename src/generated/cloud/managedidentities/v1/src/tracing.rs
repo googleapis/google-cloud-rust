@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [ManagedIdentitiesService](super::stub::ManagedIdentitiesService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct ManagedIdentitiesService<T>
-where
-    T: super::stub::ManagedIdentitiesService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ManagedIdentitiesService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> ManagedIdentitiesService<T>
-where
-    T: super::stub::ManagedIdentitiesService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ManagedIdentitiesService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::ManagedIdentitiesService for ManagedIdentitiesService<T>
-where
-    T: super::stub::ManagedIdentitiesService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ManagedIdentitiesService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn create_microsoft_ad_domain(
         &self,
@@ -163,6 +157,7 @@ where
         self.inner.cancel_operation(req, options).await
     }
 
+
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -177,3 +172,4 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 }
+

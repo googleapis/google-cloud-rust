@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [AssetService](super::stub::AssetService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct AssetService<T>
-where
-    T: super::stub::AssetService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::AssetService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> AssetService<T>
-where
-    T: super::stub::AssetService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::AssetService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::AssetService for AssetService<T>
-where
-    T: super::stub::AssetService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::AssetService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn export_assets(
         &self,
@@ -142,9 +136,7 @@ where
         req: crate::model::AnalyzeIamPolicyLongrunningRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        self.inner
-            .analyze_iam_policy_longrunning(req, options)
-            .await
+        self.inner.analyze_iam_policy_longrunning(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -216,9 +208,7 @@ where
         req: crate::model::BatchGetEffectiveIamPoliciesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::BatchGetEffectiveIamPoliciesResponse>> {
-        self.inner
-            .batch_get_effective_iam_policies(req, options)
-            .await
+        self.inner.batch_get_effective_iam_policies(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -235,11 +225,8 @@ where
         &self,
         req: crate::model::AnalyzeOrgPolicyGovernedContainersRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::AnalyzeOrgPolicyGovernedContainersResponse>>
-    {
-        self.inner
-            .analyze_org_policy_governed_containers(req, options)
-            .await
+    ) -> Result<gax::response::Response<crate::model::AnalyzeOrgPolicyGovernedContainersResponse>> {
+        self.inner.analyze_org_policy_governed_containers(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -248,9 +235,7 @@ where
         req: crate::model::AnalyzeOrgPolicyGovernedAssetsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AnalyzeOrgPolicyGovernedAssetsResponse>> {
-        self.inner
-            .analyze_org_policy_governed_assets(req, options)
-            .await
+        self.inner.analyze_org_policy_governed_assets(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -261,6 +246,7 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
+
 
     fn get_polling_error_policy(
         &self,
@@ -276,3 +262,4 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 }
+

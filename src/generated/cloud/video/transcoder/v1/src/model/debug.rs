@@ -42,6 +42,7 @@ impl std::fmt::Debug for super::Job {
     }
 }
 
+
 impl std::fmt::Debug for super::JobTemplate {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("JobTemplate");
@@ -417,10 +418,7 @@ impl std::fmt::Debug for super::preprocessing_config::deinterlace::YadifConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("YadifConfig");
         debug_struct.field("mode", &self.mode);
-        debug_struct.field(
-            "disable_spatial_interlacing",
-            &self.disable_spatial_interlacing,
-        );
+        debug_struct.field("disable_spatial_interlacing", &self.disable_spatial_interlacing);
         debug_struct.field("parity", &self.parity);
         debug_struct.field("deinterlace_all_frames", &self.deinterlace_all_frames);
         if !self._unknown_fields.is_empty() {
@@ -505,10 +503,7 @@ impl std::fmt::Debug for super::video_stream::H264CodecSettings {
         debug_struct.field("width_pixels", &self.width_pixels);
         debug_struct.field("height_pixels", &self.height_pixels);
         debug_struct.field("frame_rate", &self.frame_rate);
-        debug_struct.field(
-            "frame_rate_conversion_strategy",
-            &self.frame_rate_conversion_strategy,
-        );
+        debug_struct.field("frame_rate_conversion_strategy", &self.frame_rate_conversion_strategy);
         debug_struct.field("bitrate_bps", &self.bitrate_bps);
         debug_struct.field("pixel_format", &self.pixel_format);
         debug_struct.field("rate_control_mode", &self.rate_control_mode);
@@ -569,10 +564,7 @@ impl std::fmt::Debug for super::video_stream::H265CodecSettings {
         debug_struct.field("width_pixels", &self.width_pixels);
         debug_struct.field("height_pixels", &self.height_pixels);
         debug_struct.field("frame_rate", &self.frame_rate);
-        debug_struct.field(
-            "frame_rate_conversion_strategy",
-            &self.frame_rate_conversion_strategy,
-        );
+        debug_struct.field("frame_rate_conversion_strategy", &self.frame_rate_conversion_strategy);
         debug_struct.field("bitrate_bps", &self.bitrate_bps);
         debug_struct.field("pixel_format", &self.pixel_format);
         debug_struct.field("rate_control_mode", &self.rate_control_mode);
@@ -622,10 +614,7 @@ impl std::fmt::Debug for super::video_stream::Vp9CodecSettings {
         debug_struct.field("width_pixels", &self.width_pixels);
         debug_struct.field("height_pixels", &self.height_pixels);
         debug_struct.field("frame_rate", &self.frame_rate);
-        debug_struct.field(
-            "frame_rate_conversion_strategy",
-            &self.frame_rate_conversion_strategy,
-        );
+        debug_struct.field("frame_rate_conversion_strategy", &self.frame_rate_conversion_strategy);
         debug_struct.field("bitrate_bps", &self.bitrate_bps);
         debug_struct.field("pixel_format", &self.pixel_format);
         debug_struct.field("rate_control_mode", &self.rate_control_mode);

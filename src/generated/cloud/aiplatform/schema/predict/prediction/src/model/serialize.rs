@@ -23,9 +23,9 @@ impl serde::ser::Serialize for super::ClassificationPredictionResult {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.ids.is_empty() {
             struct __With<'a>(&'a std::vec::Vec<i64>);
@@ -34,9 +34,7 @@ impl serde::ser::Serialize for super::ClassificationPredictionResult {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<std::vec::Vec<wkt::internal::I64>>::serialize(
-                        self.0, serializer,
-                    )
+                    serde_with::As::< std::vec::Vec<wkt::internal::I64> >::serialize(self.0, serializer)
                 }
             }
             state.serialize_entry("ids", &__With(&self.ids))?;
@@ -51,9 +49,7 @@ impl serde::ser::Serialize for super::ClassificationPredictionResult {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<std::vec::Vec<wkt::internal::F32>>::serialize(
-                        self.0, serializer,
-                    )
+                    serde_with::As::< std::vec::Vec<wkt::internal::F32> >::serialize(self.0, serializer)
                 }
             }
             state.serialize_entry("confidences", &__With(&self.confidences))?;
@@ -73,9 +69,9 @@ impl serde::ser::Serialize for super::ImageObjectDetectionPredictionResult {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.ids.is_empty() {
             struct __With<'a>(&'a std::vec::Vec<i64>);
@@ -84,9 +80,7 @@ impl serde::ser::Serialize for super::ImageObjectDetectionPredictionResult {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<std::vec::Vec<wkt::internal::I64>>::serialize(
-                        self.0, serializer,
-                    )
+                    serde_with::As::< std::vec::Vec<wkt::internal::I64> >::serialize(self.0, serializer)
                 }
             }
             state.serialize_entry("ids", &__With(&self.ids))?;
@@ -101,9 +95,7 @@ impl serde::ser::Serialize for super::ImageObjectDetectionPredictionResult {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<std::vec::Vec<wkt::internal::F32>>::serialize(
-                        self.0, serializer,
-                    )
+                    serde_with::As::< std::vec::Vec<wkt::internal::F32> >::serialize(self.0, serializer)
                 }
             }
             state.serialize_entry("confidences", &__With(&self.confidences))?;
@@ -126,9 +118,9 @@ impl serde::ser::Serialize for super::ImageSegmentationPredictionResult {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.category_mask.is_empty() {
             state.serialize_entry("categoryMask", &self.category_mask)?;
@@ -151,9 +143,9 @@ impl serde::ser::Serialize for super::TabularClassificationPredictionResult {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.classes.is_empty() {
             state.serialize_entry("classes", &self.classes)?;
@@ -165,9 +157,7 @@ impl serde::ser::Serialize for super::TabularClassificationPredictionResult {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<std::vec::Vec<wkt::internal::F32>>::serialize(
-                        self.0, serializer,
-                    )
+                    serde_with::As::< std::vec::Vec<wkt::internal::F32> >::serialize(self.0, serializer)
                 }
             }
             state.serialize_entry("scores", &__With(&self.scores))?;
@@ -187,9 +177,9 @@ impl serde::ser::Serialize for super::TabularRegressionPredictionResult {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.value) {
             struct __With<'a>(&'a f32);
@@ -242,9 +232,9 @@ impl serde::ser::Serialize for super::TextExtractionPredictionResult {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.ids.is_empty() {
             struct __With<'a>(&'a std::vec::Vec<i64>);
@@ -253,9 +243,7 @@ impl serde::ser::Serialize for super::TextExtractionPredictionResult {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<std::vec::Vec<wkt::internal::I64>>::serialize(
-                        self.0, serializer,
-                    )
+                    serde_with::As::< std::vec::Vec<wkt::internal::I64> >::serialize(self.0, serializer)
                 }
             }
             state.serialize_entry("ids", &__With(&self.ids))?;
@@ -270,15 +258,10 @@ impl serde::ser::Serialize for super::TextExtractionPredictionResult {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<std::vec::Vec<wkt::internal::I64>>::serialize(
-                        self.0, serializer,
-                    )
+                    serde_with::As::< std::vec::Vec<wkt::internal::I64> >::serialize(self.0, serializer)
                 }
             }
-            state.serialize_entry(
-                "textSegmentStartOffsets",
-                &__With(&self.text_segment_start_offsets),
-            )?;
+            state.serialize_entry("textSegmentStartOffsets", &__With(&self.text_segment_start_offsets))?;
         }
         if !self.text_segment_end_offsets.is_empty() {
             struct __With<'a>(&'a std::vec::Vec<i64>);
@@ -287,15 +270,10 @@ impl serde::ser::Serialize for super::TextExtractionPredictionResult {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<std::vec::Vec<wkt::internal::I64>>::serialize(
-                        self.0, serializer,
-                    )
+                    serde_with::As::< std::vec::Vec<wkt::internal::I64> >::serialize(self.0, serializer)
                 }
             }
-            state.serialize_entry(
-                "textSegmentEndOffsets",
-                &__With(&self.text_segment_end_offsets),
-            )?;
+            state.serialize_entry("textSegmentEndOffsets", &__With(&self.text_segment_end_offsets))?;
         }
         if !self.confidences.is_empty() {
             struct __With<'a>(&'a std::vec::Vec<f32>);
@@ -304,9 +282,7 @@ impl serde::ser::Serialize for super::TextExtractionPredictionResult {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<std::vec::Vec<wkt::internal::F32>>::serialize(
-                        self.0, serializer,
-                    )
+                    serde_with::As::< std::vec::Vec<wkt::internal::F32> >::serialize(self.0, serializer)
                 }
             }
             state.serialize_entry("confidences", &__With(&self.confidences))?;
@@ -326,9 +302,9 @@ impl serde::ser::Serialize for super::TextSentimentPredictionResult {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.sentiment) {
             struct __With<'a>(&'a i32);
@@ -357,9 +333,9 @@ impl serde::ser::Serialize for super::VideoActionRecognitionPredictionResult {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.id.is_empty() {
             state.serialize_entry("id", &self.id)?;
@@ -380,9 +356,7 @@ impl serde::ser::Serialize for super::VideoActionRecognitionPredictionResult {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<std::option::Option<wkt::internal::F32>>::serialize(
-                        self.0, serializer,
-                    )
+                    serde_with::As::< std::option::Option<wkt::internal::F32> >::serialize(self.0, serializer)
                 }
             }
             state.serialize_entry("confidence", &__With(&self.confidence))?;
@@ -402,9 +376,9 @@ impl serde::ser::Serialize for super::VideoClassificationPredictionResult {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.id.is_empty() {
             state.serialize_entry("id", &self.id)?;
@@ -428,9 +402,7 @@ impl serde::ser::Serialize for super::VideoClassificationPredictionResult {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<std::option::Option<wkt::internal::F32>>::serialize(
-                        self.0, serializer,
-                    )
+                    serde_with::As::< std::option::Option<wkt::internal::F32> >::serialize(self.0, serializer)
                 }
             }
             state.serialize_entry("confidence", &__With(&self.confidence))?;
@@ -450,9 +422,9 @@ impl serde::ser::Serialize for super::VideoObjectTrackingPredictionResult {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.id.is_empty() {
             state.serialize_entry("id", &self.id)?;
@@ -473,9 +445,7 @@ impl serde::ser::Serialize for super::VideoObjectTrackingPredictionResult {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<std::option::Option<wkt::internal::F32>>::serialize(
-                        self.0, serializer,
-                    )
+                    serde_with::As::< std::option::Option<wkt::internal::F32> >::serialize(self.0, serializer)
                 }
             }
             state.serialize_entry("confidence", &__With(&self.confidence))?;
@@ -498,9 +468,9 @@ impl serde::ser::Serialize for super::video_object_tracking_prediction_result::F
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.time_offset.is_some() {
             state.serialize_entry("timeOffset", &self.time_offset)?;
@@ -512,9 +482,7 @@ impl serde::ser::Serialize for super::video_object_tracking_prediction_result::F
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<std::option::Option<wkt::internal::F32>>::serialize(
-                        self.0, serializer,
-                    )
+                    serde_with::As::< std::option::Option<wkt::internal::F32> >::serialize(self.0, serializer)
                 }
             }
             state.serialize_entry("xMin", &__With(&self.x_min))?;
@@ -526,9 +494,7 @@ impl serde::ser::Serialize for super::video_object_tracking_prediction_result::F
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<std::option::Option<wkt::internal::F32>>::serialize(
-                        self.0, serializer,
-                    )
+                    serde_with::As::< std::option::Option<wkt::internal::F32> >::serialize(self.0, serializer)
                 }
             }
             state.serialize_entry("xMax", &__With(&self.x_max))?;
@@ -540,9 +506,7 @@ impl serde::ser::Serialize for super::video_object_tracking_prediction_result::F
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<std::option::Option<wkt::internal::F32>>::serialize(
-                        self.0, serializer,
-                    )
+                    serde_with::As::< std::option::Option<wkt::internal::F32> >::serialize(self.0, serializer)
                 }
             }
             state.serialize_entry("yMin", &__With(&self.y_min))?;
@@ -554,9 +518,7 @@ impl serde::ser::Serialize for super::video_object_tracking_prediction_result::F
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<std::option::Option<wkt::internal::F32>>::serialize(
-                        self.0, serializer,
-                    )
+                    serde_with::As::< std::option::Option<wkt::internal::F32> >::serialize(self.0, serializer)
                 }
             }
             state.serialize_entry("yMax", &__With(&self.y_max))?;

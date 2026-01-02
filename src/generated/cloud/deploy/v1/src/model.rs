@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -31,7 +32,6 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -44,6 +44,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutomationEvent {
+
     /// Debug message for when there is an update on the AutomationRun.
     /// Provides further details about the resource creation or state change.
     pub message: std::string::String,
@@ -128,6 +129,7 @@ impl wkt::message::Message for AutomationEvent {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutomationRunEvent {
+
     /// Debug message for when there is an update on the AutomationRun.
     /// Provides further details about the resource creation or state change.
     pub message: std::string::String,
@@ -225,10 +227,7 @@ impl AutomationRunEvent {
     /// # use google_cloud_deploy_v1::model::AutomationRunEvent;
     /// let x = AutomationRunEvent::new().set_destination_target_id("example");
     /// ```
-    pub fn set_destination_target_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_destination_target_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.destination_target_id = v.into();
         self
     }
@@ -262,6 +261,7 @@ impl wkt::message::Message for AutomationRunEvent {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeliveryPipeline {
+
     /// Identifier. Name of the `DeliveryPipeline`. Format is
     /// `projects/{project}/locations/{location}/deliveryPipelines/{deliveryPipeline}`.
     /// The `deliveryPipeline` component must match
@@ -277,7 +277,7 @@ pub struct DeliveryPipeline {
 
     /// Optional. User annotations. These attributes can only be set and used by
     /// the user, and not by Cloud Deploy.
-    pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
+    pub annotations: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Labels are attributes that can be set and used by both the
     /// user and by Cloud Deploy. Labels must meet the following constraints:
@@ -290,7 +290,7 @@ pub struct DeliveryPipeline {
     /// * Each resource is limited to a maximum of 64 labels.
     ///
     /// Both keys and values are additionally constrained to be <= 128 bytes.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Output only. Time at which the pipeline was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
@@ -408,8 +408,7 @@ impl DeliveryPipeline {
     /// let x = DeliveryPipeline::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -425,8 +424,7 @@ impl DeliveryPipeline {
     /// let x = DeliveryPipeline::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -441,8 +439,7 @@ impl DeliveryPipeline {
     /// let x = DeliveryPipeline::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -458,8 +455,7 @@ impl DeliveryPipeline {
     /// let x = DeliveryPipeline::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -474,8 +470,7 @@ impl DeliveryPipeline {
     /// let x = DeliveryPipeline::new().set_condition(PipelineCondition::default()/* use setters */);
     /// ```
     pub fn set_condition<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::PipelineCondition>,
+    where T: std::convert::Into<crate::model::PipelineCondition>
     {
         self.condition = std::option::Option::Some(v.into());
         self
@@ -491,8 +486,7 @@ impl DeliveryPipeline {
     /// let x = DeliveryPipeline::new().set_or_clear_condition(None::<PipelineCondition>);
     /// ```
     pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::PipelineCondition>,
+    where T: std::convert::Into<crate::model::PipelineCondition>
     {
         self.condition = v.map(|x| x.into());
         self
@@ -534,12 +528,8 @@ impl DeliveryPipeline {
     /// let x = DeliveryPipeline::new().set_pipeline(Some(
     ///     google_cloud_deploy_v1::model::delivery_pipeline::Pipeline::SerialPipeline(SerialPipeline::default().into())));
     /// ```
-    pub fn set_pipeline<
-        T: std::convert::Into<std::option::Option<crate::model::delivery_pipeline::Pipeline>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_pipeline<T: std::convert::Into<std::option::Option<crate::model::delivery_pipeline::Pipeline>>>(mut self, v: T) -> Self
+    {
         self.pipeline = v.into();
         self
     }
@@ -547,14 +537,10 @@ impl DeliveryPipeline {
     /// The value of [pipeline][crate::model::DeliveryPipeline::pipeline]
     /// if it holds a `SerialPipeline`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn serial_pipeline(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SerialPipeline>> {
+    pub fn serial_pipeline(&self) -> std::option::Option<&std::boxed::Box<crate::model::SerialPipeline>> {
         #[allow(unreachable_patterns)]
         self.pipeline.as_ref().and_then(|v| match v {
-            crate::model::delivery_pipeline::Pipeline::SerialPipeline(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::delivery_pipeline::Pipeline::SerialPipeline(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -572,14 +558,11 @@ impl DeliveryPipeline {
     /// let x = DeliveryPipeline::new().set_serial_pipeline(SerialPipeline::default()/* use setters */);
     /// assert!(x.serial_pipeline().is_some());
     /// ```
-    pub fn set_serial_pipeline<
-        T: std::convert::Into<std::boxed::Box<crate::model::SerialPipeline>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_serial_pipeline<T: std::convert::Into<std::boxed::Box<crate::model::SerialPipeline>>>(mut self, v: T) -> Self {
         self.pipeline = std::option::Option::Some(
-            crate::model::delivery_pipeline::Pipeline::SerialPipeline(v.into()),
+            crate::model::delivery_pipeline::Pipeline::SerialPipeline(
+                v.into()
+            )
         );
         self
     }
@@ -596,6 +579,7 @@ pub mod delivery_pipeline {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// The ordering configuration of the `DeliveryPipeline`.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -610,6 +594,7 @@ pub mod delivery_pipeline {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SerialPipeline {
+
     /// Optional. Each stage specifies configuration for a `Target`. The ordering
     /// of this list defines the promotion flow.
     pub stages: std::vec::Vec<crate::model::Stage>,
@@ -637,7 +622,7 @@ impl SerialPipeline {
     pub fn set_stages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Stage>,
+        V: std::convert::Into<crate::model::Stage>
     {
         use std::iter::Iterator;
         self.stages = v.into_iter().map(|i| i.into()).collect();
@@ -655,6 +640,7 @@ impl wkt::message::Message for SerialPipeline {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Stage {
+
     /// Optional. The target_id to which this stage points. This field refers
     /// exclusively to the last segment of a target name. For example, this field
     /// would just be `my-target` (rather than
@@ -703,7 +689,7 @@ impl Stage {
     pub fn set_profiles<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.profiles = v.into_iter().map(|i| i.into()).collect();
@@ -719,8 +705,7 @@ impl Stage {
     /// let x = Stage::new().set_strategy(Strategy::default()/* use setters */);
     /// ```
     pub fn set_strategy<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Strategy>,
+    where T: std::convert::Into<crate::model::Strategy>
     {
         self.strategy = std::option::Option::Some(v.into());
         self
@@ -736,8 +721,7 @@ impl Stage {
     /// let x = Stage::new().set_or_clear_strategy(None::<Strategy>);
     /// ```
     pub fn set_or_clear_strategy<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Strategy>,
+    where T: std::convert::Into<crate::model::Strategy>
     {
         self.strategy = v.map(|x| x.into());
         self
@@ -758,7 +742,7 @@ impl Stage {
     pub fn set_deploy_parameters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::DeployParameters>,
+        V: std::convert::Into<crate::model::DeployParameters>
     {
         use std::iter::Iterator;
         self.deploy_parameters = v.into_iter().map(|i| i.into()).collect();
@@ -776,13 +760,14 @@ impl wkt::message::Message for Stage {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeployParameters {
+
     /// Required. Values are deploy parameters in key-value pairs.
-    pub values: std::collections::HashMap<std::string::String, std::string::String>,
+    pub values: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. Deploy parameters are applied to targets with match labels.
     /// If unspecified, deploy parameters are applied to all targets (including
     /// child targets of a multi-target).
-    pub match_target_labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub match_target_labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -845,6 +830,7 @@ impl wkt::message::Message for DeployParameters {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Strategy {
+
     /// Deployment strategy details.
     pub deployment_strategy: std::option::Option<crate::model::strategy::DeploymentStrategy>,
 
@@ -868,12 +854,8 @@ impl Strategy {
     /// let x = Strategy::new().set_deployment_strategy(Some(
     ///     google_cloud_deploy_v1::model::strategy::DeploymentStrategy::Standard(Standard::default().into())));
     /// ```
-    pub fn set_deployment_strategy<
-        T: std::convert::Into<std::option::Option<crate::model::strategy::DeploymentStrategy>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_deployment_strategy<T: std::convert::Into<std::option::Option<crate::model::strategy::DeploymentStrategy>>>(mut self, v: T) -> Self
+    {
         self.deployment_strategy = v.into();
         self
     }
@@ -903,12 +885,11 @@ impl Strategy {
     /// assert!(x.standard().is_some());
     /// assert!(x.canary().is_none());
     /// ```
-    pub fn set_standard<T: std::convert::Into<std::boxed::Box<crate::model::Standard>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_standard<T: std::convert::Into<std::boxed::Box<crate::model::Standard>>>(mut self, v: T) -> Self {
         self.deployment_strategy = std::option::Option::Some(
-            crate::model::strategy::DeploymentStrategy::Standard(v.into()),
+            crate::model::strategy::DeploymentStrategy::Standard(
+                v.into()
+            )
         );
         self
     }
@@ -938,12 +919,12 @@ impl Strategy {
     /// assert!(x.canary().is_some());
     /// assert!(x.standard().is_none());
     /// ```
-    pub fn set_canary<T: std::convert::Into<std::boxed::Box<crate::model::Canary>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.deployment_strategy =
-            std::option::Option::Some(crate::model::strategy::DeploymentStrategy::Canary(v.into()));
+    pub fn set_canary<T: std::convert::Into<std::boxed::Box<crate::model::Canary>>>(mut self, v: T) -> Self {
+        self.deployment_strategy = std::option::Option::Some(
+            crate::model::strategy::DeploymentStrategy::Canary(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -958,6 +939,7 @@ impl wkt::message::Message for Strategy {
 pub mod strategy {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Deployment strategy details.
     #[derive(Clone, Debug, PartialEq)]
@@ -976,6 +958,7 @@ pub mod strategy {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Predeploy {
+
     /// Optional. A sequence of Skaffold custom actions to invoke during execution
     /// of the predeploy job.
     pub actions: std::vec::Vec<std::string::String>,
@@ -998,7 +981,7 @@ impl Predeploy {
     pub fn set_actions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.actions = v.into_iter().map(|i| i.into()).collect();
@@ -1016,6 +999,7 @@ impl wkt::message::Message for Predeploy {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Postdeploy {
+
     /// Optional. A sequence of Skaffold custom actions to invoke during execution
     /// of the postdeploy job.
     pub actions: std::vec::Vec<std::string::String>,
@@ -1038,7 +1022,7 @@ impl Postdeploy {
     pub fn set_actions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.actions = v.into_iter().map(|i| i.into()).collect();
@@ -1056,6 +1040,7 @@ impl wkt::message::Message for Postdeploy {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Standard {
+
     /// Optional. Whether to verify a deployment via `skaffold verify`.
     pub verify: bool,
 
@@ -1096,8 +1081,7 @@ impl Standard {
     /// let x = Standard::new().set_predeploy(Predeploy::default()/* use setters */);
     /// ```
     pub fn set_predeploy<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Predeploy>,
+    where T: std::convert::Into<crate::model::Predeploy>
     {
         self.predeploy = std::option::Option::Some(v.into());
         self
@@ -1113,8 +1097,7 @@ impl Standard {
     /// let x = Standard::new().set_or_clear_predeploy(None::<Predeploy>);
     /// ```
     pub fn set_or_clear_predeploy<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Predeploy>,
+    where T: std::convert::Into<crate::model::Predeploy>
     {
         self.predeploy = v.map(|x| x.into());
         self
@@ -1129,8 +1112,7 @@ impl Standard {
     /// let x = Standard::new().set_postdeploy(Postdeploy::default()/* use setters */);
     /// ```
     pub fn set_postdeploy<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Postdeploy>,
+    where T: std::convert::Into<crate::model::Postdeploy>
     {
         self.postdeploy = std::option::Option::Some(v.into());
         self
@@ -1146,8 +1128,7 @@ impl Standard {
     /// let x = Standard::new().set_or_clear_postdeploy(None::<Postdeploy>);
     /// ```
     pub fn set_or_clear_postdeploy<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Postdeploy>,
+    where T: std::convert::Into<crate::model::Postdeploy>
     {
         self.postdeploy = v.map(|x| x.into());
         self
@@ -1164,6 +1145,7 @@ impl wkt::message::Message for Standard {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Canary {
+
     /// Optional. Runtime specific configurations for the deployment strategy. The
     /// runtime configuration is used to determine how Cloud Deploy will split
     /// traffic to enable a progressive deployment.
@@ -1189,8 +1171,7 @@ impl Canary {
     /// let x = Canary::new().set_runtime_config(RuntimeConfig::default()/* use setters */);
     /// ```
     pub fn set_runtime_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RuntimeConfig>,
+    where T: std::convert::Into<crate::model::RuntimeConfig>
     {
         self.runtime_config = std::option::Option::Some(v.into());
         self
@@ -1206,8 +1187,7 @@ impl Canary {
     /// let x = Canary::new().set_or_clear_runtime_config(None::<RuntimeConfig>);
     /// ```
     pub fn set_or_clear_runtime_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RuntimeConfig>,
+    where T: std::convert::Into<crate::model::RuntimeConfig>
     {
         self.runtime_config = v.map(|x| x.into());
         self
@@ -1225,10 +1205,8 @@ impl Canary {
     /// let x = Canary::new().set_mode(Some(
     ///     google_cloud_deploy_v1::model::canary::Mode::CanaryDeployment(CanaryDeployment::default().into())));
     /// ```
-    pub fn set_mode<T: std::convert::Into<std::option::Option<crate::model::canary::Mode>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_mode<T: std::convert::Into<std::option::Option<crate::model::canary::Mode>>>(mut self, v: T) -> Self
+    {
         self.mode = v.into();
         self
     }
@@ -1236,9 +1214,7 @@ impl Canary {
     /// The value of [mode][crate::model::Canary::mode]
     /// if it holds a `CanaryDeployment`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn canary_deployment(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::CanaryDeployment>> {
+    pub fn canary_deployment(&self) -> std::option::Option<&std::boxed::Box<crate::model::CanaryDeployment>> {
         #[allow(unreachable_patterns)]
         self.mode.as_ref().and_then(|v| match v {
             crate::model::canary::Mode::CanaryDeployment(v) => std::option::Option::Some(v),
@@ -1260,23 +1236,19 @@ impl Canary {
     /// assert!(x.canary_deployment().is_some());
     /// assert!(x.custom_canary_deployment().is_none());
     /// ```
-    pub fn set_canary_deployment<
-        T: std::convert::Into<std::boxed::Box<crate::model::CanaryDeployment>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.mode =
-            std::option::Option::Some(crate::model::canary::Mode::CanaryDeployment(v.into()));
+    pub fn set_canary_deployment<T: std::convert::Into<std::boxed::Box<crate::model::CanaryDeployment>>>(mut self, v: T) -> Self {
+        self.mode = std::option::Option::Some(
+            crate::model::canary::Mode::CanaryDeployment(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [mode][crate::model::Canary::mode]
     /// if it holds a `CustomCanaryDeployment`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn custom_canary_deployment(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::CustomCanaryDeployment>> {
+    pub fn custom_canary_deployment(&self) -> std::option::Option<&std::boxed::Box<crate::model::CustomCanaryDeployment>> {
         #[allow(unreachable_patterns)]
         self.mode.as_ref().and_then(|v| match v {
             crate::model::canary::Mode::CustomCanaryDeployment(v) => std::option::Option::Some(v),
@@ -1298,14 +1270,12 @@ impl Canary {
     /// assert!(x.custom_canary_deployment().is_some());
     /// assert!(x.canary_deployment().is_none());
     /// ```
-    pub fn set_custom_canary_deployment<
-        T: std::convert::Into<std::boxed::Box<crate::model::CustomCanaryDeployment>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.mode =
-            std::option::Option::Some(crate::model::canary::Mode::CustomCanaryDeployment(v.into()));
+    pub fn set_custom_canary_deployment<T: std::convert::Into<std::boxed::Box<crate::model::CustomCanaryDeployment>>>(mut self, v: T) -> Self {
+        self.mode = std::option::Option::Some(
+            crate::model::canary::Mode::CustomCanaryDeployment(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -1320,6 +1290,7 @@ impl wkt::message::Message for Canary {
 pub mod canary {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The mode to use for the canary deployment strategy.
     #[derive(Clone, Debug, PartialEq)]
@@ -1338,6 +1309,7 @@ pub mod canary {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CanaryDeployment {
+
     /// Required. The percentage based deployments that will occur as a part of a
     /// `Rollout`. List is expected in ascending order and each integer n is
     /// 0 <= n < 100.
@@ -1375,7 +1347,7 @@ impl CanaryDeployment {
     pub fn set_percentages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<i32>,
+        V: std::convert::Into<i32>
     {
         use std::iter::Iterator;
         self.percentages = v.into_iter().map(|i| i.into()).collect();
@@ -1403,8 +1375,7 @@ impl CanaryDeployment {
     /// let x = CanaryDeployment::new().set_predeploy(Predeploy::default()/* use setters */);
     /// ```
     pub fn set_predeploy<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Predeploy>,
+    where T: std::convert::Into<crate::model::Predeploy>
     {
         self.predeploy = std::option::Option::Some(v.into());
         self
@@ -1420,8 +1391,7 @@ impl CanaryDeployment {
     /// let x = CanaryDeployment::new().set_or_clear_predeploy(None::<Predeploy>);
     /// ```
     pub fn set_or_clear_predeploy<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Predeploy>,
+    where T: std::convert::Into<crate::model::Predeploy>
     {
         self.predeploy = v.map(|x| x.into());
         self
@@ -1436,8 +1406,7 @@ impl CanaryDeployment {
     /// let x = CanaryDeployment::new().set_postdeploy(Postdeploy::default()/* use setters */);
     /// ```
     pub fn set_postdeploy<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Postdeploy>,
+    where T: std::convert::Into<crate::model::Postdeploy>
     {
         self.postdeploy = std::option::Option::Some(v.into());
         self
@@ -1453,8 +1422,7 @@ impl CanaryDeployment {
     /// let x = CanaryDeployment::new().set_or_clear_postdeploy(None::<Postdeploy>);
     /// ```
     pub fn set_or_clear_postdeploy<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Postdeploy>,
+    where T: std::convert::Into<crate::model::Postdeploy>
     {
         self.postdeploy = v.map(|x| x.into());
         self
@@ -1472,6 +1440,7 @@ impl wkt::message::Message for CanaryDeployment {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CustomCanaryDeployment {
+
     /// Required. Configuration for each phase in the canary deployment in the
     /// order executed.
     pub phase_configs: std::vec::Vec<crate::model::custom_canary_deployment::PhaseConfig>,
@@ -1499,7 +1468,7 @@ impl CustomCanaryDeployment {
     pub fn set_phase_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::custom_canary_deployment::PhaseConfig>,
+        V: std::convert::Into<crate::model::custom_canary_deployment::PhaseConfig>
     {
         use std::iter::Iterator;
         self.phase_configs = v.into_iter().map(|i| i.into()).collect();
@@ -1518,11 +1487,13 @@ pub mod custom_canary_deployment {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// PhaseConfig represents the configuration for a phase in the custom
     /// canary deployment.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PhaseConfig {
+
         /// Required. The ID to assign to the `Rollout` phase.
         /// This value must consist of lower-case letters, numbers, and hyphens,
         /// start with a letter and end with a letter or a number, and have a max
@@ -1592,7 +1563,7 @@ pub mod custom_canary_deployment {
         pub fn set_profiles<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.profiles = v.into_iter().map(|i| i.into()).collect();
@@ -1620,8 +1591,7 @@ pub mod custom_canary_deployment {
         /// let x = PhaseConfig::new().set_predeploy(Predeploy::default()/* use setters */);
         /// ```
         pub fn set_predeploy<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Predeploy>,
+        where T: std::convert::Into<crate::model::Predeploy>
         {
             self.predeploy = std::option::Option::Some(v.into());
             self
@@ -1637,8 +1607,7 @@ pub mod custom_canary_deployment {
         /// let x = PhaseConfig::new().set_or_clear_predeploy(None::<Predeploy>);
         /// ```
         pub fn set_or_clear_predeploy<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Predeploy>,
+        where T: std::convert::Into<crate::model::Predeploy>
         {
             self.predeploy = v.map(|x| x.into());
             self
@@ -1653,8 +1622,7 @@ pub mod custom_canary_deployment {
         /// let x = PhaseConfig::new().set_postdeploy(Postdeploy::default()/* use setters */);
         /// ```
         pub fn set_postdeploy<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Postdeploy>,
+        where T: std::convert::Into<crate::model::Postdeploy>
         {
             self.postdeploy = std::option::Option::Some(v.into());
             self
@@ -1670,8 +1638,7 @@ pub mod custom_canary_deployment {
         /// let x = PhaseConfig::new().set_or_clear_postdeploy(None::<Postdeploy>);
         /// ```
         pub fn set_or_clear_postdeploy<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Postdeploy>,
+        where T: std::convert::Into<crate::model::Postdeploy>
         {
             self.postdeploy = v.map(|x| x.into());
             self
@@ -1689,6 +1656,7 @@ pub mod custom_canary_deployment {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct KubernetesConfig {
+
     /// The service definition configuration.
     pub service_definition: std::option::Option<crate::model::kubernetes_config::ServiceDefinition>,
 
@@ -1712,12 +1680,8 @@ impl KubernetesConfig {
     /// let x = KubernetesConfig::new().set_service_definition(Some(
     ///     google_cloud_deploy_v1::model::kubernetes_config::ServiceDefinition::GatewayServiceMesh(GatewayServiceMesh::default().into())));
     /// ```
-    pub fn set_service_definition<
-        T: std::convert::Into<std::option::Option<crate::model::kubernetes_config::ServiceDefinition>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_service_definition<T: std::convert::Into<std::option::Option<crate::model::kubernetes_config::ServiceDefinition>>>(mut self, v: T) -> Self
+    {
         self.service_definition = v.into();
         self
     }
@@ -1725,15 +1689,10 @@ impl KubernetesConfig {
     /// The value of [service_definition][crate::model::KubernetesConfig::service_definition]
     /// if it holds a `GatewayServiceMesh`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn gateway_service_mesh(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::kubernetes_config::GatewayServiceMesh>>
-    {
+    pub fn gateway_service_mesh(&self) -> std::option::Option<&std::boxed::Box<crate::model::kubernetes_config::GatewayServiceMesh>> {
         #[allow(unreachable_patterns)]
         self.service_definition.as_ref().and_then(|v| match v {
-            crate::model::kubernetes_config::ServiceDefinition::GatewayServiceMesh(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::kubernetes_config::ServiceDefinition::GatewayServiceMesh(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -1752,14 +1711,11 @@ impl KubernetesConfig {
     /// assert!(x.gateway_service_mesh().is_some());
     /// assert!(x.service_networking().is_none());
     /// ```
-    pub fn set_gateway_service_mesh<
-        T: std::convert::Into<std::boxed::Box<crate::model::kubernetes_config::GatewayServiceMesh>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_gateway_service_mesh<T: std::convert::Into<std::boxed::Box<crate::model::kubernetes_config::GatewayServiceMesh>>>(mut self, v: T) -> Self {
         self.service_definition = std::option::Option::Some(
-            crate::model::kubernetes_config::ServiceDefinition::GatewayServiceMesh(v.into()),
+            crate::model::kubernetes_config::ServiceDefinition::GatewayServiceMesh(
+                v.into()
+            )
         );
         self
     }
@@ -1767,15 +1723,10 @@ impl KubernetesConfig {
     /// The value of [service_definition][crate::model::KubernetesConfig::service_definition]
     /// if it holds a `ServiceNetworking`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn service_networking(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::kubernetes_config::ServiceNetworking>>
-    {
+    pub fn service_networking(&self) -> std::option::Option<&std::boxed::Box<crate::model::kubernetes_config::ServiceNetworking>> {
         #[allow(unreachable_patterns)]
         self.service_definition.as_ref().and_then(|v| match v {
-            crate::model::kubernetes_config::ServiceDefinition::ServiceNetworking(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::kubernetes_config::ServiceDefinition::ServiceNetworking(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -1794,14 +1745,11 @@ impl KubernetesConfig {
     /// assert!(x.service_networking().is_some());
     /// assert!(x.gateway_service_mesh().is_none());
     /// ```
-    pub fn set_service_networking<
-        T: std::convert::Into<std::boxed::Box<crate::model::kubernetes_config::ServiceNetworking>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_service_networking<T: std::convert::Into<std::boxed::Box<crate::model::kubernetes_config::ServiceNetworking>>>(mut self, v: T) -> Self {
         self.service_definition = std::option::Option::Some(
-            crate::model::kubernetes_config::ServiceDefinition::ServiceNetworking(v.into()),
+            crate::model::kubernetes_config::ServiceDefinition::ServiceNetworking(
+                v.into()
+            )
         );
         self
     }
@@ -1818,10 +1766,12 @@ pub mod kubernetes_config {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Information about the Kubernetes Gateway API service mesh configuration.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GatewayServiceMesh {
+
         /// Required. Name of the Gateway API HTTPRoute.
         pub http_route: std::string::String,
 
@@ -1852,9 +1802,7 @@ pub mod kubernetes_config {
         /// multi-cluster service mesh set ups that require the route to exist in the
         /// clusters that call the service. If unspecified, the HTTPRoute will only
         /// be deployed to the Target cluster.
-        pub route_destinations: std::option::Option<
-            crate::model::kubernetes_config::gateway_service_mesh::RouteDestinations,
-        >,
+        pub route_destinations: std::option::Option<crate::model::kubernetes_config::gateway_service_mesh::RouteDestinations>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -1909,8 +1857,7 @@ pub mod kubernetes_config {
         /// let x = GatewayServiceMesh::new().set_route_update_wait_time(Duration::default()/* use setters */);
         /// ```
         pub fn set_route_update_wait_time<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Duration>,
+        where T: std::convert::Into<wkt::Duration>
         {
             self.route_update_wait_time = std::option::Option::Some(v.into());
             self
@@ -1926,8 +1873,7 @@ pub mod kubernetes_config {
         /// let x = GatewayServiceMesh::new().set_or_clear_route_update_wait_time(None::<Duration>);
         /// ```
         pub fn set_or_clear_route_update_wait_time<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Duration>,
+        where T: std::convert::Into<wkt::Duration>
         {
             self.route_update_wait_time = v.map(|x| x.into());
             self
@@ -1942,8 +1888,7 @@ pub mod kubernetes_config {
         /// let x = GatewayServiceMesh::new().set_stable_cutback_duration(Duration::default()/* use setters */);
         /// ```
         pub fn set_stable_cutback_duration<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Duration>,
+        where T: std::convert::Into<wkt::Duration>
         {
             self.stable_cutback_duration = std::option::Option::Some(v.into());
             self
@@ -1959,8 +1904,7 @@ pub mod kubernetes_config {
         /// let x = GatewayServiceMesh::new().set_or_clear_stable_cutback_duration(None::<Duration>);
         /// ```
         pub fn set_or_clear_stable_cutback_duration<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Duration>,
+        where T: std::convert::Into<wkt::Duration>
         {
             self.stable_cutback_duration = v.map(|x| x.into());
             self
@@ -1973,10 +1917,7 @@ pub mod kubernetes_config {
         /// # use google_cloud_deploy_v1::model::kubernetes_config::GatewayServiceMesh;
         /// let x = GatewayServiceMesh::new().set_pod_selector_label("example");
         /// ```
-        pub fn set_pod_selector_label<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_pod_selector_label<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.pod_selector_label = v.into();
             self
         }
@@ -1990,10 +1931,7 @@ pub mod kubernetes_config {
         /// let x = GatewayServiceMesh::new().set_route_destinations(RouteDestinations::default()/* use setters */);
         /// ```
         pub fn set_route_destinations<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<
-                    crate::model::kubernetes_config::gateway_service_mesh::RouteDestinations,
-                >,
+        where T: std::convert::Into<crate::model::kubernetes_config::gateway_service_mesh::RouteDestinations>
         {
             self.route_destinations = std::option::Option::Some(v.into());
             self
@@ -2009,10 +1947,7 @@ pub mod kubernetes_config {
         /// let x = GatewayServiceMesh::new().set_or_clear_route_destinations(None::<RouteDestinations>);
         /// ```
         pub fn set_or_clear_route_destinations<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<
-                    crate::model::kubernetes_config::gateway_service_mesh::RouteDestinations,
-                >,
+        where T: std::convert::Into<crate::model::kubernetes_config::gateway_service_mesh::RouteDestinations>
         {
             self.route_destinations = v.map(|x| x.into());
             self
@@ -2030,10 +1965,12 @@ pub mod kubernetes_config {
         #[allow(unused_imports)]
         use super::*;
 
+
         /// Information about route destinations for the Gateway API service mesh.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct RouteDestinations {
+
             /// Required. The clusters where the Gateway API HTTPRoute resource will be
             /// deployed to. Valid entries include the associated entities IDs
             /// configured in the Target resource and "@self" to include the Target
@@ -2065,7 +2002,7 @@ pub mod kubernetes_config {
             pub fn set_destination_ids<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<std::string::String>,
+                V: std::convert::Into<std::string::String>
             {
                 use std::iter::Iterator;
                 self.destination_ids = v.into_iter().map(|i| i.into()).collect();
@@ -2096,6 +2033,7 @@ pub mod kubernetes_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ServiceNetworking {
+
         /// Required. Name of the Kubernetes Service.
         pub service: std::string::String,
 
@@ -2152,10 +2090,7 @@ pub mod kubernetes_config {
         /// # use google_cloud_deploy_v1::model::kubernetes_config::ServiceNetworking;
         /// let x = ServiceNetworking::new().set_disable_pod_overprovisioning(true);
         /// ```
-        pub fn set_disable_pod_overprovisioning<T: std::convert::Into<bool>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_disable_pod_overprovisioning<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.disable_pod_overprovisioning = v.into();
             self
         }
@@ -2167,10 +2102,7 @@ pub mod kubernetes_config {
         /// # use google_cloud_deploy_v1::model::kubernetes_config::ServiceNetworking;
         /// let x = ServiceNetworking::new().set_pod_selector_label("example");
         /// ```
-        pub fn set_pod_selector_label<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_pod_selector_label<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.pod_selector_label = v.into();
             self
         }
@@ -2197,6 +2129,7 @@ pub mod kubernetes_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudRunConfig {
+
     /// Optional. Whether Cloud Deploy should update the traffic stanza in a Cloud
     /// Run Service on the user's behalf to facilitate traffic splitting. This is
     /// required to be true for CanaryDeployments, but optional for
@@ -2245,7 +2178,7 @@ impl CloudRunConfig {
     pub fn set_canary_revision_tags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.canary_revision_tags = v.into_iter().map(|i| i.into()).collect();
@@ -2262,7 +2195,7 @@ impl CloudRunConfig {
     pub fn set_prior_revision_tags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.prior_revision_tags = v.into_iter().map(|i| i.into()).collect();
@@ -2279,7 +2212,7 @@ impl CloudRunConfig {
     pub fn set_stable_revision_tags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.stable_revision_tags = v.into_iter().map(|i| i.into()).collect();
@@ -2298,6 +2231,7 @@ impl wkt::message::Message for CloudRunConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RuntimeConfig {
+
     /// The runtime configuration details.
     pub runtime_config: std::option::Option<crate::model::runtime_config::RuntimeConfig>,
 
@@ -2321,12 +2255,8 @@ impl RuntimeConfig {
     /// let x = RuntimeConfig::new().set_runtime_config(Some(
     ///     google_cloud_deploy_v1::model::runtime_config::RuntimeConfig::Kubernetes(KubernetesConfig::default().into())));
     /// ```
-    pub fn set_runtime_config<
-        T: std::convert::Into<std::option::Option<crate::model::runtime_config::RuntimeConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_runtime_config<T: std::convert::Into<std::option::Option<crate::model::runtime_config::RuntimeConfig>>>(mut self, v: T) -> Self
+    {
         self.runtime_config = v.into();
         self
     }
@@ -2334,14 +2264,10 @@ impl RuntimeConfig {
     /// The value of [runtime_config][crate::model::RuntimeConfig::runtime_config]
     /// if it holds a `Kubernetes`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn kubernetes(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::KubernetesConfig>> {
+    pub fn kubernetes(&self) -> std::option::Option<&std::boxed::Box<crate::model::KubernetesConfig>> {
         #[allow(unreachable_patterns)]
         self.runtime_config.as_ref().and_then(|v| match v {
-            crate::model::runtime_config::RuntimeConfig::Kubernetes(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::runtime_config::RuntimeConfig::Kubernetes(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -2360,14 +2286,11 @@ impl RuntimeConfig {
     /// assert!(x.kubernetes().is_some());
     /// assert!(x.cloud_run().is_none());
     /// ```
-    pub fn set_kubernetes<
-        T: std::convert::Into<std::boxed::Box<crate::model::KubernetesConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_kubernetes<T: std::convert::Into<std::boxed::Box<crate::model::KubernetesConfig>>>(mut self, v: T) -> Self {
         self.runtime_config = std::option::Option::Some(
-            crate::model::runtime_config::RuntimeConfig::Kubernetes(v.into()),
+            crate::model::runtime_config::RuntimeConfig::Kubernetes(
+                v.into()
+            )
         );
         self
     }
@@ -2378,9 +2301,7 @@ impl RuntimeConfig {
     pub fn cloud_run(&self) -> std::option::Option<&std::boxed::Box<crate::model::CloudRunConfig>> {
         #[allow(unreachable_patterns)]
         self.runtime_config.as_ref().and_then(|v| match v {
-            crate::model::runtime_config::RuntimeConfig::CloudRun(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::runtime_config::RuntimeConfig::CloudRun(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -2399,12 +2320,11 @@ impl RuntimeConfig {
     /// assert!(x.cloud_run().is_some());
     /// assert!(x.kubernetes().is_none());
     /// ```
-    pub fn set_cloud_run<T: std::convert::Into<std::boxed::Box<crate::model::CloudRunConfig>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_cloud_run<T: std::convert::Into<std::boxed::Box<crate::model::CloudRunConfig>>>(mut self, v: T) -> Self {
         self.runtime_config = std::option::Option::Some(
-            crate::model::runtime_config::RuntimeConfig::CloudRun(v.into()),
+            crate::model::runtime_config::RuntimeConfig::CloudRun(
+                v.into()
+            )
         );
         self
     }
@@ -2420,6 +2340,7 @@ impl wkt::message::Message for RuntimeConfig {
 pub mod runtime_config {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The runtime configuration details.
     #[derive(Clone, Debug, PartialEq)]
@@ -2437,6 +2358,7 @@ pub mod runtime_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PipelineReadyCondition {
+
     /// True if the Pipeline is in a valid state. Otherwise at least one condition
     /// in `PipelineCondition` is in an invalid state. Iterate over those
     /// conditions and see which condition(s) has status = false to find out what
@@ -2475,8 +2397,7 @@ impl PipelineReadyCondition {
     /// let x = PipelineReadyCondition::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -2492,8 +2413,7 @@ impl PipelineReadyCondition {
     /// let x = PipelineReadyCondition::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -2511,6 +2431,7 @@ impl wkt::message::Message for PipelineReadyCondition {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TargetsPresentCondition {
+
     /// True if there aren't any missing Targets.
     pub status: bool,
 
@@ -2551,7 +2472,7 @@ impl TargetsPresentCondition {
     pub fn set_missing_targets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.missing_targets = v.into_iter().map(|i| i.into()).collect();
@@ -2567,8 +2488,7 @@ impl TargetsPresentCondition {
     /// let x = TargetsPresentCondition::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -2584,8 +2504,7 @@ impl TargetsPresentCondition {
     /// let x = TargetsPresentCondition::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -2603,6 +2522,7 @@ impl wkt::message::Message for TargetsPresentCondition {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TargetsTypeCondition {
+
     /// True if the targets are all a comparable type. For example this is true if
     /// all targets are GKE clusters. This is false if some targets are Cloud Run
     /// targets and others are GKE clusters.
@@ -2654,6 +2574,7 @@ impl wkt::message::Message for TargetsTypeCondition {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PipelineCondition {
+
     /// Details around the Pipeline's overall status.
     pub pipeline_ready_condition: std::option::Option<crate::model::PipelineReadyCondition>,
 
@@ -2681,8 +2602,7 @@ impl PipelineCondition {
     /// let x = PipelineCondition::new().set_pipeline_ready_condition(PipelineReadyCondition::default()/* use setters */);
     /// ```
     pub fn set_pipeline_ready_condition<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::PipelineReadyCondition>,
+    where T: std::convert::Into<crate::model::PipelineReadyCondition>
     {
         self.pipeline_ready_condition = std::option::Option::Some(v.into());
         self
@@ -2698,8 +2618,7 @@ impl PipelineCondition {
     /// let x = PipelineCondition::new().set_or_clear_pipeline_ready_condition(None::<PipelineReadyCondition>);
     /// ```
     pub fn set_or_clear_pipeline_ready_condition<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::PipelineReadyCondition>,
+    where T: std::convert::Into<crate::model::PipelineReadyCondition>
     {
         self.pipeline_ready_condition = v.map(|x| x.into());
         self
@@ -2714,8 +2633,7 @@ impl PipelineCondition {
     /// let x = PipelineCondition::new().set_targets_present_condition(TargetsPresentCondition::default()/* use setters */);
     /// ```
     pub fn set_targets_present_condition<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TargetsPresentCondition>,
+    where T: std::convert::Into<crate::model::TargetsPresentCondition>
     {
         self.targets_present_condition = std::option::Option::Some(v.into());
         self
@@ -2731,8 +2649,7 @@ impl PipelineCondition {
     /// let x = PipelineCondition::new().set_or_clear_targets_present_condition(None::<TargetsPresentCondition>);
     /// ```
     pub fn set_or_clear_targets_present_condition<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TargetsPresentCondition>,
+    where T: std::convert::Into<crate::model::TargetsPresentCondition>
     {
         self.targets_present_condition = v.map(|x| x.into());
         self
@@ -2747,8 +2664,7 @@ impl PipelineCondition {
     /// let x = PipelineCondition::new().set_targets_type_condition(TargetsTypeCondition::default()/* use setters */);
     /// ```
     pub fn set_targets_type_condition<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TargetsTypeCondition>,
+    where T: std::convert::Into<crate::model::TargetsTypeCondition>
     {
         self.targets_type_condition = std::option::Option::Some(v.into());
         self
@@ -2764,8 +2680,7 @@ impl PipelineCondition {
     /// let x = PipelineCondition::new().set_or_clear_targets_type_condition(None::<TargetsTypeCondition>);
     /// ```
     pub fn set_or_clear_targets_type_condition<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TargetsTypeCondition>,
+    where T: std::convert::Into<crate::model::TargetsTypeCondition>
     {
         self.targets_type_condition = v.map(|x| x.into());
         self
@@ -2782,6 +2697,7 @@ impl wkt::message::Message for PipelineCondition {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDeliveryPipelinesRequest {
+
     /// Required. The parent, which owns this collection of pipelines. Format must
     /// be `projects/{project_id}/locations/{location_name}`.
     pub parent: std::string::String,
@@ -2885,6 +2801,7 @@ impl wkt::message::Message for ListDeliveryPipelinesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDeliveryPipelinesResponse {
+
     /// The `DeliveryPipeline` objects.
     pub delivery_pipelines: std::vec::Vec<crate::model::DeliveryPipeline>,
 
@@ -2918,7 +2835,7 @@ impl ListDeliveryPipelinesResponse {
     pub fn set_delivery_pipelines<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::DeliveryPipeline>,
+        V: std::convert::Into<crate::model::DeliveryPipeline>
     {
         use std::iter::Iterator;
         self.delivery_pipelines = v.into_iter().map(|i| i.into()).collect();
@@ -2947,7 +2864,7 @@ impl ListDeliveryPipelinesResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -2979,6 +2896,7 @@ impl gax::paginator::internal::PageableResponse for ListDeliveryPipelinesRespons
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetDeliveryPipelineRequest {
+
     /// Required. Name of the `DeliveryPipeline`. Format must be
     /// `projects/{project_id}/locations/{location_name}/deliveryPipelines/{pipeline_name}`.
     pub name: std::string::String,
@@ -3014,6 +2932,7 @@ impl wkt::message::Message for GetDeliveryPipelineRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateDeliveryPipelineRequest {
+
     /// Required. The parent collection in which the `DeliveryPipeline` must be
     /// created. The format is `projects/{project_id}/locations/{location_name}`.
     pub parent: std::string::String,
@@ -3070,10 +2989,7 @@ impl CreateDeliveryPipelineRequest {
     /// # use google_cloud_deploy_v1::model::CreateDeliveryPipelineRequest;
     /// let x = CreateDeliveryPipelineRequest::new().set_delivery_pipeline_id("example");
     /// ```
-    pub fn set_delivery_pipeline_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_delivery_pipeline_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.delivery_pipeline_id = v.into();
         self
     }
@@ -3087,8 +3003,7 @@ impl CreateDeliveryPipelineRequest {
     /// let x = CreateDeliveryPipelineRequest::new().set_delivery_pipeline(DeliveryPipeline::default()/* use setters */);
     /// ```
     pub fn set_delivery_pipeline<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DeliveryPipeline>,
+    where T: std::convert::Into<crate::model::DeliveryPipeline>
     {
         self.delivery_pipeline = std::option::Option::Some(v.into());
         self
@@ -3104,8 +3019,7 @@ impl CreateDeliveryPipelineRequest {
     /// let x = CreateDeliveryPipelineRequest::new().set_or_clear_delivery_pipeline(None::<DeliveryPipeline>);
     /// ```
     pub fn set_or_clear_delivery_pipeline<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DeliveryPipeline>,
+    where T: std::convert::Into<crate::model::DeliveryPipeline>
     {
         self.delivery_pipeline = v.map(|x| x.into());
         self
@@ -3146,6 +3060,7 @@ impl wkt::message::Message for CreateDeliveryPipelineRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateDeliveryPipelineRequest {
+
     /// Required. Field mask is used to specify the fields to be overwritten by the
     /// update in the `DeliveryPipeline` resource. The fields specified in the
     /// update_mask are relative to the resource, not the full request. A field
@@ -3196,8 +3111,7 @@ impl UpdateDeliveryPipelineRequest {
     /// let x = UpdateDeliveryPipelineRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -3213,8 +3127,7 @@ impl UpdateDeliveryPipelineRequest {
     /// let x = UpdateDeliveryPipelineRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -3229,8 +3142,7 @@ impl UpdateDeliveryPipelineRequest {
     /// let x = UpdateDeliveryPipelineRequest::new().set_delivery_pipeline(DeliveryPipeline::default()/* use setters */);
     /// ```
     pub fn set_delivery_pipeline<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DeliveryPipeline>,
+    where T: std::convert::Into<crate::model::DeliveryPipeline>
     {
         self.delivery_pipeline = std::option::Option::Some(v.into());
         self
@@ -3246,8 +3158,7 @@ impl UpdateDeliveryPipelineRequest {
     /// let x = UpdateDeliveryPipelineRequest::new().set_or_clear_delivery_pipeline(None::<DeliveryPipeline>);
     /// ```
     pub fn set_or_clear_delivery_pipeline<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DeliveryPipeline>,
+    where T: std::convert::Into<crate::model::DeliveryPipeline>
     {
         self.delivery_pipeline = v.map(|x| x.into());
         self
@@ -3300,6 +3211,7 @@ impl wkt::message::Message for UpdateDeliveryPipelineRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteDeliveryPipelineRequest {
+
     /// Required. The name of the `DeliveryPipeline` to delete. The format is
     /// `projects/{project_id}/locations/{location_name}/deliveryPipelines/{pipeline_name}`.
     pub name: std::string::String,
@@ -3428,6 +3340,7 @@ impl wkt::message::Message for DeleteDeliveryPipelineRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RollbackTargetConfig {
+
     /// Optional. The rollback `Rollout` to create.
     pub rollout: std::option::Option<crate::model::Rollout>,
 
@@ -3452,8 +3365,7 @@ impl RollbackTargetConfig {
     /// let x = RollbackTargetConfig::new().set_rollout(Rollout::default()/* use setters */);
     /// ```
     pub fn set_rollout<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Rollout>,
+    where T: std::convert::Into<crate::model::Rollout>
     {
         self.rollout = std::option::Option::Some(v.into());
         self
@@ -3469,8 +3381,7 @@ impl RollbackTargetConfig {
     /// let x = RollbackTargetConfig::new().set_or_clear_rollout(None::<Rollout>);
     /// ```
     pub fn set_or_clear_rollout<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Rollout>,
+    where T: std::convert::Into<crate::model::Rollout>
     {
         self.rollout = v.map(|x| x.into());
         self
@@ -3483,10 +3394,7 @@ impl RollbackTargetConfig {
     /// # use google_cloud_deploy_v1::model::RollbackTargetConfig;
     /// let x = RollbackTargetConfig::new().set_starting_phase_id("example");
     /// ```
-    pub fn set_starting_phase_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_starting_phase_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.starting_phase_id = v.into();
         self
     }
@@ -3502,6 +3410,7 @@ impl wkt::message::Message for RollbackTargetConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RollbackTargetRequest {
+
     /// Required. The `DeliveryPipeline` for which the rollback `Rollout` must be
     /// created. The format is
     /// `projects/{project_id}/locations/{location_name}/deliveryPipelines/{pipeline_name}`.
@@ -3596,10 +3505,7 @@ impl RollbackTargetRequest {
     /// # use google_cloud_deploy_v1::model::RollbackTargetRequest;
     /// let x = RollbackTargetRequest::new().set_rollout_to_roll_back("example");
     /// ```
-    pub fn set_rollout_to_roll_back<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_rollout_to_roll_back<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.rollout_to_roll_back = v.into();
         self
     }
@@ -3613,8 +3519,7 @@ impl RollbackTargetRequest {
     /// let x = RollbackTargetRequest::new().set_rollback_config(RollbackTargetConfig::default()/* use setters */);
     /// ```
     pub fn set_rollback_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RollbackTargetConfig>,
+    where T: std::convert::Into<crate::model::RollbackTargetConfig>
     {
         self.rollback_config = std::option::Option::Some(v.into());
         self
@@ -3630,8 +3535,7 @@ impl RollbackTargetRequest {
     /// let x = RollbackTargetRequest::new().set_or_clear_rollback_config(None::<RollbackTargetConfig>);
     /// ```
     pub fn set_or_clear_rollback_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RollbackTargetConfig>,
+    where T: std::convert::Into<crate::model::RollbackTargetConfig>
     {
         self.rollback_config = v.map(|x| x.into());
         self
@@ -3659,7 +3563,7 @@ impl RollbackTargetRequest {
     pub fn set_override_deploy_policy<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.override_deploy_policy = v.into_iter().map(|i| i.into()).collect();
@@ -3677,6 +3581,7 @@ impl wkt::message::Message for RollbackTargetRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RollbackTargetResponse {
+
     /// The config of the rollback `Rollout` created or will be created.
     pub rollback_config: std::option::Option<crate::model::RollbackTargetConfig>,
 
@@ -3697,8 +3602,7 @@ impl RollbackTargetResponse {
     /// let x = RollbackTargetResponse::new().set_rollback_config(RollbackTargetConfig::default()/* use setters */);
     /// ```
     pub fn set_rollback_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RollbackTargetConfig>,
+    where T: std::convert::Into<crate::model::RollbackTargetConfig>
     {
         self.rollback_config = std::option::Option::Some(v.into());
         self
@@ -3714,8 +3618,7 @@ impl RollbackTargetResponse {
     /// let x = RollbackTargetResponse::new().set_or_clear_rollback_config(None::<RollbackTargetConfig>);
     /// ```
     pub fn set_or_clear_rollback_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RollbackTargetConfig>,
+    where T: std::convert::Into<crate::model::RollbackTargetConfig>
     {
         self.rollback_config = v.map(|x| x.into());
         self
@@ -3735,6 +3638,7 @@ impl wkt::message::Message for RollbackTargetResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Target {
+
     /// Identifier. Name of the `Target`. Format is
     /// `projects/{project}/locations/{location}/targets/{target}`.
     /// The `target` component must match `[a-z]([a-z0-9-]{0,61}[a-z0-9])?`
@@ -3753,7 +3657,7 @@ pub struct Target {
     /// the user, and not by Cloud Deploy. See
     /// <https://google.aip.dev/128#annotations> for more details such as format and
     /// size limitations.
-    pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
+    pub annotations: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. Labels are attributes that can be set and used by both the
     /// user and by Cloud Deploy. Labels must meet the following constraints:
@@ -3766,7 +3670,7 @@ pub struct Target {
     /// * Each resource is limited to a maximum of 64 labels.
     ///
     /// Both keys and values are additionally constrained to be <= 128 bytes.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. Whether or not the `Target` requires approval.
     pub require_approval: bool,
@@ -3785,8 +3689,7 @@ pub struct Target {
     /// numbers, and hyphens, start with a letter and end with a letter or a
     /// number, and have a max length of 63 characters. In other words, it must
     /// match the following regex: `^[a-z]([a-z0-9-]{0,61}[a-z0-9])?$`.
-    pub associated_entities:
-        std::collections::HashMap<std::string::String, crate::model::AssociatedEntities>,
+    pub associated_entities: std::collections::HashMap<std::string::String,crate::model::AssociatedEntities>,
 
     /// Optional. This checksum is computed by the server based on the value of
     /// other fields, and may be sent on update and delete requests to ensure the
@@ -3803,7 +3706,7 @@ pub struct Target {
     pub execution_configs: std::vec::Vec<crate::model::ExecutionConfig>,
 
     /// Optional. The deploy parameters to use for this target.
-    pub deploy_parameters: std::collections::HashMap<std::string::String, std::string::String>,
+    pub deploy_parameters: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Destination to which the Skaffold configuration is applied during a
     /// rollout.
@@ -3928,8 +3831,7 @@ impl Target {
     /// let x = Target::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -3945,8 +3847,7 @@ impl Target {
     /// let x = Target::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -3961,8 +3862,7 @@ impl Target {
     /// let x = Target::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -3978,8 +3878,7 @@ impl Target {
     /// let x = Target::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -4034,7 +3933,7 @@ impl Target {
     pub fn set_execution_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ExecutionConfig>,
+        V: std::convert::Into<crate::model::ExecutionConfig>
     {
         use std::iter::Iterator;
         self.execution_configs = v.into_iter().map(|i| i.into()).collect();
@@ -4074,12 +3973,8 @@ impl Target {
     /// let x = Target::new().set_deployment_target(Some(
     ///     google_cloud_deploy_v1::model::target::DeploymentTarget::Gke(GkeCluster::default().into())));
     /// ```
-    pub fn set_deployment_target<
-        T: std::convert::Into<std::option::Option<crate::model::target::DeploymentTarget>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_deployment_target<T: std::convert::Into<std::option::Option<crate::model::target::DeploymentTarget>>>(mut self, v: T) -> Self
+    {
         self.deployment_target = v.into();
         self
     }
@@ -4112,26 +4007,22 @@ impl Target {
     /// assert!(x.multi_target().is_none());
     /// assert!(x.custom_target().is_none());
     /// ```
-    pub fn set_gke<T: std::convert::Into<std::boxed::Box<crate::model::GkeCluster>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.deployment_target =
-            std::option::Option::Some(crate::model::target::DeploymentTarget::Gke(v.into()));
+    pub fn set_gke<T: std::convert::Into<std::boxed::Box<crate::model::GkeCluster>>>(mut self, v: T) -> Self {
+        self.deployment_target = std::option::Option::Some(
+            crate::model::target::DeploymentTarget::Gke(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [deployment_target][crate::model::Target::deployment_target]
     /// if it holds a `AnthosCluster`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn anthos_cluster(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::AnthosCluster>> {
+    pub fn anthos_cluster(&self) -> std::option::Option<&std::boxed::Box<crate::model::AnthosCluster>> {
         #[allow(unreachable_patterns)]
         self.deployment_target.as_ref().and_then(|v| match v {
-            crate::model::target::DeploymentTarget::AnthosCluster(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::target::DeploymentTarget::AnthosCluster(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -4153,14 +4044,11 @@ impl Target {
     /// assert!(x.multi_target().is_none());
     /// assert!(x.custom_target().is_none());
     /// ```
-    pub fn set_anthos_cluster<
-        T: std::convert::Into<std::boxed::Box<crate::model::AnthosCluster>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_anthos_cluster<T: std::convert::Into<std::boxed::Box<crate::model::AnthosCluster>>>(mut self, v: T) -> Self {
         self.deployment_target = std::option::Option::Some(
-            crate::model::target::DeploymentTarget::AnthosCluster(v.into()),
+            crate::model::target::DeploymentTarget::AnthosCluster(
+                v.into()
+            )
         );
         self
     }
@@ -4193,12 +4081,12 @@ impl Target {
     /// assert!(x.multi_target().is_none());
     /// assert!(x.custom_target().is_none());
     /// ```
-    pub fn set_run<T: std::convert::Into<std::boxed::Box<crate::model::CloudRunLocation>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.deployment_target =
-            std::option::Option::Some(crate::model::target::DeploymentTarget::Run(v.into()));
+    pub fn set_run<T: std::convert::Into<std::boxed::Box<crate::model::CloudRunLocation>>>(mut self, v: T) -> Self {
+        self.deployment_target = std::option::Option::Some(
+            crate::model::target::DeploymentTarget::Run(
+                v.into()
+            )
+        );
         self
     }
 
@@ -4230,12 +4118,11 @@ impl Target {
     /// assert!(x.run().is_none());
     /// assert!(x.custom_target().is_none());
     /// ```
-    pub fn set_multi_target<T: std::convert::Into<std::boxed::Box<crate::model::MultiTarget>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_multi_target<T: std::convert::Into<std::boxed::Box<crate::model::MultiTarget>>>(mut self, v: T) -> Self {
         self.deployment_target = std::option::Option::Some(
-            crate::model::target::DeploymentTarget::MultiTarget(v.into()),
+            crate::model::target::DeploymentTarget::MultiTarget(
+                v.into()
+            )
         );
         self
     }
@@ -4243,9 +4130,7 @@ impl Target {
     /// The value of [deployment_target][crate::model::Target::deployment_target]
     /// if it holds a `CustomTarget`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn custom_target(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::CustomTarget>> {
+    pub fn custom_target(&self) -> std::option::Option<&std::boxed::Box<crate::model::CustomTarget>> {
         #[allow(unreachable_patterns)]
         self.deployment_target.as_ref().and_then(|v| match v {
             crate::model::target::DeploymentTarget::CustomTarget(v) => std::option::Option::Some(v),
@@ -4270,12 +4155,11 @@ impl Target {
     /// assert!(x.run().is_none());
     /// assert!(x.multi_target().is_none());
     /// ```
-    pub fn set_custom_target<T: std::convert::Into<std::boxed::Box<crate::model::CustomTarget>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_custom_target<T: std::convert::Into<std::boxed::Box<crate::model::CustomTarget>>>(mut self, v: T) -> Self {
         self.deployment_target = std::option::Option::Some(
-            crate::model::target::DeploymentTarget::CustomTarget(v.into()),
+            crate::model::target::DeploymentTarget::CustomTarget(
+                v.into()
+            )
         );
         self
     }
@@ -4291,6 +4175,7 @@ impl wkt::message::Message for Target {
 pub mod target {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Destination to which the Skaffold configuration is applied during a
     /// rollout.
@@ -4314,6 +4199,7 @@ pub mod target {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExecutionConfig {
+
     /// Required. Usages when this configuration should be applied.
     pub usages: std::vec::Vec<crate::model::execution_config::ExecutionEnvironmentUsage>,
 
@@ -4344,8 +4230,7 @@ pub struct ExecutionConfig {
     pub verbose: bool,
 
     /// Details of the environment.
-    pub execution_environment:
-        std::option::Option<crate::model::execution_config::ExecutionEnvironment>,
+    pub execution_environment: std::option::Option<crate::model::execution_config::ExecutionEnvironment>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -4370,7 +4255,7 @@ impl ExecutionConfig {
     pub fn set_usages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::execution_config::ExecutionEnvironmentUsage>,
+        V: std::convert::Into<crate::model::execution_config::ExecutionEnvironmentUsage>
     {
         use std::iter::Iterator;
         self.usages = v.into_iter().map(|i| i.into()).collect();
@@ -4408,10 +4293,7 @@ impl ExecutionConfig {
     /// # use google_cloud_deploy_v1::model::ExecutionConfig;
     /// let x = ExecutionConfig::new().set_artifact_storage("example");
     /// ```
-    pub fn set_artifact_storage<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_artifact_storage<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.artifact_storage = v.into();
         self
     }
@@ -4425,8 +4307,7 @@ impl ExecutionConfig {
     /// let x = ExecutionConfig::new().set_execution_timeout(Duration::default()/* use setters */);
     /// ```
     pub fn set_execution_timeout<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.execution_timeout = std::option::Option::Some(v.into());
         self
@@ -4442,8 +4323,7 @@ impl ExecutionConfig {
     /// let x = ExecutionConfig::new().set_or_clear_execution_timeout(None::<Duration>);
     /// ```
     pub fn set_or_clear_execution_timeout<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.execution_timeout = v.map(|x| x.into());
         self
@@ -4473,14 +4353,8 @@ impl ExecutionConfig {
     /// let x = ExecutionConfig::new().set_execution_environment(Some(
     ///     google_cloud_deploy_v1::model::execution_config::ExecutionEnvironment::DefaultPool(DefaultPool::default().into())));
     /// ```
-    pub fn set_execution_environment<
-        T: std::convert::Into<
-                std::option::Option<crate::model::execution_config::ExecutionEnvironment>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_execution_environment<T: std::convert::Into<std::option::Option<crate::model::execution_config::ExecutionEnvironment>>>(mut self, v: T) -> Self
+    {
         self.execution_environment = v.into();
         self
     }
@@ -4491,9 +4365,7 @@ impl ExecutionConfig {
     pub fn default_pool(&self) -> std::option::Option<&std::boxed::Box<crate::model::DefaultPool>> {
         #[allow(unreachable_patterns)]
         self.execution_environment.as_ref().and_then(|v| match v {
-            crate::model::execution_config::ExecutionEnvironment::DefaultPool(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::execution_config::ExecutionEnvironment::DefaultPool(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -4512,12 +4384,11 @@ impl ExecutionConfig {
     /// assert!(x.default_pool().is_some());
     /// assert!(x.private_pool().is_none());
     /// ```
-    pub fn set_default_pool<T: std::convert::Into<std::boxed::Box<crate::model::DefaultPool>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_default_pool<T: std::convert::Into<std::boxed::Box<crate::model::DefaultPool>>>(mut self, v: T) -> Self {
         self.execution_environment = std::option::Option::Some(
-            crate::model::execution_config::ExecutionEnvironment::DefaultPool(v.into()),
+            crate::model::execution_config::ExecutionEnvironment::DefaultPool(
+                v.into()
+            )
         );
         self
     }
@@ -4528,9 +4399,7 @@ impl ExecutionConfig {
     pub fn private_pool(&self) -> std::option::Option<&std::boxed::Box<crate::model::PrivatePool>> {
         #[allow(unreachable_patterns)]
         self.execution_environment.as_ref().and_then(|v| match v {
-            crate::model::execution_config::ExecutionEnvironment::PrivatePool(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::execution_config::ExecutionEnvironment::PrivatePool(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -4549,12 +4418,11 @@ impl ExecutionConfig {
     /// assert!(x.private_pool().is_some());
     /// assert!(x.default_pool().is_none());
     /// ```
-    pub fn set_private_pool<T: std::convert::Into<std::boxed::Box<crate::model::PrivatePool>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_private_pool<T: std::convert::Into<std::boxed::Box<crate::model::PrivatePool>>>(mut self, v: T) -> Self {
         self.execution_environment = std::option::Option::Some(
-            crate::model::execution_config::ExecutionEnvironment::PrivatePool(v.into()),
+            crate::model::execution_config::ExecutionEnvironment::PrivatePool(
+                v.into()
+            )
         );
         self
     }
@@ -4570,6 +4438,7 @@ impl wkt::message::Message for ExecutionConfig {
 pub mod execution_config {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Possible usages of this configuration.
     ///
@@ -4639,9 +4508,7 @@ pub mod execution_config {
         /// the integer representation of enums.
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
-                Self::Unspecified => {
-                    std::option::Option::Some("EXECUTION_ENVIRONMENT_USAGE_UNSPECIFIED")
-                }
+                Self::Unspecified => std::option::Option::Some("EXECUTION_ENVIRONMENT_USAGE_UNSPECIFIED"),
                 Self::Render => std::option::Option::Some("RENDER"),
                 Self::Deploy => std::option::Option::Some("DEPLOY"),
                 Self::Verify => std::option::Option::Some("VERIFY"),
@@ -4674,9 +4541,7 @@ pub mod execution_config {
                 3 => Self::Verify,
                 4 => Self::Predeploy,
                 5 => Self::Postdeploy,
-                _ => Self::UnknownValue(execution_environment_usage::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(execution_environment_usage::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -4691,9 +4556,7 @@ pub mod execution_config {
                 "VERIFY" => Self::Verify,
                 "PREDEPLOY" => Self::Predeploy,
                 "POSTDEPLOY" => Self::Postdeploy,
-                _ => Self::UnknownValue(execution_environment_usage::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(execution_environment_usage::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -4720,11 +4583,8 @@ pub mod execution_config {
         where
             D: serde::Deserializer<'de>,
         {
-            deserializer.deserialize_any(
-                wkt::internal::EnumVisitor::<ExecutionEnvironmentUsage>::new(
-                    ".google.cloud.deploy.v1.ExecutionConfig.ExecutionEnvironmentUsage",
-                ),
-            )
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ExecutionEnvironmentUsage>::new(
+                ".google.cloud.deploy.v1.ExecutionConfig.ExecutionEnvironmentUsage"))
         }
     }
 
@@ -4743,6 +4603,7 @@ pub mod execution_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DefaultPool {
+
     /// Optional. Google service account to use for execution. If unspecified,
     /// the project execution service account
     /// (<PROJECT_NUMBER>-compute@developer.gserviceaccount.com) will be used.
@@ -4781,10 +4642,7 @@ impl DefaultPool {
     /// # use google_cloud_deploy_v1::model::DefaultPool;
     /// let x = DefaultPool::new().set_artifact_storage("example");
     /// ```
-    pub fn set_artifact_storage<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_artifact_storage<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.artifact_storage = v.into();
         self
     }
@@ -4800,6 +4658,7 @@ impl wkt::message::Message for DefaultPool {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PrivatePool {
+
     /// Required. Resource name of the Cloud Build worker pool to use. The format
     /// is `projects/{project}/locations/{location}/workerPools/{pool}`.
     pub worker_pool: std::string::String,
@@ -4854,10 +4713,7 @@ impl PrivatePool {
     /// # use google_cloud_deploy_v1::model::PrivatePool;
     /// let x = PrivatePool::new().set_artifact_storage("example");
     /// ```
-    pub fn set_artifact_storage<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_artifact_storage<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.artifact_storage = v.into();
         self
     }
@@ -4873,6 +4729,7 @@ impl wkt::message::Message for PrivatePool {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GkeCluster {
+
     /// Optional. Information specifying a GKE Cluster. Format is
     /// `projects/{project_id}/locations/{location_id}/clusters/{cluster_id}`.
     pub cluster: std::string::String,
@@ -4964,6 +4821,7 @@ impl wkt::message::Message for GkeCluster {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AnthosCluster {
+
     /// Optional. Membership of the GKE Hub-registered cluster to which to apply
     /// the Skaffold configuration. Format is
     /// `projects/{project}/locations/{location}/memberships/{membership_name}`.
@@ -5000,6 +4858,7 @@ impl wkt::message::Message for AnthosCluster {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudRunLocation {
+
     /// Required. The location for the Cloud Run Service. Format must be
     /// `projects/{project}/locations/{location}`.
     pub location: std::string::String,
@@ -5035,6 +4894,7 @@ impl wkt::message::Message for CloudRunLocation {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MultiTarget {
+
     /// Required. The target_ids of this multiTarget.
     pub target_ids: std::vec::Vec<std::string::String>,
 
@@ -5056,7 +4916,7 @@ impl MultiTarget {
     pub fn set_target_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.target_ids = v.into_iter().map(|i| i.into()).collect();
@@ -5074,6 +4934,7 @@ impl wkt::message::Message for MultiTarget {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CustomTarget {
+
     /// Required. The name of the CustomTargetType. Format must be
     /// `projects/{project}/locations/{location}/customTargetTypes/{custom_target_type}`.
     pub custom_target_type: std::string::String,
@@ -5093,10 +4954,7 @@ impl CustomTarget {
     /// # use google_cloud_deploy_v1::model::CustomTarget;
     /// let x = CustomTarget::new().set_custom_target_type("example");
     /// ```
-    pub fn set_custom_target_type<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_custom_target_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.custom_target_type = v.into();
         self
     }
@@ -5112,6 +4970,7 @@ impl wkt::message::Message for CustomTarget {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AssociatedEntities {
+
     /// Optional. Information specifying GKE clusters as associated entities.
     pub gke_clusters: std::vec::Vec<crate::model::GkeCluster>,
 
@@ -5141,7 +5000,7 @@ impl AssociatedEntities {
     pub fn set_gke_clusters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::GkeCluster>,
+        V: std::convert::Into<crate::model::GkeCluster>
     {
         use std::iter::Iterator;
         self.gke_clusters = v.into_iter().map(|i| i.into()).collect();
@@ -5163,7 +5022,7 @@ impl AssociatedEntities {
     pub fn set_anthos_clusters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AnthosCluster>,
+        V: std::convert::Into<crate::model::AnthosCluster>
     {
         use std::iter::Iterator;
         self.anthos_clusters = v.into_iter().map(|i| i.into()).collect();
@@ -5181,6 +5040,7 @@ impl wkt::message::Message for AssociatedEntities {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTargetsRequest {
+
     /// Required. The parent, which owns this collection of targets. Format must be
     /// `projects/{project_id}/locations/{location_name}`.
     pub parent: std::string::String,
@@ -5285,6 +5145,7 @@ impl wkt::message::Message for ListTargetsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTargetsResponse {
+
     /// The `Target` objects.
     pub targets: std::vec::Vec<crate::model::Target>,
 
@@ -5318,7 +5179,7 @@ impl ListTargetsResponse {
     pub fn set_targets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Target>,
+        V: std::convert::Into<crate::model::Target>
     {
         use std::iter::Iterator;
         self.targets = v.into_iter().map(|i| i.into()).collect();
@@ -5347,7 +5208,7 @@ impl ListTargetsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -5379,6 +5240,7 @@ impl gax::paginator::internal::PageableResponse for ListTargetsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetTargetRequest {
+
     /// Required. Name of the `Target`. Format must be
     /// `projects/{project_id}/locations/{location_name}/targets/{target_name}`.
     pub name: std::string::String,
@@ -5414,6 +5276,7 @@ impl wkt::message::Message for GetTargetRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateTargetRequest {
+
     /// Required. The parent collection in which the `Target` must be created.
     /// The format is
     /// `projects/{project_id}/locations/{location_name}`.
@@ -5485,8 +5348,7 @@ impl CreateTargetRequest {
     /// let x = CreateTargetRequest::new().set_target(Target::default()/* use setters */);
     /// ```
     pub fn set_target<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Target>,
+    where T: std::convert::Into<crate::model::Target>
     {
         self.target = std::option::Option::Some(v.into());
         self
@@ -5502,8 +5364,7 @@ impl CreateTargetRequest {
     /// let x = CreateTargetRequest::new().set_or_clear_target(None::<Target>);
     /// ```
     pub fn set_or_clear_target<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Target>,
+    where T: std::convert::Into<crate::model::Target>
     {
         self.target = v.map(|x| x.into());
         self
@@ -5544,6 +5405,7 @@ impl wkt::message::Message for CreateTargetRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateTargetRequest {
+
     /// Required. Field mask is used to specify the fields to be overwritten by the
     /// update in the `Target` resource. The fields specified in the update_mask
     /// are relative to the resource, not the full request. A field will be
@@ -5594,8 +5456,7 @@ impl UpdateTargetRequest {
     /// let x = UpdateTargetRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -5611,8 +5472,7 @@ impl UpdateTargetRequest {
     /// let x = UpdateTargetRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -5627,8 +5487,7 @@ impl UpdateTargetRequest {
     /// let x = UpdateTargetRequest::new().set_target(Target::default()/* use setters */);
     /// ```
     pub fn set_target<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Target>,
+    where T: std::convert::Into<crate::model::Target>
     {
         self.target = std::option::Option::Some(v.into());
         self
@@ -5644,8 +5503,7 @@ impl UpdateTargetRequest {
     /// let x = UpdateTargetRequest::new().set_or_clear_target(None::<Target>);
     /// ```
     pub fn set_or_clear_target<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Target>,
+    where T: std::convert::Into<crate::model::Target>
     {
         self.target = v.map(|x| x.into());
         self
@@ -5698,6 +5556,7 @@ impl wkt::message::Message for UpdateTargetRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteTargetRequest {
+
     /// Required. The name of the `Target` to delete. The format is
     /// `projects/{project_id}/locations/{location_name}/targets/{target_name}`.
     pub name: std::string::String,
@@ -5813,6 +5672,7 @@ impl wkt::message::Message for DeleteTargetRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CustomTargetType {
+
     /// Identifier. Name of the `CustomTargetType`. Format is
     /// `projects/{project}/locations/{location}/customTargetTypes/{customTargetType}`.
     /// The `customTargetType` component must match
@@ -5833,7 +5693,7 @@ pub struct CustomTargetType {
     /// the user, and not by Cloud Deploy. See
     /// <https://google.aip.dev/128#annotations> for more details such as format and
     /// size limitations.
-    pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
+    pub annotations: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. Labels are attributes that can be set and used by both the
     /// user and by Cloud Deploy. Labels must meet the following constraints:
@@ -5846,7 +5706,7 @@ pub struct CustomTargetType {
     /// * Each resource is limited to a maximum of 64 labels.
     ///
     /// Both keys and values are additionally constrained to be <= 128 bytes.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Output only. Time at which the `CustomTargetType` was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
@@ -5889,10 +5749,7 @@ impl CustomTargetType {
     /// # use google_cloud_deploy_v1::model::CustomTargetType;
     /// let x = CustomTargetType::new().set_custom_target_type_id("example");
     /// ```
-    pub fn set_custom_target_type_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_custom_target_type_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.custom_target_type_id = v.into();
         self
     }
@@ -5972,8 +5829,7 @@ impl CustomTargetType {
     /// let x = CustomTargetType::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -5989,8 +5845,7 @@ impl CustomTargetType {
     /// let x = CustomTargetType::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -6005,8 +5860,7 @@ impl CustomTargetType {
     /// let x = CustomTargetType::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -6022,8 +5876,7 @@ impl CustomTargetType {
     /// let x = CustomTargetType::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -6053,12 +5906,8 @@ impl CustomTargetType {
     /// let x = CustomTargetType::new().set_definition(Some(
     ///     google_cloud_deploy_v1::model::custom_target_type::Definition::CustomActions(CustomTargetSkaffoldActions::default().into())));
     /// ```
-    pub fn set_definition<
-        T: std::convert::Into<std::option::Option<crate::model::custom_target_type::Definition>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_definition<T: std::convert::Into<std::option::Option<crate::model::custom_target_type::Definition>>>(mut self, v: T) -> Self
+    {
         self.definition = v.into();
         self
     }
@@ -6066,14 +5915,10 @@ impl CustomTargetType {
     /// The value of [definition][crate::model::CustomTargetType::definition]
     /// if it holds a `CustomActions`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn custom_actions(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::CustomTargetSkaffoldActions>> {
+    pub fn custom_actions(&self) -> std::option::Option<&std::boxed::Box<crate::model::CustomTargetSkaffoldActions>> {
         #[allow(unreachable_patterns)]
         self.definition.as_ref().and_then(|v| match v {
-            crate::model::custom_target_type::Definition::CustomActions(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::custom_target_type::Definition::CustomActions(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -6091,14 +5936,11 @@ impl CustomTargetType {
     /// let x = CustomTargetType::new().set_custom_actions(CustomTargetSkaffoldActions::default()/* use setters */);
     /// assert!(x.custom_actions().is_some());
     /// ```
-    pub fn set_custom_actions<
-        T: std::convert::Into<std::boxed::Box<crate::model::CustomTargetSkaffoldActions>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_custom_actions<T: std::convert::Into<std::boxed::Box<crate::model::CustomTargetSkaffoldActions>>>(mut self, v: T) -> Self {
         self.definition = std::option::Option::Some(
-            crate::model::custom_target_type::Definition::CustomActions(v.into()),
+            crate::model::custom_target_type::Definition::CustomActions(
+                v.into()
+            )
         );
         self
     }
@@ -6115,6 +5957,7 @@ pub mod custom_target_type {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Defines the `CustomTargetType` renderer and deployer.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -6130,6 +5973,7 @@ pub mod custom_target_type {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CustomTargetSkaffoldActions {
+
     /// Optional. The Skaffold custom action responsible for render operations. If
     /// not provided then Cloud Deploy will perform the render operations via
     /// `skaffold render`.
@@ -6189,7 +6033,7 @@ impl CustomTargetSkaffoldActions {
     pub fn set_include_skaffold_modules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::SkaffoldModules>,
+        V: std::convert::Into<crate::model::SkaffoldModules>
     {
         use std::iter::Iterator;
         self.include_skaffold_modules = v.into_iter().map(|i| i.into()).collect();
@@ -6207,6 +6051,7 @@ impl wkt::message::Message for CustomTargetSkaffoldActions {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SkaffoldModules {
+
     /// Optional. The Skaffold Config modules to use from the specified source.
     pub configs: std::vec::Vec<std::string::String>,
 
@@ -6231,7 +6076,7 @@ impl SkaffoldModules {
     pub fn set_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.configs = v.into_iter().map(|i| i.into()).collect();
@@ -6250,12 +6095,8 @@ impl SkaffoldModules {
     /// let x = SkaffoldModules::new().set_source(Some(
     ///     google_cloud_deploy_v1::model::skaffold_modules::Source::Git(SkaffoldGitSource::default().into())));
     /// ```
-    pub fn set_source<
-        T: std::convert::Into<std::option::Option<crate::model::skaffold_modules::Source>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source<T: std::convert::Into<std::option::Option<crate::model::skaffold_modules::Source>>>(mut self, v: T) -> Self
+    {
         self.source = v.into();
         self
     }
@@ -6263,10 +6104,7 @@ impl SkaffoldModules {
     /// The value of [source][crate::model::SkaffoldModules::source]
     /// if it holds a `Git`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn git(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::skaffold_modules::SkaffoldGitSource>>
-    {
+    pub fn git(&self) -> std::option::Option<&std::boxed::Box<crate::model::skaffold_modules::SkaffoldGitSource>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::skaffold_modules::Source::Git(v) => std::option::Option::Some(v),
@@ -6289,29 +6127,22 @@ impl SkaffoldModules {
     /// assert!(x.google_cloud_storage().is_none());
     /// assert!(x.google_cloud_build_repo().is_none());
     /// ```
-    pub fn set_git<
-        T: std::convert::Into<std::boxed::Box<crate::model::skaffold_modules::SkaffoldGitSource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source =
-            std::option::Option::Some(crate::model::skaffold_modules::Source::Git(v.into()));
+    pub fn set_git<T: std::convert::Into<std::boxed::Box<crate::model::skaffold_modules::SkaffoldGitSource>>>(mut self, v: T) -> Self {
+        self.source = std::option::Option::Some(
+            crate::model::skaffold_modules::Source::Git(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [source][crate::model::SkaffoldModules::source]
     /// if it holds a `GoogleCloudStorage`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn google_cloud_storage(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::skaffold_modules::SkaffoldGCSSource>>
-    {
+    pub fn google_cloud_storage(&self) -> std::option::Option<&std::boxed::Box<crate::model::skaffold_modules::SkaffoldGCSSource>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
-            crate::model::skaffold_modules::Source::GoogleCloudStorage(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::skaffold_modules::Source::GoogleCloudStorage(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -6331,14 +6162,11 @@ impl SkaffoldModules {
     /// assert!(x.git().is_none());
     /// assert!(x.google_cloud_build_repo().is_none());
     /// ```
-    pub fn set_google_cloud_storage<
-        T: std::convert::Into<std::boxed::Box<crate::model::skaffold_modules::SkaffoldGCSSource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_google_cloud_storage<T: std::convert::Into<std::boxed::Box<crate::model::skaffold_modules::SkaffoldGCSSource>>>(mut self, v: T) -> Self {
         self.source = std::option::Option::Some(
-            crate::model::skaffold_modules::Source::GoogleCloudStorage(v.into()),
+            crate::model::skaffold_modules::Source::GoogleCloudStorage(
+                v.into()
+            )
         );
         self
     }
@@ -6346,15 +6174,10 @@ impl SkaffoldModules {
     /// The value of [source][crate::model::SkaffoldModules::source]
     /// if it holds a `GoogleCloudBuildRepo`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn google_cloud_build_repo(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::skaffold_modules::SkaffoldGCBRepoSource>>
-    {
+    pub fn google_cloud_build_repo(&self) -> std::option::Option<&std::boxed::Box<crate::model::skaffold_modules::SkaffoldGCBRepoSource>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
-            crate::model::skaffold_modules::Source::GoogleCloudBuildRepo(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::skaffold_modules::Source::GoogleCloudBuildRepo(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -6374,14 +6197,11 @@ impl SkaffoldModules {
     /// assert!(x.git().is_none());
     /// assert!(x.google_cloud_storage().is_none());
     /// ```
-    pub fn set_google_cloud_build_repo<
-        T: std::convert::Into<std::boxed::Box<crate::model::skaffold_modules::SkaffoldGCBRepoSource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_google_cloud_build_repo<T: std::convert::Into<std::boxed::Box<crate::model::skaffold_modules::SkaffoldGCBRepoSource>>>(mut self, v: T) -> Self {
         self.source = std::option::Option::Some(
-            crate::model::skaffold_modules::Source::GoogleCloudBuildRepo(v.into()),
+            crate::model::skaffold_modules::Source::GoogleCloudBuildRepo(
+                v.into()
+            )
         );
         self
     }
@@ -6398,10 +6218,12 @@ pub mod skaffold_modules {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Git repository containing Skaffold Config modules.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SkaffoldGitSource {
+
         /// Required. Git repository the package should be cloned from.
         pub repo: std::string::String,
 
@@ -6466,6 +6288,7 @@ pub mod skaffold_modules {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SkaffoldGCSSource {
+
         /// Required. Cloud Storage source paths to copy recursively. For example,
         /// providing "gs://my-bucket/dir/configs/*" will result in Skaffold copying
         /// all files within the "dir/configs" directory in the bucket "my-bucket".
@@ -6517,6 +6340,7 @@ pub mod skaffold_modules {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SkaffoldGCBRepoSource {
+
         /// Required. Name of the Cloud Build V2 Repository.
         /// Format is
         /// projects/{project}/locations/{location}/connections/{connection}/repositories/{repository}.
@@ -6590,9 +6414,7 @@ pub mod skaffold_modules {
         GoogleCloudStorage(std::boxed::Box<crate::model::skaffold_modules::SkaffoldGCSSource>),
         /// Optional. Cloud Build V2 repository containing the Skaffold Config
         /// modules.
-        GoogleCloudBuildRepo(
-            std::boxed::Box<crate::model::skaffold_modules::SkaffoldGCBRepoSource>,
-        ),
+        GoogleCloudBuildRepo(std::boxed::Box<crate::model::skaffold_modules::SkaffoldGCBRepoSource>),
     }
 }
 
@@ -6600,6 +6422,7 @@ pub mod skaffold_modules {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCustomTargetTypesRequest {
+
     /// Required. The parent that owns this collection of custom target types.
     /// Format must be `projects/{project_id}/locations/{location_name}`.
     pub parent: std::string::String,
@@ -6704,6 +6527,7 @@ impl wkt::message::Message for ListCustomTargetTypesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCustomTargetTypesResponse {
+
     /// The `CustomTargetType` objects.
     pub custom_target_types: std::vec::Vec<crate::model::CustomTargetType>,
 
@@ -6737,7 +6561,7 @@ impl ListCustomTargetTypesResponse {
     pub fn set_custom_target_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::CustomTargetType>,
+        V: std::convert::Into<crate::model::CustomTargetType>
     {
         use std::iter::Iterator;
         self.custom_target_types = v.into_iter().map(|i| i.into()).collect();
@@ -6766,7 +6590,7 @@ impl ListCustomTargetTypesResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -6798,6 +6622,7 @@ impl gax::paginator::internal::PageableResponse for ListCustomTargetTypesRespons
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetCustomTargetTypeRequest {
+
     /// Required. Name of the `CustomTargetType`. Format must be
     /// `projects/{project_id}/locations/{location_name}/customTargetTypes/{custom_target_type}`.
     pub name: std::string::String,
@@ -6833,6 +6658,7 @@ impl wkt::message::Message for GetCustomTargetTypeRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateCustomTargetTypeRequest {
+
     /// Required. The parent collection in which the `CustomTargetType` must be
     /// created. The format is `projects/{project_id}/locations/{location_name}`.
     pub parent: std::string::String,
@@ -6889,10 +6715,7 @@ impl CreateCustomTargetTypeRequest {
     /// # use google_cloud_deploy_v1::model::CreateCustomTargetTypeRequest;
     /// let x = CreateCustomTargetTypeRequest::new().set_custom_target_type_id("example");
     /// ```
-    pub fn set_custom_target_type_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_custom_target_type_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.custom_target_type_id = v.into();
         self
     }
@@ -6906,8 +6729,7 @@ impl CreateCustomTargetTypeRequest {
     /// let x = CreateCustomTargetTypeRequest::new().set_custom_target_type(CustomTargetType::default()/* use setters */);
     /// ```
     pub fn set_custom_target_type<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CustomTargetType>,
+    where T: std::convert::Into<crate::model::CustomTargetType>
     {
         self.custom_target_type = std::option::Option::Some(v.into());
         self
@@ -6923,8 +6745,7 @@ impl CreateCustomTargetTypeRequest {
     /// let x = CreateCustomTargetTypeRequest::new().set_or_clear_custom_target_type(None::<CustomTargetType>);
     /// ```
     pub fn set_or_clear_custom_target_type<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CustomTargetType>,
+    where T: std::convert::Into<crate::model::CustomTargetType>
     {
         self.custom_target_type = v.map(|x| x.into());
         self
@@ -6965,6 +6786,7 @@ impl wkt::message::Message for CreateCustomTargetTypeRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateCustomTargetTypeRequest {
+
     /// Required. Field mask is used to specify the fields to be overwritten by the
     /// update in the `CustomTargetType` resource. The fields specified in the
     /// update_mask are relative to the resource, not the full request. A field
@@ -7015,8 +6837,7 @@ impl UpdateCustomTargetTypeRequest {
     /// let x = UpdateCustomTargetTypeRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -7032,8 +6853,7 @@ impl UpdateCustomTargetTypeRequest {
     /// let x = UpdateCustomTargetTypeRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -7048,8 +6868,7 @@ impl UpdateCustomTargetTypeRequest {
     /// let x = UpdateCustomTargetTypeRequest::new().set_custom_target_type(CustomTargetType::default()/* use setters */);
     /// ```
     pub fn set_custom_target_type<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CustomTargetType>,
+    where T: std::convert::Into<crate::model::CustomTargetType>
     {
         self.custom_target_type = std::option::Option::Some(v.into());
         self
@@ -7065,8 +6884,7 @@ impl UpdateCustomTargetTypeRequest {
     /// let x = UpdateCustomTargetTypeRequest::new().set_or_clear_custom_target_type(None::<CustomTargetType>);
     /// ```
     pub fn set_or_clear_custom_target_type<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CustomTargetType>,
+    where T: std::convert::Into<crate::model::CustomTargetType>
     {
         self.custom_target_type = v.map(|x| x.into());
         self
@@ -7119,6 +6937,7 @@ impl wkt::message::Message for UpdateCustomTargetTypeRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteCustomTargetTypeRequest {
+
     /// Required. The name of the `CustomTargetType` to delete. Format must be
     /// `projects/{project_id}/locations/{location_name}/customTargetTypes/{custom_target_type}`.
     pub name: std::string::String,
@@ -7233,6 +7052,7 @@ impl wkt::message::Message for DeleteCustomTargetTypeRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeployPolicy {
+
     /// Output only. Name of the `DeployPolicy`. Format is
     /// `projects/{project}/locations/{location}/deployPolicies/{deployPolicy}`.
     /// The `deployPolicy` component must match `[a-z]([a-z0-9-]{0,61}[a-z0-9])?`
@@ -7261,7 +7081,7 @@ pub struct DeployPolicy {
     /// See
     /// <https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/#syntax-and-character-set>
     /// for more details.
-    pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
+    pub annotations: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Labels are attributes that can be set and used by both the
     /// user and by Cloud Deploy. Labels must meet the following constraints:
@@ -7274,7 +7094,7 @@ pub struct DeployPolicy {
     /// * Each resource is limited to a maximum of 64 labels.
     ///
     /// Both keys and values are additionally constrained to be <= 128 bytes.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Output only. Time at which the deploy policy was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
@@ -7396,8 +7216,7 @@ impl DeployPolicy {
     /// let x = DeployPolicy::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -7413,8 +7232,7 @@ impl DeployPolicy {
     /// let x = DeployPolicy::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -7429,8 +7247,7 @@ impl DeployPolicy {
     /// let x = DeployPolicy::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -7446,8 +7263,7 @@ impl DeployPolicy {
     /// let x = DeployPolicy::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -7480,7 +7296,7 @@ impl DeployPolicy {
     pub fn set_selectors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::DeployPolicyResourceSelector>,
+        V: std::convert::Into<crate::model::DeployPolicyResourceSelector>
     {
         use std::iter::Iterator;
         self.selectors = v.into_iter().map(|i| i.into()).collect();
@@ -7502,7 +7318,7 @@ impl DeployPolicy {
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::PolicyRule>,
+        V: std::convert::Into<crate::model::PolicyRule>
     {
         use std::iter::Iterator;
         self.rules = v.into_iter().map(|i| i.into()).collect();
@@ -7532,6 +7348,7 @@ impl wkt::message::Message for DeployPolicy {
 pub mod deploy_policy {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// What invoked the action. Filters enforcing the policy depending on what
     /// invoked the action.
@@ -7621,9 +7438,7 @@ pub mod deploy_policy {
                 0 => Self::Unspecified,
                 1 => Self::User,
                 2 => Self::DeployAutomation,
-                _ => Self::UnknownValue(invoker::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(invoker::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -7635,9 +7450,7 @@ pub mod deploy_policy {
                 "INVOKER_UNSPECIFIED" => Self::Unspecified,
                 "USER" => Self::User,
                 "DEPLOY_AUTOMATION" => Self::DeployAutomation,
-                _ => Self::UnknownValue(invoker::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(invoker::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -7662,8 +7475,7 @@ pub mod deploy_policy {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Invoker>::new(
-                ".google.cloud.deploy.v1.DeployPolicy.Invoker",
-            ))
+                ".google.cloud.deploy.v1.DeployPolicy.Invoker"))
         }
     }
 }
@@ -7676,6 +7488,7 @@ pub mod deploy_policy {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeployPolicyResourceSelector {
+
     /// Optional. Contains attributes about a delivery pipeline.
     pub delivery_pipeline: std::option::Option<crate::model::DeliveryPipelineAttribute>,
 
@@ -7699,8 +7512,7 @@ impl DeployPolicyResourceSelector {
     /// let x = DeployPolicyResourceSelector::new().set_delivery_pipeline(DeliveryPipelineAttribute::default()/* use setters */);
     /// ```
     pub fn set_delivery_pipeline<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DeliveryPipelineAttribute>,
+    where T: std::convert::Into<crate::model::DeliveryPipelineAttribute>
     {
         self.delivery_pipeline = std::option::Option::Some(v.into());
         self
@@ -7716,8 +7528,7 @@ impl DeployPolicyResourceSelector {
     /// let x = DeployPolicyResourceSelector::new().set_or_clear_delivery_pipeline(None::<DeliveryPipelineAttribute>);
     /// ```
     pub fn set_or_clear_delivery_pipeline<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DeliveryPipelineAttribute>,
+    where T: std::convert::Into<crate::model::DeliveryPipelineAttribute>
     {
         self.delivery_pipeline = v.map(|x| x.into());
         self
@@ -7732,8 +7543,7 @@ impl DeployPolicyResourceSelector {
     /// let x = DeployPolicyResourceSelector::new().set_target(TargetAttribute::default()/* use setters */);
     /// ```
     pub fn set_target<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TargetAttribute>,
+    where T: std::convert::Into<crate::model::TargetAttribute>
     {
         self.target = std::option::Option::Some(v.into());
         self
@@ -7749,8 +7559,7 @@ impl DeployPolicyResourceSelector {
     /// let x = DeployPolicyResourceSelector::new().set_or_clear_target(None::<TargetAttribute>);
     /// ```
     pub fn set_or_clear_target<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TargetAttribute>,
+    where T: std::convert::Into<crate::model::TargetAttribute>
     {
         self.target = v.map(|x| x.into());
         self
@@ -7767,6 +7576,7 @@ impl wkt::message::Message for DeployPolicyResourceSelector {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeliveryPipelineAttribute {
+
     /// Optional. ID of the `DeliveryPipeline`. The value of this field could be
     /// one of the following:
     ///
@@ -7775,7 +7585,7 @@ pub struct DeliveryPipelineAttribute {
     pub id: std::string::String,
 
     /// DeliveryPipeline labels.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -7830,6 +7640,7 @@ impl wkt::message::Message for DeliveryPipelineAttribute {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TargetAttribute {
+
     /// Optional. ID of the `Target`. The value of this field could be one of the
     /// following:
     ///
@@ -7838,7 +7649,7 @@ pub struct TargetAttribute {
     pub id: std::string::String,
 
     /// Target labels.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -7892,6 +7703,7 @@ impl wkt::message::Message for TargetAttribute {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PolicyRule {
+
     pub rule: std::option::Option<crate::model::policy_rule::Rule>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -7914,10 +7726,8 @@ impl PolicyRule {
     /// let x = PolicyRule::new().set_rule(Some(
     ///     google_cloud_deploy_v1::model::policy_rule::Rule::RolloutRestriction(RolloutRestriction::default().into())));
     /// ```
-    pub fn set_rule<T: std::convert::Into<std::option::Option<crate::model::policy_rule::Rule>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_rule<T: std::convert::Into<std::option::Option<crate::model::policy_rule::Rule>>>(mut self, v: T) -> Self
+    {
         self.rule = v.into();
         self
     }
@@ -7925,9 +7735,7 @@ impl PolicyRule {
     /// The value of [rule][crate::model::PolicyRule::rule]
     /// if it holds a `RolloutRestriction`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn rollout_restriction(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::RolloutRestriction>> {
+    pub fn rollout_restriction(&self) -> std::option::Option<&std::boxed::Box<crate::model::RolloutRestriction>> {
         #[allow(unreachable_patterns)]
         self.rule.as_ref().and_then(|v| match v {
             crate::model::policy_rule::Rule::RolloutRestriction(v) => std::option::Option::Some(v),
@@ -7948,15 +7756,12 @@ impl PolicyRule {
     /// let x = PolicyRule::new().set_rollout_restriction(RolloutRestriction::default()/* use setters */);
     /// assert!(x.rollout_restriction().is_some());
     /// ```
-    pub fn set_rollout_restriction<
-        T: std::convert::Into<std::boxed::Box<crate::model::RolloutRestriction>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.rule = std::option::Option::Some(crate::model::policy_rule::Rule::RolloutRestriction(
-            v.into(),
-        ));
+    pub fn set_rollout_restriction<T: std::convert::Into<std::boxed::Box<crate::model::RolloutRestriction>>>(mut self, v: T) -> Self {
+        self.rule = std::option::Option::Some(
+            crate::model::policy_rule::Rule::RolloutRestriction(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -7972,6 +7777,7 @@ pub mod policy_rule {
     #[allow(unused_imports)]
     use super::*;
 
+
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Rule {
@@ -7984,6 +7790,7 @@ pub mod policy_rule {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RolloutRestriction {
+
     /// Required. Restriction rule ID. Required and must be unique within a
     /// DeployPolicy. The format is `[a-z]([a-z0-9-]{0,61}[a-z0-9])?`.
     pub id: std::string::String,
@@ -8033,7 +7840,7 @@ impl RolloutRestriction {
     pub fn set_invokers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::deploy_policy::Invoker>,
+        V: std::convert::Into<crate::model::deploy_policy::Invoker>
     {
         use std::iter::Iterator;
         self.invokers = v.into_iter().map(|i| i.into()).collect();
@@ -8055,7 +7862,7 @@ impl RolloutRestriction {
     pub fn set_actions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::rollout_restriction::RolloutActions>,
+        V: std::convert::Into<crate::model::rollout_restriction::RolloutActions>
     {
         use std::iter::Iterator;
         self.actions = v.into_iter().map(|i| i.into()).collect();
@@ -8071,8 +7878,7 @@ impl RolloutRestriction {
     /// let x = RolloutRestriction::new().set_time_windows(TimeWindows::default()/* use setters */);
     /// ```
     pub fn set_time_windows<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TimeWindows>,
+    where T: std::convert::Into<crate::model::TimeWindows>
     {
         self.time_windows = std::option::Option::Some(v.into());
         self
@@ -8088,8 +7894,7 @@ impl RolloutRestriction {
     /// let x = RolloutRestriction::new().set_or_clear_time_windows(None::<TimeWindows>);
     /// ```
     pub fn set_or_clear_time_windows<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TimeWindows>,
+    where T: std::convert::Into<crate::model::TimeWindows>
     {
         self.time_windows = v.map(|x| x.into());
         self
@@ -8106,6 +7911,7 @@ impl wkt::message::Message for RolloutRestriction {
 pub mod rollout_restriction {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Rollout actions to be restricted as part of the policy.
     ///
@@ -8223,9 +8029,7 @@ pub mod rollout_restriction {
                 6 => Self::RetryJob,
                 7 => Self::Rollback,
                 8 => Self::TerminateJobrun,
-                _ => Self::UnknownValue(rollout_actions::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(rollout_actions::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -8243,9 +8047,7 @@ pub mod rollout_restriction {
                 "RETRY_JOB" => Self::RetryJob,
                 "ROLLBACK" => Self::Rollback,
                 "TERMINATE_JOBRUN" => Self::TerminateJobrun,
-                _ => Self::UnknownValue(rollout_actions::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(rollout_actions::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -8276,8 +8078,7 @@ pub mod rollout_restriction {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<RolloutActions>::new(
-                ".google.cloud.deploy.v1.RolloutRestriction.RolloutActions",
-            ))
+                ".google.cloud.deploy.v1.RolloutRestriction.RolloutActions"))
         }
     }
 }
@@ -8288,6 +8089,7 @@ pub mod rollout_restriction {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TimeWindows {
+
     /// Required. The time zone in IANA format [IANA Time Zone
     /// Database](https://www.iana.org/time-zones) (e.g. America/New_York).
     pub time_zone: std::string::String,
@@ -8333,7 +8135,7 @@ impl TimeWindows {
     pub fn set_one_time_windows<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::OneTimeWindow>,
+        V: std::convert::Into<crate::model::OneTimeWindow>
     {
         use std::iter::Iterator;
         self.one_time_windows = v.into_iter().map(|i| i.into()).collect();
@@ -8355,7 +8157,7 @@ impl TimeWindows {
     pub fn set_weekly_windows<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::WeeklyWindow>,
+        V: std::convert::Into<crate::model::WeeklyWindow>
     {
         use std::iter::Iterator;
         self.weekly_windows = v.into_iter().map(|i| i.into()).collect();
@@ -8374,6 +8176,7 @@ impl wkt::message::Message for TimeWindows {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OneTimeWindow {
+
     /// Required. Start date.
     pub start_date: std::option::Option<gtype::model::Date>,
 
@@ -8403,8 +8206,7 @@ impl OneTimeWindow {
     /// let x = OneTimeWindow::new().set_start_date(Date::default()/* use setters */);
     /// ```
     pub fn set_start_date<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<gtype::model::Date>,
+    where T: std::convert::Into<gtype::model::Date>
     {
         self.start_date = std::option::Option::Some(v.into());
         self
@@ -8420,8 +8222,7 @@ impl OneTimeWindow {
     /// let x = OneTimeWindow::new().set_or_clear_start_date(None::<Date>);
     /// ```
     pub fn set_or_clear_start_date<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<gtype::model::Date>,
+    where T: std::convert::Into<gtype::model::Date>
     {
         self.start_date = v.map(|x| x.into());
         self
@@ -8436,8 +8237,7 @@ impl OneTimeWindow {
     /// let x = OneTimeWindow::new().set_start_time(TimeOfDay::default()/* use setters */);
     /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<gtype::model::TimeOfDay>,
+    where T: std::convert::Into<gtype::model::TimeOfDay>
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -8453,8 +8253,7 @@ impl OneTimeWindow {
     /// let x = OneTimeWindow::new().set_or_clear_start_time(None::<TimeOfDay>);
     /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<gtype::model::TimeOfDay>,
+    where T: std::convert::Into<gtype::model::TimeOfDay>
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -8469,8 +8268,7 @@ impl OneTimeWindow {
     /// let x = OneTimeWindow::new().set_end_date(Date::default()/* use setters */);
     /// ```
     pub fn set_end_date<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<gtype::model::Date>,
+    where T: std::convert::Into<gtype::model::Date>
     {
         self.end_date = std::option::Option::Some(v.into());
         self
@@ -8486,8 +8284,7 @@ impl OneTimeWindow {
     /// let x = OneTimeWindow::new().set_or_clear_end_date(None::<Date>);
     /// ```
     pub fn set_or_clear_end_date<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<gtype::model::Date>,
+    where T: std::convert::Into<gtype::model::Date>
     {
         self.end_date = v.map(|x| x.into());
         self
@@ -8502,8 +8299,7 @@ impl OneTimeWindow {
     /// let x = OneTimeWindow::new().set_end_time(TimeOfDay::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<gtype::model::TimeOfDay>,
+    where T: std::convert::Into<gtype::model::TimeOfDay>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -8519,8 +8315,7 @@ impl OneTimeWindow {
     /// let x = OneTimeWindow::new().set_or_clear_end_time(None::<TimeOfDay>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<gtype::model::TimeOfDay>,
+    where T: std::convert::Into<gtype::model::TimeOfDay>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -8538,6 +8333,7 @@ impl wkt::message::Message for OneTimeWindow {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WeeklyWindow {
+
     /// Optional. Days of week. If left empty, all days of the week will be
     /// included.
     pub days_of_week: std::vec::Vec<gtype::model::DayOfWeek>,
@@ -8575,7 +8371,7 @@ impl WeeklyWindow {
     pub fn set_days_of_week<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<gtype::model::DayOfWeek>,
+        V: std::convert::Into<gtype::model::DayOfWeek>
     {
         use std::iter::Iterator;
         self.days_of_week = v.into_iter().map(|i| i.into()).collect();
@@ -8591,8 +8387,7 @@ impl WeeklyWindow {
     /// let x = WeeklyWindow::new().set_start_time(TimeOfDay::default()/* use setters */);
     /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<gtype::model::TimeOfDay>,
+    where T: std::convert::Into<gtype::model::TimeOfDay>
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -8608,8 +8403,7 @@ impl WeeklyWindow {
     /// let x = WeeklyWindow::new().set_or_clear_start_time(None::<TimeOfDay>);
     /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<gtype::model::TimeOfDay>,
+    where T: std::convert::Into<gtype::model::TimeOfDay>
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -8624,8 +8418,7 @@ impl WeeklyWindow {
     /// let x = WeeklyWindow::new().set_end_time(TimeOfDay::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<gtype::model::TimeOfDay>,
+    where T: std::convert::Into<gtype::model::TimeOfDay>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -8641,8 +8434,7 @@ impl WeeklyWindow {
     /// let x = WeeklyWindow::new().set_or_clear_end_time(None::<TimeOfDay>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<gtype::model::TimeOfDay>,
+    where T: std::convert::Into<gtype::model::TimeOfDay>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -8661,6 +8453,7 @@ impl wkt::message::Message for WeeklyWindow {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PolicyViolation {
+
     /// Policy violation details.
     pub policy_violation_details: std::vec::Vec<crate::model::PolicyViolationDetails>,
 
@@ -8687,7 +8480,7 @@ impl PolicyViolation {
     pub fn set_policy_violation_details<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::PolicyViolationDetails>,
+        V: std::convert::Into<crate::model::PolicyViolationDetails>
     {
         use std::iter::Iterator;
         self.policy_violation_details = v.into_iter().map(|i| i.into()).collect();
@@ -8705,6 +8498,7 @@ impl wkt::message::Message for PolicyViolation {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PolicyViolationDetails {
+
     /// Name of the policy that was violated.
     /// Policy resource will be in the format of
     /// `projects/{project}/locations/{location}/policies/{policy}`.
@@ -8775,6 +8569,7 @@ impl wkt::message::Message for PolicyViolationDetails {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Release {
+
     /// Identifier. Name of the `Release`. Format is
     /// `projects/{project}/locations/{location}/deliveryPipelines/{deliveryPipeline}/releases/{release}`.
     /// The `release` component must match `[a-z]([a-z0-9-]{0,61}[a-z0-9])?`
@@ -8790,7 +8585,7 @@ pub struct Release {
     /// the user, and not by Cloud Deploy. See
     /// <https://google.aip.dev/128#annotations> for more details such as format and
     /// size limitations.
-    pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
+    pub annotations: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Labels are attributes that can be set and used by both the
     /// user and by Cloud Deploy. Labels must meet the following constraints:
@@ -8803,7 +8598,7 @@ pub struct Release {
     /// * Each resource is limited to a maximum of 64 labels.
     ///
     /// Both keys and values are additionally constrained to be <= 128 bytes.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Output only. Indicates whether this is an abandoned release.
     pub abandoned: bool,
@@ -8855,19 +8650,17 @@ pub struct Release {
 
     /// Output only. Map from target ID to the target artifacts created
     /// during the render operation.
-    pub target_artifacts:
-        std::collections::HashMap<std::string::String, crate::model::TargetArtifact>,
+    pub target_artifacts: std::collections::HashMap<std::string::String,crate::model::TargetArtifact>,
 
     /// Output only. Map from target ID to details of the render operation for that
     /// target.
-    pub target_renders:
-        std::collections::HashMap<std::string::String, crate::model::release::TargetRender>,
+    pub target_renders: std::collections::HashMap<std::string::String,crate::model::release::TargetRender>,
 
     /// Output only. Information around the state of the Release.
     pub condition: std::option::Option<crate::model::release::ReleaseCondition>,
 
     /// Optional. The deploy parameters to use for all targets in this release.
-    pub deploy_parameters: std::collections::HashMap<std::string::String, std::string::String>,
+    pub deploy_parameters: std::collections::HashMap<std::string::String,std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -8976,8 +8769,7 @@ impl Release {
     /// let x = Release::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -8993,8 +8785,7 @@ impl Release {
     /// let x = Release::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -9009,8 +8800,7 @@ impl Release {
     /// let x = Release::new().set_render_start_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_render_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.render_start_time = std::option::Option::Some(v.into());
         self
@@ -9026,8 +8816,7 @@ impl Release {
     /// let x = Release::new().set_or_clear_render_start_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_render_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.render_start_time = v.map(|x| x.into());
         self
@@ -9042,8 +8831,7 @@ impl Release {
     /// let x = Release::new().set_render_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_render_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.render_end_time = std::option::Option::Some(v.into());
         self
@@ -9059,8 +8847,7 @@ impl Release {
     /// let x = Release::new().set_or_clear_render_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_render_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.render_end_time = v.map(|x| x.into());
         self
@@ -9073,10 +8860,7 @@ impl Release {
     /// # use google_cloud_deploy_v1::model::Release;
     /// let x = Release::new().set_skaffold_config_uri("example");
     /// ```
-    pub fn set_skaffold_config_uri<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_skaffold_config_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.skaffold_config_uri = v.into();
         self
     }
@@ -9088,10 +8872,7 @@ impl Release {
     /// # use google_cloud_deploy_v1::model::Release;
     /// let x = Release::new().set_skaffold_config_path("example");
     /// ```
-    pub fn set_skaffold_config_path<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_skaffold_config_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.skaffold_config_path = v.into();
         self
     }
@@ -9111,7 +8892,7 @@ impl Release {
     pub fn set_build_artifacts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::BuildArtifact>,
+        V: std::convert::Into<crate::model::BuildArtifact>
     {
         use std::iter::Iterator;
         self.build_artifacts = v.into_iter().map(|i| i.into()).collect();
@@ -9127,8 +8908,7 @@ impl Release {
     /// let x = Release::new().set_delivery_pipeline_snapshot(DeliveryPipeline::default()/* use setters */);
     /// ```
     pub fn set_delivery_pipeline_snapshot<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DeliveryPipeline>,
+    where T: std::convert::Into<crate::model::DeliveryPipeline>
     {
         self.delivery_pipeline_snapshot = std::option::Option::Some(v.into());
         self
@@ -9144,8 +8924,7 @@ impl Release {
     /// let x = Release::new().set_or_clear_delivery_pipeline_snapshot(None::<DeliveryPipeline>);
     /// ```
     pub fn set_or_clear_delivery_pipeline_snapshot<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DeliveryPipeline>,
+    where T: std::convert::Into<crate::model::DeliveryPipeline>
     {
         self.delivery_pipeline_snapshot = v.map(|x| x.into());
         self
@@ -9166,7 +8945,7 @@ impl Release {
     pub fn set_target_snapshots<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Target>,
+        V: std::convert::Into<crate::model::Target>
     {
         use std::iter::Iterator;
         self.target_snapshots = v.into_iter().map(|i| i.into()).collect();
@@ -9188,7 +8967,7 @@ impl Release {
     pub fn set_custom_target_type_snapshots<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::CustomTargetType>,
+        V: std::convert::Into<crate::model::CustomTargetType>
     {
         use std::iter::Iterator;
         self.custom_target_type_snapshots = v.into_iter().map(|i| i.into()).collect();
@@ -9205,10 +8984,7 @@ impl Release {
     /// let x1 = Release::new().set_render_state(RenderState::Failed);
     /// let x2 = Release::new().set_render_state(RenderState::InProgress);
     /// ```
-    pub fn set_render_state<T: std::convert::Into<crate::model::release::RenderState>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_render_state<T: std::convert::Into<crate::model::release::RenderState>>(mut self, v: T) -> Self {
         self.render_state = v.into();
         self
     }
@@ -9232,10 +9008,7 @@ impl Release {
     /// # use google_cloud_deploy_v1::model::Release;
     /// let x = Release::new().set_skaffold_version("example");
     /// ```
-    pub fn set_skaffold_version<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_skaffold_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.skaffold_version = v.into();
         self
     }
@@ -9293,8 +9066,7 @@ impl Release {
     /// let x = Release::new().set_condition(ReleaseCondition::default()/* use setters */);
     /// ```
     pub fn set_condition<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::release::ReleaseCondition>,
+    where T: std::convert::Into<crate::model::release::ReleaseCondition>
     {
         self.condition = std::option::Option::Some(v.into());
         self
@@ -9310,8 +9082,7 @@ impl Release {
     /// let x = Release::new().set_or_clear_condition(None::<ReleaseCondition>);
     /// ```
     pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::release::ReleaseCondition>,
+    where T: std::convert::Into<crate::model::release::ReleaseCondition>
     {
         self.condition = v.map(|x| x.into());
         self
@@ -9350,10 +9121,12 @@ pub mod release {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Details of rendering for a single target.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TargetRender {
+
         /// Output only. The resource name of the Cloud Build `Build` object that is
         /// used to render the manifest for this target. Format is
         /// `projects/{project}/locations/{location}/builds/{build}`.
@@ -9388,10 +9161,7 @@ pub mod release {
         /// # use google_cloud_deploy_v1::model::release::TargetRender;
         /// let x = TargetRender::new().set_rendering_build("example");
         /// ```
-        pub fn set_rendering_build<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_rendering_build<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.rendering_build = v.into();
             self
         }
@@ -9406,12 +9176,7 @@ pub mod release {
         /// let x1 = TargetRender::new().set_rendering_state(TargetRenderState::Failed);
         /// let x2 = TargetRender::new().set_rendering_state(TargetRenderState::InProgress);
         /// ```
-        pub fn set_rendering_state<
-            T: std::convert::Into<crate::model::release::target_render::TargetRenderState>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_rendering_state<T: std::convert::Into<crate::model::release::target_render::TargetRenderState>>(mut self, v: T) -> Self {
             self.rendering_state = v.into();
             self
         }
@@ -9425,8 +9190,7 @@ pub mod release {
         /// let x = TargetRender::new().set_metadata(RenderMetadata::default()/* use setters */);
         /// ```
         pub fn set_metadata<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::RenderMetadata>,
+        where T: std::convert::Into<crate::model::RenderMetadata>
         {
             self.metadata = std::option::Option::Some(v.into());
             self
@@ -9442,8 +9206,7 @@ pub mod release {
         /// let x = TargetRender::new().set_or_clear_metadata(None::<RenderMetadata>);
         /// ```
         pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::RenderMetadata>,
+        where T: std::convert::Into<crate::model::RenderMetadata>
         {
             self.metadata = v.map(|x| x.into());
             self
@@ -9459,12 +9222,7 @@ pub mod release {
         /// let x1 = TargetRender::new().set_failure_cause(FailureCause::ExecutionFailed);
         /// let x2 = TargetRender::new().set_failure_cause(FailureCause::CloudBuildRequestFailed);
         /// ```
-        pub fn set_failure_cause<
-            T: std::convert::Into<crate::model::release::target_render::FailureCause>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_failure_cause<T: std::convert::Into<crate::model::release::target_render::FailureCause>>(mut self, v: T) -> Self {
             self.failure_cause = v.into();
             self
         }
@@ -9476,10 +9234,7 @@ pub mod release {
         /// # use google_cloud_deploy_v1::model::release::TargetRender;
         /// let x = TargetRender::new().set_failure_message("example");
         /// ```
-        pub fn set_failure_message<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_failure_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.failure_message = v.into();
             self
         }
@@ -9495,6 +9250,7 @@ pub mod release {
     pub mod target_render {
         #[allow(unused_imports)]
         use super::*;
+
 
         /// Valid states of the render operation.
         ///
@@ -9558,9 +9314,7 @@ pub mod release {
             /// the integer representation of enums.
             pub fn name(&self) -> std::option::Option<&str> {
                 match self {
-                    Self::Unspecified => {
-                        std::option::Option::Some("TARGET_RENDER_STATE_UNSPECIFIED")
-                    }
+                    Self::Unspecified => std::option::Option::Some("TARGET_RENDER_STATE_UNSPECIFIED"),
                     Self::Succeeded => std::option::Option::Some("SUCCEEDED"),
                     Self::Failed => std::option::Option::Some("FAILED"),
                     Self::InProgress => std::option::Option::Some("IN_PROGRESS"),
@@ -9577,10 +9331,7 @@ pub mod release {
         }
 
         impl std::fmt::Display for TargetRenderState {
-            fn fmt(
-                &self,
-                f: &mut std::fmt::Formatter<'_>,
-            ) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -9592,9 +9343,7 @@ pub mod release {
                     1 => Self::Succeeded,
                     2 => Self::Failed,
                     3 => Self::InProgress,
-                    _ => Self::UnknownValue(target_render_state::UnknownValue(
-                        wkt::internal::UnknownEnumValue::Integer(value),
-                    )),
+                    _ => Self::UnknownValue(target_render_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
                 }
             }
         }
@@ -9607,9 +9356,7 @@ pub mod release {
                     "SUCCEEDED" => Self::Succeeded,
                     "FAILED" => Self::Failed,
                     "IN_PROGRESS" => Self::InProgress,
-                    _ => Self::UnknownValue(target_render_state::UnknownValue(
-                        wkt::internal::UnknownEnumValue::String(value.to_string()),
-                    )),
+                    _ => Self::UnknownValue(target_render_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
                 }
             }
         }
@@ -9635,8 +9382,7 @@ pub mod release {
                 D: serde::Deserializer<'de>,
             {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<TargetRenderState>::new(
-                    ".google.cloud.deploy.v1.Release.TargetRender.TargetRenderState",
-                ))
+                    ".google.cloud.deploy.v1.Release.TargetRender.TargetRenderState"))
             }
         }
 
@@ -9724,25 +9470,13 @@ pub mod release {
             pub fn name(&self) -> std::option::Option<&str> {
                 match self {
                     Self::Unspecified => std::option::Option::Some("FAILURE_CAUSE_UNSPECIFIED"),
-                    Self::CloudBuildUnavailable => {
-                        std::option::Option::Some("CLOUD_BUILD_UNAVAILABLE")
-                    }
+                    Self::CloudBuildUnavailable => std::option::Option::Some("CLOUD_BUILD_UNAVAILABLE"),
                     Self::ExecutionFailed => std::option::Option::Some("EXECUTION_FAILED"),
-                    Self::CloudBuildRequestFailed => {
-                        std::option::Option::Some("CLOUD_BUILD_REQUEST_FAILED")
-                    }
-                    Self::VerificationConfigNotFound => {
-                        std::option::Option::Some("VERIFICATION_CONFIG_NOT_FOUND")
-                    }
-                    Self::CustomActionNotFound => {
-                        std::option::Option::Some("CUSTOM_ACTION_NOT_FOUND")
-                    }
-                    Self::DeploymentStrategyNotSupported => {
-                        std::option::Option::Some("DEPLOYMENT_STRATEGY_NOT_SUPPORTED")
-                    }
-                    Self::RenderFeatureNotSupported => {
-                        std::option::Option::Some("RENDER_FEATURE_NOT_SUPPORTED")
-                    }
+                    Self::CloudBuildRequestFailed => std::option::Option::Some("CLOUD_BUILD_REQUEST_FAILED"),
+                    Self::VerificationConfigNotFound => std::option::Option::Some("VERIFICATION_CONFIG_NOT_FOUND"),
+                    Self::CustomActionNotFound => std::option::Option::Some("CUSTOM_ACTION_NOT_FOUND"),
+                    Self::DeploymentStrategyNotSupported => std::option::Option::Some("DEPLOYMENT_STRATEGY_NOT_SUPPORTED"),
+                    Self::RenderFeatureNotSupported => std::option::Option::Some("RENDER_FEATURE_NOT_SUPPORTED"),
                     Self::UnknownValue(u) => u.0.name(),
                 }
             }
@@ -9756,10 +9490,7 @@ pub mod release {
         }
 
         impl std::fmt::Display for FailureCause {
-            fn fmt(
-                &self,
-                f: &mut std::fmt::Formatter<'_>,
-            ) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -9775,9 +9506,7 @@ pub mod release {
                     5 => Self::CustomActionNotFound,
                     6 => Self::DeploymentStrategyNotSupported,
                     7 => Self::RenderFeatureNotSupported,
-                    _ => Self::UnknownValue(failure_cause::UnknownValue(
-                        wkt::internal::UnknownEnumValue::Integer(value),
-                    )),
+                    _ => Self::UnknownValue(failure_cause::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
                 }
             }
         }
@@ -9794,9 +9523,7 @@ pub mod release {
                     "CUSTOM_ACTION_NOT_FOUND" => Self::CustomActionNotFound,
                     "DEPLOYMENT_STRATEGY_NOT_SUPPORTED" => Self::DeploymentStrategyNotSupported,
                     "RENDER_FEATURE_NOT_SUPPORTED" => Self::RenderFeatureNotSupported,
-                    _ => Self::UnknownValue(failure_cause::UnknownValue(
-                        wkt::internal::UnknownEnumValue::String(value.to_string()),
-                    )),
+                    _ => Self::UnknownValue(failure_cause::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
                 }
             }
         }
@@ -9826,8 +9553,7 @@ pub mod release {
                 D: serde::Deserializer<'de>,
             {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<FailureCause>::new(
-                    ".google.cloud.deploy.v1.Release.TargetRender.FailureCause",
-                ))
+                    ".google.cloud.deploy.v1.Release.TargetRender.FailureCause"))
             }
         }
     }
@@ -9838,6 +9564,7 @@ pub mod release {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ReleaseReadyCondition {
+
         /// True if the Release is in a valid state. Otherwise at least one condition
         /// in `ReleaseCondition` is in an invalid state. Iterate over those
         /// conditions and see which condition(s) has status = false to find out what
@@ -9876,6 +9603,7 @@ pub mod release {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SkaffoldSupportedCondition {
+
         /// True if the version of Skaffold used by this release is supported.
         pub status: bool,
 
@@ -9920,12 +9648,7 @@ pub mod release {
         /// let x1 = SkaffoldSupportedCondition::new().set_skaffold_support_state(SkaffoldSupportState::MaintenanceMode);
         /// let x2 = SkaffoldSupportedCondition::new().set_skaffold_support_state(SkaffoldSupportState::Unsupported);
         /// ```
-        pub fn set_skaffold_support_state<
-            T: std::convert::Into<crate::model::SkaffoldSupportState>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_skaffold_support_state<T: std::convert::Into<crate::model::SkaffoldSupportState>>(mut self, v: T) -> Self {
             self.skaffold_support_state = v.into();
             self
         }
@@ -9939,8 +9662,7 @@ pub mod release {
         /// let x = SkaffoldSupportedCondition::new().set_maintenance_mode_time(Timestamp::default()/* use setters */);
         /// ```
         pub fn set_maintenance_mode_time<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.maintenance_mode_time = std::option::Option::Some(v.into());
             self
@@ -9956,8 +9678,7 @@ pub mod release {
         /// let x = SkaffoldSupportedCondition::new().set_or_clear_maintenance_mode_time(None::<Timestamp>);
         /// ```
         pub fn set_or_clear_maintenance_mode_time<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.maintenance_mode_time = v.map(|x| x.into());
             self
@@ -9972,8 +9693,7 @@ pub mod release {
         /// let x = SkaffoldSupportedCondition::new().set_support_expiration_time(Timestamp::default()/* use setters */);
         /// ```
         pub fn set_support_expiration_time<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.support_expiration_time = std::option::Option::Some(v.into());
             self
@@ -9989,8 +9709,7 @@ pub mod release {
         /// let x = SkaffoldSupportedCondition::new().set_or_clear_support_expiration_time(None::<Timestamp>);
         /// ```
         pub fn set_or_clear_support_expiration_time<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.support_expiration_time = v.map(|x| x.into());
             self
@@ -10007,14 +9726,13 @@ pub mod release {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ReleaseCondition {
+
         /// Details around the Releases's overall status.
-        pub release_ready_condition:
-            std::option::Option<crate::model::release::ReleaseReadyCondition>,
+        pub release_ready_condition: std::option::Option<crate::model::release::ReleaseReadyCondition>,
 
         /// Details around the support state of the release's Skaffold
         /// version.
-        pub skaffold_supported_condition:
-            std::option::Option<crate::model::release::SkaffoldSupportedCondition>,
+        pub skaffold_supported_condition: std::option::Option<crate::model::release::SkaffoldSupportedCondition>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -10033,8 +9751,7 @@ pub mod release {
         /// let x = ReleaseCondition::new().set_release_ready_condition(ReleaseReadyCondition::default()/* use setters */);
         /// ```
         pub fn set_release_ready_condition<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::release::ReleaseReadyCondition>,
+        where T: std::convert::Into<crate::model::release::ReleaseReadyCondition>
         {
             self.release_ready_condition = std::option::Option::Some(v.into());
             self
@@ -10050,8 +9767,7 @@ pub mod release {
         /// let x = ReleaseCondition::new().set_or_clear_release_ready_condition(None::<ReleaseReadyCondition>);
         /// ```
         pub fn set_or_clear_release_ready_condition<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::release::ReleaseReadyCondition>,
+        where T: std::convert::Into<crate::model::release::ReleaseReadyCondition>
         {
             self.release_ready_condition = v.map(|x| x.into());
             self
@@ -10066,8 +9782,7 @@ pub mod release {
         /// let x = ReleaseCondition::new().set_skaffold_supported_condition(SkaffoldSupportedCondition::default()/* use setters */);
         /// ```
         pub fn set_skaffold_supported_condition<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::release::SkaffoldSupportedCondition>,
+        where T: std::convert::Into<crate::model::release::SkaffoldSupportedCondition>
         {
             self.skaffold_supported_condition = std::option::Option::Some(v.into());
             self
@@ -10082,12 +9797,8 @@ pub mod release {
         /// let x = ReleaseCondition::new().set_or_clear_skaffold_supported_condition(Some(SkaffoldSupportedCondition::default()/* use setters */));
         /// let x = ReleaseCondition::new().set_or_clear_skaffold_supported_condition(None::<SkaffoldSupportedCondition>);
         /// ```
-        pub fn set_or_clear_skaffold_supported_condition<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<crate::model::release::SkaffoldSupportedCondition>,
+        pub fn set_or_clear_skaffold_supported_condition<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<crate::model::release::SkaffoldSupportedCondition>
         {
             self.skaffold_supported_condition = v.map(|x| x.into());
             self
@@ -10191,9 +9902,7 @@ pub mod release {
                 1 => Self::Succeeded,
                 2 => Self::Failed,
                 3 => Self::InProgress,
-                _ => Self::UnknownValue(render_state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(render_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -10206,9 +9915,7 @@ pub mod release {
                 "SUCCEEDED" => Self::Succeeded,
                 "FAILED" => Self::Failed,
                 "IN_PROGRESS" => Self::InProgress,
-                _ => Self::UnknownValue(render_state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(render_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -10234,8 +9941,7 @@ pub mod release {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<RenderState>::new(
-                ".google.cloud.deploy.v1.Release.RenderState",
-            ))
+                ".google.cloud.deploy.v1.Release.RenderState"))
         }
     }
 }
@@ -10244,6 +9950,7 @@ pub mod release {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateDeployPolicyRequest {
+
     /// Required. The parent collection in which the `DeployPolicy` must be
     /// created. The format is `projects/{project_id}/locations/{location_name}`.
     pub parent: std::string::String,
@@ -10300,10 +10007,7 @@ impl CreateDeployPolicyRequest {
     /// # use google_cloud_deploy_v1::model::CreateDeployPolicyRequest;
     /// let x = CreateDeployPolicyRequest::new().set_deploy_policy_id("example");
     /// ```
-    pub fn set_deploy_policy_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_deploy_policy_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.deploy_policy_id = v.into();
         self
     }
@@ -10317,8 +10021,7 @@ impl CreateDeployPolicyRequest {
     /// let x = CreateDeployPolicyRequest::new().set_deploy_policy(DeployPolicy::default()/* use setters */);
     /// ```
     pub fn set_deploy_policy<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DeployPolicy>,
+    where T: std::convert::Into<crate::model::DeployPolicy>
     {
         self.deploy_policy = std::option::Option::Some(v.into());
         self
@@ -10334,8 +10037,7 @@ impl CreateDeployPolicyRequest {
     /// let x = CreateDeployPolicyRequest::new().set_or_clear_deploy_policy(None::<DeployPolicy>);
     /// ```
     pub fn set_or_clear_deploy_policy<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DeployPolicy>,
+    where T: std::convert::Into<crate::model::DeployPolicy>
     {
         self.deploy_policy = v.map(|x| x.into());
         self
@@ -10376,6 +10078,7 @@ impl wkt::message::Message for CreateDeployPolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateDeployPolicyRequest {
+
     /// Required. Field mask is used to specify the fields to be overwritten by the
     /// update in the `DeployPolicy` resource. The fields specified in the
     /// update_mask are relative to the resource, not the full request. A field
@@ -10426,8 +10129,7 @@ impl UpdateDeployPolicyRequest {
     /// let x = UpdateDeployPolicyRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -10443,8 +10145,7 @@ impl UpdateDeployPolicyRequest {
     /// let x = UpdateDeployPolicyRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -10459,8 +10160,7 @@ impl UpdateDeployPolicyRequest {
     /// let x = UpdateDeployPolicyRequest::new().set_deploy_policy(DeployPolicy::default()/* use setters */);
     /// ```
     pub fn set_deploy_policy<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DeployPolicy>,
+    where T: std::convert::Into<crate::model::DeployPolicy>
     {
         self.deploy_policy = std::option::Option::Some(v.into());
         self
@@ -10476,8 +10176,7 @@ impl UpdateDeployPolicyRequest {
     /// let x = UpdateDeployPolicyRequest::new().set_or_clear_deploy_policy(None::<DeployPolicy>);
     /// ```
     pub fn set_or_clear_deploy_policy<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DeployPolicy>,
+    where T: std::convert::Into<crate::model::DeployPolicy>
     {
         self.deploy_policy = v.map(|x| x.into());
         self
@@ -10530,6 +10229,7 @@ impl wkt::message::Message for UpdateDeployPolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteDeployPolicyRequest {
+
     /// Required. The name of the `DeployPolicy` to delete. The format is
     /// `projects/{project_id}/locations/{location_name}/deployPolicies/{deploy_policy_name}`.
     pub name: std::string::String,
@@ -10641,6 +10341,7 @@ impl wkt::message::Message for DeleteDeployPolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDeployPoliciesRequest {
+
     /// Required. The parent, which owns this collection of deploy policies. Format
     /// must be `projects/{project_id}/locations/{location_name}`.
     pub parent: std::string::String,
@@ -10744,6 +10445,7 @@ impl wkt::message::Message for ListDeployPoliciesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDeployPoliciesResponse {
+
     /// The `DeployPolicy` objects.
     pub deploy_policies: std::vec::Vec<crate::model::DeployPolicy>,
 
@@ -10777,7 +10479,7 @@ impl ListDeployPoliciesResponse {
     pub fn set_deploy_policies<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::DeployPolicy>,
+        V: std::convert::Into<crate::model::DeployPolicy>
     {
         use std::iter::Iterator;
         self.deploy_policies = v.into_iter().map(|i| i.into()).collect();
@@ -10806,7 +10508,7 @@ impl ListDeployPoliciesResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -10838,6 +10540,7 @@ impl gax::paginator::internal::PageableResponse for ListDeployPoliciesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetDeployPolicyRequest {
+
     /// Required. Name of the `DeployPolicy`. Format must be
     /// `projects/{project_id}/locations/{location_name}/deployPolicies/{deploy_policy_name}`.
     pub name: std::string::String,
@@ -10873,6 +10576,7 @@ impl wkt::message::Message for GetDeployPolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BuildArtifact {
+
     /// Optional. Image name in Skaffold configuration.
     pub image: std::string::String,
 
@@ -10924,6 +10628,7 @@ impl wkt::message::Message for BuildArtifact {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TargetArtifact {
+
     /// Output only. File path of the resolved Skaffold configuration for the
     /// stable phase, relative to the URI.
     pub skaffold_config_path: std::string::String,
@@ -10933,10 +10638,7 @@ pub struct TargetArtifact {
     pub manifest_path: std::string::String,
 
     /// Output only. Map from the phase ID to the phase artifacts for the `Target`.
-    pub phase_artifacts: std::collections::HashMap<
-        std::string::String,
-        crate::model::target_artifact::PhaseArtifact,
-    >,
+    pub phase_artifacts: std::collections::HashMap<std::string::String,crate::model::target_artifact::PhaseArtifact>,
 
     pub uri: std::option::Option<crate::model::target_artifact::Uri>,
 
@@ -10955,10 +10657,7 @@ impl TargetArtifact {
     /// # use google_cloud_deploy_v1::model::TargetArtifact;
     /// let x = TargetArtifact::new().set_skaffold_config_path("example");
     /// ```
-    pub fn set_skaffold_config_path<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_skaffold_config_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.skaffold_config_path = v.into();
         self
     }
@@ -11008,12 +10707,8 @@ impl TargetArtifact {
     /// use google_cloud_deploy_v1::model::target_artifact::Uri;
     /// let x = TargetArtifact::new().set_uri(Some(Uri::ArtifactUri("example".to_string())));
     /// ```
-    pub fn set_uri<
-        T: std::convert::Into<std::option::Option<crate::model::target_artifact::Uri>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_uri<T: std::convert::Into<std::option::Option<crate::model::target_artifact::Uri>>>(mut self, v: T) -> Self
+    {
         self.uri = v.into();
         self
     }
@@ -11042,8 +10737,11 @@ impl TargetArtifact {
     /// assert!(x.artifact_uri().is_some());
     /// ```
     pub fn set_artifact_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.uri =
-            std::option::Option::Some(crate::model::target_artifact::Uri::ArtifactUri(v.into()));
+        self.uri = std::option::Option::Some(
+            crate::model::target_artifact::Uri::ArtifactUri(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -11059,10 +10757,12 @@ pub mod target_artifact {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Contains the paths to the artifacts, relative to the URI, for a phase.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PhaseArtifact {
+
         /// Output only. File path of the resolved Skaffold configuration relative to
         /// the URI.
         pub skaffold_config_path: std::string::String,
@@ -11089,10 +10789,7 @@ pub mod target_artifact {
         /// # use google_cloud_deploy_v1::model::target_artifact::PhaseArtifact;
         /// let x = PhaseArtifact::new().set_skaffold_config_path("example");
         /// ```
-        pub fn set_skaffold_config_path<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_skaffold_config_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.skaffold_config_path = v.into();
             self
         }
@@ -11104,10 +10801,7 @@ pub mod target_artifact {
         /// # use google_cloud_deploy_v1::model::target_artifact::PhaseArtifact;
         /// let x = PhaseArtifact::new().set_manifest_path("example");
         /// ```
-        pub fn set_manifest_path<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_manifest_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.manifest_path = v.into();
             self
         }
@@ -11119,10 +10813,7 @@ pub mod target_artifact {
         /// # use google_cloud_deploy_v1::model::target_artifact::PhaseArtifact;
         /// let x = PhaseArtifact::new().set_job_manifests_path("example");
         /// ```
-        pub fn set_job_manifests_path<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_job_manifests_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.job_manifests_path = v.into();
             self
         }
@@ -11148,6 +10839,7 @@ pub mod target_artifact {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeployArtifact {
+
     /// Output only. URI of a directory containing the artifacts. All paths are
     /// relative to this location.
     pub artifact_uri: std::string::String,
@@ -11186,7 +10878,7 @@ impl DeployArtifact {
     pub fn set_manifest_paths<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.manifest_paths = v.into_iter().map(|i| i.into()).collect();
@@ -11205,6 +10897,7 @@ impl wkt::message::Message for DeployArtifact {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudRunRenderMetadata {
+
     /// Output only. The name of the Cloud Run Service in the rendered manifest.
     /// Format is `projects/{project}/locations/{location}/services/{service}`.
     pub service: std::string::String,
@@ -11240,6 +10933,7 @@ impl wkt::message::Message for CloudRunRenderMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RenderMetadata {
+
     /// Output only. Metadata associated with rendering for Cloud Run.
     pub cloud_run: std::option::Option<crate::model::CloudRunRenderMetadata>,
 
@@ -11263,8 +10957,7 @@ impl RenderMetadata {
     /// let x = RenderMetadata::new().set_cloud_run(CloudRunRenderMetadata::default()/* use setters */);
     /// ```
     pub fn set_cloud_run<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CloudRunRenderMetadata>,
+    where T: std::convert::Into<crate::model::CloudRunRenderMetadata>
     {
         self.cloud_run = std::option::Option::Some(v.into());
         self
@@ -11280,8 +10973,7 @@ impl RenderMetadata {
     /// let x = RenderMetadata::new().set_or_clear_cloud_run(None::<CloudRunRenderMetadata>);
     /// ```
     pub fn set_or_clear_cloud_run<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CloudRunRenderMetadata>,
+    where T: std::convert::Into<crate::model::CloudRunRenderMetadata>
     {
         self.cloud_run = v.map(|x| x.into());
         self
@@ -11296,8 +10988,7 @@ impl RenderMetadata {
     /// let x = RenderMetadata::new().set_custom(CustomMetadata::default()/* use setters */);
     /// ```
     pub fn set_custom<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CustomMetadata>,
+    where T: std::convert::Into<crate::model::CustomMetadata>
     {
         self.custom = std::option::Option::Some(v.into());
         self
@@ -11313,8 +11004,7 @@ impl RenderMetadata {
     /// let x = RenderMetadata::new().set_or_clear_custom(None::<CustomMetadata>);
     /// ```
     pub fn set_or_clear_custom<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CustomMetadata>,
+    where T: std::convert::Into<crate::model::CustomMetadata>
     {
         self.custom = v.map(|x| x.into());
         self
@@ -11331,6 +11021,7 @@ impl wkt::message::Message for RenderMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListReleasesRequest {
+
     /// Required. The `DeliveryPipeline` which owns this collection of `Release`
     /// objects.
     pub parent: std::string::String,
@@ -11435,6 +11126,7 @@ impl wkt::message::Message for ListReleasesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListReleasesResponse {
+
     /// The `Release` objects.
     pub releases: std::vec::Vec<crate::model::Release>,
 
@@ -11468,7 +11160,7 @@ impl ListReleasesResponse {
     pub fn set_releases<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Release>,
+        V: std::convert::Into<crate::model::Release>
     {
         use std::iter::Iterator;
         self.releases = v.into_iter().map(|i| i.into()).collect();
@@ -11497,7 +11189,7 @@ impl ListReleasesResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -11529,6 +11221,7 @@ impl gax::paginator::internal::PageableResponse for ListReleasesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetReleaseRequest {
+
     /// Required. Name of the `Release`. Format must be
     /// `projects/{project_id}/locations/{location_name}/deliveryPipelines/{pipeline_name}/releases/{release_name}`.
     pub name: std::string::String,
@@ -11564,6 +11257,7 @@ impl wkt::message::Message for GetReleaseRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateReleaseRequest {
+
     /// Required. The parent collection in which the `Release` is created.
     /// The format is
     /// `projects/{project_id}/locations/{location_name}/deliveryPipelines/{pipeline_name}`.
@@ -11639,8 +11333,7 @@ impl CreateReleaseRequest {
     /// let x = CreateReleaseRequest::new().set_release(Release::default()/* use setters */);
     /// ```
     pub fn set_release<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Release>,
+    where T: std::convert::Into<crate::model::Release>
     {
         self.release = std::option::Option::Some(v.into());
         self
@@ -11656,8 +11349,7 @@ impl CreateReleaseRequest {
     /// let x = CreateReleaseRequest::new().set_or_clear_release(None::<Release>);
     /// ```
     pub fn set_or_clear_release<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Release>,
+    where T: std::convert::Into<crate::model::Release>
     {
         self.release = v.map(|x| x.into());
         self
@@ -11697,7 +11389,7 @@ impl CreateReleaseRequest {
     pub fn set_override_deploy_policy<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.override_deploy_policy = v.into_iter().map(|i| i.into()).collect();
@@ -11717,6 +11409,7 @@ impl wkt::message::Message for CreateReleaseRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Rollout {
+
     /// Identifier. Name of the `Rollout`. Format is
     /// `projects/{project}/locations/{location}/deliveryPipelines/{deliveryPipeline}/releases/{release}/rollouts/{rollout}`.
     /// The `rollout` component must match `[a-z]([a-z0-9-]{0,61}[a-z0-9])?`
@@ -11733,7 +11426,7 @@ pub struct Rollout {
     /// the user, and not by Cloud Deploy. See
     /// <https://google.aip.dev/128#annotations> for more details such as format and
     /// size limitations.
-    pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
+    pub annotations: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Labels are attributes that can be set and used by both the
     /// user and by Cloud Deploy. Labels must meet the following constraints:
@@ -11746,7 +11439,7 @@ pub struct Rollout {
     /// * Each resource is limited to a maximum of 64 labels.
     ///
     /// Both keys and values are additionally constrained to be <= 128 bytes.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Output only. Time at which the `Rollout` was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
@@ -11905,8 +11598,7 @@ impl Rollout {
     /// let x = Rollout::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -11922,8 +11614,7 @@ impl Rollout {
     /// let x = Rollout::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -11938,8 +11629,7 @@ impl Rollout {
     /// let x = Rollout::new().set_approve_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_approve_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.approve_time = std::option::Option::Some(v.into());
         self
@@ -11955,8 +11645,7 @@ impl Rollout {
     /// let x = Rollout::new().set_or_clear_approve_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_approve_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.approve_time = v.map(|x| x.into());
         self
@@ -11971,8 +11660,7 @@ impl Rollout {
     /// let x = Rollout::new().set_enqueue_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_enqueue_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.enqueue_time = std::option::Option::Some(v.into());
         self
@@ -11988,8 +11676,7 @@ impl Rollout {
     /// let x = Rollout::new().set_or_clear_enqueue_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_enqueue_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.enqueue_time = v.map(|x| x.into());
         self
@@ -12004,8 +11691,7 @@ impl Rollout {
     /// let x = Rollout::new().set_deploy_start_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_deploy_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.deploy_start_time = std::option::Option::Some(v.into());
         self
@@ -12021,8 +11707,7 @@ impl Rollout {
     /// let x = Rollout::new().set_or_clear_deploy_start_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_deploy_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.deploy_start_time = v.map(|x| x.into());
         self
@@ -12037,8 +11722,7 @@ impl Rollout {
     /// let x = Rollout::new().set_deploy_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_deploy_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.deploy_end_time = std::option::Option::Some(v.into());
         self
@@ -12054,8 +11738,7 @@ impl Rollout {
     /// let x = Rollout::new().set_or_clear_deploy_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_deploy_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.deploy_end_time = v.map(|x| x.into());
         self
@@ -12083,10 +11766,7 @@ impl Rollout {
     /// let x1 = Rollout::new().set_approval_state(ApprovalState::DoesNotNeedApproval);
     /// let x2 = Rollout::new().set_approval_state(ApprovalState::Approved);
     /// ```
-    pub fn set_approval_state<T: std::convert::Into<crate::model::rollout::ApprovalState>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_approval_state<T: std::convert::Into<crate::model::rollout::ApprovalState>>(mut self, v: T) -> Self {
         self.approval_state = v.into();
         self
     }
@@ -12152,10 +11832,7 @@ impl Rollout {
     /// let x1 = Rollout::new().set_deploy_failure_cause(FailureCause::ExecutionFailed);
     /// let x2 = Rollout::new().set_deploy_failure_cause(FailureCause::DeadlineExceeded);
     /// ```
-    pub fn set_deploy_failure_cause<T: std::convert::Into<crate::model::rollout::FailureCause>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_deploy_failure_cause<T: std::convert::Into<crate::model::rollout::FailureCause>>(mut self, v: T) -> Self {
         self.deploy_failure_cause = v.into();
         self
     }
@@ -12175,7 +11852,7 @@ impl Rollout {
     pub fn set_phases<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Phase>,
+        V: std::convert::Into<crate::model::Phase>
     {
         use std::iter::Iterator;
         self.phases = v.into_iter().map(|i| i.into()).collect();
@@ -12191,8 +11868,7 @@ impl Rollout {
     /// let x = Rollout::new().set_metadata(Metadata::default()/* use setters */);
     /// ```
     pub fn set_metadata<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Metadata>,
+    where T: std::convert::Into<crate::model::Metadata>
     {
         self.metadata = std::option::Option::Some(v.into());
         self
@@ -12208,8 +11884,7 @@ impl Rollout {
     /// let x = Rollout::new().set_or_clear_metadata(None::<Metadata>);
     /// ```
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Metadata>,
+    where T: std::convert::Into<crate::model::Metadata>
     {
         self.metadata = v.map(|x| x.into());
         self
@@ -12222,10 +11897,7 @@ impl Rollout {
     /// # use google_cloud_deploy_v1::model::Rollout;
     /// let x = Rollout::new().set_controller_rollout("example");
     /// ```
-    pub fn set_controller_rollout<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_controller_rollout<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.controller_rollout = v.into();
         self
     }
@@ -12237,10 +11909,7 @@ impl Rollout {
     /// # use google_cloud_deploy_v1::model::Rollout;
     /// let x = Rollout::new().set_rollback_of_rollout("example");
     /// ```
-    pub fn set_rollback_of_rollout<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_rollback_of_rollout<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.rollback_of_rollout = v.into();
         self
     }
@@ -12255,7 +11924,7 @@ impl Rollout {
     pub fn set_rolled_back_by_rollouts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.rolled_back_by_rollouts = v.into_iter().map(|i| i.into()).collect();
@@ -12269,10 +11938,7 @@ impl Rollout {
     /// # use google_cloud_deploy_v1::model::Rollout;
     /// let x = Rollout::new().set_active_repair_automation_run("example");
     /// ```
-    pub fn set_active_repair_automation_run<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_active_repair_automation_run<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.active_repair_automation_run = v.into();
         self
     }
@@ -12288,6 +11954,7 @@ impl wkt::message::Message for Rollout {
 pub mod rollout {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Valid approval states of a `Rollout`.
     ///
@@ -12385,9 +12052,7 @@ pub mod rollout {
                 2 => Self::DoesNotNeedApproval,
                 3 => Self::Approved,
                 4 => Self::Rejected,
-                _ => Self::UnknownValue(approval_state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(approval_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -12401,9 +12066,7 @@ pub mod rollout {
                 "DOES_NOT_NEED_APPROVAL" => Self::DoesNotNeedApproval,
                 "APPROVED" => Self::Approved,
                 "REJECTED" => Self::Rejected,
-                _ => Self::UnknownValue(approval_state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(approval_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -12430,8 +12093,7 @@ pub mod rollout {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<ApprovalState>::new(
-                ".google.cloud.deploy.v1.Rollout.ApprovalState",
-            ))
+                ".google.cloud.deploy.v1.Rollout.ApprovalState"))
         }
     }
 
@@ -12562,9 +12224,7 @@ pub mod rollout {
                 8 => Self::Cancelling,
                 9 => Self::Cancelled,
                 10 => Self::Halted,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -12584,9 +12244,7 @@ pub mod rollout {
                 "CANCELLING" => Self::Cancelling,
                 "CANCELLED" => Self::Cancelled,
                 "HALTED" => Self::Halted,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -12619,8 +12277,7 @@ pub mod rollout {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.deploy.v1.Rollout.State",
-            ))
+                ".google.cloud.deploy.v1.Rollout.State"))
         }
     }
 
@@ -12711,15 +12368,9 @@ pub mod rollout {
                 Self::DeadlineExceeded => std::option::Option::Some("DEADLINE_EXCEEDED"),
                 Self::ReleaseFailed => std::option::Option::Some("RELEASE_FAILED"),
                 Self::ReleaseAbandoned => std::option::Option::Some("RELEASE_ABANDONED"),
-                Self::VerificationConfigNotFound => {
-                    std::option::Option::Some("VERIFICATION_CONFIG_NOT_FOUND")
-                }
-                Self::CloudBuildRequestFailed => {
-                    std::option::Option::Some("CLOUD_BUILD_REQUEST_FAILED")
-                }
-                Self::OperationFeatureNotSupported => {
-                    std::option::Option::Some("OPERATION_FEATURE_NOT_SUPPORTED")
-                }
+                Self::VerificationConfigNotFound => std::option::Option::Some("VERIFICATION_CONFIG_NOT_FOUND"),
+                Self::CloudBuildRequestFailed => std::option::Option::Some("CLOUD_BUILD_REQUEST_FAILED"),
+                Self::OperationFeatureNotSupported => std::option::Option::Some("OPERATION_FEATURE_NOT_SUPPORTED"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -12750,9 +12401,7 @@ pub mod rollout {
                 6 => Self::VerificationConfigNotFound,
                 7 => Self::CloudBuildRequestFailed,
                 8 => Self::OperationFeatureNotSupported,
-                _ => Self::UnknownValue(failure_cause::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(failure_cause::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -12770,9 +12419,7 @@ pub mod rollout {
                 "VERIFICATION_CONFIG_NOT_FOUND" => Self::VerificationConfigNotFound,
                 "CLOUD_BUILD_REQUEST_FAILED" => Self::CloudBuildRequestFailed,
                 "OPERATION_FEATURE_NOT_SUPPORTED" => Self::OperationFeatureNotSupported,
-                _ => Self::UnknownValue(failure_cause::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(failure_cause::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -12803,8 +12450,7 @@ pub mod rollout {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<FailureCause>::new(
-                ".google.cloud.deploy.v1.Rollout.FailureCause",
-            ))
+                ".google.cloud.deploy.v1.Rollout.FailureCause"))
         }
     }
 }
@@ -12813,6 +12459,7 @@ pub mod rollout {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Metadata {
+
     /// Output only. The name of the Cloud Run Service that is associated with a
     /// `Rollout`.
     pub cloud_run: std::option::Option<crate::model::CloudRunMetadata>,
@@ -12841,8 +12488,7 @@ impl Metadata {
     /// let x = Metadata::new().set_cloud_run(CloudRunMetadata::default()/* use setters */);
     /// ```
     pub fn set_cloud_run<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CloudRunMetadata>,
+    where T: std::convert::Into<crate::model::CloudRunMetadata>
     {
         self.cloud_run = std::option::Option::Some(v.into());
         self
@@ -12858,8 +12504,7 @@ impl Metadata {
     /// let x = Metadata::new().set_or_clear_cloud_run(None::<CloudRunMetadata>);
     /// ```
     pub fn set_or_clear_cloud_run<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CloudRunMetadata>,
+    where T: std::convert::Into<crate::model::CloudRunMetadata>
     {
         self.cloud_run = v.map(|x| x.into());
         self
@@ -12874,8 +12519,7 @@ impl Metadata {
     /// let x = Metadata::new().set_automation(AutomationRolloutMetadata::default()/* use setters */);
     /// ```
     pub fn set_automation<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AutomationRolloutMetadata>,
+    where T: std::convert::Into<crate::model::AutomationRolloutMetadata>
     {
         self.automation = std::option::Option::Some(v.into());
         self
@@ -12891,8 +12535,7 @@ impl Metadata {
     /// let x = Metadata::new().set_or_clear_automation(None::<AutomationRolloutMetadata>);
     /// ```
     pub fn set_or_clear_automation<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AutomationRolloutMetadata>,
+    where T: std::convert::Into<crate::model::AutomationRolloutMetadata>
     {
         self.automation = v.map(|x| x.into());
         self
@@ -12907,8 +12550,7 @@ impl Metadata {
     /// let x = Metadata::new().set_custom(CustomMetadata::default()/* use setters */);
     /// ```
     pub fn set_custom<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CustomMetadata>,
+    where T: std::convert::Into<crate::model::CustomMetadata>
     {
         self.custom = std::option::Option::Some(v.into());
         self
@@ -12924,8 +12566,7 @@ impl Metadata {
     /// let x = Metadata::new().set_or_clear_custom(None::<CustomMetadata>);
     /// ```
     pub fn set_or_clear_custom<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CustomMetadata>,
+    where T: std::convert::Into<crate::model::CustomMetadata>
     {
         self.custom = v.map(|x| x.into());
         self
@@ -12943,6 +12584,7 @@ impl wkt::message::Message for Metadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeployJobRunMetadata {
+
     /// Output only. The name of the Cloud Run Service that is associated with a
     /// `DeployJobRun`.
     pub cloud_run: std::option::Option<crate::model::CloudRunMetadata>,
@@ -12970,8 +12612,7 @@ impl DeployJobRunMetadata {
     /// let x = DeployJobRunMetadata::new().set_cloud_run(CloudRunMetadata::default()/* use setters */);
     /// ```
     pub fn set_cloud_run<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CloudRunMetadata>,
+    where T: std::convert::Into<crate::model::CloudRunMetadata>
     {
         self.cloud_run = std::option::Option::Some(v.into());
         self
@@ -12987,8 +12628,7 @@ impl DeployJobRunMetadata {
     /// let x = DeployJobRunMetadata::new().set_or_clear_cloud_run(None::<CloudRunMetadata>);
     /// ```
     pub fn set_or_clear_cloud_run<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CloudRunMetadata>,
+    where T: std::convert::Into<crate::model::CloudRunMetadata>
     {
         self.cloud_run = v.map(|x| x.into());
         self
@@ -13003,8 +12643,7 @@ impl DeployJobRunMetadata {
     /// let x = DeployJobRunMetadata::new().set_custom_target(CustomTargetDeployMetadata::default()/* use setters */);
     /// ```
     pub fn set_custom_target<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CustomTargetDeployMetadata>,
+    where T: std::convert::Into<crate::model::CustomTargetDeployMetadata>
     {
         self.custom_target = std::option::Option::Some(v.into());
         self
@@ -13020,8 +12659,7 @@ impl DeployJobRunMetadata {
     /// let x = DeployJobRunMetadata::new().set_or_clear_custom_target(None::<CustomTargetDeployMetadata>);
     /// ```
     pub fn set_or_clear_custom_target<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CustomTargetDeployMetadata>,
+    where T: std::convert::Into<crate::model::CustomTargetDeployMetadata>
     {
         self.custom_target = v.map(|x| x.into());
         self
@@ -13036,8 +12674,7 @@ impl DeployJobRunMetadata {
     /// let x = DeployJobRunMetadata::new().set_custom(CustomMetadata::default()/* use setters */);
     /// ```
     pub fn set_custom<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CustomMetadata>,
+    where T: std::convert::Into<crate::model::CustomMetadata>
     {
         self.custom = std::option::Option::Some(v.into());
         self
@@ -13053,8 +12690,7 @@ impl DeployJobRunMetadata {
     /// let x = DeployJobRunMetadata::new().set_or_clear_custom(None::<CustomMetadata>);
     /// ```
     pub fn set_or_clear_custom<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CustomMetadata>,
+    where T: std::convert::Into<crate::model::CustomMetadata>
     {
         self.custom = v.map(|x| x.into());
         self
@@ -13071,6 +12707,7 @@ impl wkt::message::Message for DeployJobRunMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudRunMetadata {
+
     /// Output only. The name of the Cloud Run Service that is associated with a
     /// `Rollout`. Format is
     /// `projects/{project}/locations/{location}/services/{service}`.
@@ -13118,7 +12755,7 @@ impl CloudRunMetadata {
     pub fn set_service_urls<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.service_urls = v.into_iter().map(|i| i.into()).collect();
@@ -13161,6 +12798,7 @@ impl wkt::message::Message for CloudRunMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CustomTargetDeployMetadata {
+
     /// Output only. Skip message provided in the results of a custom deploy
     /// operation.
     pub skip_message: std::string::String,
@@ -13197,6 +12835,7 @@ impl wkt::message::Message for CustomTargetDeployMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutomationRolloutMetadata {
+
     /// Output only. The name of the AutomationRun initiated by a promote release
     /// rule.
     pub promote_automation_run: std::string::String,
@@ -13224,10 +12863,7 @@ impl AutomationRolloutMetadata {
     /// # use google_cloud_deploy_v1::model::AutomationRolloutMetadata;
     /// let x = AutomationRolloutMetadata::new().set_promote_automation_run("example");
     /// ```
-    pub fn set_promote_automation_run<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_promote_automation_run<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.promote_automation_run = v.into();
         self
     }
@@ -13242,7 +12878,7 @@ impl AutomationRolloutMetadata {
     pub fn set_advance_automation_runs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.advance_automation_runs = v.into_iter().map(|i| i.into()).collect();
@@ -13259,7 +12895,7 @@ impl AutomationRolloutMetadata {
     pub fn set_repair_automation_runs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.repair_automation_runs = v.into_iter().map(|i| i.into()).collect();
@@ -13277,8 +12913,9 @@ impl wkt::message::Message for AutomationRolloutMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CustomMetadata {
+
     /// Output only. Key-value pairs provided by the user-defined operation.
-    pub values: std::collections::HashMap<std::string::String, std::string::String>,
+    pub values: std::collections::HashMap<std::string::String,std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -13321,6 +12958,7 @@ impl wkt::message::Message for CustomMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Phase {
+
     /// Output only. The ID of the Phase.
     pub id: std::string::String,
 
@@ -13393,10 +13031,8 @@ impl Phase {
     /// let x = Phase::new().set_jobs(Some(
     ///     google_cloud_deploy_v1::model::phase::Jobs::DeploymentJobs(DeploymentJobs::default().into())));
     /// ```
-    pub fn set_jobs<T: std::convert::Into<std::option::Option<crate::model::phase::Jobs>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_jobs<T: std::convert::Into<std::option::Option<crate::model::phase::Jobs>>>(mut self, v: T) -> Self
+    {
         self.jobs = v.into();
         self
     }
@@ -13404,9 +13040,7 @@ impl Phase {
     /// The value of [jobs][crate::model::Phase::jobs]
     /// if it holds a `DeploymentJobs`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn deployment_jobs(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::DeploymentJobs>> {
+    pub fn deployment_jobs(&self) -> std::option::Option<&std::boxed::Box<crate::model::DeploymentJobs>> {
         #[allow(unreachable_patterns)]
         self.jobs.as_ref().and_then(|v| match v {
             crate::model::phase::Jobs::DeploymentJobs(v) => std::option::Option::Some(v),
@@ -13428,22 +13062,19 @@ impl Phase {
     /// assert!(x.deployment_jobs().is_some());
     /// assert!(x.child_rollout_jobs().is_none());
     /// ```
-    pub fn set_deployment_jobs<
-        T: std::convert::Into<std::boxed::Box<crate::model::DeploymentJobs>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.jobs = std::option::Option::Some(crate::model::phase::Jobs::DeploymentJobs(v.into()));
+    pub fn set_deployment_jobs<T: std::convert::Into<std::boxed::Box<crate::model::DeploymentJobs>>>(mut self, v: T) -> Self {
+        self.jobs = std::option::Option::Some(
+            crate::model::phase::Jobs::DeploymentJobs(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [jobs][crate::model::Phase::jobs]
     /// if it holds a `ChildRolloutJobs`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn child_rollout_jobs(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::ChildRolloutJobs>> {
+    pub fn child_rollout_jobs(&self) -> std::option::Option<&std::boxed::Box<crate::model::ChildRolloutJobs>> {
         #[allow(unreachable_patterns)]
         self.jobs.as_ref().and_then(|v| match v {
             crate::model::phase::Jobs::ChildRolloutJobs(v) => std::option::Option::Some(v),
@@ -13465,14 +13096,12 @@ impl Phase {
     /// assert!(x.child_rollout_jobs().is_some());
     /// assert!(x.deployment_jobs().is_none());
     /// ```
-    pub fn set_child_rollout_jobs<
-        T: std::convert::Into<std::boxed::Box<crate::model::ChildRolloutJobs>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.jobs =
-            std::option::Option::Some(crate::model::phase::Jobs::ChildRolloutJobs(v.into()));
+    pub fn set_child_rollout_jobs<T: std::convert::Into<std::boxed::Box<crate::model::ChildRolloutJobs>>>(mut self, v: T) -> Self {
+        self.jobs = std::option::Option::Some(
+            crate::model::phase::Jobs::ChildRolloutJobs(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -13487,6 +13116,7 @@ impl wkt::message::Message for Phase {
 pub mod phase {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Valid states of a Phase.
     ///
@@ -13594,9 +13224,7 @@ pub mod phase {
                 4 => Self::Failed,
                 5 => Self::Aborted,
                 6 => Self::Skipped,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -13612,9 +13240,7 @@ pub mod phase {
                 "FAILED" => Self::Failed,
                 "ABORTED" => Self::Aborted,
                 "SKIPPED" => Self::Skipped,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -13643,8 +13269,7 @@ pub mod phase {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.deploy.v1.Phase.State",
-            ))
+                ".google.cloud.deploy.v1.Phase.State"))
         }
     }
 
@@ -13663,6 +13288,7 @@ pub mod phase {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeploymentJobs {
+
     /// Output only. The predeploy Job, which is the first job on the phase.
     pub predeploy_job: std::option::Option<crate::model::Job>,
 
@@ -13692,8 +13318,7 @@ impl DeploymentJobs {
     /// let x = DeploymentJobs::new().set_predeploy_job(Job::default()/* use setters */);
     /// ```
     pub fn set_predeploy_job<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Job>,
+    where T: std::convert::Into<crate::model::Job>
     {
         self.predeploy_job = std::option::Option::Some(v.into());
         self
@@ -13709,8 +13334,7 @@ impl DeploymentJobs {
     /// let x = DeploymentJobs::new().set_or_clear_predeploy_job(None::<Job>);
     /// ```
     pub fn set_or_clear_predeploy_job<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Job>,
+    where T: std::convert::Into<crate::model::Job>
     {
         self.predeploy_job = v.map(|x| x.into());
         self
@@ -13725,8 +13349,7 @@ impl DeploymentJobs {
     /// let x = DeploymentJobs::new().set_deploy_job(Job::default()/* use setters */);
     /// ```
     pub fn set_deploy_job<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Job>,
+    where T: std::convert::Into<crate::model::Job>
     {
         self.deploy_job = std::option::Option::Some(v.into());
         self
@@ -13742,8 +13365,7 @@ impl DeploymentJobs {
     /// let x = DeploymentJobs::new().set_or_clear_deploy_job(None::<Job>);
     /// ```
     pub fn set_or_clear_deploy_job<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Job>,
+    where T: std::convert::Into<crate::model::Job>
     {
         self.deploy_job = v.map(|x| x.into());
         self
@@ -13758,8 +13380,7 @@ impl DeploymentJobs {
     /// let x = DeploymentJobs::new().set_verify_job(Job::default()/* use setters */);
     /// ```
     pub fn set_verify_job<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Job>,
+    where T: std::convert::Into<crate::model::Job>
     {
         self.verify_job = std::option::Option::Some(v.into());
         self
@@ -13775,8 +13396,7 @@ impl DeploymentJobs {
     /// let x = DeploymentJobs::new().set_or_clear_verify_job(None::<Job>);
     /// ```
     pub fn set_or_clear_verify_job<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Job>,
+    where T: std::convert::Into<crate::model::Job>
     {
         self.verify_job = v.map(|x| x.into());
         self
@@ -13791,8 +13411,7 @@ impl DeploymentJobs {
     /// let x = DeploymentJobs::new().set_postdeploy_job(Job::default()/* use setters */);
     /// ```
     pub fn set_postdeploy_job<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Job>,
+    where T: std::convert::Into<crate::model::Job>
     {
         self.postdeploy_job = std::option::Option::Some(v.into());
         self
@@ -13808,8 +13427,7 @@ impl DeploymentJobs {
     /// let x = DeploymentJobs::new().set_or_clear_postdeploy_job(None::<Job>);
     /// ```
     pub fn set_or_clear_postdeploy_job<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Job>,
+    where T: std::convert::Into<crate::model::Job>
     {
         self.postdeploy_job = v.map(|x| x.into());
         self
@@ -13826,6 +13444,7 @@ impl wkt::message::Message for DeploymentJobs {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ChildRolloutJobs {
+
     /// Output only. List of CreateChildRolloutJobs
     pub create_rollout_jobs: std::vec::Vec<crate::model::Job>,
 
@@ -13855,7 +13474,7 @@ impl ChildRolloutJobs {
     pub fn set_create_rollout_jobs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Job>,
+        V: std::convert::Into<crate::model::Job>
     {
         use std::iter::Iterator;
         self.create_rollout_jobs = v.into_iter().map(|i| i.into()).collect();
@@ -13877,7 +13496,7 @@ impl ChildRolloutJobs {
     pub fn set_advance_rollout_jobs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Job>,
+        V: std::convert::Into<crate::model::Job>
     {
         use std::iter::Iterator;
         self.advance_rollout_jobs = v.into_iter().map(|i| i.into()).collect();
@@ -13895,6 +13514,7 @@ impl wkt::message::Message for ChildRolloutJobs {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Job {
+
     /// Output only. The ID of the Job.
     pub id: std::string::String,
 
@@ -13983,10 +13603,8 @@ impl Job {
     /// let x = Job::new().set_job_type(Some(
     ///     google_cloud_deploy_v1::model::job::JobType::DeployJob(DeployJob::default().into())));
     /// ```
-    pub fn set_job_type<T: std::convert::Into<std::option::Option<crate::model::job::JobType>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_job_type<T: std::convert::Into<std::option::Option<crate::model::job::JobType>>>(mut self, v: T) -> Self
+    {
         self.job_type = v.into();
         self
     }
@@ -14020,11 +13638,12 @@ impl Job {
     /// assert!(x.create_child_rollout_job().is_none());
     /// assert!(x.advance_child_rollout_job().is_none());
     /// ```
-    pub fn set_deploy_job<T: std::convert::Into<std::boxed::Box<crate::model::DeployJob>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.job_type = std::option::Option::Some(crate::model::job::JobType::DeployJob(v.into()));
+    pub fn set_deploy_job<T: std::convert::Into<std::boxed::Box<crate::model::DeployJob>>>(mut self, v: T) -> Self {
+        self.job_type = std::option::Option::Some(
+            crate::model::job::JobType::DeployJob(
+                v.into()
+            )
+        );
         self
     }
 
@@ -14057,20 +13676,19 @@ impl Job {
     /// assert!(x.create_child_rollout_job().is_none());
     /// assert!(x.advance_child_rollout_job().is_none());
     /// ```
-    pub fn set_verify_job<T: std::convert::Into<std::boxed::Box<crate::model::VerifyJob>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.job_type = std::option::Option::Some(crate::model::job::JobType::VerifyJob(v.into()));
+    pub fn set_verify_job<T: std::convert::Into<std::boxed::Box<crate::model::VerifyJob>>>(mut self, v: T) -> Self {
+        self.job_type = std::option::Option::Some(
+            crate::model::job::JobType::VerifyJob(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [job_type][crate::model::Job::job_type]
     /// if it holds a `PredeployJob`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn predeploy_job(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::PredeployJob>> {
+    pub fn predeploy_job(&self) -> std::option::Option<&std::boxed::Box<crate::model::PredeployJob>> {
         #[allow(unreachable_patterns)]
         self.job_type.as_ref().and_then(|v| match v {
             crate::model::job::JobType::PredeployJob(v) => std::option::Option::Some(v),
@@ -14096,21 +13714,19 @@ impl Job {
     /// assert!(x.create_child_rollout_job().is_none());
     /// assert!(x.advance_child_rollout_job().is_none());
     /// ```
-    pub fn set_predeploy_job<T: std::convert::Into<std::boxed::Box<crate::model::PredeployJob>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.job_type =
-            std::option::Option::Some(crate::model::job::JobType::PredeployJob(v.into()));
+    pub fn set_predeploy_job<T: std::convert::Into<std::boxed::Box<crate::model::PredeployJob>>>(mut self, v: T) -> Self {
+        self.job_type = std::option::Option::Some(
+            crate::model::job::JobType::PredeployJob(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [job_type][crate::model::Job::job_type]
     /// if it holds a `PostdeployJob`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn postdeploy_job(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::PostdeployJob>> {
+    pub fn postdeploy_job(&self) -> std::option::Option<&std::boxed::Box<crate::model::PostdeployJob>> {
         #[allow(unreachable_patterns)]
         self.job_type.as_ref().and_then(|v| match v {
             crate::model::job::JobType::PostdeployJob(v) => std::option::Option::Some(v),
@@ -14136,23 +13752,19 @@ impl Job {
     /// assert!(x.create_child_rollout_job().is_none());
     /// assert!(x.advance_child_rollout_job().is_none());
     /// ```
-    pub fn set_postdeploy_job<
-        T: std::convert::Into<std::boxed::Box<crate::model::PostdeployJob>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.job_type =
-            std::option::Option::Some(crate::model::job::JobType::PostdeployJob(v.into()));
+    pub fn set_postdeploy_job<T: std::convert::Into<std::boxed::Box<crate::model::PostdeployJob>>>(mut self, v: T) -> Self {
+        self.job_type = std::option::Option::Some(
+            crate::model::job::JobType::PostdeployJob(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [job_type][crate::model::Job::job_type]
     /// if it holds a `CreateChildRolloutJob`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn create_child_rollout_job(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::CreateChildRolloutJob>> {
+    pub fn create_child_rollout_job(&self) -> std::option::Option<&std::boxed::Box<crate::model::CreateChildRolloutJob>> {
         #[allow(unreachable_patterns)]
         self.job_type.as_ref().and_then(|v| match v {
             crate::model::job::JobType::CreateChildRolloutJob(v) => std::option::Option::Some(v),
@@ -14178,23 +13790,19 @@ impl Job {
     /// assert!(x.postdeploy_job().is_none());
     /// assert!(x.advance_child_rollout_job().is_none());
     /// ```
-    pub fn set_create_child_rollout_job<
-        T: std::convert::Into<std::boxed::Box<crate::model::CreateChildRolloutJob>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.job_type =
-            std::option::Option::Some(crate::model::job::JobType::CreateChildRolloutJob(v.into()));
+    pub fn set_create_child_rollout_job<T: std::convert::Into<std::boxed::Box<crate::model::CreateChildRolloutJob>>>(mut self, v: T) -> Self {
+        self.job_type = std::option::Option::Some(
+            crate::model::job::JobType::CreateChildRolloutJob(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [job_type][crate::model::Job::job_type]
     /// if it holds a `AdvanceChildRolloutJob`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn advance_child_rollout_job(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::AdvanceChildRolloutJob>> {
+    pub fn advance_child_rollout_job(&self) -> std::option::Option<&std::boxed::Box<crate::model::AdvanceChildRolloutJob>> {
         #[allow(unreachable_patterns)]
         self.job_type.as_ref().and_then(|v| match v {
             crate::model::job::JobType::AdvanceChildRolloutJob(v) => std::option::Option::Some(v),
@@ -14220,14 +13828,12 @@ impl Job {
     /// assert!(x.postdeploy_job().is_none());
     /// assert!(x.create_child_rollout_job().is_none());
     /// ```
-    pub fn set_advance_child_rollout_job<
-        T: std::convert::Into<std::boxed::Box<crate::model::AdvanceChildRolloutJob>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.job_type =
-            std::option::Option::Some(crate::model::job::JobType::AdvanceChildRolloutJob(v.into()));
+    pub fn set_advance_child_rollout_job<T: std::convert::Into<std::boxed::Box<crate::model::AdvanceChildRolloutJob>>>(mut self, v: T) -> Self {
+        self.job_type = std::option::Option::Some(
+            crate::model::job::JobType::AdvanceChildRolloutJob(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -14242,6 +13848,7 @@ impl wkt::message::Message for Job {
 pub mod job {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Valid states of a Job.
     ///
@@ -14359,9 +13966,7 @@ pub mod job {
                 6 => Self::Aborted,
                 7 => Self::Skipped,
                 8 => Self::Ignored,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -14379,9 +13984,7 @@ pub mod job {
                 "ABORTED" => Self::Aborted,
                 "SKIPPED" => Self::Skipped,
                 "IGNORED" => Self::Ignored,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -14412,8 +14015,7 @@ pub mod job {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.deploy.v1.Job.State",
-            ))
+                ".google.cloud.deploy.v1.Job.State"))
         }
     }
 
@@ -14440,6 +14042,7 @@ pub mod job {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeployJob {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -14459,6 +14062,7 @@ impl wkt::message::Message for DeployJob {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VerifyJob {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -14478,6 +14082,7 @@ impl wkt::message::Message for VerifyJob {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PredeployJob {
+
     /// Output only. The custom actions that the predeploy Job executes.
     pub actions: std::vec::Vec<std::string::String>,
 
@@ -14499,7 +14104,7 @@ impl PredeployJob {
     pub fn set_actions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.actions = v.into_iter().map(|i| i.into()).collect();
@@ -14517,6 +14122,7 @@ impl wkt::message::Message for PredeployJob {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PostdeployJob {
+
     /// Output only. The custom actions that the postdeploy Job executes.
     pub actions: std::vec::Vec<std::string::String>,
 
@@ -14538,7 +14144,7 @@ impl PostdeployJob {
     pub fn set_actions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.actions = v.into_iter().map(|i| i.into()).collect();
@@ -14556,6 +14162,7 @@ impl wkt::message::Message for PostdeployJob {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateChildRolloutJob {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -14575,6 +14182,7 @@ impl wkt::message::Message for CreateChildRolloutJob {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AdvanceChildRolloutJob {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -14594,6 +14202,7 @@ impl wkt::message::Message for AdvanceChildRolloutJob {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRolloutsRequest {
+
     /// Required. The `Release` which owns this collection of `Rollout` objects.
     pub parent: std::string::String,
 
@@ -14697,6 +14306,7 @@ impl wkt::message::Message for ListRolloutsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRolloutsResponse {
+
     /// The `Rollout` objects.
     pub rollouts: std::vec::Vec<crate::model::Rollout>,
 
@@ -14730,7 +14340,7 @@ impl ListRolloutsResponse {
     pub fn set_rollouts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Rollout>,
+        V: std::convert::Into<crate::model::Rollout>
     {
         use std::iter::Iterator;
         self.rollouts = v.into_iter().map(|i| i.into()).collect();
@@ -14759,7 +14369,7 @@ impl ListRolloutsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -14791,6 +14401,7 @@ impl gax::paginator::internal::PageableResponse for ListRolloutsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetRolloutRequest {
+
     /// Required. Name of the `Rollout`. Format must be
     /// `projects/{project_id}/locations/{location_name}/deliveryPipelines/{pipeline_name}/releases/{release_name}/rollouts/{rollout_name}`.
     pub name: std::string::String,
@@ -14826,6 +14437,7 @@ impl wkt::message::Message for GetRolloutRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateRolloutRequest {
+
     /// Required. The parent collection in which the `Rollout` must be created.
     /// The format is
     /// `projects/{project_id}/locations/{location_name}/deliveryPipelines/{pipeline_name}/releases/{release_name}`.
@@ -14905,8 +14517,7 @@ impl CreateRolloutRequest {
     /// let x = CreateRolloutRequest::new().set_rollout(Rollout::default()/* use setters */);
     /// ```
     pub fn set_rollout<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Rollout>,
+    where T: std::convert::Into<crate::model::Rollout>
     {
         self.rollout = std::option::Option::Some(v.into());
         self
@@ -14922,8 +14533,7 @@ impl CreateRolloutRequest {
     /// let x = CreateRolloutRequest::new().set_or_clear_rollout(None::<Rollout>);
     /// ```
     pub fn set_or_clear_rollout<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Rollout>,
+    where T: std::convert::Into<crate::model::Rollout>
     {
         self.rollout = v.map(|x| x.into());
         self
@@ -14963,7 +14573,7 @@ impl CreateRolloutRequest {
     pub fn set_override_deploy_policy<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.override_deploy_policy = v.into_iter().map(|i| i.into()).collect();
@@ -14977,10 +14587,7 @@ impl CreateRolloutRequest {
     /// # use google_cloud_deploy_v1::model::CreateRolloutRequest;
     /// let x = CreateRolloutRequest::new().set_starting_phase_id("example");
     /// ```
-    pub fn set_starting_phase_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_starting_phase_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.starting_phase_id = v.into();
         self
     }
@@ -14996,6 +14603,7 @@ impl wkt::message::Message for CreateRolloutRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
+
     /// Output only. The time the operation was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
@@ -15042,8 +14650,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -15059,8 +14666,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -15075,8 +14681,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -15092,8 +14697,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -15170,6 +14774,7 @@ impl wkt::message::Message for OperationMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ApproveRolloutRequest {
+
     /// Required. Name of the Rollout. Format is
     /// `projects/{project}/locations/{location}/deliveryPipelines/{deliveryPipeline}/releases/{release}/rollouts/{rollout}`.
     pub name: std::string::String,
@@ -15223,7 +14828,7 @@ impl ApproveRolloutRequest {
     pub fn set_override_deploy_policy<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.override_deploy_policy = v.into_iter().map(|i| i.into()).collect();
@@ -15241,6 +14846,7 @@ impl wkt::message::Message for ApproveRolloutRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ApproveRolloutResponse {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -15260,6 +14866,7 @@ impl wkt::message::Message for ApproveRolloutResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AdvanceRolloutRequest {
+
     /// Required. Name of the Rollout. Format is
     /// `projects/{project}/locations/{location}/deliveryPipelines/{deliveryPipeline}/releases/{release}/rollouts/{rollout}`.
     pub name: std::string::String,
@@ -15313,7 +14920,7 @@ impl AdvanceRolloutRequest {
     pub fn set_override_deploy_policy<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.override_deploy_policy = v.into_iter().map(|i| i.into()).collect();
@@ -15331,6 +14938,7 @@ impl wkt::message::Message for AdvanceRolloutRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AdvanceRolloutResponse {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -15350,6 +14958,7 @@ impl wkt::message::Message for AdvanceRolloutResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CancelRolloutRequest {
+
     /// Required. Name of the Rollout. Format is
     /// `projects/{project}/locations/{location}/deliveryPipelines/{deliveryPipeline}/releases/{release}/rollouts/{rollout}`.
     pub name: std::string::String,
@@ -15388,7 +14997,7 @@ impl CancelRolloutRequest {
     pub fn set_override_deploy_policy<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.override_deploy_policy = v.into_iter().map(|i| i.into()).collect();
@@ -15406,6 +15015,7 @@ impl wkt::message::Message for CancelRolloutRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CancelRolloutResponse {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -15425,6 +15035,7 @@ impl wkt::message::Message for CancelRolloutResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct IgnoreJobRequest {
+
     /// Required. Name of the Rollout. Format is
     /// `projects/{project}/locations/{location}/deliveryPipelines/{deliveryPipeline}/releases/{release}/rollouts/{rollout}`.
     pub rollout: std::string::String,
@@ -15493,7 +15104,7 @@ impl IgnoreJobRequest {
     pub fn set_override_deploy_policy<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.override_deploy_policy = v.into_iter().map(|i| i.into()).collect();
@@ -15511,6 +15122,7 @@ impl wkt::message::Message for IgnoreJobRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct IgnoreJobResponse {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -15530,6 +15142,7 @@ impl wkt::message::Message for IgnoreJobResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RetryJobRequest {
+
     /// Required. Name of the Rollout. Format is
     /// `projects/{project}/locations/{location}/deliveryPipelines/{deliveryPipeline}/releases/{release}/rollouts/{rollout}`.
     pub rollout: std::string::String,
@@ -15598,7 +15211,7 @@ impl RetryJobRequest {
     pub fn set_override_deploy_policy<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.override_deploy_policy = v.into_iter().map(|i| i.into()).collect();
@@ -15616,6 +15229,7 @@ impl wkt::message::Message for RetryJobRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RetryJobResponse {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -15635,6 +15249,7 @@ impl wkt::message::Message for RetryJobResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AbandonReleaseRequest {
+
     /// Required. Name of the Release. Format is
     /// `projects/{project}/locations/{location}/deliveryPipelines/{deliveryPipeline}/releases/{release}`.
     pub name: std::string::String,
@@ -15670,6 +15285,7 @@ impl wkt::message::Message for AbandonReleaseRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AbandonReleaseResponse {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -15691,6 +15307,7 @@ impl wkt::message::Message for AbandonReleaseResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct JobRun {
+
     /// Output only. Name of the `JobRun`. Format is
     /// `projects/{project}/locations/{location}/deliveryPipelines/{deliveryPipeline}/releases/{releases}/rollouts/{rollouts}/jobRuns/{uuid}`.
     pub name: std::string::String,
@@ -15789,8 +15406,7 @@ impl JobRun {
     /// let x = JobRun::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -15806,8 +15422,7 @@ impl JobRun {
     /// let x = JobRun::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -15822,8 +15437,7 @@ impl JobRun {
     /// let x = JobRun::new().set_start_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -15839,8 +15453,7 @@ impl JobRun {
     /// let x = JobRun::new().set_or_clear_start_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -15855,8 +15468,7 @@ impl JobRun {
     /// let x = JobRun::new().set_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -15872,8 +15484,7 @@ impl JobRun {
     /// let x = JobRun::new().set_or_clear_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -15918,12 +15529,8 @@ impl JobRun {
     /// let x = JobRun::new().set_job_run(Some(
     ///     google_cloud_deploy_v1::model::job_run::JobRun::DeployJobRun(DeployJobRun::default().into())));
     /// ```
-    pub fn set_job_run<
-        T: std::convert::Into<std::option::Option<crate::model::job_run::JobRun>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_job_run<T: std::convert::Into<std::option::Option<crate::model::job_run::JobRun>>>(mut self, v: T) -> Self
+    {
         self.job_run = v.into();
         self
     }
@@ -15931,9 +15538,7 @@ impl JobRun {
     /// The value of [job_run][crate::model::JobRun::job_run]
     /// if it holds a `DeployJobRun`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn deploy_job_run(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::DeployJobRun>> {
+    pub fn deploy_job_run(&self) -> std::option::Option<&std::boxed::Box<crate::model::DeployJobRun>> {
         #[allow(unreachable_patterns)]
         self.job_run.as_ref().and_then(|v| match v {
             crate::model::job_run::JobRun::DeployJobRun(v) => std::option::Option::Some(v),
@@ -15959,23 +15564,19 @@ impl JobRun {
     /// assert!(x.create_child_rollout_job_run().is_none());
     /// assert!(x.advance_child_rollout_job_run().is_none());
     /// ```
-    pub fn set_deploy_job_run<
-        T: std::convert::Into<std::boxed::Box<crate::model::DeployJobRun>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.job_run =
-            std::option::Option::Some(crate::model::job_run::JobRun::DeployJobRun(v.into()));
+    pub fn set_deploy_job_run<T: std::convert::Into<std::boxed::Box<crate::model::DeployJobRun>>>(mut self, v: T) -> Self {
+        self.job_run = std::option::Option::Some(
+            crate::model::job_run::JobRun::DeployJobRun(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [job_run][crate::model::JobRun::job_run]
     /// if it holds a `VerifyJobRun`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn verify_job_run(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::VerifyJobRun>> {
+    pub fn verify_job_run(&self) -> std::option::Option<&std::boxed::Box<crate::model::VerifyJobRun>> {
         #[allow(unreachable_patterns)]
         self.job_run.as_ref().and_then(|v| match v {
             crate::model::job_run::JobRun::VerifyJobRun(v) => std::option::Option::Some(v),
@@ -16001,23 +15602,19 @@ impl JobRun {
     /// assert!(x.create_child_rollout_job_run().is_none());
     /// assert!(x.advance_child_rollout_job_run().is_none());
     /// ```
-    pub fn set_verify_job_run<
-        T: std::convert::Into<std::boxed::Box<crate::model::VerifyJobRun>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.job_run =
-            std::option::Option::Some(crate::model::job_run::JobRun::VerifyJobRun(v.into()));
+    pub fn set_verify_job_run<T: std::convert::Into<std::boxed::Box<crate::model::VerifyJobRun>>>(mut self, v: T) -> Self {
+        self.job_run = std::option::Option::Some(
+            crate::model::job_run::JobRun::VerifyJobRun(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [job_run][crate::model::JobRun::job_run]
     /// if it holds a `PredeployJobRun`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn predeploy_job_run(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::PredeployJobRun>> {
+    pub fn predeploy_job_run(&self) -> std::option::Option<&std::boxed::Box<crate::model::PredeployJobRun>> {
         #[allow(unreachable_patterns)]
         self.job_run.as_ref().and_then(|v| match v {
             crate::model::job_run::JobRun::PredeployJobRun(v) => std::option::Option::Some(v),
@@ -16043,23 +15640,19 @@ impl JobRun {
     /// assert!(x.create_child_rollout_job_run().is_none());
     /// assert!(x.advance_child_rollout_job_run().is_none());
     /// ```
-    pub fn set_predeploy_job_run<
-        T: std::convert::Into<std::boxed::Box<crate::model::PredeployJobRun>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.job_run =
-            std::option::Option::Some(crate::model::job_run::JobRun::PredeployJobRun(v.into()));
+    pub fn set_predeploy_job_run<T: std::convert::Into<std::boxed::Box<crate::model::PredeployJobRun>>>(mut self, v: T) -> Self {
+        self.job_run = std::option::Option::Some(
+            crate::model::job_run::JobRun::PredeployJobRun(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [job_run][crate::model::JobRun::job_run]
     /// if it holds a `PostdeployJobRun`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn postdeploy_job_run(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::PostdeployJobRun>> {
+    pub fn postdeploy_job_run(&self) -> std::option::Option<&std::boxed::Box<crate::model::PostdeployJobRun>> {
         #[allow(unreachable_patterns)]
         self.job_run.as_ref().and_then(|v| match v {
             crate::model::job_run::JobRun::PostdeployJobRun(v) => std::option::Option::Some(v),
@@ -16085,28 +15678,22 @@ impl JobRun {
     /// assert!(x.create_child_rollout_job_run().is_none());
     /// assert!(x.advance_child_rollout_job_run().is_none());
     /// ```
-    pub fn set_postdeploy_job_run<
-        T: std::convert::Into<std::boxed::Box<crate::model::PostdeployJobRun>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.job_run =
-            std::option::Option::Some(crate::model::job_run::JobRun::PostdeployJobRun(v.into()));
+    pub fn set_postdeploy_job_run<T: std::convert::Into<std::boxed::Box<crate::model::PostdeployJobRun>>>(mut self, v: T) -> Self {
+        self.job_run = std::option::Option::Some(
+            crate::model::job_run::JobRun::PostdeployJobRun(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [job_run][crate::model::JobRun::job_run]
     /// if it holds a `CreateChildRolloutJobRun`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn create_child_rollout_job_run(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::CreateChildRolloutJobRun>> {
+    pub fn create_child_rollout_job_run(&self) -> std::option::Option<&std::boxed::Box<crate::model::CreateChildRolloutJobRun>> {
         #[allow(unreachable_patterns)]
         self.job_run.as_ref().and_then(|v| match v {
-            crate::model::job_run::JobRun::CreateChildRolloutJobRun(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::job_run::JobRun::CreateChildRolloutJobRun(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -16129,14 +15716,11 @@ impl JobRun {
     /// assert!(x.postdeploy_job_run().is_none());
     /// assert!(x.advance_child_rollout_job_run().is_none());
     /// ```
-    pub fn set_create_child_rollout_job_run<
-        T: std::convert::Into<std::boxed::Box<crate::model::CreateChildRolloutJobRun>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_create_child_rollout_job_run<T: std::convert::Into<std::boxed::Box<crate::model::CreateChildRolloutJobRun>>>(mut self, v: T) -> Self {
         self.job_run = std::option::Option::Some(
-            crate::model::job_run::JobRun::CreateChildRolloutJobRun(v.into()),
+            crate::model::job_run::JobRun::CreateChildRolloutJobRun(
+                v.into()
+            )
         );
         self
     }
@@ -16144,14 +15728,10 @@ impl JobRun {
     /// The value of [job_run][crate::model::JobRun::job_run]
     /// if it holds a `AdvanceChildRolloutJobRun`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn advance_child_rollout_job_run(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::AdvanceChildRolloutJobRun>> {
+    pub fn advance_child_rollout_job_run(&self) -> std::option::Option<&std::boxed::Box<crate::model::AdvanceChildRolloutJobRun>> {
         #[allow(unreachable_patterns)]
         self.job_run.as_ref().and_then(|v| match v {
-            crate::model::job_run::JobRun::AdvanceChildRolloutJobRun(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::job_run::JobRun::AdvanceChildRolloutJobRun(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -16174,14 +15754,11 @@ impl JobRun {
     /// assert!(x.postdeploy_job_run().is_none());
     /// assert!(x.create_child_rollout_job_run().is_none());
     /// ```
-    pub fn set_advance_child_rollout_job_run<
-        T: std::convert::Into<std::boxed::Box<crate::model::AdvanceChildRolloutJobRun>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_advance_child_rollout_job_run<T: std::convert::Into<std::boxed::Box<crate::model::AdvanceChildRolloutJobRun>>>(mut self, v: T) -> Self {
         self.job_run = std::option::Option::Some(
-            crate::model::job_run::JobRun::AdvanceChildRolloutJobRun(v.into()),
+            crate::model::job_run::JobRun::AdvanceChildRolloutJobRun(
+                v.into()
+            )
         );
         self
     }
@@ -16197,6 +15774,7 @@ impl wkt::message::Message for JobRun {
 pub mod job_run {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Valid states of a `JobRun`.
     ///
@@ -16299,9 +15877,7 @@ pub mod job_run {
                 3 => Self::Failed,
                 4 => Self::Terminating,
                 5 => Self::Terminated,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -16316,9 +15892,7 @@ pub mod job_run {
                 "FAILED" => Self::Failed,
                 "TERMINATING" => Self::Terminating,
                 "TERMINATED" => Self::Terminated,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -16346,8 +15920,7 @@ pub mod job_run {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.deploy.v1.JobRun.State",
-            ))
+                ".google.cloud.deploy.v1.JobRun.State"))
         }
     }
 
@@ -16374,6 +15947,7 @@ pub mod job_run {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeployJobRun {
+
     /// Output only. The resource name of the Cloud Build `Build` object that is
     /// used to deploy. Format is
     /// `projects/{project}/locations/{location}/builds/{build}`.
@@ -16422,10 +15996,7 @@ impl DeployJobRun {
     /// let x1 = DeployJobRun::new().set_failure_cause(FailureCause::ExecutionFailed);
     /// let x2 = DeployJobRun::new().set_failure_cause(FailureCause::DeadlineExceeded);
     /// ```
-    pub fn set_failure_cause<T: std::convert::Into<crate::model::deploy_job_run::FailureCause>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_failure_cause<T: std::convert::Into<crate::model::deploy_job_run::FailureCause>>(mut self, v: T) -> Self {
         self.failure_cause = v.into();
         self
     }
@@ -16451,8 +16022,7 @@ impl DeployJobRun {
     /// let x = DeployJobRun::new().set_metadata(DeployJobRunMetadata::default()/* use setters */);
     /// ```
     pub fn set_metadata<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DeployJobRunMetadata>,
+    where T: std::convert::Into<crate::model::DeployJobRunMetadata>
     {
         self.metadata = std::option::Option::Some(v.into());
         self
@@ -16468,8 +16038,7 @@ impl DeployJobRun {
     /// let x = DeployJobRun::new().set_or_clear_metadata(None::<DeployJobRunMetadata>);
     /// ```
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DeployJobRunMetadata>,
+    where T: std::convert::Into<crate::model::DeployJobRunMetadata>
     {
         self.metadata = v.map(|x| x.into());
         self
@@ -16484,8 +16053,7 @@ impl DeployJobRun {
     /// let x = DeployJobRun::new().set_artifact(DeployArtifact::default()/* use setters */);
     /// ```
     pub fn set_artifact<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DeployArtifact>,
+    where T: std::convert::Into<crate::model::DeployArtifact>
     {
         self.artifact = std::option::Option::Some(v.into());
         self
@@ -16501,8 +16069,7 @@ impl DeployJobRun {
     /// let x = DeployJobRun::new().set_or_clear_artifact(None::<DeployArtifact>);
     /// ```
     pub fn set_or_clear_artifact<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DeployArtifact>,
+    where T: std::convert::Into<crate::model::DeployArtifact>
     {
         self.artifact = v.map(|x| x.into());
         self
@@ -16519,6 +16086,7 @@ impl wkt::message::Message for DeployJobRun {
 pub mod deploy_job_run {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Well-known deploy failures.
     ///
@@ -16600,15 +16168,9 @@ pub mod deploy_job_run {
                 Self::CloudBuildUnavailable => std::option::Option::Some("CLOUD_BUILD_UNAVAILABLE"),
                 Self::ExecutionFailed => std::option::Option::Some("EXECUTION_FAILED"),
                 Self::DeadlineExceeded => std::option::Option::Some("DEADLINE_EXCEEDED"),
-                Self::MissingResourcesForCanary => {
-                    std::option::Option::Some("MISSING_RESOURCES_FOR_CANARY")
-                }
-                Self::CloudBuildRequestFailed => {
-                    std::option::Option::Some("CLOUD_BUILD_REQUEST_FAILED")
-                }
-                Self::DeployFeatureNotSupported => {
-                    std::option::Option::Some("DEPLOY_FEATURE_NOT_SUPPORTED")
-                }
+                Self::MissingResourcesForCanary => std::option::Option::Some("MISSING_RESOURCES_FOR_CANARY"),
+                Self::CloudBuildRequestFailed => std::option::Option::Some("CLOUD_BUILD_REQUEST_FAILED"),
+                Self::DeployFeatureNotSupported => std::option::Option::Some("DEPLOY_FEATURE_NOT_SUPPORTED"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -16637,9 +16199,7 @@ pub mod deploy_job_run {
                 4 => Self::MissingResourcesForCanary,
                 5 => Self::CloudBuildRequestFailed,
                 6 => Self::DeployFeatureNotSupported,
-                _ => Self::UnknownValue(failure_cause::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(failure_cause::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -16655,9 +16215,7 @@ pub mod deploy_job_run {
                 "MISSING_RESOURCES_FOR_CANARY" => Self::MissingResourcesForCanary,
                 "CLOUD_BUILD_REQUEST_FAILED" => Self::CloudBuildRequestFailed,
                 "DEPLOY_FEATURE_NOT_SUPPORTED" => Self::DeployFeatureNotSupported,
-                _ => Self::UnknownValue(failure_cause::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(failure_cause::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -16686,8 +16244,7 @@ pub mod deploy_job_run {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<FailureCause>::new(
-                ".google.cloud.deploy.v1.DeployJobRun.FailureCause",
-            ))
+                ".google.cloud.deploy.v1.DeployJobRun.FailureCause"))
         }
     }
 }
@@ -16696,6 +16253,7 @@ pub mod deploy_job_run {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VerifyJobRun {
+
     /// Output only. The resource name of the Cloud Build `Build` object that is
     /// used to verify. Format is
     /// `projects/{project}/locations/{location}/builds/{build}`.
@@ -16770,10 +16328,7 @@ impl VerifyJobRun {
     /// let x1 = VerifyJobRun::new().set_failure_cause(FailureCause::ExecutionFailed);
     /// let x2 = VerifyJobRun::new().set_failure_cause(FailureCause::DeadlineExceeded);
     /// ```
-    pub fn set_failure_cause<T: std::convert::Into<crate::model::verify_job_run::FailureCause>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_failure_cause<T: std::convert::Into<crate::model::verify_job_run::FailureCause>>(mut self, v: T) -> Self {
         self.failure_cause = v.into();
         self
     }
@@ -16801,6 +16356,7 @@ impl wkt::message::Message for VerifyJobRun {
 pub mod verify_job_run {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Well-known verify failures.
     ///
@@ -16878,12 +16434,8 @@ pub mod verify_job_run {
                 Self::CloudBuildUnavailable => std::option::Option::Some("CLOUD_BUILD_UNAVAILABLE"),
                 Self::ExecutionFailed => std::option::Option::Some("EXECUTION_FAILED"),
                 Self::DeadlineExceeded => std::option::Option::Some("DEADLINE_EXCEEDED"),
-                Self::VerificationConfigNotFound => {
-                    std::option::Option::Some("VERIFICATION_CONFIG_NOT_FOUND")
-                }
-                Self::CloudBuildRequestFailed => {
-                    std::option::Option::Some("CLOUD_BUILD_REQUEST_FAILED")
-                }
+                Self::VerificationConfigNotFound => std::option::Option::Some("VERIFICATION_CONFIG_NOT_FOUND"),
+                Self::CloudBuildRequestFailed => std::option::Option::Some("CLOUD_BUILD_REQUEST_FAILED"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -16911,9 +16463,7 @@ pub mod verify_job_run {
                 3 => Self::DeadlineExceeded,
                 4 => Self::VerificationConfigNotFound,
                 5 => Self::CloudBuildRequestFailed,
-                _ => Self::UnknownValue(failure_cause::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(failure_cause::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -16928,9 +16478,7 @@ pub mod verify_job_run {
                 "DEADLINE_EXCEEDED" => Self::DeadlineExceeded,
                 "VERIFICATION_CONFIG_NOT_FOUND" => Self::VerificationConfigNotFound,
                 "CLOUD_BUILD_REQUEST_FAILED" => Self::CloudBuildRequestFailed,
-                _ => Self::UnknownValue(failure_cause::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(failure_cause::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -16958,8 +16506,7 @@ pub mod verify_job_run {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<FailureCause>::new(
-                ".google.cloud.deploy.v1.VerifyJobRun.FailureCause",
-            ))
+                ".google.cloud.deploy.v1.VerifyJobRun.FailureCause"))
         }
     }
 }
@@ -16968,6 +16515,7 @@ pub mod verify_job_run {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PredeployJobRun {
+
     /// Output only. The resource name of the Cloud Build `Build` object that is
     /// used to execute the custom actions associated with the predeploy Job.
     /// Format is `projects/{project}/locations/{location}/builds/{build}`.
@@ -17011,12 +16559,7 @@ impl PredeployJobRun {
     /// let x1 = PredeployJobRun::new().set_failure_cause(FailureCause::ExecutionFailed);
     /// let x2 = PredeployJobRun::new().set_failure_cause(FailureCause::DeadlineExceeded);
     /// ```
-    pub fn set_failure_cause<
-        T: std::convert::Into<crate::model::predeploy_job_run::FailureCause>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_failure_cause<T: std::convert::Into<crate::model::predeploy_job_run::FailureCause>>(mut self, v: T) -> Self {
         self.failure_cause = v.into();
         self
     }
@@ -17044,6 +16587,7 @@ impl wkt::message::Message for PredeployJobRun {
 pub mod predeploy_job_run {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Well-known predeploy failures.
     ///
@@ -17118,9 +16662,7 @@ pub mod predeploy_job_run {
                 Self::CloudBuildUnavailable => std::option::Option::Some("CLOUD_BUILD_UNAVAILABLE"),
                 Self::ExecutionFailed => std::option::Option::Some("EXECUTION_FAILED"),
                 Self::DeadlineExceeded => std::option::Option::Some("DEADLINE_EXCEEDED"),
-                Self::CloudBuildRequestFailed => {
-                    std::option::Option::Some("CLOUD_BUILD_REQUEST_FAILED")
-                }
+                Self::CloudBuildRequestFailed => std::option::Option::Some("CLOUD_BUILD_REQUEST_FAILED"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -17147,9 +16689,7 @@ pub mod predeploy_job_run {
                 2 => Self::ExecutionFailed,
                 3 => Self::DeadlineExceeded,
                 4 => Self::CloudBuildRequestFailed,
-                _ => Self::UnknownValue(failure_cause::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(failure_cause::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -17163,9 +16703,7 @@ pub mod predeploy_job_run {
                 "EXECUTION_FAILED" => Self::ExecutionFailed,
                 "DEADLINE_EXCEEDED" => Self::DeadlineExceeded,
                 "CLOUD_BUILD_REQUEST_FAILED" => Self::CloudBuildRequestFailed,
-                _ => Self::UnknownValue(failure_cause::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(failure_cause::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -17192,8 +16730,7 @@ pub mod predeploy_job_run {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<FailureCause>::new(
-                ".google.cloud.deploy.v1.PredeployJobRun.FailureCause",
-            ))
+                ".google.cloud.deploy.v1.PredeployJobRun.FailureCause"))
         }
     }
 }
@@ -17202,6 +16739,7 @@ pub mod predeploy_job_run {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PostdeployJobRun {
+
     /// Output only. The resource name of the Cloud Build `Build` object that is
     /// used to execute the custom actions associated with the postdeploy Job.
     /// Format is `projects/{project}/locations/{location}/builds/{build}`.
@@ -17245,12 +16783,7 @@ impl PostdeployJobRun {
     /// let x1 = PostdeployJobRun::new().set_failure_cause(FailureCause::ExecutionFailed);
     /// let x2 = PostdeployJobRun::new().set_failure_cause(FailureCause::DeadlineExceeded);
     /// ```
-    pub fn set_failure_cause<
-        T: std::convert::Into<crate::model::postdeploy_job_run::FailureCause>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_failure_cause<T: std::convert::Into<crate::model::postdeploy_job_run::FailureCause>>(mut self, v: T) -> Self {
         self.failure_cause = v.into();
         self
     }
@@ -17278,6 +16811,7 @@ impl wkt::message::Message for PostdeployJobRun {
 pub mod postdeploy_job_run {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Well-known postdeploy failures.
     ///
@@ -17352,9 +16886,7 @@ pub mod postdeploy_job_run {
                 Self::CloudBuildUnavailable => std::option::Option::Some("CLOUD_BUILD_UNAVAILABLE"),
                 Self::ExecutionFailed => std::option::Option::Some("EXECUTION_FAILED"),
                 Self::DeadlineExceeded => std::option::Option::Some("DEADLINE_EXCEEDED"),
-                Self::CloudBuildRequestFailed => {
-                    std::option::Option::Some("CLOUD_BUILD_REQUEST_FAILED")
-                }
+                Self::CloudBuildRequestFailed => std::option::Option::Some("CLOUD_BUILD_REQUEST_FAILED"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -17381,9 +16913,7 @@ pub mod postdeploy_job_run {
                 2 => Self::ExecutionFailed,
                 3 => Self::DeadlineExceeded,
                 4 => Self::CloudBuildRequestFailed,
-                _ => Self::UnknownValue(failure_cause::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(failure_cause::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -17397,9 +16927,7 @@ pub mod postdeploy_job_run {
                 "EXECUTION_FAILED" => Self::ExecutionFailed,
                 "DEADLINE_EXCEEDED" => Self::DeadlineExceeded,
                 "CLOUD_BUILD_REQUEST_FAILED" => Self::CloudBuildRequestFailed,
-                _ => Self::UnknownValue(failure_cause::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(failure_cause::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -17426,8 +16954,7 @@ pub mod postdeploy_job_run {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<FailureCause>::new(
-                ".google.cloud.deploy.v1.PostdeployJobRun.FailureCause",
-            ))
+                ".google.cloud.deploy.v1.PostdeployJobRun.FailureCause"))
         }
     }
 }
@@ -17437,6 +16964,7 @@ pub mod postdeploy_job_run {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateChildRolloutJobRun {
+
     /// Output only. Name of the `ChildRollout`. Format is
     /// `projects/{project}/locations/{location}/deliveryPipelines/{deliveryPipeline}/releases/{release}/rollouts/{rollout}`.
     pub rollout: std::string::String,
@@ -17471,10 +16999,7 @@ impl CreateChildRolloutJobRun {
     /// # use google_cloud_deploy_v1::model::CreateChildRolloutJobRun;
     /// let x = CreateChildRolloutJobRun::new().set_rollout_phase_id("example");
     /// ```
-    pub fn set_rollout_phase_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_rollout_phase_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.rollout_phase_id = v.into();
         self
     }
@@ -17491,6 +17016,7 @@ impl wkt::message::Message for CreateChildRolloutJobRun {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AdvanceChildRolloutJobRun {
+
     /// Output only. Name of the `ChildRollout`. Format is
     /// `projects/{project}/locations/{location}/deliveryPipelines/{deliveryPipeline}/releases/{release}/rollouts/{rollout}`.
     pub rollout: std::string::String,
@@ -17525,10 +17051,7 @@ impl AdvanceChildRolloutJobRun {
     /// # use google_cloud_deploy_v1::model::AdvanceChildRolloutJobRun;
     /// let x = AdvanceChildRolloutJobRun::new().set_rollout_phase_id("example");
     /// ```
-    pub fn set_rollout_phase_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_rollout_phase_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.rollout_phase_id = v.into();
         self
     }
@@ -17544,6 +17067,7 @@ impl wkt::message::Message for AdvanceChildRolloutJobRun {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListJobRunsRequest {
+
     /// Required. The `Rollout` which owns this collection of `JobRun` objects.
     pub parent: std::string::String,
 
@@ -17647,6 +17171,7 @@ impl wkt::message::Message for ListJobRunsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListJobRunsResponse {
+
     /// The `JobRun` objects.
     pub job_runs: std::vec::Vec<crate::model::JobRun>,
 
@@ -17680,7 +17205,7 @@ impl ListJobRunsResponse {
     pub fn set_job_runs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::JobRun>,
+        V: std::convert::Into<crate::model::JobRun>
     {
         use std::iter::Iterator;
         self.job_runs = v.into_iter().map(|i| i.into()).collect();
@@ -17709,7 +17234,7 @@ impl ListJobRunsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -17741,6 +17266,7 @@ impl gax::paginator::internal::PageableResponse for ListJobRunsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetJobRunRequest {
+
     /// Required. Name of the `JobRun`. Format must be
     /// `projects/{project_id}/locations/{location_name}/deliveryPipelines/{pipeline_name}/releases/{release_name}/rollouts/{rollout_name}/jobRuns/{job_run_name}`.
     pub name: std::string::String,
@@ -17776,6 +17302,7 @@ impl wkt::message::Message for GetJobRunRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TerminateJobRunRequest {
+
     /// Required. Name of the `JobRun`. Format must be
     /// `projects/{project}/locations/{location}/deliveryPipelines/{deliveryPipeline}/releases/{release}/rollouts/{rollout}/jobRuns/{jobRun}`.
     pub name: std::string::String,
@@ -17814,7 +17341,7 @@ impl TerminateJobRunRequest {
     pub fn set_override_deploy_policy<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.override_deploy_policy = v.into_iter().map(|i| i.into()).collect();
@@ -17832,6 +17359,7 @@ impl wkt::message::Message for TerminateJobRunRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TerminateJobRunResponse {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -17851,6 +17379,7 @@ impl wkt::message::Message for TerminateJobRunResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Config {
+
     /// Name of the configuration.
     pub name: std::string::String,
 
@@ -17896,7 +17425,7 @@ impl Config {
     pub fn set_supported_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::SkaffoldVersion>,
+        V: std::convert::Into<crate::model::SkaffoldVersion>
     {
         use std::iter::Iterator;
         self.supported_versions = v.into_iter().map(|i| i.into()).collect();
@@ -17910,10 +17439,7 @@ impl Config {
     /// # use google_cloud_deploy_v1::model::Config;
     /// let x = Config::new().set_default_skaffold_version("example");
     /// ```
-    pub fn set_default_skaffold_version<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_default_skaffold_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.default_skaffold_version = v.into();
         self
     }
@@ -17929,6 +17455,7 @@ impl wkt::message::Message for Config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SkaffoldVersion {
+
     /// Release version number. For example, "1.20.3".
     pub version: std::string::String,
 
@@ -17970,8 +17497,7 @@ impl SkaffoldVersion {
     /// let x = SkaffoldVersion::new().set_maintenance_mode_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_maintenance_mode_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.maintenance_mode_time = std::option::Option::Some(v.into());
         self
@@ -17987,8 +17513,7 @@ impl SkaffoldVersion {
     /// let x = SkaffoldVersion::new().set_or_clear_maintenance_mode_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_maintenance_mode_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.maintenance_mode_time = v.map(|x| x.into());
         self
@@ -18003,8 +17528,7 @@ impl SkaffoldVersion {
     /// let x = SkaffoldVersion::new().set_support_expiration_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_support_expiration_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.support_expiration_time = std::option::Option::Some(v.into());
         self
@@ -18020,8 +17544,7 @@ impl SkaffoldVersion {
     /// let x = SkaffoldVersion::new().set_or_clear_support_expiration_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_support_expiration_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.support_expiration_time = v.map(|x| x.into());
         self
@@ -18036,8 +17559,7 @@ impl SkaffoldVersion {
     /// let x = SkaffoldVersion::new().set_support_end_date(Date::default()/* use setters */);
     /// ```
     pub fn set_support_end_date<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<gtype::model::Date>,
+    where T: std::convert::Into<gtype::model::Date>
     {
         self.support_end_date = std::option::Option::Some(v.into());
         self
@@ -18053,8 +17575,7 @@ impl SkaffoldVersion {
     /// let x = SkaffoldVersion::new().set_or_clear_support_end_date(None::<Date>);
     /// ```
     pub fn set_or_clear_support_end_date<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<gtype::model::Date>,
+    where T: std::convert::Into<gtype::model::Date>
     {
         self.support_end_date = v.map(|x| x.into());
         self
@@ -18071,6 +17592,7 @@ impl wkt::message::Message for SkaffoldVersion {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetConfigRequest {
+
     /// Required. Name of requested configuration.
     pub name: std::string::String,
 
@@ -18111,6 +17633,7 @@ impl wkt::message::Message for GetConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Automation {
+
     /// Output only. Name of the `Automation`. Format is
     /// `projects/{project}/locations/{location}/deliveryPipelines/{delivery_pipeline}/automations/{automation}`.
     pub name: std::string::String,
@@ -18144,7 +17667,7 @@ pub struct Automation {
     /// See
     /// <https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/#syntax-and-character-set>
     /// for more details.
-    pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
+    pub annotations: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. Labels are attributes that can be set and used by both the
     /// user and by Cloud Deploy. Labels must meet the following constraints:
@@ -18157,7 +17680,7 @@ pub struct Automation {
     /// * Each resource is limited to a maximum of 64 labels.
     ///
     /// Both keys and values are additionally constrained to be <= 63 characters.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. The weak etag of the `Automation` resource.
     /// This checksum is computed by the server based on the value of other
@@ -18234,8 +17757,7 @@ impl Automation {
     /// let x = Automation::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -18251,8 +17773,7 @@ impl Automation {
     /// let x = Automation::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -18267,8 +17788,7 @@ impl Automation {
     /// let x = Automation::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -18284,8 +17804,7 @@ impl Automation {
     /// let x = Automation::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -18378,8 +17897,7 @@ impl Automation {
     /// let x = Automation::new().set_selector(AutomationResourceSelector::default()/* use setters */);
     /// ```
     pub fn set_selector<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AutomationResourceSelector>,
+    where T: std::convert::Into<crate::model::AutomationResourceSelector>
     {
         self.selector = std::option::Option::Some(v.into());
         self
@@ -18395,8 +17913,7 @@ impl Automation {
     /// let x = Automation::new().set_or_clear_selector(None::<AutomationResourceSelector>);
     /// ```
     pub fn set_or_clear_selector<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AutomationResourceSelector>,
+    where T: std::convert::Into<crate::model::AutomationResourceSelector>
     {
         self.selector = v.map(|x| x.into());
         self
@@ -18417,7 +17934,7 @@ impl Automation {
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AutomationRule>,
+        V: std::convert::Into<crate::model::AutomationRule>
     {
         use std::iter::Iterator;
         self.rules = v.into_iter().map(|i| i.into()).collect();
@@ -18436,6 +17953,7 @@ impl wkt::message::Message for Automation {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutomationResourceSelector {
+
     /// Optional. Contains attributes about a target.
     pub targets: std::vec::Vec<crate::model::TargetAttribute>,
 
@@ -18462,7 +17980,7 @@ impl AutomationResourceSelector {
     pub fn set_targets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::TargetAttribute>,
+        V: std::convert::Into<crate::model::TargetAttribute>
     {
         use std::iter::Iterator;
         self.targets = v.into_iter().map(|i| i.into()).collect();
@@ -18480,6 +17998,7 @@ impl wkt::message::Message for AutomationResourceSelector {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutomationRule {
+
     /// The configuration of the Automation rule.
     pub rule: std::option::Option<crate::model::automation_rule::Rule>,
 
@@ -18503,12 +18022,8 @@ impl AutomationRule {
     /// let x = AutomationRule::new().set_rule(Some(
     ///     google_cloud_deploy_v1::model::automation_rule::Rule::PromoteReleaseRule(PromoteReleaseRule::default().into())));
     /// ```
-    pub fn set_rule<
-        T: std::convert::Into<std::option::Option<crate::model::automation_rule::Rule>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_rule<T: std::convert::Into<std::option::Option<crate::model::automation_rule::Rule>>>(mut self, v: T) -> Self
+    {
         self.rule = v.into();
         self
     }
@@ -18516,14 +18031,10 @@ impl AutomationRule {
     /// The value of [rule][crate::model::AutomationRule::rule]
     /// if it holds a `PromoteReleaseRule`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn promote_release_rule(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::PromoteReleaseRule>> {
+    pub fn promote_release_rule(&self) -> std::option::Option<&std::boxed::Box<crate::model::PromoteReleaseRule>> {
         #[allow(unreachable_patterns)]
         self.rule.as_ref().and_then(|v| match v {
-            crate::model::automation_rule::Rule::PromoteReleaseRule(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::automation_rule::Rule::PromoteReleaseRule(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -18544,14 +18055,11 @@ impl AutomationRule {
     /// assert!(x.repair_rollout_rule().is_none());
     /// assert!(x.timed_promote_release_rule().is_none());
     /// ```
-    pub fn set_promote_release_rule<
-        T: std::convert::Into<std::boxed::Box<crate::model::PromoteReleaseRule>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_promote_release_rule<T: std::convert::Into<std::boxed::Box<crate::model::PromoteReleaseRule>>>(mut self, v: T) -> Self {
         self.rule = std::option::Option::Some(
-            crate::model::automation_rule::Rule::PromoteReleaseRule(v.into()),
+            crate::model::automation_rule::Rule::PromoteReleaseRule(
+                v.into()
+            )
         );
         self
     }
@@ -18559,14 +18067,10 @@ impl AutomationRule {
     /// The value of [rule][crate::model::AutomationRule::rule]
     /// if it holds a `AdvanceRolloutRule`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn advance_rollout_rule(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::AdvanceRolloutRule>> {
+    pub fn advance_rollout_rule(&self) -> std::option::Option<&std::boxed::Box<crate::model::AdvanceRolloutRule>> {
         #[allow(unreachable_patterns)]
         self.rule.as_ref().and_then(|v| match v {
-            crate::model::automation_rule::Rule::AdvanceRolloutRule(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::automation_rule::Rule::AdvanceRolloutRule(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -18587,14 +18091,11 @@ impl AutomationRule {
     /// assert!(x.repair_rollout_rule().is_none());
     /// assert!(x.timed_promote_release_rule().is_none());
     /// ```
-    pub fn set_advance_rollout_rule<
-        T: std::convert::Into<std::boxed::Box<crate::model::AdvanceRolloutRule>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_advance_rollout_rule<T: std::convert::Into<std::boxed::Box<crate::model::AdvanceRolloutRule>>>(mut self, v: T) -> Self {
         self.rule = std::option::Option::Some(
-            crate::model::automation_rule::Rule::AdvanceRolloutRule(v.into()),
+            crate::model::automation_rule::Rule::AdvanceRolloutRule(
+                v.into()
+            )
         );
         self
     }
@@ -18602,14 +18103,10 @@ impl AutomationRule {
     /// The value of [rule][crate::model::AutomationRule::rule]
     /// if it holds a `RepairRolloutRule`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn repair_rollout_rule(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::RepairRolloutRule>> {
+    pub fn repair_rollout_rule(&self) -> std::option::Option<&std::boxed::Box<crate::model::RepairRolloutRule>> {
         #[allow(unreachable_patterns)]
         self.rule.as_ref().and_then(|v| match v {
-            crate::model::automation_rule::Rule::RepairRolloutRule(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::automation_rule::Rule::RepairRolloutRule(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -18630,14 +18127,11 @@ impl AutomationRule {
     /// assert!(x.advance_rollout_rule().is_none());
     /// assert!(x.timed_promote_release_rule().is_none());
     /// ```
-    pub fn set_repair_rollout_rule<
-        T: std::convert::Into<std::boxed::Box<crate::model::RepairRolloutRule>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_repair_rollout_rule<T: std::convert::Into<std::boxed::Box<crate::model::RepairRolloutRule>>>(mut self, v: T) -> Self {
         self.rule = std::option::Option::Some(
-            crate::model::automation_rule::Rule::RepairRolloutRule(v.into()),
+            crate::model::automation_rule::Rule::RepairRolloutRule(
+                v.into()
+            )
         );
         self
     }
@@ -18645,14 +18139,10 @@ impl AutomationRule {
     /// The value of [rule][crate::model::AutomationRule::rule]
     /// if it holds a `TimedPromoteReleaseRule`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn timed_promote_release_rule(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::TimedPromoteReleaseRule>> {
+    pub fn timed_promote_release_rule(&self) -> std::option::Option<&std::boxed::Box<crate::model::TimedPromoteReleaseRule>> {
         #[allow(unreachable_patterns)]
         self.rule.as_ref().and_then(|v| match v {
-            crate::model::automation_rule::Rule::TimedPromoteReleaseRule(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::automation_rule::Rule::TimedPromoteReleaseRule(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -18673,14 +18163,11 @@ impl AutomationRule {
     /// assert!(x.advance_rollout_rule().is_none());
     /// assert!(x.repair_rollout_rule().is_none());
     /// ```
-    pub fn set_timed_promote_release_rule<
-        T: std::convert::Into<std::boxed::Box<crate::model::TimedPromoteReleaseRule>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_timed_promote_release_rule<T: std::convert::Into<std::boxed::Box<crate::model::TimedPromoteReleaseRule>>>(mut self, v: T) -> Self {
         self.rule = std::option::Option::Some(
-            crate::model::automation_rule::Rule::TimedPromoteReleaseRule(v.into()),
+            crate::model::automation_rule::Rule::TimedPromoteReleaseRule(
+                v.into()
+            )
         );
         self
     }
@@ -18696,6 +18183,7 @@ impl wkt::message::Message for AutomationRule {
 pub mod automation_rule {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The configuration of the Automation rule.
     #[derive(Clone, Debug, PartialEq)]
@@ -18722,6 +18210,7 @@ pub mod automation_rule {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TimedPromoteReleaseRule {
+
     /// Required. ID of the rule. This ID must be unique in the `Automation`
     /// resource to which this rule belongs. The format is
     /// `[a-z]([a-z0-9-]{0,61}[a-z0-9])?`.
@@ -18777,10 +18266,7 @@ impl TimedPromoteReleaseRule {
     /// # use google_cloud_deploy_v1::model::TimedPromoteReleaseRule;
     /// let x = TimedPromoteReleaseRule::new().set_destination_target_id("example");
     /// ```
-    pub fn set_destination_target_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_destination_target_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.destination_target_id = v.into();
         self
     }
@@ -18818,8 +18304,7 @@ impl TimedPromoteReleaseRule {
     /// let x = TimedPromoteReleaseRule::new().set_condition(AutomationRuleCondition::default()/* use setters */);
     /// ```
     pub fn set_condition<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AutomationRuleCondition>,
+    where T: std::convert::Into<crate::model::AutomationRuleCondition>
     {
         self.condition = std::option::Option::Some(v.into());
         self
@@ -18835,8 +18320,7 @@ impl TimedPromoteReleaseRule {
     /// let x = TimedPromoteReleaseRule::new().set_or_clear_condition(None::<AutomationRuleCondition>);
     /// ```
     pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AutomationRuleCondition>,
+    where T: std::convert::Into<crate::model::AutomationRuleCondition>
     {
         self.condition = v.map(|x| x.into());
         self
@@ -18849,10 +18333,7 @@ impl TimedPromoteReleaseRule {
     /// # use google_cloud_deploy_v1::model::TimedPromoteReleaseRule;
     /// let x = TimedPromoteReleaseRule::new().set_destination_phase("example");
     /// ```
-    pub fn set_destination_phase<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_destination_phase<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.destination_phase = v.into();
         self
     }
@@ -18869,6 +18350,7 @@ impl wkt::message::Message for TimedPromoteReleaseRule {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PromoteReleaseRule {
+
     /// Required. ID of the rule. This id must be unique in the `Automation`
     /// resource to which this rule belongs. The format is
     /// `[a-z]([a-z0-9-]{0,61}[a-z0-9])?`.
@@ -18922,8 +18404,7 @@ impl PromoteReleaseRule {
     /// let x = PromoteReleaseRule::new().set_wait(Duration::default()/* use setters */);
     /// ```
     pub fn set_wait<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.wait = std::option::Option::Some(v.into());
         self
@@ -18939,8 +18420,7 @@ impl PromoteReleaseRule {
     /// let x = PromoteReleaseRule::new().set_or_clear_wait(None::<Duration>);
     /// ```
     pub fn set_or_clear_wait<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.wait = v.map(|x| x.into());
         self
@@ -18953,10 +18433,7 @@ impl PromoteReleaseRule {
     /// # use google_cloud_deploy_v1::model::PromoteReleaseRule;
     /// let x = PromoteReleaseRule::new().set_destination_target_id("example");
     /// ```
-    pub fn set_destination_target_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_destination_target_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.destination_target_id = v.into();
         self
     }
@@ -18970,8 +18447,7 @@ impl PromoteReleaseRule {
     /// let x = PromoteReleaseRule::new().set_condition(AutomationRuleCondition::default()/* use setters */);
     /// ```
     pub fn set_condition<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AutomationRuleCondition>,
+    where T: std::convert::Into<crate::model::AutomationRuleCondition>
     {
         self.condition = std::option::Option::Some(v.into());
         self
@@ -18987,8 +18463,7 @@ impl PromoteReleaseRule {
     /// let x = PromoteReleaseRule::new().set_or_clear_condition(None::<AutomationRuleCondition>);
     /// ```
     pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AutomationRuleCondition>,
+    where T: std::convert::Into<crate::model::AutomationRuleCondition>
     {
         self.condition = v.map(|x| x.into());
         self
@@ -19001,10 +18476,7 @@ impl PromoteReleaseRule {
     /// # use google_cloud_deploy_v1::model::PromoteReleaseRule;
     /// let x = PromoteReleaseRule::new().set_destination_phase("example");
     /// ```
-    pub fn set_destination_phase<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_destination_phase<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.destination_phase = v.into();
         self
     }
@@ -19021,6 +18493,7 @@ impl wkt::message::Message for PromoteReleaseRule {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AdvanceRolloutRule {
+
     /// Required. ID of the rule. This id must be unique in the `Automation`
     /// resource to which this rule belongs. The format is
     /// `[a-z]([a-z0-9-]{0,61}[a-z0-9])?`.
@@ -19069,7 +18542,7 @@ impl AdvanceRolloutRule {
     pub fn set_source_phases<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.source_phases = v.into_iter().map(|i| i.into()).collect();
@@ -19085,8 +18558,7 @@ impl AdvanceRolloutRule {
     /// let x = AdvanceRolloutRule::new().set_wait(Duration::default()/* use setters */);
     /// ```
     pub fn set_wait<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.wait = std::option::Option::Some(v.into());
         self
@@ -19102,8 +18574,7 @@ impl AdvanceRolloutRule {
     /// let x = AdvanceRolloutRule::new().set_or_clear_wait(None::<Duration>);
     /// ```
     pub fn set_or_clear_wait<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.wait = v.map(|x| x.into());
         self
@@ -19118,8 +18589,7 @@ impl AdvanceRolloutRule {
     /// let x = AdvanceRolloutRule::new().set_condition(AutomationRuleCondition::default()/* use setters */);
     /// ```
     pub fn set_condition<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AutomationRuleCondition>,
+    where T: std::convert::Into<crate::model::AutomationRuleCondition>
     {
         self.condition = std::option::Option::Some(v.into());
         self
@@ -19135,8 +18605,7 @@ impl AdvanceRolloutRule {
     /// let x = AdvanceRolloutRule::new().set_or_clear_condition(None::<AutomationRuleCondition>);
     /// ```
     pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AutomationRuleCondition>,
+    where T: std::convert::Into<crate::model::AutomationRuleCondition>
     {
         self.condition = v.map(|x| x.into());
         self
@@ -19154,6 +18623,7 @@ impl wkt::message::Message for AdvanceRolloutRule {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RepairRolloutRule {
+
     /// Required. ID of the rule. This id must be unique in the `Automation`
     /// resource to which this rule belongs. The format is
     /// `[a-z]([a-z0-9-]{0,61}[a-z0-9])?`.
@@ -19212,7 +18682,7 @@ impl RepairRolloutRule {
     pub fn set_phases<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.phases = v.into_iter().map(|i| i.into()).collect();
@@ -19229,7 +18699,7 @@ impl RepairRolloutRule {
     pub fn set_jobs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.jobs = v.into_iter().map(|i| i.into()).collect();
@@ -19245,8 +18715,7 @@ impl RepairRolloutRule {
     /// let x = RepairRolloutRule::new().set_condition(AutomationRuleCondition::default()/* use setters */);
     /// ```
     pub fn set_condition<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AutomationRuleCondition>,
+    where T: std::convert::Into<crate::model::AutomationRuleCondition>
     {
         self.condition = std::option::Option::Some(v.into());
         self
@@ -19262,8 +18731,7 @@ impl RepairRolloutRule {
     /// let x = RepairRolloutRule::new().set_or_clear_condition(None::<AutomationRuleCondition>);
     /// ```
     pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AutomationRuleCondition>,
+    where T: std::convert::Into<crate::model::AutomationRuleCondition>
     {
         self.condition = v.map(|x| x.into());
         self
@@ -19284,7 +18752,7 @@ impl RepairRolloutRule {
     pub fn set_repair_phases<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::RepairPhaseConfig>,
+        V: std::convert::Into<crate::model::RepairPhaseConfig>
     {
         use std::iter::Iterator;
         self.repair_phases = v.into_iter().map(|i| i.into()).collect();
@@ -19302,6 +18770,7 @@ impl wkt::message::Message for RepairRolloutRule {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RepairPhaseConfig {
+
     /// The repair phase to perform.
     pub repair_phase: std::option::Option<crate::model::repair_phase_config::RepairPhase>,
 
@@ -19325,12 +18794,8 @@ impl RepairPhaseConfig {
     /// let x = RepairPhaseConfig::new().set_repair_phase(Some(
     ///     google_cloud_deploy_v1::model::repair_phase_config::RepairPhase::Retry(Retry::default().into())));
     /// ```
-    pub fn set_repair_phase<
-        T: std::convert::Into<std::option::Option<crate::model::repair_phase_config::RepairPhase>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_repair_phase<T: std::convert::Into<std::option::Option<crate::model::repair_phase_config::RepairPhase>>>(mut self, v: T) -> Self
+    {
         self.repair_phase = v.into();
         self
     }
@@ -19341,9 +18806,7 @@ impl RepairPhaseConfig {
     pub fn retry(&self) -> std::option::Option<&std::boxed::Box<crate::model::Retry>> {
         #[allow(unreachable_patterns)]
         self.repair_phase.as_ref().and_then(|v| match v {
-            crate::model::repair_phase_config::RepairPhase::Retry(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::repair_phase_config::RepairPhase::Retry(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -19362,12 +18825,11 @@ impl RepairPhaseConfig {
     /// assert!(x.retry().is_some());
     /// assert!(x.rollback().is_none());
     /// ```
-    pub fn set_retry<T: std::convert::Into<std::boxed::Box<crate::model::Retry>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_retry<T: std::convert::Into<std::boxed::Box<crate::model::Retry>>>(mut self, v: T) -> Self {
         self.repair_phase = std::option::Option::Some(
-            crate::model::repair_phase_config::RepairPhase::Retry(v.into()),
+            crate::model::repair_phase_config::RepairPhase::Retry(
+                v.into()
+            )
         );
         self
     }
@@ -19378,9 +18840,7 @@ impl RepairPhaseConfig {
     pub fn rollback(&self) -> std::option::Option<&std::boxed::Box<crate::model::Rollback>> {
         #[allow(unreachable_patterns)]
         self.repair_phase.as_ref().and_then(|v| match v {
-            crate::model::repair_phase_config::RepairPhase::Rollback(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::repair_phase_config::RepairPhase::Rollback(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -19399,12 +18859,11 @@ impl RepairPhaseConfig {
     /// assert!(x.rollback().is_some());
     /// assert!(x.retry().is_none());
     /// ```
-    pub fn set_rollback<T: std::convert::Into<std::boxed::Box<crate::model::Rollback>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_rollback<T: std::convert::Into<std::boxed::Box<crate::model::Rollback>>>(mut self, v: T) -> Self {
         self.repair_phase = std::option::Option::Some(
-            crate::model::repair_phase_config::RepairPhase::Rollback(v.into()),
+            crate::model::repair_phase_config::RepairPhase::Rollback(
+                v.into()
+            )
         );
         self
     }
@@ -19421,6 +18880,7 @@ pub mod repair_phase_config {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// The repair phase to perform.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -19436,6 +18896,7 @@ pub mod repair_phase_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Retry {
+
     /// Required. Total number of retries. Retry is skipped if set to 0; The
     /// minimum value is 1, and the maximum value is 10.
     pub attempts: i64,
@@ -19477,8 +18938,7 @@ impl Retry {
     /// let x = Retry::new().set_wait(Duration::default()/* use setters */);
     /// ```
     pub fn set_wait<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.wait = std::option::Option::Some(v.into());
         self
@@ -19494,8 +18954,7 @@ impl Retry {
     /// let x = Retry::new().set_or_clear_wait(None::<Duration>);
     /// ```
     pub fn set_or_clear_wait<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.wait = v.map(|x| x.into());
         self
@@ -19510,10 +18969,7 @@ impl Retry {
     /// let x0 = Retry::new().set_backoff_mode(BackoffMode::Linear);
     /// let x1 = Retry::new().set_backoff_mode(BackoffMode::Exponential);
     /// ```
-    pub fn set_backoff_mode<T: std::convert::Into<crate::model::BackoffMode>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_backoff_mode<T: std::convert::Into<crate::model::BackoffMode>>(mut self, v: T) -> Self {
         self.backoff_mode = v.into();
         self
     }
@@ -19529,6 +18985,7 @@ impl wkt::message::Message for Retry {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Rollback {
+
     /// Optional. The starting phase ID for the `Rollout`. If unspecified, the
     /// `Rollout` will start in the stable phase.
     pub destination_phase: std::string::String,
@@ -19552,10 +19009,7 @@ impl Rollback {
     /// # use google_cloud_deploy_v1::model::Rollback;
     /// let x = Rollback::new().set_destination_phase("example");
     /// ```
-    pub fn set_destination_phase<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_destination_phase<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.destination_phase = v.into();
         self
     }
@@ -19567,10 +19021,7 @@ impl Rollback {
     /// # use google_cloud_deploy_v1::model::Rollback;
     /// let x = Rollback::new().set_disable_rollback_if_rollout_pending(true);
     /// ```
-    pub fn set_disable_rollback_if_rollout_pending<T: std::convert::Into<bool>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_disable_rollback_if_rollout_pending<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.disable_rollback_if_rollout_pending = v.into();
         self
     }
@@ -19587,12 +19038,12 @@ impl wkt::message::Message for Rollback {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutomationRuleCondition {
+
     /// Optional. Details around targets enumerated in the rule.
     pub targets_present_condition: std::option::Option<crate::model::TargetsPresentCondition>,
 
     /// Details specific to the automation rule type.
-    pub rule_type_condition:
-        std::option::Option<crate::model::automation_rule_condition::RuleTypeCondition>,
+    pub rule_type_condition: std::option::Option<crate::model::automation_rule_condition::RuleTypeCondition>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -19611,8 +19062,7 @@ impl AutomationRuleCondition {
     /// let x = AutomationRuleCondition::new().set_targets_present_condition(TargetsPresentCondition::default()/* use setters */);
     /// ```
     pub fn set_targets_present_condition<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TargetsPresentCondition>,
+    where T: std::convert::Into<crate::model::TargetsPresentCondition>
     {
         self.targets_present_condition = std::option::Option::Some(v.into());
         self
@@ -19628,8 +19078,7 @@ impl AutomationRuleCondition {
     /// let x = AutomationRuleCondition::new().set_or_clear_targets_present_condition(None::<TargetsPresentCondition>);
     /// ```
     pub fn set_or_clear_targets_present_condition<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TargetsPresentCondition>,
+    where T: std::convert::Into<crate::model::TargetsPresentCondition>
     {
         self.targets_present_condition = v.map(|x| x.into());
         self
@@ -19647,14 +19096,8 @@ impl AutomationRuleCondition {
     /// let x = AutomationRuleCondition::new().set_rule_type_condition(Some(
     ///     google_cloud_deploy_v1::model::automation_rule_condition::RuleTypeCondition::TimedPromoteReleaseCondition(TimedPromoteReleaseCondition::default().into())));
     /// ```
-    pub fn set_rule_type_condition<
-        T: std::convert::Into<
-                std::option::Option<crate::model::automation_rule_condition::RuleTypeCondition>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_rule_type_condition<T: std::convert::Into<std::option::Option<crate::model::automation_rule_condition::RuleTypeCondition>>>(mut self, v: T) -> Self
+    {
         self.rule_type_condition = v.into();
         self
     }
@@ -19662,9 +19105,7 @@ impl AutomationRuleCondition {
     /// The value of [rule_type_condition][crate::model::AutomationRuleCondition::rule_type_condition]
     /// if it holds a `TimedPromoteReleaseCondition`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn timed_promote_release_condition(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::TimedPromoteReleaseCondition>> {
+    pub fn timed_promote_release_condition(&self) -> std::option::Option<&std::boxed::Box<crate::model::TimedPromoteReleaseCondition>> {
         #[allow(unreachable_patterns)]
         self.rule_type_condition.as_ref().and_then(|v| match v {
             crate::model::automation_rule_condition::RuleTypeCondition::TimedPromoteReleaseCondition(v) => std::option::Option::Some(v),
@@ -19685,12 +19126,7 @@ impl AutomationRuleCondition {
     /// let x = AutomationRuleCondition::new().set_timed_promote_release_condition(TimedPromoteReleaseCondition::default()/* use setters */);
     /// assert!(x.timed_promote_release_condition().is_some());
     /// ```
-    pub fn set_timed_promote_release_condition<
-        T: std::convert::Into<std::boxed::Box<crate::model::TimedPromoteReleaseCondition>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_timed_promote_release_condition<T: std::convert::Into<std::boxed::Box<crate::model::TimedPromoteReleaseCondition>>>(mut self, v: T) -> Self {
         self.rule_type_condition = std::option::Option::Some(
             crate::model::automation_rule_condition::RuleTypeCondition::TimedPromoteReleaseCondition(
                 v.into()
@@ -19711,6 +19147,7 @@ pub mod automation_rule_condition {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Details specific to the automation rule type.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -19726,6 +19163,7 @@ pub mod automation_rule_condition {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TimedPromoteReleaseCondition {
+
     /// Output only. When the next scheduled promotion(s) will occur.
     pub next_promotion_time: std::option::Option<wkt::Timestamp>,
 
@@ -19749,8 +19187,7 @@ impl TimedPromoteReleaseCondition {
     /// let x = TimedPromoteReleaseCondition::new().set_next_promotion_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_next_promotion_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.next_promotion_time = std::option::Option::Some(v.into());
         self
@@ -19766,8 +19203,7 @@ impl TimedPromoteReleaseCondition {
     /// let x = TimedPromoteReleaseCondition::new().set_or_clear_next_promotion_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_next_promotion_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.next_promotion_time = v.map(|x| x.into());
         self
@@ -19788,7 +19224,7 @@ impl TimedPromoteReleaseCondition {
     pub fn set_targets_list<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::timed_promote_release_condition::Targets>,
+        V: std::convert::Into<crate::model::timed_promote_release_condition::Targets>
     {
         use std::iter::Iterator;
         self.targets_list = v.into_iter().map(|i| i.into()).collect();
@@ -19807,10 +19243,12 @@ pub mod timed_promote_release_condition {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// The targets involved in a single timed promotion.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Targets {
+
         /// Optional. The source target ID.
         pub source_target_id: std::string::String,
 
@@ -19832,10 +19270,7 @@ pub mod timed_promote_release_condition {
         /// # use google_cloud_deploy_v1::model::timed_promote_release_condition::Targets;
         /// let x = Targets::new().set_source_target_id("example");
         /// ```
-        pub fn set_source_target_id<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_source_target_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.source_target_id = v.into();
             self
         }
@@ -19847,10 +19282,7 @@ pub mod timed_promote_release_condition {
         /// # use google_cloud_deploy_v1::model::timed_promote_release_condition::Targets;
         /// let x = Targets::new().set_destination_target_id("example");
         /// ```
-        pub fn set_destination_target_id<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_destination_target_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.destination_target_id = v.into();
             self
         }
@@ -19867,6 +19299,7 @@ pub mod timed_promote_release_condition {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateAutomationRequest {
+
     /// Required. The parent collection in which the `Automation` must be created.
     /// The format is
     /// `projects/{project_id}/locations/{location_name}/deliveryPipelines/{pipeline_name}`.
@@ -19938,8 +19371,7 @@ impl CreateAutomationRequest {
     /// let x = CreateAutomationRequest::new().set_automation(Automation::default()/* use setters */);
     /// ```
     pub fn set_automation<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Automation>,
+    where T: std::convert::Into<crate::model::Automation>
     {
         self.automation = std::option::Option::Some(v.into());
         self
@@ -19955,8 +19387,7 @@ impl CreateAutomationRequest {
     /// let x = CreateAutomationRequest::new().set_or_clear_automation(None::<Automation>);
     /// ```
     pub fn set_or_clear_automation<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Automation>,
+    where T: std::convert::Into<crate::model::Automation>
     {
         self.automation = v.map(|x| x.into());
         self
@@ -19997,6 +19428,7 @@ impl wkt::message::Message for CreateAutomationRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateAutomationRequest {
+
     /// Required. Field mask is used to specify the fields to be overwritten by the
     /// update in the `Automation` resource. The fields specified in the
     /// update_mask are relative to the resource, not the full request. A field
@@ -20047,8 +19479,7 @@ impl UpdateAutomationRequest {
     /// let x = UpdateAutomationRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -20064,8 +19495,7 @@ impl UpdateAutomationRequest {
     /// let x = UpdateAutomationRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -20080,8 +19510,7 @@ impl UpdateAutomationRequest {
     /// let x = UpdateAutomationRequest::new().set_automation(Automation::default()/* use setters */);
     /// ```
     pub fn set_automation<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Automation>,
+    where T: std::convert::Into<crate::model::Automation>
     {
         self.automation = std::option::Option::Some(v.into());
         self
@@ -20097,8 +19526,7 @@ impl UpdateAutomationRequest {
     /// let x = UpdateAutomationRequest::new().set_or_clear_automation(None::<Automation>);
     /// ```
     pub fn set_or_clear_automation<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Automation>,
+    where T: std::convert::Into<crate::model::Automation>
     {
         self.automation = v.map(|x| x.into());
         self
@@ -20151,6 +19579,7 @@ impl wkt::message::Message for UpdateAutomationRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteAutomationRequest {
+
     /// Required. The name of the `Automation` to delete. The format is
     /// `projects/{project_id}/locations/{location_name}/deliveryPipelines/{pipeline_name}/automations/{automation_name}`.
     pub name: std::string::String,
@@ -20263,6 +19692,7 @@ impl wkt::message::Message for DeleteAutomationRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAutomationsRequest {
+
     /// Required. The parent `Delivery Pipeline`, which owns this collection of
     /// automations. Format must be
     /// `projects/{project_id}/locations/{location_name}/deliveryPipelines/{pipeline_name}`.
@@ -20367,6 +19797,7 @@ impl wkt::message::Message for ListAutomationsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAutomationsResponse {
+
     /// The `Automation` objects.
     pub automations: std::vec::Vec<crate::model::Automation>,
 
@@ -20400,7 +19831,7 @@ impl ListAutomationsResponse {
     pub fn set_automations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Automation>,
+        V: std::convert::Into<crate::model::Automation>
     {
         use std::iter::Iterator;
         self.automations = v.into_iter().map(|i| i.into()).collect();
@@ -20429,7 +19860,7 @@ impl ListAutomationsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -20461,6 +19892,7 @@ impl gax::paginator::internal::PageableResponse for ListAutomationsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAutomationRequest {
+
     /// Required. Name of the `Automation`. Format must be
     /// `projects/{project_id}/locations/{location_name}/deliveryPipelines/{pipeline_name}/automations/{automation_name}`.
     pub name: std::string::String,
@@ -20499,6 +19931,7 @@ impl wkt::message::Message for GetAutomationRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutomationRun {
+
     /// Output only. Name of the `AutomationRun`. Format is
     /// `projects/{project}/locations/{location}/deliveryPipelines/{delivery_pipeline}/automationRuns/{automation_run}`.
     pub name: std::string::String,
@@ -20585,8 +20018,7 @@ impl AutomationRun {
     /// let x = AutomationRun::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -20602,8 +20034,7 @@ impl AutomationRun {
     /// let x = AutomationRun::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -20618,8 +20049,7 @@ impl AutomationRun {
     /// let x = AutomationRun::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -20635,8 +20065,7 @@ impl AutomationRun {
     /// let x = AutomationRun::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -20675,8 +20104,7 @@ impl AutomationRun {
     /// let x = AutomationRun::new().set_automation_snapshot(Automation::default()/* use setters */);
     /// ```
     pub fn set_automation_snapshot<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Automation>,
+    where T: std::convert::Into<crate::model::Automation>
     {
         self.automation_snapshot = std::option::Option::Some(v.into());
         self
@@ -20692,8 +20120,7 @@ impl AutomationRun {
     /// let x = AutomationRun::new().set_or_clear_automation_snapshot(None::<Automation>);
     /// ```
     pub fn set_or_clear_automation_snapshot<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Automation>,
+    where T: std::convert::Into<crate::model::Automation>
     {
         self.automation_snapshot = v.map(|x| x.into());
         self
@@ -20721,10 +20148,7 @@ impl AutomationRun {
     /// let x1 = AutomationRun::new().set_state(State::Cancelled);
     /// let x2 = AutomationRun::new().set_state(State::Failed);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::automation_run::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::automation_run::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -20736,10 +20160,7 @@ impl AutomationRun {
     /// # use google_cloud_deploy_v1::model::AutomationRun;
     /// let x = AutomationRun::new().set_state_description("example");
     /// ```
-    pub fn set_state_description<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.state_description = v.into();
         self
     }
@@ -20753,8 +20174,7 @@ impl AutomationRun {
     /// let x = AutomationRun::new().set_policy_violation(PolicyViolation::default()/* use setters */);
     /// ```
     pub fn set_policy_violation<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::PolicyViolation>,
+    where T: std::convert::Into<crate::model::PolicyViolation>
     {
         self.policy_violation = std::option::Option::Some(v.into());
         self
@@ -20770,8 +20190,7 @@ impl AutomationRun {
     /// let x = AutomationRun::new().set_or_clear_policy_violation(None::<PolicyViolation>);
     /// ```
     pub fn set_or_clear_policy_violation<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::PolicyViolation>,
+    where T: std::convert::Into<crate::model::PolicyViolation>
     {
         self.policy_violation = v.map(|x| x.into());
         self
@@ -20786,8 +20205,7 @@ impl AutomationRun {
     /// let x = AutomationRun::new().set_expire_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_expire_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.expire_time = std::option::Option::Some(v.into());
         self
@@ -20803,8 +20221,7 @@ impl AutomationRun {
     /// let x = AutomationRun::new().set_or_clear_expire_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.expire_time = v.map(|x| x.into());
         self
@@ -20843,8 +20260,7 @@ impl AutomationRun {
     /// let x = AutomationRun::new().set_wait_until_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_wait_until_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.wait_until_time = std::option::Option::Some(v.into());
         self
@@ -20860,8 +20276,7 @@ impl AutomationRun {
     /// let x = AutomationRun::new().set_or_clear_wait_until_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_wait_until_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.wait_until_time = v.map(|x| x.into());
         self
@@ -20879,12 +20294,8 @@ impl AutomationRun {
     /// let x = AutomationRun::new().set_operation(Some(
     ///     google_cloud_deploy_v1::model::automation_run::Operation::PromoteReleaseOperation(PromoteReleaseOperation::default().into())));
     /// ```
-    pub fn set_operation<
-        T: std::convert::Into<std::option::Option<crate::model::automation_run::Operation>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_operation<T: std::convert::Into<std::option::Option<crate::model::automation_run::Operation>>>(mut self, v: T) -> Self
+    {
         self.operation = v.into();
         self
     }
@@ -20892,14 +20303,10 @@ impl AutomationRun {
     /// The value of [operation][crate::model::AutomationRun::operation]
     /// if it holds a `PromoteReleaseOperation`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn promote_release_operation(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::PromoteReleaseOperation>> {
+    pub fn promote_release_operation(&self) -> std::option::Option<&std::boxed::Box<crate::model::PromoteReleaseOperation>> {
         #[allow(unreachable_patterns)]
         self.operation.as_ref().and_then(|v| match v {
-            crate::model::automation_run::Operation::PromoteReleaseOperation(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::automation_run::Operation::PromoteReleaseOperation(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -20920,14 +20327,11 @@ impl AutomationRun {
     /// assert!(x.repair_rollout_operation().is_none());
     /// assert!(x.timed_promote_release_operation().is_none());
     /// ```
-    pub fn set_promote_release_operation<
-        T: std::convert::Into<std::boxed::Box<crate::model::PromoteReleaseOperation>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_promote_release_operation<T: std::convert::Into<std::boxed::Box<crate::model::PromoteReleaseOperation>>>(mut self, v: T) -> Self {
         self.operation = std::option::Option::Some(
-            crate::model::automation_run::Operation::PromoteReleaseOperation(v.into()),
+            crate::model::automation_run::Operation::PromoteReleaseOperation(
+                v.into()
+            )
         );
         self
     }
@@ -20935,14 +20339,10 @@ impl AutomationRun {
     /// The value of [operation][crate::model::AutomationRun::operation]
     /// if it holds a `AdvanceRolloutOperation`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn advance_rollout_operation(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::AdvanceRolloutOperation>> {
+    pub fn advance_rollout_operation(&self) -> std::option::Option<&std::boxed::Box<crate::model::AdvanceRolloutOperation>> {
         #[allow(unreachable_patterns)]
         self.operation.as_ref().and_then(|v| match v {
-            crate::model::automation_run::Operation::AdvanceRolloutOperation(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::automation_run::Operation::AdvanceRolloutOperation(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -20963,14 +20363,11 @@ impl AutomationRun {
     /// assert!(x.repair_rollout_operation().is_none());
     /// assert!(x.timed_promote_release_operation().is_none());
     /// ```
-    pub fn set_advance_rollout_operation<
-        T: std::convert::Into<std::boxed::Box<crate::model::AdvanceRolloutOperation>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_advance_rollout_operation<T: std::convert::Into<std::boxed::Box<crate::model::AdvanceRolloutOperation>>>(mut self, v: T) -> Self {
         self.operation = std::option::Option::Some(
-            crate::model::automation_run::Operation::AdvanceRolloutOperation(v.into()),
+            crate::model::automation_run::Operation::AdvanceRolloutOperation(
+                v.into()
+            )
         );
         self
     }
@@ -20978,14 +20375,10 @@ impl AutomationRun {
     /// The value of [operation][crate::model::AutomationRun::operation]
     /// if it holds a `RepairRolloutOperation`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn repair_rollout_operation(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::RepairRolloutOperation>> {
+    pub fn repair_rollout_operation(&self) -> std::option::Option<&std::boxed::Box<crate::model::RepairRolloutOperation>> {
         #[allow(unreachable_patterns)]
         self.operation.as_ref().and_then(|v| match v {
-            crate::model::automation_run::Operation::RepairRolloutOperation(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::automation_run::Operation::RepairRolloutOperation(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -21006,14 +20399,11 @@ impl AutomationRun {
     /// assert!(x.advance_rollout_operation().is_none());
     /// assert!(x.timed_promote_release_operation().is_none());
     /// ```
-    pub fn set_repair_rollout_operation<
-        T: std::convert::Into<std::boxed::Box<crate::model::RepairRolloutOperation>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_repair_rollout_operation<T: std::convert::Into<std::boxed::Box<crate::model::RepairRolloutOperation>>>(mut self, v: T) -> Self {
         self.operation = std::option::Option::Some(
-            crate::model::automation_run::Operation::RepairRolloutOperation(v.into()),
+            crate::model::automation_run::Operation::RepairRolloutOperation(
+                v.into()
+            )
         );
         self
     }
@@ -21021,14 +20411,10 @@ impl AutomationRun {
     /// The value of [operation][crate::model::AutomationRun::operation]
     /// if it holds a `TimedPromoteReleaseOperation`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn timed_promote_release_operation(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::TimedPromoteReleaseOperation>> {
+    pub fn timed_promote_release_operation(&self) -> std::option::Option<&std::boxed::Box<crate::model::TimedPromoteReleaseOperation>> {
         #[allow(unreachable_patterns)]
         self.operation.as_ref().and_then(|v| match v {
-            crate::model::automation_run::Operation::TimedPromoteReleaseOperation(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::automation_run::Operation::TimedPromoteReleaseOperation(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -21049,14 +20435,11 @@ impl AutomationRun {
     /// assert!(x.advance_rollout_operation().is_none());
     /// assert!(x.repair_rollout_operation().is_none());
     /// ```
-    pub fn set_timed_promote_release_operation<
-        T: std::convert::Into<std::boxed::Box<crate::model::TimedPromoteReleaseOperation>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_timed_promote_release_operation<T: std::convert::Into<std::boxed::Box<crate::model::TimedPromoteReleaseOperation>>>(mut self, v: T) -> Self {
         self.operation = std::option::Option::Some(
-            crate::model::automation_run::Operation::TimedPromoteReleaseOperation(v.into()),
+            crate::model::automation_run::Operation::TimedPromoteReleaseOperation(
+                v.into()
+            )
         );
         self
     }
@@ -21072,6 +20455,7 @@ impl wkt::message::Message for AutomationRun {
 pub mod automation_run {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Valid state of an `AutomationRun`.
     ///
@@ -21179,9 +20563,7 @@ pub mod automation_run {
                 4 => Self::InProgress,
                 5 => Self::Pending,
                 6 => Self::Aborted,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -21197,9 +20579,7 @@ pub mod automation_run {
                 "IN_PROGRESS" => Self::InProgress,
                 "PENDING" => Self::Pending,
                 "ABORTED" => Self::Aborted,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -21228,8 +20608,7 @@ pub mod automation_run {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.deploy.v1.AutomationRun.State",
-            ))
+                ".google.cloud.deploy.v1.AutomationRun.State"))
         }
     }
 
@@ -21253,6 +20632,7 @@ pub mod automation_run {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PromoteReleaseOperation {
+
     /// Output only. The ID of the target that represents the promotion stage to
     /// which the release will be promoted. The value of this field is the last
     /// segment of a target name.
@@ -21296,8 +20676,7 @@ impl PromoteReleaseOperation {
     /// let x = PromoteReleaseOperation::new().set_wait(Duration::default()/* use setters */);
     /// ```
     pub fn set_wait<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.wait = std::option::Option::Some(v.into());
         self
@@ -21313,8 +20692,7 @@ impl PromoteReleaseOperation {
     /// let x = PromoteReleaseOperation::new().set_or_clear_wait(None::<Duration>);
     /// ```
     pub fn set_or_clear_wait<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.wait = v.map(|x| x.into());
         self
@@ -21355,6 +20733,7 @@ impl wkt::message::Message for PromoteReleaseOperation {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AdvanceRolloutOperation {
+
     /// Output only. The phase of a deployment that initiated the operation.
     pub source_phase: std::string::String,
 
@@ -21396,8 +20775,7 @@ impl AdvanceRolloutOperation {
     /// let x = AdvanceRolloutOperation::new().set_wait(Duration::default()/* use setters */);
     /// ```
     pub fn set_wait<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.wait = std::option::Option::Some(v.into());
         self
@@ -21413,8 +20791,7 @@ impl AdvanceRolloutOperation {
     /// let x = AdvanceRolloutOperation::new().set_or_clear_wait(None::<Duration>);
     /// ```
     pub fn set_or_clear_wait<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.wait = v.map(|x| x.into());
         self
@@ -21439,10 +20816,7 @@ impl AdvanceRolloutOperation {
     /// # use google_cloud_deploy_v1::model::AdvanceRolloutOperation;
     /// let x = AdvanceRolloutOperation::new().set_destination_phase("example");
     /// ```
-    pub fn set_destination_phase<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_destination_phase<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.destination_phase = v.into();
         self
     }
@@ -21458,6 +20832,7 @@ impl wkt::message::Message for AdvanceRolloutOperation {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RepairRolloutOperation {
+
     /// Output only. The name of the rollout that initiates the `AutomationRun`.
     pub rollout: std::string::String,
 
@@ -21522,7 +20897,7 @@ impl RepairRolloutOperation {
     pub fn set_repair_phases<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::RepairPhase>,
+        V: std::convert::Into<crate::model::RepairPhase>
     {
         use std::iter::Iterator;
         self.repair_phases = v.into_iter().map(|i| i.into()).collect();
@@ -21564,6 +20939,7 @@ impl wkt::message::Message for RepairRolloutOperation {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TimedPromoteReleaseOperation {
+
     /// Output only. The ID of the target that represents the promotion stage to
     /// which the release will be promoted. The value of this field is the last
     /// segment of a target name.
@@ -21631,6 +21007,7 @@ impl wkt::message::Message for TimedPromoteReleaseOperation {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RepairPhase {
+
     /// The `RepairPhase` type and the information for that type.
     pub repair_phase: std::option::Option<crate::model::repair_phase::RepairPhase>,
 
@@ -21654,12 +21031,8 @@ impl RepairPhase {
     /// let x = RepairPhase::new().set_repair_phase(Some(
     ///     google_cloud_deploy_v1::model::repair_phase::RepairPhase::Retry(RetryPhase::default().into())));
     /// ```
-    pub fn set_repair_phase<
-        T: std::convert::Into<std::option::Option<crate::model::repair_phase::RepairPhase>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_repair_phase<T: std::convert::Into<std::option::Option<crate::model::repair_phase::RepairPhase>>>(mut self, v: T) -> Self
+    {
         self.repair_phase = v.into();
         self
     }
@@ -21689,12 +21062,12 @@ impl RepairPhase {
     /// assert!(x.retry().is_some());
     /// assert!(x.rollback().is_none());
     /// ```
-    pub fn set_retry<T: std::convert::Into<std::boxed::Box<crate::model::RetryPhase>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.repair_phase =
-            std::option::Option::Some(crate::model::repair_phase::RepairPhase::Retry(v.into()));
+    pub fn set_retry<T: std::convert::Into<std::boxed::Box<crate::model::RetryPhase>>>(mut self, v: T) -> Self {
+        self.repair_phase = std::option::Option::Some(
+            crate::model::repair_phase::RepairPhase::Retry(
+                v.into()
+            )
+        );
         self
     }
 
@@ -21723,12 +21096,12 @@ impl RepairPhase {
     /// assert!(x.rollback().is_some());
     /// assert!(x.retry().is_none());
     /// ```
-    pub fn set_rollback<T: std::convert::Into<std::boxed::Box<crate::model::RollbackAttempt>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.repair_phase =
-            std::option::Option::Some(crate::model::repair_phase::RepairPhase::Rollback(v.into()));
+    pub fn set_rollback<T: std::convert::Into<std::boxed::Box<crate::model::RollbackAttempt>>>(mut self, v: T) -> Self {
+        self.repair_phase = std::option::Option::Some(
+            crate::model::repair_phase::RepairPhase::Rollback(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -21743,6 +21116,7 @@ impl wkt::message::Message for RepairPhase {
 pub mod repair_phase {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The `RepairPhase` type and the information for that type.
     #[derive(Clone, Debug, PartialEq)]
@@ -21760,6 +21134,7 @@ pub mod repair_phase {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RetryPhase {
+
     /// Output only. The number of attempts that have been made.
     pub total_attempts: i64,
 
@@ -21799,10 +21174,7 @@ impl RetryPhase {
     /// let x0 = RetryPhase::new().set_backoff_mode(BackoffMode::Linear);
     /// let x1 = RetryPhase::new().set_backoff_mode(BackoffMode::Exponential);
     /// ```
-    pub fn set_backoff_mode<T: std::convert::Into<crate::model::BackoffMode>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_backoff_mode<T: std::convert::Into<crate::model::BackoffMode>>(mut self, v: T) -> Self {
         self.backoff_mode = v.into();
         self
     }
@@ -21822,7 +21194,7 @@ impl RetryPhase {
     pub fn set_attempts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::RetryAttempt>,
+        V: std::convert::Into<crate::model::RetryAttempt>
     {
         use std::iter::Iterator;
         self.attempts = v.into_iter().map(|i| i.into()).collect();
@@ -21840,6 +21212,7 @@ impl wkt::message::Message for RetryPhase {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RetryAttempt {
+
     /// Output only. The index of this retry attempt.
     pub attempt: i64,
 
@@ -21881,8 +21254,7 @@ impl RetryAttempt {
     /// let x = RetryAttempt::new().set_wait(Duration::default()/* use setters */);
     /// ```
     pub fn set_wait<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.wait = std::option::Option::Some(v.into());
         self
@@ -21898,8 +21270,7 @@ impl RetryAttempt {
     /// let x = RetryAttempt::new().set_or_clear_wait(None::<Duration>);
     /// ```
     pub fn set_or_clear_wait<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.wait = v.map(|x| x.into());
         self
@@ -21943,6 +21314,7 @@ impl wkt::message::Message for RetryAttempt {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RollbackAttempt {
+
     /// Output only. The phase to which the rollout will be rolled back to.
     pub destination_phase: std::string::String,
 
@@ -21973,10 +21345,7 @@ impl RollbackAttempt {
     /// # use google_cloud_deploy_v1::model::RollbackAttempt;
     /// let x = RollbackAttempt::new().set_destination_phase("example");
     /// ```
-    pub fn set_destination_phase<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_destination_phase<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.destination_phase = v.into();
         self
     }
@@ -22027,10 +21396,7 @@ impl RollbackAttempt {
     /// # use google_cloud_deploy_v1::model::RollbackAttempt;
     /// let x = RollbackAttempt::new().set_disable_rollback_if_rollout_pending(true);
     /// ```
-    pub fn set_disable_rollback_if_rollout_pending<T: std::convert::Into<bool>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_disable_rollback_if_rollout_pending<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.disable_rollback_if_rollout_pending = v.into();
         self
     }
@@ -22046,6 +21412,7 @@ impl wkt::message::Message for RollbackAttempt {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAutomationRunsRequest {
+
     /// Required. The parent `Delivery Pipeline`, which owns this collection of
     /// automationRuns. Format must be
     /// `projects/{project}/locations/{location}/deliveryPipelines/{delivery_pipeline}`.
@@ -22150,6 +21517,7 @@ impl wkt::message::Message for ListAutomationRunsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAutomationRunsResponse {
+
     /// The `AutomationRuns` objects.
     pub automation_runs: std::vec::Vec<crate::model::AutomationRun>,
 
@@ -22183,7 +21551,7 @@ impl ListAutomationRunsResponse {
     pub fn set_automation_runs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AutomationRun>,
+        V: std::convert::Into<crate::model::AutomationRun>
     {
         use std::iter::Iterator;
         self.automation_runs = v.into_iter().map(|i| i.into()).collect();
@@ -22212,7 +21580,7 @@ impl ListAutomationRunsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -22244,6 +21612,7 @@ impl gax::paginator::internal::PageableResponse for ListAutomationRunsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAutomationRunRequest {
+
     /// Required. Name of the `AutomationRun`. Format must be
     /// `projects/{project}/locations/{location}/deliveryPipelines/{delivery_pipeline}/automationRuns/{automation_run}`.
     pub name: std::string::String,
@@ -22279,6 +21648,7 @@ impl wkt::message::Message for GetAutomationRunRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CancelAutomationRunRequest {
+
     /// Required. Name of the `AutomationRun`. Format is
     /// `projects/{project}/locations/{location}/deliveryPipelines/{delivery_pipeline}/automationRuns/{automation_run}`.
     pub name: std::string::String,
@@ -22314,6 +21684,7 @@ impl wkt::message::Message for CancelAutomationRunRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CancelAutomationRunResponse {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -22335,6 +21706,7 @@ impl wkt::message::Message for CancelAutomationRunResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CustomTargetTypeNotificationEvent {
+
     /// Debug message for when a notification fails to send.
     pub message: std::string::String,
 
@@ -22374,10 +21746,7 @@ impl CustomTargetTypeNotificationEvent {
     /// # use google_cloud_deploy_v1::model::CustomTargetTypeNotificationEvent;
     /// let x = CustomTargetTypeNotificationEvent::new().set_custom_target_type_uid("example");
     /// ```
-    pub fn set_custom_target_type_uid<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_custom_target_type_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.custom_target_type_uid = v.into();
         self
     }
@@ -22389,10 +21758,7 @@ impl CustomTargetTypeNotificationEvent {
     /// # use google_cloud_deploy_v1::model::CustomTargetTypeNotificationEvent;
     /// let x = CustomTargetTypeNotificationEvent::new().set_custom_target_type("example");
     /// ```
-    pub fn set_custom_target_type<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_custom_target_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.custom_target_type = v.into();
         self
     }
@@ -22425,6 +21791,7 @@ impl wkt::message::Message for CustomTargetTypeNotificationEvent {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeliveryPipelineNotificationEvent {
+
     /// Debug message for when a notification fails to send.
     pub message: std::string::String,
 
@@ -22476,10 +21843,7 @@ impl DeliveryPipelineNotificationEvent {
     /// # use google_cloud_deploy_v1::model::DeliveryPipelineNotificationEvent;
     /// let x = DeliveryPipelineNotificationEvent::new().set_delivery_pipeline("example");
     /// ```
-    pub fn set_delivery_pipeline<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_delivery_pipeline<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.delivery_pipeline = v.into();
         self
     }
@@ -22511,6 +21875,7 @@ impl wkt::message::Message for DeliveryPipelineNotificationEvent {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeployPolicyEvaluationEvent {
+
     /// Debug message for when a deploy policy event occurs.
     pub message: std::string::String,
 
@@ -22555,8 +21920,7 @@ pub struct DeployPolicyEvaluationEvent {
 
     /// Things that could have overridden the policy verdict. Overrides together
     /// with verdict decide whether the request is allowed.
-    pub overrides:
-        std::vec::Vec<crate::model::deploy_policy_evaluation_event::PolicyVerdictOverride>,
+    pub overrides: std::vec::Vec<crate::model::deploy_policy_evaluation_event::PolicyVerdictOverride>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -22621,10 +21985,7 @@ impl DeployPolicyEvaluationEvent {
     /// # use google_cloud_deploy_v1::model::DeployPolicyEvaluationEvent;
     /// let x = DeployPolicyEvaluationEvent::new().set_delivery_pipeline("example");
     /// ```
-    pub fn set_delivery_pipeline<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_delivery_pipeline<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.delivery_pipeline = v.into();
         self
     }
@@ -22662,10 +22023,7 @@ impl DeployPolicyEvaluationEvent {
     /// let x0 = DeployPolicyEvaluationEvent::new().set_invoker(Invoker::User);
     /// let x1 = DeployPolicyEvaluationEvent::new().set_invoker(Invoker::DeployAutomation);
     /// ```
-    pub fn set_invoker<T: std::convert::Into<crate::model::deploy_policy::Invoker>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_invoker<T: std::convert::Into<crate::model::deploy_policy::Invoker>>(mut self, v: T) -> Self {
         self.invoker = v.into();
         self
     }
@@ -22689,10 +22047,7 @@ impl DeployPolicyEvaluationEvent {
     /// # use google_cloud_deploy_v1::model::DeployPolicyEvaluationEvent;
     /// let x = DeployPolicyEvaluationEvent::new().set_deploy_policy_uid("example");
     /// ```
-    pub fn set_deploy_policy_uid<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_deploy_policy_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.deploy_policy_uid = v.into();
         self
     }
@@ -22718,12 +22073,7 @@ impl DeployPolicyEvaluationEvent {
     /// let x0 = DeployPolicyEvaluationEvent::new().set_verdict(PolicyVerdict::AllowedByPolicy);
     /// let x1 = DeployPolicyEvaluationEvent::new().set_verdict(PolicyVerdict::DeniedByPolicy);
     /// ```
-    pub fn set_verdict<
-        T: std::convert::Into<crate::model::deploy_policy_evaluation_event::PolicyVerdict>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_verdict<T: std::convert::Into<crate::model::deploy_policy_evaluation_event::PolicyVerdict>>(mut self, v: T) -> Self {
         self.verdict = v.into();
         self
     }
@@ -22742,7 +22092,7 @@ impl DeployPolicyEvaluationEvent {
     pub fn set_overrides<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::deploy_policy_evaluation_event::PolicyVerdictOverride>,
+        V: std::convert::Into<crate::model::deploy_policy_evaluation_event::PolicyVerdictOverride>
     {
         use std::iter::Iterator;
         self.overrides = v.into_iter().map(|i| i.into()).collect();
@@ -22760,6 +22110,7 @@ impl wkt::message::Message for DeployPolicyEvaluationEvent {
 pub mod deploy_policy_evaluation_event {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The policy verdict of the request.
     ///
@@ -22849,9 +22200,7 @@ pub mod deploy_policy_evaluation_event {
                 0 => Self::Unspecified,
                 1 => Self::AllowedByPolicy,
                 2 => Self::DeniedByPolicy,
-                _ => Self::UnknownValue(policy_verdict::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(policy_verdict::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -22863,9 +22212,7 @@ pub mod deploy_policy_evaluation_event {
                 "POLICY_VERDICT_UNSPECIFIED" => Self::Unspecified,
                 "ALLOWED_BY_POLICY" => Self::AllowedByPolicy,
                 "DENIED_BY_POLICY" => Self::DeniedByPolicy,
-                _ => Self::UnknownValue(policy_verdict::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(policy_verdict::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -22890,8 +22237,7 @@ pub mod deploy_policy_evaluation_event {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<PolicyVerdict>::new(
-                ".google.cloud.deploy.v1.DeployPolicyEvaluationEvent.PolicyVerdict",
-            ))
+                ".google.cloud.deploy.v1.DeployPolicyEvaluationEvent.PolicyVerdict"))
         }
     }
 
@@ -22955,9 +22301,7 @@ pub mod deploy_policy_evaluation_event {
         /// the integer representation of enums.
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
-                Self::Unspecified => {
-                    std::option::Option::Some("POLICY_VERDICT_OVERRIDE_UNSPECIFIED")
-                }
+                Self::Unspecified => std::option::Option::Some("POLICY_VERDICT_OVERRIDE_UNSPECIFIED"),
                 Self::PolicyOverridden => std::option::Option::Some("POLICY_OVERRIDDEN"),
                 Self::PolicySuspended => std::option::Option::Some("POLICY_SUSPENDED"),
                 Self::UnknownValue(u) => u.0.name(),
@@ -22984,9 +22328,7 @@ pub mod deploy_policy_evaluation_event {
                 0 => Self::Unspecified,
                 1 => Self::PolicyOverridden,
                 2 => Self::PolicySuspended,
-                _ => Self::UnknownValue(policy_verdict_override::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(policy_verdict_override::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -22998,9 +22340,7 @@ pub mod deploy_policy_evaluation_event {
                 "POLICY_VERDICT_OVERRIDE_UNSPECIFIED" => Self::Unspecified,
                 "POLICY_OVERRIDDEN" => Self::PolicyOverridden,
                 "POLICY_SUSPENDED" => Self::PolicySuspended,
-                _ => Self::UnknownValue(policy_verdict_override::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(policy_verdict_override::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -23025,8 +22365,7 @@ pub mod deploy_policy_evaluation_event {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<PolicyVerdictOverride>::new(
-                ".google.cloud.deploy.v1.DeployPolicyEvaluationEvent.PolicyVerdictOverride",
-            ))
+                ".google.cloud.deploy.v1.DeployPolicyEvaluationEvent.PolicyVerdictOverride"))
         }
     }
 }
@@ -23037,6 +22376,7 @@ pub mod deploy_policy_evaluation_event {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeployPolicyNotificationEvent {
+
     /// Debug message for when a deploy policy fails to send a pub/sub
     /// notification.
     pub message: std::string::String,
@@ -23089,10 +22429,7 @@ impl DeployPolicyNotificationEvent {
     /// # use google_cloud_deploy_v1::model::DeployPolicyNotificationEvent;
     /// let x = DeployPolicyNotificationEvent::new().set_deploy_policy_uid("example");
     /// ```
-    pub fn set_deploy_policy_uid<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_deploy_policy_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.deploy_policy_uid = v.into();
         self
     }
@@ -23125,6 +22462,7 @@ impl wkt::message::Message for DeployPolicyNotificationEvent {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct JobRunNotificationEvent {
+
     /// Debug message for when a notification fails to send.
     pub message: std::string::String,
 
@@ -23284,6 +22622,7 @@ impl wkt::message::Message for JobRunNotificationEvent {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReleaseNotificationEvent {
+
     /// Debug message for when a notification fails to send.
     pub message: std::string::String,
 
@@ -23382,6 +22721,7 @@ impl wkt::message::Message for ReleaseNotificationEvent {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReleaseRenderEvent {
+
     /// Debug message for when a render transition occurs. Provides further
     /// details as rendering progresses through render states.
     pub message: std::string::String,
@@ -23469,10 +22809,7 @@ impl ReleaseRenderEvent {
     /// let x1 = ReleaseRenderEvent::new().set_release_render_state(RenderState::Failed);
     /// let x2 = ReleaseRenderEvent::new().set_release_render_state(RenderState::InProgress);
     /// ```
-    pub fn set_release_render_state<T: std::convert::Into<crate::model::release::RenderState>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_release_render_state<T: std::convert::Into<crate::model::release::RenderState>>(mut self, v: T) -> Self {
         self.release_render_state = v.into();
         self
     }
@@ -23490,6 +22827,7 @@ impl wkt::message::Message for ReleaseRenderEvent {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RolloutNotificationEvent {
+
     /// Debug message for when a notification fails to send.
     pub message: std::string::String,
 
@@ -23633,6 +22971,7 @@ impl wkt::message::Message for RolloutNotificationEvent {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RolloutUpdateEvent {
+
     /// Debug message for when a rollout update event occurs.
     pub message: std::string::String,
 
@@ -23764,12 +23103,7 @@ impl RolloutUpdateEvent {
     /// let x1 = RolloutUpdateEvent::new().set_rollout_update_type(RolloutUpdateType::PendingRelease);
     /// let x2 = RolloutUpdateEvent::new().set_rollout_update_type(RolloutUpdateType::InProgress);
     /// ```
-    pub fn set_rollout_update_type<
-        T: std::convert::Into<crate::model::rollout_update_event::RolloutUpdateType>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_rollout_update_type<T: std::convert::Into<crate::model::rollout_update_event::RolloutUpdateType>>(mut self, v: T) -> Self {
         self.rollout_update_type = v.into();
         self
     }
@@ -23785,6 +23119,7 @@ impl wkt::message::Message for RolloutUpdateEvent {
 pub mod rollout_update_event {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// RolloutUpdateType indicates the type of the rollout update.
     ///
@@ -23927,9 +23262,7 @@ pub mod rollout_update_event {
                 11 => Self::Rejected,
                 12 => Self::AdvanceRequired,
                 13 => Self::Advanced,
-                _ => Self::UnknownValue(rollout_update_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(rollout_update_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -23952,9 +23285,7 @@ pub mod rollout_update_event {
                 "REJECTED" => Self::Rejected,
                 "ADVANCE_REQUIRED" => Self::AdvanceRequired,
                 "ADVANCED" => Self::Advanced,
-                _ => Self::UnknownValue(rollout_update_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(rollout_update_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -23990,8 +23321,7 @@ pub mod rollout_update_event {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<RolloutUpdateType>::new(
-                ".google.cloud.deploy.v1.RolloutUpdateEvent.RolloutUpdateType",
-            ))
+                ".google.cloud.deploy.v1.RolloutUpdateEvent.RolloutUpdateType"))
         }
     }
 }
@@ -24002,6 +23332,7 @@ pub mod rollout_update_event {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TargetNotificationEvent {
+
     /// Debug message for when a notification fails to send.
     pub message: std::string::String,
 
@@ -24129,9 +23460,7 @@ impl SkaffoldSupportState {
         match self {
             Self::Unspecified => std::option::Option::Some("SKAFFOLD_SUPPORT_STATE_UNSPECIFIED"),
             Self::Supported => std::option::Option::Some("SKAFFOLD_SUPPORT_STATE_SUPPORTED"),
-            Self::MaintenanceMode => {
-                std::option::Option::Some("SKAFFOLD_SUPPORT_STATE_MAINTENANCE_MODE")
-            }
+            Self::MaintenanceMode => std::option::Option::Some("SKAFFOLD_SUPPORT_STATE_MAINTENANCE_MODE"),
             Self::Unsupported => std::option::Option::Some("SKAFFOLD_SUPPORT_STATE_UNSUPPORTED"),
             Self::UnknownValue(u) => u.0.name(),
         }
@@ -24158,9 +23487,7 @@ impl std::convert::From<i32> for SkaffoldSupportState {
             1 => Self::Supported,
             2 => Self::MaintenanceMode,
             3 => Self::Unsupported,
-            _ => Self::UnknownValue(skaffold_support_state::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(skaffold_support_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -24173,9 +23500,7 @@ impl std::convert::From<&str> for SkaffoldSupportState {
             "SKAFFOLD_SUPPORT_STATE_SUPPORTED" => Self::Supported,
             "SKAFFOLD_SUPPORT_STATE_MAINTENANCE_MODE" => Self::MaintenanceMode,
             "SKAFFOLD_SUPPORT_STATE_UNSUPPORTED" => Self::Unsupported,
-            _ => Self::UnknownValue(skaffold_support_state::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(skaffold_support_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -24201,8 +23526,7 @@ impl<'de> serde::de::Deserialize<'de> for SkaffoldSupportState {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<SkaffoldSupportState>::new(
-            ".google.cloud.deploy.v1.SkaffoldSupportState",
-        ))
+            ".google.cloud.deploy.v1.SkaffoldSupportState"))
     }
 }
 
@@ -24292,9 +23616,7 @@ impl std::convert::From<i32> for BackoffMode {
             0 => Self::Unspecified,
             1 => Self::Linear,
             2 => Self::Exponential,
-            _ => Self::UnknownValue(backoff_mode::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(backoff_mode::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -24306,9 +23628,7 @@ impl std::convert::From<&str> for BackoffMode {
             "BACKOFF_MODE_UNSPECIFIED" => Self::Unspecified,
             "BACKOFF_MODE_LINEAR" => Self::Linear,
             "BACKOFF_MODE_EXPONENTIAL" => Self::Exponential,
-            _ => Self::UnknownValue(backoff_mode::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(backoff_mode::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -24333,8 +23653,7 @@ impl<'de> serde::de::Deserialize<'de> for BackoffMode {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<BackoffMode>::new(
-            ".google.cloud.deploy.v1.BackoffMode",
-        ))
+            ".google.cloud.deploy.v1.BackoffMode"))
     }
 }
 
@@ -24444,9 +23763,7 @@ impl std::convert::From<i32> for RepairState {
             4 => Self::InProgress,
             5 => Self::Pending,
             7 => Self::Aborted,
-            _ => Self::UnknownValue(repair_state::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(repair_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -24462,9 +23779,7 @@ impl std::convert::From<&str> for RepairState {
             "REPAIR_STATE_IN_PROGRESS" => Self::InProgress,
             "REPAIR_STATE_PENDING" => Self::Pending,
             "REPAIR_STATE_ABORTED" => Self::Aborted,
-            _ => Self::UnknownValue(repair_state::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(repair_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -24493,8 +23808,7 @@ impl<'de> serde::de::Deserialize<'de> for RepairState {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<RepairState>::new(
-            ".google.cloud.deploy.v1.RepairState",
-        ))
+            ".google.cloud.deploy.v1.RepairState"))
     }
 }
 
@@ -24577,17 +23891,13 @@ impl Type {
     pub fn name(&self) -> std::option::Option<&str> {
         match self {
             Self::Unspecified => std::option::Option::Some("TYPE_UNSPECIFIED"),
-            Self::PubsubNotificationFailure => {
-                std::option::Option::Some("TYPE_PUBSUB_NOTIFICATION_FAILURE")
-            }
+            Self::PubsubNotificationFailure => std::option::Option::Some("TYPE_PUBSUB_NOTIFICATION_FAILURE"),
             Self::ResourceStateChange => std::option::Option::Some("TYPE_RESOURCE_STATE_CHANGE"),
             Self::ProcessAborted => std::option::Option::Some("TYPE_PROCESS_ABORTED"),
             Self::RestrictionViolated => std::option::Option::Some("TYPE_RESTRICTION_VIOLATED"),
             Self::ResourceDeleted => std::option::Option::Some("TYPE_RESOURCE_DELETED"),
             Self::RolloutUpdate => std::option::Option::Some("TYPE_ROLLOUT_UPDATE"),
-            Self::DeployPolicyEvaluation => {
-                std::option::Option::Some("TYPE_DEPLOY_POLICY_EVALUATION")
-            }
+            Self::DeployPolicyEvaluation => std::option::Option::Some("TYPE_DEPLOY_POLICY_EVALUATION"),
             Self::RenderStatuesChange => std::option::Option::Some("TYPE_RENDER_STATUES_CHANGE"),
             Self::UnknownValue(u) => u.0.name(),
         }
@@ -24619,9 +23929,7 @@ impl std::convert::From<i32> for Type {
             6 => Self::ResourceDeleted,
             7 => Self::RolloutUpdate,
             8 => Self::DeployPolicyEvaluation,
-            _ => Self::UnknownValue(r#type::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -24639,9 +23947,7 @@ impl std::convert::From<&str> for Type {
             "TYPE_ROLLOUT_UPDATE" => Self::RolloutUpdate,
             "TYPE_DEPLOY_POLICY_EVALUATION" => Self::DeployPolicyEvaluation,
             "TYPE_RENDER_STATUES_CHANGE" => Self::RenderStatuesChange,
-            _ => Self::UnknownValue(r#type::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -24672,7 +23978,6 @@ impl<'de> serde::de::Deserialize<'de> for Type {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
-            ".google.cloud.deploy.v1.Type",
-        ))
+            ".google.cloud.deploy.v1.Type"))
     }
 }

@@ -100,54 +100,59 @@ impl InstanceAdmin {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::InstanceAdmin + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::InstanceAdmin + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::InstanceAdmin>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::InstanceAdmin>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::InstanceAdmin> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::InstanceAdmin> {
         super::transport::InstanceAdmin::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::InstanceAdmin> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::InstanceAdmin::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::InstanceAdmin> {
+        Self::build_transport(conf).await.map(super::tracing::InstanceAdmin::new)
     }
 
     /// Lists the supported instance configurations for a given project.
     ///
     /// Returns both Google-managed configurations and user-managed
     /// configurations.
-    pub fn list_instance_configs(&self) -> super::builder::instance_admin::ListInstanceConfigs {
+    pub fn list_instance_configs(&self) -> super::builder::instance_admin::ListInstanceConfigs
+    {
         super::builder::instance_admin::ListInstanceConfigs::new(self.inner.clone())
     }
 
     /// Gets information about a particular instance configuration.
-    pub fn get_instance_config(&self) -> super::builder::instance_admin::GetInstanceConfig {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner_admin_instance_v1::client::InstanceAdmin;
+    /// async fn sample(
+    ///    client: &InstanceAdmin,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_instance_config()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_instance_config(&self) -> super::builder::instance_admin::GetInstanceConfig
+    {
         super::builder::instance_admin::GetInstanceConfig::new(self.inner.clone())
     }
 
@@ -207,7 +212,8 @@ impl InstanceAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_instance_config(&self) -> super::builder::instance_admin::CreateInstanceConfig {
+    pub fn create_instance_config(&self) -> super::builder::instance_admin::CreateInstanceConfig
+    {
         super::builder::instance_admin::CreateInstanceConfig::new(self.inner.clone())
     }
 
@@ -271,7 +277,8 @@ impl InstanceAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_instance_config(&self) -> super::builder::instance_admin::UpdateInstanceConfig {
+    pub fn update_instance_config(&self) -> super::builder::instance_admin::UpdateInstanceConfig
+    {
         super::builder::instance_admin::UpdateInstanceConfig::new(self.inner.clone())
     }
 
@@ -285,7 +292,24 @@ impl InstanceAdmin {
     /// the resource [name][google.spanner.admin.instance.v1.InstanceConfig.name].
     ///
     /// [google.spanner.admin.instance.v1.InstanceConfig.name]: crate::model::InstanceConfig::name
-    pub fn delete_instance_config(&self) -> super::builder::instance_admin::DeleteInstanceConfig {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner_admin_instance_v1::client::InstanceAdmin;
+    /// async fn sample(
+    ///    client: &InstanceAdmin,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_instance_config()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_instance_config(&self) -> super::builder::instance_admin::DeleteInstanceConfig
+    {
         super::builder::instance_admin::DeleteInstanceConfig::new(self.inner.clone())
     }
 
@@ -300,26 +324,43 @@ impl InstanceAdmin {
     /// and pending operations. Operations returned are ordered by
     /// `operation.metadata.value.start_time` in descending order starting
     /// from the most recently started operation.
-    pub fn list_instance_config_operations(
-        &self,
-    ) -> super::builder::instance_admin::ListInstanceConfigOperations {
+    pub fn list_instance_config_operations(&self) -> super::builder::instance_admin::ListInstanceConfigOperations
+    {
         super::builder::instance_admin::ListInstanceConfigOperations::new(self.inner.clone())
     }
 
     /// Lists all instances in the given project.
-    pub fn list_instances(&self) -> super::builder::instance_admin::ListInstances {
+    pub fn list_instances(&self) -> super::builder::instance_admin::ListInstances
+    {
         super::builder::instance_admin::ListInstances::new(self.inner.clone())
     }
 
     /// Lists all instance partitions for the given instance.
-    pub fn list_instance_partitions(
-        &self,
-    ) -> super::builder::instance_admin::ListInstancePartitions {
+    pub fn list_instance_partitions(&self) -> super::builder::instance_admin::ListInstancePartitions
+    {
         super::builder::instance_admin::ListInstancePartitions::new(self.inner.clone())
     }
 
     /// Gets information about a particular instance.
-    pub fn get_instance(&self) -> super::builder::instance_admin::GetInstance {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner_admin_instance_v1::client::InstanceAdmin;
+    /// async fn sample(
+    ///    client: &InstanceAdmin,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_instance()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_instance(&self) -> super::builder::instance_admin::GetInstance
+    {
         super::builder::instance_admin::GetInstance::new(self.inner.clone())
     }
 
@@ -370,7 +411,8 @@ impl InstanceAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_instance(&self) -> super::builder::instance_admin::CreateInstance {
+    pub fn create_instance(&self) -> super::builder::instance_admin::CreateInstance
+    {
         super::builder::instance_admin::CreateInstance::new(self.inner.clone())
     }
 
@@ -428,7 +470,8 @@ impl InstanceAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_instance(&self) -> super::builder::instance_admin::UpdateInstance {
+    pub fn update_instance(&self) -> super::builder::instance_admin::UpdateInstance
+    {
         super::builder::instance_admin::UpdateInstance::new(self.inner.clone())
     }
 
@@ -443,7 +486,24 @@ impl InstanceAdmin {
     /// * The instance and *all of its databases* immediately and
     ///   irrevocably disappear from the API. All data in the databases
     ///   is permanently deleted.
-    pub fn delete_instance(&self) -> super::builder::instance_admin::DeleteInstance {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner_admin_instance_v1::client::InstanceAdmin;
+    /// async fn sample(
+    ///    client: &InstanceAdmin,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_instance()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_instance(&self) -> super::builder::instance_admin::DeleteInstance
+    {
         super::builder::instance_admin::DeleteInstance::new(self.inner.clone())
     }
 
@@ -454,7 +514,24 @@ impl InstanceAdmin {
     /// [resource][google.iam.v1.SetIamPolicyRequest.resource].
     ///
     /// [google.iam.v1.SetIamPolicyRequest.resource]: iam_v1::model::SetIamPolicyRequest::resource
-    pub fn set_iam_policy(&self) -> super::builder::instance_admin::SetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner_admin_instance_v1::client::InstanceAdmin;
+    /// async fn sample(
+    ///    client: &InstanceAdmin
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::instance_admin::SetIamPolicy
+    {
         super::builder::instance_admin::SetIamPolicy::new(self.inner.clone())
     }
 
@@ -465,7 +542,24 @@ impl InstanceAdmin {
     /// [resource][google.iam.v1.GetIamPolicyRequest.resource].
     ///
     /// [google.iam.v1.GetIamPolicyRequest.resource]: iam_v1::model::GetIamPolicyRequest::resource
-    pub fn get_iam_policy(&self) -> super::builder::instance_admin::GetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner_admin_instance_v1::client::InstanceAdmin;
+    /// async fn sample(
+    ///    client: &InstanceAdmin
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::instance_admin::GetIamPolicy
+    {
         super::builder::instance_admin::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -475,12 +569,47 @@ impl InstanceAdmin {
     /// result in a NOT_FOUND error if the user has `spanner.instances.list`
     /// permission on the containing Google Cloud Project. Otherwise returns an
     /// empty set of permissions.
-    pub fn test_iam_permissions(&self) -> super::builder::instance_admin::TestIamPermissions {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner_admin_instance_v1::client::InstanceAdmin;
+    /// async fn sample(
+    ///    client: &InstanceAdmin
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::instance_admin::TestIamPermissions
+    {
         super::builder::instance_admin::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Gets information about a particular instance partition.
-    pub fn get_instance_partition(&self) -> super::builder::instance_admin::GetInstancePartition {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner_admin_instance_v1::client::InstanceAdmin;
+    /// async fn sample(
+    ///    client: &InstanceAdmin,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_instance_partition()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_instance_partition(&self) -> super::builder::instance_admin::GetInstancePartition
+    {
         super::builder::instance_admin::GetInstancePartition::new(self.inner.clone())
     }
 
@@ -534,9 +663,8 @@ impl InstanceAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_instance_partition(
-        &self,
-    ) -> super::builder::instance_admin::CreateInstancePartition {
+    pub fn create_instance_partition(&self) -> super::builder::instance_admin::CreateInstancePartition
+    {
         super::builder::instance_admin::CreateInstancePartition::new(self.inner.clone())
     }
 
@@ -549,9 +677,24 @@ impl InstanceAdmin {
     /// [name][google.spanner.admin.instance.v1.InstancePartition.name].
     ///
     /// [google.spanner.admin.instance.v1.InstancePartition.name]: crate::model::InstancePartition::name
-    pub fn delete_instance_partition(
-        &self,
-    ) -> super::builder::instance_admin::DeleteInstancePartition {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner_admin_instance_v1::client::InstanceAdmin;
+    /// async fn sample(
+    ///    client: &InstanceAdmin,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_instance_partition()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_instance_partition(&self) -> super::builder::instance_admin::DeleteInstancePartition
+    {
         super::builder::instance_admin::DeleteInstancePartition::new(self.inner.clone())
     }
 
@@ -613,9 +756,8 @@ impl InstanceAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_instance_partition(
-        &self,
-    ) -> super::builder::instance_admin::UpdateInstancePartition {
+    pub fn update_instance_partition(&self) -> super::builder::instance_admin::UpdateInstancePartition
+    {
         super::builder::instance_admin::UpdateInstancePartition::new(self.inner.clone())
     }
 
@@ -635,9 +777,8 @@ impl InstanceAdmin {
     /// [parent][google.spanner.admin.instance.v1.ListInstancePartitionOperationsRequest.parent].
     ///
     /// [google.spanner.admin.instance.v1.ListInstancePartitionOperationsRequest.parent]: crate::model::ListInstancePartitionOperationsRequest::parent
-    pub fn list_instance_partition_operations(
-        &self,
-    ) -> super::builder::instance_admin::ListInstancePartitionOperations {
+    pub fn list_instance_partition_operations(&self) -> super::builder::instance_admin::ListInstancePartitionOperations
+    {
         super::builder::instance_admin::ListInstancePartitionOperations::new(self.inner.clone())
     }
 
@@ -718,35 +859,86 @@ impl InstanceAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn move_instance(&self) -> super::builder::instance_admin::MoveInstance {
+    pub fn move_instance(&self) -> super::builder::instance_admin::MoveInstance
+    {
         super::builder::instance_admin::MoveInstance::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::instance_admin::ListOperations {
+    pub fn list_operations(&self) -> super::builder::instance_admin::ListOperations
+    {
         super::builder::instance_admin::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::instance_admin::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner_admin_instance_v1::client::InstanceAdmin;
+    /// async fn sample(
+    ///    client: &InstanceAdmin
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::instance_admin::GetOperation
+    {
         super::builder::instance_admin::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(&self) -> super::builder::instance_admin::DeleteOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner_admin_instance_v1::client::InstanceAdmin;
+    /// async fn sample(
+    ///    client: &InstanceAdmin
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_operation(&self) -> super::builder::instance_admin::DeleteOperation
+    {
         super::builder::instance_admin::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(&self) -> super::builder::instance_admin::CancelOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner_admin_instance_v1::client::InstanceAdmin;
+    /// async fn sample(
+    ///    client: &InstanceAdmin
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_operation(&self) -> super::builder::instance_admin::CancelOperation
+    {
         super::builder::instance_admin::CancelOperation::new(self.inner.clone())
     }
 }

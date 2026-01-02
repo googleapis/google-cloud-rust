@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [AddressGroupService](super::stub::AddressGroupService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct AddressGroupService<T>
-where
-    T: super::stub::AddressGroupService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::AddressGroupService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> AddressGroupService<T>
-where
-    T: super::stub::AddressGroupService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::AddressGroupService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::AddressGroupService for AddressGroupService<T>
-where
-    T: super::stub::AddressGroupService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::AddressGroupService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn list_address_groups(
         &self,
@@ -198,6 +192,7 @@ where
     ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
+
 
     fn get_polling_error_policy(
         &self,
@@ -217,25 +212,19 @@ where
 /// Implements a [OrganizationAddressGroupService](super::stub::OrganizationAddressGroupService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct OrganizationAddressGroupService<T>
-where
-    T: super::stub::OrganizationAddressGroupService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::OrganizationAddressGroupService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> OrganizationAddressGroupService<T>
-where
-    T: super::stub::OrganizationAddressGroupService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::OrganizationAddressGroupService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::OrganizationAddressGroupService for OrganizationAddressGroupService<T>
-where
-    T: super::stub::OrganizationAddressGroupService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::OrganizationAddressGroupService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn list_address_groups(
         &self,
@@ -398,6 +387,7 @@ where
         self.inner.cancel_operation(req, options).await
     }
 
+
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -416,25 +406,19 @@ where
 /// Implements a [NetworkSecurity](super::stub::NetworkSecurity) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct NetworkSecurity<T>
-where
-    T: super::stub::NetworkSecurity + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::NetworkSecurity + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> NetworkSecurity<T>
-where
-    T: super::stub::NetworkSecurity + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::NetworkSecurity + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::NetworkSecurity for NetworkSecurity<T>
-where
-    T: super::stub::NetworkSecurity + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::NetworkSecurity + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn list_authorization_policies(
         &self,
@@ -651,6 +635,7 @@ where
         self.inner.cancel_operation(req, options).await
     }
 
+
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -665,3 +650,4 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 }
+

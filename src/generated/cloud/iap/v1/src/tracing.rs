@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [IdentityAwareProxyAdminService](super::stub::IdentityAwareProxyAdminService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct IdentityAwareProxyAdminService<T>
-where
-    T: super::stub::IdentityAwareProxyAdminService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::IdentityAwareProxyAdminService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> IdentityAwareProxyAdminService<T>
-where
-    T: super::stub::IdentityAwareProxyAdminService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::IdentityAwareProxyAdminService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminService<T>
-where
-    T: super::stub::IdentityAwareProxyAdminService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::IdentityAwareProxyAdminService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn set_iam_policy(
         &self,
@@ -88,9 +82,7 @@ where
         req: crate::model::ValidateIapAttributeExpressionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ValidateIapAttributeExpressionResponse>> {
-        self.inner
-            .validate_iap_attribute_expression(req, options)
-            .await
+        self.inner.validate_iap_attribute_expression(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -137,30 +129,25 @@ where
     ) -> Result<gax::response::Response<crate::model::TunnelDestGroup>> {
         self.inner.update_tunnel_dest_group(req, options).await
     }
+
 }
 
 /// Implements a [IdentityAwareProxyOAuthService](super::stub::IdentityAwareProxyOAuthService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct IdentityAwareProxyOAuthService<T>
-where
-    T: super::stub::IdentityAwareProxyOAuthService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::IdentityAwareProxyOAuthService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> IdentityAwareProxyOAuthService<T>
-where
-    T: super::stub::IdentityAwareProxyOAuthService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::IdentityAwareProxyOAuthService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::IdentityAwareProxyOAuthService for IdentityAwareProxyOAuthService<T>
-where
-    T: super::stub::IdentityAwareProxyOAuthService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::IdentityAwareProxyOAuthService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn list_brands(
         &self,
@@ -194,9 +181,7 @@ where
         req: crate::model::CreateIdentityAwareProxyClientRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::IdentityAwareProxyClient>> {
-        self.inner
-            .create_identity_aware_proxy_client(req, options)
-            .await
+        self.inner.create_identity_aware_proxy_client(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -205,9 +190,7 @@ where
         req: crate::model::ListIdentityAwareProxyClientsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListIdentityAwareProxyClientsResponse>> {
-        self.inner
-            .list_identity_aware_proxy_clients(req, options)
-            .await
+        self.inner.list_identity_aware_proxy_clients(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -216,9 +199,7 @@ where
         req: crate::model::GetIdentityAwareProxyClientRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::IdentityAwareProxyClient>> {
-        self.inner
-            .get_identity_aware_proxy_client(req, options)
-            .await
+        self.inner.get_identity_aware_proxy_client(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -227,9 +208,7 @@ where
         req: crate::model::ResetIdentityAwareProxyClientSecretRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::IdentityAwareProxyClient>> {
-        self.inner
-            .reset_identity_aware_proxy_client_secret(req, options)
-            .await
+        self.inner.reset_identity_aware_proxy_client_secret(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -238,8 +217,8 @@ where
         req: crate::model::DeleteIdentityAwareProxyClientRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        self.inner
-            .delete_identity_aware_proxy_client(req, options)
-            .await
+        self.inner.delete_identity_aware_proxy_client(req, options).await
     }
+
 }
+

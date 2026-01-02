@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -28,7 +29,6 @@ extern crate rpc_context;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -40,6 +40,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CheckRequest {
+
     /// The service name as specified in its service configuration. For example,
     /// `"pubsub.googleapis.com"`.
     ///
@@ -89,10 +90,7 @@ impl CheckRequest {
     /// # use google_cloud_api_servicecontrol_v2::model::CheckRequest;
     /// let x = CheckRequest::new().set_service_config_id("example");
     /// ```
-    pub fn set_service_config_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_service_config_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_config_id = v.into();
         self
     }
@@ -106,8 +104,7 @@ impl CheckRequest {
     /// let x = CheckRequest::new().set_attributes(AttributeContext::default()/* use setters */);
     /// ```
     pub fn set_attributes<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<rpc_context::model::AttributeContext>,
+    where T: std::convert::Into<rpc_context::model::AttributeContext>
     {
         self.attributes = std::option::Option::Some(v.into());
         self
@@ -123,8 +120,7 @@ impl CheckRequest {
     /// let x = CheckRequest::new().set_or_clear_attributes(None::<AttributeContext>);
     /// ```
     pub fn set_or_clear_attributes<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<rpc_context::model::AttributeContext>,
+    where T: std::convert::Into<rpc_context::model::AttributeContext>
     {
         self.attributes = v.map(|x| x.into());
         self
@@ -145,7 +141,7 @@ impl CheckRequest {
     pub fn set_resources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ResourceInfo>,
+        V: std::convert::Into<crate::model::ResourceInfo>
     {
         use std::iter::Iterator;
         self.resources = v.into_iter().map(|i| i.into()).collect();
@@ -175,6 +171,7 @@ impl wkt::message::Message for CheckRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResourceInfo {
+
     /// The name of the resource referenced in the request.
     pub name: std::string::String,
 
@@ -280,6 +277,7 @@ impl wkt::message::Message for ResourceInfo {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CheckResponse {
+
     /// Operation is allowed when this field is not set. Any non-'OK' status
     /// indicates a denial; [google.rpc.Status.details][google.rpc.Status.details]
     /// would contain additional details about the denial.
@@ -288,7 +286,7 @@ pub struct CheckResponse {
     pub status: std::option::Option<rpc::model::Status>,
 
     /// Returns a set of request contexts generated from the `CheckRequest`.
-    pub headers: std::collections::HashMap<std::string::String, std::string::String>,
+    pub headers: std::collections::HashMap<std::string::String,std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -307,8 +305,7 @@ impl CheckResponse {
     /// let x = CheckResponse::new().set_status(Status::default()/* use setters */);
     /// ```
     pub fn set_status<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<rpc::model::Status>,
+    where T: std::convert::Into<rpc::model::Status>
     {
         self.status = std::option::Option::Some(v.into());
         self
@@ -324,8 +321,7 @@ impl CheckResponse {
     /// let x = CheckResponse::new().set_or_clear_status(None::<Status>);
     /// ```
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<rpc::model::Status>,
+    where T: std::convert::Into<rpc::model::Status>
     {
         self.status = v.map(|x| x.into());
         self
@@ -363,6 +359,7 @@ impl wkt::message::Message for CheckResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReportRequest {
+
     /// The service name as specified in its service configuration. For example,
     /// `"pubsub.googleapis.com"`.
     ///
@@ -408,10 +405,7 @@ impl ReportRequest {
     /// # use google_cloud_api_servicecontrol_v2::model::ReportRequest;
     /// let x = ReportRequest::new().set_service_config_id("example");
     /// ```
-    pub fn set_service_config_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_service_config_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_config_id = v.into();
         self
     }
@@ -431,7 +425,7 @@ impl ReportRequest {
     pub fn set_operations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc_context::model::AttributeContext>,
+        V: std::convert::Into<rpc_context::model::AttributeContext>
     {
         use std::iter::Iterator;
         self.operations = v.into_iter().map(|i| i.into()).collect();
@@ -450,6 +444,7 @@ impl wkt::message::Message for ReportRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReportResponse {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -469,6 +464,7 @@ impl wkt::message::Message for ReportResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResourceInfoList {
+
     /// The resource details.
     pub resources: std::vec::Vec<crate::model::ResourceInfo>,
 
@@ -495,7 +491,7 @@ impl ResourceInfoList {
     pub fn set_resources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ResourceInfo>,
+        V: std::convert::Into<crate::model::ResourceInfo>
     {
         use std::iter::Iterator;
         self.resources = v.into_iter().map(|i| i.into()).collect();

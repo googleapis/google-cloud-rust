@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate apps_script_calendar;
 extern crate apps_script_docs;
 extern crate apps_script_drive;
@@ -33,7 +34,6 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -45,6 +45,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAuthorizationRequest {
+
     /// Required. Name of the project for which to get the Google Workspace add-ons
     /// authorization information.
     ///
@@ -82,6 +83,7 @@ impl wkt::message::Message for GetAuthorizationRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Authorization {
+
     /// The canonical full name of this resource.
     /// Example:  `projects/123/authorization`
     pub name: std::string::String,
@@ -121,10 +123,7 @@ impl Authorization {
     /// # use google_cloud_gsuiteaddons_v1::model::Authorization;
     /// let x = Authorization::new().set_service_account_email("example");
     /// ```
-    pub fn set_service_account_email<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_service_account_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account_email = v.into();
         self
     }
@@ -152,6 +151,7 @@ impl wkt::message::Message for Authorization {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateDeploymentRequest {
+
     /// Required. Name of the project in which to create the deployment.
     ///
     /// Example: `projects/my_project`.
@@ -205,8 +205,7 @@ impl CreateDeploymentRequest {
     /// let x = CreateDeploymentRequest::new().set_deployment(Deployment::default()/* use setters */);
     /// ```
     pub fn set_deployment<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Deployment>,
+    where T: std::convert::Into<crate::model::Deployment>
     {
         self.deployment = std::option::Option::Some(v.into());
         self
@@ -222,8 +221,7 @@ impl CreateDeploymentRequest {
     /// let x = CreateDeploymentRequest::new().set_or_clear_deployment(None::<Deployment>);
     /// ```
     pub fn set_or_clear_deployment<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Deployment>,
+    where T: std::convert::Into<crate::model::Deployment>
     {
         self.deployment = v.map(|x| x.into());
         self
@@ -240,6 +238,7 @@ impl wkt::message::Message for CreateDeploymentRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReplaceDeploymentRequest {
+
     /// Required. The deployment to create or replace.
     pub deployment: std::option::Option<crate::model::Deployment>,
 
@@ -260,8 +259,7 @@ impl ReplaceDeploymentRequest {
     /// let x = ReplaceDeploymentRequest::new().set_deployment(Deployment::default()/* use setters */);
     /// ```
     pub fn set_deployment<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Deployment>,
+    where T: std::convert::Into<crate::model::Deployment>
     {
         self.deployment = std::option::Option::Some(v.into());
         self
@@ -277,8 +275,7 @@ impl ReplaceDeploymentRequest {
     /// let x = ReplaceDeploymentRequest::new().set_or_clear_deployment(None::<Deployment>);
     /// ```
     pub fn set_or_clear_deployment<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Deployment>,
+    where T: std::convert::Into<crate::model::Deployment>
     {
         self.deployment = v.map(|x| x.into());
         self
@@ -295,6 +292,7 @@ impl wkt::message::Message for ReplaceDeploymentRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetDeploymentRequest {
+
     /// Required. The full resource name of the deployment to get.
     ///
     /// Example:  `projects/my_project/deployments/my_deployment`.
@@ -331,6 +329,7 @@ impl wkt::message::Message for GetDeploymentRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDeploymentsRequest {
+
     /// Required. Name of the project in which to create the deployment.
     ///
     /// Example: `projects/my_project`.
@@ -404,6 +403,7 @@ impl wkt::message::Message for ListDeploymentsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDeploymentsResponse {
+
     /// The list of deployments for the given project.
     pub deployments: std::vec::Vec<crate::model::Deployment>,
 
@@ -434,7 +434,7 @@ impl ListDeploymentsResponse {
     pub fn set_deployments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Deployment>,
+        V: std::convert::Into<crate::model::Deployment>
     {
         use std::iter::Iterator;
         self.deployments = v.into_iter().map(|i| i.into()).collect();
@@ -478,6 +478,7 @@ impl gax::paginator::internal::PageableResponse for ListDeploymentsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteDeploymentRequest {
+
     /// Required. The full resource name of the deployment to delete.
     ///
     /// Example:  `projects/my_project/deployments/my_deployment`.
@@ -530,6 +531,7 @@ impl wkt::message::Message for DeleteDeploymentRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InstallDeploymentRequest {
+
     /// Required. The full resource name of the deployment to install.
     ///
     /// Example:  `projects/my_project/deployments/my_deployment`.
@@ -566,6 +568,7 @@ impl wkt::message::Message for InstallDeploymentRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UninstallDeploymentRequest {
+
     /// Required. The full resource name of the deployment to install.
     ///
     /// Example:  `projects/my_project/deployments/my_deployment`.
@@ -602,6 +605,7 @@ impl wkt::message::Message for UninstallDeploymentRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetInstallStatusRequest {
+
     /// Required. The full resource name of the deployment.
     ///
     /// Example:  `projects/my_project/deployments/my_deployment/installStatus`.
@@ -638,6 +642,7 @@ impl wkt::message::Message for GetInstallStatusRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InstallStatus {
+
     /// The canonical full resource name of the deployment install status.
     ///
     /// Example:  `projects/123/deployments/my_deployment/installStatus`.
@@ -675,8 +680,7 @@ impl InstallStatus {
     /// let x = InstallStatus::new().set_installed(BoolValue::default()/* use setters */);
     /// ```
     pub fn set_installed<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.installed = std::option::Option::Some(v.into());
         self
@@ -692,8 +696,7 @@ impl InstallStatus {
     /// let x = InstallStatus::new().set_or_clear_installed(None::<BoolValue>);
     /// ```
     pub fn set_or_clear_installed<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.installed = v.map(|x| x.into());
         self
@@ -710,6 +713,7 @@ impl wkt::message::Message for InstallStatus {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Deployment {
+
     /// The deployment resource name.
     /// Example:  projects/123/deployments/my_deployment.
     pub name: std::string::String,
@@ -756,7 +760,7 @@ impl Deployment {
     pub fn set_oauth_scopes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.oauth_scopes = v.into_iter().map(|i| i.into()).collect();
@@ -772,8 +776,7 @@ impl Deployment {
     /// let x = Deployment::new().set_add_ons(AddOns::default()/* use setters */);
     /// ```
     pub fn set_add_ons<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AddOns>,
+    where T: std::convert::Into<crate::model::AddOns>
     {
         self.add_ons = std::option::Option::Some(v.into());
         self
@@ -789,8 +792,7 @@ impl Deployment {
     /// let x = Deployment::new().set_or_clear_add_ons(None::<AddOns>);
     /// ```
     pub fn set_or_clear_add_ons<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AddOns>,
+    where T: std::convert::Into<crate::model::AddOns>
     {
         self.add_ons = v.map(|x| x.into());
         self
@@ -819,6 +821,7 @@ impl wkt::message::Message for Deployment {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AddOns {
+
     /// Configuration that is common across all Google Workspace add-ons.
     pub common: std::option::Option<apps_script_type::model::CommonAddOnManifest>,
 
@@ -860,8 +863,7 @@ impl AddOns {
     /// let x = AddOns::new().set_common(CommonAddOnManifest::default()/* use setters */);
     /// ```
     pub fn set_common<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<apps_script_type::model::CommonAddOnManifest>,
+    where T: std::convert::Into<apps_script_type::model::CommonAddOnManifest>
     {
         self.common = std::option::Option::Some(v.into());
         self
@@ -877,8 +879,7 @@ impl AddOns {
     /// let x = AddOns::new().set_or_clear_common(None::<CommonAddOnManifest>);
     /// ```
     pub fn set_or_clear_common<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<apps_script_type::model::CommonAddOnManifest>,
+    where T: std::convert::Into<apps_script_type::model::CommonAddOnManifest>
     {
         self.common = v.map(|x| x.into());
         self
@@ -893,8 +894,7 @@ impl AddOns {
     /// let x = AddOns::new().set_gmail(GmailAddOnManifest::default()/* use setters */);
     /// ```
     pub fn set_gmail<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<apps_script_gmail::model::GmailAddOnManifest>,
+    where T: std::convert::Into<apps_script_gmail::model::GmailAddOnManifest>
     {
         self.gmail = std::option::Option::Some(v.into());
         self
@@ -910,8 +910,7 @@ impl AddOns {
     /// let x = AddOns::new().set_or_clear_gmail(None::<GmailAddOnManifest>);
     /// ```
     pub fn set_or_clear_gmail<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<apps_script_gmail::model::GmailAddOnManifest>,
+    where T: std::convert::Into<apps_script_gmail::model::GmailAddOnManifest>
     {
         self.gmail = v.map(|x| x.into());
         self
@@ -926,8 +925,7 @@ impl AddOns {
     /// let x = AddOns::new().set_drive(DriveAddOnManifest::default()/* use setters */);
     /// ```
     pub fn set_drive<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<apps_script_drive::model::DriveAddOnManifest>,
+    where T: std::convert::Into<apps_script_drive::model::DriveAddOnManifest>
     {
         self.drive = std::option::Option::Some(v.into());
         self
@@ -943,8 +941,7 @@ impl AddOns {
     /// let x = AddOns::new().set_or_clear_drive(None::<DriveAddOnManifest>);
     /// ```
     pub fn set_or_clear_drive<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<apps_script_drive::model::DriveAddOnManifest>,
+    where T: std::convert::Into<apps_script_drive::model::DriveAddOnManifest>
     {
         self.drive = v.map(|x| x.into());
         self
@@ -959,8 +956,7 @@ impl AddOns {
     /// let x = AddOns::new().set_calendar(CalendarAddOnManifest::default()/* use setters */);
     /// ```
     pub fn set_calendar<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<apps_script_calendar::model::CalendarAddOnManifest>,
+    where T: std::convert::Into<apps_script_calendar::model::CalendarAddOnManifest>
     {
         self.calendar = std::option::Option::Some(v.into());
         self
@@ -976,8 +972,7 @@ impl AddOns {
     /// let x = AddOns::new().set_or_clear_calendar(None::<CalendarAddOnManifest>);
     /// ```
     pub fn set_or_clear_calendar<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<apps_script_calendar::model::CalendarAddOnManifest>,
+    where T: std::convert::Into<apps_script_calendar::model::CalendarAddOnManifest>
     {
         self.calendar = v.map(|x| x.into());
         self
@@ -992,8 +987,7 @@ impl AddOns {
     /// let x = AddOns::new().set_docs(DocsAddOnManifest::default()/* use setters */);
     /// ```
     pub fn set_docs<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<apps_script_docs::model::DocsAddOnManifest>,
+    where T: std::convert::Into<apps_script_docs::model::DocsAddOnManifest>
     {
         self.docs = std::option::Option::Some(v.into());
         self
@@ -1009,8 +1003,7 @@ impl AddOns {
     /// let x = AddOns::new().set_or_clear_docs(None::<DocsAddOnManifest>);
     /// ```
     pub fn set_or_clear_docs<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<apps_script_docs::model::DocsAddOnManifest>,
+    where T: std::convert::Into<apps_script_docs::model::DocsAddOnManifest>
     {
         self.docs = v.map(|x| x.into());
         self
@@ -1025,8 +1018,7 @@ impl AddOns {
     /// let x = AddOns::new().set_sheets(SheetsAddOnManifest::default()/* use setters */);
     /// ```
     pub fn set_sheets<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<apps_script_sheets::model::SheetsAddOnManifest>,
+    where T: std::convert::Into<apps_script_sheets::model::SheetsAddOnManifest>
     {
         self.sheets = std::option::Option::Some(v.into());
         self
@@ -1042,8 +1034,7 @@ impl AddOns {
     /// let x = AddOns::new().set_or_clear_sheets(None::<SheetsAddOnManifest>);
     /// ```
     pub fn set_or_clear_sheets<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<apps_script_sheets::model::SheetsAddOnManifest>,
+    where T: std::convert::Into<apps_script_sheets::model::SheetsAddOnManifest>
     {
         self.sheets = v.map(|x| x.into());
         self
@@ -1058,8 +1049,7 @@ impl AddOns {
     /// let x = AddOns::new().set_slides(SlidesAddOnManifest::default()/* use setters */);
     /// ```
     pub fn set_slides<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<apps_script_slides::model::SlidesAddOnManifest>,
+    where T: std::convert::Into<apps_script_slides::model::SlidesAddOnManifest>
     {
         self.slides = std::option::Option::Some(v.into());
         self
@@ -1075,8 +1065,7 @@ impl AddOns {
     /// let x = AddOns::new().set_or_clear_slides(None::<SlidesAddOnManifest>);
     /// ```
     pub fn set_or_clear_slides<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<apps_script_slides::model::SlidesAddOnManifest>,
+    where T: std::convert::Into<apps_script_slides::model::SlidesAddOnManifest>
     {
         self.slides = v.map(|x| x.into());
         self
@@ -1091,8 +1080,7 @@ impl AddOns {
     /// let x = AddOns::new().set_http_options(HttpOptions::default()/* use setters */);
     /// ```
     pub fn set_http_options<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<apps_script_type::model::HttpOptions>,
+    where T: std::convert::Into<apps_script_type::model::HttpOptions>
     {
         self.http_options = std::option::Option::Some(v.into());
         self
@@ -1108,8 +1096,7 @@ impl AddOns {
     /// let x = AddOns::new().set_or_clear_http_options(None::<HttpOptions>);
     /// ```
     pub fn set_or_clear_http_options<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<apps_script_type::model::HttpOptions>,
+    where T: std::convert::Into<apps_script_type::model::HttpOptions>
     {
         self.http_options = v.map(|x| x.into());
         self

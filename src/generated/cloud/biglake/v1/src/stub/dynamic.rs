@@ -130,6 +130,7 @@ pub trait IcebergCatalogService: std::fmt::Debug + Send + Sync {
         req: crate::model::FailoverIcebergCatalogRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::FailoverIcebergCatalogResponse>>;
+
 }
 
 /// All implementations of [super::IcebergCatalogService] also implement [IcebergCatalogService].
@@ -194,8 +195,7 @@ impl<T: super::IcebergCatalogService> IcebergCatalogService for T {
         &self,
         req: crate::model::ListIcebergTableIdentifiersRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListIcebergTableIdentifiersResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::ListIcebergTableIdentifiersResponse>> {
         T::list_iceberg_table_identifiers(self, req, options).await
     }
 
@@ -231,8 +231,7 @@ impl<T: super::IcebergCatalogService> IcebergCatalogService for T {
         &self,
         req: crate::model::GetIcebergTableRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::LoadIcebergTableCredentialsResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::LoadIcebergTableCredentialsResponse>> {
         T::load_iceberg_table_credentials(self, req, options).await
     }
 
@@ -307,4 +306,5 @@ impl<T: super::IcebergCatalogService> IcebergCatalogService for T {
     ) -> crate::Result<gax::response::Response<crate::model::FailoverIcebergCatalogResponse>> {
         T::failover_iceberg_catalog(self, req, options).await
     }
+
 }

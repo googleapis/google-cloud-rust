@@ -57,6 +57,7 @@ impl std::fmt::Debug for super::Entity {
     }
 }
 
+
 impl std::fmt::Debug for super::Sentiment {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Sentiment");
@@ -225,10 +226,7 @@ impl std::fmt::Debug for super::annotate_text_request::Features {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Features");
         debug_struct.field("extract_entities", &self.extract_entities);
-        debug_struct.field(
-            "extract_document_sentiment",
-            &self.extract_document_sentiment,
-        );
+        debug_struct.field("extract_document_sentiment", &self.extract_document_sentiment);
         debug_struct.field("classify_text", &self.classify_text);
         debug_struct.field("moderate_text", &self.moderate_text);
         if !self._unknown_fields.is_empty() {

@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [SecretManagerService](super::stub::SecretManagerService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct SecretManagerService<T>
-where
-    T: super::stub::SecretManagerService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::SecretManagerService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> SecretManagerService<T>
-where
-    T: super::stub::SecretManagerService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::SecretManagerService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::SecretManagerService for SecretManagerService<T>
-where
-    T: super::stub::SecretManagerService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::SecretManagerService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn list_secrets(
         &self,
@@ -189,4 +183,6 @@ where
     ) -> Result<gax::response::Response<location::model::Location>> {
         self.inner.get_location(req, options).await
     }
+
 }
+

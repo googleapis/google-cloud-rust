@@ -23,9 +23,9 @@ impl serde::ser::Serialize for super::ListPrivateCloudsRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -66,9 +66,9 @@ impl serde::ser::Serialize for super::ListPrivateCloudsResponse {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.private_clouds.is_empty() {
             state.serialize_entry("privateClouds", &self.private_clouds)?;
@@ -94,9 +94,9 @@ impl serde::ser::Serialize for super::GetPrivateCloudRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -116,9 +116,9 @@ impl serde::ser::Serialize for super::CreatePrivateCloudRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -150,9 +150,9 @@ impl serde::ser::Serialize for super::UpdatePrivateCloudRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.private_cloud.is_some() {
             state.serialize_entry("privateCloud", &self.private_cloud)?;
@@ -178,9 +178,9 @@ impl serde::ser::Serialize for super::DeletePrivateCloudRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -198,9 +198,7 @@ impl serde::ser::Serialize for super::DeletePrivateCloudRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
-                        self.0, serializer,
-                    )
+                    serde_with::As::< std::option::Option<wkt::internal::I32> >::serialize(self.0, serializer)
                 }
             }
             state.serialize_entry("delayHours", &__With(&self.delay_hours))?;
@@ -220,9 +218,9 @@ impl serde::ser::Serialize for super::UndeletePrivateCloudRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -245,9 +243,9 @@ impl serde::ser::Serialize for super::ListClustersRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -288,9 +286,9 @@ impl serde::ser::Serialize for super::ListClustersResponse {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.clusters.is_empty() {
             state.serialize_entry("clusters", &self.clusters)?;
@@ -316,9 +314,9 @@ impl serde::ser::Serialize for super::GetClusterRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -338,9 +336,9 @@ impl serde::ser::Serialize for super::CreateClusterRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -372,9 +370,9 @@ impl serde::ser::Serialize for super::UpdateClusterRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.update_mask.is_some() {
             state.serialize_entry("updateMask", &self.update_mask)?;
@@ -403,9 +401,9 @@ impl serde::ser::Serialize for super::DeleteClusterRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -428,9 +426,9 @@ impl serde::ser::Serialize for super::ListNodesRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -465,9 +463,9 @@ impl serde::ser::Serialize for super::ListNodesResponse {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.nodes.is_empty() {
             state.serialize_entry("nodes", &self.nodes)?;
@@ -490,9 +488,9 @@ impl serde::ser::Serialize for super::GetNodeRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -512,9 +510,9 @@ impl serde::ser::Serialize for super::ListExternalAddressesRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -555,9 +553,9 @@ impl serde::ser::Serialize for super::ListExternalAddressesResponse {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.external_addresses.is_empty() {
             state.serialize_entry("externalAddresses", &self.external_addresses)?;
@@ -583,9 +581,9 @@ impl serde::ser::Serialize for super::FetchNetworkPolicyExternalAddressesRequest
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.network_policy.is_empty() {
             state.serialize_entry("networkPolicy", &self.network_policy)?;
@@ -620,9 +618,9 @@ impl serde::ser::Serialize for super::FetchNetworkPolicyExternalAddressesRespons
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.external_addresses.is_empty() {
             state.serialize_entry("externalAddresses", &self.external_addresses)?;
@@ -645,9 +643,9 @@ impl serde::ser::Serialize for super::GetExternalAddressRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -667,9 +665,9 @@ impl serde::ser::Serialize for super::CreateExternalAddressRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -698,9 +696,9 @@ impl serde::ser::Serialize for super::UpdateExternalAddressRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.update_mask.is_some() {
             state.serialize_entry("updateMask", &self.update_mask)?;
@@ -726,9 +724,9 @@ impl serde::ser::Serialize for super::DeleteExternalAddressRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -751,9 +749,9 @@ impl serde::ser::Serialize for super::ListSubnetsRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -788,9 +786,9 @@ impl serde::ser::Serialize for super::ListSubnetsResponse {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.subnets.is_empty() {
             state.serialize_entry("subnets", &self.subnets)?;
@@ -816,9 +814,9 @@ impl serde::ser::Serialize for super::GetSubnetRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -838,9 +836,9 @@ impl serde::ser::Serialize for super::UpdateSubnetRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.update_mask.is_some() {
             state.serialize_entry("updateMask", &self.update_mask)?;
@@ -863,9 +861,9 @@ impl serde::ser::Serialize for super::ListExternalAccessRulesRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -906,9 +904,9 @@ impl serde::ser::Serialize for super::ListExternalAccessRulesResponse {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.external_access_rules.is_empty() {
             state.serialize_entry("externalAccessRules", &self.external_access_rules)?;
@@ -934,9 +932,9 @@ impl serde::ser::Serialize for super::GetExternalAccessRuleRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -956,9 +954,9 @@ impl serde::ser::Serialize for super::CreateExternalAccessRuleRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -987,9 +985,9 @@ impl serde::ser::Serialize for super::UpdateExternalAccessRuleRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.update_mask.is_some() {
             state.serialize_entry("updateMask", &self.update_mask)?;
@@ -1015,9 +1013,9 @@ impl serde::ser::Serialize for super::DeleteExternalAccessRuleRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -1040,9 +1038,9 @@ impl serde::ser::Serialize for super::ListLoggingServersRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -1083,9 +1081,9 @@ impl serde::ser::Serialize for super::ListLoggingServersResponse {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.logging_servers.is_empty() {
             state.serialize_entry("loggingServers", &self.logging_servers)?;
@@ -1111,9 +1109,9 @@ impl serde::ser::Serialize for super::GetLoggingServerRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -1133,9 +1131,9 @@ impl serde::ser::Serialize for super::CreateLoggingServerRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -1164,9 +1162,9 @@ impl serde::ser::Serialize for super::UpdateLoggingServerRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.update_mask.is_some() {
             state.serialize_entry("updateMask", &self.update_mask)?;
@@ -1192,9 +1190,9 @@ impl serde::ser::Serialize for super::DeleteLoggingServerRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -1217,9 +1215,9 @@ impl serde::ser::Serialize for super::OperationMetadata {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.create_time.is_some() {
             state.serialize_entry("createTime", &self.create_time)?;
@@ -1257,9 +1255,9 @@ impl serde::ser::Serialize for super::ListNodeTypesRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -1297,9 +1295,9 @@ impl serde::ser::Serialize for super::ListNodeTypesResponse {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.node_types.is_empty() {
             state.serialize_entry("nodeTypes", &self.node_types)?;
@@ -1325,9 +1323,9 @@ impl serde::ser::Serialize for super::GetNodeTypeRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -1347,9 +1345,9 @@ impl serde::ser::Serialize for super::ShowNsxCredentialsRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.private_cloud.is_empty() {
             state.serialize_entry("privateCloud", &self.private_cloud)?;
@@ -1369,9 +1367,9 @@ impl serde::ser::Serialize for super::ShowVcenterCredentialsRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.private_cloud.is_empty() {
             state.serialize_entry("privateCloud", &self.private_cloud)?;
@@ -1394,9 +1392,9 @@ impl serde::ser::Serialize for super::ResetNsxCredentialsRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.private_cloud.is_empty() {
             state.serialize_entry("privateCloud", &self.private_cloud)?;
@@ -1419,9 +1417,9 @@ impl serde::ser::Serialize for super::ResetVcenterCredentialsRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.private_cloud.is_empty() {
             state.serialize_entry("privateCloud", &self.private_cloud)?;
@@ -1447,9 +1445,9 @@ impl serde::ser::Serialize for super::ListHcxActivationKeysResponse {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.hcx_activation_keys.is_empty() {
             state.serialize_entry("hcxActivationKeys", &self.hcx_activation_keys)?;
@@ -1475,9 +1473,9 @@ impl serde::ser::Serialize for super::ListHcxActivationKeysRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -1512,9 +1510,9 @@ impl serde::ser::Serialize for super::GetHcxActivationKeyRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -1534,9 +1532,9 @@ impl serde::ser::Serialize for super::CreateHcxActivationKeyRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -1565,9 +1563,9 @@ impl serde::ser::Serialize for super::GetDnsForwardingRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -1587,9 +1585,9 @@ impl serde::ser::Serialize for super::UpdateDnsForwardingRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.dns_forwarding.is_some() {
             state.serialize_entry("dnsForwarding", &self.dns_forwarding)?;
@@ -1615,9 +1613,9 @@ impl serde::ser::Serialize for super::CreateNetworkPeeringRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -1646,9 +1644,9 @@ impl serde::ser::Serialize for super::DeleteNetworkPeeringRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -1671,9 +1669,9 @@ impl serde::ser::Serialize for super::GetNetworkPeeringRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -1693,9 +1691,9 @@ impl serde::ser::Serialize for super::ListNetworkPeeringsRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -1736,9 +1734,9 @@ impl serde::ser::Serialize for super::UpdateNetworkPeeringRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.network_peering.is_some() {
             state.serialize_entry("networkPeering", &self.network_peering)?;
@@ -1764,9 +1762,9 @@ impl serde::ser::Serialize for super::ListNetworkPeeringsResponse {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.network_peerings.is_empty() {
             state.serialize_entry("networkPeerings", &self.network_peerings)?;
@@ -1792,9 +1790,9 @@ impl serde::ser::Serialize for super::ListPeeringRoutesRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -1832,9 +1830,9 @@ impl serde::ser::Serialize for super::ListPeeringRoutesResponse {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.peering_routes.is_empty() {
             state.serialize_entry("peeringRoutes", &self.peering_routes)?;
@@ -1857,9 +1855,9 @@ impl serde::ser::Serialize for super::ListNetworkPoliciesRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -1900,9 +1898,9 @@ impl serde::ser::Serialize for super::ListNetworkPoliciesResponse {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.network_policies.is_empty() {
             state.serialize_entry("networkPolicies", &self.network_policies)?;
@@ -1928,9 +1926,9 @@ impl serde::ser::Serialize for super::GetNetworkPolicyRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -1950,9 +1948,9 @@ impl serde::ser::Serialize for super::UpdateNetworkPolicyRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.network_policy.is_some() {
             state.serialize_entry("networkPolicy", &self.network_policy)?;
@@ -1978,9 +1976,9 @@ impl serde::ser::Serialize for super::CreateNetworkPolicyRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -2009,9 +2007,9 @@ impl serde::ser::Serialize for super::DeleteNetworkPolicyRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -2034,9 +2032,9 @@ impl serde::ser::Serialize for super::ListManagementDnsZoneBindingsRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -2077,15 +2075,12 @@ impl serde::ser::Serialize for super::ListManagementDnsZoneBindingsResponse {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.management_dns_zone_bindings.is_empty() {
-            state.serialize_entry(
-                "managementDnsZoneBindings",
-                &self.management_dns_zone_bindings,
-            )?;
+            state.serialize_entry("managementDnsZoneBindings", &self.management_dns_zone_bindings)?;
         }
         if !self.next_page_token.is_empty() {
             state.serialize_entry("nextPageToken", &self.next_page_token)?;
@@ -2108,9 +2103,9 @@ impl serde::ser::Serialize for super::GetManagementDnsZoneBindingRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -2130,24 +2125,18 @@ impl serde::ser::Serialize for super::CreateManagementDnsZoneBindingRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
         }
         if self.management_dns_zone_binding.is_some() {
-            state.serialize_entry(
-                "managementDnsZoneBinding",
-                &self.management_dns_zone_binding,
-            )?;
+            state.serialize_entry("managementDnsZoneBinding", &self.management_dns_zone_binding)?;
         }
         if !self.management_dns_zone_binding_id.is_empty() {
-            state.serialize_entry(
-                "managementDnsZoneBindingId",
-                &self.management_dns_zone_binding_id,
-            )?;
+            state.serialize_entry("managementDnsZoneBindingId", &self.management_dns_zone_binding_id)?;
         }
         if !self.request_id.is_empty() {
             state.serialize_entry("requestId", &self.request_id)?;
@@ -2167,18 +2156,15 @@ impl serde::ser::Serialize for super::UpdateManagementDnsZoneBindingRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.update_mask.is_some() {
             state.serialize_entry("updateMask", &self.update_mask)?;
         }
         if self.management_dns_zone_binding.is_some() {
-            state.serialize_entry(
-                "managementDnsZoneBinding",
-                &self.management_dns_zone_binding,
-            )?;
+            state.serialize_entry("managementDnsZoneBinding", &self.management_dns_zone_binding)?;
         }
         if !self.request_id.is_empty() {
             state.serialize_entry("requestId", &self.request_id)?;
@@ -2198,9 +2184,9 @@ impl serde::ser::Serialize for super::DeleteManagementDnsZoneBindingRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -2223,9 +2209,9 @@ impl serde::ser::Serialize for super::RepairManagementDnsZoneBindingRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -2248,9 +2234,9 @@ impl serde::ser::Serialize for super::CreateVmwareEngineNetworkRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -2279,9 +2265,9 @@ impl serde::ser::Serialize for super::UpdateVmwareEngineNetworkRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.vmware_engine_network.is_some() {
             state.serialize_entry("vmwareEngineNetwork", &self.vmware_engine_network)?;
@@ -2307,9 +2293,9 @@ impl serde::ser::Serialize for super::DeleteVmwareEngineNetworkRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -2335,9 +2321,9 @@ impl serde::ser::Serialize for super::GetVmwareEngineNetworkRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -2357,9 +2343,9 @@ impl serde::ser::Serialize for super::ListVmwareEngineNetworksRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -2400,9 +2386,9 @@ impl serde::ser::Serialize for super::ListVmwareEngineNetworksResponse {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.vmware_engine_networks.is_empty() {
             state.serialize_entry("vmwareEngineNetworks", &self.vmware_engine_networks)?;
@@ -2428,9 +2414,9 @@ impl serde::ser::Serialize for super::CreatePrivateConnectionRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -2459,9 +2445,9 @@ impl serde::ser::Serialize for super::GetPrivateConnectionRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -2481,9 +2467,9 @@ impl serde::ser::Serialize for super::ListPrivateConnectionsRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -2524,9 +2510,9 @@ impl serde::ser::Serialize for super::ListPrivateConnectionsResponse {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.private_connections.is_empty() {
             state.serialize_entry("privateConnections", &self.private_connections)?;
@@ -2552,9 +2538,9 @@ impl serde::ser::Serialize for super::UpdatePrivateConnectionRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.private_connection.is_some() {
             state.serialize_entry("privateConnection", &self.private_connection)?;
@@ -2580,9 +2566,9 @@ impl serde::ser::Serialize for super::DeletePrivateConnectionRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -2605,9 +2591,9 @@ impl serde::ser::Serialize for super::ListPrivateConnectionPeeringRoutesRequest 
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -2642,9 +2628,9 @@ impl serde::ser::Serialize for super::ListPrivateConnectionPeeringRoutesResponse
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.peering_routes.is_empty() {
             state.serialize_entry("peeringRoutes", &self.peering_routes)?;
@@ -2667,9 +2653,9 @@ impl serde::ser::Serialize for super::GrantDnsBindPermissionRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -2695,9 +2681,9 @@ impl serde::ser::Serialize for super::RevokeDnsBindPermissionRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -2723,9 +2709,9 @@ impl serde::ser::Serialize for super::GetDnsBindPermissionRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -2745,9 +2731,9 @@ impl serde::ser::Serialize for super::NetworkConfig {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.management_cidr.is_empty() {
             state.serialize_entry("managementCidr", &self.management_cidr)?;
@@ -2756,10 +2742,7 @@ impl serde::ser::Serialize for super::NetworkConfig {
             state.serialize_entry("vmwareEngineNetwork", &self.vmware_engine_network)?;
         }
         if !self.vmware_engine_network_canonical.is_empty() {
-            state.serialize_entry(
-                "vmwareEngineNetworkCanonical",
-                &self.vmware_engine_network_canonical,
-            )?;
+            state.serialize_entry("vmwareEngineNetworkCanonical", &self.vmware_engine_network_canonical)?;
         }
         if !wkt::internal::is_default(&self.management_ip_address_layout_version) {
             struct __With<'a>(&'a i32);
@@ -2771,10 +2754,7 @@ impl serde::ser::Serialize for super::NetworkConfig {
                     serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
                 }
             }
-            state.serialize_entry(
-                "managementIpAddressLayoutVersion",
-                &__With(&self.management_ip_address_layout_version),
-            )?;
+            state.serialize_entry("managementIpAddressLayoutVersion", &__With(&self.management_ip_address_layout_version))?;
         }
         if !self.dns_server_ip.is_empty() {
             state.serialize_entry("dnsServerIp", &self.dns_server_ip)?;
@@ -2794,9 +2774,9 @@ impl serde::ser::Serialize for super::NodeTypeConfig {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.node_count) {
             struct __With<'a>(&'a i32);
@@ -2837,9 +2817,9 @@ impl serde::ser::Serialize for super::StretchedClusterConfig {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.preferred_location.is_empty() {
             state.serialize_entry("preferredLocation", &self.preferred_location)?;
@@ -2862,9 +2842,9 @@ impl serde::ser::Serialize for super::PrivateCloud {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -2923,9 +2903,9 @@ impl serde::ser::Serialize for super::private_cloud::ManagementCluster {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.cluster_id.is_empty() {
             state.serialize_entry("clusterId", &self.cluster_id)?;
@@ -2951,9 +2931,9 @@ impl serde::ser::Serialize for super::Cluster {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -2991,15 +2971,16 @@ impl serde::ser::Serialize for super::Cluster {
     }
 }
 
+
 #[doc(hidden)]
 impl serde::ser::Serialize for super::Node {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -3046,9 +3027,9 @@ impl serde::ser::Serialize for super::ExternalAddress {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -3089,9 +3070,9 @@ impl serde::ser::Serialize for super::Subnet {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -3135,9 +3116,9 @@ impl serde::ser::Serialize for super::ExternalAccessRule {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -3202,9 +3183,9 @@ impl serde::ser::Serialize for super::external_access_rule::IpRange {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if let Some(value) = self.ip_address() {
             state.serialize_entry("ipAddress", value)?;
@@ -3230,9 +3211,9 @@ impl serde::ser::Serialize for super::LoggingServer {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -3282,9 +3263,9 @@ impl serde::ser::Serialize for super::NodeType {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -3350,15 +3331,10 @@ impl serde::ser::Serialize for super::NodeType {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<std::vec::Vec<wkt::internal::I32>>::serialize(
-                        self.0, serializer,
-                    )
+                    serde_with::As::< std::vec::Vec<wkt::internal::I32> >::serialize(self.0, serializer)
                 }
             }
-            state.serialize_entry(
-                "availableCustomCoreCounts",
-                &__With(&self.available_custom_core_counts),
-            )?;
+            state.serialize_entry("availableCustomCoreCounts", &__With(&self.available_custom_core_counts))?;
         }
         if !wkt::internal::is_default(&self.kind) {
             state.serialize_entry("kind", &self.kind)?;
@@ -3384,9 +3360,9 @@ impl serde::ser::Serialize for super::Credentials {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.username.is_empty() {
             state.serialize_entry("username", &self.username)?;
@@ -3409,9 +3385,9 @@ impl serde::ser::Serialize for super::HcxActivationKey {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -3443,9 +3419,9 @@ impl serde::ser::Serialize for super::Hcx {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.internal_ip.is_empty() {
             state.serialize_entry("internalIp", &self.internal_ip)?;
@@ -3474,9 +3450,9 @@ impl serde::ser::Serialize for super::Nsx {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.internal_ip.is_empty() {
             state.serialize_entry("internalIp", &self.internal_ip)?;
@@ -3505,9 +3481,9 @@ impl serde::ser::Serialize for super::Vcenter {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.internal_ip.is_empty() {
             state.serialize_entry("internalIp", &self.internal_ip)?;
@@ -3536,9 +3512,9 @@ impl serde::ser::Serialize for super::AutoscalingSettings {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.autoscaling_policies.is_empty() {
             state.serialize_entry("autoscalingPolicies", &self.autoscaling_policies)?;
@@ -3585,9 +3561,9 @@ impl serde::ser::Serialize for super::autoscaling_settings::Thresholds {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.scale_out) {
             struct __With<'a>(&'a i32);
@@ -3628,9 +3604,9 @@ impl serde::ser::Serialize for super::autoscaling_settings::AutoscalingPolicy {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.node_type_id.is_empty() {
             state.serialize_entry("nodeTypeId", &self.node_type_id)?;
@@ -3668,15 +3644,16 @@ impl serde::ser::Serialize for super::autoscaling_settings::AutoscalingPolicy {
     }
 }
 
+
 #[doc(hidden)]
 impl serde::ser::Serialize for super::DnsForwarding {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -3705,9 +3682,9 @@ impl serde::ser::Serialize for super::dns_forwarding::ForwardingRule {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.domain.is_empty() {
             state.serialize_entry("domain", &self.domain)?;
@@ -3730,9 +3707,9 @@ impl serde::ser::Serialize for super::NetworkPeering {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -3756,16 +3733,10 @@ impl serde::ser::Serialize for super::NetworkPeering {
             state.serialize_entry("exchangeSubnetRoutes", &self.exchange_subnet_routes)?;
         }
         if self.export_custom_routes_with_public_ip.is_some() {
-            state.serialize_entry(
-                "exportCustomRoutesWithPublicIp",
-                &self.export_custom_routes_with_public_ip,
-            )?;
+            state.serialize_entry("exportCustomRoutesWithPublicIp", &self.export_custom_routes_with_public_ip)?;
         }
         if self.import_custom_routes_with_public_ip.is_some() {
-            state.serialize_entry(
-                "importCustomRoutesWithPublicIp",
-                &self.import_custom_routes_with_public_ip,
-            )?;
+            state.serialize_entry("importCustomRoutesWithPublicIp", &self.import_custom_routes_with_public_ip)?;
         }
         if !wkt::internal::is_default(&self.state) {
             state.serialize_entry("state", &self.state)?;
@@ -3812,9 +3783,9 @@ impl serde::ser::Serialize for super::PeeringRoute {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.dest_range.is_empty() {
             state.serialize_entry("destRange", &self.dest_range)?;
@@ -3858,9 +3829,9 @@ impl serde::ser::Serialize for super::NetworkPolicy {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -3890,10 +3861,7 @@ impl serde::ser::Serialize for super::NetworkPolicy {
             state.serialize_entry("description", &self.description)?;
         }
         if !self.vmware_engine_network_canonical.is_empty() {
-            state.serialize_entry(
-                "vmwareEngineNetworkCanonical",
-                &self.vmware_engine_network_canonical,
-            )?;
+            state.serialize_entry("vmwareEngineNetworkCanonical", &self.vmware_engine_network_canonical)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -3910,9 +3878,9 @@ impl serde::ser::Serialize for super::network_policy::NetworkService {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.enabled) {
             state.serialize_entry("enabled", &self.enabled)?;
@@ -3935,9 +3903,9 @@ impl serde::ser::Serialize for super::ManagementDnsZoneBinding {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -3978,9 +3946,9 @@ impl serde::ser::Serialize for super::VmwareEngineNetwork {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -4024,9 +3992,9 @@ impl serde::ser::Serialize for super::vmware_engine_network::VpcNetwork {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.r#type) {
             state.serialize_entry("type", &self.r#type)?;
@@ -4049,9 +4017,9 @@ impl serde::ser::Serialize for super::PrivateConnection {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -4072,10 +4040,7 @@ impl serde::ser::Serialize for super::PrivateConnection {
             state.serialize_entry("vmwareEngineNetwork", &self.vmware_engine_network)?;
         }
         if !self.vmware_engine_network_canonical.is_empty() {
-            state.serialize_entry(
-                "vmwareEngineNetworkCanonical",
-                &self.vmware_engine_network_canonical,
-            )?;
+            state.serialize_entry("vmwareEngineNetworkCanonical", &self.vmware_engine_network_canonical)?;
         }
         if !wkt::internal::is_default(&self.r#type) {
             state.serialize_entry("type", &self.r#type)?;
@@ -4110,9 +4075,9 @@ impl serde::ser::Serialize for super::LocationMetadata {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.capabilities.is_empty() {
             state.serialize_entry("capabilities", &self.capabilities)?;
@@ -4132,9 +4097,9 @@ impl serde::ser::Serialize for super::DnsBindPermission {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -4157,9 +4122,9 @@ impl serde::ser::Serialize for super::Principal {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if let Some(value) = self.user() {
             state.serialize_entry("user", value)?;

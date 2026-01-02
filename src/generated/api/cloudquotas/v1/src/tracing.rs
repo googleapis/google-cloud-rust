@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [CloudQuotas](super::stub::CloudQuotas) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct CloudQuotas<T>
-where
-    T: super::stub::CloudQuotas + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::CloudQuotas + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> CloudQuotas<T>
-where
-    T: super::stub::CloudQuotas + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::CloudQuotas + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::CloudQuotas for CloudQuotas<T>
-where
-    T: super::stub::CloudQuotas + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::CloudQuotas + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn list_quota_infos(
         &self,
@@ -90,4 +84,6 @@ where
     ) -> Result<gax::response::Response<crate::model::QuotaPreference>> {
         self.inner.update_quota_preference(req, options).await
     }
+
 }
+

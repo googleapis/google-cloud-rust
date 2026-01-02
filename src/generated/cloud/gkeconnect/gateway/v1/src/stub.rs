@@ -38,14 +38,14 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait GatewayControl: std::fmt::Debug + Send + Sync {
+
     /// Implements [super::client::GatewayControl::generate_credentials].
     fn generate_credentials(
         &self,
         _req: crate::model::GenerateCredentialsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::GenerateCredentialsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::GenerateCredentialsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 }
+

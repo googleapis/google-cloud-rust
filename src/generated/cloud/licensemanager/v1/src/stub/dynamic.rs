@@ -231,8 +231,7 @@ impl<T: super::LicenseManager> LicenseManager for T {
         &self,
         req: crate::model::QueryConfigurationLicenseUsageRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::QueryConfigurationLicenseUsageResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::QueryConfigurationLicenseUsageResponse>> {
         T::query_configuration_license_usage(self, req, options).await
     }
 

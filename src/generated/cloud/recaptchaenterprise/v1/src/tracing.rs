@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [RecaptchaEnterpriseService](super::stub::RecaptchaEnterpriseService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct RecaptchaEnterpriseService<T>
-where
-    T: super::stub::RecaptchaEnterpriseService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::RecaptchaEnterpriseService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> RecaptchaEnterpriseService<T>
-where
-    T: super::stub::RecaptchaEnterpriseService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::RecaptchaEnterpriseService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService<T>
-where
-    T: super::stub::RecaptchaEnterpriseService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::RecaptchaEnterpriseService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn create_assessment(
         &self,
@@ -222,11 +216,8 @@ where
         &self,
         req: crate::model::ListRelatedAccountGroupMembershipsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListRelatedAccountGroupMembershipsResponse>>
-    {
-        self.inner
-            .list_related_account_group_memberships(req, options)
-            .await
+    ) -> Result<gax::response::Response<crate::model::ListRelatedAccountGroupMembershipsResponse>> {
+        self.inner.list_related_account_group_memberships(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -234,10 +225,9 @@ where
         &self,
         req: crate::model::SearchRelatedAccountGroupMembershipsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SearchRelatedAccountGroupMembershipsResponse>>
-    {
-        self.inner
-            .search_related_account_group_memberships(req, options)
-            .await
+    ) -> Result<gax::response::Response<crate::model::SearchRelatedAccountGroupMembershipsResponse>> {
+        self.inner.search_related_account_group_memberships(req, options).await
     }
+
 }
+

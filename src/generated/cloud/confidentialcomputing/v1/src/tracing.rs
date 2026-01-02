@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [ConfidentialComputing](super::stub::ConfidentialComputing) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct ConfidentialComputing<T>
-where
-    T: super::stub::ConfidentialComputing + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ConfidentialComputing + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> ConfidentialComputing<T>
-where
-    T: super::stub::ConfidentialComputing + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ConfidentialComputing + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::ConfidentialComputing for ConfidentialComputing<T>
-where
-    T: super::stub::ConfidentialComputing + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ConfidentialComputing + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn create_challenge(
         &self,
@@ -90,4 +84,6 @@ where
     ) -> Result<gax::response::Response<location::model::Location>> {
         self.inner.get_location(req, options).await
     }
+
 }
+

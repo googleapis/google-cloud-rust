@@ -50,53 +50,44 @@ impl super::stub::Environments for Environments {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         let (builder, method) = None
-            .or_else(|| {
-                let path = format!(
-                    "/v1/{}/environments",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+        .or_else(|| {
+            let path = format!(
+                "/v1/{}/environments",
+                try_match(Some(&req).map(|m| &m.parent).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard])?,
+            );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "parent",
-                        "projects/*/locations/*",
-                    );
-                    paths.push(builder.build());
-                }
-                gax::error::Error::binding(BindingError { paths })
-            })??;
+            let builder = self
+                .inner
+                .builder(reqwest::Method::POST, path);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, reqwest::Method::POST)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard],
+                    "parent",
+                    "projects/*/locations/*");
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })??;
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+                .query(&[("$alt", "json;enum-encoding=int")])
+                .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         let body = gaxi::http::handle_empty(req.environment, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner.execute(
+            builder,
+            body,
+            options,
+        ).await
     }
 
     async fn get_environment(
@@ -109,57 +100,44 @@ impl super::stub::Environments for Environments {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         let (builder, method) = None
-            .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+        .or_else(|| {
+            let path = format!(
+                "/v1/{}",
+                try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/environments/"), Segment::SingleWildcard])?,
+            );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "name",
-                        "projects/*/locations/*/environments/*",
-                    );
-                    paths.push(builder.build());
-                }
-                gax::error::Error::binding(BindingError { paths })
-            })??;
+            let builder = self
+                .inner
+                .builder(reqwest::Method::GET, path);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, reqwest::Method::GET)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/environments/"), Segment::SingleWildcard],
+                    "name",
+                    "projects/*/locations/*/environments/*");
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })??;
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+                .query(&[("$alt", "json;enum-encoding=int")])
+                .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner.execute(
+            builder,
+            body,
+            options,
+        ).await
     }
 
     async fn list_environments(
@@ -172,55 +150,46 @@ impl super::stub::Environments for Environments {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         let (builder, method) = None
-            .or_else(|| {
-                let path = format!(
-                    "/v1/{}/environments",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+        .or_else(|| {
+            let path = format!(
+                "/v1/{}/environments",
+                try_match(Some(&req).map(|m| &m.parent).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard])?,
+            );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
-                let builder = builder.query(&[("pageSize", &req.page_size)]);
-                let builder = builder.query(&[("pageToken", &req.page_token)]);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "parent",
-                        "projects/*/locations/*",
-                    );
-                    paths.push(builder.build());
-                }
-                gax::error::Error::binding(BindingError { paths })
-            })??;
+            let builder = self
+                .inner
+                .builder(reqwest::Method::GET, path);
+            let builder = builder.query(&[("pageSize", &req.page_size)]);
+            let builder = builder.query(&[("pageToken", &req.page_token)]);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, reqwest::Method::GET)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard],
+                    "parent",
+                    "projects/*/locations/*");
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })??;
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+                .query(&[("$alt", "json;enum-encoding=int")])
+                .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner.execute(
+            builder,
+            body,
+            options,
+        ).await
     }
 
     async fn update_environment(
@@ -233,69 +202,47 @@ impl super::stub::Environments for Environments {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         let (builder, method) = None
-            .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+        .or_else(|| {
+            let path = format!(
+                "/v1/{}",
+                try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/environments/"), Segment::SingleWildcard])?,
+            );
 
-                let builder = self.inner.builder(reqwest::Method::PATCH, path);
-                let builder = (|| {
-                    let builder = req
-                        .update_mask
-                        .as_ref()
-                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
-                        .transpose()?
-                        .into_iter()
-                        .fold(builder, |builder, v| {
-                            use gaxi::query_parameter::QueryParameter;
-                            v.add(builder, "updateMask")
-                        });
-                    Ok(builder)
-                })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "name",
-                        "projects/*/locations/*/environments/*",
-                    );
-                    paths.push(builder.build());
-                }
-                gax::error::Error::binding(BindingError { paths })
-            })??;
+            let builder = self
+                .inner
+                .builder(reqwest::Method::PATCH, path);
+            let builder = (|| {
+                let builder = req.update_mask.as_ref().map(|p| serde_json::to_value(p).map_err(Error::ser) ).transpose()?.into_iter().fold(builder, |builder, v| { use gaxi::query_parameter::QueryParameter; v.add(builder, "updateMask") });
+                Ok(builder)
+            })();
+            Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/environments/"), Segment::SingleWildcard],
+                    "name",
+                    "projects/*/locations/*/environments/*");
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })??;
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+                .query(&[("$alt", "json;enum-encoding=int")])
+                .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         let body = gaxi::http::handle_empty(req.environment, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner.execute(
+            builder,
+            body,
+            options,
+        ).await
     }
 
     async fn delete_environment(
@@ -308,57 +255,44 @@ impl super::stub::Environments for Environments {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         let (builder, method) = None
-            .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+        .or_else(|| {
+            let path = format!(
+                "/v1/{}",
+                try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/environments/"), Segment::SingleWildcard])?,
+            );
 
-                let builder = self.inner.builder(reqwest::Method::DELETE, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "name",
-                        "projects/*/locations/*/environments/*",
-                    );
-                    paths.push(builder.build());
-                }
-                gax::error::Error::binding(BindingError { paths })
-            })??;
+            let builder = self
+                .inner
+                .builder(reqwest::Method::DELETE, path);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/environments/"), Segment::SingleWildcard],
+                    "name",
+                    "projects/*/locations/*/environments/*");
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })??;
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+                .query(&[("$alt", "json;enum-encoding=int")])
+                .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner.execute(
+            builder,
+            body,
+            options,
+        ).await
     }
 
     async fn execute_airflow_command(
@@ -371,57 +305,44 @@ impl super::stub::Environments for Environments {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         let (builder, method) = None
-            .or_else(|| {
-                let path = format!(
-                    "/v1/{}:executeAirflowCommand",
-                    try_match(
-                        Some(&req).map(|m| &m.environment).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+        .or_else(|| {
+            let path = format!(
+                "/v1/{}:executeAirflowCommand",
+                try_match(Some(&req).map(|m| &m.environment).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/environments/"), Segment::SingleWildcard])?,
+            );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.environment).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "environment",
-                        "projects/*/locations/*/environments/*",
-                    );
-                    paths.push(builder.build());
-                }
-                gax::error::Error::binding(BindingError { paths })
-            })??;
+            let builder = self
+                .inner
+                .builder(reqwest::Method::POST, path);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, reqwest::Method::POST)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.environment).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/environments/"), Segment::SingleWildcard],
+                    "environment",
+                    "projects/*/locations/*/environments/*");
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })??;
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+                .query(&[("$alt", "json;enum-encoding=int")])
+                .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         let body = gaxi::http::handle_empty(Some(req), &method);
-        self.inner.execute(builder, body, options).await
+        self.inner.execute(
+            builder,
+            body,
+            options,
+        ).await
     }
 
     async fn stop_airflow_command(
@@ -434,57 +355,44 @@ impl super::stub::Environments for Environments {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         let (builder, method) = None
-            .or_else(|| {
-                let path = format!(
-                    "/v1/{}:stopAirflowCommand",
-                    try_match(
-                        Some(&req).map(|m| &m.environment).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+        .or_else(|| {
+            let path = format!(
+                "/v1/{}:stopAirflowCommand",
+                try_match(Some(&req).map(|m| &m.environment).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/environments/"), Segment::SingleWildcard])?,
+            );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.environment).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "environment",
-                        "projects/*/locations/*/environments/*",
-                    );
-                    paths.push(builder.build());
-                }
-                gax::error::Error::binding(BindingError { paths })
-            })??;
+            let builder = self
+                .inner
+                .builder(reqwest::Method::POST, path);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, reqwest::Method::POST)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.environment).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/environments/"), Segment::SingleWildcard],
+                    "environment",
+                    "projects/*/locations/*/environments/*");
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })??;
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+                .query(&[("$alt", "json;enum-encoding=int")])
+                .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         let body = gaxi::http::handle_empty(Some(req), &method);
-        self.inner.execute(builder, body, options).await
+        self.inner.execute(
+            builder,
+            body,
+            options,
+        ).await
     }
 
     async fn poll_airflow_command(
@@ -497,57 +405,44 @@ impl super::stub::Environments for Environments {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         let (builder, method) = None
-            .or_else(|| {
-                let path = format!(
-                    "/v1/{}:pollAirflowCommand",
-                    try_match(
-                        Some(&req).map(|m| &m.environment).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+        .or_else(|| {
+            let path = format!(
+                "/v1/{}:pollAirflowCommand",
+                try_match(Some(&req).map(|m| &m.environment).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/environments/"), Segment::SingleWildcard])?,
+            );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.environment).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "environment",
-                        "projects/*/locations/*/environments/*",
-                    );
-                    paths.push(builder.build());
-                }
-                gax::error::Error::binding(BindingError { paths })
-            })??;
+            let builder = self
+                .inner
+                .builder(reqwest::Method::POST, path);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, reqwest::Method::POST)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.environment).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/environments/"), Segment::SingleWildcard],
+                    "environment",
+                    "projects/*/locations/*/environments/*");
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })??;
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+                .query(&[("$alt", "json;enum-encoding=int")])
+                .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         let body = gaxi::http::handle_empty(Some(req), &method);
-        self.inner.execute(builder, body, options).await
+        self.inner.execute(
+            builder,
+            body,
+            options,
+        ).await
     }
 
     async fn list_workloads(
@@ -560,60 +455,47 @@ impl super::stub::Environments for Environments {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         let (builder, method) = None
-            .or_else(|| {
-                let path = format!(
-                    "/v1/{}/workloads",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+        .or_else(|| {
+            let path = format!(
+                "/v1/{}/workloads",
+                try_match(Some(&req).map(|m| &m.parent).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/environments/"), Segment::SingleWildcard])?,
+            );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
-                let builder = builder.query(&[("pageSize", &req.page_size)]);
-                let builder = builder.query(&[("pageToken", &req.page_token)]);
-                let builder = builder.query(&[("filter", &req.filter)]);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "parent",
-                        "projects/*/locations/*/environments/*",
-                    );
-                    paths.push(builder.build());
-                }
-                gax::error::Error::binding(BindingError { paths })
-            })??;
+            let builder = self
+                .inner
+                .builder(reqwest::Method::GET, path);
+            let builder = builder.query(&[("pageSize", &req.page_size)]);
+            let builder = builder.query(&[("pageToken", &req.page_token)]);
+            let builder = builder.query(&[("filter", &req.filter)]);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, reqwest::Method::GET)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/environments/"), Segment::SingleWildcard],
+                    "parent",
+                    "projects/*/locations/*/environments/*");
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })??;
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+                .query(&[("$alt", "json;enum-encoding=int")])
+                .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner.execute(
+            builder,
+            body,
+            options,
+        ).await
     }
 
     async fn check_upgrade(
@@ -626,57 +508,44 @@ impl super::stub::Environments for Environments {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         let (builder, method) = None
-            .or_else(|| {
-                let path = format!(
-                    "/v1/{}:checkUpgrade",
-                    try_match(
-                        Some(&req).map(|m| &m.environment).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+        .or_else(|| {
+            let path = format!(
+                "/v1/{}:checkUpgrade",
+                try_match(Some(&req).map(|m| &m.environment).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/environments/"), Segment::SingleWildcard])?,
+            );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.environment).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "environment",
-                        "projects/*/locations/*/environments/*",
-                    );
-                    paths.push(builder.build());
-                }
-                gax::error::Error::binding(BindingError { paths })
-            })??;
+            let builder = self
+                .inner
+                .builder(reqwest::Method::POST, path);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, reqwest::Method::POST)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.environment).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/environments/"), Segment::SingleWildcard],
+                    "environment",
+                    "projects/*/locations/*/environments/*");
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })??;
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+                .query(&[("$alt", "json;enum-encoding=int")])
+                .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         let body = gaxi::http::handle_empty(Some(req), &method);
-        self.inner.execute(builder, body, options).await
+        self.inner.execute(
+            builder,
+            body,
+            options,
+        ).await
     }
 
     async fn create_user_workloads_secret(
@@ -689,57 +558,44 @@ impl super::stub::Environments for Environments {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         let (builder, method) = None
-            .or_else(|| {
-                let path = format!(
-                    "/v1/{}/userWorkloadsSecrets",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+        .or_else(|| {
+            let path = format!(
+                "/v1/{}/userWorkloadsSecrets",
+                try_match(Some(&req).map(|m| &m.parent).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/environments/"), Segment::SingleWildcard])?,
+            );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "parent",
-                        "projects/*/locations/*/environments/*",
-                    );
-                    paths.push(builder.build());
-                }
-                gax::error::Error::binding(BindingError { paths })
-            })??;
+            let builder = self
+                .inner
+                .builder(reqwest::Method::POST, path);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, reqwest::Method::POST)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/environments/"), Segment::SingleWildcard],
+                    "parent",
+                    "projects/*/locations/*/environments/*");
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })??;
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+                .query(&[("$alt", "json;enum-encoding=int")])
+                .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         let body = gaxi::http::handle_empty(req.user_workloads_secret, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner.execute(
+            builder,
+            body,
+            options,
+        ).await
     }
 
     async fn get_user_workloads_secret(
@@ -752,61 +608,44 @@ impl super::stub::Environments for Environments {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         let (builder, method) = None
-            .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/userWorkloadsSecrets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+        .or_else(|| {
+            let path = format!(
+                "/v1/{}",
+                try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/environments/"), Segment::SingleWildcard, Segment::Literal("/userWorkloadsSecrets/"), Segment::SingleWildcard])?,
+            );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/userWorkloadsSecrets/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "name",
-                        "projects/*/locations/*/environments/*/userWorkloadsSecrets/*",
-                    );
-                    paths.push(builder.build());
-                }
-                gax::error::Error::binding(BindingError { paths })
-            })??;
+            let builder = self
+                .inner
+                .builder(reqwest::Method::GET, path);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, reqwest::Method::GET)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/environments/"), Segment::SingleWildcard, Segment::Literal("/userWorkloadsSecrets/"), Segment::SingleWildcard],
+                    "name",
+                    "projects/*/locations/*/environments/*/userWorkloadsSecrets/*");
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })??;
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+                .query(&[("$alt", "json;enum-encoding=int")])
+                .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner.execute(
+            builder,
+            body,
+            options,
+        ).await
     }
 
     async fn list_user_workloads_secrets(
@@ -819,59 +658,46 @@ impl super::stub::Environments for Environments {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         let (builder, method) = None
-            .or_else(|| {
-                let path = format!(
-                    "/v1/{}/userWorkloadsSecrets",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+        .or_else(|| {
+            let path = format!(
+                "/v1/{}/userWorkloadsSecrets",
+                try_match(Some(&req).map(|m| &m.parent).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/environments/"), Segment::SingleWildcard])?,
+            );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
-                let builder = builder.query(&[("pageSize", &req.page_size)]);
-                let builder = builder.query(&[("pageToken", &req.page_token)]);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "parent",
-                        "projects/*/locations/*/environments/*",
-                    );
-                    paths.push(builder.build());
-                }
-                gax::error::Error::binding(BindingError { paths })
-            })??;
+            let builder = self
+                .inner
+                .builder(reqwest::Method::GET, path);
+            let builder = builder.query(&[("pageSize", &req.page_size)]);
+            let builder = builder.query(&[("pageToken", &req.page_token)]);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, reqwest::Method::GET)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/environments/"), Segment::SingleWildcard],
+                    "parent",
+                    "projects/*/locations/*/environments/*");
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })??;
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+                .query(&[("$alt", "json;enum-encoding=int")])
+                .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner.execute(
+            builder,
+            body,
+            options,
+        ).await
     }
 
     async fn update_user_workloads_secret(
@@ -884,67 +710,44 @@ impl super::stub::Environments for Environments {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         let (builder, method) = None
-            .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.user_workloads_secret.as_ref())
-                            .map(|m| &m.name)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/userWorkloadsSecrets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+        .or_else(|| {
+            let path = format!(
+                "/v1/{}",
+                try_match(Some(&req).and_then(|m| m.user_workloads_secret.as_ref()).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/environments/"), Segment::SingleWildcard, Segment::Literal("/userWorkloadsSecrets/"), Segment::SingleWildcard])?,
+            );
 
-                let builder = self.inner.builder(reqwest::Method::PUT, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::PUT)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req)
-                            .and_then(|m| m.user_workloads_secret.as_ref())
-                            .map(|m| &m.name)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/userWorkloadsSecrets/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "user_workloads_secret.name",
-                        "projects/*/locations/*/environments/*/userWorkloadsSecrets/*",
-                    );
-                    paths.push(builder.build());
-                }
-                gax::error::Error::binding(BindingError { paths })
-            })??;
+            let builder = self
+                .inner
+                .builder(reqwest::Method::PUT, path);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, reqwest::Method::PUT)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).and_then(|m| m.user_workloads_secret.as_ref()).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/environments/"), Segment::SingleWildcard, Segment::Literal("/userWorkloadsSecrets/"), Segment::SingleWildcard],
+                    "user_workloads_secret.name",
+                    "projects/*/locations/*/environments/*/userWorkloadsSecrets/*");
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })??;
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+                .query(&[("$alt", "json;enum-encoding=int")])
+                .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         let body = gaxi::http::handle_empty(req.user_workloads_secret, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner.execute(
+            builder,
+            body,
+            options,
+        ).await
     }
 
     async fn delete_user_workloads_secret(
@@ -957,66 +760,48 @@ impl super::stub::Environments for Environments {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         let (builder, method) = None
-            .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/userWorkloadsSecrets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+        .or_else(|| {
+            let path = format!(
+                "/v1/{}",
+                try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/environments/"), Segment::SingleWildcard, Segment::Literal("/userWorkloadsSecrets/"), Segment::SingleWildcard])?,
+            );
 
-                let builder = self.inner.builder(reqwest::Method::DELETE, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/userWorkloadsSecrets/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "name",
-                        "projects/*/locations/*/environments/*/userWorkloadsSecrets/*",
-                    );
-                    paths.push(builder.build());
-                }
-                gax::error::Error::binding(BindingError { paths })
-            })??;
+            let builder = self
+                .inner
+                .builder(reqwest::Method::DELETE, path);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/environments/"), Segment::SingleWildcard, Segment::Literal("/userWorkloadsSecrets/"), Segment::SingleWildcard],
+                    "name",
+                    "projects/*/locations/*/environments/*/userWorkloadsSecrets/*");
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })??;
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+                .query(&[("$alt", "json;enum-encoding=int")])
+                .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await.map(
-            |r: gax::response::Response<wkt::Empty>| {
-                let (parts, _) = r.into_parts();
-                gax::response::Response::from_parts(parts, ())
-            },
-        )
+        self.inner.execute(
+            builder,
+            body,
+            options,
+        ).await
+        .map(|r: gax::response::Response<wkt::Empty>| {
+            let (parts, _) = r.into_parts();
+            gax::response::Response::from_parts(parts, ())
+        })
     }
 
     async fn create_user_workloads_config_map(
@@ -1029,57 +814,44 @@ impl super::stub::Environments for Environments {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         let (builder, method) = None
-            .or_else(|| {
-                let path = format!(
-                    "/v1/{}/userWorkloadsConfigMaps",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+        .or_else(|| {
+            let path = format!(
+                "/v1/{}/userWorkloadsConfigMaps",
+                try_match(Some(&req).map(|m| &m.parent).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/environments/"), Segment::SingleWildcard])?,
+            );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "parent",
-                        "projects/*/locations/*/environments/*",
-                    );
-                    paths.push(builder.build());
-                }
-                gax::error::Error::binding(BindingError { paths })
-            })??;
+            let builder = self
+                .inner
+                .builder(reqwest::Method::POST, path);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, reqwest::Method::POST)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/environments/"), Segment::SingleWildcard],
+                    "parent",
+                    "projects/*/locations/*/environments/*");
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })??;
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+                .query(&[("$alt", "json;enum-encoding=int")])
+                .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         let body = gaxi::http::handle_empty(req.user_workloads_config_map, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner.execute(
+            builder,
+            body,
+            options,
+        ).await
     }
 
     async fn get_user_workloads_config_map(
@@ -1092,61 +864,44 @@ impl super::stub::Environments for Environments {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         let (builder, method) = None
-            .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/userWorkloadsConfigMaps/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+        .or_else(|| {
+            let path = format!(
+                "/v1/{}",
+                try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/environments/"), Segment::SingleWildcard, Segment::Literal("/userWorkloadsConfigMaps/"), Segment::SingleWildcard])?,
+            );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/userWorkloadsConfigMaps/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "name",
-                        "projects/*/locations/*/environments/*/userWorkloadsConfigMaps/*",
-                    );
-                    paths.push(builder.build());
-                }
-                gax::error::Error::binding(BindingError { paths })
-            })??;
+            let builder = self
+                .inner
+                .builder(reqwest::Method::GET, path);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, reqwest::Method::GET)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/environments/"), Segment::SingleWildcard, Segment::Literal("/userWorkloadsConfigMaps/"), Segment::SingleWildcard],
+                    "name",
+                    "projects/*/locations/*/environments/*/userWorkloadsConfigMaps/*");
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })??;
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+                .query(&[("$alt", "json;enum-encoding=int")])
+                .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner.execute(
+            builder,
+            body,
+            options,
+        ).await
     }
 
     async fn list_user_workloads_config_maps(
@@ -1159,59 +914,46 @@ impl super::stub::Environments for Environments {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         let (builder, method) = None
-            .or_else(|| {
-                let path = format!(
-                    "/v1/{}/userWorkloadsConfigMaps",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+        .or_else(|| {
+            let path = format!(
+                "/v1/{}/userWorkloadsConfigMaps",
+                try_match(Some(&req).map(|m| &m.parent).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/environments/"), Segment::SingleWildcard])?,
+            );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
-                let builder = builder.query(&[("pageSize", &req.page_size)]);
-                let builder = builder.query(&[("pageToken", &req.page_token)]);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "parent",
-                        "projects/*/locations/*/environments/*",
-                    );
-                    paths.push(builder.build());
-                }
-                gax::error::Error::binding(BindingError { paths })
-            })??;
+            let builder = self
+                .inner
+                .builder(reqwest::Method::GET, path);
+            let builder = builder.query(&[("pageSize", &req.page_size)]);
+            let builder = builder.query(&[("pageToken", &req.page_token)]);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, reqwest::Method::GET)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/environments/"), Segment::SingleWildcard],
+                    "parent",
+                    "projects/*/locations/*/environments/*");
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })??;
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+                .query(&[("$alt", "json;enum-encoding=int")])
+                .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner.execute(
+            builder,
+            body,
+            options,
+        ).await
     }
 
     async fn update_user_workloads_config_map(
@@ -1224,67 +966,44 @@ impl super::stub::Environments for Environments {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         let (builder, method) = None
-            .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.user_workloads_config_map.as_ref())
-                            .map(|m| &m.name)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/userWorkloadsConfigMaps/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+        .or_else(|| {
+            let path = format!(
+                "/v1/{}",
+                try_match(Some(&req).and_then(|m| m.user_workloads_config_map.as_ref()).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/environments/"), Segment::SingleWildcard, Segment::Literal("/userWorkloadsConfigMaps/"), Segment::SingleWildcard])?,
+            );
 
-                let builder = self.inner.builder(reqwest::Method::PUT, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::PUT)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req)
-                            .and_then(|m| m.user_workloads_config_map.as_ref())
-                            .map(|m| &m.name)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/userWorkloadsConfigMaps/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "user_workloads_config_map.name",
-                        "projects/*/locations/*/environments/*/userWorkloadsConfigMaps/*",
-                    );
-                    paths.push(builder.build());
-                }
-                gax::error::Error::binding(BindingError { paths })
-            })??;
+            let builder = self
+                .inner
+                .builder(reqwest::Method::PUT, path);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, reqwest::Method::PUT)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).and_then(|m| m.user_workloads_config_map.as_ref()).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/environments/"), Segment::SingleWildcard, Segment::Literal("/userWorkloadsConfigMaps/"), Segment::SingleWildcard],
+                    "user_workloads_config_map.name",
+                    "projects/*/locations/*/environments/*/userWorkloadsConfigMaps/*");
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })??;
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+                .query(&[("$alt", "json;enum-encoding=int")])
+                .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         let body = gaxi::http::handle_empty(req.user_workloads_config_map, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner.execute(
+            builder,
+            body,
+            options,
+        ).await
     }
 
     async fn delete_user_workloads_config_map(
@@ -1297,66 +1016,48 @@ impl super::stub::Environments for Environments {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         let (builder, method) = None
-            .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/userWorkloadsConfigMaps/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+        .or_else(|| {
+            let path = format!(
+                "/v1/{}",
+                try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/environments/"), Segment::SingleWildcard, Segment::Literal("/userWorkloadsConfigMaps/"), Segment::SingleWildcard])?,
+            );
 
-                let builder = self.inner.builder(reqwest::Method::DELETE, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/userWorkloadsConfigMaps/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "name",
-                        "projects/*/locations/*/environments/*/userWorkloadsConfigMaps/*",
-                    );
-                    paths.push(builder.build());
-                }
-                gax::error::Error::binding(BindingError { paths })
-            })??;
+            let builder = self
+                .inner
+                .builder(reqwest::Method::DELETE, path);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/environments/"), Segment::SingleWildcard, Segment::Literal("/userWorkloadsConfigMaps/"), Segment::SingleWildcard],
+                    "name",
+                    "projects/*/locations/*/environments/*/userWorkloadsConfigMaps/*");
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })??;
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+                .query(&[("$alt", "json;enum-encoding=int")])
+                .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await.map(
-            |r: gax::response::Response<wkt::Empty>| {
-                let (parts, _) = r.into_parts();
-                gax::response::Response::from_parts(parts, ())
-            },
-        )
+        self.inner.execute(
+            builder,
+            body,
+            options,
+        ).await
+        .map(|r: gax::response::Response<wkt::Empty>| {
+            let (parts, _) = r.into_parts();
+            gax::response::Response::from_parts(parts, ())
+        })
     }
 
     async fn save_snapshot(
@@ -1369,57 +1070,44 @@ impl super::stub::Environments for Environments {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         let (builder, method) = None
-            .or_else(|| {
-                let path = format!(
-                    "/v1/{}:saveSnapshot",
-                    try_match(
-                        Some(&req).map(|m| &m.environment).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+        .or_else(|| {
+            let path = format!(
+                "/v1/{}:saveSnapshot",
+                try_match(Some(&req).map(|m| &m.environment).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/environments/"), Segment::SingleWildcard])?,
+            );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.environment).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "environment",
-                        "projects/*/locations/*/environments/*",
-                    );
-                    paths.push(builder.build());
-                }
-                gax::error::Error::binding(BindingError { paths })
-            })??;
+            let builder = self
+                .inner
+                .builder(reqwest::Method::POST, path);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, reqwest::Method::POST)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.environment).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/environments/"), Segment::SingleWildcard],
+                    "environment",
+                    "projects/*/locations/*/environments/*");
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })??;
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+                .query(&[("$alt", "json;enum-encoding=int")])
+                .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         let body = gaxi::http::handle_empty(Some(req), &method);
-        self.inner.execute(builder, body, options).await
+        self.inner.execute(
+            builder,
+            body,
+            options,
+        ).await
     }
 
     async fn load_snapshot(
@@ -1432,57 +1120,44 @@ impl super::stub::Environments for Environments {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         let (builder, method) = None
-            .or_else(|| {
-                let path = format!(
-                    "/v1/{}:loadSnapshot",
-                    try_match(
-                        Some(&req).map(|m| &m.environment).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+        .or_else(|| {
+            let path = format!(
+                "/v1/{}:loadSnapshot",
+                try_match(Some(&req).map(|m| &m.environment).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/environments/"), Segment::SingleWildcard])?,
+            );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.environment).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "environment",
-                        "projects/*/locations/*/environments/*",
-                    );
-                    paths.push(builder.build());
-                }
-                gax::error::Error::binding(BindingError { paths })
-            })??;
+            let builder = self
+                .inner
+                .builder(reqwest::Method::POST, path);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, reqwest::Method::POST)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.environment).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/environments/"), Segment::SingleWildcard],
+                    "environment",
+                    "projects/*/locations/*/environments/*");
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })??;
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+                .query(&[("$alt", "json;enum-encoding=int")])
+                .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         let body = gaxi::http::handle_empty(Some(req), &method);
-        self.inner.execute(builder, body, options).await
+        self.inner.execute(
+            builder,
+            body,
+            options,
+        ).await
     }
 
     async fn database_failover(
@@ -1495,57 +1170,44 @@ impl super::stub::Environments for Environments {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         let (builder, method) = None
-            .or_else(|| {
-                let path = format!(
-                    "/v1/{}:databaseFailover",
-                    try_match(
-                        Some(&req).map(|m| &m.environment).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+        .or_else(|| {
+            let path = format!(
+                "/v1/{}:databaseFailover",
+                try_match(Some(&req).map(|m| &m.environment).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/environments/"), Segment::SingleWildcard])?,
+            );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.environment).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "environment",
-                        "projects/*/locations/*/environments/*",
-                    );
-                    paths.push(builder.build());
-                }
-                gax::error::Error::binding(BindingError { paths })
-            })??;
+            let builder = self
+                .inner
+                .builder(reqwest::Method::POST, path);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, reqwest::Method::POST)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.environment).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/environments/"), Segment::SingleWildcard],
+                    "environment",
+                    "projects/*/locations/*/environments/*");
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })??;
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+                .query(&[("$alt", "json;enum-encoding=int")])
+                .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         let body = gaxi::http::handle_empty(Some(req), &method);
-        self.inner.execute(builder, body, options).await
+        self.inner.execute(
+            builder,
+            body,
+            options,
+        ).await
     }
 
     async fn fetch_database_properties(
@@ -1558,57 +1220,44 @@ impl super::stub::Environments for Environments {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         let (builder, method) = None
-            .or_else(|| {
-                let path = format!(
-                    "/v1/{}:fetchDatabaseProperties",
-                    try_match(
-                        Some(&req).map(|m| &m.environment).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+        .or_else(|| {
+            let path = format!(
+                "/v1/{}:fetchDatabaseProperties",
+                try_match(Some(&req).map(|m| &m.environment).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/environments/"), Segment::SingleWildcard])?,
+            );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.environment).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "environment",
-                        "projects/*/locations/*/environments/*",
-                    );
-                    paths.push(builder.build());
-                }
-                gax::error::Error::binding(BindingError { paths })
-            })??;
+            let builder = self
+                .inner
+                .builder(reqwest::Method::GET, path);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, reqwest::Method::GET)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.environment).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/environments/"), Segment::SingleWildcard],
+                    "environment",
+                    "projects/*/locations/*/environments/*");
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })??;
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+                .query(&[("$alt", "json;enum-encoding=int")])
+                .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner.execute(
+            builder,
+            body,
+            options,
+        ).await
     }
 
     async fn list_operations(
@@ -1621,58 +1270,48 @@ impl super::stub::Environments for Environments {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         let (builder, method) = None
-            .or_else(|| {
-                let path = format!(
-                    "/v1/{}/operations",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+        .or_else(|| {
+            let path = format!(
+                "/v1/{}/operations",
+                try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard])?,
+            );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
-                let builder = builder.query(&[("filter", &req.filter)]);
-                let builder = builder.query(&[("pageSize", &req.page_size)]);
-                let builder = builder.query(&[("pageToken", &req.page_token)]);
-                let builder =
-                    builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "name",
-                        "projects/*/locations/*",
-                    );
-                    paths.push(builder.build());
-                }
-                gax::error::Error::binding(BindingError { paths })
-            })??;
+            let builder = self
+                .inner
+                .builder(reqwest::Method::GET, path);
+            let builder = builder.query(&[("filter", &req.filter)]);
+            let builder = builder.query(&[("pageSize", &req.page_size)]);
+            let builder = builder.query(&[("pageToken", &req.page_token)]);
+            let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, reqwest::Method::GET)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard],
+                    "name",
+                    "projects/*/locations/*");
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })??;
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+                .query(&[("$alt", "json;enum-encoding=int")])
+                .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner.execute(
+            builder,
+            body,
+            options,
+        ).await
     }
 
     async fn get_operation(
@@ -1685,57 +1324,44 @@ impl super::stub::Environments for Environments {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         let (builder, method) = None
-            .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+        .or_else(|| {
+            let path = format!(
+                "/v1/{}",
+                try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
+            );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "name",
-                        "projects/*/locations/*/operations/*",
-                    );
-                    paths.push(builder.build());
-                }
-                gax::error::Error::binding(BindingError { paths })
-            })??;
+            let builder = self
+                .inner
+                .builder(reqwest::Method::GET, path);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, reqwest::Method::GET)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard],
+                    "name",
+                    "projects/*/locations/*/operations/*");
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })??;
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+                .query(&[("$alt", "json;enum-encoding=int")])
+                .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner.execute(
+            builder,
+            body,
+            options,
+        ).await
     }
 
     async fn delete_operation(
@@ -1748,62 +1374,48 @@ impl super::stub::Environments for Environments {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         let (builder, method) = None
-            .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+        .or_else(|| {
+            let path = format!(
+                "/v1/{}",
+                try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
+            );
 
-                let builder = self.inner.builder(reqwest::Method::DELETE, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "name",
-                        "projects/*/locations/*/operations/*",
-                    );
-                    paths.push(builder.build());
-                }
-                gax::error::Error::binding(BindingError { paths })
-            })??;
+            let builder = self
+                .inner
+                .builder(reqwest::Method::DELETE, path);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard],
+                    "name",
+                    "projects/*/locations/*/operations/*");
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })??;
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+                .query(&[("$alt", "json;enum-encoding=int")])
+                .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await.map(
-            |r: gax::response::Response<wkt::Empty>| {
-                let (parts, _) = r.into_parts();
-                gax::response::Response::from_parts(parts, ())
-            },
-        )
+        self.inner.execute(
+            builder,
+            body,
+            options,
+        ).await
+        .map(|r: gax::response::Response<wkt::Empty>| {
+            let (parts, _) = r.into_parts();
+            gax::response::Response::from_parts(parts, ())
+        })
     }
 
     fn get_polling_error_policy(
@@ -1853,56 +1465,47 @@ impl super::stub::ImageVersions for ImageVersions {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         let (builder, method) = None
-            .or_else(|| {
-                let path = format!(
-                    "/v1/{}/imageVersions",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+        .or_else(|| {
+            let path = format!(
+                "/v1/{}/imageVersions",
+                try_match(Some(&req).map(|m| &m.parent).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard])?,
+            );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
-                let builder = builder.query(&[("pageSize", &req.page_size)]);
-                let builder = builder.query(&[("pageToken", &req.page_token)]);
-                let builder = builder.query(&[("includePastReleases", &req.include_past_releases)]);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "parent",
-                        "projects/*/locations/*",
-                    );
-                    paths.push(builder.build());
-                }
-                gax::error::Error::binding(BindingError { paths })
-            })??;
+            let builder = self
+                .inner
+                .builder(reqwest::Method::GET, path);
+            let builder = builder.query(&[("pageSize", &req.page_size)]);
+            let builder = builder.query(&[("pageToken", &req.page_token)]);
+            let builder = builder.query(&[("includePastReleases", &req.include_past_releases)]);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, reqwest::Method::GET)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard],
+                    "parent",
+                    "projects/*/locations/*");
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })??;
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+                .query(&[("$alt", "json;enum-encoding=int")])
+                .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner.execute(
+            builder,
+            body,
+            options,
+        ).await
     }
 
     async fn list_operations(
@@ -1915,58 +1518,48 @@ impl super::stub::ImageVersions for ImageVersions {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         let (builder, method) = None
-            .or_else(|| {
-                let path = format!(
-                    "/v1/{}/operations",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+        .or_else(|| {
+            let path = format!(
+                "/v1/{}/operations",
+                try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard])?,
+            );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
-                let builder = builder.query(&[("filter", &req.filter)]);
-                let builder = builder.query(&[("pageSize", &req.page_size)]);
-                let builder = builder.query(&[("pageToken", &req.page_token)]);
-                let builder =
-                    builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "name",
-                        "projects/*/locations/*",
-                    );
-                    paths.push(builder.build());
-                }
-                gax::error::Error::binding(BindingError { paths })
-            })??;
+            let builder = self
+                .inner
+                .builder(reqwest::Method::GET, path);
+            let builder = builder.query(&[("filter", &req.filter)]);
+            let builder = builder.query(&[("pageSize", &req.page_size)]);
+            let builder = builder.query(&[("pageToken", &req.page_token)]);
+            let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, reqwest::Method::GET)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard],
+                    "name",
+                    "projects/*/locations/*");
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })??;
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+                .query(&[("$alt", "json;enum-encoding=int")])
+                .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner.execute(
+            builder,
+            body,
+            options,
+        ).await
     }
 
     async fn get_operation(
@@ -1979,57 +1572,44 @@ impl super::stub::ImageVersions for ImageVersions {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         let (builder, method) = None
-            .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+        .or_else(|| {
+            let path = format!(
+                "/v1/{}",
+                try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
+            );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "name",
-                        "projects/*/locations/*/operations/*",
-                    );
-                    paths.push(builder.build());
-                }
-                gax::error::Error::binding(BindingError { paths })
-            })??;
+            let builder = self
+                .inner
+                .builder(reqwest::Method::GET, path);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, reqwest::Method::GET)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard],
+                    "name",
+                    "projects/*/locations/*/operations/*");
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })??;
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+                .query(&[("$alt", "json;enum-encoding=int")])
+                .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner.execute(
+            builder,
+            body,
+            options,
+        ).await
     }
 
     async fn delete_operation(
@@ -2042,61 +1622,49 @@ impl super::stub::ImageVersions for ImageVersions {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         let (builder, method) = None
-            .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+        .or_else(|| {
+            let path = format!(
+                "/v1/{}",
+                try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
+            );
 
-                let builder = self.inner.builder(reqwest::Method::DELETE, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "name",
-                        "projects/*/locations/*/operations/*",
-                    );
-                    paths.push(builder.build());
-                }
-                gax::error::Error::binding(BindingError { paths })
-            })??;
+            let builder = self
+                .inner
+                .builder(reqwest::Method::DELETE, path);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard],
+                    "name",
+                    "projects/*/locations/*/operations/*");
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })??;
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+                .query(&[("$alt", "json;enum-encoding=int")])
+                .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await.map(
-            |r: gax::response::Response<wkt::Empty>| {
-                let (parts, _) = r.into_parts();
-                gax::response::Response::from_parts(parts, ())
-            },
-        )
+        self.inner.execute(
+            builder,
+            body,
+            options,
+        ).await
+        .map(|r: gax::response::Response<wkt::Empty>| {
+            let (parts, _) = r.into_parts();
+            gax::response::Response::from_parts(parts, ())
+        })
     }
+
 }
+

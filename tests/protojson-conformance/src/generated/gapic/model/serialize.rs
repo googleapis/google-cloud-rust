@@ -23,9 +23,9 @@ impl serde::ser::Serialize for super::TestStatus {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -51,9 +51,9 @@ impl serde::ser::Serialize for super::FailureSet {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.test.is_empty() {
             state.serialize_entry("test", &self.test)?;
@@ -73,9 +73,9 @@ impl serde::ser::Serialize for super::ConformanceRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if let Some(value) = self.protobuf_payload() {
             struct __With<'a>(&'a ::bytes::Bytes);
@@ -128,9 +128,9 @@ impl serde::ser::Serialize for super::ConformanceResponse {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if let Some(value) = self.parse_error() {
             state.serialize_entry("parseError", value)?;
@@ -183,9 +183,9 @@ impl serde::ser::Serialize for super::JspbEncodingConfig {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.use_jspb_array_any_format) {
             state.serialize_entry("useJspbArrayAnyFormat", &self.use_jspb_array_any_format)?;

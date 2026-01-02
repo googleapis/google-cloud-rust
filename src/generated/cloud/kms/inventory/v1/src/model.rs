@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -27,7 +28,6 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -42,6 +42,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCryptoKeysRequest {
+
     /// Required. The Google Cloud project for which to retrieve key metadata, in
     /// the format `projects/*`
     pub parent: std::string::String,
@@ -113,6 +114,7 @@ impl wkt::message::Message for ListCryptoKeysRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCryptoKeysResponse {
+
     /// The list of [CryptoKeys][google.cloud.kms.v1.CryptoKey].
     ///
     /// [google.cloud.kms.v1.CryptoKey]: kms::model::CryptoKey
@@ -145,7 +147,7 @@ impl ListCryptoKeysResponse {
     pub fn set_crypto_keys<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<kms::model::CryptoKey>,
+        V: std::convert::Into<kms::model::CryptoKey>
     {
         use std::iter::Iterator;
         self.crypto_keys = v.into_iter().map(|i| i.into()).collect();
@@ -192,6 +194,7 @@ impl gax::paginator::internal::PageableResponse for ListCryptoKeysResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetProtectedResourcesSummaryRequest {
+
     /// Required. The resource name of the
     /// [CryptoKey][google.cloud.kms.v1.CryptoKey].
     ///
@@ -230,6 +233,7 @@ impl wkt::message::Message for GetProtectedResourcesSummaryRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProtectedResourcesSummary {
+
     /// The full name of the ProtectedResourcesSummary resource.
     /// Example:
     /// projects/test-project/locations/us/keyRings/test-keyring/cryptoKeys/test-key/protectedResourcesSummary
@@ -244,13 +248,13 @@ pub struct ProtectedResourcesSummary {
     pub project_count: i32,
 
     /// The number of resources protected by the key grouped by resource type.
-    pub resource_types: std::collections::HashMap<std::string::String, i64>,
+    pub resource_types: std::collections::HashMap<std::string::String,i64>,
 
     /// The number of resources protected by the key grouped by Cloud product.
-    pub cloud_products: std::collections::HashMap<std::string::String, i64>,
+    pub cloud_products: std::collections::HashMap<std::string::String,i64>,
 
     /// The number of resources protected by the key grouped by region.
-    pub locations: std::collections::HashMap<std::string::String, i64>,
+    pub locations: std::collections::HashMap<std::string::String,i64>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -373,6 +377,7 @@ impl wkt::message::Message for ProtectedResourcesSummary {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchProtectedResourcesRequest {
+
     /// Required. Resource name of the organization.
     /// Example: organizations/123
     pub scope: std::string::String,
@@ -482,7 +487,7 @@ impl SearchProtectedResourcesRequest {
     pub fn set_resource_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.resource_types = v.into_iter().map(|i| i.into()).collect();
@@ -503,6 +508,7 @@ impl wkt::message::Message for SearchProtectedResourcesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchProtectedResourcesResponse {
+
     /// Protected resources for this page.
     pub protected_resources: std::vec::Vec<crate::model::ProtectedResource>,
 
@@ -533,7 +539,7 @@ impl SearchProtectedResourcesResponse {
     pub fn set_protected_resources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ProtectedResource>,
+        V: std::convert::Into<crate::model::ProtectedResource>
     {
         use std::iter::Iterator;
         self.protected_resources = v.into_iter().map(|i| i.into()).collect();
@@ -577,6 +583,7 @@ impl gax::paginator::internal::PageableResponse for SearchProtectedResourcesResp
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProtectedResource {
+
     /// The full resource name of the resource.
     /// Example:
     /// `//compute.googleapis.com/projects/my_project_123/zones/zone1/instances/instance1`.
@@ -600,7 +607,7 @@ pub struct ProtectedResource {
     pub location: std::string::String,
 
     /// A key-value pair of the resource's labels (v1) to their values.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// The name of the Cloud KMS
     /// [CryptoKeyVersion](https://cloud.google.com/kms/docs/reference/rest/v1/projects.locations.keyRings.cryptoKeys.cryptoKeyVersions?hl=en)
@@ -731,10 +738,7 @@ impl ProtectedResource {
     /// # use google_cloud_kms_inventory_v1::model::ProtectedResource;
     /// let x = ProtectedResource::new().set_crypto_key_version("example");
     /// ```
-    pub fn set_crypto_key_version<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_crypto_key_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.crypto_key_version = v.into();
         self
     }
@@ -749,7 +753,7 @@ impl ProtectedResource {
     pub fn set_crypto_key_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.crypto_key_versions = v.into_iter().map(|i| i.into()).collect();
@@ -765,8 +769,7 @@ impl ProtectedResource {
     /// let x = ProtectedResource::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -782,8 +785,7 @@ impl ProtectedResource {
     /// let x = ProtectedResource::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self

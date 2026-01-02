@@ -76,9 +76,7 @@ impl AcceleratorTypes {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::accelerator_types::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::accelerator_types::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::accelerator_types::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -86,61 +84,65 @@ impl AcceleratorTypes {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::AcceleratorTypes + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::AcceleratorTypes + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::AcceleratorTypes>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::AcceleratorTypes>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::AcceleratorTypes> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::AcceleratorTypes> {
         super::transport::AcceleratorTypes::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::AcceleratorTypes> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::AcceleratorTypes::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::AcceleratorTypes> {
+        Self::build_transport(conf).await.map(super::tracing::AcceleratorTypes::new)
     }
 
     /// Retrieves an aggregated list of accelerator types.
     ///
     /// To prevent failure, it is recommended that you set the
     /// `returnPartialSuccess` parameter to `true`.
-    pub fn aggregated_list(&self) -> super::builder::accelerator_types::AggregatedList {
+    pub fn aggregated_list(&self) -> super::builder::accelerator_types::AggregatedList
+    {
         super::builder::accelerator_types::AggregatedList::new(self.inner.clone())
     }
 
     /// Returns the specified accelerator type.
-    pub fn get(&self) -> super::builder::accelerator_types::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::AcceleratorTypes;
+    /// async fn sample(
+    ///    client: &AcceleratorTypes
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::accelerator_types::Get
+    {
         super::builder::accelerator_types::Get::new(self.inner.clone())
     }
 
     /// Retrieves a list of accelerator types that are available to the specified
     /// project.
-    pub fn list(&self) -> super::builder::accelerator_types::List {
+    pub fn list(&self) -> super::builder::accelerator_types::List
+    {
         super::builder::accelerator_types::List::new(self.inner.clone())
     }
 }
@@ -212,92 +214,135 @@ impl Addresses {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::Addresses + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::Addresses + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Addresses>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Addresses>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Addresses> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Addresses> {
         super::transport::Addresses::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Addresses> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::Addresses::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Addresses> {
+        Self::build_transport(conf).await.map(super::tracing::Addresses::new)
     }
 
     /// Retrieves an aggregated list of addresses.
     ///
     /// To prevent failure, it is recommended that you set the
     /// `returnPartialSuccess` parameter to `true`.
-    pub fn aggregated_list(&self) -> super::builder::addresses::AggregatedList {
+    pub fn aggregated_list(&self) -> super::builder::addresses::AggregatedList
+    {
         super::builder::addresses::AggregatedList::new(self.inner.clone())
     }
 
     /// Deletes the specified address resource.
-    pub fn delete(&self) -> super::builder::addresses::Delete {
+    pub fn delete(&self) -> super::builder::addresses::Delete
+    {
         super::builder::addresses::Delete::new(self.inner.clone())
     }
 
     /// Returns the specified address resource.
-    pub fn get(&self) -> super::builder::addresses::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Addresses;
+    /// async fn sample(
+    ///    client: &Addresses
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::addresses::Get
+    {
         super::builder::addresses::Get::new(self.inner.clone())
     }
 
     /// Creates an address resource in the specified project by using the data
     /// included in the request.
-    pub fn insert(&self) -> super::builder::addresses::Insert {
+    pub fn insert(&self) -> super::builder::addresses::Insert
+    {
         super::builder::addresses::Insert::new(self.inner.clone())
     }
 
     /// Retrieves a list of addresses contained within
     /// the specified region.
-    pub fn list(&self) -> super::builder::addresses::List {
+    pub fn list(&self) -> super::builder::addresses::List
+    {
         super::builder::addresses::List::new(self.inner.clone())
     }
 
     /// Moves the specified address resource.
-    pub fn r#move(&self) -> super::builder::addresses::Move {
+    pub fn r#move(&self) -> super::builder::addresses::Move
+    {
         super::builder::addresses::Move::new(self.inner.clone())
     }
 
     /// Sets the labels on an Address. To learn more about labels, read theLabeling
     /// Resources documentation.
-    pub fn set_labels(&self) -> super::builder::addresses::SetLabels {
+    pub fn set_labels(&self) -> super::builder::addresses::SetLabels
+    {
         super::builder::addresses::SetLabels::new(self.inner.clone())
     }
 
     /// Returns permissions that a caller has on the specified resource.
-    pub fn test_iam_permissions(&self) -> super::builder::addresses::TestIamPermissions {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Addresses;
+    /// async fn sample(
+    ///    client: &Addresses
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::addresses::TestIamPermissions
+    {
         super::builder::addresses::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Retrieves the specified region-specific Operations resource.
-    pub fn get_operation(&self) -> super::builder::addresses::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Addresses;
+    /// async fn sample(
+    ///    client: &Addresses
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::addresses::GetOperation
+    {
         super::builder::addresses::GetOperation::new(self.inner.clone())
     }
 }
@@ -369,49 +414,52 @@ impl Advice {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::Advice + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::Advice + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Advice>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Advice>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Advice> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Advice> {
         super::transport::Advice::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Advice> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::Advice::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Advice> {
+        Self::build_transport(conf).await.map(super::tracing::Advice::new)
     }
 
     /// Advise how, where and when to create the requested amount of instances
     /// with specified accelerators, within the specified time and location limits.
     /// The method recommends creating future reservations for the requested
     /// resources.
-    pub fn calendar_mode(&self) -> super::builder::advice::CalendarMode {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Advice;
+    /// async fn sample(
+    ///    client: &Advice
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .calendar_mode()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn calendar_mode(&self) -> super::builder::advice::CalendarMode
+    {
         super::builder::advice::CalendarMode::new(self.inner.clone())
     }
 }
@@ -483,71 +531,78 @@ impl Autoscalers {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::Autoscalers + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::Autoscalers + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Autoscalers>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Autoscalers>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Autoscalers> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Autoscalers> {
         super::transport::Autoscalers::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Autoscalers> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::Autoscalers::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Autoscalers> {
+        Self::build_transport(conf).await.map(super::tracing::Autoscalers::new)
     }
 
     /// Retrieves an aggregated list of autoscalers.
     ///
     /// To prevent failure, it is recommended that you set the
     /// `returnPartialSuccess` parameter to `true`.
-    pub fn aggregated_list(&self) -> super::builder::autoscalers::AggregatedList {
+    pub fn aggregated_list(&self) -> super::builder::autoscalers::AggregatedList
+    {
         super::builder::autoscalers::AggregatedList::new(self.inner.clone())
     }
 
     /// Deletes the specified autoscaler.
-    pub fn delete(&self) -> super::builder::autoscalers::Delete {
+    pub fn delete(&self) -> super::builder::autoscalers::Delete
+    {
         super::builder::autoscalers::Delete::new(self.inner.clone())
     }
 
     /// Returns the specified autoscaler resource.
-    pub fn get(&self) -> super::builder::autoscalers::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Autoscalers;
+    /// async fn sample(
+    ///    client: &Autoscalers
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::autoscalers::Get
+    {
         super::builder::autoscalers::Get::new(self.inner.clone())
     }
 
     /// Creates an autoscaler in the specified project using the data
     /// included in the request.
-    pub fn insert(&self) -> super::builder::autoscalers::Insert {
+    pub fn insert(&self) -> super::builder::autoscalers::Insert
+    {
         super::builder::autoscalers::Insert::new(self.inner.clone())
     }
 
     /// Retrieves a list of autoscalers contained within
     /// the specified zone.
-    pub fn list(&self) -> super::builder::autoscalers::List {
+    pub fn list(&self) -> super::builder::autoscalers::List
+    {
         super::builder::autoscalers::List::new(self.inner.clone())
     }
 
@@ -555,18 +610,37 @@ impl Autoscalers {
     /// included in the request. This method supportsPATCH
     /// semantics and uses theJSON merge
     /// patch format and processing rules.
-    pub fn patch(&self) -> super::builder::autoscalers::Patch {
+    pub fn patch(&self) -> super::builder::autoscalers::Patch
+    {
         super::builder::autoscalers::Patch::new(self.inner.clone())
     }
 
     /// Updates an autoscaler in the specified project using the data
     /// included in the request.
-    pub fn update(&self) -> super::builder::autoscalers::Update {
+    pub fn update(&self) -> super::builder::autoscalers::Update
+    {
         super::builder::autoscalers::Update::new(self.inner.clone())
     }
 
     /// Retrieves the specified zone-specific Operations resource.
-    pub fn get_operation(&self) -> super::builder::autoscalers::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Autoscalers;
+    /// async fn sample(
+    ///    client: &Autoscalers
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::autoscalers::GetOperation
+    {
         super::builder::autoscalers::GetOperation::new(self.inner.clone())
     }
 }
@@ -638,81 +712,106 @@ impl BackendBuckets {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::BackendBuckets + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::BackendBuckets + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::BackendBuckets>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::BackendBuckets>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::BackendBuckets> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::BackendBuckets> {
         super::transport::BackendBuckets::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::BackendBuckets> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::BackendBuckets::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::BackendBuckets> {
+        Self::build_transport(conf).await.map(super::tracing::BackendBuckets::new)
     }
 
     /// Adds a key for validating requests with signed URLs for this backend
     /// bucket.
-    pub fn add_signed_url_key(&self) -> super::builder::backend_buckets::AddSignedUrlKey {
+    pub fn add_signed_url_key(&self) -> super::builder::backend_buckets::AddSignedUrlKey
+    {
         super::builder::backend_buckets::AddSignedUrlKey::new(self.inner.clone())
     }
 
     /// Deletes the specified BackendBucket resource.
-    pub fn delete(&self) -> super::builder::backend_buckets::Delete {
+    pub fn delete(&self) -> super::builder::backend_buckets::Delete
+    {
         super::builder::backend_buckets::Delete::new(self.inner.clone())
     }
 
     /// Deletes a key for validating requests with signed URLs for this backend
     /// bucket.
-    pub fn delete_signed_url_key(&self) -> super::builder::backend_buckets::DeleteSignedUrlKey {
+    pub fn delete_signed_url_key(&self) -> super::builder::backend_buckets::DeleteSignedUrlKey
+    {
         super::builder::backend_buckets::DeleteSignedUrlKey::new(self.inner.clone())
     }
 
     /// Returns the specified BackendBucket resource.
-    pub fn get(&self) -> super::builder::backend_buckets::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::BackendBuckets;
+    /// async fn sample(
+    ///    client: &BackendBuckets
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::backend_buckets::Get
+    {
         super::builder::backend_buckets::Get::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. May be empty if no such
     /// policy or resource exists.
-    pub fn get_iam_policy(&self) -> super::builder::backend_buckets::GetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::BackendBuckets;
+    /// async fn sample(
+    ///    client: &BackendBuckets
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::backend_buckets::GetIamPolicy
+    {
         super::builder::backend_buckets::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Creates a BackendBucket resource in the specified project using
     /// the data included in the request.
-    pub fn insert(&self) -> super::builder::backend_buckets::Insert {
+    pub fn insert(&self) -> super::builder::backend_buckets::Insert
+    {
         super::builder::backend_buckets::Insert::new(self.inner.clone())
     }
 
     /// Retrieves the list of BackendBucket resources available to the specified
     /// project.
-    pub fn list(&self) -> super::builder::backend_buckets::List {
+    pub fn list(&self) -> super::builder::backend_buckets::List
+    {
         super::builder::backend_buckets::List::new(self.inner.clone())
     }
 
@@ -720,36 +819,88 @@ impl BackendBuckets {
     /// request. This method supportsPATCH
     /// semantics and uses theJSON merge
     /// patch format and processing rules.
-    pub fn patch(&self) -> super::builder::backend_buckets::Patch {
+    pub fn patch(&self) -> super::builder::backend_buckets::Patch
+    {
         super::builder::backend_buckets::Patch::new(self.inner.clone())
     }
 
     /// Sets the edge security policy for the specified backend bucket.
-    pub fn set_edge_security_policy(
-        &self,
-    ) -> super::builder::backend_buckets::SetEdgeSecurityPolicy {
+    pub fn set_edge_security_policy(&self) -> super::builder::backend_buckets::SetEdgeSecurityPolicy
+    {
         super::builder::backend_buckets::SetEdgeSecurityPolicy::new(self.inner.clone())
     }
 
     /// Sets the access control policy on the specified resource.
     /// Replaces any existing policy.
-    pub fn set_iam_policy(&self) -> super::builder::backend_buckets::SetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::BackendBuckets;
+    /// async fn sample(
+    ///    client: &BackendBuckets
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::backend_buckets::SetIamPolicy
+    {
         super::builder::backend_buckets::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Returns permissions that a caller has on the specified resource.
-    pub fn test_iam_permissions(&self) -> super::builder::backend_buckets::TestIamPermissions {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::BackendBuckets;
+    /// async fn sample(
+    ///    client: &BackendBuckets
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::backend_buckets::TestIamPermissions
+    {
         super::builder::backend_buckets::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Updates the specified BackendBucket resource with the data included in the
     /// request.
-    pub fn update(&self) -> super::builder::backend_buckets::Update {
+    pub fn update(&self) -> super::builder::backend_buckets::Update
+    {
         super::builder::backend_buckets::Update::new(self.inner.clone())
     }
 
     /// Retrieves the specified Operations resource.
-    pub fn get_operation(&self) -> super::builder::backend_buckets::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::BackendBuckets;
+    /// async fn sample(
+    ///    client: &BackendBuckets
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::backend_buckets::GetOperation
+    {
         super::builder::backend_buckets::GetOperation::new(self.inner.clone())
     }
 }
@@ -813,9 +964,7 @@ impl BackendServices {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::backend_services::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::backend_services::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::backend_services::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -823,48 +972,34 @@ impl BackendServices {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::BackendServices + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::BackendServices + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::BackendServices>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::BackendServices>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::BackendServices> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::BackendServices> {
         super::transport::BackendServices::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::BackendServices> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::BackendServices::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::BackendServices> {
+        Self::build_transport(conf).await.map(super::tracing::BackendServices::new)
     }
 
     /// Adds a key for validating requests with signed URLs for this backend
     /// service.
-    pub fn add_signed_url_key(&self) -> super::builder::backend_services::AddSignedUrlKey {
+    pub fn add_signed_url_key(&self) -> super::builder::backend_services::AddSignedUrlKey
+    {
         super::builder::backend_services::AddSignedUrlKey::new(self.inner.clone())
     }
 
@@ -873,30 +1008,64 @@ impl BackendServices {
     ///
     /// To prevent failure, it is recommended that you set the
     /// `returnPartialSuccess` parameter to `true`.
-    pub fn aggregated_list(&self) -> super::builder::backend_services::AggregatedList {
+    pub fn aggregated_list(&self) -> super::builder::backend_services::AggregatedList
+    {
         super::builder::backend_services::AggregatedList::new(self.inner.clone())
     }
 
     /// Deletes the specified BackendService resource.
-    pub fn delete(&self) -> super::builder::backend_services::Delete {
+    pub fn delete(&self) -> super::builder::backend_services::Delete
+    {
         super::builder::backend_services::Delete::new(self.inner.clone())
     }
 
     /// Deletes a key for validating requests with signed URLs for this backend
     /// service.
-    pub fn delete_signed_url_key(&self) -> super::builder::backend_services::DeleteSignedUrlKey {
+    pub fn delete_signed_url_key(&self) -> super::builder::backend_services::DeleteSignedUrlKey
+    {
         super::builder::backend_services::DeleteSignedUrlKey::new(self.inner.clone())
     }
 
     /// Returns the specified BackendService resource.
-    pub fn get(&self) -> super::builder::backend_services::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::BackendServices;
+    /// async fn sample(
+    ///    client: &BackendServices
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::backend_services::Get
+    {
         super::builder::backend_services::Get::new(self.inner.clone())
     }
 
     /// Returns effective security policies applied to this backend service.
-    pub fn get_effective_security_policies(
-        &self,
-    ) -> super::builder::backend_services::GetEffectiveSecurityPolicies {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::BackendServices;
+    /// async fn sample(
+    ///    client: &BackendServices
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .get_effective_security_policies()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_effective_security_policies(&self) -> super::builder::backend_services::GetEffectiveSecurityPolicies
+    {
         super::builder::backend_services::GetEffectiveSecurityPolicies::new(self.inner.clone())
     }
 
@@ -908,31 +1077,68 @@ impl BackendServices {
     /// {
     /// "group": "/zones/us-east1-b/instanceGroups/lb-backend-example"
     /// }
-    pub fn get_health(&self) -> super::builder::backend_services::GetHealth {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::BackendServices;
+    /// async fn sample(
+    ///    client: &BackendServices
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_health()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_health(&self) -> super::builder::backend_services::GetHealth
+    {
         super::builder::backend_services::GetHealth::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. May be empty if no such
     /// policy or resource exists.
-    pub fn get_iam_policy(&self) -> super::builder::backend_services::GetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::BackendServices;
+    /// async fn sample(
+    ///    client: &BackendServices
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::backend_services::GetIamPolicy
+    {
         super::builder::backend_services::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Creates a BackendService resource in the specified project using
     /// the data included in the request. For more information, see
     /// Backend services overview.
-    pub fn insert(&self) -> super::builder::backend_services::Insert {
+    pub fn insert(&self) -> super::builder::backend_services::Insert
+    {
         super::builder::backend_services::Insert::new(self.inner.clone())
     }
 
     /// Retrieves the list of BackendService resources available to the specified
     /// project.
-    pub fn list(&self) -> super::builder::backend_services::List {
+    pub fn list(&self) -> super::builder::backend_services::List
+    {
         super::builder::backend_services::List::new(self.inner.clone())
     }
 
     /// Retrieves a list of all usable backend services in the specified project.
-    pub fn list_usable(&self) -> super::builder::backend_services::ListUsable {
+    pub fn list_usable(&self) -> super::builder::backend_services::ListUsable
+    {
         super::builder::backend_services::ListUsable::new(self.inner.clone())
     }
 
@@ -941,44 +1147,97 @@ impl BackendServices {
     /// Backend services overview. This method
     /// supports PATCH semantics and uses the JSON merge
     /// patch format and processing rules.
-    pub fn patch(&self) -> super::builder::backend_services::Patch {
+    pub fn patch(&self) -> super::builder::backend_services::Patch
+    {
         super::builder::backend_services::Patch::new(self.inner.clone())
     }
 
     /// Sets the edge security policy for the specified backend service.
-    pub fn set_edge_security_policy(
-        &self,
-    ) -> super::builder::backend_services::SetEdgeSecurityPolicy {
+    pub fn set_edge_security_policy(&self) -> super::builder::backend_services::SetEdgeSecurityPolicy
+    {
         super::builder::backend_services::SetEdgeSecurityPolicy::new(self.inner.clone())
     }
 
     /// Sets the access control policy on the specified resource.
     /// Replaces any existing policy.
-    pub fn set_iam_policy(&self) -> super::builder::backend_services::SetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::BackendServices;
+    /// async fn sample(
+    ///    client: &BackendServices
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::backend_services::SetIamPolicy
+    {
         super::builder::backend_services::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Sets the Google Cloud Armor security policy for the specified backend
     /// service. For more information, seeGoogle
     /// Cloud Armor Overview
-    pub fn set_security_policy(&self) -> super::builder::backend_services::SetSecurityPolicy {
+    pub fn set_security_policy(&self) -> super::builder::backend_services::SetSecurityPolicy
+    {
         super::builder::backend_services::SetSecurityPolicy::new(self.inner.clone())
     }
 
     /// Returns permissions that a caller has on the specified resource.
-    pub fn test_iam_permissions(&self) -> super::builder::backend_services::TestIamPermissions {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::BackendServices;
+    /// async fn sample(
+    ///    client: &BackendServices
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::backend_services::TestIamPermissions
+    {
         super::builder::backend_services::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Updates the specified BackendService resource with the data included in the
     /// request. For more information, seeBackend
     /// services overview.
-    pub fn update(&self) -> super::builder::backend_services::Update {
+    pub fn update(&self) -> super::builder::backend_services::Update
+    {
         super::builder::backend_services::Update::new(self.inner.clone())
     }
 
     /// Retrieves the specified Operations resource.
-    pub fn get_operation(&self) -> super::builder::backend_services::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::BackendServices;
+    /// async fn sample(
+    ///    client: &BackendServices
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::backend_services::GetOperation
+    {
         super::builder::backend_services::GetOperation::new(self.inner.clone())
     }
 }
@@ -1042,9 +1301,7 @@ impl CrossSiteNetworks {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::cross_site_networks::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::cross_site_networks::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::cross_site_networks::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -1052,63 +1309,68 @@ impl CrossSiteNetworks {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::CrossSiteNetworks + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::CrossSiteNetworks + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CrossSiteNetworks>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CrossSiteNetworks>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::CrossSiteNetworks> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::CrossSiteNetworks> {
         super::transport::CrossSiteNetworks::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::CrossSiteNetworks> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::CrossSiteNetworks::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::CrossSiteNetworks> {
+        Self::build_transport(conf).await.map(super::tracing::CrossSiteNetworks::new)
     }
 
     /// Deletes the specified cross-site network in the given scope.
-    pub fn delete(&self) -> super::builder::cross_site_networks::Delete {
+    pub fn delete(&self) -> super::builder::cross_site_networks::Delete
+    {
         super::builder::cross_site_networks::Delete::new(self.inner.clone())
     }
 
     /// Returns the specified cross-site network in the given scope.
-    pub fn get(&self) -> super::builder::cross_site_networks::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::CrossSiteNetworks;
+    /// async fn sample(
+    ///    client: &CrossSiteNetworks
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::cross_site_networks::Get
+    {
         super::builder::cross_site_networks::Get::new(self.inner.clone())
     }
 
     /// Creates a cross-site network in the specified project in the given scope
     /// using the parameters that are included in the request.
-    pub fn insert(&self) -> super::builder::cross_site_networks::Insert {
+    pub fn insert(&self) -> super::builder::cross_site_networks::Insert
+    {
         super::builder::cross_site_networks::Insert::new(self.inner.clone())
     }
 
     /// Lists the cross-site networks for a project in the given scope.
-    pub fn list(&self) -> super::builder::cross_site_networks::List {
+    pub fn list(&self) -> super::builder::cross_site_networks::List
+    {
         super::builder::cross_site_networks::List::new(self.inner.clone())
     }
 
@@ -1116,12 +1378,30 @@ impl CrossSiteNetworks {
     /// the request. This method supportsPATCH
     /// semantics and uses theJSON merge
     /// patch format and processing rules.
-    pub fn patch(&self) -> super::builder::cross_site_networks::Patch {
+    pub fn patch(&self) -> super::builder::cross_site_networks::Patch
+    {
         super::builder::cross_site_networks::Patch::new(self.inner.clone())
     }
 
     /// Retrieves the specified Operations resource.
-    pub fn get_operation(&self) -> super::builder::cross_site_networks::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::CrossSiteNetworks;
+    /// async fn sample(
+    ///    client: &CrossSiteNetworks
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::cross_site_networks::GetOperation
+    {
         super::builder::cross_site_networks::GetOperation::new(self.inner.clone())
     }
 }
@@ -1193,60 +1473,65 @@ impl DiskTypes {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::DiskTypes + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::DiskTypes + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::DiskTypes>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::DiskTypes>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::DiskTypes> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::DiskTypes> {
         super::transport::DiskTypes::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::DiskTypes> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::DiskTypes::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::DiskTypes> {
+        Self::build_transport(conf).await.map(super::tracing::DiskTypes::new)
     }
 
     /// Retrieves an aggregated list of disk types.
     ///
     /// To prevent failure, it is recommended that you set the
     /// `returnPartialSuccess` parameter to `true`.
-    pub fn aggregated_list(&self) -> super::builder::disk_types::AggregatedList {
+    pub fn aggregated_list(&self) -> super::builder::disk_types::AggregatedList
+    {
         super::builder::disk_types::AggregatedList::new(self.inner.clone())
     }
 
     /// Returns the specified disk type.
-    pub fn get(&self) -> super::builder::disk_types::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::DiskTypes;
+    /// async fn sample(
+    ///    client: &DiskTypes
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::disk_types::Get
+    {
         super::builder::disk_types::Get::new(self.inner.clone())
     }
 
     /// Retrieves a list of disk types available to the specified
     /// project.
-    pub fn list(&self) -> super::builder::disk_types::List {
+    pub fn list(&self) -> super::builder::disk_types::List
+    {
         super::builder::disk_types::List::new(self.inner.clone())
     }
 }
@@ -1318,48 +1603,35 @@ impl Disks {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::Disks + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::Disks + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Disks>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Disks>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Disks> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Disks> {
         super::transport::Disks::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Disks> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::Disks::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Disks> {
+        Self::build_transport(conf).await.map(super::tracing::Disks::new)
     }
 
     /// Adds existing resource policies to a disk. You can only add one
     /// policy which will be applied to this disk for scheduling snapshot
     /// creation.
-    pub fn add_resource_policies(&self) -> super::builder::disks::AddResourcePolicies {
+    pub fn add_resource_policies(&self) -> super::builder::disks::AddResourcePolicies
+    {
         super::builder::disks::AddResourcePolicies::new(self.inner.clone())
     }
 
@@ -1367,18 +1639,21 @@ impl Disks {
     ///
     /// To prevent failure, it is recommended that you set the
     /// `returnPartialSuccess` parameter to `true`.
-    pub fn aggregated_list(&self) -> super::builder::disks::AggregatedList {
+    pub fn aggregated_list(&self) -> super::builder::disks::AggregatedList
+    {
         super::builder::disks::AggregatedList::new(self.inner.clone())
     }
 
     /// Bulk create a set of disks.
-    pub fn bulk_insert(&self) -> super::builder::disks::BulkInsert {
+    pub fn bulk_insert(&self) -> super::builder::disks::BulkInsert
+    {
         super::builder::disks::BulkInsert::new(self.inner.clone())
     }
 
     /// Sets the labels on many disks at once. To learn more about labels, read theLabeling
     /// Resources documentation.
-    pub fn bulk_set_labels(&self) -> super::builder::disks::BulkSetLabels {
+    pub fn bulk_set_labels(&self) -> super::builder::disks::BulkSetLabels
+    {
         super::builder::disks::BulkSetLabels::new(self.inner.clone())
     }
 
@@ -1386,7 +1661,8 @@ impl Disks {
     /// creation, consider using snapshots.insert
     /// instead, as that method supports more features, such as creating snapshots
     /// in a project different from the source disk project.
-    pub fn create_snapshot(&self) -> super::builder::disks::CreateSnapshot {
+    pub fn create_snapshot(&self) -> super::builder::disks::CreateSnapshot
+    {
         super::builder::disks::CreateSnapshot::new(self.inner.clone())
     }
 
@@ -1395,18 +1671,53 @@ impl Disks {
     /// delete any snapshots
     /// previously made from the disk. You must separatelydelete
     /// snapshots.
-    pub fn delete(&self) -> super::builder::disks::Delete {
+    pub fn delete(&self) -> super::builder::disks::Delete
+    {
         super::builder::disks::Delete::new(self.inner.clone())
     }
 
     /// Returns the specified persistent disk.
-    pub fn get(&self) -> super::builder::disks::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Disks;
+    /// async fn sample(
+    ///    client: &Disks
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::disks::Get
+    {
         super::builder::disks::Get::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. May be empty if no such
     /// policy or resource exists.
-    pub fn get_iam_policy(&self) -> super::builder::disks::GetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Disks;
+    /// async fn sample(
+    ///    client: &Disks
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::disks::GetIamPolicy
+    {
         super::builder::disks::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -1415,71 +1726,131 @@ impl Disks {
     /// (sourceImage, sourceSnapshot, orsourceDisk) or create an empty 500 GB data disk by
     /// omitting all properties. You can also create a disk that is larger than
     /// the default size by specifying the sizeGb property.
-    pub fn insert(&self) -> super::builder::disks::Insert {
+    pub fn insert(&self) -> super::builder::disks::Insert
+    {
         super::builder::disks::Insert::new(self.inner.clone())
     }
 
     /// Retrieves a list of persistent disks contained within
     /// the specified zone.
-    pub fn list(&self) -> super::builder::disks::List {
+    pub fn list(&self) -> super::builder::disks::List
+    {
         super::builder::disks::List::new(self.inner.clone())
     }
 
     /// Removes resource policies from a disk.
-    pub fn remove_resource_policies(&self) -> super::builder::disks::RemoveResourcePolicies {
+    pub fn remove_resource_policies(&self) -> super::builder::disks::RemoveResourcePolicies
+    {
         super::builder::disks::RemoveResourcePolicies::new(self.inner.clone())
     }
 
     /// Resizes the specified persistent disk.
     /// You can only increase the size of the disk.
-    pub fn resize(&self) -> super::builder::disks::Resize {
+    pub fn resize(&self) -> super::builder::disks::Resize
+    {
         super::builder::disks::Resize::new(self.inner.clone())
     }
 
     /// Sets the access control policy on the specified resource.
     /// Replaces any existing policy.
-    pub fn set_iam_policy(&self) -> super::builder::disks::SetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Disks;
+    /// async fn sample(
+    ///    client: &Disks
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::disks::SetIamPolicy
+    {
         super::builder::disks::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Sets the labels on a disk. To learn more about labels, read theLabeling
     /// Resources documentation.
-    pub fn set_labels(&self) -> super::builder::disks::SetLabels {
+    pub fn set_labels(&self) -> super::builder::disks::SetLabels
+    {
         super::builder::disks::SetLabels::new(self.inner.clone())
     }
 
     /// Starts asynchronous replication.
     /// Must be invoked on the primary disk.
-    pub fn start_async_replication(&self) -> super::builder::disks::StartAsyncReplication {
+    pub fn start_async_replication(&self) -> super::builder::disks::StartAsyncReplication
+    {
         super::builder::disks::StartAsyncReplication::new(self.inner.clone())
     }
 
     /// Stops asynchronous replication.
     /// Can be invoked either on the primary or on the secondary disk.
-    pub fn stop_async_replication(&self) -> super::builder::disks::StopAsyncReplication {
+    pub fn stop_async_replication(&self) -> super::builder::disks::StopAsyncReplication
+    {
         super::builder::disks::StopAsyncReplication::new(self.inner.clone())
     }
 
     /// Stops asynchronous replication for a consistency group of disks.
     /// Can be invoked either in the primary or secondary scope.
-    pub fn stop_group_async_replication(&self) -> super::builder::disks::StopGroupAsyncReplication {
+    pub fn stop_group_async_replication(&self) -> super::builder::disks::StopGroupAsyncReplication
+    {
         super::builder::disks::StopGroupAsyncReplication::new(self.inner.clone())
     }
 
     /// Returns permissions that a caller has on the specified resource.
-    pub fn test_iam_permissions(&self) -> super::builder::disks::TestIamPermissions {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Disks;
+    /// async fn sample(
+    ///    client: &Disks
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::disks::TestIamPermissions
+    {
         super::builder::disks::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Updates the specified disk with the data included in the request.
     /// The update is performed only on selected fields included as part
     /// of update-mask. Only the following fields can be modified: user_license.
-    pub fn update(&self) -> super::builder::disks::Update {
+    pub fn update(&self) -> super::builder::disks::Update
+    {
         super::builder::disks::Update::new(self.inner.clone())
     }
 
     /// Retrieves the specified zone-specific Operations resource.
-    pub fn get_operation(&self) -> super::builder::disks::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Disks;
+    /// async fn sample(
+    ///    client: &Disks
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::disks::GetOperation
+    {
         super::builder::disks::GetOperation::new(self.inner.clone())
     }
 }
@@ -1543,9 +1914,7 @@ impl ExternalVpnGateways {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::external_vpn_gateways::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::external_vpn_gateways::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::external_vpn_gateways::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -1553,84 +1922,122 @@ impl ExternalVpnGateways {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::ExternalVpnGateways + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::ExternalVpnGateways + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ExternalVpnGateways>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ExternalVpnGateways>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ExternalVpnGateways> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ExternalVpnGateways> {
         super::transport::ExternalVpnGateways::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ExternalVpnGateways> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::ExternalVpnGateways::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ExternalVpnGateways> {
+        Self::build_transport(conf).await.map(super::tracing::ExternalVpnGateways::new)
     }
 
     /// Deletes the specified externalVpnGateway.
-    pub fn delete(&self) -> super::builder::external_vpn_gateways::Delete {
+    pub fn delete(&self) -> super::builder::external_vpn_gateways::Delete
+    {
         super::builder::external_vpn_gateways::Delete::new(self.inner.clone())
     }
 
     /// Returns the specified externalVpnGateway. Get a list of available
     /// externalVpnGateways by making a list() request.
-    pub fn get(&self) -> super::builder::external_vpn_gateways::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::ExternalVpnGateways;
+    /// async fn sample(
+    ///    client: &ExternalVpnGateways
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::external_vpn_gateways::Get
+    {
         super::builder::external_vpn_gateways::Get::new(self.inner.clone())
     }
 
     /// Creates a ExternalVpnGateway in the specified project using
     /// the data included in the request.
-    pub fn insert(&self) -> super::builder::external_vpn_gateways::Insert {
+    pub fn insert(&self) -> super::builder::external_vpn_gateways::Insert
+    {
         super::builder::external_vpn_gateways::Insert::new(self.inner.clone())
     }
 
     /// Retrieves the list of ExternalVpnGateway available to the specified
     /// project.
-    pub fn list(&self) -> super::builder::external_vpn_gateways::List {
+    pub fn list(&self) -> super::builder::external_vpn_gateways::List
+    {
         super::builder::external_vpn_gateways::List::new(self.inner.clone())
     }
 
     /// Sets the labels on an ExternalVpnGateway. To learn more about labels,
     /// read the Labeling
     /// Resources documentation.
-    pub fn set_labels(&self) -> super::builder::external_vpn_gateways::SetLabels {
+    pub fn set_labels(&self) -> super::builder::external_vpn_gateways::SetLabels
+    {
         super::builder::external_vpn_gateways::SetLabels::new(self.inner.clone())
     }
 
     /// Returns permissions that a caller has on the specified resource.
-    pub fn test_iam_permissions(
-        &self,
-    ) -> super::builder::external_vpn_gateways::TestIamPermissions {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::ExternalVpnGateways;
+    /// async fn sample(
+    ///    client: &ExternalVpnGateways
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::external_vpn_gateways::TestIamPermissions
+    {
         super::builder::external_vpn_gateways::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Retrieves the specified Operations resource.
-    pub fn get_operation(&self) -> super::builder::external_vpn_gateways::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::ExternalVpnGateways;
+    /// async fn sample(
+    ///    client: &ExternalVpnGateways
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::external_vpn_gateways::GetOperation
+    {
         super::builder::external_vpn_gateways::GetOperation::new(self.inner.clone())
     }
 }
@@ -1694,9 +2101,7 @@ impl FirewallPolicies {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::firewall_policies::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::firewall_policies::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::firewall_policies::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -1704,142 +2109,274 @@ impl FirewallPolicies {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::FirewallPolicies + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::FirewallPolicies + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::FirewallPolicies>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::FirewallPolicies>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::FirewallPolicies> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::FirewallPolicies> {
         super::transport::FirewallPolicies::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::FirewallPolicies> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::FirewallPolicies::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::FirewallPolicies> {
+        Self::build_transport(conf).await.map(super::tracing::FirewallPolicies::new)
     }
 
     /// Inserts an association for the specified firewall policy.
-    pub fn add_association(&self) -> super::builder::firewall_policies::AddAssociation {
+    pub fn add_association(&self) -> super::builder::firewall_policies::AddAssociation
+    {
         super::builder::firewall_policies::AddAssociation::new(self.inner.clone())
     }
 
     /// Inserts a rule into a firewall policy.
-    pub fn add_rule(&self) -> super::builder::firewall_policies::AddRule {
+    pub fn add_rule(&self) -> super::builder::firewall_policies::AddRule
+    {
         super::builder::firewall_policies::AddRule::new(self.inner.clone())
     }
 
     /// Copies rules to the specified firewall policy.
-    pub fn clone_rules(&self) -> super::builder::firewall_policies::CloneRules {
+    pub fn clone_rules(&self) -> super::builder::firewall_policies::CloneRules
+    {
         super::builder::firewall_policies::CloneRules::new(self.inner.clone())
     }
 
     /// Deletes the specified policy.
-    pub fn delete(&self) -> super::builder::firewall_policies::Delete {
+    pub fn delete(&self) -> super::builder::firewall_policies::Delete
+    {
         super::builder::firewall_policies::Delete::new(self.inner.clone())
     }
 
     /// Returns the specified firewall policy.
-    pub fn get(&self) -> super::builder::firewall_policies::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::FirewallPolicies;
+    /// async fn sample(
+    ///    client: &FirewallPolicies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::firewall_policies::Get
+    {
         super::builder::firewall_policies::Get::new(self.inner.clone())
     }
 
     /// Gets an association with the specified name.
-    pub fn get_association(&self) -> super::builder::firewall_policies::GetAssociation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::FirewallPolicies;
+    /// async fn sample(
+    ///    client: &FirewallPolicies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_association()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_association(&self) -> super::builder::firewall_policies::GetAssociation
+    {
         super::builder::firewall_policies::GetAssociation::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. May be empty if no such
     /// policy or resource exists.
-    pub fn get_iam_policy(&self) -> super::builder::firewall_policies::GetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::FirewallPolicies;
+    /// async fn sample(
+    ///    client: &FirewallPolicies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::firewall_policies::GetIamPolicy
+    {
         super::builder::firewall_policies::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets a rule of the specified priority.
-    pub fn get_rule(&self) -> super::builder::firewall_policies::GetRule {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::FirewallPolicies;
+    /// async fn sample(
+    ///    client: &FirewallPolicies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_rule()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_rule(&self) -> super::builder::firewall_policies::GetRule
+    {
         super::builder::firewall_policies::GetRule::new(self.inner.clone())
     }
 
     /// Creates a new policy in the specified project using the data included in
     /// the request.
-    pub fn insert(&self) -> super::builder::firewall_policies::Insert {
+    pub fn insert(&self) -> super::builder::firewall_policies::Insert
+    {
         super::builder::firewall_policies::Insert::new(self.inner.clone())
     }
 
     /// Lists all the policies that have been configured for the specified
     /// folder or organization.
-    pub fn list(&self) -> super::builder::firewall_policies::List {
+    pub fn list(&self) -> super::builder::firewall_policies::List
+    {
         super::builder::firewall_policies::List::new(self.inner.clone())
     }
 
     /// Lists associations of a specified target, i.e., organization or folder.
-    pub fn list_associations(&self) -> super::builder::firewall_policies::ListAssociations {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::FirewallPolicies;
+    /// async fn sample(
+    ///    client: &FirewallPolicies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .list_associations()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_associations(&self) -> super::builder::firewall_policies::ListAssociations
+    {
         super::builder::firewall_policies::ListAssociations::new(self.inner.clone())
     }
 
     /// Moves the specified firewall policy.
-    pub fn r#move(&self) -> super::builder::firewall_policies::Move {
+    pub fn r#move(&self) -> super::builder::firewall_policies::Move
+    {
         super::builder::firewall_policies::Move::new(self.inner.clone())
     }
 
     /// Patches the specified policy with the data included in the request.
-    pub fn patch(&self) -> super::builder::firewall_policies::Patch {
+    pub fn patch(&self) -> super::builder::firewall_policies::Patch
+    {
         super::builder::firewall_policies::Patch::new(self.inner.clone())
     }
 
     /// Patches a rule of the specified priority.
-    pub fn patch_rule(&self) -> super::builder::firewall_policies::PatchRule {
+    pub fn patch_rule(&self) -> super::builder::firewall_policies::PatchRule
+    {
         super::builder::firewall_policies::PatchRule::new(self.inner.clone())
     }
 
     /// Removes an association for the specified firewall policy.
-    pub fn remove_association(&self) -> super::builder::firewall_policies::RemoveAssociation {
+    pub fn remove_association(&self) -> super::builder::firewall_policies::RemoveAssociation
+    {
         super::builder::firewall_policies::RemoveAssociation::new(self.inner.clone())
     }
 
     /// Deletes a rule of the specified priority.
-    pub fn remove_rule(&self) -> super::builder::firewall_policies::RemoveRule {
+    pub fn remove_rule(&self) -> super::builder::firewall_policies::RemoveRule
+    {
         super::builder::firewall_policies::RemoveRule::new(self.inner.clone())
     }
 
     /// Sets the access control policy on the specified resource.
     /// Replaces any existing policy.
-    pub fn set_iam_policy(&self) -> super::builder::firewall_policies::SetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::FirewallPolicies;
+    /// async fn sample(
+    ///    client: &FirewallPolicies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::firewall_policies::SetIamPolicy
+    {
         super::builder::firewall_policies::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Returns permissions that a caller has on the specified resource.
-    pub fn test_iam_permissions(&self) -> super::builder::firewall_policies::TestIamPermissions {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::FirewallPolicies;
+    /// async fn sample(
+    ///    client: &FirewallPolicies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::firewall_policies::TestIamPermissions
+    {
         super::builder::firewall_policies::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Retrieves the specified Operations resource. Gets a list of operations
     /// by making a `list()` request.
-    pub fn get_operation(&self) -> super::builder::firewall_policies::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::FirewallPolicies;
+    /// async fn sample(
+    ///    client: &FirewallPolicies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::firewall_policies::GetOperation
+    {
         super::builder::firewall_policies::GetOperation::new(self.inner.clone())
     }
 }
@@ -1911,63 +2448,69 @@ impl Firewalls {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::Firewalls + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::Firewalls + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Firewalls>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Firewalls>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Firewalls> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Firewalls> {
         super::transport::Firewalls::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Firewalls> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::Firewalls::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Firewalls> {
+        Self::build_transport(conf).await.map(super::tracing::Firewalls::new)
     }
 
     /// Deletes the specified firewall.
-    pub fn delete(&self) -> super::builder::firewalls::Delete {
+    pub fn delete(&self) -> super::builder::firewalls::Delete
+    {
         super::builder::firewalls::Delete::new(self.inner.clone())
     }
 
     /// Returns the specified firewall.
-    pub fn get(&self) -> super::builder::firewalls::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Firewalls;
+    /// async fn sample(
+    ///    client: &Firewalls
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::firewalls::Get
+    {
         super::builder::firewalls::Get::new(self.inner.clone())
     }
 
     /// Creates a firewall rule in the specified project using the data
     /// included in the request.
-    pub fn insert(&self) -> super::builder::firewalls::Insert {
+    pub fn insert(&self) -> super::builder::firewalls::Insert
+    {
         super::builder::firewalls::Insert::new(self.inner.clone())
     }
 
     /// Retrieves the list of firewall rules available to the specified
     /// project.
-    pub fn list(&self) -> super::builder::firewalls::List {
+    pub fn list(&self) -> super::builder::firewalls::List
+    {
         super::builder::firewalls::List::new(self.inner.clone())
     }
 
@@ -1975,12 +2518,30 @@ impl Firewalls {
     /// request. This method supportsPATCH
     /// semantics and uses theJSON merge
     /// patch format and processing rules.
-    pub fn patch(&self) -> super::builder::firewalls::Patch {
+    pub fn patch(&self) -> super::builder::firewalls::Patch
+    {
         super::builder::firewalls::Patch::new(self.inner.clone())
     }
 
     /// Returns permissions that a caller has on the specified resource.
-    pub fn test_iam_permissions(&self) -> super::builder::firewalls::TestIamPermissions {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Firewalls;
+    /// async fn sample(
+    ///    client: &Firewalls
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::firewalls::TestIamPermissions
+    {
         super::builder::firewalls::TestIamPermissions::new(self.inner.clone())
     }
 
@@ -1988,12 +2549,30 @@ impl Firewalls {
     /// request.
     /// Note that all fields will be updated if using PUT, even fields that are not
     /// specified. To update individual fields, please use PATCH instead.
-    pub fn update(&self) -> super::builder::firewalls::Update {
+    pub fn update(&self) -> super::builder::firewalls::Update
+    {
         super::builder::firewalls::Update::new(self.inner.clone())
     }
 
     /// Retrieves the specified Operations resource.
-    pub fn get_operation(&self) -> super::builder::firewalls::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Firewalls;
+    /// async fn sample(
+    ///    client: &Firewalls
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::firewalls::GetOperation
+    {
         super::builder::firewalls::GetOperation::new(self.inner.clone())
     }
 }
@@ -2057,9 +2636,7 @@ impl ForwardingRules {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::forwarding_rules::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::forwarding_rules::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::forwarding_rules::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -2067,72 +2644,78 @@ impl ForwardingRules {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::ForwardingRules + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::ForwardingRules + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ForwardingRules>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ForwardingRules>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ForwardingRules> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ForwardingRules> {
         super::transport::ForwardingRules::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ForwardingRules> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::ForwardingRules::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ForwardingRules> {
+        Self::build_transport(conf).await.map(super::tracing::ForwardingRules::new)
     }
 
     /// Retrieves an aggregated list of forwarding rules.
     ///
     /// To prevent failure, it is recommended that you set the
     /// `returnPartialSuccess` parameter to `true`.
-    pub fn aggregated_list(&self) -> super::builder::forwarding_rules::AggregatedList {
+    pub fn aggregated_list(&self) -> super::builder::forwarding_rules::AggregatedList
+    {
         super::builder::forwarding_rules::AggregatedList::new(self.inner.clone())
     }
 
     /// Deletes the specified ForwardingRule resource.
-    pub fn delete(&self) -> super::builder::forwarding_rules::Delete {
+    pub fn delete(&self) -> super::builder::forwarding_rules::Delete
+    {
         super::builder::forwarding_rules::Delete::new(self.inner.clone())
     }
 
     /// Returns the specified ForwardingRule resource.
-    pub fn get(&self) -> super::builder::forwarding_rules::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::ForwardingRules;
+    /// async fn sample(
+    ///    client: &ForwardingRules
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::forwarding_rules::Get
+    {
         super::builder::forwarding_rules::Get::new(self.inner.clone())
     }
 
     /// Creates a ForwardingRule resource in the specified project and region using
     /// the data included in the request.
-    pub fn insert(&self) -> super::builder::forwarding_rules::Insert {
+    pub fn insert(&self) -> super::builder::forwarding_rules::Insert
+    {
         super::builder::forwarding_rules::Insert::new(self.inner.clone())
     }
 
     /// Retrieves a list of ForwardingRule resources available to the specified
     /// project and region.
-    pub fn list(&self) -> super::builder::forwarding_rules::List {
+    pub fn list(&self) -> super::builder::forwarding_rules::List
+    {
         super::builder::forwarding_rules::List::new(self.inner.clone())
     }
 
@@ -2141,25 +2724,45 @@ impl ForwardingRules {
     /// semantics and uses theJSON merge
     /// patch format and processing rules. Currently, you can only
     /// patch the network_tier field.
-    pub fn patch(&self) -> super::builder::forwarding_rules::Patch {
+    pub fn patch(&self) -> super::builder::forwarding_rules::Patch
+    {
         super::builder::forwarding_rules::Patch::new(self.inner.clone())
     }
 
     /// Sets the labels on the specified resource. To learn more about labels,
     /// read the
     /// Labeling Resources documentation.
-    pub fn set_labels(&self) -> super::builder::forwarding_rules::SetLabels {
+    pub fn set_labels(&self) -> super::builder::forwarding_rules::SetLabels
+    {
         super::builder::forwarding_rules::SetLabels::new(self.inner.clone())
     }
 
     /// Changes target URL for forwarding rule. The new target should be of the
     /// same type as the old target.
-    pub fn set_target(&self) -> super::builder::forwarding_rules::SetTarget {
+    pub fn set_target(&self) -> super::builder::forwarding_rules::SetTarget
+    {
         super::builder::forwarding_rules::SetTarget::new(self.inner.clone())
     }
 
     /// Retrieves the specified region-specific Operations resource.
-    pub fn get_operation(&self) -> super::builder::forwarding_rules::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::ForwardingRules;
+    /// async fn sample(
+    ///    client: &ForwardingRules
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::forwarding_rules::GetOperation
+    {
         super::builder::forwarding_rules::GetOperation::new(self.inner.clone())
     }
 }
@@ -2223,9 +2826,7 @@ impl FutureReservations {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::future_reservations::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::future_reservations::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::future_reservations::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -2233,86 +2834,111 @@ impl FutureReservations {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::FutureReservations + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::FutureReservations + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::FutureReservations>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::FutureReservations>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::FutureReservations> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::FutureReservations> {
         super::transport::FutureReservations::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::FutureReservations> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::FutureReservations::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::FutureReservations> {
+        Self::build_transport(conf).await.map(super::tracing::FutureReservations::new)
     }
 
     /// Retrieves an aggregated list of future reservations.
     ///
     /// To prevent failure, it is recommended that you set the
     /// `returnPartialSuccess` parameter to `true`.
-    pub fn aggregated_list(&self) -> super::builder::future_reservations::AggregatedList {
+    pub fn aggregated_list(&self) -> super::builder::future_reservations::AggregatedList
+    {
         super::builder::future_reservations::AggregatedList::new(self.inner.clone())
     }
 
     /// Cancel the specified future reservation.
-    pub fn cancel(&self) -> super::builder::future_reservations::Cancel {
+    pub fn cancel(&self) -> super::builder::future_reservations::Cancel
+    {
         super::builder::future_reservations::Cancel::new(self.inner.clone())
     }
 
     /// Deletes the specified future reservation.
-    pub fn delete(&self) -> super::builder::future_reservations::Delete {
+    pub fn delete(&self) -> super::builder::future_reservations::Delete
+    {
         super::builder::future_reservations::Delete::new(self.inner.clone())
     }
 
     /// Retrieves information about the specified future reservation.
-    pub fn get(&self) -> super::builder::future_reservations::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::FutureReservations;
+    /// async fn sample(
+    ///    client: &FutureReservations
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::future_reservations::Get
+    {
         super::builder::future_reservations::Get::new(self.inner.clone())
     }
 
     /// Creates a new Future Reservation.
-    pub fn insert(&self) -> super::builder::future_reservations::Insert {
+    pub fn insert(&self) -> super::builder::future_reservations::Insert
+    {
         super::builder::future_reservations::Insert::new(self.inner.clone())
     }
 
     /// A list of all the future reservations that have been configured for the
     /// specified project in specified zone.
-    pub fn list(&self) -> super::builder::future_reservations::List {
+    pub fn list(&self) -> super::builder::future_reservations::List
+    {
         super::builder::future_reservations::List::new(self.inner.clone())
     }
 
     /// Updates the specified future reservation.
-    pub fn update(&self) -> super::builder::future_reservations::Update {
+    pub fn update(&self) -> super::builder::future_reservations::Update
+    {
         super::builder::future_reservations::Update::new(self.inner.clone())
     }
 
     /// Retrieves the specified zone-specific Operations resource.
-    pub fn get_operation(&self) -> super::builder::future_reservations::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::FutureReservations;
+    /// async fn sample(
+    ///    client: &FutureReservations
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::future_reservations::GetOperation
+    {
         super::builder::future_reservations::GetOperation::new(self.inner.clone())
     }
 }
@@ -2376,9 +3002,7 @@ impl GlobalAddresses {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::global_addresses::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::global_addresses::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::global_addresses::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -2386,84 +3010,125 @@ impl GlobalAddresses {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::GlobalAddresses + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::GlobalAddresses + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::GlobalAddresses>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::GlobalAddresses>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::GlobalAddresses> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::GlobalAddresses> {
         super::transport::GlobalAddresses::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::GlobalAddresses> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::GlobalAddresses::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::GlobalAddresses> {
+        Self::build_transport(conf).await.map(super::tracing::GlobalAddresses::new)
     }
 
     /// Deletes the specified address resource.
-    pub fn delete(&self) -> super::builder::global_addresses::Delete {
+    pub fn delete(&self) -> super::builder::global_addresses::Delete
+    {
         super::builder::global_addresses::Delete::new(self.inner.clone())
     }
 
     /// Returns the specified address resource.
-    pub fn get(&self) -> super::builder::global_addresses::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::GlobalAddresses;
+    /// async fn sample(
+    ///    client: &GlobalAddresses
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::global_addresses::Get
+    {
         super::builder::global_addresses::Get::new(self.inner.clone())
     }
 
     /// Creates an address resource in the specified project by using the data
     /// included in the request.
-    pub fn insert(&self) -> super::builder::global_addresses::Insert {
+    pub fn insert(&self) -> super::builder::global_addresses::Insert
+    {
         super::builder::global_addresses::Insert::new(self.inner.clone())
     }
 
     /// Retrieves a list of global addresses.
-    pub fn list(&self) -> super::builder::global_addresses::List {
+    pub fn list(&self) -> super::builder::global_addresses::List
+    {
         super::builder::global_addresses::List::new(self.inner.clone())
     }
 
     /// Moves the specified address resource from one project to another project.
-    pub fn r#move(&self) -> super::builder::global_addresses::Move {
+    pub fn r#move(&self) -> super::builder::global_addresses::Move
+    {
         super::builder::global_addresses::Move::new(self.inner.clone())
     }
 
     /// Sets the labels on a GlobalAddress. To learn more about labels, read theLabeling
     /// Resources documentation.
-    pub fn set_labels(&self) -> super::builder::global_addresses::SetLabels {
+    pub fn set_labels(&self) -> super::builder::global_addresses::SetLabels
+    {
         super::builder::global_addresses::SetLabels::new(self.inner.clone())
     }
 
     /// Returns permissions that a caller has on the specified resource.
-    pub fn test_iam_permissions(&self) -> super::builder::global_addresses::TestIamPermissions {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::GlobalAddresses;
+    /// async fn sample(
+    ///    client: &GlobalAddresses
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::global_addresses::TestIamPermissions
+    {
         super::builder::global_addresses::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Retrieves the specified Operations resource.
-    pub fn get_operation(&self) -> super::builder::global_addresses::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::GlobalAddresses;
+    /// async fn sample(
+    ///    client: &GlobalAddresses
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::global_addresses::GetOperation
+    {
         super::builder::global_addresses::GetOperation::new(self.inner.clone())
     }
 }
@@ -2527,9 +3192,7 @@ impl GlobalForwardingRules {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::global_forwarding_rules::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::global_forwarding_rules::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::global_forwarding_rules::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -2537,65 +3200,70 @@ impl GlobalForwardingRules {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::GlobalForwardingRules + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::GlobalForwardingRules + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::GlobalForwardingRules>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::GlobalForwardingRules>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::GlobalForwardingRules> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::GlobalForwardingRules> {
         super::transport::GlobalForwardingRules::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::GlobalForwardingRules> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::GlobalForwardingRules::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::GlobalForwardingRules> {
+        Self::build_transport(conf).await.map(super::tracing::GlobalForwardingRules::new)
     }
 
     /// Deletes the specified GlobalForwardingRule resource.
-    pub fn delete(&self) -> super::builder::global_forwarding_rules::Delete {
+    pub fn delete(&self) -> super::builder::global_forwarding_rules::Delete
+    {
         super::builder::global_forwarding_rules::Delete::new(self.inner.clone())
     }
 
     /// Returns the specified GlobalForwardingRule resource. Gets a list of
     /// available forwarding rules by making a list() request.
-    pub fn get(&self) -> super::builder::global_forwarding_rules::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::GlobalForwardingRules;
+    /// async fn sample(
+    ///    client: &GlobalForwardingRules
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::global_forwarding_rules::Get
+    {
         super::builder::global_forwarding_rules::Get::new(self.inner.clone())
     }
 
     /// Creates a GlobalForwardingRule resource in the specified project using
     /// the data included in the request.
-    pub fn insert(&self) -> super::builder::global_forwarding_rules::Insert {
+    pub fn insert(&self) -> super::builder::global_forwarding_rules::Insert
+    {
         super::builder::global_forwarding_rules::Insert::new(self.inner.clone())
     }
 
     /// Retrieves a list of GlobalForwardingRule resources available to the
     /// specified project.
-    pub fn list(&self) -> super::builder::global_forwarding_rules::List {
+    pub fn list(&self) -> super::builder::global_forwarding_rules::List
+    {
         super::builder::global_forwarding_rules::List::new(self.inner.clone())
     }
 
@@ -2604,25 +3272,45 @@ impl GlobalForwardingRules {
     /// semantics and uses theJSON merge
     /// patch format and processing rules. Currently, you can only
     /// patch the network_tier field.
-    pub fn patch(&self) -> super::builder::global_forwarding_rules::Patch {
+    pub fn patch(&self) -> super::builder::global_forwarding_rules::Patch
+    {
         super::builder::global_forwarding_rules::Patch::new(self.inner.clone())
     }
 
     /// Sets the labels on the specified resource. To learn more about labels,
     /// read the
     /// Labeling resources documentation.
-    pub fn set_labels(&self) -> super::builder::global_forwarding_rules::SetLabels {
+    pub fn set_labels(&self) -> super::builder::global_forwarding_rules::SetLabels
+    {
         super::builder::global_forwarding_rules::SetLabels::new(self.inner.clone())
     }
 
     /// Changes target URL for the GlobalForwardingRule resource. The new target
     /// should be of the same type as the old target.
-    pub fn set_target(&self) -> super::builder::global_forwarding_rules::SetTarget {
+    pub fn set_target(&self) -> super::builder::global_forwarding_rules::SetTarget
+    {
         super::builder::global_forwarding_rules::SetTarget::new(self.inner.clone())
     }
 
     /// Retrieves the specified Operations resource.
-    pub fn get_operation(&self) -> super::builder::global_forwarding_rules::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::GlobalForwardingRules;
+    /// async fn sample(
+    ///    client: &GlobalForwardingRules
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::global_forwarding_rules::GetOperation
+    {
         super::builder::global_forwarding_rules::GetOperation::new(self.inner.clone())
     }
 }
@@ -2686,9 +3374,7 @@ impl GlobalNetworkEndpointGroups {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::global_network_endpoint_groups::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::global_network_endpoint_groups::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::global_network_endpoint_groups::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -2696,98 +3382,110 @@ impl GlobalNetworkEndpointGroups {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::GlobalNetworkEndpointGroups + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::GlobalNetworkEndpointGroups + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<
-        std::sync::Arc<dyn super::stub::dynamic::GlobalNetworkEndpointGroups>,
-    > {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::GlobalNetworkEndpointGroups>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::GlobalNetworkEndpointGroups> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::GlobalNetworkEndpointGroups> {
         super::transport::GlobalNetworkEndpointGroups::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::GlobalNetworkEndpointGroups> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::GlobalNetworkEndpointGroups::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::GlobalNetworkEndpointGroups> {
+        Self::build_transport(conf).await.map(super::tracing::GlobalNetworkEndpointGroups::new)
     }
 
     /// Attach a network endpoint to the specified network endpoint group.
-    pub fn attach_network_endpoints(
-        &self,
-    ) -> super::builder::global_network_endpoint_groups::AttachNetworkEndpoints {
-        super::builder::global_network_endpoint_groups::AttachNetworkEndpoints::new(
-            self.inner.clone(),
-        )
+    pub fn attach_network_endpoints(&self) -> super::builder::global_network_endpoint_groups::AttachNetworkEndpoints
+    {
+        super::builder::global_network_endpoint_groups::AttachNetworkEndpoints::new(self.inner.clone())
     }
 
     /// Deletes the specified network endpoint group.Note that the NEG cannot be
     /// deleted if there are backend services referencing it.
-    pub fn delete(&self) -> super::builder::global_network_endpoint_groups::Delete {
+    pub fn delete(&self) -> super::builder::global_network_endpoint_groups::Delete
+    {
         super::builder::global_network_endpoint_groups::Delete::new(self.inner.clone())
     }
 
     /// Detach the network endpoint from the specified network endpoint group.
-    pub fn detach_network_endpoints(
-        &self,
-    ) -> super::builder::global_network_endpoint_groups::DetachNetworkEndpoints {
-        super::builder::global_network_endpoint_groups::DetachNetworkEndpoints::new(
-            self.inner.clone(),
-        )
+    pub fn detach_network_endpoints(&self) -> super::builder::global_network_endpoint_groups::DetachNetworkEndpoints
+    {
+        super::builder::global_network_endpoint_groups::DetachNetworkEndpoints::new(self.inner.clone())
     }
 
     /// Returns the specified network endpoint group.
-    pub fn get(&self) -> super::builder::global_network_endpoint_groups::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::GlobalNetworkEndpointGroups;
+    /// async fn sample(
+    ///    client: &GlobalNetworkEndpointGroups
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::global_network_endpoint_groups::Get
+    {
         super::builder::global_network_endpoint_groups::Get::new(self.inner.clone())
     }
 
     /// Creates a network endpoint group in the specified project using the
     /// parameters that are included in the request.
-    pub fn insert(&self) -> super::builder::global_network_endpoint_groups::Insert {
+    pub fn insert(&self) -> super::builder::global_network_endpoint_groups::Insert
+    {
         super::builder::global_network_endpoint_groups::Insert::new(self.inner.clone())
     }
 
     /// Retrieves the list of network endpoint groups that are located in the
     /// specified project.
-    pub fn list(&self) -> super::builder::global_network_endpoint_groups::List {
+    pub fn list(&self) -> super::builder::global_network_endpoint_groups::List
+    {
         super::builder::global_network_endpoint_groups::List::new(self.inner.clone())
     }
 
     /// Lists the network endpoints in the specified network endpoint group.
-    pub fn list_network_endpoints(
-        &self,
-    ) -> super::builder::global_network_endpoint_groups::ListNetworkEndpoints {
-        super::builder::global_network_endpoint_groups::ListNetworkEndpoints::new(
-            self.inner.clone(),
-        )
+    pub fn list_network_endpoints(&self) -> super::builder::global_network_endpoint_groups::ListNetworkEndpoints
+    {
+        super::builder::global_network_endpoint_groups::ListNetworkEndpoints::new(self.inner.clone())
     }
 
     /// Retrieves the specified Operations resource.
-    pub fn get_operation(&self) -> super::builder::global_network_endpoint_groups::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::GlobalNetworkEndpointGroups;
+    /// async fn sample(
+    ///    client: &GlobalNetworkEndpointGroups
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::global_network_endpoint_groups::GetOperation
+    {
         super::builder::global_network_endpoint_groups::GetOperation::new(self.inner.clone())
     }
 }
@@ -2851,9 +3549,7 @@ impl GlobalOperations {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::global_operations::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::global_operations::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::global_operations::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -2861,66 +3557,86 @@ impl GlobalOperations {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::GlobalOperations + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::GlobalOperations + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::GlobalOperations>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::GlobalOperations>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::GlobalOperations> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::GlobalOperations> {
         super::transport::GlobalOperations::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::GlobalOperations> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::GlobalOperations::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::GlobalOperations> {
+        Self::build_transport(conf).await.map(super::tracing::GlobalOperations::new)
     }
 
     /// Retrieves an aggregated list of all operations.
     ///
     /// To prevent failure, Google recommends that you set the
     /// `returnPartialSuccess` parameter to `true`.
-    pub fn aggregated_list(&self) -> super::builder::global_operations::AggregatedList {
+    pub fn aggregated_list(&self) -> super::builder::global_operations::AggregatedList
+    {
         super::builder::global_operations::AggregatedList::new(self.inner.clone())
     }
 
     /// Deletes the specified Operations resource.
-    pub fn delete(&self) -> super::builder::global_operations::Delete {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::GlobalOperations;
+    /// async fn sample(
+    ///    client: &GlobalOperations
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete(&self) -> super::builder::global_operations::Delete
+    {
         super::builder::global_operations::Delete::new(self.inner.clone())
     }
 
     /// Retrieves the specified Operations resource.
-    pub fn get(&self) -> super::builder::global_operations::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::GlobalOperations;
+    /// async fn sample(
+    ///    client: &GlobalOperations
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::global_operations::Get
+    {
         super::builder::global_operations::Get::new(self.inner.clone())
     }
 
     /// Retrieves a list of Operation resources contained within the specified
     /// project.
-    pub fn list(&self) -> super::builder::global_operations::List {
+    pub fn list(&self) -> super::builder::global_operations::List
+    {
         super::builder::global_operations::List::new(self.inner.clone())
     }
 
@@ -2942,7 +3658,24 @@ impl GlobalOperations {
     /// - If the default deadline is reached, there is no guarantee that the
     ///   operation is actually done when the method returns. Be prepared to retry
     ///   if the operation is not `DONE`.
-    pub fn wait(&self) -> super::builder::global_operations::Wait {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::GlobalOperations;
+    /// async fn sample(
+    ///    client: &GlobalOperations
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .wait()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn wait(&self) -> super::builder::global_operations::Wait
+    {
         super::builder::global_operations::Wait::new(self.inner.clone())
     }
 }
@@ -3006,9 +3739,7 @@ impl GlobalOrganizationOperations {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::global_organization_operations::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::global_organization_operations::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::global_organization_operations::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -3016,60 +3747,78 @@ impl GlobalOrganizationOperations {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::GlobalOrganizationOperations + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::GlobalOrganizationOperations + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<
-        std::sync::Arc<dyn super::stub::dynamic::GlobalOrganizationOperations>,
-    > {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::GlobalOrganizationOperations>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::GlobalOrganizationOperations> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::GlobalOrganizationOperations> {
         super::transport::GlobalOrganizationOperations::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::GlobalOrganizationOperations> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::GlobalOrganizationOperations::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::GlobalOrganizationOperations> {
+        Self::build_transport(conf).await.map(super::tracing::GlobalOrganizationOperations::new)
     }
 
     /// Deletes the specified Operations resource.
-    pub fn delete(&self) -> super::builder::global_organization_operations::Delete {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::GlobalOrganizationOperations;
+    /// async fn sample(
+    ///    client: &GlobalOrganizationOperations
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete(&self) -> super::builder::global_organization_operations::Delete
+    {
         super::builder::global_organization_operations::Delete::new(self.inner.clone())
     }
 
     /// Retrieves the specified Operations resource. Gets a list of operations
     /// by making a `list()` request.
-    pub fn get(&self) -> super::builder::global_organization_operations::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::GlobalOrganizationOperations;
+    /// async fn sample(
+    ///    client: &GlobalOrganizationOperations
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::global_organization_operations::Get
+    {
         super::builder::global_organization_operations::Get::new(self.inner.clone())
     }
 
     /// Retrieves a list of Operation resources contained within the specified
     /// organization.
-    pub fn list(&self) -> super::builder::global_organization_operations::List {
+    pub fn list(&self) -> super::builder::global_organization_operations::List
+    {
         super::builder::global_organization_operations::List::new(self.inner.clone())
     }
 }
@@ -3133,9 +3882,7 @@ impl GlobalPublicDelegatedPrefixes {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::global_public_delegated_prefixes::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::global_public_delegated_prefixes::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::global_public_delegated_prefixes::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -3143,64 +3890,68 @@ impl GlobalPublicDelegatedPrefixes {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::GlobalPublicDelegatedPrefixes + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::GlobalPublicDelegatedPrefixes + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<
-        std::sync::Arc<dyn super::stub::dynamic::GlobalPublicDelegatedPrefixes>,
-    > {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::GlobalPublicDelegatedPrefixes>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::GlobalPublicDelegatedPrefixes> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::GlobalPublicDelegatedPrefixes> {
         super::transport::GlobalPublicDelegatedPrefixes::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::GlobalPublicDelegatedPrefixes> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::GlobalPublicDelegatedPrefixes::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::GlobalPublicDelegatedPrefixes> {
+        Self::build_transport(conf).await.map(super::tracing::GlobalPublicDelegatedPrefixes::new)
     }
 
     /// Deletes the specified global PublicDelegatedPrefix.
-    pub fn delete(&self) -> super::builder::global_public_delegated_prefixes::Delete {
+    pub fn delete(&self) -> super::builder::global_public_delegated_prefixes::Delete
+    {
         super::builder::global_public_delegated_prefixes::Delete::new(self.inner.clone())
     }
 
     /// Returns the specified global PublicDelegatedPrefix resource.
-    pub fn get(&self) -> super::builder::global_public_delegated_prefixes::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::GlobalPublicDelegatedPrefixes;
+    /// async fn sample(
+    ///    client: &GlobalPublicDelegatedPrefixes
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::global_public_delegated_prefixes::Get
+    {
         super::builder::global_public_delegated_prefixes::Get::new(self.inner.clone())
     }
 
     /// Creates a global PublicDelegatedPrefix in the specified project using the
     /// parameters that are included in the request.
-    pub fn insert(&self) -> super::builder::global_public_delegated_prefixes::Insert {
+    pub fn insert(&self) -> super::builder::global_public_delegated_prefixes::Insert
+    {
         super::builder::global_public_delegated_prefixes::Insert::new(self.inner.clone())
     }
 
     /// Lists the global PublicDelegatedPrefixes for a project.
-    pub fn list(&self) -> super::builder::global_public_delegated_prefixes::List {
+    pub fn list(&self) -> super::builder::global_public_delegated_prefixes::List
+    {
         super::builder::global_public_delegated_prefixes::List::new(self.inner.clone())
     }
 
@@ -3208,12 +3959,30 @@ impl GlobalPublicDelegatedPrefixes {
     /// included in the request. This method supportsPATCH
     /// semantics and usesJSON merge
     /// patch format and processing rules.
-    pub fn patch(&self) -> super::builder::global_public_delegated_prefixes::Patch {
+    pub fn patch(&self) -> super::builder::global_public_delegated_prefixes::Patch
+    {
         super::builder::global_public_delegated_prefixes::Patch::new(self.inner.clone())
     }
 
     /// Retrieves the specified Operations resource.
-    pub fn get_operation(&self) -> super::builder::global_public_delegated_prefixes::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::GlobalPublicDelegatedPrefixes;
+    /// async fn sample(
+    ///    client: &GlobalPublicDelegatedPrefixes
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::global_public_delegated_prefixes::GetOperation
+    {
         super::builder::global_public_delegated_prefixes::GetOperation::new(self.inner.clone())
     }
 }
@@ -3285,42 +4054,28 @@ impl HealthChecks {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::HealthChecks + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::HealthChecks + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::HealthChecks>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::HealthChecks>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::HealthChecks> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::HealthChecks> {
         super::transport::HealthChecks::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::HealthChecks> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::HealthChecks::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::HealthChecks> {
+        Self::build_transport(conf).await.map(super::tracing::HealthChecks::new)
     }
 
     /// Retrieves the list of all HealthCheck resources, regional and global,
@@ -3328,29 +4083,50 @@ impl HealthChecks {
     ///
     /// To prevent failure, Google recommends that you set the
     /// `returnPartialSuccess` parameter to `true`.
-    pub fn aggregated_list(&self) -> super::builder::health_checks::AggregatedList {
+    pub fn aggregated_list(&self) -> super::builder::health_checks::AggregatedList
+    {
         super::builder::health_checks::AggregatedList::new(self.inner.clone())
     }
 
     /// Deletes the specified HealthCheck resource.
-    pub fn delete(&self) -> super::builder::health_checks::Delete {
+    pub fn delete(&self) -> super::builder::health_checks::Delete
+    {
         super::builder::health_checks::Delete::new(self.inner.clone())
     }
 
     /// Returns the specified HealthCheck resource.
-    pub fn get(&self) -> super::builder::health_checks::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::HealthChecks;
+    /// async fn sample(
+    ///    client: &HealthChecks
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::health_checks::Get
+    {
         super::builder::health_checks::Get::new(self.inner.clone())
     }
 
     /// Creates a HealthCheck resource in the specified project using the data
     /// included in the request.
-    pub fn insert(&self) -> super::builder::health_checks::Insert {
+    pub fn insert(&self) -> super::builder::health_checks::Insert
+    {
         super::builder::health_checks::Insert::new(self.inner.clone())
     }
 
     /// Retrieves the list of HealthCheck resources available to the specified
     /// project.
-    pub fn list(&self) -> super::builder::health_checks::List {
+    pub fn list(&self) -> super::builder::health_checks::List
+    {
         super::builder::health_checks::List::new(self.inner.clone())
     }
 
@@ -3358,18 +4134,37 @@ impl HealthChecks {
     /// included in the request. This method supportsPATCH
     /// semantics and uses theJSON merge
     /// patch format and processing rules.
-    pub fn patch(&self) -> super::builder::health_checks::Patch {
+    pub fn patch(&self) -> super::builder::health_checks::Patch
+    {
         super::builder::health_checks::Patch::new(self.inner.clone())
     }
 
     /// Updates a HealthCheck resource in the specified project using the data
     /// included in the request.
-    pub fn update(&self) -> super::builder::health_checks::Update {
+    pub fn update(&self) -> super::builder::health_checks::Update
+    {
         super::builder::health_checks::Update::new(self.inner.clone())
     }
 
     /// Retrieves the specified Operations resource.
-    pub fn get_operation(&self) -> super::builder::health_checks::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::HealthChecks;
+    /// async fn sample(
+    ///    client: &HealthChecks
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::health_checks::GetOperation
+    {
         super::builder::health_checks::GetOperation::new(self.inner.clone())
     }
 }
@@ -3433,9 +4228,7 @@ impl HttpHealthChecks {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::http_health_checks::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::http_health_checks::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::http_health_checks::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -3443,64 +4236,69 @@ impl HttpHealthChecks {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::HttpHealthChecks + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::HttpHealthChecks + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::HttpHealthChecks>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::HttpHealthChecks>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::HttpHealthChecks> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::HttpHealthChecks> {
         super::transport::HttpHealthChecks::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::HttpHealthChecks> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::HttpHealthChecks::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::HttpHealthChecks> {
+        Self::build_transport(conf).await.map(super::tracing::HttpHealthChecks::new)
     }
 
     /// Deletes the specified HttpHealthCheck resource.
-    pub fn delete(&self) -> super::builder::http_health_checks::Delete {
+    pub fn delete(&self) -> super::builder::http_health_checks::Delete
+    {
         super::builder::http_health_checks::Delete::new(self.inner.clone())
     }
 
     /// Returns the specified HttpHealthCheck resource.
-    pub fn get(&self) -> super::builder::http_health_checks::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::HttpHealthChecks;
+    /// async fn sample(
+    ///    client: &HttpHealthChecks
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::http_health_checks::Get
+    {
         super::builder::http_health_checks::Get::new(self.inner.clone())
     }
 
     /// Creates a HttpHealthCheck resource in the specified project using the data
     /// included in the request.
-    pub fn insert(&self) -> super::builder::http_health_checks::Insert {
+    pub fn insert(&self) -> super::builder::http_health_checks::Insert
+    {
         super::builder::http_health_checks::Insert::new(self.inner.clone())
     }
 
     /// Retrieves the list of HttpHealthCheck resources available to the specified
     /// project.
-    pub fn list(&self) -> super::builder::http_health_checks::List {
+    pub fn list(&self) -> super::builder::http_health_checks::List
+    {
         super::builder::http_health_checks::List::new(self.inner.clone())
     }
 
@@ -3508,18 +4306,37 @@ impl HttpHealthChecks {
     /// included in the request. This method supportsPATCH
     /// semantics and uses theJSON merge
     /// patch format and processing rules.
-    pub fn patch(&self) -> super::builder::http_health_checks::Patch {
+    pub fn patch(&self) -> super::builder::http_health_checks::Patch
+    {
         super::builder::http_health_checks::Patch::new(self.inner.clone())
     }
 
     /// Updates a HttpHealthCheck resource in the specified project using the data
     /// included in the request.
-    pub fn update(&self) -> super::builder::http_health_checks::Update {
+    pub fn update(&self) -> super::builder::http_health_checks::Update
+    {
         super::builder::http_health_checks::Update::new(self.inner.clone())
     }
 
     /// Retrieves the specified Operations resource.
-    pub fn get_operation(&self) -> super::builder::http_health_checks::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::HttpHealthChecks;
+    /// async fn sample(
+    ///    client: &HttpHealthChecks
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::http_health_checks::GetOperation
+    {
         super::builder::http_health_checks::GetOperation::new(self.inner.clone())
     }
 }
@@ -3583,9 +4400,7 @@ impl HttpsHealthChecks {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::https_health_checks::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::https_health_checks::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::https_health_checks::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -3593,64 +4408,69 @@ impl HttpsHealthChecks {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::HttpsHealthChecks + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::HttpsHealthChecks + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::HttpsHealthChecks>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::HttpsHealthChecks>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::HttpsHealthChecks> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::HttpsHealthChecks> {
         super::transport::HttpsHealthChecks::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::HttpsHealthChecks> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::HttpsHealthChecks::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::HttpsHealthChecks> {
+        Self::build_transport(conf).await.map(super::tracing::HttpsHealthChecks::new)
     }
 
     /// Deletes the specified HttpsHealthCheck resource.
-    pub fn delete(&self) -> super::builder::https_health_checks::Delete {
+    pub fn delete(&self) -> super::builder::https_health_checks::Delete
+    {
         super::builder::https_health_checks::Delete::new(self.inner.clone())
     }
 
     /// Returns the specified HttpsHealthCheck resource.
-    pub fn get(&self) -> super::builder::https_health_checks::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::HttpsHealthChecks;
+    /// async fn sample(
+    ///    client: &HttpsHealthChecks
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::https_health_checks::Get
+    {
         super::builder::https_health_checks::Get::new(self.inner.clone())
     }
 
     /// Creates a HttpsHealthCheck resource in the specified project using the data
     /// included in the request.
-    pub fn insert(&self) -> super::builder::https_health_checks::Insert {
+    pub fn insert(&self) -> super::builder::https_health_checks::Insert
+    {
         super::builder::https_health_checks::Insert::new(self.inner.clone())
     }
 
     /// Retrieves the list of HttpsHealthCheck resources available to the specified
     /// project.
-    pub fn list(&self) -> super::builder::https_health_checks::List {
+    pub fn list(&self) -> super::builder::https_health_checks::List
+    {
         super::builder::https_health_checks::List::new(self.inner.clone())
     }
 
@@ -3658,18 +4478,37 @@ impl HttpsHealthChecks {
     /// included in the request. This method supportsPATCH
     /// semantics and uses theJSON merge
     /// patch format and processing rules.
-    pub fn patch(&self) -> super::builder::https_health_checks::Patch {
+    pub fn patch(&self) -> super::builder::https_health_checks::Patch
+    {
         super::builder::https_health_checks::Patch::new(self.inner.clone())
     }
 
     /// Updates a HttpsHealthCheck resource in the specified project using the data
     /// included in the request.
-    pub fn update(&self) -> super::builder::https_health_checks::Update {
+    pub fn update(&self) -> super::builder::https_health_checks::Update
+    {
         super::builder::https_health_checks::Update::new(self.inner.clone())
     }
 
     /// Retrieves the specified Operations resource.
-    pub fn get_operation(&self) -> super::builder::https_health_checks::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::HttpsHealthChecks;
+    /// async fn sample(
+    ///    client: &HttpsHealthChecks
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::https_health_checks::GetOperation
+    {
         super::builder::https_health_checks::GetOperation::new(self.inner.clone())
     }
 }
@@ -3733,9 +4572,7 @@ impl ImageFamilyViews {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::image_family_views::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::image_family_views::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::image_family_views::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -3743,48 +4580,50 @@ impl ImageFamilyViews {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::ImageFamilyViews + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::ImageFamilyViews + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ImageFamilyViews>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ImageFamilyViews>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ImageFamilyViews> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ImageFamilyViews> {
         super::transport::ImageFamilyViews::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ImageFamilyViews> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::ImageFamilyViews::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ImageFamilyViews> {
+        Self::build_transport(conf).await.map(super::tracing::ImageFamilyViews::new)
     }
 
     /// Returns the latest image that is part of an image family, is not
     /// deprecated and is rolled out in the specified zone.
-    pub fn get(&self) -> super::builder::image_family_views::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::ImageFamilyViews;
+    /// async fn sample(
+    ///    client: &ImageFamilyViews
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::image_family_views::Get
+    {
         super::builder::image_family_views::Get::new(self.inner.clone())
     }
 }
@@ -3856,77 +4695,117 @@ impl Images {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::Images + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::Images + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Images>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Images>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Images> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Images> {
         super::transport::Images::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Images> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::Images::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Images> {
+        Self::build_transport(conf).await.map(super::tracing::Images::new)
     }
 
     /// Deletes the specified image.
-    pub fn delete(&self) -> super::builder::images::Delete {
+    pub fn delete(&self) -> super::builder::images::Delete
+    {
         super::builder::images::Delete::new(self.inner.clone())
     }
 
     /// Sets the deprecation status of an image.
     ///
     /// If an empty request body is given, clears the deprecation status instead.
-    pub fn deprecate(&self) -> super::builder::images::Deprecate {
+    pub fn deprecate(&self) -> super::builder::images::Deprecate
+    {
         super::builder::images::Deprecate::new(self.inner.clone())
     }
 
     /// Returns the specified image.
-    pub fn get(&self) -> super::builder::images::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Images;
+    /// async fn sample(
+    ///    client: &Images
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::images::Get
+    {
         super::builder::images::Get::new(self.inner.clone())
     }
 
     /// Returns the latest image that is part of an image family and is not
     /// deprecated. For more information on image families, seePublic
     /// image families documentation.
-    pub fn get_from_family(&self) -> super::builder::images::GetFromFamily {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Images;
+    /// async fn sample(
+    ///    client: &Images
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_from_family()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_from_family(&self) -> super::builder::images::GetFromFamily
+    {
         super::builder::images::GetFromFamily::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. May be empty if no such
     /// policy or resource exists.
-    pub fn get_iam_policy(&self) -> super::builder::images::GetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Images;
+    /// async fn sample(
+    ///    client: &Images
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::images::GetIamPolicy
+    {
         super::builder::images::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Creates an image in the specified project using the data included
     /// in the request.
-    pub fn insert(&self) -> super::builder::images::Insert {
+    pub fn insert(&self) -> super::builder::images::Insert
+    {
         super::builder::images::Insert::new(self.inner.clone())
     }
 
@@ -3937,36 +4816,90 @@ impl Images {
     /// images, like Debian 8. If you want to get a list of publicly-available
     /// images, use this method to make a request to the respective image project,
     /// such as debian-cloud or windows-cloud.
-    pub fn list(&self) -> super::builder::images::List {
+    pub fn list(&self) -> super::builder::images::List
+    {
         super::builder::images::List::new(self.inner.clone())
     }
 
     /// Patches the specified image with the data included in the request.
     /// Only the following fields can be modified: family, description,
     /// deprecation status.
-    pub fn patch(&self) -> super::builder::images::Patch {
+    pub fn patch(&self) -> super::builder::images::Patch
+    {
         super::builder::images::Patch::new(self.inner.clone())
     }
 
     /// Sets the access control policy on the specified resource.
     /// Replaces any existing policy.
-    pub fn set_iam_policy(&self) -> super::builder::images::SetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Images;
+    /// async fn sample(
+    ///    client: &Images
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::images::SetIamPolicy
+    {
         super::builder::images::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Sets the labels on an image. To learn more about labels, read theLabeling
     /// Resources documentation.
-    pub fn set_labels(&self) -> super::builder::images::SetLabels {
+    pub fn set_labels(&self) -> super::builder::images::SetLabels
+    {
         super::builder::images::SetLabels::new(self.inner.clone())
     }
 
     /// Returns permissions that a caller has on the specified resource.
-    pub fn test_iam_permissions(&self) -> super::builder::images::TestIamPermissions {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Images;
+    /// async fn sample(
+    ///    client: &Images
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::images::TestIamPermissions
+    {
         super::builder::images::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Retrieves the specified Operations resource.
-    pub fn get_operation(&self) -> super::builder::images::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Images;
+    /// async fn sample(
+    ///    client: &Images
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::images::GetOperation
+    {
         super::builder::images::GetOperation::new(self.inner.clone())
     }
 }
@@ -4030,9 +4963,7 @@ impl InstanceGroupManagerResizeRequests {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::instance_group_manager_resize_requests::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::instance_group_manager_resize_requests::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::instance_group_manager_resize_requests::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -4040,85 +4971,103 @@ impl InstanceGroupManagerResizeRequests {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::InstanceGroupManagerResizeRequests + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::InstanceGroupManagerResizeRequests + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<
-        std::sync::Arc<dyn super::stub::dynamic::InstanceGroupManagerResizeRequests>,
-    > {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::InstanceGroupManagerResizeRequests>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::InstanceGroupManagerResizeRequests> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::InstanceGroupManagerResizeRequests> {
         super::transport::InstanceGroupManagerResizeRequests::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::InstanceGroupManagerResizeRequests> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::InstanceGroupManagerResizeRequests::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::InstanceGroupManagerResizeRequests> {
+        Self::build_transport(conf).await.map(super::tracing::InstanceGroupManagerResizeRequests::new)
     }
 
     /// Cancels the specified resize request and removes it from the queue.
     /// Cancelled resize request does no longer wait for the resources to be
     /// provisioned. Cancel is only possible for requests that are accepted in the
     /// queue.
-    pub fn cancel(&self) -> super::builder::instance_group_manager_resize_requests::Cancel {
+    pub fn cancel(&self) -> super::builder::instance_group_manager_resize_requests::Cancel
+    {
         super::builder::instance_group_manager_resize_requests::Cancel::new(self.inner.clone())
     }
 
     /// Deletes the specified, inactive resize request. Requests that are still
     /// active cannot be deleted. Deleting request does not delete instances that
     /// were provisioned previously.
-    pub fn delete(&self) -> super::builder::instance_group_manager_resize_requests::Delete {
+    pub fn delete(&self) -> super::builder::instance_group_manager_resize_requests::Delete
+    {
         super::builder::instance_group_manager_resize_requests::Delete::new(self.inner.clone())
     }
 
     /// Returns all of the details about the specified resize request.
-    pub fn get(&self) -> super::builder::instance_group_manager_resize_requests::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::InstanceGroupManagerResizeRequests;
+    /// async fn sample(
+    ///    client: &InstanceGroupManagerResizeRequests
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::instance_group_manager_resize_requests::Get
+    {
         super::builder::instance_group_manager_resize_requests::Get::new(self.inner.clone())
     }
 
     /// Creates a new resize request that starts provisioning VMs immediately
     /// or queues VM creation.
-    pub fn insert(&self) -> super::builder::instance_group_manager_resize_requests::Insert {
+    pub fn insert(&self) -> super::builder::instance_group_manager_resize_requests::Insert
+    {
         super::builder::instance_group_manager_resize_requests::Insert::new(self.inner.clone())
     }
 
     /// Retrieves a list of resize requests that are contained in the
     /// managed instance group.
-    pub fn list(&self) -> super::builder::instance_group_manager_resize_requests::List {
+    pub fn list(&self) -> super::builder::instance_group_manager_resize_requests::List
+    {
         super::builder::instance_group_manager_resize_requests::List::new(self.inner.clone())
     }
 
     /// Retrieves the specified zone-specific Operations resource.
-    pub fn get_operation(
-        &self,
-    ) -> super::builder::instance_group_manager_resize_requests::GetOperation {
-        super::builder::instance_group_manager_resize_requests::GetOperation::new(
-            self.inner.clone(),
-        )
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::InstanceGroupManagerResizeRequests;
+    /// async fn sample(
+    ///    client: &InstanceGroupManagerResizeRequests
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::instance_group_manager_resize_requests::GetOperation
+    {
+        super::builder::instance_group_manager_resize_requests::GetOperation::new(self.inner.clone())
     }
 }
 
@@ -4181,9 +5130,7 @@ impl InstanceGroupManagers {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::instance_group_managers::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::instance_group_managers::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::instance_group_managers::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -4191,43 +5138,28 @@ impl InstanceGroupManagers {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::InstanceGroupManagers + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::InstanceGroupManagers + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::InstanceGroupManagers>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::InstanceGroupManagers>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::InstanceGroupManagers> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::InstanceGroupManagers> {
         super::transport::InstanceGroupManagers::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::InstanceGroupManagers> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::InstanceGroupManagers::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::InstanceGroupManagers> {
+        Self::build_transport(conf).await.map(super::tracing::InstanceGroupManagers::new)
     }
 
     /// Flags the specified instances to be removed from the
@@ -4245,7 +5177,8 @@ impl InstanceGroupManagers {
     /// draining duration has elapsed before the VM instance is removed or deleted.
     ///
     /// You can specify a maximum of 1000 instances with this method per request.
-    pub fn abandon_instances(&self) -> super::builder::instance_group_managers::AbandonInstances {
+    pub fn abandon_instances(&self) -> super::builder::instance_group_managers::AbandonInstances
+    {
         super::builder::instance_group_managers::AbandonInstances::new(self.inner.clone())
     }
 
@@ -4253,15 +5186,15 @@ impl InstanceGroupManagers {
     ///
     /// To prevent failure, Google recommends that you set the
     /// `returnPartialSuccess` parameter to `true`.
-    pub fn aggregated_list(&self) -> super::builder::instance_group_managers::AggregatedList {
+    pub fn aggregated_list(&self) -> super::builder::instance_group_managers::AggregatedList
+    {
         super::builder::instance_group_managers::AggregatedList::new(self.inner.clone())
     }
 
     /// Applies changes to selected instances on the managed instance group.
     /// This method can be used to apply new overrides and/or new versions.
-    pub fn apply_updates_to_instances(
-        &self,
-    ) -> super::builder::instance_group_managers::ApplyUpdatesToInstances {
+    pub fn apply_updates_to_instances(&self) -> super::builder::instance_group_managers::ApplyUpdatesToInstances
+    {
         super::builder::instance_group_managers::ApplyUpdatesToInstances::new(self.inner.clone())
     }
 
@@ -4269,7 +5202,8 @@ impl InstanceGroupManagers {
     /// group. Instances are created using the current instance template. Thecreate instances operation is marked DONE if thecreateInstances request is successful. The underlying actions
     /// take additional time. You must separately verify the status of thecreating or actions with the listmanagedinstances
     /// method.
-    pub fn create_instances(&self) -> super::builder::instance_group_managers::CreateInstances {
+    pub fn create_instances(&self) -> super::builder::instance_group_managers::CreateInstances
+    {
         super::builder::instance_group_managers::CreateInstances::new(self.inner.clone())
     }
 
@@ -4277,7 +5211,8 @@ impl InstanceGroupManagers {
     /// in that group. Note that the instance group must not belong to a
     /// backend service. Read
     /// Deleting an instance group for more information.
-    pub fn delete(&self) -> super::builder::instance_group_managers::Delete {
+    pub fn delete(&self) -> super::builder::instance_group_managers::Delete
+    {
         super::builder::instance_group_managers::Delete::new(self.inner.clone())
     }
 
@@ -4296,20 +5231,37 @@ impl InstanceGroupManagers {
     /// draining duration has elapsed before the VM instance is removed or deleted.
     ///
     /// You can specify a maximum of 1000 instances with this method per request.
-    pub fn delete_instances(&self) -> super::builder::instance_group_managers::DeleteInstances {
+    pub fn delete_instances(&self) -> super::builder::instance_group_managers::DeleteInstances
+    {
         super::builder::instance_group_managers::DeleteInstances::new(self.inner.clone())
     }
 
     /// Deletes selected per-instance configurations for the managed instance
     /// group.
-    pub fn delete_per_instance_configs(
-        &self,
-    ) -> super::builder::instance_group_managers::DeletePerInstanceConfigs {
+    pub fn delete_per_instance_configs(&self) -> super::builder::instance_group_managers::DeletePerInstanceConfigs
+    {
         super::builder::instance_group_managers::DeletePerInstanceConfigs::new(self.inner.clone())
     }
 
     /// Returns all of the details about the specified managed instance group.
-    pub fn get(&self) -> super::builder::instance_group_managers::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::InstanceGroupManagers;
+    /// async fn sample(
+    ///    client: &InstanceGroupManagers
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::instance_group_managers::Get
+    {
         super::builder::instance_group_managers::Get::new(self.inner.clone())
     }
 
@@ -4324,20 +5276,23 @@ impl InstanceGroupManagers {
     /// A managed instance group can have up to 1000 VM instances per group. Please
     /// contact Cloud Support if you need an increase in
     /// this limit.
-    pub fn insert(&self) -> super::builder::instance_group_managers::Insert {
+    pub fn insert(&self) -> super::builder::instance_group_managers::Insert
+    {
         super::builder::instance_group_managers::Insert::new(self.inner.clone())
     }
 
     /// Retrieves a list of managed instance groups that are contained within the
     /// specified project and zone.
-    pub fn list(&self) -> super::builder::instance_group_managers::List {
+    pub fn list(&self) -> super::builder::instance_group_managers::List
+    {
         super::builder::instance_group_managers::List::new(self.inner.clone())
     }
 
     /// Lists all errors thrown by actions on instances for a given managed
     /// instance group. The filter and orderBy query
     /// parameters are not supported.
-    pub fn list_errors(&self) -> super::builder::instance_group_managers::ListErrors {
+    pub fn list_errors(&self) -> super::builder::instance_group_managers::ListErrors
+    {
         super::builder::instance_group_managers::ListErrors::new(self.inner.clone())
     }
 
@@ -4350,17 +5305,15 @@ impl InstanceGroupManagers {
     /// query parameter is not supported. The `pageToken` query parameter is
     /// supported only if the group's `listManagedInstancesResults` field is set
     /// to `PAGINATED`.
-    pub fn list_managed_instances(
-        &self,
-    ) -> super::builder::instance_group_managers::ListManagedInstances {
+    pub fn list_managed_instances(&self) -> super::builder::instance_group_managers::ListManagedInstances
+    {
         super::builder::instance_group_managers::ListManagedInstances::new(self.inner.clone())
     }
 
     /// Lists all of the per-instance configurations defined for the managed
     /// instance group. The orderBy query parameter is not supported.
-    pub fn list_per_instance_configs(
-        &self,
-    ) -> super::builder::instance_group_managers::ListPerInstanceConfigs {
+    pub fn list_per_instance_configs(&self) -> super::builder::instance_group_managers::ListPerInstanceConfigs
+    {
         super::builder::instance_group_managers::ListPerInstanceConfigs::new(self.inner.clone())
     }
 
@@ -4379,16 +5332,16 @@ impl InstanceGroupManagers {
     /// in the group is different from the current state of that VM. To learn how
     /// to apply an updated configuration to the VMs in a MIG, seeUpdating instances in
     /// a MIG.
-    pub fn patch(&self) -> super::builder::instance_group_managers::Patch {
+    pub fn patch(&self) -> super::builder::instance_group_managers::Patch
+    {
         super::builder::instance_group_managers::Patch::new(self.inner.clone())
     }
 
     /// Inserts or patches per-instance configurations for the managed instance
     /// group. perInstanceConfig.name serves as a key used to
     /// distinguish whether to perform insert or patch.
-    pub fn patch_per_instance_configs(
-        &self,
-    ) -> super::builder::instance_group_managers::PatchPerInstanceConfigs {
+    pub fn patch_per_instance_configs(&self) -> super::builder::instance_group_managers::PatchPerInstanceConfigs
+    {
         super::builder::instance_group_managers::PatchPerInstanceConfigs::new(self.inner.clone())
     }
 
@@ -4405,7 +5358,8 @@ impl InstanceGroupManagers {
     /// draining duration has elapsed before the VM instance is removed or deleted.
     ///
     /// You can specify a maximum of 1000 instances with this method per request.
-    pub fn recreate_instances(&self) -> super::builder::instance_group_managers::RecreateInstances {
+    pub fn recreate_instances(&self) -> super::builder::instance_group_managers::RecreateInstances
+    {
         super::builder::instance_group_managers::RecreateInstances::new(self.inner.clone())
     }
 
@@ -4432,7 +5386,8 @@ impl InstanceGroupManagers {
     /// service that has enabled
     /// connection draining, it can take up to 60 seconds after the connection
     /// draining duration has elapsed before the VM instance is removed or deleted.
-    pub fn resize(&self) -> super::builder::instance_group_managers::Resize {
+    pub fn resize(&self) -> super::builder::instance_group_managers::Resize
+    {
         super::builder::instance_group_managers::Resize::new(self.inner.clone())
     }
 
@@ -4452,16 +5407,16 @@ impl InstanceGroupManagers {
     /// instances will be verified as healthy after they are resumed.
     ///
     /// You can specify a maximum of 1000 instances with this method per request.
-    pub fn resume_instances(&self) -> super::builder::instance_group_managers::ResumeInstances {
+    pub fn resume_instances(&self) -> super::builder::instance_group_managers::ResumeInstances
+    {
         super::builder::instance_group_managers::ResumeInstances::new(self.inner.clone())
     }
 
     /// Specifies the instance template to use when creating new instances in this
     /// group. The templates for existing instances in the group do not change
     /// unless you run recreateInstances, runapplyUpdatesToInstances, or set the group'supdatePolicy.type to PROACTIVE.
-    pub fn set_instance_template(
-        &self,
-    ) -> super::builder::instance_group_managers::SetInstanceTemplate {
+    pub fn set_instance_template(&self) -> super::builder::instance_group_managers::SetInstanceTemplate
+    {
         super::builder::instance_group_managers::SetInstanceTemplate::new(self.inner.clone())
     }
 
@@ -4471,7 +5426,8 @@ impl InstanceGroupManagers {
     /// yet been added to their target pools. The change might take some time to
     /// apply to all of the instances in the group depending on the size of the
     /// group.
-    pub fn set_target_pools(&self) -> super::builder::instance_group_managers::SetTargetPools {
+    pub fn set_target_pools(&self) -> super::builder::instance_group_managers::SetTargetPools
+    {
         super::builder::instance_group_managers::SetTargetPools::new(self.inner.clone())
     }
 
@@ -4491,7 +5447,8 @@ impl InstanceGroupManagers {
     /// instances will be verified as healthy after they are started.
     ///
     /// You can specify a maximum of 1000 instances with this method per request.
-    pub fn start_instances(&self) -> super::builder::instance_group_managers::StartInstances {
+    pub fn start_instances(&self) -> super::builder::instance_group_managers::StartInstances
+    {
         super::builder::instance_group_managers::StartInstances::new(self.inner.clone())
     }
 
@@ -4520,7 +5477,8 @@ impl InstanceGroupManagers {
     /// method.
     ///
     /// You can specify a maximum of 1000 instances with this method per request.
-    pub fn stop_instances(&self) -> super::builder::instance_group_managers::StopInstances {
+    pub fn stop_instances(&self) -> super::builder::instance_group_managers::StopInstances
+    {
         super::builder::instance_group_managers::StopInstances::new(self.inner.clone())
     }
 
@@ -4549,21 +5507,38 @@ impl InstanceGroupManagers {
     /// method.
     ///
     /// You can specify a maximum of 1000 instances with this method per request.
-    pub fn suspend_instances(&self) -> super::builder::instance_group_managers::SuspendInstances {
+    pub fn suspend_instances(&self) -> super::builder::instance_group_managers::SuspendInstances
+    {
         super::builder::instance_group_managers::SuspendInstances::new(self.inner.clone())
     }
 
     /// Inserts or updates per-instance configurations for the managed instance
     /// group. perInstanceConfig.name serves as a key used to
     /// distinguish whether to perform insert or patch.
-    pub fn update_per_instance_configs(
-        &self,
-    ) -> super::builder::instance_group_managers::UpdatePerInstanceConfigs {
+    pub fn update_per_instance_configs(&self) -> super::builder::instance_group_managers::UpdatePerInstanceConfigs
+    {
         super::builder::instance_group_managers::UpdatePerInstanceConfigs::new(self.inner.clone())
     }
 
     /// Retrieves the specified zone-specific Operations resource.
-    pub fn get_operation(&self) -> super::builder::instance_group_managers::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::InstanceGroupManagers;
+    /// async fn sample(
+    ///    client: &InstanceGroupManagers
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::instance_group_managers::GetOperation
+    {
         super::builder::instance_group_managers::GetOperation::new(self.inner.clone())
     }
 }
@@ -4635,49 +5610,36 @@ impl InstanceGroups {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::InstanceGroups + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::InstanceGroups + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::InstanceGroups>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::InstanceGroups>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::InstanceGroups> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::InstanceGroups> {
         super::transport::InstanceGroups::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::InstanceGroups> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::InstanceGroups::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::InstanceGroups> {
+        Self::build_transport(conf).await.map(super::tracing::InstanceGroups::new)
     }
 
     /// Adds a list of instances to the specified instance group.  All of the
     /// instances in the instance group must be in the same network/subnetwork.
     /// Read
     /// Adding instances for more information.
-    pub fn add_instances(&self) -> super::builder::instance_groups::AddInstances {
+    pub fn add_instances(&self) -> super::builder::instance_groups::AddInstances
+    {
         super::builder::instance_groups::AddInstances::new(self.inner.clone())
     }
 
@@ -4685,7 +5647,8 @@ impl InstanceGroups {
     ///
     /// To prevent failure, Google recommends that you set the
     /// `returnPartialSuccess` parameter to `true`.
-    pub fn aggregated_list(&self) -> super::builder::instance_groups::AggregatedList {
+    pub fn aggregated_list(&self) -> super::builder::instance_groups::AggregatedList
+    {
         super::builder::instance_groups::AggregatedList::new(self.inner.clone())
     }
 
@@ -4693,7 +5656,8 @@ impl InstanceGroups {
     /// deleted. Note that instance group must not belong to a backend service.
     /// Read
     /// Deleting an instance group for more information.
-    pub fn delete(&self) -> super::builder::instance_groups::Delete {
+    pub fn delete(&self) -> super::builder::instance_groups::Delete
+    {
         super::builder::instance_groups::Delete::new(self.inner.clone())
     }
 
@@ -4703,13 +5667,31 @@ impl InstanceGroups {
     /// For managed instance groups, use theinstanceGroupManagers
     /// or regionInstanceGroupManagers
     /// methods instead.
-    pub fn get(&self) -> super::builder::instance_groups::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::InstanceGroups;
+    /// async fn sample(
+    ///    client: &InstanceGroups
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::instance_groups::Get
+    {
         super::builder::instance_groups::Get::new(self.inner.clone())
     }
 
     /// Creates an instance group in the specified project using the
     /// parameters that are included in the request.
-    pub fn insert(&self) -> super::builder::instance_groups::Insert {
+    pub fn insert(&self) -> super::builder::instance_groups::Insert
+    {
         super::builder::instance_groups::Insert::new(self.inner.clone())
     }
 
@@ -4719,7 +5701,8 @@ impl InstanceGroups {
     /// For managed instance groups, use theinstanceGroupManagers
     /// or regionInstanceGroupManagers
     /// methods instead.
-    pub fn list(&self) -> super::builder::instance_groups::List {
+    pub fn list(&self) -> super::builder::instance_groups::List
+    {
         super::builder::instance_groups::List::new(self.inner.clone())
     }
 
@@ -4727,7 +5710,8 @@ impl InstanceGroups {
     /// The orderBy query parameter is not supported.
     /// The filter query parameter is supported, but only for
     /// expressions that use `eq` (equal) or `ne` (not equal) operators.
-    pub fn list_instances(&self) -> super::builder::instance_groups::ListInstances {
+    pub fn list_instances(&self) -> super::builder::instance_groups::ListInstances
+    {
         super::builder::instance_groups::ListInstances::new(self.inner.clone())
     }
 
@@ -4738,22 +5722,58 @@ impl InstanceGroups {
     /// service that has enabled
     /// connection draining, it can take up to 60 seconds after the connection
     /// draining duration before the VM instance is removed or deleted.
-    pub fn remove_instances(&self) -> super::builder::instance_groups::RemoveInstances {
+    pub fn remove_instances(&self) -> super::builder::instance_groups::RemoveInstances
+    {
         super::builder::instance_groups::RemoveInstances::new(self.inner.clone())
     }
 
     /// Sets the named ports for the specified instance group.
-    pub fn set_named_ports(&self) -> super::builder::instance_groups::SetNamedPorts {
+    pub fn set_named_ports(&self) -> super::builder::instance_groups::SetNamedPorts
+    {
         super::builder::instance_groups::SetNamedPorts::new(self.inner.clone())
     }
 
     /// Returns permissions that a caller has on the specified resource.
-    pub fn test_iam_permissions(&self) -> super::builder::instance_groups::TestIamPermissions {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::InstanceGroups;
+    /// async fn sample(
+    ///    client: &InstanceGroups
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::instance_groups::TestIamPermissions
+    {
         super::builder::instance_groups::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Retrieves the specified zone-specific Operations resource.
-    pub fn get_operation(&self) -> super::builder::instance_groups::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::InstanceGroups;
+    /// async fn sample(
+    ///    client: &InstanceGroups
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::instance_groups::GetOperation
+    {
         super::builder::instance_groups::GetOperation::new(self.inner.clone())
     }
 }
@@ -4817,9 +5837,7 @@ impl InstanceSettings {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::instance_settings::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::instance_settings::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::instance_settings::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -4827,57 +5845,77 @@ impl InstanceSettings {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::InstanceSettings + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::InstanceSettings + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::InstanceSettings>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::InstanceSettings>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::InstanceSettings> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::InstanceSettings> {
         super::transport::InstanceSettings::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::InstanceSettings> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::InstanceSettings::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::InstanceSettings> {
+        Self::build_transport(conf).await.map(super::tracing::InstanceSettings::new)
     }
 
     /// Get Instance settings.
-    pub fn get(&self) -> super::builder::instance_settings::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::InstanceSettings;
+    /// async fn sample(
+    ///    client: &InstanceSettings
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::instance_settings::Get
+    {
         super::builder::instance_settings::Get::new(self.inner.clone())
     }
 
     /// Patch Instance settings
-    pub fn patch(&self) -> super::builder::instance_settings::Patch {
+    pub fn patch(&self) -> super::builder::instance_settings::Patch
+    {
         super::builder::instance_settings::Patch::new(self.inner.clone())
     }
 
     /// Retrieves the specified zone-specific Operations resource.
-    pub fn get_operation(&self) -> super::builder::instance_settings::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::InstanceSettings;
+    /// async fn sample(
+    ///    client: &InstanceSettings
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::instance_settings::GetOperation
+    {
         super::builder::instance_settings::GetOperation::new(self.inner.clone())
     }
 }
@@ -4941,9 +5979,7 @@ impl InstanceTemplates {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::instance_templates::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::instance_templates::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::instance_templates::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -4951,43 +5987,28 @@ impl InstanceTemplates {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::InstanceTemplates + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::InstanceTemplates + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::InstanceTemplates>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::InstanceTemplates>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::InstanceTemplates> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::InstanceTemplates> {
         super::transport::InstanceTemplates::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::InstanceTemplates> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::InstanceTemplates::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::InstanceTemplates> {
+        Self::build_transport(conf).await.map(super::tracing::InstanceTemplates::new)
     }
 
     /// Retrieves the list of all InstanceTemplates resources, regional and global,
@@ -4995,25 +6016,61 @@ impl InstanceTemplates {
     ///
     /// To prevent failure, Google recommends that you set the
     /// `returnPartialSuccess` parameter to `true`.
-    pub fn aggregated_list(&self) -> super::builder::instance_templates::AggregatedList {
+    pub fn aggregated_list(&self) -> super::builder::instance_templates::AggregatedList
+    {
         super::builder::instance_templates::AggregatedList::new(self.inner.clone())
     }
 
     /// Deletes the specified instance template. Deleting an instance template is
     /// permanent and cannot be undone. It is not possible to delete templates
     /// that are already in use by a managed instance group.
-    pub fn delete(&self) -> super::builder::instance_templates::Delete {
+    pub fn delete(&self) -> super::builder::instance_templates::Delete
+    {
         super::builder::instance_templates::Delete::new(self.inner.clone())
     }
 
     /// Returns the specified instance template.
-    pub fn get(&self) -> super::builder::instance_templates::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::InstanceTemplates;
+    /// async fn sample(
+    ///    client: &InstanceTemplates
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::instance_templates::Get
+    {
         super::builder::instance_templates::Get::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. May be empty if no such
     /// policy or resource exists.
-    pub fn get_iam_policy(&self) -> super::builder::instance_templates::GetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::InstanceTemplates;
+    /// async fn sample(
+    ///    client: &InstanceTemplates
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::instance_templates::GetIamPolicy
+    {
         super::builder::instance_templates::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -5022,29 +6079,82 @@ impl InstanceTemplates {
     /// update an existing instance group, your new instance template must use the
     /// same network or, if applicable, the same subnetwork as the original
     /// template.
-    pub fn insert(&self) -> super::builder::instance_templates::Insert {
+    pub fn insert(&self) -> super::builder::instance_templates::Insert
+    {
         super::builder::instance_templates::Insert::new(self.inner.clone())
     }
 
     /// Retrieves a list of instance templates that are contained within
     /// the specified project.
-    pub fn list(&self) -> super::builder::instance_templates::List {
+    pub fn list(&self) -> super::builder::instance_templates::List
+    {
         super::builder::instance_templates::List::new(self.inner.clone())
     }
 
     /// Sets the access control policy on the specified resource.
     /// Replaces any existing policy.
-    pub fn set_iam_policy(&self) -> super::builder::instance_templates::SetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::InstanceTemplates;
+    /// async fn sample(
+    ///    client: &InstanceTemplates
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::instance_templates::SetIamPolicy
+    {
         super::builder::instance_templates::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Returns permissions that a caller has on the specified resource.
-    pub fn test_iam_permissions(&self) -> super::builder::instance_templates::TestIamPermissions {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::InstanceTemplates;
+    /// async fn sample(
+    ///    client: &InstanceTemplates
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::instance_templates::TestIamPermissions
+    {
         super::builder::instance_templates::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Retrieves the specified Operations resource.
-    pub fn get_operation(&self) -> super::builder::instance_templates::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::InstanceTemplates;
+    /// async fn sample(
+    ///    client: &InstanceTemplates
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::instance_templates::GetOperation
+    {
         super::builder::instance_templates::GetOperation::new(self.inner.clone())
     }
 }
@@ -5116,58 +6226,47 @@ impl Instances {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::Instances + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::Instances + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Instances>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Instances>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Instances> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Instances> {
         super::transport::Instances::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Instances> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::Instances::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Instances> {
+        Self::build_transport(conf).await.map(super::tracing::Instances::new)
     }
 
     /// Adds an access config to an instance's network interface.
-    pub fn add_access_config(&self) -> super::builder::instances::AddAccessConfig {
+    pub fn add_access_config(&self) -> super::builder::instances::AddAccessConfig
+    {
         super::builder::instances::AddAccessConfig::new(self.inner.clone())
     }
 
     /// Adds one dynamic network interface to an active instance.
-    pub fn add_network_interface(&self) -> super::builder::instances::AddNetworkInterface {
+    pub fn add_network_interface(&self) -> super::builder::instances::AddNetworkInterface
+    {
         super::builder::instances::AddNetworkInterface::new(self.inner.clone())
     }
 
     /// Adds existing resource policies to an instance. You can only add one
     /// policy right now which will be applied to this instance for scheduling live
     /// migrations.
-    pub fn add_resource_policies(&self) -> super::builder::instances::AddResourcePolicies {
+    pub fn add_resource_policies(&self) -> super::builder::instances::AddResourcePolicies
+    {
         super::builder::instances::AddResourcePolicies::new(self.inner.clone())
     }
 
@@ -5179,7 +6278,8 @@ impl Instances {
     ///
     /// To prevent failure, Google recommends that you set the
     /// `returnPartialSuccess` parameter to `true`.
-    pub fn aggregated_list(&self) -> super::builder::instances::AggregatedList {
+    pub fn aggregated_list(&self) -> super::builder::instances::AggregatedList
+    {
         super::builder::instances::AggregatedList::new(self.inner.clone())
     }
 
@@ -5187,25 +6287,29 @@ impl Instances {
     /// create the disk before you can attach it. It is not possible to create
     /// and attach a disk at the same time. For more information, readAdding a
     /// persistent disk to your instance.
-    pub fn attach_disk(&self) -> super::builder::instances::AttachDisk {
+    pub fn attach_disk(&self) -> super::builder::instances::AttachDisk
+    {
         super::builder::instances::AttachDisk::new(self.inner.clone())
     }
 
     /// Creates multiple instances. Count specifies the number of instances to
     /// create. For more information, seeAbout bulk
     /// creation of VMs.
-    pub fn bulk_insert(&self) -> super::builder::instances::BulkInsert {
+    pub fn bulk_insert(&self) -> super::builder::instances::BulkInsert
+    {
         super::builder::instances::BulkInsert::new(self.inner.clone())
     }
 
     /// Deletes the specified Instance resource. For more information, seeDeleting
     /// an instance.
-    pub fn delete(&self) -> super::builder::instances::Delete {
+    pub fn delete(&self) -> super::builder::instances::Delete
+    {
         super::builder::instances::Delete::new(self.inner.clone())
     }
 
     /// Deletes an access config from an instance's network interface.
-    pub fn delete_access_config(&self) -> super::builder::instances::DeleteAccessConfig {
+    pub fn delete_access_config(&self) -> super::builder::instances::DeleteAccessConfig
+    {
         super::builder::instances::DeleteAccessConfig::new(self.inner.clone())
     }
 
@@ -5215,62 +6319,183 @@ impl Instances {
     /// - instance from which to delete, using project+zone+resource_id fields;
     /// - dynamic network interface to be deleted, using network_interface_name
     ///   field;
-    pub fn delete_network_interface(&self) -> super::builder::instances::DeleteNetworkInterface {
+    pub fn delete_network_interface(&self) -> super::builder::instances::DeleteNetworkInterface
+    {
         super::builder::instances::DeleteNetworkInterface::new(self.inner.clone())
     }
 
     /// Detaches a disk from an instance.
-    pub fn detach_disk(&self) -> super::builder::instances::DetachDisk {
+    pub fn detach_disk(&self) -> super::builder::instances::DetachDisk
+    {
         super::builder::instances::DetachDisk::new(self.inner.clone())
     }
 
     /// Returns the specified Instance resource.
-    pub fn get(&self) -> super::builder::instances::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Instances;
+    /// async fn sample(
+    ///    client: &Instances
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::instances::Get
+    {
         super::builder::instances::Get::new(self.inner.clone())
     }
 
     /// Returns effective firewalls applied to an interface of the instance.
-    pub fn get_effective_firewalls(&self) -> super::builder::instances::GetEffectiveFirewalls {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Instances;
+    /// async fn sample(
+    ///    client: &Instances
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_effective_firewalls()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_effective_firewalls(&self) -> super::builder::instances::GetEffectiveFirewalls
+    {
         super::builder::instances::GetEffectiveFirewalls::new(self.inner.clone())
     }
 
     /// Returns the specified guest attributes entry.
-    pub fn get_guest_attributes(&self) -> super::builder::instances::GetGuestAttributes {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Instances;
+    /// async fn sample(
+    ///    client: &Instances
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_guest_attributes()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_guest_attributes(&self) -> super::builder::instances::GetGuestAttributes
+    {
         super::builder::instances::GetGuestAttributes::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. May be empty if no such
     /// policy or resource exists.
-    pub fn get_iam_policy(&self) -> super::builder::instances::GetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Instances;
+    /// async fn sample(
+    ///    client: &Instances
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::instances::GetIamPolicy
+    {
         super::builder::instances::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Returns the screenshot from the specified instance.
-    pub fn get_screenshot(&self) -> super::builder::instances::GetScreenshot {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Instances;
+    /// async fn sample(
+    ///    client: &Instances
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_screenshot()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_screenshot(&self) -> super::builder::instances::GetScreenshot
+    {
         super::builder::instances::GetScreenshot::new(self.inner.clone())
     }
 
     /// Returns the last 1 MB of serial port output from the specified instance.
-    pub fn get_serial_port_output(&self) -> super::builder::instances::GetSerialPortOutput {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Instances;
+    /// async fn sample(
+    ///    client: &Instances
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_serial_port_output()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_serial_port_output(&self) -> super::builder::instances::GetSerialPortOutput
+    {
         super::builder::instances::GetSerialPortOutput::new(self.inner.clone())
     }
 
     /// Returns the Shielded Instance Identity of an instance
-    pub fn get_shielded_instance_identity(
-        &self,
-    ) -> super::builder::instances::GetShieldedInstanceIdentity {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Instances;
+    /// async fn sample(
+    ///    client: &Instances
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_shielded_instance_identity()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_shielded_instance_identity(&self) -> super::builder::instances::GetShieldedInstanceIdentity
+    {
         super::builder::instances::GetShieldedInstanceIdentity::new(self.inner.clone())
     }
 
     /// Creates an instance resource in the specified project using the data
     /// included in the request.
-    pub fn insert(&self) -> super::builder::instances::Insert {
+    pub fn insert(&self) -> super::builder::instances::Insert
+    {
         super::builder::instances::Insert::new(self.inner.clone())
     }
 
     /// Retrieves the list of instances contained within
     /// the specified zone.
-    pub fn list(&self) -> super::builder::instances::List {
+    pub fn list(&self) -> super::builder::instances::List
+    {
         super::builder::instances::List::new(self.inner.clone())
     }
 
@@ -5279,80 +6504,125 @@ impl Instances {
     /// unmanaged instance group, the referrers list includes the instance group.
     /// For more information, readViewing
     /// referrers to VM instances.
-    pub fn list_referrers(&self) -> super::builder::instances::ListReferrers {
+    pub fn list_referrers(&self) -> super::builder::instances::ListReferrers
+    {
         super::builder::instances::ListReferrers::new(self.inner.clone())
     }
 
     /// Perform a manual maintenance on the instance.
-    pub fn perform_maintenance(&self) -> super::builder::instances::PerformMaintenance {
+    pub fn perform_maintenance(&self) -> super::builder::instances::PerformMaintenance
+    {
         super::builder::instances::PerformMaintenance::new(self.inner.clone())
     }
 
     /// Removes resource policies from an instance.
-    pub fn remove_resource_policies(&self) -> super::builder::instances::RemoveResourcePolicies {
+    pub fn remove_resource_policies(&self) -> super::builder::instances::RemoveResourcePolicies
+    {
         super::builder::instances::RemoveResourcePolicies::new(self.inner.clone())
     }
 
     /// Mark the host as faulty and try to restart the instance on a new host.
-    pub fn report_host_as_faulty(&self) -> super::builder::instances::ReportHostAsFaulty {
+    pub fn report_host_as_faulty(&self) -> super::builder::instances::ReportHostAsFaulty
+    {
         super::builder::instances::ReportHostAsFaulty::new(self.inner.clone())
     }
 
     /// Performs a reset on the instance. This is a hard reset. The VM
     /// does not do a graceful shutdown. For more information, seeResetting
     /// an instance.
-    pub fn reset(&self) -> super::builder::instances::Reset {
+    pub fn reset(&self) -> super::builder::instances::Reset
+    {
         super::builder::instances::Reset::new(self.inner.clone())
     }
 
     /// Resumes an instance that was suspended using theinstances().suspend
     /// method.
-    pub fn resume(&self) -> super::builder::instances::Resume {
+    pub fn resume(&self) -> super::builder::instances::Resume
+    {
         super::builder::instances::Resume::new(self.inner.clone())
     }
 
     /// Sends diagnostic interrupt to the instance.
-    pub fn send_diagnostic_interrupt(&self) -> super::builder::instances::SendDiagnosticInterrupt {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Instances;
+    /// async fn sample(
+    ///    client: &Instances
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .send_diagnostic_interrupt()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn send_diagnostic_interrupt(&self) -> super::builder::instances::SendDiagnosticInterrupt
+    {
         super::builder::instances::SendDiagnosticInterrupt::new(self.inner.clone())
     }
 
     /// Sets deletion protection on the instance.
-    pub fn set_deletion_protection(&self) -> super::builder::instances::SetDeletionProtection {
+    pub fn set_deletion_protection(&self) -> super::builder::instances::SetDeletionProtection
+    {
         super::builder::instances::SetDeletionProtection::new(self.inner.clone())
     }
 
     /// Sets the auto-delete flag for a disk attached to an instance.
-    pub fn set_disk_auto_delete(&self) -> super::builder::instances::SetDiskAutoDelete {
+    pub fn set_disk_auto_delete(&self) -> super::builder::instances::SetDiskAutoDelete
+    {
         super::builder::instances::SetDiskAutoDelete::new(self.inner.clone())
     }
 
     /// Sets the access control policy on the specified resource.
     /// Replaces any existing policy.
-    pub fn set_iam_policy(&self) -> super::builder::instances::SetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Instances;
+    /// async fn sample(
+    ///    client: &Instances
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::instances::SetIamPolicy
+    {
         super::builder::instances::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Sets labels on an instance.  To learn more about labels, read theLabeling
     /// Resources documentation.
-    pub fn set_labels(&self) -> super::builder::instances::SetLabels {
+    pub fn set_labels(&self) -> super::builder::instances::SetLabels
+    {
         super::builder::instances::SetLabels::new(self.inner.clone())
     }
 
     /// Changes the number and/or type of accelerator for a stopped instance to the
     /// values specified in the request.
-    pub fn set_machine_resources(&self) -> super::builder::instances::SetMachineResources {
+    pub fn set_machine_resources(&self) -> super::builder::instances::SetMachineResources
+    {
         super::builder::instances::SetMachineResources::new(self.inner.clone())
     }
 
     /// Changes the machine type for a stopped instance to the machine
     /// type specified in the request.
-    pub fn set_machine_type(&self) -> super::builder::instances::SetMachineType {
+    pub fn set_machine_type(&self) -> super::builder::instances::SetMachineType
+    {
         super::builder::instances::SetMachineType::new(self.inner.clone())
     }
 
     /// Sets metadata for the specified instance to the data included
     /// in the request.
-    pub fn set_metadata(&self) -> super::builder::instances::SetMetadata {
+    pub fn set_metadata(&self) -> super::builder::instances::SetMetadata
+    {
         super::builder::instances::SetMetadata::new(self.inner.clone())
     }
 
@@ -5360,12 +6630,14 @@ impl Instances {
     /// This method can only
     /// be called on a stopped instance. For more information, readSpecifying a
     /// Minimum CPU Platform.
-    pub fn set_min_cpu_platform(&self) -> super::builder::instances::SetMinCpuPlatform {
+    pub fn set_min_cpu_platform(&self) -> super::builder::instances::SetMinCpuPlatform
+    {
         super::builder::instances::SetMinCpuPlatform::new(self.inner.clone())
     }
 
     /// Sets name of an instance.
-    pub fn set_name(&self) -> super::builder::instances::SetName {
+    pub fn set_name(&self) -> super::builder::instances::SetName
+    {
         super::builder::instances::SetName::new(self.inner.clone())
     }
 
@@ -5374,21 +6646,24 @@ impl Instances {
     /// Cycle for more information on the possible instance states.
     /// For more information about setting scheduling options for a VM, seeSet
     /// VM host maintenance policy.
-    pub fn set_scheduling(&self) -> super::builder::instances::SetScheduling {
+    pub fn set_scheduling(&self) -> super::builder::instances::SetScheduling
+    {
         super::builder::instances::SetScheduling::new(self.inner.clone())
     }
 
     /// Sets the Google Cloud Armor security policy for the specified instance.
     /// For more information, seeGoogle
     /// Cloud Armor Overview
-    pub fn set_security_policy(&self) -> super::builder::instances::SetSecurityPolicy {
+    pub fn set_security_policy(&self) -> super::builder::instances::SetSecurityPolicy
+    {
         super::builder::instances::SetSecurityPolicy::new(self.inner.clone())
     }
 
     /// Sets the service account on the instance. For more information,
     /// readChanging
     /// the service account and access scopes for an instance.
-    pub fn set_service_account(&self) -> super::builder::instances::SetServiceAccount {
+    pub fn set_service_account(&self) -> super::builder::instances::SetServiceAccount
+    {
         super::builder::instances::SetServiceAccount::new(self.inner.clone())
     }
 
@@ -5396,37 +6671,38 @@ impl Instances {
     /// only use this method on a running instance. This method
     /// supports PATCH semantics and uses the JSON merge
     /// patch format and processing rules.
-    pub fn set_shielded_instance_integrity_policy(
-        &self,
-    ) -> super::builder::instances::SetShieldedInstanceIntegrityPolicy {
+    pub fn set_shielded_instance_integrity_policy(&self) -> super::builder::instances::SetShieldedInstanceIntegrityPolicy
+    {
         super::builder::instances::SetShieldedInstanceIntegrityPolicy::new(self.inner.clone())
     }
 
     /// Sets network tags
     /// for the specified instance to the data included in the request.
-    pub fn set_tags(&self) -> super::builder::instances::SetTags {
+    pub fn set_tags(&self) -> super::builder::instances::SetTags
+    {
         super::builder::instances::SetTags::new(self.inner.clone())
     }
 
     /// Simulates a host maintenance event on a VM. For more information, see
     /// Simulate a host maintenance event.
-    pub fn simulate_maintenance_event(
-        &self,
-    ) -> super::builder::instances::SimulateMaintenanceEvent {
+    pub fn simulate_maintenance_event(&self) -> super::builder::instances::SimulateMaintenanceEvent
+    {
         super::builder::instances::SimulateMaintenanceEvent::new(self.inner.clone())
     }
 
     /// Starts an instance that was stopped using theinstances().stop
     /// method. For more information, seeRestart an
     /// instance.
-    pub fn start(&self) -> super::builder::instances::Start {
+    pub fn start(&self) -> super::builder::instances::Start
+    {
         super::builder::instances::Start::new(self.inner.clone())
     }
 
     /// Starts an instance that was stopped using theinstances().stop
     /// method. For more information, seeRestart an
     /// instance.
-    pub fn start_with_encryption_key(&self) -> super::builder::instances::StartWithEncryptionKey {
+    pub fn start_with_encryption_key(&self) -> super::builder::instances::StartWithEncryptionKey
+    {
         super::builder::instances::StartWithEncryptionKey::new(self.inner.clone())
     }
 
@@ -5436,7 +6712,8 @@ impl Instances {
     /// using, such as persistent disks and static IP addresses, will continue to
     /// be charged until they are deleted. For more information, seeStopping
     /// an instance.
-    pub fn stop(&self) -> super::builder::instances::Stop {
+    pub fn stop(&self) -> super::builder::instances::Stop
+    {
         super::builder::instances::Stop::new(self.inner.clone())
     }
 
@@ -5448,12 +6725,30 @@ impl Instances {
     /// addresses, will continue to be charged while the instance is suspended.
     /// For more information, see
     /// Suspending and resuming an instance.
-    pub fn suspend(&self) -> super::builder::instances::Suspend {
+    pub fn suspend(&self) -> super::builder::instances::Suspend
+    {
         super::builder::instances::Suspend::new(self.inner.clone())
     }
 
     /// Returns permissions that a caller has on the specified resource.
-    pub fn test_iam_permissions(&self) -> super::builder::instances::TestIamPermissions {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Instances;
+    /// async fn sample(
+    ///    client: &Instances
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::instances::TestIamPermissions
+    {
         super::builder::instances::TestIamPermissions::new(self.inner.clone())
     }
 
@@ -5461,7 +6756,8 @@ impl Instances {
     /// method can update only a specific set of instance properties. See
     /// Updating a running instance for a list of updatable instance
     /// properties.
-    pub fn update(&self) -> super::builder::instances::Update {
+    pub fn update(&self) -> super::builder::instances::Update
+    {
         super::builder::instances::Update::new(self.inner.clone())
     }
 
@@ -5469,7 +6765,8 @@ impl Instances {
     /// with the data included in the request. This method supportsPATCH
     /// semantics and uses theJSON merge
     /// patch format and processing rules.
-    pub fn update_access_config(&self) -> super::builder::instances::UpdateAccessConfig {
+    pub fn update_access_config(&self) -> super::builder::instances::UpdateAccessConfig
+    {
         super::builder::instances::UpdateAccessConfig::new(self.inner.clone())
     }
 
@@ -5477,7 +6774,8 @@ impl Instances {
     /// only use this method on a stopped VM instance. This method supportsPATCH
     /// semantics and uses theJSON merge
     /// patch format and processing rules.
-    pub fn update_display_device(&self) -> super::builder::instances::UpdateDisplayDevice {
+    pub fn update_display_device(&self) -> super::builder::instances::UpdateDisplayDevice
+    {
         super::builder::instances::UpdateDisplayDevice::new(self.inner.clone())
     }
 
@@ -5487,7 +6785,8 @@ impl Instances {
     /// changing alias IP ranges. See Migrating
     /// a VM between networks for instructions on migrating an interface.
     /// This method follows PATCH semantics.
-    pub fn update_network_interface(&self) -> super::builder::instances::UpdateNetworkInterface {
+    pub fn update_network_interface(&self) -> super::builder::instances::UpdateNetworkInterface
+    {
         super::builder::instances::UpdateNetworkInterface::new(self.inner.clone())
     }
 
@@ -5495,14 +6794,30 @@ impl Instances {
     /// only use this method on a stopped instance. This method supportsPATCH
     /// semantics and uses theJSON merge
     /// patch format and processing rules.
-    pub fn update_shielded_instance_config(
-        &self,
-    ) -> super::builder::instances::UpdateShieldedInstanceConfig {
+    pub fn update_shielded_instance_config(&self) -> super::builder::instances::UpdateShieldedInstanceConfig
+    {
         super::builder::instances::UpdateShieldedInstanceConfig::new(self.inner.clone())
     }
 
     /// Retrieves the specified zone-specific Operations resource.
-    pub fn get_operation(&self) -> super::builder::instances::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Instances;
+    /// async fn sample(
+    ///    client: &Instances
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::instances::GetOperation
+    {
         super::builder::instances::GetOperation::new(self.inner.clone())
     }
 }
@@ -5566,9 +6881,7 @@ impl InstantSnapshots {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::instant_snapshots::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::instant_snapshots::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::instant_snapshots::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -5576,50 +6889,36 @@ impl InstantSnapshots {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::InstantSnapshots + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::InstantSnapshots + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::InstantSnapshots>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::InstantSnapshots>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::InstantSnapshots> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::InstantSnapshots> {
         super::transport::InstantSnapshots::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::InstantSnapshots> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::InstantSnapshots::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::InstantSnapshots> {
+        Self::build_transport(conf).await.map(super::tracing::InstantSnapshots::new)
     }
 
     /// Retrieves an aggregated list of instantSnapshots.
     ///
     /// To prevent failure, Google recommends that you set the
     /// `returnPartialSuccess` parameter to `true`.
-    pub fn aggregated_list(&self) -> super::builder::instant_snapshots::AggregatedList {
+    pub fn aggregated_list(&self) -> super::builder::instant_snapshots::AggregatedList
+    {
         super::builder::instant_snapshots::AggregatedList::new(self.inner.clone())
     }
 
@@ -5631,52 +6930,141 @@ impl InstantSnapshots {
     ///
     /// For more information, seeDeleting
     /// instantSnapshots.
-    pub fn delete(&self) -> super::builder::instant_snapshots::Delete {
+    pub fn delete(&self) -> super::builder::instant_snapshots::Delete
+    {
         super::builder::instant_snapshots::Delete::new(self.inner.clone())
     }
 
     /// Returns the specified InstantSnapshot resource in the specified zone.
-    pub fn get(&self) -> super::builder::instant_snapshots::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::InstantSnapshots;
+    /// async fn sample(
+    ///    client: &InstantSnapshots
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::instant_snapshots::Get
+    {
         super::builder::instant_snapshots::Get::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. May be empty if no such
     /// policy or resource exists.
-    pub fn get_iam_policy(&self) -> super::builder::instant_snapshots::GetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::InstantSnapshots;
+    /// async fn sample(
+    ///    client: &InstantSnapshots
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::instant_snapshots::GetIamPolicy
+    {
         super::builder::instant_snapshots::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Creates an instant snapshot in the specified zone.
-    pub fn insert(&self) -> super::builder::instant_snapshots::Insert {
+    pub fn insert(&self) -> super::builder::instant_snapshots::Insert
+    {
         super::builder::instant_snapshots::Insert::new(self.inner.clone())
     }
 
     /// Retrieves the list of InstantSnapshot resources contained within
     /// the specified zone.
-    pub fn list(&self) -> super::builder::instant_snapshots::List {
+    pub fn list(&self) -> super::builder::instant_snapshots::List
+    {
         super::builder::instant_snapshots::List::new(self.inner.clone())
     }
 
     /// Sets the access control policy on the specified resource.
     /// Replaces any existing policy.
-    pub fn set_iam_policy(&self) -> super::builder::instant_snapshots::SetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::InstantSnapshots;
+    /// async fn sample(
+    ///    client: &InstantSnapshots
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::instant_snapshots::SetIamPolicy
+    {
         super::builder::instant_snapshots::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Sets the labels on a instantSnapshot in the given zone. To learn more about
     /// labels, read the Labeling
     /// Resources documentation.
-    pub fn set_labels(&self) -> super::builder::instant_snapshots::SetLabels {
+    pub fn set_labels(&self) -> super::builder::instant_snapshots::SetLabels
+    {
         super::builder::instant_snapshots::SetLabels::new(self.inner.clone())
     }
 
     /// Returns permissions that a caller has on the specified resource.
-    pub fn test_iam_permissions(&self) -> super::builder::instant_snapshots::TestIamPermissions {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::InstantSnapshots;
+    /// async fn sample(
+    ///    client: &InstantSnapshots
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::instant_snapshots::TestIamPermissions
+    {
         super::builder::instant_snapshots::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Retrieves the specified zone-specific Operations resource.
-    pub fn get_operation(&self) -> super::builder::instant_snapshots::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::InstantSnapshots;
+    /// async fn sample(
+    ///    client: &InstantSnapshots
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::instant_snapshots::GetOperation
+    {
         super::builder::instant_snapshots::GetOperation::new(self.inner.clone())
     }
 }
@@ -5740,9 +7128,7 @@ impl InterconnectAttachmentGroups {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::interconnect_attachment_groups::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::interconnect_attachment_groups::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::interconnect_attachment_groups::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -5750,81 +7136,115 @@ impl InterconnectAttachmentGroups {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::InterconnectAttachmentGroups + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::InterconnectAttachmentGroups + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<
-        std::sync::Arc<dyn super::stub::dynamic::InterconnectAttachmentGroups>,
-    > {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::InterconnectAttachmentGroups>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::InterconnectAttachmentGroups> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::InterconnectAttachmentGroups> {
         super::transport::InterconnectAttachmentGroups::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::InterconnectAttachmentGroups> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::InterconnectAttachmentGroups::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::InterconnectAttachmentGroups> {
+        Self::build_transport(conf).await.map(super::tracing::InterconnectAttachmentGroups::new)
     }
 
     /// Deletes the specified InterconnectAttachmentGroup in the given scope
-    pub fn delete(&self) -> super::builder::interconnect_attachment_groups::Delete {
+    pub fn delete(&self) -> super::builder::interconnect_attachment_groups::Delete
+    {
         super::builder::interconnect_attachment_groups::Delete::new(self.inner.clone())
     }
 
     /// Returns the specified InterconnectAttachmentGroup resource in the given
     /// scope.
-    pub fn get(&self) -> super::builder::interconnect_attachment_groups::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::InterconnectAttachmentGroups;
+    /// async fn sample(
+    ///    client: &InterconnectAttachmentGroups
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::interconnect_attachment_groups::Get
+    {
         super::builder::interconnect_attachment_groups::Get::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. May be empty if no such
     /// policy or resource exists.
-    pub fn get_iam_policy(&self) -> super::builder::interconnect_attachment_groups::GetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::InterconnectAttachmentGroups;
+    /// async fn sample(
+    ///    client: &InterconnectAttachmentGroups
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::interconnect_attachment_groups::GetIamPolicy
+    {
         super::builder::interconnect_attachment_groups::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Returns the InterconnectAttachmentStatuses for the specified
     /// InterconnectAttachmentGroup resource.
-    pub fn get_operational_status(
-        &self,
-    ) -> super::builder::interconnect_attachment_groups::GetOperationalStatus {
-        super::builder::interconnect_attachment_groups::GetOperationalStatus::new(
-            self.inner.clone(),
-        )
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::InterconnectAttachmentGroups;
+    /// async fn sample(
+    ///    client: &InterconnectAttachmentGroups
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operational_status()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operational_status(&self) -> super::builder::interconnect_attachment_groups::GetOperationalStatus
+    {
+        super::builder::interconnect_attachment_groups::GetOperationalStatus::new(self.inner.clone())
     }
 
     /// Creates a InterconnectAttachmentGroup in the specified project in the given
     /// scope using the parameters that are included in the request.
-    pub fn insert(&self) -> super::builder::interconnect_attachment_groups::Insert {
+    pub fn insert(&self) -> super::builder::interconnect_attachment_groups::Insert
+    {
         super::builder::interconnect_attachment_groups::Insert::new(self.inner.clone())
     }
 
     /// Lists the InterconnectAttachmentGroups for a project in the given scope.
-    pub fn list(&self) -> super::builder::interconnect_attachment_groups::List {
+    pub fn list(&self) -> super::builder::interconnect_attachment_groups::List
+    {
         super::builder::interconnect_attachment_groups::List::new(self.inner.clone())
     }
 
@@ -5832,25 +7252,75 @@ impl InterconnectAttachmentGroups {
     /// included in the request. This method supports PATCH
     /// semantics and usesJSON merge
     /// patch format and processing rules.
-    pub fn patch(&self) -> super::builder::interconnect_attachment_groups::Patch {
+    pub fn patch(&self) -> super::builder::interconnect_attachment_groups::Patch
+    {
         super::builder::interconnect_attachment_groups::Patch::new(self.inner.clone())
     }
 
     /// Sets the access control policy on the specified resource.
     /// Replaces any existing policy.
-    pub fn set_iam_policy(&self) -> super::builder::interconnect_attachment_groups::SetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::InterconnectAttachmentGroups;
+    /// async fn sample(
+    ///    client: &InterconnectAttachmentGroups
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::interconnect_attachment_groups::SetIamPolicy
+    {
         super::builder::interconnect_attachment_groups::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Returns permissions that a caller has on the specified resource.
-    pub fn test_iam_permissions(
-        &self,
-    ) -> super::builder::interconnect_attachment_groups::TestIamPermissions {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::InterconnectAttachmentGroups;
+    /// async fn sample(
+    ///    client: &InterconnectAttachmentGroups
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::interconnect_attachment_groups::TestIamPermissions
+    {
         super::builder::interconnect_attachment_groups::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Retrieves the specified Operations resource.
-    pub fn get_operation(&self) -> super::builder::interconnect_attachment_groups::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::InterconnectAttachmentGroups;
+    /// async fn sample(
+    ///    client: &InterconnectAttachmentGroups
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::interconnect_attachment_groups::GetOperation
+    {
         super::builder::interconnect_attachment_groups::GetOperation::new(self.inner.clone())
     }
 }
@@ -5914,9 +7384,7 @@ impl InterconnectAttachments {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::interconnect_attachments::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::interconnect_attachments::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::interconnect_attachments::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -5924,73 +7392,78 @@ impl InterconnectAttachments {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::InterconnectAttachments + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::InterconnectAttachments + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<
-        std::sync::Arc<dyn super::stub::dynamic::InterconnectAttachments>,
-    > {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::InterconnectAttachments>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::InterconnectAttachments> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::InterconnectAttachments> {
         super::transport::InterconnectAttachments::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::InterconnectAttachments> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::InterconnectAttachments::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::InterconnectAttachments> {
+        Self::build_transport(conf).await.map(super::tracing::InterconnectAttachments::new)
     }
 
     /// Retrieves an aggregated list of interconnect attachments.
     ///
     /// To prevent failure, Google recommends that you set the
     /// `returnPartialSuccess` parameter to `true`.
-    pub fn aggregated_list(&self) -> super::builder::interconnect_attachments::AggregatedList {
+    pub fn aggregated_list(&self) -> super::builder::interconnect_attachments::AggregatedList
+    {
         super::builder::interconnect_attachments::AggregatedList::new(self.inner.clone())
     }
 
     /// Deletes the specified interconnect attachment.
-    pub fn delete(&self) -> super::builder::interconnect_attachments::Delete {
+    pub fn delete(&self) -> super::builder::interconnect_attachments::Delete
+    {
         super::builder::interconnect_attachments::Delete::new(self.inner.clone())
     }
 
     /// Returns the specified interconnect attachment.
-    pub fn get(&self) -> super::builder::interconnect_attachments::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::InterconnectAttachments;
+    /// async fn sample(
+    ///    client: &InterconnectAttachments
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::interconnect_attachments::Get
+    {
         super::builder::interconnect_attachments::Get::new(self.inner.clone())
     }
 
     /// Creates an InterconnectAttachment in the specified project using the data
     /// included in the request.
-    pub fn insert(&self) -> super::builder::interconnect_attachments::Insert {
+    pub fn insert(&self) -> super::builder::interconnect_attachments::Insert
+    {
         super::builder::interconnect_attachments::Insert::new(self.inner.clone())
     }
 
     /// Retrieves the list of interconnect attachments contained within
     /// the specified region.
-    pub fn list(&self) -> super::builder::interconnect_attachments::List {
+    pub fn list(&self) -> super::builder::interconnect_attachments::List
+    {
         super::builder::interconnect_attachments::List::new(self.inner.clone())
     }
 
@@ -5998,19 +7471,38 @@ impl InterconnectAttachments {
     /// request. This method supportsPATCH
     /// semantics and uses theJSON merge
     /// patch format and processing rules.
-    pub fn patch(&self) -> super::builder::interconnect_attachments::Patch {
+    pub fn patch(&self) -> super::builder::interconnect_attachments::Patch
+    {
         super::builder::interconnect_attachments::Patch::new(self.inner.clone())
     }
 
     /// Sets the labels on an InterconnectAttachment. To learn more about labels,
     /// read the Labeling
     /// Resources documentation.
-    pub fn set_labels(&self) -> super::builder::interconnect_attachments::SetLabels {
+    pub fn set_labels(&self) -> super::builder::interconnect_attachments::SetLabels
+    {
         super::builder::interconnect_attachments::SetLabels::new(self.inner.clone())
     }
 
     /// Retrieves the specified region-specific Operations resource.
-    pub fn get_operation(&self) -> super::builder::interconnect_attachments::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::InterconnectAttachments;
+    /// async fn sample(
+    ///    client: &InterconnectAttachments
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::interconnect_attachments::GetOperation
+    {
         super::builder::interconnect_attachments::GetOperation::new(self.inner.clone())
     }
 }
@@ -6074,9 +7566,7 @@ impl InterconnectGroups {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::interconnect_groups::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::interconnect_groups::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::interconnect_groups::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -6084,83 +7574,121 @@ impl InterconnectGroups {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::InterconnectGroups + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::InterconnectGroups + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::InterconnectGroups>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::InterconnectGroups>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::InterconnectGroups> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::InterconnectGroups> {
         super::transport::InterconnectGroups::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::InterconnectGroups> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::InterconnectGroups::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::InterconnectGroups> {
+        Self::build_transport(conf).await.map(super::tracing::InterconnectGroups::new)
     }
 
     /// Create Interconnects with redundancy by creating them in a specified
     /// interconnect group.
-    pub fn create_members(&self) -> super::builder::interconnect_groups::CreateMembers {
+    pub fn create_members(&self) -> super::builder::interconnect_groups::CreateMembers
+    {
         super::builder::interconnect_groups::CreateMembers::new(self.inner.clone())
     }
 
     /// Deletes the specified InterconnectGroup in the given scope
-    pub fn delete(&self) -> super::builder::interconnect_groups::Delete {
+    pub fn delete(&self) -> super::builder::interconnect_groups::Delete
+    {
         super::builder::interconnect_groups::Delete::new(self.inner.clone())
     }
 
     /// Returns the specified InterconnectGroup resource in the given scope.
-    pub fn get(&self) -> super::builder::interconnect_groups::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::InterconnectGroups;
+    /// async fn sample(
+    ///    client: &InterconnectGroups
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::interconnect_groups::Get
+    {
         super::builder::interconnect_groups::Get::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. May be empty if no such
     /// policy or resource exists.
-    pub fn get_iam_policy(&self) -> super::builder::interconnect_groups::GetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::InterconnectGroups;
+    /// async fn sample(
+    ///    client: &InterconnectGroups
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::interconnect_groups::GetIamPolicy
+    {
         super::builder::interconnect_groups::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Returns the interconnectStatuses for the specified
     /// InterconnectGroup.
-    pub fn get_operational_status(
-        &self,
-    ) -> super::builder::interconnect_groups::GetOperationalStatus {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::InterconnectGroups;
+    /// async fn sample(
+    ///    client: &InterconnectGroups
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operational_status()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operational_status(&self) -> super::builder::interconnect_groups::GetOperationalStatus
+    {
         super::builder::interconnect_groups::GetOperationalStatus::new(self.inner.clone())
     }
 
     /// Creates a InterconnectGroup in the specified project in the given scope
     /// using the parameters that are included in the request.
-    pub fn insert(&self) -> super::builder::interconnect_groups::Insert {
+    pub fn insert(&self) -> super::builder::interconnect_groups::Insert
+    {
         super::builder::interconnect_groups::Insert::new(self.inner.clone())
     }
 
     /// Lists the InterconnectGroups for a project in the given scope.
-    pub fn list(&self) -> super::builder::interconnect_groups::List {
+    pub fn list(&self) -> super::builder::interconnect_groups::List
+    {
         super::builder::interconnect_groups::List::new(self.inner.clone())
     }
 
@@ -6168,23 +7696,75 @@ impl InterconnectGroups {
     /// the request. This method supports PATCH
     /// semantics and usesJSON merge
     /// patch format and processing rules.
-    pub fn patch(&self) -> super::builder::interconnect_groups::Patch {
+    pub fn patch(&self) -> super::builder::interconnect_groups::Patch
+    {
         super::builder::interconnect_groups::Patch::new(self.inner.clone())
     }
 
     /// Sets the access control policy on the specified resource.
     /// Replaces any existing policy.
-    pub fn set_iam_policy(&self) -> super::builder::interconnect_groups::SetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::InterconnectGroups;
+    /// async fn sample(
+    ///    client: &InterconnectGroups
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::interconnect_groups::SetIamPolicy
+    {
         super::builder::interconnect_groups::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Returns permissions that a caller has on the specified resource.
-    pub fn test_iam_permissions(&self) -> super::builder::interconnect_groups::TestIamPermissions {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::InterconnectGroups;
+    /// async fn sample(
+    ///    client: &InterconnectGroups
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::interconnect_groups::TestIamPermissions
+    {
         super::builder::interconnect_groups::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Retrieves the specified Operations resource.
-    pub fn get_operation(&self) -> super::builder::interconnect_groups::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::InterconnectGroups;
+    /// async fn sample(
+    ///    client: &InterconnectGroups
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::interconnect_groups::GetOperation
+    {
         super::builder::interconnect_groups::GetOperation::new(self.inner.clone())
     }
 }
@@ -6248,9 +7828,7 @@ impl InterconnectLocations {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::interconnect_locations::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::interconnect_locations::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::interconnect_locations::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -6258,54 +7836,57 @@ impl InterconnectLocations {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::InterconnectLocations + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::InterconnectLocations + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::InterconnectLocations>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::InterconnectLocations>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::InterconnectLocations> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::InterconnectLocations> {
         super::transport::InterconnectLocations::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::InterconnectLocations> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::InterconnectLocations::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::InterconnectLocations> {
+        Self::build_transport(conf).await.map(super::tracing::InterconnectLocations::new)
     }
 
     /// Returns the details for the specified interconnect location. Gets a list of
     /// available interconnect locations by making a list() request.
-    pub fn get(&self) -> super::builder::interconnect_locations::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::InterconnectLocations;
+    /// async fn sample(
+    ///    client: &InterconnectLocations
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::interconnect_locations::Get
+    {
         super::builder::interconnect_locations::Get::new(self.inner.clone())
     }
 
     /// Retrieves the list of interconnect locations available to the specified
     /// project.
-    pub fn list(&self) -> super::builder::interconnect_locations::List {
+    pub fn list(&self) -> super::builder::interconnect_locations::List
+    {
         super::builder::interconnect_locations::List::new(self.inner.clone())
     }
 }
@@ -6369,9 +7950,7 @@ impl InterconnectRemoteLocations {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::interconnect_remote_locations::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::interconnect_remote_locations::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::interconnect_remote_locations::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -6379,55 +7958,57 @@ impl InterconnectRemoteLocations {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::InterconnectRemoteLocations + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::InterconnectRemoteLocations + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<
-        std::sync::Arc<dyn super::stub::dynamic::InterconnectRemoteLocations>,
-    > {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::InterconnectRemoteLocations>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::InterconnectRemoteLocations> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::InterconnectRemoteLocations> {
         super::transport::InterconnectRemoteLocations::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::InterconnectRemoteLocations> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::InterconnectRemoteLocations::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::InterconnectRemoteLocations> {
+        Self::build_transport(conf).await.map(super::tracing::InterconnectRemoteLocations::new)
     }
 
     /// Returns the details for the specified interconnect remote location. Gets a
     /// list of available interconnect remote locations by making alist() request.
-    pub fn get(&self) -> super::builder::interconnect_remote_locations::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::InterconnectRemoteLocations;
+    /// async fn sample(
+    ///    client: &InterconnectRemoteLocations
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::interconnect_remote_locations::Get
+    {
         super::builder::interconnect_remote_locations::Get::new(self.inner.clone())
     }
 
     /// Retrieves the list of interconnect remote locations available to the
     /// specified project.
-    pub fn list(&self) -> super::builder::interconnect_remote_locations::List {
+    pub fn list(&self) -> super::builder::interconnect_remote_locations::List
+    {
         super::builder::interconnect_remote_locations::List::new(self.inner.clone())
     }
 }
@@ -6499,52 +8080,56 @@ impl Interconnects {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::Interconnects + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::Interconnects + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Interconnects>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Interconnects>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Interconnects> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Interconnects> {
         super::transport::Interconnects::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Interconnects> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::Interconnects::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Interconnects> {
+        Self::build_transport(conf).await.map(super::tracing::Interconnects::new)
     }
 
     /// Deletes the specified Interconnect.
-    pub fn delete(&self) -> super::builder::interconnects::Delete {
+    pub fn delete(&self) -> super::builder::interconnects::Delete
+    {
         super::builder::interconnects::Delete::new(self.inner.clone())
     }
 
     /// Returns the specified Interconnect. Get a list of available Interconnects
     /// by making a list() request.
-    pub fn get(&self) -> super::builder::interconnects::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Interconnects;
+    /// async fn sample(
+    ///    client: &Interconnects
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::interconnects::Get
+    {
         super::builder::interconnects::Get::new(self.inner.clone())
     }
 
@@ -6558,24 +8143,60 @@ impl Interconnects {
     /// Unlike a VLAN attachment, which is regional, a Cloud Interconnect
     /// connection is a global resource. A global outage can prevent this
     /// API from functioning properly.
-    pub fn get_diagnostics(&self) -> super::builder::interconnects::GetDiagnostics {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Interconnects;
+    /// async fn sample(
+    ///    client: &Interconnects
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_diagnostics()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_diagnostics(&self) -> super::builder::interconnects::GetDiagnostics
+    {
         super::builder::interconnects::GetDiagnostics::new(self.inner.clone())
     }
 
     /// Returns the interconnectMacsecConfig for the specified
     /// Interconnect.
-    pub fn get_macsec_config(&self) -> super::builder::interconnects::GetMacsecConfig {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Interconnects;
+    /// async fn sample(
+    ///    client: &Interconnects
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_macsec_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_macsec_config(&self) -> super::builder::interconnects::GetMacsecConfig
+    {
         super::builder::interconnects::GetMacsecConfig::new(self.inner.clone())
     }
 
     /// Creates an Interconnect in the specified project using
     /// the data included in the request.
-    pub fn insert(&self) -> super::builder::interconnects::Insert {
+    pub fn insert(&self) -> super::builder::interconnects::Insert
+    {
         super::builder::interconnects::Insert::new(self.inner.clone())
     }
 
     /// Retrieves the list of Interconnects available to the specified project.
-    pub fn list(&self) -> super::builder::interconnects::List {
+    pub fn list(&self) -> super::builder::interconnects::List
+    {
         super::builder::interconnects::List::new(self.inner.clone())
     }
 
@@ -6583,19 +8204,38 @@ impl Interconnects {
     /// This method supportsPATCH
     /// semantics and uses theJSON merge
     /// patch format and processing rules.
-    pub fn patch(&self) -> super::builder::interconnects::Patch {
+    pub fn patch(&self) -> super::builder::interconnects::Patch
+    {
         super::builder::interconnects::Patch::new(self.inner.clone())
     }
 
     /// Sets the labels on an Interconnect. To learn more about labels,
     /// read the Labeling
     /// Resources documentation.
-    pub fn set_labels(&self) -> super::builder::interconnects::SetLabels {
+    pub fn set_labels(&self) -> super::builder::interconnects::SetLabels
+    {
         super::builder::interconnects::SetLabels::new(self.inner.clone())
     }
 
     /// Retrieves the specified Operations resource.
-    pub fn get_operation(&self) -> super::builder::interconnects::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Interconnects;
+    /// async fn sample(
+    ///    client: &Interconnects
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::interconnects::GetOperation
+    {
         super::builder::interconnects::GetOperation::new(self.inner.clone())
     }
 }
@@ -6667,42 +8307,28 @@ impl LicenseCodes {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::LicenseCodes + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::LicenseCodes + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::LicenseCodes>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::LicenseCodes>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::LicenseCodes> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::LicenseCodes> {
         super::transport::LicenseCodes::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::LicenseCodes> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::LicenseCodes::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::LicenseCodes> {
+        Self::build_transport(conf).await.map(super::tracing::LicenseCodes::new)
     }
 
     /// Return a specified license code. License codes are mirrored across
@@ -6710,7 +8336,24 @@ impl LicenseCodes {
     /// *Caution* This resource is intended
     /// for use only by third-party partners who are creatingCloud Marketplace
     /// images.
-    pub fn get(&self) -> super::builder::license_codes::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::LicenseCodes;
+    /// async fn sample(
+    ///    client: &LicenseCodes
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::license_codes::Get
+    {
         super::builder::license_codes::Get::new(self.inner.clone())
     }
 
@@ -6718,7 +8361,24 @@ impl LicenseCodes {
     /// *Caution* This resource is intended
     /// for use only by third-party partners who are creatingCloud Marketplace
     /// images.
-    pub fn test_iam_permissions(&self) -> super::builder::license_codes::TestIamPermissions {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::LicenseCodes;
+    /// async fn sample(
+    ///    client: &LicenseCodes
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::license_codes::TestIamPermissions
+    {
         super::builder::license_codes::TestIamPermissions::new(self.inner.clone())
     }
 }
@@ -6790,49 +8450,36 @@ impl Licenses {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::Licenses + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::Licenses + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Licenses>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Licenses>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Licenses> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Licenses> {
         super::transport::Licenses::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Licenses> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::Licenses::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Licenses> {
+        Self::build_transport(conf).await.map(super::tracing::Licenses::new)
     }
 
     /// Deletes the specified license.
     /// *Caution* This resource is intended
     /// for use only by third-party partners who are creatingCloud Marketplace
     /// images.
-    pub fn delete(&self) -> super::builder::licenses::Delete {
+    pub fn delete(&self) -> super::builder::licenses::Delete
+    {
         super::builder::licenses::Delete::new(self.inner.clone())
     }
 
@@ -6840,7 +8487,24 @@ impl Licenses {
     /// *Caution* This resource is intended
     /// for use only by third-party partners who are creatingCloud Marketplace
     /// images.
-    pub fn get(&self) -> super::builder::licenses::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Licenses;
+    /// async fn sample(
+    ///    client: &Licenses
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::licenses::Get
+    {
         super::builder::licenses::Get::new(self.inner.clone())
     }
 
@@ -6849,7 +8513,24 @@ impl Licenses {
     /// *Caution* This resource is intended
     /// for use only by third-party partners who are creatingCloud Marketplace
     /// images.
-    pub fn get_iam_policy(&self) -> super::builder::licenses::GetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Licenses;
+    /// async fn sample(
+    ///    client: &Licenses
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::licenses::GetIamPolicy
+    {
         super::builder::licenses::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -6857,7 +8538,8 @@ impl Licenses {
     /// *Caution* This resource is intended
     /// for use only by third-party partners who are creatingCloud Marketplace
     /// images.
-    pub fn insert(&self) -> super::builder::licenses::Insert {
+    pub fn insert(&self) -> super::builder::licenses::Insert
+    {
         super::builder::licenses::Insert::new(self.inner.clone())
     }
 
@@ -6870,7 +8552,8 @@ impl Licenses {
     /// *Caution* This resource is intended
     /// for use only by third-party partners who are creatingCloud Marketplace
     /// images.
-    pub fn list(&self) -> super::builder::licenses::List {
+    pub fn list(&self) -> super::builder::licenses::List
+    {
         super::builder::licenses::List::new(self.inner.clone())
     }
 
@@ -6879,7 +8562,24 @@ impl Licenses {
     /// *Caution* This resource is intended
     /// for use only by third-party partners who are creatingCloud Marketplace
     /// images.
-    pub fn set_iam_policy(&self) -> super::builder::licenses::SetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Licenses;
+    /// async fn sample(
+    ///    client: &Licenses
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::licenses::SetIamPolicy
+    {
         super::builder::licenses::SetIamPolicy::new(self.inner.clone())
     }
 
@@ -6887,7 +8587,24 @@ impl Licenses {
     /// *Caution* This resource is intended
     /// for use only by third-party partners who are creatingCloud Marketplace
     /// images.
-    pub fn test_iam_permissions(&self) -> super::builder::licenses::TestIamPermissions {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Licenses;
+    /// async fn sample(
+    ///    client: &Licenses
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::licenses::TestIamPermissions
+    {
         super::builder::licenses::TestIamPermissions::new(self.inner.clone())
     }
 
@@ -6895,12 +8612,30 @@ impl Licenses {
     /// *Caution* This resource is intended
     /// for use only by third-party partners who are creatingCloud Marketplace
     /// images.
-    pub fn update(&self) -> super::builder::licenses::Update {
+    pub fn update(&self) -> super::builder::licenses::Update
+    {
         super::builder::licenses::Update::new(self.inner.clone())
     }
 
     /// Retrieves the specified Operations resource.
-    pub fn get_operation(&self) -> super::builder::licenses::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Licenses;
+    /// async fn sample(
+    ///    client: &Licenses
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::licenses::GetOperation
+    {
         super::builder::licenses::GetOperation::new(self.inner.clone())
     }
 }
@@ -6972,58 +8707,79 @@ impl MachineImages {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::MachineImages + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::MachineImages + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::MachineImages>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::MachineImages>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::MachineImages> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::MachineImages> {
         super::transport::MachineImages::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::MachineImages> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::MachineImages::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::MachineImages> {
+        Self::build_transport(conf).await.map(super::tracing::MachineImages::new)
     }
 
     /// Deletes the specified machine image. Deleting a machine image is permanent
     /// and cannot be undone.
-    pub fn delete(&self) -> super::builder::machine_images::Delete {
+    pub fn delete(&self) -> super::builder::machine_images::Delete
+    {
         super::builder::machine_images::Delete::new(self.inner.clone())
     }
 
     /// Returns the specified machine image.
-    pub fn get(&self) -> super::builder::machine_images::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::MachineImages;
+    /// async fn sample(
+    ///    client: &MachineImages
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::machine_images::Get
+    {
         super::builder::machine_images::Get::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. May be empty if no such
     /// policy or resource exists.
-    pub fn get_iam_policy(&self) -> super::builder::machine_images::GetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::MachineImages;
+    /// async fn sample(
+    ///    client: &MachineImages
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::machine_images::GetIamPolicy
+    {
         super::builder::machine_images::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -7032,35 +8788,89 @@ impl MachineImages {
     /// image to update an existing instance, your new machine image should use the
     /// same network or, if applicable, the same subnetwork as the original
     /// instance.
-    pub fn insert(&self) -> super::builder::machine_images::Insert {
+    pub fn insert(&self) -> super::builder::machine_images::Insert
+    {
         super::builder::machine_images::Insert::new(self.inner.clone())
     }
 
     /// Retrieves a list of machine images that are contained within
     /// the specified project.
-    pub fn list(&self) -> super::builder::machine_images::List {
+    pub fn list(&self) -> super::builder::machine_images::List
+    {
         super::builder::machine_images::List::new(self.inner.clone())
     }
 
     /// Sets the access control policy on the specified resource.
     /// Replaces any existing policy.
-    pub fn set_iam_policy(&self) -> super::builder::machine_images::SetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::MachineImages;
+    /// async fn sample(
+    ///    client: &MachineImages
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::machine_images::SetIamPolicy
+    {
         super::builder::machine_images::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Sets the labels on a machine image. To learn more about labels, read theLabeling
     /// Resources documentation.
-    pub fn set_labels(&self) -> super::builder::machine_images::SetLabels {
+    pub fn set_labels(&self) -> super::builder::machine_images::SetLabels
+    {
         super::builder::machine_images::SetLabels::new(self.inner.clone())
     }
 
     /// Returns permissions that a caller has on the specified resource.
-    pub fn test_iam_permissions(&self) -> super::builder::machine_images::TestIamPermissions {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::MachineImages;
+    /// async fn sample(
+    ///    client: &MachineImages
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::machine_images::TestIamPermissions
+    {
         super::builder::machine_images::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Retrieves the specified Operations resource.
-    pub fn get_operation(&self) -> super::builder::machine_images::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::MachineImages;
+    /// async fn sample(
+    ///    client: &MachineImages
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::machine_images::GetOperation
+    {
         super::builder::machine_images::GetOperation::new(self.inner.clone())
     }
 }
@@ -7132,60 +8942,65 @@ impl MachineTypes {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::MachineTypes + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::MachineTypes + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::MachineTypes>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::MachineTypes>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::MachineTypes> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::MachineTypes> {
         super::transport::MachineTypes::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::MachineTypes> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::MachineTypes::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::MachineTypes> {
+        Self::build_transport(conf).await.map(super::tracing::MachineTypes::new)
     }
 
     /// Retrieves an aggregated list of machine types.
     ///
     /// To prevent failure, Google recommends that you set the
     /// `returnPartialSuccess` parameter to `true`.
-    pub fn aggregated_list(&self) -> super::builder::machine_types::AggregatedList {
+    pub fn aggregated_list(&self) -> super::builder::machine_types::AggregatedList
+    {
         super::builder::machine_types::AggregatedList::new(self.inner.clone())
     }
 
     /// Returns the specified machine type.
-    pub fn get(&self) -> super::builder::machine_types::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::MachineTypes;
+    /// async fn sample(
+    ///    client: &MachineTypes
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::machine_types::Get
+    {
         super::builder::machine_types::Get::new(self.inner.clone())
     }
 
     /// Retrieves a list of machine types available to the specified
     /// project.
-    pub fn list(&self) -> super::builder::machine_types::List {
+    pub fn list(&self) -> super::builder::machine_types::List
+    {
         super::builder::machine_types::List::new(self.inner.clone())
     }
 }
@@ -7249,9 +9064,7 @@ impl NetworkAttachments {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::network_attachments::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::network_attachments::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::network_attachments::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -7259,43 +9072,28 @@ impl NetworkAttachments {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::NetworkAttachments + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::NetworkAttachments + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::NetworkAttachments>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::NetworkAttachments>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::NetworkAttachments> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::NetworkAttachments> {
         super::transport::NetworkAttachments::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::NetworkAttachments> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::NetworkAttachments::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::NetworkAttachments> {
+        Self::build_transport(conf).await.map(super::tracing::NetworkAttachments::new)
     }
 
     /// Retrieves the list of all NetworkAttachment resources,
@@ -7303,34 +9101,72 @@ impl NetworkAttachments {
     ///
     /// To prevent failure, Google recommends that you set the
     /// `returnPartialSuccess` parameter to `true`.
-    pub fn aggregated_list(&self) -> super::builder::network_attachments::AggregatedList {
+    pub fn aggregated_list(&self) -> super::builder::network_attachments::AggregatedList
+    {
         super::builder::network_attachments::AggregatedList::new(self.inner.clone())
     }
 
     /// Deletes the specified NetworkAttachment in the given scope
-    pub fn delete(&self) -> super::builder::network_attachments::Delete {
+    pub fn delete(&self) -> super::builder::network_attachments::Delete
+    {
         super::builder::network_attachments::Delete::new(self.inner.clone())
     }
 
     /// Returns the specified NetworkAttachment resource in the given scope.
-    pub fn get(&self) -> super::builder::network_attachments::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::NetworkAttachments;
+    /// async fn sample(
+    ///    client: &NetworkAttachments
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::network_attachments::Get
+    {
         super::builder::network_attachments::Get::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. May be empty if no such
     /// policy or resource exists.
-    pub fn get_iam_policy(&self) -> super::builder::network_attachments::GetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::NetworkAttachments;
+    /// async fn sample(
+    ///    client: &NetworkAttachments
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::network_attachments::GetIamPolicy
+    {
         super::builder::network_attachments::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Creates a NetworkAttachment in the specified project in the given scope
     /// using the parameters that are included in the request.
-    pub fn insert(&self) -> super::builder::network_attachments::Insert {
+    pub fn insert(&self) -> super::builder::network_attachments::Insert
+    {
         super::builder::network_attachments::Insert::new(self.inner.clone())
     }
 
     /// Lists the NetworkAttachments for a project in the given scope.
-    pub fn list(&self) -> super::builder::network_attachments::List {
+    pub fn list(&self) -> super::builder::network_attachments::List
+    {
         super::builder::network_attachments::List::new(self.inner.clone())
     }
 
@@ -7338,23 +9174,75 @@ impl NetworkAttachments {
     /// the request. This method supports PATCH
     /// semantics and usesJSON merge
     /// patch format and processing rules.
-    pub fn patch(&self) -> super::builder::network_attachments::Patch {
+    pub fn patch(&self) -> super::builder::network_attachments::Patch
+    {
         super::builder::network_attachments::Patch::new(self.inner.clone())
     }
 
     /// Sets the access control policy on the specified resource.
     /// Replaces any existing policy.
-    pub fn set_iam_policy(&self) -> super::builder::network_attachments::SetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::NetworkAttachments;
+    /// async fn sample(
+    ///    client: &NetworkAttachments
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::network_attachments::SetIamPolicy
+    {
         super::builder::network_attachments::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Returns permissions that a caller has on the specified resource.
-    pub fn test_iam_permissions(&self) -> super::builder::network_attachments::TestIamPermissions {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::NetworkAttachments;
+    /// async fn sample(
+    ///    client: &NetworkAttachments
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::network_attachments::TestIamPermissions
+    {
         super::builder::network_attachments::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Retrieves the specified region-specific Operations resource.
-    pub fn get_operation(&self) -> super::builder::network_attachments::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::NetworkAttachments;
+    /// async fn sample(
+    ///    client: &NetworkAttachments
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::network_attachments::GetOperation
+    {
         super::builder::network_attachments::GetOperation::new(self.inner.clone())
     }
 }
@@ -7418,9 +9306,7 @@ impl NetworkEdgeSecurityServices {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::network_edge_security_services::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::network_edge_security_services::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::network_edge_security_services::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -7428,44 +9314,28 @@ impl NetworkEdgeSecurityServices {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::NetworkEdgeSecurityServices + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::NetworkEdgeSecurityServices + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<
-        std::sync::Arc<dyn super::stub::dynamic::NetworkEdgeSecurityServices>,
-    > {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::NetworkEdgeSecurityServices>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::NetworkEdgeSecurityServices> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::NetworkEdgeSecurityServices> {
         super::transport::NetworkEdgeSecurityServices::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::NetworkEdgeSecurityServices> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::NetworkEdgeSecurityServices::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::NetworkEdgeSecurityServices> {
+        Self::build_transport(conf).await.map(super::tracing::NetworkEdgeSecurityServices::new)
     }
 
     /// Retrieves the list of all NetworkEdgeSecurityService resources available to
@@ -7473,35 +9343,71 @@ impl NetworkEdgeSecurityServices {
     ///
     /// To prevent failure, Google recommends that you set the
     /// `returnPartialSuccess` parameter to `true`.
-    pub fn aggregated_list(
-        &self,
-    ) -> super::builder::network_edge_security_services::AggregatedList {
+    pub fn aggregated_list(&self) -> super::builder::network_edge_security_services::AggregatedList
+    {
         super::builder::network_edge_security_services::AggregatedList::new(self.inner.clone())
     }
 
     /// Deletes the specified service.
-    pub fn delete(&self) -> super::builder::network_edge_security_services::Delete {
+    pub fn delete(&self) -> super::builder::network_edge_security_services::Delete
+    {
         super::builder::network_edge_security_services::Delete::new(self.inner.clone())
     }
 
     /// Gets a specified NetworkEdgeSecurityService.
-    pub fn get(&self) -> super::builder::network_edge_security_services::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::NetworkEdgeSecurityServices;
+    /// async fn sample(
+    ///    client: &NetworkEdgeSecurityServices
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::network_edge_security_services::Get
+    {
         super::builder::network_edge_security_services::Get::new(self.inner.clone())
     }
 
     /// Creates a new service in the specified project using the data included in
     /// the request.
-    pub fn insert(&self) -> super::builder::network_edge_security_services::Insert {
+    pub fn insert(&self) -> super::builder::network_edge_security_services::Insert
+    {
         super::builder::network_edge_security_services::Insert::new(self.inner.clone())
     }
 
     /// Patches the specified policy with the data included in the request.
-    pub fn patch(&self) -> super::builder::network_edge_security_services::Patch {
+    pub fn patch(&self) -> super::builder::network_edge_security_services::Patch
+    {
         super::builder::network_edge_security_services::Patch::new(self.inner.clone())
     }
 
     /// Retrieves the specified region-specific Operations resource.
-    pub fn get_operation(&self) -> super::builder::network_edge_security_services::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::NetworkEdgeSecurityServices;
+    /// async fn sample(
+    ///    client: &NetworkEdgeSecurityServices
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::network_edge_security_services::GetOperation
+    {
         super::builder::network_edge_security_services::GetOperation::new(self.inner.clone())
     }
 }
@@ -7565,9 +9471,7 @@ impl NetworkEndpointGroups {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::network_endpoint_groups::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::network_endpoint_groups::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::network_endpoint_groups::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -7575,57 +9479,42 @@ impl NetworkEndpointGroups {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::NetworkEndpointGroups + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::NetworkEndpointGroups + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::NetworkEndpointGroups>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::NetworkEndpointGroups>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::NetworkEndpointGroups> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::NetworkEndpointGroups> {
         super::transport::NetworkEndpointGroups::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::NetworkEndpointGroups> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::NetworkEndpointGroups::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::NetworkEndpointGroups> {
+        Self::build_transport(conf).await.map(super::tracing::NetworkEndpointGroups::new)
     }
 
     /// Retrieves the list of network endpoint groups and sorts them by zone.
     ///
     /// To prevent failure, Google recommends that you set the
     /// `returnPartialSuccess` parameter to `true`.
-    pub fn aggregated_list(&self) -> super::builder::network_endpoint_groups::AggregatedList {
+    pub fn aggregated_list(&self) -> super::builder::network_endpoint_groups::AggregatedList
+    {
         super::builder::network_endpoint_groups::AggregatedList::new(self.inner.clone())
     }
 
     /// Attach a list of network endpoints to the specified network endpoint group.
-    pub fn attach_network_endpoints(
-        &self,
-    ) -> super::builder::network_endpoint_groups::AttachNetworkEndpoints {
+    pub fn attach_network_endpoints(&self) -> super::builder::network_endpoint_groups::AttachNetworkEndpoints
+    {
         super::builder::network_endpoint_groups::AttachNetworkEndpoints::new(self.inner.clone())
     }
 
@@ -7633,51 +9522,101 @@ impl NetworkEndpointGroups {
     /// NEG and the VM instances they belong to are not terminated when the NEG is
     /// deleted. Note that the NEG cannot be deleted if there are backend services
     /// referencing it.
-    pub fn delete(&self) -> super::builder::network_endpoint_groups::Delete {
+    pub fn delete(&self) -> super::builder::network_endpoint_groups::Delete
+    {
         super::builder::network_endpoint_groups::Delete::new(self.inner.clone())
     }
 
     /// Detach a list of network endpoints from the specified network endpoint
     /// group.
-    pub fn detach_network_endpoints(
-        &self,
-    ) -> super::builder::network_endpoint_groups::DetachNetworkEndpoints {
+    pub fn detach_network_endpoints(&self) -> super::builder::network_endpoint_groups::DetachNetworkEndpoints
+    {
         super::builder::network_endpoint_groups::DetachNetworkEndpoints::new(self.inner.clone())
     }
 
     /// Returns the specified network endpoint group.
-    pub fn get(&self) -> super::builder::network_endpoint_groups::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::NetworkEndpointGroups;
+    /// async fn sample(
+    ///    client: &NetworkEndpointGroups
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::network_endpoint_groups::Get
+    {
         super::builder::network_endpoint_groups::Get::new(self.inner.clone())
     }
 
     /// Creates a network endpoint group in the specified project using the
     /// parameters that are included in the request.
-    pub fn insert(&self) -> super::builder::network_endpoint_groups::Insert {
+    pub fn insert(&self) -> super::builder::network_endpoint_groups::Insert
+    {
         super::builder::network_endpoint_groups::Insert::new(self.inner.clone())
     }
 
     /// Retrieves the list of network endpoint groups that are located in the
     /// specified project and zone.
-    pub fn list(&self) -> super::builder::network_endpoint_groups::List {
+    pub fn list(&self) -> super::builder::network_endpoint_groups::List
+    {
         super::builder::network_endpoint_groups::List::new(self.inner.clone())
     }
 
     /// Lists the network endpoints in the specified network endpoint group.
-    pub fn list_network_endpoints(
-        &self,
-    ) -> super::builder::network_endpoint_groups::ListNetworkEndpoints {
+    pub fn list_network_endpoints(&self) -> super::builder::network_endpoint_groups::ListNetworkEndpoints
+    {
         super::builder::network_endpoint_groups::ListNetworkEndpoints::new(self.inner.clone())
     }
 
     /// Returns permissions that a caller has on the specified resource.
-    pub fn test_iam_permissions(
-        &self,
-    ) -> super::builder::network_endpoint_groups::TestIamPermissions {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::NetworkEndpointGroups;
+    /// async fn sample(
+    ///    client: &NetworkEndpointGroups
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::network_endpoint_groups::TestIamPermissions
+    {
         super::builder::network_endpoint_groups::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Retrieves the specified zone-specific Operations resource.
-    pub fn get_operation(&self) -> super::builder::network_endpoint_groups::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::NetworkEndpointGroups;
+    /// async fn sample(
+    ///    client: &NetworkEndpointGroups
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::network_endpoint_groups::GetOperation
+    {
         super::builder::network_endpoint_groups::GetOperation::new(self.inner.clone())
     }
 }
@@ -7741,9 +9680,7 @@ impl NetworkFirewallPolicies {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::network_firewall_policies::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::network_firewall_policies::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::network_firewall_policies::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -7751,60 +9688,45 @@ impl NetworkFirewallPolicies {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::NetworkFirewallPolicies + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::NetworkFirewallPolicies + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<
-        std::sync::Arc<dyn super::stub::dynamic::NetworkFirewallPolicies>,
-    > {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::NetworkFirewallPolicies>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::NetworkFirewallPolicies> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::NetworkFirewallPolicies> {
         super::transport::NetworkFirewallPolicies::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::NetworkFirewallPolicies> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::NetworkFirewallPolicies::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::NetworkFirewallPolicies> {
+        Self::build_transport(conf).await.map(super::tracing::NetworkFirewallPolicies::new)
     }
 
     /// Inserts an association for the specified firewall policy.
-    pub fn add_association(&self) -> super::builder::network_firewall_policies::AddAssociation {
+    pub fn add_association(&self) -> super::builder::network_firewall_policies::AddAssociation
+    {
         super::builder::network_firewall_policies::AddAssociation::new(self.inner.clone())
     }
 
     /// Inserts a packet mirroring rule into a firewall policy.
-    pub fn add_packet_mirroring_rule(
-        &self,
-    ) -> super::builder::network_firewall_policies::AddPacketMirroringRule {
+    pub fn add_packet_mirroring_rule(&self) -> super::builder::network_firewall_policies::AddPacketMirroringRule
+    {
         super::builder::network_firewall_policies::AddPacketMirroringRule::new(self.inner.clone())
     }
 
     /// Inserts a rule into a firewall policy.
-    pub fn add_rule(&self) -> super::builder::network_firewall_policies::AddRule {
+    pub fn add_rule(&self) -> super::builder::network_firewall_policies::AddRule
+    {
         super::builder::network_firewall_policies::AddRule::new(self.inner.clone())
     }
 
@@ -7814,112 +9736,247 @@ impl NetworkFirewallPolicies {
     ///
     /// To prevent failure, it is recommended that you set the
     /// `returnPartialSuccess` parameter to `true`.
-    pub fn aggregated_list(&self) -> super::builder::network_firewall_policies::AggregatedList {
+    pub fn aggregated_list(&self) -> super::builder::network_firewall_policies::AggregatedList
+    {
         super::builder::network_firewall_policies::AggregatedList::new(self.inner.clone())
     }
 
     /// Copies rules to the specified firewall policy.
-    pub fn clone_rules(&self) -> super::builder::network_firewall_policies::CloneRules {
+    pub fn clone_rules(&self) -> super::builder::network_firewall_policies::CloneRules
+    {
         super::builder::network_firewall_policies::CloneRules::new(self.inner.clone())
     }
 
     /// Deletes the specified policy.
-    pub fn delete(&self) -> super::builder::network_firewall_policies::Delete {
+    pub fn delete(&self) -> super::builder::network_firewall_policies::Delete
+    {
         super::builder::network_firewall_policies::Delete::new(self.inner.clone())
     }
 
     /// Returns the specified network firewall policy.
-    pub fn get(&self) -> super::builder::network_firewall_policies::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::NetworkFirewallPolicies;
+    /// async fn sample(
+    ///    client: &NetworkFirewallPolicies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::network_firewall_policies::Get
+    {
         super::builder::network_firewall_policies::Get::new(self.inner.clone())
     }
 
     /// Gets an association with the specified name.
-    pub fn get_association(&self) -> super::builder::network_firewall_policies::GetAssociation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::NetworkFirewallPolicies;
+    /// async fn sample(
+    ///    client: &NetworkFirewallPolicies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_association()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_association(&self) -> super::builder::network_firewall_policies::GetAssociation
+    {
         super::builder::network_firewall_policies::GetAssociation::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. May be empty if no such
     /// policy or resource exists.
-    pub fn get_iam_policy(&self) -> super::builder::network_firewall_policies::GetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::NetworkFirewallPolicies;
+    /// async fn sample(
+    ///    client: &NetworkFirewallPolicies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::network_firewall_policies::GetIamPolicy
+    {
         super::builder::network_firewall_policies::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets a packet mirroring rule of the specified priority.
-    pub fn get_packet_mirroring_rule(
-        &self,
-    ) -> super::builder::network_firewall_policies::GetPacketMirroringRule {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::NetworkFirewallPolicies;
+    /// async fn sample(
+    ///    client: &NetworkFirewallPolicies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_packet_mirroring_rule()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_packet_mirroring_rule(&self) -> super::builder::network_firewall_policies::GetPacketMirroringRule
+    {
         super::builder::network_firewall_policies::GetPacketMirroringRule::new(self.inner.clone())
     }
 
     /// Gets a rule of the specified priority.
-    pub fn get_rule(&self) -> super::builder::network_firewall_policies::GetRule {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::NetworkFirewallPolicies;
+    /// async fn sample(
+    ///    client: &NetworkFirewallPolicies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_rule()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_rule(&self) -> super::builder::network_firewall_policies::GetRule
+    {
         super::builder::network_firewall_policies::GetRule::new(self.inner.clone())
     }
 
     /// Creates a new policy in the specified project using the data included in
     /// the request.
-    pub fn insert(&self) -> super::builder::network_firewall_policies::Insert {
+    pub fn insert(&self) -> super::builder::network_firewall_policies::Insert
+    {
         super::builder::network_firewall_policies::Insert::new(self.inner.clone())
     }
 
     /// Lists all the policies that have been configured for the specified project.
-    pub fn list(&self) -> super::builder::network_firewall_policies::List {
+    pub fn list(&self) -> super::builder::network_firewall_policies::List
+    {
         super::builder::network_firewall_policies::List::new(self.inner.clone())
     }
 
     /// Patches the specified policy with the data included in the request.
-    pub fn patch(&self) -> super::builder::network_firewall_policies::Patch {
+    pub fn patch(&self) -> super::builder::network_firewall_policies::Patch
+    {
         super::builder::network_firewall_policies::Patch::new(self.inner.clone())
     }
 
     /// Patches a packet mirroring rule of the specified priority.
-    pub fn patch_packet_mirroring_rule(
-        &self,
-    ) -> super::builder::network_firewall_policies::PatchPacketMirroringRule {
+    pub fn patch_packet_mirroring_rule(&self) -> super::builder::network_firewall_policies::PatchPacketMirroringRule
+    {
         super::builder::network_firewall_policies::PatchPacketMirroringRule::new(self.inner.clone())
     }
 
     /// Patches a rule of the specified priority.
-    pub fn patch_rule(&self) -> super::builder::network_firewall_policies::PatchRule {
+    pub fn patch_rule(&self) -> super::builder::network_firewall_policies::PatchRule
+    {
         super::builder::network_firewall_policies::PatchRule::new(self.inner.clone())
     }
 
     /// Removes an association for the specified firewall policy.
-    pub fn remove_association(
-        &self,
-    ) -> super::builder::network_firewall_policies::RemoveAssociation {
+    pub fn remove_association(&self) -> super::builder::network_firewall_policies::RemoveAssociation
+    {
         super::builder::network_firewall_policies::RemoveAssociation::new(self.inner.clone())
     }
 
     /// Deletes a packet mirroring rule of the specified priority.
-    pub fn remove_packet_mirroring_rule(
-        &self,
-    ) -> super::builder::network_firewall_policies::RemovePacketMirroringRule {
-        super::builder::network_firewall_policies::RemovePacketMirroringRule::new(
-            self.inner.clone(),
-        )
+    pub fn remove_packet_mirroring_rule(&self) -> super::builder::network_firewall_policies::RemovePacketMirroringRule
+    {
+        super::builder::network_firewall_policies::RemovePacketMirroringRule::new(self.inner.clone())
     }
 
     /// Deletes a rule of the specified priority.
-    pub fn remove_rule(&self) -> super::builder::network_firewall_policies::RemoveRule {
+    pub fn remove_rule(&self) -> super::builder::network_firewall_policies::RemoveRule
+    {
         super::builder::network_firewall_policies::RemoveRule::new(self.inner.clone())
     }
 
     /// Sets the access control policy on the specified resource.
     /// Replaces any existing policy.
-    pub fn set_iam_policy(&self) -> super::builder::network_firewall_policies::SetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::NetworkFirewallPolicies;
+    /// async fn sample(
+    ///    client: &NetworkFirewallPolicies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::network_firewall_policies::SetIamPolicy
+    {
         super::builder::network_firewall_policies::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Returns permissions that a caller has on the specified resource.
-    pub fn test_iam_permissions(
-        &self,
-    ) -> super::builder::network_firewall_policies::TestIamPermissions {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::NetworkFirewallPolicies;
+    /// async fn sample(
+    ///    client: &NetworkFirewallPolicies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::network_firewall_policies::TestIamPermissions
+    {
         super::builder::network_firewall_policies::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Retrieves the specified Operations resource.
-    pub fn get_operation(&self) -> super::builder::network_firewall_policies::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::NetworkFirewallPolicies;
+    /// async fn sample(
+    ///    client: &NetworkFirewallPolicies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::network_firewall_policies::GetOperation
+    {
         super::builder::network_firewall_policies::GetOperation::new(self.inner.clone())
     }
 }
@@ -7983,9 +10040,7 @@ impl NetworkProfiles {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::network_profiles::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::network_profiles::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::network_profiles::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -7993,53 +10048,56 @@ impl NetworkProfiles {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::NetworkProfiles + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::NetworkProfiles + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::NetworkProfiles>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::NetworkProfiles>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::NetworkProfiles> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::NetworkProfiles> {
         super::transport::NetworkProfiles::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::NetworkProfiles> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::NetworkProfiles::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::NetworkProfiles> {
+        Self::build_transport(conf).await.map(super::tracing::NetworkProfiles::new)
     }
 
     /// Returns the specified network profile.
-    pub fn get(&self) -> super::builder::network_profiles::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::NetworkProfiles;
+    /// async fn sample(
+    ///    client: &NetworkProfiles
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::network_profiles::Get
+    {
         super::builder::network_profiles::Get::new(self.inner.clone())
     }
 
     /// Retrieves a list of network profiles available to the specified
     /// project.
-    pub fn list(&self) -> super::builder::network_profiles::List {
+    pub fn list(&self) -> super::builder::network_profiles::List
+    {
         super::builder::network_profiles::List::new(self.inner.clone())
     }
 }
@@ -8111,111 +10169,158 @@ impl Networks {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::Networks + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::Networks + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Networks>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Networks>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Networks> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Networks> {
         super::transport::Networks::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Networks> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::Networks::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Networks> {
+        Self::build_transport(conf).await.map(super::tracing::Networks::new)
     }
 
     /// Adds a peering to the specified network.
-    pub fn add_peering(&self) -> super::builder::networks::AddPeering {
+    pub fn add_peering(&self) -> super::builder::networks::AddPeering
+    {
         super::builder::networks::AddPeering::new(self.inner.clone())
     }
 
     /// Deletes the specified network.
-    pub fn delete(&self) -> super::builder::networks::Delete {
+    pub fn delete(&self) -> super::builder::networks::Delete
+    {
         super::builder::networks::Delete::new(self.inner.clone())
     }
 
     /// Returns the specified network.
-    pub fn get(&self) -> super::builder::networks::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Networks;
+    /// async fn sample(
+    ///    client: &Networks
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::networks::Get
+    {
         super::builder::networks::Get::new(self.inner.clone())
     }
 
     /// Returns the effective firewalls on a given network.
-    pub fn get_effective_firewalls(&self) -> super::builder::networks::GetEffectiveFirewalls {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Networks;
+    /// async fn sample(
+    ///    client: &Networks
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_effective_firewalls()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_effective_firewalls(&self) -> super::builder::networks::GetEffectiveFirewalls
+    {
         super::builder::networks::GetEffectiveFirewalls::new(self.inner.clone())
     }
 
     /// Creates a network in the specified project using the data included
     /// in the request.
-    pub fn insert(&self) -> super::builder::networks::Insert {
+    pub fn insert(&self) -> super::builder::networks::Insert
+    {
         super::builder::networks::Insert::new(self.inner.clone())
     }
 
     /// Retrieves the list of networks available to the specified project.
-    pub fn list(&self) -> super::builder::networks::List {
+    pub fn list(&self) -> super::builder::networks::List
+    {
         super::builder::networks::List::new(self.inner.clone())
     }
 
     /// Lists the peering routes exchanged over peering connection.
-    pub fn list_peering_routes(&self) -> super::builder::networks::ListPeeringRoutes {
+    pub fn list_peering_routes(&self) -> super::builder::networks::ListPeeringRoutes
+    {
         super::builder::networks::ListPeeringRoutes::new(self.inner.clone())
     }
 
     /// Patches the specified network with the data included in the request.
     /// Only routingConfig can be modified.
-    pub fn patch(&self) -> super::builder::networks::Patch {
+    pub fn patch(&self) -> super::builder::networks::Patch
+    {
         super::builder::networks::Patch::new(self.inner.clone())
     }
 
     /// Removes a peering from the specified network.
-    pub fn remove_peering(&self) -> super::builder::networks::RemovePeering {
+    pub fn remove_peering(&self) -> super::builder::networks::RemovePeering
+    {
         super::builder::networks::RemovePeering::new(self.inner.clone())
     }
 
     /// Requests to remove a peering from the specified network. Applicable only
     /// for PeeringConnection with update_strategy=CONSENSUS.
-    pub fn request_remove_peering(&self) -> super::builder::networks::RequestRemovePeering {
+    pub fn request_remove_peering(&self) -> super::builder::networks::RequestRemovePeering
+    {
         super::builder::networks::RequestRemovePeering::new(self.inner.clone())
     }
 
     /// Switches the network mode from auto subnet mode to custom subnet mode.
-    pub fn switch_to_custom_mode(&self) -> super::builder::networks::SwitchToCustomMode {
+    pub fn switch_to_custom_mode(&self) -> super::builder::networks::SwitchToCustomMode
+    {
         super::builder::networks::SwitchToCustomMode::new(self.inner.clone())
     }
 
     /// Updates the specified network peering with the data included in the
     /// request. You can only modify the NetworkPeering.export_custom_routes field
     /// and the NetworkPeering.import_custom_routes field.
-    pub fn update_peering(&self) -> super::builder::networks::UpdatePeering {
+    pub fn update_peering(&self) -> super::builder::networks::UpdatePeering
+    {
         super::builder::networks::UpdatePeering::new(self.inner.clone())
     }
 
     /// Retrieves the specified Operations resource.
-    pub fn get_operation(&self) -> super::builder::networks::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Networks;
+    /// async fn sample(
+    ///    client: &Networks
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::networks::GetOperation
+    {
         super::builder::networks::GetOperation::new(self.inner.clone())
     }
 }
@@ -8287,46 +10392,33 @@ impl NodeGroups {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::NodeGroups + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::NodeGroups + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::NodeGroups>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::NodeGroups>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::NodeGroups> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::NodeGroups> {
         super::transport::NodeGroups::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::NodeGroups> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::NodeGroups::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::NodeGroups> {
+        Self::build_transport(conf).await.map(super::tracing::NodeGroups::new)
     }
 
     /// Adds specified number of nodes to the node group.
-    pub fn add_nodes(&self) -> super::builder::node_groups::AddNodes {
+    pub fn add_nodes(&self) -> super::builder::node_groups::AddNodes
+    {
         super::builder::node_groups::AddNodes::new(self.inner.clone())
     }
 
@@ -8335,17 +10427,20 @@ impl NodeGroups {
     ///
     /// To prevent failure, Google recommends that you set the
     /// `returnPartialSuccess` parameter to `true`.
-    pub fn aggregated_list(&self) -> super::builder::node_groups::AggregatedList {
+    pub fn aggregated_list(&self) -> super::builder::node_groups::AggregatedList
+    {
         super::builder::node_groups::AggregatedList::new(self.inner.clone())
     }
 
     /// Deletes the specified NodeGroup resource.
-    pub fn delete(&self) -> super::builder::node_groups::Delete {
+    pub fn delete(&self) -> super::builder::node_groups::Delete
+    {
         super::builder::node_groups::Delete::new(self.inner.clone())
     }
 
     /// Deletes specified nodes from the node group.
-    pub fn delete_nodes(&self) -> super::builder::node_groups::DeleteNodes {
+    pub fn delete_nodes(&self) -> super::builder::node_groups::DeleteNodes
+    {
         super::builder::node_groups::DeleteNodes::new(self.inner.clone())
     }
 
@@ -8353,68 +10448,158 @@ impl NodeGroups {
     /// by making a list() request.
     /// Note: the "nodes" field should not be used. Use nodeGroups.listNodes
     /// instead.
-    pub fn get(&self) -> super::builder::node_groups::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::NodeGroups;
+    /// async fn sample(
+    ///    client: &NodeGroups
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::node_groups::Get
+    {
         super::builder::node_groups::Get::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. May be empty if no such
     /// policy or resource exists.
-    pub fn get_iam_policy(&self) -> super::builder::node_groups::GetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::NodeGroups;
+    /// async fn sample(
+    ///    client: &NodeGroups
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::node_groups::GetIamPolicy
+    {
         super::builder::node_groups::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Creates a NodeGroup resource in the specified project using the data
     /// included in the request.
-    pub fn insert(&self) -> super::builder::node_groups::Insert {
+    pub fn insert(&self) -> super::builder::node_groups::Insert
+    {
         super::builder::node_groups::Insert::new(self.inner.clone())
     }
 
     /// Retrieves a list of node groups available to the specified project.
     /// Note: use nodeGroups.listNodes for more details about each group.
-    pub fn list(&self) -> super::builder::node_groups::List {
+    pub fn list(&self) -> super::builder::node_groups::List
+    {
         super::builder::node_groups::List::new(self.inner.clone())
     }
 
     /// Lists nodes in the node group.
-    pub fn list_nodes(&self) -> super::builder::node_groups::ListNodes {
+    pub fn list_nodes(&self) -> super::builder::node_groups::ListNodes
+    {
         super::builder::node_groups::ListNodes::new(self.inner.clone())
     }
 
     /// Updates the specified node group.
-    pub fn patch(&self) -> super::builder::node_groups::Patch {
+    pub fn patch(&self) -> super::builder::node_groups::Patch
+    {
         super::builder::node_groups::Patch::new(self.inner.clone())
     }
 
     /// Perform maintenance on a subset of nodes in the node group.
-    pub fn perform_maintenance(&self) -> super::builder::node_groups::PerformMaintenance {
+    pub fn perform_maintenance(&self) -> super::builder::node_groups::PerformMaintenance
+    {
         super::builder::node_groups::PerformMaintenance::new(self.inner.clone())
     }
 
     /// Sets the access control policy on the specified resource.
     /// Replaces any existing policy.
-    pub fn set_iam_policy(&self) -> super::builder::node_groups::SetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::NodeGroups;
+    /// async fn sample(
+    ///    client: &NodeGroups
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::node_groups::SetIamPolicy
+    {
         super::builder::node_groups::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Updates the node template of the node group.
-    pub fn set_node_template(&self) -> super::builder::node_groups::SetNodeTemplate {
+    pub fn set_node_template(&self) -> super::builder::node_groups::SetNodeTemplate
+    {
         super::builder::node_groups::SetNodeTemplate::new(self.inner.clone())
     }
 
     /// Simulates maintenance event on specified nodes from the node group.
-    pub fn simulate_maintenance_event(
-        &self,
-    ) -> super::builder::node_groups::SimulateMaintenanceEvent {
+    pub fn simulate_maintenance_event(&self) -> super::builder::node_groups::SimulateMaintenanceEvent
+    {
         super::builder::node_groups::SimulateMaintenanceEvent::new(self.inner.clone())
     }
 
     /// Returns permissions that a caller has on the specified resource.
-    pub fn test_iam_permissions(&self) -> super::builder::node_groups::TestIamPermissions {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::NodeGroups;
+    /// async fn sample(
+    ///    client: &NodeGroups
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::node_groups::TestIamPermissions
+    {
         super::builder::node_groups::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Retrieves the specified zone-specific Operations resource.
-    pub fn get_operation(&self) -> super::builder::node_groups::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::NodeGroups;
+    /// async fn sample(
+    ///    client: &NodeGroups
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::node_groups::GetOperation
+    {
         super::builder::node_groups::GetOperation::new(self.inner.clone())
     }
 }
@@ -8486,93 +10671,168 @@ impl NodeTemplates {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::NodeTemplates + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::NodeTemplates + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::NodeTemplates>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::NodeTemplates>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::NodeTemplates> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::NodeTemplates> {
         super::transport::NodeTemplates::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::NodeTemplates> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::NodeTemplates::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::NodeTemplates> {
+        Self::build_transport(conf).await.map(super::tracing::NodeTemplates::new)
     }
 
     /// Retrieves an aggregated list of node templates.
     ///
     /// To prevent failure, Google recommends that you set the
     /// `returnPartialSuccess` parameter to `true`.
-    pub fn aggregated_list(&self) -> super::builder::node_templates::AggregatedList {
+    pub fn aggregated_list(&self) -> super::builder::node_templates::AggregatedList
+    {
         super::builder::node_templates::AggregatedList::new(self.inner.clone())
     }
 
     /// Deletes the specified NodeTemplate resource.
-    pub fn delete(&self) -> super::builder::node_templates::Delete {
+    pub fn delete(&self) -> super::builder::node_templates::Delete
+    {
         super::builder::node_templates::Delete::new(self.inner.clone())
     }
 
     /// Returns the specified node template.
-    pub fn get(&self) -> super::builder::node_templates::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::NodeTemplates;
+    /// async fn sample(
+    ///    client: &NodeTemplates
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::node_templates::Get
+    {
         super::builder::node_templates::Get::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. May be empty if no such
     /// policy or resource exists.
-    pub fn get_iam_policy(&self) -> super::builder::node_templates::GetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::NodeTemplates;
+    /// async fn sample(
+    ///    client: &NodeTemplates
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::node_templates::GetIamPolicy
+    {
         super::builder::node_templates::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Creates a NodeTemplate resource in the specified project using the data
     /// included in the request.
-    pub fn insert(&self) -> super::builder::node_templates::Insert {
+    pub fn insert(&self) -> super::builder::node_templates::Insert
+    {
         super::builder::node_templates::Insert::new(self.inner.clone())
     }
 
     /// Retrieves a list of node templates available to the specified
     /// project.
-    pub fn list(&self) -> super::builder::node_templates::List {
+    pub fn list(&self) -> super::builder::node_templates::List
+    {
         super::builder::node_templates::List::new(self.inner.clone())
     }
 
     /// Sets the access control policy on the specified resource.
     /// Replaces any existing policy.
-    pub fn set_iam_policy(&self) -> super::builder::node_templates::SetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::NodeTemplates;
+    /// async fn sample(
+    ///    client: &NodeTemplates
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::node_templates::SetIamPolicy
+    {
         super::builder::node_templates::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Returns permissions that a caller has on the specified resource.
-    pub fn test_iam_permissions(&self) -> super::builder::node_templates::TestIamPermissions {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::NodeTemplates;
+    /// async fn sample(
+    ///    client: &NodeTemplates
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::node_templates::TestIamPermissions
+    {
         super::builder::node_templates::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Retrieves the specified region-specific Operations resource.
-    pub fn get_operation(&self) -> super::builder::node_templates::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::NodeTemplates;
+    /// async fn sample(
+    ///    client: &NodeTemplates
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::node_templates::GetOperation
+    {
         super::builder::node_templates::GetOperation::new(self.inner.clone())
     }
 }
@@ -8644,60 +10904,65 @@ impl NodeTypes {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::NodeTypes + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::NodeTypes + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::NodeTypes>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::NodeTypes>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::NodeTypes> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::NodeTypes> {
         super::transport::NodeTypes::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::NodeTypes> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::NodeTypes::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::NodeTypes> {
+        Self::build_transport(conf).await.map(super::tracing::NodeTypes::new)
     }
 
     /// Retrieves an aggregated list of node types.
     ///
     /// To prevent failure, Google recommends that you set the
     /// `returnPartialSuccess` parameter to `true`.
-    pub fn aggregated_list(&self) -> super::builder::node_types::AggregatedList {
+    pub fn aggregated_list(&self) -> super::builder::node_types::AggregatedList
+    {
         super::builder::node_types::AggregatedList::new(self.inner.clone())
     }
 
     /// Returns the specified node type.
-    pub fn get(&self) -> super::builder::node_types::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::NodeTypes;
+    /// async fn sample(
+    ///    client: &NodeTypes
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::node_types::Get
+    {
         super::builder::node_types::Get::new(self.inner.clone())
     }
 
     /// Retrieves a list of node types available to the specified
     /// project.
-    pub fn list(&self) -> super::builder::node_types::List {
+    pub fn list(&self) -> super::builder::node_types::List
+    {
         super::builder::node_types::List::new(self.inner.clone())
     }
 }
@@ -8761,9 +11026,7 @@ impl OrganizationSecurityPolicies {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::organization_security_policies::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::organization_security_policies::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::organization_security_policies::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -8771,44 +11034,28 @@ impl OrganizationSecurityPolicies {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::OrganizationSecurityPolicies + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::OrganizationSecurityPolicies + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<
-        std::sync::Arc<dyn super::stub::dynamic::OrganizationSecurityPolicies>,
-    > {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::OrganizationSecurityPolicies>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::OrganizationSecurityPolicies> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::OrganizationSecurityPolicies> {
         super::transport::OrganizationSecurityPolicies::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::OrganizationSecurityPolicies> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::OrganizationSecurityPolicies::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::OrganizationSecurityPolicies> {
+        Self::build_transport(conf).await.map(super::tracing::OrganizationSecurityPolicies::new)
     }
 
     /// Inserts an association for the specified security policy.
@@ -8821,9 +11068,8 @@ impl OrganizationSecurityPolicies {
     /// versions of this API were used to modify firewall policies. This usage is
     /// now disabled for most organizations. Use firewallPolicies.addAssociation
     /// instead.
-    pub fn add_association(
-        &self,
-    ) -> super::builder::organization_security_policies::AddAssociation {
+    pub fn add_association(&self) -> super::builder::organization_security_policies::AddAssociation
+    {
         super::builder::organization_security_policies::AddAssociation::new(self.inner.clone())
     }
 
@@ -8832,7 +11078,8 @@ impl OrganizationSecurityPolicies {
     /// Use this API to modify Cloud Armor policies. Previously, alpha and beta
     /// versions of this API were used to modify firewall policies. This usage is
     /// now disabled for most organizations. Use firewallPolicies.addRule instead.
-    pub fn add_rule(&self) -> super::builder::organization_security_policies::AddRule {
+    pub fn add_rule(&self) -> super::builder::organization_security_policies::AddRule
+    {
         super::builder::organization_security_policies::AddRule::new(self.inner.clone())
     }
 
@@ -8842,7 +11089,8 @@ impl OrganizationSecurityPolicies {
     /// versions of this API were used to modify firewall policies. This usage is
     /// now disabled for most organizations. Use firewallPolicies.cloneRules
     /// instead.
-    pub fn copy_rules(&self) -> super::builder::organization_security_policies::CopyRules {
+    pub fn copy_rules(&self) -> super::builder::organization_security_policies::CopyRules
+    {
         super::builder::organization_security_policies::CopyRules::new(self.inner.clone())
     }
 
@@ -8851,7 +11099,8 @@ impl OrganizationSecurityPolicies {
     /// Use this API to remove Cloud Armor policies. Previously, alpha and beta
     /// versions of this API were used to remove firewall policies. This usage is
     /// now disabled for most organizations. Use firewallPolicies.delete instead.
-    pub fn delete(&self) -> super::builder::organization_security_policies::Delete {
+    pub fn delete(&self) -> super::builder::organization_security_policies::Delete
+    {
         super::builder::organization_security_policies::Delete::new(self.inner.clone())
     }
 
@@ -8860,7 +11109,24 @@ impl OrganizationSecurityPolicies {
     /// Use this API to read Cloud Armor policies. Previously, alpha and beta
     /// versions of this API were used to read firewall policies. This usage is now
     /// disabled for most organizations. Use firewallPolicies.get instead.
-    pub fn get(&self) -> super::builder::organization_security_policies::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::OrganizationSecurityPolicies;
+    /// async fn sample(
+    ///    client: &OrganizationSecurityPolicies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::organization_security_policies::Get
+    {
         super::builder::organization_security_policies::Get::new(self.inner.clone())
     }
 
@@ -8870,9 +11136,24 @@ impl OrganizationSecurityPolicies {
     /// versions of this API were used to read firewall policies. This usage is
     /// now disabled for most organizations. Use firewallPolicies.getAssociation
     /// instead.
-    pub fn get_association(
-        &self,
-    ) -> super::builder::organization_security_policies::GetAssociation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::OrganizationSecurityPolicies;
+    /// async fn sample(
+    ///    client: &OrganizationSecurityPolicies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_association()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_association(&self) -> super::builder::organization_security_policies::GetAssociation
+    {
         super::builder::organization_security_policies::GetAssociation::new(self.inner.clone())
     }
 
@@ -8881,7 +11162,24 @@ impl OrganizationSecurityPolicies {
     /// Use this API to read Cloud Armor policies. Previously, alpha and beta
     /// versions of this API were used to read firewall policies. This usage is now
     /// disabled for most organizations. Use firewallPolicies.getRule instead.
-    pub fn get_rule(&self) -> super::builder::organization_security_policies::GetRule {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::OrganizationSecurityPolicies;
+    /// async fn sample(
+    ///    client: &OrganizationSecurityPolicies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_rule()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_rule(&self) -> super::builder::organization_security_policies::GetRule
+    {
         super::builder::organization_security_policies::GetRule::new(self.inner.clone())
     }
 
@@ -8891,7 +11189,8 @@ impl OrganizationSecurityPolicies {
     /// Use this API to add Cloud Armor policies. Previously, alpha and beta
     /// versions of this API were used to add firewall policies. This usage is now
     /// disabled for most organizations. Use firewallPolicies.insert instead.
-    pub fn insert(&self) -> super::builder::organization_security_policies::Insert {
+    pub fn insert(&self) -> super::builder::organization_security_policies::Insert
+    {
         super::builder::organization_security_policies::Insert::new(self.inner.clone())
     }
 
@@ -8901,7 +11200,8 @@ impl OrganizationSecurityPolicies {
     /// Use this API to read Cloud Armor policies. Previously, alpha and beta
     /// versions of this API were used to read firewall policies. This usage is now
     /// disabled for most organizations. Use firewallPolicies.list instead.
-    pub fn list(&self) -> super::builder::organization_security_policies::List {
+    pub fn list(&self) -> super::builder::organization_security_policies::List
+    {
         super::builder::organization_security_policies::List::new(self.inner.clone())
     }
 
@@ -8911,20 +11211,48 @@ impl OrganizationSecurityPolicies {
     /// versions of this API were used to read firewall policies. This usage is
     /// now disabled for most organizations. Use firewallPolicies.listAssociations
     /// instead.
-    pub fn list_associations(
-        &self,
-    ) -> super::builder::organization_security_policies::ListAssociations {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::OrganizationSecurityPolicies;
+    /// async fn sample(
+    ///    client: &OrganizationSecurityPolicies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .list_associations()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_associations(&self) -> super::builder::organization_security_policies::ListAssociations
+    {
         super::builder::organization_security_policies::ListAssociations::new(self.inner.clone())
     }
 
     /// Gets the current list of preconfigured Web Application Firewall (WAF)
     /// expressions.
-    pub fn list_preconfigured_expression_sets(
-        &self,
-    ) -> super::builder::organization_security_policies::ListPreconfiguredExpressionSets {
-        super::builder::organization_security_policies::ListPreconfiguredExpressionSets::new(
-            self.inner.clone(),
-        )
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::OrganizationSecurityPolicies;
+    /// async fn sample(
+    ///    client: &OrganizationSecurityPolicies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .list_preconfigured_expression_sets()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_preconfigured_expression_sets(&self) -> super::builder::organization_security_policies::ListPreconfiguredExpressionSets
+    {
+        super::builder::organization_security_policies::ListPreconfiguredExpressionSets::new(self.inner.clone())
     }
 
     /// Moves the specified security policy.
@@ -8932,7 +11260,8 @@ impl OrganizationSecurityPolicies {
     /// Use this API to modify Cloud Armor policies. Previously, alpha and beta
     /// versions of this API were used to modify firewall policies. This usage is
     /// now disabled for most organizations. Use firewallPolicies.move instead.
-    pub fn r#move(&self) -> super::builder::organization_security_policies::Move {
+    pub fn r#move(&self) -> super::builder::organization_security_policies::Move
+    {
         super::builder::organization_security_policies::Move::new(self.inner.clone())
     }
 
@@ -8941,7 +11270,8 @@ impl OrganizationSecurityPolicies {
     /// Use this API to modify Cloud Armor policies. Previously, alpha and beta
     /// versions of this API were used to modify firewall policies. This usage is
     /// now disabled for most organizations. Use firewallPolicies.patch instead.
-    pub fn patch(&self) -> super::builder::organization_security_policies::Patch {
+    pub fn patch(&self) -> super::builder::organization_security_policies::Patch
+    {
         super::builder::organization_security_policies::Patch::new(self.inner.clone())
     }
 
@@ -8951,7 +11281,8 @@ impl OrganizationSecurityPolicies {
     /// versions of this API were used to modify firewall policies. This usage is
     /// now disabled for most organizations. Use firewallPolicies.patchRule
     /// instead.
-    pub fn patch_rule(&self) -> super::builder::organization_security_policies::PatchRule {
+    pub fn patch_rule(&self) -> super::builder::organization_security_policies::PatchRule
+    {
         super::builder::organization_security_policies::PatchRule::new(self.inner.clone())
     }
 
@@ -8961,9 +11292,8 @@ impl OrganizationSecurityPolicies {
     /// versions of this API were used to modify firewall policies. This usage is
     /// now disabled for most organizations. Use firewallPolicies.removeAssociation
     /// instead.
-    pub fn remove_association(
-        &self,
-    ) -> super::builder::organization_security_policies::RemoveAssociation {
+    pub fn remove_association(&self) -> super::builder::organization_security_policies::RemoveAssociation
+    {
         super::builder::organization_security_policies::RemoveAssociation::new(self.inner.clone())
     }
 
@@ -8973,13 +11303,31 @@ impl OrganizationSecurityPolicies {
     /// versions of this API were used to modify firewall policies. This usage is
     /// now disabled for most organizations. Use firewallPolicies.removeRule
     /// instead.
-    pub fn remove_rule(&self) -> super::builder::organization_security_policies::RemoveRule {
+    pub fn remove_rule(&self) -> super::builder::organization_security_policies::RemoveRule
+    {
         super::builder::organization_security_policies::RemoveRule::new(self.inner.clone())
     }
 
     /// Retrieves the specified Operations resource. Gets a list of operations
     /// by making a `list()` request.
-    pub fn get_operation(&self) -> super::builder::organization_security_policies::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::OrganizationSecurityPolicies;
+    /// async fn sample(
+    ///    client: &OrganizationSecurityPolicies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::organization_security_policies::GetOperation
+    {
         super::builder::organization_security_policies::GetOperation::new(self.inner.clone())
     }
 }
@@ -9043,9 +11391,7 @@ impl PacketMirrorings {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::packet_mirrorings::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::packet_mirrorings::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::packet_mirrorings::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -9053,72 +11399,78 @@ impl PacketMirrorings {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::PacketMirrorings + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::PacketMirrorings + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::PacketMirrorings>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::PacketMirrorings>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::PacketMirrorings> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::PacketMirrorings> {
         super::transport::PacketMirrorings::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::PacketMirrorings> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::PacketMirrorings::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::PacketMirrorings> {
+        Self::build_transport(conf).await.map(super::tracing::PacketMirrorings::new)
     }
 
     /// Retrieves an aggregated list of packetMirrorings.
     ///
     /// To prevent failure, Google recommends that you set the
     /// `returnPartialSuccess` parameter to `true`.
-    pub fn aggregated_list(&self) -> super::builder::packet_mirrorings::AggregatedList {
+    pub fn aggregated_list(&self) -> super::builder::packet_mirrorings::AggregatedList
+    {
         super::builder::packet_mirrorings::AggregatedList::new(self.inner.clone())
     }
 
     /// Deletes the specified PacketMirroring resource.
-    pub fn delete(&self) -> super::builder::packet_mirrorings::Delete {
+    pub fn delete(&self) -> super::builder::packet_mirrorings::Delete
+    {
         super::builder::packet_mirrorings::Delete::new(self.inner.clone())
     }
 
     /// Returns the specified PacketMirroring resource.
-    pub fn get(&self) -> super::builder::packet_mirrorings::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::PacketMirrorings;
+    /// async fn sample(
+    ///    client: &PacketMirrorings
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::packet_mirrorings::Get
+    {
         super::builder::packet_mirrorings::Get::new(self.inner.clone())
     }
 
     /// Creates a PacketMirroring resource in the specified project and region
     /// using the data included in the request.
-    pub fn insert(&self) -> super::builder::packet_mirrorings::Insert {
+    pub fn insert(&self) -> super::builder::packet_mirrorings::Insert
+    {
         super::builder::packet_mirrorings::Insert::new(self.inner.clone())
     }
 
     /// Retrieves a list of PacketMirroring resources available to the specified
     /// project and region.
-    pub fn list(&self) -> super::builder::packet_mirrorings::List {
+    pub fn list(&self) -> super::builder::packet_mirrorings::List
+    {
         super::builder::packet_mirrorings::List::new(self.inner.clone())
     }
 
@@ -9126,17 +11478,52 @@ impl PacketMirrorings {
     /// the request. This method supportsPATCH
     /// semantics and usesJSON merge
     /// patch format and processing rules.
-    pub fn patch(&self) -> super::builder::packet_mirrorings::Patch {
+    pub fn patch(&self) -> super::builder::packet_mirrorings::Patch
+    {
         super::builder::packet_mirrorings::Patch::new(self.inner.clone())
     }
 
     /// Returns permissions that a caller has on the specified resource.
-    pub fn test_iam_permissions(&self) -> super::builder::packet_mirrorings::TestIamPermissions {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::PacketMirrorings;
+    /// async fn sample(
+    ///    client: &PacketMirrorings
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::packet_mirrorings::TestIamPermissions
+    {
         super::builder::packet_mirrorings::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Retrieves the specified region-specific Operations resource.
-    pub fn get_operation(&self) -> super::builder::packet_mirrorings::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::PacketMirrorings;
+    /// async fn sample(
+    ///    client: &PacketMirrorings
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::packet_mirrorings::GetOperation
+    {
         super::builder::packet_mirrorings::GetOperation::new(self.inner.clone())
     }
 }
@@ -9200,9 +11587,7 @@ impl PreviewFeatures {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::preview_features::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::preview_features::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::preview_features::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -9210,63 +11595,84 @@ impl PreviewFeatures {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::PreviewFeatures + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::PreviewFeatures + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::PreviewFeatures>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::PreviewFeatures>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::PreviewFeatures> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::PreviewFeatures> {
         super::transport::PreviewFeatures::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::PreviewFeatures> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::PreviewFeatures::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::PreviewFeatures> {
+        Self::build_transport(conf).await.map(super::tracing::PreviewFeatures::new)
     }
 
     /// Returns the details of the given PreviewFeature.
-    pub fn get(&self) -> super::builder::preview_features::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::PreviewFeatures;
+    /// async fn sample(
+    ///    client: &PreviewFeatures
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::preview_features::Get
+    {
         super::builder::preview_features::Get::new(self.inner.clone())
     }
 
     /// Returns the details of the given PreviewFeature.
-    pub fn list(&self) -> super::builder::preview_features::List {
+    pub fn list(&self) -> super::builder::preview_features::List
+    {
         super::builder::preview_features::List::new(self.inner.clone())
     }
 
     /// Patches the given PreviewFeature. This method is used to enable or disable
     /// a PreviewFeature.
-    pub fn update(&self) -> super::builder::preview_features::Update {
+    pub fn update(&self) -> super::builder::preview_features::Update
+    {
         super::builder::preview_features::Update::new(self.inner.clone())
     }
 
     /// Retrieves the specified Operations resource.
-    pub fn get_operation(&self) -> super::builder::preview_features::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::PreviewFeatures;
+    /// async fn sample(
+    ///    client: &PreviewFeatures
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::preview_features::GetOperation
+    {
         super::builder::preview_features::GetOperation::new(self.inner.clone())
     }
 }
@@ -9338,64 +11744,54 @@ impl Projects {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::Projects + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::Projects + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Projects>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Projects>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Projects> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Projects> {
         super::transport::Projects::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Projects> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::Projects::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Projects> {
+        Self::build_transport(conf).await.map(super::tracing::Projects::new)
     }
 
     /// Disable this project as a shared VPC host project.
-    pub fn disable_xpn_host(&self) -> super::builder::projects::DisableXpnHost {
+    pub fn disable_xpn_host(&self) -> super::builder::projects::DisableXpnHost
+    {
         super::builder::projects::DisableXpnHost::new(self.inner.clone())
     }
 
     /// Disable a service resource (also known as service project) associated with
     /// this host project.
-    pub fn disable_xpn_resource(&self) -> super::builder::projects::DisableXpnResource {
+    pub fn disable_xpn_resource(&self) -> super::builder::projects::DisableXpnResource
+    {
         super::builder::projects::DisableXpnResource::new(self.inner.clone())
     }
 
     /// Enable this project as a shared VPC host project.
-    pub fn enable_xpn_host(&self) -> super::builder::projects::EnableXpnHost {
+    pub fn enable_xpn_host(&self) -> super::builder::projects::EnableXpnHost
+    {
         super::builder::projects::EnableXpnHost::new(self.inner.clone())
     }
 
     /// Enable service resource (a.k.a service project) for a host project, so that
     /// subnets in the host project can be used by instances in the service
     /// project.
-    pub fn enable_xpn_resource(&self) -> super::builder::projects::EnableXpnResource {
+    pub fn enable_xpn_resource(&self) -> super::builder::projects::EnableXpnResource
+    {
         super::builder::projects::EnableXpnResource::new(self.inner.clone())
     }
 
@@ -9408,24 +11804,60 @@ impl Projects {
     /// to only include the fields you need. For example, to only include the `id`
     /// and `selfLink` fields, add the query parameter `?fields=id,selfLink` to
     /// your request.
-    pub fn get(&self) -> super::builder::projects::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Projects;
+    /// async fn sample(
+    ///    client: &Projects
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::projects::Get
+    {
         super::builder::projects::Get::new(self.inner.clone())
     }
 
     /// Gets the shared VPC host project that this project links to. May be empty
     /// if no link exists.
-    pub fn get_xpn_host(&self) -> super::builder::projects::GetXpnHost {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Projects;
+    /// async fn sample(
+    ///    client: &Projects
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_xpn_host()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_xpn_host(&self) -> super::builder::projects::GetXpnHost
+    {
         super::builder::projects::GetXpnHost::new(self.inner.clone())
     }
 
     /// Gets service resources (a.k.a service project) associated with this host
     /// project.
-    pub fn get_xpn_resources(&self) -> super::builder::projects::GetXpnResources {
+    pub fn get_xpn_resources(&self) -> super::builder::projects::GetXpnResources
+    {
         super::builder::projects::GetXpnResources::new(self.inner.clone())
     }
 
     /// Lists all shared VPC host projects visible to the user in an organization.
-    pub fn list_xpn_hosts(&self) -> super::builder::projects::ListXpnHosts {
+    pub fn list_xpn_hosts(&self) -> super::builder::projects::ListXpnHosts
+    {
         super::builder::projects::ListXpnHosts::new(self.inner.clone())
     }
 
@@ -9444,7 +11876,8 @@ impl Projects {
     /// the response body about the upcoming deprecation. You can skip the message
     /// to continue using the service without interruption.
     #[deprecated]
-    pub fn move_disk(&self) -> super::builder::projects::MoveDisk {
+    pub fn move_disk(&self) -> super::builder::projects::MoveDisk
+    {
         super::builder::projects::MoveDisk::new(self.inner.clone())
     }
 
@@ -9456,7 +11889,8 @@ impl Projects {
     /// [Deprecated] This method is deprecated. See [moving instance across
     /// zones](/compute/docs/instances/moving-instance-across-zones) instead.
     #[deprecated]
-    pub fn move_instance(&self) -> super::builder::projects::MoveInstance {
+    pub fn move_instance(&self) -> super::builder::projects::MoveInstance
+    {
         super::builder::projects::MoveInstance::new(self.inner.clone())
     }
 
@@ -9464,34 +11898,53 @@ impl Projects {
     /// billing account of the project must be subscribed to Cloud Armor
     /// Enterprise. See Subscribing
     /// to Cloud Armor Enterprise for more information.
-    pub fn set_cloud_armor_tier(&self) -> super::builder::projects::SetCloudArmorTier {
+    pub fn set_cloud_armor_tier(&self) -> super::builder::projects::SetCloudArmorTier
+    {
         super::builder::projects::SetCloudArmorTier::new(self.inner.clone())
     }
 
     /// Sets metadata common to all instances within the specified project using
     /// the data included in the request.
-    pub fn set_common_instance_metadata(
-        &self,
-    ) -> super::builder::projects::SetCommonInstanceMetadata {
+    pub fn set_common_instance_metadata(&self) -> super::builder::projects::SetCommonInstanceMetadata
+    {
         super::builder::projects::SetCommonInstanceMetadata::new(self.inner.clone())
     }
 
     /// Sets the default network tier of the project. The default network tier is
     /// used when an address/forwardingRule/instance is created without specifying
     /// the network tier field.
-    pub fn set_default_network_tier(&self) -> super::builder::projects::SetDefaultNetworkTier {
+    pub fn set_default_network_tier(&self) -> super::builder::projects::SetDefaultNetworkTier
+    {
         super::builder::projects::SetDefaultNetworkTier::new(self.inner.clone())
     }
 
     /// Enables the usage export feature and sets theusage export bucket
     /// where reports are stored. If you provide an empty request body using this
     /// method, the usage export feature will be disabled.
-    pub fn set_usage_export_bucket(&self) -> super::builder::projects::SetUsageExportBucket {
+    pub fn set_usage_export_bucket(&self) -> super::builder::projects::SetUsageExportBucket
+    {
         super::builder::projects::SetUsageExportBucket::new(self.inner.clone())
     }
 
     /// Retrieves the specified Operations resource.
-    pub fn get_operation(&self) -> super::builder::projects::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Projects;
+    /// async fn sample(
+    ///    client: &Projects
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::projects::GetOperation
+    {
         super::builder::projects::GetOperation::new(self.inner.clone())
     }
 }
@@ -9555,9 +12008,7 @@ impl PublicAdvertisedPrefixes {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::public_advertised_prefixes::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::public_advertised_prefixes::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::public_advertised_prefixes::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -9565,69 +12016,74 @@ impl PublicAdvertisedPrefixes {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::PublicAdvertisedPrefixes + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::PublicAdvertisedPrefixes + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<
-        std::sync::Arc<dyn super::stub::dynamic::PublicAdvertisedPrefixes>,
-    > {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::PublicAdvertisedPrefixes>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::PublicAdvertisedPrefixes> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::PublicAdvertisedPrefixes> {
         super::transport::PublicAdvertisedPrefixes::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::PublicAdvertisedPrefixes> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::PublicAdvertisedPrefixes::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::PublicAdvertisedPrefixes> {
+        Self::build_transport(conf).await.map(super::tracing::PublicAdvertisedPrefixes::new)
     }
 
     /// Announces the specified PublicAdvertisedPrefix
-    pub fn announce(&self) -> super::builder::public_advertised_prefixes::Announce {
+    pub fn announce(&self) -> super::builder::public_advertised_prefixes::Announce
+    {
         super::builder::public_advertised_prefixes::Announce::new(self.inner.clone())
     }
 
     /// Deletes the specified PublicAdvertisedPrefix
-    pub fn delete(&self) -> super::builder::public_advertised_prefixes::Delete {
+    pub fn delete(&self) -> super::builder::public_advertised_prefixes::Delete
+    {
         super::builder::public_advertised_prefixes::Delete::new(self.inner.clone())
     }
 
     /// Returns the specified PublicAdvertisedPrefix resource.
-    pub fn get(&self) -> super::builder::public_advertised_prefixes::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::PublicAdvertisedPrefixes;
+    /// async fn sample(
+    ///    client: &PublicAdvertisedPrefixes
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::public_advertised_prefixes::Get
+    {
         super::builder::public_advertised_prefixes::Get::new(self.inner.clone())
     }
 
     /// Creates a PublicAdvertisedPrefix in the specified project
     /// using the parameters that are included in the request.
-    pub fn insert(&self) -> super::builder::public_advertised_prefixes::Insert {
+    pub fn insert(&self) -> super::builder::public_advertised_prefixes::Insert
+    {
         super::builder::public_advertised_prefixes::Insert::new(self.inner.clone())
     }
 
     /// Lists the PublicAdvertisedPrefixes for a project.
-    pub fn list(&self) -> super::builder::public_advertised_prefixes::List {
+    pub fn list(&self) -> super::builder::public_advertised_prefixes::List
+    {
         super::builder::public_advertised_prefixes::List::new(self.inner.clone())
     }
 
@@ -9635,17 +12091,36 @@ impl PublicAdvertisedPrefixes {
     /// request. This method supportsPATCH
     /// semantics and usesJSON merge
     /// patch format and processing rules.
-    pub fn patch(&self) -> super::builder::public_advertised_prefixes::Patch {
+    pub fn patch(&self) -> super::builder::public_advertised_prefixes::Patch
+    {
         super::builder::public_advertised_prefixes::Patch::new(self.inner.clone())
     }
 
     /// Withdraws the specified PublicAdvertisedPrefix
-    pub fn withdraw(&self) -> super::builder::public_advertised_prefixes::Withdraw {
+    pub fn withdraw(&self) -> super::builder::public_advertised_prefixes::Withdraw
+    {
         super::builder::public_advertised_prefixes::Withdraw::new(self.inner.clone())
     }
 
     /// Retrieves the specified Operations resource.
-    pub fn get_operation(&self) -> super::builder::public_advertised_prefixes::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::PublicAdvertisedPrefixes;
+    /// async fn sample(
+    ///    client: &PublicAdvertisedPrefixes
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::public_advertised_prefixes::GetOperation
+    {
         super::builder::public_advertised_prefixes::GetOperation::new(self.inner.clone())
     }
 }
@@ -9709,9 +12184,7 @@ impl PublicDelegatedPrefixes {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::public_delegated_prefixes::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::public_delegated_prefixes::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::public_delegated_prefixes::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -9719,44 +12192,28 @@ impl PublicDelegatedPrefixes {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::PublicDelegatedPrefixes + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::PublicDelegatedPrefixes + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<
-        std::sync::Arc<dyn super::stub::dynamic::PublicDelegatedPrefixes>,
-    > {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::PublicDelegatedPrefixes>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::PublicDelegatedPrefixes> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::PublicDelegatedPrefixes> {
         super::transport::PublicDelegatedPrefixes::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::PublicDelegatedPrefixes> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::PublicDelegatedPrefixes::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::PublicDelegatedPrefixes> {
+        Self::build_transport(conf).await.map(super::tracing::PublicDelegatedPrefixes::new)
     }
 
     /// Lists all PublicDelegatedPrefix resources owned by the specific project
@@ -9764,33 +12221,55 @@ impl PublicDelegatedPrefixes {
     ///
     /// To prevent failure, Google recommends that you set the
     /// `returnPartialSuccess` parameter to `true`.
-    pub fn aggregated_list(&self) -> super::builder::public_delegated_prefixes::AggregatedList {
+    pub fn aggregated_list(&self) -> super::builder::public_delegated_prefixes::AggregatedList
+    {
         super::builder::public_delegated_prefixes::AggregatedList::new(self.inner.clone())
     }
 
     /// Announces the specified PublicDelegatedPrefix in the given region.
-    pub fn announce(&self) -> super::builder::public_delegated_prefixes::Announce {
+    pub fn announce(&self) -> super::builder::public_delegated_prefixes::Announce
+    {
         super::builder::public_delegated_prefixes::Announce::new(self.inner.clone())
     }
 
     /// Deletes the specified PublicDelegatedPrefix in the given region.
-    pub fn delete(&self) -> super::builder::public_delegated_prefixes::Delete {
+    pub fn delete(&self) -> super::builder::public_delegated_prefixes::Delete
+    {
         super::builder::public_delegated_prefixes::Delete::new(self.inner.clone())
     }
 
     /// Returns the specified PublicDelegatedPrefix resource in the given region.
-    pub fn get(&self) -> super::builder::public_delegated_prefixes::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::PublicDelegatedPrefixes;
+    /// async fn sample(
+    ///    client: &PublicDelegatedPrefixes
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::public_delegated_prefixes::Get
+    {
         super::builder::public_delegated_prefixes::Get::new(self.inner.clone())
     }
 
     /// Creates a PublicDelegatedPrefix in the specified project in the given
     /// region using the parameters that are included in the request.
-    pub fn insert(&self) -> super::builder::public_delegated_prefixes::Insert {
+    pub fn insert(&self) -> super::builder::public_delegated_prefixes::Insert
+    {
         super::builder::public_delegated_prefixes::Insert::new(self.inner.clone())
     }
 
     /// Lists the PublicDelegatedPrefixes for a project in the given region.
-    pub fn list(&self) -> super::builder::public_delegated_prefixes::List {
+    pub fn list(&self) -> super::builder::public_delegated_prefixes::List
+    {
         super::builder::public_delegated_prefixes::List::new(self.inner.clone())
     }
 
@@ -9798,17 +12277,36 @@ impl PublicDelegatedPrefixes {
     /// in the request. This method supportsPATCH
     /// semantics and usesJSON merge
     /// patch format and processing rules.
-    pub fn patch(&self) -> super::builder::public_delegated_prefixes::Patch {
+    pub fn patch(&self) -> super::builder::public_delegated_prefixes::Patch
+    {
         super::builder::public_delegated_prefixes::Patch::new(self.inner.clone())
     }
 
     /// Withdraws the specified PublicDelegatedPrefix in the given region.
-    pub fn withdraw(&self) -> super::builder::public_delegated_prefixes::Withdraw {
+    pub fn withdraw(&self) -> super::builder::public_delegated_prefixes::Withdraw
+    {
         super::builder::public_delegated_prefixes::Withdraw::new(self.inner.clone())
     }
 
     /// Retrieves the specified region-specific Operations resource.
-    pub fn get_operation(&self) -> super::builder::public_delegated_prefixes::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::PublicDelegatedPrefixes;
+    /// async fn sample(
+    ///    client: &PublicDelegatedPrefixes
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::public_delegated_prefixes::GetOperation
+    {
         super::builder::public_delegated_prefixes::GetOperation::new(self.inner.clone())
     }
 }
@@ -9872,9 +12370,7 @@ impl RegionAutoscalers {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::region_autoscalers::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::region_autoscalers::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::region_autoscalers::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -9882,64 +12378,69 @@ impl RegionAutoscalers {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::RegionAutoscalers + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::RegionAutoscalers + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::RegionAutoscalers>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::RegionAutoscalers>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RegionAutoscalers> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::RegionAutoscalers> {
         super::transport::RegionAutoscalers::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RegionAutoscalers> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::RegionAutoscalers::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::RegionAutoscalers> {
+        Self::build_transport(conf).await.map(super::tracing::RegionAutoscalers::new)
     }
 
     /// Deletes the specified autoscaler.
-    pub fn delete(&self) -> super::builder::region_autoscalers::Delete {
+    pub fn delete(&self) -> super::builder::region_autoscalers::Delete
+    {
         super::builder::region_autoscalers::Delete::new(self.inner.clone())
     }
 
     /// Returns the specified autoscaler.
-    pub fn get(&self) -> super::builder::region_autoscalers::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionAutoscalers;
+    /// async fn sample(
+    ///    client: &RegionAutoscalers
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::region_autoscalers::Get
+    {
         super::builder::region_autoscalers::Get::new(self.inner.clone())
     }
 
     /// Creates an autoscaler in the specified project using
     /// the data included in the request.
-    pub fn insert(&self) -> super::builder::region_autoscalers::Insert {
+    pub fn insert(&self) -> super::builder::region_autoscalers::Insert
+    {
         super::builder::region_autoscalers::Insert::new(self.inner.clone())
     }
 
     /// Retrieves a list of autoscalers contained within
     /// the specified region.
-    pub fn list(&self) -> super::builder::region_autoscalers::List {
+    pub fn list(&self) -> super::builder::region_autoscalers::List
+    {
         super::builder::region_autoscalers::List::new(self.inner.clone())
     }
 
@@ -9947,18 +12448,37 @@ impl RegionAutoscalers {
     /// the data included in the request. This method supportsPATCH
     /// semantics and uses theJSON merge
     /// patch format and processing rules.
-    pub fn patch(&self) -> super::builder::region_autoscalers::Patch {
+    pub fn patch(&self) -> super::builder::region_autoscalers::Patch
+    {
         super::builder::region_autoscalers::Patch::new(self.inner.clone())
     }
 
     /// Updates an autoscaler in the specified project using
     /// the data included in the request.
-    pub fn update(&self) -> super::builder::region_autoscalers::Update {
+    pub fn update(&self) -> super::builder::region_autoscalers::Update
+    {
         super::builder::region_autoscalers::Update::new(self.inner.clone())
     }
 
     /// Retrieves the specified region-specific Operations resource.
-    pub fn get_operation(&self) -> super::builder::region_autoscalers::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionAutoscalers;
+    /// async fn sample(
+    ///    client: &RegionAutoscalers
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::region_autoscalers::GetOperation
+    {
         super::builder::region_autoscalers::GetOperation::new(self.inner.clone())
     }
 }
@@ -10022,9 +12542,7 @@ impl RegionBackendServices {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::region_backend_services::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::region_backend_services::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::region_backend_services::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -10032,83 +12550,123 @@ impl RegionBackendServices {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::RegionBackendServices + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::RegionBackendServices + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::RegionBackendServices>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::RegionBackendServices>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RegionBackendServices> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::RegionBackendServices> {
         super::transport::RegionBackendServices::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RegionBackendServices> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::RegionBackendServices::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::RegionBackendServices> {
+        Self::build_transport(conf).await.map(super::tracing::RegionBackendServices::new)
     }
 
     /// Deletes the specified regional BackendService resource.
-    pub fn delete(&self) -> super::builder::region_backend_services::Delete {
+    pub fn delete(&self) -> super::builder::region_backend_services::Delete
+    {
         super::builder::region_backend_services::Delete::new(self.inner.clone())
     }
 
     /// Returns the specified regional BackendService resource.
-    pub fn get(&self) -> super::builder::region_backend_services::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionBackendServices;
+    /// async fn sample(
+    ///    client: &RegionBackendServices
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::region_backend_services::Get
+    {
         super::builder::region_backend_services::Get::new(self.inner.clone())
     }
 
     /// Gets the most recent health check results for this
     /// regional BackendService.
-    pub fn get_health(&self) -> super::builder::region_backend_services::GetHealth {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionBackendServices;
+    /// async fn sample(
+    ///    client: &RegionBackendServices
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_health()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_health(&self) -> super::builder::region_backend_services::GetHealth
+    {
         super::builder::region_backend_services::GetHealth::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. May be empty if no such
     /// policy or resource exists.
-    pub fn get_iam_policy(&self) -> super::builder::region_backend_services::GetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionBackendServices;
+    /// async fn sample(
+    ///    client: &RegionBackendServices
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::region_backend_services::GetIamPolicy
+    {
         super::builder::region_backend_services::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Creates a regional BackendService resource in the specified project using
     /// the data included in the request. For more information, see
     /// Backend services overview.
-    pub fn insert(&self) -> super::builder::region_backend_services::Insert {
+    pub fn insert(&self) -> super::builder::region_backend_services::Insert
+    {
         super::builder::region_backend_services::Insert::new(self.inner.clone())
     }
 
     /// Retrieves the list of regional BackendService resources available to the
     /// specified project in the given region.
-    pub fn list(&self) -> super::builder::region_backend_services::List {
+    pub fn list(&self) -> super::builder::region_backend_services::List
+    {
         super::builder::region_backend_services::List::new(self.inner.clone())
     }
 
     /// Retrieves a list of all usable backend services in the specified project in
     /// the given region.
-    pub fn list_usable(&self) -> super::builder::region_backend_services::ListUsable {
+    pub fn list_usable(&self) -> super::builder::region_backend_services::ListUsable
+    {
         super::builder::region_backend_services::ListUsable::new(self.inner.clone())
     }
 
@@ -10117,29 +12675,61 @@ impl RegionBackendServices {
     /// Understanding backend services This method
     /// supports PATCH semantics and uses the JSON merge
     /// patch format and processing rules.
-    pub fn patch(&self) -> super::builder::region_backend_services::Patch {
+    pub fn patch(&self) -> super::builder::region_backend_services::Patch
+    {
         super::builder::region_backend_services::Patch::new(self.inner.clone())
     }
 
     /// Sets the access control policy on the specified resource.
     /// Replaces any existing policy.
-    pub fn set_iam_policy(&self) -> super::builder::region_backend_services::SetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionBackendServices;
+    /// async fn sample(
+    ///    client: &RegionBackendServices
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::region_backend_services::SetIamPolicy
+    {
         super::builder::region_backend_services::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Sets the Google Cloud Armor security policy for the specified backend
     /// service. For more information, seeGoogle
     /// Cloud Armor Overview
-    pub fn set_security_policy(
-        &self,
-    ) -> super::builder::region_backend_services::SetSecurityPolicy {
+    pub fn set_security_policy(&self) -> super::builder::region_backend_services::SetSecurityPolicy
+    {
         super::builder::region_backend_services::SetSecurityPolicy::new(self.inner.clone())
     }
 
     /// Returns permissions that a caller has on the specified resource.
-    pub fn test_iam_permissions(
-        &self,
-    ) -> super::builder::region_backend_services::TestIamPermissions {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionBackendServices;
+    /// async fn sample(
+    ///    client: &RegionBackendServices
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::region_backend_services::TestIamPermissions
+    {
         super::builder::region_backend_services::TestIamPermissions::new(self.inner.clone())
     }
 
@@ -10147,12 +12737,30 @@ impl RegionBackendServices {
     /// included in the request. For more information,
     /// see
     /// Backend services overview.
-    pub fn update(&self) -> super::builder::region_backend_services::Update {
+    pub fn update(&self) -> super::builder::region_backend_services::Update
+    {
         super::builder::region_backend_services::Update::new(self.inner.clone())
     }
 
     /// Retrieves the specified region-specific Operations resource.
-    pub fn get_operation(&self) -> super::builder::region_backend_services::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionBackendServices;
+    /// async fn sample(
+    ///    client: &RegionBackendServices
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::region_backend_services::GetOperation
+    {
         super::builder::region_backend_services::GetOperation::new(self.inner.clone())
     }
 }
@@ -10216,9 +12824,7 @@ impl RegionCommitments {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::region_commitments::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::region_commitments::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::region_commitments::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -10226,79 +12832,102 @@ impl RegionCommitments {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::RegionCommitments + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::RegionCommitments + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::RegionCommitments>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::RegionCommitments>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RegionCommitments> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::RegionCommitments> {
         super::transport::RegionCommitments::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RegionCommitments> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::RegionCommitments::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::RegionCommitments> {
+        Self::build_transport(conf).await.map(super::tracing::RegionCommitments::new)
     }
 
     /// Retrieves an aggregated list of commitments by region.
     ///
     /// To prevent failure, it is recommended that you set the
     /// `returnPartialSuccess` parameter to `true`.
-    pub fn aggregated_list(&self) -> super::builder::region_commitments::AggregatedList {
+    pub fn aggregated_list(&self) -> super::builder::region_commitments::AggregatedList
+    {
         super::builder::region_commitments::AggregatedList::new(self.inner.clone())
     }
 
     /// Returns the specified commitment resource.
-    pub fn get(&self) -> super::builder::region_commitments::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionCommitments;
+    /// async fn sample(
+    ///    client: &RegionCommitments
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::region_commitments::Get
+    {
         super::builder::region_commitments::Get::new(self.inner.clone())
     }
 
     /// Creates a commitment in the specified project using the data
     /// included in the request.
-    pub fn insert(&self) -> super::builder::region_commitments::Insert {
+    pub fn insert(&self) -> super::builder::region_commitments::Insert
+    {
         super::builder::region_commitments::Insert::new(self.inner.clone())
     }
 
     /// Retrieves a list of commitments contained within
     /// the specified region.
-    pub fn list(&self) -> super::builder::region_commitments::List {
+    pub fn list(&self) -> super::builder::region_commitments::List
+    {
         super::builder::region_commitments::List::new(self.inner.clone())
     }
 
     /// Updates the specified commitment with the data included in the request.
     /// Update is performed only on selected fields included as part of
     /// update-mask. Only the following fields can be updated: auto_renew and plan.
-    pub fn update(&self) -> super::builder::region_commitments::Update {
+    pub fn update(&self) -> super::builder::region_commitments::Update
+    {
         super::builder::region_commitments::Update::new(self.inner.clone())
     }
 
     /// Retrieves the specified region-specific Operations resource.
-    pub fn get_operation(&self) -> super::builder::region_commitments::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionCommitments;
+    /// async fn sample(
+    ///    client: &RegionCommitments
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::region_commitments::GetOperation
+    {
         super::builder::region_commitments::GetOperation::new(self.inner.clone())
     }
 }
@@ -10362,9 +12991,7 @@ impl RegionDiskTypes {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::region_disk_types::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::region_disk_types::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::region_disk_types::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -10372,52 +12999,55 @@ impl RegionDiskTypes {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::RegionDiskTypes + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::RegionDiskTypes + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::RegionDiskTypes>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::RegionDiskTypes>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RegionDiskTypes> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::RegionDiskTypes> {
         super::transport::RegionDiskTypes::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RegionDiskTypes> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::RegionDiskTypes::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::RegionDiskTypes> {
+        Self::build_transport(conf).await.map(super::tracing::RegionDiskTypes::new)
     }
 
     /// Returns the specified regional disk type.
-    pub fn get(&self) -> super::builder::region_disk_types::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionDiskTypes;
+    /// async fn sample(
+    ///    client: &RegionDiskTypes
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::region_disk_types::Get
+    {
         super::builder::region_disk_types::Get::new(self.inner.clone())
     }
 
     /// Retrieves a list of regional disk types available to the specified project.
-    pub fn list(&self) -> super::builder::region_disk_types::List {
+    pub fn list(&self) -> super::builder::region_disk_types::List
+    {
         super::builder::region_disk_types::List::new(self.inner.clone())
     }
 }
@@ -10489,53 +13119,41 @@ impl RegionDisks {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::RegionDisks + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::RegionDisks + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::RegionDisks>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::RegionDisks>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RegionDisks> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::RegionDisks> {
         super::transport::RegionDisks::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RegionDisks> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::RegionDisks::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::RegionDisks> {
+        Self::build_transport(conf).await.map(super::tracing::RegionDisks::new)
     }
 
     /// Adds existing resource policies to a regional disk. You can only add one
     /// policy which will be applied to this disk for scheduling snapshot
     /// creation.
-    pub fn add_resource_policies(&self) -> super::builder::region_disks::AddResourcePolicies {
+    pub fn add_resource_policies(&self) -> super::builder::region_disks::AddResourcePolicies
+    {
         super::builder::region_disks::AddResourcePolicies::new(self.inner.clone())
     }
 
     /// Bulk create a set of disks.
-    pub fn bulk_insert(&self) -> super::builder::region_disks::BulkInsert {
+    pub fn bulk_insert(&self) -> super::builder::region_disks::BulkInsert
+    {
         super::builder::region_disks::BulkInsert::new(self.inner.clone())
     }
 
@@ -10543,7 +13161,8 @@ impl RegionDisks {
     /// creation, consider using snapshots.insert
     /// instead, as that method supports more features, such as creating snapshots
     /// in a project different from the source disk project.
-    pub fn create_snapshot(&self) -> super::builder::region_disks::CreateSnapshot {
+    pub fn create_snapshot(&self) -> super::builder::region_disks::CreateSnapshot
+    {
         super::builder::region_disks::CreateSnapshot::new(self.inner.clone())
     }
 
@@ -10552,88 +13171,181 @@ impl RegionDisks {
     /// However, deleting a disk does not delete anysnapshots
     /// previously made from the disk. You must separatelydelete
     /// snapshots.
-    pub fn delete(&self) -> super::builder::region_disks::Delete {
+    pub fn delete(&self) -> super::builder::region_disks::Delete
+    {
         super::builder::region_disks::Delete::new(self.inner.clone())
     }
 
     /// Returns a specified regional persistent disk.
-    pub fn get(&self) -> super::builder::region_disks::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionDisks;
+    /// async fn sample(
+    ///    client: &RegionDisks
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::region_disks::Get
+    {
         super::builder::region_disks::Get::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. May be empty if no such
     /// policy or resource exists.
-    pub fn get_iam_policy(&self) -> super::builder::region_disks::GetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionDisks;
+    /// async fn sample(
+    ///    client: &RegionDisks
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::region_disks::GetIamPolicy
+    {
         super::builder::region_disks::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Creates a persistent regional disk in the specified project using the data
     /// included in the request.
-    pub fn insert(&self) -> super::builder::region_disks::Insert {
+    pub fn insert(&self) -> super::builder::region_disks::Insert
+    {
         super::builder::region_disks::Insert::new(self.inner.clone())
     }
 
     /// Retrieves the list of persistent disks contained within
     /// the specified region.
-    pub fn list(&self) -> super::builder::region_disks::List {
+    pub fn list(&self) -> super::builder::region_disks::List
+    {
         super::builder::region_disks::List::new(self.inner.clone())
     }
 
     /// Removes resource policies from a regional disk.
-    pub fn remove_resource_policies(&self) -> super::builder::region_disks::RemoveResourcePolicies {
+    pub fn remove_resource_policies(&self) -> super::builder::region_disks::RemoveResourcePolicies
+    {
         super::builder::region_disks::RemoveResourcePolicies::new(self.inner.clone())
     }
 
     /// Resizes the specified regional persistent disk.
-    pub fn resize(&self) -> super::builder::region_disks::Resize {
+    pub fn resize(&self) -> super::builder::region_disks::Resize
+    {
         super::builder::region_disks::Resize::new(self.inner.clone())
     }
 
     /// Sets the access control policy on the specified resource.
     /// Replaces any existing policy.
-    pub fn set_iam_policy(&self) -> super::builder::region_disks::SetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionDisks;
+    /// async fn sample(
+    ///    client: &RegionDisks
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::region_disks::SetIamPolicy
+    {
         super::builder::region_disks::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Sets the labels on the target regional disk.
-    pub fn set_labels(&self) -> super::builder::region_disks::SetLabels {
+    pub fn set_labels(&self) -> super::builder::region_disks::SetLabels
+    {
         super::builder::region_disks::SetLabels::new(self.inner.clone())
     }
 
     /// Starts asynchronous replication.
     /// Must be invoked on the primary disk.
-    pub fn start_async_replication(&self) -> super::builder::region_disks::StartAsyncReplication {
+    pub fn start_async_replication(&self) -> super::builder::region_disks::StartAsyncReplication
+    {
         super::builder::region_disks::StartAsyncReplication::new(self.inner.clone())
     }
 
     /// Stops asynchronous replication.
     /// Can be invoked either on the primary or on the secondary disk.
-    pub fn stop_async_replication(&self) -> super::builder::region_disks::StopAsyncReplication {
+    pub fn stop_async_replication(&self) -> super::builder::region_disks::StopAsyncReplication
+    {
         super::builder::region_disks::StopAsyncReplication::new(self.inner.clone())
     }
 
     /// Stops asynchronous replication for a consistency group of disks.
     /// Can be invoked either in the primary or secondary scope.
-    pub fn stop_group_async_replication(
-        &self,
-    ) -> super::builder::region_disks::StopGroupAsyncReplication {
+    pub fn stop_group_async_replication(&self) -> super::builder::region_disks::StopGroupAsyncReplication
+    {
         super::builder::region_disks::StopGroupAsyncReplication::new(self.inner.clone())
     }
 
     /// Returns permissions that a caller has on the specified resource.
-    pub fn test_iam_permissions(&self) -> super::builder::region_disks::TestIamPermissions {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionDisks;
+    /// async fn sample(
+    ///    client: &RegionDisks
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::region_disks::TestIamPermissions
+    {
         super::builder::region_disks::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Update the specified disk with the data included in the request. Update is
     /// performed only on selected fields included as part of update-mask. Only the
     /// following fields can be modified: user_license.
-    pub fn update(&self) -> super::builder::region_disks::Update {
+    pub fn update(&self) -> super::builder::region_disks::Update
+    {
         super::builder::region_disks::Update::new(self.inner.clone())
     }
 
     /// Retrieves the specified region-specific Operations resource.
-    pub fn get_operation(&self) -> super::builder::region_disks::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionDisks;
+    /// async fn sample(
+    ///    client: &RegionDisks
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::region_disks::GetOperation
+    {
         super::builder::region_disks::GetOperation::new(self.inner.clone())
     }
 }
@@ -10697,9 +13409,7 @@ impl RegionHealthCheckServices {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::region_health_check_services::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::region_health_check_services::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::region_health_check_services::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -10707,65 +13417,69 @@ impl RegionHealthCheckServices {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::RegionHealthCheckServices + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::RegionHealthCheckServices + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<
-        std::sync::Arc<dyn super::stub::dynamic::RegionHealthCheckServices>,
-    > {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::RegionHealthCheckServices>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RegionHealthCheckServices> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::RegionHealthCheckServices> {
         super::transport::RegionHealthCheckServices::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RegionHealthCheckServices> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::RegionHealthCheckServices::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::RegionHealthCheckServices> {
+        Self::build_transport(conf).await.map(super::tracing::RegionHealthCheckServices::new)
     }
 
     /// Deletes the specified regional HealthCheckService.
-    pub fn delete(&self) -> super::builder::region_health_check_services::Delete {
+    pub fn delete(&self) -> super::builder::region_health_check_services::Delete
+    {
         super::builder::region_health_check_services::Delete::new(self.inner.clone())
     }
 
     /// Returns the specified regional HealthCheckService resource.
-    pub fn get(&self) -> super::builder::region_health_check_services::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionHealthCheckServices;
+    /// async fn sample(
+    ///    client: &RegionHealthCheckServices
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::region_health_check_services::Get
+    {
         super::builder::region_health_check_services::Get::new(self.inner.clone())
     }
 
     /// Creates a regional HealthCheckService resource in the
     /// specified project and region using the data included in the request.
-    pub fn insert(&self) -> super::builder::region_health_check_services::Insert {
+    pub fn insert(&self) -> super::builder::region_health_check_services::Insert
+    {
         super::builder::region_health_check_services::Insert::new(self.inner.clone())
     }
 
     /// Lists all the HealthCheckService resources that have been
     /// configured for the specified project in the given region.
-    pub fn list(&self) -> super::builder::region_health_check_services::List {
+    pub fn list(&self) -> super::builder::region_health_check_services::List
+    {
         super::builder::region_health_check_services::List::new(self.inner.clone())
     }
 
@@ -10773,12 +13487,30 @@ impl RegionHealthCheckServices {
     /// with the data included in the request.  This method supportsPATCH
     /// semantics and uses theJSON merge
     /// patch format and processing rules.
-    pub fn patch(&self) -> super::builder::region_health_check_services::Patch {
+    pub fn patch(&self) -> super::builder::region_health_check_services::Patch
+    {
         super::builder::region_health_check_services::Patch::new(self.inner.clone())
     }
 
     /// Retrieves the specified region-specific Operations resource.
-    pub fn get_operation(&self) -> super::builder::region_health_check_services::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionHealthCheckServices;
+    /// async fn sample(
+    ///    client: &RegionHealthCheckServices
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::region_health_check_services::GetOperation
+    {
         super::builder::region_health_check_services::GetOperation::new(self.inner.clone())
     }
 }
@@ -10842,9 +13574,7 @@ impl RegionHealthChecks {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::region_health_checks::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::region_health_checks::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::region_health_checks::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -10852,64 +13582,69 @@ impl RegionHealthChecks {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::RegionHealthChecks + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::RegionHealthChecks + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::RegionHealthChecks>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::RegionHealthChecks>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RegionHealthChecks> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::RegionHealthChecks> {
         super::transport::RegionHealthChecks::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RegionHealthChecks> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::RegionHealthChecks::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::RegionHealthChecks> {
+        Self::build_transport(conf).await.map(super::tracing::RegionHealthChecks::new)
     }
 
     /// Deletes the specified HealthCheck resource.
-    pub fn delete(&self) -> super::builder::region_health_checks::Delete {
+    pub fn delete(&self) -> super::builder::region_health_checks::Delete
+    {
         super::builder::region_health_checks::Delete::new(self.inner.clone())
     }
 
     /// Returns the specified HealthCheck resource.
-    pub fn get(&self) -> super::builder::region_health_checks::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionHealthChecks;
+    /// async fn sample(
+    ///    client: &RegionHealthChecks
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::region_health_checks::Get
+    {
         super::builder::region_health_checks::Get::new(self.inner.clone())
     }
 
     /// Creates a HealthCheck resource in the specified project using the data
     /// included in the request.
-    pub fn insert(&self) -> super::builder::region_health_checks::Insert {
+    pub fn insert(&self) -> super::builder::region_health_checks::Insert
+    {
         super::builder::region_health_checks::Insert::new(self.inner.clone())
     }
 
     /// Retrieves the list of HealthCheck resources available to the specified
     /// project.
-    pub fn list(&self) -> super::builder::region_health_checks::List {
+    pub fn list(&self) -> super::builder::region_health_checks::List
+    {
         super::builder::region_health_checks::List::new(self.inner.clone())
     }
 
@@ -10917,18 +13652,37 @@ impl RegionHealthChecks {
     /// included in the request. This method supportsPATCH
     /// semantics and uses theJSON merge
     /// patch format and processing rules.
-    pub fn patch(&self) -> super::builder::region_health_checks::Patch {
+    pub fn patch(&self) -> super::builder::region_health_checks::Patch
+    {
         super::builder::region_health_checks::Patch::new(self.inner.clone())
     }
 
     /// Updates a HealthCheck resource in the specified project using the data
     /// included in the request.
-    pub fn update(&self) -> super::builder::region_health_checks::Update {
+    pub fn update(&self) -> super::builder::region_health_checks::Update
+    {
         super::builder::region_health_checks::Update::new(self.inner.clone())
     }
 
     /// Retrieves the specified region-specific Operations resource.
-    pub fn get_operation(&self) -> super::builder::region_health_checks::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionHealthChecks;
+    /// async fn sample(
+    ///    client: &RegionHealthChecks
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::region_health_checks::GetOperation
+    {
         super::builder::region_health_checks::GetOperation::new(self.inner.clone())
     }
 }
@@ -10992,9 +13746,7 @@ impl RegionInstanceGroupManagers {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::region_instance_group_managers::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::region_instance_group_managers::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::region_instance_group_managers::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -11002,44 +13754,28 @@ impl RegionInstanceGroupManagers {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::RegionInstanceGroupManagers + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::RegionInstanceGroupManagers + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<
-        std::sync::Arc<dyn super::stub::dynamic::RegionInstanceGroupManagers>,
-    > {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::RegionInstanceGroupManagers>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RegionInstanceGroupManagers> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::RegionInstanceGroupManagers> {
         super::transport::RegionInstanceGroupManagers::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RegionInstanceGroupManagers> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::RegionInstanceGroupManagers::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::RegionInstanceGroupManagers> {
+        Self::build_transport(conf).await.map(super::tracing::RegionInstanceGroupManagers::new)
     }
 
     /// Flags the specified instances to be immediately removed from the managed
@@ -11057,19 +13793,15 @@ impl RegionInstanceGroupManagers {
     /// draining duration has elapsed before the VM instance is removed or deleted.
     ///
     /// You can specify a maximum of 1000 instances with this method per request.
-    pub fn abandon_instances(
-        &self,
-    ) -> super::builder::region_instance_group_managers::AbandonInstances {
+    pub fn abandon_instances(&self) -> super::builder::region_instance_group_managers::AbandonInstances
+    {
         super::builder::region_instance_group_managers::AbandonInstances::new(self.inner.clone())
     }
 
     /// Apply updates to selected instances the managed instance group.
-    pub fn apply_updates_to_instances(
-        &self,
-    ) -> super::builder::region_instance_group_managers::ApplyUpdatesToInstances {
-        super::builder::region_instance_group_managers::ApplyUpdatesToInstances::new(
-            self.inner.clone(),
-        )
+    pub fn apply_updates_to_instances(&self) -> super::builder::region_instance_group_managers::ApplyUpdatesToInstances
+    {
+        super::builder::region_instance_group_managers::ApplyUpdatesToInstances::new(self.inner.clone())
     }
 
     /// Creates instances with per-instance configurations in this regional managed
@@ -11078,15 +13810,15 @@ impl RegionInstanceGroupManagers {
     /// the createInstances request is successful. The underlying
     /// actions take additional time. You must separately verify the status of thecreating or actions with the listmanagedinstances
     /// method.
-    pub fn create_instances(
-        &self,
-    ) -> super::builder::region_instance_group_managers::CreateInstances {
+    pub fn create_instances(&self) -> super::builder::region_instance_group_managers::CreateInstances
+    {
         super::builder::region_instance_group_managers::CreateInstances::new(self.inner.clone())
     }
 
     /// Deletes the specified managed instance group and all of the instances
     /// in that group.
-    pub fn delete(&self) -> super::builder::region_instance_group_managers::Delete {
+    pub fn delete(&self) -> super::builder::region_instance_group_managers::Delete
+    {
         super::builder::region_instance_group_managers::Delete::new(self.inner.clone())
     }
 
@@ -11105,24 +13837,37 @@ impl RegionInstanceGroupManagers {
     /// draining duration has elapsed before the VM instance is removed or deleted.
     ///
     /// You can specify a maximum of 1000 instances with this method per request.
-    pub fn delete_instances(
-        &self,
-    ) -> super::builder::region_instance_group_managers::DeleteInstances {
+    pub fn delete_instances(&self) -> super::builder::region_instance_group_managers::DeleteInstances
+    {
         super::builder::region_instance_group_managers::DeleteInstances::new(self.inner.clone())
     }
 
     /// Deletes selected per-instance configurations for the managed instance
     /// group.
-    pub fn delete_per_instance_configs(
-        &self,
-    ) -> super::builder::region_instance_group_managers::DeletePerInstanceConfigs {
-        super::builder::region_instance_group_managers::DeletePerInstanceConfigs::new(
-            self.inner.clone(),
-        )
+    pub fn delete_per_instance_configs(&self) -> super::builder::region_instance_group_managers::DeletePerInstanceConfigs
+    {
+        super::builder::region_instance_group_managers::DeletePerInstanceConfigs::new(self.inner.clone())
     }
 
     /// Returns all of the details about the specified managed instance group.
-    pub fn get(&self) -> super::builder::region_instance_group_managers::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionInstanceGroupManagers;
+    /// async fn sample(
+    ///    client: &RegionInstanceGroupManagers
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::region_instance_group_managers::Get
+    {
         super::builder::region_instance_group_managers::Get::new(self.inner.clone())
     }
 
@@ -11135,19 +13880,22 @@ impl RegionInstanceGroupManagers {
     /// method.
     ///
     /// A regional managed instance group can contain up to 2000 instances.
-    pub fn insert(&self) -> super::builder::region_instance_group_managers::Insert {
+    pub fn insert(&self) -> super::builder::region_instance_group_managers::Insert
+    {
         super::builder::region_instance_group_managers::Insert::new(self.inner.clone())
     }
 
     /// Retrieves the list of managed instance groups that are contained
     /// within the specified region.
-    pub fn list(&self) -> super::builder::region_instance_group_managers::List {
+    pub fn list(&self) -> super::builder::region_instance_group_managers::List
+    {
         super::builder::region_instance_group_managers::List::new(self.inner.clone())
     }
 
     /// Lists all errors thrown by actions on instances for a given regional
     /// managed instance group. The filter andorderBy query parameters are not supported.
-    pub fn list_errors(&self) -> super::builder::region_instance_group_managers::ListErrors {
+    pub fn list_errors(&self) -> super::builder::region_instance_group_managers::ListErrors
+    {
         super::builder::region_instance_group_managers::ListErrors::new(self.inner.clone())
     }
 
@@ -11157,22 +13905,16 @@ impl RegionInstanceGroupManagers {
     /// query parameter is not supported.   The `pageToken` query parameter is
     /// supported only if the group's `listManagedInstancesResults` field is set
     /// to `PAGINATED`.
-    pub fn list_managed_instances(
-        &self,
-    ) -> super::builder::region_instance_group_managers::ListManagedInstances {
-        super::builder::region_instance_group_managers::ListManagedInstances::new(
-            self.inner.clone(),
-        )
+    pub fn list_managed_instances(&self) -> super::builder::region_instance_group_managers::ListManagedInstances
+    {
+        super::builder::region_instance_group_managers::ListManagedInstances::new(self.inner.clone())
     }
 
     /// Lists all of the per-instance configurations defined for the managed
     /// instance group. The orderBy query parameter is not supported.
-    pub fn list_per_instance_configs(
-        &self,
-    ) -> super::builder::region_instance_group_managers::ListPerInstanceConfigs {
-        super::builder::region_instance_group_managers::ListPerInstanceConfigs::new(
-            self.inner.clone(),
-        )
+    pub fn list_per_instance_configs(&self) -> super::builder::region_instance_group_managers::ListPerInstanceConfigs
+    {
+        super::builder::region_instance_group_managers::ListPerInstanceConfigs::new(self.inner.clone())
     }
 
     /// Updates a managed instance group using the information that you specify
@@ -11190,19 +13932,17 @@ impl RegionInstanceGroupManagers {
     /// in the group is different from the current state of that VM. To learn how
     /// to apply an updated configuration to the VMs in a MIG, seeUpdating instances in
     /// a MIG.
-    pub fn patch(&self) -> super::builder::region_instance_group_managers::Patch {
+    pub fn patch(&self) -> super::builder::region_instance_group_managers::Patch
+    {
         super::builder::region_instance_group_managers::Patch::new(self.inner.clone())
     }
 
     /// Inserts or patches per-instance configurations for the managed instance
     /// group. perInstanceConfig.name serves as a key used to
     /// distinguish whether to perform insert or patch.
-    pub fn patch_per_instance_configs(
-        &self,
-    ) -> super::builder::region_instance_group_managers::PatchPerInstanceConfigs {
-        super::builder::region_instance_group_managers::PatchPerInstanceConfigs::new(
-            self.inner.clone(),
-        )
+    pub fn patch_per_instance_configs(&self) -> super::builder::region_instance_group_managers::PatchPerInstanceConfigs
+    {
+        super::builder::region_instance_group_managers::PatchPerInstanceConfigs::new(self.inner.clone())
     }
 
     /// Flags the specified VM instances in the managed instance group to be
@@ -11218,9 +13958,8 @@ impl RegionInstanceGroupManagers {
     /// draining duration has elapsed before the VM instance is removed or deleted.
     ///
     /// You can specify a maximum of 1000 instances with this method per request.
-    pub fn recreate_instances(
-        &self,
-    ) -> super::builder::region_instance_group_managers::RecreateInstances {
+    pub fn recreate_instances(&self) -> super::builder::region_instance_group_managers::RecreateInstances
+    {
         super::builder::region_instance_group_managers::RecreateInstances::new(self.inner.clone())
     }
 
@@ -11237,7 +13976,8 @@ impl RegionInstanceGroupManagers {
     /// service that has enabled
     /// connection draining, it can take up to 60 seconds after the connection
     /// draining duration has elapsed before the VM instance is removed or deleted.
-    pub fn resize(&self) -> super::builder::region_instance_group_managers::Resize {
+    pub fn resize(&self) -> super::builder::region_instance_group_managers::Resize
+    {
         super::builder::region_instance_group_managers::Resize::new(self.inner.clone())
     }
 
@@ -11257,25 +13997,22 @@ impl RegionInstanceGroupManagers {
     /// instances will be verified as healthy after they are resumed.
     ///
     /// You can specify a maximum of 1000 instances with this method per request.
-    pub fn resume_instances(
-        &self,
-    ) -> super::builder::region_instance_group_managers::ResumeInstances {
+    pub fn resume_instances(&self) -> super::builder::region_instance_group_managers::ResumeInstances
+    {
         super::builder::region_instance_group_managers::ResumeInstances::new(self.inner.clone())
     }
 
     /// Sets the instance template to use when creating new instances or recreating
     /// instances in this group. Existing instances are not affected.
-    pub fn set_instance_template(
-        &self,
-    ) -> super::builder::region_instance_group_managers::SetInstanceTemplate {
+    pub fn set_instance_template(&self) -> super::builder::region_instance_group_managers::SetInstanceTemplate
+    {
         super::builder::region_instance_group_managers::SetInstanceTemplate::new(self.inner.clone())
     }
 
     /// Modifies the target pools to which all new instances in this group are
     /// assigned. Existing instances in the group are not affected.
-    pub fn set_target_pools(
-        &self,
-    ) -> super::builder::region_instance_group_managers::SetTargetPools {
+    pub fn set_target_pools(&self) -> super::builder::region_instance_group_managers::SetTargetPools
+    {
         super::builder::region_instance_group_managers::SetTargetPools::new(self.inner.clone())
     }
 
@@ -11295,9 +14032,8 @@ impl RegionInstanceGroupManagers {
     /// instances will be verified as healthy after they are started.
     ///
     /// You can specify a maximum of 1000 instances with this method per request.
-    pub fn start_instances(
-        &self,
-    ) -> super::builder::region_instance_group_managers::StartInstances {
+    pub fn start_instances(&self) -> super::builder::region_instance_group_managers::StartInstances
+    {
         super::builder::region_instance_group_managers::StartInstances::new(self.inner.clone())
     }
 
@@ -11326,7 +14062,8 @@ impl RegionInstanceGroupManagers {
     /// method.
     ///
     /// You can specify a maximum of 1000 instances with this method per request.
-    pub fn stop_instances(&self) -> super::builder::region_instance_group_managers::StopInstances {
+    pub fn stop_instances(&self) -> super::builder::region_instance_group_managers::StopInstances
+    {
         super::builder::region_instance_group_managers::StopInstances::new(self.inner.clone())
     }
 
@@ -11355,25 +14092,38 @@ impl RegionInstanceGroupManagers {
     /// method.
     ///
     /// You can specify a maximum of 1000 instances with this method per request.
-    pub fn suspend_instances(
-        &self,
-    ) -> super::builder::region_instance_group_managers::SuspendInstances {
+    pub fn suspend_instances(&self) -> super::builder::region_instance_group_managers::SuspendInstances
+    {
         super::builder::region_instance_group_managers::SuspendInstances::new(self.inner.clone())
     }
 
     /// Inserts or updates per-instance configurations for the managed instance
     /// group. perInstanceConfig.name serves as a key used to
     /// distinguish whether to perform insert or patch.
-    pub fn update_per_instance_configs(
-        &self,
-    ) -> super::builder::region_instance_group_managers::UpdatePerInstanceConfigs {
-        super::builder::region_instance_group_managers::UpdatePerInstanceConfigs::new(
-            self.inner.clone(),
-        )
+    pub fn update_per_instance_configs(&self) -> super::builder::region_instance_group_managers::UpdatePerInstanceConfigs
+    {
+        super::builder::region_instance_group_managers::UpdatePerInstanceConfigs::new(self.inner.clone())
     }
 
     /// Retrieves the specified region-specific Operations resource.
-    pub fn get_operation(&self) -> super::builder::region_instance_group_managers::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionInstanceGroupManagers;
+    /// async fn sample(
+    ///    client: &RegionInstanceGroupManagers
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::region_instance_group_managers::GetOperation
+    {
         super::builder::region_instance_group_managers::GetOperation::new(self.inner.clone())
     }
 }
@@ -11437,9 +14187,7 @@ impl RegionInstanceGroups {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::region_instance_groups::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::region_instance_groups::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::region_instance_groups::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -11447,53 +14195,56 @@ impl RegionInstanceGroups {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::RegionInstanceGroups + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::RegionInstanceGroups + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::RegionInstanceGroups>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::RegionInstanceGroups>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RegionInstanceGroups> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::RegionInstanceGroups> {
         super::transport::RegionInstanceGroups::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RegionInstanceGroups> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::RegionInstanceGroups::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::RegionInstanceGroups> {
+        Self::build_transport(conf).await.map(super::tracing::RegionInstanceGroups::new)
     }
 
     /// Returns the specified instance group resource.
-    pub fn get(&self) -> super::builder::region_instance_groups::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionInstanceGroups;
+    /// async fn sample(
+    ///    client: &RegionInstanceGroups
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::region_instance_groups::Get
+    {
         super::builder::region_instance_groups::Get::new(self.inner.clone())
     }
 
     /// Retrieves the list of instance group resources contained within
     /// the specified region.
-    pub fn list(&self) -> super::builder::region_instance_groups::List {
+    pub fn list(&self) -> super::builder::region_instance_groups::List
+    {
         super::builder::region_instance_groups::List::new(self.inner.clone())
     }
 
@@ -11501,24 +14252,58 @@ impl RegionInstanceGroups {
     /// information about the named ports. Depending on the specified options, this
     /// method can list all instances or only the instances that are running.
     /// The orderBy query parameter is not supported.
-    pub fn list_instances(&self) -> super::builder::region_instance_groups::ListInstances {
+    pub fn list_instances(&self) -> super::builder::region_instance_groups::ListInstances
+    {
         super::builder::region_instance_groups::ListInstances::new(self.inner.clone())
     }
 
     /// Sets the named ports for the specified regional instance group.
-    pub fn set_named_ports(&self) -> super::builder::region_instance_groups::SetNamedPorts {
+    pub fn set_named_ports(&self) -> super::builder::region_instance_groups::SetNamedPorts
+    {
         super::builder::region_instance_groups::SetNamedPorts::new(self.inner.clone())
     }
 
     /// Returns permissions that a caller has on the specified resource.
-    pub fn test_iam_permissions(
-        &self,
-    ) -> super::builder::region_instance_groups::TestIamPermissions {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionInstanceGroups;
+    /// async fn sample(
+    ///    client: &RegionInstanceGroups
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::region_instance_groups::TestIamPermissions
+    {
         super::builder::region_instance_groups::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Retrieves the specified region-specific Operations resource.
-    pub fn get_operation(&self) -> super::builder::region_instance_groups::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionInstanceGroups;
+    /// async fn sample(
+    ///    client: &RegionInstanceGroups
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::region_instance_groups::GetOperation
+    {
         super::builder::region_instance_groups::GetOperation::new(self.inner.clone())
     }
 }
@@ -11582,9 +14367,7 @@ impl RegionInstanceTemplates {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::region_instance_templates::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::region_instance_templates::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::region_instance_templates::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -11592,71 +14375,92 @@ impl RegionInstanceTemplates {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::RegionInstanceTemplates + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::RegionInstanceTemplates + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<
-        std::sync::Arc<dyn super::stub::dynamic::RegionInstanceTemplates>,
-    > {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::RegionInstanceTemplates>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RegionInstanceTemplates> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::RegionInstanceTemplates> {
         super::transport::RegionInstanceTemplates::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RegionInstanceTemplates> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::RegionInstanceTemplates::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::RegionInstanceTemplates> {
+        Self::build_transport(conf).await.map(super::tracing::RegionInstanceTemplates::new)
     }
 
     /// Deletes the specified instance template. Deleting an instance template is
     /// permanent and cannot be undone.
-    pub fn delete(&self) -> super::builder::region_instance_templates::Delete {
+    pub fn delete(&self) -> super::builder::region_instance_templates::Delete
+    {
         super::builder::region_instance_templates::Delete::new(self.inner.clone())
     }
 
     /// Returns the specified instance template.
-    pub fn get(&self) -> super::builder::region_instance_templates::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionInstanceTemplates;
+    /// async fn sample(
+    ///    client: &RegionInstanceTemplates
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::region_instance_templates::Get
+    {
         super::builder::region_instance_templates::Get::new(self.inner.clone())
     }
 
     /// Creates an instance template in the specified project and region using the
     /// global instance template whose URL is included in the request.
-    pub fn insert(&self) -> super::builder::region_instance_templates::Insert {
+    pub fn insert(&self) -> super::builder::region_instance_templates::Insert
+    {
         super::builder::region_instance_templates::Insert::new(self.inner.clone())
     }
 
     /// Retrieves a list of instance templates that are contained within the
     /// specified project and region.
-    pub fn list(&self) -> super::builder::region_instance_templates::List {
+    pub fn list(&self) -> super::builder::region_instance_templates::List
+    {
         super::builder::region_instance_templates::List::new(self.inner.clone())
     }
 
     /// Retrieves the specified region-specific Operations resource.
-    pub fn get_operation(&self) -> super::builder::region_instance_templates::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionInstanceTemplates;
+    /// async fn sample(
+    ///    client: &RegionInstanceTemplates
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::region_instance_templates::GetOperation
+    {
         super::builder::region_instance_templates::GetOperation::new(self.inner.clone())
     }
 }
@@ -11720,9 +14524,7 @@ impl RegionInstances {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::region_instances::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::region_instances::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::region_instances::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -11730,53 +14532,56 @@ impl RegionInstances {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::RegionInstances + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::RegionInstances + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::RegionInstances>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::RegionInstances>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RegionInstances> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::RegionInstances> {
         super::transport::RegionInstances::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RegionInstances> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::RegionInstances::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::RegionInstances> {
+        Self::build_transport(conf).await.map(super::tracing::RegionInstances::new)
     }
 
     /// Creates multiple instances in a given region. Count specifies the number of
     /// instances to create.
-    pub fn bulk_insert(&self) -> super::builder::region_instances::BulkInsert {
+    pub fn bulk_insert(&self) -> super::builder::region_instances::BulkInsert
+    {
         super::builder::region_instances::BulkInsert::new(self.inner.clone())
     }
 
     /// Retrieves the specified region-specific Operations resource.
-    pub fn get_operation(&self) -> super::builder::region_instances::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionInstances;
+    /// async fn sample(
+    ///    client: &RegionInstances
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::region_instances::GetOperation
+    {
         super::builder::region_instances::GetOperation::new(self.inner.clone())
     }
 }
@@ -11840,9 +14645,7 @@ impl RegionInstantSnapshots {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::region_instant_snapshots::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::region_instant_snapshots::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::region_instant_snapshots::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -11850,43 +14653,28 @@ impl RegionInstantSnapshots {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::RegionInstantSnapshots + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::RegionInstantSnapshots + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::RegionInstantSnapshots>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::RegionInstantSnapshots>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RegionInstantSnapshots> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::RegionInstantSnapshots> {
         super::transport::RegionInstantSnapshots::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RegionInstantSnapshots> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::RegionInstantSnapshots::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::RegionInstantSnapshots> {
+        Self::build_transport(conf).await.map(super::tracing::RegionInstantSnapshots::new)
     }
 
     /// Deletes the specified InstantSnapshot resource. Keep in mind that deleting
@@ -11897,54 +14685,141 @@ impl RegionInstantSnapshots {
     ///
     /// For more information, seeDeleting
     /// instantSnapshots.
-    pub fn delete(&self) -> super::builder::region_instant_snapshots::Delete {
+    pub fn delete(&self) -> super::builder::region_instant_snapshots::Delete
+    {
         super::builder::region_instant_snapshots::Delete::new(self.inner.clone())
     }
 
     /// Returns the specified InstantSnapshot resource in the specified region.
-    pub fn get(&self) -> super::builder::region_instant_snapshots::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionInstantSnapshots;
+    /// async fn sample(
+    ///    client: &RegionInstantSnapshots
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::region_instant_snapshots::Get
+    {
         super::builder::region_instant_snapshots::Get::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. May be empty if no such
     /// policy or resource exists.
-    pub fn get_iam_policy(&self) -> super::builder::region_instant_snapshots::GetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionInstantSnapshots;
+    /// async fn sample(
+    ///    client: &RegionInstantSnapshots
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::region_instant_snapshots::GetIamPolicy
+    {
         super::builder::region_instant_snapshots::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Creates an instant snapshot in the specified region.
-    pub fn insert(&self) -> super::builder::region_instant_snapshots::Insert {
+    pub fn insert(&self) -> super::builder::region_instant_snapshots::Insert
+    {
         super::builder::region_instant_snapshots::Insert::new(self.inner.clone())
     }
 
     /// Retrieves the list of InstantSnapshot resources contained within
     /// the specified region.
-    pub fn list(&self) -> super::builder::region_instant_snapshots::List {
+    pub fn list(&self) -> super::builder::region_instant_snapshots::List
+    {
         super::builder::region_instant_snapshots::List::new(self.inner.clone())
     }
 
     /// Sets the access control policy on the specified resource.
     /// Replaces any existing policy.
-    pub fn set_iam_policy(&self) -> super::builder::region_instant_snapshots::SetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionInstantSnapshots;
+    /// async fn sample(
+    ///    client: &RegionInstantSnapshots
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::region_instant_snapshots::SetIamPolicy
+    {
         super::builder::region_instant_snapshots::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Sets the labels on a instantSnapshot in the given region. To learn more
     /// about labels, read the Labeling
     /// Resources documentation.
-    pub fn set_labels(&self) -> super::builder::region_instant_snapshots::SetLabels {
+    pub fn set_labels(&self) -> super::builder::region_instant_snapshots::SetLabels
+    {
         super::builder::region_instant_snapshots::SetLabels::new(self.inner.clone())
     }
 
     /// Returns permissions that a caller has on the specified resource.
-    pub fn test_iam_permissions(
-        &self,
-    ) -> super::builder::region_instant_snapshots::TestIamPermissions {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionInstantSnapshots;
+    /// async fn sample(
+    ///    client: &RegionInstantSnapshots
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::region_instant_snapshots::TestIamPermissions
+    {
         super::builder::region_instant_snapshots::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Retrieves the specified region-specific Operations resource.
-    pub fn get_operation(&self) -> super::builder::region_instant_snapshots::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionInstantSnapshots;
+    /// async fn sample(
+    ///    client: &RegionInstantSnapshots
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::region_instant_snapshots::GetOperation
+    {
         super::builder::region_instant_snapshots::GetOperation::new(self.inner.clone())
     }
 }
@@ -12008,9 +14883,7 @@ impl RegionNetworkEndpointGroups {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::region_network_endpoint_groups::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::region_network_endpoint_groups::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::region_network_endpoint_groups::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -12018,98 +14891,110 @@ impl RegionNetworkEndpointGroups {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::RegionNetworkEndpointGroups + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::RegionNetworkEndpointGroups + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<
-        std::sync::Arc<dyn super::stub::dynamic::RegionNetworkEndpointGroups>,
-    > {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::RegionNetworkEndpointGroups>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RegionNetworkEndpointGroups> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::RegionNetworkEndpointGroups> {
         super::transport::RegionNetworkEndpointGroups::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RegionNetworkEndpointGroups> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::RegionNetworkEndpointGroups::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::RegionNetworkEndpointGroups> {
+        Self::build_transport(conf).await.map(super::tracing::RegionNetworkEndpointGroups::new)
     }
 
     /// Attach a list of network endpoints to the specified network endpoint group.
-    pub fn attach_network_endpoints(
-        &self,
-    ) -> super::builder::region_network_endpoint_groups::AttachNetworkEndpoints {
-        super::builder::region_network_endpoint_groups::AttachNetworkEndpoints::new(
-            self.inner.clone(),
-        )
+    pub fn attach_network_endpoints(&self) -> super::builder::region_network_endpoint_groups::AttachNetworkEndpoints
+    {
+        super::builder::region_network_endpoint_groups::AttachNetworkEndpoints::new(self.inner.clone())
     }
 
     /// Deletes the specified network endpoint group. Note that the NEG cannot be
     /// deleted if it is configured as a backend of a backend service.
-    pub fn delete(&self) -> super::builder::region_network_endpoint_groups::Delete {
+    pub fn delete(&self) -> super::builder::region_network_endpoint_groups::Delete
+    {
         super::builder::region_network_endpoint_groups::Delete::new(self.inner.clone())
     }
 
     /// Detach the network endpoint from the specified network endpoint group.
-    pub fn detach_network_endpoints(
-        &self,
-    ) -> super::builder::region_network_endpoint_groups::DetachNetworkEndpoints {
-        super::builder::region_network_endpoint_groups::DetachNetworkEndpoints::new(
-            self.inner.clone(),
-        )
+    pub fn detach_network_endpoints(&self) -> super::builder::region_network_endpoint_groups::DetachNetworkEndpoints
+    {
+        super::builder::region_network_endpoint_groups::DetachNetworkEndpoints::new(self.inner.clone())
     }
 
     /// Returns the specified network endpoint group.
-    pub fn get(&self) -> super::builder::region_network_endpoint_groups::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionNetworkEndpointGroups;
+    /// async fn sample(
+    ///    client: &RegionNetworkEndpointGroups
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::region_network_endpoint_groups::Get
+    {
         super::builder::region_network_endpoint_groups::Get::new(self.inner.clone())
     }
 
     /// Creates a network endpoint group in the specified project using the
     /// parameters that are included in the request.
-    pub fn insert(&self) -> super::builder::region_network_endpoint_groups::Insert {
+    pub fn insert(&self) -> super::builder::region_network_endpoint_groups::Insert
+    {
         super::builder::region_network_endpoint_groups::Insert::new(self.inner.clone())
     }
 
     /// Retrieves the list of regional network endpoint groups available to the
     /// specified project in the given region.
-    pub fn list(&self) -> super::builder::region_network_endpoint_groups::List {
+    pub fn list(&self) -> super::builder::region_network_endpoint_groups::List
+    {
         super::builder::region_network_endpoint_groups::List::new(self.inner.clone())
     }
 
     /// Lists the network endpoints in the specified network endpoint group.
-    pub fn list_network_endpoints(
-        &self,
-    ) -> super::builder::region_network_endpoint_groups::ListNetworkEndpoints {
-        super::builder::region_network_endpoint_groups::ListNetworkEndpoints::new(
-            self.inner.clone(),
-        )
+    pub fn list_network_endpoints(&self) -> super::builder::region_network_endpoint_groups::ListNetworkEndpoints
+    {
+        super::builder::region_network_endpoint_groups::ListNetworkEndpoints::new(self.inner.clone())
     }
 
     /// Retrieves the specified region-specific Operations resource.
-    pub fn get_operation(&self) -> super::builder::region_network_endpoint_groups::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionNetworkEndpointGroups;
+    /// async fn sample(
+    ///    client: &RegionNetworkEndpointGroups
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::region_network_endpoint_groups::GetOperation
+    {
         super::builder::region_network_endpoint_groups::GetOperation::new(self.inner.clone())
     }
 }
@@ -12173,9 +15058,7 @@ impl RegionNetworkFirewallPolicies {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::region_network_firewall_policies::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::region_network_firewall_policies::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::region_network_firewall_policies::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -12183,150 +15066,266 @@ impl RegionNetworkFirewallPolicies {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::RegionNetworkFirewallPolicies + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::RegionNetworkFirewallPolicies + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<
-        std::sync::Arc<dyn super::stub::dynamic::RegionNetworkFirewallPolicies>,
-    > {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::RegionNetworkFirewallPolicies>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RegionNetworkFirewallPolicies> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::RegionNetworkFirewallPolicies> {
         super::transport::RegionNetworkFirewallPolicies::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RegionNetworkFirewallPolicies> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::RegionNetworkFirewallPolicies::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::RegionNetworkFirewallPolicies> {
+        Self::build_transport(conf).await.map(super::tracing::RegionNetworkFirewallPolicies::new)
     }
 
     /// Inserts an association for the specified network firewall policy.
-    pub fn add_association(
-        &self,
-    ) -> super::builder::region_network_firewall_policies::AddAssociation {
+    pub fn add_association(&self) -> super::builder::region_network_firewall_policies::AddAssociation
+    {
         super::builder::region_network_firewall_policies::AddAssociation::new(self.inner.clone())
     }
 
     /// Inserts a rule into a network firewall policy.
-    pub fn add_rule(&self) -> super::builder::region_network_firewall_policies::AddRule {
+    pub fn add_rule(&self) -> super::builder::region_network_firewall_policies::AddRule
+    {
         super::builder::region_network_firewall_policies::AddRule::new(self.inner.clone())
     }
 
     /// Copies rules to the specified network firewall policy.
-    pub fn clone_rules(&self) -> super::builder::region_network_firewall_policies::CloneRules {
+    pub fn clone_rules(&self) -> super::builder::region_network_firewall_policies::CloneRules
+    {
         super::builder::region_network_firewall_policies::CloneRules::new(self.inner.clone())
     }
 
     /// Deletes the specified network firewall policy.
-    pub fn delete(&self) -> super::builder::region_network_firewall_policies::Delete {
+    pub fn delete(&self) -> super::builder::region_network_firewall_policies::Delete
+    {
         super::builder::region_network_firewall_policies::Delete::new(self.inner.clone())
     }
 
     /// Returns the specified network firewall policy.
-    pub fn get(&self) -> super::builder::region_network_firewall_policies::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionNetworkFirewallPolicies;
+    /// async fn sample(
+    ///    client: &RegionNetworkFirewallPolicies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::region_network_firewall_policies::Get
+    {
         super::builder::region_network_firewall_policies::Get::new(self.inner.clone())
     }
 
     /// Gets an association with the specified name.
-    pub fn get_association(
-        &self,
-    ) -> super::builder::region_network_firewall_policies::GetAssociation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionNetworkFirewallPolicies;
+    /// async fn sample(
+    ///    client: &RegionNetworkFirewallPolicies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_association()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_association(&self) -> super::builder::region_network_firewall_policies::GetAssociation
+    {
         super::builder::region_network_firewall_policies::GetAssociation::new(self.inner.clone())
     }
 
     /// Returns the effective firewalls on a given network.
-    pub fn get_effective_firewalls(
-        &self,
-    ) -> super::builder::region_network_firewall_policies::GetEffectiveFirewalls {
-        super::builder::region_network_firewall_policies::GetEffectiveFirewalls::new(
-            self.inner.clone(),
-        )
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionNetworkFirewallPolicies;
+    /// async fn sample(
+    ///    client: &RegionNetworkFirewallPolicies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_effective_firewalls()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_effective_firewalls(&self) -> super::builder::region_network_firewall_policies::GetEffectiveFirewalls
+    {
+        super::builder::region_network_firewall_policies::GetEffectiveFirewalls::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. May be empty if no such
     /// policy or resource exists.
-    pub fn get_iam_policy(&self) -> super::builder::region_network_firewall_policies::GetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionNetworkFirewallPolicies;
+    /// async fn sample(
+    ///    client: &RegionNetworkFirewallPolicies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::region_network_firewall_policies::GetIamPolicy
+    {
         super::builder::region_network_firewall_policies::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets a rule of the specified priority.
-    pub fn get_rule(&self) -> super::builder::region_network_firewall_policies::GetRule {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionNetworkFirewallPolicies;
+    /// async fn sample(
+    ///    client: &RegionNetworkFirewallPolicies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_rule()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_rule(&self) -> super::builder::region_network_firewall_policies::GetRule
+    {
         super::builder::region_network_firewall_policies::GetRule::new(self.inner.clone())
     }
 
     /// Creates a new network firewall policy in the specified project and region.
-    pub fn insert(&self) -> super::builder::region_network_firewall_policies::Insert {
+    pub fn insert(&self) -> super::builder::region_network_firewall_policies::Insert
+    {
         super::builder::region_network_firewall_policies::Insert::new(self.inner.clone())
     }
 
     /// Lists all the network firewall policies that have been configured
     /// for the specified project in the given region.
-    pub fn list(&self) -> super::builder::region_network_firewall_policies::List {
+    pub fn list(&self) -> super::builder::region_network_firewall_policies::List
+    {
         super::builder::region_network_firewall_policies::List::new(self.inner.clone())
     }
 
     /// Patches the specified network firewall policy.
-    pub fn patch(&self) -> super::builder::region_network_firewall_policies::Patch {
+    pub fn patch(&self) -> super::builder::region_network_firewall_policies::Patch
+    {
         super::builder::region_network_firewall_policies::Patch::new(self.inner.clone())
     }
 
     /// Patches a rule of the specified priority.
-    pub fn patch_rule(&self) -> super::builder::region_network_firewall_policies::PatchRule {
+    pub fn patch_rule(&self) -> super::builder::region_network_firewall_policies::PatchRule
+    {
         super::builder::region_network_firewall_policies::PatchRule::new(self.inner.clone())
     }
 
     /// Removes an association for the specified network firewall policy.
-    pub fn remove_association(
-        &self,
-    ) -> super::builder::region_network_firewall_policies::RemoveAssociation {
+    pub fn remove_association(&self) -> super::builder::region_network_firewall_policies::RemoveAssociation
+    {
         super::builder::region_network_firewall_policies::RemoveAssociation::new(self.inner.clone())
     }
 
     /// Deletes a rule of the specified priority.
-    pub fn remove_rule(&self) -> super::builder::region_network_firewall_policies::RemoveRule {
+    pub fn remove_rule(&self) -> super::builder::region_network_firewall_policies::RemoveRule
+    {
         super::builder::region_network_firewall_policies::RemoveRule::new(self.inner.clone())
     }
 
     /// Sets the access control policy on the specified resource.
     /// Replaces any existing policy.
-    pub fn set_iam_policy(&self) -> super::builder::region_network_firewall_policies::SetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionNetworkFirewallPolicies;
+    /// async fn sample(
+    ///    client: &RegionNetworkFirewallPolicies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::region_network_firewall_policies::SetIamPolicy
+    {
         super::builder::region_network_firewall_policies::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Returns permissions that a caller has on the specified resource.
-    pub fn test_iam_permissions(
-        &self,
-    ) -> super::builder::region_network_firewall_policies::TestIamPermissions {
-        super::builder::region_network_firewall_policies::TestIamPermissions::new(
-            self.inner.clone(),
-        )
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionNetworkFirewallPolicies;
+    /// async fn sample(
+    ///    client: &RegionNetworkFirewallPolicies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::region_network_firewall_policies::TestIamPermissions
+    {
+        super::builder::region_network_firewall_policies::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Retrieves the specified region-specific Operations resource.
-    pub fn get_operation(&self) -> super::builder::region_network_firewall_policies::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionNetworkFirewallPolicies;
+    /// async fn sample(
+    ///    client: &RegionNetworkFirewallPolicies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::region_network_firewall_policies::GetOperation
+    {
         super::builder::region_network_firewall_policies::GetOperation::new(self.inner.clone())
     }
 }
@@ -12390,9 +15389,7 @@ impl RegionNotificationEndpoints {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::region_notification_endpoints::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::region_notification_endpoints::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::region_notification_endpoints::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -12400,69 +15397,90 @@ impl RegionNotificationEndpoints {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::RegionNotificationEndpoints + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::RegionNotificationEndpoints + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<
-        std::sync::Arc<dyn super::stub::dynamic::RegionNotificationEndpoints>,
-    > {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::RegionNotificationEndpoints>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RegionNotificationEndpoints> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::RegionNotificationEndpoints> {
         super::transport::RegionNotificationEndpoints::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RegionNotificationEndpoints> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::RegionNotificationEndpoints::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::RegionNotificationEndpoints> {
+        Self::build_transport(conf).await.map(super::tracing::RegionNotificationEndpoints::new)
     }
 
     /// Deletes the specified NotificationEndpoint in the given region
-    pub fn delete(&self) -> super::builder::region_notification_endpoints::Delete {
+    pub fn delete(&self) -> super::builder::region_notification_endpoints::Delete
+    {
         super::builder::region_notification_endpoints::Delete::new(self.inner.clone())
     }
 
     /// Returns the specified NotificationEndpoint resource in the given region.
-    pub fn get(&self) -> super::builder::region_notification_endpoints::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionNotificationEndpoints;
+    /// async fn sample(
+    ///    client: &RegionNotificationEndpoints
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::region_notification_endpoints::Get
+    {
         super::builder::region_notification_endpoints::Get::new(self.inner.clone())
     }
 
     /// Create a NotificationEndpoint in the specified project in the given region
     /// using the parameters that are included in the request.
-    pub fn insert(&self) -> super::builder::region_notification_endpoints::Insert {
+    pub fn insert(&self) -> super::builder::region_notification_endpoints::Insert
+    {
         super::builder::region_notification_endpoints::Insert::new(self.inner.clone())
     }
 
     /// Lists the NotificationEndpoints for a project in the given region.
-    pub fn list(&self) -> super::builder::region_notification_endpoints::List {
+    pub fn list(&self) -> super::builder::region_notification_endpoints::List
+    {
         super::builder::region_notification_endpoints::List::new(self.inner.clone())
     }
 
     /// Retrieves the specified region-specific Operations resource.
-    pub fn get_operation(&self) -> super::builder::region_notification_endpoints::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionNotificationEndpoints;
+    /// async fn sample(
+    ///    client: &RegionNotificationEndpoints
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::region_notification_endpoints::GetOperation
+    {
         super::builder::region_notification_endpoints::GetOperation::new(self.inner.clone())
     }
 }
@@ -12526,9 +15544,7 @@ impl RegionOperations {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::region_operations::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::region_operations::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::region_operations::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -12536,58 +15552,77 @@ impl RegionOperations {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::RegionOperations + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::RegionOperations + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::RegionOperations>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::RegionOperations>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RegionOperations> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::RegionOperations> {
         super::transport::RegionOperations::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RegionOperations> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::RegionOperations::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::RegionOperations> {
+        Self::build_transport(conf).await.map(super::tracing::RegionOperations::new)
     }
 
     /// Deletes the specified region-specific Operations resource.
-    pub fn delete(&self) -> super::builder::region_operations::Delete {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionOperations;
+    /// async fn sample(
+    ///    client: &RegionOperations
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete(&self) -> super::builder::region_operations::Delete
+    {
         super::builder::region_operations::Delete::new(self.inner.clone())
     }
 
     /// Retrieves the specified region-specific Operations resource.
-    pub fn get(&self) -> super::builder::region_operations::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionOperations;
+    /// async fn sample(
+    ///    client: &RegionOperations
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::region_operations::Get
+    {
         super::builder::region_operations::Get::new(self.inner.clone())
     }
 
     /// Retrieves a list of Operation resources contained within
     /// the specified region.
-    pub fn list(&self) -> super::builder::region_operations::List {
+    pub fn list(&self) -> super::builder::region_operations::List
+    {
         super::builder::region_operations::List::new(self.inner.clone())
     }
 
@@ -12609,7 +15644,24 @@ impl RegionOperations {
     /// - If the default deadline is reached, there is no guarantee that the
     ///   operation is actually done when the method returns. Be prepared to retry
     ///   if the operation is not `DONE`.
-    pub fn wait(&self) -> super::builder::region_operations::Wait {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionOperations;
+    /// async fn sample(
+    ///    client: &RegionOperations
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .wait()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn wait(&self) -> super::builder::region_operations::Wait
+    {
         super::builder::region_operations::Wait::new(self.inner.clone())
     }
 }
@@ -12673,9 +15725,7 @@ impl RegionSecurityPolicies {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::region_security_policies::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::region_security_policies::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::region_security_policies::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -12683,74 +15733,97 @@ impl RegionSecurityPolicies {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::RegionSecurityPolicies + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::RegionSecurityPolicies + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::RegionSecurityPolicies>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::RegionSecurityPolicies>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RegionSecurityPolicies> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::RegionSecurityPolicies> {
         super::transport::RegionSecurityPolicies::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RegionSecurityPolicies> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::RegionSecurityPolicies::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::RegionSecurityPolicies> {
+        Self::build_transport(conf).await.map(super::tracing::RegionSecurityPolicies::new)
     }
 
     /// Inserts a rule into a security policy.
-    pub fn add_rule(&self) -> super::builder::region_security_policies::AddRule {
+    pub fn add_rule(&self) -> super::builder::region_security_policies::AddRule
+    {
         super::builder::region_security_policies::AddRule::new(self.inner.clone())
     }
 
     /// Deletes the specified policy.
-    pub fn delete(&self) -> super::builder::region_security_policies::Delete {
+    pub fn delete(&self) -> super::builder::region_security_policies::Delete
+    {
         super::builder::region_security_policies::Delete::new(self.inner.clone())
     }
 
     /// List all of the ordered rules present in a single specified policy.
-    pub fn get(&self) -> super::builder::region_security_policies::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionSecurityPolicies;
+    /// async fn sample(
+    ///    client: &RegionSecurityPolicies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::region_security_policies::Get
+    {
         super::builder::region_security_policies::Get::new(self.inner.clone())
     }
 
     /// Gets a rule at the specified priority.
-    pub fn get_rule(&self) -> super::builder::region_security_policies::GetRule {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionSecurityPolicies;
+    /// async fn sample(
+    ///    client: &RegionSecurityPolicies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_rule()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_rule(&self) -> super::builder::region_security_policies::GetRule
+    {
         super::builder::region_security_policies::GetRule::new(self.inner.clone())
     }
 
     /// Creates a new policy in the specified project using the data included in
     /// the request.
-    pub fn insert(&self) -> super::builder::region_security_policies::Insert {
+    pub fn insert(&self) -> super::builder::region_security_policies::Insert
+    {
         super::builder::region_security_policies::Insert::new(self.inner.clone())
     }
 
     /// List all the policies that have been configured for the specified project
     /// and region.
-    pub fn list(&self) -> super::builder::region_security_policies::List {
+    pub fn list(&self) -> super::builder::region_security_policies::List
+    {
         super::builder::region_security_policies::List::new(self.inner.clone())
     }
 
@@ -12759,30 +15832,51 @@ impl RegionSecurityPolicies {
     /// updateMask. This cannot be used to be update the rules in the policy.
     /// Please use the per rule methods like addRule, patchRule, and removeRule
     /// instead.
-    pub fn patch(&self) -> super::builder::region_security_policies::Patch {
+    pub fn patch(&self) -> super::builder::region_security_policies::Patch
+    {
         super::builder::region_security_policies::Patch::new(self.inner.clone())
     }
 
     /// Patches a rule at the specified priority. To clear fields in the rule,
     /// leave the fields empty and specify them in the updateMask.
-    pub fn patch_rule(&self) -> super::builder::region_security_policies::PatchRule {
+    pub fn patch_rule(&self) -> super::builder::region_security_policies::PatchRule
+    {
         super::builder::region_security_policies::PatchRule::new(self.inner.clone())
     }
 
     /// Deletes a rule at the specified priority.
-    pub fn remove_rule(&self) -> super::builder::region_security_policies::RemoveRule {
+    pub fn remove_rule(&self) -> super::builder::region_security_policies::RemoveRule
+    {
         super::builder::region_security_policies::RemoveRule::new(self.inner.clone())
     }
 
     /// Sets the labels on a security policy. To learn more about labels,
     /// read the Labeling Resources
     /// documentation.
-    pub fn set_labels(&self) -> super::builder::region_security_policies::SetLabels {
+    pub fn set_labels(&self) -> super::builder::region_security_policies::SetLabels
+    {
         super::builder::region_security_policies::SetLabels::new(self.inner.clone())
     }
 
     /// Retrieves the specified region-specific Operations resource.
-    pub fn get_operation(&self) -> super::builder::region_security_policies::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionSecurityPolicies;
+    /// async fn sample(
+    ///    client: &RegionSecurityPolicies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::region_security_policies::GetOperation
+    {
         super::builder::region_security_policies::GetOperation::new(self.inner.clone())
     }
 }
@@ -12846,9 +15940,7 @@ impl RegionSslCertificates {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::region_ssl_certificates::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::region_ssl_certificates::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::region_ssl_certificates::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -12856,71 +15948,93 @@ impl RegionSslCertificates {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::RegionSslCertificates + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::RegionSslCertificates + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::RegionSslCertificates>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::RegionSslCertificates>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RegionSslCertificates> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::RegionSslCertificates> {
         super::transport::RegionSslCertificates::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RegionSslCertificates> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::RegionSslCertificates::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::RegionSslCertificates> {
+        Self::build_transport(conf).await.map(super::tracing::RegionSslCertificates::new)
     }
 
     /// Deletes the specified SslCertificate resource in the region.
-    pub fn delete(&self) -> super::builder::region_ssl_certificates::Delete {
+    pub fn delete(&self) -> super::builder::region_ssl_certificates::Delete
+    {
         super::builder::region_ssl_certificates::Delete::new(self.inner.clone())
     }
 
     /// Returns the specified SslCertificate resource in the specified region. Get
     /// a list of available SSL certificates by making a list()
     /// request.
-    pub fn get(&self) -> super::builder::region_ssl_certificates::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionSslCertificates;
+    /// async fn sample(
+    ///    client: &RegionSslCertificates
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::region_ssl_certificates::Get
+    {
         super::builder::region_ssl_certificates::Get::new(self.inner.clone())
     }
 
     /// Creates a SslCertificate resource in the specified project and region using
     /// the data included in the request
-    pub fn insert(&self) -> super::builder::region_ssl_certificates::Insert {
+    pub fn insert(&self) -> super::builder::region_ssl_certificates::Insert
+    {
         super::builder::region_ssl_certificates::Insert::new(self.inner.clone())
     }
 
     /// Retrieves the list of SslCertificate resources available to the specified
     /// project in the specified region.
-    pub fn list(&self) -> super::builder::region_ssl_certificates::List {
+    pub fn list(&self) -> super::builder::region_ssl_certificates::List
+    {
         super::builder::region_ssl_certificates::List::new(self.inner.clone())
     }
 
     /// Retrieves the specified region-specific Operations resource.
-    pub fn get_operation(&self) -> super::builder::region_ssl_certificates::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionSslCertificates;
+    /// async fn sample(
+    ///    client: &RegionSslCertificates
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::region_ssl_certificates::GetOperation
+    {
         super::builder::region_ssl_certificates::GetOperation::new(self.inner.clone())
     }
 }
@@ -12984,9 +16098,7 @@ impl RegionSslPolicies {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::region_ssl_policies::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::region_ssl_policies::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::region_ssl_policies::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -12994,84 +16106,122 @@ impl RegionSslPolicies {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::RegionSslPolicies + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::RegionSslPolicies + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::RegionSslPolicies>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::RegionSslPolicies>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RegionSslPolicies> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::RegionSslPolicies> {
         super::transport::RegionSslPolicies::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RegionSslPolicies> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::RegionSslPolicies::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::RegionSslPolicies> {
+        Self::build_transport(conf).await.map(super::tracing::RegionSslPolicies::new)
     }
 
     /// Deletes the specified SSL policy. The SSL policy resource can be deleted
     /// only if it is not in use by any TargetHttpsProxy or TargetSslProxy
     /// resources.
-    pub fn delete(&self) -> super::builder::region_ssl_policies::Delete {
+    pub fn delete(&self) -> super::builder::region_ssl_policies::Delete
+    {
         super::builder::region_ssl_policies::Delete::new(self.inner.clone())
     }
 
     /// Lists all of the ordered rules present in a single specified policy.
-    pub fn get(&self) -> super::builder::region_ssl_policies::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionSslPolicies;
+    /// async fn sample(
+    ///    client: &RegionSslPolicies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::region_ssl_policies::Get
+    {
         super::builder::region_ssl_policies::Get::new(self.inner.clone())
     }
 
     /// Creates a new policy in the specified project and region using the data
     /// included in the request.
-    pub fn insert(&self) -> super::builder::region_ssl_policies::Insert {
+    pub fn insert(&self) -> super::builder::region_ssl_policies::Insert
+    {
         super::builder::region_ssl_policies::Insert::new(self.inner.clone())
     }
 
     /// Lists all the SSL policies that have been configured for the specified
     /// project and region.
-    pub fn list(&self) -> super::builder::region_ssl_policies::List {
+    pub fn list(&self) -> super::builder::region_ssl_policies::List
+    {
         super::builder::region_ssl_policies::List::new(self.inner.clone())
     }
 
     /// Lists all features that can be specified in the SSL policy when using
     /// custom profile.
-    pub fn list_available_features(
-        &self,
-    ) -> super::builder::region_ssl_policies::ListAvailableFeatures {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionSslPolicies;
+    /// async fn sample(
+    ///    client: &RegionSslPolicies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .list_available_features()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_available_features(&self) -> super::builder::region_ssl_policies::ListAvailableFeatures
+    {
         super::builder::region_ssl_policies::ListAvailableFeatures::new(self.inner.clone())
     }
 
     /// Patches the specified SSL policy with the data included in the request.
-    pub fn patch(&self) -> super::builder::region_ssl_policies::Patch {
+    pub fn patch(&self) -> super::builder::region_ssl_policies::Patch
+    {
         super::builder::region_ssl_policies::Patch::new(self.inner.clone())
     }
 
     /// Retrieves the specified region-specific Operations resource.
-    pub fn get_operation(&self) -> super::builder::region_ssl_policies::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionSslPolicies;
+    /// async fn sample(
+    ///    client: &RegionSslPolicies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::region_ssl_policies::GetOperation
+    {
         super::builder::region_ssl_policies::GetOperation::new(self.inner.clone())
     }
 }
@@ -13135,9 +16285,7 @@ impl RegionTargetHttpProxies {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::region_target_http_proxies::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::region_target_http_proxies::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::region_target_http_proxies::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -13145,75 +16293,97 @@ impl RegionTargetHttpProxies {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::RegionTargetHttpProxies + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::RegionTargetHttpProxies + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<
-        std::sync::Arc<dyn super::stub::dynamic::RegionTargetHttpProxies>,
-    > {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::RegionTargetHttpProxies>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RegionTargetHttpProxies> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::RegionTargetHttpProxies> {
         super::transport::RegionTargetHttpProxies::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RegionTargetHttpProxies> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::RegionTargetHttpProxies::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::RegionTargetHttpProxies> {
+        Self::build_transport(conf).await.map(super::tracing::RegionTargetHttpProxies::new)
     }
 
     /// Deletes the specified TargetHttpProxy resource.
-    pub fn delete(&self) -> super::builder::region_target_http_proxies::Delete {
+    pub fn delete(&self) -> super::builder::region_target_http_proxies::Delete
+    {
         super::builder::region_target_http_proxies::Delete::new(self.inner.clone())
     }
 
     /// Returns the specified TargetHttpProxy resource in the specified region.
-    pub fn get(&self) -> super::builder::region_target_http_proxies::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionTargetHttpProxies;
+    /// async fn sample(
+    ///    client: &RegionTargetHttpProxies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::region_target_http_proxies::Get
+    {
         super::builder::region_target_http_proxies::Get::new(self.inner.clone())
     }
 
     /// Creates a TargetHttpProxy resource in the specified project and region
     /// using the data included in the request.
-    pub fn insert(&self) -> super::builder::region_target_http_proxies::Insert {
+    pub fn insert(&self) -> super::builder::region_target_http_proxies::Insert
+    {
         super::builder::region_target_http_proxies::Insert::new(self.inner.clone())
     }
 
     /// Retrieves the list of TargetHttpProxy resources available
     /// to the specified project in the specified region.
-    pub fn list(&self) -> super::builder::region_target_http_proxies::List {
+    pub fn list(&self) -> super::builder::region_target_http_proxies::List
+    {
         super::builder::region_target_http_proxies::List::new(self.inner.clone())
     }
 
     /// Changes the URL map for TargetHttpProxy.
-    pub fn set_url_map(&self) -> super::builder::region_target_http_proxies::SetUrlMap {
+    pub fn set_url_map(&self) -> super::builder::region_target_http_proxies::SetUrlMap
+    {
         super::builder::region_target_http_proxies::SetUrlMap::new(self.inner.clone())
     }
 
     /// Retrieves the specified region-specific Operations resource.
-    pub fn get_operation(&self) -> super::builder::region_target_http_proxies::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionTargetHttpProxies;
+    /// async fn sample(
+    ///    client: &RegionTargetHttpProxies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::region_target_http_proxies::GetOperation
+    {
         super::builder::region_target_http_proxies::GetOperation::new(self.inner.clone())
     }
 }
@@ -13277,9 +16447,7 @@ impl RegionTargetHttpsProxies {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::region_target_https_proxies::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::region_target_https_proxies::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::region_target_https_proxies::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -13287,65 +16455,69 @@ impl RegionTargetHttpsProxies {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::RegionTargetHttpsProxies + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::RegionTargetHttpsProxies + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<
-        std::sync::Arc<dyn super::stub::dynamic::RegionTargetHttpsProxies>,
-    > {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::RegionTargetHttpsProxies>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RegionTargetHttpsProxies> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::RegionTargetHttpsProxies> {
         super::transport::RegionTargetHttpsProxies::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RegionTargetHttpsProxies> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::RegionTargetHttpsProxies::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::RegionTargetHttpsProxies> {
+        Self::build_transport(conf).await.map(super::tracing::RegionTargetHttpsProxies::new)
     }
 
     /// Deletes the specified TargetHttpsProxy resource.
-    pub fn delete(&self) -> super::builder::region_target_https_proxies::Delete {
+    pub fn delete(&self) -> super::builder::region_target_https_proxies::Delete
+    {
         super::builder::region_target_https_proxies::Delete::new(self.inner.clone())
     }
 
     /// Returns the specified TargetHttpsProxy resource in the specified region.
-    pub fn get(&self) -> super::builder::region_target_https_proxies::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionTargetHttpsProxies;
+    /// async fn sample(
+    ///    client: &RegionTargetHttpsProxies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::region_target_https_proxies::Get
+    {
         super::builder::region_target_https_proxies::Get::new(self.inner.clone())
     }
 
     /// Creates a TargetHttpsProxy resource in the specified project and region
     /// using the data included in the request.
-    pub fn insert(&self) -> super::builder::region_target_https_proxies::Insert {
+    pub fn insert(&self) -> super::builder::region_target_https_proxies::Insert
+    {
         super::builder::region_target_https_proxies::Insert::new(self.inner.clone())
     }
 
     /// Retrieves the list of TargetHttpsProxy resources available
     /// to the specified project in the specified region.
-    pub fn list(&self) -> super::builder::region_target_https_proxies::List {
+    pub fn list(&self) -> super::builder::region_target_https_proxies::List
+    {
         super::builder::region_target_https_proxies::List::new(self.inner.clone())
     }
 
@@ -13353,24 +16525,42 @@ impl RegionTargetHttpsProxies {
     /// included in the request. This method supports PATCH
     /// semantics and usesJSON merge
     /// patch format and processing rules.
-    pub fn patch(&self) -> super::builder::region_target_https_proxies::Patch {
+    pub fn patch(&self) -> super::builder::region_target_https_proxies::Patch
+    {
         super::builder::region_target_https_proxies::Patch::new(self.inner.clone())
     }
 
     /// Replaces SslCertificates for TargetHttpsProxy.
-    pub fn set_ssl_certificates(
-        &self,
-    ) -> super::builder::region_target_https_proxies::SetSslCertificates {
+    pub fn set_ssl_certificates(&self) -> super::builder::region_target_https_proxies::SetSslCertificates
+    {
         super::builder::region_target_https_proxies::SetSslCertificates::new(self.inner.clone())
     }
 
     /// Changes the URL map for TargetHttpsProxy.
-    pub fn set_url_map(&self) -> super::builder::region_target_https_proxies::SetUrlMap {
+    pub fn set_url_map(&self) -> super::builder::region_target_https_proxies::SetUrlMap
+    {
         super::builder::region_target_https_proxies::SetUrlMap::new(self.inner.clone())
     }
 
     /// Retrieves the specified region-specific Operations resource.
-    pub fn get_operation(&self) -> super::builder::region_target_https_proxies::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionTargetHttpsProxies;
+    /// async fn sample(
+    ///    client: &RegionTargetHttpsProxies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::region_target_https_proxies::GetOperation
+    {
         super::builder::region_target_https_proxies::GetOperation::new(self.inner.clone())
     }
 }
@@ -13434,9 +16624,7 @@ impl RegionTargetTcpProxies {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::region_target_tcp_proxies::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::region_target_tcp_proxies::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::region_target_tcp_proxies::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -13444,69 +16632,91 @@ impl RegionTargetTcpProxies {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::RegionTargetTcpProxies + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::RegionTargetTcpProxies + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::RegionTargetTcpProxies>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::RegionTargetTcpProxies>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RegionTargetTcpProxies> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::RegionTargetTcpProxies> {
         super::transport::RegionTargetTcpProxies::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RegionTargetTcpProxies> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::RegionTargetTcpProxies::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::RegionTargetTcpProxies> {
+        Self::build_transport(conf).await.map(super::tracing::RegionTargetTcpProxies::new)
     }
 
     /// Deletes the specified TargetTcpProxy resource.
-    pub fn delete(&self) -> super::builder::region_target_tcp_proxies::Delete {
+    pub fn delete(&self) -> super::builder::region_target_tcp_proxies::Delete
+    {
         super::builder::region_target_tcp_proxies::Delete::new(self.inner.clone())
     }
 
     /// Returns the specified TargetTcpProxy resource.
-    pub fn get(&self) -> super::builder::region_target_tcp_proxies::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionTargetTcpProxies;
+    /// async fn sample(
+    ///    client: &RegionTargetTcpProxies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::region_target_tcp_proxies::Get
+    {
         super::builder::region_target_tcp_proxies::Get::new(self.inner.clone())
     }
 
     /// Creates a TargetTcpProxy resource in the specified project and region using
     /// the data included in the request.
-    pub fn insert(&self) -> super::builder::region_target_tcp_proxies::Insert {
+    pub fn insert(&self) -> super::builder::region_target_tcp_proxies::Insert
+    {
         super::builder::region_target_tcp_proxies::Insert::new(self.inner.clone())
     }
 
     /// Retrieves a list of TargetTcpProxy resources
     /// available to the specified project in a given region.
-    pub fn list(&self) -> super::builder::region_target_tcp_proxies::List {
+    pub fn list(&self) -> super::builder::region_target_tcp_proxies::List
+    {
         super::builder::region_target_tcp_proxies::List::new(self.inner.clone())
     }
 
     /// Retrieves the specified region-specific Operations resource.
-    pub fn get_operation(&self) -> super::builder::region_target_tcp_proxies::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionTargetTcpProxies;
+    /// async fn sample(
+    ///    client: &RegionTargetTcpProxies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::region_target_tcp_proxies::GetOperation
+    {
         super::builder::region_target_tcp_proxies::GetOperation::new(self.inner.clone())
     }
 }
@@ -13578,63 +16788,69 @@ impl RegionUrlMaps {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::RegionUrlMaps + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::RegionUrlMaps + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::RegionUrlMaps>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::RegionUrlMaps>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RegionUrlMaps> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::RegionUrlMaps> {
         super::transport::RegionUrlMaps::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RegionUrlMaps> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::RegionUrlMaps::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::RegionUrlMaps> {
+        Self::build_transport(conf).await.map(super::tracing::RegionUrlMaps::new)
     }
 
     /// Deletes the specified UrlMap resource.
-    pub fn delete(&self) -> super::builder::region_url_maps::Delete {
+    pub fn delete(&self) -> super::builder::region_url_maps::Delete
+    {
         super::builder::region_url_maps::Delete::new(self.inner.clone())
     }
 
     /// Returns the specified UrlMap resource.
-    pub fn get(&self) -> super::builder::region_url_maps::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionUrlMaps;
+    /// async fn sample(
+    ///    client: &RegionUrlMaps
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::region_url_maps::Get
+    {
         super::builder::region_url_maps::Get::new(self.inner.clone())
     }
 
     /// Creates a UrlMap resource in the specified project using
     /// the data included in the request.
-    pub fn insert(&self) -> super::builder::region_url_maps::Insert {
+    pub fn insert(&self) -> super::builder::region_url_maps::Insert
+    {
         super::builder::region_url_maps::Insert::new(self.inner.clone())
     }
 
     /// Retrieves the list of UrlMap resources available to the specified
     /// project in the specified region.
-    pub fn list(&self) -> super::builder::region_url_maps::List {
+    pub fn list(&self) -> super::builder::region_url_maps::List
+    {
         super::builder::region_url_maps::List::new(self.inner.clone())
     }
 
@@ -13642,25 +16858,61 @@ impl RegionUrlMaps {
     /// request. This method supportsPATCH
     /// semantics and usesJSON merge
     /// patch format and processing rules.
-    pub fn patch(&self) -> super::builder::region_url_maps::Patch {
+    pub fn patch(&self) -> super::builder::region_url_maps::Patch
+    {
         super::builder::region_url_maps::Patch::new(self.inner.clone())
     }
 
     /// Updates the specified UrlMap resource with the data included in the
     /// request.
-    pub fn update(&self) -> super::builder::region_url_maps::Update {
+    pub fn update(&self) -> super::builder::region_url_maps::Update
+    {
         super::builder::region_url_maps::Update::new(self.inner.clone())
     }
 
     /// Runs static validation for the UrlMap. In particular, the tests of the
     /// provided UrlMap will be run. Calling this method does NOT create the
     /// UrlMap.
-    pub fn validate(&self) -> super::builder::region_url_maps::Validate {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionUrlMaps;
+    /// async fn sample(
+    ///    client: &RegionUrlMaps
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .validate()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn validate(&self) -> super::builder::region_url_maps::Validate
+    {
         super::builder::region_url_maps::Validate::new(self.inner.clone())
     }
 
     /// Retrieves the specified region-specific Operations resource.
-    pub fn get_operation(&self) -> super::builder::region_url_maps::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::RegionUrlMaps;
+    /// async fn sample(
+    ///    client: &RegionUrlMaps
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::region_url_maps::GetOperation
+    {
         super::builder::region_url_maps::GetOperation::new(self.inner.clone())
     }
 }
@@ -13732,47 +16984,34 @@ impl RegionZones {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::RegionZones + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::RegionZones + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::RegionZones>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::RegionZones>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RegionZones> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::RegionZones> {
         super::transport::RegionZones::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RegionZones> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::RegionZones::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::RegionZones> {
+        Self::build_transport(conf).await.map(super::tracing::RegionZones::new)
     }
 
     /// Retrieves the list of Zone resources under the specific region available to
     /// the specified project.
-    pub fn list(&self) -> super::builder::region_zones::List {
+    pub fn list(&self) -> super::builder::region_zones::List
+    {
         super::builder::region_zones::List::new(self.inner.clone())
     }
 }
@@ -13844,42 +17083,28 @@ impl Regions {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::Regions + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::Regions + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Regions>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Regions>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Regions> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Regions> {
         super::transport::Regions::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Regions> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::Regions::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Regions> {
+        Self::build_transport(conf).await.map(super::tracing::Regions::new)
     }
 
     /// Returns the specified Region resource.
@@ -13900,7 +17125,24 @@ impl Regions {
     /// It is recommended to use the default setting
     /// for the constraint unless your application requires the fail-closed
     /// behaviour for this method.
-    pub fn get(&self) -> super::builder::regions::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Regions;
+    /// async fn sample(
+    ///    client: &Regions
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::regions::Get
+    {
         super::builder::regions::Get::new(self.inner.clone())
     }
 
@@ -13923,7 +17165,8 @@ impl Regions {
     /// It is recommended to use the default setting
     /// for the constraint unless your application requires the fail-closed
     /// behaviour for this method.
-    pub fn list(&self) -> super::builder::regions::List {
+    pub fn list(&self) -> super::builder::regions::List
+    {
         super::builder::regions::List::new(self.inner.clone())
     }
 }
@@ -13987,9 +17230,7 @@ impl ReservationBlocks {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::reservation_blocks::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::reservation_blocks::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::reservation_blocks::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -13997,79 +17238,151 @@ impl ReservationBlocks {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::ReservationBlocks + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::ReservationBlocks + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ReservationBlocks>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ReservationBlocks>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ReservationBlocks> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ReservationBlocks> {
         super::transport::ReservationBlocks::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ReservationBlocks> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::ReservationBlocks::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ReservationBlocks> {
+        Self::build_transport(conf).await.map(super::tracing::ReservationBlocks::new)
     }
 
     /// Retrieves information about the specified reservation block.
-    pub fn get(&self) -> super::builder::reservation_blocks::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::ReservationBlocks;
+    /// async fn sample(
+    ///    client: &ReservationBlocks
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::reservation_blocks::Get
+    {
         super::builder::reservation_blocks::Get::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. May be empty if no such
     /// policy or resource exists.
-    pub fn get_iam_policy(&self) -> super::builder::reservation_blocks::GetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::ReservationBlocks;
+    /// async fn sample(
+    ///    client: &ReservationBlocks
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::reservation_blocks::GetIamPolicy
+    {
         super::builder::reservation_blocks::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Retrieves a list of reservation blocks under a single reservation.
-    pub fn list(&self) -> super::builder::reservation_blocks::List {
+    pub fn list(&self) -> super::builder::reservation_blocks::List
+    {
         super::builder::reservation_blocks::List::new(self.inner.clone())
     }
 
     /// Allows customers to perform maintenance on a reservation block
-    pub fn perform_maintenance(&self) -> super::builder::reservation_blocks::PerformMaintenance {
+    pub fn perform_maintenance(&self) -> super::builder::reservation_blocks::PerformMaintenance
+    {
         super::builder::reservation_blocks::PerformMaintenance::new(self.inner.clone())
     }
 
     /// Sets the access control policy on the specified resource.
     /// Replaces any existing policy.
-    pub fn set_iam_policy(&self) -> super::builder::reservation_blocks::SetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::ReservationBlocks;
+    /// async fn sample(
+    ///    client: &ReservationBlocks
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::reservation_blocks::SetIamPolicy
+    {
         super::builder::reservation_blocks::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Returns permissions that a caller has on the specified resource.
-    pub fn test_iam_permissions(&self) -> super::builder::reservation_blocks::TestIamPermissions {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::ReservationBlocks;
+    /// async fn sample(
+    ///    client: &ReservationBlocks
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::reservation_blocks::TestIamPermissions
+    {
         super::builder::reservation_blocks::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Retrieves the specified zone-specific Operations resource.
-    pub fn get_operation(&self) -> super::builder::reservation_blocks::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::ReservationBlocks;
+    /// async fn sample(
+    ///    client: &ReservationBlocks
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::reservation_blocks::GetOperation
+    {
         super::builder::reservation_blocks::GetOperation::new(self.inner.clone())
     }
 }
@@ -14133,9 +17446,7 @@ impl ReservationSubBlocks {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::reservation_sub_blocks::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::reservation_sub_blocks::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::reservation_sub_blocks::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -14143,88 +17454,157 @@ impl ReservationSubBlocks {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::ReservationSubBlocks + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::ReservationSubBlocks + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ReservationSubBlocks>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ReservationSubBlocks>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ReservationSubBlocks> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ReservationSubBlocks> {
         super::transport::ReservationSubBlocks::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ReservationSubBlocks> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::ReservationSubBlocks::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ReservationSubBlocks> {
+        Self::build_transport(conf).await.map(super::tracing::ReservationSubBlocks::new)
     }
 
     /// Retrieves information about the specified reservation subBlock.
-    pub fn get(&self) -> super::builder::reservation_sub_blocks::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::ReservationSubBlocks;
+    /// async fn sample(
+    ///    client: &ReservationSubBlocks
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::reservation_sub_blocks::Get
+    {
         super::builder::reservation_sub_blocks::Get::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. May be empty if no such
     /// policy or resource exists.
-    pub fn get_iam_policy(&self) -> super::builder::reservation_sub_blocks::GetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::ReservationSubBlocks;
+    /// async fn sample(
+    ///    client: &ReservationSubBlocks
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::reservation_sub_blocks::GetIamPolicy
+    {
         super::builder::reservation_sub_blocks::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Retrieves a list of reservation subBlocks under a single reservation.
-    pub fn list(&self) -> super::builder::reservation_sub_blocks::List {
+    pub fn list(&self) -> super::builder::reservation_sub_blocks::List
+    {
         super::builder::reservation_sub_blocks::List::new(self.inner.clone())
     }
 
     /// Allows customers to perform maintenance on a reservation subBlock
-    pub fn perform_maintenance(
-        &self,
-    ) -> super::builder::reservation_sub_blocks::PerformMaintenance {
+    pub fn perform_maintenance(&self) -> super::builder::reservation_sub_blocks::PerformMaintenance
+    {
         super::builder::reservation_sub_blocks::PerformMaintenance::new(self.inner.clone())
     }
 
     /// Allows customers to report a faulty subBlock.
-    pub fn report_faulty(&self) -> super::builder::reservation_sub_blocks::ReportFaulty {
+    pub fn report_faulty(&self) -> super::builder::reservation_sub_blocks::ReportFaulty
+    {
         super::builder::reservation_sub_blocks::ReportFaulty::new(self.inner.clone())
     }
 
     /// Sets the access control policy on the specified resource.
     /// Replaces any existing policy.
-    pub fn set_iam_policy(&self) -> super::builder::reservation_sub_blocks::SetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::ReservationSubBlocks;
+    /// async fn sample(
+    ///    client: &ReservationSubBlocks
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::reservation_sub_blocks::SetIamPolicy
+    {
         super::builder::reservation_sub_blocks::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Returns permissions that a caller has on the specified resource.
-    pub fn test_iam_permissions(
-        &self,
-    ) -> super::builder::reservation_sub_blocks::TestIamPermissions {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::ReservationSubBlocks;
+    /// async fn sample(
+    ///    client: &ReservationSubBlocks
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::reservation_sub_blocks::TestIamPermissions
+    {
         super::builder::reservation_sub_blocks::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Retrieves the specified zone-specific Operations resource.
-    pub fn get_operation(&self) -> super::builder::reservation_sub_blocks::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::ReservationSubBlocks;
+    /// async fn sample(
+    ///    client: &ReservationSubBlocks
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::reservation_sub_blocks::GetOperation
+    {
         super::builder::reservation_sub_blocks::GetOperation::new(self.inner.clone())
     }
 }
@@ -14296,110 +17676,188 @@ impl Reservations {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::Reservations + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::Reservations + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Reservations>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Reservations>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Reservations> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Reservations> {
         super::transport::Reservations::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Reservations> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::Reservations::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Reservations> {
+        Self::build_transport(conf).await.map(super::tracing::Reservations::new)
     }
 
     /// Retrieves an aggregated list of reservations.
     ///
     /// To prevent failure, it is recommended that you set the
     /// `returnPartialSuccess` parameter to `true`.
-    pub fn aggregated_list(&self) -> super::builder::reservations::AggregatedList {
+    pub fn aggregated_list(&self) -> super::builder::reservations::AggregatedList
+    {
         super::builder::reservations::AggregatedList::new(self.inner.clone())
     }
 
     /// Deletes the specified reservation.
-    pub fn delete(&self) -> super::builder::reservations::Delete {
+    pub fn delete(&self) -> super::builder::reservations::Delete
+    {
         super::builder::reservations::Delete::new(self.inner.clone())
     }
 
     /// Retrieves information about the specified reservation.
-    pub fn get(&self) -> super::builder::reservations::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Reservations;
+    /// async fn sample(
+    ///    client: &Reservations
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::reservations::Get
+    {
         super::builder::reservations::Get::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. May be empty if no such
     /// policy or resource exists.
-    pub fn get_iam_policy(&self) -> super::builder::reservations::GetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Reservations;
+    /// async fn sample(
+    ///    client: &Reservations
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::reservations::GetIamPolicy
+    {
         super::builder::reservations::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Creates a new reservation. For more information, readReserving zonal
     /// resources.
-    pub fn insert(&self) -> super::builder::reservations::Insert {
+    pub fn insert(&self) -> super::builder::reservations::Insert
+    {
         super::builder::reservations::Insert::new(self.inner.clone())
     }
 
     /// A list of all the reservations that have been configured for the
     /// specified project in specified zone.
-    pub fn list(&self) -> super::builder::reservations::List {
+    pub fn list(&self) -> super::builder::reservations::List
+    {
         super::builder::reservations::List::new(self.inner.clone())
     }
 
     /// Perform maintenance on an extended reservation
-    pub fn perform_maintenance(&self) -> super::builder::reservations::PerformMaintenance {
+    pub fn perform_maintenance(&self) -> super::builder::reservations::PerformMaintenance
+    {
         super::builder::reservations::PerformMaintenance::new(self.inner.clone())
     }
 
     /// Resizes the reservation (applicable to standalone reservations only). For
     /// more information, readModifying
     /// reservations.
-    pub fn resize(&self) -> super::builder::reservations::Resize {
+    pub fn resize(&self) -> super::builder::reservations::Resize
+    {
         super::builder::reservations::Resize::new(self.inner.clone())
     }
 
     /// Sets the access control policy on the specified resource.
     /// Replaces any existing policy.
-    pub fn set_iam_policy(&self) -> super::builder::reservations::SetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Reservations;
+    /// async fn sample(
+    ///    client: &Reservations
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::reservations::SetIamPolicy
+    {
         super::builder::reservations::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Returns permissions that a caller has on the specified resource.
-    pub fn test_iam_permissions(&self) -> super::builder::reservations::TestIamPermissions {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Reservations;
+    /// async fn sample(
+    ///    client: &Reservations
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::reservations::TestIamPermissions
+    {
         super::builder::reservations::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Update share settings of the reservation.
-    pub fn update(&self) -> super::builder::reservations::Update {
+    pub fn update(&self) -> super::builder::reservations::Update
+    {
         super::builder::reservations::Update::new(self.inner.clone())
     }
 
     /// Retrieves the specified zone-specific Operations resource.
-    pub fn get_operation(&self) -> super::builder::reservations::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Reservations;
+    /// async fn sample(
+    ///    client: &Reservations
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::reservations::GetOperation
+    {
         super::builder::reservations::GetOperation::new(self.inner.clone())
     }
 }
@@ -14463,9 +17921,7 @@ impl ResourcePolicies {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::resource_policies::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::resource_policies::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::resource_policies::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -14473,98 +17929,173 @@ impl ResourcePolicies {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::ResourcePolicies + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::ResourcePolicies + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ResourcePolicies>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ResourcePolicies>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ResourcePolicies> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ResourcePolicies> {
         super::transport::ResourcePolicies::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ResourcePolicies> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::ResourcePolicies::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ResourcePolicies> {
+        Self::build_transport(conf).await.map(super::tracing::ResourcePolicies::new)
     }
 
     /// Retrieves an aggregated list of resource policies.
     ///
     /// To prevent failure, Google recommends that you set the
     /// `returnPartialSuccess` parameter to `true`.
-    pub fn aggregated_list(&self) -> super::builder::resource_policies::AggregatedList {
+    pub fn aggregated_list(&self) -> super::builder::resource_policies::AggregatedList
+    {
         super::builder::resource_policies::AggregatedList::new(self.inner.clone())
     }
 
     /// Deletes the specified resource policy.
-    pub fn delete(&self) -> super::builder::resource_policies::Delete {
+    pub fn delete(&self) -> super::builder::resource_policies::Delete
+    {
         super::builder::resource_policies::Delete::new(self.inner.clone())
     }
 
     /// Retrieves all information of the specified resource policy.
-    pub fn get(&self) -> super::builder::resource_policies::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::ResourcePolicies;
+    /// async fn sample(
+    ///    client: &ResourcePolicies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::resource_policies::Get
+    {
         super::builder::resource_policies::Get::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. May be empty if no such
     /// policy or resource exists.
-    pub fn get_iam_policy(&self) -> super::builder::resource_policies::GetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::ResourcePolicies;
+    /// async fn sample(
+    ///    client: &ResourcePolicies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::resource_policies::GetIamPolicy
+    {
         super::builder::resource_policies::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Creates a new resource policy.
-    pub fn insert(&self) -> super::builder::resource_policies::Insert {
+    pub fn insert(&self) -> super::builder::resource_policies::Insert
+    {
         super::builder::resource_policies::Insert::new(self.inner.clone())
     }
 
     /// A list all the resource policies that have been configured for the
     /// specified project in specified region.
-    pub fn list(&self) -> super::builder::resource_policies::List {
+    pub fn list(&self) -> super::builder::resource_policies::List
+    {
         super::builder::resource_policies::List::new(self.inner.clone())
     }
 
     /// Modify the specified resource policy.
-    pub fn patch(&self) -> super::builder::resource_policies::Patch {
+    pub fn patch(&self) -> super::builder::resource_policies::Patch
+    {
         super::builder::resource_policies::Patch::new(self.inner.clone())
     }
 
     /// Sets the access control policy on the specified resource.
     /// Replaces any existing policy.
-    pub fn set_iam_policy(&self) -> super::builder::resource_policies::SetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::ResourcePolicies;
+    /// async fn sample(
+    ///    client: &ResourcePolicies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::resource_policies::SetIamPolicy
+    {
         super::builder::resource_policies::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Returns permissions that a caller has on the specified resource.
-    pub fn test_iam_permissions(&self) -> super::builder::resource_policies::TestIamPermissions {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::ResourcePolicies;
+    /// async fn sample(
+    ///    client: &ResourcePolicies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::resource_policies::TestIamPermissions
+    {
         super::builder::resource_policies::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Retrieves the specified region-specific Operations resource.
-    pub fn get_operation(&self) -> super::builder::resource_policies::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::ResourcePolicies;
+    /// async fn sample(
+    ///    client: &ResourcePolicies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::resource_policies::GetOperation
+    {
         super::builder::resource_policies::GetOperation::new(self.inner.clone())
     }
 }
@@ -14636,106 +18167,168 @@ impl Routers {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::Routers + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::Routers + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Routers>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Routers>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Routers> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Routers> {
         super::transport::Routers::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Routers> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::Routers::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Routers> {
+        Self::build_transport(conf).await.map(super::tracing::Routers::new)
     }
 
     /// Retrieves an aggregated list of routers.
     ///
     /// To prevent failure, Google recommends that you set the
     /// `returnPartialSuccess` parameter to `true`.
-    pub fn aggregated_list(&self) -> super::builder::routers::AggregatedList {
+    pub fn aggregated_list(&self) -> super::builder::routers::AggregatedList
+    {
         super::builder::routers::AggregatedList::new(self.inner.clone())
     }
 
     /// Deletes the specified Router resource.
-    pub fn delete(&self) -> super::builder::routers::Delete {
+    pub fn delete(&self) -> super::builder::routers::Delete
+    {
         super::builder::routers::Delete::new(self.inner.clone())
     }
 
     /// Deletes Route Policy
-    pub fn delete_route_policy(&self) -> super::builder::routers::DeleteRoutePolicy {
+    pub fn delete_route_policy(&self) -> super::builder::routers::DeleteRoutePolicy
+    {
         super::builder::routers::DeleteRoutePolicy::new(self.inner.clone())
     }
 
     /// Returns the specified Router resource.
-    pub fn get(&self) -> super::builder::routers::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Routers;
+    /// async fn sample(
+    ///    client: &Routers
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::routers::Get
+    {
         super::builder::routers::Get::new(self.inner.clone())
     }
 
     /// Retrieves runtime NAT IP information.
-    pub fn get_nat_ip_info(&self) -> super::builder::routers::GetNatIpInfo {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Routers;
+    /// async fn sample(
+    ///    client: &Routers
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_nat_ip_info()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_nat_ip_info(&self) -> super::builder::routers::GetNatIpInfo
+    {
         super::builder::routers::GetNatIpInfo::new(self.inner.clone())
     }
 
     /// Retrieves runtime Nat mapping information of VM endpoints.
-    pub fn get_nat_mapping_info(&self) -> super::builder::routers::GetNatMappingInfo {
+    pub fn get_nat_mapping_info(&self) -> super::builder::routers::GetNatMappingInfo
+    {
         super::builder::routers::GetNatMappingInfo::new(self.inner.clone())
     }
 
     /// Returns specified Route Policy
-    pub fn get_route_policy(&self) -> super::builder::routers::GetRoutePolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Routers;
+    /// async fn sample(
+    ///    client: &Routers
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_route_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_route_policy(&self) -> super::builder::routers::GetRoutePolicy
+    {
         super::builder::routers::GetRoutePolicy::new(self.inner.clone())
     }
 
     /// Retrieves runtime information of the specified router.
-    pub fn get_router_status(&self) -> super::builder::routers::GetRouterStatus {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Routers;
+    /// async fn sample(
+    ///    client: &Routers
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_router_status()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_router_status(&self) -> super::builder::routers::GetRouterStatus
+    {
         super::builder::routers::GetRouterStatus::new(self.inner.clone())
     }
 
     /// Creates a Router resource in the specified project and region using
     /// the data included in the request.
-    pub fn insert(&self) -> super::builder::routers::Insert {
+    pub fn insert(&self) -> super::builder::routers::Insert
+    {
         super::builder::routers::Insert::new(self.inner.clone())
     }
 
     /// Retrieves a list of Router resources available to the specified project.
-    pub fn list(&self) -> super::builder::routers::List {
+    pub fn list(&self) -> super::builder::routers::List
+    {
         super::builder::routers::List::new(self.inner.clone())
     }
 
     /// Retrieves a list of router bgp routes available to the specified project.
-    pub fn list_bgp_routes(&self) -> super::builder::routers::ListBgpRoutes {
+    pub fn list_bgp_routes(&self) -> super::builder::routers::ListBgpRoutes
+    {
         super::builder::routers::ListBgpRoutes::new(self.inner.clone())
     }
 
     /// Retrieves a list of router route policy subresources available to the
     /// specified project.
-    pub fn list_route_policies(&self) -> super::builder::routers::ListRoutePolicies {
+    pub fn list_route_policies(&self) -> super::builder::routers::ListRoutePolicies
+    {
         super::builder::routers::ListRoutePolicies::new(self.inner.clone())
     }
 
@@ -14743,18 +18336,37 @@ impl Routers {
     /// request. This method supportsPATCH
     /// semantics and usesJSON merge
     /// patch format and processing rules.
-    pub fn patch(&self) -> super::builder::routers::Patch {
+    pub fn patch(&self) -> super::builder::routers::Patch
+    {
         super::builder::routers::Patch::new(self.inner.clone())
     }
 
     /// Patches Route Policy
-    pub fn patch_route_policy(&self) -> super::builder::routers::PatchRoutePolicy {
+    pub fn patch_route_policy(&self) -> super::builder::routers::PatchRoutePolicy
+    {
         super::builder::routers::PatchRoutePolicy::new(self.inner.clone())
     }
 
     /// Preview fields auto-generated during router create andupdate operations.
     /// Calling this method does NOT create or update the router.
-    pub fn preview(&self) -> super::builder::routers::Preview {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Routers;
+    /// async fn sample(
+    ///    client: &Routers
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .preview()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn preview(&self) -> super::builder::routers::Preview
+    {
         super::builder::routers::Preview::new(self.inner.clone())
     }
 
@@ -14762,17 +18374,36 @@ impl Routers {
     /// request.  This method conforms toPUT semantics, which requests that the state of the
     /// target resource be created or replaced with the state defined by the
     /// representation enclosed in the request message payload.
-    pub fn update(&self) -> super::builder::routers::Update {
+    pub fn update(&self) -> super::builder::routers::Update
+    {
         super::builder::routers::Update::new(self.inner.clone())
     }
 
     /// Updates or creates new Route Policy
-    pub fn update_route_policy(&self) -> super::builder::routers::UpdateRoutePolicy {
+    pub fn update_route_policy(&self) -> super::builder::routers::UpdateRoutePolicy
+    {
         super::builder::routers::UpdateRoutePolicy::new(self.inner.clone())
     }
 
     /// Retrieves the specified region-specific Operations resource.
-    pub fn get_operation(&self) -> super::builder::routers::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Routers;
+    /// async fn sample(
+    ///    client: &Routers
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::routers::GetOperation
+    {
         super::builder::routers::GetOperation::new(self.inner.clone())
     }
 }
@@ -14844,67 +18475,90 @@ impl Routes {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::Routes + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::Routes + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Routes>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Routes>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Routes> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Routes> {
         super::transport::Routes::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Routes> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::Routes::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Routes> {
+        Self::build_transport(conf).await.map(super::tracing::Routes::new)
     }
 
     /// Deletes the specified Route resource.
-    pub fn delete(&self) -> super::builder::routes::Delete {
+    pub fn delete(&self) -> super::builder::routes::Delete
+    {
         super::builder::routes::Delete::new(self.inner.clone())
     }
 
     /// Returns the specified Route resource.
-    pub fn get(&self) -> super::builder::routes::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Routes;
+    /// async fn sample(
+    ///    client: &Routes
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::routes::Get
+    {
         super::builder::routes::Get::new(self.inner.clone())
     }
 
     /// Creates a Route resource in the specified project using the data included
     /// in the request.
-    pub fn insert(&self) -> super::builder::routes::Insert {
+    pub fn insert(&self) -> super::builder::routes::Insert
+    {
         super::builder::routes::Insert::new(self.inner.clone())
     }
 
     /// Retrieves the list of Route resources available to the specified project.
-    pub fn list(&self) -> super::builder::routes::List {
+    pub fn list(&self) -> super::builder::routes::List
+    {
         super::builder::routes::List::new(self.inner.clone())
     }
 
     /// Retrieves the specified Operations resource.
-    pub fn get_operation(&self) -> super::builder::routes::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Routes;
+    /// async fn sample(
+    ///    client: &Routes
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::routes::GetOperation
+    {
         super::builder::routes::GetOperation::new(self.inner.clone())
     }
 }
@@ -14968,9 +18622,7 @@ impl SecurityPolicies {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::security_policies::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::security_policies::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::security_policies::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -14978,47 +18630,33 @@ impl SecurityPolicies {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::SecurityPolicies + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::SecurityPolicies + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::SecurityPolicies>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::SecurityPolicies>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::SecurityPolicies> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::SecurityPolicies> {
         super::transport::SecurityPolicies::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::SecurityPolicies> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::SecurityPolicies::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::SecurityPolicies> {
+        Self::build_transport(conf).await.map(super::tracing::SecurityPolicies::new)
     }
 
     /// Inserts a rule into a security policy.
-    pub fn add_rule(&self) -> super::builder::security_policies::AddRule {
+    pub fn add_rule(&self) -> super::builder::security_policies::AddRule
+    {
         super::builder::security_policies::AddRule::new(self.inner.clone())
     }
 
@@ -15027,41 +18665,94 @@ impl SecurityPolicies {
     ///
     /// To prevent failure, Google recommends that you set the
     /// `returnPartialSuccess` parameter to `true`.
-    pub fn aggregated_list(&self) -> super::builder::security_policies::AggregatedList {
+    pub fn aggregated_list(&self) -> super::builder::security_policies::AggregatedList
+    {
         super::builder::security_policies::AggregatedList::new(self.inner.clone())
     }
 
     /// Deletes the specified policy.
-    pub fn delete(&self) -> super::builder::security_policies::Delete {
+    pub fn delete(&self) -> super::builder::security_policies::Delete
+    {
         super::builder::security_policies::Delete::new(self.inner.clone())
     }
 
     /// List all of the ordered rules present in a single specified policy.
-    pub fn get(&self) -> super::builder::security_policies::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::SecurityPolicies;
+    /// async fn sample(
+    ///    client: &SecurityPolicies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::security_policies::Get
+    {
         super::builder::security_policies::Get::new(self.inner.clone())
     }
 
     /// Gets a rule at the specified priority.
-    pub fn get_rule(&self) -> super::builder::security_policies::GetRule {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::SecurityPolicies;
+    /// async fn sample(
+    ///    client: &SecurityPolicies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_rule()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_rule(&self) -> super::builder::security_policies::GetRule
+    {
         super::builder::security_policies::GetRule::new(self.inner.clone())
     }
 
     /// Creates a new policy in the specified project using the data included in
     /// the request.
-    pub fn insert(&self) -> super::builder::security_policies::Insert {
+    pub fn insert(&self) -> super::builder::security_policies::Insert
+    {
         super::builder::security_policies::Insert::new(self.inner.clone())
     }
 
     /// List all the policies that have been configured for the specified project.
-    pub fn list(&self) -> super::builder::security_policies::List {
+    pub fn list(&self) -> super::builder::security_policies::List
+    {
         super::builder::security_policies::List::new(self.inner.clone())
     }
 
     /// Gets the current list of preconfigured Web Application Firewall (WAF)
     /// expressions.
-    pub fn list_preconfigured_expression_sets(
-        &self,
-    ) -> super::builder::security_policies::ListPreconfiguredExpressionSets {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::SecurityPolicies;
+    /// async fn sample(
+    ///    client: &SecurityPolicies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .list_preconfigured_expression_sets()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_preconfigured_expression_sets(&self) -> super::builder::security_policies::ListPreconfiguredExpressionSets
+    {
         super::builder::security_policies::ListPreconfiguredExpressionSets::new(self.inner.clone())
     }
 
@@ -15070,30 +18761,51 @@ impl SecurityPolicies {
     /// updateMask. This cannot be used to be update the rules in the policy.
     /// Please use the per rule methods like addRule, patchRule, and removeRule
     /// instead.
-    pub fn patch(&self) -> super::builder::security_policies::Patch {
+    pub fn patch(&self) -> super::builder::security_policies::Patch
+    {
         super::builder::security_policies::Patch::new(self.inner.clone())
     }
 
     /// Patches a rule at the specified priority. To clear fields in the rule,
     /// leave the fields empty and specify them in the updateMask.
-    pub fn patch_rule(&self) -> super::builder::security_policies::PatchRule {
+    pub fn patch_rule(&self) -> super::builder::security_policies::PatchRule
+    {
         super::builder::security_policies::PatchRule::new(self.inner.clone())
     }
 
     /// Deletes a rule at the specified priority.
-    pub fn remove_rule(&self) -> super::builder::security_policies::RemoveRule {
+    pub fn remove_rule(&self) -> super::builder::security_policies::RemoveRule
+    {
         super::builder::security_policies::RemoveRule::new(self.inner.clone())
     }
 
     /// Sets the labels on a security policy. To learn more about labels,
     /// read the Labeling Resources
     /// documentation.
-    pub fn set_labels(&self) -> super::builder::security_policies::SetLabels {
+    pub fn set_labels(&self) -> super::builder::security_policies::SetLabels
+    {
         super::builder::security_policies::SetLabels::new(self.inner.clone())
     }
 
     /// Retrieves the specified Operations resource.
-    pub fn get_operation(&self) -> super::builder::security_policies::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::SecurityPolicies;
+    /// async fn sample(
+    ///    client: &SecurityPolicies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::security_policies::GetOperation
+    {
         super::builder::security_policies::GetOperation::new(self.inner.clone())
     }
 }
@@ -15157,9 +18869,7 @@ impl ServiceAttachments {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::service_attachments::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::service_attachments::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::service_attachments::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -15167,43 +18877,28 @@ impl ServiceAttachments {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::ServiceAttachments + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::ServiceAttachments + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ServiceAttachments>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ServiceAttachments>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ServiceAttachments> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ServiceAttachments> {
         super::transport::ServiceAttachments::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ServiceAttachments> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::ServiceAttachments::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ServiceAttachments> {
+        Self::build_transport(conf).await.map(super::tracing::ServiceAttachments::new)
     }
 
     /// Retrieves the list of all ServiceAttachment resources,
@@ -15211,34 +18906,72 @@ impl ServiceAttachments {
     ///
     /// To prevent failure, Google recommends that you set the
     /// `returnPartialSuccess` parameter to `true`.
-    pub fn aggregated_list(&self) -> super::builder::service_attachments::AggregatedList {
+    pub fn aggregated_list(&self) -> super::builder::service_attachments::AggregatedList
+    {
         super::builder::service_attachments::AggregatedList::new(self.inner.clone())
     }
 
     /// Deletes the specified ServiceAttachment in the given scope
-    pub fn delete(&self) -> super::builder::service_attachments::Delete {
+    pub fn delete(&self) -> super::builder::service_attachments::Delete
+    {
         super::builder::service_attachments::Delete::new(self.inner.clone())
     }
 
     /// Returns the specified ServiceAttachment resource in the given scope.
-    pub fn get(&self) -> super::builder::service_attachments::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::ServiceAttachments;
+    /// async fn sample(
+    ///    client: &ServiceAttachments
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::service_attachments::Get
+    {
         super::builder::service_attachments::Get::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. May be empty if no such
     /// policy or resource exists.
-    pub fn get_iam_policy(&self) -> super::builder::service_attachments::GetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::ServiceAttachments;
+    /// async fn sample(
+    ///    client: &ServiceAttachments
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::service_attachments::GetIamPolicy
+    {
         super::builder::service_attachments::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Creates a ServiceAttachment in the specified project in the given scope
     /// using the parameters that are included in the request.
-    pub fn insert(&self) -> super::builder::service_attachments::Insert {
+    pub fn insert(&self) -> super::builder::service_attachments::Insert
+    {
         super::builder::service_attachments::Insert::new(self.inner.clone())
     }
 
     /// Lists the ServiceAttachments for a project in the given scope.
-    pub fn list(&self) -> super::builder::service_attachments::List {
+    pub fn list(&self) -> super::builder::service_attachments::List
+    {
         super::builder::service_attachments::List::new(self.inner.clone())
     }
 
@@ -15246,23 +18979,75 @@ impl ServiceAttachments {
     /// the request. This method supports PATCH
     /// semantics and usesJSON merge
     /// patch format and processing rules.
-    pub fn patch(&self) -> super::builder::service_attachments::Patch {
+    pub fn patch(&self) -> super::builder::service_attachments::Patch
+    {
         super::builder::service_attachments::Patch::new(self.inner.clone())
     }
 
     /// Sets the access control policy on the specified resource.
     /// Replaces any existing policy.
-    pub fn set_iam_policy(&self) -> super::builder::service_attachments::SetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::ServiceAttachments;
+    /// async fn sample(
+    ///    client: &ServiceAttachments
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::service_attachments::SetIamPolicy
+    {
         super::builder::service_attachments::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Returns permissions that a caller has on the specified resource.
-    pub fn test_iam_permissions(&self) -> super::builder::service_attachments::TestIamPermissions {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::ServiceAttachments;
+    /// async fn sample(
+    ///    client: &ServiceAttachments
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::service_attachments::TestIamPermissions
+    {
         super::builder::service_attachments::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Retrieves the specified region-specific Operations resource.
-    pub fn get_operation(&self) -> super::builder::service_attachments::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::ServiceAttachments;
+    /// async fn sample(
+    ///    client: &ServiceAttachments
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::service_attachments::GetOperation
+    {
         super::builder::service_attachments::GetOperation::new(self.inner.clone())
     }
 }
@@ -15326,9 +19111,7 @@ impl SnapshotSettings {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::snapshot_settings::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::snapshot_settings::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::snapshot_settings::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -15336,57 +19119,77 @@ impl SnapshotSettings {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::SnapshotSettings + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::SnapshotSettings + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::SnapshotSettings>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::SnapshotSettings>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::SnapshotSettings> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::SnapshotSettings> {
         super::transport::SnapshotSettings::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::SnapshotSettings> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::SnapshotSettings::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::SnapshotSettings> {
+        Self::build_transport(conf).await.map(super::tracing::SnapshotSettings::new)
     }
 
     /// Get snapshot settings.
-    pub fn get(&self) -> super::builder::snapshot_settings::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::SnapshotSettings;
+    /// async fn sample(
+    ///    client: &SnapshotSettings
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::snapshot_settings::Get
+    {
         super::builder::snapshot_settings::Get::new(self.inner.clone())
     }
 
     /// Patch snapshot settings.
-    pub fn patch(&self) -> super::builder::snapshot_settings::Patch {
+    pub fn patch(&self) -> super::builder::snapshot_settings::Patch
+    {
         super::builder::snapshot_settings::Patch::new(self.inner.clone())
     }
 
     /// Retrieves the specified Operations resource.
-    pub fn get_operation(&self) -> super::builder::snapshot_settings::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::SnapshotSettings;
+    /// async fn sample(
+    ///    client: &SnapshotSettings
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::snapshot_settings::GetOperation
+    {
         super::builder::snapshot_settings::GetOperation::new(self.inner.clone())
     }
 }
@@ -15458,42 +19261,28 @@ impl Snapshots {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::Snapshots + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::Snapshots + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Snapshots>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Snapshots>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Snapshots> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Snapshots> {
         super::transport::Snapshots::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Snapshots> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::Snapshots::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Snapshots> {
+        Self::build_transport(conf).await.map(super::tracing::Snapshots::new)
     }
 
     /// Deletes the specified Snapshot resource. Keep in mind that deleting
@@ -15504,18 +19293,53 @@ impl Snapshots {
     ///
     /// For more information, seeDeleting
     /// snapshots.
-    pub fn delete(&self) -> super::builder::snapshots::Delete {
+    pub fn delete(&self) -> super::builder::snapshots::Delete
+    {
         super::builder::snapshots::Delete::new(self.inner.clone())
     }
 
     /// Returns the specified Snapshot resource.
-    pub fn get(&self) -> super::builder::snapshots::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Snapshots;
+    /// async fn sample(
+    ///    client: &Snapshots
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::snapshots::Get
+    {
         super::builder::snapshots::Get::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. May be empty if no such
     /// policy or resource exists.
-    pub fn get_iam_policy(&self) -> super::builder::snapshots::GetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Snapshots;
+    /// async fn sample(
+    ///    client: &Snapshots
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::snapshots::GetIamPolicy
+    {
         super::builder::snapshots::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -15524,35 +19348,89 @@ impl Snapshots {
     /// instead of disks.createSnapshot,
     /// as this method supports more features, such as creating snapshots in a
     /// project different from the source disk project.
-    pub fn insert(&self) -> super::builder::snapshots::Insert {
+    pub fn insert(&self) -> super::builder::snapshots::Insert
+    {
         super::builder::snapshots::Insert::new(self.inner.clone())
     }
 
     /// Retrieves the list of Snapshot resources contained within
     /// the specified project.
-    pub fn list(&self) -> super::builder::snapshots::List {
+    pub fn list(&self) -> super::builder::snapshots::List
+    {
         super::builder::snapshots::List::new(self.inner.clone())
     }
 
     /// Sets the access control policy on the specified resource.
     /// Replaces any existing policy.
-    pub fn set_iam_policy(&self) -> super::builder::snapshots::SetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Snapshots;
+    /// async fn sample(
+    ///    client: &Snapshots
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::snapshots::SetIamPolicy
+    {
         super::builder::snapshots::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Sets the labels on a snapshot. To learn more about labels, read theLabeling
     /// Resources documentation.
-    pub fn set_labels(&self) -> super::builder::snapshots::SetLabels {
+    pub fn set_labels(&self) -> super::builder::snapshots::SetLabels
+    {
         super::builder::snapshots::SetLabels::new(self.inner.clone())
     }
 
     /// Returns permissions that a caller has on the specified resource.
-    pub fn test_iam_permissions(&self) -> super::builder::snapshots::TestIamPermissions {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Snapshots;
+    /// async fn sample(
+    ///    client: &Snapshots
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::snapshots::TestIamPermissions
+    {
         super::builder::snapshots::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Retrieves the specified Operations resource.
-    pub fn get_operation(&self) -> super::builder::snapshots::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Snapshots;
+    /// async fn sample(
+    ///    client: &Snapshots
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::snapshots::GetOperation
+    {
         super::builder::snapshots::GetOperation::new(self.inner.clone())
     }
 }
@@ -15616,9 +19494,7 @@ impl SslCertificates {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::ssl_certificates::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::ssl_certificates::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::ssl_certificates::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -15626,43 +19502,28 @@ impl SslCertificates {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::SslCertificates + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::SslCertificates + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::SslCertificates>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::SslCertificates>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::SslCertificates> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::SslCertificates> {
         super::transport::SslCertificates::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::SslCertificates> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::SslCertificates::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::SslCertificates> {
+        Self::build_transport(conf).await.map(super::tracing::SslCertificates::new)
     }
 
     /// Retrieves the list of all SslCertificate resources, regional and global,
@@ -15670,34 +19531,72 @@ impl SslCertificates {
     ///
     /// To prevent failure, Google recommends that you set the
     /// `returnPartialSuccess` parameter to `true`.
-    pub fn aggregated_list(&self) -> super::builder::ssl_certificates::AggregatedList {
+    pub fn aggregated_list(&self) -> super::builder::ssl_certificates::AggregatedList
+    {
         super::builder::ssl_certificates::AggregatedList::new(self.inner.clone())
     }
 
     /// Deletes the specified SslCertificate resource.
-    pub fn delete(&self) -> super::builder::ssl_certificates::Delete {
+    pub fn delete(&self) -> super::builder::ssl_certificates::Delete
+    {
         super::builder::ssl_certificates::Delete::new(self.inner.clone())
     }
 
     /// Returns the specified SslCertificate resource.
-    pub fn get(&self) -> super::builder::ssl_certificates::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::SslCertificates;
+    /// async fn sample(
+    ///    client: &SslCertificates
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::ssl_certificates::Get
+    {
         super::builder::ssl_certificates::Get::new(self.inner.clone())
     }
 
     /// Creates a SslCertificate resource in the specified project using the data
     /// included in the request.
-    pub fn insert(&self) -> super::builder::ssl_certificates::Insert {
+    pub fn insert(&self) -> super::builder::ssl_certificates::Insert
+    {
         super::builder::ssl_certificates::Insert::new(self.inner.clone())
     }
 
     /// Retrieves the list of SslCertificate resources available to the specified
     /// project.
-    pub fn list(&self) -> super::builder::ssl_certificates::List {
+    pub fn list(&self) -> super::builder::ssl_certificates::List
+    {
         super::builder::ssl_certificates::List::new(self.inner.clone())
     }
 
     /// Retrieves the specified Operations resource.
-    pub fn get_operation(&self) -> super::builder::ssl_certificates::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::SslCertificates;
+    /// async fn sample(
+    ///    client: &SslCertificates
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::ssl_certificates::GetOperation
+    {
         super::builder::ssl_certificates::GetOperation::new(self.inner.clone())
     }
 }
@@ -15769,42 +19668,28 @@ impl SslPolicies {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::SslPolicies + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::SslPolicies + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::SslPolicies>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::SslPolicies>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::SslPolicies> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::SslPolicies> {
         super::transport::SslPolicies::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::SslPolicies> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::SslPolicies::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::SslPolicies> {
+        Self::build_transport(conf).await.map(super::tracing::SslPolicies::new)
     }
 
     /// Retrieves the list of all SslPolicy resources, regional and global,
@@ -15812,46 +19697,102 @@ impl SslPolicies {
     ///
     /// To prevent failure, Google recommends that you set the
     /// `returnPartialSuccess` parameter to `true`.
-    pub fn aggregated_list(&self) -> super::builder::ssl_policies::AggregatedList {
+    pub fn aggregated_list(&self) -> super::builder::ssl_policies::AggregatedList
+    {
         super::builder::ssl_policies::AggregatedList::new(self.inner.clone())
     }
 
     /// Deletes the specified SSL policy. The SSL policy resource can be deleted
     /// only if it is not in use by any TargetHttpsProxy or TargetSslProxy
     /// resources.
-    pub fn delete(&self) -> super::builder::ssl_policies::Delete {
+    pub fn delete(&self) -> super::builder::ssl_policies::Delete
+    {
         super::builder::ssl_policies::Delete::new(self.inner.clone())
     }
 
     /// Lists all of the ordered rules present in a single specified policy.
-    pub fn get(&self) -> super::builder::ssl_policies::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::SslPolicies;
+    /// async fn sample(
+    ///    client: &SslPolicies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::ssl_policies::Get
+    {
         super::builder::ssl_policies::Get::new(self.inner.clone())
     }
 
     /// Returns the specified SSL policy resource.
-    pub fn insert(&self) -> super::builder::ssl_policies::Insert {
+    pub fn insert(&self) -> super::builder::ssl_policies::Insert
+    {
         super::builder::ssl_policies::Insert::new(self.inner.clone())
     }
 
     /// Lists all the SSL policies that have been configured for the specified
     /// project.
-    pub fn list(&self) -> super::builder::ssl_policies::List {
+    pub fn list(&self) -> super::builder::ssl_policies::List
+    {
         super::builder::ssl_policies::List::new(self.inner.clone())
     }
 
     /// Lists all features that can be specified in the SSL policy when using
     /// custom profile.
-    pub fn list_available_features(&self) -> super::builder::ssl_policies::ListAvailableFeatures {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::SslPolicies;
+    /// async fn sample(
+    ///    client: &SslPolicies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .list_available_features()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_available_features(&self) -> super::builder::ssl_policies::ListAvailableFeatures
+    {
         super::builder::ssl_policies::ListAvailableFeatures::new(self.inner.clone())
     }
 
     /// Patches the specified SSL policy with the data included in the request.
-    pub fn patch(&self) -> super::builder::ssl_policies::Patch {
+    pub fn patch(&self) -> super::builder::ssl_policies::Patch
+    {
         super::builder::ssl_policies::Patch::new(self.inner.clone())
     }
 
     /// Retrieves the specified Operations resource.
-    pub fn get_operation(&self) -> super::builder::ssl_policies::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::SslPolicies;
+    /// async fn sample(
+    ///    client: &SslPolicies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::ssl_policies::GetOperation
+    {
         super::builder::ssl_policies::GetOperation::new(self.inner.clone())
     }
 }
@@ -15915,9 +19856,7 @@ impl StoragePoolTypes {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::storage_pool_types::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::storage_pool_types::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::storage_pool_types::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -15925,61 +19864,65 @@ impl StoragePoolTypes {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::StoragePoolTypes + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::StoragePoolTypes + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::StoragePoolTypes>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::StoragePoolTypes>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::StoragePoolTypes> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::StoragePoolTypes> {
         super::transport::StoragePoolTypes::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::StoragePoolTypes> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::StoragePoolTypes::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::StoragePoolTypes> {
+        Self::build_transport(conf).await.map(super::tracing::StoragePoolTypes::new)
     }
 
     /// Retrieves an aggregated list of storage pool types.
     ///
     /// To prevent failure, Google recommends that you set the
     /// `returnPartialSuccess` parameter to `true`.
-    pub fn aggregated_list(&self) -> super::builder::storage_pool_types::AggregatedList {
+    pub fn aggregated_list(&self) -> super::builder::storage_pool_types::AggregatedList
+    {
         super::builder::storage_pool_types::AggregatedList::new(self.inner.clone())
     }
 
     /// Returns the specified storage pool type.
-    pub fn get(&self) -> super::builder::storage_pool_types::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::StoragePoolTypes;
+    /// async fn sample(
+    ///    client: &StoragePoolTypes
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::storage_pool_types::Get
+    {
         super::builder::storage_pool_types::Get::new(self.inner.clone())
     }
 
     /// Retrieves a list of storage pool types available to the specified
     /// project.
-    pub fn list(&self) -> super::builder::storage_pool_types::List {
+    pub fn list(&self) -> super::builder::storage_pool_types::List
+    {
         super::builder::storage_pool_types::List::new(self.inner.clone())
     }
 }
@@ -16051,49 +19994,36 @@ impl StoragePools {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::StoragePools + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::StoragePools + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::StoragePools>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::StoragePools>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::StoragePools> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::StoragePools> {
         super::transport::StoragePools::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::StoragePools> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::StoragePools::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::StoragePools> {
+        Self::build_transport(conf).await.map(super::tracing::StoragePools::new)
     }
 
     /// Retrieves an aggregated list of storage pools.
     ///
     /// To prevent failure, Google recommends that you set the
     /// `returnPartialSuccess` parameter to `true`.
-    pub fn aggregated_list(&self) -> super::builder::storage_pools::AggregatedList {
+    pub fn aggregated_list(&self) -> super::builder::storage_pools::AggregatedList
+    {
         super::builder::storage_pools::AggregatedList::new(self.inner.clone())
     }
 
@@ -16102,47 +20032,119 @@ impl StoragePools {
     /// storagePool does not delete any snapshots previously
     /// made from the storagePool. You must separately delete
     /// snapshots.
-    pub fn delete(&self) -> super::builder::storage_pools::Delete {
+    pub fn delete(&self) -> super::builder::storage_pools::Delete
+    {
         super::builder::storage_pools::Delete::new(self.inner.clone())
     }
 
     /// Returns a specified storage pool. Gets a list of available
     /// storage pools by making a list() request.
-    pub fn get(&self) -> super::builder::storage_pools::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::StoragePools;
+    /// async fn sample(
+    ///    client: &StoragePools
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::storage_pools::Get
+    {
         super::builder::storage_pools::Get::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. May be empty if no such
     /// policy or resource exists.
-    pub fn get_iam_policy(&self) -> super::builder::storage_pools::GetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::StoragePools;
+    /// async fn sample(
+    ///    client: &StoragePools
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::storage_pools::GetIamPolicy
+    {
         super::builder::storage_pools::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Creates a storage pool in the specified project using the data
     /// in the request.
-    pub fn insert(&self) -> super::builder::storage_pools::Insert {
+    pub fn insert(&self) -> super::builder::storage_pools::Insert
+    {
         super::builder::storage_pools::Insert::new(self.inner.clone())
     }
 
     /// Retrieves a list of storage pools contained within
     /// the specified zone.
-    pub fn list(&self) -> super::builder::storage_pools::List {
+    pub fn list(&self) -> super::builder::storage_pools::List
+    {
         super::builder::storage_pools::List::new(self.inner.clone())
     }
 
     /// Lists the disks in a specified storage pool.
-    pub fn list_disks(&self) -> super::builder::storage_pools::ListDisks {
+    pub fn list_disks(&self) -> super::builder::storage_pools::ListDisks
+    {
         super::builder::storage_pools::ListDisks::new(self.inner.clone())
     }
 
     /// Sets the access control policy on the specified resource.
     /// Replaces any existing policy.
-    pub fn set_iam_policy(&self) -> super::builder::storage_pools::SetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::StoragePools;
+    /// async fn sample(
+    ///    client: &StoragePools
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::storage_pools::SetIamPolicy
+    {
         super::builder::storage_pools::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Returns permissions that a caller has on the specified resource.
-    pub fn test_iam_permissions(&self) -> super::builder::storage_pools::TestIamPermissions {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::StoragePools;
+    /// async fn sample(
+    ///    client: &StoragePools
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::storage_pools::TestIamPermissions
+    {
         super::builder::storage_pools::TestIamPermissions::new(self.inner.clone())
     }
 
@@ -16151,12 +20153,30 @@ impl StoragePools {
     /// of update-mask. Only the following fields can be modified:
     /// pool_provisioned_capacity_gb, pool_provisioned_iops and
     /// pool_provisioned_throughput.
-    pub fn update(&self) -> super::builder::storage_pools::Update {
+    pub fn update(&self) -> super::builder::storage_pools::Update
+    {
         super::builder::storage_pools::Update::new(self.inner.clone())
     }
 
     /// Retrieves the specified zone-specific Operations resource.
-    pub fn get_operation(&self) -> super::builder::storage_pools::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::StoragePools;
+    /// async fn sample(
+    ///    client: &StoragePools
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::storage_pools::GetOperation
+    {
         super::builder::storage_pools::GetOperation::new(self.inner.clone())
     }
 }
@@ -16228,87 +20248,113 @@ impl Subnetworks {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::Subnetworks + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::Subnetworks + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Subnetworks>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Subnetworks>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Subnetworks> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Subnetworks> {
         super::transport::Subnetworks::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Subnetworks> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::Subnetworks::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Subnetworks> {
+        Self::build_transport(conf).await.map(super::tracing::Subnetworks::new)
     }
 
     /// Retrieves an aggregated list of subnetworks.
     ///
     /// To prevent failure, Google recommends that you set the
     /// `returnPartialSuccess` parameter to `true`.
-    pub fn aggregated_list(&self) -> super::builder::subnetworks::AggregatedList {
+    pub fn aggregated_list(&self) -> super::builder::subnetworks::AggregatedList
+    {
         super::builder::subnetworks::AggregatedList::new(self.inner.clone())
     }
 
     /// Deletes the specified subnetwork.
-    pub fn delete(&self) -> super::builder::subnetworks::Delete {
+    pub fn delete(&self) -> super::builder::subnetworks::Delete
+    {
         super::builder::subnetworks::Delete::new(self.inner.clone())
     }
 
     /// Expands the IP CIDR range of the subnetwork to a specified value.
-    pub fn expand_ip_cidr_range(&self) -> super::builder::subnetworks::ExpandIpCidrRange {
+    pub fn expand_ip_cidr_range(&self) -> super::builder::subnetworks::ExpandIpCidrRange
+    {
         super::builder::subnetworks::ExpandIpCidrRange::new(self.inner.clone())
     }
 
     /// Returns the specified subnetwork.
-    pub fn get(&self) -> super::builder::subnetworks::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Subnetworks;
+    /// async fn sample(
+    ///    client: &Subnetworks
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::subnetworks::Get
+    {
         super::builder::subnetworks::Get::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. May be empty if no such
     /// policy or resource exists.
-    pub fn get_iam_policy(&self) -> super::builder::subnetworks::GetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Subnetworks;
+    /// async fn sample(
+    ///    client: &Subnetworks
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::subnetworks::GetIamPolicy
+    {
         super::builder::subnetworks::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Creates a subnetwork in the specified project using the data
     /// included in the request.
-    pub fn insert(&self) -> super::builder::subnetworks::Insert {
+    pub fn insert(&self) -> super::builder::subnetworks::Insert
+    {
         super::builder::subnetworks::Insert::new(self.inner.clone())
     }
 
     /// Retrieves a list of subnetworks available to the specified
     /// project.
-    pub fn list(&self) -> super::builder::subnetworks::List {
+    pub fn list(&self) -> super::builder::subnetworks::List
+    {
         super::builder::subnetworks::List::new(self.inner.clone())
     }
 
     /// Retrieves an aggregated list of all usable subnetworks in the project.
-    pub fn list_usable(&self) -> super::builder::subnetworks::ListUsable {
+    pub fn list_usable(&self) -> super::builder::subnetworks::ListUsable
+    {
         super::builder::subnetworks::ListUsable::new(self.inner.clone())
     }
 
@@ -16317,31 +20363,82 @@ impl Subnetworks {
     /// as indicated in the field descriptions.
     /// You must specify the current fingerprint of the
     /// subnetwork resource being patched.
-    pub fn patch(&self) -> super::builder::subnetworks::Patch {
+    pub fn patch(&self) -> super::builder::subnetworks::Patch
+    {
         super::builder::subnetworks::Patch::new(self.inner.clone())
     }
 
     /// Sets the access control policy on the specified resource.
     /// Replaces any existing policy.
-    pub fn set_iam_policy(&self) -> super::builder::subnetworks::SetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Subnetworks;
+    /// async fn sample(
+    ///    client: &Subnetworks
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::subnetworks::SetIamPolicy
+    {
         super::builder::subnetworks::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Set whether VMs in this subnet can access Google services without assigning
     /// external IP addresses through Private Google Access.
-    pub fn set_private_ip_google_access(
-        &self,
-    ) -> super::builder::subnetworks::SetPrivateIpGoogleAccess {
+    pub fn set_private_ip_google_access(&self) -> super::builder::subnetworks::SetPrivateIpGoogleAccess
+    {
         super::builder::subnetworks::SetPrivateIpGoogleAccess::new(self.inner.clone())
     }
 
     /// Returns permissions that a caller has on the specified resource.
-    pub fn test_iam_permissions(&self) -> super::builder::subnetworks::TestIamPermissions {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Subnetworks;
+    /// async fn sample(
+    ///    client: &Subnetworks
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::subnetworks::TestIamPermissions
+    {
         super::builder::subnetworks::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Retrieves the specified region-specific Operations resource.
-    pub fn get_operation(&self) -> super::builder::subnetworks::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Subnetworks;
+    /// async fn sample(
+    ///    client: &Subnetworks
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::subnetworks::GetOperation
+    {
         super::builder::subnetworks::GetOperation::new(self.inner.clone())
     }
 }
@@ -16405,9 +20502,7 @@ impl TargetGrpcProxies {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::target_grpc_proxies::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::target_grpc_proxies::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::target_grpc_proxies::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -16415,63 +20510,68 @@ impl TargetGrpcProxies {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::TargetGrpcProxies + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::TargetGrpcProxies + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::TargetGrpcProxies>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::TargetGrpcProxies>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::TargetGrpcProxies> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::TargetGrpcProxies> {
         super::transport::TargetGrpcProxies::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::TargetGrpcProxies> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::TargetGrpcProxies::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::TargetGrpcProxies> {
+        Self::build_transport(conf).await.map(super::tracing::TargetGrpcProxies::new)
     }
 
     /// Deletes the specified TargetGrpcProxy in the given scope
-    pub fn delete(&self) -> super::builder::target_grpc_proxies::Delete {
+    pub fn delete(&self) -> super::builder::target_grpc_proxies::Delete
+    {
         super::builder::target_grpc_proxies::Delete::new(self.inner.clone())
     }
 
     /// Returns the specified TargetGrpcProxy resource in the given scope.
-    pub fn get(&self) -> super::builder::target_grpc_proxies::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::TargetGrpcProxies;
+    /// async fn sample(
+    ///    client: &TargetGrpcProxies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::target_grpc_proxies::Get
+    {
         super::builder::target_grpc_proxies::Get::new(self.inner.clone())
     }
 
     /// Creates a TargetGrpcProxy in the specified project in the given scope
     /// using the parameters that are included in the request.
-    pub fn insert(&self) -> super::builder::target_grpc_proxies::Insert {
+    pub fn insert(&self) -> super::builder::target_grpc_proxies::Insert
+    {
         super::builder::target_grpc_proxies::Insert::new(self.inner.clone())
     }
 
     /// Lists the TargetGrpcProxies for a project in the given scope.
-    pub fn list(&self) -> super::builder::target_grpc_proxies::List {
+    pub fn list(&self) -> super::builder::target_grpc_proxies::List
+    {
         super::builder::target_grpc_proxies::List::new(self.inner.clone())
     }
 
@@ -16479,12 +20579,30 @@ impl TargetGrpcProxies {
     /// the request. This method supports PATCH
     /// semantics and usesJSON merge
     /// patch format and processing rules.
-    pub fn patch(&self) -> super::builder::target_grpc_proxies::Patch {
+    pub fn patch(&self) -> super::builder::target_grpc_proxies::Patch
+    {
         super::builder::target_grpc_proxies::Patch::new(self.inner.clone())
     }
 
     /// Retrieves the specified Operations resource.
-    pub fn get_operation(&self) -> super::builder::target_grpc_proxies::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::TargetGrpcProxies;
+    /// async fn sample(
+    ///    client: &TargetGrpcProxies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::target_grpc_proxies::GetOperation
+    {
         super::builder::target_grpc_proxies::GetOperation::new(self.inner.clone())
     }
 }
@@ -16548,9 +20666,7 @@ impl TargetHttpProxies {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::target_http_proxies::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::target_http_proxies::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::target_http_proxies::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -16558,43 +20674,28 @@ impl TargetHttpProxies {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::TargetHttpProxies + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::TargetHttpProxies + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::TargetHttpProxies>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::TargetHttpProxies>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::TargetHttpProxies> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::TargetHttpProxies> {
         super::transport::TargetHttpProxies::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::TargetHttpProxies> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::TargetHttpProxies::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::TargetHttpProxies> {
+        Self::build_transport(conf).await.map(super::tracing::TargetHttpProxies::new)
     }
 
     /// Retrieves the list of all TargetHttpProxy resources, regional and global,
@@ -16602,29 +20703,50 @@ impl TargetHttpProxies {
     ///
     /// To prevent failure, Google recommends that you set the
     /// `returnPartialSuccess` parameter to `true`.
-    pub fn aggregated_list(&self) -> super::builder::target_http_proxies::AggregatedList {
+    pub fn aggregated_list(&self) -> super::builder::target_http_proxies::AggregatedList
+    {
         super::builder::target_http_proxies::AggregatedList::new(self.inner.clone())
     }
 
     /// Deletes the specified TargetHttpProxy resource.
-    pub fn delete(&self) -> super::builder::target_http_proxies::Delete {
+    pub fn delete(&self) -> super::builder::target_http_proxies::Delete
+    {
         super::builder::target_http_proxies::Delete::new(self.inner.clone())
     }
 
     /// Returns the specified TargetHttpProxy resource.
-    pub fn get(&self) -> super::builder::target_http_proxies::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::TargetHttpProxies;
+    /// async fn sample(
+    ///    client: &TargetHttpProxies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::target_http_proxies::Get
+    {
         super::builder::target_http_proxies::Get::new(self.inner.clone())
     }
 
     /// Creates a TargetHttpProxy resource in the specified
     /// project using the data included in the request.
-    pub fn insert(&self) -> super::builder::target_http_proxies::Insert {
+    pub fn insert(&self) -> super::builder::target_http_proxies::Insert
+    {
         super::builder::target_http_proxies::Insert::new(self.inner.clone())
     }
 
     /// Retrieves the list of TargetHttpProxy resources available
     /// to the specified project.
-    pub fn list(&self) -> super::builder::target_http_proxies::List {
+    pub fn list(&self) -> super::builder::target_http_proxies::List
+    {
         super::builder::target_http_proxies::List::new(self.inner.clone())
     }
 
@@ -16632,17 +20754,36 @@ impl TargetHttpProxies {
     /// the request. This method supports PATCH
     /// semantics and usesJSON merge
     /// patch format and processing rules.
-    pub fn patch(&self) -> super::builder::target_http_proxies::Patch {
+    pub fn patch(&self) -> super::builder::target_http_proxies::Patch
+    {
         super::builder::target_http_proxies::Patch::new(self.inner.clone())
     }
 
     /// Changes the URL map for TargetHttpProxy.
-    pub fn set_url_map(&self) -> super::builder::target_http_proxies::SetUrlMap {
+    pub fn set_url_map(&self) -> super::builder::target_http_proxies::SetUrlMap
+    {
         super::builder::target_http_proxies::SetUrlMap::new(self.inner.clone())
     }
 
     /// Retrieves the specified Operations resource.
-    pub fn get_operation(&self) -> super::builder::target_http_proxies::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::TargetHttpProxies;
+    /// async fn sample(
+    ///    client: &TargetHttpProxies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::target_http_proxies::GetOperation
+    {
         super::builder::target_http_proxies::GetOperation::new(self.inner.clone())
     }
 }
@@ -16706,9 +20847,7 @@ impl TargetHttpsProxies {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::target_https_proxies::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::target_https_proxies::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::target_https_proxies::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -16716,43 +20855,28 @@ impl TargetHttpsProxies {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::TargetHttpsProxies + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::TargetHttpsProxies + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::TargetHttpsProxies>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::TargetHttpsProxies>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::TargetHttpsProxies> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::TargetHttpsProxies> {
         super::transport::TargetHttpsProxies::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::TargetHttpsProxies> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::TargetHttpsProxies::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::TargetHttpsProxies> {
+        Self::build_transport(conf).await.map(super::tracing::TargetHttpsProxies::new)
     }
 
     /// Retrieves the list of all TargetHttpsProxy resources, regional and global,
@@ -16760,29 +20884,50 @@ impl TargetHttpsProxies {
     ///
     /// To prevent failure, Google recommends that you set the
     /// `returnPartialSuccess` parameter to `true`.
-    pub fn aggregated_list(&self) -> super::builder::target_https_proxies::AggregatedList {
+    pub fn aggregated_list(&self) -> super::builder::target_https_proxies::AggregatedList
+    {
         super::builder::target_https_proxies::AggregatedList::new(self.inner.clone())
     }
 
     /// Deletes the specified TargetHttpsProxy resource.
-    pub fn delete(&self) -> super::builder::target_https_proxies::Delete {
+    pub fn delete(&self) -> super::builder::target_https_proxies::Delete
+    {
         super::builder::target_https_proxies::Delete::new(self.inner.clone())
     }
 
     /// Returns the specified TargetHttpsProxy resource.
-    pub fn get(&self) -> super::builder::target_https_proxies::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::TargetHttpsProxies;
+    /// async fn sample(
+    ///    client: &TargetHttpsProxies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::target_https_proxies::Get
+    {
         super::builder::target_https_proxies::Get::new(self.inner.clone())
     }
 
     /// Creates a TargetHttpsProxy resource in the specified
     /// project using the data included in the request.
-    pub fn insert(&self) -> super::builder::target_https_proxies::Insert {
+    pub fn insert(&self) -> super::builder::target_https_proxies::Insert
+    {
         super::builder::target_https_proxies::Insert::new(self.inner.clone())
     }
 
     /// Retrieves the list of TargetHttpsProxy resources
     /// available to the specified project.
-    pub fn list(&self) -> super::builder::target_https_proxies::List {
+    pub fn list(&self) -> super::builder::target_https_proxies::List
+    {
         super::builder::target_https_proxies::List::new(self.inner.clone())
     }
 
@@ -16790,22 +20935,26 @@ impl TargetHttpsProxies {
     /// the request. This method supports PATCH
     /// semantics and usesJSON merge
     /// patch format and processing rules.
-    pub fn patch(&self) -> super::builder::target_https_proxies::Patch {
+    pub fn patch(&self) -> super::builder::target_https_proxies::Patch
+    {
         super::builder::target_https_proxies::Patch::new(self.inner.clone())
     }
 
     /// Changes the Certificate Map for TargetHttpsProxy.
-    pub fn set_certificate_map(&self) -> super::builder::target_https_proxies::SetCertificateMap {
+    pub fn set_certificate_map(&self) -> super::builder::target_https_proxies::SetCertificateMap
+    {
         super::builder::target_https_proxies::SetCertificateMap::new(self.inner.clone())
     }
 
     /// Sets the QUIC override policy for TargetHttpsProxy.
-    pub fn set_quic_override(&self) -> super::builder::target_https_proxies::SetQuicOverride {
+    pub fn set_quic_override(&self) -> super::builder::target_https_proxies::SetQuicOverride
+    {
         super::builder::target_https_proxies::SetQuicOverride::new(self.inner.clone())
     }
 
     /// Replaces SslCertificates for TargetHttpsProxy.
-    pub fn set_ssl_certificates(&self) -> super::builder::target_https_proxies::SetSslCertificates {
+    pub fn set_ssl_certificates(&self) -> super::builder::target_https_proxies::SetSslCertificates
+    {
         super::builder::target_https_proxies::SetSslCertificates::new(self.inner.clone())
     }
 
@@ -16813,17 +20962,36 @@ impl TargetHttpsProxies {
     /// server-side support for SSL features. This affects connections between
     /// clients and the HTTPS proxy load balancer. They do not affect the
     /// connection between the load balancer and the backends.
-    pub fn set_ssl_policy(&self) -> super::builder::target_https_proxies::SetSslPolicy {
+    pub fn set_ssl_policy(&self) -> super::builder::target_https_proxies::SetSslPolicy
+    {
         super::builder::target_https_proxies::SetSslPolicy::new(self.inner.clone())
     }
 
     /// Changes the URL map for TargetHttpsProxy.
-    pub fn set_url_map(&self) -> super::builder::target_https_proxies::SetUrlMap {
+    pub fn set_url_map(&self) -> super::builder::target_https_proxies::SetUrlMap
+    {
         super::builder::target_https_proxies::SetUrlMap::new(self.inner.clone())
     }
 
     /// Retrieves the specified Operations resource.
-    pub fn get_operation(&self) -> super::builder::target_https_proxies::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::TargetHttpsProxies;
+    /// async fn sample(
+    ///    client: &TargetHttpsProxies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::target_https_proxies::GetOperation
+    {
         super::builder::target_https_proxies::GetOperation::new(self.inner.clone())
     }
 }
@@ -16887,9 +21055,7 @@ impl TargetInstances {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::target_instances::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::target_instances::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::target_instances::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -16897,89 +21063,130 @@ impl TargetInstances {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::TargetInstances + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::TargetInstances + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::TargetInstances>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::TargetInstances>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::TargetInstances> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::TargetInstances> {
         super::transport::TargetInstances::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::TargetInstances> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::TargetInstances::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::TargetInstances> {
+        Self::build_transport(conf).await.map(super::tracing::TargetInstances::new)
     }
 
     /// Retrieves an aggregated list of target instances.
     ///
     /// To prevent failure, Google recommends that you set the
     /// `returnPartialSuccess` parameter to `true`.
-    pub fn aggregated_list(&self) -> super::builder::target_instances::AggregatedList {
+    pub fn aggregated_list(&self) -> super::builder::target_instances::AggregatedList
+    {
         super::builder::target_instances::AggregatedList::new(self.inner.clone())
     }
 
     /// Deletes the specified TargetInstance resource.
-    pub fn delete(&self) -> super::builder::target_instances::Delete {
+    pub fn delete(&self) -> super::builder::target_instances::Delete
+    {
         super::builder::target_instances::Delete::new(self.inner.clone())
     }
 
     /// Returns the specified TargetInstance resource.
-    pub fn get(&self) -> super::builder::target_instances::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::TargetInstances;
+    /// async fn sample(
+    ///    client: &TargetInstances
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::target_instances::Get
+    {
         super::builder::target_instances::Get::new(self.inner.clone())
     }
 
     /// Creates a TargetInstance resource in the specified project and zone using
     /// the data included in the request.
-    pub fn insert(&self) -> super::builder::target_instances::Insert {
+    pub fn insert(&self) -> super::builder::target_instances::Insert
+    {
         super::builder::target_instances::Insert::new(self.inner.clone())
     }
 
     /// Retrieves a list of TargetInstance resources available to the specified
     /// project and zone.
-    pub fn list(&self) -> super::builder::target_instances::List {
+    pub fn list(&self) -> super::builder::target_instances::List
+    {
         super::builder::target_instances::List::new(self.inner.clone())
     }
 
     /// Sets the Google Cloud Armor security policy for the specified target
     /// instance. For more information, seeGoogle
     /// Cloud Armor Overview
-    pub fn set_security_policy(&self) -> super::builder::target_instances::SetSecurityPolicy {
+    pub fn set_security_policy(&self) -> super::builder::target_instances::SetSecurityPolicy
+    {
         super::builder::target_instances::SetSecurityPolicy::new(self.inner.clone())
     }
 
     /// Returns permissions that a caller has on the specified resource.
-    pub fn test_iam_permissions(&self) -> super::builder::target_instances::TestIamPermissions {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::TargetInstances;
+    /// async fn sample(
+    ///    client: &TargetInstances
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::target_instances::TestIamPermissions
+    {
         super::builder::target_instances::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Retrieves the specified zone-specific Operations resource.
-    pub fn get_operation(&self) -> super::builder::target_instances::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::TargetInstances;
+    /// async fn sample(
+    ///    client: &TargetInstances
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::target_instances::GetOperation
+    {
         super::builder::target_instances::GetOperation::new(self.inner.clone())
     }
 }
@@ -17051,51 +21258,39 @@ impl TargetPools {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::TargetPools + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::TargetPools + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::TargetPools>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::TargetPools>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::TargetPools> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::TargetPools> {
         super::transport::TargetPools::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::TargetPools> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::TargetPools::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::TargetPools> {
+        Self::build_transport(conf).await.map(super::tracing::TargetPools::new)
     }
 
     /// Adds health check URLs to a target pool.
-    pub fn add_health_check(&self) -> super::builder::target_pools::AddHealthCheck {
+    pub fn add_health_check(&self) -> super::builder::target_pools::AddHealthCheck
+    {
         super::builder::target_pools::AddHealthCheck::new(self.inner.clone())
     }
 
     /// Adds an instance to a target pool.
-    pub fn add_instance(&self) -> super::builder::target_pools::AddInstance {
+    pub fn add_instance(&self) -> super::builder::target_pools::AddInstance
+    {
         super::builder::target_pools::AddInstance::new(self.inner.clone())
     }
 
@@ -17103,67 +21298,143 @@ impl TargetPools {
     ///
     /// To prevent failure, Google recommends that you set the
     /// `returnPartialSuccess` parameter to `true`.
-    pub fn aggregated_list(&self) -> super::builder::target_pools::AggregatedList {
+    pub fn aggregated_list(&self) -> super::builder::target_pools::AggregatedList
+    {
         super::builder::target_pools::AggregatedList::new(self.inner.clone())
     }
 
     /// Deletes the specified target pool.
-    pub fn delete(&self) -> super::builder::target_pools::Delete {
+    pub fn delete(&self) -> super::builder::target_pools::Delete
+    {
         super::builder::target_pools::Delete::new(self.inner.clone())
     }
 
     /// Returns the specified target pool.
-    pub fn get(&self) -> super::builder::target_pools::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::TargetPools;
+    /// async fn sample(
+    ///    client: &TargetPools
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::target_pools::Get
+    {
         super::builder::target_pools::Get::new(self.inner.clone())
     }
 
     /// Gets the most recent health check results for each IP for the
     /// instance that is referenced by the given target pool.
-    pub fn get_health(&self) -> super::builder::target_pools::GetHealth {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::TargetPools;
+    /// async fn sample(
+    ///    client: &TargetPools
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_health()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_health(&self) -> super::builder::target_pools::GetHealth
+    {
         super::builder::target_pools::GetHealth::new(self.inner.clone())
     }
 
     /// Creates a target pool in the specified project and region using
     /// the data included in the request.
-    pub fn insert(&self) -> super::builder::target_pools::Insert {
+    pub fn insert(&self) -> super::builder::target_pools::Insert
+    {
         super::builder::target_pools::Insert::new(self.inner.clone())
     }
 
     /// Retrieves a list of target pools available to the specified
     /// project and region.
-    pub fn list(&self) -> super::builder::target_pools::List {
+    pub fn list(&self) -> super::builder::target_pools::List
+    {
         super::builder::target_pools::List::new(self.inner.clone())
     }
 
     /// Removes health check URL from a target pool.
-    pub fn remove_health_check(&self) -> super::builder::target_pools::RemoveHealthCheck {
+    pub fn remove_health_check(&self) -> super::builder::target_pools::RemoveHealthCheck
+    {
         super::builder::target_pools::RemoveHealthCheck::new(self.inner.clone())
     }
 
     /// Removes instance URL from a target pool.
-    pub fn remove_instance(&self) -> super::builder::target_pools::RemoveInstance {
+    pub fn remove_instance(&self) -> super::builder::target_pools::RemoveInstance
+    {
         super::builder::target_pools::RemoveInstance::new(self.inner.clone())
     }
 
     /// Changes a backup target pool's configurations.
-    pub fn set_backup(&self) -> super::builder::target_pools::SetBackup {
+    pub fn set_backup(&self) -> super::builder::target_pools::SetBackup
+    {
         super::builder::target_pools::SetBackup::new(self.inner.clone())
     }
 
     /// Sets the Google Cloud Armor security policy for the specified target pool.
     /// For more information, seeGoogle
     /// Cloud Armor Overview
-    pub fn set_security_policy(&self) -> super::builder::target_pools::SetSecurityPolicy {
+    pub fn set_security_policy(&self) -> super::builder::target_pools::SetSecurityPolicy
+    {
         super::builder::target_pools::SetSecurityPolicy::new(self.inner.clone())
     }
 
     /// Returns permissions that a caller has on the specified resource.
-    pub fn test_iam_permissions(&self) -> super::builder::target_pools::TestIamPermissions {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::TargetPools;
+    /// async fn sample(
+    ///    client: &TargetPools
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::target_pools::TestIamPermissions
+    {
         super::builder::target_pools::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Retrieves the specified region-specific Operations resource.
-    pub fn get_operation(&self) -> super::builder::target_pools::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::TargetPools;
+    /// async fn sample(
+    ///    client: &TargetPools
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::target_pools::GetOperation
+    {
         super::builder::target_pools::GetOperation::new(self.inner.clone())
     }
 }
@@ -17227,9 +21498,7 @@ impl TargetSslProxies {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::target_ssl_proxies::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::target_ssl_proxies::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::target_ssl_proxies::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -17237,84 +21506,93 @@ impl TargetSslProxies {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::TargetSslProxies + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::TargetSslProxies + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::TargetSslProxies>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::TargetSslProxies>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::TargetSslProxies> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::TargetSslProxies> {
         super::transport::TargetSslProxies::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::TargetSslProxies> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::TargetSslProxies::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::TargetSslProxies> {
+        Self::build_transport(conf).await.map(super::tracing::TargetSslProxies::new)
     }
 
     /// Deletes the specified TargetSslProxy resource.
-    pub fn delete(&self) -> super::builder::target_ssl_proxies::Delete {
+    pub fn delete(&self) -> super::builder::target_ssl_proxies::Delete
+    {
         super::builder::target_ssl_proxies::Delete::new(self.inner.clone())
     }
 
     /// Returns the specified TargetSslProxy resource.
-    pub fn get(&self) -> super::builder::target_ssl_proxies::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::TargetSslProxies;
+    /// async fn sample(
+    ///    client: &TargetSslProxies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::target_ssl_proxies::Get
+    {
         super::builder::target_ssl_proxies::Get::new(self.inner.clone())
     }
 
     /// Creates a TargetSslProxy resource in the specified project using
     /// the data included in the request.
-    pub fn insert(&self) -> super::builder::target_ssl_proxies::Insert {
+    pub fn insert(&self) -> super::builder::target_ssl_proxies::Insert
+    {
         super::builder::target_ssl_proxies::Insert::new(self.inner.clone())
     }
 
     /// Retrieves the list of TargetSslProxy resources
     /// available to the specified project.
-    pub fn list(&self) -> super::builder::target_ssl_proxies::List {
+    pub fn list(&self) -> super::builder::target_ssl_proxies::List
+    {
         super::builder::target_ssl_proxies::List::new(self.inner.clone())
     }
 
     /// Changes the BackendService for TargetSslProxy.
-    pub fn set_backend_service(&self) -> super::builder::target_ssl_proxies::SetBackendService {
+    pub fn set_backend_service(&self) -> super::builder::target_ssl_proxies::SetBackendService
+    {
         super::builder::target_ssl_proxies::SetBackendService::new(self.inner.clone())
     }
 
     /// Changes the Certificate Map for TargetSslProxy.
-    pub fn set_certificate_map(&self) -> super::builder::target_ssl_proxies::SetCertificateMap {
+    pub fn set_certificate_map(&self) -> super::builder::target_ssl_proxies::SetCertificateMap
+    {
         super::builder::target_ssl_proxies::SetCertificateMap::new(self.inner.clone())
     }
 
     /// Changes the ProxyHeaderType for TargetSslProxy.
-    pub fn set_proxy_header(&self) -> super::builder::target_ssl_proxies::SetProxyHeader {
+    pub fn set_proxy_header(&self) -> super::builder::target_ssl_proxies::SetProxyHeader
+    {
         super::builder::target_ssl_proxies::SetProxyHeader::new(self.inner.clone())
     }
 
     /// Changes SslCertificates for TargetSslProxy.
-    pub fn set_ssl_certificates(&self) -> super::builder::target_ssl_proxies::SetSslCertificates {
+    pub fn set_ssl_certificates(&self) -> super::builder::target_ssl_proxies::SetSslCertificates
+    {
         super::builder::target_ssl_proxies::SetSslCertificates::new(self.inner.clone())
     }
 
@@ -17322,12 +21600,30 @@ impl TargetSslProxies {
     /// server-side support for SSL features. This affects connections between
     /// clients and the load balancer. They do not affect the
     /// connection between the load balancer and the backends.
-    pub fn set_ssl_policy(&self) -> super::builder::target_ssl_proxies::SetSslPolicy {
+    pub fn set_ssl_policy(&self) -> super::builder::target_ssl_proxies::SetSslPolicy
+    {
         super::builder::target_ssl_proxies::SetSslPolicy::new(self.inner.clone())
     }
 
     /// Retrieves the specified Operations resource.
-    pub fn get_operation(&self) -> super::builder::target_ssl_proxies::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::TargetSslProxies;
+    /// async fn sample(
+    ///    client: &TargetSslProxies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::target_ssl_proxies::GetOperation
+    {
         super::builder::target_ssl_proxies::GetOperation::new(self.inner.clone())
     }
 }
@@ -17391,9 +21687,7 @@ impl TargetTcpProxies {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::target_tcp_proxies::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::target_tcp_proxies::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::target_tcp_proxies::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -17401,43 +21695,28 @@ impl TargetTcpProxies {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::TargetTcpProxies + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::TargetTcpProxies + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::TargetTcpProxies>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::TargetTcpProxies>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::TargetTcpProxies> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::TargetTcpProxies> {
         super::transport::TargetTcpProxies::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::TargetTcpProxies> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::TargetTcpProxies::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::TargetTcpProxies> {
+        Self::build_transport(conf).await.map(super::tracing::TargetTcpProxies::new)
     }
 
     /// Retrieves the list of all TargetTcpProxy resources, regional and global,
@@ -17445,44 +21724,84 @@ impl TargetTcpProxies {
     ///
     /// To prevent failure, Google recommends that you set the
     /// `returnPartialSuccess` parameter to `true`.
-    pub fn aggregated_list(&self) -> super::builder::target_tcp_proxies::AggregatedList {
+    pub fn aggregated_list(&self) -> super::builder::target_tcp_proxies::AggregatedList
+    {
         super::builder::target_tcp_proxies::AggregatedList::new(self.inner.clone())
     }
 
     /// Deletes the specified TargetTcpProxy resource.
-    pub fn delete(&self) -> super::builder::target_tcp_proxies::Delete {
+    pub fn delete(&self) -> super::builder::target_tcp_proxies::Delete
+    {
         super::builder::target_tcp_proxies::Delete::new(self.inner.clone())
     }
 
     /// Returns the specified TargetTcpProxy resource.
-    pub fn get(&self) -> super::builder::target_tcp_proxies::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::TargetTcpProxies;
+    /// async fn sample(
+    ///    client: &TargetTcpProxies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::target_tcp_proxies::Get
+    {
         super::builder::target_tcp_proxies::Get::new(self.inner.clone())
     }
 
     /// Creates a TargetTcpProxy resource in the specified project using
     /// the data included in the request.
-    pub fn insert(&self) -> super::builder::target_tcp_proxies::Insert {
+    pub fn insert(&self) -> super::builder::target_tcp_proxies::Insert
+    {
         super::builder::target_tcp_proxies::Insert::new(self.inner.clone())
     }
 
     /// Retrieves the list of TargetTcpProxy resources
     /// available to the specified project.
-    pub fn list(&self) -> super::builder::target_tcp_proxies::List {
+    pub fn list(&self) -> super::builder::target_tcp_proxies::List
+    {
         super::builder::target_tcp_proxies::List::new(self.inner.clone())
     }
 
     /// Changes the BackendService for TargetTcpProxy.
-    pub fn set_backend_service(&self) -> super::builder::target_tcp_proxies::SetBackendService {
+    pub fn set_backend_service(&self) -> super::builder::target_tcp_proxies::SetBackendService
+    {
         super::builder::target_tcp_proxies::SetBackendService::new(self.inner.clone())
     }
 
     /// Changes the ProxyHeaderType for TargetTcpProxy.
-    pub fn set_proxy_header(&self) -> super::builder::target_tcp_proxies::SetProxyHeader {
+    pub fn set_proxy_header(&self) -> super::builder::target_tcp_proxies::SetProxyHeader
+    {
         super::builder::target_tcp_proxies::SetProxyHeader::new(self.inner.clone())
     }
 
     /// Retrieves the specified Operations resource.
-    pub fn get_operation(&self) -> super::builder::target_tcp_proxies::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::TargetTcpProxies;
+    /// async fn sample(
+    ///    client: &TargetTcpProxies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::target_tcp_proxies::GetOperation
+    {
         super::builder::target_tcp_proxies::GetOperation::new(self.inner.clone())
     }
 }
@@ -17546,9 +21865,7 @@ impl TargetVpnGateways {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::target_vpn_gateways::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::target_vpn_gateways::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::target_vpn_gateways::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -17556,83 +21873,107 @@ impl TargetVpnGateways {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::TargetVpnGateways + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::TargetVpnGateways + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::TargetVpnGateways>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::TargetVpnGateways>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::TargetVpnGateways> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::TargetVpnGateways> {
         super::transport::TargetVpnGateways::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::TargetVpnGateways> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::TargetVpnGateways::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::TargetVpnGateways> {
+        Self::build_transport(conf).await.map(super::tracing::TargetVpnGateways::new)
     }
 
     /// Retrieves an aggregated list of target VPN gateways.
     ///
     /// To prevent failure, Google recommends that you set the
     /// `returnPartialSuccess` parameter to `true`.
-    pub fn aggregated_list(&self) -> super::builder::target_vpn_gateways::AggregatedList {
+    pub fn aggregated_list(&self) -> super::builder::target_vpn_gateways::AggregatedList
+    {
         super::builder::target_vpn_gateways::AggregatedList::new(self.inner.clone())
     }
 
     /// Deletes the specified target VPN gateway.
-    pub fn delete(&self) -> super::builder::target_vpn_gateways::Delete {
+    pub fn delete(&self) -> super::builder::target_vpn_gateways::Delete
+    {
         super::builder::target_vpn_gateways::Delete::new(self.inner.clone())
     }
 
     /// Returns the specified target VPN gateway.
-    pub fn get(&self) -> super::builder::target_vpn_gateways::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::TargetVpnGateways;
+    /// async fn sample(
+    ///    client: &TargetVpnGateways
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::target_vpn_gateways::Get
+    {
         super::builder::target_vpn_gateways::Get::new(self.inner.clone())
     }
 
     /// Creates a target VPN gateway in the specified project and region using
     /// the data included in the request.
-    pub fn insert(&self) -> super::builder::target_vpn_gateways::Insert {
+    pub fn insert(&self) -> super::builder::target_vpn_gateways::Insert
+    {
         super::builder::target_vpn_gateways::Insert::new(self.inner.clone())
     }
 
     /// Retrieves a list of target VPN gateways available to the specified
     /// project and region.
-    pub fn list(&self) -> super::builder::target_vpn_gateways::List {
+    pub fn list(&self) -> super::builder::target_vpn_gateways::List
+    {
         super::builder::target_vpn_gateways::List::new(self.inner.clone())
     }
 
     /// Sets the labels on a TargetVpnGateway. To learn more about labels, read theLabeling
     /// Resources documentation.
-    pub fn set_labels(&self) -> super::builder::target_vpn_gateways::SetLabels {
+    pub fn set_labels(&self) -> super::builder::target_vpn_gateways::SetLabels
+    {
         super::builder::target_vpn_gateways::SetLabels::new(self.inner.clone())
     }
 
     /// Retrieves the specified region-specific Operations resource.
-    pub fn get_operation(&self) -> super::builder::target_vpn_gateways::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::TargetVpnGateways;
+    /// async fn sample(
+    ///    client: &TargetVpnGateways
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::target_vpn_gateways::GetOperation
+    {
         super::builder::target_vpn_gateways::GetOperation::new(self.inner.clone())
     }
 }
@@ -17704,42 +22045,28 @@ impl UrlMaps {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::UrlMaps + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::UrlMaps + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::UrlMaps>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::UrlMaps>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::UrlMaps> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::UrlMaps> {
         super::transport::UrlMaps::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::UrlMaps> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::UrlMaps::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::UrlMaps> {
+        Self::build_transport(conf).await.map(super::tracing::UrlMaps::new)
     }
 
     /// Retrieves the list of all UrlMap resources, regional and global,
@@ -17747,23 +22074,43 @@ impl UrlMaps {
     ///
     /// To prevent failure, Google recommends that you set the
     /// `returnPartialSuccess` parameter to `true`.
-    pub fn aggregated_list(&self) -> super::builder::url_maps::AggregatedList {
+    pub fn aggregated_list(&self) -> super::builder::url_maps::AggregatedList
+    {
         super::builder::url_maps::AggregatedList::new(self.inner.clone())
     }
 
     /// Deletes the specified UrlMap resource.
-    pub fn delete(&self) -> super::builder::url_maps::Delete {
+    pub fn delete(&self) -> super::builder::url_maps::Delete
+    {
         super::builder::url_maps::Delete::new(self.inner.clone())
     }
 
     /// Returns the specified UrlMap resource.
-    pub fn get(&self) -> super::builder::url_maps::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::UrlMaps;
+    /// async fn sample(
+    ///    client: &UrlMaps
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::url_maps::Get
+    {
         super::builder::url_maps::Get::new(self.inner.clone())
     }
 
     /// Creates a UrlMap resource in the specified project using
     /// the data included in the request.
-    pub fn insert(&self) -> super::builder::url_maps::Insert {
+    pub fn insert(&self) -> super::builder::url_maps::Insert
+    {
         super::builder::url_maps::Insert::new(self.inner.clone())
     }
 
@@ -17772,13 +22119,15 @@ impl UrlMaps {
     ///
     /// For more information, see [Invalidating cached
     /// content](/cdn/docs/invalidating-cached-content).
-    pub fn invalidate_cache(&self) -> super::builder::url_maps::InvalidateCache {
+    pub fn invalidate_cache(&self) -> super::builder::url_maps::InvalidateCache
+    {
         super::builder::url_maps::InvalidateCache::new(self.inner.clone())
     }
 
     /// Retrieves the list of UrlMap resources available to the specified
     /// project.
-    pub fn list(&self) -> super::builder::url_maps::List {
+    pub fn list(&self) -> super::builder::url_maps::List
+    {
         super::builder::url_maps::List::new(self.inner.clone())
     }
 
@@ -17786,25 +22135,61 @@ impl UrlMaps {
     /// request. This method supportsPATCH
     /// semantics and uses theJSON merge
     /// patch format and processing rules.
-    pub fn patch(&self) -> super::builder::url_maps::Patch {
+    pub fn patch(&self) -> super::builder::url_maps::Patch
+    {
         super::builder::url_maps::Patch::new(self.inner.clone())
     }
 
     /// Updates the specified UrlMap resource with the data included in the
     /// request.
-    pub fn update(&self) -> super::builder::url_maps::Update {
+    pub fn update(&self) -> super::builder::url_maps::Update
+    {
         super::builder::url_maps::Update::new(self.inner.clone())
     }
 
     /// Runs static validation for the UrlMap. In particular, the tests of the
     /// provided UrlMap will be run. Calling this method does NOT create the
     /// UrlMap.
-    pub fn validate(&self) -> super::builder::url_maps::Validate {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::UrlMaps;
+    /// async fn sample(
+    ///    client: &UrlMaps
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .validate()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn validate(&self) -> super::builder::url_maps::Validate
+    {
         super::builder::url_maps::Validate::new(self.inner.clone())
     }
 
     /// Retrieves the specified Operations resource.
-    pub fn get_operation(&self) -> super::builder::url_maps::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::UrlMaps;
+    /// async fn sample(
+    ///    client: &UrlMaps
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::url_maps::GetOperation
+    {
         super::builder::url_maps::GetOperation::new(self.inner.clone())
     }
 }
@@ -17876,92 +22261,151 @@ impl VpnGateways {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::VpnGateways + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::VpnGateways + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::VpnGateways>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::VpnGateways>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::VpnGateways> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::VpnGateways> {
         super::transport::VpnGateways::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::VpnGateways> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::VpnGateways::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::VpnGateways> {
+        Self::build_transport(conf).await.map(super::tracing::VpnGateways::new)
     }
 
     /// Retrieves an aggregated list of VPN gateways.
     ///
     /// To prevent failure, Google recommends that you set the
     /// `returnPartialSuccess` parameter to `true`.
-    pub fn aggregated_list(&self) -> super::builder::vpn_gateways::AggregatedList {
+    pub fn aggregated_list(&self) -> super::builder::vpn_gateways::AggregatedList
+    {
         super::builder::vpn_gateways::AggregatedList::new(self.inner.clone())
     }
 
     /// Deletes the specified VPN gateway.
-    pub fn delete(&self) -> super::builder::vpn_gateways::Delete {
+    pub fn delete(&self) -> super::builder::vpn_gateways::Delete
+    {
         super::builder::vpn_gateways::Delete::new(self.inner.clone())
     }
 
     /// Returns the specified VPN gateway.
-    pub fn get(&self) -> super::builder::vpn_gateways::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::VpnGateways;
+    /// async fn sample(
+    ///    client: &VpnGateways
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::vpn_gateways::Get
+    {
         super::builder::vpn_gateways::Get::new(self.inner.clone())
     }
 
     /// Returns the status for the specified VPN gateway.
-    pub fn get_status(&self) -> super::builder::vpn_gateways::GetStatus {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::VpnGateways;
+    /// async fn sample(
+    ///    client: &VpnGateways
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_status()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_status(&self) -> super::builder::vpn_gateways::GetStatus
+    {
         super::builder::vpn_gateways::GetStatus::new(self.inner.clone())
     }
 
     /// Creates a VPN gateway in the specified project and region using
     /// the data included in the request.
-    pub fn insert(&self) -> super::builder::vpn_gateways::Insert {
+    pub fn insert(&self) -> super::builder::vpn_gateways::Insert
+    {
         super::builder::vpn_gateways::Insert::new(self.inner.clone())
     }
 
     /// Retrieves a list of VPN gateways available to the specified
     /// project and region.
-    pub fn list(&self) -> super::builder::vpn_gateways::List {
+    pub fn list(&self) -> super::builder::vpn_gateways::List
+    {
         super::builder::vpn_gateways::List::new(self.inner.clone())
     }
 
     /// Sets the labels on a VpnGateway. To learn more about labels, read theLabeling
     /// Resources documentation.
-    pub fn set_labels(&self) -> super::builder::vpn_gateways::SetLabels {
+    pub fn set_labels(&self) -> super::builder::vpn_gateways::SetLabels
+    {
         super::builder::vpn_gateways::SetLabels::new(self.inner.clone())
     }
 
     /// Returns permissions that a caller has on the specified resource.
-    pub fn test_iam_permissions(&self) -> super::builder::vpn_gateways::TestIamPermissions {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::VpnGateways;
+    /// async fn sample(
+    ///    client: &VpnGateways
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::vpn_gateways::TestIamPermissions
+    {
         super::builder::vpn_gateways::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Retrieves the specified region-specific Operations resource.
-    pub fn get_operation(&self) -> super::builder::vpn_gateways::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::VpnGateways;
+    /// async fn sample(
+    ///    client: &VpnGateways
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::vpn_gateways::GetOperation
+    {
         super::builder::vpn_gateways::GetOperation::new(self.inner.clone())
     }
 }
@@ -18033,82 +22477,107 @@ impl VpnTunnels {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::VpnTunnels + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::VpnTunnels + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::VpnTunnels>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::VpnTunnels>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::VpnTunnels> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::VpnTunnels> {
         super::transport::VpnTunnels::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::VpnTunnels> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::VpnTunnels::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::VpnTunnels> {
+        Self::build_transport(conf).await.map(super::tracing::VpnTunnels::new)
     }
 
     /// Retrieves an aggregated list of VPN tunnels.
     ///
     /// To prevent failure, Google recommends that you set the
     /// `returnPartialSuccess` parameter to `true`.
-    pub fn aggregated_list(&self) -> super::builder::vpn_tunnels::AggregatedList {
+    pub fn aggregated_list(&self) -> super::builder::vpn_tunnels::AggregatedList
+    {
         super::builder::vpn_tunnels::AggregatedList::new(self.inner.clone())
     }
 
     /// Deletes the specified VpnTunnel resource.
-    pub fn delete(&self) -> super::builder::vpn_tunnels::Delete {
+    pub fn delete(&self) -> super::builder::vpn_tunnels::Delete
+    {
         super::builder::vpn_tunnels::Delete::new(self.inner.clone())
     }
 
     /// Returns the specified VpnTunnel resource.
-    pub fn get(&self) -> super::builder::vpn_tunnels::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::VpnTunnels;
+    /// async fn sample(
+    ///    client: &VpnTunnels
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::vpn_tunnels::Get
+    {
         super::builder::vpn_tunnels::Get::new(self.inner.clone())
     }
 
     /// Creates a VpnTunnel resource in the specified project and region using
     /// the data included in the request.
-    pub fn insert(&self) -> super::builder::vpn_tunnels::Insert {
+    pub fn insert(&self) -> super::builder::vpn_tunnels::Insert
+    {
         super::builder::vpn_tunnels::Insert::new(self.inner.clone())
     }
 
     /// Retrieves a list of VpnTunnel resources contained in the specified
     /// project and region.
-    pub fn list(&self) -> super::builder::vpn_tunnels::List {
+    pub fn list(&self) -> super::builder::vpn_tunnels::List
+    {
         super::builder::vpn_tunnels::List::new(self.inner.clone())
     }
 
     /// Sets the labels on a VpnTunnel. To learn more about labels, read theLabeling
     /// Resources documentation.
-    pub fn set_labels(&self) -> super::builder::vpn_tunnels::SetLabels {
+    pub fn set_labels(&self) -> super::builder::vpn_tunnels::SetLabels
+    {
         super::builder::vpn_tunnels::SetLabels::new(self.inner.clone())
     }
 
     /// Retrieves the specified region-specific Operations resource.
-    pub fn get_operation(&self) -> super::builder::vpn_tunnels::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::VpnTunnels;
+    /// async fn sample(
+    ///    client: &VpnTunnels
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::vpn_tunnels::GetOperation
+    {
         super::builder::vpn_tunnels::GetOperation::new(self.inner.clone())
     }
 }
@@ -18180,62 +22649,68 @@ impl WireGroups {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::WireGroups + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::WireGroups + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::WireGroups>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::WireGroups>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::WireGroups> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::WireGroups> {
         super::transport::WireGroups::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::WireGroups> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::WireGroups::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::WireGroups> {
+        Self::build_transport(conf).await.map(super::tracing::WireGroups::new)
     }
 
     /// Deletes the specified wire group in the given scope.
-    pub fn delete(&self) -> super::builder::wire_groups::Delete {
+    pub fn delete(&self) -> super::builder::wire_groups::Delete
+    {
         super::builder::wire_groups::Delete::new(self.inner.clone())
     }
 
     /// Gets the specified wire group resource in the given scope.
-    pub fn get(&self) -> super::builder::wire_groups::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::WireGroups;
+    /// async fn sample(
+    ///    client: &WireGroups
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::wire_groups::Get
+    {
         super::builder::wire_groups::Get::new(self.inner.clone())
     }
 
     /// Creates a wire group in the specified project in the given scope
     /// using the parameters that are included in the request.
-    pub fn insert(&self) -> super::builder::wire_groups::Insert {
+    pub fn insert(&self) -> super::builder::wire_groups::Insert
+    {
         super::builder::wire_groups::Insert::new(self.inner.clone())
     }
 
     /// Lists the wire groups for a project in the given scope.
-    pub fn list(&self) -> super::builder::wire_groups::List {
+    pub fn list(&self) -> super::builder::wire_groups::List
+    {
         super::builder::wire_groups::List::new(self.inner.clone())
     }
 
@@ -18243,12 +22718,30 @@ impl WireGroups {
     /// request. This method supportsPATCH
     /// semantics and usesJSON merge
     /// patch format and processing rules.
-    pub fn patch(&self) -> super::builder::wire_groups::Patch {
+    pub fn patch(&self) -> super::builder::wire_groups::Patch
+    {
         super::builder::wire_groups::Patch::new(self.inner.clone())
     }
 
     /// Retrieves the specified Operations resource.
-    pub fn get_operation(&self) -> super::builder::wire_groups::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::WireGroups;
+    /// async fn sample(
+    ///    client: &WireGroups
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::wire_groups::GetOperation
+    {
         super::builder::wire_groups::GetOperation::new(self.inner.clone())
     }
 }
@@ -18320,57 +22813,77 @@ impl ZoneOperations {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::ZoneOperations + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::ZoneOperations + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ZoneOperations>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ZoneOperations>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ZoneOperations> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ZoneOperations> {
         super::transport::ZoneOperations::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ZoneOperations> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::ZoneOperations::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ZoneOperations> {
+        Self::build_transport(conf).await.map(super::tracing::ZoneOperations::new)
     }
 
     /// Deletes the specified zone-specific Operations resource.
-    pub fn delete(&self) -> super::builder::zone_operations::Delete {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::ZoneOperations;
+    /// async fn sample(
+    ///    client: &ZoneOperations
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete(&self) -> super::builder::zone_operations::Delete
+    {
         super::builder::zone_operations::Delete::new(self.inner.clone())
     }
 
     /// Retrieves the specified zone-specific Operations resource.
-    pub fn get(&self) -> super::builder::zone_operations::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::ZoneOperations;
+    /// async fn sample(
+    ///    client: &ZoneOperations
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::zone_operations::Get
+    {
         super::builder::zone_operations::Get::new(self.inner.clone())
     }
 
     /// Retrieves a list of Operation resources contained within
     /// the specified zone.
-    pub fn list(&self) -> super::builder::zone_operations::List {
+    pub fn list(&self) -> super::builder::zone_operations::List
+    {
         super::builder::zone_operations::List::new(self.inner.clone())
     }
 
@@ -18391,7 +22904,24 @@ impl ZoneOperations {
     /// - If the default deadline is reached, there is no guarantee that the
     ///   operation is actually done when the method returns. Be prepared to retry
     ///   if the operation is not `DONE`.
-    pub fn wait(&self) -> super::builder::zone_operations::Wait {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::ZoneOperations;
+    /// async fn sample(
+    ///    client: &ZoneOperations
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .wait()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn wait(&self) -> super::builder::zone_operations::Wait
+    {
         super::builder::zone_operations::Wait::new(self.inner.clone())
     }
 }
@@ -18463,51 +22993,55 @@ impl Zones {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::Zones + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::Zones + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Zones>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Zones>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Zones> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Zones> {
         super::transport::Zones::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Zones> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::Zones::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Zones> {
+        Self::build_transport(conf).await.map(super::tracing::Zones::new)
     }
 
     /// Returns the specified Zone resource.
-    pub fn get(&self) -> super::builder::zones::Get {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::client::Zones;
+    /// async fn sample(
+    ///    client: &Zones
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get(&self) -> super::builder::zones::Get
+    {
         super::builder::zones::Get::new(self.inner.clone())
     }
 
     /// Retrieves the list of Zone resources available to the specified project.
-    pub fn list(&self) -> super::builder::zones::List {
+    pub fn list(&self) -> super::builder::zones::List
+    {
         super::builder::zones::List::new(self.inner.clone())
     }
 }

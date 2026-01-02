@@ -74,9 +74,7 @@ impl VpcAccessService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::vpc_access_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::vpc_access_service::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::vpc_access_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -84,43 +82,28 @@ impl VpcAccessService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::VpcAccessService + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::VpcAccessService + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::VpcAccessService>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::VpcAccessService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::VpcAccessService> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::VpcAccessService> {
         super::transport::VpcAccessService::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::VpcAccessService> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::VpcAccessService::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::VpcAccessService> {
+        Self::build_transport(conf).await.map(super::tracing::VpcAccessService::new)
     }
 
     /// Creates a Serverless VPC Access connector, returns an operation.
@@ -134,18 +117,38 @@ impl VpcAccessService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_connector(&self) -> super::builder::vpc_access_service::CreateConnector {
+    pub fn create_connector(&self) -> super::builder::vpc_access_service::CreateConnector
+    {
         super::builder::vpc_access_service::CreateConnector::new(self.inner.clone())
     }
 
     /// Gets a Serverless VPC Access connector. Returns NOT_FOUND if the resource
     /// does not exist.
-    pub fn get_connector(&self) -> super::builder::vpc_access_service::GetConnector {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vpcaccess_v1::client::VpcAccessService;
+    /// async fn sample(
+    ///    client: &VpcAccessService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_connector()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_connector(&self) -> super::builder::vpc_access_service::GetConnector
+    {
         super::builder::vpc_access_service::GetConnector::new(self.inner.clone())
     }
 
     /// Lists Serverless VPC Access connectors.
-    pub fn list_connectors(&self) -> super::builder::vpc_access_service::ListConnectors {
+    pub fn list_connectors(&self) -> super::builder::vpc_access_service::ListConnectors
+    {
         super::builder::vpc_access_service::ListConnectors::new(self.inner.clone())
     }
 
@@ -161,26 +164,46 @@ impl VpcAccessService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_connector(&self) -> super::builder::vpc_access_service::DeleteConnector {
+    pub fn delete_connector(&self) -> super::builder::vpc_access_service::DeleteConnector
+    {
         super::builder::vpc_access_service::DeleteConnector::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::vpc_access_service::ListLocations {
+    pub fn list_locations(&self) -> super::builder::vpc_access_service::ListLocations
+    {
         super::builder::vpc_access_service::ListLocations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::vpc_access_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::vpc_access_service::ListOperations
+    {
         super::builder::vpc_access_service::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::vpc_access_service::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vpcaccess_v1::client::VpcAccessService;
+    /// async fn sample(
+    ///    client: &VpcAccessService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::vpc_access_service::GetOperation
+    {
         super::builder::vpc_access_service::GetOperation::new(self.inner.clone())
     }
 }

@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -30,7 +31,6 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -45,6 +45,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateKeyHandleRequest {
+
     /// Required. Name of the resource project and location to create the
     /// [KeyHandle][google.cloud.kms.v1.KeyHandle] in, e.g.
     /// `projects/{PROJECT_ID}/locations/{LOCATION}`.
@@ -105,8 +106,7 @@ impl CreateKeyHandleRequest {
     /// let x = CreateKeyHandleRequest::new().set_key_handle(KeyHandle::default()/* use setters */);
     /// ```
     pub fn set_key_handle<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::KeyHandle>,
+    where T: std::convert::Into<crate::model::KeyHandle>
     {
         self.key_handle = std::option::Option::Some(v.into());
         self
@@ -122,8 +122,7 @@ impl CreateKeyHandleRequest {
     /// let x = CreateKeyHandleRequest::new().set_or_clear_key_handle(None::<KeyHandle>);
     /// ```
     pub fn set_or_clear_key_handle<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::KeyHandle>,
+    where T: std::convert::Into<crate::model::KeyHandle>
     {
         self.key_handle = v.map(|x| x.into());
         self
@@ -142,6 +141,7 @@ impl wkt::message::Message for CreateKeyHandleRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetKeyHandleRequest {
+
     /// Required. Name of the [KeyHandle][google.cloud.kms.v1.KeyHandle] resource,
     /// e.g.
     /// `projects/{PROJECT_ID}/locations/{LOCATION}/keyHandles/{KEY_HANDLE_ID}`.
@@ -183,6 +183,7 @@ impl wkt::message::Message for GetKeyHandleRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct KeyHandle {
+
     /// Identifier. Name of the [KeyHandle][google.cloud.kms.v1.KeyHandle]
     /// resource, e.g.
     /// `projects/{PROJECT_ID}/locations/{LOCATION}/keyHandles/{KEY_HANDLE_ID}`.
@@ -254,10 +255,7 @@ impl KeyHandle {
     /// # use google_cloud_kms_v1::model::KeyHandle;
     /// let x = KeyHandle::new().set_resource_type_selector("example");
     /// ```
-    pub fn set_resource_type_selector<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_resource_type_selector<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource_type_selector = v.into();
         self
     }
@@ -277,6 +275,7 @@ impl wkt::message::Message for KeyHandle {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateKeyHandleMetadata {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -299,6 +298,7 @@ impl wkt::message::Message for CreateKeyHandleMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListKeyHandlesRequest {
+
     /// Required. Name of the resource project and location from which to list
     /// [KeyHandles][google.cloud.kms.v1.KeyHandle], e.g.
     /// `projects/{PROJECT_ID}/locations/{LOCATION}`.
@@ -402,6 +402,7 @@ impl wkt::message::Message for ListKeyHandlesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListKeyHandlesResponse {
+
     /// Resulting [KeyHandles][google.cloud.kms.v1.KeyHandle].
     ///
     /// [google.cloud.kms.v1.KeyHandle]: crate::model::KeyHandle
@@ -437,7 +438,7 @@ impl ListKeyHandlesResponse {
     pub fn set_key_handles<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::KeyHandle>,
+        V: std::convert::Into<crate::model::KeyHandle>
     {
         use std::iter::Iterator;
         self.key_handles = v.into_iter().map(|i| i.into()).collect();
@@ -484,6 +485,7 @@ impl gax::paginator::internal::PageableResponse for ListKeyHandlesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateAutokeyConfigRequest {
+
     /// Required. [AutokeyConfig][google.cloud.kms.v1.AutokeyConfig] with values to
     /// update.
     ///
@@ -514,8 +516,7 @@ impl UpdateAutokeyConfigRequest {
     /// let x = UpdateAutokeyConfigRequest::new().set_autokey_config(AutokeyConfig::default()/* use setters */);
     /// ```
     pub fn set_autokey_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AutokeyConfig>,
+    where T: std::convert::Into<crate::model::AutokeyConfig>
     {
         self.autokey_config = std::option::Option::Some(v.into());
         self
@@ -531,8 +532,7 @@ impl UpdateAutokeyConfigRequest {
     /// let x = UpdateAutokeyConfigRequest::new().set_or_clear_autokey_config(None::<AutokeyConfig>);
     /// ```
     pub fn set_or_clear_autokey_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AutokeyConfig>,
+    where T: std::convert::Into<crate::model::AutokeyConfig>
     {
         self.autokey_config = v.map(|x| x.into());
         self
@@ -547,8 +547,7 @@ impl UpdateAutokeyConfigRequest {
     /// let x = UpdateAutokeyConfigRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -564,8 +563,7 @@ impl UpdateAutokeyConfigRequest {
     /// let x = UpdateAutokeyConfigRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -585,6 +583,7 @@ impl wkt::message::Message for UpdateAutokeyConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAutokeyConfigRequest {
+
     /// Required. Name of the [AutokeyConfig][google.cloud.kms.v1.AutokeyConfig]
     /// resource, e.g. `folders/{FOLDER_NUMBER}/autokeyConfig`.
     ///
@@ -622,6 +621,7 @@ impl wkt::message::Message for GetAutokeyConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutokeyConfig {
+
     /// Identifier. Name of the [AutokeyConfig][google.cloud.kms.v1.AutokeyConfig]
     /// resource, e.g. `folders/{FOLDER_NUMBER}/autokeyConfig`.
     ///
@@ -696,10 +696,7 @@ impl AutokeyConfig {
     /// let x1 = AutokeyConfig::new().set_state(State::KeyProjectDeleted);
     /// let x2 = AutokeyConfig::new().set_state(State::Uninitialized);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::autokey_config::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::autokey_config::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -727,6 +724,7 @@ impl wkt::message::Message for AutokeyConfig {
 pub mod autokey_config {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The states AutokeyConfig can be in.
     ///
@@ -821,9 +819,7 @@ pub mod autokey_config {
                 1 => Self::Active,
                 2 => Self::KeyProjectDeleted,
                 3 => Self::Uninitialized,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -836,9 +832,7 @@ pub mod autokey_config {
                 "ACTIVE" => Self::Active,
                 "KEY_PROJECT_DELETED" => Self::KeyProjectDeleted,
                 "UNINITIALIZED" => Self::Uninitialized,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -864,8 +858,7 @@ pub mod autokey_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.kms.v1.AutokeyConfig.State",
-            ))
+                ".google.cloud.kms.v1.AutokeyConfig.State"))
         }
     }
 }
@@ -877,6 +870,7 @@ pub mod autokey_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ShowEffectiveAutokeyConfigRequest {
+
     /// Required. Name of the resource project to the show effective Cloud KMS
     /// Autokey configuration for. This may be helpful for interrogating the effect
     /// of nested folder configurations on a given resource project.
@@ -916,6 +910,7 @@ impl wkt::message::Message for ShowEffectiveAutokeyConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ShowEffectiveAutokeyConfigResponse {
+
     /// Name of the key project configured in the resource project's folder
     /// ancestry.
     pub key_project: std::string::String,
@@ -954,6 +949,7 @@ impl wkt::message::Message for ShowEffectiveAutokeyConfigResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListEkmConnectionsRequest {
+
     /// Required. The resource name of the location associated with the
     /// [EkmConnections][google.cloud.kms.v1.EkmConnection] to list, in the format
     /// `projects/*/locations/*`.
@@ -1073,6 +1069,7 @@ impl wkt::message::Message for ListEkmConnectionsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListEkmConnectionsResponse {
+
     /// The list of [EkmConnections][google.cloud.kms.v1.EkmConnection].
     ///
     /// [google.cloud.kms.v1.EkmConnection]: crate::model::EkmConnection
@@ -1119,7 +1116,7 @@ impl ListEkmConnectionsResponse {
     pub fn set_ekm_connections<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::EkmConnection>,
+        V: std::convert::Into<crate::model::EkmConnection>
     {
         use std::iter::Iterator;
         self.ekm_connections = v.into_iter().map(|i| i.into()).collect();
@@ -1178,6 +1175,7 @@ impl gax::paginator::internal::PageableResponse for ListEkmConnectionsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetEkmConnectionRequest {
+
     /// Required. The [name][google.cloud.kms.v1.EkmConnection.name] of the
     /// [EkmConnection][google.cloud.kms.v1.EkmConnection] to get.
     ///
@@ -1219,6 +1217,7 @@ impl wkt::message::Message for GetEkmConnectionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateEkmConnectionRequest {
+
     /// Required. The resource name of the location associated with the
     /// [EkmConnection][google.cloud.kms.v1.EkmConnection], in the format
     /// `projects/*/locations/*`.
@@ -1263,10 +1262,7 @@ impl CreateEkmConnectionRequest {
     /// # use google_cloud_kms_v1::model::CreateEkmConnectionRequest;
     /// let x = CreateEkmConnectionRequest::new().set_ekm_connection_id("example");
     /// ```
-    pub fn set_ekm_connection_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_ekm_connection_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ekm_connection_id = v.into();
         self
     }
@@ -1280,8 +1276,7 @@ impl CreateEkmConnectionRequest {
     /// let x = CreateEkmConnectionRequest::new().set_ekm_connection(EkmConnection::default()/* use setters */);
     /// ```
     pub fn set_ekm_connection<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::EkmConnection>,
+    where T: std::convert::Into<crate::model::EkmConnection>
     {
         self.ekm_connection = std::option::Option::Some(v.into());
         self
@@ -1297,8 +1292,7 @@ impl CreateEkmConnectionRequest {
     /// let x = CreateEkmConnectionRequest::new().set_or_clear_ekm_connection(None::<EkmConnection>);
     /// ```
     pub fn set_or_clear_ekm_connection<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::EkmConnection>,
+    where T: std::convert::Into<crate::model::EkmConnection>
     {
         self.ekm_connection = v.map(|x| x.into());
         self
@@ -1318,6 +1312,7 @@ impl wkt::message::Message for CreateEkmConnectionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateEkmConnectionRequest {
+
     /// Required. [EkmConnection][google.cloud.kms.v1.EkmConnection] with updated
     /// values.
     ///
@@ -1344,8 +1339,7 @@ impl UpdateEkmConnectionRequest {
     /// let x = UpdateEkmConnectionRequest::new().set_ekm_connection(EkmConnection::default()/* use setters */);
     /// ```
     pub fn set_ekm_connection<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::EkmConnection>,
+    where T: std::convert::Into<crate::model::EkmConnection>
     {
         self.ekm_connection = std::option::Option::Some(v.into());
         self
@@ -1361,8 +1355,7 @@ impl UpdateEkmConnectionRequest {
     /// let x = UpdateEkmConnectionRequest::new().set_or_clear_ekm_connection(None::<EkmConnection>);
     /// ```
     pub fn set_or_clear_ekm_connection<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::EkmConnection>,
+    where T: std::convert::Into<crate::model::EkmConnection>
     {
         self.ekm_connection = v.map(|x| x.into());
         self
@@ -1377,8 +1370,7 @@ impl UpdateEkmConnectionRequest {
     /// let x = UpdateEkmConnectionRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -1394,8 +1386,7 @@ impl UpdateEkmConnectionRequest {
     /// let x = UpdateEkmConnectionRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -1415,6 +1406,7 @@ impl wkt::message::Message for UpdateEkmConnectionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetEkmConfigRequest {
+
     /// Required. The [name][google.cloud.kms.v1.EkmConfig.name] of the
     /// [EkmConfig][google.cloud.kms.v1.EkmConfig] to get.
     ///
@@ -1456,6 +1448,7 @@ impl wkt::message::Message for GetEkmConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateEkmConfigRequest {
+
     /// Required. [EkmConfig][google.cloud.kms.v1.EkmConfig] with updated values.
     ///
     /// [google.cloud.kms.v1.EkmConfig]: crate::model::EkmConfig
@@ -1481,8 +1474,7 @@ impl UpdateEkmConfigRequest {
     /// let x = UpdateEkmConfigRequest::new().set_ekm_config(EkmConfig::default()/* use setters */);
     /// ```
     pub fn set_ekm_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::EkmConfig>,
+    where T: std::convert::Into<crate::model::EkmConfig>
     {
         self.ekm_config = std::option::Option::Some(v.into());
         self
@@ -1498,8 +1490,7 @@ impl UpdateEkmConfigRequest {
     /// let x = UpdateEkmConfigRequest::new().set_or_clear_ekm_config(None::<EkmConfig>);
     /// ```
     pub fn set_or_clear_ekm_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::EkmConfig>,
+    where T: std::convert::Into<crate::model::EkmConfig>
     {
         self.ekm_config = v.map(|x| x.into());
         self
@@ -1514,8 +1505,7 @@ impl UpdateEkmConfigRequest {
     /// let x = UpdateEkmConfigRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -1531,8 +1521,7 @@ impl UpdateEkmConfigRequest {
     /// let x = UpdateEkmConfigRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -1552,6 +1541,7 @@ impl wkt::message::Message for UpdateEkmConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Certificate {
+
     /// Required. The raw certificate bytes in DER format.
     pub raw_der: ::bytes::Bytes,
 
@@ -1666,7 +1656,7 @@ impl Certificate {
     pub fn set_subject_alternative_dns_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.subject_alternative_dns_names = v.into_iter().map(|i| i.into()).collect();
@@ -1682,8 +1672,7 @@ impl Certificate {
     /// let x = Certificate::new().set_not_before_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_not_before_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.not_before_time = std::option::Option::Some(v.into());
         self
@@ -1699,8 +1688,7 @@ impl Certificate {
     /// let x = Certificate::new().set_or_clear_not_before_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_not_before_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.not_before_time = v.map(|x| x.into());
         self
@@ -1715,8 +1703,7 @@ impl Certificate {
     /// let x = Certificate::new().set_not_after_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_not_after_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.not_after_time = std::option::Option::Some(v.into());
         self
@@ -1732,8 +1719,7 @@ impl Certificate {
     /// let x = Certificate::new().set_or_clear_not_after_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_not_after_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.not_after_time = v.map(|x| x.into());
         self
@@ -1758,10 +1744,7 @@ impl Certificate {
     /// # use google_cloud_kms_v1::model::Certificate;
     /// let x = Certificate::new().set_sha256_fingerprint("example");
     /// ```
-    pub fn set_sha256_fingerprint<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_sha256_fingerprint<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.sha256_fingerprint = v.into();
         self
     }
@@ -1790,6 +1773,7 @@ impl wkt::message::Message for Certificate {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EkmConnection {
+
     /// Output only. The resource name for the
     /// [EkmConnection][google.cloud.kms.v1.EkmConnection] in the format
     /// `projects/*/locations/*/ekmConnections/*`.
@@ -1866,8 +1850,7 @@ impl EkmConnection {
     /// let x = EkmConnection::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -1883,8 +1866,7 @@ impl EkmConnection {
     /// let x = EkmConnection::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -1905,7 +1887,7 @@ impl EkmConnection {
     pub fn set_service_resolvers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ekm_connection::ServiceResolver>,
+        V: std::convert::Into<crate::model::ekm_connection::ServiceResolver>
     {
         use std::iter::Iterator;
         self.service_resolvers = v.into_iter().map(|i| i.into()).collect();
@@ -1933,12 +1915,7 @@ impl EkmConnection {
     /// let x0 = EkmConnection::new().set_key_management_mode(KeyManagementMode::Manual);
     /// let x1 = EkmConnection::new().set_key_management_mode(KeyManagementMode::CloudKms);
     /// ```
-    pub fn set_key_management_mode<
-        T: std::convert::Into<crate::model::ekm_connection::KeyManagementMode>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_key_management_mode<T: std::convert::Into<crate::model::ekm_connection::KeyManagementMode>>(mut self, v: T) -> Self {
         self.key_management_mode = v.into();
         self
     }
@@ -1950,10 +1927,7 @@ impl EkmConnection {
     /// # use google_cloud_kms_v1::model::EkmConnection;
     /// let x = EkmConnection::new().set_crypto_space_path("example");
     /// ```
-    pub fn set_crypto_space_path<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_crypto_space_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.crypto_space_path = v.into();
         self
     }
@@ -1970,6 +1944,7 @@ pub mod ekm_connection {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// A [ServiceResolver][google.cloud.kms.v1.EkmConnection.ServiceResolver]
     /// represents an EKM replica that can be reached within an
     /// [EkmConnection][google.cloud.kms.v1.EkmConnection].
@@ -1979,6 +1954,7 @@ pub mod ekm_connection {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ServiceResolver {
+
         /// Required. The resource name of the Service Directory service pointing to
         /// an EKM replica, in the format
         /// `projects/*/locations/*/namespaces/*/services/*`.
@@ -2017,10 +1993,7 @@ pub mod ekm_connection {
         /// # use google_cloud_kms_v1::model::ekm_connection::ServiceResolver;
         /// let x = ServiceResolver::new().set_service_directory_service("example");
         /// ```
-        pub fn set_service_directory_service<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_service_directory_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.service_directory_service = v.into();
             self
         }
@@ -2032,10 +2005,7 @@ pub mod ekm_connection {
         /// # use google_cloud_kms_v1::model::ekm_connection::ServiceResolver;
         /// let x = ServiceResolver::new().set_endpoint_filter("example");
         /// ```
-        pub fn set_endpoint_filter<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_endpoint_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.endpoint_filter = v.into();
             self
         }
@@ -2067,7 +2037,7 @@ pub mod ekm_connection {
         pub fn set_server_certificates<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::Certificate>,
+            V: std::convert::Into<crate::model::Certificate>
         {
             use std::iter::Iterator;
             self.server_certificates = v.into_iter().map(|i| i.into()).collect();
@@ -2208,9 +2178,7 @@ pub mod ekm_connection {
                 0 => Self::Unspecified,
                 1 => Self::Manual,
                 2 => Self::CloudKms,
-                _ => Self::UnknownValue(key_management_mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(key_management_mode::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -2222,9 +2190,7 @@ pub mod ekm_connection {
                 "KEY_MANAGEMENT_MODE_UNSPECIFIED" => Self::Unspecified,
                 "MANUAL" => Self::Manual,
                 "CLOUD_KMS" => Self::CloudKms,
-                _ => Self::UnknownValue(key_management_mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(key_management_mode::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -2249,8 +2215,7 @@ pub mod ekm_connection {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<KeyManagementMode>::new(
-                ".google.cloud.kms.v1.EkmConnection.KeyManagementMode",
-            ))
+                ".google.cloud.kms.v1.EkmConnection.KeyManagementMode"))
         }
     }
 }
@@ -2271,6 +2236,7 @@ pub mod ekm_connection {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EkmConfig {
+
     /// Output only. The resource name for the
     /// [EkmConfig][google.cloud.kms.v1.EkmConfig] in the format
     /// `projects/*/locations/*/ekmConfig`.
@@ -2312,10 +2278,7 @@ impl EkmConfig {
     /// # use google_cloud_kms_v1::model::EkmConfig;
     /// let x = EkmConfig::new().set_default_ekm_connection("example");
     /// ```
-    pub fn set_default_ekm_connection<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_default_ekm_connection<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.default_ekm_connection = v.into();
         self
     }
@@ -2334,6 +2297,7 @@ impl wkt::message::Message for EkmConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VerifyConnectivityRequest {
+
     /// Required. The [name][google.cloud.kms.v1.EkmConnection.name] of the
     /// [EkmConnection][google.cloud.kms.v1.EkmConnection] to verify.
     ///
@@ -2375,6 +2339,7 @@ impl wkt::message::Message for VerifyConnectivityRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VerifyConnectivityResponse {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2398,6 +2363,7 @@ impl wkt::message::Message for VerifyConnectivityResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct KeyRing {
+
     /// Output only. The resource name for the
     /// [KeyRing][google.cloud.kms.v1.KeyRing] in the format
     /// `projects/*/locations/*/keyRings/*`.
@@ -2440,8 +2406,7 @@ impl KeyRing {
     /// let x = KeyRing::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -2457,8 +2422,7 @@ impl KeyRing {
     /// let x = KeyRing::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -2483,6 +2447,7 @@ impl wkt::message::Message for KeyRing {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CryptoKey {
+
     /// Output only. The resource name for this
     /// [CryptoKey][google.cloud.kms.v1.CryptoKey] in the format
     /// `projects/*/locations/*/keyRings/*/cryptoKeys/*`.
@@ -2563,7 +2528,7 @@ pub struct CryptoKey {
 
     /// Labels with user-defined metadata. For more information, see
     /// [Labeling Keys](https://cloud.google.com/kms/docs/labeling-keys).
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Immutable. Whether this key may contain imported versions only.
     pub import_only: bool,
@@ -2603,8 +2568,7 @@ pub struct CryptoKey {
     /// justification codes.
     /// <https://cloud.google.com/assured-workloads/key-access-justifications/docs/justification-codes>
     /// By default, this field is absent, and all justification codes are allowed.
-    pub key_access_justifications_policy:
-        std::option::Option<crate::model::KeyAccessJustificationsPolicy>,
+    pub key_access_justifications_policy: std::option::Option<crate::model::KeyAccessJustificationsPolicy>,
 
     /// Controls the rate of automatic rotation.
     pub rotation_schedule: std::option::Option<crate::model::crypto_key::RotationSchedule>,
@@ -2638,8 +2602,7 @@ impl CryptoKey {
     /// let x = CryptoKey::new().set_primary(CryptoKeyVersion::default()/* use setters */);
     /// ```
     pub fn set_primary<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CryptoKeyVersion>,
+    where T: std::convert::Into<crate::model::CryptoKeyVersion>
     {
         self.primary = std::option::Option::Some(v.into());
         self
@@ -2655,8 +2618,7 @@ impl CryptoKey {
     /// let x = CryptoKey::new().set_or_clear_primary(None::<CryptoKeyVersion>);
     /// ```
     pub fn set_or_clear_primary<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CryptoKeyVersion>,
+    where T: std::convert::Into<crate::model::CryptoKeyVersion>
     {
         self.primary = v.map(|x| x.into());
         self
@@ -2672,10 +2634,7 @@ impl CryptoKey {
     /// let x1 = CryptoKey::new().set_purpose(CryptoKeyPurpose::AsymmetricSign);
     /// let x2 = CryptoKey::new().set_purpose(CryptoKeyPurpose::AsymmetricDecrypt);
     /// ```
-    pub fn set_purpose<T: std::convert::Into<crate::model::crypto_key::CryptoKeyPurpose>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_purpose<T: std::convert::Into<crate::model::crypto_key::CryptoKeyPurpose>>(mut self, v: T) -> Self {
         self.purpose = v.into();
         self
     }
@@ -2689,8 +2648,7 @@ impl CryptoKey {
     /// let x = CryptoKey::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -2706,8 +2664,7 @@ impl CryptoKey {
     /// let x = CryptoKey::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -2722,8 +2679,7 @@ impl CryptoKey {
     /// let x = CryptoKey::new().set_next_rotation_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_next_rotation_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.next_rotation_time = std::option::Option::Some(v.into());
         self
@@ -2739,8 +2695,7 @@ impl CryptoKey {
     /// let x = CryptoKey::new().set_or_clear_next_rotation_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_next_rotation_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.next_rotation_time = v.map(|x| x.into());
         self
@@ -2755,8 +2710,7 @@ impl CryptoKey {
     /// let x = CryptoKey::new().set_version_template(CryptoKeyVersionTemplate::default()/* use setters */);
     /// ```
     pub fn set_version_template<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CryptoKeyVersionTemplate>,
+    where T: std::convert::Into<crate::model::CryptoKeyVersionTemplate>
     {
         self.version_template = std::option::Option::Some(v.into());
         self
@@ -2772,8 +2726,7 @@ impl CryptoKey {
     /// let x = CryptoKey::new().set_or_clear_version_template(None::<CryptoKeyVersionTemplate>);
     /// ```
     pub fn set_or_clear_version_template<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CryptoKeyVersionTemplate>,
+    where T: std::convert::Into<crate::model::CryptoKeyVersionTemplate>
     {
         self.version_template = v.map(|x| x.into());
         self
@@ -2821,8 +2774,7 @@ impl CryptoKey {
     /// let x = CryptoKey::new().set_destroy_scheduled_duration(Duration::default()/* use setters */);
     /// ```
     pub fn set_destroy_scheduled_duration<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.destroy_scheduled_duration = std::option::Option::Some(v.into());
         self
@@ -2838,8 +2790,7 @@ impl CryptoKey {
     /// let x = CryptoKey::new().set_or_clear_destroy_scheduled_duration(None::<Duration>);
     /// ```
     pub fn set_or_clear_destroy_scheduled_duration<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.destroy_scheduled_duration = v.map(|x| x.into());
         self
@@ -2852,10 +2803,7 @@ impl CryptoKey {
     /// # use google_cloud_kms_v1::model::CryptoKey;
     /// let x = CryptoKey::new().set_crypto_key_backend("example");
     /// ```
-    pub fn set_crypto_key_backend<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_crypto_key_backend<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.crypto_key_backend = v.into();
         self
     }
@@ -2869,8 +2817,7 @@ impl CryptoKey {
     /// let x = CryptoKey::new().set_key_access_justifications_policy(KeyAccessJustificationsPolicy::default()/* use setters */);
     /// ```
     pub fn set_key_access_justifications_policy<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::KeyAccessJustificationsPolicy>,
+    where T: std::convert::Into<crate::model::KeyAccessJustificationsPolicy>
     {
         self.key_access_justifications_policy = std::option::Option::Some(v.into());
         self
@@ -2885,12 +2832,8 @@ impl CryptoKey {
     /// let x = CryptoKey::new().set_or_clear_key_access_justifications_policy(Some(KeyAccessJustificationsPolicy::default()/* use setters */));
     /// let x = CryptoKey::new().set_or_clear_key_access_justifications_policy(None::<KeyAccessJustificationsPolicy>);
     /// ```
-    pub fn set_or_clear_key_access_justifications_policy<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<crate::model::KeyAccessJustificationsPolicy>,
+    pub fn set_or_clear_key_access_justifications_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<crate::model::KeyAccessJustificationsPolicy>
     {
         self.key_access_justifications_policy = v.map(|x| x.into());
         self
@@ -2908,12 +2851,8 @@ impl CryptoKey {
     /// let x = CryptoKey::new().set_rotation_schedule(Some(
     ///     google_cloud_kms_v1::model::crypto_key::RotationSchedule::RotationPeriod(Duration::default().into())));
     /// ```
-    pub fn set_rotation_schedule<
-        T: std::convert::Into<std::option::Option<crate::model::crypto_key::RotationSchedule>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_rotation_schedule<T: std::convert::Into<std::option::Option<crate::model::crypto_key::RotationSchedule>>>(mut self, v: T) -> Self
+    {
         self.rotation_schedule = v.into();
         self
     }
@@ -2924,9 +2863,7 @@ impl CryptoKey {
     pub fn rotation_period(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
         #[allow(unreachable_patterns)]
         self.rotation_schedule.as_ref().and_then(|v| match v {
-            crate::model::crypto_key::RotationSchedule::RotationPeriod(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::crypto_key::RotationSchedule::RotationPeriod(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -2944,12 +2881,11 @@ impl CryptoKey {
     /// let x = CryptoKey::new().set_rotation_period(Duration::default()/* use setters */);
     /// assert!(x.rotation_period().is_some());
     /// ```
-    pub fn set_rotation_period<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_rotation_period<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(mut self, v: T) -> Self {
         self.rotation_schedule = std::option::Option::Some(
-            crate::model::crypto_key::RotationSchedule::RotationPeriod(v.into()),
+            crate::model::crypto_key::RotationSchedule::RotationPeriod(
+                v.into()
+            )
         );
         self
     }
@@ -2965,6 +2901,7 @@ impl wkt::message::Message for CryptoKey {
 pub mod crypto_key {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// [CryptoKeyPurpose][google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose]
     /// describes the cryptographic capabilities of a
@@ -3120,9 +3057,7 @@ pub mod crypto_key {
                 7 => Self::RawEncryptDecrypt,
                 9 => Self::Mac,
                 10 => Self::KeyEncapsulation,
-                _ => Self::UnknownValue(crypto_key_purpose::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(crypto_key_purpose::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -3138,9 +3073,7 @@ pub mod crypto_key {
                 "RAW_ENCRYPT_DECRYPT" => Self::RawEncryptDecrypt,
                 "MAC" => Self::Mac,
                 "KEY_ENCAPSULATION" => Self::KeyEncapsulation,
-                _ => Self::UnknownValue(crypto_key_purpose::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(crypto_key_purpose::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -3169,8 +3102,7 @@ pub mod crypto_key {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<CryptoKeyPurpose>::new(
-                ".google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose",
-            ))
+                ".google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose"))
         }
     }
 
@@ -3212,6 +3144,7 @@ pub mod crypto_key {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CryptoKeyVersionTemplate {
+
     /// [ProtectionLevel][google.cloud.kms.v1.ProtectionLevel] to use when creating
     /// a [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion] based on this
     /// template. Immutable. Defaults to
@@ -3257,10 +3190,7 @@ impl CryptoKeyVersionTemplate {
     /// let x1 = CryptoKeyVersionTemplate::new().set_protection_level(ProtectionLevel::Hsm);
     /// let x2 = CryptoKeyVersionTemplate::new().set_protection_level(ProtectionLevel::External);
     /// ```
-    pub fn set_protection_level<T: std::convert::Into<crate::model::ProtectionLevel>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_protection_level<T: std::convert::Into<crate::model::ProtectionLevel>>(mut self, v: T) -> Self {
         self.protection_level = v.into();
         self
     }
@@ -3275,12 +3205,7 @@ impl CryptoKeyVersionTemplate {
     /// let x1 = CryptoKeyVersionTemplate::new().set_algorithm(CryptoKeyVersionAlgorithm::Aes128Gcm);
     /// let x2 = CryptoKeyVersionTemplate::new().set_algorithm(CryptoKeyVersionAlgorithm::Aes256Gcm);
     /// ```
-    pub fn set_algorithm<
-        T: std::convert::Into<crate::model::crypto_key_version::CryptoKeyVersionAlgorithm>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_algorithm<T: std::convert::Into<crate::model::crypto_key_version::CryptoKeyVersionAlgorithm>>(mut self, v: T) -> Self {
         self.algorithm = v.into();
         self
     }
@@ -3298,6 +3223,7 @@ impl wkt::message::Message for CryptoKeyVersionTemplate {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct KeyOperationAttestation {
+
     /// Output only. The format of the attestation data.
     pub format: crate::model::key_operation_attestation::AttestationFormat,
 
@@ -3306,8 +3232,7 @@ pub struct KeyOperationAttestation {
     pub content: ::bytes::Bytes,
 
     /// Output only. The certificate chains needed to validate the attestation
-    pub cert_chains:
-        std::option::Option<crate::model::key_operation_attestation::CertificateChains>,
+    pub cert_chains: std::option::Option<crate::model::key_operation_attestation::CertificateChains>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -3326,12 +3251,7 @@ impl KeyOperationAttestation {
     /// let x0 = KeyOperationAttestation::new().set_format(AttestationFormat::CaviumV1Compressed);
     /// let x1 = KeyOperationAttestation::new().set_format(AttestationFormat::CaviumV2Compressed);
     /// ```
-    pub fn set_format<
-        T: std::convert::Into<crate::model::key_operation_attestation::AttestationFormat>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_format<T: std::convert::Into<crate::model::key_operation_attestation::AttestationFormat>>(mut self, v: T) -> Self {
         self.format = v.into();
         self
     }
@@ -3357,8 +3277,7 @@ impl KeyOperationAttestation {
     /// let x = KeyOperationAttestation::new().set_cert_chains(CertificateChains::default()/* use setters */);
     /// ```
     pub fn set_cert_chains<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::key_operation_attestation::CertificateChains>,
+    where T: std::convert::Into<crate::model::key_operation_attestation::CertificateChains>
     {
         self.cert_chains = std::option::Option::Some(v.into());
         self
@@ -3374,8 +3293,7 @@ impl KeyOperationAttestation {
     /// let x = KeyOperationAttestation::new().set_or_clear_cert_chains(None::<CertificateChains>);
     /// ```
     pub fn set_or_clear_cert_chains<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::key_operation_attestation::CertificateChains>,
+    where T: std::convert::Into<crate::model::key_operation_attestation::CertificateChains>
     {
         self.cert_chains = v.map(|x| x.into());
         self
@@ -3393,12 +3311,14 @@ pub mod key_operation_attestation {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Certificate chains needed to verify the attestation.
     /// Certificates in chains are PEM-encoded and are ordered based on
     /// <https://tools.ietf.org/html/rfc5246#section-7.4.2>.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CertificateChains {
+
         /// Cavium certificate chain corresponding to the attestation.
         pub cavium_certs: std::vec::Vec<std::string::String>,
 
@@ -3426,7 +3346,7 @@ pub mod key_operation_attestation {
         pub fn set_cavium_certs<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.cavium_certs = v.into_iter().map(|i| i.into()).collect();
@@ -3443,7 +3363,7 @@ pub mod key_operation_attestation {
         pub fn set_google_card_certs<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.google_card_certs = v.into_iter().map(|i| i.into()).collect();
@@ -3460,7 +3380,7 @@ pub mod key_operation_attestation {
         pub fn set_google_partition_certs<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.google_partition_certs = v.into_iter().map(|i| i.into()).collect();
@@ -3565,9 +3485,7 @@ pub mod key_operation_attestation {
                 0 => Self::Unspecified,
                 3 => Self::CaviumV1Compressed,
                 4 => Self::CaviumV2Compressed,
-                _ => Self::UnknownValue(attestation_format::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(attestation_format::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -3579,9 +3497,7 @@ pub mod key_operation_attestation {
                 "ATTESTATION_FORMAT_UNSPECIFIED" => Self::Unspecified,
                 "CAVIUM_V1_COMPRESSED" => Self::CaviumV1Compressed,
                 "CAVIUM_V2_COMPRESSED" => Self::CaviumV2Compressed,
-                _ => Self::UnknownValue(attestation_format::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(attestation_format::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -3606,8 +3522,7 @@ pub mod key_operation_attestation {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<AttestationFormat>::new(
-                ".google.cloud.kms.v1.KeyOperationAttestation.AttestationFormat",
-            ))
+                ".google.cloud.kms.v1.KeyOperationAttestation.AttestationFormat"))
         }
     }
 }
@@ -3629,6 +3544,7 @@ pub mod key_operation_attestation {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CryptoKeyVersion {
+
     /// Output only. The resource name for this
     /// [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion] in the format
     /// `projects/*/locations/*/keyRings/*/cryptoKeys/*/cryptoKeyVersions/*`.
@@ -3753,8 +3669,7 @@ pub struct CryptoKeyVersion {
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.ProtectionLevel.EXTERNAL]: crate::model::ProtectionLevel::External
     /// [google.cloud.kms.v1.ProtectionLevel.EXTERNAL_VPC]: crate::model::ProtectionLevel::ExternalVpc
-    pub external_protection_level_options:
-        std::option::Option<crate::model::ExternalProtectionLevelOptions>,
+    pub external_protection_level_options: std::option::Option<crate::model::ExternalProtectionLevelOptions>,
 
     /// Output only. Whether or not this key version is eligible for reimport, by
     /// being specified as a target in
@@ -3793,12 +3708,7 @@ impl CryptoKeyVersion {
     /// let x1 = CryptoKeyVersion::new().set_state(CryptoKeyVersionState::Enabled);
     /// let x2 = CryptoKeyVersion::new().set_state(CryptoKeyVersionState::Disabled);
     /// ```
-    pub fn set_state<
-        T: std::convert::Into<crate::model::crypto_key_version::CryptoKeyVersionState>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::crypto_key_version::CryptoKeyVersionState>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -3813,10 +3723,7 @@ impl CryptoKeyVersion {
     /// let x1 = CryptoKeyVersion::new().set_protection_level(ProtectionLevel::Hsm);
     /// let x2 = CryptoKeyVersion::new().set_protection_level(ProtectionLevel::External);
     /// ```
-    pub fn set_protection_level<T: std::convert::Into<crate::model::ProtectionLevel>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_protection_level<T: std::convert::Into<crate::model::ProtectionLevel>>(mut self, v: T) -> Self {
         self.protection_level = v.into();
         self
     }
@@ -3831,12 +3738,7 @@ impl CryptoKeyVersion {
     /// let x1 = CryptoKeyVersion::new().set_algorithm(CryptoKeyVersionAlgorithm::Aes128Gcm);
     /// let x2 = CryptoKeyVersion::new().set_algorithm(CryptoKeyVersionAlgorithm::Aes256Gcm);
     /// ```
-    pub fn set_algorithm<
-        T: std::convert::Into<crate::model::crypto_key_version::CryptoKeyVersionAlgorithm>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_algorithm<T: std::convert::Into<crate::model::crypto_key_version::CryptoKeyVersionAlgorithm>>(mut self, v: T) -> Self {
         self.algorithm = v.into();
         self
     }
@@ -3850,8 +3752,7 @@ impl CryptoKeyVersion {
     /// let x = CryptoKeyVersion::new().set_attestation(KeyOperationAttestation::default()/* use setters */);
     /// ```
     pub fn set_attestation<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::KeyOperationAttestation>,
+    where T: std::convert::Into<crate::model::KeyOperationAttestation>
     {
         self.attestation = std::option::Option::Some(v.into());
         self
@@ -3867,8 +3768,7 @@ impl CryptoKeyVersion {
     /// let x = CryptoKeyVersion::new().set_or_clear_attestation(None::<KeyOperationAttestation>);
     /// ```
     pub fn set_or_clear_attestation<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::KeyOperationAttestation>,
+    where T: std::convert::Into<crate::model::KeyOperationAttestation>
     {
         self.attestation = v.map(|x| x.into());
         self
@@ -3883,8 +3783,7 @@ impl CryptoKeyVersion {
     /// let x = CryptoKeyVersion::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -3900,8 +3799,7 @@ impl CryptoKeyVersion {
     /// let x = CryptoKeyVersion::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -3916,8 +3814,7 @@ impl CryptoKeyVersion {
     /// let x = CryptoKeyVersion::new().set_generate_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_generate_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.generate_time = std::option::Option::Some(v.into());
         self
@@ -3933,8 +3830,7 @@ impl CryptoKeyVersion {
     /// let x = CryptoKeyVersion::new().set_or_clear_generate_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_generate_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.generate_time = v.map(|x| x.into());
         self
@@ -3949,8 +3845,7 @@ impl CryptoKeyVersion {
     /// let x = CryptoKeyVersion::new().set_destroy_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_destroy_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.destroy_time = std::option::Option::Some(v.into());
         self
@@ -3966,8 +3861,7 @@ impl CryptoKeyVersion {
     /// let x = CryptoKeyVersion::new().set_or_clear_destroy_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_destroy_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.destroy_time = v.map(|x| x.into());
         self
@@ -3982,8 +3876,7 @@ impl CryptoKeyVersion {
     /// let x = CryptoKeyVersion::new().set_destroy_event_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_destroy_event_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.destroy_event_time = std::option::Option::Some(v.into());
         self
@@ -3999,8 +3892,7 @@ impl CryptoKeyVersion {
     /// let x = CryptoKeyVersion::new().set_or_clear_destroy_event_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_destroy_event_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.destroy_event_time = v.map(|x| x.into());
         self
@@ -4027,8 +3919,7 @@ impl CryptoKeyVersion {
     /// let x = CryptoKeyVersion::new().set_import_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_import_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.import_time = std::option::Option::Some(v.into());
         self
@@ -4044,8 +3935,7 @@ impl CryptoKeyVersion {
     /// let x = CryptoKeyVersion::new().set_or_clear_import_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_import_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.import_time = v.map(|x| x.into());
         self
@@ -4058,10 +3948,7 @@ impl CryptoKeyVersion {
     /// # use google_cloud_kms_v1::model::CryptoKeyVersion;
     /// let x = CryptoKeyVersion::new().set_import_failure_reason("example");
     /// ```
-    pub fn set_import_failure_reason<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_import_failure_reason<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.import_failure_reason = v.into();
         self
     }
@@ -4073,10 +3960,7 @@ impl CryptoKeyVersion {
     /// # use google_cloud_kms_v1::model::CryptoKeyVersion;
     /// let x = CryptoKeyVersion::new().set_generation_failure_reason("example");
     /// ```
-    pub fn set_generation_failure_reason<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_generation_failure_reason<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.generation_failure_reason = v.into();
         self
     }
@@ -4088,10 +3972,7 @@ impl CryptoKeyVersion {
     /// # use google_cloud_kms_v1::model::CryptoKeyVersion;
     /// let x = CryptoKeyVersion::new().set_external_destruction_failure_reason("example");
     /// ```
-    pub fn set_external_destruction_failure_reason<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_external_destruction_failure_reason<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.external_destruction_failure_reason = v.into();
         self
     }
@@ -4105,8 +3986,7 @@ impl CryptoKeyVersion {
     /// let x = CryptoKeyVersion::new().set_external_protection_level_options(ExternalProtectionLevelOptions::default()/* use setters */);
     /// ```
     pub fn set_external_protection_level_options<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ExternalProtectionLevelOptions>,
+    where T: std::convert::Into<crate::model::ExternalProtectionLevelOptions>
     {
         self.external_protection_level_options = std::option::Option::Some(v.into());
         self
@@ -4121,12 +4001,8 @@ impl CryptoKeyVersion {
     /// let x = CryptoKeyVersion::new().set_or_clear_external_protection_level_options(Some(ExternalProtectionLevelOptions::default()/* use setters */));
     /// let x = CryptoKeyVersion::new().set_or_clear_external_protection_level_options(None::<ExternalProtectionLevelOptions>);
     /// ```
-    pub fn set_or_clear_external_protection_level_options<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<crate::model::ExternalProtectionLevelOptions>,
+    pub fn set_or_clear_external_protection_level_options<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<crate::model::ExternalProtectionLevelOptions>
     {
         self.external_protection_level_options = v.map(|x| x.into());
         self
@@ -4155,6 +4031,7 @@ impl wkt::message::Message for CryptoKeyVersion {
 pub mod crypto_key_version {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The algorithm of the
     /// [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion], indicating what
@@ -4394,12 +4271,8 @@ pub mod crypto_key_version {
         /// the integer representation of enums.
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
-                Self::Unspecified => {
-                    std::option::Option::Some("CRYPTO_KEY_VERSION_ALGORITHM_UNSPECIFIED")
-                }
-                Self::GoogleSymmetricEncryption => {
-                    std::option::Option::Some("GOOGLE_SYMMETRIC_ENCRYPTION")
-                }
+                Self::Unspecified => std::option::Option::Some("CRYPTO_KEY_VERSION_ALGORITHM_UNSPECIFIED"),
+                Self::GoogleSymmetricEncryption => std::option::Option::Some("GOOGLE_SYMMETRIC_ENCRYPTION"),
                 Self::Aes128Gcm => std::option::Option::Some("AES_128_GCM"),
                 Self::Aes256Gcm => std::option::Option::Some("AES_256_GCM"),
                 Self::Aes128Cbc => std::option::Option::Some("AES_128_CBC"),
@@ -4410,63 +4283,35 @@ pub mod crypto_key_version {
                 Self::RsaSignPss3072Sha256 => std::option::Option::Some("RSA_SIGN_PSS_3072_SHA256"),
                 Self::RsaSignPss4096Sha256 => std::option::Option::Some("RSA_SIGN_PSS_4096_SHA256"),
                 Self::RsaSignPss4096Sha512 => std::option::Option::Some("RSA_SIGN_PSS_4096_SHA512"),
-                Self::RsaSignPkcs12048Sha256 => {
-                    std::option::Option::Some("RSA_SIGN_PKCS1_2048_SHA256")
-                }
-                Self::RsaSignPkcs13072Sha256 => {
-                    std::option::Option::Some("RSA_SIGN_PKCS1_3072_SHA256")
-                }
-                Self::RsaSignPkcs14096Sha256 => {
-                    std::option::Option::Some("RSA_SIGN_PKCS1_4096_SHA256")
-                }
-                Self::RsaSignPkcs14096Sha512 => {
-                    std::option::Option::Some("RSA_SIGN_PKCS1_4096_SHA512")
-                }
+                Self::RsaSignPkcs12048Sha256 => std::option::Option::Some("RSA_SIGN_PKCS1_2048_SHA256"),
+                Self::RsaSignPkcs13072Sha256 => std::option::Option::Some("RSA_SIGN_PKCS1_3072_SHA256"),
+                Self::RsaSignPkcs14096Sha256 => std::option::Option::Some("RSA_SIGN_PKCS1_4096_SHA256"),
+                Self::RsaSignPkcs14096Sha512 => std::option::Option::Some("RSA_SIGN_PKCS1_4096_SHA512"),
                 Self::RsaSignRawPkcs12048 => std::option::Option::Some("RSA_SIGN_RAW_PKCS1_2048"),
                 Self::RsaSignRawPkcs13072 => std::option::Option::Some("RSA_SIGN_RAW_PKCS1_3072"),
                 Self::RsaSignRawPkcs14096 => std::option::Option::Some("RSA_SIGN_RAW_PKCS1_4096"),
-                Self::RsaDecryptOaep2048Sha256 => {
-                    std::option::Option::Some("RSA_DECRYPT_OAEP_2048_SHA256")
-                }
-                Self::RsaDecryptOaep3072Sha256 => {
-                    std::option::Option::Some("RSA_DECRYPT_OAEP_3072_SHA256")
-                }
-                Self::RsaDecryptOaep4096Sha256 => {
-                    std::option::Option::Some("RSA_DECRYPT_OAEP_4096_SHA256")
-                }
-                Self::RsaDecryptOaep4096Sha512 => {
-                    std::option::Option::Some("RSA_DECRYPT_OAEP_4096_SHA512")
-                }
-                Self::RsaDecryptOaep2048Sha1 => {
-                    std::option::Option::Some("RSA_DECRYPT_OAEP_2048_SHA1")
-                }
-                Self::RsaDecryptOaep3072Sha1 => {
-                    std::option::Option::Some("RSA_DECRYPT_OAEP_3072_SHA1")
-                }
-                Self::RsaDecryptOaep4096Sha1 => {
-                    std::option::Option::Some("RSA_DECRYPT_OAEP_4096_SHA1")
-                }
+                Self::RsaDecryptOaep2048Sha256 => std::option::Option::Some("RSA_DECRYPT_OAEP_2048_SHA256"),
+                Self::RsaDecryptOaep3072Sha256 => std::option::Option::Some("RSA_DECRYPT_OAEP_3072_SHA256"),
+                Self::RsaDecryptOaep4096Sha256 => std::option::Option::Some("RSA_DECRYPT_OAEP_4096_SHA256"),
+                Self::RsaDecryptOaep4096Sha512 => std::option::Option::Some("RSA_DECRYPT_OAEP_4096_SHA512"),
+                Self::RsaDecryptOaep2048Sha1 => std::option::Option::Some("RSA_DECRYPT_OAEP_2048_SHA1"),
+                Self::RsaDecryptOaep3072Sha1 => std::option::Option::Some("RSA_DECRYPT_OAEP_3072_SHA1"),
+                Self::RsaDecryptOaep4096Sha1 => std::option::Option::Some("RSA_DECRYPT_OAEP_4096_SHA1"),
                 Self::EcSignP256Sha256 => std::option::Option::Some("EC_SIGN_P256_SHA256"),
                 Self::EcSignP384Sha384 => std::option::Option::Some("EC_SIGN_P384_SHA384"),
-                Self::EcSignSecp256K1Sha256 => {
-                    std::option::Option::Some("EC_SIGN_SECP256K1_SHA256")
-                }
+                Self::EcSignSecp256K1Sha256 => std::option::Option::Some("EC_SIGN_SECP256K1_SHA256"),
                 Self::EcSignEd25519 => std::option::Option::Some("EC_SIGN_ED25519"),
                 Self::HmacSha256 => std::option::Option::Some("HMAC_SHA256"),
                 Self::HmacSha1 => std::option::Option::Some("HMAC_SHA1"),
                 Self::HmacSha384 => std::option::Option::Some("HMAC_SHA384"),
                 Self::HmacSha512 => std::option::Option::Some("HMAC_SHA512"),
                 Self::HmacSha224 => std::option::Option::Some("HMAC_SHA224"),
-                Self::ExternalSymmetricEncryption => {
-                    std::option::Option::Some("EXTERNAL_SYMMETRIC_ENCRYPTION")
-                }
+                Self::ExternalSymmetricEncryption => std::option::Option::Some("EXTERNAL_SYMMETRIC_ENCRYPTION"),
                 Self::MlKem768 => std::option::Option::Some("ML_KEM_768"),
                 Self::MlKem1024 => std::option::Option::Some("ML_KEM_1024"),
                 Self::KemXwing => std::option::Option::Some("KEM_XWING"),
                 Self::PqSignMlDsa65 => std::option::Option::Some("PQ_SIGN_ML_DSA_65"),
-                Self::PqSignSlhDsaSha2128S => {
-                    std::option::Option::Some("PQ_SIGN_SLH_DSA_SHA2_128S")
-                }
+                Self::PqSignSlhDsaSha2128S => std::option::Option::Some("PQ_SIGN_SLH_DSA_SHA2_128S"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -4529,9 +4374,7 @@ pub mod crypto_key_version {
                 56 => Self::PqSignMlDsa65,
                 57 => Self::PqSignSlhDsaSha2128S,
                 63 => Self::KemXwing,
-                _ => Self::UnknownValue(crypto_key_version_algorithm::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(crypto_key_version_algorithm::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -4581,9 +4424,7 @@ pub mod crypto_key_version {
                 "KEM_XWING" => Self::KemXwing,
                 "PQ_SIGN_ML_DSA_65" => Self::PqSignMlDsa65,
                 "PQ_SIGN_SLH_DSA_SHA2_128S" => Self::PqSignSlhDsaSha2128S,
-                _ => Self::UnknownValue(crypto_key_version_algorithm::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(crypto_key_version_algorithm::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -4645,11 +4486,8 @@ pub mod crypto_key_version {
         where
             D: serde::Deserializer<'de>,
         {
-            deserializer.deserialize_any(
-                wkt::internal::EnumVisitor::<CryptoKeyVersionAlgorithm>::new(
-                    ".google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionAlgorithm",
-                ),
-            )
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<CryptoKeyVersionAlgorithm>::new(
+                ".google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionAlgorithm"))
         }
     }
 
@@ -4791,9 +4629,7 @@ pub mod crypto_key_version {
         /// the integer representation of enums.
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
-                Self::Unspecified => {
-                    std::option::Option::Some("CRYPTO_KEY_VERSION_STATE_UNSPECIFIED")
-                }
+                Self::Unspecified => std::option::Option::Some("CRYPTO_KEY_VERSION_STATE_UNSPECIFIED"),
                 Self::PendingGeneration => std::option::Option::Some("PENDING_GENERATION"),
                 Self::Enabled => std::option::Option::Some("ENABLED"),
                 Self::Disabled => std::option::Option::Some("DISABLED"),
@@ -4802,12 +4638,8 @@ pub mod crypto_key_version {
                 Self::PendingImport => std::option::Option::Some("PENDING_IMPORT"),
                 Self::ImportFailed => std::option::Option::Some("IMPORT_FAILED"),
                 Self::GenerationFailed => std::option::Option::Some("GENERATION_FAILED"),
-                Self::PendingExternalDestruction => {
-                    std::option::Option::Some("PENDING_EXTERNAL_DESTRUCTION")
-                }
-                Self::ExternalDestructionFailed => {
-                    std::option::Option::Some("EXTERNAL_DESTRUCTION_FAILED")
-                }
+                Self::PendingExternalDestruction => std::option::Option::Some("PENDING_EXTERNAL_DESTRUCTION"),
+                Self::ExternalDestructionFailed => std::option::Option::Some("EXTERNAL_DESTRUCTION_FAILED"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -4840,9 +4672,7 @@ pub mod crypto_key_version {
                 8 => Self::GenerationFailed,
                 9 => Self::PendingExternalDestruction,
                 10 => Self::ExternalDestructionFailed,
-                _ => Self::UnknownValue(crypto_key_version_state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(crypto_key_version_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -4862,9 +4692,7 @@ pub mod crypto_key_version {
                 "GENERATION_FAILED" => Self::GenerationFailed,
                 "PENDING_EXTERNAL_DESTRUCTION" => Self::PendingExternalDestruction,
                 "EXTERNAL_DESTRUCTION_FAILED" => Self::ExternalDestructionFailed,
-                _ => Self::UnknownValue(crypto_key_version_state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(crypto_key_version_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -4897,8 +4725,7 @@ pub mod crypto_key_version {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<CryptoKeyVersionState>::new(
-                ".google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState",
-            ))
+                ".google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState"))
         }
     }
 
@@ -4978,9 +4805,7 @@ pub mod crypto_key_version {
         /// the integer representation of enums.
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
-                Self::Unspecified => {
-                    std::option::Option::Some("CRYPTO_KEY_VERSION_VIEW_UNSPECIFIED")
-                }
+                Self::Unspecified => std::option::Option::Some("CRYPTO_KEY_VERSION_VIEW_UNSPECIFIED"),
                 Self::Full => std::option::Option::Some("FULL"),
                 Self::UnknownValue(u) => u.0.name(),
             }
@@ -5005,9 +4830,7 @@ pub mod crypto_key_version {
             match value {
                 0 => Self::Unspecified,
                 1 => Self::Full,
-                _ => Self::UnknownValue(crypto_key_version_view::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(crypto_key_version_view::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -5018,9 +4841,7 @@ pub mod crypto_key_version {
             match value {
                 "CRYPTO_KEY_VERSION_VIEW_UNSPECIFIED" => Self::Unspecified,
                 "FULL" => Self::Full,
-                _ => Self::UnknownValue(crypto_key_version_view::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(crypto_key_version_view::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -5044,8 +4865,7 @@ pub mod crypto_key_version {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<CryptoKeyVersionView>::new(
-                ".google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionView",
-            ))
+                ".google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionView"))
         }
     }
 }
@@ -5054,6 +4874,7 @@ pub mod crypto_key_version {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ChecksummedData {
+
     /// Raw Data.
     pub data: ::bytes::Bytes,
 
@@ -5104,8 +4925,7 @@ impl ChecksummedData {
     /// let x = ChecksummedData::new().set_crc32c_checksum(Int64Value::default()/* use setters */);
     /// ```
     pub fn set_crc32c_checksum<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.crc32c_checksum = std::option::Option::Some(v.into());
         self
@@ -5121,8 +4941,7 @@ impl ChecksummedData {
     /// let x = ChecksummedData::new().set_or_clear_crc32c_checksum(None::<Int64Value>);
     /// ```
     pub fn set_or_clear_crc32c_checksum<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.crc32c_checksum = v.map(|x| x.into());
         self
@@ -5144,6 +4963,7 @@ impl wkt::message::Message for ChecksummedData {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PublicKey {
+
     /// The public key, encoded in PEM format. For more information, see the
     /// [RFC 7468](https://tools.ietf.org/html/rfc7468) sections for
     /// [General Considerations](https://tools.ietf.org/html/rfc7468#section-2) and
@@ -5239,12 +5059,7 @@ impl PublicKey {
     /// let x1 = PublicKey::new().set_algorithm(CryptoKeyVersionAlgorithm::Aes128Gcm);
     /// let x2 = PublicKey::new().set_algorithm(CryptoKeyVersionAlgorithm::Aes256Gcm);
     /// ```
-    pub fn set_algorithm<
-        T: std::convert::Into<crate::model::crypto_key_version::CryptoKeyVersionAlgorithm>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_algorithm<T: std::convert::Into<crate::model::crypto_key_version::CryptoKeyVersionAlgorithm>>(mut self, v: T) -> Self {
         self.algorithm = v.into();
         self
     }
@@ -5258,8 +5073,7 @@ impl PublicKey {
     /// let x = PublicKey::new().set_pem_crc32c(Int64Value::default()/* use setters */);
     /// ```
     pub fn set_pem_crc32c<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.pem_crc32c = std::option::Option::Some(v.into());
         self
@@ -5275,8 +5089,7 @@ impl PublicKey {
     /// let x = PublicKey::new().set_or_clear_pem_crc32c(None::<Int64Value>);
     /// ```
     pub fn set_or_clear_pem_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.pem_crc32c = v.map(|x| x.into());
         self
@@ -5304,10 +5117,7 @@ impl PublicKey {
     /// let x1 = PublicKey::new().set_protection_level(ProtectionLevel::Hsm);
     /// let x2 = PublicKey::new().set_protection_level(ProtectionLevel::External);
     /// ```
-    pub fn set_protection_level<T: std::convert::Into<crate::model::ProtectionLevel>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_protection_level<T: std::convert::Into<crate::model::ProtectionLevel>>(mut self, v: T) -> Self {
         self.protection_level = v.into();
         self
     }
@@ -5322,12 +5132,7 @@ impl PublicKey {
     /// let x1 = PublicKey::new().set_public_key_format(PublicKeyFormat::Der);
     /// let x2 = PublicKey::new().set_public_key_format(PublicKeyFormat::NistPqc);
     /// ```
-    pub fn set_public_key_format<
-        T: std::convert::Into<crate::model::public_key::PublicKeyFormat>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_public_key_format<T: std::convert::Into<crate::model::public_key::PublicKeyFormat>>(mut self, v: T) -> Self {
         self.public_key_format = v.into();
         self
     }
@@ -5341,8 +5146,7 @@ impl PublicKey {
     /// let x = PublicKey::new().set_public_key(ChecksummedData::default()/* use setters */);
     /// ```
     pub fn set_public_key<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ChecksummedData>,
+    where T: std::convert::Into<crate::model::ChecksummedData>
     {
         self.public_key = std::option::Option::Some(v.into());
         self
@@ -5358,8 +5162,7 @@ impl PublicKey {
     /// let x = PublicKey::new().set_or_clear_public_key(None::<ChecksummedData>);
     /// ```
     pub fn set_or_clear_public_key<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ChecksummedData>,
+    where T: std::convert::Into<crate::model::ChecksummedData>
     {
         self.public_key = v.map(|x| x.into());
         self
@@ -5376,6 +5179,7 @@ impl wkt::message::Message for PublicKey {
 pub mod public_key {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The supported [PublicKey][google.cloud.kms.v1.PublicKey] formats.
     ///
@@ -5497,9 +5301,7 @@ pub mod public_key {
                 2 => Self::Der,
                 3 => Self::NistPqc,
                 4 => Self::XwingRawBytes,
-                _ => Self::UnknownValue(public_key_format::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(public_key_format::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -5513,9 +5315,7 @@ pub mod public_key {
                 "DER" => Self::Der,
                 "NIST_PQC" => Self::NistPqc,
                 "XWING_RAW_BYTES" => Self::XwingRawBytes,
-                _ => Self::UnknownValue(public_key_format::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(public_key_format::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -5542,8 +5342,7 @@ pub mod public_key {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<PublicKeyFormat>::new(
-                ".google.cloud.kms.v1.PublicKey.PublicKeyFormat",
-            ))
+                ".google.cloud.kms.v1.PublicKey.PublicKeyFormat"))
         }
     }
 }
@@ -5593,6 +5392,7 @@ pub mod public_key {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportJob {
+
     /// Output only. The resource name for this
     /// [ImportJob][google.cloud.kms.v1.ImportJob] in the format
     /// `projects/*/locations/*/keyRings/*/importJobs/*`.
@@ -5700,10 +5500,7 @@ impl ImportJob {
     /// let x1 = ImportJob::new().set_import_method(ImportMethod::RsaOaep4096Sha1Aes256);
     /// let x2 = ImportJob::new().set_import_method(ImportMethod::RsaOaep3072Sha256Aes256);
     /// ```
-    pub fn set_import_method<T: std::convert::Into<crate::model::import_job::ImportMethod>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_import_method<T: std::convert::Into<crate::model::import_job::ImportMethod>>(mut self, v: T) -> Self {
         self.import_method = v.into();
         self
     }
@@ -5718,10 +5515,7 @@ impl ImportJob {
     /// let x1 = ImportJob::new().set_protection_level(ProtectionLevel::Hsm);
     /// let x2 = ImportJob::new().set_protection_level(ProtectionLevel::External);
     /// ```
-    pub fn set_protection_level<T: std::convert::Into<crate::model::ProtectionLevel>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_protection_level<T: std::convert::Into<crate::model::ProtectionLevel>>(mut self, v: T) -> Self {
         self.protection_level = v.into();
         self
     }
@@ -5735,8 +5529,7 @@ impl ImportJob {
     /// let x = ImportJob::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -5752,8 +5545,7 @@ impl ImportJob {
     /// let x = ImportJob::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -5768,8 +5560,7 @@ impl ImportJob {
     /// let x = ImportJob::new().set_generate_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_generate_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.generate_time = std::option::Option::Some(v.into());
         self
@@ -5785,8 +5576,7 @@ impl ImportJob {
     /// let x = ImportJob::new().set_or_clear_generate_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_generate_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.generate_time = v.map(|x| x.into());
         self
@@ -5801,8 +5591,7 @@ impl ImportJob {
     /// let x = ImportJob::new().set_expire_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_expire_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.expire_time = std::option::Option::Some(v.into());
         self
@@ -5818,8 +5607,7 @@ impl ImportJob {
     /// let x = ImportJob::new().set_or_clear_expire_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.expire_time = v.map(|x| x.into());
         self
@@ -5834,8 +5622,7 @@ impl ImportJob {
     /// let x = ImportJob::new().set_expire_event_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_expire_event_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.expire_event_time = std::option::Option::Some(v.into());
         self
@@ -5851,8 +5638,7 @@ impl ImportJob {
     /// let x = ImportJob::new().set_or_clear_expire_event_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_expire_event_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.expire_event_time = v.map(|x| x.into());
         self
@@ -5868,10 +5654,7 @@ impl ImportJob {
     /// let x1 = ImportJob::new().set_state(ImportJobState::Active);
     /// let x2 = ImportJob::new().set_state(ImportJobState::Expired);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::import_job::ImportJobState>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::import_job::ImportJobState>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -5885,8 +5668,7 @@ impl ImportJob {
     /// let x = ImportJob::new().set_public_key(WrappingPublicKey::default()/* use setters */);
     /// ```
     pub fn set_public_key<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::import_job::WrappingPublicKey>,
+    where T: std::convert::Into<crate::model::import_job::WrappingPublicKey>
     {
         self.public_key = std::option::Option::Some(v.into());
         self
@@ -5902,8 +5684,7 @@ impl ImportJob {
     /// let x = ImportJob::new().set_or_clear_public_key(None::<WrappingPublicKey>);
     /// ```
     pub fn set_or_clear_public_key<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::import_job::WrappingPublicKey>,
+    where T: std::convert::Into<crate::model::import_job::WrappingPublicKey>
     {
         self.public_key = v.map(|x| x.into());
         self
@@ -5918,8 +5699,7 @@ impl ImportJob {
     /// let x = ImportJob::new().set_attestation(KeyOperationAttestation::default()/* use setters */);
     /// ```
     pub fn set_attestation<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::KeyOperationAttestation>,
+    where T: std::convert::Into<crate::model::KeyOperationAttestation>
     {
         self.attestation = std::option::Option::Some(v.into());
         self
@@ -5935,8 +5715,7 @@ impl ImportJob {
     /// let x = ImportJob::new().set_or_clear_attestation(None::<KeyOperationAttestation>);
     /// ```
     pub fn set_or_clear_attestation<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::KeyOperationAttestation>,
+    where T: std::convert::Into<crate::model::KeyOperationAttestation>
     {
         self.attestation = v.map(|x| x.into());
         self
@@ -5954,6 +5733,7 @@ pub mod import_job {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// The public key component of the wrapping key. For details of the type of
     /// key this public key corresponds to, see the
     /// [ImportMethod][google.cloud.kms.v1.ImportJob.ImportMethod].
@@ -5962,6 +5742,7 @@ pub mod import_job {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct WrappingPublicKey {
+
         /// The public key, encoded in PEM format. For more information, see the [RFC
         /// 7468](https://tools.ietf.org/html/rfc7468) sections for [General
         /// Considerations](https://tools.ietf.org/html/rfc7468#section-2) and
@@ -6099,18 +5880,10 @@ pub mod import_job {
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
                 Self::Unspecified => std::option::Option::Some("IMPORT_METHOD_UNSPECIFIED"),
-                Self::RsaOaep3072Sha1Aes256 => {
-                    std::option::Option::Some("RSA_OAEP_3072_SHA1_AES_256")
-                }
-                Self::RsaOaep4096Sha1Aes256 => {
-                    std::option::Option::Some("RSA_OAEP_4096_SHA1_AES_256")
-                }
-                Self::RsaOaep3072Sha256Aes256 => {
-                    std::option::Option::Some("RSA_OAEP_3072_SHA256_AES_256")
-                }
-                Self::RsaOaep4096Sha256Aes256 => {
-                    std::option::Option::Some("RSA_OAEP_4096_SHA256_AES_256")
-                }
+                Self::RsaOaep3072Sha1Aes256 => std::option::Option::Some("RSA_OAEP_3072_SHA1_AES_256"),
+                Self::RsaOaep4096Sha1Aes256 => std::option::Option::Some("RSA_OAEP_4096_SHA1_AES_256"),
+                Self::RsaOaep3072Sha256Aes256 => std::option::Option::Some("RSA_OAEP_3072_SHA256_AES_256"),
+                Self::RsaOaep4096Sha256Aes256 => std::option::Option::Some("RSA_OAEP_4096_SHA256_AES_256"),
                 Self::RsaOaep3072Sha256 => std::option::Option::Some("RSA_OAEP_3072_SHA256"),
                 Self::RsaOaep4096Sha256 => std::option::Option::Some("RSA_OAEP_4096_SHA256"),
                 Self::UnknownValue(u) => u.0.name(),
@@ -6141,9 +5914,7 @@ pub mod import_job {
                 4 => Self::RsaOaep4096Sha256Aes256,
                 5 => Self::RsaOaep3072Sha256,
                 6 => Self::RsaOaep4096Sha256,
-                _ => Self::UnknownValue(import_method::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(import_method::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -6159,9 +5930,7 @@ pub mod import_job {
                 "RSA_OAEP_4096_SHA256_AES_256" => Self::RsaOaep4096Sha256Aes256,
                 "RSA_OAEP_3072_SHA256" => Self::RsaOaep3072Sha256,
                 "RSA_OAEP_4096_SHA256" => Self::RsaOaep4096Sha256,
-                _ => Self::UnknownValue(import_method::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(import_method::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -6190,8 +5959,7 @@ pub mod import_job {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<ImportMethod>::new(
-                ".google.cloud.kms.v1.ImportJob.ImportMethod",
-            ))
+                ".google.cloud.kms.v1.ImportJob.ImportMethod"))
         }
     }
 
@@ -6301,9 +6069,7 @@ pub mod import_job {
                 1 => Self::PendingGeneration,
                 2 => Self::Active,
                 3 => Self::Expired,
-                _ => Self::UnknownValue(import_job_state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(import_job_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -6316,9 +6082,7 @@ pub mod import_job {
                 "PENDING_GENERATION" => Self::PendingGeneration,
                 "ACTIVE" => Self::Active,
                 "EXPIRED" => Self::Expired,
-                _ => Self::UnknownValue(import_job_state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(import_job_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -6344,8 +6108,7 @@ pub mod import_job {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<ImportJobState>::new(
-                ".google.cloud.kms.v1.ImportJob.ImportJobState",
-            ))
+                ".google.cloud.kms.v1.ImportJob.ImportJobState"))
         }
     }
 }
@@ -6363,6 +6126,7 @@ pub mod import_job {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExternalProtectionLevelOptions {
+
     /// The URI for an external resource that this
     /// [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion] represents.
     ///
@@ -6392,10 +6156,7 @@ impl ExternalProtectionLevelOptions {
     /// # use google_cloud_kms_v1::model::ExternalProtectionLevelOptions;
     /// let x = ExternalProtectionLevelOptions::new().set_external_key_uri("example");
     /// ```
-    pub fn set_external_key_uri<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_external_key_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.external_key_uri = v.into();
         self
     }
@@ -6407,10 +6168,7 @@ impl ExternalProtectionLevelOptions {
     /// # use google_cloud_kms_v1::model::ExternalProtectionLevelOptions;
     /// let x = ExternalProtectionLevelOptions::new().set_ekm_connection_key_path("example");
     /// ```
-    pub fn set_ekm_connection_key_path<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_ekm_connection_key_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ekm_connection_key_path = v.into();
         self
     }
@@ -6434,6 +6192,7 @@ impl wkt::message::Message for ExternalProtectionLevelOptions {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct KeyAccessJustificationsPolicy {
+
     /// The list of allowed reasons for access to a
     /// [CryptoKey][google.cloud.kms.v1.CryptoKey]. Zero allowed access reasons
     /// means all encrypt, decrypt, and sign operations for the
@@ -6466,7 +6225,7 @@ impl KeyAccessJustificationsPolicy {
     pub fn set_allowed_access_reasons<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AccessReason>,
+        V: std::convert::Into<crate::model::AccessReason>
     {
         use std::iter::Iterator;
         self.allowed_access_reasons = v.into_iter().map(|i| i.into()).collect();
@@ -6487,6 +6246,7 @@ impl wkt::message::Message for KeyAccessJustificationsPolicy {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListKeyRingsRequest {
+
     /// Required. The resource name of the location associated with the
     /// [KeyRings][google.cloud.kms.v1.KeyRing], in the format
     /// `projects/*/locations/*`.
@@ -6606,6 +6366,7 @@ impl wkt::message::Message for ListKeyRingsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCryptoKeysRequest {
+
     /// Required. The resource name of the [KeyRing][google.cloud.kms.v1.KeyRing]
     /// to list, in the format `projects/*/locations/*/keyRings/*`.
     ///
@@ -6697,12 +6458,7 @@ impl ListCryptoKeysRequest {
     /// use google_cloud_kms_v1::model::crypto_key_version::CryptoKeyVersionView;
     /// let x0 = ListCryptoKeysRequest::new().set_version_view(CryptoKeyVersionView::Full);
     /// ```
-    pub fn set_version_view<
-        T: std::convert::Into<crate::model::crypto_key_version::CryptoKeyVersionView>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_version_view<T: std::convert::Into<crate::model::crypto_key_version::CryptoKeyVersionView>>(mut self, v: T) -> Self {
         self.version_view = v.into();
         self
     }
@@ -6745,6 +6501,7 @@ impl wkt::message::Message for ListCryptoKeysRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCryptoKeyVersionsRequest {
+
     /// Required. The resource name of the
     /// [CryptoKey][google.cloud.kms.v1.CryptoKey] to list, in the format
     /// `projects/*/locations/*/keyRings/*/cryptoKeys/*`.
@@ -6837,12 +6594,7 @@ impl ListCryptoKeyVersionsRequest {
     /// use google_cloud_kms_v1::model::crypto_key_version::CryptoKeyVersionView;
     /// let x0 = ListCryptoKeyVersionsRequest::new().set_view(CryptoKeyVersionView::Full);
     /// ```
-    pub fn set_view<
-        T: std::convert::Into<crate::model::crypto_key_version::CryptoKeyVersionView>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_view<T: std::convert::Into<crate::model::crypto_key_version::CryptoKeyVersionView>>(mut self, v: T) -> Self {
         self.view = v.into();
         self
     }
@@ -6885,6 +6637,7 @@ impl wkt::message::Message for ListCryptoKeyVersionsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListImportJobsRequest {
+
     /// Required. The resource name of the [KeyRing][google.cloud.kms.v1.KeyRing]
     /// to list, in the format `projects/*/locations/*/keyRings/*`.
     ///
@@ -7003,6 +6756,7 @@ impl wkt::message::Message for ListImportJobsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListKeyRingsResponse {
+
     /// The list of [KeyRings][google.cloud.kms.v1.KeyRing].
     ///
     /// [google.cloud.kms.v1.KeyRing]: crate::model::KeyRing
@@ -7049,7 +6803,7 @@ impl ListKeyRingsResponse {
     pub fn set_key_rings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::KeyRing>,
+        V: std::convert::Into<crate::model::KeyRing>
     {
         use std::iter::Iterator;
         self.key_rings = v.into_iter().map(|i| i.into()).collect();
@@ -7108,6 +6862,7 @@ impl gax::paginator::internal::PageableResponse for ListKeyRingsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCryptoKeysResponse {
+
     /// The list of [CryptoKeys][google.cloud.kms.v1.CryptoKey].
     ///
     /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
@@ -7154,7 +6909,7 @@ impl ListCryptoKeysResponse {
     pub fn set_crypto_keys<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::CryptoKey>,
+        V: std::convert::Into<crate::model::CryptoKey>
     {
         use std::iter::Iterator;
         self.crypto_keys = v.into_iter().map(|i| i.into()).collect();
@@ -7213,6 +6968,7 @@ impl gax::paginator::internal::PageableResponse for ListCryptoKeysResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCryptoKeyVersionsResponse {
+
     /// The list of [CryptoKeyVersions][google.cloud.kms.v1.CryptoKeyVersion].
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
@@ -7260,7 +7016,7 @@ impl ListCryptoKeyVersionsResponse {
     pub fn set_crypto_key_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::CryptoKeyVersion>,
+        V: std::convert::Into<crate::model::CryptoKeyVersion>
     {
         use std::iter::Iterator;
         self.crypto_key_versions = v.into_iter().map(|i| i.into()).collect();
@@ -7319,6 +7075,7 @@ impl gax::paginator::internal::PageableResponse for ListCryptoKeyVersionsRespons
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListImportJobsResponse {
+
     /// The list of [ImportJobs][google.cloud.kms.v1.ImportJob].
     ///
     /// [google.cloud.kms.v1.ImportJob]: crate::model::ImportJob
@@ -7365,7 +7122,7 @@ impl ListImportJobsResponse {
     pub fn set_import_jobs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ImportJob>,
+        V: std::convert::Into<crate::model::ImportJob>
     {
         use std::iter::Iterator;
         self.import_jobs = v.into_iter().map(|i| i.into()).collect();
@@ -7424,6 +7181,7 @@ impl gax::paginator::internal::PageableResponse for ListImportJobsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetKeyRingRequest {
+
     /// Required. The [name][google.cloud.kms.v1.KeyRing.name] of the
     /// [KeyRing][google.cloud.kms.v1.KeyRing] to get.
     ///
@@ -7465,6 +7223,7 @@ impl wkt::message::Message for GetKeyRingRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetCryptoKeyRequest {
+
     /// Required. The [name][google.cloud.kms.v1.CryptoKey.name] of the
     /// [CryptoKey][google.cloud.kms.v1.CryptoKey] to get.
     ///
@@ -7506,6 +7265,7 @@ impl wkt::message::Message for GetCryptoKeyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetCryptoKeyVersionRequest {
+
     /// Required. The [name][google.cloud.kms.v1.CryptoKeyVersion.name] of the
     /// [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion] to get.
     ///
@@ -7547,6 +7307,7 @@ impl wkt::message::Message for GetCryptoKeyVersionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetPublicKeyRequest {
+
     /// Required. The [name][google.cloud.kms.v1.CryptoKeyVersion.name] of the
     /// [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion] public key to get.
     ///
@@ -7597,12 +7358,7 @@ impl GetPublicKeyRequest {
     /// let x1 = GetPublicKeyRequest::new().set_public_key_format(PublicKeyFormat::Der);
     /// let x2 = GetPublicKeyRequest::new().set_public_key_format(PublicKeyFormat::NistPqc);
     /// ```
-    pub fn set_public_key_format<
-        T: std::convert::Into<crate::model::public_key::PublicKeyFormat>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_public_key_format<T: std::convert::Into<crate::model::public_key::PublicKeyFormat>>(mut self, v: T) -> Self {
         self.public_key_format = v.into();
         self
     }
@@ -7621,6 +7377,7 @@ impl wkt::message::Message for GetPublicKeyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetImportJobRequest {
+
     /// Required. The [name][google.cloud.kms.v1.ImportJob.name] of the
     /// [ImportJob][google.cloud.kms.v1.ImportJob] to get.
     ///
@@ -7662,6 +7419,7 @@ impl wkt::message::Message for GetImportJobRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateKeyRingRequest {
+
     /// Required. The resource name of the location associated with the
     /// [KeyRings][google.cloud.kms.v1.KeyRing], in the format
     /// `projects/*/locations/*`.
@@ -7720,8 +7478,7 @@ impl CreateKeyRingRequest {
     /// let x = CreateKeyRingRequest::new().set_key_ring(KeyRing::default()/* use setters */);
     /// ```
     pub fn set_key_ring<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::KeyRing>,
+    where T: std::convert::Into<crate::model::KeyRing>
     {
         self.key_ring = std::option::Option::Some(v.into());
         self
@@ -7737,8 +7494,7 @@ impl CreateKeyRingRequest {
     /// let x = CreateKeyRingRequest::new().set_or_clear_key_ring(None::<KeyRing>);
     /// ```
     pub fn set_or_clear_key_ring<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::KeyRing>,
+    where T: std::convert::Into<crate::model::KeyRing>
     {
         self.key_ring = v.map(|x| x.into());
         self
@@ -7758,6 +7514,7 @@ impl wkt::message::Message for CreateKeyRingRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateCryptoKeyRequest {
+
     /// Required. The [name][google.cloud.kms.v1.KeyRing.name] of the KeyRing
     /// associated with the [CryptoKeys][google.cloud.kms.v1.CryptoKey].
     ///
@@ -7831,8 +7588,7 @@ impl CreateCryptoKeyRequest {
     /// let x = CreateCryptoKeyRequest::new().set_crypto_key(CryptoKey::default()/* use setters */);
     /// ```
     pub fn set_crypto_key<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CryptoKey>,
+    where T: std::convert::Into<crate::model::CryptoKey>
     {
         self.crypto_key = std::option::Option::Some(v.into());
         self
@@ -7848,8 +7604,7 @@ impl CreateCryptoKeyRequest {
     /// let x = CreateCryptoKeyRequest::new().set_or_clear_crypto_key(None::<CryptoKey>);
     /// ```
     pub fn set_or_clear_crypto_key<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CryptoKey>,
+    where T: std::convert::Into<crate::model::CryptoKey>
     {
         self.crypto_key = v.map(|x| x.into());
         self
@@ -7881,6 +7636,7 @@ impl wkt::message::Message for CreateCryptoKeyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateCryptoKeyVersionRequest {
+
     /// Required. The [name][google.cloud.kms.v1.CryptoKey.name] of the
     /// [CryptoKey][google.cloud.kms.v1.CryptoKey] associated with the
     /// [CryptoKeyVersions][google.cloud.kms.v1.CryptoKeyVersion].
@@ -7925,8 +7681,7 @@ impl CreateCryptoKeyVersionRequest {
     /// let x = CreateCryptoKeyVersionRequest::new().set_crypto_key_version(CryptoKeyVersion::default()/* use setters */);
     /// ```
     pub fn set_crypto_key_version<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CryptoKeyVersion>,
+    where T: std::convert::Into<crate::model::CryptoKeyVersion>
     {
         self.crypto_key_version = std::option::Option::Some(v.into());
         self
@@ -7942,8 +7697,7 @@ impl CreateCryptoKeyVersionRequest {
     /// let x = CreateCryptoKeyVersionRequest::new().set_or_clear_crypto_key_version(None::<CryptoKeyVersion>);
     /// ```
     pub fn set_or_clear_crypto_key_version<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CryptoKeyVersion>,
+    where T: std::convert::Into<crate::model::CryptoKeyVersion>
     {
         self.crypto_key_version = v.map(|x| x.into());
         self
@@ -7963,6 +7717,7 @@ impl wkt::message::Message for CreateCryptoKeyVersionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportCryptoKeyVersionRequest {
+
     /// Required. The [name][google.cloud.kms.v1.CryptoKey.name] of the
     /// [CryptoKey][google.cloud.kms.v1.CryptoKey] to be imported into.
     ///
@@ -8068,8 +7823,7 @@ pub struct ImportCryptoKeyVersionRequest {
     /// instead.
     ///
     /// [google.cloud.kms.v1.ImportCryptoKeyVersionRequest.wrapped_key]: crate::model::ImportCryptoKeyVersionRequest::wrapped_key
-    pub wrapped_key_material:
-        std::option::Option<crate::model::import_crypto_key_version_request::WrappedKeyMaterial>,
+    pub wrapped_key_material: std::option::Option<crate::model::import_crypto_key_version_request::WrappedKeyMaterial>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -8098,10 +7852,7 @@ impl ImportCryptoKeyVersionRequest {
     /// # use google_cloud_kms_v1::model::ImportCryptoKeyVersionRequest;
     /// let x = ImportCryptoKeyVersionRequest::new().set_crypto_key_version("example");
     /// ```
-    pub fn set_crypto_key_version<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_crypto_key_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.crypto_key_version = v.into();
         self
     }
@@ -8116,12 +7867,7 @@ impl ImportCryptoKeyVersionRequest {
     /// let x1 = ImportCryptoKeyVersionRequest::new().set_algorithm(CryptoKeyVersionAlgorithm::Aes128Gcm);
     /// let x2 = ImportCryptoKeyVersionRequest::new().set_algorithm(CryptoKeyVersionAlgorithm::Aes256Gcm);
     /// ```
-    pub fn set_algorithm<
-        T: std::convert::Into<crate::model::crypto_key_version::CryptoKeyVersionAlgorithm>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_algorithm<T: std::convert::Into<crate::model::crypto_key_version::CryptoKeyVersionAlgorithm>>(mut self, v: T) -> Self {
         self.algorithm = v.into();
         self
     }
@@ -8161,16 +7907,8 @@ impl ImportCryptoKeyVersionRequest {
     /// use google_cloud_kms_v1::model::import_crypto_key_version_request::WrappedKeyMaterial;
     /// let x = ImportCryptoKeyVersionRequest::new().set_wrapped_key_material(Some(WrappedKeyMaterial::RsaAesWrappedKey(bytes::Bytes::from_static(b"example"))));
     /// ```
-    pub fn set_wrapped_key_material<
-        T: std::convert::Into<
-                std::option::Option<
-                    crate::model::import_crypto_key_version_request::WrappedKeyMaterial,
-                >,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_wrapped_key_material<T: std::convert::Into<std::option::Option<crate::model::import_crypto_key_version_request::WrappedKeyMaterial>>>(mut self, v: T) -> Self
+    {
         self.wrapped_key_material = v.into();
         self
     }
@@ -8201,8 +7939,8 @@ impl ImportCryptoKeyVersionRequest {
     pub fn set_rsa_aes_wrapped_key<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.wrapped_key_material = std::option::Option::Some(
             crate::model::import_crypto_key_version_request::WrappedKeyMaterial::RsaAesWrappedKey(
-                v.into(),
-            ),
+                v.into()
+            )
         );
         self
     }
@@ -8218,6 +7956,7 @@ impl wkt::message::Message for ImportCryptoKeyVersionRequest {
 pub mod import_crypto_key_version_request {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// This field is legacy. Use the field
     /// [wrapped_key][google.cloud.kms.v1.ImportCryptoKeyVersionRequest.wrapped_key]
@@ -8244,6 +7983,7 @@ pub mod import_crypto_key_version_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateImportJobRequest {
+
     /// Required. The [name][google.cloud.kms.v1.KeyRing.name] of the
     /// [KeyRing][google.cloud.kms.v1.KeyRing] associated with the
     /// [ImportJobs][google.cloud.kms.v1.ImportJob].
@@ -8304,8 +8044,7 @@ impl CreateImportJobRequest {
     /// let x = CreateImportJobRequest::new().set_import_job(ImportJob::default()/* use setters */);
     /// ```
     pub fn set_import_job<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ImportJob>,
+    where T: std::convert::Into<crate::model::ImportJob>
     {
         self.import_job = std::option::Option::Some(v.into());
         self
@@ -8321,8 +8060,7 @@ impl CreateImportJobRequest {
     /// let x = CreateImportJobRequest::new().set_or_clear_import_job(None::<ImportJob>);
     /// ```
     pub fn set_or_clear_import_job<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ImportJob>,
+    where T: std::convert::Into<crate::model::ImportJob>
     {
         self.import_job = v.map(|x| x.into());
         self
@@ -8342,6 +8080,7 @@ impl wkt::message::Message for CreateImportJobRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateCryptoKeyRequest {
+
     /// Required. [CryptoKey][google.cloud.kms.v1.CryptoKey] with updated values.
     ///
     /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
@@ -8367,8 +8106,7 @@ impl UpdateCryptoKeyRequest {
     /// let x = UpdateCryptoKeyRequest::new().set_crypto_key(CryptoKey::default()/* use setters */);
     /// ```
     pub fn set_crypto_key<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CryptoKey>,
+    where T: std::convert::Into<crate::model::CryptoKey>
     {
         self.crypto_key = std::option::Option::Some(v.into());
         self
@@ -8384,8 +8122,7 @@ impl UpdateCryptoKeyRequest {
     /// let x = UpdateCryptoKeyRequest::new().set_or_clear_crypto_key(None::<CryptoKey>);
     /// ```
     pub fn set_or_clear_crypto_key<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CryptoKey>,
+    where T: std::convert::Into<crate::model::CryptoKey>
     {
         self.crypto_key = v.map(|x| x.into());
         self
@@ -8400,8 +8137,7 @@ impl UpdateCryptoKeyRequest {
     /// let x = UpdateCryptoKeyRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -8417,8 +8153,7 @@ impl UpdateCryptoKeyRequest {
     /// let x = UpdateCryptoKeyRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -8438,6 +8173,7 @@ impl wkt::message::Message for UpdateCryptoKeyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateCryptoKeyVersionRequest {
+
     /// Required. [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion] with
     /// updated values.
     ///
@@ -8464,8 +8200,7 @@ impl UpdateCryptoKeyVersionRequest {
     /// let x = UpdateCryptoKeyVersionRequest::new().set_crypto_key_version(CryptoKeyVersion::default()/* use setters */);
     /// ```
     pub fn set_crypto_key_version<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CryptoKeyVersion>,
+    where T: std::convert::Into<crate::model::CryptoKeyVersion>
     {
         self.crypto_key_version = std::option::Option::Some(v.into());
         self
@@ -8481,8 +8216,7 @@ impl UpdateCryptoKeyVersionRequest {
     /// let x = UpdateCryptoKeyVersionRequest::new().set_or_clear_crypto_key_version(None::<CryptoKeyVersion>);
     /// ```
     pub fn set_or_clear_crypto_key_version<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CryptoKeyVersion>,
+    where T: std::convert::Into<crate::model::CryptoKeyVersion>
     {
         self.crypto_key_version = v.map(|x| x.into());
         self
@@ -8497,8 +8231,7 @@ impl UpdateCryptoKeyVersionRequest {
     /// let x = UpdateCryptoKeyVersionRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -8514,8 +8247,7 @@ impl UpdateCryptoKeyVersionRequest {
     /// let x = UpdateCryptoKeyVersionRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -8535,6 +8267,7 @@ impl wkt::message::Message for UpdateCryptoKeyVersionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateCryptoKeyPrimaryVersionRequest {
+
     /// Required. The resource name of the
     /// [CryptoKey][google.cloud.kms.v1.CryptoKey] to update.
     ///
@@ -8574,10 +8307,7 @@ impl UpdateCryptoKeyPrimaryVersionRequest {
     /// # use google_cloud_kms_v1::model::UpdateCryptoKeyPrimaryVersionRequest;
     /// let x = UpdateCryptoKeyPrimaryVersionRequest::new().set_crypto_key_version_id("example");
     /// ```
-    pub fn set_crypto_key_version_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_crypto_key_version_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.crypto_key_version_id = v.into();
         self
     }
@@ -8596,6 +8326,7 @@ impl wkt::message::Message for UpdateCryptoKeyPrimaryVersionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DestroyCryptoKeyVersionRequest {
+
     /// Required. The resource name of the
     /// [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion] to destroy.
     ///
@@ -8636,6 +8367,7 @@ impl wkt::message::Message for DestroyCryptoKeyVersionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RestoreCryptoKeyVersionRequest {
+
     /// Required. The resource name of the
     /// [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion] to restore.
     ///
@@ -8676,6 +8408,7 @@ impl wkt::message::Message for RestoreCryptoKeyVersionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EncryptRequest {
+
     /// Required. The resource name of the
     /// [CryptoKey][google.cloud.kms.v1.CryptoKey] or
     /// [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion] to use for
@@ -8819,10 +8552,7 @@ impl EncryptRequest {
     /// # use google_cloud_kms_v1::model::EncryptRequest;
     /// let x = EncryptRequest::new().set_additional_authenticated_data(bytes::Bytes::from_static(b"example"));
     /// ```
-    pub fn set_additional_authenticated_data<T: std::convert::Into<::bytes::Bytes>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_additional_authenticated_data<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.additional_authenticated_data = v.into();
         self
     }
@@ -8836,8 +8566,7 @@ impl EncryptRequest {
     /// let x = EncryptRequest::new().set_plaintext_crc32c(Int64Value::default()/* use setters */);
     /// ```
     pub fn set_plaintext_crc32c<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.plaintext_crc32c = std::option::Option::Some(v.into());
         self
@@ -8853,8 +8582,7 @@ impl EncryptRequest {
     /// let x = EncryptRequest::new().set_or_clear_plaintext_crc32c(None::<Int64Value>);
     /// ```
     pub fn set_or_clear_plaintext_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.plaintext_crc32c = v.map(|x| x.into());
         self
@@ -8869,8 +8597,7 @@ impl EncryptRequest {
     /// let x = EncryptRequest::new().set_additional_authenticated_data_crc32c(Int64Value::default()/* use setters */);
     /// ```
     pub fn set_additional_authenticated_data_crc32c<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.additional_authenticated_data_crc32c = std::option::Option::Some(v.into());
         self
@@ -8885,12 +8612,8 @@ impl EncryptRequest {
     /// let x = EncryptRequest::new().set_or_clear_additional_authenticated_data_crc32c(Some(Int64Value::default()/* use setters */));
     /// let x = EncryptRequest::new().set_or_clear_additional_authenticated_data_crc32c(None::<Int64Value>);
     /// ```
-    pub fn set_or_clear_additional_authenticated_data_crc32c<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    pub fn set_or_clear_additional_authenticated_data_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.additional_authenticated_data_crc32c = v.map(|x| x.into());
         self
@@ -8910,6 +8633,7 @@ impl wkt::message::Message for EncryptRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DecryptRequest {
+
     /// Required. The resource name of the
     /// [CryptoKey][google.cloud.kms.v1.CryptoKey] to use for decryption. The
     /// server will choose the appropriate version.
@@ -9018,10 +8742,7 @@ impl DecryptRequest {
     /// # use google_cloud_kms_v1::model::DecryptRequest;
     /// let x = DecryptRequest::new().set_additional_authenticated_data(bytes::Bytes::from_static(b"example"));
     /// ```
-    pub fn set_additional_authenticated_data<T: std::convert::Into<::bytes::Bytes>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_additional_authenticated_data<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.additional_authenticated_data = v.into();
         self
     }
@@ -9035,8 +8756,7 @@ impl DecryptRequest {
     /// let x = DecryptRequest::new().set_ciphertext_crc32c(Int64Value::default()/* use setters */);
     /// ```
     pub fn set_ciphertext_crc32c<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.ciphertext_crc32c = std::option::Option::Some(v.into());
         self
@@ -9052,8 +8772,7 @@ impl DecryptRequest {
     /// let x = DecryptRequest::new().set_or_clear_ciphertext_crc32c(None::<Int64Value>);
     /// ```
     pub fn set_or_clear_ciphertext_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.ciphertext_crc32c = v.map(|x| x.into());
         self
@@ -9068,8 +8787,7 @@ impl DecryptRequest {
     /// let x = DecryptRequest::new().set_additional_authenticated_data_crc32c(Int64Value::default()/* use setters */);
     /// ```
     pub fn set_additional_authenticated_data_crc32c<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.additional_authenticated_data_crc32c = std::option::Option::Some(v.into());
         self
@@ -9084,12 +8802,8 @@ impl DecryptRequest {
     /// let x = DecryptRequest::new().set_or_clear_additional_authenticated_data_crc32c(Some(Int64Value::default()/* use setters */));
     /// let x = DecryptRequest::new().set_or_clear_additional_authenticated_data_crc32c(None::<Int64Value>);
     /// ```
-    pub fn set_or_clear_additional_authenticated_data_crc32c<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    pub fn set_or_clear_additional_authenticated_data_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.additional_authenticated_data_crc32c = v.map(|x| x.into());
         self
@@ -9109,6 +8823,7 @@ impl wkt::message::Message for DecryptRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RawEncryptRequest {
+
     /// Required. The resource name of the
     /// [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion] to use for
     /// encryption.
@@ -9263,10 +8978,7 @@ impl RawEncryptRequest {
     /// # use google_cloud_kms_v1::model::RawEncryptRequest;
     /// let x = RawEncryptRequest::new().set_additional_authenticated_data(bytes::Bytes::from_static(b"example"));
     /// ```
-    pub fn set_additional_authenticated_data<T: std::convert::Into<::bytes::Bytes>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_additional_authenticated_data<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.additional_authenticated_data = v.into();
         self
     }
@@ -9280,8 +8992,7 @@ impl RawEncryptRequest {
     /// let x = RawEncryptRequest::new().set_plaintext_crc32c(Int64Value::default()/* use setters */);
     /// ```
     pub fn set_plaintext_crc32c<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.plaintext_crc32c = std::option::Option::Some(v.into());
         self
@@ -9297,8 +9008,7 @@ impl RawEncryptRequest {
     /// let x = RawEncryptRequest::new().set_or_clear_plaintext_crc32c(None::<Int64Value>);
     /// ```
     pub fn set_or_clear_plaintext_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.plaintext_crc32c = v.map(|x| x.into());
         self
@@ -9313,8 +9023,7 @@ impl RawEncryptRequest {
     /// let x = RawEncryptRequest::new().set_additional_authenticated_data_crc32c(Int64Value::default()/* use setters */);
     /// ```
     pub fn set_additional_authenticated_data_crc32c<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.additional_authenticated_data_crc32c = std::option::Option::Some(v.into());
         self
@@ -9329,12 +9038,8 @@ impl RawEncryptRequest {
     /// let x = RawEncryptRequest::new().set_or_clear_additional_authenticated_data_crc32c(Some(Int64Value::default()/* use setters */));
     /// let x = RawEncryptRequest::new().set_or_clear_additional_authenticated_data_crc32c(None::<Int64Value>);
     /// ```
-    pub fn set_or_clear_additional_authenticated_data_crc32c<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    pub fn set_or_clear_additional_authenticated_data_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.additional_authenticated_data_crc32c = v.map(|x| x.into());
         self
@@ -9347,10 +9052,7 @@ impl RawEncryptRequest {
     /// # use google_cloud_kms_v1::model::RawEncryptRequest;
     /// let x = RawEncryptRequest::new().set_initialization_vector(bytes::Bytes::from_static(b"example"));
     /// ```
-    pub fn set_initialization_vector<T: std::convert::Into<::bytes::Bytes>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_initialization_vector<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.initialization_vector = v.into();
         self
     }
@@ -9364,8 +9066,7 @@ impl RawEncryptRequest {
     /// let x = RawEncryptRequest::new().set_initialization_vector_crc32c(Int64Value::default()/* use setters */);
     /// ```
     pub fn set_initialization_vector_crc32c<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.initialization_vector_crc32c = std::option::Option::Some(v.into());
         self
@@ -9381,8 +9082,7 @@ impl RawEncryptRequest {
     /// let x = RawEncryptRequest::new().set_or_clear_initialization_vector_crc32c(None::<Int64Value>);
     /// ```
     pub fn set_or_clear_initialization_vector_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.initialization_vector_crc32c = v.map(|x| x.into());
         self
@@ -9402,6 +9102,7 @@ impl wkt::message::Message for RawEncryptRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RawDecryptRequest {
+
     /// Required. The resource name of the
     /// [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion] to use for
     /// decryption.
@@ -9533,10 +9234,7 @@ impl RawDecryptRequest {
     /// # use google_cloud_kms_v1::model::RawDecryptRequest;
     /// let x = RawDecryptRequest::new().set_additional_authenticated_data(bytes::Bytes::from_static(b"example"));
     /// ```
-    pub fn set_additional_authenticated_data<T: std::convert::Into<::bytes::Bytes>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_additional_authenticated_data<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.additional_authenticated_data = v.into();
         self
     }
@@ -9548,10 +9246,7 @@ impl RawDecryptRequest {
     /// # use google_cloud_kms_v1::model::RawDecryptRequest;
     /// let x = RawDecryptRequest::new().set_initialization_vector(bytes::Bytes::from_static(b"example"));
     /// ```
-    pub fn set_initialization_vector<T: std::convert::Into<::bytes::Bytes>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_initialization_vector<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.initialization_vector = v.into();
         self
     }
@@ -9577,8 +9272,7 @@ impl RawDecryptRequest {
     /// let x = RawDecryptRequest::new().set_ciphertext_crc32c(Int64Value::default()/* use setters */);
     /// ```
     pub fn set_ciphertext_crc32c<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.ciphertext_crc32c = std::option::Option::Some(v.into());
         self
@@ -9594,8 +9288,7 @@ impl RawDecryptRequest {
     /// let x = RawDecryptRequest::new().set_or_clear_ciphertext_crc32c(None::<Int64Value>);
     /// ```
     pub fn set_or_clear_ciphertext_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.ciphertext_crc32c = v.map(|x| x.into());
         self
@@ -9610,8 +9303,7 @@ impl RawDecryptRequest {
     /// let x = RawDecryptRequest::new().set_additional_authenticated_data_crc32c(Int64Value::default()/* use setters */);
     /// ```
     pub fn set_additional_authenticated_data_crc32c<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.additional_authenticated_data_crc32c = std::option::Option::Some(v.into());
         self
@@ -9626,12 +9318,8 @@ impl RawDecryptRequest {
     /// let x = RawDecryptRequest::new().set_or_clear_additional_authenticated_data_crc32c(Some(Int64Value::default()/* use setters */));
     /// let x = RawDecryptRequest::new().set_or_clear_additional_authenticated_data_crc32c(None::<Int64Value>);
     /// ```
-    pub fn set_or_clear_additional_authenticated_data_crc32c<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    pub fn set_or_clear_additional_authenticated_data_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.additional_authenticated_data_crc32c = v.map(|x| x.into());
         self
@@ -9646,8 +9334,7 @@ impl RawDecryptRequest {
     /// let x = RawDecryptRequest::new().set_initialization_vector_crc32c(Int64Value::default()/* use setters */);
     /// ```
     pub fn set_initialization_vector_crc32c<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.initialization_vector_crc32c = std::option::Option::Some(v.into());
         self
@@ -9663,8 +9350,7 @@ impl RawDecryptRequest {
     /// let x = RawDecryptRequest::new().set_or_clear_initialization_vector_crc32c(None::<Int64Value>);
     /// ```
     pub fn set_or_clear_initialization_vector_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.initialization_vector_crc32c = v.map(|x| x.into());
         self
@@ -9684,6 +9370,7 @@ impl wkt::message::Message for RawDecryptRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AsymmetricSignRequest {
+
     /// Required. The resource name of the
     /// [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion] to use for
     /// signing.
@@ -9790,8 +9477,7 @@ impl AsymmetricSignRequest {
     /// let x = AsymmetricSignRequest::new().set_digest(Digest::default()/* use setters */);
     /// ```
     pub fn set_digest<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Digest>,
+    where T: std::convert::Into<crate::model::Digest>
     {
         self.digest = std::option::Option::Some(v.into());
         self
@@ -9807,8 +9493,7 @@ impl AsymmetricSignRequest {
     /// let x = AsymmetricSignRequest::new().set_or_clear_digest(None::<Digest>);
     /// ```
     pub fn set_or_clear_digest<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Digest>,
+    where T: std::convert::Into<crate::model::Digest>
     {
         self.digest = v.map(|x| x.into());
         self
@@ -9823,8 +9508,7 @@ impl AsymmetricSignRequest {
     /// let x = AsymmetricSignRequest::new().set_digest_crc32c(Int64Value::default()/* use setters */);
     /// ```
     pub fn set_digest_crc32c<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.digest_crc32c = std::option::Option::Some(v.into());
         self
@@ -9840,8 +9524,7 @@ impl AsymmetricSignRequest {
     /// let x = AsymmetricSignRequest::new().set_or_clear_digest_crc32c(None::<Int64Value>);
     /// ```
     pub fn set_or_clear_digest_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.digest_crc32c = v.map(|x| x.into());
         self
@@ -9868,8 +9551,7 @@ impl AsymmetricSignRequest {
     /// let x = AsymmetricSignRequest::new().set_data_crc32c(Int64Value::default()/* use setters */);
     /// ```
     pub fn set_data_crc32c<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.data_crc32c = std::option::Option::Some(v.into());
         self
@@ -9885,8 +9567,7 @@ impl AsymmetricSignRequest {
     /// let x = AsymmetricSignRequest::new().set_or_clear_data_crc32c(None::<Int64Value>);
     /// ```
     pub fn set_or_clear_data_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.data_crc32c = v.map(|x| x.into());
         self
@@ -9906,6 +9587,7 @@ impl wkt::message::Message for AsymmetricSignRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AsymmetricDecryptRequest {
+
     /// Required. The resource name of the
     /// [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion] to use for
     /// decryption.
@@ -9986,8 +9668,7 @@ impl AsymmetricDecryptRequest {
     /// let x = AsymmetricDecryptRequest::new().set_ciphertext_crc32c(Int64Value::default()/* use setters */);
     /// ```
     pub fn set_ciphertext_crc32c<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.ciphertext_crc32c = std::option::Option::Some(v.into());
         self
@@ -10003,8 +9684,7 @@ impl AsymmetricDecryptRequest {
     /// let x = AsymmetricDecryptRequest::new().set_or_clear_ciphertext_crc32c(None::<Int64Value>);
     /// ```
     pub fn set_or_clear_ciphertext_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.ciphertext_crc32c = v.map(|x| x.into());
         self
@@ -10024,6 +9704,7 @@ impl wkt::message::Message for AsymmetricDecryptRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MacSignRequest {
+
     /// Required. The resource name of the
     /// [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion] to use for
     /// signing.
@@ -10099,8 +9780,7 @@ impl MacSignRequest {
     /// let x = MacSignRequest::new().set_data_crc32c(Int64Value::default()/* use setters */);
     /// ```
     pub fn set_data_crc32c<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.data_crc32c = std::option::Option::Some(v.into());
         self
@@ -10116,8 +9796,7 @@ impl MacSignRequest {
     /// let x = MacSignRequest::new().set_or_clear_data_crc32c(None::<Int64Value>);
     /// ```
     pub fn set_or_clear_data_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.data_crc32c = v.map(|x| x.into());
         self
@@ -10137,6 +9816,7 @@ impl wkt::message::Message for MacSignRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MacVerifyRequest {
+
     /// Required. The resource name of the
     /// [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion] to use for
     /// verification.
@@ -10242,8 +9922,7 @@ impl MacVerifyRequest {
     /// let x = MacVerifyRequest::new().set_data_crc32c(Int64Value::default()/* use setters */);
     /// ```
     pub fn set_data_crc32c<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.data_crc32c = std::option::Option::Some(v.into());
         self
@@ -10259,8 +9938,7 @@ impl MacVerifyRequest {
     /// let x = MacVerifyRequest::new().set_or_clear_data_crc32c(None::<Int64Value>);
     /// ```
     pub fn set_or_clear_data_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.data_crc32c = v.map(|x| x.into());
         self
@@ -10287,8 +9965,7 @@ impl MacVerifyRequest {
     /// let x = MacVerifyRequest::new().set_mac_crc32c(Int64Value::default()/* use setters */);
     /// ```
     pub fn set_mac_crc32c<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.mac_crc32c = std::option::Option::Some(v.into());
         self
@@ -10304,8 +9981,7 @@ impl MacVerifyRequest {
     /// let x = MacVerifyRequest::new().set_or_clear_mac_crc32c(None::<Int64Value>);
     /// ```
     pub fn set_or_clear_mac_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.mac_crc32c = v.map(|x| x.into());
         self
@@ -10325,6 +10001,7 @@ impl wkt::message::Message for MacVerifyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DecapsulateRequest {
+
     /// Required. The resource name of the
     /// [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion] to use for
     /// decapsulation.
@@ -10405,8 +10082,7 @@ impl DecapsulateRequest {
     /// let x = DecapsulateRequest::new().set_ciphertext_crc32c(Int64Value::default()/* use setters */);
     /// ```
     pub fn set_ciphertext_crc32c<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.ciphertext_crc32c = std::option::Option::Some(v.into());
         self
@@ -10422,8 +10098,7 @@ impl DecapsulateRequest {
     /// let x = DecapsulateRequest::new().set_or_clear_ciphertext_crc32c(None::<Int64Value>);
     /// ```
     pub fn set_or_clear_ciphertext_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.ciphertext_crc32c = v.map(|x| x.into());
         self
@@ -10443,6 +10118,7 @@ impl wkt::message::Message for DecapsulateRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateRandomBytesRequest {
+
     /// The project-specific location in which to generate random bytes.
     /// For example, "projects/my-project/locations/us-central1".
     pub location: std::string::String,
@@ -10502,10 +10178,7 @@ impl GenerateRandomBytesRequest {
     /// let x1 = GenerateRandomBytesRequest::new().set_protection_level(ProtectionLevel::Hsm);
     /// let x2 = GenerateRandomBytesRequest::new().set_protection_level(ProtectionLevel::External);
     /// ```
-    pub fn set_protection_level<T: std::convert::Into<crate::model::ProtectionLevel>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_protection_level<T: std::convert::Into<crate::model::ProtectionLevel>>(mut self, v: T) -> Self {
         self.protection_level = v.into();
         self
     }
@@ -10524,6 +10197,7 @@ impl wkt::message::Message for GenerateRandomBytesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EncryptResponse {
+
     /// The resource name of the
     /// [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion] used in
     /// encryption. Check this field to verify that the intended resource was used
@@ -10641,8 +10315,7 @@ impl EncryptResponse {
     /// let x = EncryptResponse::new().set_ciphertext_crc32c(Int64Value::default()/* use setters */);
     /// ```
     pub fn set_ciphertext_crc32c<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.ciphertext_crc32c = std::option::Option::Some(v.into());
         self
@@ -10658,8 +10331,7 @@ impl EncryptResponse {
     /// let x = EncryptResponse::new().set_or_clear_ciphertext_crc32c(None::<Int64Value>);
     /// ```
     pub fn set_or_clear_ciphertext_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.ciphertext_crc32c = v.map(|x| x.into());
         self
@@ -10684,10 +10356,7 @@ impl EncryptResponse {
     /// # use google_cloud_kms_v1::model::EncryptResponse;
     /// let x = EncryptResponse::new().set_verified_additional_authenticated_data_crc32c(true);
     /// ```
-    pub fn set_verified_additional_authenticated_data_crc32c<T: std::convert::Into<bool>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_verified_additional_authenticated_data_crc32c<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.verified_additional_authenticated_data_crc32c = v.into();
         self
     }
@@ -10702,10 +10371,7 @@ impl EncryptResponse {
     /// let x1 = EncryptResponse::new().set_protection_level(ProtectionLevel::Hsm);
     /// let x2 = EncryptResponse::new().set_protection_level(ProtectionLevel::External);
     /// ```
-    pub fn set_protection_level<T: std::convert::Into<crate::model::ProtectionLevel>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_protection_level<T: std::convert::Into<crate::model::ProtectionLevel>>(mut self, v: T) -> Self {
         self.protection_level = v.into();
         self
     }
@@ -10724,6 +10390,7 @@ impl wkt::message::Message for EncryptResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DecryptResponse {
+
     /// The decrypted data originally supplied in
     /// [EncryptRequest.plaintext][google.cloud.kms.v1.EncryptRequest.plaintext].
     ///
@@ -10793,8 +10460,7 @@ impl DecryptResponse {
     /// let x = DecryptResponse::new().set_plaintext_crc32c(Int64Value::default()/* use setters */);
     /// ```
     pub fn set_plaintext_crc32c<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.plaintext_crc32c = std::option::Option::Some(v.into());
         self
@@ -10810,8 +10476,7 @@ impl DecryptResponse {
     /// let x = DecryptResponse::new().set_or_clear_plaintext_crc32c(None::<Int64Value>);
     /// ```
     pub fn set_or_clear_plaintext_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.plaintext_crc32c = v.map(|x| x.into());
         self
@@ -10839,10 +10504,7 @@ impl DecryptResponse {
     /// let x1 = DecryptResponse::new().set_protection_level(ProtectionLevel::Hsm);
     /// let x2 = DecryptResponse::new().set_protection_level(ProtectionLevel::External);
     /// ```
-    pub fn set_protection_level<T: std::convert::Into<crate::model::ProtectionLevel>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_protection_level<T: std::convert::Into<crate::model::ProtectionLevel>>(mut self, v: T) -> Self {
         self.protection_level = v.into();
         self
     }
@@ -10861,6 +10523,7 @@ impl wkt::message::Message for DecryptResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RawEncryptResponse {
+
     /// The encrypted data. In the case of AES-GCM, the authentication tag
     /// is the [tag_length][google.cloud.kms.v1.RawEncryptResponse.tag_length]
     /// bytes at the end of this field.
@@ -11005,10 +10668,7 @@ impl RawEncryptResponse {
     /// # use google_cloud_kms_v1::model::RawEncryptResponse;
     /// let x = RawEncryptResponse::new().set_initialization_vector(bytes::Bytes::from_static(b"example"));
     /// ```
-    pub fn set_initialization_vector<T: std::convert::Into<::bytes::Bytes>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_initialization_vector<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.initialization_vector = v.into();
         self
     }
@@ -11034,8 +10694,7 @@ impl RawEncryptResponse {
     /// let x = RawEncryptResponse::new().set_ciphertext_crc32c(Int64Value::default()/* use setters */);
     /// ```
     pub fn set_ciphertext_crc32c<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.ciphertext_crc32c = std::option::Option::Some(v.into());
         self
@@ -11051,8 +10710,7 @@ impl RawEncryptResponse {
     /// let x = RawEncryptResponse::new().set_or_clear_ciphertext_crc32c(None::<Int64Value>);
     /// ```
     pub fn set_or_clear_ciphertext_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.ciphertext_crc32c = v.map(|x| x.into());
         self
@@ -11067,8 +10725,7 @@ impl RawEncryptResponse {
     /// let x = RawEncryptResponse::new().set_initialization_vector_crc32c(Int64Value::default()/* use setters */);
     /// ```
     pub fn set_initialization_vector_crc32c<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.initialization_vector_crc32c = std::option::Option::Some(v.into());
         self
@@ -11084,8 +10741,7 @@ impl RawEncryptResponse {
     /// let x = RawEncryptResponse::new().set_or_clear_initialization_vector_crc32c(None::<Int64Value>);
     /// ```
     pub fn set_or_clear_initialization_vector_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.initialization_vector_crc32c = v.map(|x| x.into());
         self
@@ -11110,10 +10766,7 @@ impl RawEncryptResponse {
     /// # use google_cloud_kms_v1::model::RawEncryptResponse;
     /// let x = RawEncryptResponse::new().set_verified_additional_authenticated_data_crc32c(true);
     /// ```
-    pub fn set_verified_additional_authenticated_data_crc32c<T: std::convert::Into<bool>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_verified_additional_authenticated_data_crc32c<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.verified_additional_authenticated_data_crc32c = v.into();
         self
     }
@@ -11125,10 +10778,7 @@ impl RawEncryptResponse {
     /// # use google_cloud_kms_v1::model::RawEncryptResponse;
     /// let x = RawEncryptResponse::new().set_verified_initialization_vector_crc32c(true);
     /// ```
-    pub fn set_verified_initialization_vector_crc32c<T: std::convert::Into<bool>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_verified_initialization_vector_crc32c<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.verified_initialization_vector_crc32c = v.into();
         self
     }
@@ -11155,10 +10805,7 @@ impl RawEncryptResponse {
     /// let x1 = RawEncryptResponse::new().set_protection_level(ProtectionLevel::Hsm);
     /// let x2 = RawEncryptResponse::new().set_protection_level(ProtectionLevel::External);
     /// ```
-    pub fn set_protection_level<T: std::convert::Into<crate::model::ProtectionLevel>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_protection_level<T: std::convert::Into<crate::model::ProtectionLevel>>(mut self, v: T) -> Self {
         self.protection_level = v.into();
         self
     }
@@ -11177,6 +10824,7 @@ impl wkt::message::Message for RawEncryptResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RawDecryptResponse {
+
     /// The decrypted data.
     pub plaintext: ::bytes::Bytes,
 
@@ -11292,8 +10940,7 @@ impl RawDecryptResponse {
     /// let x = RawDecryptResponse::new().set_plaintext_crc32c(Int64Value::default()/* use setters */);
     /// ```
     pub fn set_plaintext_crc32c<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.plaintext_crc32c = std::option::Option::Some(v.into());
         self
@@ -11309,8 +10956,7 @@ impl RawDecryptResponse {
     /// let x = RawDecryptResponse::new().set_or_clear_plaintext_crc32c(None::<Int64Value>);
     /// ```
     pub fn set_or_clear_plaintext_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.plaintext_crc32c = v.map(|x| x.into());
         self
@@ -11326,10 +10972,7 @@ impl RawDecryptResponse {
     /// let x1 = RawDecryptResponse::new().set_protection_level(ProtectionLevel::Hsm);
     /// let x2 = RawDecryptResponse::new().set_protection_level(ProtectionLevel::External);
     /// ```
-    pub fn set_protection_level<T: std::convert::Into<crate::model::ProtectionLevel>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_protection_level<T: std::convert::Into<crate::model::ProtectionLevel>>(mut self, v: T) -> Self {
         self.protection_level = v.into();
         self
     }
@@ -11353,10 +10996,7 @@ impl RawDecryptResponse {
     /// # use google_cloud_kms_v1::model::RawDecryptResponse;
     /// let x = RawDecryptResponse::new().set_verified_additional_authenticated_data_crc32c(true);
     /// ```
-    pub fn set_verified_additional_authenticated_data_crc32c<T: std::convert::Into<bool>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_verified_additional_authenticated_data_crc32c<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.verified_additional_authenticated_data_crc32c = v.into();
         self
     }
@@ -11368,10 +11008,7 @@ impl RawDecryptResponse {
     /// # use google_cloud_kms_v1::model::RawDecryptResponse;
     /// let x = RawDecryptResponse::new().set_verified_initialization_vector_crc32c(true);
     /// ```
-    pub fn set_verified_initialization_vector_crc32c<T: std::convert::Into<bool>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_verified_initialization_vector_crc32c<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.verified_initialization_vector_crc32c = v.into();
         self
     }
@@ -11390,6 +11027,7 @@ impl wkt::message::Message for RawDecryptResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AsymmetricSignResponse {
+
     /// The created signature.
     pub signature: ::bytes::Bytes,
 
@@ -11493,8 +11131,7 @@ impl AsymmetricSignResponse {
     /// let x = AsymmetricSignResponse::new().set_signature_crc32c(Int64Value::default()/* use setters */);
     /// ```
     pub fn set_signature_crc32c<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.signature_crc32c = std::option::Option::Some(v.into());
         self
@@ -11510,8 +11147,7 @@ impl AsymmetricSignResponse {
     /// let x = AsymmetricSignResponse::new().set_or_clear_signature_crc32c(None::<Int64Value>);
     /// ```
     pub fn set_or_clear_signature_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.signature_crc32c = v.map(|x| x.into());
         self
@@ -11563,10 +11199,7 @@ impl AsymmetricSignResponse {
     /// let x1 = AsymmetricSignResponse::new().set_protection_level(ProtectionLevel::Hsm);
     /// let x2 = AsymmetricSignResponse::new().set_protection_level(ProtectionLevel::External);
     /// ```
-    pub fn set_protection_level<T: std::convert::Into<crate::model::ProtectionLevel>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_protection_level<T: std::convert::Into<crate::model::ProtectionLevel>>(mut self, v: T) -> Self {
         self.protection_level = v.into();
         self
     }
@@ -11585,6 +11218,7 @@ impl wkt::message::Message for AsymmetricSignResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AsymmetricDecryptResponse {
+
     /// The decrypted data originally encrypted with the matching public key.
     pub plaintext: ::bytes::Bytes,
 
@@ -11662,8 +11296,7 @@ impl AsymmetricDecryptResponse {
     /// let x = AsymmetricDecryptResponse::new().set_plaintext_crc32c(Int64Value::default()/* use setters */);
     /// ```
     pub fn set_plaintext_crc32c<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.plaintext_crc32c = std::option::Option::Some(v.into());
         self
@@ -11679,8 +11312,7 @@ impl AsymmetricDecryptResponse {
     /// let x = AsymmetricDecryptResponse::new().set_or_clear_plaintext_crc32c(None::<Int64Value>);
     /// ```
     pub fn set_or_clear_plaintext_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.plaintext_crc32c = v.map(|x| x.into());
         self
@@ -11708,10 +11340,7 @@ impl AsymmetricDecryptResponse {
     /// let x1 = AsymmetricDecryptResponse::new().set_protection_level(ProtectionLevel::Hsm);
     /// let x2 = AsymmetricDecryptResponse::new().set_protection_level(ProtectionLevel::External);
     /// ```
-    pub fn set_protection_level<T: std::convert::Into<crate::model::ProtectionLevel>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_protection_level<T: std::convert::Into<crate::model::ProtectionLevel>>(mut self, v: T) -> Self {
         self.protection_level = v.into();
         self
     }
@@ -11730,6 +11359,7 @@ impl wkt::message::Message for AsymmetricDecryptResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MacSignResponse {
+
     /// The resource name of the
     /// [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion] used for signing.
     /// Check this field to verify that the intended resource was used for signing.
@@ -11825,8 +11455,7 @@ impl MacSignResponse {
     /// let x = MacSignResponse::new().set_mac_crc32c(Int64Value::default()/* use setters */);
     /// ```
     pub fn set_mac_crc32c<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.mac_crc32c = std::option::Option::Some(v.into());
         self
@@ -11842,8 +11471,7 @@ impl MacSignResponse {
     /// let x = MacSignResponse::new().set_or_clear_mac_crc32c(None::<Int64Value>);
     /// ```
     pub fn set_or_clear_mac_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.mac_crc32c = v.map(|x| x.into());
         self
@@ -11871,10 +11499,7 @@ impl MacSignResponse {
     /// let x1 = MacSignResponse::new().set_protection_level(ProtectionLevel::Hsm);
     /// let x2 = MacSignResponse::new().set_protection_level(ProtectionLevel::External);
     /// ```
-    pub fn set_protection_level<T: std::convert::Into<crate::model::ProtectionLevel>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_protection_level<T: std::convert::Into<crate::model::ProtectionLevel>>(mut self, v: T) -> Self {
         self.protection_level = v.into();
         self
     }
@@ -11893,6 +11518,7 @@ impl wkt::message::Message for MacSignResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MacVerifyResponse {
+
     /// The resource name of the
     /// [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion] used for
     /// verification. Check this field to verify that the intended resource was
@@ -12042,10 +11668,7 @@ impl MacVerifyResponse {
     /// let x1 = MacVerifyResponse::new().set_protection_level(ProtectionLevel::Hsm);
     /// let x2 = MacVerifyResponse::new().set_protection_level(ProtectionLevel::External);
     /// ```
-    pub fn set_protection_level<T: std::convert::Into<crate::model::ProtectionLevel>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_protection_level<T: std::convert::Into<crate::model::ProtectionLevel>>(mut self, v: T) -> Self {
         self.protection_level = v.into();
         self
     }
@@ -12064,6 +11687,7 @@ impl wkt::message::Message for MacVerifyResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DecapsulateResponse {
+
     /// The resource name of the
     /// [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion] used for
     /// decapsulation. Check this field to verify that the intended resource was
@@ -12167,8 +11791,7 @@ impl DecapsulateResponse {
     /// let x = DecapsulateResponse::new().set_shared_secret_crc32c(42);
     /// ```
     pub fn set_shared_secret_crc32c<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.shared_secret_crc32c = std::option::Option::Some(v.into());
         self
@@ -12183,8 +11806,7 @@ impl DecapsulateResponse {
     /// let x = DecapsulateResponse::new().set_or_clear_shared_secret_crc32c(None::<i32>);
     /// ```
     pub fn set_or_clear_shared_secret_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.shared_secret_crc32c = v.map(|x| x.into());
         self
@@ -12212,10 +11834,7 @@ impl DecapsulateResponse {
     /// let x1 = DecapsulateResponse::new().set_protection_level(ProtectionLevel::Hsm);
     /// let x2 = DecapsulateResponse::new().set_protection_level(ProtectionLevel::External);
     /// ```
-    pub fn set_protection_level<T: std::convert::Into<crate::model::ProtectionLevel>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_protection_level<T: std::convert::Into<crate::model::ProtectionLevel>>(mut self, v: T) -> Self {
         self.protection_level = v.into();
         self
     }
@@ -12234,6 +11853,7 @@ impl wkt::message::Message for DecapsulateResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateRandomBytesResponse {
+
     /// The generated data.
     pub data: ::bytes::Bytes,
 
@@ -12283,8 +11903,7 @@ impl GenerateRandomBytesResponse {
     /// let x = GenerateRandomBytesResponse::new().set_data_crc32c(Int64Value::default()/* use setters */);
     /// ```
     pub fn set_data_crc32c<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.data_crc32c = std::option::Option::Some(v.into());
         self
@@ -12300,8 +11919,7 @@ impl GenerateRandomBytesResponse {
     /// let x = GenerateRandomBytesResponse::new().set_or_clear_data_crc32c(None::<Int64Value>);
     /// ```
     pub fn set_or_clear_data_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.data_crc32c = v.map(|x| x.into());
         self
@@ -12320,6 +11938,7 @@ impl wkt::message::Message for GenerateRandomBytesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Digest {
+
     /// Required. The message digest.
     pub digest: std::option::Option<crate::model::digest::Digest>,
 
@@ -12342,10 +11961,8 @@ impl Digest {
     /// use google_cloud_kms_v1::model::digest::Digest as DigestOneOf;
     /// let x = Digest::new().set_digest(Some(DigestOneOf::Sha256(bytes::Bytes::from_static(b"example"))));
     /// ```
-    pub fn set_digest<T: std::convert::Into<std::option::Option<crate::model::digest::Digest>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_digest<T: std::convert::Into<std::option::Option<crate::model::digest::Digest>>>(mut self, v: T) -> Self
+    {
         self.digest = v.into();
         self
     }
@@ -12376,7 +11993,11 @@ impl Digest {
     /// assert!(x.sha512().is_none());
     /// ```
     pub fn set_sha256<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.digest = std::option::Option::Some(crate::model::digest::Digest::Sha256(v.into()));
+        self.digest = std::option::Option::Some(
+            crate::model::digest::Digest::Sha256(
+                v.into()
+            )
+        );
         self
     }
 
@@ -12406,7 +12027,11 @@ impl Digest {
     /// assert!(x.sha512().is_none());
     /// ```
     pub fn set_sha384<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.digest = std::option::Option::Some(crate::model::digest::Digest::Sha384(v.into()));
+        self.digest = std::option::Option::Some(
+            crate::model::digest::Digest::Sha384(
+                v.into()
+            )
+        );
         self
     }
 
@@ -12436,7 +12061,11 @@ impl Digest {
     /// assert!(x.sha384().is_none());
     /// ```
     pub fn set_sha512<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.digest = std::option::Option::Some(crate::model::digest::Digest::Sha512(v.into()));
+        self.digest = std::option::Option::Some(
+            crate::model::digest::Digest::Sha512(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -12451,6 +12080,7 @@ impl wkt::message::Message for Digest {
 pub mod digest {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Required. The message digest.
     #[derive(Clone, Debug, PartialEq)]
@@ -12472,6 +12102,7 @@ pub mod digest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LocationMetadata {
+
     /// Indicates whether [CryptoKeys][google.cloud.kms.v1.CryptoKey] with
     /// [protection_level][google.cloud.kms.v1.CryptoKeyVersionTemplate.protection_level]
     /// [HSM][google.cloud.kms.v1.ProtectionLevel.HSM] can be created in this
@@ -12631,9 +12262,7 @@ impl std::convert::From<i32> for ProtectionLevel {
             2 => Self::Hsm,
             3 => Self::External,
             4 => Self::ExternalVpc,
-            _ => Self::UnknownValue(protection_level::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(protection_level::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -12647,9 +12276,7 @@ impl std::convert::From<&str> for ProtectionLevel {
             "HSM" => Self::Hsm,
             "EXTERNAL" => Self::External,
             "EXTERNAL_VPC" => Self::ExternalVpc,
-            _ => Self::UnknownValue(protection_level::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(protection_level::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -12676,8 +12303,7 @@ impl<'de> serde::de::Deserialize<'de> for ProtectionLevel {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<ProtectionLevel>::new(
-            ".google.cloud.kms.v1.ProtectionLevel",
-        ))
+            ".google.cloud.kms.v1.ProtectionLevel"))
     }
 }
 
@@ -12796,29 +12422,17 @@ impl AccessReason {
     pub fn name(&self) -> std::option::Option<&str> {
         match self {
             Self::ReasonUnspecified => std::option::Option::Some("REASON_UNSPECIFIED"),
-            Self::CustomerInitiatedSupport => {
-                std::option::Option::Some("CUSTOMER_INITIATED_SUPPORT")
-            }
+            Self::CustomerInitiatedSupport => std::option::Option::Some("CUSTOMER_INITIATED_SUPPORT"),
             Self::GoogleInitiatedService => std::option::Option::Some("GOOGLE_INITIATED_SERVICE"),
             Self::ThirdPartyDataRequest => std::option::Option::Some("THIRD_PARTY_DATA_REQUEST"),
             Self::GoogleInitiatedReview => std::option::Option::Some("GOOGLE_INITIATED_REVIEW"),
             Self::CustomerInitiatedAccess => std::option::Option::Some("CUSTOMER_INITIATED_ACCESS"),
-            Self::GoogleInitiatedSystemOperation => {
-                std::option::Option::Some("GOOGLE_INITIATED_SYSTEM_OPERATION")
-            }
+            Self::GoogleInitiatedSystemOperation => std::option::Option::Some("GOOGLE_INITIATED_SYSTEM_OPERATION"),
             Self::ReasonNotExpected => std::option::Option::Some("REASON_NOT_EXPECTED"),
-            Self::ModifiedCustomerInitiatedAccess => {
-                std::option::Option::Some("MODIFIED_CUSTOMER_INITIATED_ACCESS")
-            }
-            Self::ModifiedGoogleInitiatedSystemOperation => {
-                std::option::Option::Some("MODIFIED_GOOGLE_INITIATED_SYSTEM_OPERATION")
-            }
-            Self::GoogleResponseToProductionAlert => {
-                std::option::Option::Some("GOOGLE_RESPONSE_TO_PRODUCTION_ALERT")
-            }
-            Self::CustomerAuthorizedWorkflowServicing => {
-                std::option::Option::Some("CUSTOMER_AUTHORIZED_WORKFLOW_SERVICING")
-            }
+            Self::ModifiedCustomerInitiatedAccess => std::option::Option::Some("MODIFIED_CUSTOMER_INITIATED_ACCESS"),
+            Self::ModifiedGoogleInitiatedSystemOperation => std::option::Option::Some("MODIFIED_GOOGLE_INITIATED_SYSTEM_OPERATION"),
+            Self::GoogleResponseToProductionAlert => std::option::Option::Some("GOOGLE_RESPONSE_TO_PRODUCTION_ALERT"),
+            Self::CustomerAuthorizedWorkflowServicing => std::option::Option::Some("CUSTOMER_AUTHORIZED_WORKFLOW_SERVICING"),
             Self::UnknownValue(u) => u.0.name(),
         }
     }
@@ -12852,9 +12466,7 @@ impl std::convert::From<i32> for AccessReason {
             9 => Self::ModifiedGoogleInitiatedSystemOperation,
             10 => Self::GoogleResponseToProductionAlert,
             11 => Self::CustomerAuthorizedWorkflowServicing,
-            _ => Self::UnknownValue(access_reason::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(access_reason::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -12872,14 +12484,10 @@ impl std::convert::From<&str> for AccessReason {
             "GOOGLE_INITIATED_SYSTEM_OPERATION" => Self::GoogleInitiatedSystemOperation,
             "REASON_NOT_EXPECTED" => Self::ReasonNotExpected,
             "MODIFIED_CUSTOMER_INITIATED_ACCESS" => Self::ModifiedCustomerInitiatedAccess,
-            "MODIFIED_GOOGLE_INITIATED_SYSTEM_OPERATION" => {
-                Self::ModifiedGoogleInitiatedSystemOperation
-            }
+            "MODIFIED_GOOGLE_INITIATED_SYSTEM_OPERATION" => Self::ModifiedGoogleInitiatedSystemOperation,
             "GOOGLE_RESPONSE_TO_PRODUCTION_ALERT" => Self::GoogleResponseToProductionAlert,
             "CUSTOMER_AUTHORIZED_WORKFLOW_SERVICING" => Self::CustomerAuthorizedWorkflowServicing,
-            _ => Self::UnknownValue(access_reason::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(access_reason::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -12913,7 +12521,6 @@ impl<'de> serde::de::Deserialize<'de> for AccessReason {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<AccessReason>::new(
-            ".google.cloud.kms.v1.AccessReason",
-        ))
+            ".google.cloud.kms.v1.AccessReason"))
     }
 }

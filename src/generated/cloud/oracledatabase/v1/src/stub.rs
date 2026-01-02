@@ -38,16 +38,13 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
+
     /// Implements [super::client::OracleDatabase::list_cloud_exadata_infrastructures].
     fn list_cloud_exadata_infrastructures(
         &self,
         _req: crate::model::ListCloudExadataInfrastructuresRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::ListCloudExadataInfrastructuresResponse>,
-        >,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListCloudExadataInfrastructuresResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -56,9 +53,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetCloudExadataInfrastructureRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::CloudExadataInfrastructure>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::CloudExadataInfrastructure>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -67,9 +62,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateCloudExadataInfrastructureRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -78,9 +71,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteCloudExadataInfrastructureRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -89,9 +80,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListCloudVmClustersRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListCloudVmClustersResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListCloudVmClustersResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -100,9 +89,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetCloudVmClusterRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::CloudVmCluster>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::CloudVmCluster>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -111,9 +98,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateCloudVmClusterRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -122,9 +107,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteCloudVmClusterRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -133,9 +116,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListEntitlementsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListEntitlementsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListEntitlementsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -144,9 +125,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListDbServersRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListDbServersResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListDbServersResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -155,9 +134,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListDbNodesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListDbNodesResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListDbNodesResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -166,9 +143,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListGiVersionsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListGiVersionsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListGiVersionsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -177,9 +152,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListMinorVersionsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListMinorVersionsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListMinorVersionsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -188,9 +161,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListDbSystemShapesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListDbSystemShapesResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListDbSystemShapesResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -199,11 +170,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListAutonomousDatabasesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::ListAutonomousDatabasesResponse>,
-        >,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListAutonomousDatabasesResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -212,9 +179,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetAutonomousDatabaseRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::AutonomousDatabase>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::AutonomousDatabase>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -223,9 +188,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateAutonomousDatabaseRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -234,9 +197,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateAutonomousDatabaseRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -245,9 +206,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteAutonomousDatabaseRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -256,9 +215,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::RestoreAutonomousDatabaseRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -267,11 +224,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GenerateAutonomousDatabaseWalletRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::GenerateAutonomousDatabaseWalletResponse>,
-        >,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::GenerateAutonomousDatabaseWalletResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -280,11 +233,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListAutonomousDbVersionsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::ListAutonomousDbVersionsResponse>,
-        >,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListAutonomousDbVersionsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -293,11 +242,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListAutonomousDatabaseCharacterSetsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::ListAutonomousDatabaseCharacterSetsResponse>,
-        >,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListAutonomousDatabaseCharacterSetsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -306,11 +251,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListAutonomousDatabaseBackupsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::ListAutonomousDatabaseBackupsResponse>,
-        >,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListAutonomousDatabaseBackupsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -319,9 +260,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::StopAutonomousDatabaseRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -330,9 +269,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::StartAutonomousDatabaseRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -341,9 +278,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::RestartAutonomousDatabaseRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -352,9 +287,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SwitchoverAutonomousDatabaseRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -363,9 +296,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::FailoverAutonomousDatabaseRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -374,9 +305,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListOdbNetworksRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListOdbNetworksResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListOdbNetworksResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -385,9 +314,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetOdbNetworkRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::OdbNetwork>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::OdbNetwork>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -396,9 +323,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateOdbNetworkRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -407,9 +332,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteOdbNetworkRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -418,9 +341,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListOdbSubnetsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListOdbSubnetsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListOdbSubnetsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -429,9 +350,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetOdbSubnetRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::OdbSubnet>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::OdbSubnet>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -440,9 +359,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateOdbSubnetRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -451,9 +368,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteOdbSubnetRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -462,9 +377,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListExadbVmClustersRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListExadbVmClustersResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListExadbVmClustersResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -473,9 +386,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetExadbVmClusterRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ExadbVmCluster>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ExadbVmCluster>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -484,9 +395,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateExadbVmClusterRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -495,9 +404,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteExadbVmClusterRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -506,9 +413,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateExadbVmClusterRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -517,9 +422,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::RemoveVirtualMachineExadbVmClusterRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -528,11 +431,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListExascaleDbStorageVaultsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::ListExascaleDbStorageVaultsResponse>,
-        >,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListExascaleDbStorageVaultsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -541,9 +440,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetExascaleDbStorageVaultRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ExascaleDbStorageVault>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ExascaleDbStorageVault>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -552,9 +449,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateExascaleDbStorageVaultRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -563,9 +458,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteExascaleDbStorageVaultRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -574,11 +467,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListDbSystemInitialStorageSizesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::ListDbSystemInitialStorageSizesResponse>,
-        >,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListDbSystemInitialStorageSizesResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -587,9 +476,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListDatabasesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListDatabasesResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListDatabasesResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -598,9 +485,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetDatabaseRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Database>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Database>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -609,11 +494,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListPluggableDatabasesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::ListPluggableDatabasesResponse>,
-        >,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListPluggableDatabasesResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -622,9 +503,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetPluggableDatabaseRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::PluggableDatabase>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::PluggableDatabase>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -633,9 +512,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListDbSystemsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListDbSystemsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListDbSystemsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -644,9 +521,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetDbSystemRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::DbSystem>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::DbSystem>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -655,9 +530,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateDbSystemRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -666,9 +539,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteDbSystemRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -677,9 +548,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListDbVersionsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListDbVersionsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListDbVersionsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -688,11 +557,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListDatabaseCharacterSetsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::ListDatabaseCharacterSetsResponse>,
-        >,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListDatabaseCharacterSetsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -701,9 +566,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: location::model::ListLocationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<location::model::ListLocationsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -712,9 +575,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: location::model::GetLocationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<location::model::Location>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<location::model::Location>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -723,9 +584,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -734,9 +593,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::GetOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -780,3 +637,4 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         std::sync::Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
     }
 }
+

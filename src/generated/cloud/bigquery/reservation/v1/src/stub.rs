@@ -38,14 +38,13 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait ReservationService: std::fmt::Debug + Send + Sync {
+
     /// Implements [super::client::ReservationService::create_reservation].
     fn create_reservation(
         &self,
         _req: crate::model::CreateReservationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Reservation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Reservation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -54,9 +53,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListReservationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListReservationsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListReservationsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -65,9 +62,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetReservationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Reservation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Reservation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -85,9 +80,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateReservationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Reservation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Reservation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -96,9 +89,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::FailoverReservationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Reservation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Reservation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -107,9 +98,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateCapacityCommitmentRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::CapacityCommitment>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::CapacityCommitment>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -118,11 +107,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListCapacityCommitmentsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::ListCapacityCommitmentsResponse>,
-        >,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListCapacityCommitmentsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -131,9 +116,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetCapacityCommitmentRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::CapacityCommitment>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::CapacityCommitment>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -151,9 +134,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateCapacityCommitmentRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::CapacityCommitment>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::CapacityCommitment>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -162,11 +143,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SplitCapacityCommitmentRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::SplitCapacityCommitmentResponse>,
-        >,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::SplitCapacityCommitmentResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -175,9 +152,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::MergeCapacityCommitmentsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::CapacityCommitment>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::CapacityCommitment>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -186,9 +161,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateAssignmentRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Assignment>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Assignment>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -197,9 +170,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListAssignmentsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListAssignmentsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListAssignmentsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -217,9 +188,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SearchAssignmentsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::SearchAssignmentsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::SearchAssignmentsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -228,9 +197,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SearchAllAssignmentsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::SearchAllAssignmentsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::SearchAllAssignmentsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -239,9 +206,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::MoveAssignmentRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Assignment>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Assignment>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -250,9 +215,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateAssignmentRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Assignment>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Assignment>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -261,9 +224,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetBiReservationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::BiReservation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::BiReservation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -272,9 +233,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateBiReservationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::BiReservation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::BiReservation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -283,9 +242,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -294,9 +251,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -305,9 +260,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -316,9 +269,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateReservationGroupRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ReservationGroup>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ReservationGroup>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -327,9 +278,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetReservationGroupRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ReservationGroup>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ReservationGroup>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -347,11 +296,8 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListReservationGroupsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::ListReservationGroupsResponse>,
-        >,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListReservationGroupsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 }
+

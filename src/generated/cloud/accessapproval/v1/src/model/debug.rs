@@ -21,10 +21,7 @@ impl std::fmt::Debug for super::AccessLocations {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AccessLocations");
         debug_struct.field("principal_office_country", &self.principal_office_country);
-        debug_struct.field(
-            "principal_physical_location_country",
-            &self.principal_physical_location_country,
-        );
+        debug_struct.field("principal_physical_location_country", &self.principal_physical_location_country);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -99,10 +96,7 @@ impl std::fmt::Debug for super::ApprovalRequest {
         let mut debug_struct = f.debug_struct("ApprovalRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("requested_resource_name", &self.requested_resource_name);
-        debug_struct.field(
-            "requested_resource_properties",
-            &self.requested_resource_properties,
-        );
+        debug_struct.field("requested_resource_properties", &self.requested_resource_properties);
         debug_struct.field("requested_reason", &self.requested_reason);
         debug_struct.field("requested_locations", &self.requested_locations);
         debug_struct.field("request_time", &self.request_time);
@@ -135,10 +129,7 @@ impl std::fmt::Debug for super::AccessApprovalSettings {
         debug_struct.field("enrolled_services", &self.enrolled_services);
         debug_struct.field("enrolled_ancestor", &self.enrolled_ancestor);
         debug_struct.field("active_key_version", &self.active_key_version);
-        debug_struct.field(
-            "ancestor_has_active_key_version",
-            &self.ancestor_has_active_key_version,
-        );
+        debug_struct.field("ancestor_has_active_key_version", &self.ancestor_has_active_key_version);
         debug_struct.field("invalid_key_version", &self.invalid_key_version);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);

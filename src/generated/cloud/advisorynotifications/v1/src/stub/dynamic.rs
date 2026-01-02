@@ -40,6 +40,7 @@ pub trait AdvisoryNotificationsService: std::fmt::Debug + Send + Sync {
         req: crate::model::UpdateSettingsRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Settings>>;
+
 }
 
 /// All implementations of [super::AdvisoryNotificationsService] also implement [AdvisoryNotificationsService].
@@ -80,4 +81,5 @@ impl<T: super::AdvisoryNotificationsService> AdvisoryNotificationsService for T 
     ) -> crate::Result<gax::response::Response<crate::model::Settings>> {
         T::update_settings(self, req, options).await
     }
+
 }

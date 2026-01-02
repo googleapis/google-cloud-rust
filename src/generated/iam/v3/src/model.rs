@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -29,7 +30,6 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -41,6 +41,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
+
     /// Output only. The time the operation was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
@@ -85,8 +86,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -102,8 +102,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -118,8 +117,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -135,8 +133,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -213,6 +210,7 @@ impl wkt::message::Message for OperationMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PolicyBinding {
+
     /// Identifier. The name of the policy binding, in the format
     /// `{binding_parent/locations/{location}/policyBindings/{policy_binding_id}`.
     /// The binding parent is the closest Resource Manager resource (project,
@@ -241,7 +239,7 @@ pub struct PolicyBinding {
     /// Optional. User-defined annotations. See
     /// <https://google.aip.dev/148#annotations> for more details such as format and
     /// size limitations
-    pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
+    pub annotations: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Required. Immutable. Target is the full resource name of the resource to
     /// which the policy will be bound. Immutable once set.
@@ -391,8 +389,7 @@ impl PolicyBinding {
     /// let x = PolicyBinding::new().set_target(Target::default()/* use setters */);
     /// ```
     pub fn set_target<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::policy_binding::Target>,
+    where T: std::convert::Into<crate::model::policy_binding::Target>
     {
         self.target = std::option::Option::Some(v.into());
         self
@@ -408,8 +405,7 @@ impl PolicyBinding {
     /// let x = PolicyBinding::new().set_or_clear_target(None::<Target>);
     /// ```
     pub fn set_or_clear_target<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::policy_binding::Target>,
+    where T: std::convert::Into<crate::model::policy_binding::Target>
     {
         self.target = v.map(|x| x.into());
         self
@@ -423,10 +419,7 @@ impl PolicyBinding {
     /// use google_cloud_iam_v3::model::policy_binding::PolicyKind;
     /// let x0 = PolicyBinding::new().set_policy_kind(PolicyKind::PrincipalAccessBoundary);
     /// ```
-    pub fn set_policy_kind<T: std::convert::Into<crate::model::policy_binding::PolicyKind>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_policy_kind<T: std::convert::Into<crate::model::policy_binding::PolicyKind>>(mut self, v: T) -> Self {
         self.policy_kind = v.into();
         self
     }
@@ -464,8 +457,7 @@ impl PolicyBinding {
     /// let x = PolicyBinding::new().set_condition(Expr::default()/* use setters */);
     /// ```
     pub fn set_condition<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<gtype::model::Expr>,
+    where T: std::convert::Into<gtype::model::Expr>
     {
         self.condition = std::option::Option::Some(v.into());
         self
@@ -481,8 +473,7 @@ impl PolicyBinding {
     /// let x = PolicyBinding::new().set_or_clear_condition(None::<Expr>);
     /// ```
     pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<gtype::model::Expr>,
+    where T: std::convert::Into<gtype::model::Expr>
     {
         self.condition = v.map(|x| x.into());
         self
@@ -497,8 +488,7 @@ impl PolicyBinding {
     /// let x = PolicyBinding::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -514,8 +504,7 @@ impl PolicyBinding {
     /// let x = PolicyBinding::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -530,8 +519,7 @@ impl PolicyBinding {
     /// let x = PolicyBinding::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -547,8 +535,7 @@ impl PolicyBinding {
     /// let x = PolicyBinding::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -566,11 +553,13 @@ pub mod policy_binding {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Target is the full resource name of the resource to which the policy will
     /// be bound. Immutable once set.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Target {
+
         /// The different types of targets that can be bound to a policy.
         pub target: std::option::Option<crate::model::policy_binding::target::Target>,
 
@@ -593,12 +582,8 @@ pub mod policy_binding {
         /// use google_cloud_iam_v3::model::policy_binding::target::Target as TargetOneOf;
         /// let x = Target::new().set_target(Some(TargetOneOf::PrincipalSet("example".to_string())));
         /// ```
-        pub fn set_target<
-            T: std::convert::Into<std::option::Option<crate::model::policy_binding::target::Target>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_target<T: std::convert::Into<std::option::Option<crate::model::policy_binding::target::Target>>>(mut self, v: T) -> Self
+        {
             self.target = v.into();
             self
         }
@@ -609,9 +594,7 @@ pub mod policy_binding {
         pub fn principal_set(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.target.as_ref().and_then(|v| match v {
-                crate::model::policy_binding::target::Target::PrincipalSet(v) => {
-                    std::option::Option::Some(v)
-                }
+                crate::model::policy_binding::target::Target::PrincipalSet(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
@@ -628,12 +611,11 @@ pub mod policy_binding {
         /// let x = Target::new().set_principal_set("example");
         /// assert!(x.principal_set().is_some());
         /// ```
-        pub fn set_principal_set<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_principal_set<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.target = std::option::Option::Some(
-                crate::model::policy_binding::target::Target::PrincipalSet(v.into()),
+                crate::model::policy_binding::target::Target::PrincipalSet(
+                    v.into()
+                )
             );
             self
         }
@@ -649,6 +631,7 @@ pub mod policy_binding {
     pub mod target {
         #[allow(unused_imports)]
         use super::*;
+
 
         /// The different types of targets that can be bound to a policy.
         #[derive(Clone, Debug, PartialEq)]
@@ -738,9 +721,7 @@ pub mod policy_binding {
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
                 Self::Unspecified => std::option::Option::Some("POLICY_KIND_UNSPECIFIED"),
-                Self::PrincipalAccessBoundary => {
-                    std::option::Option::Some("PRINCIPAL_ACCESS_BOUNDARY")
-                }
+                Self::PrincipalAccessBoundary => std::option::Option::Some("PRINCIPAL_ACCESS_BOUNDARY"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -764,9 +745,7 @@ pub mod policy_binding {
             match value {
                 0 => Self::Unspecified,
                 1 => Self::PrincipalAccessBoundary,
-                _ => Self::UnknownValue(policy_kind::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(policy_kind::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -777,9 +756,7 @@ pub mod policy_binding {
             match value {
                 "POLICY_KIND_UNSPECIFIED" => Self::Unspecified,
                 "PRINCIPAL_ACCESS_BOUNDARY" => Self::PrincipalAccessBoundary,
-                _ => Self::UnknownValue(policy_kind::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(policy_kind::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -803,8 +780,7 @@ pub mod policy_binding {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<PolicyKind>::new(
-                ".google.iam.v3.PolicyBinding.PolicyKind",
-            ))
+                ".google.iam.v3.PolicyBinding.PolicyKind"))
         }
     }
 }
@@ -813,6 +789,7 @@ pub mod policy_binding {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreatePolicyBindingRequest {
+
     /// Required. The parent resource where this policy binding will be created.
     /// The binding parent is the closest Resource Manager resource (project,
     /// folder or organization) to the binding target.
@@ -867,10 +844,7 @@ impl CreatePolicyBindingRequest {
     /// # use google_cloud_iam_v3::model::CreatePolicyBindingRequest;
     /// let x = CreatePolicyBindingRequest::new().set_policy_binding_id("example");
     /// ```
-    pub fn set_policy_binding_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_policy_binding_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.policy_binding_id = v.into();
         self
     }
@@ -884,8 +858,7 @@ impl CreatePolicyBindingRequest {
     /// let x = CreatePolicyBindingRequest::new().set_policy_binding(PolicyBinding::default()/* use setters */);
     /// ```
     pub fn set_policy_binding<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::PolicyBinding>,
+    where T: std::convert::Into<crate::model::PolicyBinding>
     {
         self.policy_binding = std::option::Option::Some(v.into());
         self
@@ -901,8 +874,7 @@ impl CreatePolicyBindingRequest {
     /// let x = CreatePolicyBindingRequest::new().set_or_clear_policy_binding(None::<PolicyBinding>);
     /// ```
     pub fn set_or_clear_policy_binding<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::PolicyBinding>,
+    where T: std::convert::Into<crate::model::PolicyBinding>
     {
         self.policy_binding = v.map(|x| x.into());
         self
@@ -931,6 +903,7 @@ impl wkt::message::Message for CreatePolicyBindingRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetPolicyBindingRequest {
+
     /// Required. The name of the policy binding to retrieve.
     ///
     /// Format:
@@ -972,6 +945,7 @@ impl wkt::message::Message for GetPolicyBindingRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdatePolicyBindingRequest {
+
     /// Required. The policy binding to update.
     ///
     /// The policy binding's `name` field is used to identify the policy binding to
@@ -1002,8 +976,7 @@ impl UpdatePolicyBindingRequest {
     /// let x = UpdatePolicyBindingRequest::new().set_policy_binding(PolicyBinding::default()/* use setters */);
     /// ```
     pub fn set_policy_binding<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::PolicyBinding>,
+    where T: std::convert::Into<crate::model::PolicyBinding>
     {
         self.policy_binding = std::option::Option::Some(v.into());
         self
@@ -1019,8 +992,7 @@ impl UpdatePolicyBindingRequest {
     /// let x = UpdatePolicyBindingRequest::new().set_or_clear_policy_binding(None::<PolicyBinding>);
     /// ```
     pub fn set_or_clear_policy_binding<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::PolicyBinding>,
+    where T: std::convert::Into<crate::model::PolicyBinding>
     {
         self.policy_binding = v.map(|x| x.into());
         self
@@ -1047,8 +1019,7 @@ impl UpdatePolicyBindingRequest {
     /// let x = UpdatePolicyBindingRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -1064,8 +1035,7 @@ impl UpdatePolicyBindingRequest {
     /// let x = UpdatePolicyBindingRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -1082,6 +1052,7 @@ impl wkt::message::Message for UpdatePolicyBindingRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeletePolicyBindingRequest {
+
     /// Required. The name of the policy binding to delete.
     ///
     /// Format:
@@ -1155,6 +1126,7 @@ impl wkt::message::Message for DeletePolicyBindingRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPolicyBindingsRequest {
+
     /// Required. The parent resource, which owns the collection of policy
     /// bindings.
     ///
@@ -1260,6 +1232,7 @@ impl wkt::message::Message for ListPolicyBindingsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPolicyBindingsResponse {
+
     /// The policy bindings from the specified parent.
     pub policy_bindings: std::vec::Vec<crate::model::PolicyBinding>,
 
@@ -1290,7 +1263,7 @@ impl ListPolicyBindingsResponse {
     pub fn set_policy_bindings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::PolicyBinding>,
+        V: std::convert::Into<crate::model::PolicyBinding>
     {
         use std::iter::Iterator;
         self.policy_bindings = v.into_iter().map(|i| i.into()).collect();
@@ -1334,6 +1307,7 @@ impl gax::paginator::internal::PageableResponse for ListPolicyBindingsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchTargetPolicyBindingsRequest {
+
     /// Required. The target resource, which is bound to the policy in the binding.
     ///
     /// Format:
@@ -1441,6 +1415,7 @@ impl wkt::message::Message for SearchTargetPolicyBindingsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchTargetPolicyBindingsResponse {
+
     /// The policy bindings bound to the specified target.
     pub policy_bindings: std::vec::Vec<crate::model::PolicyBinding>,
 
@@ -1471,7 +1446,7 @@ impl SearchTargetPolicyBindingsResponse {
     pub fn set_policy_bindings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::PolicyBinding>,
+        V: std::convert::Into<crate::model::PolicyBinding>
     {
         use std::iter::Iterator;
         self.policy_bindings = v.into_iter().map(|i| i.into()).collect();
@@ -1515,6 +1490,7 @@ impl gax::paginator::internal::PageableResponse for SearchTargetPolicyBindingsRe
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreatePrincipalAccessBoundaryPolicyRequest {
+
     /// Required. The parent resource where this principal access boundary policy
     /// will be created. Only organizations are supported.
     ///
@@ -1532,8 +1508,7 @@ pub struct CreatePrincipalAccessBoundaryPolicyRequest {
     pub principal_access_boundary_policy_id: std::string::String,
 
     /// Required. The principal access boundary policy to create.
-    pub principal_access_boundary_policy:
-        std::option::Option<crate::model::PrincipalAccessBoundaryPolicy>,
+    pub principal_access_boundary_policy: std::option::Option<crate::model::PrincipalAccessBoundaryPolicy>,
 
     /// Optional. If set, validate the request and preview the creation, but do not
     /// actually post it.
@@ -1566,10 +1541,7 @@ impl CreatePrincipalAccessBoundaryPolicyRequest {
     /// # use google_cloud_iam_v3::model::CreatePrincipalAccessBoundaryPolicyRequest;
     /// let x = CreatePrincipalAccessBoundaryPolicyRequest::new().set_principal_access_boundary_policy_id("example");
     /// ```
-    pub fn set_principal_access_boundary_policy_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_principal_access_boundary_policy_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.principal_access_boundary_policy_id = v.into();
         self
     }
@@ -1583,8 +1555,7 @@ impl CreatePrincipalAccessBoundaryPolicyRequest {
     /// let x = CreatePrincipalAccessBoundaryPolicyRequest::new().set_principal_access_boundary_policy(PrincipalAccessBoundaryPolicy::default()/* use setters */);
     /// ```
     pub fn set_principal_access_boundary_policy<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::PrincipalAccessBoundaryPolicy>,
+    where T: std::convert::Into<crate::model::PrincipalAccessBoundaryPolicy>
     {
         self.principal_access_boundary_policy = std::option::Option::Some(v.into());
         self
@@ -1599,12 +1570,8 @@ impl CreatePrincipalAccessBoundaryPolicyRequest {
     /// let x = CreatePrincipalAccessBoundaryPolicyRequest::new().set_or_clear_principal_access_boundary_policy(Some(PrincipalAccessBoundaryPolicy::default()/* use setters */));
     /// let x = CreatePrincipalAccessBoundaryPolicyRequest::new().set_or_clear_principal_access_boundary_policy(None::<PrincipalAccessBoundaryPolicy>);
     /// ```
-    pub fn set_or_clear_principal_access_boundary_policy<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<crate::model::PrincipalAccessBoundaryPolicy>,
+    pub fn set_or_clear_principal_access_boundary_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<crate::model::PrincipalAccessBoundaryPolicy>
     {
         self.principal_access_boundary_policy = v.map(|x| x.into());
         self
@@ -1633,6 +1600,7 @@ impl wkt::message::Message for CreatePrincipalAccessBoundaryPolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetPrincipalAccessBoundaryPolicyRequest {
+
     /// Required. The name of the principal access boundary policy to retrieve.
     ///
     /// Format:
@@ -1670,12 +1638,12 @@ impl wkt::message::Message for GetPrincipalAccessBoundaryPolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdatePrincipalAccessBoundaryPolicyRequest {
+
     /// Required. The principal access boundary policy to update.
     ///
     /// The principal access boundary policy's `name` field is used to identify the
     /// policy to update.
-    pub principal_access_boundary_policy:
-        std::option::Option<crate::model::PrincipalAccessBoundaryPolicy>,
+    pub principal_access_boundary_policy: std::option::Option<crate::model::PrincipalAccessBoundaryPolicy>,
 
     /// Optional. If set, validate the request and preview the update, but do not
     /// actually post it.
@@ -1701,8 +1669,7 @@ impl UpdatePrincipalAccessBoundaryPolicyRequest {
     /// let x = UpdatePrincipalAccessBoundaryPolicyRequest::new().set_principal_access_boundary_policy(PrincipalAccessBoundaryPolicy::default()/* use setters */);
     /// ```
     pub fn set_principal_access_boundary_policy<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::PrincipalAccessBoundaryPolicy>,
+    where T: std::convert::Into<crate::model::PrincipalAccessBoundaryPolicy>
     {
         self.principal_access_boundary_policy = std::option::Option::Some(v.into());
         self
@@ -1717,12 +1684,8 @@ impl UpdatePrincipalAccessBoundaryPolicyRequest {
     /// let x = UpdatePrincipalAccessBoundaryPolicyRequest::new().set_or_clear_principal_access_boundary_policy(Some(PrincipalAccessBoundaryPolicy::default()/* use setters */));
     /// let x = UpdatePrincipalAccessBoundaryPolicyRequest::new().set_or_clear_principal_access_boundary_policy(None::<PrincipalAccessBoundaryPolicy>);
     /// ```
-    pub fn set_or_clear_principal_access_boundary_policy<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<crate::model::PrincipalAccessBoundaryPolicy>,
+    pub fn set_or_clear_principal_access_boundary_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<crate::model::PrincipalAccessBoundaryPolicy>
     {
         self.principal_access_boundary_policy = v.map(|x| x.into());
         self
@@ -1749,8 +1712,7 @@ impl UpdatePrincipalAccessBoundaryPolicyRequest {
     /// let x = UpdatePrincipalAccessBoundaryPolicyRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -1766,8 +1728,7 @@ impl UpdatePrincipalAccessBoundaryPolicyRequest {
     /// let x = UpdatePrincipalAccessBoundaryPolicyRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -1784,6 +1745,7 @@ impl wkt::message::Message for UpdatePrincipalAccessBoundaryPolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeletePrincipalAccessBoundaryPolicyRequest {
+
     /// Required. The name of the principal access boundary policy to delete.
     ///
     /// Format:
@@ -1869,6 +1831,7 @@ impl wkt::message::Message for DeletePrincipalAccessBoundaryPolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPrincipalAccessBoundaryPoliciesRequest {
+
     /// Required. The parent resource, which owns the collection of principal
     /// access boundary policies.
     ///
@@ -1948,9 +1911,9 @@ impl wkt::message::Message for ListPrincipalAccessBoundaryPoliciesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPrincipalAccessBoundaryPoliciesResponse {
+
     /// The principal access boundary policies from the specified parent.
-    pub principal_access_boundary_policies:
-        std::vec::Vec<crate::model::PrincipalAccessBoundaryPolicy>,
+    pub principal_access_boundary_policies: std::vec::Vec<crate::model::PrincipalAccessBoundaryPolicy>,
 
     /// Optional. A token, which can be sent as `page_token` to retrieve the next
     /// page. If this field is omitted, there are no subsequent pages.
@@ -1979,7 +1942,7 @@ impl ListPrincipalAccessBoundaryPoliciesResponse {
     pub fn set_principal_access_boundary_policies<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::PrincipalAccessBoundaryPolicy>,
+        V: std::convert::Into<crate::model::PrincipalAccessBoundaryPolicy>
     {
         use std::iter::Iterator;
         self.principal_access_boundary_policies = v.into_iter().map(|i| i.into()).collect();
@@ -2023,6 +1986,7 @@ impl gax::paginator::internal::PageableResponse for ListPrincipalAccessBoundaryP
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchPrincipalAccessBoundaryPolicyBindingsRequest {
+
     /// Required. The name of the principal access boundary policy.
     /// Format:
     /// `organizations/{organization_id}/locations/{location}/principalAccessBoundaryPolicies/{principal_access_boundary_policy_id}`
@@ -2099,6 +2063,7 @@ impl wkt::message::Message for SearchPrincipalAccessBoundaryPolicyBindingsReques
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchPrincipalAccessBoundaryPolicyBindingsResponse {
+
     /// The policy bindings that reference the specified policy.
     pub policy_bindings: std::vec::Vec<crate::model::PolicyBinding>,
 
@@ -2129,7 +2094,7 @@ impl SearchPrincipalAccessBoundaryPolicyBindingsResponse {
     pub fn set_policy_bindings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::PolicyBinding>,
+        V: std::convert::Into<crate::model::PolicyBinding>
     {
         use std::iter::Iterator;
         self.policy_bindings = v.into_iter().map(|i| i.into()).collect();
@@ -2156,9 +2121,7 @@ impl wkt::message::Message for SearchPrincipalAccessBoundaryPolicyBindingsRespon
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse
-    for SearchPrincipalAccessBoundaryPolicyBindingsResponse
-{
+impl gax::paginator::internal::PageableResponse for SearchPrincipalAccessBoundaryPolicyBindingsResponse {
     type PageItem = crate::model::PolicyBinding;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2175,6 +2138,7 @@ impl gax::paginator::internal::PageableResponse
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PrincipalAccessBoundaryPolicy {
+
     /// Identifier. The resource name of the principal access boundary policy.
     ///
     /// The following format is supported:
@@ -2196,7 +2160,7 @@ pub struct PrincipalAccessBoundaryPolicy {
     /// Optional. User defined annotations. See
     /// <https://google.aip.dev/148#annotations> for more details such as format and
     /// size limitations
-    pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
+    pub annotations: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Output only. The time when the principal access boundary policy was
     /// created.
@@ -2295,8 +2259,7 @@ impl PrincipalAccessBoundaryPolicy {
     /// let x = PrincipalAccessBoundaryPolicy::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -2312,8 +2275,7 @@ impl PrincipalAccessBoundaryPolicy {
     /// let x = PrincipalAccessBoundaryPolicy::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -2328,8 +2290,7 @@ impl PrincipalAccessBoundaryPolicy {
     /// let x = PrincipalAccessBoundaryPolicy::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -2345,8 +2306,7 @@ impl PrincipalAccessBoundaryPolicy {
     /// let x = PrincipalAccessBoundaryPolicy::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -2361,8 +2321,7 @@ impl PrincipalAccessBoundaryPolicy {
     /// let x = PrincipalAccessBoundaryPolicy::new().set_details(PrincipalAccessBoundaryPolicyDetails::default()/* use setters */);
     /// ```
     pub fn set_details<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::PrincipalAccessBoundaryPolicyDetails>,
+    where T: std::convert::Into<crate::model::PrincipalAccessBoundaryPolicyDetails>
     {
         self.details = std::option::Option::Some(v.into());
         self
@@ -2378,8 +2337,7 @@ impl PrincipalAccessBoundaryPolicy {
     /// let x = PrincipalAccessBoundaryPolicy::new().set_or_clear_details(None::<PrincipalAccessBoundaryPolicyDetails>);
     /// ```
     pub fn set_or_clear_details<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::PrincipalAccessBoundaryPolicyDetails>,
+    where T: std::convert::Into<crate::model::PrincipalAccessBoundaryPolicyDetails>
     {
         self.details = v.map(|x| x.into());
         self
@@ -2396,6 +2354,7 @@ impl wkt::message::Message for PrincipalAccessBoundaryPolicy {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PrincipalAccessBoundaryPolicyDetails {
+
     /// Required. A list of principal access boundary policy rules. The number of
     /// rules in a policy is limited to 500.
     pub rules: std::vec::Vec<crate::model::PrincipalAccessBoundaryPolicyRule>,
@@ -2430,7 +2389,7 @@ impl PrincipalAccessBoundaryPolicyDetails {
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::PrincipalAccessBoundaryPolicyRule>,
+        V: std::convert::Into<crate::model::PrincipalAccessBoundaryPolicyRule>
     {
         use std::iter::Iterator;
         self.rules = v.into_iter().map(|i| i.into()).collect();
@@ -2444,10 +2403,7 @@ impl PrincipalAccessBoundaryPolicyDetails {
     /// # use google_cloud_iam_v3::model::PrincipalAccessBoundaryPolicyDetails;
     /// let x = PrincipalAccessBoundaryPolicyDetails::new().set_enforcement_version("example");
     /// ```
-    pub fn set_enforcement_version<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_enforcement_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.enforcement_version = v.into();
         self
     }
@@ -2463,6 +2419,7 @@ impl wkt::message::Message for PrincipalAccessBoundaryPolicyDetails {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PrincipalAccessBoundaryPolicyRule {
+
     /// Optional. The description of the principal access boundary policy rule.
     /// Must be less than or equal to 256 characters.
     pub description: std::string::String,
@@ -2515,7 +2472,7 @@ impl PrincipalAccessBoundaryPolicyRule {
     pub fn set_resources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.resources = v.into_iter().map(|i| i.into()).collect();
@@ -2530,12 +2487,7 @@ impl PrincipalAccessBoundaryPolicyRule {
     /// use google_cloud_iam_v3::model::principal_access_boundary_policy_rule::Effect;
     /// let x0 = PrincipalAccessBoundaryPolicyRule::new().set_effect(Effect::Allow);
     /// ```
-    pub fn set_effect<
-        T: std::convert::Into<crate::model::principal_access_boundary_policy_rule::Effect>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_effect<T: std::convert::Into<crate::model::principal_access_boundary_policy_rule::Effect>>(mut self, v: T) -> Self {
         self.effect = v.into();
         self
     }
@@ -2551,6 +2503,7 @@ impl wkt::message::Message for PrincipalAccessBoundaryPolicyRule {
 pub mod principal_access_boundary_policy_rule {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// An effect to describe the access relationship.
     ///
@@ -2633,9 +2586,7 @@ pub mod principal_access_boundary_policy_rule {
             match value {
                 0 => Self::Unspecified,
                 1 => Self::Allow,
-                _ => Self::UnknownValue(effect::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(effect::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -2646,9 +2597,7 @@ pub mod principal_access_boundary_policy_rule {
             match value {
                 "EFFECT_UNSPECIFIED" => Self::Unspecified,
                 "ALLOW" => Self::Allow,
-                _ => Self::UnknownValue(effect::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(effect::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -2672,8 +2621,7 @@ pub mod principal_access_boundary_policy_rule {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Effect>::new(
-                ".google.iam.v3.PrincipalAccessBoundaryPolicyRule.Effect",
-            ))
+                ".google.iam.v3.PrincipalAccessBoundaryPolicyRule.Effect"))
         }
     }
 }

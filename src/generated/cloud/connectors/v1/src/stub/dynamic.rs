@@ -309,8 +309,7 @@ impl<T: super::Connectors> Connectors for T {
         &self,
         req: crate::model::ListRuntimeEntitySchemasRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListRuntimeEntitySchemasResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::ListRuntimeEntitySchemasResponse>> {
         T::list_runtime_entity_schemas(self, req, options).await
     }
 
@@ -319,8 +318,7 @@ impl<T: super::Connectors> Connectors for T {
         &self,
         req: crate::model::ListRuntimeActionSchemasRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListRuntimeActionSchemasResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::ListRuntimeActionSchemasResponse>> {
         T::list_runtime_action_schemas(self, req, options).await
     }
 

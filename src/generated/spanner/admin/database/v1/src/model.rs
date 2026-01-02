@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -30,7 +31,6 @@ extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -42,6 +42,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Backup {
+
     /// Required for the
     /// [CreateBackup][google.spanner.admin.database.v1.DatabaseAdmin.CreateBackup]
     /// operation. Name of the database from which this backup was created. This
@@ -221,8 +222,7 @@ impl Backup {
     /// let x = Backup::new().set_version_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_version_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.version_time = std::option::Option::Some(v.into());
         self
@@ -238,8 +238,7 @@ impl Backup {
     /// let x = Backup::new().set_or_clear_version_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_version_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.version_time = v.map(|x| x.into());
         self
@@ -254,8 +253,7 @@ impl Backup {
     /// let x = Backup::new().set_expire_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_expire_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.expire_time = std::option::Option::Some(v.into());
         self
@@ -271,8 +269,7 @@ impl Backup {
     /// let x = Backup::new().set_or_clear_expire_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.expire_time = v.map(|x| x.into());
         self
@@ -299,8 +296,7 @@ impl Backup {
     /// let x = Backup::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -316,8 +312,7 @@ impl Backup {
     /// let x = Backup::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -383,7 +378,7 @@ impl Backup {
     pub fn set_referencing_databases<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.referencing_databases = v.into_iter().map(|i| i.into()).collect();
@@ -399,8 +394,7 @@ impl Backup {
     /// let x = Backup::new().set_encryption_info(EncryptionInfo::default()/* use setters */);
     /// ```
     pub fn set_encryption_info<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::EncryptionInfo>,
+    where T: std::convert::Into<crate::model::EncryptionInfo>
     {
         self.encryption_info = std::option::Option::Some(v.into());
         self
@@ -416,8 +410,7 @@ impl Backup {
     /// let x = Backup::new().set_or_clear_encryption_info(None::<EncryptionInfo>);
     /// ```
     pub fn set_or_clear_encryption_info<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::EncryptionInfo>,
+    where T: std::convert::Into<crate::model::EncryptionInfo>
     {
         self.encryption_info = v.map(|x| x.into());
         self
@@ -438,7 +431,7 @@ impl Backup {
     pub fn set_encryption_information<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::EncryptionInfo>,
+        V: std::convert::Into<crate::model::EncryptionInfo>
     {
         use std::iter::Iterator;
         self.encryption_information = v.into_iter().map(|i| i.into()).collect();
@@ -454,10 +447,7 @@ impl Backup {
     /// let x0 = Backup::new().set_database_dialect(DatabaseDialect::GoogleStandardSql);
     /// let x1 = Backup::new().set_database_dialect(DatabaseDialect::Postgresql);
     /// ```
-    pub fn set_database_dialect<T: std::convert::Into<crate::model::DatabaseDialect>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_database_dialect<T: std::convert::Into<crate::model::DatabaseDialect>>(mut self, v: T) -> Self {
         self.database_dialect = v.into();
         self
     }
@@ -472,7 +462,7 @@ impl Backup {
     pub fn set_referencing_backups<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.referencing_backups = v.into_iter().map(|i| i.into()).collect();
@@ -488,8 +478,7 @@ impl Backup {
     /// let x = Backup::new().set_max_expire_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_max_expire_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.max_expire_time = std::option::Option::Some(v.into());
         self
@@ -505,8 +494,7 @@ impl Backup {
     /// let x = Backup::new().set_or_clear_max_expire_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_max_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.max_expire_time = v.map(|x| x.into());
         self
@@ -522,7 +510,7 @@ impl Backup {
     pub fn set_backup_schedules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.backup_schedules = v.into_iter().map(|i| i.into()).collect();
@@ -536,10 +524,7 @@ impl Backup {
     /// # use google_cloud_spanner_admin_database_v1::model::Backup;
     /// let x = Backup::new().set_incremental_backup_chain_id("example");
     /// ```
-    pub fn set_incremental_backup_chain_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_incremental_backup_chain_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.incremental_backup_chain_id = v.into();
         self
     }
@@ -553,8 +538,7 @@ impl Backup {
     /// let x = Backup::new().set_oldest_version_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_oldest_version_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.oldest_version_time = std::option::Option::Some(v.into());
         self
@@ -570,8 +554,7 @@ impl Backup {
     /// let x = Backup::new().set_or_clear_oldest_version_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_oldest_version_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.oldest_version_time = v.map(|x| x.into());
         self
@@ -592,7 +575,7 @@ impl Backup {
     pub fn set_instance_partitions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::BackupInstancePartition>,
+        V: std::convert::Into<crate::model::BackupInstancePartition>
     {
         use std::iter::Iterator;
         self.instance_partitions = v.into_iter().map(|i| i.into()).collect();
@@ -610,6 +593,7 @@ impl wkt::message::Message for Backup {
 pub mod backup {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Indicates the current state of the backup.
     ///
@@ -698,9 +682,7 @@ pub mod backup {
                 0 => Self::Unspecified,
                 1 => Self::Creating,
                 2 => Self::Ready,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -712,9 +694,7 @@ pub mod backup {
                 "STATE_UNSPECIFIED" => Self::Unspecified,
                 "CREATING" => Self::Creating,
                 "READY" => Self::Ready,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -739,8 +719,7 @@ pub mod backup {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.spanner.admin.database.v1.Backup.State",
-            ))
+                ".google.spanner.admin.database.v1.Backup.State"))
         }
     }
 }
@@ -752,6 +731,7 @@ pub mod backup {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateBackupRequest {
+
     /// Required. The name of the instance in which the backup will be
     /// created. This must be the same instance that contains the database the
     /// backup will be created from. The backup will be stored in the
@@ -818,8 +798,7 @@ impl CreateBackupRequest {
     /// let x = CreateBackupRequest::new().set_backup(Backup::default()/* use setters */);
     /// ```
     pub fn set_backup<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Backup>,
+    where T: std::convert::Into<crate::model::Backup>
     {
         self.backup = std::option::Option::Some(v.into());
         self
@@ -835,8 +814,7 @@ impl CreateBackupRequest {
     /// let x = CreateBackupRequest::new().set_or_clear_backup(None::<Backup>);
     /// ```
     pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Backup>,
+    where T: std::convert::Into<crate::model::Backup>
     {
         self.backup = v.map(|x| x.into());
         self
@@ -851,8 +829,7 @@ impl CreateBackupRequest {
     /// let x = CreateBackupRequest::new().set_encryption_config(CreateBackupEncryptionConfig::default()/* use setters */);
     /// ```
     pub fn set_encryption_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CreateBackupEncryptionConfig>,
+    where T: std::convert::Into<crate::model::CreateBackupEncryptionConfig>
     {
         self.encryption_config = std::option::Option::Some(v.into());
         self
@@ -868,8 +845,7 @@ impl CreateBackupRequest {
     /// let x = CreateBackupRequest::new().set_or_clear_encryption_config(None::<CreateBackupEncryptionConfig>);
     /// ```
     pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CreateBackupEncryptionConfig>,
+    where T: std::convert::Into<crate::model::CreateBackupEncryptionConfig>
     {
         self.encryption_config = v.map(|x| x.into());
         self
@@ -889,6 +865,7 @@ impl wkt::message::Message for CreateBackupRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateBackupMetadata {
+
     /// The name of the backup being created.
     pub name: std::string::String,
 
@@ -960,8 +937,7 @@ impl CreateBackupMetadata {
     /// let x = CreateBackupMetadata::new().set_progress(OperationProgress::default()/* use setters */);
     /// ```
     pub fn set_progress<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::OperationProgress>,
+    where T: std::convert::Into<crate::model::OperationProgress>
     {
         self.progress = std::option::Option::Some(v.into());
         self
@@ -977,8 +953,7 @@ impl CreateBackupMetadata {
     /// let x = CreateBackupMetadata::new().set_or_clear_progress(None::<OperationProgress>);
     /// ```
     pub fn set_or_clear_progress<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::OperationProgress>,
+    where T: std::convert::Into<crate::model::OperationProgress>
     {
         self.progress = v.map(|x| x.into());
         self
@@ -993,8 +968,7 @@ impl CreateBackupMetadata {
     /// let x = CreateBackupMetadata::new().set_cancel_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_cancel_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.cancel_time = std::option::Option::Some(v.into());
         self
@@ -1010,8 +984,7 @@ impl CreateBackupMetadata {
     /// let x = CreateBackupMetadata::new().set_or_clear_cancel_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_cancel_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.cancel_time = v.map(|x| x.into());
         self
@@ -1031,6 +1004,7 @@ impl wkt::message::Message for CreateBackupMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CopyBackupRequest {
+
     /// Required. The name of the destination instance that will contain the backup
     /// copy. Values are of the form: `projects/<project>/instances/<instance>`.
     pub parent: std::string::String,
@@ -1117,8 +1091,7 @@ impl CopyBackupRequest {
     /// let x = CopyBackupRequest::new().set_expire_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_expire_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.expire_time = std::option::Option::Some(v.into());
         self
@@ -1134,8 +1107,7 @@ impl CopyBackupRequest {
     /// let x = CopyBackupRequest::new().set_or_clear_expire_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.expire_time = v.map(|x| x.into());
         self
@@ -1150,8 +1122,7 @@ impl CopyBackupRequest {
     /// let x = CopyBackupRequest::new().set_encryption_config(CopyBackupEncryptionConfig::default()/* use setters */);
     /// ```
     pub fn set_encryption_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CopyBackupEncryptionConfig>,
+    where T: std::convert::Into<crate::model::CopyBackupEncryptionConfig>
     {
         self.encryption_config = std::option::Option::Some(v.into());
         self
@@ -1167,8 +1138,7 @@ impl CopyBackupRequest {
     /// let x = CopyBackupRequest::new().set_or_clear_encryption_config(None::<CopyBackupEncryptionConfig>);
     /// ```
     pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CopyBackupEncryptionConfig>,
+    where T: std::convert::Into<crate::model::CopyBackupEncryptionConfig>
     {
         self.encryption_config = v.map(|x| x.into());
         self
@@ -1188,6 +1158,7 @@ impl wkt::message::Message for CopyBackupRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CopyBackupMetadata {
+
     /// The name of the backup being created through the copy operation.
     /// Values are of the form
     /// `projects/<project>/instances/<instance>/backups/<backup>`.
@@ -1263,8 +1234,7 @@ impl CopyBackupMetadata {
     /// let x = CopyBackupMetadata::new().set_progress(OperationProgress::default()/* use setters */);
     /// ```
     pub fn set_progress<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::OperationProgress>,
+    where T: std::convert::Into<crate::model::OperationProgress>
     {
         self.progress = std::option::Option::Some(v.into());
         self
@@ -1280,8 +1250,7 @@ impl CopyBackupMetadata {
     /// let x = CopyBackupMetadata::new().set_or_clear_progress(None::<OperationProgress>);
     /// ```
     pub fn set_or_clear_progress<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::OperationProgress>,
+    where T: std::convert::Into<crate::model::OperationProgress>
     {
         self.progress = v.map(|x| x.into());
         self
@@ -1296,8 +1265,7 @@ impl CopyBackupMetadata {
     /// let x = CopyBackupMetadata::new().set_cancel_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_cancel_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.cancel_time = std::option::Option::Some(v.into());
         self
@@ -1313,8 +1281,7 @@ impl CopyBackupMetadata {
     /// let x = CopyBackupMetadata::new().set_or_clear_cancel_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_cancel_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.cancel_time = v.map(|x| x.into());
         self
@@ -1334,6 +1301,7 @@ impl wkt::message::Message for CopyBackupMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateBackupRequest {
+
     /// Required. The backup to update. `backup.name`, and the fields to be updated
     /// as specified by `update_mask` are required. Other fields are ignored.
     /// Update is only supported for the following fields:
@@ -1365,8 +1333,7 @@ impl UpdateBackupRequest {
     /// let x = UpdateBackupRequest::new().set_backup(Backup::default()/* use setters */);
     /// ```
     pub fn set_backup<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Backup>,
+    where T: std::convert::Into<crate::model::Backup>
     {
         self.backup = std::option::Option::Some(v.into());
         self
@@ -1382,8 +1349,7 @@ impl UpdateBackupRequest {
     /// let x = UpdateBackupRequest::new().set_or_clear_backup(None::<Backup>);
     /// ```
     pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Backup>,
+    where T: std::convert::Into<crate::model::Backup>
     {
         self.backup = v.map(|x| x.into());
         self
@@ -1398,8 +1364,7 @@ impl UpdateBackupRequest {
     /// let x = UpdateBackupRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -1415,8 +1380,7 @@ impl UpdateBackupRequest {
     /// let x = UpdateBackupRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -1436,6 +1400,7 @@ impl wkt::message::Message for UpdateBackupRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetBackupRequest {
+
     /// Required. Name of the backup.
     /// Values are of the form
     /// `projects/<project>/instances/<instance>/backups/<backup>`.
@@ -1475,6 +1440,7 @@ impl wkt::message::Message for GetBackupRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteBackupRequest {
+
     /// Required. Name of the backup to delete.
     /// Values are of the form
     /// `projects/<project>/instances/<instance>/backups/<backup>`.
@@ -1514,6 +1480,7 @@ impl wkt::message::Message for DeleteBackupRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBackupsRequest {
+
     /// Required. The instance to list backups from.  Values are of the
     /// form `projects/<project>/instances/<instance>`.
     pub parent: std::string::String,
@@ -1645,6 +1612,7 @@ impl wkt::message::Message for ListBackupsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBackupsResponse {
+
     /// The list of matching backups. Backups returned are ordered by `create_time`
     /// in descending order, starting from the most recent `create_time`.
     pub backups: std::vec::Vec<crate::model::Backup>,
@@ -1679,7 +1647,7 @@ impl ListBackupsResponse {
     pub fn set_backups<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Backup>,
+        V: std::convert::Into<crate::model::Backup>
     {
         use std::iter::Iterator;
         self.backups = v.into_iter().map(|i| i.into()).collect();
@@ -1726,6 +1694,7 @@ impl gax::paginator::internal::PageableResponse for ListBackupsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBackupOperationsRequest {
+
     /// Required. The instance of the backup operations. Values are of
     /// the form `projects/<project>/instances/<instance>`.
     pub parent: std::string::String,
@@ -1890,6 +1859,7 @@ impl wkt::message::Message for ListBackupOperationsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBackupOperationsResponse {
+
     /// The list of matching backup [long-running
     /// operations][google.longrunning.Operation]. Each operation's name will be
     /// prefixed by the backup's name. The operation's
@@ -1934,7 +1904,7 @@ impl ListBackupOperationsResponse {
     pub fn set_operations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<longrunning::model::Operation>,
+        V: std::convert::Into<longrunning::model::Operation>
     {
         use std::iter::Iterator;
         self.operations = v.into_iter().map(|i| i.into()).collect();
@@ -1978,6 +1948,7 @@ impl gax::paginator::internal::PageableResponse for ListBackupOperationsResponse
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BackupInfo {
+
     /// Name of the backup.
     pub backup: std::string::String,
 
@@ -2029,8 +2000,7 @@ impl BackupInfo {
     /// let x = BackupInfo::new().set_version_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_version_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.version_time = std::option::Option::Some(v.into());
         self
@@ -2046,8 +2016,7 @@ impl BackupInfo {
     /// let x = BackupInfo::new().set_or_clear_version_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_version_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.version_time = v.map(|x| x.into());
         self
@@ -2062,8 +2031,7 @@ impl BackupInfo {
     /// let x = BackupInfo::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -2079,8 +2047,7 @@ impl BackupInfo {
     /// let x = BackupInfo::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -2109,6 +2076,7 @@ impl wkt::message::Message for BackupInfo {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateBackupEncryptionConfig {
+
     /// Required. The encryption type of the backup.
     pub encryption_type: crate::model::create_backup_encryption_config::EncryptionType,
 
@@ -2157,12 +2125,7 @@ impl CreateBackupEncryptionConfig {
     /// let x1 = CreateBackupEncryptionConfig::new().set_encryption_type(EncryptionType::GoogleDefaultEncryption);
     /// let x2 = CreateBackupEncryptionConfig::new().set_encryption_type(EncryptionType::CustomerManagedEncryption);
     /// ```
-    pub fn set_encryption_type<
-        T: std::convert::Into<crate::model::create_backup_encryption_config::EncryptionType>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_encryption_type<T: std::convert::Into<crate::model::create_backup_encryption_config::EncryptionType>>(mut self, v: T) -> Self {
         self.encryption_type = v.into();
         self
     }
@@ -2189,7 +2152,7 @@ impl CreateBackupEncryptionConfig {
     pub fn set_kms_key_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.kms_key_names = v.into_iter().map(|i| i.into()).collect();
@@ -2207,6 +2170,7 @@ impl wkt::message::Message for CreateBackupEncryptionConfig {
 pub mod create_backup_encryption_config {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Encryption types for the backup.
     ///
@@ -2280,12 +2244,8 @@ pub mod create_backup_encryption_config {
             match self {
                 Self::Unspecified => std::option::Option::Some("ENCRYPTION_TYPE_UNSPECIFIED"),
                 Self::UseDatabaseEncryption => std::option::Option::Some("USE_DATABASE_ENCRYPTION"),
-                Self::GoogleDefaultEncryption => {
-                    std::option::Option::Some("GOOGLE_DEFAULT_ENCRYPTION")
-                }
-                Self::CustomerManagedEncryption => {
-                    std::option::Option::Some("CUSTOMER_MANAGED_ENCRYPTION")
-                }
+                Self::GoogleDefaultEncryption => std::option::Option::Some("GOOGLE_DEFAULT_ENCRYPTION"),
+                Self::CustomerManagedEncryption => std::option::Option::Some("CUSTOMER_MANAGED_ENCRYPTION"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -2311,9 +2271,7 @@ pub mod create_backup_encryption_config {
                 1 => Self::UseDatabaseEncryption,
                 2 => Self::GoogleDefaultEncryption,
                 3 => Self::CustomerManagedEncryption,
-                _ => Self::UnknownValue(encryption_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(encryption_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -2326,9 +2284,7 @@ pub mod create_backup_encryption_config {
                 "USE_DATABASE_ENCRYPTION" => Self::UseDatabaseEncryption,
                 "GOOGLE_DEFAULT_ENCRYPTION" => Self::GoogleDefaultEncryption,
                 "CUSTOMER_MANAGED_ENCRYPTION" => Self::CustomerManagedEncryption,
-                _ => Self::UnknownValue(encryption_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(encryption_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -2354,8 +2310,7 @@ pub mod create_backup_encryption_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<EncryptionType>::new(
-                ".google.spanner.admin.database.v1.CreateBackupEncryptionConfig.EncryptionType",
-            ))
+                ".google.spanner.admin.database.v1.CreateBackupEncryptionConfig.EncryptionType"))
         }
     }
 }
@@ -2364,6 +2319,7 @@ pub mod create_backup_encryption_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CopyBackupEncryptionConfig {
+
     /// Required. The encryption type of the backup.
     pub encryption_type: crate::model::copy_backup_encryption_config::EncryptionType,
 
@@ -2413,12 +2369,7 @@ impl CopyBackupEncryptionConfig {
     /// let x1 = CopyBackupEncryptionConfig::new().set_encryption_type(EncryptionType::GoogleDefaultEncryption);
     /// let x2 = CopyBackupEncryptionConfig::new().set_encryption_type(EncryptionType::CustomerManagedEncryption);
     /// ```
-    pub fn set_encryption_type<
-        T: std::convert::Into<crate::model::copy_backup_encryption_config::EncryptionType>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_encryption_type<T: std::convert::Into<crate::model::copy_backup_encryption_config::EncryptionType>>(mut self, v: T) -> Self {
         self.encryption_type = v.into();
         self
     }
@@ -2445,7 +2396,7 @@ impl CopyBackupEncryptionConfig {
     pub fn set_kms_key_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.kms_key_names = v.into_iter().map(|i| i.into()).collect();
@@ -2463,6 +2414,7 @@ impl wkt::message::Message for CopyBackupEncryptionConfig {
 pub mod copy_backup_encryption_config {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Encryption types for the backup.
     ///
@@ -2537,15 +2489,9 @@ pub mod copy_backup_encryption_config {
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
                 Self::Unspecified => std::option::Option::Some("ENCRYPTION_TYPE_UNSPECIFIED"),
-                Self::UseConfigDefaultOrBackupEncryption => {
-                    std::option::Option::Some("USE_CONFIG_DEFAULT_OR_BACKUP_ENCRYPTION")
-                }
-                Self::GoogleDefaultEncryption => {
-                    std::option::Option::Some("GOOGLE_DEFAULT_ENCRYPTION")
-                }
-                Self::CustomerManagedEncryption => {
-                    std::option::Option::Some("CUSTOMER_MANAGED_ENCRYPTION")
-                }
+                Self::UseConfigDefaultOrBackupEncryption => std::option::Option::Some("USE_CONFIG_DEFAULT_OR_BACKUP_ENCRYPTION"),
+                Self::GoogleDefaultEncryption => std::option::Option::Some("GOOGLE_DEFAULT_ENCRYPTION"),
+                Self::CustomerManagedEncryption => std::option::Option::Some("CUSTOMER_MANAGED_ENCRYPTION"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -2571,9 +2517,7 @@ pub mod copy_backup_encryption_config {
                 1 => Self::UseConfigDefaultOrBackupEncryption,
                 2 => Self::GoogleDefaultEncryption,
                 3 => Self::CustomerManagedEncryption,
-                _ => Self::UnknownValue(encryption_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(encryption_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -2583,14 +2527,10 @@ pub mod copy_backup_encryption_config {
             use std::string::ToString;
             match value {
                 "ENCRYPTION_TYPE_UNSPECIFIED" => Self::Unspecified,
-                "USE_CONFIG_DEFAULT_OR_BACKUP_ENCRYPTION" => {
-                    Self::UseConfigDefaultOrBackupEncryption
-                }
+                "USE_CONFIG_DEFAULT_OR_BACKUP_ENCRYPTION" => Self::UseConfigDefaultOrBackupEncryption,
                 "GOOGLE_DEFAULT_ENCRYPTION" => Self::GoogleDefaultEncryption,
                 "CUSTOMER_MANAGED_ENCRYPTION" => Self::CustomerManagedEncryption,
-                _ => Self::UnknownValue(encryption_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(encryption_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -2616,8 +2556,7 @@ pub mod copy_backup_encryption_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<EncryptionType>::new(
-                ".google.spanner.admin.database.v1.CopyBackupEncryptionConfig.EncryptionType",
-            ))
+                ".google.spanner.admin.database.v1.CopyBackupEncryptionConfig.EncryptionType"))
         }
     }
 }
@@ -2628,6 +2567,7 @@ pub mod copy_backup_encryption_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FullBackupSpec {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2652,6 +2592,7 @@ impl wkt::message::Message for FullBackupSpec {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct IncrementalBackupSpec {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2671,6 +2612,7 @@ impl wkt::message::Message for IncrementalBackupSpec {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BackupInstancePartition {
+
     /// A unique identifier for the instance partition. Values are of the form
     /// `projects/<project>/instances/<instance>/instancePartitions/<instance_partition_id>`
     pub instance_partition: std::string::String,
@@ -2690,10 +2632,7 @@ impl BackupInstancePartition {
     /// # use google_cloud_spanner_admin_database_v1::model::BackupInstancePartition;
     /// let x = BackupInstancePartition::new().set_instance_partition("example");
     /// ```
-    pub fn set_instance_partition<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_instance_partition<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance_partition = v.into();
         self
     }
@@ -2709,6 +2648,7 @@ impl wkt::message::Message for BackupInstancePartition {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BackupScheduleSpec {
+
     /// Required.
     pub schedule_spec: std::option::Option<crate::model::backup_schedule_spec::ScheduleSpec>,
 
@@ -2732,12 +2672,8 @@ impl BackupScheduleSpec {
     /// let x = BackupScheduleSpec::new().set_schedule_spec(Some(
     ///     google_cloud_spanner_admin_database_v1::model::backup_schedule_spec::ScheduleSpec::CronSpec(CrontabSpec::default().into())));
     /// ```
-    pub fn set_schedule_spec<
-        T: std::convert::Into<std::option::Option<crate::model::backup_schedule_spec::ScheduleSpec>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_schedule_spec<T: std::convert::Into<std::option::Option<crate::model::backup_schedule_spec::ScheduleSpec>>>(mut self, v: T) -> Self
+    {
         self.schedule_spec = v.into();
         self
     }
@@ -2748,9 +2684,7 @@ impl BackupScheduleSpec {
     pub fn cron_spec(&self) -> std::option::Option<&std::boxed::Box<crate::model::CrontabSpec>> {
         #[allow(unreachable_patterns)]
         self.schedule_spec.as_ref().and_then(|v| match v {
-            crate::model::backup_schedule_spec::ScheduleSpec::CronSpec(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::backup_schedule_spec::ScheduleSpec::CronSpec(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -2768,12 +2702,11 @@ impl BackupScheduleSpec {
     /// let x = BackupScheduleSpec::new().set_cron_spec(CrontabSpec::default()/* use setters */);
     /// assert!(x.cron_spec().is_some());
     /// ```
-    pub fn set_cron_spec<T: std::convert::Into<std::boxed::Box<crate::model::CrontabSpec>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_cron_spec<T: std::convert::Into<std::boxed::Box<crate::model::CrontabSpec>>>(mut self, v: T) -> Self {
         self.schedule_spec = std::option::Option::Some(
-            crate::model::backup_schedule_spec::ScheduleSpec::CronSpec(v.into()),
+            crate::model::backup_schedule_spec::ScheduleSpec::CronSpec(
+                v.into()
+            )
         );
         self
     }
@@ -2790,6 +2723,7 @@ pub mod backup_schedule_spec {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Required.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -2805,6 +2739,7 @@ pub mod backup_schedule_spec {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BackupSchedule {
+
     /// Identifier. Output only for the
     /// [CreateBackupSchedule][DatabaseAdmin.CreateBackupSchededule] operation.
     /// Required for the
@@ -2870,8 +2805,7 @@ impl BackupSchedule {
     /// let x = BackupSchedule::new().set_spec(BackupScheduleSpec::default()/* use setters */);
     /// ```
     pub fn set_spec<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::BackupScheduleSpec>,
+    where T: std::convert::Into<crate::model::BackupScheduleSpec>
     {
         self.spec = std::option::Option::Some(v.into());
         self
@@ -2887,8 +2821,7 @@ impl BackupSchedule {
     /// let x = BackupSchedule::new().set_or_clear_spec(None::<BackupScheduleSpec>);
     /// ```
     pub fn set_or_clear_spec<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::BackupScheduleSpec>,
+    where T: std::convert::Into<crate::model::BackupScheduleSpec>
     {
         self.spec = v.map(|x| x.into());
         self
@@ -2903,8 +2836,7 @@ impl BackupSchedule {
     /// let x = BackupSchedule::new().set_retention_duration(Duration::default()/* use setters */);
     /// ```
     pub fn set_retention_duration<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.retention_duration = std::option::Option::Some(v.into());
         self
@@ -2920,8 +2852,7 @@ impl BackupSchedule {
     /// let x = BackupSchedule::new().set_or_clear_retention_duration(None::<Duration>);
     /// ```
     pub fn set_or_clear_retention_duration<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.retention_duration = v.map(|x| x.into());
         self
@@ -2936,8 +2867,7 @@ impl BackupSchedule {
     /// let x = BackupSchedule::new().set_encryption_config(CreateBackupEncryptionConfig::default()/* use setters */);
     /// ```
     pub fn set_encryption_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CreateBackupEncryptionConfig>,
+    where T: std::convert::Into<crate::model::CreateBackupEncryptionConfig>
     {
         self.encryption_config = std::option::Option::Some(v.into());
         self
@@ -2953,8 +2883,7 @@ impl BackupSchedule {
     /// let x = BackupSchedule::new().set_or_clear_encryption_config(None::<CreateBackupEncryptionConfig>);
     /// ```
     pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CreateBackupEncryptionConfig>,
+    where T: std::convert::Into<crate::model::CreateBackupEncryptionConfig>
     {
         self.encryption_config = v.map(|x| x.into());
         self
@@ -2969,8 +2898,7 @@ impl BackupSchedule {
     /// let x = BackupSchedule::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -2986,8 +2914,7 @@ impl BackupSchedule {
     /// let x = BackupSchedule::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -3005,12 +2932,8 @@ impl BackupSchedule {
     /// let x = BackupSchedule::new().set_backup_type_spec(Some(
     ///     google_cloud_spanner_admin_database_v1::model::backup_schedule::BackupTypeSpec::FullBackupSpec(FullBackupSpec::default().into())));
     /// ```
-    pub fn set_backup_type_spec<
-        T: std::convert::Into<std::option::Option<crate::model::backup_schedule::BackupTypeSpec>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_backup_type_spec<T: std::convert::Into<std::option::Option<crate::model::backup_schedule::BackupTypeSpec>>>(mut self, v: T) -> Self
+    {
         self.backup_type_spec = v.into();
         self
     }
@@ -3018,14 +2941,10 @@ impl BackupSchedule {
     /// The value of [backup_type_spec][crate::model::BackupSchedule::backup_type_spec]
     /// if it holds a `FullBackupSpec`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn full_backup_spec(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::FullBackupSpec>> {
+    pub fn full_backup_spec(&self) -> std::option::Option<&std::boxed::Box<crate::model::FullBackupSpec>> {
         #[allow(unreachable_patterns)]
         self.backup_type_spec.as_ref().and_then(|v| match v {
-            crate::model::backup_schedule::BackupTypeSpec::FullBackupSpec(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::backup_schedule::BackupTypeSpec::FullBackupSpec(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -3044,14 +2963,11 @@ impl BackupSchedule {
     /// assert!(x.full_backup_spec().is_some());
     /// assert!(x.incremental_backup_spec().is_none());
     /// ```
-    pub fn set_full_backup_spec<
-        T: std::convert::Into<std::boxed::Box<crate::model::FullBackupSpec>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_full_backup_spec<T: std::convert::Into<std::boxed::Box<crate::model::FullBackupSpec>>>(mut self, v: T) -> Self {
         self.backup_type_spec = std::option::Option::Some(
-            crate::model::backup_schedule::BackupTypeSpec::FullBackupSpec(v.into()),
+            crate::model::backup_schedule::BackupTypeSpec::FullBackupSpec(
+                v.into()
+            )
         );
         self
     }
@@ -3059,14 +2975,10 @@ impl BackupSchedule {
     /// The value of [backup_type_spec][crate::model::BackupSchedule::backup_type_spec]
     /// if it holds a `IncrementalBackupSpec`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn incremental_backup_spec(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::IncrementalBackupSpec>> {
+    pub fn incremental_backup_spec(&self) -> std::option::Option<&std::boxed::Box<crate::model::IncrementalBackupSpec>> {
         #[allow(unreachable_patterns)]
         self.backup_type_spec.as_ref().and_then(|v| match v {
-            crate::model::backup_schedule::BackupTypeSpec::IncrementalBackupSpec(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::backup_schedule::BackupTypeSpec::IncrementalBackupSpec(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -3085,14 +2997,11 @@ impl BackupSchedule {
     /// assert!(x.incremental_backup_spec().is_some());
     /// assert!(x.full_backup_spec().is_none());
     /// ```
-    pub fn set_incremental_backup_spec<
-        T: std::convert::Into<std::boxed::Box<crate::model::IncrementalBackupSpec>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_incremental_backup_spec<T: std::convert::Into<std::boxed::Box<crate::model::IncrementalBackupSpec>>>(mut self, v: T) -> Self {
         self.backup_type_spec = std::option::Option::Some(
-            crate::model::backup_schedule::BackupTypeSpec::IncrementalBackupSpec(v.into()),
+            crate::model::backup_schedule::BackupTypeSpec::IncrementalBackupSpec(
+                v.into()
+            )
         );
         self
     }
@@ -3108,6 +3017,7 @@ impl wkt::message::Message for BackupSchedule {
 pub mod backup_schedule {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Required. Backup type spec determines the type of backup that is created by
     /// the backup schedule. Currently, only full backups are supported.
@@ -3126,6 +3036,7 @@ pub mod backup_schedule {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CrontabSpec {
+
     /// Required. Textual representation of the crontab. User can customize the
     /// backup frequency and the backup version time using the cron
     /// expression. The version time must be in UTC timezone.
@@ -3195,8 +3106,7 @@ impl CrontabSpec {
     /// let x = CrontabSpec::new().set_creation_window(Duration::default()/* use setters */);
     /// ```
     pub fn set_creation_window<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.creation_window = std::option::Option::Some(v.into());
         self
@@ -3212,8 +3122,7 @@ impl CrontabSpec {
     /// let x = CrontabSpec::new().set_or_clear_creation_window(None::<Duration>);
     /// ```
     pub fn set_or_clear_creation_window<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.creation_window = v.map(|x| x.into());
         self
@@ -3233,6 +3142,7 @@ impl wkt::message::Message for CrontabSpec {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateBackupScheduleRequest {
+
     /// Required. The name of the database that this backup schedule applies to.
     pub parent: std::string::String,
 
@@ -3271,10 +3181,7 @@ impl CreateBackupScheduleRequest {
     /// # use google_cloud_spanner_admin_database_v1::model::CreateBackupScheduleRequest;
     /// let x = CreateBackupScheduleRequest::new().set_backup_schedule_id("example");
     /// ```
-    pub fn set_backup_schedule_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_backup_schedule_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup_schedule_id = v.into();
         self
     }
@@ -3288,8 +3195,7 @@ impl CreateBackupScheduleRequest {
     /// let x = CreateBackupScheduleRequest::new().set_backup_schedule(BackupSchedule::default()/* use setters */);
     /// ```
     pub fn set_backup_schedule<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::BackupSchedule>,
+    where T: std::convert::Into<crate::model::BackupSchedule>
     {
         self.backup_schedule = std::option::Option::Some(v.into());
         self
@@ -3305,8 +3211,7 @@ impl CreateBackupScheduleRequest {
     /// let x = CreateBackupScheduleRequest::new().set_or_clear_backup_schedule(None::<BackupSchedule>);
     /// ```
     pub fn set_or_clear_backup_schedule<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::BackupSchedule>,
+    where T: std::convert::Into<crate::model::BackupSchedule>
     {
         self.backup_schedule = v.map(|x| x.into());
         self
@@ -3326,6 +3231,7 @@ impl wkt::message::Message for CreateBackupScheduleRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetBackupScheduleRequest {
+
     /// Required. The name of the schedule to retrieve.
     /// Values are of the form
     /// `projects/<project>/instances/<instance>/databases/<database>/backupSchedules/<backup_schedule_id>`.
@@ -3365,6 +3271,7 @@ impl wkt::message::Message for GetBackupScheduleRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteBackupScheduleRequest {
+
     /// Required. The name of the schedule to delete.
     /// Values are of the form
     /// `projects/<project>/instances/<instance>/databases/<database>/backupSchedules/<backup_schedule_id>`.
@@ -3404,6 +3311,7 @@ impl wkt::message::Message for DeleteBackupScheduleRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBackupSchedulesRequest {
+
     /// Required. Database is the parent resource whose backup schedules should be
     /// listed. Values are of the form
     /// projects/\<project\>/instances/\<instance\>/databases/\<database\>
@@ -3481,6 +3389,7 @@ impl wkt::message::Message for ListBackupSchedulesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBackupSchedulesResponse {
+
     /// The list of backup schedules for a database.
     pub backup_schedules: std::vec::Vec<crate::model::BackupSchedule>,
 
@@ -3514,7 +3423,7 @@ impl ListBackupSchedulesResponse {
     pub fn set_backup_schedules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::BackupSchedule>,
+        V: std::convert::Into<crate::model::BackupSchedule>
     {
         use std::iter::Iterator;
         self.backup_schedules = v.into_iter().map(|i| i.into()).collect();
@@ -3561,6 +3470,7 @@ impl gax::paginator::internal::PageableResponse for ListBackupSchedulesResponse 
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateBackupScheduleRequest {
+
     /// Required. The backup schedule to update. `backup_schedule.name`, and the
     /// fields to be updated as specified by `update_mask` are required. Other
     /// fields are ignored.
@@ -3590,8 +3500,7 @@ impl UpdateBackupScheduleRequest {
     /// let x = UpdateBackupScheduleRequest::new().set_backup_schedule(BackupSchedule::default()/* use setters */);
     /// ```
     pub fn set_backup_schedule<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::BackupSchedule>,
+    where T: std::convert::Into<crate::model::BackupSchedule>
     {
         self.backup_schedule = std::option::Option::Some(v.into());
         self
@@ -3607,8 +3516,7 @@ impl UpdateBackupScheduleRequest {
     /// let x = UpdateBackupScheduleRequest::new().set_or_clear_backup_schedule(None::<BackupSchedule>);
     /// ```
     pub fn set_or_clear_backup_schedule<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::BackupSchedule>,
+    where T: std::convert::Into<crate::model::BackupSchedule>
     {
         self.backup_schedule = v.map(|x| x.into());
         self
@@ -3623,8 +3531,7 @@ impl UpdateBackupScheduleRequest {
     /// let x = UpdateBackupScheduleRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -3640,8 +3547,7 @@ impl UpdateBackupScheduleRequest {
     /// let x = UpdateBackupScheduleRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -3659,6 +3565,7 @@ impl wkt::message::Message for UpdateBackupScheduleRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationProgress {
+
     /// Percent completion of the operation.
     /// Values are between 0 and 100 inclusive.
     pub progress_percent: i32,
@@ -3699,8 +3606,7 @@ impl OperationProgress {
     /// let x = OperationProgress::new().set_start_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -3716,8 +3622,7 @@ impl OperationProgress {
     /// let x = OperationProgress::new().set_or_clear_start_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -3732,8 +3637,7 @@ impl OperationProgress {
     /// let x = OperationProgress::new().set_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -3749,8 +3653,7 @@ impl OperationProgress {
     /// let x = OperationProgress::new().set_or_clear_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -3767,6 +3670,7 @@ impl wkt::message::Message for OperationProgress {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EncryptionConfig {
+
     /// The Cloud KMS key to be used for encrypting and decrypting
     /// the database. Values are of the form
     /// `projects/<project>/locations/<location>/keyRings/<key_ring>/cryptoKeys/<kms_key_name>`.
@@ -3820,7 +3724,7 @@ impl EncryptionConfig {
     pub fn set_kms_key_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.kms_key_names = v.into_iter().map(|i| i.into()).collect();
@@ -3838,6 +3742,7 @@ impl wkt::message::Message for EncryptionConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EncryptionInfo {
+
     /// Output only. The type of encryption.
     pub encryption_type: crate::model::encryption_info::Type,
 
@@ -3867,10 +3772,7 @@ impl EncryptionInfo {
     /// let x0 = EncryptionInfo::new().set_encryption_type(Type::GoogleDefaultEncryption);
     /// let x1 = EncryptionInfo::new().set_encryption_type(Type::CustomerManagedEncryption);
     /// ```
-    pub fn set_encryption_type<T: std::convert::Into<crate::model::encryption_info::Type>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_encryption_type<T: std::convert::Into<crate::model::encryption_info::Type>>(mut self, v: T) -> Self {
         self.encryption_type = v.into();
         self
     }
@@ -3884,8 +3786,7 @@ impl EncryptionInfo {
     /// let x = EncryptionInfo::new().set_encryption_status(Status::default()/* use setters */);
     /// ```
     pub fn set_encryption_status<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<rpc::model::Status>,
+    where T: std::convert::Into<rpc::model::Status>
     {
         self.encryption_status = std::option::Option::Some(v.into());
         self
@@ -3901,8 +3802,7 @@ impl EncryptionInfo {
     /// let x = EncryptionInfo::new().set_or_clear_encryption_status(None::<Status>);
     /// ```
     pub fn set_or_clear_encryption_status<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<rpc::model::Status>,
+    where T: std::convert::Into<rpc::model::Status>
     {
         self.encryption_status = v.map(|x| x.into());
         self
@@ -3931,6 +3831,7 @@ impl wkt::message::Message for EncryptionInfo {
 pub mod encryption_info {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Possible encryption types.
     ///
@@ -3996,12 +3897,8 @@ pub mod encryption_info {
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
                 Self::Unspecified => std::option::Option::Some("TYPE_UNSPECIFIED"),
-                Self::GoogleDefaultEncryption => {
-                    std::option::Option::Some("GOOGLE_DEFAULT_ENCRYPTION")
-                }
-                Self::CustomerManagedEncryption => {
-                    std::option::Option::Some("CUSTOMER_MANAGED_ENCRYPTION")
-                }
+                Self::GoogleDefaultEncryption => std::option::Option::Some("GOOGLE_DEFAULT_ENCRYPTION"),
+                Self::CustomerManagedEncryption => std::option::Option::Some("CUSTOMER_MANAGED_ENCRYPTION"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -4026,9 +3923,7 @@ pub mod encryption_info {
                 0 => Self::Unspecified,
                 1 => Self::GoogleDefaultEncryption,
                 2 => Self::CustomerManagedEncryption,
-                _ => Self::UnknownValue(r#type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -4040,9 +3935,7 @@ pub mod encryption_info {
                 "TYPE_UNSPECIFIED" => Self::Unspecified,
                 "GOOGLE_DEFAULT_ENCRYPTION" => Self::GoogleDefaultEncryption,
                 "CUSTOMER_MANAGED_ENCRYPTION" => Self::CustomerManagedEncryption,
-                _ => Self::UnknownValue(r#type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -4067,8 +3960,7 @@ pub mod encryption_info {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
-                ".google.spanner.admin.database.v1.EncryptionInfo.Type",
-            ))
+                ".google.spanner.admin.database.v1.EncryptionInfo.Type"))
         }
     }
 }
@@ -4077,6 +3969,7 @@ pub mod encryption_info {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RestoreInfo {
+
     /// The type of the restore source.
     pub source_type: crate::model::RestoreSourceType,
 
@@ -4099,10 +3992,7 @@ impl RestoreInfo {
     /// use google_cloud_spanner_admin_database_v1::model::RestoreSourceType;
     /// let x0 = RestoreInfo::new().set_source_type(RestoreSourceType::Backup);
     /// ```
-    pub fn set_source_type<T: std::convert::Into<crate::model::RestoreSourceType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source_type<T: std::convert::Into<crate::model::RestoreSourceType>>(mut self, v: T) -> Self {
         self.source_type = v.into();
         self
     }
@@ -4119,12 +4009,8 @@ impl RestoreInfo {
     /// let x = RestoreInfo::new().set_source_info(Some(
     ///     google_cloud_spanner_admin_database_v1::model::restore_info::SourceInfo::BackupInfo(BackupInfo::default().into())));
     /// ```
-    pub fn set_source_info<
-        T: std::convert::Into<std::option::Option<crate::model::restore_info::SourceInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source_info<T: std::convert::Into<std::option::Option<crate::model::restore_info::SourceInfo>>>(mut self, v: T) -> Self
+    {
         self.source_info = v.into();
         self
     }
@@ -4153,12 +4039,12 @@ impl RestoreInfo {
     /// let x = RestoreInfo::new().set_backup_info(BackupInfo::default()/* use setters */);
     /// assert!(x.backup_info().is_some());
     /// ```
-    pub fn set_backup_info<T: std::convert::Into<std::boxed::Box<crate::model::BackupInfo>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source_info =
-            std::option::Option::Some(crate::model::restore_info::SourceInfo::BackupInfo(v.into()));
+    pub fn set_backup_info<T: std::convert::Into<std::boxed::Box<crate::model::BackupInfo>>>(mut self, v: T) -> Self {
+        self.source_info = std::option::Option::Some(
+            crate::model::restore_info::SourceInfo::BackupInfo(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -4174,6 +4060,7 @@ pub mod restore_info {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Information about the source used to restore the database.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -4188,6 +4075,7 @@ pub mod restore_info {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Database {
+
     /// Required. The name of the database. Values are of the form
     /// `projects/<project>/instances/<instance>/databases/<database>`,
     /// where `<database>` is as specified in the `CREATE DATABASE`
@@ -4304,8 +4192,7 @@ impl Database {
     /// let x = Database::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -4321,8 +4208,7 @@ impl Database {
     /// let x = Database::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -4337,8 +4223,7 @@ impl Database {
     /// let x = Database::new().set_restore_info(RestoreInfo::default()/* use setters */);
     /// ```
     pub fn set_restore_info<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RestoreInfo>,
+    where T: std::convert::Into<crate::model::RestoreInfo>
     {
         self.restore_info = std::option::Option::Some(v.into());
         self
@@ -4354,8 +4239,7 @@ impl Database {
     /// let x = Database::new().set_or_clear_restore_info(None::<RestoreInfo>);
     /// ```
     pub fn set_or_clear_restore_info<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RestoreInfo>,
+    where T: std::convert::Into<crate::model::RestoreInfo>
     {
         self.restore_info = v.map(|x| x.into());
         self
@@ -4370,8 +4254,7 @@ impl Database {
     /// let x = Database::new().set_encryption_config(EncryptionConfig::default()/* use setters */);
     /// ```
     pub fn set_encryption_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::EncryptionConfig>,
+    where T: std::convert::Into<crate::model::EncryptionConfig>
     {
         self.encryption_config = std::option::Option::Some(v.into());
         self
@@ -4387,8 +4270,7 @@ impl Database {
     /// let x = Database::new().set_or_clear_encryption_config(None::<EncryptionConfig>);
     /// ```
     pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::EncryptionConfig>,
+    where T: std::convert::Into<crate::model::EncryptionConfig>
     {
         self.encryption_config = v.map(|x| x.into());
         self
@@ -4409,7 +4291,7 @@ impl Database {
     pub fn set_encryption_info<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::EncryptionInfo>,
+        V: std::convert::Into<crate::model::EncryptionInfo>
     {
         use std::iter::Iterator;
         self.encryption_info = v.into_iter().map(|i| i.into()).collect();
@@ -4423,10 +4305,7 @@ impl Database {
     /// # use google_cloud_spanner_admin_database_v1::model::Database;
     /// let x = Database::new().set_version_retention_period("example");
     /// ```
-    pub fn set_version_retention_period<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_version_retention_period<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version_retention_period = v.into();
         self
     }
@@ -4440,8 +4319,7 @@ impl Database {
     /// let x = Database::new().set_earliest_version_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_earliest_version_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.earliest_version_time = std::option::Option::Some(v.into());
         self
@@ -4457,8 +4335,7 @@ impl Database {
     /// let x = Database::new().set_or_clear_earliest_version_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_earliest_version_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.earliest_version_time = v.map(|x| x.into());
         self
@@ -4485,10 +4362,7 @@ impl Database {
     /// let x0 = Database::new().set_database_dialect(DatabaseDialect::GoogleStandardSql);
     /// let x1 = Database::new().set_database_dialect(DatabaseDialect::Postgresql);
     /// ```
-    pub fn set_database_dialect<T: std::convert::Into<crate::model::DatabaseDialect>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_database_dialect<T: std::convert::Into<crate::model::DatabaseDialect>>(mut self, v: T) -> Self {
         self.database_dialect = v.into();
         self
     }
@@ -4528,6 +4402,7 @@ impl wkt::message::Message for Database {
 pub mod database {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Indicates the current state of the database.
     ///
@@ -4628,9 +4503,7 @@ pub mod database {
                 1 => Self::Creating,
                 2 => Self::Ready,
                 3 => Self::ReadyOptimizing,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -4643,9 +4516,7 @@ pub mod database {
                 "CREATING" => Self::Creating,
                 "READY" => Self::Ready,
                 "READY_OPTIMIZING" => Self::ReadyOptimizing,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -4671,8 +4542,7 @@ pub mod database {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.spanner.admin.database.v1.Database.State",
-            ))
+                ".google.spanner.admin.database.v1.Database.State"))
         }
     }
 }
@@ -4684,6 +4554,7 @@ pub mod database {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDatabasesRequest {
+
     /// Required. The instance whose databases should be listed.
     /// Values are of the form `projects/<project>/instances/<instance>`.
     pub parent: std::string::String,
@@ -4759,6 +4630,7 @@ impl wkt::message::Message for ListDatabasesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDatabasesResponse {
+
     /// Databases that matched the request.
     pub databases: std::vec::Vec<crate::model::Database>,
 
@@ -4792,7 +4664,7 @@ impl ListDatabasesResponse {
     pub fn set_databases<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Database>,
+        V: std::convert::Into<crate::model::Database>
     {
         use std::iter::Iterator;
         self.databases = v.into_iter().map(|i| i.into()).collect();
@@ -4839,6 +4711,7 @@ impl gax::paginator::internal::PageableResponse for ListDatabasesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateDatabaseRequest {
+
     /// Required. The name of the instance that will serve the new database.
     /// Values are of the form `projects/<project>/instances/<instance>`.
     pub parent: std::string::String,
@@ -4910,10 +4783,7 @@ impl CreateDatabaseRequest {
     /// # use google_cloud_spanner_admin_database_v1::model::CreateDatabaseRequest;
     /// let x = CreateDatabaseRequest::new().set_create_statement("example");
     /// ```
-    pub fn set_create_statement<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_create_statement<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.create_statement = v.into();
         self
     }
@@ -4928,7 +4798,7 @@ impl CreateDatabaseRequest {
     pub fn set_extra_statements<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.extra_statements = v.into_iter().map(|i| i.into()).collect();
@@ -4944,8 +4814,7 @@ impl CreateDatabaseRequest {
     /// let x = CreateDatabaseRequest::new().set_encryption_config(EncryptionConfig::default()/* use setters */);
     /// ```
     pub fn set_encryption_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::EncryptionConfig>,
+    where T: std::convert::Into<crate::model::EncryptionConfig>
     {
         self.encryption_config = std::option::Option::Some(v.into());
         self
@@ -4961,8 +4830,7 @@ impl CreateDatabaseRequest {
     /// let x = CreateDatabaseRequest::new().set_or_clear_encryption_config(None::<EncryptionConfig>);
     /// ```
     pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::EncryptionConfig>,
+    where T: std::convert::Into<crate::model::EncryptionConfig>
     {
         self.encryption_config = v.map(|x| x.into());
         self
@@ -4977,10 +4845,7 @@ impl CreateDatabaseRequest {
     /// let x0 = CreateDatabaseRequest::new().set_database_dialect(DatabaseDialect::GoogleStandardSql);
     /// let x1 = CreateDatabaseRequest::new().set_database_dialect(DatabaseDialect::Postgresql);
     /// ```
-    pub fn set_database_dialect<T: std::convert::Into<crate::model::DatabaseDialect>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_database_dialect<T: std::convert::Into<crate::model::DatabaseDialect>>(mut self, v: T) -> Self {
         self.database_dialect = v.into();
         self
     }
@@ -5011,6 +4876,7 @@ impl wkt::message::Message for CreateDatabaseRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateDatabaseMetadata {
+
     /// The database being created.
     pub database: std::string::String,
 
@@ -5048,6 +4914,7 @@ impl wkt::message::Message for CreateDatabaseMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetDatabaseRequest {
+
     /// Required. The name of the requested database. Values are of the form
     /// `projects/<project>/instances/<instance>/databases/<database>`.
     pub name: std::string::String,
@@ -5086,6 +4953,7 @@ impl wkt::message::Message for GetDatabaseRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateDatabaseRequest {
+
     /// Required. The database to update.
     /// The `name` field of the database is of the form
     /// `projects/<project>/instances/<instance>/databases/<database>`.
@@ -5112,8 +4980,7 @@ impl UpdateDatabaseRequest {
     /// let x = UpdateDatabaseRequest::new().set_database(Database::default()/* use setters */);
     /// ```
     pub fn set_database<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Database>,
+    where T: std::convert::Into<crate::model::Database>
     {
         self.database = std::option::Option::Some(v.into());
         self
@@ -5129,8 +4996,7 @@ impl UpdateDatabaseRequest {
     /// let x = UpdateDatabaseRequest::new().set_or_clear_database(None::<Database>);
     /// ```
     pub fn set_or_clear_database<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Database>,
+    where T: std::convert::Into<crate::model::Database>
     {
         self.database = v.map(|x| x.into());
         self
@@ -5145,8 +5011,7 @@ impl UpdateDatabaseRequest {
     /// let x = UpdateDatabaseRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -5162,8 +5027,7 @@ impl UpdateDatabaseRequest {
     /// let x = UpdateDatabaseRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -5183,6 +5047,7 @@ impl wkt::message::Message for UpdateDatabaseRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateDatabaseMetadata {
+
     /// The request for
     /// [UpdateDatabase][google.spanner.admin.database.v1.DatabaseAdmin.UpdateDatabase].
     ///
@@ -5217,8 +5082,7 @@ impl UpdateDatabaseMetadata {
     /// let x = UpdateDatabaseMetadata::new().set_request(UpdateDatabaseRequest::default()/* use setters */);
     /// ```
     pub fn set_request<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::UpdateDatabaseRequest>,
+    where T: std::convert::Into<crate::model::UpdateDatabaseRequest>
     {
         self.request = std::option::Option::Some(v.into());
         self
@@ -5234,8 +5098,7 @@ impl UpdateDatabaseMetadata {
     /// let x = UpdateDatabaseMetadata::new().set_or_clear_request(None::<UpdateDatabaseRequest>);
     /// ```
     pub fn set_or_clear_request<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::UpdateDatabaseRequest>,
+    where T: std::convert::Into<crate::model::UpdateDatabaseRequest>
     {
         self.request = v.map(|x| x.into());
         self
@@ -5250,8 +5113,7 @@ impl UpdateDatabaseMetadata {
     /// let x = UpdateDatabaseMetadata::new().set_progress(OperationProgress::default()/* use setters */);
     /// ```
     pub fn set_progress<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::OperationProgress>,
+    where T: std::convert::Into<crate::model::OperationProgress>
     {
         self.progress = std::option::Option::Some(v.into());
         self
@@ -5267,8 +5129,7 @@ impl UpdateDatabaseMetadata {
     /// let x = UpdateDatabaseMetadata::new().set_or_clear_progress(None::<OperationProgress>);
     /// ```
     pub fn set_or_clear_progress<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::OperationProgress>,
+    where T: std::convert::Into<crate::model::OperationProgress>
     {
         self.progress = v.map(|x| x.into());
         self
@@ -5283,8 +5144,7 @@ impl UpdateDatabaseMetadata {
     /// let x = UpdateDatabaseMetadata::new().set_cancel_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_cancel_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.cancel_time = std::option::Option::Some(v.into());
         self
@@ -5300,8 +5160,7 @@ impl UpdateDatabaseMetadata {
     /// let x = UpdateDatabaseMetadata::new().set_or_clear_cancel_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_cancel_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.cancel_time = v.map(|x| x.into());
         self
@@ -5336,6 +5195,7 @@ impl wkt::message::Message for UpdateDatabaseMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateDatabaseDdlRequest {
+
     /// Required. The database to update.
     pub database: std::string::String,
 
@@ -5423,7 +5283,7 @@ impl UpdateDatabaseDdlRequest {
     pub fn set_statements<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.statements = v.into_iter().map(|i| i.into()).collect();
@@ -5481,6 +5341,7 @@ impl wkt::message::Message for UpdateDatabaseDdlRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DdlStatementActionInfo {
+
     /// The action for the DDL statement, e.g. CREATE, ALTER, DROP, GRANT, etc.
     /// This field is a non-empty string.
     pub action: std::string::String,
@@ -5540,7 +5401,7 @@ impl DdlStatementActionInfo {
     pub fn set_entity_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.entity_names = v.into_iter().map(|i| i.into()).collect();
@@ -5561,6 +5422,7 @@ impl wkt::message::Message for DdlStatementActionInfo {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateDatabaseDdlMetadata {
+
     /// The database being modified.
     pub database: std::string::String,
 
@@ -5623,7 +5485,7 @@ impl UpdateDatabaseDdlMetadata {
     pub fn set_statements<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.statements = v.into_iter().map(|i| i.into()).collect();
@@ -5645,7 +5507,7 @@ impl UpdateDatabaseDdlMetadata {
     pub fn set_commit_timestamps<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<wkt::Timestamp>,
+        V: std::convert::Into<wkt::Timestamp>
     {
         use std::iter::Iterator;
         self.commit_timestamps = v.into_iter().map(|i| i.into()).collect();
@@ -5679,7 +5541,7 @@ impl UpdateDatabaseDdlMetadata {
     pub fn set_progress<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::OperationProgress>,
+        V: std::convert::Into<crate::model::OperationProgress>
     {
         use std::iter::Iterator;
         self.progress = v.into_iter().map(|i| i.into()).collect();
@@ -5701,7 +5563,7 @@ impl UpdateDatabaseDdlMetadata {
     pub fn set_actions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::DdlStatementActionInfo>,
+        V: std::convert::Into<crate::model::DdlStatementActionInfo>
     {
         use std::iter::Iterator;
         self.actions = v.into_iter().map(|i| i.into()).collect();
@@ -5722,6 +5584,7 @@ impl wkt::message::Message for UpdateDatabaseDdlMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DropDatabaseRequest {
+
     /// Required. The database to be dropped.
     pub database: std::string::String,
 
@@ -5759,6 +5622,7 @@ impl wkt::message::Message for DropDatabaseRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetDatabaseDdlRequest {
+
     /// Required. The database whose schema we wish to get.
     /// Values are of the form
     /// `projects/<project>/instances/<instance>/databases/<database>`
@@ -5798,6 +5662,7 @@ impl wkt::message::Message for GetDatabaseDdlRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetDatabaseDdlResponse {
+
     /// A list of formatted DDL statements defining the schema of the database
     /// specified in the request.
     pub statements: std::vec::Vec<std::string::String>,
@@ -5827,7 +5692,7 @@ impl GetDatabaseDdlResponse {
     pub fn set_statements<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.statements = v.into_iter().map(|i| i.into()).collect();
@@ -5860,6 +5725,7 @@ impl wkt::message::Message for GetDatabaseDdlResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDatabaseOperationsRequest {
+
     /// Required. The instance of the database operations.
     /// Values are of the form `projects/<project>/instances/<instance>`.
     pub parent: std::string::String,
@@ -5998,6 +5864,7 @@ impl wkt::message::Message for ListDatabaseOperationsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDatabaseOperationsResponse {
+
     /// The list of matching database [long-running
     /// operations][google.longrunning.Operation]. Each operation's name will be
     /// prefixed by the database's name. The operation's
@@ -6038,7 +5905,7 @@ impl ListDatabaseOperationsResponse {
     pub fn set_operations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<longrunning::model::Operation>,
+        V: std::convert::Into<longrunning::model::Operation>
     {
         use std::iter::Iterator;
         self.operations = v.into_iter().map(|i| i.into()).collect();
@@ -6085,6 +5952,7 @@ impl gax::paginator::internal::PageableResponse for ListDatabaseOperationsRespon
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RestoreDatabaseRequest {
+
     /// Required. The name of the instance in which to create the
     /// restored database. This instance must be in the same project and
     /// have the same instance configuration as the instance containing
@@ -6152,8 +6020,7 @@ impl RestoreDatabaseRequest {
     /// let x = RestoreDatabaseRequest::new().set_encryption_config(RestoreDatabaseEncryptionConfig::default()/* use setters */);
     /// ```
     pub fn set_encryption_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RestoreDatabaseEncryptionConfig>,
+    where T: std::convert::Into<crate::model::RestoreDatabaseEncryptionConfig>
     {
         self.encryption_config = std::option::Option::Some(v.into());
         self
@@ -6169,8 +6036,7 @@ impl RestoreDatabaseRequest {
     /// let x = RestoreDatabaseRequest::new().set_or_clear_encryption_config(None::<RestoreDatabaseEncryptionConfig>);
     /// ```
     pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RestoreDatabaseEncryptionConfig>,
+    where T: std::convert::Into<crate::model::RestoreDatabaseEncryptionConfig>
     {
         self.encryption_config = v.map(|x| x.into());
         self
@@ -6187,12 +6053,8 @@ impl RestoreDatabaseRequest {
     /// use google_cloud_spanner_admin_database_v1::model::restore_database_request::Source;
     /// let x = RestoreDatabaseRequest::new().set_source(Some(Source::Backup("example".to_string())));
     /// ```
-    pub fn set_source<
-        T: std::convert::Into<std::option::Option<crate::model::restore_database_request::Source>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source<T: std::convert::Into<std::option::Option<crate::model::restore_database_request::Source>>>(mut self, v: T) -> Self
+    {
         self.source = v.into();
         self
     }
@@ -6203,9 +6065,7 @@ impl RestoreDatabaseRequest {
     pub fn backup(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
-            crate::model::restore_database_request::Source::Backup(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::restore_database_request::Source::Backup(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -6224,7 +6084,9 @@ impl RestoreDatabaseRequest {
     /// ```
     pub fn set_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source = std::option::Option::Some(
-            crate::model::restore_database_request::Source::Backup(v.into()),
+            crate::model::restore_database_request::Source::Backup(
+                v.into()
+            )
         );
         self
     }
@@ -6241,6 +6103,7 @@ pub mod restore_database_request {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Required. The source from which to restore.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -6255,6 +6118,7 @@ pub mod restore_database_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RestoreDatabaseEncryptionConfig {
+
     /// Required. The encryption type of the restored database.
     pub encryption_type: crate::model::restore_database_encryption_config::EncryptionType,
 
@@ -6303,12 +6167,7 @@ impl RestoreDatabaseEncryptionConfig {
     /// let x1 = RestoreDatabaseEncryptionConfig::new().set_encryption_type(EncryptionType::GoogleDefaultEncryption);
     /// let x2 = RestoreDatabaseEncryptionConfig::new().set_encryption_type(EncryptionType::CustomerManagedEncryption);
     /// ```
-    pub fn set_encryption_type<
-        T: std::convert::Into<crate::model::restore_database_encryption_config::EncryptionType>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_encryption_type<T: std::convert::Into<crate::model::restore_database_encryption_config::EncryptionType>>(mut self, v: T) -> Self {
         self.encryption_type = v.into();
         self
     }
@@ -6335,7 +6194,7 @@ impl RestoreDatabaseEncryptionConfig {
     pub fn set_kms_key_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.kms_key_names = v.into_iter().map(|i| i.into()).collect();
@@ -6353,6 +6212,7 @@ impl wkt::message::Message for RestoreDatabaseEncryptionConfig {
 pub mod restore_database_encryption_config {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Encryption types for the database to be restored.
     ///
@@ -6422,15 +6282,9 @@ pub mod restore_database_encryption_config {
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
                 Self::Unspecified => std::option::Option::Some("ENCRYPTION_TYPE_UNSPECIFIED"),
-                Self::UseConfigDefaultOrBackupEncryption => {
-                    std::option::Option::Some("USE_CONFIG_DEFAULT_OR_BACKUP_ENCRYPTION")
-                }
-                Self::GoogleDefaultEncryption => {
-                    std::option::Option::Some("GOOGLE_DEFAULT_ENCRYPTION")
-                }
-                Self::CustomerManagedEncryption => {
-                    std::option::Option::Some("CUSTOMER_MANAGED_ENCRYPTION")
-                }
+                Self::UseConfigDefaultOrBackupEncryption => std::option::Option::Some("USE_CONFIG_DEFAULT_OR_BACKUP_ENCRYPTION"),
+                Self::GoogleDefaultEncryption => std::option::Option::Some("GOOGLE_DEFAULT_ENCRYPTION"),
+                Self::CustomerManagedEncryption => std::option::Option::Some("CUSTOMER_MANAGED_ENCRYPTION"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -6456,9 +6310,7 @@ pub mod restore_database_encryption_config {
                 1 => Self::UseConfigDefaultOrBackupEncryption,
                 2 => Self::GoogleDefaultEncryption,
                 3 => Self::CustomerManagedEncryption,
-                _ => Self::UnknownValue(encryption_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(encryption_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -6468,14 +6320,10 @@ pub mod restore_database_encryption_config {
             use std::string::ToString;
             match value {
                 "ENCRYPTION_TYPE_UNSPECIFIED" => Self::Unspecified,
-                "USE_CONFIG_DEFAULT_OR_BACKUP_ENCRYPTION" => {
-                    Self::UseConfigDefaultOrBackupEncryption
-                }
+                "USE_CONFIG_DEFAULT_OR_BACKUP_ENCRYPTION" => Self::UseConfigDefaultOrBackupEncryption,
                 "GOOGLE_DEFAULT_ENCRYPTION" => Self::GoogleDefaultEncryption,
                 "CUSTOMER_MANAGED_ENCRYPTION" => Self::CustomerManagedEncryption,
-                _ => Self::UnknownValue(encryption_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(encryption_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -6501,8 +6349,7 @@ pub mod restore_database_encryption_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<EncryptionType>::new(
-                ".google.spanner.admin.database.v1.RestoreDatabaseEncryptionConfig.EncryptionType",
-            ))
+                ".google.spanner.admin.database.v1.RestoreDatabaseEncryptionConfig.EncryptionType"))
         }
     }
 }
@@ -6514,6 +6361,7 @@ pub mod restore_database_encryption_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RestoreDatabaseMetadata {
+
     /// Name of the database being created and restored to.
     pub name: std::string::String,
 
@@ -6594,10 +6442,7 @@ impl RestoreDatabaseMetadata {
     /// use google_cloud_spanner_admin_database_v1::model::RestoreSourceType;
     /// let x0 = RestoreDatabaseMetadata::new().set_source_type(RestoreSourceType::Backup);
     /// ```
-    pub fn set_source_type<T: std::convert::Into<crate::model::RestoreSourceType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source_type<T: std::convert::Into<crate::model::RestoreSourceType>>(mut self, v: T) -> Self {
         self.source_type = v.into();
         self
     }
@@ -6611,8 +6456,7 @@ impl RestoreDatabaseMetadata {
     /// let x = RestoreDatabaseMetadata::new().set_progress(OperationProgress::default()/* use setters */);
     /// ```
     pub fn set_progress<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::OperationProgress>,
+    where T: std::convert::Into<crate::model::OperationProgress>
     {
         self.progress = std::option::Option::Some(v.into());
         self
@@ -6628,8 +6472,7 @@ impl RestoreDatabaseMetadata {
     /// let x = RestoreDatabaseMetadata::new().set_or_clear_progress(None::<OperationProgress>);
     /// ```
     pub fn set_or_clear_progress<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::OperationProgress>,
+    where T: std::convert::Into<crate::model::OperationProgress>
     {
         self.progress = v.map(|x| x.into());
         self
@@ -6644,8 +6487,7 @@ impl RestoreDatabaseMetadata {
     /// let x = RestoreDatabaseMetadata::new().set_cancel_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_cancel_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.cancel_time = std::option::Option::Some(v.into());
         self
@@ -6661,8 +6503,7 @@ impl RestoreDatabaseMetadata {
     /// let x = RestoreDatabaseMetadata::new().set_or_clear_cancel_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_cancel_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.cancel_time = v.map(|x| x.into());
         self
@@ -6675,10 +6516,7 @@ impl RestoreDatabaseMetadata {
     /// # use google_cloud_spanner_admin_database_v1::model::RestoreDatabaseMetadata;
     /// let x = RestoreDatabaseMetadata::new().set_optimize_database_operation_name("example");
     /// ```
-    pub fn set_optimize_database_operation_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_optimize_database_operation_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.optimize_database_operation_name = v.into();
         self
     }
@@ -6695,14 +6533,8 @@ impl RestoreDatabaseMetadata {
     /// let x = RestoreDatabaseMetadata::new().set_source_info(Some(
     ///     google_cloud_spanner_admin_database_v1::model::restore_database_metadata::SourceInfo::BackupInfo(BackupInfo::default().into())));
     /// ```
-    pub fn set_source_info<
-        T: std::convert::Into<
-                std::option::Option<crate::model::restore_database_metadata::SourceInfo>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source_info<T: std::convert::Into<std::option::Option<crate::model::restore_database_metadata::SourceInfo>>>(mut self, v: T) -> Self
+    {
         self.source_info = v.into();
         self
     }
@@ -6713,9 +6545,7 @@ impl RestoreDatabaseMetadata {
     pub fn backup_info(&self) -> std::option::Option<&std::boxed::Box<crate::model::BackupInfo>> {
         #[allow(unreachable_patterns)]
         self.source_info.as_ref().and_then(|v| match v {
-            crate::model::restore_database_metadata::SourceInfo::BackupInfo(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::restore_database_metadata::SourceInfo::BackupInfo(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -6733,12 +6563,11 @@ impl RestoreDatabaseMetadata {
     /// let x = RestoreDatabaseMetadata::new().set_backup_info(BackupInfo::default()/* use setters */);
     /// assert!(x.backup_info().is_some());
     /// ```
-    pub fn set_backup_info<T: std::convert::Into<std::boxed::Box<crate::model::BackupInfo>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_backup_info<T: std::convert::Into<std::boxed::Box<crate::model::BackupInfo>>>(mut self, v: T) -> Self {
         self.source_info = std::option::Option::Some(
-            crate::model::restore_database_metadata::SourceInfo::BackupInfo(v.into()),
+            crate::model::restore_database_metadata::SourceInfo::BackupInfo(
+                v.into()
+            )
         );
         self
     }
@@ -6754,6 +6583,7 @@ impl wkt::message::Message for RestoreDatabaseMetadata {
 pub mod restore_database_metadata {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Information about the source used to restore the database, as specified by
     /// `source` in
@@ -6775,6 +6605,7 @@ pub mod restore_database_metadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OptimizeRestoredDatabaseMetadata {
+
     /// Name of the restored database being optimized.
     pub name: std::string::String,
 
@@ -6810,8 +6641,7 @@ impl OptimizeRestoredDatabaseMetadata {
     /// let x = OptimizeRestoredDatabaseMetadata::new().set_progress(OperationProgress::default()/* use setters */);
     /// ```
     pub fn set_progress<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::OperationProgress>,
+    where T: std::convert::Into<crate::model::OperationProgress>
     {
         self.progress = std::option::Option::Some(v.into());
         self
@@ -6827,8 +6657,7 @@ impl OptimizeRestoredDatabaseMetadata {
     /// let x = OptimizeRestoredDatabaseMetadata::new().set_or_clear_progress(None::<OperationProgress>);
     /// ```
     pub fn set_or_clear_progress<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::OperationProgress>,
+    where T: std::convert::Into<crate::model::OperationProgress>
     {
         self.progress = v.map(|x| x.into());
         self
@@ -6845,6 +6674,7 @@ impl wkt::message::Message for OptimizeRestoredDatabaseMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DatabaseRole {
+
     /// Required. The name of the database role. Values are of the form
     /// `projects/<project>/instances/<instance>/databases/<database>/databaseRoles/<role>`
     /// where `<role>` is as specified in the `CREATE ROLE` DDL statement.
@@ -6884,6 +6714,7 @@ impl wkt::message::Message for DatabaseRole {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDatabaseRolesRequest {
+
     /// Required. The database whose roles should be listed.
     /// Values are of the form
     /// `projects/<project>/instances/<instance>/databases/<database>`.
@@ -6960,6 +6791,7 @@ impl wkt::message::Message for ListDatabaseRolesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDatabaseRolesResponse {
+
     /// Database roles that matched the request.
     pub database_roles: std::vec::Vec<crate::model::DatabaseRole>,
 
@@ -6993,7 +6825,7 @@ impl ListDatabaseRolesResponse {
     pub fn set_database_roles<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::DatabaseRole>,
+        V: std::convert::Into<crate::model::DatabaseRole>
     {
         use std::iter::Iterator;
         self.database_roles = v.into_iter().map(|i| i.into()).collect();
@@ -7040,6 +6872,7 @@ impl gax::paginator::internal::PageableResponse for ListDatabaseRolesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AddSplitPointsRequest {
+
     /// Required. The database on whose tables/indexes split points are to be
     /// added. Values are of the form
     /// `projects/<project>/instances/<instance>/databases/<database>`.
@@ -7090,7 +6923,7 @@ impl AddSplitPointsRequest {
     pub fn set_split_points<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::SplitPoints>,
+        V: std::convert::Into<crate::model::SplitPoints>
     {
         use std::iter::Iterator;
         self.split_points = v.into_iter().map(|i| i.into()).collect();
@@ -7123,6 +6956,7 @@ impl wkt::message::Message for AddSplitPointsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AddSplitPointsResponse {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -7142,6 +6976,7 @@ impl wkt::message::Message for AddSplitPointsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SplitPoints {
+
     /// The table to split.
     pub table: std::string::String,
 
@@ -7205,7 +7040,7 @@ impl SplitPoints {
     pub fn set_keys<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::split_points::Key>,
+        V: std::convert::Into<crate::model::split_points::Key>
     {
         use std::iter::Iterator;
         self.keys = v.into_iter().map(|i| i.into()).collect();
@@ -7221,8 +7056,7 @@ impl SplitPoints {
     /// let x = SplitPoints::new().set_expire_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_expire_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.expire_time = std::option::Option::Some(v.into());
         self
@@ -7238,8 +7072,7 @@ impl SplitPoints {
     /// let x = SplitPoints::new().set_or_clear_expire_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.expire_time = v.map(|x| x.into());
         self
@@ -7257,10 +7090,12 @@ pub mod split_points {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// A split key.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Key {
+
         /// Required. The column values making up the split key.
         pub key_parts: std::option::Option<wkt::ListValue>,
 
@@ -7281,8 +7116,7 @@ pub mod split_points {
         /// let x = Key::new().set_key_parts(ListValue::default()/* use setters */);
         /// ```
         pub fn set_key_parts<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::ListValue>,
+        where T: std::convert::Into<wkt::ListValue>
         {
             self.key_parts = std::option::Option::Some(v.into());
             self
@@ -7298,8 +7132,7 @@ pub mod split_points {
         /// let x = Key::new().set_or_clear_key_parts(None::<ListValue>);
         /// ```
         pub fn set_or_clear_key_parts<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::ListValue>,
+        where T: std::convert::Into<wkt::ListValue>
         {
             self.key_parts = v.map(|x| x.into());
             self
@@ -7400,9 +7233,7 @@ impl std::convert::From<i32> for DatabaseDialect {
             0 => Self::Unspecified,
             1 => Self::GoogleStandardSql,
             2 => Self::Postgresql,
-            _ => Self::UnknownValue(database_dialect::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(database_dialect::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -7414,9 +7245,7 @@ impl std::convert::From<&str> for DatabaseDialect {
             "DATABASE_DIALECT_UNSPECIFIED" => Self::Unspecified,
             "GOOGLE_STANDARD_SQL" => Self::GoogleStandardSql,
             "POSTGRESQL" => Self::Postgresql,
-            _ => Self::UnknownValue(database_dialect::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(database_dialect::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -7441,8 +7270,7 @@ impl<'de> serde::de::Deserialize<'de> for DatabaseDialect {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<DatabaseDialect>::new(
-            ".google.spanner.admin.database.v1.DatabaseDialect",
-        ))
+            ".google.spanner.admin.database.v1.DatabaseDialect"))
     }
 }
 
@@ -7527,9 +7355,7 @@ impl std::convert::From<i32> for RestoreSourceType {
         match value {
             0 => Self::TypeUnspecified,
             1 => Self::Backup,
-            _ => Self::UnknownValue(restore_source_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(restore_source_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -7540,9 +7366,7 @@ impl std::convert::From<&str> for RestoreSourceType {
         match value {
             "TYPE_UNSPECIFIED" => Self::TypeUnspecified,
             "BACKUP" => Self::Backup,
-            _ => Self::UnknownValue(restore_source_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(restore_source_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -7566,7 +7390,6 @@ impl<'de> serde::de::Deserialize<'de> for RestoreSourceType {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<RestoreSourceType>::new(
-            ".google.spanner.admin.database.v1.RestoreSourceType",
-        ))
+            ".google.spanner.admin.database.v1.RestoreSourceType"))
     }
 }

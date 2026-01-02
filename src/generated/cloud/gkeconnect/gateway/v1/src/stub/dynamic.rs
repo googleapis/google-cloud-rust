@@ -22,6 +22,7 @@ pub trait GatewayControl: std::fmt::Debug + Send + Sync {
         req: crate::model::GenerateCredentialsRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::GenerateCredentialsResponse>>;
+
 }
 
 /// All implementations of [super::GatewayControl] also implement [GatewayControl].
@@ -35,4 +36,5 @@ impl<T: super::GatewayControl> GatewayControl for T {
     ) -> crate::Result<gax::response::Response<crate::model::GenerateCredentialsResponse>> {
         T::generate_credentials(self, req, options).await
     }
+
 }

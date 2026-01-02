@@ -38,14 +38,13 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait ProfilerService: std::fmt::Debug + Send + Sync {
+
     /// Implements [super::client::ProfilerService::create_profile].
     fn create_profile(
         &self,
         _req: crate::model::CreateProfileRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Profile>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Profile>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -54,9 +53,7 @@ pub trait ProfilerService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateOfflineProfileRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Profile>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Profile>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -65,9 +62,7 @@ pub trait ProfilerService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateProfileRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Profile>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Profile>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 }
@@ -84,14 +79,14 @@ pub trait ProfilerService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait ExportService: std::fmt::Debug + Send + Sync {
+
     /// Implements [super::client::ExportService::list_profiles].
     fn list_profiles(
         &self,
         _req: crate::model::ListProfilesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListProfilesResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListProfilesResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 }
+

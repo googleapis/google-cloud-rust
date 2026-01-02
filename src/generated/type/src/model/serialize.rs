@@ -23,9 +23,9 @@ impl serde::ser::Serialize for super::Color {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.red) {
             struct __With<'a>(&'a f32);
@@ -70,9 +70,7 @@ impl serde::ser::Serialize for super::Color {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<std::option::Option<wkt::internal::F32>>::serialize(
-                        self.0, serializer,
-                    )
+                    serde_with::As::< std::option::Option<wkt::internal::F32> >::serialize(self.0, serializer)
                 }
             }
             state.serialize_entry("alpha", &__With(&self.alpha))?;
@@ -92,9 +90,9 @@ impl serde::ser::Serialize for super::Date {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.year) {
             struct __With<'a>(&'a i32);
@@ -147,9 +145,9 @@ impl serde::ser::Serialize for super::DateTime {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.year) {
             struct __With<'a>(&'a i32);
@@ -256,9 +254,9 @@ impl serde::ser::Serialize for super::TimeZone {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.id.is_empty() {
             state.serialize_entry("id", &self.id)?;
@@ -281,9 +279,9 @@ impl serde::ser::Serialize for super::Decimal {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.value.is_empty() {
             state.serialize_entry("value", &self.value)?;
@@ -303,9 +301,9 @@ impl serde::ser::Serialize for super::Expr {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.expression.is_empty() {
             state.serialize_entry("expression", &self.expression)?;
@@ -334,9 +332,9 @@ impl serde::ser::Serialize for super::Fraction {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.numerator) {
             struct __With<'a>(&'a i64);
@@ -377,9 +375,9 @@ impl serde::ser::Serialize for super::Interval {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.start_time.is_some() {
             state.serialize_entry("startTime", &self.start_time)?;
@@ -402,9 +400,9 @@ impl serde::ser::Serialize for super::LatLng {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.latitude) {
             struct __With<'a>(&'a f64);
@@ -445,9 +443,9 @@ impl serde::ser::Serialize for super::LocalizedText {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.text.is_empty() {
             state.serialize_entry("text", &self.text)?;
@@ -470,9 +468,9 @@ impl serde::ser::Serialize for super::Money {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.currency_code.is_empty() {
             state.serialize_entry("currencyCode", &self.currency_code)?;
@@ -516,9 +514,9 @@ impl serde::ser::Serialize for super::PhoneNumber {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if let Some(value) = self.e164_number() {
             state.serialize_entry("e164Number", value)?;
@@ -544,9 +542,9 @@ impl serde::ser::Serialize for super::phone_number::ShortCode {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.region_code.is_empty() {
             state.serialize_entry("regionCode", &self.region_code)?;
@@ -569,9 +567,9 @@ impl serde::ser::Serialize for super::PostalAddress {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.revision) {
             struct __With<'a>(&'a i32);
@@ -630,9 +628,9 @@ impl serde::ser::Serialize for super::Quaternion {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.x) {
             struct __With<'a>(&'a f64);
@@ -697,9 +695,9 @@ impl serde::ser::Serialize for super::TimeOfDay {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.hours) {
             struct __With<'a>(&'a i32);

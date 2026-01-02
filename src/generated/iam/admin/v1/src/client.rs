@@ -108,62 +108,84 @@ impl Iam {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::Iam + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::Iam + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Iam>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Iam>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Iam> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Iam> {
         super::transport::Iam::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Iam> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::Iam::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Iam> {
+        Self::build_transport(conf).await.map(super::tracing::Iam::new)
     }
 
     /// Lists every [ServiceAccount][google.iam.admin.v1.ServiceAccount] that belongs to a specific project.
     ///
     /// [google.iam.admin.v1.ServiceAccount]: crate::model::ServiceAccount
-    pub fn list_service_accounts(&self) -> super::builder::iam::ListServiceAccounts {
+    pub fn list_service_accounts(&self) -> super::builder::iam::ListServiceAccounts
+    {
         super::builder::iam::ListServiceAccounts::new(self.inner.clone())
     }
 
     /// Gets a [ServiceAccount][google.iam.admin.v1.ServiceAccount].
     ///
     /// [google.iam.admin.v1.ServiceAccount]: crate::model::ServiceAccount
-    pub fn get_service_account(&self) -> super::builder::iam::GetServiceAccount {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::client::Iam;
+    /// async fn sample(
+    ///    client: &Iam,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_service_account()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_service_account(&self) -> super::builder::iam::GetServiceAccount
+    {
         super::builder::iam::GetServiceAccount::new(self.inner.clone())
     }
 
     /// Creates a [ServiceAccount][google.iam.admin.v1.ServiceAccount].
     ///
     /// [google.iam.admin.v1.ServiceAccount]: crate::model::ServiceAccount
-    pub fn create_service_account(&self) -> super::builder::iam::CreateServiceAccount {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::client::Iam;
+    /// async fn sample(
+    ///    client: &Iam
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_service_account()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_service_account(&self) -> super::builder::iam::CreateServiceAccount
+    {
         super::builder::iam::CreateServiceAccount::new(self.inner.clone())
     }
 
@@ -176,14 +198,48 @@ impl Iam {
     ///
     /// [google.iam.admin.v1.IAM.PatchServiceAccount]: crate::client::Iam::patch_service_account
     /// [google.iam.admin.v1.ServiceAccount]: crate::model::ServiceAccount
-    pub fn update_service_account(&self) -> super::builder::iam::UpdateServiceAccount {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::client::Iam;
+    /// async fn sample(
+    ///    client: &Iam
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_service_account()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_service_account(&self) -> super::builder::iam::UpdateServiceAccount
+    {
         super::builder::iam::UpdateServiceAccount::new(self.inner.clone())
     }
 
     /// Patches a [ServiceAccount][google.iam.admin.v1.ServiceAccount].
     ///
     /// [google.iam.admin.v1.ServiceAccount]: crate::model::ServiceAccount
-    pub fn patch_service_account(&self) -> super::builder::iam::PatchServiceAccount {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::client::Iam;
+    /// async fn sample(
+    ///    client: &Iam
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .patch_service_account()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn patch_service_account(&self) -> super::builder::iam::PatchServiceAccount
+    {
         super::builder::iam::PatchServiceAccount::new(self.inner.clone())
     }
 
@@ -205,7 +261,23 @@ impl Iam {
     ///
     /// [google.iam.admin.v1.IAM.DisableServiceAccount]: crate::client::Iam::disable_service_account
     /// [google.iam.admin.v1.ServiceAccount]: crate::model::ServiceAccount
-    pub fn delete_service_account(&self) -> super::builder::iam::DeleteServiceAccount {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::client::Iam;
+    /// async fn sample(
+    ///    client: &Iam
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_service_account()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_service_account(&self) -> super::builder::iam::DeleteServiceAccount
+    {
         super::builder::iam::DeleteServiceAccount::new(self.inner.clone())
     }
 
@@ -219,7 +291,24 @@ impl Iam {
     /// that has been permanently removed.
     ///
     /// [google.iam.admin.v1.ServiceAccount]: crate::model::ServiceAccount
-    pub fn undelete_service_account(&self) -> super::builder::iam::UndeleteServiceAccount {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::client::Iam;
+    /// async fn sample(
+    ///    client: &Iam
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .undelete_service_account()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn undelete_service_account(&self) -> super::builder::iam::UndeleteServiceAccount
+    {
         super::builder::iam::UndeleteServiceAccount::new(self.inner.clone())
     }
 
@@ -234,7 +323,23 @@ impl Iam {
     ///
     /// [google.iam.admin.v1.IAM.DisableServiceAccount]: crate::client::Iam::disable_service_account
     /// [google.iam.admin.v1.ServiceAccount]: crate::model::ServiceAccount
-    pub fn enable_service_account(&self) -> super::builder::iam::EnableServiceAccount {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::client::Iam;
+    /// async fn sample(
+    ///    client: &Iam
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .enable_service_account()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn enable_service_account(&self) -> super::builder::iam::EnableServiceAccount
+    {
         super::builder::iam::EnableServiceAccount::new(self.inner.clone())
     }
 
@@ -258,28 +363,96 @@ impl Iam {
     /// [google.iam.admin.v1.IAM.DeleteServiceAccount]: crate::client::Iam::delete_service_account
     /// [google.iam.admin.v1.IAM.EnableServiceAccount]: crate::client::Iam::enable_service_account
     /// [google.iam.admin.v1.ServiceAccount]: crate::model::ServiceAccount
-    pub fn disable_service_account(&self) -> super::builder::iam::DisableServiceAccount {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::client::Iam;
+    /// async fn sample(
+    ///    client: &Iam
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .disable_service_account()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn disable_service_account(&self) -> super::builder::iam::DisableServiceAccount
+    {
         super::builder::iam::DisableServiceAccount::new(self.inner.clone())
     }
 
     /// Lists every [ServiceAccountKey][google.iam.admin.v1.ServiceAccountKey] for a service account.
     ///
     /// [google.iam.admin.v1.ServiceAccountKey]: crate::model::ServiceAccountKey
-    pub fn list_service_account_keys(&self) -> super::builder::iam::ListServiceAccountKeys {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::client::Iam;
+    /// async fn sample(
+    ///    client: &Iam
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .list_service_account_keys()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_service_account_keys(&self) -> super::builder::iam::ListServiceAccountKeys
+    {
         super::builder::iam::ListServiceAccountKeys::new(self.inner.clone())
     }
 
     /// Gets a [ServiceAccountKey][google.iam.admin.v1.ServiceAccountKey].
     ///
     /// [google.iam.admin.v1.ServiceAccountKey]: crate::model::ServiceAccountKey
-    pub fn get_service_account_key(&self) -> super::builder::iam::GetServiceAccountKey {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::client::Iam;
+    /// async fn sample(
+    ///    client: &Iam,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_service_account_key()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_service_account_key(&self) -> super::builder::iam::GetServiceAccountKey
+    {
         super::builder::iam::GetServiceAccountKey::new(self.inner.clone())
     }
 
     /// Creates a [ServiceAccountKey][google.iam.admin.v1.ServiceAccountKey].
     ///
     /// [google.iam.admin.v1.ServiceAccountKey]: crate::model::ServiceAccountKey
-    pub fn create_service_account_key(&self) -> super::builder::iam::CreateServiceAccountKey {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::client::Iam;
+    /// async fn sample(
+    ///    client: &Iam
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_service_account_key()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_service_account_key(&self) -> super::builder::iam::CreateServiceAccountKey
+    {
         super::builder::iam::CreateServiceAccountKey::new(self.inner.clone())
     }
 
@@ -290,7 +463,24 @@ impl Iam {
     /// pair as a service account key.
     ///
     /// [google.iam.admin.v1.ServiceAccount]: crate::model::ServiceAccount
-    pub fn upload_service_account_key(&self) -> super::builder::iam::UploadServiceAccountKey {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::client::Iam;
+    /// async fn sample(
+    ///    client: &Iam
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .upload_service_account_key()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn upload_service_account_key(&self) -> super::builder::iam::UploadServiceAccountKey
+    {
         super::builder::iam::UploadServiceAccountKey::new(self.inner.clone())
     }
 
@@ -299,7 +489,23 @@ impl Iam {
     /// account key.
     ///
     /// [google.iam.admin.v1.ServiceAccountKey]: crate::model::ServiceAccountKey
-    pub fn delete_service_account_key(&self) -> super::builder::iam::DeleteServiceAccountKey {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::client::Iam;
+    /// async fn sample(
+    ///    client: &Iam
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_service_account_key()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_service_account_key(&self) -> super::builder::iam::DeleteServiceAccountKey
+    {
         super::builder::iam::DeleteServiceAccountKey::new(self.inner.clone())
     }
 
@@ -308,14 +514,46 @@ impl Iam {
     ///
     /// [google.iam.admin.v1.IAM.EnableServiceAccountKey]: crate::client::Iam::enable_service_account_key
     /// [google.iam.admin.v1.ServiceAccountKey]: crate::model::ServiceAccountKey
-    pub fn disable_service_account_key(&self) -> super::builder::iam::DisableServiceAccountKey {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::client::Iam;
+    /// async fn sample(
+    ///    client: &Iam
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .disable_service_account_key()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn disable_service_account_key(&self) -> super::builder::iam::DisableServiceAccountKey
+    {
         super::builder::iam::DisableServiceAccountKey::new(self.inner.clone())
     }
 
     /// Enable a [ServiceAccountKey][google.iam.admin.v1.ServiceAccountKey].
     ///
     /// [google.iam.admin.v1.ServiceAccountKey]: crate::model::ServiceAccountKey
-    pub fn enable_service_account_key(&self) -> super::builder::iam::EnableServiceAccountKey {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::client::Iam;
+    /// async fn sample(
+    ///    client: &Iam
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .enable_service_account_key()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn enable_service_account_key(&self) -> super::builder::iam::EnableServiceAccountKey
+    {
         super::builder::iam::EnableServiceAccountKey::new(self.inner.clone())
     }
 
@@ -329,8 +567,25 @@ impl Iam {
     /// Signs a blob using the system-managed private key for a [ServiceAccount][google.iam.admin.v1.ServiceAccount].
     ///
     /// [google.iam.admin.v1.ServiceAccount]: crate::model::ServiceAccount
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::client::Iam;
+    /// async fn sample(
+    ///    client: &Iam
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .sign_blob()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     #[deprecated]
-    pub fn sign_blob(&self) -> super::builder::iam::SignBlob {
+    pub fn sign_blob(&self) -> super::builder::iam::SignBlob
+    {
         super::builder::iam::SignBlob::new(self.inner.clone())
     }
 
@@ -345,8 +600,25 @@ impl Iam {
     /// [ServiceAccount][google.iam.admin.v1.ServiceAccount].
     ///
     /// [google.iam.admin.v1.ServiceAccount]: crate::model::ServiceAccount
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::client::Iam;
+    /// async fn sample(
+    ///    client: &Iam
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .sign_jwt()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     #[deprecated]
-    pub fn sign_jwt(&self) -> super::builder::iam::SignJwt {
+    pub fn sign_jwt(&self) -> super::builder::iam::SignJwt
+    {
         super::builder::iam::SignJwt::new(self.inner.clone())
     }
 
@@ -362,7 +634,24 @@ impl Iam {
     /// method.
     ///
     /// [google.iam.admin.v1.ServiceAccount]: crate::model::ServiceAccount
-    pub fn get_iam_policy(&self) -> super::builder::iam::GetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::client::Iam;
+    /// async fn sample(
+    ///    client: &Iam
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::iam::GetIamPolicy
+    {
         super::builder::iam::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -387,7 +676,24 @@ impl Iam {
     /// resources](https://cloud.google.com/iam/help/access/manage-other-resources).
     ///
     /// [google.iam.admin.v1.ServiceAccount]: crate::model::ServiceAccount
-    pub fn set_iam_policy(&self) -> super::builder::iam::SetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::client::Iam;
+    /// async fn sample(
+    ///    client: &Iam
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::iam::SetIamPolicy
+    {
         super::builder::iam::SetIamPolicy::new(self.inner.clone())
     }
 
@@ -395,14 +701,32 @@ impl Iam {
     /// [ServiceAccount][google.iam.admin.v1.ServiceAccount].
     ///
     /// [google.iam.admin.v1.ServiceAccount]: crate::model::ServiceAccount
-    pub fn test_iam_permissions(&self) -> super::builder::iam::TestIamPermissions {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::client::Iam;
+    /// async fn sample(
+    ///    client: &Iam
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::iam::TestIamPermissions
+    {
         super::builder::iam::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Lists roles that can be granted on a Google Cloud resource. A role is
     /// grantable if the IAM policy for the resource can contain bindings to the
     /// role.
-    pub fn query_grantable_roles(&self) -> super::builder::iam::QueryGrantableRoles {
+    pub fn query_grantable_roles(&self) -> super::builder::iam::QueryGrantableRoles
+    {
         super::builder::iam::QueryGrantableRoles::new(self.inner.clone())
     }
 
@@ -410,28 +734,80 @@ impl Iam {
     /// that is defined for an organization or project.
     ///
     /// [google.iam.admin.v1.Role]: crate::model::Role
-    pub fn list_roles(&self) -> super::builder::iam::ListRoles {
+    pub fn list_roles(&self) -> super::builder::iam::ListRoles
+    {
         super::builder::iam::ListRoles::new(self.inner.clone())
     }
 
     /// Gets the definition of a [Role][google.iam.admin.v1.Role].
     ///
     /// [google.iam.admin.v1.Role]: crate::model::Role
-    pub fn get_role(&self) -> super::builder::iam::GetRole {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::client::Iam;
+    /// async fn sample(
+    ///    client: &Iam
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_role()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_role(&self) -> super::builder::iam::GetRole
+    {
         super::builder::iam::GetRole::new(self.inner.clone())
     }
 
     /// Creates a new custom [Role][google.iam.admin.v1.Role].
     ///
     /// [google.iam.admin.v1.Role]: crate::model::Role
-    pub fn create_role(&self) -> super::builder::iam::CreateRole {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::client::Iam;
+    /// async fn sample(
+    ///    client: &Iam
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_role()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_role(&self) -> super::builder::iam::CreateRole
+    {
         super::builder::iam::CreateRole::new(self.inner.clone())
     }
 
     /// Updates the definition of a custom [Role][google.iam.admin.v1.Role].
     ///
     /// [google.iam.admin.v1.Role]: crate::model::Role
-    pub fn update_role(&self) -> super::builder::iam::UpdateRole {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::client::Iam;
+    /// async fn sample(
+    ///    client: &Iam
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_role()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_role(&self) -> super::builder::iam::UpdateRole
+    {
         super::builder::iam::UpdateRole::new(self.inner.clone())
     }
 
@@ -456,21 +832,56 @@ impl Iam {
     /// [google.iam.admin.v1.IAM.ListRoles]: crate::client::Iam::list_roles
     /// [google.iam.admin.v1.Role]: crate::model::Role
     /// [google.iam.v1.Policy]: iam_v1::model::Policy
-    pub fn delete_role(&self) -> super::builder::iam::DeleteRole {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::client::Iam;
+    /// async fn sample(
+    ///    client: &Iam
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .delete_role()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_role(&self) -> super::builder::iam::DeleteRole
+    {
         super::builder::iam::DeleteRole::new(self.inner.clone())
     }
 
     /// Undeletes a custom [Role][google.iam.admin.v1.Role].
     ///
     /// [google.iam.admin.v1.Role]: crate::model::Role
-    pub fn undelete_role(&self) -> super::builder::iam::UndeleteRole {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::client::Iam;
+    /// async fn sample(
+    ///    client: &Iam
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .undelete_role()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn undelete_role(&self) -> super::builder::iam::UndeleteRole
+    {
         super::builder::iam::UndeleteRole::new(self.inner.clone())
     }
 
     /// Lists every permission that you can test on a resource. A permission is
     /// testable if you can check whether a principal has that permission on the
     /// resource.
-    pub fn query_testable_permissions(&self) -> super::builder::iam::QueryTestablePermissions {
+    pub fn query_testable_permissions(&self) -> super::builder::iam::QueryTestablePermissions
+    {
         super::builder::iam::QueryTestablePermissions::new(self.inner.clone())
     }
 
@@ -479,7 +890,24 @@ impl Iam {
     ///
     /// To learn more about audit logs, see the [Logging
     /// documentation](https://cloud.google.com/logging/docs/audit).
-    pub fn query_auditable_services(&self) -> super::builder::iam::QueryAuditableServices {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::client::Iam;
+    /// async fn sample(
+    ///    client: &Iam
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .query_auditable_services()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn query_auditable_services(&self) -> super::builder::iam::QueryAuditableServices
+    {
         super::builder::iam::QueryAuditableServices::new(self.inner.clone())
     }
 
@@ -491,7 +919,24 @@ impl Iam {
     /// even if the linter detects an issue in the IAM policy.
     ///
     /// [google.iam.v1.Binding.condition]: iam_v1::model::Binding::condition
-    pub fn lint_policy(&self) -> super::builder::iam::LintPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::client::Iam;
+    /// async fn sample(
+    ///    client: &Iam
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .lint_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn lint_policy(&self) -> super::builder::iam::LintPolicy
+    {
         super::builder::iam::LintPolicy::new(self.inner.clone())
     }
 }

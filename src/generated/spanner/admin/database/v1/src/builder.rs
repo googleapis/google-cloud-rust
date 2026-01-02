@@ -39,10 +39,7 @@ pub mod database_admin {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = DatabaseAdmin;
             type Credentials = gaxi::options::Credentials;
-            async fn build(
-                self,
-                config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -57,12 +54,8 @@ pub mod database_admin {
     }
 
     impl<R> RequestBuilder<R>
-    where
-        R: std::default::Default,
-    {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
-        ) -> Self {
+    where R: std::default::Default {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -96,10 +89,10 @@ pub mod database_admin {
     pub struct ListDatabases(RequestBuilder<crate::model::ListDatabasesRequest>);
 
     impl ListDatabases {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -116,17 +109,11 @@ pub mod database_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListDatabasesResponse> {
-            (*self.0.stub)
-                .list_databases(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_databases(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListDatabasesResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListDatabasesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -138,10 +125,7 @@ pub mod database_admin {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListDatabasesResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListDatabasesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -196,10 +180,10 @@ pub mod database_admin {
     pub struct CreateDatabase(RequestBuilder<crate::model::CreateDatabaseRequest>);
 
     impl CreateDatabase {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -221,21 +205,16 @@ pub mod database_admin {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_database][crate::client::DatabaseAdmin::create_database].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .create_database(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_database(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_database`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::Database, crate::model::CreateDatabaseMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::Database, crate::model::CreateDatabaseMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::Database,
-                crate::model::CreateDatabaseMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::Database, crate::model::CreateDatabaseMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -283,7 +262,7 @@ pub mod database_admin {
         pub fn set_extra_statements<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.0.request.extra_statements = v.into_iter().map(|i| i.into()).collect();
@@ -292,8 +271,7 @@ pub mod database_admin {
 
         /// Sets the value of [encryption_config][crate::model::CreateDatabaseRequest::encryption_config].
         pub fn set_encryption_config<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::EncryptionConfig>,
+        where T: std::convert::Into<crate::model::EncryptionConfig>
         {
             self.0.request.encryption_config = std::option::Option::Some(v.into());
             self
@@ -301,18 +279,14 @@ pub mod database_admin {
 
         /// Sets or clears the value of [encryption_config][crate::model::CreateDatabaseRequest::encryption_config].
         pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::EncryptionConfig>,
+        where T: std::convert::Into<crate::model::EncryptionConfig>
         {
             self.0.request.encryption_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [database_dialect][crate::model::CreateDatabaseRequest::database_dialect].
-        pub fn set_database_dialect<T: Into<crate::model::DatabaseDialect>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_database_dialect<T: Into<crate::model::DatabaseDialect>>(mut self, v: T) -> Self {
             self.0.request.database_dialect = v.into();
             self
         }
@@ -352,10 +326,10 @@ pub mod database_admin {
     pub struct GetDatabase(RequestBuilder<crate::model::GetDatabaseRequest>);
 
     impl GetDatabase {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -372,10 +346,7 @@ pub mod database_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Database> {
-            (*self.0.stub)
-                .get_database(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_database(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetDatabaseRequest::name].
@@ -416,10 +387,10 @@ pub mod database_admin {
     pub struct UpdateDatabase(RequestBuilder<crate::model::UpdateDatabaseRequest>);
 
     impl UpdateDatabase {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -441,21 +412,16 @@ pub mod database_admin {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_database][crate::client::DatabaseAdmin::update_database].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .update_database(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_database(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_database`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::Database, crate::model::UpdateDatabaseMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::Database, crate::model::UpdateDatabaseMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::Database,
-                crate::model::UpdateDatabaseMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::Database, crate::model::UpdateDatabaseMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -487,8 +453,7 @@ pub mod database_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_database<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Database>,
+        where T: std::convert::Into<crate::model::Database>
         {
             self.0.request.database = std::option::Option::Some(v.into());
             self
@@ -498,8 +463,7 @@ pub mod database_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_database<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Database>,
+        where T: std::convert::Into<crate::model::Database>
         {
             self.0.request.database = v.map(|x| x.into());
             self
@@ -509,8 +473,7 @@ pub mod database_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -520,8 +483,7 @@ pub mod database_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -557,17 +519,14 @@ pub mod database_admin {
     pub struct UpdateDatabaseDdl(RequestBuilder<crate::model::UpdateDatabaseDdlRequest>);
 
     impl UpdateDatabaseDdl {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateDatabaseDdlRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateDatabaseDdlRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -585,16 +544,16 @@ pub mod database_admin {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_database_ddl][crate::client::DatabaseAdmin::update_database_ddl].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .update_database_ddl(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_database_ddl(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_database_ddl`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::UpdateDatabaseDdlMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::UpdateDatabaseDdlMetadata>;
+        pub fn poller(
+            self
+        ) ->
+            impl lro::Poller<(), crate::model::UpdateDatabaseDdlMetadata>
+        {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::UpdateDatabaseDdlMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -619,12 +578,7 @@ pub mod database_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [database][crate::model::UpdateDatabaseDdlRequest::database].
@@ -641,7 +595,7 @@ pub mod database_admin {
         pub fn set_statements<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.0.request.statements = v.into_iter().map(|i| i.into()).collect();
@@ -695,10 +649,10 @@ pub mod database_admin {
     pub struct DropDatabase(RequestBuilder<crate::model::DropDatabaseRequest>);
 
     impl DropDatabase {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -715,10 +669,7 @@ pub mod database_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .drop_database(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).drop_database(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [database][crate::model::DropDatabaseRequest::database].
@@ -758,10 +709,10 @@ pub mod database_admin {
     pub struct GetDatabaseDdl(RequestBuilder<crate::model::GetDatabaseDdlRequest>);
 
     impl GetDatabaseDdl {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -778,10 +729,7 @@ pub mod database_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::GetDatabaseDdlResponse> {
-            (*self.0.stub)
-                .get_database_ddl(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_database_ddl(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [database][crate::model::GetDatabaseDdlRequest::database].
@@ -821,10 +769,10 @@ pub mod database_admin {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -841,10 +789,7 @@ pub mod database_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::Policy> {
-            (*self.0.stub)
-                .set_iam_policy(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).set_iam_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -859,8 +804,7 @@ pub mod database_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<iam_v1::model::Policy>,
+        where T: std::convert::Into<iam_v1::model::Policy>
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
@@ -870,8 +814,7 @@ pub mod database_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<iam_v1::model::Policy>,
+        where T: std::convert::Into<iam_v1::model::Policy>
         {
             self.0.request.policy = v.map(|x| x.into());
             self
@@ -879,8 +822,7 @@ pub mod database_admin {
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -888,8 +830,7 @@ pub mod database_admin {
 
         /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -924,10 +865,10 @@ pub mod database_admin {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -944,10 +885,7 @@ pub mod database_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::Policy> {
-            (*self.0.stub)
-                .get_iam_policy(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_iam_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -960,8 +898,7 @@ pub mod database_admin {
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        where T: std::convert::Into<iam_v1::model::GetPolicyOptions>
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
@@ -969,8 +906,7 @@ pub mod database_admin {
 
         /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        where T: std::convert::Into<iam_v1::model::GetPolicyOptions>
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -1005,17 +941,14 @@ pub mod database_admin {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1028,10 +961,7 @@ pub mod database_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
-            (*self.0.stub)
-                .test_iam_permissions(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).test_iam_permissions(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -1048,7 +978,7 @@ pub mod database_admin {
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.0.request.permissions = v.into_iter().map(|i| i.into()).collect();
@@ -1085,10 +1015,10 @@ pub mod database_admin {
     pub struct CreateBackup(RequestBuilder<crate::model::CreateBackupRequest>);
 
     impl CreateBackup {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1110,18 +1040,16 @@ pub mod database_admin {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_backup][crate::client::DatabaseAdmin::create_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .create_backup(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_backup(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_backup`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::Backup, crate::model::CreateBackupMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Backup, crate::model::CreateBackupMetadata>;
+            self
+        ) ->
+            impl lro::Poller<crate::model::Backup, crate::model::CreateBackupMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::Backup, crate::model::CreateBackupMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1169,8 +1097,7 @@ pub mod database_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_backup<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Backup>,
+        where T: std::convert::Into<crate::model::Backup>
         {
             self.0.request.backup = std::option::Option::Some(v.into());
             self
@@ -1180,8 +1107,7 @@ pub mod database_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Backup>,
+        where T: std::convert::Into<crate::model::Backup>
         {
             self.0.request.backup = v.map(|x| x.into());
             self
@@ -1189,8 +1115,7 @@ pub mod database_admin {
 
         /// Sets the value of [encryption_config][crate::model::CreateBackupRequest::encryption_config].
         pub fn set_encryption_config<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::CreateBackupEncryptionConfig>,
+        where T: std::convert::Into<crate::model::CreateBackupEncryptionConfig>
         {
             self.0.request.encryption_config = std::option::Option::Some(v.into());
             self
@@ -1198,8 +1123,7 @@ pub mod database_admin {
 
         /// Sets or clears the value of [encryption_config][crate::model::CreateBackupRequest::encryption_config].
         pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::CreateBackupEncryptionConfig>,
+        where T: std::convert::Into<crate::model::CreateBackupEncryptionConfig>
         {
             self.0.request.encryption_config = v.map(|x| x.into());
             self
@@ -1235,10 +1159,10 @@ pub mod database_admin {
     pub struct CopyBackup(RequestBuilder<crate::model::CopyBackupRequest>);
 
     impl CopyBackup {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1260,18 +1184,16 @@ pub mod database_admin {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [copy_backup][crate::client::DatabaseAdmin::copy_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .copy_backup(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).copy_backup(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `copy_backup`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::Backup, crate::model::CopyBackupMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Backup, crate::model::CopyBackupMetadata>;
+            self
+        ) ->
+            impl lro::Poller<crate::model::Backup, crate::model::CopyBackupMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::Backup, crate::model::CopyBackupMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1327,8 +1249,7 @@ pub mod database_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_expire_time<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.0.request.expire_time = std::option::Option::Some(v.into());
             self
@@ -1338,8 +1259,7 @@ pub mod database_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.0.request.expire_time = v.map(|x| x.into());
             self
@@ -1347,8 +1267,7 @@ pub mod database_admin {
 
         /// Sets the value of [encryption_config][crate::model::CopyBackupRequest::encryption_config].
         pub fn set_encryption_config<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::CopyBackupEncryptionConfig>,
+        where T: std::convert::Into<crate::model::CopyBackupEncryptionConfig>
         {
             self.0.request.encryption_config = std::option::Option::Some(v.into());
             self
@@ -1356,8 +1275,7 @@ pub mod database_admin {
 
         /// Sets or clears the value of [encryption_config][crate::model::CopyBackupRequest::encryption_config].
         pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::CopyBackupEncryptionConfig>,
+        where T: std::convert::Into<crate::model::CopyBackupEncryptionConfig>
         {
             self.0.request.encryption_config = v.map(|x| x.into());
             self
@@ -1392,10 +1310,10 @@ pub mod database_admin {
     pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
 
     impl GetBackup {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1412,10 +1330,7 @@ pub mod database_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Backup> {
-            (*self.0.stub)
-                .get_backup(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_backup(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetBackupRequest::name].
@@ -1455,10 +1370,10 @@ pub mod database_admin {
     pub struct UpdateBackup(RequestBuilder<crate::model::UpdateBackupRequest>);
 
     impl UpdateBackup {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1475,18 +1390,14 @@ pub mod database_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Backup> {
-            (*self.0.stub)
-                .update_backup(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_backup(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [backup][crate::model::UpdateBackupRequest::backup].
         ///
         /// This is a **required** field for requests.
         pub fn set_backup<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Backup>,
+        where T: std::convert::Into<crate::model::Backup>
         {
             self.0.request.backup = std::option::Option::Some(v.into());
             self
@@ -1496,8 +1407,7 @@ pub mod database_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Backup>,
+        where T: std::convert::Into<crate::model::Backup>
         {
             self.0.request.backup = v.map(|x| x.into());
             self
@@ -1507,8 +1417,7 @@ pub mod database_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -1518,8 +1427,7 @@ pub mod database_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -1554,10 +1462,10 @@ pub mod database_admin {
     pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
 
     impl DeleteBackup {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1574,10 +1482,7 @@ pub mod database_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .delete_backup(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_backup(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteBackupRequest::name].
@@ -1621,10 +1526,10 @@ pub mod database_admin {
     pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
 
     impl ListBackups {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1641,17 +1546,11 @@ pub mod database_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListBackupsResponse> {
-            (*self.0.stub)
-                .list_backups(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_backups(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListBackupsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListBackupsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1663,10 +1562,7 @@ pub mod database_admin {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListBackupsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListBackupsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1727,10 +1623,10 @@ pub mod database_admin {
     pub struct RestoreDatabase(RequestBuilder<crate::model::RestoreDatabaseRequest>);
 
     impl RestoreDatabase {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1752,21 +1648,16 @@ pub mod database_admin {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [restore_database][crate::client::DatabaseAdmin::restore_database].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .restore_database(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).restore_database(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `restore_database`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::Database, crate::model::RestoreDatabaseMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::Database, crate::model::RestoreDatabaseMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::Database,
-                crate::model::RestoreDatabaseMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::Database, crate::model::RestoreDatabaseMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1812,8 +1703,7 @@ pub mod database_admin {
 
         /// Sets the value of [encryption_config][crate::model::RestoreDatabaseRequest::encryption_config].
         pub fn set_encryption_config<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::RestoreDatabaseEncryptionConfig>,
+        where T: std::convert::Into<crate::model::RestoreDatabaseEncryptionConfig>
         {
             self.0.request.encryption_config = std::option::Option::Some(v.into());
             self
@@ -1821,8 +1711,7 @@ pub mod database_admin {
 
         /// Sets or clears the value of [encryption_config][crate::model::RestoreDatabaseRequest::encryption_config].
         pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::RestoreDatabaseEncryptionConfig>,
+        where T: std::convert::Into<crate::model::RestoreDatabaseEncryptionConfig>
         {
             self.0.request.encryption_config = v.map(|x| x.into());
             self
@@ -1832,10 +1721,7 @@ pub mod database_admin {
         ///
         /// Note that all the setters affecting `source` are
         /// mutually exclusive.
-        pub fn set_source<T: Into<Option<crate::model::restore_database_request::Source>>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_source<T: Into<Option<crate::model::restore_database_request::Source>>>(mut self, v: T) ->Self {
             self.0.request.source = v.into();
             self
         }
@@ -1883,17 +1769,14 @@ pub mod database_admin {
     pub struct ListDatabaseOperations(RequestBuilder<crate::model::ListDatabaseOperationsRequest>);
 
     impl ListDatabaseOperations {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListDatabaseOperationsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListDatabaseOperationsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1906,19 +1789,11 @@ pub mod database_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListDatabaseOperationsResponse> {
-            (*self.0.stub)
-                .list_database_operations(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_database_operations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<
-            crate::model::ListDatabaseOperationsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListDatabaseOperationsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1930,12 +1805,7 @@ pub mod database_admin {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListDatabaseOperationsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListDatabaseOperationsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1999,17 +1869,14 @@ pub mod database_admin {
     pub struct ListBackupOperations(RequestBuilder<crate::model::ListBackupOperationsRequest>);
 
     impl ListBackupOperations {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListBackupOperationsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListBackupOperationsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2022,17 +1889,11 @@ pub mod database_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListBackupOperationsResponse> {
-            (*self.0.stub)
-                .list_backup_operations(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_backup_operations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListBackupOperationsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListBackupOperationsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2044,12 +1905,7 @@ pub mod database_admin {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListBackupOperationsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListBackupOperationsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2113,17 +1969,14 @@ pub mod database_admin {
     pub struct ListDatabaseRoles(RequestBuilder<crate::model::ListDatabaseRolesRequest>);
 
     impl ListDatabaseRoles {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListDatabaseRolesRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListDatabaseRolesRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2136,17 +1989,11 @@ pub mod database_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListDatabaseRolesResponse> {
-            (*self.0.stub)
-                .list_database_roles(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_database_roles(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListDatabaseRolesResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListDatabaseRolesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2158,10 +2005,7 @@ pub mod database_admin {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListDatabaseRolesResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListDatabaseRolesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2215,10 +2059,10 @@ pub mod database_admin {
     pub struct AddSplitPoints(RequestBuilder<crate::model::AddSplitPointsRequest>);
 
     impl AddSplitPoints {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2235,10 +2079,7 @@ pub mod database_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::AddSplitPointsResponse> {
-            (*self.0.stub)
-                .add_split_points(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).add_split_points(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [database][crate::model::AddSplitPointsRequest::database].
@@ -2255,7 +2096,7 @@ pub mod database_admin {
         pub fn set_split_points<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::SplitPoints>,
+            V: std::convert::Into<crate::model::SplitPoints>
         {
             use std::iter::Iterator;
             self.0.request.split_points = v.into_iter().map(|i| i.into()).collect();
@@ -2297,17 +2138,14 @@ pub mod database_admin {
     pub struct CreateBackupSchedule(RequestBuilder<crate::model::CreateBackupScheduleRequest>);
 
     impl CreateBackupSchedule {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateBackupScheduleRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateBackupScheduleRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2320,10 +2158,7 @@ pub mod database_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::BackupSchedule> {
-            (*self.0.stub)
-                .create_backup_schedule(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_backup_schedule(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateBackupScheduleRequest::parent].
@@ -2346,8 +2181,7 @@ pub mod database_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_backup_schedule<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::BackupSchedule>,
+        where T: std::convert::Into<crate::model::BackupSchedule>
         {
             self.0.request.backup_schedule = std::option::Option::Some(v.into());
             self
@@ -2357,8 +2191,7 @@ pub mod database_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_backup_schedule<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::BackupSchedule>,
+        where T: std::convert::Into<crate::model::BackupSchedule>
         {
             self.0.request.backup_schedule = v.map(|x| x.into());
             self
@@ -2393,17 +2226,14 @@ pub mod database_admin {
     pub struct GetBackupSchedule(RequestBuilder<crate::model::GetBackupScheduleRequest>);
 
     impl GetBackupSchedule {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetBackupScheduleRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetBackupScheduleRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2416,10 +2246,7 @@ pub mod database_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::BackupSchedule> {
-            (*self.0.stub)
-                .get_backup_schedule(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_backup_schedule(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetBackupScheduleRequest::name].
@@ -2459,17 +2286,14 @@ pub mod database_admin {
     pub struct UpdateBackupSchedule(RequestBuilder<crate::model::UpdateBackupScheduleRequest>);
 
     impl UpdateBackupSchedule {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateBackupScheduleRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateBackupScheduleRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2482,18 +2306,14 @@ pub mod database_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::BackupSchedule> {
-            (*self.0.stub)
-                .update_backup_schedule(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_backup_schedule(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [backup_schedule][crate::model::UpdateBackupScheduleRequest::backup_schedule].
         ///
         /// This is a **required** field for requests.
         pub fn set_backup_schedule<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::BackupSchedule>,
+        where T: std::convert::Into<crate::model::BackupSchedule>
         {
             self.0.request.backup_schedule = std::option::Option::Some(v.into());
             self
@@ -2503,8 +2323,7 @@ pub mod database_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_backup_schedule<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::BackupSchedule>,
+        where T: std::convert::Into<crate::model::BackupSchedule>
         {
             self.0.request.backup_schedule = v.map(|x| x.into());
             self
@@ -2514,8 +2333,7 @@ pub mod database_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -2525,8 +2343,7 @@ pub mod database_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -2561,17 +2378,14 @@ pub mod database_admin {
     pub struct DeleteBackupSchedule(RequestBuilder<crate::model::DeleteBackupScheduleRequest>);
 
     impl DeleteBackupSchedule {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteBackupScheduleRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteBackupScheduleRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2584,10 +2398,7 @@ pub mod database_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .delete_backup_schedule(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_backup_schedule(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteBackupScheduleRequest::name].
@@ -2631,17 +2442,14 @@ pub mod database_admin {
     pub struct ListBackupSchedules(RequestBuilder<crate::model::ListBackupSchedulesRequest>);
 
     impl ListBackupSchedules {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListBackupSchedulesRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListBackupSchedulesRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2654,17 +2462,11 @@ pub mod database_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListBackupSchedulesResponse> {
-            (*self.0.stub)
-                .list_backup_schedules(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_backup_schedules(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListBackupSchedulesResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListBackupSchedulesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2676,12 +2478,7 @@ pub mod database_admin {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListBackupSchedulesResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListBackupSchedulesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2739,17 +2536,14 @@ pub mod database_admin {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2762,17 +2556,11 @@ pub mod database_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::ListOperationsResponse> {
-            (*self.0.stub)
-                .list_operations(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_operations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2784,12 +2572,7 @@ pub mod database_admin {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            longrunning::model::ListOperationsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2853,17 +2636,14 @@ pub mod database_admin {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2876,10 +2656,7 @@ pub mod database_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .get_operation(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -2917,17 +2694,14 @@ pub mod database_admin {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2940,10 +2714,7 @@ pub mod database_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .delete_operation(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -2981,17 +2752,14 @@ pub mod database_admin {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3004,10 +2772,7 @@ pub mod database_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .cancel_operation(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).cancel_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -3023,4 +2788,5 @@ pub mod database_admin {
             &mut self.0.options
         }
     }
+
 }

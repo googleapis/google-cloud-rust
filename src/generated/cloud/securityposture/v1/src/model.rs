@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -30,7 +31,6 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -42,6 +42,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PolicyRule {
+
     /// A condition which determines whether this rule is used
     /// in the evaluation of the policy. When set, the `expression` field in
     /// the `Expr' must include from 1 to 10 subexpressions, joined by the "||"
@@ -75,8 +76,7 @@ impl PolicyRule {
     /// let x = PolicyRule::new().set_condition(Expr::default()/* use setters */);
     /// ```
     pub fn set_condition<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<gtype::model::Expr>,
+    where T: std::convert::Into<gtype::model::Expr>
     {
         self.condition = std::option::Option::Some(v.into());
         self
@@ -92,8 +92,7 @@ impl PolicyRule {
     /// let x = PolicyRule::new().set_or_clear_condition(None::<Expr>);
     /// ```
     pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<gtype::model::Expr>,
+    where T: std::convert::Into<gtype::model::Expr>
     {
         self.condition = v.map(|x| x.into());
         self
@@ -110,10 +109,8 @@ impl PolicyRule {
     /// use google_cloud_securityposture_v1::model::policy_rule::Kind;
     /// let x = PolicyRule::new().set_kind(Some(Kind::AllowAll(true)));
     /// ```
-    pub fn set_kind<T: std::convert::Into<std::option::Option<crate::model::policy_rule::Kind>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_kind<T: std::convert::Into<std::option::Option<crate::model::policy_rule::Kind>>>(mut self, v: T) -> Self
+    {
         self.kind = v.into();
         self
     }
@@ -121,9 +118,7 @@ impl PolicyRule {
     /// The value of [kind][crate::model::PolicyRule::kind]
     /// if it holds a `Values`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn values(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::policy_rule::StringValues>> {
+    pub fn values(&self) -> std::option::Option<&std::boxed::Box<crate::model::policy_rule::StringValues>> {
         #[allow(unreachable_patterns)]
         self.kind.as_ref().and_then(|v| match v {
             crate::model::policy_rule::Kind::Values(v) => std::option::Option::Some(v),
@@ -147,13 +142,12 @@ impl PolicyRule {
     /// assert!(x.deny_all().is_none());
     /// assert!(x.enforce().is_none());
     /// ```
-    pub fn set_values<
-        T: std::convert::Into<std::boxed::Box<crate::model::policy_rule::StringValues>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.kind = std::option::Option::Some(crate::model::policy_rule::Kind::Values(v.into()));
+    pub fn set_values<T: std::convert::Into<std::boxed::Box<crate::model::policy_rule::StringValues>>>(mut self, v: T) -> Self {
+        self.kind = std::option::Option::Some(
+            crate::model::policy_rule::Kind::Values(
+                v.into()
+            )
+        );
         self
     }
 
@@ -184,7 +178,11 @@ impl PolicyRule {
     /// assert!(x.enforce().is_none());
     /// ```
     pub fn set_allow_all<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.kind = std::option::Option::Some(crate::model::policy_rule::Kind::AllowAll(v.into()));
+        self.kind = std::option::Option::Some(
+            crate::model::policy_rule::Kind::AllowAll(
+                v.into()
+            )
+        );
         self
     }
 
@@ -215,7 +213,11 @@ impl PolicyRule {
     /// assert!(x.enforce().is_none());
     /// ```
     pub fn set_deny_all<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.kind = std::option::Option::Some(crate::model::policy_rule::Kind::DenyAll(v.into()));
+        self.kind = std::option::Option::Some(
+            crate::model::policy_rule::Kind::DenyAll(
+                v.into()
+            )
+        );
         self
     }
 
@@ -246,7 +248,11 @@ impl PolicyRule {
     /// assert!(x.deny_all().is_none());
     /// ```
     pub fn set_enforce<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.kind = std::option::Option::Some(crate::model::policy_rule::Kind::Enforce(v.into()));
+        self.kind = std::option::Option::Some(
+            crate::model::policy_rule::Kind::Enforce(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -261,6 +267,7 @@ impl wkt::message::Message for PolicyRule {
 pub mod policy_rule {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// A message that holds specific allowed and denied values.
     /// This message can define specific values and subtrees of the Resource
@@ -282,6 +289,7 @@ pub mod policy_rule {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct StringValues {
+
         /// List of values allowed at this resource.
         pub allowed_values: std::vec::Vec<std::string::String>,
 
@@ -306,7 +314,7 @@ pub mod policy_rule {
         pub fn set_allowed_values<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.allowed_values = v.into_iter().map(|i| i.into()).collect();
@@ -323,7 +331,7 @@ pub mod policy_rule {
         pub fn set_denied_values<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.denied_values = v.into_iter().map(|i| i.into()).collect();
@@ -365,6 +373,7 @@ pub mod policy_rule {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CustomConstraint {
+
     /// Immutable. Name of the constraint. This is unique within the organization.
     /// Format of the name should be
     ///
@@ -439,7 +448,7 @@ impl CustomConstraint {
     pub fn set_resource_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.resource_types = v.into_iter().map(|i| i.into()).collect();
@@ -461,7 +470,7 @@ impl CustomConstraint {
     pub fn set_method_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::custom_constraint::MethodType>,
+        V: std::convert::Into<crate::model::custom_constraint::MethodType>
     {
         use std::iter::Iterator;
         self.method_types = v.into_iter().map(|i| i.into()).collect();
@@ -489,10 +498,7 @@ impl CustomConstraint {
     /// let x0 = CustomConstraint::new().set_action_type(ActionType::Allow);
     /// let x1 = CustomConstraint::new().set_action_type(ActionType::Deny);
     /// ```
-    pub fn set_action_type<T: std::convert::Into<crate::model::custom_constraint::ActionType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_action_type<T: std::convert::Into<crate::model::custom_constraint::ActionType>>(mut self, v: T) -> Self {
         self.action_type = v.into();
         self
     }
@@ -530,8 +536,7 @@ impl CustomConstraint {
     /// let x = CustomConstraint::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -547,8 +552,7 @@ impl CustomConstraint {
     /// let x = CustomConstraint::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -565,6 +569,7 @@ impl wkt::message::Message for CustomConstraint {
 pub mod custom_constraint {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The operation for which this constraint will be applied. To apply this
     /// constraint only when creating new VMs, the `method_types` should be
@@ -664,9 +669,7 @@ pub mod custom_constraint {
                 1 => Self::Create,
                 2 => Self::Update,
                 3 => Self::Delete,
-                _ => Self::UnknownValue(method_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(method_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -679,9 +682,7 @@ pub mod custom_constraint {
                 "CREATE" => Self::Create,
                 "UPDATE" => Self::Update,
                 "DELETE" => Self::Delete,
-                _ => Self::UnknownValue(method_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(method_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -707,8 +708,7 @@ pub mod custom_constraint {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<MethodType>::new(
-                ".google.cloud.securityposture.v1.CustomConstraint.MethodType",
-            ))
+                ".google.cloud.securityposture.v1.CustomConstraint.MethodType"))
         }
     }
 
@@ -798,9 +798,7 @@ pub mod custom_constraint {
                 0 => Self::Unspecified,
                 1 => Self::Allow,
                 2 => Self::Deny,
-                _ => Self::UnknownValue(action_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(action_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -812,9 +810,7 @@ pub mod custom_constraint {
                 "ACTION_TYPE_UNSPECIFIED" => Self::Unspecified,
                 "ALLOW" => Self::Allow,
                 "DENY" => Self::Deny,
-                _ => Self::UnknownValue(action_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(action_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -839,8 +835,7 @@ pub mod custom_constraint {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<ActionType>::new(
-                ".google.cloud.securityposture.v1.CustomConstraint.ActionType",
-            ))
+                ".google.cloud.securityposture.v1.CustomConstraint.ActionType"))
         }
     }
 }
@@ -849,6 +844,7 @@ pub mod custom_constraint {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OrgPolicyConstraint {
+
     /// Required. Org Policy Canned Constraint id.
     pub canned_constraint_id: std::string::String,
 
@@ -870,10 +866,7 @@ impl OrgPolicyConstraint {
     /// # use google_cloud_securityposture_v1::model::OrgPolicyConstraint;
     /// let x = OrgPolicyConstraint::new().set_canned_constraint_id("example");
     /// ```
-    pub fn set_canned_constraint_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_canned_constraint_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.canned_constraint_id = v.into();
         self
     }
@@ -893,7 +886,7 @@ impl OrgPolicyConstraint {
     pub fn set_policy_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::PolicyRule>,
+        V: std::convert::Into<crate::model::PolicyRule>
     {
         use std::iter::Iterator;
         self.policy_rules = v.into_iter().map(|i| i.into()).collect();
@@ -911,6 +904,7 @@ impl wkt::message::Message for OrgPolicyConstraint {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OrgPolicyConstraintCustom {
+
     /// Required. Org Policy Custom Constraint.
     pub custom_constraint: std::option::Option<crate::model::CustomConstraint>,
 
@@ -934,8 +928,7 @@ impl OrgPolicyConstraintCustom {
     /// let x = OrgPolicyConstraintCustom::new().set_custom_constraint(CustomConstraint::default()/* use setters */);
     /// ```
     pub fn set_custom_constraint<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CustomConstraint>,
+    where T: std::convert::Into<crate::model::CustomConstraint>
     {
         self.custom_constraint = std::option::Option::Some(v.into());
         self
@@ -951,8 +944,7 @@ impl OrgPolicyConstraintCustom {
     /// let x = OrgPolicyConstraintCustom::new().set_or_clear_custom_constraint(None::<CustomConstraint>);
     /// ```
     pub fn set_or_clear_custom_constraint<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CustomConstraint>,
+    where T: std::convert::Into<crate::model::CustomConstraint>
     {
         self.custom_constraint = v.map(|x| x.into());
         self
@@ -973,7 +965,7 @@ impl OrgPolicyConstraintCustom {
     pub fn set_policy_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::PolicyRule>,
+        V: std::convert::Into<crate::model::PolicyRule>
     {
         use std::iter::Iterator;
         self.policy_rules = v.into_iter().map(|i| i.into()).collect();
@@ -991,6 +983,7 @@ impl wkt::message::Message for OrgPolicyConstraintCustom {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
+
     /// Output only. The time the operation was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
@@ -1040,8 +1033,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -1057,8 +1049,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -1073,8 +1064,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -1090,8 +1080,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -1181,6 +1170,7 @@ impl wkt::message::Message for OperationMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Posture {
+
     /// Required. Identifier. The name of this Posture resource, in the format of
     /// organizations/{org_id}/locations/{location_id}/postures/{posture}.
     pub name: std::string::String,
@@ -1220,7 +1210,7 @@ pub struct Posture {
     /// Optional. User annotations. These attributes can only be set and used by
     /// the user, and not by Google Security Postures.
     /// .
-    pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
+    pub annotations: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Output only. Whether or not this Posture is in the process of being
     /// updated.
@@ -1282,8 +1272,7 @@ impl Posture {
     /// let x = Posture::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -1299,8 +1288,7 @@ impl Posture {
     /// let x = Posture::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -1315,8 +1303,7 @@ impl Posture {
     /// let x = Posture::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -1332,8 +1319,7 @@ impl Posture {
     /// let x = Posture::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -1366,7 +1352,7 @@ impl Posture {
     pub fn set_policy_sets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::PolicySet>,
+        V: std::convert::Into<crate::model::PolicySet>
     {
         use std::iter::Iterator;
         self.policy_sets = v.into_iter().map(|i| i.into()).collect();
@@ -1429,6 +1415,7 @@ impl wkt::message::Message for Posture {
 pub mod posture {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// State of a Posture.
     ///
@@ -1521,9 +1508,7 @@ pub mod posture {
                 1 => Self::Deprecated,
                 2 => Self::Draft,
                 3 => Self::Active,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1536,9 +1521,7 @@ pub mod posture {
                 "DEPRECATED" => Self::Deprecated,
                 "DRAFT" => Self::Draft,
                 "ACTIVE" => Self::Active,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1564,8 +1547,7 @@ pub mod posture {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.securityposture.v1.Posture.State",
-            ))
+                ".google.cloud.securityposture.v1.Posture.State"))
         }
     }
 }
@@ -1574,6 +1556,7 @@ pub mod posture {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PolicySet {
+
     /// Required. ID of the Policy set.
     pub policy_set_id: std::string::String,
 
@@ -1630,7 +1613,7 @@ impl PolicySet {
     pub fn set_policies<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Policy>,
+        V: std::convert::Into<crate::model::Policy>
     {
         use std::iter::Iterator;
         self.policies = v.into_iter().map(|i| i.into()).collect();
@@ -1648,6 +1631,7 @@ impl wkt::message::Message for PolicySet {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Policy {
+
     /// Required. ID of the Policy that is user generated, immutable and unique
     /// within the scope of a policy set.
     pub policy_id: std::string::String,
@@ -1696,7 +1680,7 @@ impl Policy {
     pub fn set_compliance_standards<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::policy::ComplianceStandard>,
+        V: std::convert::Into<crate::model::policy::ComplianceStandard>
     {
         use std::iter::Iterator;
         self.compliance_standards = v.into_iter().map(|i| i.into()).collect();
@@ -1712,8 +1696,7 @@ impl Policy {
     /// let x = Policy::new().set_constraint(Constraint::default()/* use setters */);
     /// ```
     pub fn set_constraint<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Constraint>,
+    where T: std::convert::Into<crate::model::Constraint>
     {
         self.constraint = std::option::Option::Some(v.into());
         self
@@ -1729,8 +1712,7 @@ impl Policy {
     /// let x = Policy::new().set_or_clear_constraint(None::<Constraint>);
     /// ```
     pub fn set_or_clear_constraint<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Constraint>,
+    where T: std::convert::Into<crate::model::Constraint>
     {
         self.constraint = v.map(|x| x.into());
         self
@@ -1760,10 +1742,12 @@ pub mod policy {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Mapping for a Policy to standard and control.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ComplianceStandard {
+
         /// Optional. The compliance standard that the Policy maps to, e.g.: CIS-2.0.
         pub standard: std::string::String,
 
@@ -1814,6 +1798,7 @@ pub mod policy {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Constraint {
+
     pub implementation: std::option::Option<crate::model::constraint::Implementation>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1836,12 +1821,8 @@ impl Constraint {
     /// let x = Constraint::new().set_implementation(Some(
     ///     google_cloud_securityposture_v1::model::constraint::Implementation::SecurityHealthAnalyticsModule(SecurityHealthAnalyticsModule::default().into())));
     /// ```
-    pub fn set_implementation<
-        T: std::convert::Into<std::option::Option<crate::model::constraint::Implementation>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_implementation<T: std::convert::Into<std::option::Option<crate::model::constraint::Implementation>>>(mut self, v: T) -> Self
+    {
         self.implementation = v.into();
         self
     }
@@ -1849,14 +1830,10 @@ impl Constraint {
     /// The value of [implementation][crate::model::Constraint::implementation]
     /// if it holds a `SecurityHealthAnalyticsModule`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn security_health_analytics_module(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SecurityHealthAnalyticsModule>> {
+    pub fn security_health_analytics_module(&self) -> std::option::Option<&std::boxed::Box<crate::model::SecurityHealthAnalyticsModule>> {
         #[allow(unreachable_patterns)]
         self.implementation.as_ref().and_then(|v| match v {
-            crate::model::constraint::Implementation::SecurityHealthAnalyticsModule(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::constraint::Implementation::SecurityHealthAnalyticsModule(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -1877,14 +1854,11 @@ impl Constraint {
     /// assert!(x.org_policy_constraint().is_none());
     /// assert!(x.org_policy_constraint_custom().is_none());
     /// ```
-    pub fn set_security_health_analytics_module<
-        T: std::convert::Into<std::boxed::Box<crate::model::SecurityHealthAnalyticsModule>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_security_health_analytics_module<T: std::convert::Into<std::boxed::Box<crate::model::SecurityHealthAnalyticsModule>>>(mut self, v: T) -> Self {
         self.implementation = std::option::Option::Some(
-            crate::model::constraint::Implementation::SecurityHealthAnalyticsModule(v.into()),
+            crate::model::constraint::Implementation::SecurityHealthAnalyticsModule(
+                v.into()
+            )
         );
         self
     }
@@ -1892,15 +1866,10 @@ impl Constraint {
     /// The value of [implementation][crate::model::Constraint::implementation]
     /// if it holds a `SecurityHealthAnalyticsCustomModule`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn security_health_analytics_custom_module(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SecurityHealthAnalyticsCustomModule>>
-    {
+    pub fn security_health_analytics_custom_module(&self) -> std::option::Option<&std::boxed::Box<crate::model::SecurityHealthAnalyticsCustomModule>> {
         #[allow(unreachable_patterns)]
         self.implementation.as_ref().and_then(|v| match v {
-            crate::model::constraint::Implementation::SecurityHealthAnalyticsCustomModule(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::constraint::Implementation::SecurityHealthAnalyticsCustomModule(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -1921,14 +1890,11 @@ impl Constraint {
     /// assert!(x.org_policy_constraint().is_none());
     /// assert!(x.org_policy_constraint_custom().is_none());
     /// ```
-    pub fn set_security_health_analytics_custom_module<
-        T: std::convert::Into<std::boxed::Box<crate::model::SecurityHealthAnalyticsCustomModule>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_security_health_analytics_custom_module<T: std::convert::Into<std::boxed::Box<crate::model::SecurityHealthAnalyticsCustomModule>>>(mut self, v: T) -> Self {
         self.implementation = std::option::Option::Some(
-            crate::model::constraint::Implementation::SecurityHealthAnalyticsCustomModule(v.into()),
+            crate::model::constraint::Implementation::SecurityHealthAnalyticsCustomModule(
+                v.into()
+            )
         );
         self
     }
@@ -1936,14 +1902,10 @@ impl Constraint {
     /// The value of [implementation][crate::model::Constraint::implementation]
     /// if it holds a `OrgPolicyConstraint`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn org_policy_constraint(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::OrgPolicyConstraint>> {
+    pub fn org_policy_constraint(&self) -> std::option::Option<&std::boxed::Box<crate::model::OrgPolicyConstraint>> {
         #[allow(unreachable_patterns)]
         self.implementation.as_ref().and_then(|v| match v {
-            crate::model::constraint::Implementation::OrgPolicyConstraint(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::constraint::Implementation::OrgPolicyConstraint(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -1964,14 +1926,11 @@ impl Constraint {
     /// assert!(x.security_health_analytics_custom_module().is_none());
     /// assert!(x.org_policy_constraint_custom().is_none());
     /// ```
-    pub fn set_org_policy_constraint<
-        T: std::convert::Into<std::boxed::Box<crate::model::OrgPolicyConstraint>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_org_policy_constraint<T: std::convert::Into<std::boxed::Box<crate::model::OrgPolicyConstraint>>>(mut self, v: T) -> Self {
         self.implementation = std::option::Option::Some(
-            crate::model::constraint::Implementation::OrgPolicyConstraint(v.into()),
+            crate::model::constraint::Implementation::OrgPolicyConstraint(
+                v.into()
+            )
         );
         self
     }
@@ -1979,14 +1938,10 @@ impl Constraint {
     /// The value of [implementation][crate::model::Constraint::implementation]
     /// if it holds a `OrgPolicyConstraintCustom`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn org_policy_constraint_custom(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::OrgPolicyConstraintCustom>> {
+    pub fn org_policy_constraint_custom(&self) -> std::option::Option<&std::boxed::Box<crate::model::OrgPolicyConstraintCustom>> {
         #[allow(unreachable_patterns)]
         self.implementation.as_ref().and_then(|v| match v {
-            crate::model::constraint::Implementation::OrgPolicyConstraintCustom(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::constraint::Implementation::OrgPolicyConstraintCustom(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -2007,14 +1962,11 @@ impl Constraint {
     /// assert!(x.security_health_analytics_custom_module().is_none());
     /// assert!(x.org_policy_constraint().is_none());
     /// ```
-    pub fn set_org_policy_constraint_custom<
-        T: std::convert::Into<std::boxed::Box<crate::model::OrgPolicyConstraintCustom>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_org_policy_constraint_custom<T: std::convert::Into<std::boxed::Box<crate::model::OrgPolicyConstraintCustom>>>(mut self, v: T) -> Self {
         self.implementation = std::option::Option::Some(
-            crate::model::constraint::Implementation::OrgPolicyConstraintCustom(v.into()),
+            crate::model::constraint::Implementation::OrgPolicyConstraintCustom(
+                v.into()
+            )
         );
         self
     }
@@ -2031,15 +1983,14 @@ pub mod constraint {
     #[allow(unused_imports)]
     use super::*;
 
+
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Implementation {
         /// Optional. SHA built-in detector.
         SecurityHealthAnalyticsModule(std::boxed::Box<crate::model::SecurityHealthAnalyticsModule>),
         /// Optional. SHA custom detector.
-        SecurityHealthAnalyticsCustomModule(
-            std::boxed::Box<crate::model::SecurityHealthAnalyticsCustomModule>,
-        ),
+        SecurityHealthAnalyticsCustomModule(std::boxed::Box<crate::model::SecurityHealthAnalyticsCustomModule>),
         /// Optional. Org Policy builtin constraint.
         OrgPolicyConstraint(std::boxed::Box<crate::model::OrgPolicyConstraint>),
         /// Optional. Org Policy custom constraint.
@@ -2051,6 +2002,7 @@ pub mod constraint {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPosturesRequest {
+
     /// Required. Parent value for ListPosturesRequest.
     pub parent: std::string::String,
 
@@ -2116,6 +2068,7 @@ impl wkt::message::Message for ListPosturesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPosturesResponse {
+
     /// The list of Posture.
     pub postures: std::vec::Vec<crate::model::Posture>,
 
@@ -2148,7 +2101,7 @@ impl ListPosturesResponse {
     pub fn set_postures<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Posture>,
+        V: std::convert::Into<crate::model::Posture>
     {
         use std::iter::Iterator;
         self.postures = v.into_iter().map(|i| i.into()).collect();
@@ -2177,7 +2130,7 @@ impl ListPosturesResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -2209,6 +2162,7 @@ impl gax::paginator::internal::PageableResponse for ListPosturesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPostureRevisionsRequest {
+
     /// Required. Name value for ListPostureRevisionsRequest.
     pub name: std::string::String,
 
@@ -2274,6 +2228,7 @@ impl wkt::message::Message for ListPostureRevisionsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPostureRevisionsResponse {
+
     /// The list of Posture revisions.
     pub revisions: std::vec::Vec<crate::model::Posture>,
 
@@ -2303,7 +2258,7 @@ impl ListPostureRevisionsResponse {
     pub fn set_revisions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Posture>,
+        V: std::convert::Into<crate::model::Posture>
     {
         use std::iter::Iterator;
         self.revisions = v.into_iter().map(|i| i.into()).collect();
@@ -2347,6 +2302,7 @@ impl gax::paginator::internal::PageableResponse for ListPostureRevisionsResponse
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetPostureRequest {
+
     /// Required. Name of the resource.
     pub name: std::string::String,
 
@@ -2396,6 +2352,7 @@ impl wkt::message::Message for GetPostureRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreatePostureRequest {
+
     /// Required. Value for parent.
     pub parent: std::string::String,
 
@@ -2447,8 +2404,7 @@ impl CreatePostureRequest {
     /// let x = CreatePostureRequest::new().set_posture(Posture::default()/* use setters */);
     /// ```
     pub fn set_posture<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Posture>,
+    where T: std::convert::Into<crate::model::Posture>
     {
         self.posture = std::option::Option::Some(v.into());
         self
@@ -2464,8 +2420,7 @@ impl CreatePostureRequest {
     /// let x = CreatePostureRequest::new().set_or_clear_posture(None::<Posture>);
     /// ```
     pub fn set_or_clear_posture<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Posture>,
+    where T: std::convert::Into<crate::model::Posture>
     {
         self.posture = v.map(|x| x.into());
         self
@@ -2482,6 +2437,7 @@ impl wkt::message::Message for CreatePostureRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdatePostureRequest {
+
     /// Required. Field mask is used to specify the fields to be overwritten in the
     /// Posture resource by the update.
     /// The fields specified in the update_mask are relative to the resource, not
@@ -2512,8 +2468,7 @@ impl UpdatePostureRequest {
     /// let x = UpdatePostureRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -2529,8 +2484,7 @@ impl UpdatePostureRequest {
     /// let x = UpdatePostureRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -2545,8 +2499,7 @@ impl UpdatePostureRequest {
     /// let x = UpdatePostureRequest::new().set_posture(Posture::default()/* use setters */);
     /// ```
     pub fn set_posture<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Posture>,
+    where T: std::convert::Into<crate::model::Posture>
     {
         self.posture = std::option::Option::Some(v.into());
         self
@@ -2562,8 +2515,7 @@ impl UpdatePostureRequest {
     /// let x = UpdatePostureRequest::new().set_or_clear_posture(None::<Posture>);
     /// ```
     pub fn set_or_clear_posture<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Posture>,
+    where T: std::convert::Into<crate::model::Posture>
     {
         self.posture = v.map(|x| x.into());
         self
@@ -2592,6 +2544,7 @@ impl wkt::message::Message for UpdatePostureRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeletePostureRequest {
+
     /// Required. Name of the resource.
     pub name: std::string::String,
 
@@ -2641,6 +2594,7 @@ impl wkt::message::Message for DeletePostureRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExtractPostureRequest {
+
     /// Required. The parent resource name. The format of this value is as follows:
     /// `organizations/{organization}/locations/{location}`
     pub parent: std::string::String,
@@ -2714,6 +2668,7 @@ impl wkt::message::Message for ExtractPostureRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PostureDeployment {
+
     /// Required. The name of this PostureDeployment resource, in the format of
     /// organizations/{organization}/locations/{location_id}/postureDeployments/{postureDeployment}.
     pub name: std::string::String,
@@ -2761,7 +2716,7 @@ pub struct PostureDeployment {
     /// Optional. User annotations. These attributes can only be set and used by
     /// the user, and not by Google Security Postures.
     /// .
-    pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
+    pub annotations: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Output only. Whether or not this Posture is in the process of being
     /// updated.
@@ -2823,10 +2778,7 @@ impl PostureDeployment {
     /// let x1 = PostureDeployment::new().set_state(State::Deleting);
     /// let x2 = PostureDeployment::new().set_state(State::Updating);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::posture_deployment::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::posture_deployment::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -2850,10 +2802,7 @@ impl PostureDeployment {
     /// # use google_cloud_securityposture_v1::model::PostureDeployment;
     /// let x = PostureDeployment::new().set_posture_revision_id("example");
     /// ```
-    pub fn set_posture_revision_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_posture_revision_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.posture_revision_id = v.into();
         self
     }
@@ -2867,8 +2816,7 @@ impl PostureDeployment {
     /// let x = PostureDeployment::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -2884,8 +2832,7 @@ impl PostureDeployment {
     /// let x = PostureDeployment::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -2900,8 +2847,7 @@ impl PostureDeployment {
     /// let x = PostureDeployment::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -2917,8 +2863,7 @@ impl PostureDeployment {
     /// let x = PostureDeployment::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -2988,10 +2933,7 @@ impl PostureDeployment {
     /// # use google_cloud_securityposture_v1::model::PostureDeployment;
     /// let x = PostureDeployment::new().set_desired_posture_id("example");
     /// ```
-    pub fn set_desired_posture_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_desired_posture_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.desired_posture_id = v.into();
         self
     }
@@ -3003,10 +2945,7 @@ impl PostureDeployment {
     /// # use google_cloud_securityposture_v1::model::PostureDeployment;
     /// let x = PostureDeployment::new().set_desired_posture_revision_id("example");
     /// ```
-    pub fn set_desired_posture_revision_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_desired_posture_revision_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.desired_posture_revision_id = v.into();
         self
     }
@@ -3034,6 +2973,7 @@ impl wkt::message::Message for PostureDeployment {
 pub mod posture_deployment {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// State of a PostureDeployment.
     ///
@@ -3146,9 +3086,7 @@ pub mod posture_deployment {
                 5 => Self::CreateFailed,
                 6 => Self::UpdateFailed,
                 7 => Self::DeleteFailed,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -3165,9 +3103,7 @@ pub mod posture_deployment {
                 "CREATE_FAILED" => Self::CreateFailed,
                 "UPDATE_FAILED" => Self::UpdateFailed,
                 "DELETE_FAILED" => Self::DeleteFailed,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -3197,8 +3133,7 @@ pub mod posture_deployment {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.securityposture.v1.PostureDeployment.State",
-            ))
+                ".google.cloud.securityposture.v1.PostureDeployment.State"))
         }
     }
 }
@@ -3207,6 +3142,7 @@ pub mod posture_deployment {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPostureDeploymentsRequest {
+
     /// Required. Parent value for ListPostureDeploymentsRequest.
     pub parent: std::string::String,
 
@@ -3288,6 +3224,7 @@ impl wkt::message::Message for ListPostureDeploymentsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPostureDeploymentsResponse {
+
     /// The list of PostureDeployment.
     pub posture_deployments: std::vec::Vec<crate::model::PostureDeployment>,
 
@@ -3320,7 +3257,7 @@ impl ListPostureDeploymentsResponse {
     pub fn set_posture_deployments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::PostureDeployment>,
+        V: std::convert::Into<crate::model::PostureDeployment>
     {
         use std::iter::Iterator;
         self.posture_deployments = v.into_iter().map(|i| i.into()).collect();
@@ -3349,7 +3286,7 @@ impl ListPostureDeploymentsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -3381,6 +3318,7 @@ impl gax::paginator::internal::PageableResponse for ListPostureDeploymentsRespon
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetPostureDeploymentRequest {
+
     /// Required. Name of the resource.
     pub name: std::string::String,
 
@@ -3415,6 +3353,7 @@ impl wkt::message::Message for GetPostureDeploymentRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreatePostureDeploymentRequest {
+
     /// Required. Value for parent.
     /// Format: organizations/{org_id}/locations/{location}
     pub parent: std::string::String,
@@ -3453,10 +3392,7 @@ impl CreatePostureDeploymentRequest {
     /// # use google_cloud_securityposture_v1::model::CreatePostureDeploymentRequest;
     /// let x = CreatePostureDeploymentRequest::new().set_posture_deployment_id("example");
     /// ```
-    pub fn set_posture_deployment_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_posture_deployment_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.posture_deployment_id = v.into();
         self
     }
@@ -3470,8 +3406,7 @@ impl CreatePostureDeploymentRequest {
     /// let x = CreatePostureDeploymentRequest::new().set_posture_deployment(PostureDeployment::default()/* use setters */);
     /// ```
     pub fn set_posture_deployment<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::PostureDeployment>,
+    where T: std::convert::Into<crate::model::PostureDeployment>
     {
         self.posture_deployment = std::option::Option::Some(v.into());
         self
@@ -3487,8 +3422,7 @@ impl CreatePostureDeploymentRequest {
     /// let x = CreatePostureDeploymentRequest::new().set_or_clear_posture_deployment(None::<PostureDeployment>);
     /// ```
     pub fn set_or_clear_posture_deployment<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::PostureDeployment>,
+    where T: std::convert::Into<crate::model::PostureDeployment>
     {
         self.posture_deployment = v.map(|x| x.into());
         self
@@ -3505,6 +3439,7 @@ impl wkt::message::Message for CreatePostureDeploymentRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdatePostureDeploymentRequest {
+
     /// Required. Field mask is used to specify the fields to be overwritten in the
     /// PostureDeployment resource by the update.
     /// The fields specified in the update_mask are relative to the resource, not
@@ -3532,8 +3467,7 @@ impl UpdatePostureDeploymentRequest {
     /// let x = UpdatePostureDeploymentRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -3549,8 +3483,7 @@ impl UpdatePostureDeploymentRequest {
     /// let x = UpdatePostureDeploymentRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -3565,8 +3498,7 @@ impl UpdatePostureDeploymentRequest {
     /// let x = UpdatePostureDeploymentRequest::new().set_posture_deployment(PostureDeployment::default()/* use setters */);
     /// ```
     pub fn set_posture_deployment<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::PostureDeployment>,
+    where T: std::convert::Into<crate::model::PostureDeployment>
     {
         self.posture_deployment = std::option::Option::Some(v.into());
         self
@@ -3582,8 +3514,7 @@ impl UpdatePostureDeploymentRequest {
     /// let x = UpdatePostureDeploymentRequest::new().set_or_clear_posture_deployment(None::<PostureDeployment>);
     /// ```
     pub fn set_or_clear_posture_deployment<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::PostureDeployment>,
+    where T: std::convert::Into<crate::model::PostureDeployment>
     {
         self.posture_deployment = v.map(|x| x.into());
         self
@@ -3600,6 +3531,7 @@ impl wkt::message::Message for UpdatePostureDeploymentRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeletePostureDeploymentRequest {
+
     /// Required. Name of the resource.
     pub name: std::string::String,
 
@@ -3650,6 +3582,7 @@ impl wkt::message::Message for DeletePostureDeploymentRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PostureTemplate {
+
     /// Output only. Identifier. The name of the Posture template will be of the
     /// format
     /// organizations/{organization}/locations/{location}/postureTemplates/{postureTemplate}
@@ -3720,10 +3653,7 @@ impl PostureTemplate {
     /// let x0 = PostureTemplate::new().set_state(State::Active);
     /// let x1 = PostureTemplate::new().set_state(State::Deprecated);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::posture_template::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::posture_template::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -3743,7 +3673,7 @@ impl PostureTemplate {
     pub fn set_policy_sets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::PolicySet>,
+        V: std::convert::Into<crate::model::PolicySet>
     {
         use std::iter::Iterator;
         self.policy_sets = v.into_iter().map(|i| i.into()).collect();
@@ -3761,6 +3691,7 @@ impl wkt::message::Message for PostureTemplate {
 pub mod posture_template {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// State of a PostureTemplate
     ///
@@ -3849,9 +3780,7 @@ pub mod posture_template {
                 0 => Self::Unspecified,
                 1 => Self::Active,
                 2 => Self::Deprecated,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -3863,9 +3792,7 @@ pub mod posture_template {
                 "STATE_UNSPECIFIED" => Self::Unspecified,
                 "ACTIVE" => Self::Active,
                 "DEPRECATED" => Self::Deprecated,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -3890,8 +3817,7 @@ pub mod posture_template {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.securityposture.v1.PostureTemplate.State",
-            ))
+                ".google.cloud.securityposture.v1.PostureTemplate.State"))
         }
     }
 }
@@ -3900,6 +3826,7 @@ pub mod posture_template {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPostureTemplatesRequest {
+
     /// Required. Parent value for ListPostureTemplatesRequest.
     pub parent: std::string::String,
 
@@ -3981,6 +3908,7 @@ impl wkt::message::Message for ListPostureTemplatesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPostureTemplatesResponse {
+
     /// The list of PostureTemplate.
     pub posture_templates: std::vec::Vec<crate::model::PostureTemplate>,
 
@@ -4010,7 +3938,7 @@ impl ListPostureTemplatesResponse {
     pub fn set_posture_templates<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::PostureTemplate>,
+        V: std::convert::Into<crate::model::PostureTemplate>
     {
         use std::iter::Iterator;
         self.posture_templates = v.into_iter().map(|i| i.into()).collect();
@@ -4054,6 +3982,7 @@ impl gax::paginator::internal::PageableResponse for ListPostureTemplatesResponse
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetPostureTemplateRequest {
+
     /// Required. Name of the resource.
     pub name: std::string::String,
 
@@ -4104,6 +4033,7 @@ impl wkt::message::Message for GetPostureTemplateRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SecurityHealthAnalyticsModule {
+
     /// Required. The name of the module eg: BIGQUERY_TABLE_CMEK_DISABLED.
     pub module_name: std::string::String,
 
@@ -4140,10 +4070,7 @@ impl SecurityHealthAnalyticsModule {
     /// let x0 = SecurityHealthAnalyticsModule::new().set_module_enablement_state(EnablementState::Enabled);
     /// let x1 = SecurityHealthAnalyticsModule::new().set_module_enablement_state(EnablementState::Disabled);
     /// ```
-    pub fn set_module_enablement_state<T: std::convert::Into<crate::model::EnablementState>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_module_enablement_state<T: std::convert::Into<crate::model::EnablementState>>(mut self, v: T) -> Self {
         self.module_enablement_state = v.into();
         self
     }
@@ -4159,6 +4086,7 @@ impl wkt::message::Message for SecurityHealthAnalyticsModule {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SecurityHealthAnalyticsCustomModule {
+
     /// Output only. Immutable. The id of the custom module.
     /// The id is server-generated and is not user settable.
     /// It will be a numeric id containing 1-20 digits.
@@ -4219,8 +4147,7 @@ impl SecurityHealthAnalyticsCustomModule {
     /// let x = SecurityHealthAnalyticsCustomModule::new().set_config(CustomConfig::default()/* use setters */);
     /// ```
     pub fn set_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CustomConfig>,
+    where T: std::convert::Into<crate::model::CustomConfig>
     {
         self.config = std::option::Option::Some(v.into());
         self
@@ -4236,8 +4163,7 @@ impl SecurityHealthAnalyticsCustomModule {
     /// let x = SecurityHealthAnalyticsCustomModule::new().set_or_clear_config(None::<CustomConfig>);
     /// ```
     pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CustomConfig>,
+    where T: std::convert::Into<crate::model::CustomConfig>
     {
         self.config = v.map(|x| x.into());
         self
@@ -4252,10 +4178,7 @@ impl SecurityHealthAnalyticsCustomModule {
     /// let x0 = SecurityHealthAnalyticsCustomModule::new().set_module_enablement_state(EnablementState::Enabled);
     /// let x1 = SecurityHealthAnalyticsCustomModule::new().set_module_enablement_state(EnablementState::Disabled);
     /// ```
-    pub fn set_module_enablement_state<T: std::convert::Into<crate::model::EnablementState>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_module_enablement_state<T: std::convert::Into<crate::model::EnablementState>>(mut self, v: T) -> Self {
         self.module_enablement_state = v.into();
         self
     }
@@ -4273,6 +4196,7 @@ impl wkt::message::Message for SecurityHealthAnalyticsCustomModule {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CustomConfig {
+
     /// Required. The CEL expression to evaluate to produce findings. When the
     /// expression evaluates to true against a resource, a finding is generated.
     pub predicate: std::option::Option<gtype::model::Expr>,
@@ -4316,8 +4240,7 @@ impl CustomConfig {
     /// let x = CustomConfig::new().set_predicate(Expr::default()/* use setters */);
     /// ```
     pub fn set_predicate<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<gtype::model::Expr>,
+    where T: std::convert::Into<gtype::model::Expr>
     {
         self.predicate = std::option::Option::Some(v.into());
         self
@@ -4333,8 +4256,7 @@ impl CustomConfig {
     /// let x = CustomConfig::new().set_or_clear_predicate(None::<Expr>);
     /// ```
     pub fn set_or_clear_predicate<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<gtype::model::Expr>,
+    where T: std::convert::Into<gtype::model::Expr>
     {
         self.predicate = v.map(|x| x.into());
         self
@@ -4349,8 +4271,7 @@ impl CustomConfig {
     /// let x = CustomConfig::new().set_custom_output(CustomOutputSpec::default()/* use setters */);
     /// ```
     pub fn set_custom_output<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::custom_config::CustomOutputSpec>,
+    where T: std::convert::Into<crate::model::custom_config::CustomOutputSpec>
     {
         self.custom_output = std::option::Option::Some(v.into());
         self
@@ -4366,8 +4287,7 @@ impl CustomConfig {
     /// let x = CustomConfig::new().set_or_clear_custom_output(None::<CustomOutputSpec>);
     /// ```
     pub fn set_or_clear_custom_output<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::custom_config::CustomOutputSpec>,
+    where T: std::convert::Into<crate::model::custom_config::CustomOutputSpec>
     {
         self.custom_output = v.map(|x| x.into());
         self
@@ -4382,8 +4302,7 @@ impl CustomConfig {
     /// let x = CustomConfig::new().set_resource_selector(ResourceSelector::default()/* use setters */);
     /// ```
     pub fn set_resource_selector<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::custom_config::ResourceSelector>,
+    where T: std::convert::Into<crate::model::custom_config::ResourceSelector>
     {
         self.resource_selector = std::option::Option::Some(v.into());
         self
@@ -4399,8 +4318,7 @@ impl CustomConfig {
     /// let x = CustomConfig::new().set_or_clear_resource_selector(None::<ResourceSelector>);
     /// ```
     pub fn set_or_clear_resource_selector<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::custom_config::ResourceSelector>,
+    where T: std::convert::Into<crate::model::custom_config::ResourceSelector>
     {
         self.resource_selector = v.map(|x| x.into());
         self
@@ -4416,10 +4334,7 @@ impl CustomConfig {
     /// let x1 = CustomConfig::new().set_severity(Severity::High);
     /// let x2 = CustomConfig::new().set_severity(Severity::Medium);
     /// ```
-    pub fn set_severity<T: std::convert::Into<crate::model::custom_config::Severity>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_severity<T: std::convert::Into<crate::model::custom_config::Severity>>(mut self, v: T) -> Self {
         self.severity = v.into();
         self
     }
@@ -4460,6 +4375,7 @@ pub mod custom_config {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// A set of optional name-value pairs that define custom source properties to
     /// return with each finding that is generated by the custom module. The custom
     /// source properties that are defined here are included in the finding JSON
@@ -4467,6 +4383,7 @@ pub mod custom_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CustomOutputSpec {
+
         /// Optional. A list of custom output properties to add to the finding.
         pub properties: std::vec::Vec<crate::model::custom_config::custom_output_spec::Property>,
 
@@ -4493,7 +4410,7 @@ pub mod custom_config {
         pub fn set_properties<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::custom_config::custom_output_spec::Property>,
+            V: std::convert::Into<crate::model::custom_config::custom_output_spec::Property>
         {
             use std::iter::Iterator;
             self.properties = v.into_iter().map(|i| i.into()).collect();
@@ -4512,10 +4429,12 @@ pub mod custom_config {
         #[allow(unused_imports)]
         use super::*;
 
+
         /// An individual name-value pair that defines a custom source property.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Property {
+
             /// Required. Name of the property for the custom output.
             pub name: std::string::String,
 
@@ -4553,8 +4472,7 @@ pub mod custom_config {
             /// let x = Property::new().set_value_expression(Expr::default()/* use setters */);
             /// ```
             pub fn set_value_expression<T>(mut self, v: T) -> Self
-            where
-                T: std::convert::Into<gtype::model::Expr>,
+            where T: std::convert::Into<gtype::model::Expr>
             {
                 self.value_expression = std::option::Option::Some(v.into());
                 self
@@ -4570,8 +4488,7 @@ pub mod custom_config {
             /// let x = Property::new().set_or_clear_value_expression(None::<Expr>);
             /// ```
             pub fn set_or_clear_value_expression<T>(mut self, v: std::option::Option<T>) -> Self
-            where
-                T: std::convert::Into<gtype::model::Expr>,
+            where T: std::convert::Into<gtype::model::Expr>
             {
                 self.value_expression = v.map(|x| x.into());
                 self
@@ -4589,6 +4506,7 @@ pub mod custom_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ResourceSelector {
+
         /// Required. The resource types to run the detector on.
         pub resource_types: std::vec::Vec<std::string::String>,
 
@@ -4610,7 +4528,7 @@ pub mod custom_config {
         pub fn set_resource_types<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.resource_types = v.into_iter().map(|i| i.into()).collect();
@@ -4720,9 +4638,7 @@ pub mod custom_config {
                 2 => Self::High,
                 3 => Self::Medium,
                 4 => Self::Low,
-                _ => Self::UnknownValue(severity::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(severity::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -4736,9 +4652,7 @@ pub mod custom_config {
                 "HIGH" => Self::High,
                 "MEDIUM" => Self::Medium,
                 "LOW" => Self::Low,
-                _ => Self::UnknownValue(severity::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(severity::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -4765,8 +4679,7 @@ pub mod custom_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Severity>::new(
-                ".google.cloud.securityposture.v1.CustomConfig.Severity",
-            ))
+                ".google.cloud.securityposture.v1.CustomConfig.Severity"))
         }
     }
 }
@@ -4857,9 +4770,7 @@ impl std::convert::From<i32> for EnablementState {
             0 => Self::Unspecified,
             1 => Self::Enabled,
             2 => Self::Disabled,
-            _ => Self::UnknownValue(enablement_state::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(enablement_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -4871,9 +4782,7 @@ impl std::convert::From<&str> for EnablementState {
             "ENABLEMENT_STATE_UNSPECIFIED" => Self::Unspecified,
             "ENABLED" => Self::Enabled,
             "DISABLED" => Self::Disabled,
-            _ => Self::UnknownValue(enablement_state::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(enablement_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -4898,7 +4807,6 @@ impl<'de> serde::de::Deserialize<'de> for EnablementState {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<EnablementState>::new(
-            ".google.cloud.securityposture.v1.EnablementState",
-        ))
+            ".google.cloud.securityposture.v1.EnablementState"))
     }
 }

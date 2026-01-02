@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -26,7 +27,6 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -40,6 +40,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListLocationsRequest {
+
     /// The resource that owns the locations collection, if applicable.
     pub name: std::string::String,
 
@@ -121,6 +122,7 @@ impl wkt::message::Message for ListLocationsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListLocationsResponse {
+
     /// A list of locations that matches the specified filter in the request.
     pub locations: std::vec::Vec<crate::model::Location>,
 
@@ -150,7 +152,7 @@ impl ListLocationsResponse {
     pub fn set_locations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Location>,
+        V: std::convert::Into<crate::model::Location>
     {
         use std::iter::Iterator;
         self.locations = v.into_iter().map(|i| i.into()).collect();
@@ -196,6 +198,7 @@ impl gax::paginator::internal::PageableResponse for ListLocationsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetLocationRequest {
+
     /// Resource name for the location.
     pub name: std::string::String,
 
@@ -230,6 +233,7 @@ impl wkt::message::Message for GetLocationRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Location {
+
     /// Resource name for the location, which may vary between implementations.
     /// For example: `"projects/example-project/locations/us-east1"`
     pub name: std::string::String,
@@ -246,7 +250,7 @@ pub struct Location {
     /// ```norust
     /// {"cloud.googleapis.com/region": "us-east1"}
     /// ```
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Service-specific metadata. For example the available capacity at the given
     /// location.
@@ -326,8 +330,7 @@ impl Location {
     /// let x = Location::new().set_metadata(Any::default()/* use setters */);
     /// ```
     pub fn set_metadata<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Any>,
+    where T: std::convert::Into<wkt::Any>
     {
         self.metadata = std::option::Option::Some(v.into());
         self
@@ -343,8 +346,7 @@ impl Location {
     /// let x = Location::new().set_or_clear_metadata(None::<Any>);
     /// ```
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Any>,
+    where T: std::convert::Into<wkt::Any>
     {
         self.metadata = v.map(|x| x.into());
         self

@@ -25,6 +25,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MessageStoragePolicy {
+
     /// Optional. A list of IDs of Google Cloud regions where messages that are
     /// published to the topic may be persisted in storage. Messages published by
     /// publishers running in non-allowed Google Cloud regions (or running outside
@@ -58,7 +59,7 @@ impl MessageStoragePolicy {
     pub fn set_allowed_persistence_regions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.allowed_persistence_regions = v.into_iter().map(|i| i.into()).collect();
@@ -88,6 +89,7 @@ impl wkt::message::Message for MessageStoragePolicy {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SchemaSettings {
+
     /// Required. The name of the schema that messages published should be
     /// validated against. Format is `projects/{project}/schemas/{schema}`. The
     /// value of this field will be `_deleted-schema_` if the schema has been
@@ -148,10 +150,7 @@ impl SchemaSettings {
     /// # use google_cloud_pubsub::model::SchemaSettings;
     /// let x = SchemaSettings::new().set_first_revision_id("example");
     /// ```
-    pub fn set_first_revision_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_first_revision_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.first_revision_id = v.into();
         self
     }
@@ -163,10 +162,7 @@ impl SchemaSettings {
     /// # use google_cloud_pubsub::model::SchemaSettings;
     /// let x = SchemaSettings::new().set_last_revision_id("example");
     /// ```
-    pub fn set_last_revision_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_last_revision_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.last_revision_id = v.into();
         self
     }
@@ -182,6 +178,7 @@ impl wkt::message::Message for SchemaSettings {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct IngestionDataSourceSettings {
+
     /// Optional. Platform Logs settings. If unset, no Platform Logs will be
     /// generated.
     pub platform_logs_settings: std::option::Option<crate::model::PlatformLogsSettings>,
@@ -206,8 +203,7 @@ impl IngestionDataSourceSettings {
     /// let x = IngestionDataSourceSettings::new().set_platform_logs_settings(PlatformLogsSettings::default()/* use setters */);
     /// ```
     pub fn set_platform_logs_settings<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::PlatformLogsSettings>,
+    where T: std::convert::Into<crate::model::PlatformLogsSettings>
     {
         self.platform_logs_settings = std::option::Option::Some(v.into());
         self
@@ -223,8 +219,7 @@ impl IngestionDataSourceSettings {
     /// let x = IngestionDataSourceSettings::new().set_or_clear_platform_logs_settings(None::<PlatformLogsSettings>);
     /// ```
     pub fn set_or_clear_platform_logs_settings<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::PlatformLogsSettings>,
+    where T: std::convert::Into<crate::model::PlatformLogsSettings>
     {
         self.platform_logs_settings = v.map(|x| x.into());
         self
@@ -242,14 +237,8 @@ impl IngestionDataSourceSettings {
     /// let x = IngestionDataSourceSettings::new().set_source(Some(
     ///     google_cloud_pubsub::model::ingestion_data_source_settings::Source::AwsKinesis(AwsKinesis::default().into())));
     /// ```
-    pub fn set_source<
-        T: std::convert::Into<
-                std::option::Option<crate::model::ingestion_data_source_settings::Source>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source<T: std::convert::Into<std::option::Option<crate::model::ingestion_data_source_settings::Source>>>(mut self, v: T) -> Self
+    {
         self.source = v.into();
         self
     }
@@ -257,16 +246,10 @@ impl IngestionDataSourceSettings {
     /// The value of [source][crate::model::IngestionDataSourceSettings::source]
     /// if it holds a `AwsKinesis`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn aws_kinesis(
-        &self,
-    ) -> std::option::Option<
-        &std::boxed::Box<crate::model::ingestion_data_source_settings::AwsKinesis>,
-    > {
+    pub fn aws_kinesis(&self) -> std::option::Option<&std::boxed::Box<crate::model::ingestion_data_source_settings::AwsKinesis>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
-            crate::model::ingestion_data_source_settings::Source::AwsKinesis(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::ingestion_data_source_settings::Source::AwsKinesis(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -288,16 +271,11 @@ impl IngestionDataSourceSettings {
     /// assert!(x.aws_msk().is_none());
     /// assert!(x.confluent_cloud().is_none());
     /// ```
-    pub fn set_aws_kinesis<
-        T: std::convert::Into<
-                std::boxed::Box<crate::model::ingestion_data_source_settings::AwsKinesis>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_aws_kinesis<T: std::convert::Into<std::boxed::Box<crate::model::ingestion_data_source_settings::AwsKinesis>>>(mut self, v: T) -> Self {
         self.source = std::option::Option::Some(
-            crate::model::ingestion_data_source_settings::Source::AwsKinesis(v.into()),
+            crate::model::ingestion_data_source_settings::Source::AwsKinesis(
+                v.into()
+            )
         );
         self
     }
@@ -305,16 +283,10 @@ impl IngestionDataSourceSettings {
     /// The value of [source][crate::model::IngestionDataSourceSettings::source]
     /// if it holds a `CloudStorage`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn cloud_storage(
-        &self,
-    ) -> std::option::Option<
-        &std::boxed::Box<crate::model::ingestion_data_source_settings::CloudStorage>,
-    > {
+    pub fn cloud_storage(&self) -> std::option::Option<&std::boxed::Box<crate::model::ingestion_data_source_settings::CloudStorage>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
-            crate::model::ingestion_data_source_settings::Source::CloudStorage(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::ingestion_data_source_settings::Source::CloudStorage(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -336,16 +308,11 @@ impl IngestionDataSourceSettings {
     /// assert!(x.aws_msk().is_none());
     /// assert!(x.confluent_cloud().is_none());
     /// ```
-    pub fn set_cloud_storage<
-        T: std::convert::Into<
-                std::boxed::Box<crate::model::ingestion_data_source_settings::CloudStorage>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_cloud_storage<T: std::convert::Into<std::boxed::Box<crate::model::ingestion_data_source_settings::CloudStorage>>>(mut self, v: T) -> Self {
         self.source = std::option::Option::Some(
-            crate::model::ingestion_data_source_settings::Source::CloudStorage(v.into()),
+            crate::model::ingestion_data_source_settings::Source::CloudStorage(
+                v.into()
+            )
         );
         self
     }
@@ -353,16 +320,10 @@ impl IngestionDataSourceSettings {
     /// The value of [source][crate::model::IngestionDataSourceSettings::source]
     /// if it holds a `AzureEventHubs`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn azure_event_hubs(
-        &self,
-    ) -> std::option::Option<
-        &std::boxed::Box<crate::model::ingestion_data_source_settings::AzureEventHubs>,
-    > {
+    pub fn azure_event_hubs(&self) -> std::option::Option<&std::boxed::Box<crate::model::ingestion_data_source_settings::AzureEventHubs>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
-            crate::model::ingestion_data_source_settings::Source::AzureEventHubs(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::ingestion_data_source_settings::Source::AzureEventHubs(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -384,16 +345,11 @@ impl IngestionDataSourceSettings {
     /// assert!(x.aws_msk().is_none());
     /// assert!(x.confluent_cloud().is_none());
     /// ```
-    pub fn set_azure_event_hubs<
-        T: std::convert::Into<
-                std::boxed::Box<crate::model::ingestion_data_source_settings::AzureEventHubs>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_azure_event_hubs<T: std::convert::Into<std::boxed::Box<crate::model::ingestion_data_source_settings::AzureEventHubs>>>(mut self, v: T) -> Self {
         self.source = std::option::Option::Some(
-            crate::model::ingestion_data_source_settings::Source::AzureEventHubs(v.into()),
+            crate::model::ingestion_data_source_settings::Source::AzureEventHubs(
+                v.into()
+            )
         );
         self
     }
@@ -401,15 +357,10 @@ impl IngestionDataSourceSettings {
     /// The value of [source][crate::model::IngestionDataSourceSettings::source]
     /// if it holds a `AwsMsk`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn aws_msk(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::ingestion_data_source_settings::AwsMsk>>
-    {
+    pub fn aws_msk(&self) -> std::option::Option<&std::boxed::Box<crate::model::ingestion_data_source_settings::AwsMsk>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
-            crate::model::ingestion_data_source_settings::Source::AwsMsk(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::ingestion_data_source_settings::Source::AwsMsk(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -431,14 +382,11 @@ impl IngestionDataSourceSettings {
     /// assert!(x.azure_event_hubs().is_none());
     /// assert!(x.confluent_cloud().is_none());
     /// ```
-    pub fn set_aws_msk<
-        T: std::convert::Into<std::boxed::Box<crate::model::ingestion_data_source_settings::AwsMsk>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_aws_msk<T: std::convert::Into<std::boxed::Box<crate::model::ingestion_data_source_settings::AwsMsk>>>(mut self, v: T) -> Self {
         self.source = std::option::Option::Some(
-            crate::model::ingestion_data_source_settings::Source::AwsMsk(v.into()),
+            crate::model::ingestion_data_source_settings::Source::AwsMsk(
+                v.into()
+            )
         );
         self
     }
@@ -446,16 +394,10 @@ impl IngestionDataSourceSettings {
     /// The value of [source][crate::model::IngestionDataSourceSettings::source]
     /// if it holds a `ConfluentCloud`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn confluent_cloud(
-        &self,
-    ) -> std::option::Option<
-        &std::boxed::Box<crate::model::ingestion_data_source_settings::ConfluentCloud>,
-    > {
+    pub fn confluent_cloud(&self) -> std::option::Option<&std::boxed::Box<crate::model::ingestion_data_source_settings::ConfluentCloud>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
-            crate::model::ingestion_data_source_settings::Source::ConfluentCloud(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::ingestion_data_source_settings::Source::ConfluentCloud(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -477,16 +419,11 @@ impl IngestionDataSourceSettings {
     /// assert!(x.azure_event_hubs().is_none());
     /// assert!(x.aws_msk().is_none());
     /// ```
-    pub fn set_confluent_cloud<
-        T: std::convert::Into<
-                std::boxed::Box<crate::model::ingestion_data_source_settings::ConfluentCloud>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_confluent_cloud<T: std::convert::Into<std::boxed::Box<crate::model::ingestion_data_source_settings::ConfluentCloud>>>(mut self, v: T) -> Self {
         self.source = std::option::Option::Some(
-            crate::model::ingestion_data_source_settings::Source::ConfluentCloud(v.into()),
+            crate::model::ingestion_data_source_settings::Source::ConfluentCloud(
+                v.into()
+            )
         );
         self
     }
@@ -503,10 +440,12 @@ pub mod ingestion_data_source_settings {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Ingestion settings for Amazon Kinesis Data Streams.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AwsKinesis {
+
         /// Output only. An output-only field that indicates the state of the Kinesis
         /// ingestion source.
         pub state: crate::model::ingestion_data_source_settings::aws_kinesis::State,
@@ -547,12 +486,7 @@ pub mod ingestion_data_source_settings {
         /// let x1 = AwsKinesis::new().set_state(State::KinesisPermissionDenied);
         /// let x2 = AwsKinesis::new().set_state(State::PublishPermissionDenied);
         /// ```
-        pub fn set_state<
-            T: std::convert::Into<crate::model::ingestion_data_source_settings::aws_kinesis::State>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_state<T: std::convert::Into<crate::model::ingestion_data_source_settings::aws_kinesis::State>>(mut self, v: T) -> Self {
             self.state = v.into();
             self
         }
@@ -576,10 +510,7 @@ pub mod ingestion_data_source_settings {
         /// # use google_cloud_pubsub::model::ingestion_data_source_settings::AwsKinesis;
         /// let x = AwsKinesis::new().set_consumer_arn("example");
         /// ```
-        pub fn set_consumer_arn<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_consumer_arn<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.consumer_arn = v.into();
             self
         }
@@ -591,10 +522,7 @@ pub mod ingestion_data_source_settings {
         /// # use google_cloud_pubsub::model::ingestion_data_source_settings::AwsKinesis;
         /// let x = AwsKinesis::new().set_aws_role_arn("example");
         /// ```
-        pub fn set_aws_role_arn<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_aws_role_arn<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.aws_role_arn = v.into();
             self
         }
@@ -606,10 +534,7 @@ pub mod ingestion_data_source_settings {
         /// # use google_cloud_pubsub::model::ingestion_data_source_settings::AwsKinesis;
         /// let x = AwsKinesis::new().set_gcp_service_account("example");
         /// ```
-        pub fn set_gcp_service_account<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_gcp_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.gcp_service_account = v.into();
             self
         }
@@ -625,6 +550,7 @@ pub mod ingestion_data_source_settings {
     pub mod aws_kinesis {
         #[allow(unused_imports)]
         use super::*;
+
 
         /// Possible states for ingestion from Amazon Kinesis Data Streams.
         ///
@@ -707,12 +633,8 @@ pub mod ingestion_data_source_settings {
                 match self {
                     Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
                     Self::Active => std::option::Option::Some("ACTIVE"),
-                    Self::KinesisPermissionDenied => {
-                        std::option::Option::Some("KINESIS_PERMISSION_DENIED")
-                    }
-                    Self::PublishPermissionDenied => {
-                        std::option::Option::Some("PUBLISH_PERMISSION_DENIED")
-                    }
+                    Self::KinesisPermissionDenied => std::option::Option::Some("KINESIS_PERMISSION_DENIED"),
+                    Self::PublishPermissionDenied => std::option::Option::Some("PUBLISH_PERMISSION_DENIED"),
                     Self::StreamNotFound => std::option::Option::Some("STREAM_NOT_FOUND"),
                     Self::ConsumerNotFound => std::option::Option::Some("CONSUMER_NOT_FOUND"),
                     Self::UnknownValue(u) => u.0.name(),
@@ -728,10 +650,7 @@ pub mod ingestion_data_source_settings {
         }
 
         impl std::fmt::Display for State {
-            fn fmt(
-                &self,
-                f: &mut std::fmt::Formatter<'_>,
-            ) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -745,9 +664,7 @@ pub mod ingestion_data_source_settings {
                     3 => Self::PublishPermissionDenied,
                     4 => Self::StreamNotFound,
                     5 => Self::ConsumerNotFound,
-                    _ => Self::UnknownValue(state::UnknownValue(
-                        wkt::internal::UnknownEnumValue::Integer(value),
-                    )),
+                    _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
                 }
             }
         }
@@ -762,9 +679,7 @@ pub mod ingestion_data_source_settings {
                     "PUBLISH_PERMISSION_DENIED" => Self::PublishPermissionDenied,
                     "STREAM_NOT_FOUND" => Self::StreamNotFound,
                     "CONSUMER_NOT_FOUND" => Self::ConsumerNotFound,
-                    _ => Self::UnknownValue(state::UnknownValue(
-                        wkt::internal::UnknownEnumValue::String(value.to_string()),
-                    )),
+                    _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
                 }
             }
         }
@@ -792,8 +707,7 @@ pub mod ingestion_data_source_settings {
                 D: serde::Deserializer<'de>,
             {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                    ".google.pubsub.v1.IngestionDataSourceSettings.AwsKinesis.State",
-                ))
+                    ".google.pubsub.v1.IngestionDataSourceSettings.AwsKinesis.State"))
             }
         }
     }
@@ -802,6 +716,7 @@ pub mod ingestion_data_source_settings {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CloudStorage {
+
         /// Output only. An output-only field that indicates the state of the Cloud
         /// Storage ingestion source.
         pub state: crate::model::ingestion_data_source_settings::cloud_storage::State,
@@ -821,9 +736,7 @@ pub mod ingestion_data_source_settings {
         pub match_glob: std::string::String,
 
         /// Defaults to text format.
-        pub input_format: std::option::Option<
-            crate::model::ingestion_data_source_settings::cloud_storage::InputFormat,
-        >,
+        pub input_format: std::option::Option<crate::model::ingestion_data_source_settings::cloud_storage::InputFormat>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -843,12 +756,7 @@ pub mod ingestion_data_source_settings {
         /// let x1 = CloudStorage::new().set_state(State::CloudStoragePermissionDenied);
         /// let x2 = CloudStorage::new().set_state(State::PublishPermissionDenied);
         /// ```
-        pub fn set_state<
-            T: std::convert::Into<crate::model::ingestion_data_source_settings::cloud_storage::State>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_state<T: std::convert::Into<crate::model::ingestion_data_source_settings::cloud_storage::State>>(mut self, v: T) -> Self {
             self.state = v.into();
             self
         }
@@ -874,8 +782,7 @@ pub mod ingestion_data_source_settings {
         /// let x = CloudStorage::new().set_minimum_object_create_time(Timestamp::default()/* use setters */);
         /// ```
         pub fn set_minimum_object_create_time<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.minimum_object_create_time = std::option::Option::Some(v.into());
             self
@@ -890,12 +797,8 @@ pub mod ingestion_data_source_settings {
         /// let x = CloudStorage::new().set_or_clear_minimum_object_create_time(Some(Timestamp::default()/* use setters */));
         /// let x = CloudStorage::new().set_or_clear_minimum_object_create_time(None::<Timestamp>);
         /// ```
-        pub fn set_or_clear_minimum_object_create_time<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        pub fn set_or_clear_minimum_object_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.minimum_object_create_time = v.map(|x| x.into());
             self
@@ -925,16 +828,8 @@ pub mod ingestion_data_source_settings {
         /// let x = CloudStorage::new().set_input_format(Some(
         ///     google_cloud_pubsub::model::ingestion_data_source_settings::cloud_storage::InputFormat::TextFormat(TextFormat::default().into())));
         /// ```
-        pub fn set_input_format<
-            T: std::convert::Into<
-                    std::option::Option<
-                        crate::model::ingestion_data_source_settings::cloud_storage::InputFormat,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_input_format<T: std::convert::Into<std::option::Option<crate::model::ingestion_data_source_settings::cloud_storage::InputFormat>>>(mut self, v: T) -> Self
+        {
             self.input_format = v.into();
             self
         }
@@ -942,13 +837,7 @@ pub mod ingestion_data_source_settings {
         /// The value of [input_format][crate::model::ingestion_data_source_settings::CloudStorage::input_format]
         /// if it holds a `TextFormat`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn text_format(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<
-                crate::model::ingestion_data_source_settings::cloud_storage::TextFormat,
-            >,
-        > {
+        pub fn text_format(&self) -> std::option::Option<&std::boxed::Box<crate::model::ingestion_data_source_settings::cloud_storage::TextFormat>> {
             #[allow(unreachable_patterns)]
             self.input_format.as_ref().and_then(|v| match v {
                 crate::model::ingestion_data_source_settings::cloud_storage::InputFormat::TextFormat(v) => std::option::Option::Some(v),
@@ -971,16 +860,7 @@ pub mod ingestion_data_source_settings {
         /// assert!(x.avro_format().is_none());
         /// assert!(x.pubsub_avro_format().is_none());
         /// ```
-        pub fn set_text_format<
-            T: std::convert::Into<
-                    std::boxed::Box<
-                        crate::model::ingestion_data_source_settings::cloud_storage::TextFormat,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_text_format<T: std::convert::Into<std::boxed::Box<crate::model::ingestion_data_source_settings::cloud_storage::TextFormat>>>(mut self, v: T) -> Self {
             self.input_format = std::option::Option::Some(
                 crate::model::ingestion_data_source_settings::cloud_storage::InputFormat::TextFormat(
                     v.into()
@@ -992,13 +872,7 @@ pub mod ingestion_data_source_settings {
         /// The value of [input_format][crate::model::ingestion_data_source_settings::CloudStorage::input_format]
         /// if it holds a `AvroFormat`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn avro_format(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<
-                crate::model::ingestion_data_source_settings::cloud_storage::AvroFormat,
-            >,
-        > {
+        pub fn avro_format(&self) -> std::option::Option<&std::boxed::Box<crate::model::ingestion_data_source_settings::cloud_storage::AvroFormat>> {
             #[allow(unreachable_patterns)]
             self.input_format.as_ref().and_then(|v| match v {
                 crate::model::ingestion_data_source_settings::cloud_storage::InputFormat::AvroFormat(v) => std::option::Option::Some(v),
@@ -1021,16 +895,7 @@ pub mod ingestion_data_source_settings {
         /// assert!(x.text_format().is_none());
         /// assert!(x.pubsub_avro_format().is_none());
         /// ```
-        pub fn set_avro_format<
-            T: std::convert::Into<
-                    std::boxed::Box<
-                        crate::model::ingestion_data_source_settings::cloud_storage::AvroFormat,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_avro_format<T: std::convert::Into<std::boxed::Box<crate::model::ingestion_data_source_settings::cloud_storage::AvroFormat>>>(mut self, v: T) -> Self {
             self.input_format = std::option::Option::Some(
                 crate::model::ingestion_data_source_settings::cloud_storage::InputFormat::AvroFormat(
                     v.into()
@@ -1042,13 +907,7 @@ pub mod ingestion_data_source_settings {
         /// The value of [input_format][crate::model::ingestion_data_source_settings::CloudStorage::input_format]
         /// if it holds a `PubsubAvroFormat`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn pubsub_avro_format(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<
-                crate::model::ingestion_data_source_settings::cloud_storage::PubSubAvroFormat,
-            >,
-        > {
+        pub fn pubsub_avro_format(&self) -> std::option::Option<&std::boxed::Box<crate::model::ingestion_data_source_settings::cloud_storage::PubSubAvroFormat>> {
             #[allow(unreachable_patterns)]
             self.input_format.as_ref().and_then(|v| match v {
                 crate::model::ingestion_data_source_settings::cloud_storage::InputFormat::PubsubAvroFormat(v) => std::option::Option::Some(v),
@@ -1071,7 +930,7 @@ pub mod ingestion_data_source_settings {
         /// assert!(x.text_format().is_none());
         /// assert!(x.avro_format().is_none());
         /// ```
-        pub fn set_pubsub_avro_format<T: std::convert::Into<std::boxed::Box<crate::model::ingestion_data_source_settings::cloud_storage::PubSubAvroFormat>>>(mut self, v: T) -> Self{
+        pub fn set_pubsub_avro_format<T: std::convert::Into<std::boxed::Box<crate::model::ingestion_data_source_settings::cloud_storage::PubSubAvroFormat>>>(mut self, v: T) -> Self {
             self.input_format = std::option::Option::Some(
                 crate::model::ingestion_data_source_settings::cloud_storage::InputFormat::PubsubAvroFormat(
                     v.into()
@@ -1092,12 +951,14 @@ pub mod ingestion_data_source_settings {
         #[allow(unused_imports)]
         use super::*;
 
+
         /// Configuration for reading Cloud Storage data in text format. Each line of
         /// text as specified by the delimiter will be set to the `data` field of a
         /// Pub/Sub message.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct TextFormat {
+
             /// Optional. When unset, '\n' is used.
             pub delimiter: std::option::Option<std::string::String>,
 
@@ -1117,8 +978,7 @@ pub mod ingestion_data_source_settings {
             /// let x = TextFormat::new().set_delimiter("example");
             /// ```
             pub fn set_delimiter<T>(mut self, v: T) -> Self
-            where
-                T: std::convert::Into<std::string::String>,
+            where T: std::convert::Into<std::string::String>
             {
                 self.delimiter = std::option::Option::Some(v.into());
                 self
@@ -1133,8 +993,7 @@ pub mod ingestion_data_source_settings {
             /// let x = TextFormat::new().set_or_clear_delimiter(None::<String>);
             /// ```
             pub fn set_or_clear_delimiter<T>(mut self, v: std::option::Option<T>) -> Self
-            where
-                T: std::convert::Into<std::string::String>,
+            where T: std::convert::Into<std::string::String>
             {
                 self.delimiter = v.map(|x| x.into());
                 self
@@ -1153,6 +1012,7 @@ pub mod ingestion_data_source_settings {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct AvroFormat {
+
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
@@ -1175,6 +1035,7 @@ pub mod ingestion_data_source_settings {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct PubSubAvroFormat {
+
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
@@ -1270,12 +1131,8 @@ pub mod ingestion_data_source_settings {
                 match self {
                     Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
                     Self::Active => std::option::Option::Some("ACTIVE"),
-                    Self::CloudStoragePermissionDenied => {
-                        std::option::Option::Some("CLOUD_STORAGE_PERMISSION_DENIED")
-                    }
-                    Self::PublishPermissionDenied => {
-                        std::option::Option::Some("PUBLISH_PERMISSION_DENIED")
-                    }
+                    Self::CloudStoragePermissionDenied => std::option::Option::Some("CLOUD_STORAGE_PERMISSION_DENIED"),
+                    Self::PublishPermissionDenied => std::option::Option::Some("PUBLISH_PERMISSION_DENIED"),
                     Self::BucketNotFound => std::option::Option::Some("BUCKET_NOT_FOUND"),
                     Self::TooManyObjects => std::option::Option::Some("TOO_MANY_OBJECTS"),
                     Self::UnknownValue(u) => u.0.name(),
@@ -1291,10 +1148,7 @@ pub mod ingestion_data_source_settings {
         }
 
         impl std::fmt::Display for State {
-            fn fmt(
-                &self,
-                f: &mut std::fmt::Formatter<'_>,
-            ) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -1308,9 +1162,7 @@ pub mod ingestion_data_source_settings {
                     3 => Self::PublishPermissionDenied,
                     4 => Self::BucketNotFound,
                     5 => Self::TooManyObjects,
-                    _ => Self::UnknownValue(state::UnknownValue(
-                        wkt::internal::UnknownEnumValue::Integer(value),
-                    )),
+                    _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
                 }
             }
         }
@@ -1325,9 +1177,7 @@ pub mod ingestion_data_source_settings {
                     "PUBLISH_PERMISSION_DENIED" => Self::PublishPermissionDenied,
                     "BUCKET_NOT_FOUND" => Self::BucketNotFound,
                     "TOO_MANY_OBJECTS" => Self::TooManyObjects,
-                    _ => Self::UnknownValue(state::UnknownValue(
-                        wkt::internal::UnknownEnumValue::String(value.to_string()),
-                    )),
+                    _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
                 }
             }
         }
@@ -1355,8 +1205,7 @@ pub mod ingestion_data_source_settings {
                 D: serde::Deserializer<'de>,
             {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                    ".google.pubsub.v1.IngestionDataSourceSettings.CloudStorage.State",
-                ))
+                    ".google.pubsub.v1.IngestionDataSourceSettings.CloudStorage.State"))
             }
         }
 
@@ -1365,25 +1214,13 @@ pub mod ingestion_data_source_settings {
         #[non_exhaustive]
         pub enum InputFormat {
             /// Optional. Data from Cloud Storage will be interpreted as text.
-            TextFormat(
-                std::boxed::Box<
-                    crate::model::ingestion_data_source_settings::cloud_storage::TextFormat,
-                >,
-            ),
+            TextFormat(std::boxed::Box<crate::model::ingestion_data_source_settings::cloud_storage::TextFormat>),
             /// Optional. Data from Cloud Storage will be interpreted in Avro format.
-            AvroFormat(
-                std::boxed::Box<
-                    crate::model::ingestion_data_source_settings::cloud_storage::AvroFormat,
-                >,
-            ),
+            AvroFormat(std::boxed::Box<crate::model::ingestion_data_source_settings::cloud_storage::AvroFormat>),
             /// Optional. It will be assumed data from Cloud Storage was written via
             /// [Cloud Storage
             /// subscriptions](https://cloud.google.com/pubsub/docs/cloudstorage).
-            PubsubAvroFormat(
-                std::boxed::Box<
-                    crate::model::ingestion_data_source_settings::cloud_storage::PubSubAvroFormat,
-                >,
-            ),
+            PubsubAvroFormat(std::boxed::Box<crate::model::ingestion_data_source_settings::cloud_storage::PubSubAvroFormat>),
         }
     }
 
@@ -1391,6 +1228,7 @@ pub mod ingestion_data_source_settings {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AzureEventHubs {
+
         /// Output only. An output-only field that indicates the state of the Event
         /// Hubs ingestion source.
         pub state: crate::model::ingestion_data_source_settings::azure_event_hubs::State,
@@ -1437,14 +1275,7 @@ pub mod ingestion_data_source_settings {
         /// let x1 = AzureEventHubs::new().set_state(State::EventHubsPermissionDenied);
         /// let x2 = AzureEventHubs::new().set_state(State::PublishPermissionDenied);
         /// ```
-        pub fn set_state<
-            T: std::convert::Into<
-                    crate::model::ingestion_data_source_settings::azure_event_hubs::State,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_state<T: std::convert::Into<crate::model::ingestion_data_source_settings::azure_event_hubs::State>>(mut self, v: T) -> Self {
             self.state = v.into();
             self
         }
@@ -1456,10 +1287,7 @@ pub mod ingestion_data_source_settings {
         /// # use google_cloud_pubsub::model::ingestion_data_source_settings::AzureEventHubs;
         /// let x = AzureEventHubs::new().set_resource_group("example");
         /// ```
-        pub fn set_resource_group<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_resource_group<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.resource_group = v.into();
             self
         }
@@ -1519,10 +1347,7 @@ pub mod ingestion_data_source_settings {
         /// # use google_cloud_pubsub::model::ingestion_data_source_settings::AzureEventHubs;
         /// let x = AzureEventHubs::new().set_subscription_id("example");
         /// ```
-        pub fn set_subscription_id<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_subscription_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.subscription_id = v.into();
             self
         }
@@ -1534,10 +1359,7 @@ pub mod ingestion_data_source_settings {
         /// # use google_cloud_pubsub::model::ingestion_data_source_settings::AzureEventHubs;
         /// let x = AzureEventHubs::new().set_gcp_service_account("example");
         /// ```
-        pub fn set_gcp_service_account<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_gcp_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.gcp_service_account = v.into();
             self
         }
@@ -1553,6 +1375,7 @@ pub mod ingestion_data_source_settings {
     pub mod azure_event_hubs {
         #[allow(unused_imports)]
         use super::*;
+
 
         /// Possible states for managed ingestion from Event Hubs.
         ///
@@ -1632,20 +1455,12 @@ pub mod ingestion_data_source_settings {
                 match self {
                     Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
                     Self::Active => std::option::Option::Some("ACTIVE"),
-                    Self::EventHubsPermissionDenied => {
-                        std::option::Option::Some("EVENT_HUBS_PERMISSION_DENIED")
-                    }
-                    Self::PublishPermissionDenied => {
-                        std::option::Option::Some("PUBLISH_PERMISSION_DENIED")
-                    }
+                    Self::EventHubsPermissionDenied => std::option::Option::Some("EVENT_HUBS_PERMISSION_DENIED"),
+                    Self::PublishPermissionDenied => std::option::Option::Some("PUBLISH_PERMISSION_DENIED"),
                     Self::NamespaceNotFound => std::option::Option::Some("NAMESPACE_NOT_FOUND"),
                     Self::EventHubNotFound => std::option::Option::Some("EVENT_HUB_NOT_FOUND"),
-                    Self::SubscriptionNotFound => {
-                        std::option::Option::Some("SUBSCRIPTION_NOT_FOUND")
-                    }
-                    Self::ResourceGroupNotFound => {
-                        std::option::Option::Some("RESOURCE_GROUP_NOT_FOUND")
-                    }
+                    Self::SubscriptionNotFound => std::option::Option::Some("SUBSCRIPTION_NOT_FOUND"),
+                    Self::ResourceGroupNotFound => std::option::Option::Some("RESOURCE_GROUP_NOT_FOUND"),
                     Self::UnknownValue(u) => u.0.name(),
                 }
             }
@@ -1659,10 +1474,7 @@ pub mod ingestion_data_source_settings {
         }
 
         impl std::fmt::Display for State {
-            fn fmt(
-                &self,
-                f: &mut std::fmt::Formatter<'_>,
-            ) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -1678,9 +1490,7 @@ pub mod ingestion_data_source_settings {
                     5 => Self::EventHubNotFound,
                     6 => Self::SubscriptionNotFound,
                     7 => Self::ResourceGroupNotFound,
-                    _ => Self::UnknownValue(state::UnknownValue(
-                        wkt::internal::UnknownEnumValue::Integer(value),
-                    )),
+                    _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
                 }
             }
         }
@@ -1697,9 +1507,7 @@ pub mod ingestion_data_source_settings {
                     "EVENT_HUB_NOT_FOUND" => Self::EventHubNotFound,
                     "SUBSCRIPTION_NOT_FOUND" => Self::SubscriptionNotFound,
                     "RESOURCE_GROUP_NOT_FOUND" => Self::ResourceGroupNotFound,
-                    _ => Self::UnknownValue(state::UnknownValue(
-                        wkt::internal::UnknownEnumValue::String(value.to_string()),
-                    )),
+                    _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
                 }
             }
         }
@@ -1729,8 +1537,7 @@ pub mod ingestion_data_source_settings {
                 D: serde::Deserializer<'de>,
             {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                    ".google.pubsub.v1.IngestionDataSourceSettings.AzureEventHubs.State",
-                ))
+                    ".google.pubsub.v1.IngestionDataSourceSettings.AzureEventHubs.State"))
             }
         }
     }
@@ -1739,6 +1546,7 @@ pub mod ingestion_data_source_settings {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AwsMsk {
+
         /// Output only. An output-only field that indicates the state of the Amazon
         /// MSK ingestion source.
         pub state: crate::model::ingestion_data_source_settings::aws_msk::State,
@@ -1780,12 +1588,7 @@ pub mod ingestion_data_source_settings {
         /// let x1 = AwsMsk::new().set_state(State::MskPermissionDenied);
         /// let x2 = AwsMsk::new().set_state(State::PublishPermissionDenied);
         /// ```
-        pub fn set_state<
-            T: std::convert::Into<crate::model::ingestion_data_source_settings::aws_msk::State>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_state<T: std::convert::Into<crate::model::ingestion_data_source_settings::aws_msk::State>>(mut self, v: T) -> Self {
             self.state = v.into();
             self
         }
@@ -1821,10 +1624,7 @@ pub mod ingestion_data_source_settings {
         /// # use google_cloud_pubsub::model::ingestion_data_source_settings::AwsMsk;
         /// let x = AwsMsk::new().set_aws_role_arn("example");
         /// ```
-        pub fn set_aws_role_arn<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_aws_role_arn<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.aws_role_arn = v.into();
             self
         }
@@ -1836,10 +1636,7 @@ pub mod ingestion_data_source_settings {
         /// # use google_cloud_pubsub::model::ingestion_data_source_settings::AwsMsk;
         /// let x = AwsMsk::new().set_gcp_service_account("example");
         /// ```
-        pub fn set_gcp_service_account<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_gcp_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.gcp_service_account = v.into();
             self
         }
@@ -1855,6 +1652,7 @@ pub mod ingestion_data_source_settings {
     pub mod aws_msk {
         #[allow(unused_imports)]
         use super::*;
+
 
         /// Possible states for managed ingestion from Amazon MSK.
         ///
@@ -1927,9 +1725,7 @@ pub mod ingestion_data_source_settings {
                     Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
                     Self::Active => std::option::Option::Some("ACTIVE"),
                     Self::MskPermissionDenied => std::option::Option::Some("MSK_PERMISSION_DENIED"),
-                    Self::PublishPermissionDenied => {
-                        std::option::Option::Some("PUBLISH_PERMISSION_DENIED")
-                    }
+                    Self::PublishPermissionDenied => std::option::Option::Some("PUBLISH_PERMISSION_DENIED"),
                     Self::ClusterNotFound => std::option::Option::Some("CLUSTER_NOT_FOUND"),
                     Self::TopicNotFound => std::option::Option::Some("TOPIC_NOT_FOUND"),
                     Self::UnknownValue(u) => u.0.name(),
@@ -1945,10 +1741,7 @@ pub mod ingestion_data_source_settings {
         }
 
         impl std::fmt::Display for State {
-            fn fmt(
-                &self,
-                f: &mut std::fmt::Formatter<'_>,
-            ) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -1962,9 +1755,7 @@ pub mod ingestion_data_source_settings {
                     3 => Self::PublishPermissionDenied,
                     4 => Self::ClusterNotFound,
                     5 => Self::TopicNotFound,
-                    _ => Self::UnknownValue(state::UnknownValue(
-                        wkt::internal::UnknownEnumValue::Integer(value),
-                    )),
+                    _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
                 }
             }
         }
@@ -1979,9 +1770,7 @@ pub mod ingestion_data_source_settings {
                     "PUBLISH_PERMISSION_DENIED" => Self::PublishPermissionDenied,
                     "CLUSTER_NOT_FOUND" => Self::ClusterNotFound,
                     "TOPIC_NOT_FOUND" => Self::TopicNotFound,
-                    _ => Self::UnknownValue(state::UnknownValue(
-                        wkt::internal::UnknownEnumValue::String(value.to_string()),
-                    )),
+                    _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
                 }
             }
         }
@@ -2009,8 +1798,7 @@ pub mod ingestion_data_source_settings {
                 D: serde::Deserializer<'de>,
             {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                    ".google.pubsub.v1.IngestionDataSourceSettings.AwsMsk.State",
-                ))
+                    ".google.pubsub.v1.IngestionDataSourceSettings.AwsMsk.State"))
             }
         }
     }
@@ -2019,6 +1807,7 @@ pub mod ingestion_data_source_settings {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ConfluentCloud {
+
         /// Output only. An output-only field that indicates the state of the
         /// Confluent Cloud ingestion source.
         pub state: crate::model::ingestion_data_source_settings::confluent_cloud::State,
@@ -2060,14 +1849,7 @@ pub mod ingestion_data_source_settings {
         /// let x1 = ConfluentCloud::new().set_state(State::ConfluentCloudPermissionDenied);
         /// let x2 = ConfluentCloud::new().set_state(State::PublishPermissionDenied);
         /// ```
-        pub fn set_state<
-            T: std::convert::Into<
-                    crate::model::ingestion_data_source_settings::confluent_cloud::State,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_state<T: std::convert::Into<crate::model::ingestion_data_source_settings::confluent_cloud::State>>(mut self, v: T) -> Self {
             self.state = v.into();
             self
         }
@@ -2079,10 +1861,7 @@ pub mod ingestion_data_source_settings {
         /// # use google_cloud_pubsub::model::ingestion_data_source_settings::ConfluentCloud;
         /// let x = ConfluentCloud::new().set_bootstrap_server("example");
         /// ```
-        pub fn set_bootstrap_server<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_bootstrap_server<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.bootstrap_server = v.into();
             self
         }
@@ -2118,10 +1897,7 @@ pub mod ingestion_data_source_settings {
         /// # use google_cloud_pubsub::model::ingestion_data_source_settings::ConfluentCloud;
         /// let x = ConfluentCloud::new().set_identity_pool_id("example");
         /// ```
-        pub fn set_identity_pool_id<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_identity_pool_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.identity_pool_id = v.into();
             self
         }
@@ -2133,10 +1909,7 @@ pub mod ingestion_data_source_settings {
         /// # use google_cloud_pubsub::model::ingestion_data_source_settings::ConfluentCloud;
         /// let x = ConfluentCloud::new().set_gcp_service_account("example");
         /// ```
-        pub fn set_gcp_service_account<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_gcp_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.gcp_service_account = v.into();
             self
         }
@@ -2152,6 +1925,7 @@ pub mod ingestion_data_source_settings {
     pub mod confluent_cloud {
         #[allow(unused_imports)]
         use super::*;
+
 
         /// Possible states for managed ingestion from Confluent Cloud.
         ///
@@ -2227,15 +2001,9 @@ pub mod ingestion_data_source_settings {
                 match self {
                     Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
                     Self::Active => std::option::Option::Some("ACTIVE"),
-                    Self::ConfluentCloudPermissionDenied => {
-                        std::option::Option::Some("CONFLUENT_CLOUD_PERMISSION_DENIED")
-                    }
-                    Self::PublishPermissionDenied => {
-                        std::option::Option::Some("PUBLISH_PERMISSION_DENIED")
-                    }
-                    Self::UnreachableBootstrapServer => {
-                        std::option::Option::Some("UNREACHABLE_BOOTSTRAP_SERVER")
-                    }
+                    Self::ConfluentCloudPermissionDenied => std::option::Option::Some("CONFLUENT_CLOUD_PERMISSION_DENIED"),
+                    Self::PublishPermissionDenied => std::option::Option::Some("PUBLISH_PERMISSION_DENIED"),
+                    Self::UnreachableBootstrapServer => std::option::Option::Some("UNREACHABLE_BOOTSTRAP_SERVER"),
                     Self::ClusterNotFound => std::option::Option::Some("CLUSTER_NOT_FOUND"),
                     Self::TopicNotFound => std::option::Option::Some("TOPIC_NOT_FOUND"),
                     Self::UnknownValue(u) => u.0.name(),
@@ -2251,10 +2019,7 @@ pub mod ingestion_data_source_settings {
         }
 
         impl std::fmt::Display for State {
-            fn fmt(
-                &self,
-                f: &mut std::fmt::Formatter<'_>,
-            ) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -2269,9 +2034,7 @@ pub mod ingestion_data_source_settings {
                     4 => Self::UnreachableBootstrapServer,
                     5 => Self::ClusterNotFound,
                     6 => Self::TopicNotFound,
-                    _ => Self::UnknownValue(state::UnknownValue(
-                        wkt::internal::UnknownEnumValue::Integer(value),
-                    )),
+                    _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
                 }
             }
         }
@@ -2287,9 +2050,7 @@ pub mod ingestion_data_source_settings {
                     "UNREACHABLE_BOOTSTRAP_SERVER" => Self::UnreachableBootstrapServer,
                     "CLUSTER_NOT_FOUND" => Self::ClusterNotFound,
                     "TOPIC_NOT_FOUND" => Self::TopicNotFound,
-                    _ => Self::UnknownValue(state::UnknownValue(
-                        wkt::internal::UnknownEnumValue::String(value.to_string()),
-                    )),
+                    _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
                 }
             }
         }
@@ -2318,8 +2079,7 @@ pub mod ingestion_data_source_settings {
                 D: serde::Deserializer<'de>,
             {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                    ".google.pubsub.v1.IngestionDataSourceSettings.ConfluentCloud.State",
-                ))
+                    ".google.pubsub.v1.IngestionDataSourceSettings.ConfluentCloud.State"))
             }
         }
     }
@@ -2333,15 +2093,11 @@ pub mod ingestion_data_source_settings {
         /// Optional. Cloud Storage.
         CloudStorage(std::boxed::Box<crate::model::ingestion_data_source_settings::CloudStorage>),
         /// Optional. Azure Event Hubs.
-        AzureEventHubs(
-            std::boxed::Box<crate::model::ingestion_data_source_settings::AzureEventHubs>,
-        ),
+        AzureEventHubs(std::boxed::Box<crate::model::ingestion_data_source_settings::AzureEventHubs>),
         /// Optional. Amazon MSK.
         AwsMsk(std::boxed::Box<crate::model::ingestion_data_source_settings::AwsMsk>),
         /// Optional. Confluent Cloud.
-        ConfluentCloud(
-            std::boxed::Box<crate::model::ingestion_data_source_settings::ConfluentCloud>,
-        ),
+        ConfluentCloud(std::boxed::Box<crate::model::ingestion_data_source_settings::ConfluentCloud>),
     }
 }
 
@@ -2349,6 +2105,7 @@ pub mod ingestion_data_source_settings {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PlatformLogsSettings {
+
     /// Optional. The minimum severity level of Platform Logs that will be written.
     pub severity: crate::model::platform_logs_settings::Severity,
 
@@ -2370,10 +2127,7 @@ impl PlatformLogsSettings {
     /// let x1 = PlatformLogsSettings::new().set_severity(Severity::Debug);
     /// let x2 = PlatformLogsSettings::new().set_severity(Severity::Info);
     /// ```
-    pub fn set_severity<T: std::convert::Into<crate::model::platform_logs_settings::Severity>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_severity<T: std::convert::Into<crate::model::platform_logs_settings::Severity>>(mut self, v: T) -> Self {
         self.severity = v.into();
         self
     }
@@ -2389,6 +2143,7 @@ impl wkt::message::Message for PlatformLogsSettings {
 pub mod platform_logs_settings {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Severity levels of Platform Logs.
     ///
@@ -2491,9 +2246,7 @@ pub mod platform_logs_settings {
                 3 => Self::Info,
                 4 => Self::Warning,
                 5 => Self::Error,
-                _ => Self::UnknownValue(severity::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(severity::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -2508,9 +2261,7 @@ pub mod platform_logs_settings {
                 "INFO" => Self::Info,
                 "WARNING" => Self::Warning,
                 "ERROR" => Self::Error,
-                _ => Self::UnknownValue(severity::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(severity::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -2538,8 +2289,7 @@ pub mod platform_logs_settings {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Severity>::new(
-                ".google.pubsub.v1.PlatformLogsSettings.Severity",
-            ))
+                ".google.pubsub.v1.PlatformLogsSettings.Severity"))
         }
     }
 }
@@ -2549,6 +2299,7 @@ pub mod platform_logs_settings {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct JavaScriptUDF {
+
     /// Required. Name of the JavasScript function that should applied to Pub/Sub
     /// messages.
     pub function_name: std::string::String,
@@ -2628,6 +2379,7 @@ impl wkt::message::Message for JavaScriptUDF {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MessageTransform {
+
     /// Optional. This field is deprecated, use the `disabled` field to disable
     /// transforms.
     #[deprecated]
@@ -2685,12 +2437,8 @@ impl MessageTransform {
     /// let x = MessageTransform::new().set_transform(Some(
     ///     google_cloud_pubsub::model::message_transform::Transform::JavascriptUdf(JavaScriptUDF::default().into())));
     /// ```
-    pub fn set_transform<
-        T: std::convert::Into<std::option::Option<crate::model::message_transform::Transform>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_transform<T: std::convert::Into<std::option::Option<crate::model::message_transform::Transform>>>(mut self, v: T) -> Self
+    {
         self.transform = v.into();
         self
     }
@@ -2698,14 +2446,10 @@ impl MessageTransform {
     /// The value of [transform][crate::model::MessageTransform::transform]
     /// if it holds a `JavascriptUdf`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn javascript_udf(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::JavaScriptUDF>> {
+    pub fn javascript_udf(&self) -> std::option::Option<&std::boxed::Box<crate::model::JavaScriptUDF>> {
         #[allow(unreachable_patterns)]
         self.transform.as_ref().and_then(|v| match v {
-            crate::model::message_transform::Transform::JavascriptUdf(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::message_transform::Transform::JavascriptUdf(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -2723,14 +2467,11 @@ impl MessageTransform {
     /// let x = MessageTransform::new().set_javascript_udf(JavaScriptUDF::default()/* use setters */);
     /// assert!(x.javascript_udf().is_some());
     /// ```
-    pub fn set_javascript_udf<
-        T: std::convert::Into<std::boxed::Box<crate::model::JavaScriptUDF>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_javascript_udf<T: std::convert::Into<std::boxed::Box<crate::model::JavaScriptUDF>>>(mut self, v: T) -> Self {
         self.transform = std::option::Option::Some(
-            crate::model::message_transform::Transform::JavascriptUdf(v.into()),
+            crate::model::message_transform::Transform::JavascriptUdf(
+                v.into()
+            )
         );
         self
     }
@@ -2747,6 +2488,7 @@ pub mod message_transform {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// The type of transform to apply to messages.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -2761,6 +2503,7 @@ pub mod message_transform {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Topic {
+
     /// Required. Identifier. The name of the topic. It must have the format
     /// `"projects/{project}/topics/{topic}"`. `{topic}` must start with a letter,
     /// and contain only letters (`[A-Za-z]`), numbers (`[0-9]`), dashes (`-`),
@@ -2771,7 +2514,7 @@ pub struct Topic {
 
     /// Optional. See [Creating and managing labels]
     /// (<https://cloud.google.com/pubsub/docs/labels>).
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. Policy constraining the set of Google Cloud Platform regions
     /// where messages published to the topic may be stored. If not present, then
@@ -2806,8 +2549,7 @@ pub struct Topic {
     pub state: crate::model::topic::State,
 
     /// Optional. Settings for ingestion from a data source into this topic.
-    pub ingestion_data_source_settings:
-        std::option::Option<crate::model::IngestionDataSourceSettings>,
+    pub ingestion_data_source_settings: std::option::Option<crate::model::IngestionDataSourceSettings>,
 
     /// Optional. Transforms to be applied to messages published to the topic.
     /// Transforms are applied in the order specified.
@@ -2819,7 +2561,7 @@ pub struct Topic {
     /// "123/costCenter": "marketing"
     /// See <https://docs.cloud.google.com/pubsub/docs/tags> for more information on
     /// using tags with Pub/Sub resources.
-    pub tags: std::collections::HashMap<std::string::String, std::string::String>,
+    pub tags: std::collections::HashMap<std::string::String,std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2871,8 +2613,7 @@ impl Topic {
     /// let x = Topic::new().set_message_storage_policy(MessageStoragePolicy::default()/* use setters */);
     /// ```
     pub fn set_message_storage_policy<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::MessageStoragePolicy>,
+    where T: std::convert::Into<crate::model::MessageStoragePolicy>
     {
         self.message_storage_policy = std::option::Option::Some(v.into());
         self
@@ -2888,8 +2629,7 @@ impl Topic {
     /// let x = Topic::new().set_or_clear_message_storage_policy(None::<MessageStoragePolicy>);
     /// ```
     pub fn set_or_clear_message_storage_policy<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::MessageStoragePolicy>,
+    where T: std::convert::Into<crate::model::MessageStoragePolicy>
     {
         self.message_storage_policy = v.map(|x| x.into());
         self
@@ -2916,8 +2656,7 @@ impl Topic {
     /// let x = Topic::new().set_schema_settings(SchemaSettings::default()/* use setters */);
     /// ```
     pub fn set_schema_settings<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::SchemaSettings>,
+    where T: std::convert::Into<crate::model::SchemaSettings>
     {
         self.schema_settings = std::option::Option::Some(v.into());
         self
@@ -2933,8 +2672,7 @@ impl Topic {
     /// let x = Topic::new().set_or_clear_schema_settings(None::<SchemaSettings>);
     /// ```
     pub fn set_or_clear_schema_settings<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::SchemaSettings>,
+    where T: std::convert::Into<crate::model::SchemaSettings>
     {
         self.schema_settings = v.map(|x| x.into());
         self
@@ -2961,8 +2699,7 @@ impl Topic {
     /// let x = Topic::new().set_message_retention_duration(Duration::default()/* use setters */);
     /// ```
     pub fn set_message_retention_duration<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.message_retention_duration = std::option::Option::Some(v.into());
         self
@@ -2978,8 +2715,7 @@ impl Topic {
     /// let x = Topic::new().set_or_clear_message_retention_duration(None::<Duration>);
     /// ```
     pub fn set_or_clear_message_retention_duration<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.message_retention_duration = v.map(|x| x.into());
         self
@@ -3008,8 +2744,7 @@ impl Topic {
     /// let x = Topic::new().set_ingestion_data_source_settings(IngestionDataSourceSettings::default()/* use setters */);
     /// ```
     pub fn set_ingestion_data_source_settings<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::IngestionDataSourceSettings>,
+    where T: std::convert::Into<crate::model::IngestionDataSourceSettings>
     {
         self.ingestion_data_source_settings = std::option::Option::Some(v.into());
         self
@@ -3024,12 +2759,8 @@ impl Topic {
     /// let x = Topic::new().set_or_clear_ingestion_data_source_settings(Some(IngestionDataSourceSettings::default()/* use setters */));
     /// let x = Topic::new().set_or_clear_ingestion_data_source_settings(None::<IngestionDataSourceSettings>);
     /// ```
-    pub fn set_or_clear_ingestion_data_source_settings<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<crate::model::IngestionDataSourceSettings>,
+    pub fn set_or_clear_ingestion_data_source_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<crate::model::IngestionDataSourceSettings>
     {
         self.ingestion_data_source_settings = v.map(|x| x.into());
         self
@@ -3050,7 +2781,7 @@ impl Topic {
     pub fn set_message_transforms<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::MessageTransform>,
+        V: std::convert::Into<crate::model::MessageTransform>
     {
         use std::iter::Iterator;
         self.message_transforms = v.into_iter().map(|i| i.into()).collect();
@@ -3089,6 +2820,7 @@ impl wkt::message::Message for Topic {
 pub mod topic {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The state of the topic.
     ///
@@ -3153,9 +2885,7 @@ pub mod topic {
             match self {
                 Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
                 Self::Active => std::option::Option::Some("ACTIVE"),
-                Self::IngestionResourceError => {
-                    std::option::Option::Some("INGESTION_RESOURCE_ERROR")
-                }
+                Self::IngestionResourceError => std::option::Option::Some("INGESTION_RESOURCE_ERROR"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -3180,9 +2910,7 @@ pub mod topic {
                 0 => Self::Unspecified,
                 1 => Self::Active,
                 2 => Self::IngestionResourceError,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -3194,9 +2922,7 @@ pub mod topic {
                 "STATE_UNSPECIFIED" => Self::Unspecified,
                 "ACTIVE" => Self::Active,
                 "INGESTION_RESOURCE_ERROR" => Self::IngestionResourceError,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -3221,8 +2947,7 @@ pub mod topic {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.pubsub.v1.Topic.State",
-            ))
+                ".google.pubsub.v1.Topic.State"))
         }
     }
 }
@@ -3231,6 +2956,7 @@ pub mod topic {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetTopicRequest {
+
     /// Required. Identifier. The name of the topic to get.
     /// Format is `projects/{project}/topics/{topic}`.
     pub topic: std::string::String,
@@ -3266,6 +2992,7 @@ impl wkt::message::Message for GetTopicRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateTopicRequest {
+
     /// Required. The updated topic object.
     pub topic: std::option::Option<crate::model::Topic>,
 
@@ -3293,8 +3020,7 @@ impl UpdateTopicRequest {
     /// let x = UpdateTopicRequest::new().set_topic(Topic::default()/* use setters */);
     /// ```
     pub fn set_topic<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Topic>,
+    where T: std::convert::Into<crate::model::Topic>
     {
         self.topic = std::option::Option::Some(v.into());
         self
@@ -3310,8 +3036,7 @@ impl UpdateTopicRequest {
     /// let x = UpdateTopicRequest::new().set_or_clear_topic(None::<Topic>);
     /// ```
     pub fn set_or_clear_topic<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Topic>,
+    where T: std::convert::Into<crate::model::Topic>
     {
         self.topic = v.map(|x| x.into());
         self
@@ -3326,8 +3051,7 @@ impl UpdateTopicRequest {
     /// let x = UpdateTopicRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -3343,8 +3067,7 @@ impl UpdateTopicRequest {
     /// let x = UpdateTopicRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -3361,6 +3084,7 @@ impl wkt::message::Message for UpdateTopicRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTopicsRequest {
+
     /// Required. Identifier. The name of the project in which to list topics.
     /// Format is `projects/{project-id}`.
     pub project: std::string::String,
@@ -3428,6 +3152,7 @@ impl wkt::message::Message for ListTopicsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTopicsResponse {
+
     /// Optional. The resulting topics.
     pub topics: std::vec::Vec<crate::model::Topic>,
 
@@ -3458,7 +3183,7 @@ impl ListTopicsResponse {
     pub fn set_topics<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Topic>,
+        V: std::convert::Into<crate::model::Topic>
     {
         use std::iter::Iterator;
         self.topics = v.into_iter().map(|i| i.into()).collect();
@@ -3502,6 +3227,7 @@ impl gax::paginator::internal::PageableResponse for ListTopicsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTopicSubscriptionsRequest {
+
     /// Required. The name of the topic that subscriptions are attached to.
     /// Format is `projects/{project}/topics/{topic}`.
     pub topic: std::string::String,
@@ -3569,6 +3295,7 @@ impl wkt::message::Message for ListTopicSubscriptionsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTopicSubscriptionsResponse {
+
     /// Optional. The names of subscriptions attached to the topic specified in the
     /// request.
     pub subscriptions: std::vec::Vec<std::string::String>,
@@ -3596,7 +3323,7 @@ impl ListTopicSubscriptionsResponse {
     pub fn set_subscriptions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.subscriptions = v.into_iter().map(|i| i.into()).collect();
@@ -3626,6 +3353,7 @@ impl wkt::message::Message for ListTopicSubscriptionsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTopicSnapshotsRequest {
+
     /// Required. The name of the topic that snapshots are attached to.
     /// Format is `projects/{project}/topics/{topic}`.
     pub topic: std::string::String,
@@ -3693,6 +3421,7 @@ impl wkt::message::Message for ListTopicSnapshotsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTopicSnapshotsResponse {
+
     /// Optional. The names of the snapshots that match the request.
     pub snapshots: std::vec::Vec<std::string::String>,
 
@@ -3719,7 +3448,7 @@ impl ListTopicSnapshotsResponse {
     pub fn set_snapshots<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.snapshots = v.into_iter().map(|i| i.into()).collect();
@@ -3749,6 +3478,7 @@ impl wkt::message::Message for ListTopicSnapshotsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteTopicRequest {
+
     /// Required. Identifier. Name of the topic to delete.
     /// Format is `projects/{project}/topics/{topic}`.
     pub topic: std::string::String,
@@ -3784,6 +3514,7 @@ impl wkt::message::Message for DeleteTopicRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DetachSubscriptionRequest {
+
     /// Required. The subscription to detach.
     /// Format is `projects/{project}/subscriptions/{subscription}`.
     pub subscription: std::string::String,
@@ -3820,6 +3551,7 @@ impl wkt::message::Message for DetachSubscriptionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DetachSubscriptionResponse {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -3841,6 +3573,7 @@ impl wkt::message::Message for DetachSubscriptionResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Subscription {
+
     /// Required. Identifier. The name of the subscription. It must have the format
     /// `"projects/{project}/subscriptions/{subscription}"`. `{subscription}` must
     /// start with a letter, and contain only letters (`[A-Za-z]`), numbers
@@ -3905,7 +3638,7 @@ pub struct Subscription {
 
     /// Optional. See [Creating and managing
     /// labels](https://cloud.google.com/pubsub/docs/labels).
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. If true, messages published with the same `ordering_key` in
     /// `PubsubMessage` will be delivered to the subscribers in the order in which
@@ -3983,8 +3716,7 @@ pub struct Subscription {
 
     /// Output only. Information about the associated Analytics Hub subscription.
     /// Only set if the subscritpion is created by Analytics Hub.
-    pub analytics_hub_subscription_info:
-        std::option::Option<crate::model::subscription::AnalyticsHubSubscriptionInfo>,
+    pub analytics_hub_subscription_info: std::option::Option<crate::model::subscription::AnalyticsHubSubscriptionInfo>,
 
     /// Optional. Transforms to be applied to messages before they are delivered to
     /// subscribers. Transforms are applied in the order specified.
@@ -3996,7 +3728,7 @@ pub struct Subscription {
     /// "123/costCenter": "marketing"
     /// See <https://docs.cloud.google.com/pubsub/docs/tags> for more information on
     /// using tags with Pub/Sub resources.
-    pub tags: std::collections::HashMap<std::string::String, std::string::String>,
+    pub tags: std::collections::HashMap<std::string::String,std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -4039,8 +3771,7 @@ impl Subscription {
     /// let x = Subscription::new().set_push_config(PushConfig::default()/* use setters */);
     /// ```
     pub fn set_push_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::PushConfig>,
+    where T: std::convert::Into<crate::model::PushConfig>
     {
         self.push_config = std::option::Option::Some(v.into());
         self
@@ -4056,8 +3787,7 @@ impl Subscription {
     /// let x = Subscription::new().set_or_clear_push_config(None::<PushConfig>);
     /// ```
     pub fn set_or_clear_push_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::PushConfig>,
+    where T: std::convert::Into<crate::model::PushConfig>
     {
         self.push_config = v.map(|x| x.into());
         self
@@ -4072,8 +3802,7 @@ impl Subscription {
     /// let x = Subscription::new().set_bigquery_config(BigQueryConfig::default()/* use setters */);
     /// ```
     pub fn set_bigquery_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::BigQueryConfig>,
+    where T: std::convert::Into<crate::model::BigQueryConfig>
     {
         self.bigquery_config = std::option::Option::Some(v.into());
         self
@@ -4089,8 +3818,7 @@ impl Subscription {
     /// let x = Subscription::new().set_or_clear_bigquery_config(None::<BigQueryConfig>);
     /// ```
     pub fn set_or_clear_bigquery_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::BigQueryConfig>,
+    where T: std::convert::Into<crate::model::BigQueryConfig>
     {
         self.bigquery_config = v.map(|x| x.into());
         self
@@ -4105,8 +3833,7 @@ impl Subscription {
     /// let x = Subscription::new().set_cloud_storage_config(CloudStorageConfig::default()/* use setters */);
     /// ```
     pub fn set_cloud_storage_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CloudStorageConfig>,
+    where T: std::convert::Into<crate::model::CloudStorageConfig>
     {
         self.cloud_storage_config = std::option::Option::Some(v.into());
         self
@@ -4122,8 +3849,7 @@ impl Subscription {
     /// let x = Subscription::new().set_or_clear_cloud_storage_config(None::<CloudStorageConfig>);
     /// ```
     pub fn set_or_clear_cloud_storage_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CloudStorageConfig>,
+    where T: std::convert::Into<crate::model::CloudStorageConfig>
     {
         self.cloud_storage_config = v.map(|x| x.into());
         self
@@ -4162,8 +3888,7 @@ impl Subscription {
     /// let x = Subscription::new().set_message_retention_duration(Duration::default()/* use setters */);
     /// ```
     pub fn set_message_retention_duration<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.message_retention_duration = std::option::Option::Some(v.into());
         self
@@ -4179,8 +3904,7 @@ impl Subscription {
     /// let x = Subscription::new().set_or_clear_message_retention_duration(None::<Duration>);
     /// ```
     pub fn set_or_clear_message_retention_duration<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.message_retention_duration = v.map(|x| x.into());
         self
@@ -4228,8 +3952,7 @@ impl Subscription {
     /// let x = Subscription::new().set_expiration_policy(ExpirationPolicy::default()/* use setters */);
     /// ```
     pub fn set_expiration_policy<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ExpirationPolicy>,
+    where T: std::convert::Into<crate::model::ExpirationPolicy>
     {
         self.expiration_policy = std::option::Option::Some(v.into());
         self
@@ -4245,8 +3968,7 @@ impl Subscription {
     /// let x = Subscription::new().set_or_clear_expiration_policy(None::<ExpirationPolicy>);
     /// ```
     pub fn set_or_clear_expiration_policy<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ExpirationPolicy>,
+    where T: std::convert::Into<crate::model::ExpirationPolicy>
     {
         self.expiration_policy = v.map(|x| x.into());
         self
@@ -4273,8 +3995,7 @@ impl Subscription {
     /// let x = Subscription::new().set_dead_letter_policy(DeadLetterPolicy::default()/* use setters */);
     /// ```
     pub fn set_dead_letter_policy<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DeadLetterPolicy>,
+    where T: std::convert::Into<crate::model::DeadLetterPolicy>
     {
         self.dead_letter_policy = std::option::Option::Some(v.into());
         self
@@ -4290,8 +4011,7 @@ impl Subscription {
     /// let x = Subscription::new().set_or_clear_dead_letter_policy(None::<DeadLetterPolicy>);
     /// ```
     pub fn set_or_clear_dead_letter_policy<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DeadLetterPolicy>,
+    where T: std::convert::Into<crate::model::DeadLetterPolicy>
     {
         self.dead_letter_policy = v.map(|x| x.into());
         self
@@ -4306,8 +4026,7 @@ impl Subscription {
     /// let x = Subscription::new().set_retry_policy(RetryPolicy::default()/* use setters */);
     /// ```
     pub fn set_retry_policy<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RetryPolicy>,
+    where T: std::convert::Into<crate::model::RetryPolicy>
     {
         self.retry_policy = std::option::Option::Some(v.into());
         self
@@ -4323,8 +4042,7 @@ impl Subscription {
     /// let x = Subscription::new().set_or_clear_retry_policy(None::<RetryPolicy>);
     /// ```
     pub fn set_or_clear_retry_policy<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RetryPolicy>,
+    where T: std::convert::Into<crate::model::RetryPolicy>
     {
         self.retry_policy = v.map(|x| x.into());
         self
@@ -4363,8 +4081,7 @@ impl Subscription {
     /// let x = Subscription::new().set_topic_message_retention_duration(Duration::default()/* use setters */);
     /// ```
     pub fn set_topic_message_retention_duration<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.topic_message_retention_duration = std::option::Option::Some(v.into());
         self
@@ -4379,12 +4096,8 @@ impl Subscription {
     /// let x = Subscription::new().set_or_clear_topic_message_retention_duration(Some(Duration::default()/* use setters */));
     /// let x = Subscription::new().set_or_clear_topic_message_retention_duration(None::<Duration>);
     /// ```
-    pub fn set_or_clear_topic_message_retention_duration<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    pub fn set_or_clear_topic_message_retention_duration<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<wkt::Duration>
     {
         self.topic_message_retention_duration = v.map(|x| x.into());
         self
@@ -4399,10 +4112,7 @@ impl Subscription {
     /// let x0 = Subscription::new().set_state(State::Active);
     /// let x1 = Subscription::new().set_state(State::ResourceError);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::subscription::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::subscription::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -4416,8 +4126,7 @@ impl Subscription {
     /// let x = Subscription::new().set_analytics_hub_subscription_info(AnalyticsHubSubscriptionInfo::default()/* use setters */);
     /// ```
     pub fn set_analytics_hub_subscription_info<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::subscription::AnalyticsHubSubscriptionInfo>,
+    where T: std::convert::Into<crate::model::subscription::AnalyticsHubSubscriptionInfo>
     {
         self.analytics_hub_subscription_info = std::option::Option::Some(v.into());
         self
@@ -4432,12 +4141,8 @@ impl Subscription {
     /// let x = Subscription::new().set_or_clear_analytics_hub_subscription_info(Some(AnalyticsHubSubscriptionInfo::default()/* use setters */));
     /// let x = Subscription::new().set_or_clear_analytics_hub_subscription_info(None::<AnalyticsHubSubscriptionInfo>);
     /// ```
-    pub fn set_or_clear_analytics_hub_subscription_info<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<crate::model::subscription::AnalyticsHubSubscriptionInfo>,
+    pub fn set_or_clear_analytics_hub_subscription_info<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<crate::model::subscription::AnalyticsHubSubscriptionInfo>
     {
         self.analytics_hub_subscription_info = v.map(|x| x.into());
         self
@@ -4458,7 +4163,7 @@ impl Subscription {
     pub fn set_message_transforms<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::MessageTransform>,
+        V: std::convert::Into<crate::model::MessageTransform>
     {
         use std::iter::Iterator;
         self.message_transforms = v.into_iter().map(|i| i.into()).collect();
@@ -4498,11 +4203,13 @@ pub mod subscription {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Information about an associated [Analytics Hub
     /// subscription](https://cloud.google.com/bigquery/docs/analytics-hub-manage-subscriptions).
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AnalyticsHubSubscriptionInfo {
+
         /// Optional. The name of the associated Analytics Hub listing resource.
         /// Pattern:
         /// "projects/{project}/locations/{location}/dataExchanges/{data_exchange}/listings/{listing}"
@@ -4540,10 +4247,7 @@ pub mod subscription {
         /// # use google_cloud_pubsub::model::subscription::AnalyticsHubSubscriptionInfo;
         /// let x = AnalyticsHubSubscriptionInfo::new().set_subscription("example");
         /// ```
-        pub fn set_subscription<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_subscription<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.subscription = v.into();
             self
         }
@@ -4643,9 +4347,7 @@ pub mod subscription {
                 0 => Self::Unspecified,
                 1 => Self::Active,
                 2 => Self::ResourceError,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -4657,9 +4359,7 @@ pub mod subscription {
                 "STATE_UNSPECIFIED" => Self::Unspecified,
                 "ACTIVE" => Self::Active,
                 "RESOURCE_ERROR" => Self::ResourceError,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -4684,8 +4384,7 @@ pub mod subscription {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.pubsub.v1.Subscription.State",
-            ))
+                ".google.pubsub.v1.Subscription.State"))
         }
     }
 }
@@ -4704,6 +4403,7 @@ pub mod subscription {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RetryPolicy {
+
     /// Optional. The minimum delay between consecutive deliveries of a given
     /// message. Value should be between 0 and 600 seconds. Defaults to 10 seconds.
     pub minimum_backoff: std::option::Option<wkt::Duration>,
@@ -4730,8 +4430,7 @@ impl RetryPolicy {
     /// let x = RetryPolicy::new().set_minimum_backoff(Duration::default()/* use setters */);
     /// ```
     pub fn set_minimum_backoff<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.minimum_backoff = std::option::Option::Some(v.into());
         self
@@ -4747,8 +4446,7 @@ impl RetryPolicy {
     /// let x = RetryPolicy::new().set_or_clear_minimum_backoff(None::<Duration>);
     /// ```
     pub fn set_or_clear_minimum_backoff<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.minimum_backoff = v.map(|x| x.into());
         self
@@ -4763,8 +4461,7 @@ impl RetryPolicy {
     /// let x = RetryPolicy::new().set_maximum_backoff(Duration::default()/* use setters */);
     /// ```
     pub fn set_maximum_backoff<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.maximum_backoff = std::option::Option::Some(v.into());
         self
@@ -4780,8 +4477,7 @@ impl RetryPolicy {
     /// let x = RetryPolicy::new().set_or_clear_maximum_backoff(None::<Duration>);
     /// ```
     pub fn set_or_clear_maximum_backoff<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.maximum_backoff = v.map(|x| x.into());
         self
@@ -4802,6 +4498,7 @@ impl wkt::message::Message for RetryPolicy {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeadLetterPolicy {
+
     /// Optional. The name of the topic to which dead letter messages should be
     /// published. Format is `projects/{project}/topics/{topic}`.The Pub/Sub
     /// service account associated with the enclosing subscription's parent project
@@ -4843,10 +4540,7 @@ impl DeadLetterPolicy {
     /// # use google_cloud_pubsub::model::DeadLetterPolicy;
     /// let x = DeadLetterPolicy::new().set_dead_letter_topic("example");
     /// ```
-    pub fn set_dead_letter_topic<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_dead_letter_topic<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dead_letter_topic = v.into();
         self
     }
@@ -4875,6 +4569,7 @@ impl wkt::message::Message for DeadLetterPolicy {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExpirationPolicy {
+
     /// Optional. Specifies the "time-to-live" duration for an associated resource.
     /// The resource expires if it is not active for a period of `ttl`. The
     /// definition of "activity" depends on the type of the associated resource.
@@ -4900,8 +4595,7 @@ impl ExpirationPolicy {
     /// let x = ExpirationPolicy::new().set_ttl(Duration::default()/* use setters */);
     /// ```
     pub fn set_ttl<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.ttl = std::option::Option::Some(v.into());
         self
@@ -4917,8 +4611,7 @@ impl ExpirationPolicy {
     /// let x = ExpirationPolicy::new().set_or_clear_ttl(None::<Duration>);
     /// ```
     pub fn set_or_clear_ttl<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.ttl = v.map(|x| x.into());
         self
@@ -4935,6 +4628,7 @@ impl wkt::message::Message for ExpirationPolicy {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PushConfig {
+
     /// Optional. A URL locating the endpoint to which messages should be pushed.
     /// For example, a Webhook endpoint might use `<https://example.com/push>`.
     pub push_endpoint: std::string::String,
@@ -4960,7 +4654,7 @@ pub struct PushConfig {
     ///
     /// For example:
     /// `attributes { "x-goog-version": "v1" }`
-    pub attributes: std::collections::HashMap<std::string::String, std::string::String>,
+    pub attributes: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// An authentication method used by push endpoints to verify the source of
     /// push requests. This can be used with push endpoints that are private by
@@ -5026,12 +4720,8 @@ impl PushConfig {
     /// let x = PushConfig::new().set_authentication_method(Some(
     ///     google_cloud_pubsub::model::push_config::AuthenticationMethod::OidcToken(OidcToken::default().into())));
     /// ```
-    pub fn set_authentication_method<
-        T: std::convert::Into<std::option::Option<crate::model::push_config::AuthenticationMethod>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_authentication_method<T: std::convert::Into<std::option::Option<crate::model::push_config::AuthenticationMethod>>>(mut self, v: T) -> Self
+    {
         self.authentication_method = v.into();
         self
     }
@@ -5039,14 +4729,10 @@ impl PushConfig {
     /// The value of [authentication_method][crate::model::PushConfig::authentication_method]
     /// if it holds a `OidcToken`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn oidc_token(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::push_config::OidcToken>> {
+    pub fn oidc_token(&self) -> std::option::Option<&std::boxed::Box<crate::model::push_config::OidcToken>> {
         #[allow(unreachable_patterns)]
         self.authentication_method.as_ref().and_then(|v| match v {
-            crate::model::push_config::AuthenticationMethod::OidcToken(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::push_config::AuthenticationMethod::OidcToken(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -5064,14 +4750,11 @@ impl PushConfig {
     /// let x = PushConfig::new().set_oidc_token(OidcToken::default()/* use setters */);
     /// assert!(x.oidc_token().is_some());
     /// ```
-    pub fn set_oidc_token<
-        T: std::convert::Into<std::boxed::Box<crate::model::push_config::OidcToken>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_oidc_token<T: std::convert::Into<std::boxed::Box<crate::model::push_config::OidcToken>>>(mut self, v: T) -> Self {
         self.authentication_method = std::option::Option::Some(
-            crate::model::push_config::AuthenticationMethod::OidcToken(v.into()),
+            crate::model::push_config::AuthenticationMethod::OidcToken(
+                v.into()
+            )
         );
         self
     }
@@ -5088,12 +4771,8 @@ impl PushConfig {
     /// let x = PushConfig::new().set_wrapper(Some(
     ///     google_cloud_pubsub::model::push_config::Wrapper::PubsubWrapper(PubsubWrapper::default().into())));
     /// ```
-    pub fn set_wrapper<
-        T: std::convert::Into<std::option::Option<crate::model::push_config::Wrapper>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_wrapper<T: std::convert::Into<std::option::Option<crate::model::push_config::Wrapper>>>(mut self, v: T) -> Self
+    {
         self.wrapper = v.into();
         self
     }
@@ -5101,9 +4780,7 @@ impl PushConfig {
     /// The value of [wrapper][crate::model::PushConfig::wrapper]
     /// if it holds a `PubsubWrapper`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn pubsub_wrapper(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::push_config::PubsubWrapper>> {
+    pub fn pubsub_wrapper(&self) -> std::option::Option<&std::boxed::Box<crate::model::push_config::PubsubWrapper>> {
         #[allow(unreachable_patterns)]
         self.wrapper.as_ref().and_then(|v| match v {
             crate::model::push_config::Wrapper::PubsubWrapper(v) => std::option::Option::Some(v),
@@ -5125,23 +4802,19 @@ impl PushConfig {
     /// assert!(x.pubsub_wrapper().is_some());
     /// assert!(x.no_wrapper().is_none());
     /// ```
-    pub fn set_pubsub_wrapper<
-        T: std::convert::Into<std::boxed::Box<crate::model::push_config::PubsubWrapper>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.wrapper =
-            std::option::Option::Some(crate::model::push_config::Wrapper::PubsubWrapper(v.into()));
+    pub fn set_pubsub_wrapper<T: std::convert::Into<std::boxed::Box<crate::model::push_config::PubsubWrapper>>>(mut self, v: T) -> Self {
+        self.wrapper = std::option::Option::Some(
+            crate::model::push_config::Wrapper::PubsubWrapper(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [wrapper][crate::model::PushConfig::wrapper]
     /// if it holds a `NoWrapper`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn no_wrapper(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::push_config::NoWrapper>> {
+    pub fn no_wrapper(&self) -> std::option::Option<&std::boxed::Box<crate::model::push_config::NoWrapper>> {
         #[allow(unreachable_patterns)]
         self.wrapper.as_ref().and_then(|v| match v {
             crate::model::push_config::Wrapper::NoWrapper(v) => std::option::Option::Some(v),
@@ -5163,14 +4836,12 @@ impl PushConfig {
     /// assert!(x.no_wrapper().is_some());
     /// assert!(x.pubsub_wrapper().is_none());
     /// ```
-    pub fn set_no_wrapper<
-        T: std::convert::Into<std::boxed::Box<crate::model::push_config::NoWrapper>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.wrapper =
-            std::option::Option::Some(crate::model::push_config::Wrapper::NoWrapper(v.into()));
+    pub fn set_no_wrapper<T: std::convert::Into<std::boxed::Box<crate::model::push_config::NoWrapper>>>(mut self, v: T) -> Self {
+        self.wrapper = std::option::Option::Some(
+            crate::model::push_config::Wrapper::NoWrapper(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -5186,12 +4857,14 @@ pub mod push_config {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Contains information needed for generating an
     /// [OpenID Connect
     /// token](https://developers.google.com/identity/protocols/OpenIDConnect).
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct OidcToken {
+
         /// Optional. [Service account
         /// email](https://cloud.google.com/iam/docs/service-accounts)
         /// used for generating the OIDC token. For more information
@@ -5223,10 +4896,7 @@ pub mod push_config {
         /// # use google_cloud_pubsub::model::push_config::OidcToken;
         /// let x = OidcToken::new().set_service_account_email("example");
         /// ```
-        pub fn set_service_account_email<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_service_account_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.service_account_email = v.into();
             self
         }
@@ -5256,6 +4926,7 @@ pub mod push_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PubsubWrapper {
+
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -5275,6 +4946,7 @@ pub mod push_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct NoWrapper {
+
         /// Optional. When true, writes the Pub/Sub message metadata to
         /// `x-goog-pubsub-<KEY>:<VAL>` headers of the HTTP request. Writes the
         /// Pub/Sub message attributes to `<KEY>:<VAL>` headers of the HTTP request.
@@ -5339,6 +5011,7 @@ pub mod push_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BigQueryConfig {
+
     /// Optional. The name of the table to which to write data, of the form
     /// {projectId}.{datasetId}.{tableId}
     pub table: std::string::String,
@@ -5445,10 +5118,7 @@ impl BigQueryConfig {
     /// let x1 = BigQueryConfig::new().set_state(State::PermissionDenied);
     /// let x2 = BigQueryConfig::new().set_state(State::NotFound);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::big_query_config::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::big_query_config::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -5472,10 +5142,7 @@ impl BigQueryConfig {
     /// # use google_cloud_pubsub::model::BigQueryConfig;
     /// let x = BigQueryConfig::new().set_service_account_email("example");
     /// ```
-    pub fn set_service_account_email<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_service_account_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account_email = v.into();
         self
     }
@@ -5491,6 +5158,7 @@ impl wkt::message::Message for BigQueryConfig {
 pub mod big_query_config {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Possible states for a BigQuery subscription.
     ///
@@ -5572,9 +5240,7 @@ pub mod big_query_config {
                 Self::PermissionDenied => std::option::Option::Some("PERMISSION_DENIED"),
                 Self::NotFound => std::option::Option::Some("NOT_FOUND"),
                 Self::SchemaMismatch => std::option::Option::Some("SCHEMA_MISMATCH"),
-                Self::InTransitLocationRestriction => {
-                    std::option::Option::Some("IN_TRANSIT_LOCATION_RESTRICTION")
-                }
+                Self::InTransitLocationRestriction => std::option::Option::Some("IN_TRANSIT_LOCATION_RESTRICTION"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -5602,9 +5268,7 @@ pub mod big_query_config {
                 3 => Self::NotFound,
                 4 => Self::SchemaMismatch,
                 5 => Self::InTransitLocationRestriction,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -5619,9 +5283,7 @@ pub mod big_query_config {
                 "NOT_FOUND" => Self::NotFound,
                 "SCHEMA_MISMATCH" => Self::SchemaMismatch,
                 "IN_TRANSIT_LOCATION_RESTRICTION" => Self::InTransitLocationRestriction,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -5649,8 +5311,7 @@ pub mod big_query_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.pubsub.v1.BigQueryConfig.State",
-            ))
+                ".google.pubsub.v1.BigQueryConfig.State"))
         }
     }
 }
@@ -5659,6 +5320,7 @@ pub mod big_query_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudStorageConfig {
+
     /// Required. User-provided name for the Cloud Storage bucket.
     /// The bucket must be created by the user. The bucket name must be without
     /// any prefix like "gs://". See the [bucket naming
@@ -5759,10 +5421,7 @@ impl CloudStorageConfig {
     /// # use google_cloud_pubsub::model::CloudStorageConfig;
     /// let x = CloudStorageConfig::new().set_filename_datetime_format("example");
     /// ```
-    pub fn set_filename_datetime_format<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_filename_datetime_format<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filename_datetime_format = v.into();
         self
     }
@@ -5776,8 +5435,7 @@ impl CloudStorageConfig {
     /// let x = CloudStorageConfig::new().set_max_duration(Duration::default()/* use setters */);
     /// ```
     pub fn set_max_duration<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.max_duration = std::option::Option::Some(v.into());
         self
@@ -5793,8 +5451,7 @@ impl CloudStorageConfig {
     /// let x = CloudStorageConfig::new().set_or_clear_max_duration(None::<Duration>);
     /// ```
     pub fn set_or_clear_max_duration<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.max_duration = v.map(|x| x.into());
         self
@@ -5834,10 +5491,7 @@ impl CloudStorageConfig {
     /// let x1 = CloudStorageConfig::new().set_state(State::PermissionDenied);
     /// let x2 = CloudStorageConfig::new().set_state(State::NotFound);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::cloud_storage_config::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::cloud_storage_config::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -5849,10 +5503,7 @@ impl CloudStorageConfig {
     /// # use google_cloud_pubsub::model::CloudStorageConfig;
     /// let x = CloudStorageConfig::new().set_service_account_email("example");
     /// ```
-    pub fn set_service_account_email<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_service_account_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account_email = v.into();
         self
     }
@@ -5869,12 +5520,8 @@ impl CloudStorageConfig {
     /// let x = CloudStorageConfig::new().set_output_format(Some(
     ///     google_cloud_pubsub::model::cloud_storage_config::OutputFormat::TextConfig(TextConfig::default().into())));
     /// ```
-    pub fn set_output_format<
-        T: std::convert::Into<std::option::Option<crate::model::cloud_storage_config::OutputFormat>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_output_format<T: std::convert::Into<std::option::Option<crate::model::cloud_storage_config::OutputFormat>>>(mut self, v: T) -> Self
+    {
         self.output_format = v.into();
         self
     }
@@ -5882,14 +5529,10 @@ impl CloudStorageConfig {
     /// The value of [output_format][crate::model::CloudStorageConfig::output_format]
     /// if it holds a `TextConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn text_config(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::cloud_storage_config::TextConfig>> {
+    pub fn text_config(&self) -> std::option::Option<&std::boxed::Box<crate::model::cloud_storage_config::TextConfig>> {
         #[allow(unreachable_patterns)]
         self.output_format.as_ref().and_then(|v| match v {
-            crate::model::cloud_storage_config::OutputFormat::TextConfig(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::cloud_storage_config::OutputFormat::TextConfig(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -5908,14 +5551,11 @@ impl CloudStorageConfig {
     /// assert!(x.text_config().is_some());
     /// assert!(x.avro_config().is_none());
     /// ```
-    pub fn set_text_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::cloud_storage_config::TextConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_text_config<T: std::convert::Into<std::boxed::Box<crate::model::cloud_storage_config::TextConfig>>>(mut self, v: T) -> Self {
         self.output_format = std::option::Option::Some(
-            crate::model::cloud_storage_config::OutputFormat::TextConfig(v.into()),
+            crate::model::cloud_storage_config::OutputFormat::TextConfig(
+                v.into()
+            )
         );
         self
     }
@@ -5923,14 +5563,10 @@ impl CloudStorageConfig {
     /// The value of [output_format][crate::model::CloudStorageConfig::output_format]
     /// if it holds a `AvroConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn avro_config(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::cloud_storage_config::AvroConfig>> {
+    pub fn avro_config(&self) -> std::option::Option<&std::boxed::Box<crate::model::cloud_storage_config::AvroConfig>> {
         #[allow(unreachable_patterns)]
         self.output_format.as_ref().and_then(|v| match v {
-            crate::model::cloud_storage_config::OutputFormat::AvroConfig(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::cloud_storage_config::OutputFormat::AvroConfig(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -5949,14 +5585,11 @@ impl CloudStorageConfig {
     /// assert!(x.avro_config().is_some());
     /// assert!(x.text_config().is_none());
     /// ```
-    pub fn set_avro_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::cloud_storage_config::AvroConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_avro_config<T: std::convert::Into<std::boxed::Box<crate::model::cloud_storage_config::AvroConfig>>>(mut self, v: T) -> Self {
         self.output_format = std::option::Option::Some(
-            crate::model::cloud_storage_config::OutputFormat::AvroConfig(v.into()),
+            crate::model::cloud_storage_config::OutputFormat::AvroConfig(
+                v.into()
+            )
         );
         self
     }
@@ -5973,12 +5606,14 @@ pub mod cloud_storage_config {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Configuration for writing message data in text format.
     /// Message payloads will be written to files as raw text, separated by a
     /// newline.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TextConfig {
+
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -5999,6 +5634,7 @@ pub mod cloud_storage_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AvroConfig {
+
         /// Optional. When true, write the subscription name, message_id,
         /// publish_time, attributes, and ordering_key as additional fields in the
         /// output. The subscription name, message_id, and publish_time fields are
@@ -6125,9 +5761,7 @@ pub mod cloud_storage_config {
                 Self::Active => std::option::Option::Some("ACTIVE"),
                 Self::PermissionDenied => std::option::Option::Some("PERMISSION_DENIED"),
                 Self::NotFound => std::option::Option::Some("NOT_FOUND"),
-                Self::InTransitLocationRestriction => {
-                    std::option::Option::Some("IN_TRANSIT_LOCATION_RESTRICTION")
-                }
+                Self::InTransitLocationRestriction => std::option::Option::Some("IN_TRANSIT_LOCATION_RESTRICTION"),
                 Self::SchemaMismatch => std::option::Option::Some("SCHEMA_MISMATCH"),
                 Self::UnknownValue(u) => u.0.name(),
             }
@@ -6156,9 +5790,7 @@ pub mod cloud_storage_config {
                 3 => Self::NotFound,
                 4 => Self::InTransitLocationRestriction,
                 5 => Self::SchemaMismatch,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -6173,9 +5805,7 @@ pub mod cloud_storage_config {
                 "NOT_FOUND" => Self::NotFound,
                 "IN_TRANSIT_LOCATION_RESTRICTION" => Self::InTransitLocationRestriction,
                 "SCHEMA_MISMATCH" => Self::SchemaMismatch,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -6203,8 +5833,7 @@ pub mod cloud_storage_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.pubsub.v1.CloudStorageConfig.State",
-            ))
+                ".google.pubsub.v1.CloudStorageConfig.State"))
         }
     }
 
@@ -6225,6 +5854,7 @@ pub mod cloud_storage_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSubscriptionRequest {
+
     /// Required. Identifier. The name of the subscription to get.
     /// Format is `projects/{project}/subscriptions/{sub}`.
     pub subscription: std::string::String,
@@ -6260,6 +5890,7 @@ impl wkt::message::Message for GetSubscriptionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateSubscriptionRequest {
+
     /// Required. The updated subscription object.
     pub subscription: std::option::Option<crate::model::Subscription>,
 
@@ -6284,8 +5915,7 @@ impl UpdateSubscriptionRequest {
     /// let x = UpdateSubscriptionRequest::new().set_subscription(Subscription::default()/* use setters */);
     /// ```
     pub fn set_subscription<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Subscription>,
+    where T: std::convert::Into<crate::model::Subscription>
     {
         self.subscription = std::option::Option::Some(v.into());
         self
@@ -6301,8 +5931,7 @@ impl UpdateSubscriptionRequest {
     /// let x = UpdateSubscriptionRequest::new().set_or_clear_subscription(None::<Subscription>);
     /// ```
     pub fn set_or_clear_subscription<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Subscription>,
+    where T: std::convert::Into<crate::model::Subscription>
     {
         self.subscription = v.map(|x| x.into());
         self
@@ -6317,8 +5946,7 @@ impl UpdateSubscriptionRequest {
     /// let x = UpdateSubscriptionRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -6334,8 +5962,7 @@ impl UpdateSubscriptionRequest {
     /// let x = UpdateSubscriptionRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -6352,6 +5979,7 @@ impl wkt::message::Message for UpdateSubscriptionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSubscriptionsRequest {
+
     /// Required. Identifier. The name of the project in which to list
     /// subscriptions. Format is `projects/{project-id}`.
     pub project: std::string::String,
@@ -6419,6 +6047,7 @@ impl wkt::message::Message for ListSubscriptionsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSubscriptionsResponse {
+
     /// Optional. The subscriptions that match the request.
     pub subscriptions: std::vec::Vec<crate::model::Subscription>,
 
@@ -6450,7 +6079,7 @@ impl ListSubscriptionsResponse {
     pub fn set_subscriptions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Subscription>,
+        V: std::convert::Into<crate::model::Subscription>
     {
         use std::iter::Iterator;
         self.subscriptions = v.into_iter().map(|i| i.into()).collect();
@@ -6494,6 +6123,7 @@ impl gax::paginator::internal::PageableResponse for ListSubscriptionsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteSubscriptionRequest {
+
     /// Required. Identifier. The subscription to delete.
     /// Format is `projects/{project}/subscriptions/{sub}`.
     pub subscription: std::string::String,
@@ -6529,6 +6159,7 @@ impl wkt::message::Message for DeleteSubscriptionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ModifyPushConfigRequest {
+
     /// Required. The name of the subscription.
     /// Format is `projects/{project}/subscriptions/{sub}`.
     pub subscription: std::string::String,
@@ -6570,8 +6201,7 @@ impl ModifyPushConfigRequest {
     /// let x = ModifyPushConfigRequest::new().set_push_config(PushConfig::default()/* use setters */);
     /// ```
     pub fn set_push_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::PushConfig>,
+    where T: std::convert::Into<crate::model::PushConfig>
     {
         self.push_config = std::option::Option::Some(v.into());
         self
@@ -6587,8 +6217,7 @@ impl ModifyPushConfigRequest {
     /// let x = ModifyPushConfigRequest::new().set_or_clear_push_config(None::<PushConfig>);
     /// ```
     pub fn set_or_clear_push_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::PushConfig>,
+    where T: std::convert::Into<crate::model::PushConfig>
     {
         self.push_config = v.map(|x| x.into());
         self
@@ -6605,6 +6234,7 @@ impl wkt::message::Message for ModifyPushConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateSnapshotRequest {
+
     /// Required. Identifier. User-provided name for this snapshot. If the name is
     /// not provided in the request, the server will assign a random name for this
     /// snapshot on the same project as the subscription. Note that for REST API
@@ -6626,7 +6256,7 @@ pub struct CreateSnapshotRequest {
 
     /// Optional. See [Creating and managing
     /// labels](https://cloud.google.com/pubsub/docs/labels).
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. Input only. Immutable. Tag keys/values directly bound to this
     /// resource. For example:
@@ -6634,7 +6264,7 @@ pub struct CreateSnapshotRequest {
     /// "123/costCenter": "marketing"
     /// See <https://docs.cloud.google.com/pubsub/docs/tags> for more information on
     /// using tags with Pub/Sub resources.
-    pub tags: std::collections::HashMap<std::string::String, std::string::String>,
+    pub tags: std::collections::HashMap<std::string::String,std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -6721,6 +6351,7 @@ impl wkt::message::Message for CreateSnapshotRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateSnapshotRequest {
+
     /// Required. The updated snapshot object.
     pub snapshot: std::option::Option<crate::model::Snapshot>,
 
@@ -6745,8 +6376,7 @@ impl UpdateSnapshotRequest {
     /// let x = UpdateSnapshotRequest::new().set_snapshot(Snapshot::default()/* use setters */);
     /// ```
     pub fn set_snapshot<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Snapshot>,
+    where T: std::convert::Into<crate::model::Snapshot>
     {
         self.snapshot = std::option::Option::Some(v.into());
         self
@@ -6762,8 +6392,7 @@ impl UpdateSnapshotRequest {
     /// let x = UpdateSnapshotRequest::new().set_or_clear_snapshot(None::<Snapshot>);
     /// ```
     pub fn set_or_clear_snapshot<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Snapshot>,
+    where T: std::convert::Into<crate::model::Snapshot>
     {
         self.snapshot = v.map(|x| x.into());
         self
@@ -6778,8 +6407,7 @@ impl UpdateSnapshotRequest {
     /// let x = UpdateSnapshotRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -6795,8 +6423,7 @@ impl UpdateSnapshotRequest {
     /// let x = UpdateSnapshotRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -6817,6 +6444,7 @@ impl wkt::message::Message for UpdateSnapshotRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Snapshot {
+
     /// Optional. The name of the snapshot.
     pub name: std::string::String,
 
@@ -6838,7 +6466,7 @@ pub struct Snapshot {
 
     /// Optional. See [Creating and managing labels]
     /// (<https://cloud.google.com/pubsub/docs/labels>).
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -6881,8 +6509,7 @@ impl Snapshot {
     /// let x = Snapshot::new().set_expire_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_expire_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.expire_time = std::option::Option::Some(v.into());
         self
@@ -6898,8 +6525,7 @@ impl Snapshot {
     /// let x = Snapshot::new().set_or_clear_expire_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.expire_time = v.map(|x| x.into());
         self
@@ -6937,6 +6563,7 @@ impl wkt::message::Message for Snapshot {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSnapshotRequest {
+
     /// Required. Identifier. The name of the snapshot to get.
     /// Format is `projects/{project}/snapshots/{snap}`.
     pub snapshot: std::string::String,
@@ -6972,6 +6599,7 @@ impl wkt::message::Message for GetSnapshotRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSnapshotsRequest {
+
     /// Required. Identifier. The name of the project in which to list snapshots.
     /// Format is `projects/{project-id}`.
     pub project: std::string::String,
@@ -7039,6 +6667,7 @@ impl wkt::message::Message for ListSnapshotsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSnapshotsResponse {
+
     /// Optional. The resulting snapshots.
     pub snapshots: std::vec::Vec<crate::model::Snapshot>,
 
@@ -7070,7 +6699,7 @@ impl ListSnapshotsResponse {
     pub fn set_snapshots<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Snapshot>,
+        V: std::convert::Into<crate::model::Snapshot>
     {
         use std::iter::Iterator;
         self.snapshots = v.into_iter().map(|i| i.into()).collect();
@@ -7114,6 +6743,7 @@ impl gax::paginator::internal::PageableResponse for ListSnapshotsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteSnapshotRequest {
+
     /// Required. Identifier. The name of the snapshot to delete.
     /// Format is `projects/{project}/snapshots/{snap}`.
     pub snapshot: std::string::String,
@@ -7149,6 +6779,7 @@ impl wkt::message::Message for DeleteSnapshotRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SeekRequest {
+
     /// Required. The subscription to affect.
     pub subscription: std::string::String,
 
@@ -7185,12 +6816,8 @@ impl SeekRequest {
     /// use google_cloud_pubsub::model::seek_request::Target;
     /// let x = SeekRequest::new().set_target(Some(Target::Snapshot("example".to_string())));
     /// ```
-    pub fn set_target<
-        T: std::convert::Into<std::option::Option<crate::model::seek_request::Target>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_target<T: std::convert::Into<std::option::Option<crate::model::seek_request::Target>>>(mut self, v: T) -> Self
+    {
         self.target = v.into();
         self
     }
@@ -7220,11 +6847,12 @@ impl SeekRequest {
     /// assert!(x.time().is_some());
     /// assert!(x.snapshot().is_none());
     /// ```
-    pub fn set_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.target = std::option::Option::Some(crate::model::seek_request::Target::Time(v.into()));
+    pub fn set_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(mut self, v: T) -> Self {
+        self.target = std::option::Option::Some(
+            crate::model::seek_request::Target::Time(
+                v.into()
+            )
+        );
         self
     }
 
@@ -7253,8 +6881,11 @@ impl SeekRequest {
     /// assert!(x.time().is_none());
     /// ```
     pub fn set_snapshot<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.target =
-            std::option::Option::Some(crate::model::seek_request::Target::Snapshot(v.into()));
+        self.target = std::option::Option::Some(
+            crate::model::seek_request::Target::Snapshot(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -7269,6 +6900,7 @@ impl wkt::message::Message for SeekRequest {
 pub mod seek_request {
     #[allow(unused_imports)]
     use super::*;
+
 
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -7296,6 +6928,7 @@ pub mod seek_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SeekResponse {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -7315,6 +6948,7 @@ impl wkt::message::Message for SeekResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Schema {
+
     /// Required. Name of the schema.
     /// Format is `projects/{project}/schemas/{schema}`.
     pub name: std::string::String,
@@ -7400,8 +7034,7 @@ impl Schema {
     /// let x = Schema::new().set_revision_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_revision_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.revision_create_time = std::option::Option::Some(v.into());
         self
@@ -7417,8 +7050,7 @@ impl Schema {
     /// let x = Schema::new().set_or_clear_revision_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_revision_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.revision_create_time = v.map(|x| x.into());
         self
@@ -7435,6 +7067,7 @@ impl wkt::message::Message for Schema {
 pub mod schema {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Possible schema definition types.
     ///
@@ -7522,9 +7155,7 @@ pub mod schema {
                 0 => Self::Unspecified,
                 1 => Self::ProtocolBuffer,
                 2 => Self::Avro,
-                _ => Self::UnknownValue(r#type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -7536,9 +7167,7 @@ pub mod schema {
                 "TYPE_UNSPECIFIED" => Self::Unspecified,
                 "PROTOCOL_BUFFER" => Self::ProtocolBuffer,
                 "AVRO" => Self::Avro,
-                _ => Self::UnknownValue(r#type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -7563,8 +7192,7 @@ pub mod schema {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
-                ".google.pubsub.v1.Schema.Type",
-            ))
+                ".google.pubsub.v1.Schema.Type"))
         }
     }
 }
@@ -7573,6 +7201,7 @@ pub mod schema {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateSchemaRequest {
+
     /// Required. The name of the project in which to create the schema.
     /// Format is `projects/{project-id}`.
     pub parent: std::string::String,
@@ -7620,8 +7249,7 @@ impl CreateSchemaRequest {
     /// let x = CreateSchemaRequest::new().set_schema(Schema::default()/* use setters */);
     /// ```
     pub fn set_schema<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Schema>,
+    where T: std::convert::Into<crate::model::Schema>
     {
         self.schema = std::option::Option::Some(v.into());
         self
@@ -7637,8 +7265,7 @@ impl CreateSchemaRequest {
     /// let x = CreateSchemaRequest::new().set_or_clear_schema(None::<Schema>);
     /// ```
     pub fn set_or_clear_schema<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Schema>,
+    where T: std::convert::Into<crate::model::Schema>
     {
         self.schema = v.map(|x| x.into());
         self
@@ -7667,6 +7294,7 @@ impl wkt::message::Message for CreateSchemaRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSchemaRequest {
+
     /// Required. The name of the schema to get.
     /// Format is `projects/{project}/schemas/{schema}`.
     pub name: std::string::String,
@@ -7720,6 +7348,7 @@ impl wkt::message::Message for GetSchemaRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSchemasRequest {
+
     /// Required. The name of the project in which to list schemas.
     /// Format is `projects/{project-id}`.
     pub parent: std::string::String,
@@ -7806,6 +7435,7 @@ impl wkt::message::Message for ListSchemasRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSchemasResponse {
+
     /// The resulting schemas.
     pub schemas: std::vec::Vec<crate::model::Schema>,
 
@@ -7836,7 +7466,7 @@ impl ListSchemasResponse {
     pub fn set_schemas<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Schema>,
+        V: std::convert::Into<crate::model::Schema>
     {
         use std::iter::Iterator;
         self.schemas = v.into_iter().map(|i| i.into()).collect();
@@ -7880,6 +7510,7 @@ impl gax::paginator::internal::PageableResponse for ListSchemasResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSchemaRevisionsRequest {
+
     /// Required. The name of the schema to list revisions for.
     pub name: std::string::String,
 
@@ -7964,6 +7595,7 @@ impl wkt::message::Message for ListSchemaRevisionsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSchemaRevisionsResponse {
+
     /// The revisions of the schema.
     pub schemas: std::vec::Vec<crate::model::Schema>,
 
@@ -7994,7 +7626,7 @@ impl ListSchemaRevisionsResponse {
     pub fn set_schemas<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Schema>,
+        V: std::convert::Into<crate::model::Schema>
     {
         use std::iter::Iterator;
         self.schemas = v.into_iter().map(|i| i.into()).collect();
@@ -8038,6 +7670,7 @@ impl gax::paginator::internal::PageableResponse for ListSchemaRevisionsResponse 
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CommitSchemaRequest {
+
     /// Required. The name of the schema we are revising.
     /// Format is `projects/{project}/schemas/{schema}`.
     pub name: std::string::String,
@@ -8074,8 +7707,7 @@ impl CommitSchemaRequest {
     /// let x = CommitSchemaRequest::new().set_schema(Schema::default()/* use setters */);
     /// ```
     pub fn set_schema<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Schema>,
+    where T: std::convert::Into<crate::model::Schema>
     {
         self.schema = std::option::Option::Some(v.into());
         self
@@ -8091,8 +7723,7 @@ impl CommitSchemaRequest {
     /// let x = CommitSchemaRequest::new().set_or_clear_schema(None::<Schema>);
     /// ```
     pub fn set_or_clear_schema<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Schema>,
+    where T: std::convert::Into<crate::model::Schema>
     {
         self.schema = v.map(|x| x.into());
         self
@@ -8109,6 +7740,7 @@ impl wkt::message::Message for CommitSchemaRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RollbackSchemaRequest {
+
     /// Required. The schema being rolled back with revision id.
     pub name: std::string::String,
 
@@ -8161,6 +7793,7 @@ impl wkt::message::Message for RollbackSchemaRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteSchemaRevisionRequest {
+
     /// Required. The name of the schema revision to be deleted, with a revision ID
     /// explicitly included.
     ///
@@ -8217,6 +7850,7 @@ impl wkt::message::Message for DeleteSchemaRevisionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteSchemaRequest {
+
     /// Required. Name of the schema to delete.
     /// Format is `projects/{project}/schemas/{schema}`.
     pub name: std::string::String,
@@ -8252,6 +7886,7 @@ impl wkt::message::Message for DeleteSchemaRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ValidateSchemaRequest {
+
     /// Required. The name of the project in which to validate schemas.
     /// Format is `projects/{project-id}`.
     pub parent: std::string::String,
@@ -8288,8 +7923,7 @@ impl ValidateSchemaRequest {
     /// let x = ValidateSchemaRequest::new().set_schema(Schema::default()/* use setters */);
     /// ```
     pub fn set_schema<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Schema>,
+    where T: std::convert::Into<crate::model::Schema>
     {
         self.schema = std::option::Option::Some(v.into());
         self
@@ -8305,8 +7939,7 @@ impl ValidateSchemaRequest {
     /// let x = ValidateSchemaRequest::new().set_or_clear_schema(None::<Schema>);
     /// ```
     pub fn set_or_clear_schema<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Schema>,
+    where T: std::convert::Into<crate::model::Schema>
     {
         self.schema = v.map(|x| x.into());
         self
@@ -8324,6 +7957,7 @@ impl wkt::message::Message for ValidateSchemaRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ValidateSchemaResponse {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -8343,6 +7977,7 @@ impl wkt::message::Message for ValidateSchemaResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ValidateMessageRequest {
+
     /// Required. The name of the project in which to validate schemas.
     /// Format is `projects/{project-id}`.
     pub parent: std::string::String,
@@ -8412,12 +8047,8 @@ impl ValidateMessageRequest {
     /// use google_cloud_pubsub::model::validate_message_request::SchemaSpec;
     /// let x = ValidateMessageRequest::new().set_schema_spec(Some(SchemaSpec::Name("example".to_string())));
     /// ```
-    pub fn set_schema_spec<
-        T: std::convert::Into<std::option::Option<crate::model::validate_message_request::SchemaSpec>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_schema_spec<T: std::convert::Into<std::option::Option<crate::model::validate_message_request::SchemaSpec>>>(mut self, v: T) -> Self
+    {
         self.schema_spec = v.into();
         self
     }
@@ -8428,9 +8059,7 @@ impl ValidateMessageRequest {
     pub fn name(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.schema_spec.as_ref().and_then(|v| match v {
-            crate::model::validate_message_request::SchemaSpec::Name(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::validate_message_request::SchemaSpec::Name(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -8450,7 +8079,9 @@ impl ValidateMessageRequest {
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.schema_spec = std::option::Option::Some(
-            crate::model::validate_message_request::SchemaSpec::Name(v.into()),
+            crate::model::validate_message_request::SchemaSpec::Name(
+                v.into()
+            )
         );
         self
     }
@@ -8461,9 +8092,7 @@ impl ValidateMessageRequest {
     pub fn schema(&self) -> std::option::Option<&std::boxed::Box<crate::model::Schema>> {
         #[allow(unreachable_patterns)]
         self.schema_spec.as_ref().and_then(|v| match v {
-            crate::model::validate_message_request::SchemaSpec::Schema(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::validate_message_request::SchemaSpec::Schema(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -8482,12 +8111,11 @@ impl ValidateMessageRequest {
     /// assert!(x.schema().is_some());
     /// assert!(x.name().is_none());
     /// ```
-    pub fn set_schema<T: std::convert::Into<std::boxed::Box<crate::model::Schema>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_schema<T: std::convert::Into<std::boxed::Box<crate::model::Schema>>>(mut self, v: T) -> Self {
         self.schema_spec = std::option::Option::Some(
-            crate::model::validate_message_request::SchemaSpec::Schema(v.into()),
+            crate::model::validate_message_request::SchemaSpec::Schema(
+                v.into()
+            )
         );
         self
     }
@@ -8503,6 +8131,7 @@ impl wkt::message::Message for ValidateMessageRequest {
 pub mod validate_message_request {
     #[allow(unused_imports)]
     use super::*;
+
 
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -8521,6 +8150,7 @@ pub mod validate_message_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ValidateMessageResponse {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -8623,9 +8253,7 @@ impl std::convert::From<i32> for SchemaView {
             0 => Self::Unspecified,
             1 => Self::Basic,
             2 => Self::Full,
-            _ => Self::UnknownValue(schema_view::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(schema_view::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -8637,9 +8265,7 @@ impl std::convert::From<&str> for SchemaView {
             "SCHEMA_VIEW_UNSPECIFIED" => Self::Unspecified,
             "BASIC" => Self::Basic,
             "FULL" => Self::Full,
-            _ => Self::UnknownValue(schema_view::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(schema_view::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -8664,8 +8290,7 @@ impl<'de> serde::de::Deserialize<'de> for SchemaView {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<SchemaView>::new(
-            ".google.pubsub.v1.SchemaView",
-        ))
+            ".google.pubsub.v1.SchemaView"))
     }
 }
 
@@ -8756,9 +8381,7 @@ impl std::convert::From<i32> for Encoding {
             0 => Self::Unspecified,
             1 => Self::Json,
             2 => Self::Binary,
-            _ => Self::UnknownValue(encoding::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(encoding::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -8770,9 +8393,7 @@ impl std::convert::From<&str> for Encoding {
             "ENCODING_UNSPECIFIED" => Self::Unspecified,
             "JSON" => Self::Json,
             "BINARY" => Self::Binary,
-            _ => Self::UnknownValue(encoding::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(encoding::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -8797,7 +8418,6 @@ impl<'de> serde::de::Deserialize<'de> for Encoding {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<Encoding>::new(
-            ".google.pubsub.v1.Encoding",
-        ))
+            ".google.pubsub.v1.Encoding"))
     }
 }

@@ -81,59 +81,81 @@ impl Dataform {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::Dataform + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::Dataform + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Dataform>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Dataform>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Dataform> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Dataform> {
         super::transport::Dataform::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Dataform> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::Dataform::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Dataform> {
+        Self::build_transport(conf).await.map(super::tracing::Dataform::new)
     }
 
     /// Lists Repositories in a given project and location.
     ///
     /// **Note:** *This method can return repositories not shown in the [Dataform
     /// UI](https://console.cloud.google.com/bigquery/dataform)*.
-    pub fn list_repositories(&self) -> super::builder::dataform::ListRepositories {
+    pub fn list_repositories(&self) -> super::builder::dataform::ListRepositories
+    {
         super::builder::dataform::ListRepositories::new(self.inner.clone())
     }
 
     /// Fetches a single Repository.
-    pub fn get_repository(&self) -> super::builder::dataform::GetRepository {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// async fn sample(
+    ///    client: &Dataform,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_repository()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_repository(&self) -> super::builder::dataform::GetRepository
+    {
         super::builder::dataform::GetRepository::new(self.inner.clone())
     }
 
     /// Creates a new Repository in a given project and location.
-    pub fn create_repository(&self) -> super::builder::dataform::CreateRepository {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// async fn sample(
+    ///    client: &Dataform
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_repository()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_repository(&self) -> super::builder::dataform::CreateRepository
+    {
         super::builder::dataform::CreateRepository::new(self.inner.clone())
     }
 
@@ -143,171 +165,617 @@ impl Dataform {
     /// [AIP/134](https://google.aip.dev/134). The wildcard entry (\*) is treated
     /// as a bad request, and when the `field_mask` is omitted, the request is
     /// treated as a full update on all modifiable fields.*
-    pub fn update_repository(&self) -> super::builder::dataform::UpdateRepository {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// async fn sample(
+    ///    client: &Dataform
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_repository()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_repository(&self) -> super::builder::dataform::UpdateRepository
+    {
         super::builder::dataform::UpdateRepository::new(self.inner.clone())
     }
 
     /// Deletes a single Repository.
-    pub fn delete_repository(&self) -> super::builder::dataform::DeleteRepository {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// async fn sample(
+    ///    client: &Dataform,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_repository()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_repository(&self) -> super::builder::dataform::DeleteRepository
+    {
         super::builder::dataform::DeleteRepository::new(self.inner.clone())
     }
 
     /// Applies a Git commit to a Repository. The Repository must not have a value
     /// for `git_remote_settings.url`.
-    pub fn commit_repository_changes(&self) -> super::builder::dataform::CommitRepositoryChanges {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// async fn sample(
+    ///    client: &Dataform
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .commit_repository_changes()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn commit_repository_changes(&self) -> super::builder::dataform::CommitRepositoryChanges
+    {
         super::builder::dataform::CommitRepositoryChanges::new(self.inner.clone())
     }
 
     /// Returns the contents of a file (inside a Repository). The Repository
     /// must not have a value for `git_remote_settings.url`.
-    pub fn read_repository_file(&self) -> super::builder::dataform::ReadRepositoryFile {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// async fn sample(
+    ///    client: &Dataform
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .read_repository_file()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn read_repository_file(&self) -> super::builder::dataform::ReadRepositoryFile
+    {
         super::builder::dataform::ReadRepositoryFile::new(self.inner.clone())
     }
 
     /// Returns the contents of a given Repository directory. The Repository must
     /// not have a value for `git_remote_settings.url`.
-    pub fn query_repository_directory_contents(
-        &self,
-    ) -> super::builder::dataform::QueryRepositoryDirectoryContents {
+    pub fn query_repository_directory_contents(&self) -> super::builder::dataform::QueryRepositoryDirectoryContents
+    {
         super::builder::dataform::QueryRepositoryDirectoryContents::new(self.inner.clone())
     }
 
     /// Fetches a Repository's history of commits.  The Repository must not have a
     /// value for `git_remote_settings.url`.
-    pub fn fetch_repository_history(&self) -> super::builder::dataform::FetchRepositoryHistory {
+    pub fn fetch_repository_history(&self) -> super::builder::dataform::FetchRepositoryHistory
+    {
         super::builder::dataform::FetchRepositoryHistory::new(self.inner.clone())
     }
 
     /// Computes a Repository's Git access token status.
-    pub fn compute_repository_access_token_status(
-        &self,
-    ) -> super::builder::dataform::ComputeRepositoryAccessTokenStatus {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// async fn sample(
+    ///    client: &Dataform
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .compute_repository_access_token_status()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn compute_repository_access_token_status(&self) -> super::builder::dataform::ComputeRepositoryAccessTokenStatus
+    {
         super::builder::dataform::ComputeRepositoryAccessTokenStatus::new(self.inner.clone())
     }
 
     /// Fetches a Repository's remote branches.
-    pub fn fetch_remote_branches(&self) -> super::builder::dataform::FetchRemoteBranches {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// async fn sample(
+    ///    client: &Dataform
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .fetch_remote_branches()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn fetch_remote_branches(&self) -> super::builder::dataform::FetchRemoteBranches
+    {
         super::builder::dataform::FetchRemoteBranches::new(self.inner.clone())
     }
 
     /// Lists Workspaces in a given Repository.
-    pub fn list_workspaces(&self) -> super::builder::dataform::ListWorkspaces {
+    pub fn list_workspaces(&self) -> super::builder::dataform::ListWorkspaces
+    {
         super::builder::dataform::ListWorkspaces::new(self.inner.clone())
     }
 
     /// Fetches a single Workspace.
-    pub fn get_workspace(&self) -> super::builder::dataform::GetWorkspace {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// async fn sample(
+    ///    client: &Dataform,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_workspace()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_workspace(&self) -> super::builder::dataform::GetWorkspace
+    {
         super::builder::dataform::GetWorkspace::new(self.inner.clone())
     }
 
     /// Creates a new Workspace in a given Repository.
-    pub fn create_workspace(&self) -> super::builder::dataform::CreateWorkspace {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// async fn sample(
+    ///    client: &Dataform
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_workspace()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_workspace(&self) -> super::builder::dataform::CreateWorkspace
+    {
         super::builder::dataform::CreateWorkspace::new(self.inner.clone())
     }
 
     /// Deletes a single Workspace.
-    pub fn delete_workspace(&self) -> super::builder::dataform::DeleteWorkspace {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// async fn sample(
+    ///    client: &Dataform,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_workspace()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_workspace(&self) -> super::builder::dataform::DeleteWorkspace
+    {
         super::builder::dataform::DeleteWorkspace::new(self.inner.clone())
     }
 
     /// Installs dependency NPM packages (inside a Workspace).
-    pub fn install_npm_packages(&self) -> super::builder::dataform::InstallNpmPackages {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// async fn sample(
+    ///    client: &Dataform
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .install_npm_packages()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn install_npm_packages(&self) -> super::builder::dataform::InstallNpmPackages
+    {
         super::builder::dataform::InstallNpmPackages::new(self.inner.clone())
     }
 
     /// Pulls Git commits from the Repository's remote into a Workspace.
-    pub fn pull_git_commits(&self) -> super::builder::dataform::PullGitCommits {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// async fn sample(
+    ///    client: &Dataform
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .pull_git_commits()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn pull_git_commits(&self) -> super::builder::dataform::PullGitCommits
+    {
         super::builder::dataform::PullGitCommits::new(self.inner.clone())
     }
 
     /// Pushes Git commits from a Workspace to the Repository's remote.
-    pub fn push_git_commits(&self) -> super::builder::dataform::PushGitCommits {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// async fn sample(
+    ///    client: &Dataform
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .push_git_commits()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn push_git_commits(&self) -> super::builder::dataform::PushGitCommits
+    {
         super::builder::dataform::PushGitCommits::new(self.inner.clone())
     }
 
     /// Fetches Git statuses for the files in a Workspace.
-    pub fn fetch_file_git_statuses(&self) -> super::builder::dataform::FetchFileGitStatuses {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// async fn sample(
+    ///    client: &Dataform
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .fetch_file_git_statuses()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn fetch_file_git_statuses(&self) -> super::builder::dataform::FetchFileGitStatuses
+    {
         super::builder::dataform::FetchFileGitStatuses::new(self.inner.clone())
     }
 
     /// Fetches Git ahead/behind against a remote branch.
-    pub fn fetch_git_ahead_behind(&self) -> super::builder::dataform::FetchGitAheadBehind {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// async fn sample(
+    ///    client: &Dataform
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .fetch_git_ahead_behind()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn fetch_git_ahead_behind(&self) -> super::builder::dataform::FetchGitAheadBehind
+    {
         super::builder::dataform::FetchGitAheadBehind::new(self.inner.clone())
     }
 
     /// Applies a Git commit for uncommitted files in a Workspace.
-    pub fn commit_workspace_changes(&self) -> super::builder::dataform::CommitWorkspaceChanges {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// async fn sample(
+    ///    client: &Dataform
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .commit_workspace_changes()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn commit_workspace_changes(&self) -> super::builder::dataform::CommitWorkspaceChanges
+    {
         super::builder::dataform::CommitWorkspaceChanges::new(self.inner.clone())
     }
 
     /// Performs a Git reset for uncommitted files in a Workspace.
-    pub fn reset_workspace_changes(&self) -> super::builder::dataform::ResetWorkspaceChanges {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// async fn sample(
+    ///    client: &Dataform
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .reset_workspace_changes()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn reset_workspace_changes(&self) -> super::builder::dataform::ResetWorkspaceChanges
+    {
         super::builder::dataform::ResetWorkspaceChanges::new(self.inner.clone())
     }
 
     /// Fetches Git diff for an uncommitted file in a Workspace.
-    pub fn fetch_file_diff(&self) -> super::builder::dataform::FetchFileDiff {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// async fn sample(
+    ///    client: &Dataform
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .fetch_file_diff()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn fetch_file_diff(&self) -> super::builder::dataform::FetchFileDiff
+    {
         super::builder::dataform::FetchFileDiff::new(self.inner.clone())
     }
 
     /// Returns the contents of a given Workspace directory.
-    pub fn query_directory_contents(&self) -> super::builder::dataform::QueryDirectoryContents {
+    pub fn query_directory_contents(&self) -> super::builder::dataform::QueryDirectoryContents
+    {
         super::builder::dataform::QueryDirectoryContents::new(self.inner.clone())
     }
 
     /// Finds the contents of a given Workspace directory by filter.
-    pub fn search_files(&self) -> super::builder::dataform::SearchFiles {
+    pub fn search_files(&self) -> super::builder::dataform::SearchFiles
+    {
         super::builder::dataform::SearchFiles::new(self.inner.clone())
     }
 
     /// Creates a directory inside a Workspace.
-    pub fn make_directory(&self) -> super::builder::dataform::MakeDirectory {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// async fn sample(
+    ///    client: &Dataform
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .make_directory()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn make_directory(&self) -> super::builder::dataform::MakeDirectory
+    {
         super::builder::dataform::MakeDirectory::new(self.inner.clone())
     }
 
     /// Deletes a directory (inside a Workspace) and all of its contents.
-    pub fn remove_directory(&self) -> super::builder::dataform::RemoveDirectory {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// async fn sample(
+    ///    client: &Dataform
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .remove_directory()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn remove_directory(&self) -> super::builder::dataform::RemoveDirectory
+    {
         super::builder::dataform::RemoveDirectory::new(self.inner.clone())
     }
 
     /// Moves a directory (inside a Workspace), and all of its contents, to a new
     /// location.
-    pub fn move_directory(&self) -> super::builder::dataform::MoveDirectory {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// async fn sample(
+    ///    client: &Dataform
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .move_directory()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn move_directory(&self) -> super::builder::dataform::MoveDirectory
+    {
         super::builder::dataform::MoveDirectory::new(self.inner.clone())
     }
 
     /// Returns the contents of a file (inside a Workspace).
-    pub fn read_file(&self) -> super::builder::dataform::ReadFile {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// async fn sample(
+    ///    client: &Dataform
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .read_file()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn read_file(&self) -> super::builder::dataform::ReadFile
+    {
         super::builder::dataform::ReadFile::new(self.inner.clone())
     }
 
     /// Deletes a file (inside a Workspace).
-    pub fn remove_file(&self) -> super::builder::dataform::RemoveFile {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// async fn sample(
+    ///    client: &Dataform
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .remove_file()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn remove_file(&self) -> super::builder::dataform::RemoveFile
+    {
         super::builder::dataform::RemoveFile::new(self.inner.clone())
     }
 
     /// Moves a file (inside a Workspace) to a new location.
-    pub fn move_file(&self) -> super::builder::dataform::MoveFile {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// async fn sample(
+    ///    client: &Dataform
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .move_file()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn move_file(&self) -> super::builder::dataform::MoveFile
+    {
         super::builder::dataform::MoveFile::new(self.inner.clone())
     }
 
     /// Writes to a file (inside a Workspace).
-    pub fn write_file(&self) -> super::builder::dataform::WriteFile {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// async fn sample(
+    ///    client: &Dataform
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .write_file()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn write_file(&self) -> super::builder::dataform::WriteFile
+    {
         super::builder::dataform::WriteFile::new(self.inner.clone())
     }
 
     /// Lists ReleaseConfigs in a given Repository.
-    pub fn list_release_configs(&self) -> super::builder::dataform::ListReleaseConfigs {
+    pub fn list_release_configs(&self) -> super::builder::dataform::ListReleaseConfigs
+    {
         super::builder::dataform::ListReleaseConfigs::new(self.inner.clone())
     }
 
     /// Fetches a single ReleaseConfig.
-    pub fn get_release_config(&self) -> super::builder::dataform::GetReleaseConfig {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// async fn sample(
+    ///    client: &Dataform,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_release_config()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_release_config(&self) -> super::builder::dataform::GetReleaseConfig
+    {
         super::builder::dataform::GetReleaseConfig::new(self.inner.clone())
     }
 
     /// Creates a new ReleaseConfig in a given Repository.
-    pub fn create_release_config(&self) -> super::builder::dataform::CreateReleaseConfig {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// async fn sample(
+    ///    client: &Dataform
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_release_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_release_config(&self) -> super::builder::dataform::CreateReleaseConfig
+    {
         super::builder::dataform::CreateReleaseConfig::new(self.inner.clone())
     }
 
@@ -317,49 +785,154 @@ impl Dataform {
     /// [AIP/134](https://google.aip.dev/134). The wildcard entry (\*) is treated
     /// as a bad request, and when the `field_mask` is omitted, the request is
     /// treated as a full update on all modifiable fields.*
-    pub fn update_release_config(&self) -> super::builder::dataform::UpdateReleaseConfig {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// async fn sample(
+    ///    client: &Dataform
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_release_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_release_config(&self) -> super::builder::dataform::UpdateReleaseConfig
+    {
         super::builder::dataform::UpdateReleaseConfig::new(self.inner.clone())
     }
 
     /// Deletes a single ReleaseConfig.
-    pub fn delete_release_config(&self) -> super::builder::dataform::DeleteReleaseConfig {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// async fn sample(
+    ///    client: &Dataform,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_release_config()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_release_config(&self) -> super::builder::dataform::DeleteReleaseConfig
+    {
         super::builder::dataform::DeleteReleaseConfig::new(self.inner.clone())
     }
 
     /// Lists CompilationResults in a given Repository.
-    pub fn list_compilation_results(&self) -> super::builder::dataform::ListCompilationResults {
+    pub fn list_compilation_results(&self) -> super::builder::dataform::ListCompilationResults
+    {
         super::builder::dataform::ListCompilationResults::new(self.inner.clone())
     }
 
     /// Fetches a single CompilationResult.
-    pub fn get_compilation_result(&self) -> super::builder::dataform::GetCompilationResult {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// async fn sample(
+    ///    client: &Dataform,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_compilation_result()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_compilation_result(&self) -> super::builder::dataform::GetCompilationResult
+    {
         super::builder::dataform::GetCompilationResult::new(self.inner.clone())
     }
 
     /// Creates a new CompilationResult in a given project and location.
-    pub fn create_compilation_result(&self) -> super::builder::dataform::CreateCompilationResult {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// async fn sample(
+    ///    client: &Dataform
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_compilation_result()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_compilation_result(&self) -> super::builder::dataform::CreateCompilationResult
+    {
         super::builder::dataform::CreateCompilationResult::new(self.inner.clone())
     }
 
     /// Returns CompilationResultActions in a given CompilationResult.
-    pub fn query_compilation_result_actions(
-        &self,
-    ) -> super::builder::dataform::QueryCompilationResultActions {
+    pub fn query_compilation_result_actions(&self) -> super::builder::dataform::QueryCompilationResultActions
+    {
         super::builder::dataform::QueryCompilationResultActions::new(self.inner.clone())
     }
 
     /// Lists WorkflowConfigs in a given Repository.
-    pub fn list_workflow_configs(&self) -> super::builder::dataform::ListWorkflowConfigs {
+    pub fn list_workflow_configs(&self) -> super::builder::dataform::ListWorkflowConfigs
+    {
         super::builder::dataform::ListWorkflowConfigs::new(self.inner.clone())
     }
 
     /// Fetches a single WorkflowConfig.
-    pub fn get_workflow_config(&self) -> super::builder::dataform::GetWorkflowConfig {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// async fn sample(
+    ///    client: &Dataform,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_workflow_config()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_workflow_config(&self) -> super::builder::dataform::GetWorkflowConfig
+    {
         super::builder::dataform::GetWorkflowConfig::new(self.inner.clone())
     }
 
     /// Creates a new WorkflowConfig in a given Repository.
-    pub fn create_workflow_config(&self) -> super::builder::dataform::CreateWorkflowConfig {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// async fn sample(
+    ///    client: &Dataform
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_workflow_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_workflow_config(&self) -> super::builder::dataform::CreateWorkflowConfig
+    {
         super::builder::dataform::CreateWorkflowConfig::new(self.inner.clone())
     }
 
@@ -369,49 +942,170 @@ impl Dataform {
     /// [AIP/134](https://google.aip.dev/134). The wildcard entry (\*) is treated
     /// as a bad request, and when the `field_mask` is omitted, the request is
     /// treated as a full update on all modifiable fields.*
-    pub fn update_workflow_config(&self) -> super::builder::dataform::UpdateWorkflowConfig {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// async fn sample(
+    ///    client: &Dataform
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_workflow_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_workflow_config(&self) -> super::builder::dataform::UpdateWorkflowConfig
+    {
         super::builder::dataform::UpdateWorkflowConfig::new(self.inner.clone())
     }
 
     /// Deletes a single WorkflowConfig.
-    pub fn delete_workflow_config(&self) -> super::builder::dataform::DeleteWorkflowConfig {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// async fn sample(
+    ///    client: &Dataform,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_workflow_config()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_workflow_config(&self) -> super::builder::dataform::DeleteWorkflowConfig
+    {
         super::builder::dataform::DeleteWorkflowConfig::new(self.inner.clone())
     }
 
     /// Lists WorkflowInvocations in a given Repository.
-    pub fn list_workflow_invocations(&self) -> super::builder::dataform::ListWorkflowInvocations {
+    pub fn list_workflow_invocations(&self) -> super::builder::dataform::ListWorkflowInvocations
+    {
         super::builder::dataform::ListWorkflowInvocations::new(self.inner.clone())
     }
 
     /// Fetches a single WorkflowInvocation.
-    pub fn get_workflow_invocation(&self) -> super::builder::dataform::GetWorkflowInvocation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// async fn sample(
+    ///    client: &Dataform,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_workflow_invocation()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_workflow_invocation(&self) -> super::builder::dataform::GetWorkflowInvocation
+    {
         super::builder::dataform::GetWorkflowInvocation::new(self.inner.clone())
     }
 
     /// Creates a new WorkflowInvocation in a given Repository.
-    pub fn create_workflow_invocation(&self) -> super::builder::dataform::CreateWorkflowInvocation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// async fn sample(
+    ///    client: &Dataform
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_workflow_invocation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_workflow_invocation(&self) -> super::builder::dataform::CreateWorkflowInvocation
+    {
         super::builder::dataform::CreateWorkflowInvocation::new(self.inner.clone())
     }
 
     /// Deletes a single WorkflowInvocation.
-    pub fn delete_workflow_invocation(&self) -> super::builder::dataform::DeleteWorkflowInvocation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// async fn sample(
+    ///    client: &Dataform,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_workflow_invocation()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_workflow_invocation(&self) -> super::builder::dataform::DeleteWorkflowInvocation
+    {
         super::builder::dataform::DeleteWorkflowInvocation::new(self.inner.clone())
     }
 
     /// Requests cancellation of a running WorkflowInvocation.
-    pub fn cancel_workflow_invocation(&self) -> super::builder::dataform::CancelWorkflowInvocation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// async fn sample(
+    ///    client: &Dataform
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .cancel_workflow_invocation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_workflow_invocation(&self) -> super::builder::dataform::CancelWorkflowInvocation
+    {
         super::builder::dataform::CancelWorkflowInvocation::new(self.inner.clone())
     }
 
     /// Returns WorkflowInvocationActions in a given WorkflowInvocation.
-    pub fn query_workflow_invocation_actions(
-        &self,
-    ) -> super::builder::dataform::QueryWorkflowInvocationActions {
+    pub fn query_workflow_invocation_actions(&self) -> super::builder::dataform::QueryWorkflowInvocationActions
+    {
         super::builder::dataform::QueryWorkflowInvocationActions::new(self.inner.clone())
     }
 
     /// Get default config for a given project and location.
-    pub fn get_config(&self) -> super::builder::dataform::GetConfig {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// async fn sample(
+    ///    client: &Dataform,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_config()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_config(&self) -> super::builder::dataform::GetConfig
+    {
         super::builder::dataform::GetConfig::new(self.inner.clone())
     }
 
@@ -421,17 +1115,52 @@ impl Dataform {
     /// [AIP/134](https://google.aip.dev/134). The wildcard entry (\*) is treated
     /// as a bad request, and when the `field_mask` is omitted, the request is
     /// treated as a full update on all modifiable fields.*
-    pub fn update_config(&self) -> super::builder::dataform::UpdateConfig {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// async fn sample(
+    ///    client: &Dataform
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_config(&self) -> super::builder::dataform::UpdateConfig
+    {
         super::builder::dataform::UpdateConfig::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::dataform::ListLocations {
+    pub fn list_locations(&self) -> super::builder::dataform::ListLocations
+    {
         super::builder::dataform::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(&self) -> super::builder::dataform::GetLocation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// async fn sample(
+    ///    client: &Dataform
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_location(&self) -> super::builder::dataform::GetLocation
+    {
         super::builder::dataform::GetLocation::new(self.inner.clone())
     }
 
@@ -440,13 +1169,47 @@ impl Dataform {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
-    pub fn set_iam_policy(&self) -> super::builder::dataform::SetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// async fn sample(
+    ///    client: &Dataform
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::dataform::SetIamPolicy
+    {
         super::builder::dataform::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
-    pub fn get_iam_policy(&self) -> super::builder::dataform::GetIamPolicy {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// async fn sample(
+    ///    client: &Dataform
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::dataform::GetIamPolicy
+    {
         super::builder::dataform::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -457,7 +1220,24 @@ impl Dataform {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
-    pub fn test_iam_permissions(&self) -> super::builder::dataform::TestIamPermissions {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// async fn sample(
+    ///    client: &Dataform
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::dataform::TestIamPermissions
+    {
         super::builder::dataform::TestIamPermissions::new(self.inner.clone())
     }
 }

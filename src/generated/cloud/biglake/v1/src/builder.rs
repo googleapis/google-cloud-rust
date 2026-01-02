@@ -39,10 +39,7 @@ pub mod iceberg_catalog_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = IcebergCatalogService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(
-                self,
-                config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -57,12 +54,8 @@ pub mod iceberg_catalog_service {
     }
 
     impl<R> RequestBuilder<R>
-    where
-        R: std::default::Default,
-    {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::IcebergCatalogService>,
-        ) -> Self {
+    where R: std::default::Default {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::IcebergCatalogService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -89,22 +82,17 @@ pub mod iceberg_catalog_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIcebergCatalogConfig(
-        RequestBuilder<crate::model::GetIcebergCatalogConfigRequest>,
-    );
+    pub struct GetIcebergCatalogConfig(RequestBuilder<crate::model::GetIcebergCatalogConfigRequest>);
 
     impl GetIcebergCatalogConfig {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::IcebergCatalogService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::IcebergCatalogService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetIcebergCatalogConfigRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetIcebergCatalogConfigRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -117,10 +105,7 @@ pub mod iceberg_catalog_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::IcebergCatalogConfig> {
-            (*self.0.stub)
-                .get_iceberg_catalog_config(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_iceberg_catalog_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [warehouse][crate::model::GetIcebergCatalogConfigRequest::warehouse].
@@ -160,17 +145,14 @@ pub mod iceberg_catalog_service {
     pub struct ListIcebergNamespaces(RequestBuilder<crate::model::ListIcebergNamespacesRequest>);
 
     impl ListIcebergNamespaces {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::IcebergCatalogService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::IcebergCatalogService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListIcebergNamespacesRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListIcebergNamespacesRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -183,10 +165,7 @@ pub mod iceberg_catalog_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListIcebergNamespacesResponse> {
-            (*self.0.stub)
-                .list_iceberg_namespaces(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_iceberg_namespaces(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [page_token][crate::model::ListIcebergNamespacesRequest::page_token].
@@ -244,17 +223,14 @@ pub mod iceberg_catalog_service {
     pub struct GetIcebergNamespace(RequestBuilder<crate::model::GetIcebergNamespaceRequest>);
 
     impl GetIcebergNamespace {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::IcebergCatalogService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::IcebergCatalogService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetIcebergNamespaceRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetIcebergNamespaceRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -267,10 +243,7 @@ pub mod iceberg_catalog_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::IcebergNamespace> {
-            (*self.0.stub)
-                .get_iceberg_namespace(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_iceberg_namespace(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetIcebergNamespaceRequest::name].
@@ -310,17 +283,14 @@ pub mod iceberg_catalog_service {
     pub struct CreateIcebergNamespace(RequestBuilder<crate::model::CreateIcebergNamespaceRequest>);
 
     impl CreateIcebergNamespace {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::IcebergCatalogService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::IcebergCatalogService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateIcebergNamespaceRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateIcebergNamespaceRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -333,10 +303,7 @@ pub mod iceberg_catalog_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::IcebergNamespace> {
-            (*self.0.stub)
-                .create_iceberg_namespace(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_iceberg_namespace(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateIcebergNamespaceRequest::parent].
@@ -351,8 +318,7 @@ pub mod iceberg_catalog_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_iceberg_namespace<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::IcebergNamespace>,
+        where T: std::convert::Into<crate::model::IcebergNamespace>
         {
             self.0.request.iceberg_namespace = std::option::Option::Some(v.into());
             self
@@ -362,8 +328,7 @@ pub mod iceberg_catalog_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_iceberg_namespace<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::IcebergNamespace>,
+        where T: std::convert::Into<crate::model::IcebergNamespace>
         {
             self.0.request.iceberg_namespace = v.map(|x| x.into());
             self
@@ -398,17 +363,14 @@ pub mod iceberg_catalog_service {
     pub struct DeleteIcebergNamespace(RequestBuilder<crate::model::DeleteIcebergNamespaceRequest>);
 
     impl DeleteIcebergNamespace {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::IcebergCatalogService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::IcebergCatalogService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteIcebergNamespaceRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteIcebergNamespaceRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -421,10 +383,7 @@ pub mod iceberg_catalog_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .delete_iceberg_namespace(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_iceberg_namespace(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteIcebergNamespaceRequest::name].
@@ -464,17 +423,14 @@ pub mod iceberg_catalog_service {
     pub struct UpdateIcebergNamespace(RequestBuilder<crate::model::UpdateIcebergNamespaceRequest>);
 
     impl UpdateIcebergNamespace {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::IcebergCatalogService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::IcebergCatalogService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateIcebergNamespaceRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateIcebergNamespaceRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -487,10 +443,7 @@ pub mod iceberg_catalog_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::UpdateIcebergNamespaceResponse> {
-            (*self.0.stub)
-                .update_iceberg_namespace(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_iceberg_namespace(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UpdateIcebergNamespaceRequest::name].
@@ -505,8 +458,7 @@ pub mod iceberg_catalog_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_iceberg_namespace_update<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::IcebergNamespaceUpdate>,
+        where T: std::convert::Into<crate::model::IcebergNamespaceUpdate>
         {
             self.0.request.iceberg_namespace_update = std::option::Option::Some(v.into());
             self
@@ -516,8 +468,7 @@ pub mod iceberg_catalog_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_iceberg_namespace_update<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::IcebergNamespaceUpdate>,
+        where T: std::convert::Into<crate::model::IcebergNamespaceUpdate>
         {
             self.0.request.iceberg_namespace_update = v.map(|x| x.into());
             self
@@ -549,22 +500,17 @@ pub mod iceberg_catalog_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListIcebergTableIdentifiers(
-        RequestBuilder<crate::model::ListIcebergTableIdentifiersRequest>,
-    );
+    pub struct ListIcebergTableIdentifiers(RequestBuilder<crate::model::ListIcebergTableIdentifiersRequest>);
 
     impl ListIcebergTableIdentifiers {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::IcebergCatalogService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::IcebergCatalogService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListIcebergTableIdentifiersRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListIcebergTableIdentifiersRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -577,10 +523,7 @@ pub mod iceberg_catalog_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListIcebergTableIdentifiersResponse> {
-            (*self.0.stub)
-                .list_iceberg_table_identifiers(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_iceberg_table_identifiers(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [page_token][crate::model::ListIcebergTableIdentifiersRequest::page_token].
@@ -632,17 +575,14 @@ pub mod iceberg_catalog_service {
     pub struct CreateIcebergTable(RequestBuilder<crate::model::CreateIcebergTableRequest>);
 
     impl CreateIcebergTable {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::IcebergCatalogService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::IcebergCatalogService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateIcebergTableRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateIcebergTableRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -655,10 +595,7 @@ pub mod iceberg_catalog_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<api::model::HttpBody> {
-            (*self.0.stub)
-                .create_iceberg_table(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_iceberg_table(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateIcebergTableRequest::parent].
@@ -673,8 +610,7 @@ pub mod iceberg_catalog_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_http_body<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<api::model::HttpBody>,
+        where T: std::convert::Into<api::model::HttpBody>
         {
             self.0.request.http_body = std::option::Option::Some(v.into());
             self
@@ -684,8 +620,7 @@ pub mod iceberg_catalog_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_http_body<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<api::model::HttpBody>,
+        where T: std::convert::Into<api::model::HttpBody>
         {
             self.0.request.http_body = v.map(|x| x.into());
             self
@@ -720,17 +655,14 @@ pub mod iceberg_catalog_service {
     pub struct DeleteIcebergTable(RequestBuilder<crate::model::DeleteIcebergTableRequest>);
 
     impl DeleteIcebergTable {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::IcebergCatalogService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::IcebergCatalogService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteIcebergTableRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteIcebergTableRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -743,10 +675,7 @@ pub mod iceberg_catalog_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .delete_iceberg_table(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_iceberg_table(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteIcebergTableRequest::name].
@@ -792,10 +721,10 @@ pub mod iceberg_catalog_service {
     pub struct GetIcebergTable(RequestBuilder<crate::model::GetIcebergTableRequest>);
 
     impl GetIcebergTable {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::IcebergCatalogService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::IcebergCatalogService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -812,10 +741,7 @@ pub mod iceberg_catalog_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<api::model::HttpBody> {
-            (*self.0.stub)
-                .get_iceberg_table(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_iceberg_table(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetIcebergTableRequest::name].
@@ -861,10 +787,10 @@ pub mod iceberg_catalog_service {
     pub struct LoadIcebergTableCredentials(RequestBuilder<crate::model::GetIcebergTableRequest>);
 
     impl LoadIcebergTableCredentials {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::IcebergCatalogService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::IcebergCatalogService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -881,10 +807,7 @@ pub mod iceberg_catalog_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::LoadIcebergTableCredentialsResponse> {
-            (*self.0.stub)
-                .load_iceberg_table_credentials(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).load_iceberg_table_credentials(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetIcebergTableRequest::name].
@@ -930,17 +853,14 @@ pub mod iceberg_catalog_service {
     pub struct UpdateIcebergTable(RequestBuilder<crate::model::UpdateIcebergTableRequest>);
 
     impl UpdateIcebergTable {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::IcebergCatalogService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::IcebergCatalogService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateIcebergTableRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateIcebergTableRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -953,10 +873,7 @@ pub mod iceberg_catalog_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<api::model::HttpBody> {
-            (*self.0.stub)
-                .update_iceberg_table(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_iceberg_table(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UpdateIcebergTableRequest::name].
@@ -971,8 +888,7 @@ pub mod iceberg_catalog_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_http_body<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<api::model::HttpBody>,
+        where T: std::convert::Into<api::model::HttpBody>
         {
             self.0.request.http_body = std::option::Option::Some(v.into());
             self
@@ -982,8 +898,7 @@ pub mod iceberg_catalog_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_http_body<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<api::model::HttpBody>,
+        where T: std::convert::Into<api::model::HttpBody>
         {
             self.0.request.http_body = v.map(|x| x.into());
             self
@@ -1018,17 +933,14 @@ pub mod iceberg_catalog_service {
     pub struct RegisterIcebergTable(RequestBuilder<crate::model::RegisterIcebergTableRequest>);
 
     impl RegisterIcebergTable {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::IcebergCatalogService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::IcebergCatalogService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::RegisterIcebergTableRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::RegisterIcebergTableRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1041,10 +953,7 @@ pub mod iceberg_catalog_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<api::model::HttpBody> {
-            (*self.0.stub)
-                .register_iceberg_table(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).register_iceberg_table(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::RegisterIcebergTableRequest::parent].
@@ -1106,17 +1015,14 @@ pub mod iceberg_catalog_service {
     pub struct GetIcebergCatalog(RequestBuilder<crate::model::GetIcebergCatalogRequest>);
 
     impl GetIcebergCatalog {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::IcebergCatalogService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::IcebergCatalogService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetIcebergCatalogRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetIcebergCatalogRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1129,10 +1035,7 @@ pub mod iceberg_catalog_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::IcebergCatalog> {
-            (*self.0.stub)
-                .get_iceberg_catalog(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_iceberg_catalog(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetIcebergCatalogRequest::name].
@@ -1172,17 +1075,14 @@ pub mod iceberg_catalog_service {
     pub struct ListIcebergCatalogs(RequestBuilder<crate::model::ListIcebergCatalogsRequest>);
 
     impl ListIcebergCatalogs {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::IcebergCatalogService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::IcebergCatalogService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListIcebergCatalogsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListIcebergCatalogsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1195,10 +1095,7 @@ pub mod iceberg_catalog_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListIcebergCatalogsResponse> {
-            (*self.0.stub)
-                .list_iceberg_catalogs(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_iceberg_catalogs(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ListIcebergCatalogsRequest::parent].
@@ -1210,10 +1107,7 @@ pub mod iceberg_catalog_service {
         }
 
         /// Sets the value of [view][crate::model::ListIcebergCatalogsRequest::view].
-        pub fn set_view<T: Into<crate::model::list_iceberg_catalogs_request::CatalogView>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_view<T: Into<crate::model::list_iceberg_catalogs_request::CatalogView>>(mut self, v: T) -> Self {
             self.0.request.view = v.into();
             self
         }
@@ -1259,17 +1153,14 @@ pub mod iceberg_catalog_service {
     pub struct DeleteIcebergCatalog(RequestBuilder<crate::model::DeleteIcebergCatalogRequest>);
 
     impl DeleteIcebergCatalog {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::IcebergCatalogService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::IcebergCatalogService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteIcebergCatalogRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteIcebergCatalogRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1282,10 +1173,7 @@ pub mod iceberg_catalog_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .delete_iceberg_catalog(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_iceberg_catalog(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteIcebergCatalogRequest::name].
@@ -1325,17 +1213,14 @@ pub mod iceberg_catalog_service {
     pub struct UpdateIcebergCatalog(RequestBuilder<crate::model::UpdateIcebergCatalogRequest>);
 
     impl UpdateIcebergCatalog {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::IcebergCatalogService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::IcebergCatalogService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateIcebergCatalogRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateIcebergCatalogRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1348,18 +1233,14 @@ pub mod iceberg_catalog_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::IcebergCatalog> {
-            (*self.0.stub)
-                .update_iceberg_catalog(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_iceberg_catalog(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [iceberg_catalog][crate::model::UpdateIcebergCatalogRequest::iceberg_catalog].
         ///
         /// This is a **required** field for requests.
         pub fn set_iceberg_catalog<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::IcebergCatalog>,
+        where T: std::convert::Into<crate::model::IcebergCatalog>
         {
             self.0.request.iceberg_catalog = std::option::Option::Some(v.into());
             self
@@ -1369,8 +1250,7 @@ pub mod iceberg_catalog_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_iceberg_catalog<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::IcebergCatalog>,
+        where T: std::convert::Into<crate::model::IcebergCatalog>
         {
             self.0.request.iceberg_catalog = v.map(|x| x.into());
             self
@@ -1378,8 +1258,7 @@ pub mod iceberg_catalog_service {
 
         /// Sets the value of [update_mask][crate::model::UpdateIcebergCatalogRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -1387,8 +1266,7 @@ pub mod iceberg_catalog_service {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateIcebergCatalogRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -1423,17 +1301,14 @@ pub mod iceberg_catalog_service {
     pub struct CreateIcebergCatalog(RequestBuilder<crate::model::CreateIcebergCatalogRequest>);
 
     impl CreateIcebergCatalog {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::IcebergCatalogService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::IcebergCatalogService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateIcebergCatalogRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateIcebergCatalogRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1446,10 +1321,7 @@ pub mod iceberg_catalog_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::IcebergCatalog> {
-            (*self.0.stub)
-                .create_iceberg_catalog(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_iceberg_catalog(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateIcebergCatalogRequest::parent].
@@ -1472,8 +1344,7 @@ pub mod iceberg_catalog_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_iceberg_catalog<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::IcebergCatalog>,
+        where T: std::convert::Into<crate::model::IcebergCatalog>
         {
             self.0.request.iceberg_catalog = std::option::Option::Some(v.into());
             self
@@ -1483,8 +1354,7 @@ pub mod iceberg_catalog_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_iceberg_catalog<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::IcebergCatalog>,
+        where T: std::convert::Into<crate::model::IcebergCatalog>
         {
             self.0.request.iceberg_catalog = v.map(|x| x.into());
             self
@@ -1519,17 +1389,14 @@ pub mod iceberg_catalog_service {
     pub struct FailoverIcebergCatalog(RequestBuilder<crate::model::FailoverIcebergCatalogRequest>);
 
     impl FailoverIcebergCatalog {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::IcebergCatalogService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::IcebergCatalogService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::FailoverIcebergCatalogRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::FailoverIcebergCatalogRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1542,10 +1409,7 @@ pub mod iceberg_catalog_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::FailoverIcebergCatalogResponse> {
-            (*self.0.stub)
-                .failover_iceberg_catalog(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).failover_iceberg_catalog(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::FailoverIcebergCatalogRequest::name].
@@ -1572,21 +1436,15 @@ pub mod iceberg_catalog_service {
 
         /// Sets the value of [conditional_failover_replication_time][crate::model::FailoverIcebergCatalogRequest::conditional_failover_replication_time].
         pub fn set_conditional_failover_replication_time<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
-            self.0.request.conditional_failover_replication_time =
-                std::option::Option::Some(v.into());
+            self.0.request.conditional_failover_replication_time = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [conditional_failover_replication_time][crate::model::FailoverIcebergCatalogRequest::conditional_failover_replication_time].
-        pub fn set_or_clear_conditional_failover_replication_time<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        pub fn set_or_clear_conditional_failover_replication_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.0.request.conditional_failover_replication_time = v.map(|x| x.into());
             self
@@ -1599,4 +1457,5 @@ pub mod iceberg_catalog_service {
             &mut self.0.options
         }
     }
+
 }

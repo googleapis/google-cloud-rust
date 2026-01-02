@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -27,7 +28,6 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -39,6 +39,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SummarizeMaintenancesRequest {
+
     /// Required. The parent of the resource maintenance.
     /// eg. `projects/123/locations/*`
     pub parent: std::string::String,
@@ -141,6 +142,7 @@ impl wkt::message::Message for SummarizeMaintenancesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SummarizeMaintenancesResponse {
+
     /// The resulting summaries.
     pub maintenances: std::vec::Vec<crate::model::MaintenanceSummary>,
 
@@ -175,7 +177,7 @@ impl SummarizeMaintenancesResponse {
     pub fn set_maintenances<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::MaintenanceSummary>,
+        V: std::convert::Into<crate::model::MaintenanceSummary>
     {
         use std::iter::Iterator;
         self.maintenances = v.into_iter().map(|i| i.into()).collect();
@@ -204,7 +206,7 @@ impl SummarizeMaintenancesResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -237,6 +239,7 @@ impl gax::paginator::internal::PageableResponse for SummarizeMaintenancesRespons
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MaintenanceSummary {
+
     /// Output only. The name of the maintenance.
     pub maintenance_name: std::string::String,
 
@@ -295,10 +298,7 @@ impl MaintenanceSummary {
     /// # use google_cloud_maintenance_api_v1::model::MaintenanceSummary;
     /// let x = MaintenanceSummary::new().set_maintenance_name("example");
     /// ```
-    pub fn set_maintenance_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_maintenance_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.maintenance_name = v.into();
         self
     }
@@ -336,10 +336,7 @@ impl MaintenanceSummary {
     /// let x0 = MaintenanceSummary::new().set_category(MaintenanceCategory::Infrastructure);
     /// let x1 = MaintenanceSummary::new().set_category(MaintenanceCategory::ServiceUpdate);
     /// ```
-    pub fn set_category<T: std::convert::Into<crate::model::MaintenanceCategory>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_category<T: std::convert::Into<crate::model::MaintenanceCategory>>(mut self, v: T) -> Self {
         self.category = v.into();
         self
     }
@@ -353,8 +350,7 @@ impl MaintenanceSummary {
     /// let x = MaintenanceSummary::new().set_maintenance_scheduled_start_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_maintenance_scheduled_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.maintenance_scheduled_start_time = std::option::Option::Some(v.into());
         self
@@ -369,12 +365,8 @@ impl MaintenanceSummary {
     /// let x = MaintenanceSummary::new().set_or_clear_maintenance_scheduled_start_time(Some(Timestamp::default()/* use setters */));
     /// let x = MaintenanceSummary::new().set_or_clear_maintenance_scheduled_start_time(None::<Timestamp>);
     /// ```
-    pub fn set_or_clear_maintenance_scheduled_start_time<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    pub fn set_or_clear_maintenance_scheduled_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.maintenance_scheduled_start_time = v.map(|x| x.into());
         self
@@ -389,8 +381,7 @@ impl MaintenanceSummary {
     /// let x = MaintenanceSummary::new().set_maintenance_scheduled_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_maintenance_scheduled_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.maintenance_scheduled_end_time = std::option::Option::Some(v.into());
         self
@@ -405,12 +396,8 @@ impl MaintenanceSummary {
     /// let x = MaintenanceSummary::new().set_or_clear_maintenance_scheduled_end_time(Some(Timestamp::default()/* use setters */));
     /// let x = MaintenanceSummary::new().set_or_clear_maintenance_scheduled_end_time(None::<Timestamp>);
     /// ```
-    pub fn set_or_clear_maintenance_scheduled_end_time<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    pub fn set_or_clear_maintenance_scheduled_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.maintenance_scheduled_end_time = v.map(|x| x.into());
         self
@@ -425,8 +412,7 @@ impl MaintenanceSummary {
     /// let x = MaintenanceSummary::new().set_maintenance_start_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_maintenance_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.maintenance_start_time = std::option::Option::Some(v.into());
         self
@@ -442,8 +428,7 @@ impl MaintenanceSummary {
     /// let x = MaintenanceSummary::new().set_or_clear_maintenance_start_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_maintenance_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.maintenance_start_time = v.map(|x| x.into());
         self
@@ -458,8 +443,7 @@ impl MaintenanceSummary {
     /// let x = MaintenanceSummary::new().set_maintenance_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_maintenance_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.maintenance_end_time = std::option::Option::Some(v.into());
         self
@@ -475,8 +459,7 @@ impl MaintenanceSummary {
     /// let x = MaintenanceSummary::new().set_or_clear_maintenance_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_maintenance_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.maintenance_end_time = v.map(|x| x.into());
         self
@@ -509,7 +492,7 @@ impl MaintenanceSummary {
     pub fn set_controls<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::MaintenanceControl>,
+        V: std::convert::Into<crate::model::MaintenanceControl>
     {
         use std::iter::Iterator;
         self.controls = v.into_iter().map(|i| i.into()).collect();
@@ -531,7 +514,7 @@ impl MaintenanceSummary {
     pub fn set_stats<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::maintenance_summary::Stats>,
+        V: std::convert::Into<crate::model::maintenance_summary::Stats>
     {
         use std::iter::Iterator;
         self.stats = v.into_iter().map(|i| i.into()).collect();
@@ -550,10 +533,12 @@ pub mod maintenance_summary {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Stats indicates the type of aggregate and the corresponding aggregates.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Stats {
+
         /// groupBy specifies the type of aggregate.
         /// For example a group_by might be `"state"`
         pub group_by: std::string::String,
@@ -598,7 +583,7 @@ pub mod maintenance_summary {
         pub fn set_aggregates<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::maintenance_summary::Aggregate>,
+            V: std::convert::Into<crate::model::maintenance_summary::Aggregate>
         {
             use std::iter::Iterator;
             self.aggregates = v.into_iter().map(|i| i.into()).collect();
@@ -616,6 +601,7 @@ pub mod maintenance_summary {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Aggregate {
+
         /// Specifies what specific value of the group_by the count represents. For
         /// example if group_by is `"state"` its corresponding group could be
         /// `"SCHEDULED"`.
@@ -669,6 +655,7 @@ pub mod maintenance_summary {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResourceMaintenance {
+
     /// Identifier. The name of the resource_maintenance resource.
     /// Format:
     /// `"projects/{project}/locations/{location}/resourceMaintenance/{resource-maintenance-id}"`
@@ -717,7 +704,7 @@ pub struct ResourceMaintenance {
 
     /// Optional. The labels on the resource, which can be used for categorization.
     /// similar to Kubernetes resource labels.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. Annotations is an unstructured key-value map stored with a
     /// resource that may be set by external tools to store and retrieve arbitrary
@@ -725,7 +712,7 @@ pub struct ResourceMaintenance {
     /// objects.
     ///
     /// More info: <https://kubernetes.io/docs/user-guide/annotations>
-    pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
+    pub annotations: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Output only. The unique identifier of the resource. UID is unique in the
     /// time and space for this resource within the scope of the service. It is
@@ -768,8 +755,7 @@ impl ResourceMaintenance {
     /// let x = ResourceMaintenance::new().set_resource(Resource::default()/* use setters */);
     /// ```
     pub fn set_resource<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::resource_maintenance::Resource>,
+    where T: std::convert::Into<crate::model::resource_maintenance::Resource>
     {
         self.resource = std::option::Option::Some(v.into());
         self
@@ -785,8 +771,7 @@ impl ResourceMaintenance {
     /// let x = ResourceMaintenance::new().set_or_clear_resource(None::<Resource>);
     /// ```
     pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::resource_maintenance::Resource>,
+    where T: std::convert::Into<crate::model::resource_maintenance::Resource>
     {
         self.resource = v.map(|x| x.into());
         self
@@ -801,8 +786,7 @@ impl ResourceMaintenance {
     /// let x = ResourceMaintenance::new().set_maintenance(Maintenance::default()/* use setters */);
     /// ```
     pub fn set_maintenance<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::resource_maintenance::Maintenance>,
+    where T: std::convert::Into<crate::model::resource_maintenance::Maintenance>
     {
         self.maintenance = std::option::Option::Some(v.into());
         self
@@ -818,8 +802,7 @@ impl ResourceMaintenance {
     /// let x = ResourceMaintenance::new().set_or_clear_maintenance(None::<Maintenance>);
     /// ```
     pub fn set_or_clear_maintenance<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::resource_maintenance::Maintenance>,
+    where T: std::convert::Into<crate::model::resource_maintenance::Maintenance>
     {
         self.maintenance = v.map(|x| x.into());
         self
@@ -835,10 +818,7 @@ impl ResourceMaintenance {
     /// let x1 = ResourceMaintenance::new().set_state(State::Running);
     /// let x2 = ResourceMaintenance::new().set_state(State::Cancelled);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::resource_maintenance::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::resource_maintenance::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -852,8 +832,7 @@ impl ResourceMaintenance {
     /// let x = ResourceMaintenance::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -869,8 +848,7 @@ impl ResourceMaintenance {
     /// let x = ResourceMaintenance::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -885,8 +863,7 @@ impl ResourceMaintenance {
     /// let x = ResourceMaintenance::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -902,8 +879,7 @@ impl ResourceMaintenance {
     /// let x = ResourceMaintenance::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -918,8 +894,7 @@ impl ResourceMaintenance {
     /// let x = ResourceMaintenance::new().set_maintenance_start_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_maintenance_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.maintenance_start_time = std::option::Option::Some(v.into());
         self
@@ -935,8 +910,7 @@ impl ResourceMaintenance {
     /// let x = ResourceMaintenance::new().set_or_clear_maintenance_start_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_maintenance_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.maintenance_start_time = v.map(|x| x.into());
         self
@@ -951,8 +925,7 @@ impl ResourceMaintenance {
     /// let x = ResourceMaintenance::new().set_maintenance_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_maintenance_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.maintenance_end_time = std::option::Option::Some(v.into());
         self
@@ -968,8 +941,7 @@ impl ResourceMaintenance {
     /// let x = ResourceMaintenance::new().set_or_clear_maintenance_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_maintenance_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.maintenance_end_time = v.map(|x| x.into());
         self
@@ -984,8 +956,7 @@ impl ResourceMaintenance {
     /// let x = ResourceMaintenance::new().set_maintenance_cancel_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_maintenance_cancel_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.maintenance_cancel_time = std::option::Option::Some(v.into());
         self
@@ -1001,8 +972,7 @@ impl ResourceMaintenance {
     /// let x = ResourceMaintenance::new().set_or_clear_maintenance_cancel_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_maintenance_cancel_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.maintenance_cancel_time = v.map(|x| x.into());
         self
@@ -1017,8 +987,7 @@ impl ResourceMaintenance {
     /// let x = ResourceMaintenance::new().set_maintenance_scheduled_start_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_maintenance_scheduled_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.maintenance_scheduled_start_time = std::option::Option::Some(v.into());
         self
@@ -1033,12 +1002,8 @@ impl ResourceMaintenance {
     /// let x = ResourceMaintenance::new().set_or_clear_maintenance_scheduled_start_time(Some(Timestamp::default()/* use setters */));
     /// let x = ResourceMaintenance::new().set_or_clear_maintenance_scheduled_start_time(None::<Timestamp>);
     /// ```
-    pub fn set_or_clear_maintenance_scheduled_start_time<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    pub fn set_or_clear_maintenance_scheduled_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.maintenance_scheduled_start_time = v.map(|x| x.into());
         self
@@ -1053,8 +1018,7 @@ impl ResourceMaintenance {
     /// let x = ResourceMaintenance::new().set_maintenance_scheduled_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_maintenance_scheduled_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.maintenance_scheduled_end_time = std::option::Option::Some(v.into());
         self
@@ -1069,12 +1033,8 @@ impl ResourceMaintenance {
     /// let x = ResourceMaintenance::new().set_or_clear_maintenance_scheduled_end_time(Some(Timestamp::default()/* use setters */));
     /// let x = ResourceMaintenance::new().set_or_clear_maintenance_scheduled_end_time(None::<Timestamp>);
     /// ```
-    pub fn set_or_clear_maintenance_scheduled_end_time<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    pub fn set_or_clear_maintenance_scheduled_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.maintenance_scheduled_end_time = v.map(|x| x.into());
         self
@@ -1107,7 +1067,7 @@ impl ResourceMaintenance {
     pub fn set_controls<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::MaintenanceControl>,
+        V: std::convert::Into<crate::model::MaintenanceControl>
     {
         use std::iter::Iterator;
         self.controls = v.into_iter().map(|i| i.into()).collect();
@@ -1192,10 +1152,12 @@ pub mod resource_maintenance {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Resource contains information about the resource affected by maintenance.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Resource {
+
         /// Output only. Name is the reference to the consumer resource affected by
         /// the maintenance. Available values can be found here:
         /// <https://cloud.google.com/asset-inventory/docs/asset-names>
@@ -1228,10 +1190,7 @@ pub mod resource_maintenance {
         /// # use google_cloud_maintenance_api_v1::model::resource_maintenance::Resource;
         /// let x = Resource::new().set_resource_name("example");
         /// ```
-        pub fn set_resource_name<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_resource_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.resource_name = v.into();
             self
         }
@@ -1271,6 +1230,7 @@ pub mod resource_maintenance {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Maintenance {
+
         /// Maintenance is the name of the corresponding maintenance resource
         /// following the standard naming scheme: `"{maintenance-id}"`
         pub maintenance_name: std::string::String,
@@ -1299,10 +1259,7 @@ pub mod resource_maintenance {
         /// # use google_cloud_maintenance_api_v1::model::resource_maintenance::Maintenance;
         /// let x = Maintenance::new().set_maintenance_name("example");
         /// ```
-        pub fn set_maintenance_name<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_maintenance_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.maintenance_name = v.into();
             self
         }
@@ -1340,10 +1297,7 @@ pub mod resource_maintenance {
         /// let x0 = Maintenance::new().set_category(MaintenanceCategory::Infrastructure);
         /// let x1 = Maintenance::new().set_category(MaintenanceCategory::ServiceUpdate);
         /// ```
-        pub fn set_category<T: std::convert::Into<crate::model::MaintenanceCategory>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_category<T: std::convert::Into<crate::model::MaintenanceCategory>>(mut self, v: T) -> Self {
             self.category = v.into();
             self
         }
@@ -1454,9 +1408,7 @@ pub mod resource_maintenance {
                 2 => Self::Running,
                 3 => Self::Cancelled,
                 4 => Self::Succeeded,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1470,9 +1422,7 @@ pub mod resource_maintenance {
                 "RUNNING" => Self::Running,
                 "CANCELLED" => Self::Cancelled,
                 "SUCCEEDED" => Self::Succeeded,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1499,8 +1449,7 @@ pub mod resource_maintenance {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.maintenance.api.v1.ResourceMaintenance.State",
-            ))
+                ".google.cloud.maintenance.api.v1.ResourceMaintenance.State"))
         }
     }
 }
@@ -1509,6 +1458,7 @@ pub mod resource_maintenance {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MaintenanceControl {
+
     /// The control of the resource maintenance.
     pub control: crate::model::maintenance_control::Control,
 
@@ -1538,10 +1488,7 @@ impl MaintenanceControl {
     /// let x1 = MaintenanceControl::new().set_control(Control::ManagePolicy);
     /// let x2 = MaintenanceControl::new().set_control(Control::Reschedule);
     /// ```
-    pub fn set_control<T: std::convert::Into<crate::model::maintenance_control::Control>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_control<T: std::convert::Into<crate::model::maintenance_control::Control>>(mut self, v: T) -> Self {
         self.control = v.into();
         self
     }
@@ -1581,6 +1528,7 @@ impl wkt::message::Message for MaintenanceControl {
 pub mod maintenance_control {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Sets the type of control supported. comment (as in logs).
     ///
@@ -1673,9 +1621,7 @@ pub mod maintenance_control {
                 1 => Self::Apply,
                 2 => Self::ManagePolicy,
                 3 => Self::Reschedule,
-                _ => Self::UnknownValue(control::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(control::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1688,9 +1634,7 @@ pub mod maintenance_control {
                 "APPLY" => Self::Apply,
                 "MANAGE_POLICY" => Self::ManagePolicy,
                 "RESCHEDULE" => Self::Reschedule,
-                _ => Self::UnknownValue(control::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(control::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1716,8 +1660,7 @@ pub mod maintenance_control {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Control>::new(
-                ".google.cloud.maintenance.api.v1.MaintenanceControl.Control",
-            ))
+                ".google.cloud.maintenance.api.v1.MaintenanceControl.Control"))
         }
     }
 }
@@ -1726,6 +1669,7 @@ pub mod maintenance_control {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListResourceMaintenancesRequest {
+
     /// Required. The parent of the resource maintenance.
     pub parent: std::string::String,
 
@@ -1821,6 +1765,7 @@ impl wkt::message::Message for ListResourceMaintenancesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListResourceMaintenancesResponse {
+
     /// The resulting resource maintenances.
     pub resource_maintenances: std::vec::Vec<crate::model::ResourceMaintenance>,
 
@@ -1855,7 +1800,7 @@ impl ListResourceMaintenancesResponse {
     pub fn set_resource_maintenances<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ResourceMaintenance>,
+        V: std::convert::Into<crate::model::ResourceMaintenance>
     {
         use std::iter::Iterator;
         self.resource_maintenances = v.into_iter().map(|i| i.into()).collect();
@@ -1884,7 +1829,7 @@ impl ListResourceMaintenancesResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -1916,6 +1861,7 @@ impl gax::paginator::internal::PageableResponse for ListResourceMaintenancesResp
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetResourceMaintenanceRequest {
+
     /// Required. The resource name of the resource within a service.
     pub name: std::string::String,
 
@@ -2041,9 +1987,7 @@ impl std::convert::From<i32> for MaintenanceCategory {
             0 => Self::Unspecified,
             1 => Self::Infrastructure,
             3 => Self::ServiceUpdate,
-            _ => Self::UnknownValue(maintenance_category::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(maintenance_category::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -2055,9 +1999,7 @@ impl std::convert::From<&str> for MaintenanceCategory {
             "MAINTENANCE_CATEGORY_UNSPECIFIED" => Self::Unspecified,
             "INFRASTRUCTURE" => Self::Infrastructure,
             "SERVICE_UPDATE" => Self::ServiceUpdate,
-            _ => Self::UnknownValue(maintenance_category::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(maintenance_category::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -2082,7 +2024,6 @@ impl<'de> serde::de::Deserialize<'de> for MaintenanceCategory {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<MaintenanceCategory>::new(
-            ".google.cloud.maintenance.api.v1.MaintenanceCategory",
-        ))
+            ".google.cloud.maintenance.api.v1.MaintenanceCategory"))
     }
 }

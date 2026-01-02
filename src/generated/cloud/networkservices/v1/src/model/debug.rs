@@ -59,10 +59,7 @@ impl std::fmt::Debug for super::EndpointMatcher {
 impl std::fmt::Debug for super::endpoint_matcher::MetadataLabelMatcher {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MetadataLabelMatcher");
-        debug_struct.field(
-            "metadata_label_match_criteria",
-            &self.metadata_label_match_criteria,
-        );
+        debug_struct.field("metadata_label_match_criteria", &self.metadata_label_match_criteria);
         debug_struct.field("metadata_labels", &self.metadata_labels);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -537,6 +534,7 @@ impl std::fmt::Debug for super::EndpointPolicy {
     }
 }
 
+
 impl std::fmt::Debug for super::ListEndpointPoliciesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListEndpointPoliciesRequest");
@@ -648,6 +646,7 @@ impl std::fmt::Debug for super::wasm_plugin::VersionDetails {
     }
 }
 
+
 impl std::fmt::Debug for super::wasm_plugin::LogConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("LogConfig");
@@ -672,6 +671,8 @@ impl std::fmt::Debug for super::wasm_plugin::UsedBy {
     }
 }
 
+
+
 impl std::fmt::Debug for super::WasmPluginVersion {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("WasmPluginVersion");
@@ -690,6 +691,7 @@ impl std::fmt::Debug for super::WasmPluginVersion {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::ListWasmPluginsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -853,6 +855,7 @@ impl std::fmt::Debug for super::Gateway {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::ListGatewaysRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -1084,6 +1087,7 @@ impl std::fmt::Debug for super::grpc_route::RouteRule {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::ListGrpcRoutesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -1422,6 +1426,7 @@ impl std::fmt::Debug for super::http_route::RouteRule {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::ListHttpRoutesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -1836,6 +1841,7 @@ impl std::fmt::Debug for super::service_lb_policy::IsolationConfig {
     }
 }
 
+
 impl std::fmt::Debug for super::ListServiceLbPoliciesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListServiceLbPoliciesRequest");
@@ -1977,6 +1983,7 @@ impl std::fmt::Debug for super::tcp_route::RouteDestination {
     }
 }
 
+
 impl std::fmt::Debug for super::ListTcpRoutesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListTcpRoutesRequest");
@@ -2117,6 +2124,7 @@ impl std::fmt::Debug for super::tls_route::RouteDestination {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::ListTlsRoutesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

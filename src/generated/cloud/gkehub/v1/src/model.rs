@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -30,7 +31,6 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -42,12 +42,13 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Feature {
+
     /// Output only. The full, unique name of this Feature resource in the format
     /// `projects/*/locations/*/features/*`.
     pub name: std::string::String,
 
     /// GCP labels for this Feature.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Output only. State of the Feature resource itself.
     pub resource_state: std::option::Option<crate::model::FeatureResourceState>,
@@ -75,8 +76,7 @@ pub struct Feature {
     /// ONE of the entries will be saved, with no guarantees as to which. For this
     /// reason, it is recommended the same format be used for all entries when
     /// mutating a Feature.
-    pub membership_specs:
-        std::collections::HashMap<std::string::String, crate::model::MembershipFeatureSpec>,
+    pub membership_specs: std::collections::HashMap<std::string::String,crate::model::MembershipFeatureSpec>,
 
     /// Output only. The Hub-wide Feature state.
     pub state: std::option::Option<crate::model::CommonFeatureState>,
@@ -93,8 +93,7 @@ pub struct Feature {
     /// Where {p} is the project number, {l} is a valid location and {m} is a valid
     /// Membership in this project at that location. {p} MUST match the Feature's
     /// project number.
-    pub membership_states:
-        std::collections::HashMap<std::string::String, crate::model::MembershipFeatureState>,
+    pub membership_states: std::collections::HashMap<std::string::String,crate::model::MembershipFeatureState>,
 
     /// Output only. When the Feature resource was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
@@ -155,8 +154,7 @@ impl Feature {
     /// let x = Feature::new().set_resource_state(FeatureResourceState::default()/* use setters */);
     /// ```
     pub fn set_resource_state<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::FeatureResourceState>,
+    where T: std::convert::Into<crate::model::FeatureResourceState>
     {
         self.resource_state = std::option::Option::Some(v.into());
         self
@@ -172,8 +170,7 @@ impl Feature {
     /// let x = Feature::new().set_or_clear_resource_state(None::<FeatureResourceState>);
     /// ```
     pub fn set_or_clear_resource_state<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::FeatureResourceState>,
+    where T: std::convert::Into<crate::model::FeatureResourceState>
     {
         self.resource_state = v.map(|x| x.into());
         self
@@ -188,8 +185,7 @@ impl Feature {
     /// let x = Feature::new().set_spec(CommonFeatureSpec::default()/* use setters */);
     /// ```
     pub fn set_spec<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CommonFeatureSpec>,
+    where T: std::convert::Into<crate::model::CommonFeatureSpec>
     {
         self.spec = std::option::Option::Some(v.into());
         self
@@ -205,8 +201,7 @@ impl Feature {
     /// let x = Feature::new().set_or_clear_spec(None::<CommonFeatureSpec>);
     /// ```
     pub fn set_or_clear_spec<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CommonFeatureSpec>,
+    where T: std::convert::Into<crate::model::CommonFeatureSpec>
     {
         self.spec = v.map(|x| x.into());
         self
@@ -243,8 +238,7 @@ impl Feature {
     /// let x = Feature::new().set_state(CommonFeatureState::default()/* use setters */);
     /// ```
     pub fn set_state<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CommonFeatureState>,
+    where T: std::convert::Into<crate::model::CommonFeatureState>
     {
         self.state = std::option::Option::Some(v.into());
         self
@@ -260,8 +254,7 @@ impl Feature {
     /// let x = Feature::new().set_or_clear_state(None::<CommonFeatureState>);
     /// ```
     pub fn set_or_clear_state<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CommonFeatureState>,
+    where T: std::convert::Into<crate::model::CommonFeatureState>
     {
         self.state = v.map(|x| x.into());
         self
@@ -298,8 +291,7 @@ impl Feature {
     /// let x = Feature::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -315,8 +307,7 @@ impl Feature {
     /// let x = Feature::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -331,8 +322,7 @@ impl Feature {
     /// let x = Feature::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -348,8 +338,7 @@ impl Feature {
     /// let x = Feature::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -364,8 +353,7 @@ impl Feature {
     /// let x = Feature::new().set_delete_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_delete_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.delete_time = std::option::Option::Some(v.into());
         self
@@ -381,8 +369,7 @@ impl Feature {
     /// let x = Feature::new().set_or_clear_delete_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.delete_time = v.map(|x| x.into());
         self
@@ -401,6 +388,7 @@ impl wkt::message::Message for Feature {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FeatureResourceState {
+
     /// The current state of the Feature resource in the Hub API.
     pub state: crate::model::feature_resource_state::State,
 
@@ -422,10 +410,7 @@ impl FeatureResourceState {
     /// let x1 = FeatureResourceState::new().set_state(State::Active);
     /// let x2 = FeatureResourceState::new().set_state(State::Disabling);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::feature_resource_state::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::feature_resource_state::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -441,6 +426,7 @@ impl wkt::message::Message for FeatureResourceState {
 pub mod feature_resource_state {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// State describes the lifecycle status of a Feature.
     ///
@@ -546,9 +532,7 @@ pub mod feature_resource_state {
                 3 => Self::Disabling,
                 4 => Self::Updating,
                 5 => Self::ServiceUpdating,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -563,9 +547,7 @@ pub mod feature_resource_state {
                 "DISABLING" => Self::Disabling,
                 "UPDATING" => Self::Updating,
                 "SERVICE_UPDATING" => Self::ServiceUpdating,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -593,8 +575,7 @@ pub mod feature_resource_state {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.gkehub.v1.FeatureResourceState.State",
-            ))
+                ".google.cloud.gkehub.v1.FeatureResourceState.State"))
         }
     }
 }
@@ -605,6 +586,7 @@ pub mod feature_resource_state {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FeatureState {
+
     /// The high-level, machine-readable status of this Feature.
     pub code: crate::model::feature_state::Code,
 
@@ -632,10 +614,7 @@ impl FeatureState {
     /// let x1 = FeatureState::new().set_code(Code::Warning);
     /// let x2 = FeatureState::new().set_code(Code::Error);
     /// ```
-    pub fn set_code<T: std::convert::Into<crate::model::feature_state::Code>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_code<T: std::convert::Into<crate::model::feature_state::Code>>(mut self, v: T) -> Self {
         self.code = v.into();
         self
     }
@@ -661,8 +640,7 @@ impl FeatureState {
     /// let x = FeatureState::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -678,8 +656,7 @@ impl FeatureState {
     /// let x = FeatureState::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -696,6 +673,7 @@ impl wkt::message::Message for FeatureState {
 pub mod feature_state {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Code represents a machine-readable, high-level status of the Feature.
     ///
@@ -794,9 +772,7 @@ pub mod feature_state {
                 1 => Self::Ok,
                 2 => Self::Warning,
                 3 => Self::Error,
-                _ => Self::UnknownValue(code::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(code::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -809,9 +785,7 @@ pub mod feature_state {
                 "OK" => Self::Ok,
                 "WARNING" => Self::Warning,
                 "ERROR" => Self::Error,
-                _ => Self::UnknownValue(code::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(code::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -837,8 +811,7 @@ pub mod feature_state {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Code>::new(
-                ".google.cloud.gkehub.v1.FeatureState.Code",
-            ))
+                ".google.cloud.gkehub.v1.FeatureState.Code"))
         }
     }
 }
@@ -847,6 +820,7 @@ pub mod feature_state {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CommonFeatureSpec {
+
     pub feature_spec: std::option::Option<crate::model::common_feature_spec::FeatureSpec>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -869,12 +843,8 @@ impl CommonFeatureSpec {
     /// let x = CommonFeatureSpec::new().set_feature_spec(Some(
     ///     google_cloud_gkehub_v1::model::common_feature_spec::FeatureSpec::Multiclusteringress(FeatureSpec::default().into())));
     /// ```
-    pub fn set_feature_spec<
-        T: std::convert::Into<std::option::Option<crate::model::common_feature_spec::FeatureSpec>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_feature_spec<T: std::convert::Into<std::option::Option<crate::model::common_feature_spec::FeatureSpec>>>(mut self, v: T) -> Self
+    {
         self.feature_spec = v.into();
         self
     }
@@ -882,15 +852,10 @@ impl CommonFeatureSpec {
     /// The value of [feature_spec][crate::model::CommonFeatureSpec::feature_spec]
     /// if it holds a `Multiclusteringress`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn multiclusteringress(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<gkehub_multiclusteringress_v1::model::FeatureSpec>>
-    {
+    pub fn multiclusteringress(&self) -> std::option::Option<&std::boxed::Box<gkehub_multiclusteringress_v1::model::FeatureSpec>> {
         #[allow(unreachable_patterns)]
         self.feature_spec.as_ref().and_then(|v| match v {
-            crate::model::common_feature_spec::FeatureSpec::Multiclusteringress(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::common_feature_spec::FeatureSpec::Multiclusteringress(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -908,14 +873,11 @@ impl CommonFeatureSpec {
     /// let x = CommonFeatureSpec::new().set_multiclusteringress(FeatureSpec::default()/* use setters */);
     /// assert!(x.multiclusteringress().is_some());
     /// ```
-    pub fn set_multiclusteringress<
-        T: std::convert::Into<std::boxed::Box<gkehub_multiclusteringress_v1::model::FeatureSpec>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_multiclusteringress<T: std::convert::Into<std::boxed::Box<gkehub_multiclusteringress_v1::model::FeatureSpec>>>(mut self, v: T) -> Self {
         self.feature_spec = std::option::Option::Some(
-            crate::model::common_feature_spec::FeatureSpec::Multiclusteringress(v.into()),
+            crate::model::common_feature_spec::FeatureSpec::Multiclusteringress(
+                v.into()
+            )
         );
         self
     }
@@ -932,6 +894,7 @@ pub mod common_feature_spec {
     #[allow(unused_imports)]
     use super::*;
 
+
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum FeatureSpec {
@@ -944,6 +907,7 @@ pub mod common_feature_spec {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CommonFeatureState {
+
     /// Output only. The "running state" of the Feature in this Hub.
     pub state: std::option::Option<crate::model::FeatureState>,
 
@@ -964,8 +928,7 @@ impl CommonFeatureState {
     /// let x = CommonFeatureState::new().set_state(FeatureState::default()/* use setters */);
     /// ```
     pub fn set_state<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::FeatureState>,
+    where T: std::convert::Into<crate::model::FeatureState>
     {
         self.state = std::option::Option::Some(v.into());
         self
@@ -981,8 +944,7 @@ impl CommonFeatureState {
     /// let x = CommonFeatureState::new().set_or_clear_state(None::<FeatureState>);
     /// ```
     pub fn set_or_clear_state<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::FeatureState>,
+    where T: std::convert::Into<crate::model::FeatureState>
     {
         self.state = v.map(|x| x.into());
         self
@@ -1000,6 +962,7 @@ impl wkt::message::Message for CommonFeatureState {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MembershipFeatureSpec {
+
     pub feature_spec: std::option::Option<crate::model::membership_feature_spec::FeatureSpec>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1022,12 +985,8 @@ impl MembershipFeatureSpec {
     /// let x = MembershipFeatureSpec::new().set_feature_spec(Some(
     ///     google_cloud_gkehub_v1::model::membership_feature_spec::FeatureSpec::Configmanagement(MembershipSpec::default().into())));
     /// ```
-    pub fn set_feature_spec<
-        T: std::convert::Into<std::option::Option<crate::model::membership_feature_spec::FeatureSpec>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_feature_spec<T: std::convert::Into<std::option::Option<crate::model::membership_feature_spec::FeatureSpec>>>(mut self, v: T) -> Self
+    {
         self.feature_spec = v.into();
         self
     }
@@ -1035,15 +994,10 @@ impl MembershipFeatureSpec {
     /// The value of [feature_spec][crate::model::MembershipFeatureSpec::feature_spec]
     /// if it holds a `Configmanagement`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn configmanagement(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<gkehub_configmanagement_v1::model::MembershipSpec>>
-    {
+    pub fn configmanagement(&self) -> std::option::Option<&std::boxed::Box<gkehub_configmanagement_v1::model::MembershipSpec>> {
         #[allow(unreachable_patterns)]
         self.feature_spec.as_ref().and_then(|v| match v {
-            crate::model::membership_feature_spec::FeatureSpec::Configmanagement(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::membership_feature_spec::FeatureSpec::Configmanagement(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -1061,14 +1015,11 @@ impl MembershipFeatureSpec {
     /// let x = MembershipFeatureSpec::new().set_configmanagement(MembershipSpec::default()/* use setters */);
     /// assert!(x.configmanagement().is_some());
     /// ```
-    pub fn set_configmanagement<
-        T: std::convert::Into<std::boxed::Box<gkehub_configmanagement_v1::model::MembershipSpec>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_configmanagement<T: std::convert::Into<std::boxed::Box<gkehub_configmanagement_v1::model::MembershipSpec>>>(mut self, v: T) -> Self {
         self.feature_spec = std::option::Option::Some(
-            crate::model::membership_feature_spec::FeatureSpec::Configmanagement(v.into()),
+            crate::model::membership_feature_spec::FeatureSpec::Configmanagement(
+                v.into()
+            )
         );
         self
     }
@@ -1085,6 +1036,7 @@ pub mod membership_feature_spec {
     #[allow(unused_imports)]
     use super::*;
 
+
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum FeatureSpec {
@@ -1098,6 +1050,7 @@ pub mod membership_feature_spec {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MembershipFeatureState {
+
     /// The high-level state of this Feature for a single membership.
     pub state: std::option::Option<crate::model::FeatureState>,
 
@@ -1120,8 +1073,7 @@ impl MembershipFeatureState {
     /// let x = MembershipFeatureState::new().set_state(FeatureState::default()/* use setters */);
     /// ```
     pub fn set_state<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::FeatureState>,
+    where T: std::convert::Into<crate::model::FeatureState>
     {
         self.state = std::option::Option::Some(v.into());
         self
@@ -1137,8 +1089,7 @@ impl MembershipFeatureState {
     /// let x = MembershipFeatureState::new().set_or_clear_state(None::<FeatureState>);
     /// ```
     pub fn set_or_clear_state<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::FeatureState>,
+    where T: std::convert::Into<crate::model::FeatureState>
     {
         self.state = v.map(|x| x.into());
         self
@@ -1156,14 +1107,8 @@ impl MembershipFeatureState {
     /// let x = MembershipFeatureState::new().set_feature_state(Some(
     ///     google_cloud_gkehub_v1::model::membership_feature_state::FeatureState::Configmanagement(MembershipState::default().into())));
     /// ```
-    pub fn set_feature_state<
-        T: std::convert::Into<
-                std::option::Option<crate::model::membership_feature_state::FeatureState>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_feature_state<T: std::convert::Into<std::option::Option<crate::model::membership_feature_state::FeatureState>>>(mut self, v: T) -> Self
+    {
         self.feature_state = v.into();
         self
     }
@@ -1171,15 +1116,10 @@ impl MembershipFeatureState {
     /// The value of [feature_state][crate::model::MembershipFeatureState::feature_state]
     /// if it holds a `Configmanagement`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn configmanagement(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<gkehub_configmanagement_v1::model::MembershipState>>
-    {
+    pub fn configmanagement(&self) -> std::option::Option<&std::boxed::Box<gkehub_configmanagement_v1::model::MembershipState>> {
         #[allow(unreachable_patterns)]
         self.feature_state.as_ref().and_then(|v| match v {
-            crate::model::membership_feature_state::FeatureState::Configmanagement(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::membership_feature_state::FeatureState::Configmanagement(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -1197,14 +1137,11 @@ impl MembershipFeatureState {
     /// let x = MembershipFeatureState::new().set_configmanagement(MembershipState::default()/* use setters */);
     /// assert!(x.configmanagement().is_some());
     /// ```
-    pub fn set_configmanagement<
-        T: std::convert::Into<std::boxed::Box<gkehub_configmanagement_v1::model::MembershipState>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_configmanagement<T: std::convert::Into<std::boxed::Box<gkehub_configmanagement_v1::model::MembershipState>>>(mut self, v: T) -> Self {
         self.feature_state = std::option::Option::Some(
-            crate::model::membership_feature_state::FeatureState::Configmanagement(v.into()),
+            crate::model::membership_feature_state::FeatureState::Configmanagement(
+                v.into()
+            )
         );
         self
     }
@@ -1221,6 +1158,7 @@ pub mod membership_feature_state {
     #[allow(unused_imports)]
     use super::*;
 
+
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum FeatureState {
@@ -1233,6 +1171,7 @@ pub mod membership_feature_state {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Membership {
+
     /// Output only. The full, unique name of this Membership resource in the
     /// format `projects/*/locations/*/memberships/{membership_id}`, set during
     /// creation.
@@ -1248,7 +1187,7 @@ pub struct Membership {
     pub name: std::string::String,
 
     /// Optional. Labels for this membership.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Output only. Description of this membership, limited to 63 characters.
     /// Must match the regex: `[a-zA-Z0-9][a-zA-Z0-9_\-\.\ ]*`
@@ -1362,8 +1301,7 @@ impl Membership {
     /// let x = Membership::new().set_state(MembershipState::default()/* use setters */);
     /// ```
     pub fn set_state<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::MembershipState>,
+    where T: std::convert::Into<crate::model::MembershipState>
     {
         self.state = std::option::Option::Some(v.into());
         self
@@ -1379,8 +1317,7 @@ impl Membership {
     /// let x = Membership::new().set_or_clear_state(None::<MembershipState>);
     /// ```
     pub fn set_or_clear_state<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::MembershipState>,
+    where T: std::convert::Into<crate::model::MembershipState>
     {
         self.state = v.map(|x| x.into());
         self
@@ -1395,8 +1332,7 @@ impl Membership {
     /// let x = Membership::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -1412,8 +1348,7 @@ impl Membership {
     /// let x = Membership::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -1428,8 +1363,7 @@ impl Membership {
     /// let x = Membership::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -1445,8 +1379,7 @@ impl Membership {
     /// let x = Membership::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -1461,8 +1394,7 @@ impl Membership {
     /// let x = Membership::new().set_delete_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_delete_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.delete_time = std::option::Option::Some(v.into());
         self
@@ -1478,8 +1410,7 @@ impl Membership {
     /// let x = Membership::new().set_or_clear_delete_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.delete_time = v.map(|x| x.into());
         self
@@ -1506,8 +1437,7 @@ impl Membership {
     /// let x = Membership::new().set_last_connection_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_last_connection_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.last_connection_time = std::option::Option::Some(v.into());
         self
@@ -1523,8 +1453,7 @@ impl Membership {
     /// let x = Membership::new().set_or_clear_last_connection_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_last_connection_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.last_connection_time = v.map(|x| x.into());
         self
@@ -1551,8 +1480,7 @@ impl Membership {
     /// let x = Membership::new().set_authority(Authority::default()/* use setters */);
     /// ```
     pub fn set_authority<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Authority>,
+    where T: std::convert::Into<crate::model::Authority>
     {
         self.authority = std::option::Option::Some(v.into());
         self
@@ -1568,8 +1496,7 @@ impl Membership {
     /// let x = Membership::new().set_or_clear_authority(None::<Authority>);
     /// ```
     pub fn set_or_clear_authority<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Authority>,
+    where T: std::convert::Into<crate::model::Authority>
     {
         self.authority = v.map(|x| x.into());
         self
@@ -1584,8 +1511,7 @@ impl Membership {
     /// let x = Membership::new().set_monitoring_config(MonitoringConfig::default()/* use setters */);
     /// ```
     pub fn set_monitoring_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::MonitoringConfig>,
+    where T: std::convert::Into<crate::model::MonitoringConfig>
     {
         self.monitoring_config = std::option::Option::Some(v.into());
         self
@@ -1601,8 +1527,7 @@ impl Membership {
     /// let x = Membership::new().set_or_clear_monitoring_config(None::<MonitoringConfig>);
     /// ```
     pub fn set_or_clear_monitoring_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::MonitoringConfig>,
+    where T: std::convert::Into<crate::model::MonitoringConfig>
     {
         self.monitoring_config = v.map(|x| x.into());
         self
@@ -1620,10 +1545,8 @@ impl Membership {
     /// let x = Membership::new().set_type(Some(
     ///     google_cloud_gkehub_v1::model::membership::Type::Endpoint(MembershipEndpoint::default().into())));
     /// ```
-    pub fn set_type<T: std::convert::Into<std::option::Option<crate::model::membership::Type>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_type<T: std::convert::Into<std::option::Option<crate::model::membership::Type>>>(mut self, v: T) -> Self
+    {
         self.r#type = v.into();
         self
     }
@@ -1631,9 +1554,7 @@ impl Membership {
     /// The value of [r#type][crate::model::Membership::r#type]
     /// if it holds a `Endpoint`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn endpoint(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::MembershipEndpoint>> {
+    pub fn endpoint(&self) -> std::option::Option<&std::boxed::Box<crate::model::MembershipEndpoint>> {
         #[allow(unreachable_patterns)]
         self.r#type.as_ref().and_then(|v| match v {
             crate::model::membership::Type::Endpoint(v) => std::option::Option::Some(v),
@@ -1654,13 +1575,12 @@ impl Membership {
     /// let x = Membership::new().set_endpoint(MembershipEndpoint::default()/* use setters */);
     /// assert!(x.endpoint().is_some());
     /// ```
-    pub fn set_endpoint<
-        T: std::convert::Into<std::boxed::Box<crate::model::MembershipEndpoint>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.r#type = std::option::Option::Some(crate::model::membership::Type::Endpoint(v.into()));
+    pub fn set_endpoint<T: std::convert::Into<std::boxed::Box<crate::model::MembershipEndpoint>>>(mut self, v: T) -> Self {
+        self.r#type = std::option::Option::Some(
+            crate::model::membership::Type::Endpoint(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -1676,6 +1596,7 @@ pub mod membership {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Type of resource represented by this Membership
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -1690,6 +1611,7 @@ pub mod membership {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MembershipEndpoint {
+
     /// Optional. GKE-specific information. Only present if this Membership is a GKE cluster.
     pub gke_cluster: std::option::Option<crate::model::GkeCluster>,
 
@@ -1727,8 +1649,7 @@ impl MembershipEndpoint {
     /// let x = MembershipEndpoint::new().set_gke_cluster(GkeCluster::default()/* use setters */);
     /// ```
     pub fn set_gke_cluster<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::GkeCluster>,
+    where T: std::convert::Into<crate::model::GkeCluster>
     {
         self.gke_cluster = std::option::Option::Some(v.into());
         self
@@ -1744,8 +1665,7 @@ impl MembershipEndpoint {
     /// let x = MembershipEndpoint::new().set_or_clear_gke_cluster(None::<GkeCluster>);
     /// ```
     pub fn set_or_clear_gke_cluster<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::GkeCluster>,
+    where T: std::convert::Into<crate::model::GkeCluster>
     {
         self.gke_cluster = v.map(|x| x.into());
         self
@@ -1760,8 +1680,7 @@ impl MembershipEndpoint {
     /// let x = MembershipEndpoint::new().set_kubernetes_metadata(KubernetesMetadata::default()/* use setters */);
     /// ```
     pub fn set_kubernetes_metadata<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::KubernetesMetadata>,
+    where T: std::convert::Into<crate::model::KubernetesMetadata>
     {
         self.kubernetes_metadata = std::option::Option::Some(v.into());
         self
@@ -1777,8 +1696,7 @@ impl MembershipEndpoint {
     /// let x = MembershipEndpoint::new().set_or_clear_kubernetes_metadata(None::<KubernetesMetadata>);
     /// ```
     pub fn set_or_clear_kubernetes_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::KubernetesMetadata>,
+    where T: std::convert::Into<crate::model::KubernetesMetadata>
     {
         self.kubernetes_metadata = v.map(|x| x.into());
         self
@@ -1793,8 +1711,7 @@ impl MembershipEndpoint {
     /// let x = MembershipEndpoint::new().set_kubernetes_resource(KubernetesResource::default()/* use setters */);
     /// ```
     pub fn set_kubernetes_resource<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::KubernetesResource>,
+    where T: std::convert::Into<crate::model::KubernetesResource>
     {
         self.kubernetes_resource = std::option::Option::Some(v.into());
         self
@@ -1810,8 +1727,7 @@ impl MembershipEndpoint {
     /// let x = MembershipEndpoint::new().set_or_clear_kubernetes_resource(None::<KubernetesResource>);
     /// ```
     pub fn set_or_clear_kubernetes_resource<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::KubernetesResource>,
+    where T: std::convert::Into<crate::model::KubernetesResource>
     {
         self.kubernetes_resource = v.map(|x| x.into());
         self
@@ -1842,6 +1758,7 @@ impl wkt::message::Message for MembershipEndpoint {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct KubernetesResource {
+
     /// Input only. The YAML representation of the Membership CR. This field is
     /// ignored for GKE clusters where Hub can read the CR directly.
     ///
@@ -1888,10 +1805,7 @@ impl KubernetesResource {
     /// # use google_cloud_gkehub_v1::model::KubernetesResource;
     /// let x = KubernetesResource::new().set_membership_cr_manifest("example");
     /// ```
-    pub fn set_membership_cr_manifest<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_membership_cr_manifest<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.membership_cr_manifest = v.into();
         self
     }
@@ -1911,7 +1825,7 @@ impl KubernetesResource {
     pub fn set_membership_resources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ResourceManifest>,
+        V: std::convert::Into<crate::model::ResourceManifest>
     {
         use std::iter::Iterator;
         self.membership_resources = v.into_iter().map(|i| i.into()).collect();
@@ -1933,7 +1847,7 @@ impl KubernetesResource {
     pub fn set_connect_resources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ResourceManifest>,
+        V: std::convert::Into<crate::model::ResourceManifest>
     {
         use std::iter::Iterator;
         self.connect_resources = v.into_iter().map(|i| i.into()).collect();
@@ -1949,8 +1863,7 @@ impl KubernetesResource {
     /// let x = KubernetesResource::new().set_resource_options(ResourceOptions::default()/* use setters */);
     /// ```
     pub fn set_resource_options<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ResourceOptions>,
+    where T: std::convert::Into<crate::model::ResourceOptions>
     {
         self.resource_options = std::option::Option::Some(v.into());
         self
@@ -1966,8 +1879,7 @@ impl KubernetesResource {
     /// let x = KubernetesResource::new().set_or_clear_resource_options(None::<ResourceOptions>);
     /// ```
     pub fn set_or_clear_resource_options<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ResourceOptions>,
+    where T: std::convert::Into<crate::model::ResourceOptions>
     {
         self.resource_options = v.map(|x| x.into());
         self
@@ -1984,6 +1896,7 @@ impl wkt::message::Message for KubernetesResource {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResourceOptions {
+
     /// Optional. The Connect agent version to use for connect_resources. Defaults
     /// to the latest GKE Connect version. The version must be a currently
     /// supported version, obsolete versions will be rejected.
@@ -2073,6 +1986,7 @@ impl wkt::message::Message for ResourceOptions {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResourceManifest {
+
     /// YAML manifest of the resource.
     pub manifest: std::string::String,
 
@@ -2126,6 +2040,7 @@ impl wkt::message::Message for ResourceManifest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GkeCluster {
+
     /// Immutable. Self-link of the Google Cloud resource for the GKE cluster. For
     /// example:
     ///
@@ -2182,6 +2097,7 @@ impl wkt::message::Message for GkeCluster {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct KubernetesMetadata {
+
     /// Output only. Kubernetes API server version string as reported by
     /// `/version`.
     pub kubernetes_api_server_version: std::string::String,
@@ -2222,10 +2138,7 @@ impl KubernetesMetadata {
     /// # use google_cloud_gkehub_v1::model::KubernetesMetadata;
     /// let x = KubernetesMetadata::new().set_kubernetes_api_server_version("example");
     /// ```
-    pub fn set_kubernetes_api_server_version<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_kubernetes_api_server_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kubernetes_api_server_version = v.into();
         self
     }
@@ -2237,10 +2150,7 @@ impl KubernetesMetadata {
     /// # use google_cloud_gkehub_v1::model::KubernetesMetadata;
     /// let x = KubernetesMetadata::new().set_node_provider_id("example");
     /// ```
-    pub fn set_node_provider_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_node_provider_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.node_provider_id = v.into();
         self
     }
@@ -2290,8 +2200,7 @@ impl KubernetesMetadata {
     /// let x = KubernetesMetadata::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -2307,8 +2216,7 @@ impl KubernetesMetadata {
     /// let x = KubernetesMetadata::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -2326,6 +2234,7 @@ impl wkt::message::Message for KubernetesMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MonitoringConfig {
+
     /// Immutable. Project used to report Metrics
     pub project_id: std::string::String,
 
@@ -2402,10 +2311,7 @@ impl MonitoringConfig {
     /// # use google_cloud_gkehub_v1::model::MonitoringConfig;
     /// let x = MonitoringConfig::new().set_kubernetes_metrics_prefix("example");
     /// ```
-    pub fn set_kubernetes_metrics_prefix<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_kubernetes_metrics_prefix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kubernetes_metrics_prefix = v.into();
         self
     }
@@ -2433,6 +2339,7 @@ impl wkt::message::Message for MonitoringConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MembershipState {
+
     /// Output only. The current state of the Membership resource.
     pub code: crate::model::membership_state::Code,
 
@@ -2454,10 +2361,7 @@ impl MembershipState {
     /// let x1 = MembershipState::new().set_code(Code::Ready);
     /// let x2 = MembershipState::new().set_code(Code::Deleting);
     /// ```
-    pub fn set_code<T: std::convert::Into<crate::model::membership_state::Code>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_code<T: std::convert::Into<crate::model::membership_state::Code>>(mut self, v: T) -> Self {
         self.code = v.into();
         self
     }
@@ -2473,6 +2377,7 @@ impl wkt::message::Message for MembershipState {
 pub mod membership_state {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Code describes the state of a Membership resource.
     ///
@@ -2575,9 +2480,7 @@ pub mod membership_state {
                 3 => Self::Deleting,
                 4 => Self::Updating,
                 5 => Self::ServiceUpdating,
-                _ => Self::UnknownValue(code::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(code::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -2592,9 +2495,7 @@ pub mod membership_state {
                 "DELETING" => Self::Deleting,
                 "UPDATING" => Self::Updating,
                 "SERVICE_UPDATING" => Self::ServiceUpdating,
-                _ => Self::UnknownValue(code::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(code::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -2622,8 +2523,7 @@ pub mod membership_state {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Code>::new(
-                ".google.cloud.gkehub.v1.MembershipState.Code",
-            ))
+                ".google.cloud.gkehub.v1.MembershipState.Code"))
         }
     }
 }
@@ -2634,6 +2534,7 @@ pub mod membership_state {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Authority {
+
     /// Optional. A JSON Web Token (JWT) issuer URI. `issuer` must start with
     /// `https://` and be a valid URL with length <2000 characters.
     ///
@@ -2693,10 +2594,7 @@ impl Authority {
     /// # use google_cloud_gkehub_v1::model::Authority;
     /// let x = Authority::new().set_workload_identity_pool("example");
     /// ```
-    pub fn set_workload_identity_pool<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_workload_identity_pool<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.workload_identity_pool = v.into();
         self
     }
@@ -2708,10 +2606,7 @@ impl Authority {
     /// # use google_cloud_gkehub_v1::model::Authority;
     /// let x = Authority::new().set_identity_provider("example");
     /// ```
-    pub fn set_identity_provider<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_identity_provider<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.identity_provider = v.into();
         self
     }
@@ -2739,6 +2634,7 @@ impl wkt::message::Message for Authority {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListMembershipsRequest {
+
     /// Required. The parent (project and location) where the Memberships will be
     /// listed. Specified in the format `projects/*/locations/*`.
     /// `projects/*/locations/-` list memberships in all the regions.
@@ -2860,6 +2756,7 @@ impl wkt::message::Message for ListMembershipsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListMembershipsResponse {
+
     /// The list of matching Memberships.
     pub resources: std::vec::Vec<crate::model::Membership>,
 
@@ -2894,7 +2791,7 @@ impl ListMembershipsResponse {
     pub fn set_resources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Membership>,
+        V: std::convert::Into<crate::model::Membership>
     {
         use std::iter::Iterator;
         self.resources = v.into_iter().map(|i| i.into()).collect();
@@ -2923,7 +2820,7 @@ impl ListMembershipsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -2955,6 +2852,7 @@ impl gax::paginator::internal::PageableResponse for ListMembershipsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetMembershipRequest {
+
     /// Required. The Membership resource name in the format
     /// `projects/*/locations/*/memberships/*`.
     pub name: std::string::String,
@@ -2990,6 +2888,7 @@ impl wkt::message::Message for GetMembershipRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateMembershipRequest {
+
     /// Required. The parent (project and location) where the Memberships will be
     /// created. Specified in the format `projects/*/locations/*`.
     pub parent: std::string::String,
@@ -3064,8 +2963,7 @@ impl CreateMembershipRequest {
     /// let x = CreateMembershipRequest::new().set_resource(Membership::default()/* use setters */);
     /// ```
     pub fn set_resource<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Membership>,
+    where T: std::convert::Into<crate::model::Membership>
     {
         self.resource = std::option::Option::Some(v.into());
         self
@@ -3081,8 +2979,7 @@ impl CreateMembershipRequest {
     /// let x = CreateMembershipRequest::new().set_or_clear_resource(None::<Membership>);
     /// ```
     pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Membership>,
+    where T: std::convert::Into<crate::model::Membership>
     {
         self.resource = v.map(|x| x.into());
         self
@@ -3111,6 +3008,7 @@ impl wkt::message::Message for CreateMembershipRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteMembershipRequest {
+
     /// Required. The Membership resource name in the format
     /// `projects/*/locations/*/memberships/*`.
     pub name: std::string::String,
@@ -3190,6 +3088,7 @@ impl wkt::message::Message for DeleteMembershipRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateMembershipRequest {
+
     /// Required. The Membership resource name in the format
     /// `projects/*/locations/*/memberships/*`.
     pub name: std::string::String,
@@ -3251,8 +3150,7 @@ impl UpdateMembershipRequest {
     /// let x = UpdateMembershipRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -3268,8 +3166,7 @@ impl UpdateMembershipRequest {
     /// let x = UpdateMembershipRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -3284,8 +3181,7 @@ impl UpdateMembershipRequest {
     /// let x = UpdateMembershipRequest::new().set_resource(Membership::default()/* use setters */);
     /// ```
     pub fn set_resource<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Membership>,
+    where T: std::convert::Into<crate::model::Membership>
     {
         self.resource = std::option::Option::Some(v.into());
         self
@@ -3301,8 +3197,7 @@ impl UpdateMembershipRequest {
     /// let x = UpdateMembershipRequest::new().set_or_clear_resource(None::<Membership>);
     /// ```
     pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Membership>,
+    where T: std::convert::Into<crate::model::Membership>
     {
         self.resource = v.map(|x| x.into());
         self
@@ -3333,6 +3228,7 @@ impl wkt::message::Message for UpdateMembershipRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateConnectManifestRequest {
+
     /// Required. The Membership resource name the Agent will associate with, in
     /// the format `projects/*/locations/*/memberships/*`.
     pub name: std::string::String,
@@ -3454,10 +3350,7 @@ impl GenerateConnectManifestRequest {
     /// # use google_cloud_gkehub_v1::model::GenerateConnectManifestRequest;
     /// let x = GenerateConnectManifestRequest::new().set_image_pull_secret_content(bytes::Bytes::from_static(b"example"));
     /// ```
-    pub fn set_image_pull_secret_content<T: std::convert::Into<::bytes::Bytes>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_image_pull_secret_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.image_pull_secret_content = v.into();
         self
     }
@@ -3474,6 +3367,7 @@ impl wkt::message::Message for GenerateConnectManifestRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateConnectManifestResponse {
+
     /// The ordered list of Kubernetes resources that need to be applied to the
     /// cluster for GKE Connect agent installation/upgrade.
     pub manifest: std::vec::Vec<crate::model::ConnectAgentResource>,
@@ -3501,7 +3395,7 @@ impl GenerateConnectManifestResponse {
     pub fn set_manifest<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ConnectAgentResource>,
+        V: std::convert::Into<crate::model::ConnectAgentResource>
     {
         use std::iter::Iterator;
         self.manifest = v.into_iter().map(|i| i.into()).collect();
@@ -3520,6 +3414,7 @@ impl wkt::message::Message for GenerateConnectManifestResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConnectAgentResource {
+
     /// Kubernetes type of the resource.
     pub r#type: std::option::Option<crate::model::TypeMeta>,
 
@@ -3543,8 +3438,7 @@ impl ConnectAgentResource {
     /// let x = ConnectAgentResource::new().set_type(TypeMeta::default()/* use setters */);
     /// ```
     pub fn set_type<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TypeMeta>,
+    where T: std::convert::Into<crate::model::TypeMeta>
     {
         self.r#type = std::option::Option::Some(v.into());
         self
@@ -3560,8 +3454,7 @@ impl ConnectAgentResource {
     /// let x = ConnectAgentResource::new().set_or_clear_type(None::<TypeMeta>);
     /// ```
     pub fn set_or_clear_type<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TypeMeta>,
+    where T: std::convert::Into<crate::model::TypeMeta>
     {
         self.r#type = v.map(|x| x.into());
         self
@@ -3591,6 +3484,7 @@ impl wkt::message::Message for ConnectAgentResource {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TypeMeta {
+
     /// Kind of the resource (e.g. Deployment).
     pub kind: std::string::String,
 
@@ -3640,6 +3534,7 @@ impl wkt::message::Message for TypeMeta {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListFeaturesRequest {
+
     /// Required. The parent (project and location) where the Features will be
     /// listed. Specified in the format `projects/*/locations/*`.
     pub parent: std::string::String,
@@ -3756,6 +3651,7 @@ impl wkt::message::Message for ListFeaturesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListFeaturesResponse {
+
     /// The list of matching Features
     pub resources: std::vec::Vec<crate::model::Feature>,
 
@@ -3787,7 +3683,7 @@ impl ListFeaturesResponse {
     pub fn set_resources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Feature>,
+        V: std::convert::Into<crate::model::Feature>
     {
         use std::iter::Iterator;
         self.resources = v.into_iter().map(|i| i.into()).collect();
@@ -3831,6 +3727,7 @@ impl gax::paginator::internal::PageableResponse for ListFeaturesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetFeatureRequest {
+
     /// Required. The Feature resource name in the format
     /// `projects/*/locations/*/features/*`
     pub name: std::string::String,
@@ -3866,6 +3763,7 @@ impl wkt::message::Message for GetFeatureRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateFeatureRequest {
+
     /// Required. The parent (project and location) where the Feature will be
     /// created. Specified in the format `projects/*/locations/*`.
     pub parent: std::string::String,
@@ -3932,8 +3830,7 @@ impl CreateFeatureRequest {
     /// let x = CreateFeatureRequest::new().set_resource(Feature::default()/* use setters */);
     /// ```
     pub fn set_resource<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Feature>,
+    where T: std::convert::Into<crate::model::Feature>
     {
         self.resource = std::option::Option::Some(v.into());
         self
@@ -3949,8 +3846,7 @@ impl CreateFeatureRequest {
     /// let x = CreateFeatureRequest::new().set_or_clear_resource(None::<Feature>);
     /// ```
     pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Feature>,
+    where T: std::convert::Into<crate::model::Feature>
     {
         self.resource = v.map(|x| x.into());
         self
@@ -3979,6 +3875,7 @@ impl wkt::message::Message for CreateFeatureRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteFeatureRequest {
+
     /// Required. The Feature resource name in the format
     /// `projects/*/locations/*/features/*`.
     pub name: std::string::String,
@@ -4058,6 +3955,7 @@ impl wkt::message::Message for DeleteFeatureRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateFeatureRequest {
+
     /// Required. The Feature resource name in the format
     /// `projects/*/locations/*/features/*`.
     pub name: std::string::String,
@@ -4119,8 +4017,7 @@ impl UpdateFeatureRequest {
     /// let x = UpdateFeatureRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -4136,8 +4033,7 @@ impl UpdateFeatureRequest {
     /// let x = UpdateFeatureRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -4152,8 +4048,7 @@ impl UpdateFeatureRequest {
     /// let x = UpdateFeatureRequest::new().set_resource(Feature::default()/* use setters */);
     /// ```
     pub fn set_resource<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Feature>,
+    where T: std::convert::Into<crate::model::Feature>
     {
         self.resource = std::option::Option::Some(v.into());
         self
@@ -4169,8 +4064,7 @@ impl UpdateFeatureRequest {
     /// let x = UpdateFeatureRequest::new().set_or_clear_resource(None::<Feature>);
     /// ```
     pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Feature>,
+    where T: std::convert::Into<crate::model::Feature>
     {
         self.resource = v.map(|x| x.into());
         self
@@ -4199,6 +4093,7 @@ impl wkt::message::Message for UpdateFeatureRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
+
     /// Output only. The time the operation was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
@@ -4243,8 +4138,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -4260,8 +4154,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -4276,8 +4169,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -4293,8 +4185,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self

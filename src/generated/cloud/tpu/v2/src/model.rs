@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -31,7 +32,6 @@ extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -43,6 +43,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GuestAttributes {
+
     /// The path to be queried. This can be the default namespace ('/') or a
     /// nested namespace ('/\<namespace\>/') or a specified key
     /// ('/\<namespace\>/\<key\>')
@@ -80,8 +81,7 @@ impl GuestAttributes {
     /// let x = GuestAttributes::new().set_query_value(GuestAttributesValue::default()/* use setters */);
     /// ```
     pub fn set_query_value<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::GuestAttributesValue>,
+    where T: std::convert::Into<crate::model::GuestAttributesValue>
     {
         self.query_value = std::option::Option::Some(v.into());
         self
@@ -97,8 +97,7 @@ impl GuestAttributes {
     /// let x = GuestAttributes::new().set_or_clear_query_value(None::<GuestAttributesValue>);
     /// ```
     pub fn set_or_clear_query_value<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::GuestAttributesValue>,
+    where T: std::convert::Into<crate::model::GuestAttributesValue>
     {
         self.query_value = v.map(|x| x.into());
         self
@@ -115,6 +114,7 @@ impl wkt::message::Message for GuestAttributes {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GuestAttributesValue {
+
     /// The list of guest attributes entries.
     pub items: std::vec::Vec<crate::model::GuestAttributesEntry>,
 
@@ -141,7 +141,7 @@ impl GuestAttributesValue {
     pub fn set_items<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::GuestAttributesEntry>,
+        V: std::convert::Into<crate::model::GuestAttributesEntry>
     {
         use std::iter::Iterator;
         self.items = v.into_iter().map(|i| i.into()).collect();
@@ -159,6 +159,7 @@ impl wkt::message::Message for GuestAttributesValue {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GuestAttributesEntry {
+
     /// Namespace for the guest attribute entry.
     pub namespace: std::string::String,
 
@@ -224,6 +225,7 @@ impl wkt::message::Message for GuestAttributesEntry {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AttachedDisk {
+
     /// Specifies the full path to an existing disk.
     /// For example: "projects/my-project/zones/us-central1-c/disks/my-disk".
     pub source_disk: std::string::String,
@@ -262,10 +264,7 @@ impl AttachedDisk {
     /// let x0 = AttachedDisk::new().set_mode(DiskMode::ReadWrite);
     /// let x1 = AttachedDisk::new().set_mode(DiskMode::ReadOnly);
     /// ```
-    pub fn set_mode<T: std::convert::Into<crate::model::attached_disk::DiskMode>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_mode<T: std::convert::Into<crate::model::attached_disk::DiskMode>>(mut self, v: T) -> Self {
         self.mode = v.into();
         self
     }
@@ -281,6 +280,7 @@ impl wkt::message::Message for AttachedDisk {
 pub mod attached_disk {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The different mode of the attached disk.
     ///
@@ -370,9 +370,7 @@ pub mod attached_disk {
                 0 => Self::Unspecified,
                 1 => Self::ReadWrite,
                 2 => Self::ReadOnly,
-                _ => Self::UnknownValue(disk_mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(disk_mode::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -384,9 +382,7 @@ pub mod attached_disk {
                 "DISK_MODE_UNSPECIFIED" => Self::Unspecified,
                 "READ_WRITE" => Self::ReadWrite,
                 "READ_ONLY" => Self::ReadOnly,
-                _ => Self::UnknownValue(disk_mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(disk_mode::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -411,8 +407,7 @@ pub mod attached_disk {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<DiskMode>::new(
-                ".google.cloud.tpu.v2.AttachedDisk.DiskMode",
-            ))
+                ".google.cloud.tpu.v2.AttachedDisk.DiskMode"))
         }
     }
 }
@@ -421,6 +416,7 @@ pub mod attached_disk {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SchedulingConfig {
+
     /// Defines whether the node is preemptible.
     pub preemptible: bool,
 
@@ -485,6 +481,7 @@ impl wkt::message::Message for SchedulingConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NetworkEndpoint {
+
     /// The internal IP address of this network endpoint.
     pub ip_address: std::string::String,
 
@@ -535,8 +532,7 @@ impl NetworkEndpoint {
     /// let x = NetworkEndpoint::new().set_access_config(AccessConfig::default()/* use setters */);
     /// ```
     pub fn set_access_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AccessConfig>,
+    where T: std::convert::Into<crate::model::AccessConfig>
     {
         self.access_config = std::option::Option::Some(v.into());
         self
@@ -552,8 +548,7 @@ impl NetworkEndpoint {
     /// let x = NetworkEndpoint::new().set_or_clear_access_config(None::<AccessConfig>);
     /// ```
     pub fn set_or_clear_access_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AccessConfig>,
+    where T: std::convert::Into<crate::model::AccessConfig>
     {
         self.access_config = v.map(|x| x.into());
         self
@@ -570,6 +565,7 @@ impl wkt::message::Message for NetworkEndpoint {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AccessConfig {
+
     /// Output only. An external IP address associated with the TPU worker.
     pub external_ip: std::string::String,
 
@@ -604,6 +600,7 @@ impl wkt::message::Message for AccessConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NetworkConfig {
+
     /// The name of the network for the TPU node. It must be a preexisting Google
     /// Compute Engine network. If none is provided, "default" will be used.
     pub network: std::string::String,
@@ -706,6 +703,7 @@ impl wkt::message::Message for NetworkConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ServiceAccount {
+
     /// Email address of the service account. If empty, default Compute service
     /// account will be used.
     pub email: std::string::String,
@@ -744,7 +742,7 @@ impl ServiceAccount {
     pub fn set_scope<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.scope = v.into_iter().map(|i| i.into()).collect();
@@ -762,6 +760,7 @@ impl wkt::message::Message for ServiceAccount {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Node {
+
     /// Output only. Immutable. The name of the TPU.
     pub name: std::string::String,
 
@@ -821,11 +820,11 @@ pub struct Node {
     pub health: crate::model::node::Health,
 
     /// Resource labels to represent user-provided metadata.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Custom metadata to apply to the TPU Node.
     /// Can set startup-script and shutdown-script
-    pub metadata: std::collections::HashMap<std::string::String, std::string::String>,
+    pub metadata: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Tags to apply to the TPU Node. Tags are used to identify valid sources or
     /// targets for network firewalls.
@@ -895,10 +894,7 @@ impl Node {
     /// # use google_cloud_tpu_v2::model::Node;
     /// let x = Node::new().set_accelerator_type("example");
     /// ```
-    pub fn set_accelerator_type<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_accelerator_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.accelerator_type = v.into();
         self
     }
@@ -925,10 +921,7 @@ impl Node {
     /// # use google_cloud_tpu_v2::model::Node;
     /// let x = Node::new().set_health_description("example");
     /// ```
-    pub fn set_health_description<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_health_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.health_description = v.into();
         self
     }
@@ -954,8 +947,7 @@ impl Node {
     /// let x = Node::new().set_network_config(NetworkConfig::default()/* use setters */);
     /// ```
     pub fn set_network_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::NetworkConfig>,
+    where T: std::convert::Into<crate::model::NetworkConfig>
     {
         self.network_config = std::option::Option::Some(v.into());
         self
@@ -971,8 +963,7 @@ impl Node {
     /// let x = Node::new().set_or_clear_network_config(None::<NetworkConfig>);
     /// ```
     pub fn set_or_clear_network_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::NetworkConfig>,
+    where T: std::convert::Into<crate::model::NetworkConfig>
     {
         self.network_config = v.map(|x| x.into());
         self
@@ -993,7 +984,7 @@ impl Node {
     pub fn set_network_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::NetworkConfig>,
+        V: std::convert::Into<crate::model::NetworkConfig>
     {
         use std::iter::Iterator;
         self.network_configs = v.into_iter().map(|i| i.into()).collect();
@@ -1021,8 +1012,7 @@ impl Node {
     /// let x = Node::new().set_service_account(ServiceAccount::default()/* use setters */);
     /// ```
     pub fn set_service_account<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ServiceAccount>,
+    where T: std::convert::Into<crate::model::ServiceAccount>
     {
         self.service_account = std::option::Option::Some(v.into());
         self
@@ -1038,8 +1028,7 @@ impl Node {
     /// let x = Node::new().set_or_clear_service_account(None::<ServiceAccount>);
     /// ```
     pub fn set_or_clear_service_account<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ServiceAccount>,
+    where T: std::convert::Into<crate::model::ServiceAccount>
     {
         self.service_account = v.map(|x| x.into());
         self
@@ -1054,8 +1043,7 @@ impl Node {
     /// let x = Node::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -1071,8 +1059,7 @@ impl Node {
     /// let x = Node::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -1087,8 +1074,7 @@ impl Node {
     /// let x = Node::new().set_scheduling_config(SchedulingConfig::default()/* use setters */);
     /// ```
     pub fn set_scheduling_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::SchedulingConfig>,
+    where T: std::convert::Into<crate::model::SchedulingConfig>
     {
         self.scheduling_config = std::option::Option::Some(v.into());
         self
@@ -1104,8 +1090,7 @@ impl Node {
     /// let x = Node::new().set_or_clear_scheduling_config(None::<SchedulingConfig>);
     /// ```
     pub fn set_or_clear_scheduling_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::SchedulingConfig>,
+    where T: std::convert::Into<crate::model::SchedulingConfig>
     {
         self.scheduling_config = v.map(|x| x.into());
         self
@@ -1126,7 +1111,7 @@ impl Node {
     pub fn set_network_endpoints<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::NetworkEndpoint>,
+        V: std::convert::Into<crate::model::NetworkEndpoint>
     {
         use std::iter::Iterator;
         self.network_endpoints = v.into_iter().map(|i| i.into()).collect();
@@ -1200,7 +1185,7 @@ impl Node {
     pub fn set_tags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.tags = v.into_iter().map(|i| i.into()).collect();
@@ -1234,7 +1219,7 @@ impl Node {
     pub fn set_data_disks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AttachedDisk>,
+        V: std::convert::Into<crate::model::AttachedDisk>
     {
         use std::iter::Iterator;
         self.data_disks = v.into_iter().map(|i| i.into()).collect();
@@ -1251,10 +1236,7 @@ impl Node {
     /// let x1 = Node::new().set_api_version(ApiVersion::V1);
     /// let x2 = Node::new().set_api_version(ApiVersion::V2Alpha1);
     /// ```
-    pub fn set_api_version<T: std::convert::Into<crate::model::node::ApiVersion>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_api_version<T: std::convert::Into<crate::model::node::ApiVersion>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self
     }
@@ -1274,7 +1256,7 @@ impl Node {
     pub fn set_symptoms<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Symptom>,
+        V: std::convert::Into<crate::model::Symptom>
     {
         use std::iter::Iterator;
         self.symptoms = v.into_iter().map(|i| i.into()).collect();
@@ -1290,8 +1272,7 @@ impl Node {
     /// let x = Node::new().set_shielded_instance_config(ShieldedInstanceConfig::default()/* use setters */);
     /// ```
     pub fn set_shielded_instance_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ShieldedInstanceConfig>,
+    where T: std::convert::Into<crate::model::ShieldedInstanceConfig>
     {
         self.shielded_instance_config = std::option::Option::Some(v.into());
         self
@@ -1307,8 +1288,7 @@ impl Node {
     /// let x = Node::new().set_or_clear_shielded_instance_config(None::<ShieldedInstanceConfig>);
     /// ```
     pub fn set_or_clear_shielded_instance_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ShieldedInstanceConfig>,
+    where T: std::convert::Into<crate::model::ShieldedInstanceConfig>
     {
         self.shielded_instance_config = v.map(|x| x.into());
         self
@@ -1323,8 +1303,7 @@ impl Node {
     /// let x = Node::new().set_accelerator_config(AcceleratorConfig::default()/* use setters */);
     /// ```
     pub fn set_accelerator_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AcceleratorConfig>,
+    where T: std::convert::Into<crate::model::AcceleratorConfig>
     {
         self.accelerator_config = std::option::Option::Some(v.into());
         self
@@ -1340,8 +1319,7 @@ impl Node {
     /// let x = Node::new().set_or_clear_accelerator_config(None::<AcceleratorConfig>);
     /// ```
     pub fn set_or_clear_accelerator_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AcceleratorConfig>,
+    where T: std::convert::Into<crate::model::AcceleratorConfig>
     {
         self.accelerator_config = v.map(|x| x.into());
         self
@@ -1382,6 +1360,7 @@ impl wkt::message::Message for Node {
 pub mod node {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Represents the different states of a TPU node during its lifecycle.
     ///
@@ -1536,9 +1515,7 @@ pub mod node {
                 14 => Self::Hidden,
                 15 => Self::Unhiding,
                 16 => Self::Unknown,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1563,9 +1540,7 @@ pub mod node {
                 "HIDDEN" => Self::Hidden,
                 "UNHIDING" => Self::Unhiding,
                 "UNKNOWN" => Self::Unknown,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1603,8 +1578,7 @@ pub mod node {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.tpu.v2.Node.State",
-            ))
+                ".google.cloud.tpu.v2.Node.State"))
         }
     }
 
@@ -1706,9 +1680,7 @@ pub mod node {
                 3 => Self::Timeout,
                 4 => Self::UnhealthyTensorflow,
                 5 => Self::UnhealthyMaintenance,
-                _ => Self::UnknownValue(health::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(health::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1722,9 +1694,7 @@ pub mod node {
                 "TIMEOUT" => Self::Timeout,
                 "UNHEALTHY_TENSORFLOW" => Self::UnhealthyTensorflow,
                 "UNHEALTHY_MAINTENANCE" => Self::UnhealthyMaintenance,
-                _ => Self::UnknownValue(health::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(health::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1751,8 +1721,7 @@ pub mod node {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Health>::new(
-                ".google.cloud.tpu.v2.Node.Health",
-            ))
+                ".google.cloud.tpu.v2.Node.Health"))
         }
     }
 
@@ -1852,9 +1821,7 @@ pub mod node {
                 2 => Self::V1,
                 3 => Self::V2Alpha1,
                 4 => Self::V2,
-                _ => Self::UnknownValue(api_version::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(api_version::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1868,9 +1835,7 @@ pub mod node {
                 "V1" => Self::V1,
                 "V2_ALPHA1" => Self::V2Alpha1,
                 "V2" => Self::V2,
-                _ => Self::UnknownValue(api_version::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(api_version::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1897,8 +1862,7 @@ pub mod node {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<ApiVersion>::new(
-                ".google.cloud.tpu.v2.Node.ApiVersion",
-            ))
+                ".google.cloud.tpu.v2.Node.ApiVersion"))
         }
     }
 }
@@ -1908,6 +1872,7 @@ pub mod node {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QueuedResource {
+
     /// Output only. Immutable. The name of the QueuedResource.
     pub name: std::string::String,
 
@@ -1960,8 +1925,7 @@ impl QueuedResource {
     /// let x = QueuedResource::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -1977,8 +1941,7 @@ impl QueuedResource {
     /// let x = QueuedResource::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -1993,8 +1956,7 @@ impl QueuedResource {
     /// let x = QueuedResource::new().set_queueing_policy(QueueingPolicy::default()/* use setters */);
     /// ```
     pub fn set_queueing_policy<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::queued_resource::QueueingPolicy>,
+    where T: std::convert::Into<crate::model::queued_resource::QueueingPolicy>
     {
         self.queueing_policy = std::option::Option::Some(v.into());
         self
@@ -2010,8 +1972,7 @@ impl QueuedResource {
     /// let x = QueuedResource::new().set_or_clear_queueing_policy(None::<QueueingPolicy>);
     /// ```
     pub fn set_or_clear_queueing_policy<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::queued_resource::QueueingPolicy>,
+    where T: std::convert::Into<crate::model::queued_resource::QueueingPolicy>
     {
         self.queueing_policy = v.map(|x| x.into());
         self
@@ -2026,8 +1987,7 @@ impl QueuedResource {
     /// let x = QueuedResource::new().set_state(QueuedResourceState::default()/* use setters */);
     /// ```
     pub fn set_state<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::QueuedResourceState>,
+    where T: std::convert::Into<crate::model::QueuedResourceState>
     {
         self.state = std::option::Option::Some(v.into());
         self
@@ -2043,8 +2003,7 @@ impl QueuedResource {
     /// let x = QueuedResource::new().set_or_clear_state(None::<QueuedResourceState>);
     /// ```
     pub fn set_or_clear_state<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::QueuedResourceState>,
+    where T: std::convert::Into<crate::model::QueuedResourceState>
     {
         self.state = v.map(|x| x.into());
         self
@@ -2057,10 +2016,7 @@ impl QueuedResource {
     /// # use google_cloud_tpu_v2::model::QueuedResource;
     /// let x = QueuedResource::new().set_reservation_name("example");
     /// ```
-    pub fn set_reservation_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_reservation_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.reservation_name = v.into();
         self
     }
@@ -2077,12 +2033,8 @@ impl QueuedResource {
     /// let x = QueuedResource::new().set_resource(Some(
     ///     google_cloud_tpu_v2::model::queued_resource::Resource::Tpu(Tpu::default().into())));
     /// ```
-    pub fn set_resource<
-        T: std::convert::Into<std::option::Option<crate::model::queued_resource::Resource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_resource<T: std::convert::Into<std::option::Option<crate::model::queued_resource::Resource>>>(mut self, v: T) -> Self
+    {
         self.resource = v.into();
         self
     }
@@ -2111,12 +2063,12 @@ impl QueuedResource {
     /// let x = QueuedResource::new().set_tpu(Tpu::default()/* use setters */);
     /// assert!(x.tpu().is_some());
     /// ```
-    pub fn set_tpu<T: std::convert::Into<std::boxed::Box<crate::model::queued_resource::Tpu>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.resource =
-            std::option::Option::Some(crate::model::queued_resource::Resource::Tpu(v.into()));
+    pub fn set_tpu<T: std::convert::Into<std::boxed::Box<crate::model::queued_resource::Tpu>>>(mut self, v: T) -> Self {
+        self.resource = std::option::Option::Some(
+            crate::model::queued_resource::Resource::Tpu(
+                v.into()
+            )
+        );
         self
     }
 
@@ -2132,12 +2084,8 @@ impl QueuedResource {
     /// let x = QueuedResource::new().set_tier(Some(
     ///     google_cloud_tpu_v2::model::queued_resource::Tier::Spot(Spot::default().into())));
     /// ```
-    pub fn set_tier<
-        T: std::convert::Into<std::option::Option<crate::model::queued_resource::Tier>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_tier<T: std::convert::Into<std::option::Option<crate::model::queued_resource::Tier>>>(mut self, v: T) -> Self
+    {
         self.tier = v.into();
         self
     }
@@ -2145,9 +2093,7 @@ impl QueuedResource {
     /// The value of [tier][crate::model::QueuedResource::tier]
     /// if it holds a `Spot`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn spot(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::queued_resource::Spot>> {
+    pub fn spot(&self) -> std::option::Option<&std::boxed::Box<crate::model::queued_resource::Spot>> {
         #[allow(unreachable_patterns)]
         self.tier.as_ref().and_then(|v| match v {
             crate::model::queued_resource::Tier::Spot(v) => std::option::Option::Some(v),
@@ -2169,20 +2115,19 @@ impl QueuedResource {
     /// assert!(x.spot().is_some());
     /// assert!(x.guaranteed().is_none());
     /// ```
-    pub fn set_spot<T: std::convert::Into<std::boxed::Box<crate::model::queued_resource::Spot>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.tier = std::option::Option::Some(crate::model::queued_resource::Tier::Spot(v.into()));
+    pub fn set_spot<T: std::convert::Into<std::boxed::Box<crate::model::queued_resource::Spot>>>(mut self, v: T) -> Self {
+        self.tier = std::option::Option::Some(
+            crate::model::queued_resource::Tier::Spot(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [tier][crate::model::QueuedResource::tier]
     /// if it holds a `Guaranteed`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn guaranteed(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::queued_resource::Guaranteed>> {
+    pub fn guaranteed(&self) -> std::option::Option<&std::boxed::Box<crate::model::queued_resource::Guaranteed>> {
         #[allow(unreachable_patterns)]
         self.tier.as_ref().and_then(|v| match v {
             crate::model::queued_resource::Tier::Guaranteed(v) => std::option::Option::Some(v),
@@ -2204,14 +2149,12 @@ impl QueuedResource {
     /// assert!(x.guaranteed().is_some());
     /// assert!(x.spot().is_none());
     /// ```
-    pub fn set_guaranteed<
-        T: std::convert::Into<std::boxed::Box<crate::model::queued_resource::Guaranteed>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.tier =
-            std::option::Option::Some(crate::model::queued_resource::Tier::Guaranteed(v.into()));
+    pub fn set_guaranteed<T: std::convert::Into<std::boxed::Box<crate::model::queued_resource::Guaranteed>>>(mut self, v: T) -> Self {
+        self.tier = std::option::Option::Some(
+            crate::model::queued_resource::Tier::Guaranteed(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -2227,10 +2170,12 @@ pub mod queued_resource {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Details of the TPU resource(s) being requested.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Tpu {
+
         /// Optional. The TPU node(s) being requested.
         pub node_spec: std::vec::Vec<crate::model::queued_resource::tpu::NodeSpec>,
 
@@ -2257,7 +2202,7 @@ pub mod queued_resource {
         pub fn set_node_spec<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::queued_resource::tpu::NodeSpec>,
+            V: std::convert::Into<crate::model::queued_resource::tpu::NodeSpec>
         {
             use std::iter::Iterator;
             self.node_spec = v.into_iter().map(|i| i.into()).collect();
@@ -2276,12 +2221,14 @@ pub mod queued_resource {
         #[allow(unused_imports)]
         use super::*;
 
+
         /// Details of the TPU node(s) being requested. Users can request either a
         /// single node or multiple nodes.
         /// NodeSpec provides the specification for node(s) to be created.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct NodeSpec {
+
             /// Required. The parent resource name.
             pub parent: std::string::String,
 
@@ -2289,8 +2236,7 @@ pub mod queued_resource {
             pub node: std::option::Option<crate::model::Node>,
 
             /// Either a node_id or multislice_params.
-            pub name_strategy:
-                std::option::Option<crate::model::queued_resource::tpu::node_spec::NameStrategy>,
+            pub name_strategy: std::option::Option<crate::model::queued_resource::tpu::node_spec::NameStrategy>,
 
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
@@ -2321,8 +2267,7 @@ pub mod queued_resource {
             /// let x = NodeSpec::new().set_node(Node::default()/* use setters */);
             /// ```
             pub fn set_node<T>(mut self, v: T) -> Self
-            where
-                T: std::convert::Into<crate::model::Node>,
+            where T: std::convert::Into<crate::model::Node>
             {
                 self.node = std::option::Option::Some(v.into());
                 self
@@ -2338,8 +2283,7 @@ pub mod queued_resource {
             /// let x = NodeSpec::new().set_or_clear_node(None::<Node>);
             /// ```
             pub fn set_or_clear_node<T>(mut self, v: std::option::Option<T>) -> Self
-            where
-                T: std::convert::Into<crate::model::Node>,
+            where T: std::convert::Into<crate::model::Node>
             {
                 self.node = v.map(|x| x.into());
                 self
@@ -2356,16 +2300,8 @@ pub mod queued_resource {
             /// use google_cloud_tpu_v2::model::queued_resource::tpu::node_spec::NameStrategy;
             /// let x = NodeSpec::new().set_name_strategy(Some(NameStrategy::NodeId("example".to_string())));
             /// ```
-            pub fn set_name_strategy<
-                T: std::convert::Into<
-                        std::option::Option<
-                            crate::model::queued_resource::tpu::node_spec::NameStrategy,
-                        >,
-                    >,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_name_strategy<T: std::convert::Into<std::option::Option<crate::model::queued_resource::tpu::node_spec::NameStrategy>>>(mut self, v: T) -> Self
+            {
                 self.name_strategy = v.into();
                 self
             }
@@ -2376,9 +2312,7 @@ pub mod queued_resource {
             pub fn node_id(&self) -> std::option::Option<&std::string::String> {
                 #[allow(unreachable_patterns)]
                 self.name_strategy.as_ref().and_then(|v| match v {
-                    crate::model::queued_resource::tpu::node_spec::NameStrategy::NodeId(v) => {
-                        std::option::Option::Some(v)
-                    }
+                    crate::model::queued_resource::tpu::node_spec::NameStrategy::NodeId(v) => std::option::Option::Some(v),
                     _ => std::option::Option::None,
                 })
             }
@@ -2398,7 +2332,9 @@ pub mod queued_resource {
             /// ```
             pub fn set_node_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.name_strategy = std::option::Option::Some(
-                    crate::model::queued_resource::tpu::node_spec::NameStrategy::NodeId(v.into()),
+                    crate::model::queued_resource::tpu::node_spec::NameStrategy::NodeId(
+                        v.into()
+                    )
                 );
                 self
             }
@@ -2406,11 +2342,7 @@ pub mod queued_resource {
             /// The value of [name_strategy][crate::model::queued_resource::tpu::NodeSpec::name_strategy]
             /// if it holds a `MultisliceParams`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn multislice_params(
-                &self,
-            ) -> std::option::Option<
-                &std::boxed::Box<crate::model::queued_resource::tpu::node_spec::MultisliceParams>,
-            > {
+            pub fn multislice_params(&self) -> std::option::Option<&std::boxed::Box<crate::model::queued_resource::tpu::node_spec::MultisliceParams>> {
                 #[allow(unreachable_patterns)]
                 self.name_strategy.as_ref().and_then(|v| match v {
                     crate::model::queued_resource::tpu::node_spec::NameStrategy::MultisliceParams(v) => std::option::Option::Some(v),
@@ -2432,20 +2364,11 @@ pub mod queued_resource {
             /// assert!(x.multislice_params().is_some());
             /// assert!(x.node_id().is_none());
             /// ```
-            pub fn set_multislice_params<
-                T: std::convert::Into<
-                        std::boxed::Box<
-                            crate::model::queued_resource::tpu::node_spec::MultisliceParams,
-                        >,
-                    >,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_multislice_params<T: std::convert::Into<std::boxed::Box<crate::model::queued_resource::tpu::node_spec::MultisliceParams>>>(mut self, v: T) -> Self {
                 self.name_strategy = std::option::Option::Some(
                     crate::model::queued_resource::tpu::node_spec::NameStrategy::MultisliceParams(
-                        v.into(),
-                    ),
+                        v.into()
+                    )
                 );
                 self
             }
@@ -2462,12 +2385,14 @@ pub mod queued_resource {
             #[allow(unused_imports)]
             use super::*;
 
+
             /// Parameters to specify for multislice QueuedResource requests. This
             /// message must be populated in case of multislice requests instead of
             /// node_id.
             #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct MultisliceParams {
+
                 /// Required. Number of nodes with this spec. The system will attempt
                 /// to provision "node_count" nodes as part of the request.
                 /// This needs to be > 1.
@@ -2507,10 +2432,7 @@ pub mod queued_resource {
                 /// # use google_cloud_tpu_v2::model::queued_resource::tpu::node_spec::MultisliceParams;
                 /// let x = MultisliceParams::new().set_node_id_prefix("example");
                 /// ```
-                pub fn set_node_id_prefix<T: std::convert::Into<std::string::String>>(
-                    mut self,
-                    v: T,
-                ) -> Self {
+                pub fn set_node_id_prefix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                     self.node_id_prefix = v.into();
                     self
                 }
@@ -2532,11 +2454,7 @@ pub mod queued_resource {
                 /// multislice_params must be populated instead.
                 NodeId(std::string::String),
                 /// Optional. Fields to specify in case of multislice request.
-                MultisliceParams(
-                    std::boxed::Box<
-                        crate::model::queued_resource::tpu::node_spec::MultisliceParams,
-                    >,
-                ),
+                MultisliceParams(std::boxed::Box<crate::model::queued_resource::tpu::node_spec::MultisliceParams>),
             }
         }
     }
@@ -2545,6 +2463,7 @@ pub mod queued_resource {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Spot {
+
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -2564,6 +2483,7 @@ pub mod queued_resource {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Guaranteed {
+
         /// Optional. Defines the minimum duration of the guarantee. If specified,
         /// the requested resources will only be provisioned if they can be
         /// allocated for at least the given duration.
@@ -2586,8 +2506,7 @@ pub mod queued_resource {
         /// let x = Guaranteed::new().set_min_duration(Duration::default()/* use setters */);
         /// ```
         pub fn set_min_duration<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Duration>,
+        where T: std::convert::Into<wkt::Duration>
         {
             self.min_duration = std::option::Option::Some(v.into());
             self
@@ -2603,8 +2522,7 @@ pub mod queued_resource {
         /// let x = Guaranteed::new().set_or_clear_min_duration(None::<Duration>);
         /// ```
         pub fn set_or_clear_min_duration<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Duration>,
+        where T: std::convert::Into<wkt::Duration>
         {
             self.min_duration = v.map(|x| x.into());
             self
@@ -2621,10 +2539,9 @@ pub mod queued_resource {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct QueueingPolicy {
+
         /// Time flexibility specification.
-        pub start_timing_constraints: std::option::Option<
-            crate::model::queued_resource::queueing_policy::StartTimingConstraints,
-        >,
+        pub start_timing_constraints: std::option::Option<crate::model::queued_resource::queueing_policy::StartTimingConstraints>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -2646,16 +2563,8 @@ pub mod queued_resource {
         /// let x = QueueingPolicy::new().set_start_timing_constraints(Some(
         ///     google_cloud_tpu_v2::model::queued_resource::queueing_policy::StartTimingConstraints::ValidUntilDuration(Duration::default().into())));
         /// ```
-        pub fn set_start_timing_constraints<
-            T: std::convert::Into<
-                    std::option::Option<
-                        crate::model::queued_resource::queueing_policy::StartTimingConstraints,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_start_timing_constraints<T: std::convert::Into<std::option::Option<crate::model::queued_resource::queueing_policy::StartTimingConstraints>>>(mut self, v: T) -> Self
+        {
             self.start_timing_constraints = v.into();
             self
         }
@@ -2688,10 +2597,7 @@ pub mod queued_resource {
         /// assert!(x.valid_after_time().is_none());
         /// assert!(x.valid_interval().is_none());
         /// ```
-        pub fn set_valid_until_duration<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_valid_until_duration<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(mut self, v: T) -> Self {
             self.start_timing_constraints = std::option::Option::Some(
                 crate::model::queued_resource::queueing_policy::StartTimingConstraints::ValidUntilDuration(
                     v.into()
@@ -2728,10 +2634,7 @@ pub mod queued_resource {
         /// assert!(x.valid_after_time().is_none());
         /// assert!(x.valid_interval().is_none());
         /// ```
-        pub fn set_valid_until_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_valid_until_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(mut self, v: T) -> Self {
             self.start_timing_constraints = std::option::Option::Some(
                 crate::model::queued_resource::queueing_policy::StartTimingConstraints::ValidUntilTime(
                     v.into()
@@ -2768,10 +2671,7 @@ pub mod queued_resource {
         /// assert!(x.valid_after_time().is_none());
         /// assert!(x.valid_interval().is_none());
         /// ```
-        pub fn set_valid_after_duration<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_valid_after_duration<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(mut self, v: T) -> Self {
             self.start_timing_constraints = std::option::Option::Some(
                 crate::model::queued_resource::queueing_policy::StartTimingConstraints::ValidAfterDuration(
                     v.into()
@@ -2808,10 +2708,7 @@ pub mod queued_resource {
         /// assert!(x.valid_after_duration().is_none());
         /// assert!(x.valid_interval().is_none());
         /// ```
-        pub fn set_valid_after_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_valid_after_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(mut self, v: T) -> Self {
             self.start_timing_constraints = std::option::Option::Some(
                 crate::model::queued_resource::queueing_policy::StartTimingConstraints::ValidAfterTime(
                     v.into()
@@ -2823,9 +2720,7 @@ pub mod queued_resource {
         /// The value of [start_timing_constraints][crate::model::queued_resource::QueueingPolicy::start_timing_constraints]
         /// if it holds a `ValidInterval`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn valid_interval(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<gtype::model::Interval>> {
+        pub fn valid_interval(&self) -> std::option::Option<&std::boxed::Box<gtype::model::Interval>> {
             #[allow(unreachable_patterns)]
             self.start_timing_constraints.as_ref().and_then(|v| match v {
                 crate::model::queued_resource::queueing_policy::StartTimingConstraints::ValidInterval(v) => std::option::Option::Some(v),
@@ -2850,12 +2745,7 @@ pub mod queued_resource {
         /// assert!(x.valid_after_duration().is_none());
         /// assert!(x.valid_after_time().is_none());
         /// ```
-        pub fn set_valid_interval<
-            T: std::convert::Into<std::boxed::Box<gtype::model::Interval>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_valid_interval<T: std::convert::Into<std::boxed::Box<gtype::model::Interval>>>(mut self, v: T) -> Self {
             self.start_timing_constraints = std::option::Option::Some(
                 crate::model::queued_resource::queueing_policy::StartTimingConstraints::ValidInterval(
                     v.into()
@@ -2875,6 +2765,7 @@ pub mod queued_resource {
     pub mod queueing_policy {
         #[allow(unused_imports)]
         use super::*;
+
 
         /// Time flexibility specification.
         #[derive(Clone, Debug, PartialEq)]
@@ -2921,6 +2812,7 @@ pub mod queued_resource {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QueuedResourceState {
+
     /// Output only. State of the QueuedResource request.
     pub state: crate::model::queued_resource_state::State,
 
@@ -2950,10 +2842,7 @@ impl QueuedResourceState {
     /// let x1 = QueuedResourceState::new().set_state(State::Accepted);
     /// let x2 = QueuedResourceState::new().set_state(State::Provisioning);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::queued_resource_state::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::queued_resource_state::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -2967,12 +2856,7 @@ impl QueuedResourceState {
     /// let x0 = QueuedResourceState::new().set_state_initiator(StateInitiator::User);
     /// let x1 = QueuedResourceState::new().set_state_initiator(StateInitiator::Service);
     /// ```
-    pub fn set_state_initiator<
-        T: std::convert::Into<crate::model::queued_resource_state::StateInitiator>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state_initiator<T: std::convert::Into<crate::model::queued_resource_state::StateInitiator>>(mut self, v: T) -> Self {
         self.state_initiator = v.into();
         self
     }
@@ -2989,12 +2873,8 @@ impl QueuedResourceState {
     /// let x = QueuedResourceState::new().set_state_data(Some(
     ///     google_cloud_tpu_v2::model::queued_resource_state::StateData::CreatingData(CreatingData::default().into())));
     /// ```
-    pub fn set_state_data<
-        T: std::convert::Into<std::option::Option<crate::model::queued_resource_state::StateData>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state_data<T: std::convert::Into<std::option::Option<crate::model::queued_resource_state::StateData>>>(mut self, v: T) -> Self
+    {
         self.state_data = v.into();
         self
     }
@@ -3002,15 +2882,10 @@ impl QueuedResourceState {
     /// The value of [state_data][crate::model::QueuedResourceState::state_data]
     /// if it holds a `CreatingData`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn creating_data(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::queued_resource_state::CreatingData>>
-    {
+    pub fn creating_data(&self) -> std::option::Option<&std::boxed::Box<crate::model::queued_resource_state::CreatingData>> {
         #[allow(unreachable_patterns)]
         self.state_data.as_ref().and_then(|v| match v {
-            crate::model::queued_resource_state::StateData::CreatingData(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::queued_resource_state::StateData::CreatingData(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -3035,14 +2910,11 @@ impl QueuedResourceState {
     /// assert!(x.suspending_data().is_none());
     /// assert!(x.suspended_data().is_none());
     /// ```
-    pub fn set_creating_data<
-        T: std::convert::Into<std::boxed::Box<crate::model::queued_resource_state::CreatingData>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_creating_data<T: std::convert::Into<std::boxed::Box<crate::model::queued_resource_state::CreatingData>>>(mut self, v: T) -> Self {
         self.state_data = std::option::Option::Some(
-            crate::model::queued_resource_state::StateData::CreatingData(v.into()),
+            crate::model::queued_resource_state::StateData::CreatingData(
+                v.into()
+            )
         );
         self
     }
@@ -3050,15 +2922,10 @@ impl QueuedResourceState {
     /// The value of [state_data][crate::model::QueuedResourceState::state_data]
     /// if it holds a `AcceptedData`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn accepted_data(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::queued_resource_state::AcceptedData>>
-    {
+    pub fn accepted_data(&self) -> std::option::Option<&std::boxed::Box<crate::model::queued_resource_state::AcceptedData>> {
         #[allow(unreachable_patterns)]
         self.state_data.as_ref().and_then(|v| match v {
-            crate::model::queued_resource_state::StateData::AcceptedData(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::queued_resource_state::StateData::AcceptedData(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -3083,14 +2950,11 @@ impl QueuedResourceState {
     /// assert!(x.suspending_data().is_none());
     /// assert!(x.suspended_data().is_none());
     /// ```
-    pub fn set_accepted_data<
-        T: std::convert::Into<std::boxed::Box<crate::model::queued_resource_state::AcceptedData>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_accepted_data<T: std::convert::Into<std::boxed::Box<crate::model::queued_resource_state::AcceptedData>>>(mut self, v: T) -> Self {
         self.state_data = std::option::Option::Some(
-            crate::model::queued_resource_state::StateData::AcceptedData(v.into()),
+            crate::model::queued_resource_state::StateData::AcceptedData(
+                v.into()
+            )
         );
         self
     }
@@ -3098,15 +2962,10 @@ impl QueuedResourceState {
     /// The value of [state_data][crate::model::QueuedResourceState::state_data]
     /// if it holds a `ProvisioningData`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn provisioning_data(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::queued_resource_state::ProvisioningData>>
-    {
+    pub fn provisioning_data(&self) -> std::option::Option<&std::boxed::Box<crate::model::queued_resource_state::ProvisioningData>> {
         #[allow(unreachable_patterns)]
         self.state_data.as_ref().and_then(|v| match v {
-            crate::model::queued_resource_state::StateData::ProvisioningData(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::queued_resource_state::StateData::ProvisioningData(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -3131,14 +2990,11 @@ impl QueuedResourceState {
     /// assert!(x.suspending_data().is_none());
     /// assert!(x.suspended_data().is_none());
     /// ```
-    pub fn set_provisioning_data<
-        T: std::convert::Into<std::boxed::Box<crate::model::queued_resource_state::ProvisioningData>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_provisioning_data<T: std::convert::Into<std::boxed::Box<crate::model::queued_resource_state::ProvisioningData>>>(mut self, v: T) -> Self {
         self.state_data = std::option::Option::Some(
-            crate::model::queued_resource_state::StateData::ProvisioningData(v.into()),
+            crate::model::queued_resource_state::StateData::ProvisioningData(
+                v.into()
+            )
         );
         self
     }
@@ -3146,15 +3002,10 @@ impl QueuedResourceState {
     /// The value of [state_data][crate::model::QueuedResourceState::state_data]
     /// if it holds a `FailedData`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn failed_data(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::queued_resource_state::FailedData>>
-    {
+    pub fn failed_data(&self) -> std::option::Option<&std::boxed::Box<crate::model::queued_resource_state::FailedData>> {
         #[allow(unreachable_patterns)]
         self.state_data.as_ref().and_then(|v| match v {
-            crate::model::queued_resource_state::StateData::FailedData(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::queued_resource_state::StateData::FailedData(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -3179,14 +3030,11 @@ impl QueuedResourceState {
     /// assert!(x.suspending_data().is_none());
     /// assert!(x.suspended_data().is_none());
     /// ```
-    pub fn set_failed_data<
-        T: std::convert::Into<std::boxed::Box<crate::model::queued_resource_state::FailedData>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_failed_data<T: std::convert::Into<std::boxed::Box<crate::model::queued_resource_state::FailedData>>>(mut self, v: T) -> Self {
         self.state_data = std::option::Option::Some(
-            crate::model::queued_resource_state::StateData::FailedData(v.into()),
+            crate::model::queued_resource_state::StateData::FailedData(
+                v.into()
+            )
         );
         self
     }
@@ -3194,15 +3042,10 @@ impl QueuedResourceState {
     /// The value of [state_data][crate::model::QueuedResourceState::state_data]
     /// if it holds a `DeletingData`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn deleting_data(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::queued_resource_state::DeletingData>>
-    {
+    pub fn deleting_data(&self) -> std::option::Option<&std::boxed::Box<crate::model::queued_resource_state::DeletingData>> {
         #[allow(unreachable_patterns)]
         self.state_data.as_ref().and_then(|v| match v {
-            crate::model::queued_resource_state::StateData::DeletingData(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::queued_resource_state::StateData::DeletingData(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -3227,14 +3070,11 @@ impl QueuedResourceState {
     /// assert!(x.suspending_data().is_none());
     /// assert!(x.suspended_data().is_none());
     /// ```
-    pub fn set_deleting_data<
-        T: std::convert::Into<std::boxed::Box<crate::model::queued_resource_state::DeletingData>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_deleting_data<T: std::convert::Into<std::boxed::Box<crate::model::queued_resource_state::DeletingData>>>(mut self, v: T) -> Self {
         self.state_data = std::option::Option::Some(
-            crate::model::queued_resource_state::StateData::DeletingData(v.into()),
+            crate::model::queued_resource_state::StateData::DeletingData(
+                v.into()
+            )
         );
         self
     }
@@ -3242,15 +3082,10 @@ impl QueuedResourceState {
     /// The value of [state_data][crate::model::QueuedResourceState::state_data]
     /// if it holds a `ActiveData`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn active_data(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::queued_resource_state::ActiveData>>
-    {
+    pub fn active_data(&self) -> std::option::Option<&std::boxed::Box<crate::model::queued_resource_state::ActiveData>> {
         #[allow(unreachable_patterns)]
         self.state_data.as_ref().and_then(|v| match v {
-            crate::model::queued_resource_state::StateData::ActiveData(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::queued_resource_state::StateData::ActiveData(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -3275,14 +3110,11 @@ impl QueuedResourceState {
     /// assert!(x.suspending_data().is_none());
     /// assert!(x.suspended_data().is_none());
     /// ```
-    pub fn set_active_data<
-        T: std::convert::Into<std::boxed::Box<crate::model::queued_resource_state::ActiveData>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_active_data<T: std::convert::Into<std::boxed::Box<crate::model::queued_resource_state::ActiveData>>>(mut self, v: T) -> Self {
         self.state_data = std::option::Option::Some(
-            crate::model::queued_resource_state::StateData::ActiveData(v.into()),
+            crate::model::queued_resource_state::StateData::ActiveData(
+                v.into()
+            )
         );
         self
     }
@@ -3290,15 +3122,10 @@ impl QueuedResourceState {
     /// The value of [state_data][crate::model::QueuedResourceState::state_data]
     /// if it holds a `SuspendingData`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn suspending_data(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::queued_resource_state::SuspendingData>>
-    {
+    pub fn suspending_data(&self) -> std::option::Option<&std::boxed::Box<crate::model::queued_resource_state::SuspendingData>> {
         #[allow(unreachable_patterns)]
         self.state_data.as_ref().and_then(|v| match v {
-            crate::model::queued_resource_state::StateData::SuspendingData(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::queued_resource_state::StateData::SuspendingData(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -3323,14 +3150,11 @@ impl QueuedResourceState {
     /// assert!(x.active_data().is_none());
     /// assert!(x.suspended_data().is_none());
     /// ```
-    pub fn set_suspending_data<
-        T: std::convert::Into<std::boxed::Box<crate::model::queued_resource_state::SuspendingData>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_suspending_data<T: std::convert::Into<std::boxed::Box<crate::model::queued_resource_state::SuspendingData>>>(mut self, v: T) -> Self {
         self.state_data = std::option::Option::Some(
-            crate::model::queued_resource_state::StateData::SuspendingData(v.into()),
+            crate::model::queued_resource_state::StateData::SuspendingData(
+                v.into()
+            )
         );
         self
     }
@@ -3338,15 +3162,10 @@ impl QueuedResourceState {
     /// The value of [state_data][crate::model::QueuedResourceState::state_data]
     /// if it holds a `SuspendedData`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn suspended_data(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::queued_resource_state::SuspendedData>>
-    {
+    pub fn suspended_data(&self) -> std::option::Option<&std::boxed::Box<crate::model::queued_resource_state::SuspendedData>> {
         #[allow(unreachable_patterns)]
         self.state_data.as_ref().and_then(|v| match v {
-            crate::model::queued_resource_state::StateData::SuspendedData(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::queued_resource_state::StateData::SuspendedData(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -3371,14 +3190,11 @@ impl QueuedResourceState {
     /// assert!(x.active_data().is_none());
     /// assert!(x.suspending_data().is_none());
     /// ```
-    pub fn set_suspended_data<
-        T: std::convert::Into<std::boxed::Box<crate::model::queued_resource_state::SuspendedData>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_suspended_data<T: std::convert::Into<std::boxed::Box<crate::model::queued_resource_state::SuspendedData>>>(mut self, v: T) -> Self {
         self.state_data = std::option::Option::Some(
-            crate::model::queued_resource_state::StateData::SuspendedData(v.into()),
+            crate::model::queued_resource_state::StateData::SuspendedData(
+                v.into()
+            )
         );
         self
     }
@@ -3395,10 +3211,12 @@ pub mod queued_resource_state {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Further data for the creating state.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CreatingData {
+
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -3418,6 +3236,7 @@ pub mod queued_resource_state {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AcceptedData {
+
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -3437,6 +3256,7 @@ pub mod queued_resource_state {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ProvisioningData {
+
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -3456,6 +3276,7 @@ pub mod queued_resource_state {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct FailedData {
+
         /// Output only. The error that caused the queued resource to enter the
         /// FAILED state.
         pub error: std::option::Option<rpc::model::Status>,
@@ -3477,8 +3298,7 @@ pub mod queued_resource_state {
         /// let x = FailedData::new().set_error(Status::default()/* use setters */);
         /// ```
         pub fn set_error<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<rpc::model::Status>,
+        where T: std::convert::Into<rpc::model::Status>
         {
             self.error = std::option::Option::Some(v.into());
             self
@@ -3494,8 +3314,7 @@ pub mod queued_resource_state {
         /// let x = FailedData::new().set_or_clear_error(None::<Status>);
         /// ```
         pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<rpc::model::Status>,
+        where T: std::convert::Into<rpc::model::Status>
         {
             self.error = v.map(|x| x.into());
             self
@@ -3512,6 +3331,7 @@ pub mod queued_resource_state {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DeletingData {
+
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -3531,6 +3351,7 @@ pub mod queued_resource_state {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ActiveData {
+
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -3550,6 +3371,7 @@ pub mod queued_resource_state {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SuspendingData {
+
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -3569,6 +3391,7 @@ pub mod queued_resource_state {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SuspendedData {
+
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -3724,9 +3547,7 @@ pub mod queued_resource_state {
                 7 => Self::Suspending,
                 8 => Self::Suspended,
                 9 => Self::WaitingForResources,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -3745,9 +3566,7 @@ pub mod queued_resource_state {
                 "SUSPENDING" => Self::Suspending,
                 "SUSPENDED" => Self::Suspended,
                 "WAITING_FOR_RESOURCES" => Self::WaitingForResources,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -3779,8 +3598,7 @@ pub mod queued_resource_state {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.tpu.v2.QueuedResourceState.State",
-            ))
+                ".google.cloud.tpu.v2.QueuedResourceState.State"))
         }
     }
 
@@ -3870,9 +3688,7 @@ pub mod queued_resource_state {
                 0 => Self::Unspecified,
                 1 => Self::User,
                 2 => Self::Service,
-                _ => Self::UnknownValue(state_initiator::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state_initiator::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -3884,9 +3700,7 @@ pub mod queued_resource_state {
                 "STATE_INITIATOR_UNSPECIFIED" => Self::Unspecified,
                 "USER" => Self::User,
                 "SERVICE" => Self::Service,
-                _ => Self::UnknownValue(state_initiator::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state_initiator::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -3911,8 +3725,7 @@ pub mod queued_resource_state {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<StateInitiator>::new(
-                ".google.cloud.tpu.v2.QueuedResourceState.StateInitiator",
-            ))
+                ".google.cloud.tpu.v2.QueuedResourceState.StateInitiator"))
         }
     }
 
@@ -3945,6 +3758,7 @@ pub mod queued_resource_state {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListNodesRequest {
+
     /// Required. The parent resource name.
     pub parent: std::string::String,
 
@@ -4011,6 +3825,7 @@ impl wkt::message::Message for ListNodesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListNodesResponse {
+
     /// The listed nodes.
     pub nodes: std::vec::Vec<crate::model::Node>,
 
@@ -4043,7 +3858,7 @@ impl ListNodesResponse {
     pub fn set_nodes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Node>,
+        V: std::convert::Into<crate::model::Node>
     {
         use std::iter::Iterator;
         self.nodes = v.into_iter().map(|i| i.into()).collect();
@@ -4072,7 +3887,7 @@ impl ListNodesResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -4106,6 +3921,7 @@ impl gax::paginator::internal::PageableResponse for ListNodesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetNodeRequest {
+
     /// Required. The resource name.
     pub name: std::string::String,
 
@@ -4142,6 +3958,7 @@ impl wkt::message::Message for GetNodeRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateNodeRequest {
+
     /// Required. The parent resource name.
     pub parent: std::string::String,
 
@@ -4192,8 +4009,7 @@ impl CreateNodeRequest {
     /// let x = CreateNodeRequest::new().set_node(Node::default()/* use setters */);
     /// ```
     pub fn set_node<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Node>,
+    where T: std::convert::Into<crate::model::Node>
     {
         self.node = std::option::Option::Some(v.into());
         self
@@ -4209,8 +4025,7 @@ impl CreateNodeRequest {
     /// let x = CreateNodeRequest::new().set_or_clear_node(None::<Node>);
     /// ```
     pub fn set_or_clear_node<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Node>,
+    where T: std::convert::Into<crate::model::Node>
     {
         self.node = v.map(|x| x.into());
         self
@@ -4229,6 +4044,7 @@ impl wkt::message::Message for CreateNodeRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteNodeRequest {
+
     /// Required. The resource name.
     pub name: std::string::String,
 
@@ -4265,6 +4081,7 @@ impl wkt::message::Message for DeleteNodeRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StopNodeRequest {
+
     /// Required. The resource name.
     pub name: std::string::String,
 
@@ -4301,6 +4118,7 @@ impl wkt::message::Message for StopNodeRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StartNodeRequest {
+
     /// Required. The resource name.
     pub name: std::string::String,
 
@@ -4337,6 +4155,7 @@ impl wkt::message::Message for StartNodeRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateNodeRequest {
+
     /// Required. Mask of fields from [Node][Tpu.Node] to update.
     /// Supported fields: [description, tags, labels, metadata,
     /// network_config.enable_external_ips].
@@ -4362,8 +4181,7 @@ impl UpdateNodeRequest {
     /// let x = UpdateNodeRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -4379,8 +4197,7 @@ impl UpdateNodeRequest {
     /// let x = UpdateNodeRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -4395,8 +4212,7 @@ impl UpdateNodeRequest {
     /// let x = UpdateNodeRequest::new().set_node(Node::default()/* use setters */);
     /// ```
     pub fn set_node<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Node>,
+    where T: std::convert::Into<crate::model::Node>
     {
         self.node = std::option::Option::Some(v.into());
         self
@@ -4412,8 +4228,7 @@ impl UpdateNodeRequest {
     /// let x = UpdateNodeRequest::new().set_or_clear_node(None::<Node>);
     /// ```
     pub fn set_or_clear_node<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Node>,
+    where T: std::convert::Into<crate::model::Node>
     {
         self.node = v.map(|x| x.into());
         self
@@ -4433,6 +4248,7 @@ impl wkt::message::Message for UpdateNodeRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListQueuedResourcesRequest {
+
     /// Required. The parent resource name.
     pub parent: std::string::String,
 
@@ -4501,6 +4317,7 @@ impl wkt::message::Message for ListQueuedResourcesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListQueuedResourcesResponse {
+
     /// The listed queued resources.
     pub queued_resources: std::vec::Vec<crate::model::QueuedResource>,
 
@@ -4533,7 +4350,7 @@ impl ListQueuedResourcesResponse {
     pub fn set_queued_resources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::QueuedResource>,
+        V: std::convert::Into<crate::model::QueuedResource>
     {
         use std::iter::Iterator;
         self.queued_resources = v.into_iter().map(|i| i.into()).collect();
@@ -4562,7 +4379,7 @@ impl ListQueuedResourcesResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -4596,6 +4413,7 @@ impl gax::paginator::internal::PageableResponse for ListQueuedResourcesResponse 
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetQueuedResourceRequest {
+
     /// Required. The resource name.
     pub name: std::string::String,
 
@@ -4633,6 +4451,7 @@ impl wkt::message::Message for GetQueuedResourceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateQueuedResourceRequest {
+
     /// Required. The parent resource name.
     pub parent: std::string::String,
 
@@ -4673,10 +4492,7 @@ impl CreateQueuedResourceRequest {
     /// # use google_cloud_tpu_v2::model::CreateQueuedResourceRequest;
     /// let x = CreateQueuedResourceRequest::new().set_queued_resource_id("example");
     /// ```
-    pub fn set_queued_resource_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_queued_resource_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.queued_resource_id = v.into();
         self
     }
@@ -4690,8 +4506,7 @@ impl CreateQueuedResourceRequest {
     /// let x = CreateQueuedResourceRequest::new().set_queued_resource(QueuedResource::default()/* use setters */);
     /// ```
     pub fn set_queued_resource<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::QueuedResource>,
+    where T: std::convert::Into<crate::model::QueuedResource>
     {
         self.queued_resource = std::option::Option::Some(v.into());
         self
@@ -4707,8 +4522,7 @@ impl CreateQueuedResourceRequest {
     /// let x = CreateQueuedResourceRequest::new().set_or_clear_queued_resource(None::<QueuedResource>);
     /// ```
     pub fn set_or_clear_queued_resource<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::QueuedResource>,
+    where T: std::convert::Into<crate::model::QueuedResource>
     {
         self.queued_resource = v.map(|x| x.into());
         self
@@ -4740,6 +4554,7 @@ impl wkt::message::Message for CreateQueuedResourceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteQueuedResourceRequest {
+
     /// Required. The resource name.
     pub name: std::string::String,
 
@@ -4811,6 +4626,7 @@ impl wkt::message::Message for DeleteQueuedResourceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResetQueuedResourceRequest {
+
     /// Required. The name of the queued resource.
     pub name: std::string::String,
 
@@ -4845,6 +4661,7 @@ impl wkt::message::Message for ResetQueuedResourceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ServiceIdentity {
+
     /// The email address of the service identity.
     pub email: std::string::String,
 
@@ -4882,6 +4699,7 @@ impl wkt::message::Message for ServiceIdentity {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateServiceIdentityRequest {
+
     /// Required. The parent resource name.
     pub parent: std::string::String,
 
@@ -4919,6 +4737,7 @@ impl wkt::message::Message for GenerateServiceIdentityRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateServiceIdentityResponse {
+
     /// ServiceIdentity that was created or retrieved.
     pub identity: std::option::Option<crate::model::ServiceIdentity>,
 
@@ -4939,8 +4758,7 @@ impl GenerateServiceIdentityResponse {
     /// let x = GenerateServiceIdentityResponse::new().set_identity(ServiceIdentity::default()/* use setters */);
     /// ```
     pub fn set_identity<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ServiceIdentity>,
+    where T: std::convert::Into<crate::model::ServiceIdentity>
     {
         self.identity = std::option::Option::Some(v.into());
         self
@@ -4956,8 +4774,7 @@ impl GenerateServiceIdentityResponse {
     /// let x = GenerateServiceIdentityResponse::new().set_or_clear_identity(None::<ServiceIdentity>);
     /// ```
     pub fn set_or_clear_identity<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ServiceIdentity>,
+    where T: std::convert::Into<crate::model::ServiceIdentity>
     {
         self.identity = v.map(|x| x.into());
         self
@@ -4974,6 +4791,7 @@ impl wkt::message::Message for GenerateServiceIdentityResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AcceleratorType {
+
     /// The resource name.
     pub name: std::string::String,
 
@@ -5030,7 +4848,7 @@ impl AcceleratorType {
     pub fn set_accelerator_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AcceleratorConfig>,
+        V: std::convert::Into<crate::model::AcceleratorConfig>
     {
         use std::iter::Iterator;
         self.accelerator_configs = v.into_iter().map(|i| i.into()).collect();
@@ -5050,6 +4868,7 @@ impl wkt::message::Message for AcceleratorType {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAcceleratorTypeRequest {
+
     /// Required. The resource name.
     pub name: std::string::String,
 
@@ -5087,6 +4906,7 @@ impl wkt::message::Message for GetAcceleratorTypeRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAcceleratorTypesRequest {
+
     /// Required. The parent resource name.
     pub parent: std::string::String,
 
@@ -5184,6 +5004,7 @@ impl wkt::message::Message for ListAcceleratorTypesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAcceleratorTypesResponse {
+
     /// The listed nodes.
     pub accelerator_types: std::vec::Vec<crate::model::AcceleratorType>,
 
@@ -5216,7 +5037,7 @@ impl ListAcceleratorTypesResponse {
     pub fn set_accelerator_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AcceleratorType>,
+        V: std::convert::Into<crate::model::AcceleratorType>
     {
         use std::iter::Iterator;
         self.accelerator_types = v.into_iter().map(|i| i.into()).collect();
@@ -5245,7 +5066,7 @@ impl ListAcceleratorTypesResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -5277,6 +5098,7 @@ impl gax::paginator::internal::PageableResponse for ListAcceleratorTypesResponse
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RuntimeVersion {
+
     /// The resource name.
     pub name: std::string::String,
 
@@ -5328,6 +5150,7 @@ impl wkt::message::Message for RuntimeVersion {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetRuntimeVersionRequest {
+
     /// Required. The resource name.
     pub name: std::string::String,
 
@@ -5365,6 +5188,7 @@ impl wkt::message::Message for GetRuntimeVersionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRuntimeVersionsRequest {
+
     /// Required. The parent resource name.
     pub parent: std::string::String,
 
@@ -5462,6 +5286,7 @@ impl wkt::message::Message for ListRuntimeVersionsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRuntimeVersionsResponse {
+
     /// The listed nodes.
     pub runtime_versions: std::vec::Vec<crate::model::RuntimeVersion>,
 
@@ -5494,7 +5319,7 @@ impl ListRuntimeVersionsResponse {
     pub fn set_runtime_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::RuntimeVersion>,
+        V: std::convert::Into<crate::model::RuntimeVersion>
     {
         use std::iter::Iterator;
         self.runtime_versions = v.into_iter().map(|i| i.into()).collect();
@@ -5523,7 +5348,7 @@ impl ListRuntimeVersionsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -5557,6 +5382,7 @@ impl gax::paginator::internal::PageableResponse for ListRuntimeVersionsResponse 
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
+
     /// The time the operation was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
@@ -5596,8 +5422,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -5613,8 +5438,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -5629,8 +5453,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -5646,8 +5469,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -5724,6 +5546,7 @@ impl wkt::message::Message for OperationMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Symptom {
+
     /// Timestamp when the Symptom is created.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
@@ -5753,8 +5576,7 @@ impl Symptom {
     /// let x = Symptom::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -5770,8 +5592,7 @@ impl Symptom {
     /// let x = Symptom::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -5787,10 +5608,7 @@ impl Symptom {
     /// let x1 = Symptom::new().set_symptom_type(SymptomType::OutOfMemory);
     /// let x2 = Symptom::new().set_symptom_type(SymptomType::ExecuteTimedOut);
     /// ```
-    pub fn set_symptom_type<T: std::convert::Into<crate::model::symptom::SymptomType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_symptom_type<T: std::convert::Into<crate::model::symptom::SymptomType>>(mut self, v: T) -> Self {
         self.symptom_type = v.into();
         self
     }
@@ -5830,6 +5648,7 @@ impl wkt::message::Message for Symptom {
 pub mod symptom {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// SymptomType represents the different types of Symptoms that a TPU can be
     /// at.
@@ -5939,9 +5758,7 @@ pub mod symptom {
                 4 => Self::MeshBuildFail,
                 5 => Self::HbmOutOfMemory,
                 6 => Self::ProjectAbuse,
-                _ => Self::UnknownValue(symptom_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(symptom_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -5957,9 +5774,7 @@ pub mod symptom {
                 "MESH_BUILD_FAIL" => Self::MeshBuildFail,
                 "HBM_OUT_OF_MEMORY" => Self::HbmOutOfMemory,
                 "PROJECT_ABUSE" => Self::ProjectAbuse,
-                _ => Self::UnknownValue(symptom_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(symptom_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -5988,8 +5803,7 @@ pub mod symptom {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<SymptomType>::new(
-                ".google.cloud.tpu.v2.Symptom.SymptomType",
-            ))
+                ".google.cloud.tpu.v2.Symptom.SymptomType"))
         }
     }
 }
@@ -6000,6 +5814,7 @@ pub mod symptom {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetGuestAttributesRequest {
+
     /// Required. The resource name.
     pub name: std::string::String,
 
@@ -6052,7 +5867,7 @@ impl GetGuestAttributesRequest {
     pub fn set_worker_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.worker_ids = v.into_iter().map(|i| i.into()).collect();
@@ -6073,6 +5888,7 @@ impl wkt::message::Message for GetGuestAttributesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetGuestAttributesResponse {
+
     /// The guest attributes for the TPU workers.
     pub guest_attributes: std::vec::Vec<crate::model::GuestAttributes>,
 
@@ -6099,7 +5915,7 @@ impl GetGuestAttributesResponse {
     pub fn set_guest_attributes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::GuestAttributes>,
+        V: std::convert::Into<crate::model::GuestAttributes>
     {
         use std::iter::Iterator;
         self.guest_attributes = v.into_iter().map(|i| i.into()).collect();
@@ -6117,6 +5933,7 @@ impl wkt::message::Message for GetGuestAttributesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AcceleratorConfig {
+
     /// Required. Type of TPU.
     pub r#type: crate::model::accelerator_config::Type,
 
@@ -6141,10 +5958,7 @@ impl AcceleratorConfig {
     /// let x1 = AcceleratorConfig::new().set_type(Type::V3);
     /// let x2 = AcceleratorConfig::new().set_type(Type::V4);
     /// ```
-    pub fn set_type<T: std::convert::Into<crate::model::accelerator_config::Type>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_type<T: std::convert::Into<crate::model::accelerator_config::Type>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
@@ -6172,6 +5986,7 @@ impl wkt::message::Message for AcceleratorConfig {
 pub mod accelerator_config {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// TPU type.
     ///
@@ -6279,9 +6094,7 @@ pub mod accelerator_config {
                 9 => Self::V5LitePod,
                 10 => Self::V5P,
                 11 => Self::V6E,
-                _ => Self::UnknownValue(r#type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -6297,9 +6110,7 @@ pub mod accelerator_config {
                 "V5LITE_POD" => Self::V5LitePod,
                 "V5P" => Self::V5P,
                 "V6E" => Self::V6E,
-                _ => Self::UnknownValue(r#type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -6328,8 +6139,7 @@ pub mod accelerator_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
-                ".google.cloud.tpu.v2.AcceleratorConfig.Type",
-            ))
+                ".google.cloud.tpu.v2.AcceleratorConfig.Type"))
         }
     }
 }
@@ -6338,6 +6148,7 @@ pub mod accelerator_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ShieldedInstanceConfig {
+
     /// Defines whether the instance has Secure Boot enabled.
     pub enable_secure_boot: bool,
 

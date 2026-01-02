@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [ImageAnnotator](super::stub::ImageAnnotator) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct ImageAnnotator<T>
-where
-    T: super::stub::ImageAnnotator + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ImageAnnotator + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> ImageAnnotator<T>
-where
-    T: super::stub::ImageAnnotator + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ImageAnnotator + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::ImageAnnotator for ImageAnnotator<T>
-where
-    T: super::stub::ImageAnnotator + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ImageAnnotator + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn batch_annotate_images(
         &self,
@@ -82,6 +76,7 @@ where
         self.inner.get_operation(req, options).await
     }
 
+
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -100,25 +95,19 @@ where
 /// Implements a [ProductSearch](super::stub::ProductSearch) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct ProductSearch<T>
-where
-    T: super::stub::ProductSearch + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ProductSearch + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> ProductSearch<T>
-where
-    T: super::stub::ProductSearch + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ProductSearch + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::ProductSearch for ProductSearch<T>
-where
-    T: super::stub::ProductSearch + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ProductSearch + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn create_product_set(
         &self,
@@ -260,9 +249,7 @@ where
         req: crate::model::RemoveProductFromProductSetRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        self.inner
-            .remove_product_from_product_set(req, options)
-            .await
+        self.inner.remove_product_from_product_set(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -301,6 +288,7 @@ where
         self.inner.get_operation(req, options).await
     }
 
+
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -315,3 +303,4 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 }
+

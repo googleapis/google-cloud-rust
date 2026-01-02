@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -30,7 +31,6 @@ extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -42,6 +42,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetGoogleServiceAccountRequest {
+
     /// Required. The ID of the Google Cloud project that the Google service
     /// account is associated with.
     pub project_id: std::string::String,
@@ -77,6 +78,7 @@ impl wkt::message::Message for GetGoogleServiceAccountRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateTransferJobRequest {
+
     /// Required. The job to create.
     pub transfer_job: std::option::Option<crate::model::TransferJob>,
 
@@ -97,8 +99,7 @@ impl CreateTransferJobRequest {
     /// let x = CreateTransferJobRequest::new().set_transfer_job(TransferJob::default()/* use setters */);
     /// ```
     pub fn set_transfer_job<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TransferJob>,
+    where T: std::convert::Into<crate::model::TransferJob>
     {
         self.transfer_job = std::option::Option::Some(v.into());
         self
@@ -114,8 +115,7 @@ impl CreateTransferJobRequest {
     /// let x = CreateTransferJobRequest::new().set_or_clear_transfer_job(None::<TransferJob>);
     /// ```
     pub fn set_or_clear_transfer_job<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TransferJob>,
+    where T: std::convert::Into<crate::model::TransferJob>
     {
         self.transfer_job = v.map(|x| x.into());
         self
@@ -132,6 +132,7 @@ impl wkt::message::Message for CreateTransferJobRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateTransferJobRequest {
+
     /// Required. The name of job to update.
     pub job_name: std::string::String,
 
@@ -222,8 +223,7 @@ impl UpdateTransferJobRequest {
     /// let x = UpdateTransferJobRequest::new().set_transfer_job(TransferJob::default()/* use setters */);
     /// ```
     pub fn set_transfer_job<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TransferJob>,
+    where T: std::convert::Into<crate::model::TransferJob>
     {
         self.transfer_job = std::option::Option::Some(v.into());
         self
@@ -239,8 +239,7 @@ impl UpdateTransferJobRequest {
     /// let x = UpdateTransferJobRequest::new().set_or_clear_transfer_job(None::<TransferJob>);
     /// ```
     pub fn set_or_clear_transfer_job<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TransferJob>,
+    where T: std::convert::Into<crate::model::TransferJob>
     {
         self.transfer_job = v.map(|x| x.into());
         self
@@ -255,8 +254,7 @@ impl UpdateTransferJobRequest {
     /// let x = UpdateTransferJobRequest::new().set_update_transfer_job_field_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_transfer_job_field_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_transfer_job_field_mask = std::option::Option::Some(v.into());
         self
@@ -271,12 +269,8 @@ impl UpdateTransferJobRequest {
     /// let x = UpdateTransferJobRequest::new().set_or_clear_update_transfer_job_field_mask(Some(FieldMask::default()/* use setters */));
     /// let x = UpdateTransferJobRequest::new().set_or_clear_update_transfer_job_field_mask(None::<FieldMask>);
     /// ```
-    pub fn set_or_clear_update_transfer_job_field_mask<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    pub fn set_or_clear_update_transfer_job_field_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_transfer_job_field_mask = v.map(|x| x.into());
         self
@@ -293,6 +287,7 @@ impl wkt::message::Message for UpdateTransferJobRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetTransferJobRequest {
+
     /// Required. The job to get.
     pub job_name: std::string::String,
 
@@ -343,6 +338,7 @@ impl wkt::message::Message for GetTransferJobRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteTransferJobRequest {
+
     /// Required. The job to delete.
     pub job_name: std::string::String,
 
@@ -394,6 +390,7 @@ impl wkt::message::Message for DeleteTransferJobRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTransferJobsRequest {
+
     /// Required. A list of query parameters specified as JSON text in the form of:
     ///
     /// ```norust
@@ -488,6 +485,7 @@ impl wkt::message::Message for ListTransferJobsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTransferJobsResponse {
+
     /// A list of transfer jobs.
     pub transfer_jobs: std::vec::Vec<crate::model::TransferJob>,
 
@@ -517,7 +515,7 @@ impl ListTransferJobsResponse {
     pub fn set_transfer_jobs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::TransferJob>,
+        V: std::convert::Into<crate::model::TransferJob>
     {
         use std::iter::Iterator;
         self.transfer_jobs = v.into_iter().map(|i| i.into()).collect();
@@ -561,6 +559,7 @@ impl gax::paginator::internal::PageableResponse for ListTransferJobsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PauseTransferOperationRequest {
+
     /// Required. The name of the transfer operation.
     pub name: std::string::String,
 
@@ -595,6 +594,7 @@ impl wkt::message::Message for PauseTransferOperationRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResumeTransferOperationRequest {
+
     /// Required. The name of the transfer operation.
     pub name: std::string::String,
 
@@ -629,6 +629,7 @@ impl wkt::message::Message for ResumeTransferOperationRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RunTransferJobRequest {
+
     /// Required. The name of the transfer job.
     pub job_name: std::string::String,
 
@@ -679,6 +680,7 @@ impl wkt::message::Message for RunTransferJobRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateAgentPoolRequest {
+
     /// Required. The ID of the Google Cloud project that owns the
     /// agent pool.
     pub project_id: std::string::String,
@@ -730,8 +732,7 @@ impl CreateAgentPoolRequest {
     /// let x = CreateAgentPoolRequest::new().set_agent_pool(AgentPool::default()/* use setters */);
     /// ```
     pub fn set_agent_pool<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AgentPool>,
+    where T: std::convert::Into<crate::model::AgentPool>
     {
         self.agent_pool = std::option::Option::Some(v.into());
         self
@@ -747,8 +748,7 @@ impl CreateAgentPoolRequest {
     /// let x = CreateAgentPoolRequest::new().set_or_clear_agent_pool(None::<AgentPool>);
     /// ```
     pub fn set_or_clear_agent_pool<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AgentPool>,
+    where T: std::convert::Into<crate::model::AgentPool>
     {
         self.agent_pool = v.map(|x| x.into());
         self
@@ -777,6 +777,7 @@ impl wkt::message::Message for CreateAgentPoolRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateAgentPoolRequest {
+
     /// Required. The agent pool to update. `agent_pool` is expected to specify
     /// following fields:
     ///
@@ -826,8 +827,7 @@ impl UpdateAgentPoolRequest {
     /// let x = UpdateAgentPoolRequest::new().set_agent_pool(AgentPool::default()/* use setters */);
     /// ```
     pub fn set_agent_pool<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AgentPool>,
+    where T: std::convert::Into<crate::model::AgentPool>
     {
         self.agent_pool = std::option::Option::Some(v.into());
         self
@@ -843,8 +843,7 @@ impl UpdateAgentPoolRequest {
     /// let x = UpdateAgentPoolRequest::new().set_or_clear_agent_pool(None::<AgentPool>);
     /// ```
     pub fn set_or_clear_agent_pool<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AgentPool>,
+    where T: std::convert::Into<crate::model::AgentPool>
     {
         self.agent_pool = v.map(|x| x.into());
         self
@@ -859,8 +858,7 @@ impl UpdateAgentPoolRequest {
     /// let x = UpdateAgentPoolRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -876,8 +874,7 @@ impl UpdateAgentPoolRequest {
     /// let x = UpdateAgentPoolRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -894,6 +891,7 @@ impl wkt::message::Message for UpdateAgentPoolRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAgentPoolRequest {
+
     /// Required. The name of the agent pool to get.
     pub name: std::string::String,
 
@@ -928,6 +926,7 @@ impl wkt::message::Message for GetAgentPoolRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteAgentPoolRequest {
+
     /// Required. The name of the agent pool to delete.
     pub name: std::string::String,
 
@@ -962,6 +961,7 @@ impl wkt::message::Message for DeleteAgentPoolRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAgentPoolsRequest {
+
     /// Required. The ID of the Google Cloud project that owns the job.
     pub project_id: std::string::String,
 
@@ -1048,6 +1048,7 @@ impl wkt::message::Message for ListAgentPoolsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAgentPoolsResponse {
+
     /// A list of agent pools.
     pub agent_pools: std::vec::Vec<crate::model::AgentPool>,
 
@@ -1077,7 +1078,7 @@ impl ListAgentPoolsResponse {
     pub fn set_agent_pools<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AgentPool>,
+        V: std::convert::Into<crate::model::AgentPool>
     {
         use std::iter::Iterator;
         self.agent_pools = v.into_iter().map(|i| i.into()).collect();
@@ -1121,6 +1122,7 @@ impl gax::paginator::internal::PageableResponse for ListAgentPoolsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GoogleServiceAccount {
+
     /// Email address of the service account.
     pub account_email: std::string::String,
 
@@ -1175,6 +1177,7 @@ impl wkt::message::Message for GoogleServiceAccount {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AwsAccessKey {
+
     /// Required. AWS access key ID.
     pub access_key_id: std::string::String,
 
@@ -1209,10 +1212,7 @@ impl AwsAccessKey {
     /// # use google_cloud_storagetransfer_v1::model::AwsAccessKey;
     /// let x = AwsAccessKey::new().set_secret_access_key("example");
     /// ```
-    pub fn set_secret_access_key<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_secret_access_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret_access_key = v.into();
         self
     }
@@ -1231,6 +1231,7 @@ impl wkt::message::Message for AwsAccessKey {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AzureCredentials {
+
     /// Required. Azure shared access signature (SAS).
     ///
     /// For more information about SAS, see
@@ -1288,6 +1289,7 @@ impl wkt::message::Message for AzureCredentials {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ObjectConditions {
+
     /// Ensures that objects are not transferred until a specific minimum time
     /// has elapsed after the "last modification time". When a
     /// [TransferOperation][google.storagetransfer.v1.TransferOperation] begins,
@@ -1423,8 +1425,7 @@ impl ObjectConditions {
     /// let x = ObjectConditions::new().set_min_time_elapsed_since_last_modification(Duration::default()/* use setters */);
     /// ```
     pub fn set_min_time_elapsed_since_last_modification<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.min_time_elapsed_since_last_modification = std::option::Option::Some(v.into());
         self
@@ -1439,12 +1440,8 @@ impl ObjectConditions {
     /// let x = ObjectConditions::new().set_or_clear_min_time_elapsed_since_last_modification(Some(Duration::default()/* use setters */));
     /// let x = ObjectConditions::new().set_or_clear_min_time_elapsed_since_last_modification(None::<Duration>);
     /// ```
-    pub fn set_or_clear_min_time_elapsed_since_last_modification<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    pub fn set_or_clear_min_time_elapsed_since_last_modification<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<wkt::Duration>
     {
         self.min_time_elapsed_since_last_modification = v.map(|x| x.into());
         self
@@ -1459,8 +1456,7 @@ impl ObjectConditions {
     /// let x = ObjectConditions::new().set_max_time_elapsed_since_last_modification(Duration::default()/* use setters */);
     /// ```
     pub fn set_max_time_elapsed_since_last_modification<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.max_time_elapsed_since_last_modification = std::option::Option::Some(v.into());
         self
@@ -1475,12 +1471,8 @@ impl ObjectConditions {
     /// let x = ObjectConditions::new().set_or_clear_max_time_elapsed_since_last_modification(Some(Duration::default()/* use setters */));
     /// let x = ObjectConditions::new().set_or_clear_max_time_elapsed_since_last_modification(None::<Duration>);
     /// ```
-    pub fn set_or_clear_max_time_elapsed_since_last_modification<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    pub fn set_or_clear_max_time_elapsed_since_last_modification<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<wkt::Duration>
     {
         self.max_time_elapsed_since_last_modification = v.map(|x| x.into());
         self
@@ -1496,7 +1488,7 @@ impl ObjectConditions {
     pub fn set_include_prefixes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.include_prefixes = v.into_iter().map(|i| i.into()).collect();
@@ -1513,7 +1505,7 @@ impl ObjectConditions {
     pub fn set_exclude_prefixes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.exclude_prefixes = v.into_iter().map(|i| i.into()).collect();
@@ -1529,8 +1521,7 @@ impl ObjectConditions {
     /// let x = ObjectConditions::new().set_last_modified_since(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_last_modified_since<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.last_modified_since = std::option::Option::Some(v.into());
         self
@@ -1546,8 +1537,7 @@ impl ObjectConditions {
     /// let x = ObjectConditions::new().set_or_clear_last_modified_since(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_last_modified_since<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.last_modified_since = v.map(|x| x.into());
         self
@@ -1562,8 +1552,7 @@ impl ObjectConditions {
     /// let x = ObjectConditions::new().set_last_modified_before(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_last_modified_before<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.last_modified_before = std::option::Option::Some(v.into());
         self
@@ -1579,8 +1568,7 @@ impl ObjectConditions {
     /// let x = ObjectConditions::new().set_or_clear_last_modified_before(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_last_modified_before<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.last_modified_before = v.map(|x| x.into());
         self
@@ -1600,6 +1588,7 @@ impl wkt::message::Message for ObjectConditions {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GcsData {
+
     /// Required. Cloud Storage bucket name. Must meet
     /// [Bucket Name Requirements](/storage/docs/naming#requirements).
     pub bucket_name: std::string::String,
@@ -1668,10 +1657,7 @@ impl GcsData {
     /// # use google_cloud_storagetransfer_v1::model::GcsData;
     /// let x = GcsData::new().set_managed_folder_transfer_enabled(true);
     /// ```
-    pub fn set_managed_folder_transfer_enabled<T: std::convert::Into<bool>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_managed_folder_transfer_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.managed_folder_transfer_enabled = v.into();
         self
     }
@@ -1688,6 +1674,7 @@ impl wkt::message::Message for GcsData {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AwsS3Data {
+
     /// Required. S3 Bucket name (see
     /// [Creating a
     /// bucket](https://docs.aws.amazon.com/AmazonS3/latest/dev/create-bucket-get-location-example.html)).
@@ -1792,8 +1779,7 @@ impl AwsS3Data {
     /// let x = AwsS3Data::new().set_aws_access_key(AwsAccessKey::default()/* use setters */);
     /// ```
     pub fn set_aws_access_key<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AwsAccessKey>,
+    where T: std::convert::Into<crate::model::AwsAccessKey>
     {
         self.aws_access_key = std::option::Option::Some(v.into());
         self
@@ -1809,8 +1795,7 @@ impl AwsS3Data {
     /// let x = AwsS3Data::new().set_or_clear_aws_access_key(None::<AwsAccessKey>);
     /// ```
     pub fn set_or_clear_aws_access_key<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AwsAccessKey>,
+    where T: std::convert::Into<crate::model::AwsAccessKey>
     {
         self.aws_access_key = v.map(|x| x.into());
         self
@@ -1847,10 +1832,7 @@ impl AwsS3Data {
     /// # use google_cloud_storagetransfer_v1::model::AwsS3Data;
     /// let x = AwsS3Data::new().set_cloudfront_domain("example");
     /// ```
-    pub fn set_cloudfront_domain<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_cloudfront_domain<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cloudfront_domain = v.into();
         self
     }
@@ -1862,10 +1844,7 @@ impl AwsS3Data {
     /// # use google_cloud_storagetransfer_v1::model::AwsS3Data;
     /// let x = AwsS3Data::new().set_credentials_secret("example");
     /// ```
-    pub fn set_credentials_secret<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_credentials_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.credentials_secret = v.into();
         self
     }
@@ -1881,12 +1860,8 @@ impl AwsS3Data {
     /// use google_cloud_storagetransfer_v1::model::aws_s_3_data::PrivateNetwork;
     /// let x = AwsS3Data::new().set_private_network(Some(PrivateNetwork::ManagedPrivateNetwork(true)));
     /// ```
-    pub fn set_private_network<
-        T: std::convert::Into<std::option::Option<crate::model::aws_s_3_data::PrivateNetwork>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_private_network<T: std::convert::Into<std::option::Option<crate::model::aws_s_3_data::PrivateNetwork>>>(mut self, v: T) -> Self
+    {
         self.private_network = v.into();
         self
     }
@@ -1897,9 +1872,7 @@ impl AwsS3Data {
     pub fn managed_private_network(&self) -> std::option::Option<&bool> {
         #[allow(unreachable_patterns)]
         self.private_network.as_ref().and_then(|v| match v {
-            crate::model::aws_s_3_data::PrivateNetwork::ManagedPrivateNetwork(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::aws_s_3_data::PrivateNetwork::ManagedPrivateNetwork(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -1918,7 +1891,9 @@ impl AwsS3Data {
     /// ```
     pub fn set_managed_private_network<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.private_network = std::option::Option::Some(
-            crate::model::aws_s_3_data::PrivateNetwork::ManagedPrivateNetwork(v.into()),
+            crate::model::aws_s_3_data::PrivateNetwork::ManagedPrivateNetwork(
+                v.into()
+            )
         );
         self
     }
@@ -1934,6 +1909,7 @@ impl wkt::message::Message for AwsS3Data {
 pub mod aws_s_3_data {
     #[allow(unused_imports)]
     use super::*;
+
 
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -1954,6 +1930,7 @@ pub mod aws_s_3_data {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AzureBlobStorageData {
+
     /// Required. The name of the Azure Storage account.
     pub storage_account: std::string::String,
 
@@ -2007,8 +1984,7 @@ pub struct AzureBlobStorageData {
     ///
     /// [google.storagetransfer.v1.AzureBlobStorageData.azure_credentials]: crate::model::AzureBlobStorageData::azure_credentials
     /// [google.storagetransfer.v1.AzureBlobStorageData.credentials_secret]: crate::model::AzureBlobStorageData::credentials_secret
-    pub federated_identity_config:
-        std::option::Option<crate::model::azure_blob_storage_data::FederatedIdentityConfig>,
+    pub federated_identity_config: std::option::Option<crate::model::azure_blob_storage_data::FederatedIdentityConfig>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2039,8 +2015,7 @@ impl AzureBlobStorageData {
     /// let x = AzureBlobStorageData::new().set_azure_credentials(AzureCredentials::default()/* use setters */);
     /// ```
     pub fn set_azure_credentials<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AzureCredentials>,
+    where T: std::convert::Into<crate::model::AzureCredentials>
     {
         self.azure_credentials = std::option::Option::Some(v.into());
         self
@@ -2056,8 +2031,7 @@ impl AzureBlobStorageData {
     /// let x = AzureBlobStorageData::new().set_or_clear_azure_credentials(None::<AzureCredentials>);
     /// ```
     pub fn set_or_clear_azure_credentials<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AzureCredentials>,
+    where T: std::convert::Into<crate::model::AzureCredentials>
     {
         self.azure_credentials = v.map(|x| x.into());
         self
@@ -2094,10 +2068,7 @@ impl AzureBlobStorageData {
     /// # use google_cloud_storagetransfer_v1::model::AzureBlobStorageData;
     /// let x = AzureBlobStorageData::new().set_credentials_secret("example");
     /// ```
-    pub fn set_credentials_secret<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_credentials_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.credentials_secret = v.into();
         self
     }
@@ -2111,8 +2082,7 @@ impl AzureBlobStorageData {
     /// let x = AzureBlobStorageData::new().set_federated_identity_config(FederatedIdentityConfig::default()/* use setters */);
     /// ```
     pub fn set_federated_identity_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::azure_blob_storage_data::FederatedIdentityConfig>,
+    where T: std::convert::Into<crate::model::azure_blob_storage_data::FederatedIdentityConfig>
     {
         self.federated_identity_config = std::option::Option::Some(v.into());
         self
@@ -2128,8 +2098,7 @@ impl AzureBlobStorageData {
     /// let x = AzureBlobStorageData::new().set_or_clear_federated_identity_config(None::<FederatedIdentityConfig>);
     /// ```
     pub fn set_or_clear_federated_identity_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::azure_blob_storage_data::FederatedIdentityConfig>,
+    where T: std::convert::Into<crate::model::azure_blob_storage_data::FederatedIdentityConfig>
     {
         self.federated_identity_config = v.map(|x| x.into());
         self
@@ -2147,6 +2116,7 @@ pub mod azure_blob_storage_data {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// The identity of an Azure application through which Storage Transfer Service
     /// can authenticate requests using Azure workload identity federation.
     ///
@@ -2160,6 +2130,7 @@ pub mod azure_blob_storage_data {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct FederatedIdentityConfig {
+
         /// Required. The client (application) ID of the application with federated
         /// credentials.
         pub client_id: std::string::String,
@@ -2255,6 +2226,7 @@ pub mod azure_blob_storage_data {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HttpData {
+
     /// Required. The URL that points to the file that stores the object list
     /// entries. This file must allow public access. The URL is either an
     /// HTTP/HTTPS address (e.g. `<https://example.com/urllist.tsv>`) or a Cloud
@@ -2292,6 +2264,7 @@ impl wkt::message::Message for HttpData {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PosixFilesystem {
+
     /// Root directory path to the filesystem.
     pub root_directory: std::string::String,
 
@@ -2329,6 +2302,7 @@ impl wkt::message::Message for PosixFilesystem {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HdfsData {
+
     /// Root path to transfer files.
     pub path: std::string::String,
 
@@ -2363,6 +2337,7 @@ impl wkt::message::Message for HdfsData {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AwsS3CompatibleData {
+
     /// Required. Specifies the name of the bucket.
     pub bucket_name: std::string::String,
 
@@ -2453,14 +2428,8 @@ impl AwsS3CompatibleData {
     /// let x = AwsS3CompatibleData::new().set_data_provider(Some(
     ///     google_cloud_storagetransfer_v1::model::aws_s_3_compatible_data::DataProvider::S3Metadata(S3CompatibleMetadata::default().into())));
     /// ```
-    pub fn set_data_provider<
-        T: std::convert::Into<
-                std::option::Option<crate::model::aws_s_3_compatible_data::DataProvider>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_data_provider<T: std::convert::Into<std::option::Option<crate::model::aws_s_3_compatible_data::DataProvider>>>(mut self, v: T) -> Self
+    {
         self.data_provider = v.into();
         self
     }
@@ -2468,14 +2437,10 @@ impl AwsS3CompatibleData {
     /// The value of [data_provider][crate::model::AwsS3CompatibleData::data_provider]
     /// if it holds a `S3Metadata`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn s3_metadata(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::S3CompatibleMetadata>> {
+    pub fn s3_metadata(&self) -> std::option::Option<&std::boxed::Box<crate::model::S3CompatibleMetadata>> {
         #[allow(unreachable_patterns)]
         self.data_provider.as_ref().and_then(|v| match v {
-            crate::model::aws_s_3_compatible_data::DataProvider::S3Metadata(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::aws_s_3_compatible_data::DataProvider::S3Metadata(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -2493,14 +2458,11 @@ impl AwsS3CompatibleData {
     /// let x = AwsS3CompatibleData::new().set_s3_metadata(S3CompatibleMetadata::default()/* use setters */);
     /// assert!(x.s3_metadata().is_some());
     /// ```
-    pub fn set_s3_metadata<
-        T: std::convert::Into<std::boxed::Box<crate::model::S3CompatibleMetadata>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_s3_metadata<T: std::convert::Into<std::boxed::Box<crate::model::S3CompatibleMetadata>>>(mut self, v: T) -> Self {
         self.data_provider = std::option::Option::Some(
-            crate::model::aws_s_3_compatible_data::DataProvider::S3Metadata(v.into()),
+            crate::model::aws_s_3_compatible_data::DataProvider::S3Metadata(
+                v.into()
+            )
         );
         self
     }
@@ -2516,6 +2478,7 @@ impl wkt::message::Message for AwsS3CompatibleData {
 pub mod aws_s_3_compatible_data {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Specifies the metadata of the S3 compatible data provider. Each provider
     /// may contain some attributes that do not apply to all S3-compatible data
@@ -2533,6 +2496,7 @@ pub mod aws_s_3_compatible_data {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct S3CompatibleMetadata {
+
     /// Specifies the authentication and authorization method used by the storage
     /// service. When not specified, Transfer Service will attempt to determine
     /// right auth method to use.
@@ -2568,12 +2532,7 @@ impl S3CompatibleMetadata {
     /// let x0 = S3CompatibleMetadata::new().set_auth_method(AuthMethod::AwsSignatureV4);
     /// let x1 = S3CompatibleMetadata::new().set_auth_method(AuthMethod::AwsSignatureV2);
     /// ```
-    pub fn set_auth_method<
-        T: std::convert::Into<crate::model::s_3_compatible_metadata::AuthMethod>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_auth_method<T: std::convert::Into<crate::model::s_3_compatible_metadata::AuthMethod>>(mut self, v: T) -> Self {
         self.auth_method = v.into();
         self
     }
@@ -2587,12 +2546,7 @@ impl S3CompatibleMetadata {
     /// let x0 = S3CompatibleMetadata::new().set_request_model(RequestModel::VirtualHostedStyle);
     /// let x1 = S3CompatibleMetadata::new().set_request_model(RequestModel::PathStyle);
     /// ```
-    pub fn set_request_model<
-        T: std::convert::Into<crate::model::s_3_compatible_metadata::RequestModel>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_request_model<T: std::convert::Into<crate::model::s_3_compatible_metadata::RequestModel>>(mut self, v: T) -> Self {
         self.request_model = v.into();
         self
     }
@@ -2606,12 +2560,7 @@ impl S3CompatibleMetadata {
     /// let x0 = S3CompatibleMetadata::new().set_protocol(NetworkProtocol::Https);
     /// let x1 = S3CompatibleMetadata::new().set_protocol(NetworkProtocol::Http);
     /// ```
-    pub fn set_protocol<
-        T: std::convert::Into<crate::model::s_3_compatible_metadata::NetworkProtocol>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_protocol<T: std::convert::Into<crate::model::s_3_compatible_metadata::NetworkProtocol>>(mut self, v: T) -> Self {
         self.protocol = v.into();
         self
     }
@@ -2625,10 +2574,7 @@ impl S3CompatibleMetadata {
     /// let x0 = S3CompatibleMetadata::new().set_list_api(ListApi::ListObjectsV2);
     /// let x1 = S3CompatibleMetadata::new().set_list_api(ListApi::ListObjects);
     /// ```
-    pub fn set_list_api<T: std::convert::Into<crate::model::s_3_compatible_metadata::ListApi>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_list_api<T: std::convert::Into<crate::model::s_3_compatible_metadata::ListApi>>(mut self, v: T) -> Self {
         self.list_api = v.into();
         self
     }
@@ -2644,6 +2590,7 @@ impl wkt::message::Message for S3CompatibleMetadata {
 pub mod s_3_compatible_metadata {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The authentication and authorization method used by the storage service.
     ///
@@ -2731,9 +2678,7 @@ pub mod s_3_compatible_metadata {
                 0 => Self::Unspecified,
                 1 => Self::AwsSignatureV4,
                 2 => Self::AwsSignatureV2,
-                _ => Self::UnknownValue(auth_method::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(auth_method::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -2745,9 +2690,7 @@ pub mod s_3_compatible_metadata {
                 "AUTH_METHOD_UNSPECIFIED" => Self::Unspecified,
                 "AUTH_METHOD_AWS_SIGNATURE_V4" => Self::AwsSignatureV4,
                 "AUTH_METHOD_AWS_SIGNATURE_V2" => Self::AwsSignatureV2,
-                _ => Self::UnknownValue(auth_method::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(auth_method::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -2772,8 +2715,7 @@ pub mod s_3_compatible_metadata {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<AuthMethod>::new(
-                ".google.storagetransfer.v1.S3CompatibleMetadata.AuthMethod",
-            ))
+                ".google.storagetransfer.v1.S3CompatibleMetadata.AuthMethod"))
         }
     }
 
@@ -2839,9 +2781,7 @@ pub mod s_3_compatible_metadata {
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
                 Self::Unspecified => std::option::Option::Some("REQUEST_MODEL_UNSPECIFIED"),
-                Self::VirtualHostedStyle => {
-                    std::option::Option::Some("REQUEST_MODEL_VIRTUAL_HOSTED_STYLE")
-                }
+                Self::VirtualHostedStyle => std::option::Option::Some("REQUEST_MODEL_VIRTUAL_HOSTED_STYLE"),
                 Self::PathStyle => std::option::Option::Some("REQUEST_MODEL_PATH_STYLE"),
                 Self::UnknownValue(u) => u.0.name(),
             }
@@ -2867,9 +2807,7 @@ pub mod s_3_compatible_metadata {
                 0 => Self::Unspecified,
                 1 => Self::VirtualHostedStyle,
                 2 => Self::PathStyle,
-                _ => Self::UnknownValue(request_model::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(request_model::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -2881,9 +2819,7 @@ pub mod s_3_compatible_metadata {
                 "REQUEST_MODEL_UNSPECIFIED" => Self::Unspecified,
                 "REQUEST_MODEL_VIRTUAL_HOSTED_STYLE" => Self::VirtualHostedStyle,
                 "REQUEST_MODEL_PATH_STYLE" => Self::PathStyle,
-                _ => Self::UnknownValue(request_model::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(request_model::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -2908,8 +2844,7 @@ pub mod s_3_compatible_metadata {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<RequestModel>::new(
-                ".google.storagetransfer.v1.S3CompatibleMetadata.RequestModel",
-            ))
+                ".google.storagetransfer.v1.S3CompatibleMetadata.RequestModel"))
         }
     }
 
@@ -3001,9 +2936,7 @@ pub mod s_3_compatible_metadata {
                 0 => Self::Unspecified,
                 1 => Self::Https,
                 2 => Self::Http,
-                _ => Self::UnknownValue(network_protocol::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(network_protocol::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -3015,9 +2948,7 @@ pub mod s_3_compatible_metadata {
                 "NETWORK_PROTOCOL_UNSPECIFIED" => Self::Unspecified,
                 "NETWORK_PROTOCOL_HTTPS" => Self::Https,
                 "NETWORK_PROTOCOL_HTTP" => Self::Http,
-                _ => Self::UnknownValue(network_protocol::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(network_protocol::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -3042,8 +2973,7 @@ pub mod s_3_compatible_metadata {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<NetworkProtocol>::new(
-                ".google.storagetransfer.v1.S3CompatibleMetadata.NetworkProtocol",
-            ))
+                ".google.storagetransfer.v1.S3CompatibleMetadata.NetworkProtocol"))
         }
     }
 
@@ -3133,9 +3063,7 @@ pub mod s_3_compatible_metadata {
                 0 => Self::Unspecified,
                 1 => Self::ListObjectsV2,
                 2 => Self::ListObjects,
-                _ => Self::UnknownValue(list_api::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(list_api::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -3147,9 +3075,7 @@ pub mod s_3_compatible_metadata {
                 "LIST_API_UNSPECIFIED" => Self::Unspecified,
                 "LIST_OBJECTS_V2" => Self::ListObjectsV2,
                 "LIST_OBJECTS" => Self::ListObjects,
-                _ => Self::UnknownValue(list_api::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(list_api::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -3174,8 +3100,7 @@ pub mod s_3_compatible_metadata {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<ListApi>::new(
-                ".google.storagetransfer.v1.S3CompatibleMetadata.ListApi",
-            ))
+                ".google.storagetransfer.v1.S3CompatibleMetadata.ListApi"))
         }
     }
 }
@@ -3184,6 +3109,7 @@ pub mod s_3_compatible_metadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AgentPool {
+
     /// Required. Specifies a unique string that identifies the agent pool.
     ///
     /// Format: `projects/{project_id}/agentPools/{agent_pool_id}`
@@ -3241,10 +3167,7 @@ impl AgentPool {
     /// let x1 = AgentPool::new().set_state(State::Created);
     /// let x2 = AgentPool::new().set_state(State::Deleting);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::agent_pool::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::agent_pool::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -3258,8 +3181,7 @@ impl AgentPool {
     /// let x = AgentPool::new().set_bandwidth_limit(BandwidthLimit::default()/* use setters */);
     /// ```
     pub fn set_bandwidth_limit<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::agent_pool::BandwidthLimit>,
+    where T: std::convert::Into<crate::model::agent_pool::BandwidthLimit>
     {
         self.bandwidth_limit = std::option::Option::Some(v.into());
         self
@@ -3275,8 +3197,7 @@ impl AgentPool {
     /// let x = AgentPool::new().set_or_clear_bandwidth_limit(None::<BandwidthLimit>);
     /// ```
     pub fn set_or_clear_bandwidth_limit<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::agent_pool::BandwidthLimit>,
+    where T: std::convert::Into<crate::model::agent_pool::BandwidthLimit>
     {
         self.bandwidth_limit = v.map(|x| x.into());
         self
@@ -3294,10 +3215,12 @@ pub mod agent_pool {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Specifies a bandwidth limit for an agent pool.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct BandwidthLimit {
+
         /// Bandwidth rate in megabytes per second, distributed across all the agents
         /// in the pool.
         pub limit_mbps: i64,
@@ -3423,9 +3346,7 @@ pub mod agent_pool {
                 1 => Self::Creating,
                 2 => Self::Created,
                 3 => Self::Deleting,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -3438,9 +3359,7 @@ pub mod agent_pool {
                 "CREATING" => Self::Creating,
                 "CREATED" => Self::Created,
                 "DELETING" => Self::Deleting,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -3466,8 +3385,7 @@ pub mod agent_pool {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.storagetransfer.v1.AgentPool.State",
-            ))
+                ".google.storagetransfer.v1.AgentPool.State"))
         }
     }
 }
@@ -3476,6 +3394,7 @@ pub mod agent_pool {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TransferOptions {
+
     /// When to overwrite objects that already exist in the sink. The default is
     /// that only objects that are different from the source are overwritten. If
     /// true, all objects in the sink whose name matches an object in the source
@@ -3526,10 +3445,7 @@ impl TransferOptions {
     /// # use google_cloud_storagetransfer_v1::model::TransferOptions;
     /// let x = TransferOptions::new().set_overwrite_objects_already_existing_in_sink(true);
     /// ```
-    pub fn set_overwrite_objects_already_existing_in_sink<T: std::convert::Into<bool>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_overwrite_objects_already_existing_in_sink<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.overwrite_objects_already_existing_in_sink = v.into();
         self
     }
@@ -3553,10 +3469,7 @@ impl TransferOptions {
     /// # use google_cloud_storagetransfer_v1::model::TransferOptions;
     /// let x = TransferOptions::new().set_delete_objects_from_source_after_transfer(true);
     /// ```
-    pub fn set_delete_objects_from_source_after_transfer<T: std::convert::Into<bool>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_delete_objects_from_source_after_transfer<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.delete_objects_from_source_after_transfer = v.into();
         self
     }
@@ -3571,12 +3484,7 @@ impl TransferOptions {
     /// let x1 = TransferOptions::new().set_overwrite_when(OverwriteWhen::Never);
     /// let x2 = TransferOptions::new().set_overwrite_when(OverwriteWhen::Always);
     /// ```
-    pub fn set_overwrite_when<
-        T: std::convert::Into<crate::model::transfer_options::OverwriteWhen>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_overwrite_when<T: std::convert::Into<crate::model::transfer_options::OverwriteWhen>>(mut self, v: T) -> Self {
         self.overwrite_when = v.into();
         self
     }
@@ -3590,8 +3498,7 @@ impl TransferOptions {
     /// let x = TransferOptions::new().set_metadata_options(MetadataOptions::default()/* use setters */);
     /// ```
     pub fn set_metadata_options<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::MetadataOptions>,
+    where T: std::convert::Into<crate::model::MetadataOptions>
     {
         self.metadata_options = std::option::Option::Some(v.into());
         self
@@ -3607,8 +3514,7 @@ impl TransferOptions {
     /// let x = TransferOptions::new().set_or_clear_metadata_options(None::<MetadataOptions>);
     /// ```
     pub fn set_or_clear_metadata_options<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::MetadataOptions>,
+    where T: std::convert::Into<crate::model::MetadataOptions>
     {
         self.metadata_options = v.map(|x| x.into());
         self
@@ -3625,6 +3531,7 @@ impl wkt::message::Message for TransferOptions {
 pub mod transfer_options {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Specifies when to overwrite an object in the sink when an object with
     /// matching name is found in the source.
@@ -3721,9 +3628,7 @@ pub mod transfer_options {
                 1 => Self::Different,
                 2 => Self::Never,
                 3 => Self::Always,
-                _ => Self::UnknownValue(overwrite_when::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(overwrite_when::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -3736,9 +3641,7 @@ pub mod transfer_options {
                 "DIFFERENT" => Self::Different,
                 "NEVER" => Self::Never,
                 "ALWAYS" => Self::Always,
-                _ => Self::UnknownValue(overwrite_when::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(overwrite_when::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -3764,8 +3667,7 @@ pub mod transfer_options {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<OverwriteWhen>::new(
-                ".google.storagetransfer.v1.TransferOptions.OverwriteWhen",
-            ))
+                ".google.storagetransfer.v1.TransferOptions.OverwriteWhen"))
         }
     }
 }
@@ -3774,6 +3676,7 @@ pub mod transfer_options {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TransferSpec {
+
     /// Only objects that satisfy these object conditions are included in the set
     /// of data source and data sink objects.  Object conditions based on
     /// objects' "last modification time" do not exclude objects in a data sink.
@@ -3808,8 +3711,7 @@ pub struct TransferSpec {
     /// The read source of the data.
     pub data_source: std::option::Option<crate::model::transfer_spec::DataSource>,
 
-    pub intermediate_data_location:
-        std::option::Option<crate::model::transfer_spec::IntermediateDataLocation>,
+    pub intermediate_data_location: std::option::Option<crate::model::transfer_spec::IntermediateDataLocation>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -3828,8 +3730,7 @@ impl TransferSpec {
     /// let x = TransferSpec::new().set_object_conditions(ObjectConditions::default()/* use setters */);
     /// ```
     pub fn set_object_conditions<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ObjectConditions>,
+    where T: std::convert::Into<crate::model::ObjectConditions>
     {
         self.object_conditions = std::option::Option::Some(v.into());
         self
@@ -3845,8 +3746,7 @@ impl TransferSpec {
     /// let x = TransferSpec::new().set_or_clear_object_conditions(None::<ObjectConditions>);
     /// ```
     pub fn set_or_clear_object_conditions<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ObjectConditions>,
+    where T: std::convert::Into<crate::model::ObjectConditions>
     {
         self.object_conditions = v.map(|x| x.into());
         self
@@ -3861,8 +3761,7 @@ impl TransferSpec {
     /// let x = TransferSpec::new().set_transfer_options(TransferOptions::default()/* use setters */);
     /// ```
     pub fn set_transfer_options<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TransferOptions>,
+    where T: std::convert::Into<crate::model::TransferOptions>
     {
         self.transfer_options = std::option::Option::Some(v.into());
         self
@@ -3878,8 +3777,7 @@ impl TransferSpec {
     /// let x = TransferSpec::new().set_or_clear_transfer_options(None::<TransferOptions>);
     /// ```
     pub fn set_or_clear_transfer_options<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TransferOptions>,
+    where T: std::convert::Into<crate::model::TransferOptions>
     {
         self.transfer_options = v.map(|x| x.into());
         self
@@ -3894,8 +3792,7 @@ impl TransferSpec {
     /// let x = TransferSpec::new().set_transfer_manifest(TransferManifest::default()/* use setters */);
     /// ```
     pub fn set_transfer_manifest<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TransferManifest>,
+    where T: std::convert::Into<crate::model::TransferManifest>
     {
         self.transfer_manifest = std::option::Option::Some(v.into());
         self
@@ -3911,8 +3808,7 @@ impl TransferSpec {
     /// let x = TransferSpec::new().set_or_clear_transfer_manifest(None::<TransferManifest>);
     /// ```
     pub fn set_or_clear_transfer_manifest<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TransferManifest>,
+    where T: std::convert::Into<crate::model::TransferManifest>
     {
         self.transfer_manifest = v.map(|x| x.into());
         self
@@ -3925,10 +3821,7 @@ impl TransferSpec {
     /// # use google_cloud_storagetransfer_v1::model::TransferSpec;
     /// let x = TransferSpec::new().set_source_agent_pool_name("example");
     /// ```
-    pub fn set_source_agent_pool_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source_agent_pool_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_agent_pool_name = v.into();
         self
     }
@@ -3940,10 +3833,7 @@ impl TransferSpec {
     /// # use google_cloud_storagetransfer_v1::model::TransferSpec;
     /// let x = TransferSpec::new().set_sink_agent_pool_name("example");
     /// ```
-    pub fn set_sink_agent_pool_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_sink_agent_pool_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.sink_agent_pool_name = v.into();
         self
     }
@@ -3960,12 +3850,8 @@ impl TransferSpec {
     /// let x = TransferSpec::new().set_data_sink(Some(
     ///     google_cloud_storagetransfer_v1::model::transfer_spec::DataSink::GcsDataSink(GcsData::default().into())));
     /// ```
-    pub fn set_data_sink<
-        T: std::convert::Into<std::option::Option<crate::model::transfer_spec::DataSink>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_data_sink<T: std::convert::Into<std::option::Option<crate::model::transfer_spec::DataSink>>>(mut self, v: T) -> Self
+    {
         self.data_sink = v.into();
         self
     }
@@ -3995,21 +3881,19 @@ impl TransferSpec {
     /// assert!(x.gcs_data_sink().is_some());
     /// assert!(x.posix_data_sink().is_none());
     /// ```
-    pub fn set_gcs_data_sink<T: std::convert::Into<std::boxed::Box<crate::model::GcsData>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.data_sink =
-            std::option::Option::Some(crate::model::transfer_spec::DataSink::GcsDataSink(v.into()));
+    pub fn set_gcs_data_sink<T: std::convert::Into<std::boxed::Box<crate::model::GcsData>>>(mut self, v: T) -> Self {
+        self.data_sink = std::option::Option::Some(
+            crate::model::transfer_spec::DataSink::GcsDataSink(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [data_sink][crate::model::TransferSpec::data_sink]
     /// if it holds a `PosixDataSink`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn posix_data_sink(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::PosixFilesystem>> {
+    pub fn posix_data_sink(&self) -> std::option::Option<&std::boxed::Box<crate::model::PosixFilesystem>> {
         #[allow(unreachable_patterns)]
         self.data_sink.as_ref().and_then(|v| match v {
             crate::model::transfer_spec::DataSink::PosixDataSink(v) => std::option::Option::Some(v),
@@ -4031,14 +3915,11 @@ impl TransferSpec {
     /// assert!(x.posix_data_sink().is_some());
     /// assert!(x.gcs_data_sink().is_none());
     /// ```
-    pub fn set_posix_data_sink<
-        T: std::convert::Into<std::boxed::Box<crate::model::PosixFilesystem>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_posix_data_sink<T: std::convert::Into<std::boxed::Box<crate::model::PosixFilesystem>>>(mut self, v: T) -> Self {
         self.data_sink = std::option::Option::Some(
-            crate::model::transfer_spec::DataSink::PosixDataSink(v.into()),
+            crate::model::transfer_spec::DataSink::PosixDataSink(
+                v.into()
+            )
         );
         self
     }
@@ -4055,12 +3936,8 @@ impl TransferSpec {
     /// let x = TransferSpec::new().set_data_source(Some(
     ///     google_cloud_storagetransfer_v1::model::transfer_spec::DataSource::GcsDataSource(GcsData::default().into())));
     /// ```
-    pub fn set_data_source<
-        T: std::convert::Into<std::option::Option<crate::model::transfer_spec::DataSource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_data_source<T: std::convert::Into<std::option::Option<crate::model::transfer_spec::DataSource>>>(mut self, v: T) -> Self
+    {
         self.data_source = v.into();
         self
     }
@@ -4071,9 +3948,7 @@ impl TransferSpec {
     pub fn gcs_data_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsData>> {
         #[allow(unreachable_patterns)]
         self.data_source.as_ref().and_then(|v| match v {
-            crate::model::transfer_spec::DataSource::GcsDataSource(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::transfer_spec::DataSource::GcsDataSource(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -4097,12 +3972,11 @@ impl TransferSpec {
     /// assert!(x.aws_s3_compatible_data_source().is_none());
     /// assert!(x.hdfs_data_source().is_none());
     /// ```
-    pub fn set_gcs_data_source<T: std::convert::Into<std::boxed::Box<crate::model::GcsData>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_gcs_data_source<T: std::convert::Into<std::boxed::Box<crate::model::GcsData>>>(mut self, v: T) -> Self {
         self.data_source = std::option::Option::Some(
-            crate::model::transfer_spec::DataSource::GcsDataSource(v.into()),
+            crate::model::transfer_spec::DataSource::GcsDataSource(
+                v.into()
+            )
         );
         self
     }
@@ -4110,14 +3984,10 @@ impl TransferSpec {
     /// The value of [data_source][crate::model::TransferSpec::data_source]
     /// if it holds a `AwsS3DataSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn aws_s3_data_source(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::AwsS3Data>> {
+    pub fn aws_s3_data_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::AwsS3Data>> {
         #[allow(unreachable_patterns)]
         self.data_source.as_ref().and_then(|v| match v {
-            crate::model::transfer_spec::DataSource::AwsS3DataSource(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::transfer_spec::DataSource::AwsS3DataSource(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -4141,14 +4011,11 @@ impl TransferSpec {
     /// assert!(x.aws_s3_compatible_data_source().is_none());
     /// assert!(x.hdfs_data_source().is_none());
     /// ```
-    pub fn set_aws_s3_data_source<
-        T: std::convert::Into<std::boxed::Box<crate::model::AwsS3Data>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_aws_s3_data_source<T: std::convert::Into<std::boxed::Box<crate::model::AwsS3Data>>>(mut self, v: T) -> Self {
         self.data_source = std::option::Option::Some(
-            crate::model::transfer_spec::DataSource::AwsS3DataSource(v.into()),
+            crate::model::transfer_spec::DataSource::AwsS3DataSource(
+                v.into()
+            )
         );
         self
     }
@@ -4156,14 +4023,10 @@ impl TransferSpec {
     /// The value of [data_source][crate::model::TransferSpec::data_source]
     /// if it holds a `HttpDataSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn http_data_source(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::HttpData>> {
+    pub fn http_data_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::HttpData>> {
         #[allow(unreachable_patterns)]
         self.data_source.as_ref().and_then(|v| match v {
-            crate::model::transfer_spec::DataSource::HttpDataSource(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::transfer_spec::DataSource::HttpDataSource(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -4187,12 +4050,11 @@ impl TransferSpec {
     /// assert!(x.aws_s3_compatible_data_source().is_none());
     /// assert!(x.hdfs_data_source().is_none());
     /// ```
-    pub fn set_http_data_source<T: std::convert::Into<std::boxed::Box<crate::model::HttpData>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_http_data_source<T: std::convert::Into<std::boxed::Box<crate::model::HttpData>>>(mut self, v: T) -> Self {
         self.data_source = std::option::Option::Some(
-            crate::model::transfer_spec::DataSource::HttpDataSource(v.into()),
+            crate::model::transfer_spec::DataSource::HttpDataSource(
+                v.into()
+            )
         );
         self
     }
@@ -4200,14 +4062,10 @@ impl TransferSpec {
     /// The value of [data_source][crate::model::TransferSpec::data_source]
     /// if it holds a `PosixDataSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn posix_data_source(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::PosixFilesystem>> {
+    pub fn posix_data_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::PosixFilesystem>> {
         #[allow(unreachable_patterns)]
         self.data_source.as_ref().and_then(|v| match v {
-            crate::model::transfer_spec::DataSource::PosixDataSource(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::transfer_spec::DataSource::PosixDataSource(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -4231,14 +4089,11 @@ impl TransferSpec {
     /// assert!(x.aws_s3_compatible_data_source().is_none());
     /// assert!(x.hdfs_data_source().is_none());
     /// ```
-    pub fn set_posix_data_source<
-        T: std::convert::Into<std::boxed::Box<crate::model::PosixFilesystem>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_posix_data_source<T: std::convert::Into<std::boxed::Box<crate::model::PosixFilesystem>>>(mut self, v: T) -> Self {
         self.data_source = std::option::Option::Some(
-            crate::model::transfer_spec::DataSource::PosixDataSource(v.into()),
+            crate::model::transfer_spec::DataSource::PosixDataSource(
+                v.into()
+            )
         );
         self
     }
@@ -4246,14 +4101,10 @@ impl TransferSpec {
     /// The value of [data_source][crate::model::TransferSpec::data_source]
     /// if it holds a `AzureBlobStorageDataSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn azure_blob_storage_data_source(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::AzureBlobStorageData>> {
+    pub fn azure_blob_storage_data_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::AzureBlobStorageData>> {
         #[allow(unreachable_patterns)]
         self.data_source.as_ref().and_then(|v| match v {
-            crate::model::transfer_spec::DataSource::AzureBlobStorageDataSource(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::transfer_spec::DataSource::AzureBlobStorageDataSource(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -4277,14 +4128,11 @@ impl TransferSpec {
     /// assert!(x.aws_s3_compatible_data_source().is_none());
     /// assert!(x.hdfs_data_source().is_none());
     /// ```
-    pub fn set_azure_blob_storage_data_source<
-        T: std::convert::Into<std::boxed::Box<crate::model::AzureBlobStorageData>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_azure_blob_storage_data_source<T: std::convert::Into<std::boxed::Box<crate::model::AzureBlobStorageData>>>(mut self, v: T) -> Self {
         self.data_source = std::option::Option::Some(
-            crate::model::transfer_spec::DataSource::AzureBlobStorageDataSource(v.into()),
+            crate::model::transfer_spec::DataSource::AzureBlobStorageDataSource(
+                v.into()
+            )
         );
         self
     }
@@ -4292,14 +4140,10 @@ impl TransferSpec {
     /// The value of [data_source][crate::model::TransferSpec::data_source]
     /// if it holds a `AwsS3CompatibleDataSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn aws_s3_compatible_data_source(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::AwsS3CompatibleData>> {
+    pub fn aws_s3_compatible_data_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::AwsS3CompatibleData>> {
         #[allow(unreachable_patterns)]
         self.data_source.as_ref().and_then(|v| match v {
-            crate::model::transfer_spec::DataSource::AwsS3CompatibleDataSource(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::transfer_spec::DataSource::AwsS3CompatibleDataSource(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -4323,14 +4167,11 @@ impl TransferSpec {
     /// assert!(x.azure_blob_storage_data_source().is_none());
     /// assert!(x.hdfs_data_source().is_none());
     /// ```
-    pub fn set_aws_s3_compatible_data_source<
-        T: std::convert::Into<std::boxed::Box<crate::model::AwsS3CompatibleData>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_aws_s3_compatible_data_source<T: std::convert::Into<std::boxed::Box<crate::model::AwsS3CompatibleData>>>(mut self, v: T) -> Self {
         self.data_source = std::option::Option::Some(
-            crate::model::transfer_spec::DataSource::AwsS3CompatibleDataSource(v.into()),
+            crate::model::transfer_spec::DataSource::AwsS3CompatibleDataSource(
+                v.into()
+            )
         );
         self
     }
@@ -4338,14 +4179,10 @@ impl TransferSpec {
     /// The value of [data_source][crate::model::TransferSpec::data_source]
     /// if it holds a `HdfsDataSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn hdfs_data_source(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::HdfsData>> {
+    pub fn hdfs_data_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::HdfsData>> {
         #[allow(unreachable_patterns)]
         self.data_source.as_ref().and_then(|v| match v {
-            crate::model::transfer_spec::DataSource::HdfsDataSource(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::transfer_spec::DataSource::HdfsDataSource(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -4369,12 +4206,11 @@ impl TransferSpec {
     /// assert!(x.azure_blob_storage_data_source().is_none());
     /// assert!(x.aws_s3_compatible_data_source().is_none());
     /// ```
-    pub fn set_hdfs_data_source<T: std::convert::Into<std::boxed::Box<crate::model::HdfsData>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_hdfs_data_source<T: std::convert::Into<std::boxed::Box<crate::model::HdfsData>>>(mut self, v: T) -> Self {
         self.data_source = std::option::Option::Some(
-            crate::model::transfer_spec::DataSource::HdfsDataSource(v.into()),
+            crate::model::transfer_spec::DataSource::HdfsDataSource(
+                v.into()
+            )
         );
         self
     }
@@ -4391,14 +4227,8 @@ impl TransferSpec {
     /// let x = TransferSpec::new().set_intermediate_data_location(Some(
     ///     google_cloud_storagetransfer_v1::model::transfer_spec::IntermediateDataLocation::GcsIntermediateDataLocation(GcsData::default().into())));
     /// ```
-    pub fn set_intermediate_data_location<
-        T: std::convert::Into<
-                std::option::Option<crate::model::transfer_spec::IntermediateDataLocation>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_intermediate_data_location<T: std::convert::Into<std::option::Option<crate::model::transfer_spec::IntermediateDataLocation>>>(mut self, v: T) -> Self
+    {
         self.intermediate_data_location = v.into();
         self
     }
@@ -4406,9 +4236,7 @@ impl TransferSpec {
     /// The value of [intermediate_data_location][crate::model::TransferSpec::intermediate_data_location]
     /// if it holds a `GcsIntermediateDataLocation`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn gcs_intermediate_data_location(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::GcsData>> {
+    pub fn gcs_intermediate_data_location(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsData>> {
         #[allow(unreachable_patterns)]
         self.intermediate_data_location.as_ref().and_then(|v| match v {
             crate::model::transfer_spec::IntermediateDataLocation::GcsIntermediateDataLocation(v) => std::option::Option::Some(v),
@@ -4429,16 +4257,11 @@ impl TransferSpec {
     /// let x = TransferSpec::new().set_gcs_intermediate_data_location(GcsData::default()/* use setters */);
     /// assert!(x.gcs_intermediate_data_location().is_some());
     /// ```
-    pub fn set_gcs_intermediate_data_location<
-        T: std::convert::Into<std::boxed::Box<crate::model::GcsData>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_gcs_intermediate_data_location<T: std::convert::Into<std::boxed::Box<crate::model::GcsData>>>(mut self, v: T) -> Self {
         self.intermediate_data_location = std::option::Option::Some(
             crate::model::transfer_spec::IntermediateDataLocation::GcsIntermediateDataLocation(
-                v.into(),
-            ),
+                v.into()
+            )
         );
         self
     }
@@ -4454,6 +4277,7 @@ impl wkt::message::Message for TransferSpec {
 pub mod transfer_spec {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The write sink for the data.
     #[derive(Clone, Debug, PartialEq)]
@@ -4505,6 +4329,7 @@ pub mod transfer_spec {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReplicationSpec {
+
     /// Object conditions that determine which objects are transferred. For
     /// replication jobs, only `include_prefixes` and `exclude_prefixes` are
     /// supported.
@@ -4541,8 +4366,7 @@ impl ReplicationSpec {
     /// let x = ReplicationSpec::new().set_object_conditions(ObjectConditions::default()/* use setters */);
     /// ```
     pub fn set_object_conditions<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ObjectConditions>,
+    where T: std::convert::Into<crate::model::ObjectConditions>
     {
         self.object_conditions = std::option::Option::Some(v.into());
         self
@@ -4558,8 +4382,7 @@ impl ReplicationSpec {
     /// let x = ReplicationSpec::new().set_or_clear_object_conditions(None::<ObjectConditions>);
     /// ```
     pub fn set_or_clear_object_conditions<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ObjectConditions>,
+    where T: std::convert::Into<crate::model::ObjectConditions>
     {
         self.object_conditions = v.map(|x| x.into());
         self
@@ -4574,8 +4397,7 @@ impl ReplicationSpec {
     /// let x = ReplicationSpec::new().set_transfer_options(TransferOptions::default()/* use setters */);
     /// ```
     pub fn set_transfer_options<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TransferOptions>,
+    where T: std::convert::Into<crate::model::TransferOptions>
     {
         self.transfer_options = std::option::Option::Some(v.into());
         self
@@ -4591,8 +4413,7 @@ impl ReplicationSpec {
     /// let x = ReplicationSpec::new().set_or_clear_transfer_options(None::<TransferOptions>);
     /// ```
     pub fn set_or_clear_transfer_options<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TransferOptions>,
+    where T: std::convert::Into<crate::model::TransferOptions>
     {
         self.transfer_options = v.map(|x| x.into());
         self
@@ -4610,12 +4431,8 @@ impl ReplicationSpec {
     /// let x = ReplicationSpec::new().set_data_source(Some(
     ///     google_cloud_storagetransfer_v1::model::replication_spec::DataSource::GcsDataSource(GcsData::default().into())));
     /// ```
-    pub fn set_data_source<
-        T: std::convert::Into<std::option::Option<crate::model::replication_spec::DataSource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_data_source<T: std::convert::Into<std::option::Option<crate::model::replication_spec::DataSource>>>(mut self, v: T) -> Self
+    {
         self.data_source = v.into();
         self
     }
@@ -4626,9 +4443,7 @@ impl ReplicationSpec {
     pub fn gcs_data_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsData>> {
         #[allow(unreachable_patterns)]
         self.data_source.as_ref().and_then(|v| match v {
-            crate::model::replication_spec::DataSource::GcsDataSource(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::replication_spec::DataSource::GcsDataSource(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -4646,12 +4461,11 @@ impl ReplicationSpec {
     /// let x = ReplicationSpec::new().set_gcs_data_source(GcsData::default()/* use setters */);
     /// assert!(x.gcs_data_source().is_some());
     /// ```
-    pub fn set_gcs_data_source<T: std::convert::Into<std::boxed::Box<crate::model::GcsData>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_gcs_data_source<T: std::convert::Into<std::boxed::Box<crate::model::GcsData>>>(mut self, v: T) -> Self {
         self.data_source = std::option::Option::Some(
-            crate::model::replication_spec::DataSource::GcsDataSource(v.into()),
+            crate::model::replication_spec::DataSource::GcsDataSource(
+                v.into()
+            )
         );
         self
     }
@@ -4668,12 +4482,8 @@ impl ReplicationSpec {
     /// let x = ReplicationSpec::new().set_data_sink(Some(
     ///     google_cloud_storagetransfer_v1::model::replication_spec::DataSink::GcsDataSink(GcsData::default().into())));
     /// ```
-    pub fn set_data_sink<
-        T: std::convert::Into<std::option::Option<crate::model::replication_spec::DataSink>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_data_sink<T: std::convert::Into<std::option::Option<crate::model::replication_spec::DataSink>>>(mut self, v: T) -> Self
+    {
         self.data_sink = v.into();
         self
     }
@@ -4684,9 +4494,7 @@ impl ReplicationSpec {
     pub fn gcs_data_sink(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsData>> {
         #[allow(unreachable_patterns)]
         self.data_sink.as_ref().and_then(|v| match v {
-            crate::model::replication_spec::DataSink::GcsDataSink(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::replication_spec::DataSink::GcsDataSink(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -4704,12 +4512,11 @@ impl ReplicationSpec {
     /// let x = ReplicationSpec::new().set_gcs_data_sink(GcsData::default()/* use setters */);
     /// assert!(x.gcs_data_sink().is_some());
     /// ```
-    pub fn set_gcs_data_sink<T: std::convert::Into<std::boxed::Box<crate::model::GcsData>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_gcs_data_sink<T: std::convert::Into<std::boxed::Box<crate::model::GcsData>>>(mut self, v: T) -> Self {
         self.data_sink = std::option::Option::Some(
-            crate::model::replication_spec::DataSink::GcsDataSink(v.into()),
+            crate::model::replication_spec::DataSink::GcsDataSink(
+                v.into()
+            )
         );
         self
     }
@@ -4725,6 +4532,7 @@ impl wkt::message::Message for ReplicationSpec {
 pub mod replication_spec {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The data source to be replicated.
     #[derive(Clone, Debug, PartialEq)]
@@ -4747,6 +4555,7 @@ pub mod replication_spec {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MetadataOptions {
+
     /// Specifies how symlinks should be handled by the transfer. By default,
     /// symlinks are not preserved. Only applicable to transfers involving
     /// POSIX file systems, and ignored for other transfers.
@@ -4821,10 +4630,7 @@ impl MetadataOptions {
     /// let x0 = MetadataOptions::new().set_symlink(Symlink::Skip);
     /// let x1 = MetadataOptions::new().set_symlink(Symlink::Preserve);
     /// ```
-    pub fn set_symlink<T: std::convert::Into<crate::model::metadata_options::Symlink>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_symlink<T: std::convert::Into<crate::model::metadata_options::Symlink>>(mut self, v: T) -> Self {
         self.symlink = v.into();
         self
     }
@@ -4838,10 +4644,7 @@ impl MetadataOptions {
     /// let x0 = MetadataOptions::new().set_mode(Mode::Skip);
     /// let x1 = MetadataOptions::new().set_mode(Mode::Preserve);
     /// ```
-    pub fn set_mode<T: std::convert::Into<crate::model::metadata_options::Mode>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_mode<T: std::convert::Into<crate::model::metadata_options::Mode>>(mut self, v: T) -> Self {
         self.mode = v.into();
         self
     }
@@ -4855,10 +4658,7 @@ impl MetadataOptions {
     /// let x0 = MetadataOptions::new().set_gid(Gid::Skip);
     /// let x1 = MetadataOptions::new().set_gid(Gid::Number);
     /// ```
-    pub fn set_gid<T: std::convert::Into<crate::model::metadata_options::Gid>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_gid<T: std::convert::Into<crate::model::metadata_options::Gid>>(mut self, v: T) -> Self {
         self.gid = v.into();
         self
     }
@@ -4872,10 +4672,7 @@ impl MetadataOptions {
     /// let x0 = MetadataOptions::new().set_uid(Uid::Skip);
     /// let x1 = MetadataOptions::new().set_uid(Uid::Number);
     /// ```
-    pub fn set_uid<T: std::convert::Into<crate::model::metadata_options::Uid>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_uid<T: std::convert::Into<crate::model::metadata_options::Uid>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
@@ -4889,10 +4686,7 @@ impl MetadataOptions {
     /// let x0 = MetadataOptions::new().set_acl(Acl::DestinationBucketDefault);
     /// let x1 = MetadataOptions::new().set_acl(Acl::Preserve);
     /// ```
-    pub fn set_acl<T: std::convert::Into<crate::model::metadata_options::Acl>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_acl<T: std::convert::Into<crate::model::metadata_options::Acl>>(mut self, v: T) -> Self {
         self.acl = v.into();
         self
     }
@@ -4907,12 +4701,7 @@ impl MetadataOptions {
     /// let x1 = MetadataOptions::new().set_storage_class(StorageClass::Preserve);
     /// let x2 = MetadataOptions::new().set_storage_class(StorageClass::Standard);
     /// ```
-    pub fn set_storage_class<
-        T: std::convert::Into<crate::model::metadata_options::StorageClass>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_storage_class<T: std::convert::Into<crate::model::metadata_options::StorageClass>>(mut self, v: T) -> Self {
         self.storage_class = v.into();
         self
     }
@@ -4926,12 +4715,7 @@ impl MetadataOptions {
     /// let x0 = MetadataOptions::new().set_temporary_hold(TemporaryHold::Skip);
     /// let x1 = MetadataOptions::new().set_temporary_hold(TemporaryHold::Preserve);
     /// ```
-    pub fn set_temporary_hold<
-        T: std::convert::Into<crate::model::metadata_options::TemporaryHold>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_temporary_hold<T: std::convert::Into<crate::model::metadata_options::TemporaryHold>>(mut self, v: T) -> Self {
         self.temporary_hold = v.into();
         self
     }
@@ -4945,10 +4729,7 @@ impl MetadataOptions {
     /// let x0 = MetadataOptions::new().set_kms_key(KmsKey::DestinationBucketDefault);
     /// let x1 = MetadataOptions::new().set_kms_key(KmsKey::Preserve);
     /// ```
-    pub fn set_kms_key<T: std::convert::Into<crate::model::metadata_options::KmsKey>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_kms_key<T: std::convert::Into<crate::model::metadata_options::KmsKey>>(mut self, v: T) -> Self {
         self.kms_key = v.into();
         self
     }
@@ -4962,10 +4743,7 @@ impl MetadataOptions {
     /// let x0 = MetadataOptions::new().set_time_created(TimeCreated::Skip);
     /// let x1 = MetadataOptions::new().set_time_created(TimeCreated::PreserveAsCustomTime);
     /// ```
-    pub fn set_time_created<T: std::convert::Into<crate::model::metadata_options::TimeCreated>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_time_created<T: std::convert::Into<crate::model::metadata_options::TimeCreated>>(mut self, v: T) -> Self {
         self.time_created = v.into();
         self
     }
@@ -4981,6 +4759,7 @@ impl wkt::message::Message for MetadataOptions {
 pub mod metadata_options {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Whether symlinks should be skipped or preserved during a transfer job.
     ///
@@ -5068,9 +4847,7 @@ pub mod metadata_options {
                 0 => Self::Unspecified,
                 1 => Self::Skip,
                 2 => Self::Preserve,
-                _ => Self::UnknownValue(symlink::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(symlink::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -5082,9 +4859,7 @@ pub mod metadata_options {
                 "SYMLINK_UNSPECIFIED" => Self::Unspecified,
                 "SYMLINK_SKIP" => Self::Skip,
                 "SYMLINK_PRESERVE" => Self::Preserve,
-                _ => Self::UnknownValue(symlink::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(symlink::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -5109,8 +4884,7 @@ pub mod metadata_options {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Symlink>::new(
-                ".google.storagetransfer.v1.MetadataOptions.Symlink",
-            ))
+                ".google.storagetransfer.v1.MetadataOptions.Symlink"))
         }
     }
 
@@ -5200,9 +4974,7 @@ pub mod metadata_options {
                 0 => Self::Unspecified,
                 1 => Self::Skip,
                 2 => Self::Preserve,
-                _ => Self::UnknownValue(mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(mode::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -5214,9 +4986,7 @@ pub mod metadata_options {
                 "MODE_UNSPECIFIED" => Self::Unspecified,
                 "MODE_SKIP" => Self::Skip,
                 "MODE_PRESERVE" => Self::Preserve,
-                _ => Self::UnknownValue(mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(mode::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -5241,8 +5011,7 @@ pub mod metadata_options {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Mode>::new(
-                ".google.storagetransfer.v1.MetadataOptions.Mode",
-            ))
+                ".google.storagetransfer.v1.MetadataOptions.Mode"))
         }
     }
 
@@ -5332,9 +5101,7 @@ pub mod metadata_options {
                 0 => Self::Unspecified,
                 1 => Self::Skip,
                 2 => Self::Number,
-                _ => Self::UnknownValue(gid::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(gid::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -5346,9 +5113,7 @@ pub mod metadata_options {
                 "GID_UNSPECIFIED" => Self::Unspecified,
                 "GID_SKIP" => Self::Skip,
                 "GID_NUMBER" => Self::Number,
-                _ => Self::UnknownValue(gid::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(gid::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -5373,8 +5138,7 @@ pub mod metadata_options {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Gid>::new(
-                ".google.storagetransfer.v1.MetadataOptions.GID",
-            ))
+                ".google.storagetransfer.v1.MetadataOptions.GID"))
         }
     }
 
@@ -5464,9 +5228,7 @@ pub mod metadata_options {
                 0 => Self::Unspecified,
                 1 => Self::Skip,
                 2 => Self::Number,
-                _ => Self::UnknownValue(uid::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(uid::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -5478,9 +5240,7 @@ pub mod metadata_options {
                 "UID_UNSPECIFIED" => Self::Unspecified,
                 "UID_SKIP" => Self::Skip,
                 "UID_NUMBER" => Self::Number,
-                _ => Self::UnknownValue(uid::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(uid::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -5505,8 +5265,7 @@ pub mod metadata_options {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Uid>::new(
-                ".google.storagetransfer.v1.MetadataOptions.UID",
-            ))
+                ".google.storagetransfer.v1.MetadataOptions.UID"))
         }
     }
 
@@ -5574,9 +5333,7 @@ pub mod metadata_options {
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
                 Self::Unspecified => std::option::Option::Some("ACL_UNSPECIFIED"),
-                Self::DestinationBucketDefault => {
-                    std::option::Option::Some("ACL_DESTINATION_BUCKET_DEFAULT")
-                }
+                Self::DestinationBucketDefault => std::option::Option::Some("ACL_DESTINATION_BUCKET_DEFAULT"),
                 Self::Preserve => std::option::Option::Some("ACL_PRESERVE"),
                 Self::UnknownValue(u) => u.0.name(),
             }
@@ -5602,9 +5359,7 @@ pub mod metadata_options {
                 0 => Self::Unspecified,
                 1 => Self::DestinationBucketDefault,
                 2 => Self::Preserve,
-                _ => Self::UnknownValue(acl::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(acl::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -5616,9 +5371,7 @@ pub mod metadata_options {
                 "ACL_UNSPECIFIED" => Self::Unspecified,
                 "ACL_DESTINATION_BUCKET_DEFAULT" => Self::DestinationBucketDefault,
                 "ACL_PRESERVE" => Self::Preserve,
-                _ => Self::UnknownValue(acl::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(acl::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -5643,8 +5396,7 @@ pub mod metadata_options {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Acl>::new(
-                ".google.storagetransfer.v1.MetadataOptions.Acl",
-            ))
+                ".google.storagetransfer.v1.MetadataOptions.Acl"))
         }
     }
 
@@ -5723,9 +5475,7 @@ pub mod metadata_options {
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
                 Self::Unspecified => std::option::Option::Some("STORAGE_CLASS_UNSPECIFIED"),
-                Self::DestinationBucketDefault => {
-                    std::option::Option::Some("STORAGE_CLASS_DESTINATION_BUCKET_DEFAULT")
-                }
+                Self::DestinationBucketDefault => std::option::Option::Some("STORAGE_CLASS_DESTINATION_BUCKET_DEFAULT"),
                 Self::Preserve => std::option::Option::Some("STORAGE_CLASS_PRESERVE"),
                 Self::Standard => std::option::Option::Some("STORAGE_CLASS_STANDARD"),
                 Self::Nearline => std::option::Option::Some("STORAGE_CLASS_NEARLINE"),
@@ -5759,9 +5509,7 @@ pub mod metadata_options {
                 4 => Self::Nearline,
                 5 => Self::Coldline,
                 6 => Self::Archive,
-                _ => Self::UnknownValue(storage_class::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(storage_class::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -5777,9 +5525,7 @@ pub mod metadata_options {
                 "STORAGE_CLASS_NEARLINE" => Self::Nearline,
                 "STORAGE_CLASS_COLDLINE" => Self::Coldline,
                 "STORAGE_CLASS_ARCHIVE" => Self::Archive,
-                _ => Self::UnknownValue(storage_class::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(storage_class::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -5808,8 +5554,7 @@ pub mod metadata_options {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<StorageClass>::new(
-                ".google.storagetransfer.v1.MetadataOptions.StorageClass",
-            ))
+                ".google.storagetransfer.v1.MetadataOptions.StorageClass"))
         }
     }
 
@@ -5899,9 +5644,7 @@ pub mod metadata_options {
                 0 => Self::Unspecified,
                 1 => Self::Skip,
                 2 => Self::Preserve,
-                _ => Self::UnknownValue(temporary_hold::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(temporary_hold::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -5913,9 +5656,7 @@ pub mod metadata_options {
                 "TEMPORARY_HOLD_UNSPECIFIED" => Self::Unspecified,
                 "TEMPORARY_HOLD_SKIP" => Self::Skip,
                 "TEMPORARY_HOLD_PRESERVE" => Self::Preserve,
-                _ => Self::UnknownValue(temporary_hold::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(temporary_hold::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -5940,8 +5681,7 @@ pub mod metadata_options {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<TemporaryHold>::new(
-                ".google.storagetransfer.v1.MetadataOptions.TemporaryHold",
-            ))
+                ".google.storagetransfer.v1.MetadataOptions.TemporaryHold"))
         }
     }
 
@@ -6007,9 +5747,7 @@ pub mod metadata_options {
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
                 Self::Unspecified => std::option::Option::Some("KMS_KEY_UNSPECIFIED"),
-                Self::DestinationBucketDefault => {
-                    std::option::Option::Some("KMS_KEY_DESTINATION_BUCKET_DEFAULT")
-                }
+                Self::DestinationBucketDefault => std::option::Option::Some("KMS_KEY_DESTINATION_BUCKET_DEFAULT"),
                 Self::Preserve => std::option::Option::Some("KMS_KEY_PRESERVE"),
                 Self::UnknownValue(u) => u.0.name(),
             }
@@ -6035,9 +5773,7 @@ pub mod metadata_options {
                 0 => Self::Unspecified,
                 1 => Self::DestinationBucketDefault,
                 2 => Self::Preserve,
-                _ => Self::UnknownValue(kms_key::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(kms_key::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -6049,9 +5785,7 @@ pub mod metadata_options {
                 "KMS_KEY_UNSPECIFIED" => Self::Unspecified,
                 "KMS_KEY_DESTINATION_BUCKET_DEFAULT" => Self::DestinationBucketDefault,
                 "KMS_KEY_PRESERVE" => Self::Preserve,
-                _ => Self::UnknownValue(kms_key::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(kms_key::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -6076,8 +5810,7 @@ pub mod metadata_options {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<KmsKey>::new(
-                ".google.storagetransfer.v1.MetadataOptions.KmsKey",
-            ))
+                ".google.storagetransfer.v1.MetadataOptions.KmsKey"))
         }
     }
 
@@ -6146,9 +5879,7 @@ pub mod metadata_options {
             match self {
                 Self::Unspecified => std::option::Option::Some("TIME_CREATED_UNSPECIFIED"),
                 Self::Skip => std::option::Option::Some("TIME_CREATED_SKIP"),
-                Self::PreserveAsCustomTime => {
-                    std::option::Option::Some("TIME_CREATED_PRESERVE_AS_CUSTOM_TIME")
-                }
+                Self::PreserveAsCustomTime => std::option::Option::Some("TIME_CREATED_PRESERVE_AS_CUSTOM_TIME"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -6173,9 +5904,7 @@ pub mod metadata_options {
                 0 => Self::Unspecified,
                 1 => Self::Skip,
                 2 => Self::PreserveAsCustomTime,
-                _ => Self::UnknownValue(time_created::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(time_created::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -6187,9 +5916,7 @@ pub mod metadata_options {
                 "TIME_CREATED_UNSPECIFIED" => Self::Unspecified,
                 "TIME_CREATED_SKIP" => Self::Skip,
                 "TIME_CREATED_PRESERVE_AS_CUSTOM_TIME" => Self::PreserveAsCustomTime,
-                _ => Self::UnknownValue(time_created::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(time_created::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -6214,8 +5941,7 @@ pub mod metadata_options {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<TimeCreated>::new(
-                ".google.storagetransfer.v1.MetadataOptions.TimeCreated",
-            ))
+                ".google.storagetransfer.v1.MetadataOptions.TimeCreated"))
         }
     }
 }
@@ -6224,6 +5950,7 @@ pub mod metadata_options {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TransferManifest {
+
     /// Specifies the path to the manifest in Cloud Storage. The Google-managed
     /// service account for the transfer must have `storage.objects.get`
     /// permission for this object. An example path is
@@ -6261,6 +5988,7 @@ impl wkt::message::Message for TransferManifest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Schedule {
+
     /// Required. The start date of a transfer. Date boundaries are determined
     /// relative to UTC time. If `schedule_start_date` and
     /// [start_time_of_day][google.storagetransfer.v1.Schedule.start_time_of_day]
@@ -6362,8 +6090,7 @@ impl Schedule {
     /// let x = Schedule::new().set_schedule_start_date(Date::default()/* use setters */);
     /// ```
     pub fn set_schedule_start_date<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<gtype::model::Date>,
+    where T: std::convert::Into<gtype::model::Date>
     {
         self.schedule_start_date = std::option::Option::Some(v.into());
         self
@@ -6379,8 +6106,7 @@ impl Schedule {
     /// let x = Schedule::new().set_or_clear_schedule_start_date(None::<Date>);
     /// ```
     pub fn set_or_clear_schedule_start_date<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<gtype::model::Date>,
+    where T: std::convert::Into<gtype::model::Date>
     {
         self.schedule_start_date = v.map(|x| x.into());
         self
@@ -6395,8 +6121,7 @@ impl Schedule {
     /// let x = Schedule::new().set_schedule_end_date(Date::default()/* use setters */);
     /// ```
     pub fn set_schedule_end_date<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<gtype::model::Date>,
+    where T: std::convert::Into<gtype::model::Date>
     {
         self.schedule_end_date = std::option::Option::Some(v.into());
         self
@@ -6412,8 +6137,7 @@ impl Schedule {
     /// let x = Schedule::new().set_or_clear_schedule_end_date(None::<Date>);
     /// ```
     pub fn set_or_clear_schedule_end_date<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<gtype::model::Date>,
+    where T: std::convert::Into<gtype::model::Date>
     {
         self.schedule_end_date = v.map(|x| x.into());
         self
@@ -6428,8 +6152,7 @@ impl Schedule {
     /// let x = Schedule::new().set_start_time_of_day(TimeOfDay::default()/* use setters */);
     /// ```
     pub fn set_start_time_of_day<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<gtype::model::TimeOfDay>,
+    where T: std::convert::Into<gtype::model::TimeOfDay>
     {
         self.start_time_of_day = std::option::Option::Some(v.into());
         self
@@ -6445,8 +6168,7 @@ impl Schedule {
     /// let x = Schedule::new().set_or_clear_start_time_of_day(None::<TimeOfDay>);
     /// ```
     pub fn set_or_clear_start_time_of_day<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<gtype::model::TimeOfDay>,
+    where T: std::convert::Into<gtype::model::TimeOfDay>
     {
         self.start_time_of_day = v.map(|x| x.into());
         self
@@ -6461,8 +6183,7 @@ impl Schedule {
     /// let x = Schedule::new().set_end_time_of_day(TimeOfDay::default()/* use setters */);
     /// ```
     pub fn set_end_time_of_day<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<gtype::model::TimeOfDay>,
+    where T: std::convert::Into<gtype::model::TimeOfDay>
     {
         self.end_time_of_day = std::option::Option::Some(v.into());
         self
@@ -6478,8 +6199,7 @@ impl Schedule {
     /// let x = Schedule::new().set_or_clear_end_time_of_day(None::<TimeOfDay>);
     /// ```
     pub fn set_or_clear_end_time_of_day<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<gtype::model::TimeOfDay>,
+    where T: std::convert::Into<gtype::model::TimeOfDay>
     {
         self.end_time_of_day = v.map(|x| x.into());
         self
@@ -6494,8 +6214,7 @@ impl Schedule {
     /// let x = Schedule::new().set_repeat_interval(Duration::default()/* use setters */);
     /// ```
     pub fn set_repeat_interval<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.repeat_interval = std::option::Option::Some(v.into());
         self
@@ -6511,8 +6230,7 @@ impl Schedule {
     /// let x = Schedule::new().set_or_clear_repeat_interval(None::<Duration>);
     /// ```
     pub fn set_or_clear_repeat_interval<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.repeat_interval = v.map(|x| x.into());
         self
@@ -6530,6 +6248,7 @@ impl wkt::message::Message for Schedule {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EventStream {
+
     /// Required. Specifies a unique name of the resource such as AWS SQS
     /// ARN in the form 'arn:aws:sqs:region:account_id:queue_name',
     /// or Pub/Sub subscription resource name in the form
@@ -6576,8 +6295,7 @@ impl EventStream {
     /// let x = EventStream::new().set_event_stream_start_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_event_stream_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.event_stream_start_time = std::option::Option::Some(v.into());
         self
@@ -6593,8 +6311,7 @@ impl EventStream {
     /// let x = EventStream::new().set_or_clear_event_stream_start_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_event_stream_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.event_stream_start_time = v.map(|x| x.into());
         self
@@ -6609,8 +6326,7 @@ impl EventStream {
     /// let x = EventStream::new().set_event_stream_expiration_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_event_stream_expiration_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.event_stream_expiration_time = std::option::Option::Some(v.into());
         self
@@ -6626,8 +6342,7 @@ impl EventStream {
     /// let x = EventStream::new().set_or_clear_event_stream_expiration_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_event_stream_expiration_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.event_stream_expiration_time = v.map(|x| x.into());
         self
@@ -6645,6 +6360,7 @@ impl wkt::message::Message for EventStream {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TransferJob {
+
     /// A unique name (within the transfer project) assigned when the job is
     /// created.  If this field is empty in a CreateTransferJobRequest, Storage
     /// Transfer Service assigns a unique name. Otherwise, the specified name
@@ -6813,8 +6529,7 @@ impl TransferJob {
     /// let x = TransferJob::new().set_transfer_spec(TransferSpec::default()/* use setters */);
     /// ```
     pub fn set_transfer_spec<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TransferSpec>,
+    where T: std::convert::Into<crate::model::TransferSpec>
     {
         self.transfer_spec = std::option::Option::Some(v.into());
         self
@@ -6830,8 +6545,7 @@ impl TransferJob {
     /// let x = TransferJob::new().set_or_clear_transfer_spec(None::<TransferSpec>);
     /// ```
     pub fn set_or_clear_transfer_spec<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TransferSpec>,
+    where T: std::convert::Into<crate::model::TransferSpec>
     {
         self.transfer_spec = v.map(|x| x.into());
         self
@@ -6846,8 +6560,7 @@ impl TransferJob {
     /// let x = TransferJob::new().set_replication_spec(ReplicationSpec::default()/* use setters */);
     /// ```
     pub fn set_replication_spec<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ReplicationSpec>,
+    where T: std::convert::Into<crate::model::ReplicationSpec>
     {
         self.replication_spec = std::option::Option::Some(v.into());
         self
@@ -6863,8 +6576,7 @@ impl TransferJob {
     /// let x = TransferJob::new().set_or_clear_replication_spec(None::<ReplicationSpec>);
     /// ```
     pub fn set_or_clear_replication_spec<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ReplicationSpec>,
+    where T: std::convert::Into<crate::model::ReplicationSpec>
     {
         self.replication_spec = v.map(|x| x.into());
         self
@@ -6879,8 +6591,7 @@ impl TransferJob {
     /// let x = TransferJob::new().set_notification_config(NotificationConfig::default()/* use setters */);
     /// ```
     pub fn set_notification_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::NotificationConfig>,
+    where T: std::convert::Into<crate::model::NotificationConfig>
     {
         self.notification_config = std::option::Option::Some(v.into());
         self
@@ -6896,8 +6607,7 @@ impl TransferJob {
     /// let x = TransferJob::new().set_or_clear_notification_config(None::<NotificationConfig>);
     /// ```
     pub fn set_or_clear_notification_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::NotificationConfig>,
+    where T: std::convert::Into<crate::model::NotificationConfig>
     {
         self.notification_config = v.map(|x| x.into());
         self
@@ -6912,8 +6622,7 @@ impl TransferJob {
     /// let x = TransferJob::new().set_logging_config(LoggingConfig::default()/* use setters */);
     /// ```
     pub fn set_logging_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::LoggingConfig>,
+    where T: std::convert::Into<crate::model::LoggingConfig>
     {
         self.logging_config = std::option::Option::Some(v.into());
         self
@@ -6929,8 +6638,7 @@ impl TransferJob {
     /// let x = TransferJob::new().set_or_clear_logging_config(None::<LoggingConfig>);
     /// ```
     pub fn set_or_clear_logging_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::LoggingConfig>,
+    where T: std::convert::Into<crate::model::LoggingConfig>
     {
         self.logging_config = v.map(|x| x.into());
         self
@@ -6945,8 +6653,7 @@ impl TransferJob {
     /// let x = TransferJob::new().set_schedule(Schedule::default()/* use setters */);
     /// ```
     pub fn set_schedule<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Schedule>,
+    where T: std::convert::Into<crate::model::Schedule>
     {
         self.schedule = std::option::Option::Some(v.into());
         self
@@ -6962,8 +6669,7 @@ impl TransferJob {
     /// let x = TransferJob::new().set_or_clear_schedule(None::<Schedule>);
     /// ```
     pub fn set_or_clear_schedule<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Schedule>,
+    where T: std::convert::Into<crate::model::Schedule>
     {
         self.schedule = v.map(|x| x.into());
         self
@@ -6978,8 +6684,7 @@ impl TransferJob {
     /// let x = TransferJob::new().set_event_stream(EventStream::default()/* use setters */);
     /// ```
     pub fn set_event_stream<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::EventStream>,
+    where T: std::convert::Into<crate::model::EventStream>
     {
         self.event_stream = std::option::Option::Some(v.into());
         self
@@ -6995,8 +6700,7 @@ impl TransferJob {
     /// let x = TransferJob::new().set_or_clear_event_stream(None::<EventStream>);
     /// ```
     pub fn set_or_clear_event_stream<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::EventStream>,
+    where T: std::convert::Into<crate::model::EventStream>
     {
         self.event_stream = v.map(|x| x.into());
         self
@@ -7012,10 +6716,7 @@ impl TransferJob {
     /// let x1 = TransferJob::new().set_status(Status::Disabled);
     /// let x2 = TransferJob::new().set_status(Status::Deleted);
     /// ```
-    pub fn set_status<T: std::convert::Into<crate::model::transfer_job::Status>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_status<T: std::convert::Into<crate::model::transfer_job::Status>>(mut self, v: T) -> Self {
         self.status = v.into();
         self
     }
@@ -7029,8 +6730,7 @@ impl TransferJob {
     /// let x = TransferJob::new().set_creation_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_creation_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.creation_time = std::option::Option::Some(v.into());
         self
@@ -7046,8 +6746,7 @@ impl TransferJob {
     /// let x = TransferJob::new().set_or_clear_creation_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_creation_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.creation_time = v.map(|x| x.into());
         self
@@ -7062,8 +6761,7 @@ impl TransferJob {
     /// let x = TransferJob::new().set_last_modification_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_last_modification_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.last_modification_time = std::option::Option::Some(v.into());
         self
@@ -7079,8 +6777,7 @@ impl TransferJob {
     /// let x = TransferJob::new().set_or_clear_last_modification_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_last_modification_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.last_modification_time = v.map(|x| x.into());
         self
@@ -7095,8 +6792,7 @@ impl TransferJob {
     /// let x = TransferJob::new().set_deletion_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_deletion_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.deletion_time = std::option::Option::Some(v.into());
         self
@@ -7112,8 +6808,7 @@ impl TransferJob {
     /// let x = TransferJob::new().set_or_clear_deletion_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_deletion_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.deletion_time = v.map(|x| x.into());
         self
@@ -7126,10 +6821,7 @@ impl TransferJob {
     /// # use google_cloud_storagetransfer_v1::model::TransferJob;
     /// let x = TransferJob::new().set_latest_operation_name("example");
     /// ```
-    pub fn set_latest_operation_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_latest_operation_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.latest_operation_name = v.into();
         self
     }
@@ -7145,6 +6837,7 @@ impl wkt::message::Message for TransferJob {
 pub mod transfer_job {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The status of the transfer job.
     ///
@@ -7240,9 +6933,7 @@ pub mod transfer_job {
                 1 => Self::Enabled,
                 2 => Self::Disabled,
                 3 => Self::Deleted,
-                _ => Self::UnknownValue(status::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(status::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -7255,9 +6946,7 @@ pub mod transfer_job {
                 "ENABLED" => Self::Enabled,
                 "DISABLED" => Self::Disabled,
                 "DELETED" => Self::Deleted,
-                _ => Self::UnknownValue(status::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(status::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -7283,8 +6972,7 @@ pub mod transfer_job {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Status>::new(
-                ".google.storagetransfer.v1.TransferJob.Status",
-            ))
+                ".google.storagetransfer.v1.TransferJob.Status"))
         }
     }
 }
@@ -7293,6 +6981,7 @@ pub mod transfer_job {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ErrorLogEntry {
+
     /// Required. A URL that refers to the target (a data source, a data sink,
     /// or an object) with which the error is associated.
     pub url: std::string::String,
@@ -7330,7 +7019,7 @@ impl ErrorLogEntry {
     pub fn set_error_details<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.error_details = v.into_iter().map(|i| i.into()).collect();
@@ -7349,6 +7038,7 @@ impl wkt::message::Message for ErrorLogEntry {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ErrorSummary {
+
     /// Required.
     pub error_code: rpc::model::Code,
 
@@ -7411,7 +7101,7 @@ impl ErrorSummary {
     pub fn set_error_log_entries<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ErrorLogEntry>,
+        V: std::convert::Into<crate::model::ErrorLogEntry>
     {
         use std::iter::Iterator;
         self.error_log_entries = v.into_iter().map(|i| i.into()).collect();
@@ -7429,6 +7119,7 @@ impl wkt::message::Message for ErrorSummary {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TransferCounters {
+
     /// Objects found in the data source that are scheduled to be transferred,
     /// excluding any that are filtered based on object conditions or skipped due
     /// to sync.
@@ -7575,10 +7266,7 @@ impl TransferCounters {
     /// # use google_cloud_storagetransfer_v1::model::TransferCounters;
     /// let x = TransferCounters::new().set_objects_from_source_skipped_by_sync(42);
     /// ```
-    pub fn set_objects_from_source_skipped_by_sync<T: std::convert::Into<i64>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_objects_from_source_skipped_by_sync<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.objects_from_source_skipped_by_sync = v.into();
         self
     }
@@ -7590,10 +7278,7 @@ impl TransferCounters {
     /// # use google_cloud_storagetransfer_v1::model::TransferCounters;
     /// let x = TransferCounters::new().set_bytes_from_source_skipped_by_sync(42);
     /// ```
-    pub fn set_bytes_from_source_skipped_by_sync<T: std::convert::Into<i64>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_bytes_from_source_skipped_by_sync<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.bytes_from_source_skipped_by_sync = v.into();
         self
     }
@@ -7701,10 +7386,7 @@ impl TransferCounters {
     /// # use google_cloud_storagetransfer_v1::model::TransferCounters;
     /// let x = TransferCounters::new().set_objects_failed_to_delete_from_sink(42);
     /// ```
-    pub fn set_objects_failed_to_delete_from_sink<T: std::convert::Into<i64>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_objects_failed_to_delete_from_sink<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.objects_failed_to_delete_from_sink = v.into();
         self
     }
@@ -7716,10 +7398,7 @@ impl TransferCounters {
     /// # use google_cloud_storagetransfer_v1::model::TransferCounters;
     /// let x = TransferCounters::new().set_bytes_failed_to_delete_from_sink(42);
     /// ```
-    pub fn set_bytes_failed_to_delete_from_sink<T: std::convert::Into<i64>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_bytes_failed_to_delete_from_sink<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.bytes_failed_to_delete_from_sink = v.into();
         self
     }
@@ -7743,10 +7422,7 @@ impl TransferCounters {
     /// # use google_cloud_storagetransfer_v1::model::TransferCounters;
     /// let x = TransferCounters::new().set_directories_failed_to_list_from_source(42);
     /// ```
-    pub fn set_directories_failed_to_list_from_source<T: std::convert::Into<i64>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_directories_failed_to_list_from_source<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.directories_failed_to_list_from_source = v.into();
         self
     }
@@ -7758,10 +7434,7 @@ impl TransferCounters {
     /// # use google_cloud_storagetransfer_v1::model::TransferCounters;
     /// let x = TransferCounters::new().set_directories_successfully_listed_from_source(42);
     /// ```
-    pub fn set_directories_successfully_listed_from_source<T: std::convert::Into<i64>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_directories_successfully_listed_from_source<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.directories_successfully_listed_from_source = v.into();
         self
     }
@@ -7785,10 +7458,7 @@ impl TransferCounters {
     /// # use google_cloud_storagetransfer_v1::model::TransferCounters;
     /// let x = TransferCounters::new().set_intermediate_objects_failed_cleaned_up(42);
     /// ```
-    pub fn set_intermediate_objects_failed_cleaned_up<T: std::convert::Into<i64>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_intermediate_objects_failed_cleaned_up<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.intermediate_objects_failed_cleaned_up = v.into();
         self
     }
@@ -7832,6 +7502,7 @@ impl wkt::message::Message for TransferCounters {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NotificationConfig {
+
     /// Required. The `Topic.name` of the Pub/Sub topic to which to publish
     /// notifications. Must be of the format: `projects/{project}/topics/{topic}`.
     /// Not matching this format results in an
@@ -7882,7 +7553,7 @@ impl NotificationConfig {
     pub fn set_event_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::notification_config::EventType>,
+        V: std::convert::Into<crate::model::notification_config::EventType>
     {
         use std::iter::Iterator;
         self.event_types = v.into_iter().map(|i| i.into()).collect();
@@ -7898,12 +7569,7 @@ impl NotificationConfig {
     /// let x0 = NotificationConfig::new().set_payload_format(PayloadFormat::None);
     /// let x1 = NotificationConfig::new().set_payload_format(PayloadFormat::Json);
     /// ```
-    pub fn set_payload_format<
-        T: std::convert::Into<crate::model::notification_config::PayloadFormat>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_payload_format<T: std::convert::Into<crate::model::notification_config::PayloadFormat>>(mut self, v: T) -> Self {
         self.payload_format = v.into();
         self
     }
@@ -7919,6 +7585,7 @@ impl wkt::message::Message for NotificationConfig {
 pub mod notification_config {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Enum for specifying event types for which notifications are to be
     /// published.
@@ -7997,15 +7664,9 @@ pub mod notification_config {
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
                 Self::Unspecified => std::option::Option::Some("EVENT_TYPE_UNSPECIFIED"),
-                Self::TransferOperationSuccess => {
-                    std::option::Option::Some("TRANSFER_OPERATION_SUCCESS")
-                }
-                Self::TransferOperationFailed => {
-                    std::option::Option::Some("TRANSFER_OPERATION_FAILED")
-                }
-                Self::TransferOperationAborted => {
-                    std::option::Option::Some("TRANSFER_OPERATION_ABORTED")
-                }
+                Self::TransferOperationSuccess => std::option::Option::Some("TRANSFER_OPERATION_SUCCESS"),
+                Self::TransferOperationFailed => std::option::Option::Some("TRANSFER_OPERATION_FAILED"),
+                Self::TransferOperationAborted => std::option::Option::Some("TRANSFER_OPERATION_ABORTED"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -8031,9 +7692,7 @@ pub mod notification_config {
                 1 => Self::TransferOperationSuccess,
                 2 => Self::TransferOperationFailed,
                 3 => Self::TransferOperationAborted,
-                _ => Self::UnknownValue(event_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(event_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -8046,9 +7705,7 @@ pub mod notification_config {
                 "TRANSFER_OPERATION_SUCCESS" => Self::TransferOperationSuccess,
                 "TRANSFER_OPERATION_FAILED" => Self::TransferOperationFailed,
                 "TRANSFER_OPERATION_ABORTED" => Self::TransferOperationAborted,
-                _ => Self::UnknownValue(event_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(event_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -8074,8 +7731,7 @@ pub mod notification_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<EventType>::new(
-                ".google.storagetransfer.v1.NotificationConfig.EventType",
-            ))
+                ".google.storagetransfer.v1.NotificationConfig.EventType"))
         }
     }
 
@@ -8167,9 +7823,7 @@ pub mod notification_config {
                 0 => Self::Unspecified,
                 1 => Self::None,
                 2 => Self::Json,
-                _ => Self::UnknownValue(payload_format::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(payload_format::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -8181,9 +7835,7 @@ pub mod notification_config {
                 "PAYLOAD_FORMAT_UNSPECIFIED" => Self::Unspecified,
                 "NONE" => Self::None,
                 "JSON" => Self::Json,
-                _ => Self::UnknownValue(payload_format::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(payload_format::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -8208,8 +7860,7 @@ pub mod notification_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<PayloadFormat>::new(
-                ".google.storagetransfer.v1.NotificationConfig.PayloadFormat",
-            ))
+                ".google.storagetransfer.v1.NotificationConfig.PayloadFormat"))
         }
     }
 }
@@ -8223,6 +7874,7 @@ pub mod notification_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LoggingConfig {
+
     /// Specifies the actions to be logged. If empty, no logs are generated.
     pub log_actions: std::vec::Vec<crate::model::logging_config::LoggableAction>,
 
@@ -8261,7 +7913,7 @@ impl LoggingConfig {
     pub fn set_log_actions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::logging_config::LoggableAction>,
+        V: std::convert::Into<crate::model::logging_config::LoggableAction>
     {
         use std::iter::Iterator;
         self.log_actions = v.into_iter().map(|i| i.into()).collect();
@@ -8283,7 +7935,7 @@ impl LoggingConfig {
     pub fn set_log_action_states<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::logging_config::LoggableActionState>,
+        V: std::convert::Into<crate::model::logging_config::LoggableActionState>
     {
         use std::iter::Iterator;
         self.log_action_states = v.into_iter().map(|i| i.into()).collect();
@@ -8297,10 +7949,7 @@ impl LoggingConfig {
     /// # use google_cloud_storagetransfer_v1::model::LoggingConfig;
     /// let x = LoggingConfig::new().set_enable_onprem_gcs_transfer_logs(true);
     /// ```
-    pub fn set_enable_onprem_gcs_transfer_logs<T: std::convert::Into<bool>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_enable_onprem_gcs_transfer_logs<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_onprem_gcs_transfer_logs = v.into();
         self
     }
@@ -8316,6 +7965,7 @@ impl wkt::message::Message for LoggingConfig {
 pub mod logging_config {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Loggable actions.
     ///
@@ -8408,9 +8058,7 @@ pub mod logging_config {
                 1 => Self::Find,
                 2 => Self::Delete,
                 3 => Self::Copy,
-                _ => Self::UnknownValue(loggable_action::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(loggable_action::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -8423,9 +8071,7 @@ pub mod logging_config {
                 "FIND" => Self::Find,
                 "DELETE" => Self::Delete,
                 "COPY" => Self::Copy,
-                _ => Self::UnknownValue(loggable_action::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(loggable_action::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -8451,8 +8097,7 @@ pub mod logging_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<LoggableAction>::new(
-                ".google.storagetransfer.v1.LoggingConfig.LoggableAction",
-            ))
+                ".google.storagetransfer.v1.LoggingConfig.LoggableAction"))
         }
     }
 
@@ -8551,9 +8196,7 @@ pub mod logging_config {
                 1 => Self::Succeeded,
                 2 => Self::Failed,
                 3 => Self::Skipped,
-                _ => Self::UnknownValue(loggable_action_state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(loggable_action_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -8566,9 +8209,7 @@ pub mod logging_config {
                 "SUCCEEDED" => Self::Succeeded,
                 "FAILED" => Self::Failed,
                 "SKIPPED" => Self::Skipped,
-                _ => Self::UnknownValue(loggable_action_state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(loggable_action_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -8594,8 +8235,7 @@ pub mod logging_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<LoggableActionState>::new(
-                ".google.storagetransfer.v1.LoggingConfig.LoggableActionState",
-            ))
+                ".google.storagetransfer.v1.LoggingConfig.LoggableActionState"))
         }
     }
 }
@@ -8604,6 +8244,7 @@ pub mod logging_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TransferOperation {
+
     /// A globally unique ID assigned by the system.
     pub name: std::string::String,
 
@@ -8678,8 +8319,7 @@ impl TransferOperation {
     /// let x = TransferOperation::new().set_transfer_spec(TransferSpec::default()/* use setters */);
     /// ```
     pub fn set_transfer_spec<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TransferSpec>,
+    where T: std::convert::Into<crate::model::TransferSpec>
     {
         self.transfer_spec = std::option::Option::Some(v.into());
         self
@@ -8695,8 +8335,7 @@ impl TransferOperation {
     /// let x = TransferOperation::new().set_or_clear_transfer_spec(None::<TransferSpec>);
     /// ```
     pub fn set_or_clear_transfer_spec<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TransferSpec>,
+    where T: std::convert::Into<crate::model::TransferSpec>
     {
         self.transfer_spec = v.map(|x| x.into());
         self
@@ -8711,8 +8350,7 @@ impl TransferOperation {
     /// let x = TransferOperation::new().set_notification_config(NotificationConfig::default()/* use setters */);
     /// ```
     pub fn set_notification_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::NotificationConfig>,
+    where T: std::convert::Into<crate::model::NotificationConfig>
     {
         self.notification_config = std::option::Option::Some(v.into());
         self
@@ -8728,8 +8366,7 @@ impl TransferOperation {
     /// let x = TransferOperation::new().set_or_clear_notification_config(None::<NotificationConfig>);
     /// ```
     pub fn set_or_clear_notification_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::NotificationConfig>,
+    where T: std::convert::Into<crate::model::NotificationConfig>
     {
         self.notification_config = v.map(|x| x.into());
         self
@@ -8744,8 +8381,7 @@ impl TransferOperation {
     /// let x = TransferOperation::new().set_logging_config(LoggingConfig::default()/* use setters */);
     /// ```
     pub fn set_logging_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::LoggingConfig>,
+    where T: std::convert::Into<crate::model::LoggingConfig>
     {
         self.logging_config = std::option::Option::Some(v.into());
         self
@@ -8761,8 +8397,7 @@ impl TransferOperation {
     /// let x = TransferOperation::new().set_or_clear_logging_config(None::<LoggingConfig>);
     /// ```
     pub fn set_or_clear_logging_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::LoggingConfig>,
+    where T: std::convert::Into<crate::model::LoggingConfig>
     {
         self.logging_config = v.map(|x| x.into());
         self
@@ -8777,8 +8412,7 @@ impl TransferOperation {
     /// let x = TransferOperation::new().set_start_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -8794,8 +8428,7 @@ impl TransferOperation {
     /// let x = TransferOperation::new().set_or_clear_start_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -8810,8 +8443,7 @@ impl TransferOperation {
     /// let x = TransferOperation::new().set_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -8827,8 +8459,7 @@ impl TransferOperation {
     /// let x = TransferOperation::new().set_or_clear_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -8844,10 +8475,7 @@ impl TransferOperation {
     /// let x1 = TransferOperation::new().set_status(Status::Paused);
     /// let x2 = TransferOperation::new().set_status(Status::Success);
     /// ```
-    pub fn set_status<T: std::convert::Into<crate::model::transfer_operation::Status>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_status<T: std::convert::Into<crate::model::transfer_operation::Status>>(mut self, v: T) -> Self {
         self.status = v.into();
         self
     }
@@ -8861,8 +8489,7 @@ impl TransferOperation {
     /// let x = TransferOperation::new().set_counters(TransferCounters::default()/* use setters */);
     /// ```
     pub fn set_counters<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TransferCounters>,
+    where T: std::convert::Into<crate::model::TransferCounters>
     {
         self.counters = std::option::Option::Some(v.into());
         self
@@ -8878,8 +8505,7 @@ impl TransferOperation {
     /// let x = TransferOperation::new().set_or_clear_counters(None::<TransferCounters>);
     /// ```
     pub fn set_or_clear_counters<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TransferCounters>,
+    where T: std::convert::Into<crate::model::TransferCounters>
     {
         self.counters = v.map(|x| x.into());
         self
@@ -8900,7 +8526,7 @@ impl TransferOperation {
     pub fn set_error_breakdowns<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ErrorSummary>,
+        V: std::convert::Into<crate::model::ErrorSummary>
     {
         use std::iter::Iterator;
         self.error_breakdowns = v.into_iter().map(|i| i.into()).collect();
@@ -8914,10 +8540,7 @@ impl TransferOperation {
     /// # use google_cloud_storagetransfer_v1::model::TransferOperation;
     /// let x = TransferOperation::new().set_transfer_job_name("example");
     /// ```
-    pub fn set_transfer_job_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_transfer_job_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.transfer_job_name = v.into();
         self
     }
@@ -8933,6 +8556,7 @@ impl wkt::message::Message for TransferOperation {
 pub mod transfer_operation {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The status of a TransferOperation.
     ///
@@ -9045,9 +8669,7 @@ pub mod transfer_operation {
                 5 => Self::Aborted,
                 6 => Self::Queued,
                 7 => Self::Suspending,
-                _ => Self::UnknownValue(status::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(status::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -9064,9 +8686,7 @@ pub mod transfer_operation {
                 "ABORTED" => Self::Aborted,
                 "QUEUED" => Self::Queued,
                 "SUSPENDING" => Self::Suspending,
-                _ => Self::UnknownValue(status::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(status::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -9096,8 +8716,7 @@ pub mod transfer_operation {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Status>::new(
-                ".google.storagetransfer.v1.TransferOperation.Status",
-            ))
+                ".google.storagetransfer.v1.TransferOperation.Status"))
         }
     }
 }

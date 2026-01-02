@@ -800,14 +800,8 @@ impl std::fmt::Debug for super::Api {
         debug_struct.field("api_requirements", &self.api_requirements);
         debug_struct.field("fingerprint", &self.fingerprint);
         debug_struct.field("source_metadata", &self.source_metadata);
-        debug_struct.field(
-            "api_functional_requirements",
-            &self.api_functional_requirements,
-        );
-        debug_struct.field(
-            "api_technical_requirements",
-            &self.api_technical_requirements,
-        );
+        debug_struct.field("api_functional_requirements", &self.api_functional_requirements);
+        debug_struct.field("api_technical_requirements", &self.api_technical_requirements);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -863,6 +857,7 @@ impl std::fmt::Debug for super::Spec {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::Deployment {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -925,6 +920,7 @@ impl std::fmt::Debug for super::Definition {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::Attribute {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -1125,6 +1121,7 @@ impl std::fmt::Debug for super::Dependency {
     }
 }
 
+
 impl std::fmt::Debug for super::DependencyEntityReference {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DependencyEntityReference");
@@ -1264,6 +1261,7 @@ impl std::fmt::Debug for super::api_hub_instance::Config {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::ExternalApi {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -1435,14 +1433,8 @@ impl std::fmt::Debug for super::SourceMetadata {
         let mut debug_struct = f.debug_struct("SourceMetadata");
         debug_struct.field("source_type", &self.source_type);
         debug_struct.field("original_resource_id", &self.original_resource_id);
-        debug_struct.field(
-            "original_resource_create_time",
-            &self.original_resource_create_time,
-        );
-        debug_struct.field(
-            "original_resource_update_time",
-            &self.original_resource_update_time,
-        );
+        debug_struct.field("original_resource_create_time", &self.original_resource_create_time);
+        debug_struct.field("original_resource_update_time", &self.original_resource_update_time);
         debug_struct.field("source", &self.source);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1594,6 +1586,7 @@ impl std::fmt::Debug for super::http_operation_details::HttpResponse {
     }
 }
 
+
 impl std::fmt::Debug for super::CreateCurationRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateCurationRequest");
@@ -1677,10 +1670,7 @@ impl std::fmt::Debug for super::Curation {
         debug_struct.field("plugin_instance_actions", &self.plugin_instance_actions);
         debug_struct.field("last_execution_state", &self.last_execution_state);
         debug_struct.field("last_execution_error_code", &self.last_execution_error_code);
-        debug_struct.field(
-            "last_execution_error_message",
-            &self.last_execution_error_message,
-        );
+        debug_struct.field("last_execution_error_message", &self.last_execution_error_message);
         debug_struct.field("create_time", &self.create_time);
         debug_struct.field("update_time", &self.update_time);
         if !self._unknown_fields.is_empty() {
@@ -1741,10 +1731,7 @@ impl std::fmt::Debug for super::ListDiscoveredApiObservationsRequest {
 impl std::fmt::Debug for super::ListDiscoveredApiObservationsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListDiscoveredApiObservationsResponse");
-        debug_struct.field(
-            "discovered_api_observations",
-            &self.discovered_api_observations,
-        );
+        debug_struct.field("discovered_api_observations", &self.discovered_api_observations);
         debug_struct.field("next_page_token", &self.next_page_token);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1804,10 +1791,7 @@ impl std::fmt::Debug for super::CreateHostProjectRegistrationRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateHostProjectRegistrationRequest");
         debug_struct.field("parent", &self.parent);
-        debug_struct.field(
-            "host_project_registration_id",
-            &self.host_project_registration_id,
-        );
+        debug_struct.field("host_project_registration_id", &self.host_project_registration_id);
         debug_struct.field("host_project_registration", &self.host_project_registration);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1845,10 +1829,7 @@ impl std::fmt::Debug for super::ListHostProjectRegistrationsRequest {
 impl std::fmt::Debug for super::ListHostProjectRegistrationsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListHostProjectRegistrationsResponse");
-        debug_struct.field(
-            "host_project_registrations",
-            &self.host_project_registrations,
-        );
+        debug_struct.field("host_project_registrations", &self.host_project_registrations);
         debug_struct.field("next_page_token", &self.next_page_token);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1979,10 +1960,7 @@ impl std::fmt::Debug for super::plugin::ConfigTemplate {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ConfigTemplate");
         debug_struct.field("auth_config_template", &self.auth_config_template);
-        debug_struct.field(
-            "additional_config_template",
-            &self.additional_config_template,
-        );
+        debug_struct.field("additional_config_template", &self.additional_config_template);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2098,6 +2076,7 @@ impl std::fmt::Debug for super::PluginInstance {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::CurationConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -2409,14 +2388,8 @@ impl std::fmt::Debug for super::CreateRuntimeProjectAttachmentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateRuntimeProjectAttachmentRequest");
         debug_struct.field("parent", &self.parent);
-        debug_struct.field(
-            "runtime_project_attachment_id",
-            &self.runtime_project_attachment_id,
-        );
-        debug_struct.field(
-            "runtime_project_attachment",
-            &self.runtime_project_attachment,
-        );
+        debug_struct.field("runtime_project_attachment_id", &self.runtime_project_attachment_id);
+        debug_struct.field("runtime_project_attachment", &self.runtime_project_attachment);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2453,10 +2426,7 @@ impl std::fmt::Debug for super::ListRuntimeProjectAttachmentsRequest {
 impl std::fmt::Debug for super::ListRuntimeProjectAttachmentsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListRuntimeProjectAttachmentsResponse");
-        debug_struct.field(
-            "runtime_project_attachments",
-            &self.runtime_project_attachments,
-        );
+        debug_struct.field("runtime_project_attachments", &self.runtime_project_attachments);
         debug_struct.field("next_page_token", &self.next_page_token);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -2490,10 +2460,7 @@ impl std::fmt::Debug for super::LookupRuntimeProjectAttachmentRequest {
 impl std::fmt::Debug for super::LookupRuntimeProjectAttachmentResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("LookupRuntimeProjectAttachmentResponse");
-        debug_struct.field(
-            "runtime_project_attachment",
-            &self.runtime_project_attachment,
-        );
+        debug_struct.field("runtime_project_attachment", &self.runtime_project_attachment);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

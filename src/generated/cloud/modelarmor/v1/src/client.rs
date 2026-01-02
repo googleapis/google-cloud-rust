@@ -80,96 +80,239 @@ impl ModelArmor {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::ModelArmor + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::ModelArmor + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ModelArmor>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ModelArmor>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ModelArmor> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ModelArmor> {
         super::transport::ModelArmor::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ModelArmor> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::ModelArmor::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ModelArmor> {
+        Self::build_transport(conf).await.map(super::tracing::ModelArmor::new)
     }
 
     /// Lists Templates in a given project and location.
-    pub fn list_templates(&self) -> super::builder::model_armor::ListTemplates {
+    pub fn list_templates(&self) -> super::builder::model_armor::ListTemplates
+    {
         super::builder::model_armor::ListTemplates::new(self.inner.clone())
     }
 
     /// Gets details of a single Template.
-    pub fn get_template(&self) -> super::builder::model_armor::GetTemplate {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::client::ModelArmor;
+    /// async fn sample(
+    ///    client: &ModelArmor,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_template()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_template(&self) -> super::builder::model_armor::GetTemplate
+    {
         super::builder::model_armor::GetTemplate::new(self.inner.clone())
     }
 
     /// Creates a new Template in a given project and location.
-    pub fn create_template(&self) -> super::builder::model_armor::CreateTemplate {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::client::ModelArmor;
+    /// async fn sample(
+    ///    client: &ModelArmor
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_template()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_template(&self) -> super::builder::model_armor::CreateTemplate
+    {
         super::builder::model_armor::CreateTemplate::new(self.inner.clone())
     }
 
     /// Updates the parameters of a single Template.
-    pub fn update_template(&self) -> super::builder::model_armor::UpdateTemplate {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::client::ModelArmor;
+    /// async fn sample(
+    ///    client: &ModelArmor
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_template()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_template(&self) -> super::builder::model_armor::UpdateTemplate
+    {
         super::builder::model_armor::UpdateTemplate::new(self.inner.clone())
     }
 
     /// Deletes a single Template.
-    pub fn delete_template(&self) -> super::builder::model_armor::DeleteTemplate {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::client::ModelArmor;
+    /// async fn sample(
+    ///    client: &ModelArmor,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_template()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_template(&self) -> super::builder::model_armor::DeleteTemplate
+    {
         super::builder::model_armor::DeleteTemplate::new(self.inner.clone())
     }
 
     /// Gets details of a single floor setting of a project
-    pub fn get_floor_setting(&self) -> super::builder::model_armor::GetFloorSetting {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::client::ModelArmor;
+    /// async fn sample(
+    ///    client: &ModelArmor,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_floor_setting()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_floor_setting(&self) -> super::builder::model_armor::GetFloorSetting
+    {
         super::builder::model_armor::GetFloorSetting::new(self.inner.clone())
     }
 
     /// Updates the parameters of a single floor setting of a project
-    pub fn update_floor_setting(&self) -> super::builder::model_armor::UpdateFloorSetting {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::client::ModelArmor;
+    /// async fn sample(
+    ///    client: &ModelArmor
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_floor_setting()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_floor_setting(&self) -> super::builder::model_armor::UpdateFloorSetting
+    {
         super::builder::model_armor::UpdateFloorSetting::new(self.inner.clone())
     }
 
     /// Sanitizes User Prompt.
-    pub fn sanitize_user_prompt(&self) -> super::builder::model_armor::SanitizeUserPrompt {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::client::ModelArmor;
+    /// async fn sample(
+    ///    client: &ModelArmor
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .sanitize_user_prompt()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn sanitize_user_prompt(&self) -> super::builder::model_armor::SanitizeUserPrompt
+    {
         super::builder::model_armor::SanitizeUserPrompt::new(self.inner.clone())
     }
 
     /// Sanitizes Model Response.
-    pub fn sanitize_model_response(&self) -> super::builder::model_armor::SanitizeModelResponse {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::client::ModelArmor;
+    /// async fn sample(
+    ///    client: &ModelArmor
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .sanitize_model_response()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn sanitize_model_response(&self) -> super::builder::model_armor::SanitizeModelResponse
+    {
         super::builder::model_armor::SanitizeModelResponse::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::model_armor::ListLocations {
+    pub fn list_locations(&self) -> super::builder::model_armor::ListLocations
+    {
         super::builder::model_armor::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(&self) -> super::builder::model_armor::GetLocation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::client::ModelArmor;
+    /// async fn sample(
+    ///    client: &ModelArmor
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_location(&self) -> super::builder::model_armor::GetLocation
+    {
         super::builder::model_armor::GetLocation::new(self.inner.clone())
     }
 }

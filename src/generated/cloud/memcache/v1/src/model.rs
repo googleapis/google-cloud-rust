@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -30,7 +31,6 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -42,6 +42,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Instance {
+
     /// Required. Unique name of the resource in this scope including project and
     /// location using the form:
     /// `projects/{project_id}/locations/{location_id}/instances/{instance_id}`
@@ -61,7 +62,7 @@ pub struct Instance {
     /// Resource labels to represent user-provided metadata.
     /// Refer to cloud documentation on labels for more details.
     /// <https://cloud.google.com/compute/docs/labeling-resources>
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// The full name of the Google Compute Engine
     /// [network](/compute/docs/networks-and-firewalls#networks) to which the
@@ -187,10 +188,7 @@ impl Instance {
     /// # use google_cloud_memcache_v1::model::Instance;
     /// let x = Instance::new().set_authorized_network("example");
     /// ```
-    pub fn set_authorized_network<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_authorized_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.authorized_network = v.into();
         self
     }
@@ -205,7 +203,7 @@ impl Instance {
     pub fn set_zones<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.zones = v.into_iter().map(|i| i.into()).collect();
@@ -233,8 +231,7 @@ impl Instance {
     /// let x = Instance::new().set_node_config(NodeConfig::default()/* use setters */);
     /// ```
     pub fn set_node_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::instance::NodeConfig>,
+    where T: std::convert::Into<crate::model::instance::NodeConfig>
     {
         self.node_config = std::option::Option::Some(v.into());
         self
@@ -250,8 +247,7 @@ impl Instance {
     /// let x = Instance::new().set_or_clear_node_config(None::<NodeConfig>);
     /// ```
     pub fn set_or_clear_node_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::instance::NodeConfig>,
+    where T: std::convert::Into<crate::model::instance::NodeConfig>
     {
         self.node_config = v.map(|x| x.into());
         self
@@ -265,10 +261,7 @@ impl Instance {
     /// use google_cloud_memcache_v1::model::MemcacheVersion;
     /// let x0 = Instance::new().set_memcache_version(MemcacheVersion::Memcache15);
     /// ```
-    pub fn set_memcache_version<T: std::convert::Into<crate::model::MemcacheVersion>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_memcache_version<T: std::convert::Into<crate::model::MemcacheVersion>>(mut self, v: T) -> Self {
         self.memcache_version = v.into();
         self
     }
@@ -282,8 +275,7 @@ impl Instance {
     /// let x = Instance::new().set_parameters(MemcacheParameters::default()/* use setters */);
     /// ```
     pub fn set_parameters<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::MemcacheParameters>,
+    where T: std::convert::Into<crate::model::MemcacheParameters>
     {
         self.parameters = std::option::Option::Some(v.into());
         self
@@ -299,8 +291,7 @@ impl Instance {
     /// let x = Instance::new().set_or_clear_parameters(None::<MemcacheParameters>);
     /// ```
     pub fn set_or_clear_parameters<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::MemcacheParameters>,
+    where T: std::convert::Into<crate::model::MemcacheParameters>
     {
         self.parameters = v.map(|x| x.into());
         self
@@ -321,7 +312,7 @@ impl Instance {
     pub fn set_memcache_nodes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::instance::Node>,
+        V: std::convert::Into<crate::model::instance::Node>
     {
         use std::iter::Iterator;
         self.memcache_nodes = v.into_iter().map(|i| i.into()).collect();
@@ -337,8 +328,7 @@ impl Instance {
     /// let x = Instance::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -354,8 +344,7 @@ impl Instance {
     /// let x = Instance::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -370,8 +359,7 @@ impl Instance {
     /// let x = Instance::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -387,8 +375,7 @@ impl Instance {
     /// let x = Instance::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -416,10 +403,7 @@ impl Instance {
     /// # use google_cloud_memcache_v1::model::Instance;
     /// let x = Instance::new().set_memcache_full_version("example");
     /// ```
-    pub fn set_memcache_full_version<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_memcache_full_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.memcache_full_version = v.into();
         self
     }
@@ -439,7 +423,7 @@ impl Instance {
     pub fn set_instance_messages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::instance::InstanceMessage>,
+        V: std::convert::Into<crate::model::instance::InstanceMessage>
     {
         use std::iter::Iterator;
         self.instance_messages = v.into_iter().map(|i| i.into()).collect();
@@ -453,10 +437,7 @@ impl Instance {
     /// # use google_cloud_memcache_v1::model::Instance;
     /// let x = Instance::new().set_discovery_endpoint("example");
     /// ```
-    pub fn set_discovery_endpoint<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_discovery_endpoint<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.discovery_endpoint = v.into();
         self
     }
@@ -470,8 +451,7 @@ impl Instance {
     /// let x = Instance::new().set_maintenance_policy(MaintenancePolicy::default()/* use setters */);
     /// ```
     pub fn set_maintenance_policy<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::MaintenancePolicy>,
+    where T: std::convert::Into<crate::model::MaintenancePolicy>
     {
         self.maintenance_policy = std::option::Option::Some(v.into());
         self
@@ -487,8 +467,7 @@ impl Instance {
     /// let x = Instance::new().set_or_clear_maintenance_policy(None::<MaintenancePolicy>);
     /// ```
     pub fn set_or_clear_maintenance_policy<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::MaintenancePolicy>,
+    where T: std::convert::Into<crate::model::MaintenancePolicy>
     {
         self.maintenance_policy = v.map(|x| x.into());
         self
@@ -503,8 +482,7 @@ impl Instance {
     /// let x = Instance::new().set_maintenance_schedule(MaintenanceSchedule::default()/* use setters */);
     /// ```
     pub fn set_maintenance_schedule<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::MaintenanceSchedule>,
+    where T: std::convert::Into<crate::model::MaintenanceSchedule>
     {
         self.maintenance_schedule = std::option::Option::Some(v.into());
         self
@@ -520,8 +498,7 @@ impl Instance {
     /// let x = Instance::new().set_or_clear_maintenance_schedule(None::<MaintenanceSchedule>);
     /// ```
     pub fn set_or_clear_maintenance_schedule<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::MaintenanceSchedule>,
+    where T: std::convert::Into<crate::model::MaintenanceSchedule>
     {
         self.maintenance_schedule = v.map(|x| x.into());
         self
@@ -539,10 +516,12 @@ pub mod instance {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Configuration for a Memcached Node.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct NodeConfig {
+
         /// Required. Number of cpus per Memcached node.
         pub cpu_count: i32,
 
@@ -591,6 +570,7 @@ pub mod instance {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Node {
+
         /// Output only. Identifier of the Memcached node. The node id does not
         /// include project or location like the Memcached instance name.
         pub node_id: std::string::String,
@@ -653,10 +633,7 @@ pub mod instance {
         /// let x1 = Node::new().set_state(State::Ready);
         /// let x2 = Node::new().set_state(State::Deleting);
         /// ```
-        pub fn set_state<T: std::convert::Into<crate::model::instance::node::State>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_state<T: std::convert::Into<crate::model::instance::node::State>>(mut self, v: T) -> Self {
             self.state = v.into();
             self
         }
@@ -694,8 +671,7 @@ pub mod instance {
         /// let x = Node::new().set_parameters(MemcacheParameters::default()/* use setters */);
         /// ```
         pub fn set_parameters<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::MemcacheParameters>,
+        where T: std::convert::Into<crate::model::MemcacheParameters>
         {
             self.parameters = std::option::Option::Some(v.into());
             self
@@ -711,8 +687,7 @@ pub mod instance {
         /// let x = Node::new().set_or_clear_parameters(None::<MemcacheParameters>);
         /// ```
         pub fn set_or_clear_parameters<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::MemcacheParameters>,
+        where T: std::convert::Into<crate::model::MemcacheParameters>
         {
             self.parameters = v.map(|x| x.into());
             self
@@ -729,6 +704,7 @@ pub mod instance {
     pub mod node {
         #[allow(unused_imports)]
         use super::*;
+
 
         /// Different states of a Memcached node.
         ///
@@ -813,10 +789,7 @@ pub mod instance {
         }
 
         impl std::fmt::Display for State {
-            fn fmt(
-                &self,
-                f: &mut std::fmt::Formatter<'_>,
-            ) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -829,9 +802,7 @@ pub mod instance {
                     2 => Self::Ready,
                     3 => Self::Deleting,
                     4 => Self::Updating,
-                    _ => Self::UnknownValue(state::UnknownValue(
-                        wkt::internal::UnknownEnumValue::Integer(value),
-                    )),
+                    _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
                 }
             }
         }
@@ -845,9 +816,7 @@ pub mod instance {
                     "READY" => Self::Ready,
                     "DELETING" => Self::Deleting,
                     "UPDATING" => Self::Updating,
-                    _ => Self::UnknownValue(state::UnknownValue(
-                        wkt::internal::UnknownEnumValue::String(value.to_string()),
-                    )),
+                    _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
                 }
             }
         }
@@ -874,8 +843,7 @@ pub mod instance {
                 D: serde::Deserializer<'de>,
             {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                    ".google.cloud.memcache.v1.Instance.Node.State",
-                ))
+                    ".google.cloud.memcache.v1.Instance.Node.State"))
             }
         }
     }
@@ -883,6 +851,7 @@ pub mod instance {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct InstanceMessage {
+
         /// A code that correspond to one type of user-facing message.
         pub code: crate::model::instance::instance_message::Code,
 
@@ -905,10 +874,7 @@ pub mod instance {
         /// use google_cloud_memcache_v1::model::instance::instance_message::Code;
         /// let x0 = InstanceMessage::new().set_code(Code::ZoneDistributionUnbalanced);
         /// ```
-        pub fn set_code<T: std::convert::Into<crate::model::instance::instance_message::Code>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_code<T: std::convert::Into<crate::model::instance::instance_message::Code>>(mut self, v: T) -> Self {
             self.code = v.into();
             self
         }
@@ -936,6 +902,7 @@ pub mod instance {
     pub mod instance_message {
         #[allow(unused_imports)]
         use super::*;
+
 
         ///
         /// # Working with unknown values
@@ -993,9 +960,7 @@ pub mod instance {
             pub fn name(&self) -> std::option::Option<&str> {
                 match self {
                     Self::Unspecified => std::option::Option::Some("CODE_UNSPECIFIED"),
-                    Self::ZoneDistributionUnbalanced => {
-                        std::option::Option::Some("ZONE_DISTRIBUTION_UNBALANCED")
-                    }
+                    Self::ZoneDistributionUnbalanced => std::option::Option::Some("ZONE_DISTRIBUTION_UNBALANCED"),
                     Self::UnknownValue(u) => u.0.name(),
                 }
             }
@@ -1009,10 +974,7 @@ pub mod instance {
         }
 
         impl std::fmt::Display for Code {
-            fn fmt(
-                &self,
-                f: &mut std::fmt::Formatter<'_>,
-            ) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -1022,9 +984,7 @@ pub mod instance {
                 match value {
                     0 => Self::Unspecified,
                     1 => Self::ZoneDistributionUnbalanced,
-                    _ => Self::UnknownValue(code::UnknownValue(
-                        wkt::internal::UnknownEnumValue::Integer(value),
-                    )),
+                    _ => Self::UnknownValue(code::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
                 }
             }
         }
@@ -1035,9 +995,7 @@ pub mod instance {
                 match value {
                     "CODE_UNSPECIFIED" => Self::Unspecified,
                     "ZONE_DISTRIBUTION_UNBALANCED" => Self::ZoneDistributionUnbalanced,
-                    _ => Self::UnknownValue(code::UnknownValue(
-                        wkt::internal::UnknownEnumValue::String(value.to_string()),
-                    )),
+                    _ => Self::UnknownValue(code::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
                 }
             }
         }
@@ -1061,8 +1019,7 @@ pub mod instance {
                 D: serde::Deserializer<'de>,
             {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<Code>::new(
-                    ".google.cloud.memcache.v1.Instance.InstanceMessage.Code",
-                ))
+                    ".google.cloud.memcache.v1.Instance.InstanceMessage.Code"))
             }
         }
     }
@@ -1169,9 +1126,7 @@ pub mod instance {
                 3 => Self::Updating,
                 4 => Self::Deleting,
                 5 => Self::PerformingMaintenance,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1186,9 +1141,7 @@ pub mod instance {
                 "UPDATING" => Self::Updating,
                 "DELETING" => Self::Deleting,
                 "PERFORMING_MAINTENANCE" => Self::PerformingMaintenance,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1216,8 +1169,7 @@ pub mod instance {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.memcache.v1.Instance.State",
-            ))
+                ".google.cloud.memcache.v1.Instance.State"))
         }
     }
 }
@@ -1226,6 +1178,7 @@ pub mod instance {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MaintenancePolicy {
+
     /// Output only. The time when the policy was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
@@ -1258,8 +1211,7 @@ impl MaintenancePolicy {
     /// let x = MaintenancePolicy::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -1275,8 +1227,7 @@ impl MaintenancePolicy {
     /// let x = MaintenancePolicy::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -1291,8 +1242,7 @@ impl MaintenancePolicy {
     /// let x = MaintenancePolicy::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -1308,8 +1258,7 @@ impl MaintenancePolicy {
     /// let x = MaintenancePolicy::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -1342,7 +1291,7 @@ impl MaintenancePolicy {
     pub fn set_weekly_maintenance_window<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::WeeklyMaintenanceWindow>,
+        V: std::convert::Into<crate::model::WeeklyMaintenanceWindow>
     {
         use std::iter::Iterator;
         self.weekly_maintenance_window = v.into_iter().map(|i| i.into()).collect();
@@ -1360,6 +1309,7 @@ impl wkt::message::Message for MaintenancePolicy {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WeeklyMaintenanceWindow {
+
     /// Required. Allows to define schedule that runs specified day of the week.
     pub day: gtype::model::DayOfWeek,
 
@@ -1401,8 +1351,7 @@ impl WeeklyMaintenanceWindow {
     /// let x = WeeklyMaintenanceWindow::new().set_start_time(TimeOfDay::default()/* use setters */);
     /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<gtype::model::TimeOfDay>,
+    where T: std::convert::Into<gtype::model::TimeOfDay>
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -1418,8 +1367,7 @@ impl WeeklyMaintenanceWindow {
     /// let x = WeeklyMaintenanceWindow::new().set_or_clear_start_time(None::<TimeOfDay>);
     /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<gtype::model::TimeOfDay>,
+    where T: std::convert::Into<gtype::model::TimeOfDay>
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -1434,8 +1382,7 @@ impl WeeklyMaintenanceWindow {
     /// let x = WeeklyMaintenanceWindow::new().set_duration(Duration::default()/* use setters */);
     /// ```
     pub fn set_duration<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.duration = std::option::Option::Some(v.into());
         self
@@ -1451,8 +1398,7 @@ impl WeeklyMaintenanceWindow {
     /// let x = WeeklyMaintenanceWindow::new().set_or_clear_duration(None::<Duration>);
     /// ```
     pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.duration = v.map(|x| x.into());
         self
@@ -1469,6 +1415,7 @@ impl wkt::message::Message for WeeklyMaintenanceWindow {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MaintenanceSchedule {
+
     /// Output only. The start time of any upcoming scheduled maintenance for this instance.
     pub start_time: std::option::Option<wkt::Timestamp>,
 
@@ -1496,8 +1443,7 @@ impl MaintenanceSchedule {
     /// let x = MaintenanceSchedule::new().set_start_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -1513,8 +1459,7 @@ impl MaintenanceSchedule {
     /// let x = MaintenanceSchedule::new().set_or_clear_start_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -1529,8 +1474,7 @@ impl MaintenanceSchedule {
     /// let x = MaintenanceSchedule::new().set_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -1546,8 +1490,7 @@ impl MaintenanceSchedule {
     /// let x = MaintenanceSchedule::new().set_or_clear_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -1562,8 +1505,7 @@ impl MaintenanceSchedule {
     /// let x = MaintenanceSchedule::new().set_schedule_deadline_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_schedule_deadline_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.schedule_deadline_time = std::option::Option::Some(v.into());
         self
@@ -1579,8 +1521,7 @@ impl MaintenanceSchedule {
     /// let x = MaintenanceSchedule::new().set_or_clear_schedule_deadline_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_schedule_deadline_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.schedule_deadline_time = v.map(|x| x.into());
         self
@@ -1599,6 +1540,7 @@ impl wkt::message::Message for MaintenanceSchedule {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RescheduleMaintenanceRequest {
+
     /// Required. Memcache instance resource name using the form:
     /// `projects/{project_id}/locations/{location_id}/instances/{instance_id}`
     /// where `location_id` refers to a GCP region.
@@ -1642,12 +1584,7 @@ impl RescheduleMaintenanceRequest {
     /// let x1 = RescheduleMaintenanceRequest::new().set_reschedule_type(RescheduleType::NextAvailableWindow);
     /// let x2 = RescheduleMaintenanceRequest::new().set_reschedule_type(RescheduleType::SpecificTime);
     /// ```
-    pub fn set_reschedule_type<
-        T: std::convert::Into<crate::model::reschedule_maintenance_request::RescheduleType>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_reschedule_type<T: std::convert::Into<crate::model::reschedule_maintenance_request::RescheduleType>>(mut self, v: T) -> Self {
         self.reschedule_type = v.into();
         self
     }
@@ -1661,8 +1598,7 @@ impl RescheduleMaintenanceRequest {
     /// let x = RescheduleMaintenanceRequest::new().set_schedule_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_schedule_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.schedule_time = std::option::Option::Some(v.into());
         self
@@ -1678,8 +1614,7 @@ impl RescheduleMaintenanceRequest {
     /// let x = RescheduleMaintenanceRequest::new().set_or_clear_schedule_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_schedule_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.schedule_time = v.map(|x| x.into());
         self
@@ -1696,6 +1631,7 @@ impl wkt::message::Message for RescheduleMaintenanceRequest {
 pub mod reschedule_maintenance_request {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Reschedule options.
     ///
@@ -1789,9 +1725,7 @@ pub mod reschedule_maintenance_request {
                 1 => Self::Immediate,
                 2 => Self::NextAvailableWindow,
                 3 => Self::SpecificTime,
-                _ => Self::UnknownValue(reschedule_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(reschedule_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1804,9 +1738,7 @@ pub mod reschedule_maintenance_request {
                 "IMMEDIATE" => Self::Immediate,
                 "NEXT_AVAILABLE_WINDOW" => Self::NextAvailableWindow,
                 "SPECIFIC_TIME" => Self::SpecificTime,
-                _ => Self::UnknownValue(reschedule_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(reschedule_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1832,8 +1764,7 @@ pub mod reschedule_maintenance_request {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<RescheduleType>::new(
-                ".google.cloud.memcache.v1.RescheduleMaintenanceRequest.RescheduleType",
-            ))
+                ".google.cloud.memcache.v1.RescheduleMaintenanceRequest.RescheduleType"))
         }
     }
 }
@@ -1844,6 +1775,7 @@ pub mod reschedule_maintenance_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInstancesRequest {
+
     /// Required. The resource name of the instance location using the form:
     /// `projects/{project_id}/locations/{location_id}`
     /// where `location_id` refers to a GCP region
@@ -1951,6 +1883,7 @@ impl wkt::message::Message for ListInstancesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInstancesResponse {
+
     /// A list of Memcached instances in the project in the specified location,
     /// or across all locations.
     ///
@@ -1988,7 +1921,7 @@ impl ListInstancesResponse {
     pub fn set_instances<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Instance>,
+        V: std::convert::Into<crate::model::Instance>
     {
         use std::iter::Iterator;
         self.instances = v.into_iter().map(|i| i.into()).collect();
@@ -2017,7 +1950,7 @@ impl ListInstancesResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -2051,6 +1984,7 @@ impl gax::paginator::internal::PageableResponse for ListInstancesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetInstanceRequest {
+
     /// Required. Memcached instance resource name in the format:
     /// `projects/{project_id}/locations/{location_id}/instances/{instance_id}`
     /// where `location_id` refers to a GCP region
@@ -2089,6 +2023,7 @@ impl wkt::message::Message for GetInstanceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateInstanceRequest {
+
     /// Required. The resource name of the instance location using the form:
     /// `projects/{project_id}/locations/{location_id}`
     /// where `location_id` refers to a GCP region
@@ -2150,8 +2085,7 @@ impl CreateInstanceRequest {
     /// let x = CreateInstanceRequest::new().set_instance(Instance::default()/* use setters */);
     /// ```
     pub fn set_instance<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Instance>,
+    where T: std::convert::Into<crate::model::Instance>
     {
         self.instance = std::option::Option::Some(v.into());
         self
@@ -2167,8 +2101,7 @@ impl CreateInstanceRequest {
     /// let x = CreateInstanceRequest::new().set_or_clear_instance(None::<Instance>);
     /// ```
     pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Instance>,
+    where T: std::convert::Into<crate::model::Instance>
     {
         self.instance = v.map(|x| x.into());
         self
@@ -2187,6 +2120,7 @@ impl wkt::message::Message for CreateInstanceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateInstanceRequest {
+
     /// Required. Mask of fields to update.
     ///
     /// * `displayName`
@@ -2213,8 +2147,7 @@ impl UpdateInstanceRequest {
     /// let x = UpdateInstanceRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -2230,8 +2163,7 @@ impl UpdateInstanceRequest {
     /// let x = UpdateInstanceRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -2246,8 +2178,7 @@ impl UpdateInstanceRequest {
     /// let x = UpdateInstanceRequest::new().set_instance(Instance::default()/* use setters */);
     /// ```
     pub fn set_instance<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Instance>,
+    where T: std::convert::Into<crate::model::Instance>
     {
         self.instance = std::option::Option::Some(v.into());
         self
@@ -2263,8 +2194,7 @@ impl UpdateInstanceRequest {
     /// let x = UpdateInstanceRequest::new().set_or_clear_instance(None::<Instance>);
     /// ```
     pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Instance>,
+    where T: std::convert::Into<crate::model::Instance>
     {
         self.instance = v.map(|x| x.into());
         self
@@ -2283,6 +2213,7 @@ impl wkt::message::Message for UpdateInstanceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteInstanceRequest {
+
     /// Required. Memcached instance resource name in the format:
     /// `projects/{project_id}/locations/{location_id}/instances/{instance_id}`
     /// where `location_id` refers to a GCP region
@@ -2321,6 +2252,7 @@ impl wkt::message::Message for DeleteInstanceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ApplyParametersRequest {
+
     /// Required. Resource name of the Memcached instance for which parameter group updates
     /// should be applied.
     pub name: std::string::String,
@@ -2363,7 +2295,7 @@ impl ApplyParametersRequest {
     pub fn set_node_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.node_ids = v.into_iter().map(|i| i.into()).collect();
@@ -2395,6 +2327,7 @@ impl wkt::message::Message for ApplyParametersRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateParametersRequest {
+
     /// Required. Resource name of the Memcached instance for which the parameters should be
     /// updated.
     pub name: std::string::String,
@@ -2434,8 +2367,7 @@ impl UpdateParametersRequest {
     /// let x = UpdateParametersRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -2451,8 +2383,7 @@ impl UpdateParametersRequest {
     /// let x = UpdateParametersRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -2467,8 +2398,7 @@ impl UpdateParametersRequest {
     /// let x = UpdateParametersRequest::new().set_parameters(MemcacheParameters::default()/* use setters */);
     /// ```
     pub fn set_parameters<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::MemcacheParameters>,
+    where T: std::convert::Into<crate::model::MemcacheParameters>
     {
         self.parameters = std::option::Option::Some(v.into());
         self
@@ -2484,8 +2414,7 @@ impl UpdateParametersRequest {
     /// let x = UpdateParametersRequest::new().set_or_clear_parameters(None::<MemcacheParameters>);
     /// ```
     pub fn set_or_clear_parameters<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::MemcacheParameters>,
+    where T: std::convert::Into<crate::model::MemcacheParameters>
     {
         self.parameters = v.map(|x| x.into());
         self
@@ -2501,6 +2430,7 @@ impl wkt::message::Message for UpdateParametersRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MemcacheParameters {
+
     /// Output only. The unique ID associated with this set of parameters. Users
     /// can use this id to determine if the parameters associated with the instance
     /// differ from the parameters associated with the nodes. A discrepancy between
@@ -2509,7 +2439,7 @@ pub struct MemcacheParameters {
     pub id: std::string::String,
 
     /// User defined set of parameters to use in the memcached process.
-    pub params: std::collections::HashMap<std::string::String, std::string::String>,
+    pub params: std::collections::HashMap<std::string::String,std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2563,6 +2493,7 @@ impl wkt::message::Message for MemcacheParameters {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
+
     /// Output only. Time when the operation was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
@@ -2606,8 +2537,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -2623,8 +2553,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -2639,8 +2568,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -2656,8 +2584,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -2736,10 +2663,11 @@ impl wkt::message::Message for OperationMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LocationMetadata {
+
     /// Output only. The set of available zones in the location. The map is keyed
     /// by the lowercase ID of each zone, as defined by GCE. These keys can be
     /// specified in the `zones` field when creating a Memcached instance.
-    pub available_zones: std::collections::HashMap<std::string::String, crate::model::ZoneMetadata>,
+    pub available_zones: std::collections::HashMap<std::string::String,crate::model::ZoneMetadata>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2781,6 +2709,7 @@ impl wkt::message::Message for LocationMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ZoneMetadata {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2876,9 +2805,7 @@ impl std::convert::From<i32> for MemcacheVersion {
         match value {
             0 => Self::Unspecified,
             1 => Self::Memcache15,
-            _ => Self::UnknownValue(memcache_version::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(memcache_version::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -2889,9 +2816,7 @@ impl std::convert::From<&str> for MemcacheVersion {
         match value {
             "MEMCACHE_VERSION_UNSPECIFIED" => Self::Unspecified,
             "MEMCACHE_1_5" => Self::Memcache15,
-            _ => Self::UnknownValue(memcache_version::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(memcache_version::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -2915,7 +2840,6 @@ impl<'de> serde::de::Deserialize<'de> for MemcacheVersion {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<MemcacheVersion>::new(
-            ".google.cloud.memcache.v1.MemcacheVersion",
-        ))
+            ".google.cloud.memcache.v1.MemcacheVersion"))
     }
 }

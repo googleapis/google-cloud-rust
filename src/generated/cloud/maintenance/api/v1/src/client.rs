@@ -80,68 +80,90 @@ impl Maintenance {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::Maintenance + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::Maintenance + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Maintenance>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Maintenance>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Maintenance> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Maintenance> {
         super::transport::Maintenance::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Maintenance> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::Maintenance::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Maintenance> {
+        Self::build_transport(conf).await.map(super::tracing::Maintenance::new)
     }
 
     /// Retrieves the statistics of a specific maintenance.
-    pub fn summarize_maintenances(&self) -> super::builder::maintenance::SummarizeMaintenances {
+    pub fn summarize_maintenances(&self) -> super::builder::maintenance::SummarizeMaintenances
+    {
         super::builder::maintenance::SummarizeMaintenances::new(self.inner.clone())
     }
 
     /// Retrieve a collection of resource maintenances.
-    pub fn list_resource_maintenances(
-        &self,
-    ) -> super::builder::maintenance::ListResourceMaintenances {
+    pub fn list_resource_maintenances(&self) -> super::builder::maintenance::ListResourceMaintenances
+    {
         super::builder::maintenance::ListResourceMaintenances::new(self.inner.clone())
     }
 
     /// Retrieve a single resource maintenance.
-    pub fn get_resource_maintenance(&self) -> super::builder::maintenance::GetResourceMaintenance {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_maintenance_api_v1::client::Maintenance;
+    /// async fn sample(
+    ///    client: &Maintenance,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_resource_maintenance()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_resource_maintenance(&self) -> super::builder::maintenance::GetResourceMaintenance
+    {
         super::builder::maintenance::GetResourceMaintenance::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::maintenance::ListLocations {
+    pub fn list_locations(&self) -> super::builder::maintenance::ListLocations
+    {
         super::builder::maintenance::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(&self) -> super::builder::maintenance::GetLocation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_maintenance_api_v1::client::Maintenance;
+    /// async fn sample(
+    ///    client: &Maintenance
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_location(&self) -> super::builder::maintenance::GetLocation
+    {
         super::builder::maintenance::GetLocation::new(self.inner.clone())
     }
 }

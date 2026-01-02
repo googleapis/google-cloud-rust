@@ -94,6 +94,7 @@ pub trait Recommender: std::fmt::Debug + Send + Sync {
         req: crate::model::UpdateInsightTypeConfigRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::InsightTypeConfig>>;
+
 }
 
 /// All implementations of [super::Recommender] also implement [Recommender].
@@ -215,4 +216,5 @@ impl<T: super::Recommender> Recommender for T {
     ) -> crate::Result<gax::response::Response<crate::model::InsightTypeConfig>> {
         T::update_insight_type_config(self, req, options).await
     }
+
 }

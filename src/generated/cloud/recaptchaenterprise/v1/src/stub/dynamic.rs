@@ -141,17 +141,14 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ListRelatedAccountGroupMembershipsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::ListRelatedAccountGroupMembershipsResponse>,
-    >;
+    ) -> crate::Result<gax::response::Response<crate::model::ListRelatedAccountGroupMembershipsResponse>>;
 
     async fn search_related_account_group_memberships(
         &self,
         req: crate::model::SearchRelatedAccountGroupMembershipsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::SearchRelatedAccountGroupMembershipsResponse>,
-    >;
+    ) -> crate::Result<gax::response::Response<crate::model::SearchRelatedAccountGroupMembershipsResponse>>;
+
 }
 
 /// All implementations of [super::RecaptchaEnterpriseService] also implement [RecaptchaEnterpriseService].
@@ -333,8 +330,7 @@ impl<T: super::RecaptchaEnterpriseService> RecaptchaEnterpriseService for T {
         &self,
         req: crate::model::ListRelatedAccountGroupsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListRelatedAccountGroupsResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::ListRelatedAccountGroupsResponse>> {
         T::list_related_account_groups(self, req, options).await
     }
 
@@ -343,9 +339,7 @@ impl<T: super::RecaptchaEnterpriseService> RecaptchaEnterpriseService for T {
         &self,
         req: crate::model::ListRelatedAccountGroupMembershipsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::ListRelatedAccountGroupMembershipsResponse>,
-    > {
+    ) -> crate::Result<gax::response::Response<crate::model::ListRelatedAccountGroupMembershipsResponse>> {
         T::list_related_account_group_memberships(self, req, options).await
     }
 
@@ -354,9 +348,8 @@ impl<T: super::RecaptchaEnterpriseService> RecaptchaEnterpriseService for T {
         &self,
         req: crate::model::SearchRelatedAccountGroupMembershipsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::SearchRelatedAccountGroupMembershipsResponse>,
-    > {
+    ) -> crate::Result<gax::response::Response<crate::model::SearchRelatedAccountGroupMembershipsResponse>> {
         T::search_related_account_group_memberships(self, req, options).await
     }
+
 }

@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate api;
 extern crate async_trait;
 extern crate bytes;
@@ -29,7 +30,6 @@ extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -44,6 +44,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CheckError {
+
     /// The error code.
     pub code: crate::model::check_error::Code,
 
@@ -81,10 +82,7 @@ impl CheckError {
     /// let x1 = CheckError::new().set_code(Code::PermissionDenied);
     /// let x2 = CheckError::new().set_code(Code::ResourceExhausted);
     /// ```
-    pub fn set_code<T: std::convert::Into<crate::model::check_error::Code>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_code<T: std::convert::Into<crate::model::check_error::Code>>(mut self, v: T) -> Self {
         self.code = v.into();
         self
     }
@@ -122,8 +120,7 @@ impl CheckError {
     /// let x = CheckError::new().set_status(Status::default()/* use setters */);
     /// ```
     pub fn set_status<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<rpc::model::Status>,
+    where T: std::convert::Into<rpc::model::Status>
     {
         self.status = std::option::Option::Some(v.into());
         self
@@ -139,8 +136,7 @@ impl CheckError {
     /// let x = CheckError::new().set_or_clear_status(None::<Status>);
     /// ```
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<rpc::model::Status>,
+    where T: std::convert::Into<rpc::model::Status>
     {
         self.status = v.map(|x| x.into());
         self
@@ -157,6 +153,7 @@ impl wkt::message::Message for CheckError {
 pub mod check_error {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Error codes for Check responses.
     ///
@@ -295,18 +292,10 @@ pub mod check_error {
                 Self::ApiKeyExpired => std::option::Option::Some("API_KEY_EXPIRED"),
                 Self::ApiKeyNotFound => std::option::Option::Some("API_KEY_NOT_FOUND"),
                 Self::InvalidCredential => std::option::Option::Some("INVALID_CREDENTIAL"),
-                Self::NamespaceLookupUnavailable => {
-                    std::option::Option::Some("NAMESPACE_LOOKUP_UNAVAILABLE")
-                }
-                Self::ServiceStatusUnavailable => {
-                    std::option::Option::Some("SERVICE_STATUS_UNAVAILABLE")
-                }
-                Self::BillingStatusUnavailable => {
-                    std::option::Option::Some("BILLING_STATUS_UNAVAILABLE")
-                }
-                Self::CloudResourceManagerBackendUnavailable => {
-                    std::option::Option::Some("CLOUD_RESOURCE_MANAGER_BACKEND_UNAVAILABLE")
-                }
+                Self::NamespaceLookupUnavailable => std::option::Option::Some("NAMESPACE_LOOKUP_UNAVAILABLE"),
+                Self::ServiceStatusUnavailable => std::option::Option::Some("SERVICE_STATUS_UNAVAILABLE"),
+                Self::BillingStatusUnavailable => std::option::Option::Some("BILLING_STATUS_UNAVAILABLE"),
+                Self::CloudResourceManagerBackendUnavailable => std::option::Option::Some("CLOUD_RESOURCE_MANAGER_BACKEND_UNAVAILABLE"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -349,9 +338,7 @@ pub mod check_error {
                 301 => Self::ServiceStatusUnavailable,
                 302 => Self::BillingStatusUnavailable,
                 305 => Self::CloudResourceManagerBackendUnavailable,
-                _ => Self::UnknownValue(code::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(code::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -380,12 +367,8 @@ pub mod check_error {
                 "NAMESPACE_LOOKUP_UNAVAILABLE" => Self::NamespaceLookupUnavailable,
                 "SERVICE_STATUS_UNAVAILABLE" => Self::ServiceStatusUnavailable,
                 "BILLING_STATUS_UNAVAILABLE" => Self::BillingStatusUnavailable,
-                "CLOUD_RESOURCE_MANAGER_BACKEND_UNAVAILABLE" => {
-                    Self::CloudResourceManagerBackendUnavailable
-                }
-                _ => Self::UnknownValue(code::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                "CLOUD_RESOURCE_MANAGER_BACKEND_UNAVAILABLE" => Self::CloudResourceManagerBackendUnavailable,
+                _ => Self::UnknownValue(code::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -428,8 +411,7 @@ pub mod check_error {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Code>::new(
-                ".google.api.servicecontrol.v1.CheckError.Code",
-            ))
+                ".google.api.servicecontrol.v1.CheckError.Code"))
         }
     }
 }
@@ -445,6 +427,7 @@ pub mod check_error {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Distribution {
+
     /// The total number of samples in the distribution. Must be >= 0.
     pub count: i64,
 
@@ -583,7 +566,7 @@ impl Distribution {
     pub fn set_bucket_counts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<i64>,
+        V: std::convert::Into<i64>
     {
         use std::iter::Iterator;
         self.bucket_counts = v.into_iter().map(|i| i.into()).collect();
@@ -605,7 +588,7 @@ impl Distribution {
     pub fn set_exemplars<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<api::model::distribution::Exemplar>,
+        V: std::convert::Into<api::model::distribution::Exemplar>
     {
         use std::iter::Iterator;
         self.exemplars = v.into_iter().map(|i| i.into()).collect();
@@ -624,12 +607,8 @@ impl Distribution {
     /// let x = Distribution::new().set_bucket_option(Some(
     ///     google_cloud_api_servicecontrol_v1::model::distribution::BucketOption::LinearBuckets(LinearBuckets::default().into())));
     /// ```
-    pub fn set_bucket_option<
-        T: std::convert::Into<std::option::Option<crate::model::distribution::BucketOption>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_bucket_option<T: std::convert::Into<std::option::Option<crate::model::distribution::BucketOption>>>(mut self, v: T) -> Self
+    {
         self.bucket_option = v.into();
         self
     }
@@ -637,14 +616,10 @@ impl Distribution {
     /// The value of [bucket_option][crate::model::Distribution::bucket_option]
     /// if it holds a `LinearBuckets`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn linear_buckets(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::distribution::LinearBuckets>> {
+    pub fn linear_buckets(&self) -> std::option::Option<&std::boxed::Box<crate::model::distribution::LinearBuckets>> {
         #[allow(unreachable_patterns)]
         self.bucket_option.as_ref().and_then(|v| match v {
-            crate::model::distribution::BucketOption::LinearBuckets(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::distribution::BucketOption::LinearBuckets(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -664,14 +639,11 @@ impl Distribution {
     /// assert!(x.exponential_buckets().is_none());
     /// assert!(x.explicit_buckets().is_none());
     /// ```
-    pub fn set_linear_buckets<
-        T: std::convert::Into<std::boxed::Box<crate::model::distribution::LinearBuckets>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_linear_buckets<T: std::convert::Into<std::boxed::Box<crate::model::distribution::LinearBuckets>>>(mut self, v: T) -> Self {
         self.bucket_option = std::option::Option::Some(
-            crate::model::distribution::BucketOption::LinearBuckets(v.into()),
+            crate::model::distribution::BucketOption::LinearBuckets(
+                v.into()
+            )
         );
         self
     }
@@ -679,14 +651,10 @@ impl Distribution {
     /// The value of [bucket_option][crate::model::Distribution::bucket_option]
     /// if it holds a `ExponentialBuckets`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn exponential_buckets(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::distribution::ExponentialBuckets>> {
+    pub fn exponential_buckets(&self) -> std::option::Option<&std::boxed::Box<crate::model::distribution::ExponentialBuckets>> {
         #[allow(unreachable_patterns)]
         self.bucket_option.as_ref().and_then(|v| match v {
-            crate::model::distribution::BucketOption::ExponentialBuckets(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::distribution::BucketOption::ExponentialBuckets(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -706,14 +674,11 @@ impl Distribution {
     /// assert!(x.linear_buckets().is_none());
     /// assert!(x.explicit_buckets().is_none());
     /// ```
-    pub fn set_exponential_buckets<
-        T: std::convert::Into<std::boxed::Box<crate::model::distribution::ExponentialBuckets>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_exponential_buckets<T: std::convert::Into<std::boxed::Box<crate::model::distribution::ExponentialBuckets>>>(mut self, v: T) -> Self {
         self.bucket_option = std::option::Option::Some(
-            crate::model::distribution::BucketOption::ExponentialBuckets(v.into()),
+            crate::model::distribution::BucketOption::ExponentialBuckets(
+                v.into()
+            )
         );
         self
     }
@@ -721,14 +686,10 @@ impl Distribution {
     /// The value of [bucket_option][crate::model::Distribution::bucket_option]
     /// if it holds a `ExplicitBuckets`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn explicit_buckets(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::distribution::ExplicitBuckets>> {
+    pub fn explicit_buckets(&self) -> std::option::Option<&std::boxed::Box<crate::model::distribution::ExplicitBuckets>> {
         #[allow(unreachable_patterns)]
         self.bucket_option.as_ref().and_then(|v| match v {
-            crate::model::distribution::BucketOption::ExplicitBuckets(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::distribution::BucketOption::ExplicitBuckets(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -748,14 +709,11 @@ impl Distribution {
     /// assert!(x.linear_buckets().is_none());
     /// assert!(x.exponential_buckets().is_none());
     /// ```
-    pub fn set_explicit_buckets<
-        T: std::convert::Into<std::boxed::Box<crate::model::distribution::ExplicitBuckets>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_explicit_buckets<T: std::convert::Into<std::boxed::Box<crate::model::distribution::ExplicitBuckets>>>(mut self, v: T) -> Self {
         self.bucket_option = std::option::Option::Some(
-            crate::model::distribution::BucketOption::ExplicitBuckets(v.into()),
+            crate::model::distribution::BucketOption::ExplicitBuckets(
+                v.into()
+            )
         );
         self
     }
@@ -772,10 +730,12 @@ pub mod distribution {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Describing buckets with constant width.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct LinearBuckets {
+
         /// The number of finite buckets. With the underflow and overflow buckets,
         /// the total number of buckets is `num_finite_buckets` + 2.
         /// See comments on `bucket_options` for details.
@@ -847,6 +807,7 @@ pub mod distribution {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ExponentialBuckets {
+
         /// The number of finite buckets. With the underflow and overflow buckets,
         /// the total number of buckets is `num_finite_buckets` + 2.
         /// See comments on `bucket_options` for details.
@@ -919,6 +880,7 @@ pub mod distribution {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ExplicitBuckets {
+
         /// 'bound' is a list of strictly increasing boundaries between
         /// buckets. Note that a list of length N-1 defines N buckets because
         /// of fenceposting. See comments on `bucket_options` for details.
@@ -954,7 +916,7 @@ pub mod distribution {
         pub fn set_bounds<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<f64>,
+            V: std::convert::Into<f64>
         {
             use std::iter::Iterator;
             self.bounds = v.into_iter().map(|i| i.into()).collect();
@@ -1009,6 +971,7 @@ pub mod distribution {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HttpRequest {
+
     /// The request method. Examples: `"GET"`, `"HEAD"`, `"PUT"`, `"POST"`.
     pub request_method: std::string::String,
 
@@ -1195,8 +1158,7 @@ impl HttpRequest {
     /// let x = HttpRequest::new().set_latency(Duration::default()/* use setters */);
     /// ```
     pub fn set_latency<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.latency = std::option::Option::Some(v.into());
         self
@@ -1212,8 +1174,7 @@ impl HttpRequest {
     /// let x = HttpRequest::new().set_or_clear_latency(None::<Duration>);
     /// ```
     pub fn set_or_clear_latency<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.latency = v.map(|x| x.into());
         self
@@ -1250,10 +1211,7 @@ impl HttpRequest {
     /// # use google_cloud_api_servicecontrol_v1::model::HttpRequest;
     /// let x = HttpRequest::new().set_cache_validated_with_origin_server(true);
     /// ```
-    pub fn set_cache_validated_with_origin_server<T: std::convert::Into<bool>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_cache_validated_with_origin_server<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.cache_validated_with_origin_server = v.into();
         self
     }
@@ -1293,6 +1251,7 @@ impl wkt::message::Message for HttpRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LogEntry {
+
     /// Required. The log to which this log entry belongs. Examples: `"syslog"`,
     /// `"book_log"`.
     pub name: std::string::String,
@@ -1321,7 +1280,7 @@ pub struct LogEntry {
 
     /// A set of user-defined (key, value) data that provides additional
     /// information about the log entry.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. Information about an operation associated with the log entry, if
     /// applicable.
@@ -1363,8 +1322,7 @@ impl LogEntry {
     /// let x = LogEntry::new().set_timestamp(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_timestamp<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.timestamp = std::option::Option::Some(v.into());
         self
@@ -1380,8 +1338,7 @@ impl LogEntry {
     /// let x = LogEntry::new().set_or_clear_timestamp(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_timestamp<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.timestamp = v.map(|x| x.into());
         self
@@ -1397,10 +1354,7 @@ impl LogEntry {
     /// let x1 = LogEntry::new().set_severity(LogSeverity::Info);
     /// let x2 = LogEntry::new().set_severity(LogSeverity::Notice);
     /// ```
-    pub fn set_severity<T: std::convert::Into<logging_type::model::LogSeverity>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_severity<T: std::convert::Into<logging_type::model::LogSeverity>>(mut self, v: T) -> Self {
         self.severity = v.into();
         self
     }
@@ -1414,8 +1368,7 @@ impl LogEntry {
     /// let x = LogEntry::new().set_http_request(HttpRequest::default()/* use setters */);
     /// ```
     pub fn set_http_request<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::HttpRequest>,
+    where T: std::convert::Into<crate::model::HttpRequest>
     {
         self.http_request = std::option::Option::Some(v.into());
         self
@@ -1431,8 +1384,7 @@ impl LogEntry {
     /// let x = LogEntry::new().set_or_clear_http_request(None::<HttpRequest>);
     /// ```
     pub fn set_or_clear_http_request<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::HttpRequest>,
+    where T: std::convert::Into<crate::model::HttpRequest>
     {
         self.http_request = v.map(|x| x.into());
         self
@@ -1492,8 +1444,7 @@ impl LogEntry {
     /// let x = LogEntry::new().set_operation(LogEntryOperation::default()/* use setters */);
     /// ```
     pub fn set_operation<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::LogEntryOperation>,
+    where T: std::convert::Into<crate::model::LogEntryOperation>
     {
         self.operation = std::option::Option::Some(v.into());
         self
@@ -1509,8 +1460,7 @@ impl LogEntry {
     /// let x = LogEntry::new().set_or_clear_operation(None::<LogEntryOperation>);
     /// ```
     pub fn set_or_clear_operation<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::LogEntryOperation>,
+    where T: std::convert::Into<crate::model::LogEntryOperation>
     {
         self.operation = v.map(|x| x.into());
         self
@@ -1525,8 +1475,7 @@ impl LogEntry {
     /// let x = LogEntry::new().set_source_location(LogEntrySourceLocation::default()/* use setters */);
     /// ```
     pub fn set_source_location<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::LogEntrySourceLocation>,
+    where T: std::convert::Into<crate::model::LogEntrySourceLocation>
     {
         self.source_location = std::option::Option::Some(v.into());
         self
@@ -1542,8 +1491,7 @@ impl LogEntry {
     /// let x = LogEntry::new().set_or_clear_source_location(None::<LogEntrySourceLocation>);
     /// ```
     pub fn set_or_clear_source_location<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::LogEntrySourceLocation>,
+    where T: std::convert::Into<crate::model::LogEntrySourceLocation>
     {
         self.source_location = v.map(|x| x.into());
         self
@@ -1560,12 +1508,8 @@ impl LogEntry {
     /// use google_cloud_api_servicecontrol_v1::model::log_entry::Payload;
     /// let x = LogEntry::new().set_payload(Some(Payload::TextPayload("example".to_string())));
     /// ```
-    pub fn set_payload<
-        T: std::convert::Into<std::option::Option<crate::model::log_entry::Payload>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_payload<T: std::convert::Into<std::option::Option<crate::model::log_entry::Payload>>>(mut self, v: T) -> Self
+    {
         self.payload = v.into();
         self
     }
@@ -1596,12 +1540,12 @@ impl LogEntry {
     /// assert!(x.text_payload().is_none());
     /// assert!(x.struct_payload().is_none());
     /// ```
-    pub fn set_proto_payload<T: std::convert::Into<std::boxed::Box<wkt::Any>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.payload =
-            std::option::Option::Some(crate::model::log_entry::Payload::ProtoPayload(v.into()));
+    pub fn set_proto_payload<T: std::convert::Into<std::boxed::Box<wkt::Any>>>(mut self, v: T) -> Self {
+        self.payload = std::option::Option::Some(
+            crate::model::log_entry::Payload::ProtoPayload(
+                v.into()
+            )
+        );
         self
     }
 
@@ -1631,8 +1575,11 @@ impl LogEntry {
     /// assert!(x.struct_payload().is_none());
     /// ```
     pub fn set_text_payload<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.payload =
-            std::option::Option::Some(crate::model::log_entry::Payload::TextPayload(v.into()));
+        self.payload = std::option::Option::Some(
+            crate::model::log_entry::Payload::TextPayload(
+                v.into()
+            )
+        );
         self
     }
 
@@ -1662,12 +1609,12 @@ impl LogEntry {
     /// assert!(x.proto_payload().is_none());
     /// assert!(x.text_payload().is_none());
     /// ```
-    pub fn set_struct_payload<T: std::convert::Into<std::boxed::Box<wkt::Struct>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.payload =
-            std::option::Option::Some(crate::model::log_entry::Payload::StructPayload(v.into()));
+    pub fn set_struct_payload<T: std::convert::Into<std::boxed::Box<wkt::Struct>>>(mut self, v: T) -> Self {
+        self.payload = std::option::Option::Some(
+            crate::model::log_entry::Payload::StructPayload(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -1682,6 +1629,7 @@ impl wkt::message::Message for LogEntry {
 pub mod log_entry {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The log entry payload, which can be one of multiple types.
     #[derive(Clone, Debug, PartialEq)]
@@ -1704,6 +1652,7 @@ pub mod log_entry {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LogEntryOperation {
+
     /// Optional. An arbitrary operation identifier. Log entries with the
     /// same identifier are assumed to be part of the same operation.
     pub id: std::string::String,
@@ -1787,6 +1736,7 @@ impl wkt::message::Message for LogEntryOperation {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LogEntrySourceLocation {
+
     /// Optional. Source file name. Depending on the runtime environment, this
     /// might be a simple name or a fully-qualified name.
     pub file: std::string::String,
@@ -1858,13 +1808,14 @@ impl wkt::message::Message for LogEntrySourceLocation {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MetricValue {
+
     /// The labels describing the metric value.
     /// See comments on [google.api.servicecontrol.v1.Operation.labels][google.api.servicecontrol.v1.Operation.labels] for
     /// the overriding relationship.
     /// Note that this map must not contain monitored resource labels.
     ///
     /// [google.api.servicecontrol.v1.Operation.labels]: crate::model::Operation::labels
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// The start of the time period over which this metric value's measurement
     /// applies. The time period has different semantics for different metric
@@ -1925,8 +1876,7 @@ impl MetricValue {
     /// let x = MetricValue::new().set_start_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -1942,8 +1892,7 @@ impl MetricValue {
     /// let x = MetricValue::new().set_or_clear_start_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -1958,8 +1907,7 @@ impl MetricValue {
     /// let x = MetricValue::new().set_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -1975,8 +1923,7 @@ impl MetricValue {
     /// let x = MetricValue::new().set_or_clear_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -1993,12 +1940,8 @@ impl MetricValue {
     /// use google_cloud_api_servicecontrol_v1::model::metric_value::Value;
     /// let x = MetricValue::new().set_value(Some(Value::BoolValue(true)));
     /// ```
-    pub fn set_value<
-        T: std::convert::Into<std::option::Option<crate::model::metric_value::Value>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_value<T: std::convert::Into<std::option::Option<crate::model::metric_value::Value>>>(mut self, v: T) -> Self
+    {
         self.value = v.into();
         self
     }
@@ -2031,8 +1974,11 @@ impl MetricValue {
     /// assert!(x.distribution_value().is_none());
     /// ```
     pub fn set_bool_value<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.value =
-            std::option::Option::Some(crate::model::metric_value::Value::BoolValue(v.into()));
+        self.value = std::option::Option::Some(
+            crate::model::metric_value::Value::BoolValue(
+                v.into()
+            )
+        );
         self
     }
 
@@ -2064,8 +2010,11 @@ impl MetricValue {
     /// assert!(x.distribution_value().is_none());
     /// ```
     pub fn set_int64_value<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
-        self.value =
-            std::option::Option::Some(crate::model::metric_value::Value::Int64Value(v.into()));
+        self.value = std::option::Option::Some(
+            crate::model::metric_value::Value::Int64Value(
+                v.into()
+            )
+        );
         self
     }
 
@@ -2097,8 +2046,11 @@ impl MetricValue {
     /// assert!(x.distribution_value().is_none());
     /// ```
     pub fn set_double_value<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
-        self.value =
-            std::option::Option::Some(crate::model::metric_value::Value::DoubleValue(v.into()));
+        self.value = std::option::Option::Some(
+            crate::model::metric_value::Value::DoubleValue(
+                v.into()
+            )
+        );
         self
     }
 
@@ -2130,17 +2082,18 @@ impl MetricValue {
     /// assert!(x.distribution_value().is_none());
     /// ```
     pub fn set_string_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.value =
-            std::option::Option::Some(crate::model::metric_value::Value::StringValue(v.into()));
+        self.value = std::option::Option::Some(
+            crate::model::metric_value::Value::StringValue(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [value][crate::model::MetricValue::value]
     /// if it holds a `DistributionValue`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn distribution_value(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::Distribution>> {
+    pub fn distribution_value(&self) -> std::option::Option<&std::boxed::Box<crate::model::Distribution>> {
         #[allow(unreachable_patterns)]
         self.value.as_ref().and_then(|v| match v {
             crate::model::metric_value::Value::DistributionValue(v) => std::option::Option::Some(v),
@@ -2165,14 +2118,11 @@ impl MetricValue {
     /// assert!(x.double_value().is_none());
     /// assert!(x.string_value().is_none());
     /// ```
-    pub fn set_distribution_value<
-        T: std::convert::Into<std::boxed::Box<crate::model::Distribution>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_distribution_value<T: std::convert::Into<std::boxed::Box<crate::model::Distribution>>>(mut self, v: T) -> Self {
         self.value = std::option::Option::Some(
-            crate::model::metric_value::Value::DistributionValue(v.into()),
+            crate::model::metric_value::Value::DistributionValue(
+                v.into()
+            )
         );
         self
     }
@@ -2188,6 +2138,7 @@ impl wkt::message::Message for MetricValue {
 pub mod metric_value {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The value. The type of value used in the request must
     /// agree with the metric definition in the service configuration, otherwise
@@ -2214,6 +2165,7 @@ pub mod metric_value {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MetricValueSet {
+
     /// The metric name defined in the service configuration.
     pub metric_name: std::string::String,
 
@@ -2255,7 +2207,7 @@ impl MetricValueSet {
     pub fn set_metric_values<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::MetricValue>,
+        V: std::convert::Into<crate::model::MetricValue>
     {
         use std::iter::Iterator;
         self.metric_values = v.into_iter().map(|i| i.into()).collect();
@@ -2273,6 +2225,7 @@ impl wkt::message::Message for MetricValueSet {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Operation {
+
     /// Identity of the operation. This must be unique within the scope of the
     /// service that generated the operation. If the service calls
     /// Check() and Report() on the same operation, the two calls should carry
@@ -2330,7 +2283,7 @@ pub struct Operation {
     ///   - `servicecontrol.googleapis.com/platform` describing the platform
     ///     where the API is served, such as App Engine, Compute Engine, or
     ///     Kubernetes Engine.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Represents information about this operation. Each MetricValueSet
     /// corresponds to a metric defined in the service configuration.
@@ -2406,8 +2359,7 @@ impl Operation {
     /// let x = Operation::new().set_start_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -2423,8 +2375,7 @@ impl Operation {
     /// let x = Operation::new().set_or_clear_start_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -2439,8 +2390,7 @@ impl Operation {
     /// let x = Operation::new().set_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -2456,8 +2406,7 @@ impl Operation {
     /// let x = Operation::new().set_or_clear_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -2499,7 +2448,7 @@ impl Operation {
     pub fn set_metric_value_sets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::MetricValueSet>,
+        V: std::convert::Into<crate::model::MetricValueSet>
     {
         use std::iter::Iterator;
         self.metric_value_sets = v.into_iter().map(|i| i.into()).collect();
@@ -2521,7 +2470,7 @@ impl Operation {
     pub fn set_log_entries<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::LogEntry>,
+        V: std::convert::Into<crate::model::LogEntry>
     {
         use std::iter::Iterator;
         self.log_entries = v.into_iter().map(|i| i.into()).collect();
@@ -2536,10 +2485,7 @@ impl Operation {
     /// use google_cloud_api_servicecontrol_v1::model::operation::Importance;
     /// let x0 = Operation::new().set_importance(Importance::High);
     /// ```
-    pub fn set_importance<T: std::convert::Into<crate::model::operation::Importance>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_importance<T: std::convert::Into<crate::model::operation::Importance>>(mut self, v: T) -> Self {
         self.importance = v.into();
         self
     }
@@ -2559,7 +2505,7 @@ impl Operation {
     pub fn set_extensions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<wkt::Any>,
+        V: std::convert::Into<wkt::Any>
     {
         use std::iter::Iterator;
         self.extensions = v.into_iter().map(|i| i.into()).collect();
@@ -2577,6 +2523,7 @@ impl wkt::message::Message for Operation {
 pub mod operation {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Defines the importance of the data contained in the operation.
     ///
@@ -2662,9 +2609,7 @@ pub mod operation {
             match value {
                 0 => Self::Low,
                 1 => Self::High,
-                _ => Self::UnknownValue(importance::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(importance::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -2675,9 +2620,7 @@ pub mod operation {
             match value {
                 "LOW" => Self::Low,
                 "HIGH" => Self::High,
-                _ => Self::UnknownValue(importance::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(importance::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -2701,8 +2644,7 @@ pub mod operation {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Importance>::new(
-                ".google.api.servicecontrol.v1.Operation.Importance",
-            ))
+                ".google.api.servicecontrol.v1.Operation.Importance"))
         }
     }
 }
@@ -2711,6 +2653,7 @@ pub mod operation {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AllocateQuotaRequest {
+
     /// Name of the service as specified in the service configuration. For example,
     /// `"pubsub.googleapis.com"`.
     ///
@@ -2754,8 +2697,7 @@ impl AllocateQuotaRequest {
     /// let x = AllocateQuotaRequest::new().set_allocate_operation(QuotaOperation::default()/* use setters */);
     /// ```
     pub fn set_allocate_operation<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::QuotaOperation>,
+    where T: std::convert::Into<crate::model::QuotaOperation>
     {
         self.allocate_operation = std::option::Option::Some(v.into());
         self
@@ -2771,8 +2713,7 @@ impl AllocateQuotaRequest {
     /// let x = AllocateQuotaRequest::new().set_or_clear_allocate_operation(None::<QuotaOperation>);
     /// ```
     pub fn set_or_clear_allocate_operation<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::QuotaOperation>,
+    where T: std::convert::Into<crate::model::QuotaOperation>
     {
         self.allocate_operation = v.map(|x| x.into());
         self
@@ -2785,10 +2726,7 @@ impl AllocateQuotaRequest {
     /// # use google_cloud_api_servicecontrol_v1::model::AllocateQuotaRequest;
     /// let x = AllocateQuotaRequest::new().set_service_config_id("example");
     /// ```
-    pub fn set_service_config_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_service_config_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_config_id = v.into();
         self
     }
@@ -2804,6 +2742,7 @@ impl wkt::message::Message for AllocateQuotaRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QuotaOperation {
+
     /// Identity of the operation. This is expected to be unique within the scope
     /// of the service that generated the operation, and guarantees idempotency in
     /// case of retries.
@@ -2836,7 +2775,7 @@ pub struct QuotaOperation {
     pub consumer_id: std::string::String,
 
     /// Labels describing the operation.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Represents information about this operation. Each MetricValueSet
     /// corresponds to a metric defined in the service configuration.
@@ -2935,7 +2874,7 @@ impl QuotaOperation {
     pub fn set_quota_metrics<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::MetricValueSet>,
+        V: std::convert::Into<crate::model::MetricValueSet>
     {
         use std::iter::Iterator;
         self.quota_metrics = v.into_iter().map(|i| i.into()).collect();
@@ -2952,10 +2891,7 @@ impl QuotaOperation {
     /// let x1 = QuotaOperation::new().set_quota_mode(QuotaMode::BestEffort);
     /// let x2 = QuotaOperation::new().set_quota_mode(QuotaMode::CheckOnly);
     /// ```
-    pub fn set_quota_mode<T: std::convert::Into<crate::model::quota_operation::QuotaMode>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_quota_mode<T: std::convert::Into<crate::model::quota_operation::QuotaMode>>(mut self, v: T) -> Self {
         self.quota_mode = v.into();
         self
     }
@@ -2971,6 +2907,7 @@ impl wkt::message::Message for QuotaOperation {
 pub mod quota_operation {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Supported quota modes.
     ///
@@ -3095,9 +3032,7 @@ pub mod quota_operation {
                 3 => Self::CheckOnly,
                 4 => Self::QueryOnly,
                 5 => Self::AdjustOnly,
-                _ => Self::UnknownValue(quota_mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(quota_mode::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -3112,9 +3047,7 @@ pub mod quota_operation {
                 "CHECK_ONLY" => Self::CheckOnly,
                 "QUERY_ONLY" => Self::QueryOnly,
                 "ADJUST_ONLY" => Self::AdjustOnly,
-                _ => Self::UnknownValue(quota_mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(quota_mode::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -3142,8 +3075,7 @@ pub mod quota_operation {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<QuotaMode>::new(
-                ".google.api.servicecontrol.v1.QuotaOperation.QuotaMode",
-            ))
+                ".google.api.servicecontrol.v1.QuotaOperation.QuotaMode"))
         }
     }
 }
@@ -3152,6 +3084,7 @@ pub mod quota_operation {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AllocateQuotaResponse {
+
     /// The same operation_id value used in the AllocateQuotaRequest. Used for
     /// logging and diagnostics purposes.
     pub operation_id: std::string::String,
@@ -3210,7 +3143,7 @@ impl AllocateQuotaResponse {
     pub fn set_allocate_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::QuotaError>,
+        V: std::convert::Into<crate::model::QuotaError>
     {
         use std::iter::Iterator;
         self.allocate_errors = v.into_iter().map(|i| i.into()).collect();
@@ -3232,7 +3165,7 @@ impl AllocateQuotaResponse {
     pub fn set_quota_metrics<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::MetricValueSet>,
+        V: std::convert::Into<crate::model::MetricValueSet>
     {
         use std::iter::Iterator;
         self.quota_metrics = v.into_iter().map(|i| i.into()).collect();
@@ -3246,10 +3179,7 @@ impl AllocateQuotaResponse {
     /// # use google_cloud_api_servicecontrol_v1::model::AllocateQuotaResponse;
     /// let x = AllocateQuotaResponse::new().set_service_config_id("example");
     /// ```
-    pub fn set_service_config_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_service_config_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_config_id = v.into();
         self
     }
@@ -3267,6 +3197,7 @@ impl wkt::message::Message for AllocateQuotaResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QuotaError {
+
     /// Error code.
     pub code: crate::model::quota_error::Code,
 
@@ -3300,10 +3231,7 @@ impl QuotaError {
     /// let x1 = QuotaError::new().set_code(Code::BillingNotActive);
     /// let x2 = QuotaError::new().set_code(Code::ProjectDeleted);
     /// ```
-    pub fn set_code<T: std::convert::Into<crate::model::quota_error::Code>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_code<T: std::convert::Into<crate::model::quota_error::Code>>(mut self, v: T) -> Self {
         self.code = v.into();
         self
     }
@@ -3341,8 +3269,7 @@ impl QuotaError {
     /// let x = QuotaError::new().set_status(Status::default()/* use setters */);
     /// ```
     pub fn set_status<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<rpc::model::Status>,
+    where T: std::convert::Into<rpc::model::Status>
     {
         self.status = std::option::Option::Some(v.into());
         self
@@ -3358,8 +3285,7 @@ impl QuotaError {
     /// let x = QuotaError::new().set_or_clear_status(None::<Status>);
     /// ```
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<rpc::model::Status>,
+    where T: std::convert::Into<rpc::model::Status>
     {
         self.status = v.map(|x| x.into());
         self
@@ -3376,6 +3302,7 @@ impl wkt::message::Message for QuotaError {
 pub mod quota_error {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Error codes related to project config validations are deprecated since the
     /// quota controller methods do not perform these validations. Instead services
@@ -3484,9 +3411,7 @@ pub mod quota_error {
                 107 => Self::BillingNotActive,
                 108 => Self::ProjectDeleted,
                 112 => Self::ApiKeyExpired,
-                _ => Self::UnknownValue(code::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(code::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -3501,9 +3426,7 @@ pub mod quota_error {
                 "PROJECT_DELETED" => Self::ProjectDeleted,
                 "API_KEY_INVALID" => Self::ApiKeyInvalid,
                 "API_KEY_EXPIRED" => Self::ApiKeyExpired,
-                _ => Self::UnknownValue(code::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(code::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -3531,8 +3454,7 @@ pub mod quota_error {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Code>::new(
-                ".google.api.servicecontrol.v1.QuotaError.Code",
-            ))
+                ".google.api.servicecontrol.v1.QuotaError.Code"))
         }
     }
 }
@@ -3541,6 +3463,7 @@ pub mod quota_error {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CheckRequest {
+
     /// The service name as specified in its service configuration. For example,
     /// `"pubsub.googleapis.com"`.
     ///
@@ -3588,8 +3511,7 @@ impl CheckRequest {
     /// let x = CheckRequest::new().set_operation(Operation::default()/* use setters */);
     /// ```
     pub fn set_operation<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Operation>,
+    where T: std::convert::Into<crate::model::Operation>
     {
         self.operation = std::option::Option::Some(v.into());
         self
@@ -3605,8 +3527,7 @@ impl CheckRequest {
     /// let x = CheckRequest::new().set_or_clear_operation(None::<Operation>);
     /// ```
     pub fn set_or_clear_operation<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Operation>,
+    where T: std::convert::Into<crate::model::Operation>
     {
         self.operation = v.map(|x| x.into());
         self
@@ -3619,10 +3540,7 @@ impl CheckRequest {
     /// # use google_cloud_api_servicecontrol_v1::model::CheckRequest;
     /// let x = CheckRequest::new().set_service_config_id("example");
     /// ```
-    pub fn set_service_config_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_service_config_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_config_id = v.into();
         self
     }
@@ -3638,6 +3556,7 @@ impl wkt::message::Message for CheckRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CheckResponse {
+
     /// The same operation_id value used in the
     /// [CheckRequest][google.api.servicecontrol.v1.CheckRequest]. Used for logging
     /// and diagnostics purposes.
@@ -3696,7 +3615,7 @@ impl CheckResponse {
     pub fn set_check_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::CheckError>,
+        V: std::convert::Into<crate::model::CheckError>
     {
         use std::iter::Iterator;
         self.check_errors = v.into_iter().map(|i| i.into()).collect();
@@ -3710,10 +3629,7 @@ impl CheckResponse {
     /// # use google_cloud_api_servicecontrol_v1::model::CheckResponse;
     /// let x = CheckResponse::new().set_service_config_id("example");
     /// ```
-    pub fn set_service_config_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_service_config_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_config_id = v.into();
         self
     }
@@ -3725,10 +3641,7 @@ impl CheckResponse {
     /// # use google_cloud_api_servicecontrol_v1::model::CheckResponse;
     /// let x = CheckResponse::new().set_service_rollout_id("example");
     /// ```
-    pub fn set_service_rollout_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_service_rollout_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_rollout_id = v.into();
         self
     }
@@ -3742,8 +3655,7 @@ impl CheckResponse {
     /// let x = CheckResponse::new().set_check_info(CheckInfo::default()/* use setters */);
     /// ```
     pub fn set_check_info<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::check_response::CheckInfo>,
+    where T: std::convert::Into<crate::model::check_response::CheckInfo>
     {
         self.check_info = std::option::Option::Some(v.into());
         self
@@ -3759,8 +3671,7 @@ impl CheckResponse {
     /// let x = CheckResponse::new().set_or_clear_check_info(None::<CheckInfo>);
     /// ```
     pub fn set_or_clear_check_info<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::check_response::CheckInfo>,
+    where T: std::convert::Into<crate::model::check_response::CheckInfo>
     {
         self.check_info = v.map(|x| x.into());
         self
@@ -3778,10 +3689,12 @@ pub mod check_response {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Contains additional information about the check operation.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CheckInfo {
+
         /// A list of fields and label keys that are ignored by the server.
         /// The client doesn't need to send them for following requests to improve
         /// performance and allow better aggregation.
@@ -3813,7 +3726,7 @@ pub mod check_response {
         pub fn set_unused_arguments<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.unused_arguments = v.into_iter().map(|i| i.into()).collect();
@@ -3829,8 +3742,7 @@ pub mod check_response {
         /// let x = CheckInfo::new().set_consumer_info(ConsumerInfo::default()/* use setters */);
         /// ```
         pub fn set_consumer_info<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::check_response::ConsumerInfo>,
+        where T: std::convert::Into<crate::model::check_response::ConsumerInfo>
         {
             self.consumer_info = std::option::Option::Some(v.into());
             self
@@ -3846,8 +3758,7 @@ pub mod check_response {
         /// let x = CheckInfo::new().set_or_clear_consumer_info(None::<ConsumerInfo>);
         /// ```
         pub fn set_or_clear_consumer_info<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::check_response::ConsumerInfo>,
+        where T: std::convert::Into<crate::model::check_response::ConsumerInfo>
         {
             self.consumer_info = v.map(|x| x.into());
             self
@@ -3876,6 +3787,7 @@ pub mod check_response {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ConsumerInfo {
+
         /// The Google cloud project number, e.g. 1234567890. A value of 0 indicates
         /// no project number is found.
         ///
@@ -3922,12 +3834,7 @@ pub mod check_response {
         /// let x1 = ConsumerInfo::new().set_type(ConsumerType::Folder);
         /// let x2 = ConsumerInfo::new().set_type(ConsumerType::Organization);
         /// ```
-        pub fn set_type<
-            T: std::convert::Into<crate::model::check_response::consumer_info::ConsumerType>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_type<T: std::convert::Into<crate::model::check_response::consumer_info::ConsumerType>>(mut self, v: T) -> Self {
             self.r#type = v.into();
             self
         }
@@ -3955,6 +3862,7 @@ pub mod check_response {
     pub mod consumer_info {
         #[allow(unused_imports)]
         use super::*;
+
 
         /// The type of the consumer as defined in
         /// [Google Resource Manager](https://cloud.google.com/resource-manager/).
@@ -4042,10 +3950,7 @@ pub mod check_response {
         }
 
         impl std::fmt::Display for ConsumerType {
-            fn fmt(
-                &self,
-                f: &mut std::fmt::Formatter<'_>,
-            ) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -4058,9 +3963,7 @@ pub mod check_response {
                     2 => Self::Folder,
                     3 => Self::Organization,
                     4 => Self::ServiceSpecific,
-                    _ => Self::UnknownValue(consumer_type::UnknownValue(
-                        wkt::internal::UnknownEnumValue::Integer(value),
-                    )),
+                    _ => Self::UnknownValue(consumer_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
                 }
             }
         }
@@ -4074,9 +3977,7 @@ pub mod check_response {
                     "FOLDER" => Self::Folder,
                     "ORGANIZATION" => Self::Organization,
                     "SERVICE_SPECIFIC" => Self::ServiceSpecific,
-                    _ => Self::UnknownValue(consumer_type::UnknownValue(
-                        wkt::internal::UnknownEnumValue::String(value.to_string()),
-                    )),
+                    _ => Self::UnknownValue(consumer_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
                 }
             }
         }
@@ -4103,8 +4004,7 @@ pub mod check_response {
                 D: serde::Deserializer<'de>,
             {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<ConsumerType>::new(
-                    ".google.api.servicecontrol.v1.CheckResponse.ConsumerInfo.ConsumerType",
-                ))
+                    ".google.api.servicecontrol.v1.CheckResponse.ConsumerInfo.ConsumerType"))
             }
         }
     }
@@ -4114,6 +4014,7 @@ pub mod check_response {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReportRequest {
+
     /// The service name as specified in its service configuration. For example,
     /// `"pubsub.googleapis.com"`.
     ///
@@ -4179,7 +4080,7 @@ impl ReportRequest {
     pub fn set_operations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Operation>,
+        V: std::convert::Into<crate::model::Operation>
     {
         use std::iter::Iterator;
         self.operations = v.into_iter().map(|i| i.into()).collect();
@@ -4193,10 +4094,7 @@ impl ReportRequest {
     /// # use google_cloud_api_servicecontrol_v1::model::ReportRequest;
     /// let x = ReportRequest::new().set_service_config_id("example");
     /// ```
-    pub fn set_service_config_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_service_config_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_config_id = v.into();
         self
     }
@@ -4212,6 +4110,7 @@ impl wkt::message::Message for ReportRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReportResponse {
+
     /// Partial failures, one for each `Operation` in the request that failed
     /// processing. There are three possible combinations of the RPC status:
     ///
@@ -4257,7 +4156,7 @@ impl ReportResponse {
     pub fn set_report_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::report_response::ReportError>,
+        V: std::convert::Into<crate::model::report_response::ReportError>
     {
         use std::iter::Iterator;
         self.report_errors = v.into_iter().map(|i| i.into()).collect();
@@ -4271,10 +4170,7 @@ impl ReportResponse {
     /// # use google_cloud_api_servicecontrol_v1::model::ReportResponse;
     /// let x = ReportResponse::new().set_service_config_id("example");
     /// ```
-    pub fn set_service_config_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_service_config_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_config_id = v.into();
         self
     }
@@ -4286,10 +4182,7 @@ impl ReportResponse {
     /// # use google_cloud_api_servicecontrol_v1::model::ReportResponse;
     /// let x = ReportResponse::new().set_service_rollout_id("example");
     /// ```
-    pub fn set_service_rollout_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_service_rollout_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_rollout_id = v.into();
         self
     }
@@ -4306,6 +4199,7 @@ pub mod report_response {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Represents the processing error of one
     /// [Operation][google.api.servicecontrol.v1.Operation] in the request.
     ///
@@ -4313,6 +4207,7 @@ pub mod report_response {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ReportError {
+
         /// The
         /// [Operation.operation_id][google.api.servicecontrol.v1.Operation.operation_id]
         /// value from the request.
@@ -4341,10 +4236,7 @@ pub mod report_response {
         /// # use google_cloud_api_servicecontrol_v1::model::report_response::ReportError;
         /// let x = ReportError::new().set_operation_id("example");
         /// ```
-        pub fn set_operation_id<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_operation_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.operation_id = v.into();
             self
         }
@@ -4358,8 +4250,7 @@ pub mod report_response {
         /// let x = ReportError::new().set_status(Status::default()/* use setters */);
         /// ```
         pub fn set_status<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<rpc::model::Status>,
+        where T: std::convert::Into<rpc::model::Status>
         {
             self.status = std::option::Option::Some(v.into());
             self
@@ -4375,8 +4266,7 @@ pub mod report_response {
         /// let x = ReportError::new().set_or_clear_status(None::<Status>);
         /// ```
         pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<rpc::model::Status>,
+        where T: std::convert::Into<rpc::model::Status>
         {
             self.status = v.map(|x| x.into());
             self

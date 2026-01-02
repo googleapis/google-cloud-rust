@@ -38,6 +38,7 @@ impl std::fmt::Debug for super::Endpoint {
     }
 }
 
+
 impl std::fmt::Debug for super::ListEndpointsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListEndpointsRequest");

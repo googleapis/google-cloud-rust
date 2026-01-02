@@ -18,34 +18,26 @@ use crate::Result;
 /// Implements a [ClientConnectorServicesService](super::stub::ClientConnectorServicesService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct ClientConnectorServicesService<T>
-where
-    T: super::stub::ClientConnectorServicesService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ClientConnectorServicesService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> ClientConnectorServicesService<T>
-where
-    T: super::stub::ClientConnectorServicesService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ClientConnectorServicesService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::ClientConnectorServicesService for ClientConnectorServicesService<T>
-where
-    T: super::stub::ClientConnectorServicesService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ClientConnectorServicesService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn list_client_connector_services(
         &self,
         req: crate::model::ListClientConnectorServicesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListClientConnectorServicesResponse>> {
-        self.inner
-            .list_client_connector_services(req, options)
-            .await
+        self.inner.list_client_connector_services(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -63,9 +55,7 @@ where
         req: crate::model::CreateClientConnectorServiceRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        self.inner
-            .create_client_connector_service(req, options)
-            .await
+        self.inner.create_client_connector_service(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -74,9 +64,7 @@ where
         req: crate::model::UpdateClientConnectorServiceRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        self.inner
-            .update_client_connector_service(req, options)
-            .await
+        self.inner.update_client_connector_service(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -85,9 +73,7 @@ where
         req: crate::model::DeleteClientConnectorServiceRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        self.inner
-            .delete_client_connector_service(req, options)
-            .await
+        self.inner.delete_client_connector_service(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -171,6 +157,7 @@ where
         self.inner.cancel_operation(req, options).await
     }
 
+
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -185,3 +172,4 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 }
+

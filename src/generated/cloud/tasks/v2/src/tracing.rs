@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [CloudTasks](super::stub::CloudTasks) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct CloudTasks<T>
-where
-    T: super::stub::CloudTasks + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::CloudTasks + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> CloudTasks<T>
-where
-    T: super::stub::CloudTasks + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::CloudTasks + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::CloudTasks for CloudTasks<T>
-where
-    T: super::stub::CloudTasks + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::CloudTasks + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn list_queues(
         &self,
@@ -198,4 +192,6 @@ where
     ) -> Result<gax::response::Response<location::model::Location>> {
         self.inner.get_location(req, options).await
     }
+
 }
+

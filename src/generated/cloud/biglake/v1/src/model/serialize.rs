@@ -23,9 +23,9 @@ impl serde::ser::Serialize for super::RegisterIcebergTableRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -54,9 +54,9 @@ impl serde::ser::Serialize for super::IcebergCatalog {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -97,9 +97,9 @@ impl serde::ser::Serialize for super::CreateIcebergCatalogRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -125,9 +125,9 @@ impl serde::ser::Serialize for super::DeleteIcebergCatalogRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -147,9 +147,9 @@ impl serde::ser::Serialize for super::UpdateIcebergCatalogRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.iceberg_catalog.is_some() {
             state.serialize_entry("icebergCatalog", &self.iceberg_catalog)?;
@@ -172,9 +172,9 @@ impl serde::ser::Serialize for super::GetIcebergCatalogRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -194,9 +194,9 @@ impl serde::ser::Serialize for super::ListIcebergCatalogsRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -234,9 +234,9 @@ impl serde::ser::Serialize for super::ListIcebergCatalogsResponse {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.iceberg_catalogs.is_empty() {
             state.serialize_entry("iceberg-catalogs", &self.iceberg_catalogs)?;
@@ -262,9 +262,9 @@ impl serde::ser::Serialize for super::FailoverIcebergCatalogRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -276,10 +276,7 @@ impl serde::ser::Serialize for super::FailoverIcebergCatalogRequest {
             state.serialize_entry("validateOnly", &self.validate_only)?;
         }
         if self.conditional_failover_replication_time.is_some() {
-            state.serialize_entry(
-                "conditionalFailoverReplicationTime",
-                &self.conditional_failover_replication_time,
-            )?;
+            state.serialize_entry("conditionalFailoverReplicationTime", &self.conditional_failover_replication_time)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -296,9 +293,9 @@ impl serde::ser::Serialize for super::FailoverIcebergCatalogResponse {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.replication_time.is_some() {
             state.serialize_entry("replicationTime", &self.replication_time)?;
@@ -318,9 +315,9 @@ impl serde::ser::Serialize for super::UpdateIcebergTableRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -343,9 +340,9 @@ impl serde::ser::Serialize for super::GetIcebergTableRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -368,9 +365,9 @@ impl serde::ser::Serialize for super::DeleteIcebergTableRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -393,9 +390,9 @@ impl serde::ser::Serialize for super::CreateIcebergTableRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -418,9 +415,9 @@ impl serde::ser::Serialize for super::ListIcebergTableIdentifiersRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.page_token.is_empty() {
             state.serialize_entry("pageToken", &self.page_token)?;
@@ -455,9 +452,9 @@ impl serde::ser::Serialize for super::TableIdentifier {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.namespace.is_empty() {
             state.serialize_entry("namespace", &self.namespace)?;
@@ -480,9 +477,9 @@ impl serde::ser::Serialize for super::ListIcebergTableIdentifiersResponse {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.identifiers.is_empty() {
             state.serialize_entry("identifiers", &self.identifiers)?;
@@ -505,9 +502,9 @@ impl serde::ser::Serialize for super::IcebergNamespaceUpdate {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.removals.is_empty() {
             state.serialize_entry("removals", &self.removals)?;
@@ -530,9 +527,9 @@ impl serde::ser::Serialize for super::UpdateIcebergNamespaceRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -555,9 +552,9 @@ impl serde::ser::Serialize for super::UpdateIcebergNamespaceResponse {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.removed.is_empty() {
             state.serialize_entry("removed", &self.removed)?;
@@ -583,9 +580,9 @@ impl serde::ser::Serialize for super::DeleteIcebergNamespaceRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -605,9 +602,9 @@ impl serde::ser::Serialize for super::IcebergNamespace {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.namespace.is_empty() {
             state.serialize_entry("namespace", &self.namespace)?;
@@ -630,9 +627,9 @@ impl serde::ser::Serialize for super::CreateIcebergNamespaceRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -655,9 +652,9 @@ impl serde::ser::Serialize for super::GetIcebergCatalogConfigRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.warehouse.is_empty() {
             state.serialize_entry("warehouse", &self.warehouse)?;
@@ -677,9 +674,9 @@ impl serde::ser::Serialize for super::IcebergCatalogConfig {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.overrides.is_empty() {
             state.serialize_entry("overrides", &self.overrides)?;
@@ -705,9 +702,9 @@ impl serde::ser::Serialize for super::GetIcebergNamespaceRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -727,9 +724,9 @@ impl serde::ser::Serialize for super::ListIcebergNamespacesRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.page_token.is_empty() {
             state.serialize_entry("pageToken", &self.page_token)?;
@@ -767,9 +764,9 @@ impl serde::ser::Serialize for super::ListIcebergNamespacesResponse {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.namespaces.is_empty() {
             state.serialize_entry("namespaces", &self.namespaces)?;
@@ -792,9 +789,9 @@ impl serde::ser::Serialize for super::StorageCredential {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.prefix.is_empty() {
             state.serialize_entry("prefix", &self.prefix)?;
@@ -817,9 +814,9 @@ impl serde::ser::Serialize for super::LoadIcebergTableCredentialsResponse {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.storage_credentials.is_empty() {
             state.serialize_entry("storage-credentials", &self.storage_credentials)?;

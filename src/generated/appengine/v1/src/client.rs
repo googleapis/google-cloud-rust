@@ -80,46 +80,49 @@ impl Applications {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::Applications + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::Applications + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Applications>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Applications>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Applications> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Applications> {
         super::transport::Applications::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Applications> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::Applications::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Applications> {
+        Self::build_transport(conf).await.map(super::tracing::Applications::new)
     }
 
     /// Gets information about an application.
-    pub fn get_application(&self) -> super::builder::applications::GetApplication {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Applications;
+    /// async fn sample(
+    ///    client: &Applications
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_application()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_application(&self) -> super::builder::applications::GetApplication
+    {
         super::builder::applications::GetApplication::new(self.inner.clone())
     }
 
@@ -140,7 +143,8 @@ impl Applications {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_application(&self) -> super::builder::applications::CreateApplication {
+    pub fn create_application(&self) -> super::builder::applications::CreateApplication
+    {
         super::builder::applications::CreateApplication::new(self.inner.clone())
     }
 
@@ -160,7 +164,8 @@ impl Applications {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_application(&self) -> super::builder::applications::UpdateApplication {
+    pub fn update_application(&self) -> super::builder::applications::UpdateApplication
+    {
         super::builder::applications::UpdateApplication::new(self.inner.clone())
     }
 
@@ -184,21 +189,40 @@ impl Applications {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn repair_application(&self) -> super::builder::applications::RepairApplication {
+    pub fn repair_application(&self) -> super::builder::applications::RepairApplication
+    {
         super::builder::applications::RepairApplication::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::applications::ListOperations {
+    pub fn list_operations(&self) -> super::builder::applications::ListOperations
+    {
         super::builder::applications::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::applications::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Applications;
+    /// async fn sample(
+    ///    client: &Applications
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::applications::GetOperation
+    {
         super::builder::applications::GetOperation::new(self.inner.clone())
     }
 }
@@ -267,51 +291,55 @@ impl Services {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::Services + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::Services + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Services>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Services>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Services> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Services> {
         super::transport::Services::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Services> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::Services::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Services> {
+        Self::build_transport(conf).await.map(super::tracing::Services::new)
     }
 
     /// Lists all the services in the application.
-    pub fn list_services(&self) -> super::builder::services::ListServices {
+    pub fn list_services(&self) -> super::builder::services::ListServices
+    {
         super::builder::services::ListServices::new(self.inner.clone())
     }
 
     /// Gets the current configuration of the specified service.
-    pub fn get_service(&self) -> super::builder::services::GetService {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Services;
+    /// async fn sample(
+    ///    client: &Services
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_service()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_service(&self) -> super::builder::services::GetService
+    {
         super::builder::services::GetService::new(self.inner.clone())
     }
 
@@ -326,7 +354,8 @@ impl Services {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_service(&self) -> super::builder::services::UpdateService {
+    pub fn update_service(&self) -> super::builder::services::UpdateService
+    {
         super::builder::services::UpdateService::new(self.inner.clone())
     }
 
@@ -341,21 +370,40 @@ impl Services {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_service(&self) -> super::builder::services::DeleteService {
+    pub fn delete_service(&self) -> super::builder::services::DeleteService
+    {
         super::builder::services::DeleteService::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::services::ListOperations {
+    pub fn list_operations(&self) -> super::builder::services::ListOperations
+    {
         super::builder::services::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::services::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Services;
+    /// async fn sample(
+    ///    client: &Services
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::services::GetOperation
+    {
         super::builder::services::GetOperation::new(self.inner.clone())
     }
 }
@@ -424,53 +472,57 @@ impl Versions {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::Versions + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::Versions + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Versions>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Versions>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Versions> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Versions> {
         super::transport::Versions::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Versions> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::Versions::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Versions> {
+        Self::build_transport(conf).await.map(super::tracing::Versions::new)
     }
 
     /// Lists the versions of a service.
-    pub fn list_versions(&self) -> super::builder::versions::ListVersions {
+    pub fn list_versions(&self) -> super::builder::versions::ListVersions
+    {
         super::builder::versions::ListVersions::new(self.inner.clone())
     }
 
     /// Gets the specified Version resource.
     /// By default, only a `BASIC_VIEW` will be returned.
     /// Specify the `FULL_VIEW` parameter to get the full resource.
-    pub fn get_version(&self) -> super::builder::versions::GetVersion {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Versions;
+    /// async fn sample(
+    ///    client: &Versions
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_version()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_version(&self) -> super::builder::versions::GetVersion
+    {
         super::builder::versions::GetVersion::new(self.inner.clone())
     }
 
@@ -485,7 +537,8 @@ impl Versions {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_version(&self) -> super::builder::versions::CreateVersion {
+    pub fn create_version(&self) -> super::builder::versions::CreateVersion
+    {
         super::builder::versions::CreateVersion::new(self.inner.clone())
     }
 
@@ -535,7 +588,8 @@ impl Versions {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_version(&self) -> super::builder::versions::UpdateVersion {
+    pub fn update_version(&self) -> super::builder::versions::UpdateVersion
+    {
         super::builder::versions::UpdateVersion::new(self.inner.clone())
     }
 
@@ -550,21 +604,40 @@ impl Versions {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_version(&self) -> super::builder::versions::DeleteVersion {
+    pub fn delete_version(&self) -> super::builder::versions::DeleteVersion
+    {
         super::builder::versions::DeleteVersion::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::versions::ListOperations {
+    pub fn list_operations(&self) -> super::builder::versions::ListOperations
+    {
         super::builder::versions::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::versions::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Versions;
+    /// async fn sample(
+    ///    client: &Versions
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::versions::GetOperation
+    {
         super::builder::versions::GetOperation::new(self.inner.clone())
     }
 }
@@ -633,54 +706,58 @@ impl Instances {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::Instances + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::Instances + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Instances>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Instances>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Instances> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Instances> {
         super::transport::Instances::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Instances> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::Instances::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Instances> {
+        Self::build_transport(conf).await.map(super::tracing::Instances::new)
     }
 
     /// Lists the instances of a version.
     ///
     /// Tip: To aggregate details about instances over time, see the
     /// [Stackdriver Monitoring API](https://cloud.google.com/monitoring/api/ref_v3/rest/v3/projects.timeSeries/list).
-    pub fn list_instances(&self) -> super::builder::instances::ListInstances {
+    pub fn list_instances(&self) -> super::builder::instances::ListInstances
+    {
         super::builder::instances::ListInstances::new(self.inner.clone())
     }
 
     /// Gets instance information.
-    pub fn get_instance(&self) -> super::builder::instances::GetInstance {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Instances;
+    /// async fn sample(
+    ///    client: &Instances
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_instance()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_instance(&self) -> super::builder::instances::GetInstance
+    {
         super::builder::instances::GetInstance::new(self.inner.clone())
     }
 
@@ -706,7 +783,8 @@ impl Instances {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_instance(&self) -> super::builder::instances::DeleteInstance {
+    pub fn delete_instance(&self) -> super::builder::instances::DeleteInstance
+    {
         super::builder::instances::DeleteInstance::new(self.inner.clone())
     }
 
@@ -728,21 +806,40 @@ impl Instances {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn debug_instance(&self) -> super::builder::instances::DebugInstance {
+    pub fn debug_instance(&self) -> super::builder::instances::DebugInstance
+    {
         super::builder::instances::DebugInstance::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::instances::ListOperations {
+    pub fn list_operations(&self) -> super::builder::instances::ListOperations
+    {
         super::builder::instances::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::instances::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Instances;
+    /// async fn sample(
+    ///    client: &Instances
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::instances::GetOperation
+    {
         super::builder::instances::GetOperation::new(self.inner.clone())
     }
 }
@@ -820,46 +917,33 @@ impl Firewall {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::Firewall + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::Firewall + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Firewall>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Firewall>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Firewall> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Firewall> {
         super::transport::Firewall::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Firewall> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::Firewall::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Firewall> {
+        Self::build_transport(conf).await.map(super::tracing::Firewall::new)
     }
 
     /// Lists the firewall rules of an application.
-    pub fn list_ingress_rules(&self) -> super::builder::firewall::ListIngressRules {
+    pub fn list_ingress_rules(&self) -> super::builder::firewall::ListIngressRules
+    {
         super::builder::firewall::ListIngressRules::new(self.inner.clone())
     }
 
@@ -868,41 +952,143 @@ impl Firewall {
     ///
     /// If the final rule does not match traffic with the '*' wildcard IP range,
     /// then an "allow all" rule is explicitly added to the end of the list.
-    pub fn batch_update_ingress_rules(&self) -> super::builder::firewall::BatchUpdateIngressRules {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Firewall;
+    /// async fn sample(
+    ///    client: &Firewall
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .batch_update_ingress_rules()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn batch_update_ingress_rules(&self) -> super::builder::firewall::BatchUpdateIngressRules
+    {
         super::builder::firewall::BatchUpdateIngressRules::new(self.inner.clone())
     }
 
     /// Creates a firewall rule for the application.
-    pub fn create_ingress_rule(&self) -> super::builder::firewall::CreateIngressRule {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Firewall;
+    /// async fn sample(
+    ///    client: &Firewall
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_ingress_rule()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_ingress_rule(&self) -> super::builder::firewall::CreateIngressRule
+    {
         super::builder::firewall::CreateIngressRule::new(self.inner.clone())
     }
 
     /// Gets the specified firewall rule.
-    pub fn get_ingress_rule(&self) -> super::builder::firewall::GetIngressRule {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Firewall;
+    /// async fn sample(
+    ///    client: &Firewall
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_ingress_rule()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_ingress_rule(&self) -> super::builder::firewall::GetIngressRule
+    {
         super::builder::firewall::GetIngressRule::new(self.inner.clone())
     }
 
     /// Updates the specified firewall rule.
-    pub fn update_ingress_rule(&self) -> super::builder::firewall::UpdateIngressRule {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Firewall;
+    /// async fn sample(
+    ///    client: &Firewall
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_ingress_rule()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_ingress_rule(&self) -> super::builder::firewall::UpdateIngressRule
+    {
         super::builder::firewall::UpdateIngressRule::new(self.inner.clone())
     }
 
     /// Deletes the specified firewall rule.
-    pub fn delete_ingress_rule(&self) -> super::builder::firewall::DeleteIngressRule {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Firewall;
+    /// async fn sample(
+    ///    client: &Firewall
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_ingress_rule()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_ingress_rule(&self) -> super::builder::firewall::DeleteIngressRule
+    {
         super::builder::firewall::DeleteIngressRule::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::firewall::ListOperations {
+    pub fn list_operations(&self) -> super::builder::firewall::ListOperations
+    {
         super::builder::firewall::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::firewall::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Firewall;
+    /// async fn sample(
+    ///    client: &Firewall
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::firewall::GetOperation
+    {
         super::builder::firewall::GetOperation::new(self.inner.clone())
     }
 }
@@ -965,9 +1151,7 @@ impl AuthorizedDomains {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::authorized_domains::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::authorized_domains::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::authorized_domains::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -975,63 +1159,65 @@ impl AuthorizedDomains {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::AuthorizedDomains + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::AuthorizedDomains + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::AuthorizedDomains>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::AuthorizedDomains>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::AuthorizedDomains> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::AuthorizedDomains> {
         super::transport::AuthorizedDomains::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::AuthorizedDomains> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::AuthorizedDomains::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::AuthorizedDomains> {
+        Self::build_transport(conf).await.map(super::tracing::AuthorizedDomains::new)
     }
 
     /// Lists all domains the user is authorized to administer.
-    pub fn list_authorized_domains(
-        &self,
-    ) -> super::builder::authorized_domains::ListAuthorizedDomains {
+    pub fn list_authorized_domains(&self) -> super::builder::authorized_domains::ListAuthorizedDomains
+    {
         super::builder::authorized_domains::ListAuthorizedDomains::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::authorized_domains::ListOperations {
+    pub fn list_operations(&self) -> super::builder::authorized_domains::ListOperations
+    {
         super::builder::authorized_domains::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::authorized_domains::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::AuthorizedDomains;
+    /// async fn sample(
+    ///    client: &AuthorizedDomains
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::authorized_domains::GetOperation
+    {
         super::builder::authorized_domains::GetOperation::new(self.inner.clone())
     }
 }
@@ -1093,9 +1279,7 @@ impl AuthorizedCertificates {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::authorized_certificates::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::authorized_certificates::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::authorized_certificates::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -1103,66 +1287,78 @@ impl AuthorizedCertificates {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::AuthorizedCertificates + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::AuthorizedCertificates + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::AuthorizedCertificates>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::AuthorizedCertificates>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::AuthorizedCertificates> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::AuthorizedCertificates> {
         super::transport::AuthorizedCertificates::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::AuthorizedCertificates> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::AuthorizedCertificates::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::AuthorizedCertificates> {
+        Self::build_transport(conf).await.map(super::tracing::AuthorizedCertificates::new)
     }
 
     /// Lists all SSL certificates the user is authorized to administer.
-    pub fn list_authorized_certificates(
-        &self,
-    ) -> super::builder::authorized_certificates::ListAuthorizedCertificates {
+    pub fn list_authorized_certificates(&self) -> super::builder::authorized_certificates::ListAuthorizedCertificates
+    {
         super::builder::authorized_certificates::ListAuthorizedCertificates::new(self.inner.clone())
     }
 
     /// Gets the specified SSL certificate.
-    pub fn get_authorized_certificate(
-        &self,
-    ) -> super::builder::authorized_certificates::GetAuthorizedCertificate {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::AuthorizedCertificates;
+    /// async fn sample(
+    ///    client: &AuthorizedCertificates
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_authorized_certificate()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_authorized_certificate(&self) -> super::builder::authorized_certificates::GetAuthorizedCertificate
+    {
         super::builder::authorized_certificates::GetAuthorizedCertificate::new(self.inner.clone())
     }
 
     /// Uploads the specified SSL certificate.
-    pub fn create_authorized_certificate(
-        &self,
-    ) -> super::builder::authorized_certificates::CreateAuthorizedCertificate {
-        super::builder::authorized_certificates::CreateAuthorizedCertificate::new(
-            self.inner.clone(),
-        )
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::AuthorizedCertificates;
+    /// async fn sample(
+    ///    client: &AuthorizedCertificates
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_authorized_certificate()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_authorized_certificate(&self) -> super::builder::authorized_certificates::CreateAuthorizedCertificate
+    {
+        super::builder::authorized_certificates::CreateAuthorizedCertificate::new(self.inner.clone())
     }
 
     /// Updates the specified SSL certificate. To renew a certificate and maintain
@@ -1170,34 +1366,77 @@ impl AuthorizedCertificates {
     /// certificate. The new certificate must be applicable to the same domains as
     /// the original certificate. The certificate `display_name` may also be
     /// updated.
-    pub fn update_authorized_certificate(
-        &self,
-    ) -> super::builder::authorized_certificates::UpdateAuthorizedCertificate {
-        super::builder::authorized_certificates::UpdateAuthorizedCertificate::new(
-            self.inner.clone(),
-        )
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::AuthorizedCertificates;
+    /// async fn sample(
+    ///    client: &AuthorizedCertificates
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_authorized_certificate()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_authorized_certificate(&self) -> super::builder::authorized_certificates::UpdateAuthorizedCertificate
+    {
+        super::builder::authorized_certificates::UpdateAuthorizedCertificate::new(self.inner.clone())
     }
 
     /// Deletes the specified SSL certificate.
-    pub fn delete_authorized_certificate(
-        &self,
-    ) -> super::builder::authorized_certificates::DeleteAuthorizedCertificate {
-        super::builder::authorized_certificates::DeleteAuthorizedCertificate::new(
-            self.inner.clone(),
-        )
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::AuthorizedCertificates;
+    /// async fn sample(
+    ///    client: &AuthorizedCertificates
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_authorized_certificate()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_authorized_certificate(&self) -> super::builder::authorized_certificates::DeleteAuthorizedCertificate
+    {
+        super::builder::authorized_certificates::DeleteAuthorizedCertificate::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::authorized_certificates::ListOperations {
+    pub fn list_operations(&self) -> super::builder::authorized_certificates::ListOperations
+    {
         super::builder::authorized_certificates::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::authorized_certificates::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::AuthorizedCertificates;
+    /// async fn sample(
+    ///    client: &AuthorizedCertificates
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::authorized_certificates::GetOperation
+    {
         super::builder::authorized_certificates::GetOperation::new(self.inner.clone())
     }
 }
@@ -1266,51 +1505,55 @@ impl DomainMappings {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::DomainMappings + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::DomainMappings + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::DomainMappings>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::DomainMappings>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::DomainMappings> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::DomainMappings> {
         super::transport::DomainMappings::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::DomainMappings> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::DomainMappings::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::DomainMappings> {
+        Self::build_transport(conf).await.map(super::tracing::DomainMappings::new)
     }
 
     /// Lists the domain mappings on an application.
-    pub fn list_domain_mappings(&self) -> super::builder::domain_mappings::ListDomainMappings {
+    pub fn list_domain_mappings(&self) -> super::builder::domain_mappings::ListDomainMappings
+    {
         super::builder::domain_mappings::ListDomainMappings::new(self.inner.clone())
     }
 
     /// Gets the specified domain mapping.
-    pub fn get_domain_mapping(&self) -> super::builder::domain_mappings::GetDomainMapping {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::DomainMappings;
+    /// async fn sample(
+    ///    client: &DomainMappings
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_domain_mapping()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_domain_mapping(&self) -> super::builder::domain_mappings::GetDomainMapping
+    {
         super::builder::domain_mappings::GetDomainMapping::new(self.inner.clone())
     }
 
@@ -1327,7 +1570,8 @@ impl DomainMappings {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_domain_mapping(&self) -> super::builder::domain_mappings::CreateDomainMapping {
+    pub fn create_domain_mapping(&self) -> super::builder::domain_mappings::CreateDomainMapping
+    {
         super::builder::domain_mappings::CreateDomainMapping::new(self.inner.clone())
     }
 
@@ -1345,7 +1589,8 @@ impl DomainMappings {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_domain_mapping(&self) -> super::builder::domain_mappings::UpdateDomainMapping {
+    pub fn update_domain_mapping(&self) -> super::builder::domain_mappings::UpdateDomainMapping
+    {
         super::builder::domain_mappings::UpdateDomainMapping::new(self.inner.clone())
     }
 
@@ -1362,21 +1607,40 @@ impl DomainMappings {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_domain_mapping(&self) -> super::builder::domain_mappings::DeleteDomainMapping {
+    pub fn delete_domain_mapping(&self) -> super::builder::domain_mappings::DeleteDomainMapping
+    {
         super::builder::domain_mappings::DeleteDomainMapping::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::domain_mappings::ListOperations {
+    pub fn list_operations(&self) -> super::builder::domain_mappings::ListOperations
+    {
         super::builder::domain_mappings::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::domain_mappings::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::DomainMappings;
+    /// async fn sample(
+    ///    client: &DomainMappings
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::domain_mappings::GetOperation
+    {
         super::builder::domain_mappings::GetOperation::new(self.inner.clone())
     }
 }

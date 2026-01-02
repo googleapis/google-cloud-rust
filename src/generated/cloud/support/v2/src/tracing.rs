@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [CaseAttachmentService](super::stub::CaseAttachmentService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct CaseAttachmentService<T>
-where
-    T: super::stub::CaseAttachmentService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::CaseAttachmentService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> CaseAttachmentService<T>
-where
-    T: super::stub::CaseAttachmentService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::CaseAttachmentService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::CaseAttachmentService for CaseAttachmentService<T>
-where
-    T: super::stub::CaseAttachmentService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::CaseAttachmentService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn list_attachments(
         &self,
@@ -45,30 +39,25 @@ where
     ) -> Result<gax::response::Response<crate::model::ListAttachmentsResponse>> {
         self.inner.list_attachments(req, options).await
     }
+
 }
 
 /// Implements a [CaseService](super::stub::CaseService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct CaseService<T>
-where
-    T: super::stub::CaseService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::CaseService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> CaseService<T>
-where
-    T: super::stub::CaseService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::CaseService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::CaseService for CaseService<T>
-where
-    T: super::stub::CaseService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::CaseService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn get_case(
         &self,
@@ -140,30 +129,25 @@ where
     ) -> Result<gax::response::Response<crate::model::SearchCaseClassificationsResponse>> {
         self.inner.search_case_classifications(req, options).await
     }
+
 }
 
 /// Implements a [CommentService](super::stub::CommentService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct CommentService<T>
-where
-    T: super::stub::CommentService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::CommentService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> CommentService<T>
-where
-    T: super::stub::CommentService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::CommentService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::CommentService for CommentService<T>
-where
-    T: super::stub::CommentService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::CommentService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn list_comments(
         &self,
@@ -181,4 +165,6 @@ where
     ) -> Result<gax::response::Response<crate::model::Comment>> {
         self.inner.create_comment(req, options).await
     }
+
 }
+

@@ -39,10 +39,7 @@ pub mod security_center {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = SecurityCenter;
             type Credentials = gaxi::options::Credentials;
-            async fn build(
-                self,
-                config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -57,12 +54,8 @@ pub mod security_center {
     }
 
     impl<R> RequestBuilder<R>
-    where
-        R: std::default::Default,
-    {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
-        ) -> Self {
+    where R: std::default::Default {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -89,22 +82,17 @@ pub mod security_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct BatchCreateResourceValueConfigs(
-        RequestBuilder<crate::model::BatchCreateResourceValueConfigsRequest>,
-    );
+    pub struct BatchCreateResourceValueConfigs(RequestBuilder<crate::model::BatchCreateResourceValueConfigsRequest>);
 
     impl BatchCreateResourceValueConfigs {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::BatchCreateResourceValueConfigsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::BatchCreateResourceValueConfigsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -117,10 +105,7 @@ pub mod security_center {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::BatchCreateResourceValueConfigsResponse> {
-            (*self.0.stub)
-                .batch_create_resource_value_configs(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).batch_create_resource_value_configs(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::BatchCreateResourceValueConfigsRequest::parent].
@@ -137,7 +122,7 @@ pub mod security_center {
         pub fn set_requests<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::CreateResourceValueConfigRequest>,
+            V: std::convert::Into<crate::model::CreateResourceValueConfigRequest>
         {
             use std::iter::Iterator;
             self.0.request.requests = v.into_iter().map(|i| i.into()).collect();
@@ -174,17 +159,14 @@ pub mod security_center {
     pub struct BulkMuteFindings(RequestBuilder<crate::model::BulkMuteFindingsRequest>);
 
     impl BulkMuteFindings {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::BulkMuteFindingsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::BulkMuteFindingsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -202,16 +184,16 @@ pub mod security_center {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [bulk_mute_findings][crate::client::SecurityCenter::bulk_mute_findings].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .bulk_mute_findings(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).bulk_mute_findings(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `bulk_mute_findings`.
-        pub fn poller(self) -> impl lro::Poller<crate::model::BulkMuteFindingsResponse, ()> {
-            type Operation =
-                lro::internal::Operation<crate::model::BulkMuteFindingsResponse, wkt::Empty>;
+        pub fn poller(
+            self
+        ) ->
+            impl lro::Poller<crate::model::BulkMuteFindingsResponse, ()>
+        {
+            type Operation = lro::internal::Operation<crate::model::BulkMuteFindingsResponse, wkt::Empty>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -236,12 +218,7 @@ pub mod security_center {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_metadata_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            lro::internal::new_unit_metadata_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::BulkMuteFindingsRequest::parent].
@@ -259,10 +236,7 @@ pub mod security_center {
         }
 
         /// Sets the value of [mute_state][crate::model::BulkMuteFindingsRequest::mute_state].
-        pub fn set_mute_state<T: Into<crate::model::bulk_mute_findings_request::MuteState>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_mute_state<T: Into<crate::model::bulk_mute_findings_request::MuteState>>(mut self, v: T) -> Self {
             self.0.request.mute_state = v.into();
             self
         }
@@ -296,17 +270,14 @@ pub mod security_center {
     pub struct CreateBigQueryExport(RequestBuilder<crate::model::CreateBigQueryExportRequest>);
 
     impl CreateBigQueryExport {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateBigQueryExportRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateBigQueryExportRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -319,10 +290,7 @@ pub mod security_center {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::BigQueryExport> {
-            (*self.0.stub)
-                .create_big_query_export(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_big_query_export(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateBigQueryExportRequest::parent].
@@ -337,8 +305,7 @@ pub mod security_center {
         ///
         /// This is a **required** field for requests.
         pub fn set_big_query_export<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::BigQueryExport>,
+        where T: std::convert::Into<crate::model::BigQueryExport>
         {
             self.0.request.big_query_export = std::option::Option::Some(v.into());
             self
@@ -348,8 +315,7 @@ pub mod security_center {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_big_query_export<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::BigQueryExport>,
+        where T: std::convert::Into<crate::model::BigQueryExport>
         {
             self.0.request.big_query_export = v.map(|x| x.into());
             self
@@ -392,10 +358,10 @@ pub mod security_center {
     pub struct CreateFinding(RequestBuilder<crate::model::CreateFindingRequest>);
 
     impl CreateFinding {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -412,10 +378,7 @@ pub mod security_center {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Finding> {
-            (*self.0.stub)
-                .create_finding(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_finding(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateFindingRequest::parent].
@@ -438,8 +401,7 @@ pub mod security_center {
         ///
         /// This is a **required** field for requests.
         pub fn set_finding<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Finding>,
+        where T: std::convert::Into<crate::model::Finding>
         {
             self.0.request.finding = std::option::Option::Some(v.into());
             self
@@ -449,8 +411,7 @@ pub mod security_center {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_finding<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Finding>,
+        where T: std::convert::Into<crate::model::Finding>
         {
             self.0.request.finding = v.map(|x| x.into());
             self
@@ -485,17 +446,14 @@ pub mod security_center {
     pub struct CreateMuteConfig(RequestBuilder<crate::model::CreateMuteConfigRequest>);
 
     impl CreateMuteConfig {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateMuteConfigRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateMuteConfigRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -508,10 +466,7 @@ pub mod security_center {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::MuteConfig> {
-            (*self.0.stub)
-                .create_mute_config(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_mute_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateMuteConfigRequest::parent].
@@ -526,8 +481,7 @@ pub mod security_center {
         ///
         /// This is a **required** field for requests.
         pub fn set_mute_config<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::MuteConfig>,
+        where T: std::convert::Into<crate::model::MuteConfig>
         {
             self.0.request.mute_config = std::option::Option::Some(v.into());
             self
@@ -537,8 +491,7 @@ pub mod security_center {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_mute_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::MuteConfig>,
+        where T: std::convert::Into<crate::model::MuteConfig>
         {
             self.0.request.mute_config = v.map(|x| x.into());
             self
@@ -578,22 +531,17 @@ pub mod security_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateNotificationConfig(
-        RequestBuilder<crate::model::CreateNotificationConfigRequest>,
-    );
+    pub struct CreateNotificationConfig(RequestBuilder<crate::model::CreateNotificationConfigRequest>);
 
     impl CreateNotificationConfig {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateNotificationConfigRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateNotificationConfigRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -606,10 +554,7 @@ pub mod security_center {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::NotificationConfig> {
-            (*self.0.stub)
-                .create_notification_config(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_notification_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateNotificationConfigRequest::parent].
@@ -632,8 +577,7 @@ pub mod security_center {
         ///
         /// This is a **required** field for requests.
         pub fn set_notification_config<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::NotificationConfig>,
+        where T: std::convert::Into<crate::model::NotificationConfig>
         {
             self.0.request.notification_config = std::option::Option::Some(v.into());
             self
@@ -643,8 +587,7 @@ pub mod security_center {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_notification_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::NotificationConfig>,
+        where T: std::convert::Into<crate::model::NotificationConfig>
         {
             self.0.request.notification_config = v.map(|x| x.into());
             self
@@ -679,10 +622,10 @@ pub mod security_center {
     pub struct CreateSource(RequestBuilder<crate::model::CreateSourceRequest>);
 
     impl CreateSource {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -699,10 +642,7 @@ pub mod security_center {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Source> {
-            (*self.0.stub)
-                .create_source(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_source(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateSourceRequest::parent].
@@ -717,8 +657,7 @@ pub mod security_center {
         ///
         /// This is a **required** field for requests.
         pub fn set_source<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Source>,
+        where T: std::convert::Into<crate::model::Source>
         {
             self.0.request.source = std::option::Option::Some(v.into());
             self
@@ -728,8 +667,7 @@ pub mod security_center {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Source>,
+        where T: std::convert::Into<crate::model::Source>
         {
             self.0.request.source = v.map(|x| x.into());
             self
@@ -764,17 +702,14 @@ pub mod security_center {
     pub struct DeleteBigQueryExport(RequestBuilder<crate::model::DeleteBigQueryExportRequest>);
 
     impl DeleteBigQueryExport {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteBigQueryExportRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteBigQueryExportRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -787,10 +722,7 @@ pub mod security_center {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .delete_big_query_export(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_big_query_export(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteBigQueryExportRequest::name].
@@ -830,17 +762,14 @@ pub mod security_center {
     pub struct DeleteMuteConfig(RequestBuilder<crate::model::DeleteMuteConfigRequest>);
 
     impl DeleteMuteConfig {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteMuteConfigRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteMuteConfigRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -853,10 +782,7 @@ pub mod security_center {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .delete_mute_config(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_mute_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteMuteConfigRequest::name].
@@ -893,22 +819,17 @@ pub mod security_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteNotificationConfig(
-        RequestBuilder<crate::model::DeleteNotificationConfigRequest>,
-    );
+    pub struct DeleteNotificationConfig(RequestBuilder<crate::model::DeleteNotificationConfigRequest>);
 
     impl DeleteNotificationConfig {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteNotificationConfigRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteNotificationConfigRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -921,10 +842,7 @@ pub mod security_center {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .delete_notification_config(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_notification_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteNotificationConfigRequest::name].
@@ -961,22 +879,17 @@ pub mod security_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteResourceValueConfig(
-        RequestBuilder<crate::model::DeleteResourceValueConfigRequest>,
-    );
+    pub struct DeleteResourceValueConfig(RequestBuilder<crate::model::DeleteResourceValueConfigRequest>);
 
     impl DeleteResourceValueConfig {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteResourceValueConfigRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteResourceValueConfigRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -989,10 +902,7 @@ pub mod security_center {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .delete_resource_value_config(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_resource_value_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteResourceValueConfigRequest::name].
@@ -1032,17 +942,14 @@ pub mod security_center {
     pub struct GetBigQueryExport(RequestBuilder<crate::model::GetBigQueryExportRequest>);
 
     impl GetBigQueryExport {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetBigQueryExportRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetBigQueryExportRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1055,10 +962,7 @@ pub mod security_center {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::BigQueryExport> {
-            (*self.0.stub)
-                .get_big_query_export(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_big_query_export(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetBigQueryExportRequest::name].
@@ -1098,10 +1002,10 @@ pub mod security_center {
     pub struct GetSimulation(RequestBuilder<crate::model::GetSimulationRequest>);
 
     impl GetSimulation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1118,10 +1022,7 @@ pub mod security_center {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Simulation> {
-            (*self.0.stub)
-                .get_simulation(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_simulation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetSimulationRequest::name].
@@ -1161,17 +1062,14 @@ pub mod security_center {
     pub struct GetValuedResource(RequestBuilder<crate::model::GetValuedResourceRequest>);
 
     impl GetValuedResource {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetValuedResourceRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetValuedResourceRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1184,10 +1082,7 @@ pub mod security_center {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ValuedResource> {
-            (*self.0.stub)
-                .get_valued_resource(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_valued_resource(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetValuedResourceRequest::name].
@@ -1227,10 +1122,10 @@ pub mod security_center {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1247,10 +1142,7 @@ pub mod security_center {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::Policy> {
-            (*self.0.stub)
-                .get_iam_policy(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_iam_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -1263,8 +1155,7 @@ pub mod security_center {
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        where T: std::convert::Into<iam_v1::model::GetPolicyOptions>
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
@@ -1272,8 +1163,7 @@ pub mod security_center {
 
         /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        where T: std::convert::Into<iam_v1::model::GetPolicyOptions>
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -1308,10 +1198,10 @@ pub mod security_center {
     pub struct GetMuteConfig(RequestBuilder<crate::model::GetMuteConfigRequest>);
 
     impl GetMuteConfig {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1328,10 +1218,7 @@ pub mod security_center {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::MuteConfig> {
-            (*self.0.stub)
-                .get_mute_config(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_mute_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetMuteConfigRequest::name].
@@ -1371,17 +1258,14 @@ pub mod security_center {
     pub struct GetNotificationConfig(RequestBuilder<crate::model::GetNotificationConfigRequest>);
 
     impl GetNotificationConfig {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetNotificationConfigRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetNotificationConfigRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1394,10 +1278,7 @@ pub mod security_center {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::NotificationConfig> {
-            (*self.0.stub)
-                .get_notification_config(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_notification_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetNotificationConfigRequest::name].
@@ -1437,17 +1318,14 @@ pub mod security_center {
     pub struct GetResourceValueConfig(RequestBuilder<crate::model::GetResourceValueConfigRequest>);
 
     impl GetResourceValueConfig {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetResourceValueConfigRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetResourceValueConfigRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1460,10 +1338,7 @@ pub mod security_center {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ResourceValueConfig> {
-            (*self.0.stub)
-                .get_resource_value_config(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_resource_value_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetResourceValueConfigRequest::name].
@@ -1503,10 +1378,10 @@ pub mod security_center {
     pub struct GetSource(RequestBuilder<crate::model::GetSourceRequest>);
 
     impl GetSource {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1523,10 +1398,7 @@ pub mod security_center {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Source> {
-            (*self.0.stub)
-                .get_source(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_source(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetSourceRequest::name].
@@ -1570,10 +1442,10 @@ pub mod security_center {
     pub struct GroupFindings(RequestBuilder<crate::model::GroupFindingsRequest>);
 
     impl GroupFindings {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1590,17 +1462,11 @@ pub mod security_center {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::GroupFindingsResponse> {
-            (*self.0.stub)
-                .group_findings(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).group_findings(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::GroupFindingsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::GroupFindingsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1612,10 +1478,7 @@ pub mod security_center {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::GroupFindingsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::GroupFindingsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1687,10 +1550,10 @@ pub mod security_center {
     pub struct ListAttackPaths(RequestBuilder<crate::model::ListAttackPathsRequest>);
 
     impl ListAttackPaths {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1707,17 +1570,11 @@ pub mod security_center {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListAttackPathsResponse> {
-            (*self.0.stub)
-                .list_attack_paths(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_attack_paths(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListAttackPathsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListAttackPathsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1729,10 +1586,7 @@ pub mod security_center {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListAttackPathsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListAttackPathsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1796,17 +1650,14 @@ pub mod security_center {
     pub struct ListBigQueryExports(RequestBuilder<crate::model::ListBigQueryExportsRequest>);
 
     impl ListBigQueryExports {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListBigQueryExportsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListBigQueryExportsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1819,17 +1670,11 @@ pub mod security_center {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListBigQueryExportsResponse> {
-            (*self.0.stub)
-                .list_big_query_exports(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_big_query_exports(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListBigQueryExportsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListBigQueryExportsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1841,12 +1686,7 @@ pub mod security_center {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListBigQueryExportsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListBigQueryExportsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1904,10 +1744,10 @@ pub mod security_center {
     pub struct ListFindings(RequestBuilder<crate::model::ListFindingsRequest>);
 
     impl ListFindings {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1924,17 +1764,11 @@ pub mod security_center {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListFindingsResponse> {
-            (*self.0.stub)
-                .list_findings(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_findings(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListFindingsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListFindingsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1946,10 +1780,7 @@ pub mod security_center {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListFindingsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListFindingsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1976,8 +1807,7 @@ pub mod security_center {
 
         /// Sets the value of [field_mask][crate::model::ListFindingsRequest::field_mask].
         pub fn set_field_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.field_mask = std::option::Option::Some(v.into());
             self
@@ -1985,8 +1815,7 @@ pub mod security_center {
 
         /// Sets or clears the value of [field_mask][crate::model::ListFindingsRequest::field_mask].
         pub fn set_or_clear_field_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.field_mask = v.map(|x| x.into());
             self
@@ -2037,10 +1866,10 @@ pub mod security_center {
     pub struct ListMuteConfigs(RequestBuilder<crate::model::ListMuteConfigsRequest>);
 
     impl ListMuteConfigs {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2057,17 +1886,11 @@ pub mod security_center {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListMuteConfigsResponse> {
-            (*self.0.stub)
-                .list_mute_configs(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_mute_configs(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListMuteConfigsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListMuteConfigsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2079,10 +1902,7 @@ pub mod security_center {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListMuteConfigsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListMuteConfigsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2137,22 +1957,17 @@ pub mod security_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListNotificationConfigs(
-        RequestBuilder<crate::model::ListNotificationConfigsRequest>,
-    );
+    pub struct ListNotificationConfigs(RequestBuilder<crate::model::ListNotificationConfigsRequest>);
 
     impl ListNotificationConfigs {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListNotificationConfigsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListNotificationConfigsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2165,19 +1980,11 @@ pub mod security_center {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListNotificationConfigsResponse> {
-            (*self.0.stub)
-                .list_notification_configs(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_notification_configs(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<
-            crate::model::ListNotificationConfigsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListNotificationConfigsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2189,12 +1996,7 @@ pub mod security_center {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListNotificationConfigsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListNotificationConfigsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2249,22 +2051,17 @@ pub mod security_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListResourceValueConfigs(
-        RequestBuilder<crate::model::ListResourceValueConfigsRequest>,
-    );
+    pub struct ListResourceValueConfigs(RequestBuilder<crate::model::ListResourceValueConfigsRequest>);
 
     impl ListResourceValueConfigs {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListResourceValueConfigsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListResourceValueConfigsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2277,19 +2074,11 @@ pub mod security_center {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListResourceValueConfigsResponse> {
-            (*self.0.stub)
-                .list_resource_value_configs(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_resource_value_configs(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<
-            crate::model::ListResourceValueConfigsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListResourceValueConfigsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2301,12 +2090,7 @@ pub mod security_center {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListResourceValueConfigsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListResourceValueConfigsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2364,10 +2148,10 @@ pub mod security_center {
     pub struct ListSources(RequestBuilder<crate::model::ListSourcesRequest>);
 
     impl ListSources {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2384,17 +2168,11 @@ pub mod security_center {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListSourcesResponse> {
-            (*self.0.stub)
-                .list_sources(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_sources(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListSourcesResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListSourcesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2406,10 +2184,7 @@ pub mod security_center {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListSourcesResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListSourcesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2467,17 +2242,14 @@ pub mod security_center {
     pub struct ListValuedResources(RequestBuilder<crate::model::ListValuedResourcesRequest>);
 
     impl ListValuedResources {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListValuedResourcesRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListValuedResourcesRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2490,17 +2262,11 @@ pub mod security_center {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListValuedResourcesResponse> {
-            (*self.0.stub)
-                .list_valued_resources(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_valued_resources(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListValuedResourcesResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListValuedResourcesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2512,12 +2278,7 @@ pub mod security_center {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListValuedResourcesResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListValuedResourcesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2583,10 +2344,10 @@ pub mod security_center {
     pub struct SetFindingState(RequestBuilder<crate::model::SetFindingStateRequest>);
 
     impl SetFindingState {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2603,10 +2364,7 @@ pub mod security_center {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Finding> {
-            (*self.0.stub)
-                .set_finding_state(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).set_finding_state(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::SetFindingStateRequest::name].
@@ -2654,10 +2412,10 @@ pub mod security_center {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2674,10 +2432,7 @@ pub mod security_center {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::Policy> {
-            (*self.0.stub)
-                .set_iam_policy(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).set_iam_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -2692,8 +2447,7 @@ pub mod security_center {
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<iam_v1::model::Policy>,
+        where T: std::convert::Into<iam_v1::model::Policy>
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
@@ -2703,8 +2457,7 @@ pub mod security_center {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<iam_v1::model::Policy>,
+        where T: std::convert::Into<iam_v1::model::Policy>
         {
             self.0.request.policy = v.map(|x| x.into());
             self
@@ -2712,8 +2465,7 @@ pub mod security_center {
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -2721,8 +2473,7 @@ pub mod security_center {
 
         /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -2757,10 +2508,10 @@ pub mod security_center {
     pub struct SetMute(RequestBuilder<crate::model::SetMuteRequest>);
 
     impl SetMute {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2777,10 +2528,7 @@ pub mod security_center {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Finding> {
-            (*self.0.stub)
-                .set_mute(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).set_mute(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::SetMuteRequest::name].
@@ -2828,17 +2576,14 @@ pub mod security_center {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2851,10 +2596,7 @@ pub mod security_center {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
-            (*self.0.stub)
-                .test_iam_permissions(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).test_iam_permissions(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -2871,7 +2613,7 @@ pub mod security_center {
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.0.request.permissions = v.into_iter().map(|i| i.into()).collect();
@@ -2907,17 +2649,14 @@ pub mod security_center {
     pub struct UpdateBigQueryExport(RequestBuilder<crate::model::UpdateBigQueryExportRequest>);
 
     impl UpdateBigQueryExport {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateBigQueryExportRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateBigQueryExportRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2930,18 +2669,14 @@ pub mod security_center {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::BigQueryExport> {
-            (*self.0.stub)
-                .update_big_query_export(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_big_query_export(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [big_query_export][crate::model::UpdateBigQueryExportRequest::big_query_export].
         ///
         /// This is a **required** field for requests.
         pub fn set_big_query_export<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::BigQueryExport>,
+        where T: std::convert::Into<crate::model::BigQueryExport>
         {
             self.0.request.big_query_export = std::option::Option::Some(v.into());
             self
@@ -2951,8 +2686,7 @@ pub mod security_center {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_big_query_export<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::BigQueryExport>,
+        where T: std::convert::Into<crate::model::BigQueryExport>
         {
             self.0.request.big_query_export = v.map(|x| x.into());
             self
@@ -2960,8 +2694,7 @@ pub mod security_center {
 
         /// Sets the value of [update_mask][crate::model::UpdateBigQueryExportRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -2969,8 +2702,7 @@ pub mod security_center {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateBigQueryExportRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -3005,17 +2737,14 @@ pub mod security_center {
     pub struct UpdateExternalSystem(RequestBuilder<crate::model::UpdateExternalSystemRequest>);
 
     impl UpdateExternalSystem {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateExternalSystemRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateExternalSystemRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3028,18 +2757,14 @@ pub mod security_center {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ExternalSystem> {
-            (*self.0.stub)
-                .update_external_system(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_external_system(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [external_system][crate::model::UpdateExternalSystemRequest::external_system].
         ///
         /// This is a **required** field for requests.
         pub fn set_external_system<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::ExternalSystem>,
+        where T: std::convert::Into<crate::model::ExternalSystem>
         {
             self.0.request.external_system = std::option::Option::Some(v.into());
             self
@@ -3049,8 +2774,7 @@ pub mod security_center {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_external_system<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::ExternalSystem>,
+        where T: std::convert::Into<crate::model::ExternalSystem>
         {
             self.0.request.external_system = v.map(|x| x.into());
             self
@@ -3058,8 +2782,7 @@ pub mod security_center {
 
         /// Sets the value of [update_mask][crate::model::UpdateExternalSystemRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -3067,8 +2790,7 @@ pub mod security_center {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateExternalSystemRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -3103,10 +2825,10 @@ pub mod security_center {
     pub struct UpdateFinding(RequestBuilder<crate::model::UpdateFindingRequest>);
 
     impl UpdateFinding {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3123,18 +2845,14 @@ pub mod security_center {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Finding> {
-            (*self.0.stub)
-                .update_finding(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_finding(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [finding][crate::model::UpdateFindingRequest::finding].
         ///
         /// This is a **required** field for requests.
         pub fn set_finding<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Finding>,
+        where T: std::convert::Into<crate::model::Finding>
         {
             self.0.request.finding = std::option::Option::Some(v.into());
             self
@@ -3144,8 +2862,7 @@ pub mod security_center {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_finding<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Finding>,
+        where T: std::convert::Into<crate::model::Finding>
         {
             self.0.request.finding = v.map(|x| x.into());
             self
@@ -3153,8 +2870,7 @@ pub mod security_center {
 
         /// Sets the value of [update_mask][crate::model::UpdateFindingRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -3162,8 +2878,7 @@ pub mod security_center {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateFindingRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -3198,17 +2913,14 @@ pub mod security_center {
     pub struct UpdateMuteConfig(RequestBuilder<crate::model::UpdateMuteConfigRequest>);
 
     impl UpdateMuteConfig {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateMuteConfigRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateMuteConfigRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3221,18 +2933,14 @@ pub mod security_center {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::MuteConfig> {
-            (*self.0.stub)
-                .update_mute_config(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_mute_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [mute_config][crate::model::UpdateMuteConfigRequest::mute_config].
         ///
         /// This is a **required** field for requests.
         pub fn set_mute_config<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::MuteConfig>,
+        where T: std::convert::Into<crate::model::MuteConfig>
         {
             self.0.request.mute_config = std::option::Option::Some(v.into());
             self
@@ -3242,8 +2950,7 @@ pub mod security_center {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_mute_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::MuteConfig>,
+        where T: std::convert::Into<crate::model::MuteConfig>
         {
             self.0.request.mute_config = v.map(|x| x.into());
             self
@@ -3251,8 +2958,7 @@ pub mod security_center {
 
         /// Sets the value of [update_mask][crate::model::UpdateMuteConfigRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -3260,8 +2966,7 @@ pub mod security_center {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateMuteConfigRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -3293,22 +2998,17 @@ pub mod security_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateNotificationConfig(
-        RequestBuilder<crate::model::UpdateNotificationConfigRequest>,
-    );
+    pub struct UpdateNotificationConfig(RequestBuilder<crate::model::UpdateNotificationConfigRequest>);
 
     impl UpdateNotificationConfig {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateNotificationConfigRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateNotificationConfigRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3321,18 +3021,14 @@ pub mod security_center {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::NotificationConfig> {
-            (*self.0.stub)
-                .update_notification_config(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_notification_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [notification_config][crate::model::UpdateNotificationConfigRequest::notification_config].
         ///
         /// This is a **required** field for requests.
         pub fn set_notification_config<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::NotificationConfig>,
+        where T: std::convert::Into<crate::model::NotificationConfig>
         {
             self.0.request.notification_config = std::option::Option::Some(v.into());
             self
@@ -3342,8 +3038,7 @@ pub mod security_center {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_notification_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::NotificationConfig>,
+        where T: std::convert::Into<crate::model::NotificationConfig>
         {
             self.0.request.notification_config = v.map(|x| x.into());
             self
@@ -3351,8 +3046,7 @@ pub mod security_center {
 
         /// Sets the value of [update_mask][crate::model::UpdateNotificationConfigRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -3360,8 +3054,7 @@ pub mod security_center {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateNotificationConfigRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -3393,22 +3086,17 @@ pub mod security_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateResourceValueConfig(
-        RequestBuilder<crate::model::UpdateResourceValueConfigRequest>,
-    );
+    pub struct UpdateResourceValueConfig(RequestBuilder<crate::model::UpdateResourceValueConfigRequest>);
 
     impl UpdateResourceValueConfig {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateResourceValueConfigRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateResourceValueConfigRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3421,18 +3109,14 @@ pub mod security_center {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ResourceValueConfig> {
-            (*self.0.stub)
-                .update_resource_value_config(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_resource_value_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource_value_config][crate::model::UpdateResourceValueConfigRequest::resource_value_config].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource_value_config<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::ResourceValueConfig>,
+        where T: std::convert::Into<crate::model::ResourceValueConfig>
         {
             self.0.request.resource_value_config = std::option::Option::Some(v.into());
             self
@@ -3442,8 +3126,7 @@ pub mod security_center {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_resource_value_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::ResourceValueConfig>,
+        where T: std::convert::Into<crate::model::ResourceValueConfig>
         {
             self.0.request.resource_value_config = v.map(|x| x.into());
             self
@@ -3451,8 +3134,7 @@ pub mod security_center {
 
         /// Sets the value of [update_mask][crate::model::UpdateResourceValueConfigRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -3460,8 +3142,7 @@ pub mod security_center {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateResourceValueConfigRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -3496,17 +3177,14 @@ pub mod security_center {
     pub struct UpdateSecurityMarks(RequestBuilder<crate::model::UpdateSecurityMarksRequest>);
 
     impl UpdateSecurityMarks {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateSecurityMarksRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateSecurityMarksRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3519,18 +3197,14 @@ pub mod security_center {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SecurityMarks> {
-            (*self.0.stub)
-                .update_security_marks(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_security_marks(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [security_marks][crate::model::UpdateSecurityMarksRequest::security_marks].
         ///
         /// This is a **required** field for requests.
         pub fn set_security_marks<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::SecurityMarks>,
+        where T: std::convert::Into<crate::model::SecurityMarks>
         {
             self.0.request.security_marks = std::option::Option::Some(v.into());
             self
@@ -3540,8 +3214,7 @@ pub mod security_center {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_security_marks<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::SecurityMarks>,
+        where T: std::convert::Into<crate::model::SecurityMarks>
         {
             self.0.request.security_marks = v.map(|x| x.into());
             self
@@ -3549,8 +3222,7 @@ pub mod security_center {
 
         /// Sets the value of [update_mask][crate::model::UpdateSecurityMarksRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -3558,8 +3230,7 @@ pub mod security_center {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateSecurityMarksRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -3594,10 +3265,10 @@ pub mod security_center {
     pub struct UpdateSource(RequestBuilder<crate::model::UpdateSourceRequest>);
 
     impl UpdateSource {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3614,18 +3285,14 @@ pub mod security_center {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Source> {
-            (*self.0.stub)
-                .update_source(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_source(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [source][crate::model::UpdateSourceRequest::source].
         ///
         /// This is a **required** field for requests.
         pub fn set_source<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Source>,
+        where T: std::convert::Into<crate::model::Source>
         {
             self.0.request.source = std::option::Option::Some(v.into());
             self
@@ -3635,8 +3302,7 @@ pub mod security_center {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Source>,
+        where T: std::convert::Into<crate::model::Source>
         {
             self.0.request.source = v.map(|x| x.into());
             self
@@ -3644,8 +3310,7 @@ pub mod security_center {
 
         /// Sets the value of [update_mask][crate::model::UpdateSourceRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -3653,8 +3318,7 @@ pub mod security_center {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateSourceRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -3693,17 +3357,14 @@ pub mod security_center {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3716,17 +3377,11 @@ pub mod security_center {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::ListOperationsResponse> {
-            (*self.0.stub)
-                .list_operations(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_operations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -3738,12 +3393,7 @@ pub mod security_center {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            longrunning::model::ListOperationsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -3807,17 +3457,14 @@ pub mod security_center {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3830,10 +3477,7 @@ pub mod security_center {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .get_operation(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -3871,17 +3515,14 @@ pub mod security_center {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3894,10 +3535,7 @@ pub mod security_center {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .delete_operation(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -3935,17 +3573,14 @@ pub mod security_center {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3958,10 +3593,7 @@ pub mod security_center {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .cancel_operation(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).cancel_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -3977,4 +3609,5 @@ pub mod security_center {
             &mut self.0.options
         }
     }
+
 }

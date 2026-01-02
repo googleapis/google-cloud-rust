@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [DataPolicyService](super::stub::DataPolicyService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct DataPolicyService<T>
-where
-    T: super::stub::DataPolicyService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::DataPolicyService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> DataPolicyService<T>
-where
-    T: super::stub::DataPolicyService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::DataPolicyService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::DataPolicyService for DataPolicyService<T>
-where
-    T: super::stub::DataPolicyService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::DataPolicyService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn create_data_policy(
         &self,
@@ -126,4 +120,6 @@ where
     ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
+
 }
+

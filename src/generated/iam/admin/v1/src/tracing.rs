@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [Iam](super::stub::Iam) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct Iam<T>
-where
-    T: super::stub::Iam + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Iam + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> Iam<T>
-where
-    T: super::stub::Iam + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Iam + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::Iam for Iam<T>
-where
-    T: super::stub::Iam + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Iam + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn list_service_accounts(
         &self,
@@ -315,4 +309,6 @@ where
     ) -> Result<gax::response::Response<crate::model::LintPolicyResponse>> {
         self.inner.lint_policy(req, options).await
     }
+
 }
+

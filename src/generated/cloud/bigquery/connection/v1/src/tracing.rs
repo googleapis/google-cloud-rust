@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [ConnectionService](super::stub::ConnectionService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct ConnectionService<T>
-where
-    T: super::stub::ConnectionService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ConnectionService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> ConnectionService<T>
-where
-    T: super::stub::ConnectionService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ConnectionService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::ConnectionService for ConnectionService<T>
-where
-    T: super::stub::ConnectionService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ConnectionService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn create_connection(
         &self,
@@ -108,4 +102,6 @@ where
     ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
+
 }
+

@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate api;
 extern crate async_trait;
 extern crate bytes;
@@ -31,7 +32,6 @@ extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -43,6 +43,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LogEntry {
+
     /// Required. The resource name of the log to which this log entry belongs:
     ///
     /// ```norust
@@ -129,7 +130,7 @@ pub struct LogEntry {
     /// values that exceed 64 KB upon their associated log entry being
     /// written. The truncation is indicated by an ellipsis at the
     /// end of the character string.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. Information about an operation associated with the log entry, if
     /// applicable.
@@ -227,8 +228,7 @@ impl LogEntry {
     /// let x = LogEntry::new().set_resource(MonitoredResource::default()/* use setters */);
     /// ```
     pub fn set_resource<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<api::model::MonitoredResource>,
+    where T: std::convert::Into<api::model::MonitoredResource>
     {
         self.resource = std::option::Option::Some(v.into());
         self
@@ -244,8 +244,7 @@ impl LogEntry {
     /// let x = LogEntry::new().set_or_clear_resource(None::<MonitoredResource>);
     /// ```
     pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<api::model::MonitoredResource>,
+    where T: std::convert::Into<api::model::MonitoredResource>
     {
         self.resource = v.map(|x| x.into());
         self
@@ -260,8 +259,7 @@ impl LogEntry {
     /// let x = LogEntry::new().set_timestamp(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_timestamp<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.timestamp = std::option::Option::Some(v.into());
         self
@@ -277,8 +275,7 @@ impl LogEntry {
     /// let x = LogEntry::new().set_or_clear_timestamp(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_timestamp<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.timestamp = v.map(|x| x.into());
         self
@@ -293,8 +290,7 @@ impl LogEntry {
     /// let x = LogEntry::new().set_receive_timestamp(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_receive_timestamp<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.receive_timestamp = std::option::Option::Some(v.into());
         self
@@ -310,8 +306,7 @@ impl LogEntry {
     /// let x = LogEntry::new().set_or_clear_receive_timestamp(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_receive_timestamp<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.receive_timestamp = v.map(|x| x.into());
         self
@@ -327,10 +322,7 @@ impl LogEntry {
     /// let x1 = LogEntry::new().set_severity(LogSeverity::Info);
     /// let x2 = LogEntry::new().set_severity(LogSeverity::Notice);
     /// ```
-    pub fn set_severity<T: std::convert::Into<logging_type::model::LogSeverity>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_severity<T: std::convert::Into<logging_type::model::LogSeverity>>(mut self, v: T) -> Self {
         self.severity = v.into();
         self
     }
@@ -356,8 +348,7 @@ impl LogEntry {
     /// let x = LogEntry::new().set_http_request(HttpRequest::default()/* use setters */);
     /// ```
     pub fn set_http_request<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<logging_type::model::HttpRequest>,
+    where T: std::convert::Into<logging_type::model::HttpRequest>
     {
         self.http_request = std::option::Option::Some(v.into());
         self
@@ -373,8 +364,7 @@ impl LogEntry {
     /// let x = LogEntry::new().set_or_clear_http_request(None::<HttpRequest>);
     /// ```
     pub fn set_or_clear_http_request<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<logging_type::model::HttpRequest>,
+    where T: std::convert::Into<logging_type::model::HttpRequest>
     {
         self.http_request = v.map(|x| x.into());
         self
@@ -410,8 +400,7 @@ impl LogEntry {
     /// let x = LogEntry::new().set_operation(LogEntryOperation::default()/* use setters */);
     /// ```
     pub fn set_operation<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::LogEntryOperation>,
+    where T: std::convert::Into<crate::model::LogEntryOperation>
     {
         self.operation = std::option::Option::Some(v.into());
         self
@@ -427,8 +416,7 @@ impl LogEntry {
     /// let x = LogEntry::new().set_or_clear_operation(None::<LogEntryOperation>);
     /// ```
     pub fn set_or_clear_operation<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::LogEntryOperation>,
+    where T: std::convert::Into<crate::model::LogEntryOperation>
     {
         self.operation = v.map(|x| x.into());
         self
@@ -479,8 +467,7 @@ impl LogEntry {
     /// let x = LogEntry::new().set_source_location(LogEntrySourceLocation::default()/* use setters */);
     /// ```
     pub fn set_source_location<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::LogEntrySourceLocation>,
+    where T: std::convert::Into<crate::model::LogEntrySourceLocation>
     {
         self.source_location = std::option::Option::Some(v.into());
         self
@@ -496,8 +483,7 @@ impl LogEntry {
     /// let x = LogEntry::new().set_or_clear_source_location(None::<LogEntrySourceLocation>);
     /// ```
     pub fn set_or_clear_source_location<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::LogEntrySourceLocation>,
+    where T: std::convert::Into<crate::model::LogEntrySourceLocation>
     {
         self.source_location = v.map(|x| x.into());
         self
@@ -512,8 +498,7 @@ impl LogEntry {
     /// let x = LogEntry::new().set_split(LogSplit::default()/* use setters */);
     /// ```
     pub fn set_split<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::LogSplit>,
+    where T: std::convert::Into<crate::model::LogSplit>
     {
         self.split = std::option::Option::Some(v.into());
         self
@@ -529,8 +514,7 @@ impl LogEntry {
     /// let x = LogEntry::new().set_or_clear_split(None::<LogSplit>);
     /// ```
     pub fn set_or_clear_split<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::LogSplit>,
+    where T: std::convert::Into<crate::model::LogSplit>
     {
         self.split = v.map(|x| x.into());
         self
@@ -547,12 +531,8 @@ impl LogEntry {
     /// use google_cloud_logging_v2::model::log_entry::Payload;
     /// let x = LogEntry::new().set_payload(Some(Payload::TextPayload("example".to_string())));
     /// ```
-    pub fn set_payload<
-        T: std::convert::Into<std::option::Option<crate::model::log_entry::Payload>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_payload<T: std::convert::Into<std::option::Option<crate::model::log_entry::Payload>>>(mut self, v: T) -> Self
+    {
         self.payload = v.into();
         self
     }
@@ -583,12 +563,12 @@ impl LogEntry {
     /// assert!(x.text_payload().is_none());
     /// assert!(x.json_payload().is_none());
     /// ```
-    pub fn set_proto_payload<T: std::convert::Into<std::boxed::Box<wkt::Any>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.payload =
-            std::option::Option::Some(crate::model::log_entry::Payload::ProtoPayload(v.into()));
+    pub fn set_proto_payload<T: std::convert::Into<std::boxed::Box<wkt::Any>>>(mut self, v: T) -> Self {
+        self.payload = std::option::Option::Some(
+            crate::model::log_entry::Payload::ProtoPayload(
+                v.into()
+            )
+        );
         self
     }
 
@@ -618,8 +598,11 @@ impl LogEntry {
     /// assert!(x.json_payload().is_none());
     /// ```
     pub fn set_text_payload<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.payload =
-            std::option::Option::Some(crate::model::log_entry::Payload::TextPayload(v.into()));
+        self.payload = std::option::Option::Some(
+            crate::model::log_entry::Payload::TextPayload(
+                v.into()
+            )
+        );
         self
     }
 
@@ -649,12 +632,12 @@ impl LogEntry {
     /// assert!(x.proto_payload().is_none());
     /// assert!(x.text_payload().is_none());
     /// ```
-    pub fn set_json_payload<T: std::convert::Into<std::boxed::Box<wkt::Struct>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.payload =
-            std::option::Option::Some(crate::model::log_entry::Payload::JsonPayload(v.into()));
+    pub fn set_json_payload<T: std::convert::Into<std::boxed::Box<wkt::Struct>>>(mut self, v: T) -> Self {
+        self.payload = std::option::Option::Some(
+            crate::model::log_entry::Payload::JsonPayload(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -669,6 +652,7 @@ impl wkt::message::Message for LogEntry {
 pub mod log_entry {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The log entry payload, which can be one of multiple types.
     #[derive(Clone, Debug, PartialEq)]
@@ -696,6 +680,7 @@ pub mod log_entry {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LogEntryOperation {
+
     /// Optional. An arbitrary operation identifier. Log entries with the same
     /// identifier are assumed to be part of the same operation.
     pub id: std::string::String,
@@ -779,6 +764,7 @@ impl wkt::message::Message for LogEntryOperation {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LogEntrySourceLocation {
+
     /// Optional. Source file name. Depending on the runtime environment, this
     /// might be a simple name or a fully-qualified name.
     pub file: std::string::String,
@@ -852,6 +838,7 @@ impl wkt::message::Message for LogEntrySourceLocation {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LogSplit {
+
     /// A globally unique identifier for all log entries in a sequence of split log
     /// entries. All log entries with the same |LogSplit.uid| are assumed to be
     /// part of the same sequence of split log entries.
@@ -920,6 +907,7 @@ impl wkt::message::Message for LogSplit {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteLogRequest {
+
     /// Required. The resource name of the log to delete:
     ///
     /// * `projects/[PROJECT_ID]/logs/[LOG_ID]`
@@ -968,6 +956,7 @@ impl wkt::message::Message for DeleteLogRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WriteLogEntriesRequest {
+
     /// Optional. A default log resource name that is assigned to all log entries
     /// in `entries` that do not specify a value for `log_name`:
     ///
@@ -1009,7 +998,7 @@ pub struct WriteLogEntriesRequest {
     /// See [LogEntry][google.logging.v2.LogEntry].
     ///
     /// [google.logging.v2.LogEntry]: crate::model::LogEntry
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Required. The log entries to send to Logging. The order of log
     /// entries in this list does not matter. Values supplied in this method's
@@ -1082,8 +1071,7 @@ impl WriteLogEntriesRequest {
     /// let x = WriteLogEntriesRequest::new().set_resource(MonitoredResource::default()/* use setters */);
     /// ```
     pub fn set_resource<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<api::model::MonitoredResource>,
+    where T: std::convert::Into<api::model::MonitoredResource>
     {
         self.resource = std::option::Option::Some(v.into());
         self
@@ -1099,8 +1087,7 @@ impl WriteLogEntriesRequest {
     /// let x = WriteLogEntriesRequest::new().set_or_clear_resource(None::<MonitoredResource>);
     /// ```
     pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<api::model::MonitoredResource>,
+    where T: std::convert::Into<api::model::MonitoredResource>
     {
         self.resource = v.map(|x| x.into());
         self
@@ -1142,7 +1129,7 @@ impl WriteLogEntriesRequest {
     pub fn set_entries<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::LogEntry>,
+        V: std::convert::Into<crate::model::LogEntry>
     {
         use std::iter::Iterator;
         self.entries = v.into_iter().map(|i| i.into()).collect();
@@ -1184,6 +1171,7 @@ impl wkt::message::Message for WriteLogEntriesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WriteLogEntriesResponse {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1203,13 +1191,14 @@ impl wkt::message::Message for WriteLogEntriesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WriteLogEntriesPartialErrors {
+
     /// When `WriteLogEntriesRequest.partial_success` is true, records the error
     /// status for entries that were not written due to a permanent error, keyed
     /// by the entry's zero-based index in `WriteLogEntriesRequest.entries`.
     ///
     /// Failed requests for which no entries are written will not include
     /// per-entry errors.
-    pub log_entry_errors: std::collections::HashMap<i32, rpc::model::Status>,
+    pub log_entry_errors: std::collections::HashMap<i32,rpc::model::Status>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1252,6 +1241,7 @@ impl wkt::message::Message for WriteLogEntriesPartialErrors {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListLogEntriesRequest {
+
     /// Required. Names of one or more parent resources from which to
     /// retrieve log entries:
     ///
@@ -1316,7 +1306,7 @@ impl ListLogEntriesRequest {
     pub fn set_resource_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.resource_names = v.into_iter().map(|i| i.into()).collect();
@@ -1382,6 +1372,7 @@ impl wkt::message::Message for ListLogEntriesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListLogEntriesResponse {
+
     /// A list of log entries.  If `entries` is empty, `nextPageToken` may still be
     /// returned, indicating that more entries may exist.  See `nextPageToken` for
     /// more information.
@@ -1422,7 +1413,7 @@ impl ListLogEntriesResponse {
     pub fn set_entries<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::LogEntry>,
+        V: std::convert::Into<crate::model::LogEntry>
     {
         use std::iter::Iterator;
         self.entries = v.into_iter().map(|i| i.into()).collect();
@@ -1466,6 +1457,7 @@ impl gax::paginator::internal::PageableResponse for ListLogEntriesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListMonitoredResourceDescriptorsRequest {
+
     /// Optional. The maximum number of results to return from this request.
     /// Non-positive values are ignored.  The presence of `nextPageToken` in the
     /// response indicates that more results might be available.
@@ -1520,6 +1512,7 @@ impl wkt::message::Message for ListMonitoredResourceDescriptorsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListMonitoredResourceDescriptorsResponse {
+
     /// A list of resource descriptors.
     pub resource_descriptors: std::vec::Vec<api::model::MonitoredResourceDescriptor>,
 
@@ -1551,7 +1544,7 @@ impl ListMonitoredResourceDescriptorsResponse {
     pub fn set_resource_descriptors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<api::model::MonitoredResourceDescriptor>,
+        V: std::convert::Into<api::model::MonitoredResourceDescriptor>
     {
         use std::iter::Iterator;
         self.resource_descriptors = v.into_iter().map(|i| i.into()).collect();
@@ -1595,6 +1588,7 @@ impl gax::paginator::internal::PageableResponse for ListMonitoredResourceDescrip
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListLogsRequest {
+
     /// Required. The resource name to list logs for:
     ///
     /// * `projects/[PROJECT_ID]`
@@ -1661,7 +1655,7 @@ impl ListLogsRequest {
     pub fn set_resource_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.resource_names = v.into_iter().map(|i| i.into()).collect();
@@ -1703,6 +1697,7 @@ impl wkt::message::Message for ListLogsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListLogsResponse {
+
     /// A list of log names. For example,
     /// `"projects/my-project/logs/syslog"` or
     /// `"organizations/123/logs/cloudresourcemanager.googleapis.com%2Factivity"`.
@@ -1731,7 +1726,7 @@ impl ListLogsResponse {
     pub fn set_log_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.log_names = v.into_iter().map(|i| i.into()).collect();
@@ -1761,6 +1756,7 @@ impl wkt::message::Message for ListLogsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TailLogEntriesRequest {
+
     /// Required. Name of a parent resource from which to retrieve log entries:
     ///
     /// * `projects/[PROJECT_ID]`
@@ -1807,7 +1803,7 @@ impl TailLogEntriesRequest {
     pub fn set_resource_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.resource_names = v.into_iter().map(|i| i.into()).collect();
@@ -1835,8 +1831,7 @@ impl TailLogEntriesRequest {
     /// let x = TailLogEntriesRequest::new().set_buffer_window(Duration::default()/* use setters */);
     /// ```
     pub fn set_buffer_window<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.buffer_window = std::option::Option::Some(v.into());
         self
@@ -1852,8 +1847,7 @@ impl TailLogEntriesRequest {
     /// let x = TailLogEntriesRequest::new().set_or_clear_buffer_window(None::<Duration>);
     /// ```
     pub fn set_or_clear_buffer_window<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.buffer_window = v.map(|x| x.into());
         self
@@ -1870,6 +1864,7 @@ impl wkt::message::Message for TailLogEntriesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TailLogEntriesResponse {
+
     /// A list of log entries. Each response in the stream will order entries with
     /// increasing values of `LogEntry.timestamp`. Ordering is not guaranteed
     /// between separate responses.
@@ -1905,7 +1900,7 @@ impl TailLogEntriesResponse {
     pub fn set_entries<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::LogEntry>,
+        V: std::convert::Into<crate::model::LogEntry>
     {
         use std::iter::Iterator;
         self.entries = v.into_iter().map(|i| i.into()).collect();
@@ -1927,7 +1922,7 @@ impl TailLogEntriesResponse {
     pub fn set_suppression_info<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::tail_log_entries_response::SuppressionInfo>,
+        V: std::convert::Into<crate::model::tail_log_entries_response::SuppressionInfo>
     {
         use std::iter::Iterator;
         self.suppression_info = v.into_iter().map(|i| i.into()).collect();
@@ -1946,10 +1941,12 @@ pub mod tail_log_entries_response {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Information about entries that were omitted from the session.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SuppressionInfo {
+
         /// The reason that entries were omitted from the session.
         pub reason: crate::model::tail_log_entries_response::suppression_info::Reason,
 
@@ -1973,12 +1970,7 @@ pub mod tail_log_entries_response {
         /// let x0 = SuppressionInfo::new().set_reason(Reason::RateLimit);
         /// let x1 = SuppressionInfo::new().set_reason(Reason::NotConsumed);
         /// ```
-        pub fn set_reason<
-            T: std::convert::Into<crate::model::tail_log_entries_response::suppression_info::Reason>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_reason<T: std::convert::Into<crate::model::tail_log_entries_response::suppression_info::Reason>>(mut self, v: T) -> Self {
             self.reason = v.into();
             self
         }
@@ -2006,6 +1998,7 @@ pub mod tail_log_entries_response {
     pub mod suppression_info {
         #[allow(unused_imports)]
         use super::*;
+
 
         /// An indicator of why entries were omitted.
         ///
@@ -2086,10 +2079,7 @@ pub mod tail_log_entries_response {
         }
 
         impl std::fmt::Display for Reason {
-            fn fmt(
-                &self,
-                f: &mut std::fmt::Formatter<'_>,
-            ) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -2100,9 +2090,7 @@ pub mod tail_log_entries_response {
                     0 => Self::Unspecified,
                     1 => Self::RateLimit,
                     2 => Self::NotConsumed,
-                    _ => Self::UnknownValue(reason::UnknownValue(
-                        wkt::internal::UnknownEnumValue::Integer(value),
-                    )),
+                    _ => Self::UnknownValue(reason::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
                 }
             }
         }
@@ -2114,9 +2102,7 @@ pub mod tail_log_entries_response {
                     "REASON_UNSPECIFIED" => Self::Unspecified,
                     "RATE_LIMIT" => Self::RateLimit,
                     "NOT_CONSUMED" => Self::NotConsumed,
-                    _ => Self::UnknownValue(reason::UnknownValue(
-                        wkt::internal::UnknownEnumValue::String(value.to_string()),
-                    )),
+                    _ => Self::UnknownValue(reason::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
                 }
             }
         }
@@ -2141,8 +2127,7 @@ pub mod tail_log_entries_response {
                 D: serde::Deserializer<'de>,
             {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<Reason>::new(
-                    ".google.logging.v2.TailLogEntriesResponse.SuppressionInfo.Reason",
-                ))
+                    ".google.logging.v2.TailLogEntriesResponse.SuppressionInfo.Reason"))
             }
         }
     }
@@ -2152,6 +2137,7 @@ pub mod tail_log_entries_response {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct IndexConfig {
+
     /// Required. The LogEntry field path to index.
     ///
     /// Note that some paths are automatically indexed, and other paths are not
@@ -2214,8 +2200,7 @@ impl IndexConfig {
     /// let x = IndexConfig::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -2231,8 +2216,7 @@ impl IndexConfig {
     /// let x = IndexConfig::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -2249,6 +2233,7 @@ impl wkt::message::Message for IndexConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LogBucket {
+
     /// Output only. The resource name of the bucket.
     ///
     /// For example:
@@ -2354,8 +2339,7 @@ impl LogBucket {
     /// let x = LogBucket::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -2371,8 +2355,7 @@ impl LogBucket {
     /// let x = LogBucket::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -2387,8 +2370,7 @@ impl LogBucket {
     /// let x = LogBucket::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -2404,8 +2386,7 @@ impl LogBucket {
     /// let x = LogBucket::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -2445,10 +2426,7 @@ impl LogBucket {
     /// let x1 = LogBucket::new().set_lifecycle_state(LifecycleState::DeleteRequested);
     /// let x2 = LogBucket::new().set_lifecycle_state(LifecycleState::Updating);
     /// ```
-    pub fn set_lifecycle_state<T: std::convert::Into<crate::model::LifecycleState>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_lifecycle_state<T: std::convert::Into<crate::model::LifecycleState>>(mut self, v: T) -> Self {
         self.lifecycle_state = v.into();
         self
     }
@@ -2475,7 +2453,7 @@ impl LogBucket {
     pub fn set_restricted_fields<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.restricted_fields = v.into_iter().map(|i| i.into()).collect();
@@ -2497,7 +2475,7 @@ impl LogBucket {
     pub fn set_index_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::IndexConfig>,
+        V: std::convert::Into<crate::model::IndexConfig>
     {
         use std::iter::Iterator;
         self.index_configs = v.into_iter().map(|i| i.into()).collect();
@@ -2513,8 +2491,7 @@ impl LogBucket {
     /// let x = LogBucket::new().set_cmek_settings(CmekSettings::default()/* use setters */);
     /// ```
     pub fn set_cmek_settings<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CmekSettings>,
+    where T: std::convert::Into<crate::model::CmekSettings>
     {
         self.cmek_settings = std::option::Option::Some(v.into());
         self
@@ -2530,8 +2507,7 @@ impl LogBucket {
     /// let x = LogBucket::new().set_or_clear_cmek_settings(None::<CmekSettings>);
     /// ```
     pub fn set_or_clear_cmek_settings<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CmekSettings>,
+    where T: std::convert::Into<crate::model::CmekSettings>
     {
         self.cmek_settings = v.map(|x| x.into());
         self
@@ -2548,6 +2524,7 @@ impl wkt::message::Message for LogBucket {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LogView {
+
     /// The resource name of the view.
     ///
     /// For example:
@@ -2621,8 +2598,7 @@ impl LogView {
     /// let x = LogView::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -2638,8 +2614,7 @@ impl LogView {
     /// let x = LogView::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -2654,8 +2629,7 @@ impl LogView {
     /// let x = LogView::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -2671,8 +2645,7 @@ impl LogView {
     /// let x = LogView::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -2705,6 +2678,7 @@ impl wkt::message::Message for LogView {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LogSink {
+
     /// Required. The client-assigned sink identifier, unique within the project.
     ///
     /// For example: `"my-syslog-errors-to-pubsub"`. Sink identifiers are limited
@@ -2896,7 +2870,7 @@ impl LogSink {
     pub fn set_exclusions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::LogExclusion>,
+        V: std::convert::Into<crate::model::LogExclusion>
     {
         use std::iter::Iterator;
         self.exclusions = v.into_iter().map(|i| i.into()).collect();
@@ -2913,12 +2887,7 @@ impl LogSink {
     /// let x1 = LogSink::new().set_output_version_format(VersionFormat::V1);
     /// ```
     #[deprecated]
-    pub fn set_output_version_format<
-        T: std::convert::Into<crate::model::log_sink::VersionFormat>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_output_version_format<T: std::convert::Into<crate::model::log_sink::VersionFormat>>(mut self, v: T) -> Self {
         self.output_version_format = v.into();
         self
     }
@@ -2956,8 +2925,7 @@ impl LogSink {
     /// let x = LogSink::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -2973,8 +2941,7 @@ impl LogSink {
     /// let x = LogSink::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -2989,8 +2956,7 @@ impl LogSink {
     /// let x = LogSink::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -3006,8 +2972,7 @@ impl LogSink {
     /// let x = LogSink::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -3025,12 +2990,8 @@ impl LogSink {
     /// let x = LogSink::new().set_options(Some(
     ///     google_cloud_logging_v2::model::log_sink::Options::BigqueryOptions(BigQueryOptions::default().into())));
     /// ```
-    pub fn set_options<
-        T: std::convert::Into<std::option::Option<crate::model::log_sink::Options>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_options<T: std::convert::Into<std::option::Option<crate::model::log_sink::Options>>>(mut self, v: T) -> Self
+    {
         self.options = v.into();
         self
     }
@@ -3038,9 +2999,7 @@ impl LogSink {
     /// The value of [options][crate::model::LogSink::options]
     /// if it holds a `BigqueryOptions`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn bigquery_options(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::BigQueryOptions>> {
+    pub fn bigquery_options(&self) -> std::option::Option<&std::boxed::Box<crate::model::BigQueryOptions>> {
         #[allow(unreachable_patterns)]
         self.options.as_ref().and_then(|v| match v {
             crate::model::log_sink::Options::BigqueryOptions(v) => std::option::Option::Some(v),
@@ -3061,14 +3020,12 @@ impl LogSink {
     /// let x = LogSink::new().set_bigquery_options(BigQueryOptions::default()/* use setters */);
     /// assert!(x.bigquery_options().is_some());
     /// ```
-    pub fn set_bigquery_options<
-        T: std::convert::Into<std::boxed::Box<crate::model::BigQueryOptions>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.options =
-            std::option::Option::Some(crate::model::log_sink::Options::BigqueryOptions(v.into()));
+    pub fn set_bigquery_options<T: std::convert::Into<std::boxed::Box<crate::model::BigQueryOptions>>>(mut self, v: T) -> Self {
+        self.options = std::option::Option::Some(
+            crate::model::log_sink::Options::BigqueryOptions(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -3083,6 +3040,7 @@ impl wkt::message::Message for LogSink {
 pub mod log_sink {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Deprecated. This is unused.
     ///
@@ -3170,9 +3128,7 @@ pub mod log_sink {
                 0 => Self::Unspecified,
                 1 => Self::V2,
                 2 => Self::V1,
-                _ => Self::UnknownValue(version_format::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(version_format::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -3184,9 +3140,7 @@ pub mod log_sink {
                 "VERSION_FORMAT_UNSPECIFIED" => Self::Unspecified,
                 "V2" => Self::V2,
                 "V1" => Self::V1,
-                _ => Self::UnknownValue(version_format::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(version_format::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -3211,8 +3165,7 @@ pub mod log_sink {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<VersionFormat>::new(
-                ".google.logging.v2.LogSink.VersionFormat",
-            ))
+                ".google.logging.v2.LogSink.VersionFormat"))
         }
     }
 
@@ -3229,6 +3182,7 @@ pub mod log_sink {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BigQueryDataset {
+
     /// Output only. The full resource name of the BigQuery dataset. The DATASET_ID
     /// will match the ID of the link, so the link must match the naming
     /// restrictions of BigQuery datasets (alphanumeric characters and underscores
@@ -3269,6 +3223,7 @@ impl wkt::message::Message for BigQueryDataset {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Link {
+
     /// The resource name of the link. The name can have up to 100 characters.
     /// A valid link id (at the end of the link name) must only have alphanumeric
     /// characters and underscores within it.
@@ -3343,8 +3298,7 @@ impl Link {
     /// let x = Link::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -3360,8 +3314,7 @@ impl Link {
     /// let x = Link::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -3377,10 +3330,7 @@ impl Link {
     /// let x1 = Link::new().set_lifecycle_state(LifecycleState::DeleteRequested);
     /// let x2 = Link::new().set_lifecycle_state(LifecycleState::Updating);
     /// ```
-    pub fn set_lifecycle_state<T: std::convert::Into<crate::model::LifecycleState>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_lifecycle_state<T: std::convert::Into<crate::model::LifecycleState>>(mut self, v: T) -> Self {
         self.lifecycle_state = v.into();
         self
     }
@@ -3394,8 +3344,7 @@ impl Link {
     /// let x = Link::new().set_bigquery_dataset(BigQueryDataset::default()/* use setters */);
     /// ```
     pub fn set_bigquery_dataset<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::BigQueryDataset>,
+    where T: std::convert::Into<crate::model::BigQueryDataset>
     {
         self.bigquery_dataset = std::option::Option::Some(v.into());
         self
@@ -3411,8 +3360,7 @@ impl Link {
     /// let x = Link::new().set_or_clear_bigquery_dataset(None::<BigQueryDataset>);
     /// ```
     pub fn set_or_clear_bigquery_dataset<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::BigQueryDataset>,
+    where T: std::convert::Into<crate::model::BigQueryDataset>
     {
         self.bigquery_dataset = v.map(|x| x.into());
         self
@@ -3429,6 +3377,7 @@ impl wkt::message::Message for Link {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BigQueryOptions {
+
     /// Optional. Whether to use [BigQuery's partition
     /// tables](https://cloud.google.com/bigquery/docs/partitioned-tables). By
     /// default, Cloud Logging creates dated tables based on the log entries'
@@ -3475,10 +3424,7 @@ impl BigQueryOptions {
     /// # use google_cloud_logging_v2::model::BigQueryOptions;
     /// let x = BigQueryOptions::new().set_uses_timestamp_column_partitioning(true);
     /// ```
-    pub fn set_uses_timestamp_column_partitioning<T: std::convert::Into<bool>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_uses_timestamp_column_partitioning<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.uses_timestamp_column_partitioning = v.into();
         self
     }
@@ -3494,6 +3440,7 @@ impl wkt::message::Message for BigQueryOptions {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBucketsRequest {
+
     /// Required. The parent resource whose buckets are to be listed:
     ///
     /// ```norust
@@ -3574,6 +3521,7 @@ impl wkt::message::Message for ListBucketsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBucketsResponse {
+
     /// A list of buckets.
     pub buckets: std::vec::Vec<crate::model::LogBucket>,
 
@@ -3605,7 +3553,7 @@ impl ListBucketsResponse {
     pub fn set_buckets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::LogBucket>,
+        V: std::convert::Into<crate::model::LogBucket>
     {
         use std::iter::Iterator;
         self.buckets = v.into_iter().map(|i| i.into()).collect();
@@ -3649,6 +3597,7 @@ impl gax::paginator::internal::PageableResponse for ListBucketsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateBucketRequest {
+
     /// Required. The resource in which to create the log bucket:
     ///
     /// ```norust
@@ -3711,8 +3660,7 @@ impl CreateBucketRequest {
     /// let x = CreateBucketRequest::new().set_bucket(LogBucket::default()/* use setters */);
     /// ```
     pub fn set_bucket<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::LogBucket>,
+    where T: std::convert::Into<crate::model::LogBucket>
     {
         self.bucket = std::option::Option::Some(v.into());
         self
@@ -3728,8 +3676,7 @@ impl CreateBucketRequest {
     /// let x = CreateBucketRequest::new().set_or_clear_bucket(None::<LogBucket>);
     /// ```
     pub fn set_or_clear_bucket<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::LogBucket>,
+    where T: std::convert::Into<crate::model::LogBucket>
     {
         self.bucket = v.map(|x| x.into());
         self
@@ -3746,6 +3693,7 @@ impl wkt::message::Message for CreateBucketRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateBucketRequest {
+
     /// Required. The full resource name of the bucket to update.
     ///
     /// ```norust
@@ -3802,8 +3750,7 @@ impl UpdateBucketRequest {
     /// let x = UpdateBucketRequest::new().set_bucket(LogBucket::default()/* use setters */);
     /// ```
     pub fn set_bucket<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::LogBucket>,
+    where T: std::convert::Into<crate::model::LogBucket>
     {
         self.bucket = std::option::Option::Some(v.into());
         self
@@ -3819,8 +3766,7 @@ impl UpdateBucketRequest {
     /// let x = UpdateBucketRequest::new().set_or_clear_bucket(None::<LogBucket>);
     /// ```
     pub fn set_or_clear_bucket<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::LogBucket>,
+    where T: std::convert::Into<crate::model::LogBucket>
     {
         self.bucket = v.map(|x| x.into());
         self
@@ -3835,8 +3781,7 @@ impl UpdateBucketRequest {
     /// let x = UpdateBucketRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -3852,8 +3797,7 @@ impl UpdateBucketRequest {
     /// let x = UpdateBucketRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -3870,6 +3814,7 @@ impl wkt::message::Message for UpdateBucketRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetBucketRequest {
+
     /// Required. The resource name of the bucket:
     ///
     /// ```norust
@@ -3915,6 +3860,7 @@ impl wkt::message::Message for GetBucketRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteBucketRequest {
+
     /// Required. The full resource name of the bucket to delete.
     ///
     /// ```norust
@@ -3960,6 +3906,7 @@ impl wkt::message::Message for DeleteBucketRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UndeleteBucketRequest {
+
     /// Required. The full resource name of the bucket to undelete.
     ///
     /// ```norust
@@ -4005,6 +3952,7 @@ impl wkt::message::Message for UndeleteBucketRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListViewsRequest {
+
     /// Required. The bucket whose views are to be listed:
     ///
     /// ```norust
@@ -4079,6 +4027,7 @@ impl wkt::message::Message for ListViewsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListViewsResponse {
+
     /// A list of views.
     pub views: std::vec::Vec<crate::model::LogView>,
 
@@ -4110,7 +4059,7 @@ impl ListViewsResponse {
     pub fn set_views<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::LogView>,
+        V: std::convert::Into<crate::model::LogView>
     {
         use std::iter::Iterator;
         self.views = v.into_iter().map(|i| i.into()).collect();
@@ -4154,6 +4103,7 @@ impl gax::paginator::internal::PageableResponse for ListViewsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateViewRequest {
+
     /// Required. The bucket in which to create the view
     ///
     /// ```norust
@@ -4214,8 +4164,7 @@ impl CreateViewRequest {
     /// let x = CreateViewRequest::new().set_view(LogView::default()/* use setters */);
     /// ```
     pub fn set_view<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::LogView>,
+    where T: std::convert::Into<crate::model::LogView>
     {
         self.view = std::option::Option::Some(v.into());
         self
@@ -4231,8 +4180,7 @@ impl CreateViewRequest {
     /// let x = CreateViewRequest::new().set_or_clear_view(None::<LogView>);
     /// ```
     pub fn set_or_clear_view<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::LogView>,
+    where T: std::convert::Into<crate::model::LogView>
     {
         self.view = v.map(|x| x.into());
         self
@@ -4249,6 +4197,7 @@ impl wkt::message::Message for CreateViewRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateViewRequest {
+
     /// Required. The full resource name of the view to update
     ///
     /// ```norust
@@ -4302,8 +4251,7 @@ impl UpdateViewRequest {
     /// let x = UpdateViewRequest::new().set_view(LogView::default()/* use setters */);
     /// ```
     pub fn set_view<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::LogView>,
+    where T: std::convert::Into<crate::model::LogView>
     {
         self.view = std::option::Option::Some(v.into());
         self
@@ -4319,8 +4267,7 @@ impl UpdateViewRequest {
     /// let x = UpdateViewRequest::new().set_or_clear_view(None::<LogView>);
     /// ```
     pub fn set_or_clear_view<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::LogView>,
+    where T: std::convert::Into<crate::model::LogView>
     {
         self.view = v.map(|x| x.into());
         self
@@ -4335,8 +4282,7 @@ impl UpdateViewRequest {
     /// let x = UpdateViewRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -4352,8 +4298,7 @@ impl UpdateViewRequest {
     /// let x = UpdateViewRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -4370,6 +4315,7 @@ impl wkt::message::Message for UpdateViewRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetViewRequest {
+
     /// Required. The resource name of the policy:
     ///
     /// ```norust
@@ -4412,6 +4358,7 @@ impl wkt::message::Message for GetViewRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteViewRequest {
+
     /// Required. The full resource name of the view to delete:
     ///
     /// ```norust
@@ -4454,6 +4401,7 @@ impl wkt::message::Message for DeleteViewRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSinksRequest {
+
     /// Required. The parent resource whose sinks are to be listed:
     ///
     /// ```norust
@@ -4530,6 +4478,7 @@ impl wkt::message::Message for ListSinksRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSinksResponse {
+
     /// A list of sinks.
     pub sinks: std::vec::Vec<crate::model::LogSink>,
 
@@ -4561,7 +4510,7 @@ impl ListSinksResponse {
     pub fn set_sinks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::LogSink>,
+        V: std::convert::Into<crate::model::LogSink>
     {
         use std::iter::Iterator;
         self.sinks = v.into_iter().map(|i| i.into()).collect();
@@ -4605,6 +4554,7 @@ impl gax::paginator::internal::PageableResponse for ListSinksResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSinkRequest {
+
     /// Required. The resource name of the sink:
     ///
     /// ```norust
@@ -4650,6 +4600,7 @@ impl wkt::message::Message for GetSinkRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateSinkRequest {
+
     /// Required. The resource in which to create the sink:
     ///
     /// ```norust
@@ -4714,8 +4665,7 @@ impl CreateSinkRequest {
     /// let x = CreateSinkRequest::new().set_sink(LogSink::default()/* use setters */);
     /// ```
     pub fn set_sink<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::LogSink>,
+    where T: std::convert::Into<crate::model::LogSink>
     {
         self.sink = std::option::Option::Some(v.into());
         self
@@ -4731,8 +4681,7 @@ impl CreateSinkRequest {
     /// let x = CreateSinkRequest::new().set_or_clear_sink(None::<LogSink>);
     /// ```
     pub fn set_or_clear_sink<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::LogSink>,
+    where T: std::convert::Into<crate::model::LogSink>
     {
         self.sink = v.map(|x| x.into());
         self
@@ -4761,6 +4710,7 @@ impl wkt::message::Message for CreateSinkRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateSinkRequest {
+
     /// Required. The full resource name of the sink to update, including the
     /// parent resource and the sink identifier:
     ///
@@ -4842,8 +4792,7 @@ impl UpdateSinkRequest {
     /// let x = UpdateSinkRequest::new().set_sink(LogSink::default()/* use setters */);
     /// ```
     pub fn set_sink<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::LogSink>,
+    where T: std::convert::Into<crate::model::LogSink>
     {
         self.sink = std::option::Option::Some(v.into());
         self
@@ -4859,8 +4808,7 @@ impl UpdateSinkRequest {
     /// let x = UpdateSinkRequest::new().set_or_clear_sink(None::<LogSink>);
     /// ```
     pub fn set_or_clear_sink<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::LogSink>,
+    where T: std::convert::Into<crate::model::LogSink>
     {
         self.sink = v.map(|x| x.into());
         self
@@ -4887,8 +4835,7 @@ impl UpdateSinkRequest {
     /// let x = UpdateSinkRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -4904,8 +4851,7 @@ impl UpdateSinkRequest {
     /// let x = UpdateSinkRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -4922,6 +4868,7 @@ impl wkt::message::Message for UpdateSinkRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteSinkRequest {
+
     /// Required. The full resource name of the sink to delete, including the
     /// parent resource and the sink identifier:
     ///
@@ -4968,6 +4915,7 @@ impl wkt::message::Message for DeleteSinkRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateLinkRequest {
+
     /// Required. The full resource name of the bucket to create a link for.
     ///
     /// ```norust
@@ -5015,8 +4963,7 @@ impl CreateLinkRequest {
     /// let x = CreateLinkRequest::new().set_link(Link::default()/* use setters */);
     /// ```
     pub fn set_link<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Link>,
+    where T: std::convert::Into<crate::model::Link>
     {
         self.link = std::option::Option::Some(v.into());
         self
@@ -5032,8 +4979,7 @@ impl CreateLinkRequest {
     /// let x = CreateLinkRequest::new().set_or_clear_link(None::<Link>);
     /// ```
     pub fn set_or_clear_link<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Link>,
+    where T: std::convert::Into<crate::model::Link>
     {
         self.link = v.map(|x| x.into());
         self
@@ -5062,6 +5008,7 @@ impl wkt::message::Message for CreateLinkRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteLinkRequest {
+
     /// Required. The full resource name of the link to delete.
     ///
     /// "projects/[PROJECT_ID]/locations/[LOCATION_ID]/buckets/[BUCKET_ID]/links/[LINK_ID]"
@@ -5101,6 +5048,7 @@ impl wkt::message::Message for DeleteLinkRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListLinksRequest {
+
     /// Required. The parent resource whose links are to be listed:
     ///
     /// "projects/[PROJECT_ID]/locations/[LOCATION_ID]/buckets/[BUCKET_ID]/links/"
@@ -5172,6 +5120,7 @@ impl wkt::message::Message for ListLinksRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListLinksResponse {
+
     /// A list of links.
     pub links: std::vec::Vec<crate::model::Link>,
 
@@ -5203,7 +5152,7 @@ impl ListLinksResponse {
     pub fn set_links<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Link>,
+        V: std::convert::Into<crate::model::Link>
     {
         use std::iter::Iterator;
         self.links = v.into_iter().map(|i| i.into()).collect();
@@ -5247,6 +5196,7 @@ impl gax::paginator::internal::PageableResponse for ListLinksResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetLinkRequest {
+
     /// Required. The resource name of the link:
     ///
     /// "projects/[PROJECT_ID]/locations/[LOCATION_ID]/buckets/[BUCKET_ID]/links/[LINK_ID]"
@@ -5290,6 +5240,7 @@ impl wkt::message::Message for GetLinkRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LogExclusion {
+
     /// Required. A client-assigned identifier, such as
     /// `"load-balancer-exclusion"`. Identifiers are limited to 100 characters and
     /// can include only letters, digits, underscores, hyphens, and periods. First
@@ -5394,8 +5345,7 @@ impl LogExclusion {
     /// let x = LogExclusion::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -5411,8 +5361,7 @@ impl LogExclusion {
     /// let x = LogExclusion::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -5427,8 +5376,7 @@ impl LogExclusion {
     /// let x = LogExclusion::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -5444,8 +5392,7 @@ impl LogExclusion {
     /// let x = LogExclusion::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -5462,6 +5409,7 @@ impl wkt::message::Message for LogExclusion {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListExclusionsRequest {
+
     /// Required. The parent resource whose exclusions are to be listed.
     ///
     /// ```norust
@@ -5538,6 +5486,7 @@ impl wkt::message::Message for ListExclusionsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListExclusionsResponse {
+
     /// A list of exclusions.
     pub exclusions: std::vec::Vec<crate::model::LogExclusion>,
 
@@ -5569,7 +5518,7 @@ impl ListExclusionsResponse {
     pub fn set_exclusions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::LogExclusion>,
+        V: std::convert::Into<crate::model::LogExclusion>
     {
         use std::iter::Iterator;
         self.exclusions = v.into_iter().map(|i| i.into()).collect();
@@ -5613,6 +5562,7 @@ impl gax::paginator::internal::PageableResponse for ListExclusionsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetExclusionRequest {
+
     /// Required. The resource name of an existing exclusion:
     ///
     /// ```norust
@@ -5658,6 +5608,7 @@ impl wkt::message::Message for GetExclusionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateExclusionRequest {
+
     /// Required. The parent resource in which to create the exclusion:
     ///
     /// ```norust
@@ -5706,8 +5657,7 @@ impl CreateExclusionRequest {
     /// let x = CreateExclusionRequest::new().set_exclusion(LogExclusion::default()/* use setters */);
     /// ```
     pub fn set_exclusion<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::LogExclusion>,
+    where T: std::convert::Into<crate::model::LogExclusion>
     {
         self.exclusion = std::option::Option::Some(v.into());
         self
@@ -5723,8 +5673,7 @@ impl CreateExclusionRequest {
     /// let x = CreateExclusionRequest::new().set_or_clear_exclusion(None::<LogExclusion>);
     /// ```
     pub fn set_or_clear_exclusion<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::LogExclusion>,
+    where T: std::convert::Into<crate::model::LogExclusion>
     {
         self.exclusion = v.map(|x| x.into());
         self
@@ -5741,6 +5690,7 @@ impl wkt::message::Message for CreateExclusionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateExclusionRequest {
+
     /// Required. The resource name of the exclusion to update:
     ///
     /// ```norust
@@ -5800,8 +5750,7 @@ impl UpdateExclusionRequest {
     /// let x = UpdateExclusionRequest::new().set_exclusion(LogExclusion::default()/* use setters */);
     /// ```
     pub fn set_exclusion<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::LogExclusion>,
+    where T: std::convert::Into<crate::model::LogExclusion>
     {
         self.exclusion = std::option::Option::Some(v.into());
         self
@@ -5817,8 +5766,7 @@ impl UpdateExclusionRequest {
     /// let x = UpdateExclusionRequest::new().set_or_clear_exclusion(None::<LogExclusion>);
     /// ```
     pub fn set_or_clear_exclusion<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::LogExclusion>,
+    where T: std::convert::Into<crate::model::LogExclusion>
     {
         self.exclusion = v.map(|x| x.into());
         self
@@ -5833,8 +5781,7 @@ impl UpdateExclusionRequest {
     /// let x = UpdateExclusionRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -5850,8 +5797,7 @@ impl UpdateExclusionRequest {
     /// let x = UpdateExclusionRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -5868,6 +5814,7 @@ impl wkt::message::Message for UpdateExclusionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteExclusionRequest {
+
     /// Required. The resource name of an existing exclusion to delete:
     ///
     /// ```norust
@@ -5920,6 +5867,7 @@ impl wkt::message::Message for DeleteExclusionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetCmekSettingsRequest {
+
     /// Required. The resource for which to retrieve CMEK settings.
     ///
     /// ```norust
@@ -5977,6 +5925,7 @@ impl wkt::message::Message for GetCmekSettingsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateCmekSettingsRequest {
+
     /// Required. The resource name for the CMEK settings to update.
     ///
     /// ```norust
@@ -6042,8 +5991,7 @@ impl UpdateCmekSettingsRequest {
     /// let x = UpdateCmekSettingsRequest::new().set_cmek_settings(CmekSettings::default()/* use setters */);
     /// ```
     pub fn set_cmek_settings<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CmekSettings>,
+    where T: std::convert::Into<crate::model::CmekSettings>
     {
         self.cmek_settings = std::option::Option::Some(v.into());
         self
@@ -6059,8 +6007,7 @@ impl UpdateCmekSettingsRequest {
     /// let x = UpdateCmekSettingsRequest::new().set_or_clear_cmek_settings(None::<CmekSettings>);
     /// ```
     pub fn set_or_clear_cmek_settings<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CmekSettings>,
+    where T: std::convert::Into<crate::model::CmekSettings>
     {
         self.cmek_settings = v.map(|x| x.into());
         self
@@ -6075,8 +6022,7 @@ impl UpdateCmekSettingsRequest {
     /// let x = UpdateCmekSettingsRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -6092,8 +6038,7 @@ impl UpdateCmekSettingsRequest {
     /// let x = UpdateCmekSettingsRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -6119,6 +6064,7 @@ impl wkt::message::Message for UpdateCmekSettingsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CmekSettings {
+
     /// Output only. The resource name of the CMEK settings.
     pub name: std::string::String,
 
@@ -6228,10 +6174,7 @@ impl CmekSettings {
     /// # use google_cloud_logging_v2::model::CmekSettings;
     /// let x = CmekSettings::new().set_kms_key_version_name("example");
     /// ```
-    pub fn set_kms_key_version_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_kms_key_version_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key_version_name = v.into();
         self
     }
@@ -6243,10 +6186,7 @@ impl CmekSettings {
     /// # use google_cloud_logging_v2::model::CmekSettings;
     /// let x = CmekSettings::new().set_service_account_id("example");
     /// ```
-    pub fn set_service_account_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_service_account_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account_id = v.into();
         self
     }
@@ -6269,6 +6209,7 @@ impl wkt::message::Message for CmekSettings {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSettingsRequest {
+
     /// Required. The resource for which to retrieve settings.
     ///
     /// ```norust
@@ -6326,6 +6267,7 @@ impl wkt::message::Message for GetSettingsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateSettingsRequest {
+
     /// Required. The resource name for the settings to update.
     ///
     /// ```norust
@@ -6388,8 +6330,7 @@ impl UpdateSettingsRequest {
     /// let x = UpdateSettingsRequest::new().set_settings(Settings::default()/* use setters */);
     /// ```
     pub fn set_settings<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Settings>,
+    where T: std::convert::Into<crate::model::Settings>
     {
         self.settings = std::option::Option::Some(v.into());
         self
@@ -6405,8 +6346,7 @@ impl UpdateSettingsRequest {
     /// let x = UpdateSettingsRequest::new().set_or_clear_settings(None::<Settings>);
     /// ```
     pub fn set_or_clear_settings<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Settings>,
+    where T: std::convert::Into<crate::model::Settings>
     {
         self.settings = v.map(|x| x.into());
         self
@@ -6421,8 +6361,7 @@ impl UpdateSettingsRequest {
     /// let x = UpdateSettingsRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -6438,8 +6377,7 @@ impl UpdateSettingsRequest {
     /// let x = UpdateSettingsRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -6457,6 +6395,7 @@ impl wkt::message::Message for UpdateSettingsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Settings {
+
     /// Output only. The resource name of the settings.
     pub name: std::string::String,
 
@@ -6555,10 +6494,7 @@ impl Settings {
     /// # use google_cloud_logging_v2::model::Settings;
     /// let x = Settings::new().set_kms_service_account_id("example");
     /// ```
-    pub fn set_kms_service_account_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_kms_service_account_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_service_account_id = v.into();
         self
     }
@@ -6570,10 +6506,7 @@ impl Settings {
     /// # use google_cloud_logging_v2::model::Settings;
     /// let x = Settings::new().set_storage_location("example");
     /// ```
-    pub fn set_storage_location<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_storage_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.storage_location = v.into();
         self
     }
@@ -6601,6 +6534,7 @@ impl wkt::message::Message for Settings {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CopyLogEntriesRequest {
+
     /// Required. Log bucket from which to copy log entries.
     ///
     /// For example:
@@ -6670,6 +6604,7 @@ impl wkt::message::Message for CopyLogEntriesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CopyLogEntriesMetadata {
+
     /// The create time of an operation.
     pub start_time: std::option::Option<wkt::Timestamp>,
 
@@ -6714,8 +6649,7 @@ impl CopyLogEntriesMetadata {
     /// let x = CopyLogEntriesMetadata::new().set_start_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -6731,8 +6665,7 @@ impl CopyLogEntriesMetadata {
     /// let x = CopyLogEntriesMetadata::new().set_or_clear_start_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -6747,8 +6680,7 @@ impl CopyLogEntriesMetadata {
     /// let x = CopyLogEntriesMetadata::new().set_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -6764,8 +6696,7 @@ impl CopyLogEntriesMetadata {
     /// let x = CopyLogEntriesMetadata::new().set_or_clear_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -6807,8 +6738,7 @@ impl CopyLogEntriesMetadata {
     /// let x = CopyLogEntriesMetadata::new().set_request(CopyLogEntriesRequest::default()/* use setters */);
     /// ```
     pub fn set_request<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CopyLogEntriesRequest>,
+    where T: std::convert::Into<crate::model::CopyLogEntriesRequest>
     {
         self.request = std::option::Option::Some(v.into());
         self
@@ -6824,8 +6754,7 @@ impl CopyLogEntriesMetadata {
     /// let x = CopyLogEntriesMetadata::new().set_or_clear_request(None::<CopyLogEntriesRequest>);
     /// ```
     pub fn set_or_clear_request<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CopyLogEntriesRequest>,
+    where T: std::convert::Into<crate::model::CopyLogEntriesRequest>
     {
         self.request = v.map(|x| x.into());
         self
@@ -6866,6 +6795,7 @@ impl wkt::message::Message for CopyLogEntriesMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CopyLogEntriesResponse {
+
     /// Number of log entries copied.
     pub log_entries_copied_count: i64,
 
@@ -6900,6 +6830,7 @@ impl wkt::message::Message for CopyLogEntriesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BucketMetadata {
+
     /// The create time of an operation.
     pub start_time: std::option::Option<wkt::Timestamp>,
 
@@ -6928,8 +6859,7 @@ impl BucketMetadata {
     /// let x = BucketMetadata::new().set_start_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -6945,8 +6875,7 @@ impl BucketMetadata {
     /// let x = BucketMetadata::new().set_or_clear_start_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -6961,8 +6890,7 @@ impl BucketMetadata {
     /// let x = BucketMetadata::new().set_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -6978,8 +6906,7 @@ impl BucketMetadata {
     /// let x = BucketMetadata::new().set_or_clear_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -7012,12 +6939,8 @@ impl BucketMetadata {
     /// let x = BucketMetadata::new().set_request(Some(
     ///     google_cloud_logging_v2::model::bucket_metadata::Request::CreateBucketRequest(CreateBucketRequest::default().into())));
     /// ```
-    pub fn set_request<
-        T: std::convert::Into<std::option::Option<crate::model::bucket_metadata::Request>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_request<T: std::convert::Into<std::option::Option<crate::model::bucket_metadata::Request>>>(mut self, v: T) -> Self
+    {
         self.request = v.into();
         self
     }
@@ -7025,14 +6948,10 @@ impl BucketMetadata {
     /// The value of [request][crate::model::BucketMetadata::request]
     /// if it holds a `CreateBucketRequest`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn create_bucket_request(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::CreateBucketRequest>> {
+    pub fn create_bucket_request(&self) -> std::option::Option<&std::boxed::Box<crate::model::CreateBucketRequest>> {
         #[allow(unreachable_patterns)]
         self.request.as_ref().and_then(|v| match v {
-            crate::model::bucket_metadata::Request::CreateBucketRequest(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::bucket_metadata::Request::CreateBucketRequest(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -7051,14 +6970,11 @@ impl BucketMetadata {
     /// assert!(x.create_bucket_request().is_some());
     /// assert!(x.update_bucket_request().is_none());
     /// ```
-    pub fn set_create_bucket_request<
-        T: std::convert::Into<std::boxed::Box<crate::model::CreateBucketRequest>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_create_bucket_request<T: std::convert::Into<std::boxed::Box<crate::model::CreateBucketRequest>>>(mut self, v: T) -> Self {
         self.request = std::option::Option::Some(
-            crate::model::bucket_metadata::Request::CreateBucketRequest(v.into()),
+            crate::model::bucket_metadata::Request::CreateBucketRequest(
+                v.into()
+            )
         );
         self
     }
@@ -7066,14 +6982,10 @@ impl BucketMetadata {
     /// The value of [request][crate::model::BucketMetadata::request]
     /// if it holds a `UpdateBucketRequest`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn update_bucket_request(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::UpdateBucketRequest>> {
+    pub fn update_bucket_request(&self) -> std::option::Option<&std::boxed::Box<crate::model::UpdateBucketRequest>> {
         #[allow(unreachable_patterns)]
         self.request.as_ref().and_then(|v| match v {
-            crate::model::bucket_metadata::Request::UpdateBucketRequest(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::bucket_metadata::Request::UpdateBucketRequest(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -7092,14 +7004,11 @@ impl BucketMetadata {
     /// assert!(x.update_bucket_request().is_some());
     /// assert!(x.create_bucket_request().is_none());
     /// ```
-    pub fn set_update_bucket_request<
-        T: std::convert::Into<std::boxed::Box<crate::model::UpdateBucketRequest>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_update_bucket_request<T: std::convert::Into<std::boxed::Box<crate::model::UpdateBucketRequest>>>(mut self, v: T) -> Self {
         self.request = std::option::Option::Some(
-            crate::model::bucket_metadata::Request::UpdateBucketRequest(v.into()),
+            crate::model::bucket_metadata::Request::UpdateBucketRequest(
+                v.into()
+            )
         );
         self
     }
@@ -7116,6 +7025,7 @@ pub mod bucket_metadata {
     #[allow(unused_imports)]
     use super::*;
 
+
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Request {
@@ -7130,6 +7040,7 @@ pub mod bucket_metadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LinkMetadata {
+
     /// The start time of an operation.
     pub start_time: std::option::Option<wkt::Timestamp>,
 
@@ -7158,8 +7069,7 @@ impl LinkMetadata {
     /// let x = LinkMetadata::new().set_start_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -7175,8 +7085,7 @@ impl LinkMetadata {
     /// let x = LinkMetadata::new().set_or_clear_start_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -7191,8 +7100,7 @@ impl LinkMetadata {
     /// let x = LinkMetadata::new().set_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -7208,8 +7116,7 @@ impl LinkMetadata {
     /// let x = LinkMetadata::new().set_or_clear_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -7242,12 +7149,8 @@ impl LinkMetadata {
     /// let x = LinkMetadata::new().set_request(Some(
     ///     google_cloud_logging_v2::model::link_metadata::Request::CreateLinkRequest(CreateLinkRequest::default().into())));
     /// ```
-    pub fn set_request<
-        T: std::convert::Into<std::option::Option<crate::model::link_metadata::Request>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_request<T: std::convert::Into<std::option::Option<crate::model::link_metadata::Request>>>(mut self, v: T) -> Self
+    {
         self.request = v.into();
         self
     }
@@ -7255,14 +7158,10 @@ impl LinkMetadata {
     /// The value of [request][crate::model::LinkMetadata::request]
     /// if it holds a `CreateLinkRequest`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn create_link_request(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::CreateLinkRequest>> {
+    pub fn create_link_request(&self) -> std::option::Option<&std::boxed::Box<crate::model::CreateLinkRequest>> {
         #[allow(unreachable_patterns)]
         self.request.as_ref().and_then(|v| match v {
-            crate::model::link_metadata::Request::CreateLinkRequest(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::link_metadata::Request::CreateLinkRequest(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -7281,14 +7180,11 @@ impl LinkMetadata {
     /// assert!(x.create_link_request().is_some());
     /// assert!(x.delete_link_request().is_none());
     /// ```
-    pub fn set_create_link_request<
-        T: std::convert::Into<std::boxed::Box<crate::model::CreateLinkRequest>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_create_link_request<T: std::convert::Into<std::boxed::Box<crate::model::CreateLinkRequest>>>(mut self, v: T) -> Self {
         self.request = std::option::Option::Some(
-            crate::model::link_metadata::Request::CreateLinkRequest(v.into()),
+            crate::model::link_metadata::Request::CreateLinkRequest(
+                v.into()
+            )
         );
         self
     }
@@ -7296,14 +7192,10 @@ impl LinkMetadata {
     /// The value of [request][crate::model::LinkMetadata::request]
     /// if it holds a `DeleteLinkRequest`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn delete_link_request(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::DeleteLinkRequest>> {
+    pub fn delete_link_request(&self) -> std::option::Option<&std::boxed::Box<crate::model::DeleteLinkRequest>> {
         #[allow(unreachable_patterns)]
         self.request.as_ref().and_then(|v| match v {
-            crate::model::link_metadata::Request::DeleteLinkRequest(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::link_metadata::Request::DeleteLinkRequest(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -7322,14 +7214,11 @@ impl LinkMetadata {
     /// assert!(x.delete_link_request().is_some());
     /// assert!(x.create_link_request().is_none());
     /// ```
-    pub fn set_delete_link_request<
-        T: std::convert::Into<std::boxed::Box<crate::model::DeleteLinkRequest>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_delete_link_request<T: std::convert::Into<std::boxed::Box<crate::model::DeleteLinkRequest>>>(mut self, v: T) -> Self {
         self.request = std::option::Option::Some(
-            crate::model::link_metadata::Request::DeleteLinkRequest(v.into()),
+            crate::model::link_metadata::Request::DeleteLinkRequest(
+                v.into()
+            )
         );
         self
     }
@@ -7346,6 +7235,7 @@ pub mod link_metadata {
     #[allow(unused_imports)]
     use super::*;
 
+
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Request {
@@ -7360,6 +7250,7 @@ pub mod link_metadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LocationMetadata {
+
     /// Indicates whether or not Log Analytics features are supported in the given
     /// location.
     pub log_analytics_enabled: bool,
@@ -7401,6 +7292,7 @@ impl wkt::message::Message for LocationMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LogMetric {
+
     /// Required. The client-assigned metric identifier.
     /// Examples: `"error_count"`, `"nginx/requests"`.
     ///
@@ -7505,7 +7397,7 @@ pub struct LogMetric {
     ///
     /// Note that there are upper bounds on the maximum number of labels and the
     /// number of active time series that are allowed in a project.
-    pub label_extractors: std::collections::HashMap<std::string::String, std::string::String>,
+    pub label_extractors: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. The `bucket_options` are required when the logs-based metric is
     /// using a DISTRIBUTION value type and it describes the bucket boundaries
@@ -7604,8 +7496,7 @@ impl LogMetric {
     /// let x = LogMetric::new().set_metric_descriptor(MetricDescriptor::default()/* use setters */);
     /// ```
     pub fn set_metric_descriptor<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<api::model::MetricDescriptor>,
+    where T: std::convert::Into<api::model::MetricDescriptor>
     {
         self.metric_descriptor = std::option::Option::Some(v.into());
         self
@@ -7621,8 +7512,7 @@ impl LogMetric {
     /// let x = LogMetric::new().set_or_clear_metric_descriptor(None::<MetricDescriptor>);
     /// ```
     pub fn set_or_clear_metric_descriptor<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<api::model::MetricDescriptor>,
+    where T: std::convert::Into<api::model::MetricDescriptor>
     {
         self.metric_descriptor = v.map(|x| x.into());
         self
@@ -7670,8 +7560,7 @@ impl LogMetric {
     /// let x = LogMetric::new().set_bucket_options(BucketOptions::default()/* use setters */);
     /// ```
     pub fn set_bucket_options<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<api::model::distribution::BucketOptions>,
+    where T: std::convert::Into<api::model::distribution::BucketOptions>
     {
         self.bucket_options = std::option::Option::Some(v.into());
         self
@@ -7687,8 +7576,7 @@ impl LogMetric {
     /// let x = LogMetric::new().set_or_clear_bucket_options(None::<BucketOptions>);
     /// ```
     pub fn set_or_clear_bucket_options<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<api::model::distribution::BucketOptions>,
+    where T: std::convert::Into<api::model::distribution::BucketOptions>
     {
         self.bucket_options = v.map(|x| x.into());
         self
@@ -7703,8 +7591,7 @@ impl LogMetric {
     /// let x = LogMetric::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -7720,8 +7607,7 @@ impl LogMetric {
     /// let x = LogMetric::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -7736,8 +7622,7 @@ impl LogMetric {
     /// let x = LogMetric::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -7753,8 +7638,7 @@ impl LogMetric {
     /// let x = LogMetric::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -7769,10 +7653,7 @@ impl LogMetric {
     /// let x0 = LogMetric::new().set_version(ApiVersion::V1);
     /// ```
     #[deprecated]
-    pub fn set_version<T: std::convert::Into<crate::model::log_metric::ApiVersion>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_version<T: std::convert::Into<crate::model::log_metric::ApiVersion>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
@@ -7788,6 +7669,7 @@ impl wkt::message::Message for LogMetric {
 pub mod log_metric {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Logging API version.
     ///
@@ -7870,9 +7752,7 @@ pub mod log_metric {
             match value {
                 0 => Self::V2,
                 1 => Self::V1,
-                _ => Self::UnknownValue(api_version::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(api_version::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -7883,9 +7763,7 @@ pub mod log_metric {
             match value {
                 "V2" => Self::V2,
                 "V1" => Self::V1,
-                _ => Self::UnknownValue(api_version::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(api_version::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -7909,8 +7787,7 @@ pub mod log_metric {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<ApiVersion>::new(
-                ".google.logging.v2.LogMetric.ApiVersion",
-            ))
+                ".google.logging.v2.LogMetric.ApiVersion"))
         }
     }
 }
@@ -7919,6 +7796,7 @@ pub mod log_metric {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListLogMetricsRequest {
+
     /// Required. The name of the project containing the metrics:
     ///
     /// ```norust
@@ -7992,6 +7870,7 @@ impl wkt::message::Message for ListLogMetricsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListLogMetricsResponse {
+
     /// A list of logs-based metrics.
     pub metrics: std::vec::Vec<crate::model::LogMetric>,
 
@@ -8023,7 +7902,7 @@ impl ListLogMetricsResponse {
     pub fn set_metrics<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::LogMetric>,
+        V: std::convert::Into<crate::model::LogMetric>
     {
         use std::iter::Iterator;
         self.metrics = v.into_iter().map(|i| i.into()).collect();
@@ -8067,6 +7946,7 @@ impl gax::paginator::internal::PageableResponse for ListLogMetricsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetLogMetricRequest {
+
     /// Required. The resource name of the desired metric:
     ///
     /// ```norust
@@ -8105,6 +7985,7 @@ impl wkt::message::Message for GetLogMetricRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateLogMetricRequest {
+
     /// Required. The resource name of the project in which to create the metric:
     ///
     /// ```norust
@@ -8147,8 +8028,7 @@ impl CreateLogMetricRequest {
     /// let x = CreateLogMetricRequest::new().set_metric(LogMetric::default()/* use setters */);
     /// ```
     pub fn set_metric<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::LogMetric>,
+    where T: std::convert::Into<crate::model::LogMetric>
     {
         self.metric = std::option::Option::Some(v.into());
         self
@@ -8164,8 +8044,7 @@ impl CreateLogMetricRequest {
     /// let x = CreateLogMetricRequest::new().set_or_clear_metric(None::<LogMetric>);
     /// ```
     pub fn set_or_clear_metric<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::LogMetric>,
+    where T: std::convert::Into<crate::model::LogMetric>
     {
         self.metric = v.map(|x| x.into());
         self
@@ -8182,6 +8061,7 @@ impl wkt::message::Message for CreateLogMetricRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateLogMetricRequest {
+
     /// Required. The resource name of the metric to update:
     ///
     /// ```norust
@@ -8225,8 +8105,7 @@ impl UpdateLogMetricRequest {
     /// let x = UpdateLogMetricRequest::new().set_metric(LogMetric::default()/* use setters */);
     /// ```
     pub fn set_metric<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::LogMetric>,
+    where T: std::convert::Into<crate::model::LogMetric>
     {
         self.metric = std::option::Option::Some(v.into());
         self
@@ -8242,8 +8121,7 @@ impl UpdateLogMetricRequest {
     /// let x = UpdateLogMetricRequest::new().set_or_clear_metric(None::<LogMetric>);
     /// ```
     pub fn set_or_clear_metric<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::LogMetric>,
+    where T: std::convert::Into<crate::model::LogMetric>
     {
         self.metric = v.map(|x| x.into());
         self
@@ -8260,6 +8138,7 @@ impl wkt::message::Message for UpdateLogMetricRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteLogMetricRequest {
+
     /// Required. The resource name of the metric to delete:
     ///
     /// ```norust
@@ -8371,9 +8250,7 @@ impl OperationState {
         match self {
             Self::Unspecified => std::option::Option::Some("OPERATION_STATE_UNSPECIFIED"),
             Self::Scheduled => std::option::Option::Some("OPERATION_STATE_SCHEDULED"),
-            Self::WaitingForPermissions => {
-                std::option::Option::Some("OPERATION_STATE_WAITING_FOR_PERMISSIONS")
-            }
+            Self::WaitingForPermissions => std::option::Option::Some("OPERATION_STATE_WAITING_FOR_PERMISSIONS"),
             Self::Running => std::option::Option::Some("OPERATION_STATE_RUNNING"),
             Self::Succeeded => std::option::Option::Some("OPERATION_STATE_SUCCEEDED"),
             Self::Failed => std::option::Option::Some("OPERATION_STATE_FAILED"),
@@ -8406,9 +8283,7 @@ impl std::convert::From<i32> for OperationState {
             4 => Self::Succeeded,
             5 => Self::Failed,
             6 => Self::Cancelled,
-            _ => Self::UnknownValue(operation_state::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(operation_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -8424,9 +8299,7 @@ impl std::convert::From<&str> for OperationState {
             "OPERATION_STATE_SUCCEEDED" => Self::Succeeded,
             "OPERATION_STATE_FAILED" => Self::Failed,
             "OPERATION_STATE_CANCELLED" => Self::Cancelled,
-            _ => Self::UnknownValue(operation_state::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(operation_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -8455,8 +8328,7 @@ impl<'de> serde::de::Deserialize<'de> for OperationState {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<OperationState>::new(
-            ".google.logging.v2.OperationState",
-        ))
+            ".google.logging.v2.OperationState"))
     }
 }
 
@@ -8565,9 +8437,7 @@ impl std::convert::From<i32> for LifecycleState {
             3 => Self::Updating,
             4 => Self::Creating,
             5 => Self::Failed,
-            _ => Self::UnknownValue(lifecycle_state::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(lifecycle_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -8582,9 +8452,7 @@ impl std::convert::From<&str> for LifecycleState {
             "UPDATING" => Self::Updating,
             "CREATING" => Self::Creating,
             "FAILED" => Self::Failed,
-            _ => Self::UnknownValue(lifecycle_state::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(lifecycle_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -8612,8 +8480,7 @@ impl<'de> serde::de::Deserialize<'de> for LifecycleState {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<LifecycleState>::new(
-            ".google.logging.v2.LifecycleState",
-        ))
+            ".google.logging.v2.LifecycleState"))
     }
 }
 
@@ -8704,9 +8571,7 @@ impl std::convert::From<i32> for IndexType {
             0 => Self::Unspecified,
             1 => Self::String,
             2 => Self::Integer,
-            _ => Self::UnknownValue(index_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(index_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -8718,9 +8583,7 @@ impl std::convert::From<&str> for IndexType {
             "INDEX_TYPE_UNSPECIFIED" => Self::Unspecified,
             "INDEX_TYPE_STRING" => Self::String,
             "INDEX_TYPE_INTEGER" => Self::Integer,
-            _ => Self::UnknownValue(index_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(index_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -8745,7 +8608,6 @@ impl<'de> serde::de::Deserialize<'de> for IndexType {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<IndexType>::new(
-            ".google.logging.v2.IndexType",
-        ))
+            ".google.logging.v2.IndexType"))
     }
 }

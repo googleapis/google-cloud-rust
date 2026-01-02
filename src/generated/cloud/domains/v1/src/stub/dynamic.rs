@@ -147,8 +147,7 @@ impl<T: super::Domains> Domains for T {
         &self,
         req: crate::model::RetrieveRegisterParametersRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::RetrieveRegisterParametersResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::RetrieveRegisterParametersResponse>> {
         T::retrieve_register_parameters(self, req, options).await
     }
 
@@ -166,8 +165,7 @@ impl<T: super::Domains> Domains for T {
         &self,
         req: crate::model::RetrieveTransferParametersRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::RetrieveTransferParametersResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::RetrieveTransferParametersResponse>> {
         T::retrieve_transfer_parameters(self, req, options).await
     }
 

@@ -91,9 +91,7 @@ impl PrivilegedAccessManager {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::privileged_access_manager::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::privileged_access_manager::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::privileged_access_manager::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -101,70 +99,87 @@ impl PrivilegedAccessManager {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::PrivilegedAccessManager + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::PrivilegedAccessManager + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<
-        std::sync::Arc<dyn super::stub::dynamic::PrivilegedAccessManager>,
-    > {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::PrivilegedAccessManager>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::PrivilegedAccessManager> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::PrivilegedAccessManager> {
         super::transport::PrivilegedAccessManager::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::PrivilegedAccessManager> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::PrivilegedAccessManager::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::PrivilegedAccessManager> {
+        Self::build_transport(conf).await.map(super::tracing::PrivilegedAccessManager::new)
     }
 
     /// `CheckOnboardingStatus` reports the onboarding status for a
     /// project/folder/organization. Any findings reported by this API need to be
     /// fixed before PAM can be used on the resource.
-    pub fn check_onboarding_status(
-        &self,
-    ) -> super::builder::privileged_access_manager::CheckOnboardingStatus {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::client::PrivilegedAccessManager;
+    /// async fn sample(
+    ///    client: &PrivilegedAccessManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .check_onboarding_status()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn check_onboarding_status(&self) -> super::builder::privileged_access_manager::CheckOnboardingStatus
+    {
         super::builder::privileged_access_manager::CheckOnboardingStatus::new(self.inner.clone())
     }
 
     /// Lists entitlements in a given project/folder/organization and location.
-    pub fn list_entitlements(&self) -> super::builder::privileged_access_manager::ListEntitlements {
+    pub fn list_entitlements(&self) -> super::builder::privileged_access_manager::ListEntitlements
+    {
         super::builder::privileged_access_manager::ListEntitlements::new(self.inner.clone())
     }
 
     /// `SearchEntitlements` returns entitlements on which the caller has the
     /// specified access.
-    pub fn search_entitlements(
-        &self,
-    ) -> super::builder::privileged_access_manager::SearchEntitlements {
+    pub fn search_entitlements(&self) -> super::builder::privileged_access_manager::SearchEntitlements
+    {
         super::builder::privileged_access_manager::SearchEntitlements::new(self.inner.clone())
     }
 
     /// Gets details of a single entitlement.
-    pub fn get_entitlement(&self) -> super::builder::privileged_access_manager::GetEntitlement {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::client::PrivilegedAccessManager;
+    /// async fn sample(
+    ///    client: &PrivilegedAccessManager,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_entitlement()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_entitlement(&self) -> super::builder::privileged_access_manager::GetEntitlement
+    {
         super::builder::privileged_access_manager::GetEntitlement::new(self.inner.clone())
     }
 
@@ -180,9 +195,8 @@ impl PrivilegedAccessManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_entitlement(
-        &self,
-    ) -> super::builder::privileged_access_manager::CreateEntitlement {
+    pub fn create_entitlement(&self) -> super::builder::privileged_access_manager::CreateEntitlement
+    {
         super::builder::privileged_access_manager::CreateEntitlement::new(self.inner.clone())
     }
 
@@ -199,9 +213,8 @@ impl PrivilegedAccessManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_entitlement(
-        &self,
-    ) -> super::builder::privileged_access_manager::DeleteEntitlement {
+    pub fn delete_entitlement(&self) -> super::builder::privileged_access_manager::DeleteEntitlement
+    {
         super::builder::privileged_access_manager::DeleteEntitlement::new(self.inner.clone())
     }
 
@@ -235,45 +248,115 @@ impl PrivilegedAccessManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_entitlement(
-        &self,
-    ) -> super::builder::privileged_access_manager::UpdateEntitlement {
+    pub fn update_entitlement(&self) -> super::builder::privileged_access_manager::UpdateEntitlement
+    {
         super::builder::privileged_access_manager::UpdateEntitlement::new(self.inner.clone())
     }
 
     /// Lists grants for a given entitlement.
-    pub fn list_grants(&self) -> super::builder::privileged_access_manager::ListGrants {
+    pub fn list_grants(&self) -> super::builder::privileged_access_manager::ListGrants
+    {
         super::builder::privileged_access_manager::ListGrants::new(self.inner.clone())
     }
 
     /// `SearchGrants` returns grants that are related to the calling user in the
     /// specified way.
-    pub fn search_grants(&self) -> super::builder::privileged_access_manager::SearchGrants {
+    pub fn search_grants(&self) -> super::builder::privileged_access_manager::SearchGrants
+    {
         super::builder::privileged_access_manager::SearchGrants::new(self.inner.clone())
     }
 
     /// Get details of a single grant.
-    pub fn get_grant(&self) -> super::builder::privileged_access_manager::GetGrant {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::client::PrivilegedAccessManager;
+    /// async fn sample(
+    ///    client: &PrivilegedAccessManager,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_grant()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_grant(&self) -> super::builder::privileged_access_manager::GetGrant
+    {
         super::builder::privileged_access_manager::GetGrant::new(self.inner.clone())
     }
 
     /// Creates a new grant in a given project/folder/organization and
     /// location.
-    pub fn create_grant(&self) -> super::builder::privileged_access_manager::CreateGrant {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::client::PrivilegedAccessManager;
+    /// async fn sample(
+    ///    client: &PrivilegedAccessManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_grant()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_grant(&self) -> super::builder::privileged_access_manager::CreateGrant
+    {
         super::builder::privileged_access_manager::CreateGrant::new(self.inner.clone())
     }
 
     /// `ApproveGrant` is used to approve a grant. This method can only be called
     /// on a grant when it's in the `APPROVAL_AWAITED` state. This operation can't
     /// be undone.
-    pub fn approve_grant(&self) -> super::builder::privileged_access_manager::ApproveGrant {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::client::PrivilegedAccessManager;
+    /// async fn sample(
+    ///    client: &PrivilegedAccessManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .approve_grant()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn approve_grant(&self) -> super::builder::privileged_access_manager::ApproveGrant
+    {
         super::builder::privileged_access_manager::ApproveGrant::new(self.inner.clone())
     }
 
     /// `DenyGrant` is used to deny a grant. This method can only be called on a
     /// grant when it's in the `APPROVAL_AWAITED` state. This operation can't be
     /// undone.
-    pub fn deny_grant(&self) -> super::builder::privileged_access_manager::DenyGrant {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::client::PrivilegedAccessManager;
+    /// async fn sample(
+    ///    client: &PrivilegedAccessManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .deny_grant()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn deny_grant(&self) -> super::builder::privileged_access_manager::DenyGrant
+    {
         super::builder::privileged_access_manager::DenyGrant::new(self.inner.clone())
     }
 
@@ -289,38 +372,91 @@ impl PrivilegedAccessManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn revoke_grant(&self) -> super::builder::privileged_access_manager::RevokeGrant {
+    pub fn revoke_grant(&self) -> super::builder::privileged_access_manager::RevokeGrant
+    {
         super::builder::privileged_access_manager::RevokeGrant::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::privileged_access_manager::ListLocations {
+    pub fn list_locations(&self) -> super::builder::privileged_access_manager::ListLocations
+    {
         super::builder::privileged_access_manager::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(&self) -> super::builder::privileged_access_manager::GetLocation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::client::PrivilegedAccessManager;
+    /// async fn sample(
+    ///    client: &PrivilegedAccessManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_location(&self) -> super::builder::privileged_access_manager::GetLocation
+    {
         super::builder::privileged_access_manager::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::privileged_access_manager::ListOperations {
+    pub fn list_operations(&self) -> super::builder::privileged_access_manager::ListOperations
+    {
         super::builder::privileged_access_manager::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::privileged_access_manager::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::client::PrivilegedAccessManager;
+    /// async fn sample(
+    ///    client: &PrivilegedAccessManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::privileged_access_manager::GetOperation
+    {
         super::builder::privileged_access_manager::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(&self) -> super::builder::privileged_access_manager::DeleteOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::client::PrivilegedAccessManager;
+    /// async fn sample(
+    ///    client: &PrivilegedAccessManager
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_operation(&self) -> super::builder::privileged_access_manager::DeleteOperation
+    {
         super::builder::privileged_access_manager::DeleteOperation::new(self.inner.clone())
     }
 }

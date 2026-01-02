@@ -38,14 +38,13 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
+
     /// Implements [super::client::FirestoreAdmin::create_index].
     fn create_index(
         &self,
         _req: crate::model::CreateIndexRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -54,9 +53,7 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListIndexesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListIndexesResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListIndexesResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -65,9 +62,7 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetIndexRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Index>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Index>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -85,9 +80,7 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetFieldRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Field>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Field>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -96,9 +89,7 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateFieldRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -107,9 +98,7 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListFieldsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListFieldsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListFieldsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -118,9 +107,7 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ExportDocumentsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -129,9 +116,7 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ImportDocumentsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -140,9 +125,7 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::BulkDeleteDocumentsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -151,9 +134,7 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateDatabaseRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -162,9 +143,7 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetDatabaseRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Database>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Database>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -173,9 +152,7 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListDatabasesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListDatabasesResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListDatabasesResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -184,9 +161,7 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateDatabaseRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -195,9 +170,7 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteDatabaseRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -206,9 +179,7 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateUserCredsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::UserCreds>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::UserCreds>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -217,9 +188,7 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetUserCredsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::UserCreds>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::UserCreds>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -228,9 +197,7 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListUserCredsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListUserCredsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListUserCredsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -239,9 +206,7 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::EnableUserCredsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::UserCreds>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::UserCreds>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -250,9 +215,7 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DisableUserCredsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::UserCreds>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::UserCreds>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -261,9 +224,7 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ResetUserPasswordRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::UserCreds>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::UserCreds>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -281,9 +242,7 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetBackupRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Backup>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Backup>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -292,9 +251,7 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListBackupsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListBackupsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListBackupsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -312,9 +269,7 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::RestoreDatabaseRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -323,9 +278,7 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateBackupScheduleRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::BackupSchedule>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::BackupSchedule>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -334,9 +287,7 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetBackupScheduleRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::BackupSchedule>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::BackupSchedule>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -345,9 +296,7 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListBackupSchedulesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListBackupSchedulesResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListBackupSchedulesResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -356,9 +305,7 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateBackupScheduleRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::BackupSchedule>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::BackupSchedule>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -376,9 +323,7 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CloneDatabaseRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -387,9 +332,7 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -398,9 +341,7 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::GetOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -444,3 +385,4 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         std::sync::Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
     }
 }
+

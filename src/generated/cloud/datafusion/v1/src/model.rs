@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -28,7 +29,6 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -45,6 +45,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NetworkConfig {
+
     /// Name of the network in the customer project with which the Tenant Project
     /// will be peered for executing pipelines. In case of shared VPC where the
     /// network resides in another host project the network should specified in
@@ -100,6 +101,7 @@ impl wkt::message::Message for NetworkConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Version {
+
     /// The version number of the Data Fusion instance, such as '6.0.1.0'.
     pub version_number: std::string::String,
 
@@ -154,7 +156,7 @@ impl Version {
     pub fn set_available_features<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.available_features = v.into_iter().map(|i| i.into()).collect();
@@ -186,6 +188,7 @@ impl wkt::message::Message for Version {
 pub mod version {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Each type represents the release availability of a CDF version
     ///
@@ -273,9 +276,7 @@ pub mod version {
                 0 => Self::Unspecified,
                 1 => Self::Preview,
                 2 => Self::GeneralAvailability,
-                _ => Self::UnknownValue(r#type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -287,9 +288,7 @@ pub mod version {
                 "TYPE_UNSPECIFIED" => Self::Unspecified,
                 "TYPE_PREVIEW" => Self::Preview,
                 "TYPE_GENERAL_AVAILABILITY" => Self::GeneralAvailability,
-                _ => Self::UnknownValue(r#type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -314,8 +313,7 @@ pub mod version {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
-                ".google.cloud.datafusion.v1.Version.Type",
-            ))
+                ".google.cloud.datafusion.v1.Version.Type"))
         }
     }
 }
@@ -324,6 +322,7 @@ pub mod version {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Accelerator {
+
     /// The type of an accelator for a CDF instance.
     pub accelerator_type: crate::model::accelerator::AcceleratorType,
 
@@ -348,12 +347,7 @@ impl Accelerator {
     /// let x1 = Accelerator::new().set_accelerator_type(AcceleratorType::Healthcare);
     /// let x2 = Accelerator::new().set_accelerator_type(AcceleratorType::CcaiInsights);
     /// ```
-    pub fn set_accelerator_type<
-        T: std::convert::Into<crate::model::accelerator::AcceleratorType>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_accelerator_type<T: std::convert::Into<crate::model::accelerator::AcceleratorType>>(mut self, v: T) -> Self {
         self.accelerator_type = v.into();
         self
     }
@@ -368,10 +362,7 @@ impl Accelerator {
     /// let x1 = Accelerator::new().set_state(State::Disabled);
     /// let x2 = Accelerator::new().set_state(State::Unknown);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::accelerator::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::accelerator::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -387,6 +378,7 @@ impl wkt::message::Message for Accelerator {
 pub mod accelerator {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Each type represents an Accelerator (Add-On) supported by Cloud Data Fusion
     /// service.
@@ -483,9 +475,7 @@ pub mod accelerator {
                 1 => Self::Cdc,
                 2 => Self::Healthcare,
                 3 => Self::CcaiInsights,
-                _ => Self::UnknownValue(accelerator_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(accelerator_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -498,9 +488,7 @@ pub mod accelerator {
                 "CDC" => Self::Cdc,
                 "HEALTHCARE" => Self::Healthcare,
                 "CCAI_INSIGHTS" => Self::CcaiInsights,
-                _ => Self::UnknownValue(accelerator_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(accelerator_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -526,8 +514,7 @@ pub mod accelerator {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<AcceleratorType>::new(
-                ".google.cloud.datafusion.v1.Accelerator.AcceleratorType",
-            ))
+                ".google.cloud.datafusion.v1.Accelerator.AcceleratorType"))
         }
     }
 
@@ -623,9 +610,7 @@ pub mod accelerator {
                 1 => Self::Enabled,
                 2 => Self::Disabled,
                 3 => Self::Unknown,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -638,9 +623,7 @@ pub mod accelerator {
                 "ENABLED" => Self::Enabled,
                 "DISABLED" => Self::Disabled,
                 "UNKNOWN" => Self::Unknown,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -666,8 +649,7 @@ pub mod accelerator {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.datafusion.v1.Accelerator.State",
-            ))
+                ".google.cloud.datafusion.v1.Accelerator.State"))
         }
     }
 }
@@ -677,6 +659,7 @@ pub mod accelerator {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CryptoKeyConfig {
+
     /// The name of the key which is used to encrypt/decrypt customer data. For key
     /// in Cloud KMS, the key should be in the format of
     /// `projects/*/locations/*/keyRings/*/cryptoKeys/*`.
@@ -713,6 +696,7 @@ impl wkt::message::Message for CryptoKeyConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Instance {
+
     /// Output only. The name of this instance is in the form of
     /// projects/{project}/locations/{location}/instances/{instance}.
     pub name: std::string::String,
@@ -741,11 +725,11 @@ pub struct Instance {
     /// The resource labels for instance to use to annotate any related underlying
     /// resources such as Compute Engine VMs. The character '=' is not allowed to
     /// be used within the labels.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Map of additional options used to configure the behavior of
     /// Data Fusion instance.
-    pub options: std::collections::HashMap<std::string::String, std::string::String>,
+    pub options: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Output only. The time the instance was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
@@ -905,8 +889,7 @@ impl Instance {
     /// let x = Instance::new().set_network_config(NetworkConfig::default()/* use setters */);
     /// ```
     pub fn set_network_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::NetworkConfig>,
+    where T: std::convert::Into<crate::model::NetworkConfig>
     {
         self.network_config = std::option::Option::Some(v.into());
         self
@@ -922,8 +905,7 @@ impl Instance {
     /// let x = Instance::new().set_or_clear_network_config(None::<NetworkConfig>);
     /// ```
     pub fn set_or_clear_network_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::NetworkConfig>,
+    where T: std::convert::Into<crate::model::NetworkConfig>
     {
         self.network_config = v.map(|x| x.into());
         self
@@ -980,8 +962,7 @@ impl Instance {
     /// let x = Instance::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -997,8 +978,7 @@ impl Instance {
     /// let x = Instance::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -1013,8 +993,7 @@ impl Instance {
     /// let x = Instance::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -1030,8 +1009,7 @@ impl Instance {
     /// let x = Instance::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -1071,10 +1049,7 @@ impl Instance {
     /// # use google_cloud_datafusion_v1::model::Instance;
     /// let x = Instance::new().set_service_endpoint("example");
     /// ```
-    pub fn set_service_endpoint<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_service_endpoint<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_endpoint = v.into();
         self
     }
@@ -1143,7 +1118,7 @@ impl Instance {
     pub fn set_available_version<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Version>,
+        V: std::convert::Into<crate::model::Version>
     {
         use std::iter::Iterator;
         self.available_version = v.into_iter().map(|i| i.into()).collect();
@@ -1189,7 +1164,7 @@ impl Instance {
     pub fn set_accelerators<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Accelerator>,
+        V: std::convert::Into<crate::model::Accelerator>
     {
         use std::iter::Iterator;
         self.accelerators = v.into_iter().map(|i| i.into()).collect();
@@ -1203,10 +1178,7 @@ impl Instance {
     /// # use google_cloud_datafusion_v1::model::Instance;
     /// let x = Instance::new().set_p4_service_account("example");
     /// ```
-    pub fn set_p4_service_account<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_p4_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.p4_service_account = v.into();
         self
     }
@@ -1218,10 +1190,7 @@ impl Instance {
     /// # use google_cloud_datafusion_v1::model::Instance;
     /// let x = Instance::new().set_tenant_project_id("example");
     /// ```
-    pub fn set_tenant_project_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_tenant_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.tenant_project_id = v.into();
         self
     }
@@ -1233,10 +1202,7 @@ impl Instance {
     /// # use google_cloud_datafusion_v1::model::Instance;
     /// let x = Instance::new().set_dataproc_service_account("example");
     /// ```
-    pub fn set_dataproc_service_account<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_dataproc_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dataproc_service_account = v.into();
         self
     }
@@ -1262,8 +1228,7 @@ impl Instance {
     /// let x = Instance::new().set_crypto_key_config(CryptoKeyConfig::default()/* use setters */);
     /// ```
     pub fn set_crypto_key_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CryptoKeyConfig>,
+    where T: std::convert::Into<crate::model::CryptoKeyConfig>
     {
         self.crypto_key_config = std::option::Option::Some(v.into());
         self
@@ -1279,8 +1244,7 @@ impl Instance {
     /// let x = Instance::new().set_or_clear_crypto_key_config(None::<CryptoKeyConfig>);
     /// ```
     pub fn set_or_clear_crypto_key_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CryptoKeyConfig>,
+    where T: std::convert::Into<crate::model::CryptoKeyConfig>
     {
         self.crypto_key_config = v.map(|x| x.into());
         self
@@ -1299,7 +1263,7 @@ impl Instance {
     pub fn set_disabled_reason<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::instance::DisabledReason>,
+        V: std::convert::Into<crate::model::instance::DisabledReason>
     {
         use std::iter::Iterator;
         self.disabled_reason = v.into_iter().map(|i| i.into()).collect();
@@ -1317,6 +1281,7 @@ impl wkt::message::Message for Instance {
 pub mod instance {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Represents the type of Data Fusion instance. Each type is configured with
     /// the default settings for processing and memory.
@@ -1418,9 +1383,7 @@ pub mod instance {
                 1 => Self::Basic,
                 2 => Self::Enterprise,
                 3 => Self::Developer,
-                _ => Self::UnknownValue(r#type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1433,9 +1396,7 @@ pub mod instance {
                 "BASIC" => Self::Basic,
                 "ENTERPRISE" => Self::Enterprise,
                 "DEVELOPER" => Self::Developer,
-                _ => Self::UnknownValue(r#type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1461,8 +1422,7 @@ pub mod instance {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
-                ".google.cloud.datafusion.v1.Instance.Type",
-            ))
+                ".google.cloud.datafusion.v1.Instance.Type"))
         }
     }
 
@@ -1593,9 +1553,7 @@ pub mod instance {
                 8 => Self::AutoUpdating,
                 9 => Self::AutoUpgrading,
                 10 => Self::Disabled,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1615,9 +1573,7 @@ pub mod instance {
                 "AUTO_UPDATING" => Self::AutoUpdating,
                 "AUTO_UPGRADING" => Self::AutoUpgrading,
                 "DISABLED" => Self::Disabled,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1650,8 +1606,7 @@ pub mod instance {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.datafusion.v1.Instance.State",
-            ))
+                ".google.cloud.datafusion.v1.Instance.State"))
         }
     }
 
@@ -1736,9 +1691,7 @@ pub mod instance {
             match value {
                 0 => Self::Unspecified,
                 1 => Self::KmsKeyIssue,
-                _ => Self::UnknownValue(disabled_reason::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(disabled_reason::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1749,9 +1702,7 @@ pub mod instance {
             match value {
                 "DISABLED_REASON_UNSPECIFIED" => Self::Unspecified,
                 "KMS_KEY_ISSUE" => Self::KmsKeyIssue,
-                _ => Self::UnknownValue(disabled_reason::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(disabled_reason::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1775,8 +1726,7 @@ pub mod instance {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<DisabledReason>::new(
-                ".google.cloud.datafusion.v1.Instance.DisabledReason",
-            ))
+                ".google.cloud.datafusion.v1.Instance.DisabledReason"))
         }
     }
 }
@@ -1785,6 +1735,7 @@ pub mod instance {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInstancesRequest {
+
     /// Required. The project and location for which to retrieve instance information
     /// in the format projects/{project}/locations/{location}. If the location is
     /// specified as '-' (wildcard), then all regions available to the project
@@ -1883,6 +1834,7 @@ impl wkt::message::Message for ListInstancesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInstancesResponse {
+
     /// Represents a list of Data Fusion instances.
     pub instances: std::vec::Vec<crate::model::Instance>,
 
@@ -1916,7 +1868,7 @@ impl ListInstancesResponse {
     pub fn set_instances<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Instance>,
+        V: std::convert::Into<crate::model::Instance>
     {
         use std::iter::Iterator;
         self.instances = v.into_iter().map(|i| i.into()).collect();
@@ -1945,7 +1897,7 @@ impl ListInstancesResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -1977,6 +1929,7 @@ impl gax::paginator::internal::PageableResponse for ListInstancesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAvailableVersionsRequest {
+
     /// Required. The project and location for which to retrieve instance information
     /// in the format projects/{project}/locations/{location}.
     pub parent: std::string::String,
@@ -2060,6 +2013,7 @@ impl wkt::message::Message for ListAvailableVersionsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAvailableVersionsResponse {
+
     /// Represents a list of versions that are supported.
     pub available_versions: std::vec::Vec<crate::model::Version>,
 
@@ -2090,7 +2044,7 @@ impl ListAvailableVersionsResponse {
     pub fn set_available_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Version>,
+        V: std::convert::Into<crate::model::Version>
     {
         use std::iter::Iterator;
         self.available_versions = v.into_iter().map(|i| i.into()).collect();
@@ -2134,6 +2088,7 @@ impl gax::paginator::internal::PageableResponse for ListAvailableVersionsRespons
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetInstanceRequest {
+
     /// Required. The instance resource name in the format
     /// projects/{project}/locations/{location}/instances/{instance}.
     pub name: std::string::String,
@@ -2169,6 +2124,7 @@ impl wkt::message::Message for GetInstanceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateInstanceRequest {
+
     /// Required. The instance's project and location in the format
     /// projects/{project}/locations/{location}.
     pub parent: std::string::String,
@@ -2220,8 +2176,7 @@ impl CreateInstanceRequest {
     /// let x = CreateInstanceRequest::new().set_instance(Instance::default()/* use setters */);
     /// ```
     pub fn set_instance<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Instance>,
+    where T: std::convert::Into<crate::model::Instance>
     {
         self.instance = std::option::Option::Some(v.into());
         self
@@ -2237,8 +2192,7 @@ impl CreateInstanceRequest {
     /// let x = CreateInstanceRequest::new().set_or_clear_instance(None::<Instance>);
     /// ```
     pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Instance>,
+    where T: std::convert::Into<crate::model::Instance>
     {
         self.instance = v.map(|x| x.into());
         self
@@ -2255,6 +2209,7 @@ impl wkt::message::Message for CreateInstanceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteInstanceRequest {
+
     /// Required. The instance resource name in the format
     /// projects/{project}/locations/{location}/instances/{instance}
     pub name: std::string::String,
@@ -2292,6 +2247,7 @@ impl wkt::message::Message for DeleteInstanceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateInstanceRequest {
+
     /// Required. The instance resource that replaces the resource on the server. Currently,
     /// Data Fusion only allows replacing labels, options, and stack driver
     /// settings. All other fields will be ignored.
@@ -2322,8 +2278,7 @@ impl UpdateInstanceRequest {
     /// let x = UpdateInstanceRequest::new().set_instance(Instance::default()/* use setters */);
     /// ```
     pub fn set_instance<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Instance>,
+    where T: std::convert::Into<crate::model::Instance>
     {
         self.instance = std::option::Option::Some(v.into());
         self
@@ -2339,8 +2294,7 @@ impl UpdateInstanceRequest {
     /// let x = UpdateInstanceRequest::new().set_or_clear_instance(None::<Instance>);
     /// ```
     pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Instance>,
+    where T: std::convert::Into<crate::model::Instance>
     {
         self.instance = v.map(|x| x.into());
         self
@@ -2355,8 +2309,7 @@ impl UpdateInstanceRequest {
     /// let x = UpdateInstanceRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -2372,8 +2325,7 @@ impl UpdateInstanceRequest {
     /// let x = UpdateInstanceRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -2390,6 +2342,7 @@ impl wkt::message::Message for UpdateInstanceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RestartInstanceRequest {
+
     /// Required. Name of the Data Fusion instance which need to be restarted in the form of
     /// projects/{project}/locations/{location}/instances/{instance}
     pub name: std::string::String,
@@ -2425,6 +2378,7 @@ impl wkt::message::Message for RestartInstanceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
+
     /// The time the operation was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
@@ -2455,7 +2409,7 @@ pub struct OperationMetadata {
     /// If there is an accelerator being enabled/disabled/deleted, this will be
     /// populated with accelerator name as key and status as
     /// ENABLING, DISABLING or DELETING
-    pub additional_status: std::collections::HashMap<std::string::String, std::string::String>,
+    pub additional_status: std::collections::HashMap<std::string::String,std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2474,8 +2428,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -2491,8 +2444,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -2507,8 +2459,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -2524,8 +2475,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self

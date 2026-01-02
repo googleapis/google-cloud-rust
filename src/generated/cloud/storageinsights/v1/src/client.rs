@@ -72,9 +72,7 @@ impl StorageInsights {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::storage_insights::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::storage_insights::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::storage_insights::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -82,87 +80,179 @@ impl StorageInsights {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::StorageInsights + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::StorageInsights + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::StorageInsights>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::StorageInsights>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::StorageInsights> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::StorageInsights> {
         super::transport::StorageInsights::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::StorageInsights> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::StorageInsights::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::StorageInsights> {
+        Self::build_transport(conf).await.map(super::tracing::StorageInsights::new)
     }
 
     /// Lists ReportConfigs in a given project and location.
-    pub fn list_report_configs(&self) -> super::builder::storage_insights::ListReportConfigs {
+    pub fn list_report_configs(&self) -> super::builder::storage_insights::ListReportConfigs
+    {
         super::builder::storage_insights::ListReportConfigs::new(self.inner.clone())
     }
 
     /// Gets details of a single ReportConfig.
-    pub fn get_report_config(&self) -> super::builder::storage_insights::GetReportConfig {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::client::StorageInsights;
+    /// async fn sample(
+    ///    client: &StorageInsights,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_report_config()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_report_config(&self) -> super::builder::storage_insights::GetReportConfig
+    {
         super::builder::storage_insights::GetReportConfig::new(self.inner.clone())
     }
 
     /// Creates a new ReportConfig in a given project and location.
-    pub fn create_report_config(&self) -> super::builder::storage_insights::CreateReportConfig {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::client::StorageInsights;
+    /// async fn sample(
+    ///    client: &StorageInsights
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_report_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_report_config(&self) -> super::builder::storage_insights::CreateReportConfig
+    {
         super::builder::storage_insights::CreateReportConfig::new(self.inner.clone())
     }
 
     /// Updates the parameters of a single ReportConfig.
-    pub fn update_report_config(&self) -> super::builder::storage_insights::UpdateReportConfig {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::client::StorageInsights;
+    /// async fn sample(
+    ///    client: &StorageInsights
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_report_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_report_config(&self) -> super::builder::storage_insights::UpdateReportConfig
+    {
         super::builder::storage_insights::UpdateReportConfig::new(self.inner.clone())
     }
 
     /// Deletes a single ReportConfig.
-    pub fn delete_report_config(&self) -> super::builder::storage_insights::DeleteReportConfig {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::client::StorageInsights;
+    /// async fn sample(
+    ///    client: &StorageInsights
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_report_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_report_config(&self) -> super::builder::storage_insights::DeleteReportConfig
+    {
         super::builder::storage_insights::DeleteReportConfig::new(self.inner.clone())
     }
 
     /// Lists ReportDetails in a given project and location.
-    pub fn list_report_details(&self) -> super::builder::storage_insights::ListReportDetails {
+    pub fn list_report_details(&self) -> super::builder::storage_insights::ListReportDetails
+    {
         super::builder::storage_insights::ListReportDetails::new(self.inner.clone())
     }
 
     /// Gets details of a single ReportDetail.
-    pub fn get_report_detail(&self) -> super::builder::storage_insights::GetReportDetail {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::client::StorageInsights;
+    /// async fn sample(
+    ///    client: &StorageInsights,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_report_detail()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_report_detail(&self) -> super::builder::storage_insights::GetReportDetail
+    {
         super::builder::storage_insights::GetReportDetail::new(self.inner.clone())
     }
 
     /// Lists the dataset configurations in a given project for a given location.
-    pub fn list_dataset_configs(&self) -> super::builder::storage_insights::ListDatasetConfigs {
+    pub fn list_dataset_configs(&self) -> super::builder::storage_insights::ListDatasetConfigs
+    {
         super::builder::storage_insights::ListDatasetConfigs::new(self.inner.clone())
     }
 
     /// Gets the dataset configuration in a given project for a given location.
-    pub fn get_dataset_config(&self) -> super::builder::storage_insights::GetDatasetConfig {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::client::StorageInsights;
+    /// async fn sample(
+    ///    client: &StorageInsights,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_dataset_config()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_dataset_config(&self) -> super::builder::storage_insights::GetDatasetConfig
+    {
         super::builder::storage_insights::GetDatasetConfig::new(self.inner.clone())
     }
 
@@ -177,7 +267,8 @@ impl StorageInsights {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_dataset_config(&self) -> super::builder::storage_insights::CreateDatasetConfig {
+    pub fn create_dataset_config(&self) -> super::builder::storage_insights::CreateDatasetConfig
+    {
         super::builder::storage_insights::CreateDatasetConfig::new(self.inner.clone())
     }
 
@@ -192,7 +283,8 @@ impl StorageInsights {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_dataset_config(&self) -> super::builder::storage_insights::UpdateDatasetConfig {
+    pub fn update_dataset_config(&self) -> super::builder::storage_insights::UpdateDatasetConfig
+    {
         super::builder::storage_insights::UpdateDatasetConfig::new(self.inner.clone())
     }
 
@@ -207,7 +299,8 @@ impl StorageInsights {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_dataset_config(&self) -> super::builder::storage_insights::DeleteDatasetConfig {
+    pub fn delete_dataset_config(&self) -> super::builder::storage_insights::DeleteDatasetConfig
+    {
         super::builder::storage_insights::DeleteDatasetConfig::new(self.inner.clone())
     }
 
@@ -222,7 +315,8 @@ impl StorageInsights {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn link_dataset(&self) -> super::builder::storage_insights::LinkDataset {
+    pub fn link_dataset(&self) -> super::builder::storage_insights::LinkDataset
+    {
         super::builder::storage_insights::LinkDataset::new(self.inner.clone())
     }
 
@@ -238,45 +332,114 @@ impl StorageInsights {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn unlink_dataset(&self) -> super::builder::storage_insights::UnlinkDataset {
+    pub fn unlink_dataset(&self) -> super::builder::storage_insights::UnlinkDataset
+    {
         super::builder::storage_insights::UnlinkDataset::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::storage_insights::ListLocations {
+    pub fn list_locations(&self) -> super::builder::storage_insights::ListLocations
+    {
         super::builder::storage_insights::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(&self) -> super::builder::storage_insights::GetLocation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::client::StorageInsights;
+    /// async fn sample(
+    ///    client: &StorageInsights
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_location(&self) -> super::builder::storage_insights::GetLocation
+    {
         super::builder::storage_insights::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::storage_insights::ListOperations {
+    pub fn list_operations(&self) -> super::builder::storage_insights::ListOperations
+    {
         super::builder::storage_insights::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::storage_insights::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::client::StorageInsights;
+    /// async fn sample(
+    ///    client: &StorageInsights
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::storage_insights::GetOperation
+    {
         super::builder::storage_insights::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(&self) -> super::builder::storage_insights::DeleteOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::client::StorageInsights;
+    /// async fn sample(
+    ///    client: &StorageInsights
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_operation(&self) -> super::builder::storage_insights::DeleteOperation
+    {
         super::builder::storage_insights::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(&self) -> super::builder::storage_insights::CancelOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::client::StorageInsights;
+    /// async fn sample(
+    ///    client: &StorageInsights
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_operation(&self) -> super::builder::storage_insights::CancelOperation
+    {
         super::builder::storage_insights::CancelOperation::new(self.inner.clone())
     }
 }

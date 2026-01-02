@@ -23,9 +23,9 @@ impl serde::ser::Serialize for super::CloudLocation {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -52,15 +52,10 @@ impl serde::ser::Serialize for super::CloudLocation {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<std::option::Option<wkt::internal::F32>>::serialize(
-                        self.0, serializer,
-                    )
+                    serde_with::As::< std::option::Option<wkt::internal::F32> >::serialize(self.0, serializer)
                 }
             }
-            state.serialize_entry(
-                "carbonFreeEnergyPercentage",
-                &__With(&self.carbon_free_energy_percentage),
-            )?;
+            state.serialize_entry("carbonFreeEnergyPercentage", &__With(&self.carbon_free_energy_percentage))?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -77,9 +72,9 @@ impl serde::ser::Serialize for super::ListCloudLocationsRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -117,9 +112,9 @@ impl serde::ser::Serialize for super::ListCloudLocationsResponse {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.cloud_locations.is_empty() {
             state.serialize_entry("cloudLocations", &self.cloud_locations)?;
@@ -142,9 +137,9 @@ impl serde::ser::Serialize for super::GetCloudLocationRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -164,9 +159,9 @@ impl serde::ser::Serialize for super::SearchCloudLocationsRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -207,9 +202,9 @@ impl serde::ser::Serialize for super::SearchCloudLocationsResponse {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.cloud_locations.is_empty() {
             state.serialize_entry("cloudLocations", &self.cloud_locations)?;

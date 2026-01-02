@@ -765,6 +765,7 @@ pub trait PolicyTagManager: std::fmt::Debug + Send + Sync {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
+
 }
 
 /// All implementations of [super::PolicyTagManager] also implement [PolicyTagManager].
@@ -922,6 +923,7 @@ impl<T: super::PolicyTagManager> PolicyTagManager for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::PolicyTagManagerSerialization].
@@ -968,6 +970,7 @@ pub trait PolicyTagManagerSerialization: std::fmt::Debug + Send + Sync {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
+
 }
 
 /// All implementations of [super::PolicyTagManagerSerialization] also implement [PolicyTagManagerSerialization].
@@ -1035,4 +1038,5 @@ impl<T: super::PolicyTagManagerSerialization> PolicyTagManagerSerialization for 
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
+
 }

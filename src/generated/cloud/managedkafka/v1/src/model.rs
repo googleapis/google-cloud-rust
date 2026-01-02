@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -29,7 +30,6 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -41,6 +41,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListClustersRequest {
+
     /// Required. The parent location whose clusters are to be listed. Structured
     /// like `projects/{project}/locations/{location}`.
     pub parent: std::string::String,
@@ -142,6 +143,7 @@ impl wkt::message::Message for ListClustersRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListClustersResponse {
+
     /// The list of Clusters in the requested parent.
     pub clusters: std::vec::Vec<crate::model::Cluster>,
 
@@ -175,7 +177,7 @@ impl ListClustersResponse {
     pub fn set_clusters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Cluster>,
+        V: std::convert::Into<crate::model::Cluster>
     {
         use std::iter::Iterator;
         self.clusters = v.into_iter().map(|i| i.into()).collect();
@@ -204,7 +206,7 @@ impl ListClustersResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -236,6 +238,7 @@ impl gax::paginator::internal::PageableResponse for ListClustersResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetClusterRequest {
+
     /// Required. The name of the cluster whose configuration to return.
     pub name: std::string::String,
 
@@ -270,6 +273,7 @@ impl wkt::message::Message for GetClusterRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateClusterRequest {
+
     /// Required. The parent region in which to create the cluster. Structured like
     /// `projects/{project}/locations/{location}`.
     pub parent: std::string::String,
@@ -343,8 +347,7 @@ impl CreateClusterRequest {
     /// let x = CreateClusterRequest::new().set_cluster(Cluster::default()/* use setters */);
     /// ```
     pub fn set_cluster<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Cluster>,
+    where T: std::convert::Into<crate::model::Cluster>
     {
         self.cluster = std::option::Option::Some(v.into());
         self
@@ -360,8 +363,7 @@ impl CreateClusterRequest {
     /// let x = CreateClusterRequest::new().set_or_clear_cluster(None::<Cluster>);
     /// ```
     pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Cluster>,
+    where T: std::convert::Into<crate::model::Cluster>
     {
         self.cluster = v.map(|x| x.into());
         self
@@ -390,6 +392,7 @@ impl wkt::message::Message for CreateClusterRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateClusterRequest {
+
     /// Required. Field mask is used to specify the fields to be overwritten in the
     /// cluster resource by the update. The fields specified in the update_mask are
     /// relative to the resource, not the full request. A field will be overwritten
@@ -433,8 +436,7 @@ impl UpdateClusterRequest {
     /// let x = UpdateClusterRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -450,8 +452,7 @@ impl UpdateClusterRequest {
     /// let x = UpdateClusterRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -466,8 +467,7 @@ impl UpdateClusterRequest {
     /// let x = UpdateClusterRequest::new().set_cluster(Cluster::default()/* use setters */);
     /// ```
     pub fn set_cluster<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Cluster>,
+    where T: std::convert::Into<crate::model::Cluster>
     {
         self.cluster = std::option::Option::Some(v.into());
         self
@@ -483,8 +483,7 @@ impl UpdateClusterRequest {
     /// let x = UpdateClusterRequest::new().set_or_clear_cluster(None::<Cluster>);
     /// ```
     pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Cluster>,
+    where T: std::convert::Into<crate::model::Cluster>
     {
         self.cluster = v.map(|x| x.into());
         self
@@ -513,6 +512,7 @@ impl wkt::message::Message for UpdateClusterRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteClusterRequest {
+
     /// Required. The name of the cluster to delete.
     pub name: std::string::String,
 
@@ -575,6 +575,7 @@ impl wkt::message::Message for DeleteClusterRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTopicsRequest {
+
     /// Required. The parent cluster whose topics are to be listed. Structured like
     /// `projects/{project}/locations/{location}/clusters/{cluster}`.
     pub parent: std::string::String,
@@ -646,6 +647,7 @@ impl wkt::message::Message for ListTopicsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTopicsResponse {
+
     /// The list of topics in the requested parent. The order of the topics is
     /// unspecified.
     pub topics: std::vec::Vec<crate::model::Topic>,
@@ -677,7 +679,7 @@ impl ListTopicsResponse {
     pub fn set_topics<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Topic>,
+        V: std::convert::Into<crate::model::Topic>
     {
         use std::iter::Iterator;
         self.topics = v.into_iter().map(|i| i.into()).collect();
@@ -721,6 +723,7 @@ impl gax::paginator::internal::PageableResponse for ListTopicsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetTopicRequest {
+
     /// Required. The name of the topic whose configuration to return. Structured
     /// like:
     /// projects/{project}/locations/{location}/clusters/{cluster}/topics/{topic}.
@@ -757,6 +760,7 @@ impl wkt::message::Message for GetTopicRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateTopicRequest {
+
     /// Required. The parent cluster in which to create the topic.
     /// Structured like
     /// `projects/{project}/locations/{location}/clusters/{cluster}`.
@@ -813,8 +817,7 @@ impl CreateTopicRequest {
     /// let x = CreateTopicRequest::new().set_topic(Topic::default()/* use setters */);
     /// ```
     pub fn set_topic<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Topic>,
+    where T: std::convert::Into<crate::model::Topic>
     {
         self.topic = std::option::Option::Some(v.into());
         self
@@ -830,8 +833,7 @@ impl CreateTopicRequest {
     /// let x = CreateTopicRequest::new().set_or_clear_topic(None::<Topic>);
     /// ```
     pub fn set_or_clear_topic<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Topic>,
+    where T: std::convert::Into<crate::model::Topic>
     {
         self.topic = v.map(|x| x.into());
         self
@@ -848,6 +850,7 @@ impl wkt::message::Message for CreateTopicRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateTopicRequest {
+
     /// Required. Field mask is used to specify the fields to be overwritten in the
     /// Topic resource by the update. The fields specified in the update_mask are
     /// relative to the resource, not the full request. A field will be overwritten
@@ -875,8 +878,7 @@ impl UpdateTopicRequest {
     /// let x = UpdateTopicRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -892,8 +894,7 @@ impl UpdateTopicRequest {
     /// let x = UpdateTopicRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -908,8 +909,7 @@ impl UpdateTopicRequest {
     /// let x = UpdateTopicRequest::new().set_topic(Topic::default()/* use setters */);
     /// ```
     pub fn set_topic<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Topic>,
+    where T: std::convert::Into<crate::model::Topic>
     {
         self.topic = std::option::Option::Some(v.into());
         self
@@ -925,8 +925,7 @@ impl UpdateTopicRequest {
     /// let x = UpdateTopicRequest::new().set_or_clear_topic(None::<Topic>);
     /// ```
     pub fn set_or_clear_topic<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Topic>,
+    where T: std::convert::Into<crate::model::Topic>
     {
         self.topic = v.map(|x| x.into());
         self
@@ -943,6 +942,7 @@ impl wkt::message::Message for UpdateTopicRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteTopicRequest {
+
     /// Required. The name of the topic to delete.
     /// `projects/{project}/locations/{location}/clusters/{cluster}/topics/{topic}`.
     pub name: std::string::String,
@@ -978,6 +978,7 @@ impl wkt::message::Message for DeleteTopicRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListConsumerGroupsRequest {
+
     /// Required. The parent cluster whose consumer groups are to be listed.
     /// Structured like
     /// `projects/{project}/locations/{location}/clusters/{cluster}`.
@@ -1050,6 +1051,7 @@ impl wkt::message::Message for ListConsumerGroupsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListConsumerGroupsResponse {
+
     /// The list of consumer group in the requested parent. The order of the
     /// consumer groups is unspecified.
     pub consumer_groups: std::vec::Vec<crate::model::ConsumerGroup>,
@@ -1081,7 +1083,7 @@ impl ListConsumerGroupsResponse {
     pub fn set_consumer_groups<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ConsumerGroup>,
+        V: std::convert::Into<crate::model::ConsumerGroup>
     {
         use std::iter::Iterator;
         self.consumer_groups = v.into_iter().map(|i| i.into()).collect();
@@ -1125,6 +1127,7 @@ impl gax::paginator::internal::PageableResponse for ListConsumerGroupsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetConsumerGroupRequest {
+
     /// Required. The name of the consumer group whose configuration to return.
     /// `projects/{project}/locations/{location}/clusters/{cluster}/consumerGroups/{consumerGroup}`.
     pub name: std::string::String,
@@ -1160,6 +1163,7 @@ impl wkt::message::Message for GetConsumerGroupRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateConsumerGroupRequest {
+
     /// Required. Field mask is used to specify the fields to be overwritten in the
     /// ConsumerGroup resource by the update.
     /// The fields specified in the update_mask are relative to the resource, not
@@ -1187,8 +1191,7 @@ impl UpdateConsumerGroupRequest {
     /// let x = UpdateConsumerGroupRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -1204,8 +1207,7 @@ impl UpdateConsumerGroupRequest {
     /// let x = UpdateConsumerGroupRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -1220,8 +1222,7 @@ impl UpdateConsumerGroupRequest {
     /// let x = UpdateConsumerGroupRequest::new().set_consumer_group(ConsumerGroup::default()/* use setters */);
     /// ```
     pub fn set_consumer_group<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ConsumerGroup>,
+    where T: std::convert::Into<crate::model::ConsumerGroup>
     {
         self.consumer_group = std::option::Option::Some(v.into());
         self
@@ -1237,8 +1238,7 @@ impl UpdateConsumerGroupRequest {
     /// let x = UpdateConsumerGroupRequest::new().set_or_clear_consumer_group(None::<ConsumerGroup>);
     /// ```
     pub fn set_or_clear_consumer_group<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ConsumerGroup>,
+    where T: std::convert::Into<crate::model::ConsumerGroup>
     {
         self.consumer_group = v.map(|x| x.into());
         self
@@ -1255,6 +1255,7 @@ impl wkt::message::Message for UpdateConsumerGroupRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteConsumerGroupRequest {
+
     /// Required. The name of the consumer group to delete.
     /// `projects/{project}/locations/{location}/clusters/{cluster}/consumerGroups/{consumerGroup}`.
     pub name: std::string::String,
@@ -1290,6 +1291,7 @@ impl wkt::message::Message for DeleteConsumerGroupRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAclsRequest {
+
     /// Required. The parent cluster whose acls are to be listed.
     /// Structured like
     /// `projects/{project}/locations/{location}/clusters/{cluster}`.
@@ -1362,6 +1364,7 @@ impl wkt::message::Message for ListAclsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAclsResponse {
+
     /// The list of acls in the requested parent. The order of the acls is
     /// unspecified.
     pub acls: std::vec::Vec<crate::model::Acl>,
@@ -1393,7 +1396,7 @@ impl ListAclsResponse {
     pub fn set_acls<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Acl>,
+        V: std::convert::Into<crate::model::Acl>
     {
         use std::iter::Iterator;
         self.acls = v.into_iter().map(|i| i.into()).collect();
@@ -1437,6 +1440,7 @@ impl gax::paginator::internal::PageableResponse for ListAclsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAclRequest {
+
     /// Required. The name of the acl to return.
     /// Structured like:
     /// `projects/{project}/locations/{location}/clusters/{cluster}/acls/{acl_id}`.
@@ -1477,6 +1481,7 @@ impl wkt::message::Message for GetAclRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateAclRequest {
+
     /// Required. The parent cluster in which to create the acl.
     /// Structured like
     /// `projects/{project}/locations/{location}/clusters/{cluster}`.
@@ -1550,8 +1555,7 @@ impl CreateAclRequest {
     /// let x = CreateAclRequest::new().set_acl(Acl::default()/* use setters */);
     /// ```
     pub fn set_acl<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Acl>,
+    where T: std::convert::Into<crate::model::Acl>
     {
         self.acl = std::option::Option::Some(v.into());
         self
@@ -1567,8 +1571,7 @@ impl CreateAclRequest {
     /// let x = CreateAclRequest::new().set_or_clear_acl(None::<Acl>);
     /// ```
     pub fn set_or_clear_acl<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Acl>,
+    where T: std::convert::Into<crate::model::Acl>
     {
         self.acl = v.map(|x| x.into());
         self
@@ -1585,6 +1588,7 @@ impl wkt::message::Message for CreateAclRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateAclRequest {
+
     /// Required. The updated acl. Its `name` and `etag` fields must be populated.
     /// `acl_entries` must not be empty in the updated acl; to remove all acl
     /// entries for an acl, use DeleteAcl.
@@ -1613,8 +1617,7 @@ impl UpdateAclRequest {
     /// let x = UpdateAclRequest::new().set_acl(Acl::default()/* use setters */);
     /// ```
     pub fn set_acl<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Acl>,
+    where T: std::convert::Into<crate::model::Acl>
     {
         self.acl = std::option::Option::Some(v.into());
         self
@@ -1630,8 +1633,7 @@ impl UpdateAclRequest {
     /// let x = UpdateAclRequest::new().set_or_clear_acl(None::<Acl>);
     /// ```
     pub fn set_or_clear_acl<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Acl>,
+    where T: std::convert::Into<crate::model::Acl>
     {
         self.acl = v.map(|x| x.into());
         self
@@ -1646,8 +1648,7 @@ impl UpdateAclRequest {
     /// let x = UpdateAclRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -1663,8 +1664,7 @@ impl UpdateAclRequest {
     /// let x = UpdateAclRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -1681,6 +1681,7 @@ impl wkt::message::Message for UpdateAclRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteAclRequest {
+
     /// Required. The name of the acl to delete.
     /// Structured like:
     /// `projects/{project}/locations/{location}/clusters/{cluster}/acls/{acl_id}`.
@@ -1720,6 +1721,7 @@ impl wkt::message::Message for DeleteAclRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AddAclEntryRequest {
+
     /// Required. The name of the acl to add the acl entry to.
     /// Structured like:
     /// `projects/{project}/locations/{location}/clusters/{cluster}/acls/{acl_id}`.
@@ -1761,8 +1763,7 @@ impl AddAclEntryRequest {
     /// let x = AddAclEntryRequest::new().set_acl_entry(AclEntry::default()/* use setters */);
     /// ```
     pub fn set_acl_entry<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AclEntry>,
+    where T: std::convert::Into<crate::model::AclEntry>
     {
         self.acl_entry = std::option::Option::Some(v.into());
         self
@@ -1778,8 +1779,7 @@ impl AddAclEntryRequest {
     /// let x = AddAclEntryRequest::new().set_or_clear_acl_entry(None::<AclEntry>);
     /// ```
     pub fn set_or_clear_acl_entry<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AclEntry>,
+    where T: std::convert::Into<crate::model::AclEntry>
     {
         self.acl_entry = v.map(|x| x.into());
         self
@@ -1796,6 +1796,7 @@ impl wkt::message::Message for AddAclEntryRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AddAclEntryResponse {
+
     /// The updated acl.
     pub acl: std::option::Option<crate::model::Acl>,
 
@@ -1819,8 +1820,7 @@ impl AddAclEntryResponse {
     /// let x = AddAclEntryResponse::new().set_acl(Acl::default()/* use setters */);
     /// ```
     pub fn set_acl<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Acl>,
+    where T: std::convert::Into<crate::model::Acl>
     {
         self.acl = std::option::Option::Some(v.into());
         self
@@ -1836,8 +1836,7 @@ impl AddAclEntryResponse {
     /// let x = AddAclEntryResponse::new().set_or_clear_acl(None::<Acl>);
     /// ```
     pub fn set_or_clear_acl<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Acl>,
+    where T: std::convert::Into<crate::model::Acl>
     {
         self.acl = v.map(|x| x.into());
         self
@@ -1866,6 +1865,7 @@ impl wkt::message::Message for AddAclEntryResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RemoveAclEntryRequest {
+
     /// Required. The name of the acl to remove the acl entry from.
     /// Structured like:
     /// `projects/{project}/locations/{location}/clusters/{cluster}/acls/{acl_id}`.
@@ -1907,8 +1907,7 @@ impl RemoveAclEntryRequest {
     /// let x = RemoveAclEntryRequest::new().set_acl_entry(AclEntry::default()/* use setters */);
     /// ```
     pub fn set_acl_entry<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AclEntry>,
+    where T: std::convert::Into<crate::model::AclEntry>
     {
         self.acl_entry = std::option::Option::Some(v.into());
         self
@@ -1924,8 +1923,7 @@ impl RemoveAclEntryRequest {
     /// let x = RemoveAclEntryRequest::new().set_or_clear_acl_entry(None::<AclEntry>);
     /// ```
     pub fn set_or_clear_acl_entry<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AclEntry>,
+    where T: std::convert::Into<crate::model::AclEntry>
     {
         self.acl_entry = v.map(|x| x.into());
         self
@@ -1942,6 +1940,7 @@ impl wkt::message::Message for RemoveAclEntryRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RemoveAclEntryResponse {
+
     /// The result of removing the acl entry, depending on whether the acl was
     /// deleted as a result of removing the acl entry.
     pub result: std::option::Option<crate::model::remove_acl_entry_response::Result>,
@@ -1965,12 +1964,8 @@ impl RemoveAclEntryResponse {
     /// use google_cloud_managedkafka_v1::model::remove_acl_entry_response::Result;
     /// let x = RemoveAclEntryResponse::new().set_result(Some(Result::AclDeleted(true)));
     /// ```
-    pub fn set_result<
-        T: std::convert::Into<std::option::Option<crate::model::remove_acl_entry_response::Result>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_result<T: std::convert::Into<std::option::Option<crate::model::remove_acl_entry_response::Result>>>(mut self, v: T) -> Self
+    {
         self.result = v.into();
         self
     }
@@ -2000,12 +1995,11 @@ impl RemoveAclEntryResponse {
     /// assert!(x.acl().is_some());
     /// assert!(x.acl_deleted().is_none());
     /// ```
-    pub fn set_acl<T: std::convert::Into<std::boxed::Box<crate::model::Acl>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_acl<T: std::convert::Into<std::boxed::Box<crate::model::Acl>>>(mut self, v: T) -> Self {
         self.result = std::option::Option::Some(
-            crate::model::remove_acl_entry_response::Result::Acl(v.into()),
+            crate::model::remove_acl_entry_response::Result::Acl(
+                v.into()
+            )
         );
         self
     }
@@ -2016,9 +2010,7 @@ impl RemoveAclEntryResponse {
     pub fn acl_deleted(&self) -> std::option::Option<&bool> {
         #[allow(unreachable_patterns)]
         self.result.as_ref().and_then(|v| match v {
-            crate::model::remove_acl_entry_response::Result::AclDeleted(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::remove_acl_entry_response::Result::AclDeleted(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -2038,7 +2030,9 @@ impl RemoveAclEntryResponse {
     /// ```
     pub fn set_acl_deleted<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.result = std::option::Option::Some(
-            crate::model::remove_acl_entry_response::Result::AclDeleted(v.into()),
+            crate::model::remove_acl_entry_response::Result::AclDeleted(
+                v.into()
+            )
         );
         self
     }
@@ -2054,6 +2048,7 @@ impl wkt::message::Message for RemoveAclEntryResponse {
 pub mod remove_acl_entry_response {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The result of removing the acl entry, depending on whether the acl was
     /// deleted as a result of removing the acl entry.
@@ -2073,6 +2068,7 @@ pub mod remove_acl_entry_response {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetConnectClusterRequest {
+
     /// Required. The name of the Kafka Connect cluster whose configuration to
     /// return. Structured like
     /// `projects/{project}/locations/{location}/connectClusters/{connect_cluster_id}`.
@@ -2109,6 +2105,7 @@ impl wkt::message::Message for GetConnectClusterRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateConnectClusterRequest {
+
     /// Required. The parent project/location in which to create the Kafka Connect
     /// cluster. Structured like
     /// `projects/{project}/locations/{location}/`.
@@ -2169,10 +2166,7 @@ impl CreateConnectClusterRequest {
     /// # use google_cloud_managedkafka_v1::model::CreateConnectClusterRequest;
     /// let x = CreateConnectClusterRequest::new().set_connect_cluster_id("example");
     /// ```
-    pub fn set_connect_cluster_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_connect_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.connect_cluster_id = v.into();
         self
     }
@@ -2186,8 +2180,7 @@ impl CreateConnectClusterRequest {
     /// let x = CreateConnectClusterRequest::new().set_connect_cluster(ConnectCluster::default()/* use setters */);
     /// ```
     pub fn set_connect_cluster<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ConnectCluster>,
+    where T: std::convert::Into<crate::model::ConnectCluster>
     {
         self.connect_cluster = std::option::Option::Some(v.into());
         self
@@ -2203,8 +2196,7 @@ impl CreateConnectClusterRequest {
     /// let x = CreateConnectClusterRequest::new().set_or_clear_connect_cluster(None::<ConnectCluster>);
     /// ```
     pub fn set_or_clear_connect_cluster<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ConnectCluster>,
+    where T: std::convert::Into<crate::model::ConnectCluster>
     {
         self.connect_cluster = v.map(|x| x.into());
         self
@@ -2233,6 +2225,7 @@ impl wkt::message::Message for CreateConnectClusterRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateConnectClusterRequest {
+
     /// Required. Field mask is used to specify the fields to be overwritten in the
     /// cluster resource by the update. The fields specified in the update_mask are
     /// relative to the resource, not the full request. A field will be overwritten
@@ -2277,8 +2270,7 @@ impl UpdateConnectClusterRequest {
     /// let x = UpdateConnectClusterRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -2294,8 +2286,7 @@ impl UpdateConnectClusterRequest {
     /// let x = UpdateConnectClusterRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -2310,8 +2301,7 @@ impl UpdateConnectClusterRequest {
     /// let x = UpdateConnectClusterRequest::new().set_connect_cluster(ConnectCluster::default()/* use setters */);
     /// ```
     pub fn set_connect_cluster<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ConnectCluster>,
+    where T: std::convert::Into<crate::model::ConnectCluster>
     {
         self.connect_cluster = std::option::Option::Some(v.into());
         self
@@ -2327,8 +2317,7 @@ impl UpdateConnectClusterRequest {
     /// let x = UpdateConnectClusterRequest::new().set_or_clear_connect_cluster(None::<ConnectCluster>);
     /// ```
     pub fn set_or_clear_connect_cluster<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ConnectCluster>,
+    where T: std::convert::Into<crate::model::ConnectCluster>
     {
         self.connect_cluster = v.map(|x| x.into());
         self
@@ -2357,6 +2346,7 @@ impl wkt::message::Message for UpdateConnectClusterRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteConnectClusterRequest {
+
     /// Required. The name of the Kafka Connect cluster to delete.
     /// Structured like
     /// `projects/{project}/locations/{location}/connectClusters/{connect_cluster_id}`.
@@ -2421,6 +2411,7 @@ impl wkt::message::Message for DeleteConnectClusterRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListConnectClustersRequest {
+
     /// Required. The parent project/location whose Connect clusters are to be
     /// listed. Structured like `projects/{project}/locations/{location}`.
     pub parent: std::string::String,
@@ -2522,6 +2513,7 @@ impl wkt::message::Message for ListConnectClustersRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListConnectClustersResponse {
+
     /// The list of Connect clusters in the requested parent.
     pub connect_clusters: std::vec::Vec<crate::model::ConnectCluster>,
 
@@ -2555,7 +2547,7 @@ impl ListConnectClustersResponse {
     pub fn set_connect_clusters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ConnectCluster>,
+        V: std::convert::Into<crate::model::ConnectCluster>
     {
         use std::iter::Iterator;
         self.connect_clusters = v.into_iter().map(|i| i.into()).collect();
@@ -2584,7 +2576,7 @@ impl ListConnectClustersResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -2616,6 +2608,7 @@ impl gax::paginator::internal::PageableResponse for ListConnectClustersResponse 
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetConnectorRequest {
+
     /// Required. The name of the connector whose configuration to return.
     /// Structured like:
     /// projects/{project}/locations/{location}/connectClusters/{connectCluster}/connectors/{connector}
@@ -2652,6 +2645,7 @@ impl wkt::message::Message for GetConnectorRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateConnectorRequest {
+
     /// Required. The parent Connect cluster in which to create the connector.
     /// Structured like
     /// `projects/{project}/locations/{location}/connectClusters/{connect_cluster_id}`.
@@ -2709,8 +2703,7 @@ impl CreateConnectorRequest {
     /// let x = CreateConnectorRequest::new().set_connector(Connector::default()/* use setters */);
     /// ```
     pub fn set_connector<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Connector>,
+    where T: std::convert::Into<crate::model::Connector>
     {
         self.connector = std::option::Option::Some(v.into());
         self
@@ -2726,8 +2719,7 @@ impl CreateConnectorRequest {
     /// let x = CreateConnectorRequest::new().set_or_clear_connector(None::<Connector>);
     /// ```
     pub fn set_or_clear_connector<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Connector>,
+    where T: std::convert::Into<crate::model::Connector>
     {
         self.connector = v.map(|x| x.into());
         self
@@ -2744,6 +2736,7 @@ impl wkt::message::Message for CreateConnectorRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateConnectorRequest {
+
     /// Required. Field mask is used to specify the fields to be overwritten in the
     /// cluster resource by the update. The fields specified in the update_mask are
     /// relative to the resource, not the full request. A field will be overwritten
@@ -2771,8 +2764,7 @@ impl UpdateConnectorRequest {
     /// let x = UpdateConnectorRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -2788,8 +2780,7 @@ impl UpdateConnectorRequest {
     /// let x = UpdateConnectorRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -2804,8 +2795,7 @@ impl UpdateConnectorRequest {
     /// let x = UpdateConnectorRequest::new().set_connector(Connector::default()/* use setters */);
     /// ```
     pub fn set_connector<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Connector>,
+    where T: std::convert::Into<crate::model::Connector>
     {
         self.connector = std::option::Option::Some(v.into());
         self
@@ -2821,8 +2811,7 @@ impl UpdateConnectorRequest {
     /// let x = UpdateConnectorRequest::new().set_or_clear_connector(None::<Connector>);
     /// ```
     pub fn set_or_clear_connector<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Connector>,
+    where T: std::convert::Into<crate::model::Connector>
     {
         self.connector = v.map(|x| x.into());
         self
@@ -2839,6 +2828,7 @@ impl wkt::message::Message for UpdateConnectorRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteConnectorRequest {
+
     /// Required. The name of the connector to delete.
     /// Structured like:
     /// projects/{project}/locations/{location}/connectClusters/{connectCluster}/connectors/{connector}
@@ -2875,6 +2865,7 @@ impl wkt::message::Message for DeleteConnectorRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListConnectorsRequest {
+
     /// Required. The parent Connect cluster whose connectors are to be listed.
     /// Structured like
     /// `projects/{project}/locations/{location}/connectClusters/{connect_cluster_id}`.
@@ -2947,6 +2938,7 @@ impl wkt::message::Message for ListConnectorsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListConnectorsResponse {
+
     /// The list of connectors in the requested parent.
     pub connectors: std::vec::Vec<crate::model::Connector>,
 
@@ -2977,7 +2969,7 @@ impl ListConnectorsResponse {
     pub fn set_connectors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Connector>,
+        V: std::convert::Into<crate::model::Connector>
     {
         use std::iter::Iterator;
         self.connectors = v.into_iter().map(|i| i.into()).collect();
@@ -3021,6 +3013,7 @@ impl gax::paginator::internal::PageableResponse for ListConnectorsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PauseConnectorRequest {
+
     /// Required. The name of the connector to pause.
     /// Structured like:
     /// projects/{project}/locations/{location}/connectClusters/{connectCluster}/connectors/{connector}
@@ -3057,6 +3050,7 @@ impl wkt::message::Message for PauseConnectorRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PauseConnectorResponse {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -3076,6 +3070,7 @@ impl wkt::message::Message for PauseConnectorResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResumeConnectorRequest {
+
     /// Required. The name of the connector to pause.
     /// Structured like:
     /// projects/{project}/locations/{location}/connectClusters/{connectCluster}/connectors/{connector}
@@ -3112,6 +3107,7 @@ impl wkt::message::Message for ResumeConnectorRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResumeConnectorResponse {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -3131,6 +3127,7 @@ impl wkt::message::Message for ResumeConnectorResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RestartConnectorRequest {
+
     /// Required. The name of the connector to restart.
     /// Structured like:
     /// projects/{project}/locations/{location}/connectClusters/{connectCluster}/connectors/{connector}
@@ -3167,6 +3164,7 @@ impl wkt::message::Message for RestartConnectorRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RestartConnectorResponse {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -3186,6 +3184,7 @@ impl wkt::message::Message for RestartConnectorResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StopConnectorRequest {
+
     /// Required. The name of the connector to stop.
     /// Structured like:
     /// projects/{project}/locations/{location}/connectClusters/{connectCluster}/connectors/{connector}
@@ -3222,6 +3221,7 @@ impl wkt::message::Message for StopConnectorRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StopConnectorResponse {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -3241,6 +3241,7 @@ impl wkt::message::Message for StopConnectorResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Cluster {
+
     /// Identifier. The name of the cluster. Structured like:
     /// projects/{project_number}/locations/{location}/clusters/{cluster_id}
     pub name: std::string::String,
@@ -3252,7 +3253,7 @@ pub struct Cluster {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Optional. Labels as key value pairs.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Required. Capacity configuration for the Kafka cluster.
     pub capacity_config: std::option::Option<crate::model::CapacityConfig>,
@@ -3304,8 +3305,7 @@ impl Cluster {
     /// let x = Cluster::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -3321,8 +3321,7 @@ impl Cluster {
     /// let x = Cluster::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -3337,8 +3336,7 @@ impl Cluster {
     /// let x = Cluster::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -3354,8 +3352,7 @@ impl Cluster {
     /// let x = Cluster::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -3391,8 +3388,7 @@ impl Cluster {
     /// let x = Cluster::new().set_capacity_config(CapacityConfig::default()/* use setters */);
     /// ```
     pub fn set_capacity_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CapacityConfig>,
+    where T: std::convert::Into<crate::model::CapacityConfig>
     {
         self.capacity_config = std::option::Option::Some(v.into());
         self
@@ -3408,8 +3404,7 @@ impl Cluster {
     /// let x = Cluster::new().set_or_clear_capacity_config(None::<CapacityConfig>);
     /// ```
     pub fn set_or_clear_capacity_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CapacityConfig>,
+    where T: std::convert::Into<crate::model::CapacityConfig>
     {
         self.capacity_config = v.map(|x| x.into());
         self
@@ -3424,8 +3419,7 @@ impl Cluster {
     /// let x = Cluster::new().set_rebalance_config(RebalanceConfig::default()/* use setters */);
     /// ```
     pub fn set_rebalance_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RebalanceConfig>,
+    where T: std::convert::Into<crate::model::RebalanceConfig>
     {
         self.rebalance_config = std::option::Option::Some(v.into());
         self
@@ -3441,8 +3435,7 @@ impl Cluster {
     /// let x = Cluster::new().set_or_clear_rebalance_config(None::<RebalanceConfig>);
     /// ```
     pub fn set_or_clear_rebalance_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RebalanceConfig>,
+    where T: std::convert::Into<crate::model::RebalanceConfig>
     {
         self.rebalance_config = v.map(|x| x.into());
         self
@@ -3471,8 +3464,7 @@ impl Cluster {
     /// let x = Cluster::new().set_satisfies_pzi(true);
     /// ```
     pub fn set_satisfies_pzi<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.satisfies_pzi = std::option::Option::Some(v.into());
         self
@@ -3487,8 +3479,7 @@ impl Cluster {
     /// let x = Cluster::new().set_or_clear_satisfies_pzi(None::<bool>);
     /// ```
     pub fn set_or_clear_satisfies_pzi<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.satisfies_pzi = v.map(|x| x.into());
         self
@@ -3502,8 +3493,7 @@ impl Cluster {
     /// let x = Cluster::new().set_satisfies_pzs(true);
     /// ```
     pub fn set_satisfies_pzs<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.satisfies_pzs = std::option::Option::Some(v.into());
         self
@@ -3518,8 +3508,7 @@ impl Cluster {
     /// let x = Cluster::new().set_or_clear_satisfies_pzs(None::<bool>);
     /// ```
     pub fn set_or_clear_satisfies_pzs<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.satisfies_pzs = v.map(|x| x.into());
         self
@@ -3534,8 +3523,7 @@ impl Cluster {
     /// let x = Cluster::new().set_tls_config(TlsConfig::default()/* use setters */);
     /// ```
     pub fn set_tls_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TlsConfig>,
+    where T: std::convert::Into<crate::model::TlsConfig>
     {
         self.tls_config = std::option::Option::Some(v.into());
         self
@@ -3551,8 +3539,7 @@ impl Cluster {
     /// let x = Cluster::new().set_or_clear_tls_config(None::<TlsConfig>);
     /// ```
     pub fn set_or_clear_tls_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TlsConfig>,
+    where T: std::convert::Into<crate::model::TlsConfig>
     {
         self.tls_config = v.map(|x| x.into());
         self
@@ -3570,12 +3557,8 @@ impl Cluster {
     /// let x = Cluster::new().set_platform_config(Some(
     ///     google_cloud_managedkafka_v1::model::cluster::PlatformConfig::GcpConfig(GcpConfig::default().into())));
     /// ```
-    pub fn set_platform_config<
-        T: std::convert::Into<std::option::Option<crate::model::cluster::PlatformConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_platform_config<T: std::convert::Into<std::option::Option<crate::model::cluster::PlatformConfig>>>(mut self, v: T) -> Self
+    {
         self.platform_config = v.into();
         self
     }
@@ -3604,12 +3587,12 @@ impl Cluster {
     /// let x = Cluster::new().set_gcp_config(GcpConfig::default()/* use setters */);
     /// assert!(x.gcp_config().is_some());
     /// ```
-    pub fn set_gcp_config<T: std::convert::Into<std::boxed::Box<crate::model::GcpConfig>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.platform_config =
-            std::option::Option::Some(crate::model::cluster::PlatformConfig::GcpConfig(v.into()));
+    pub fn set_gcp_config<T: std::convert::Into<std::boxed::Box<crate::model::GcpConfig>>>(mut self, v: T) -> Self {
+        self.platform_config = std::option::Option::Some(
+            crate::model::cluster::PlatformConfig::GcpConfig(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -3624,6 +3607,7 @@ impl wkt::message::Message for Cluster {
 pub mod cluster {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The state of the cluster.
     ///
@@ -3716,9 +3700,7 @@ pub mod cluster {
                 1 => Self::Creating,
                 2 => Self::Active,
                 3 => Self::Deleting,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -3731,9 +3713,7 @@ pub mod cluster {
                 "CREATING" => Self::Creating,
                 "ACTIVE" => Self::Active,
                 "DELETING" => Self::Deleting,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -3759,8 +3739,7 @@ pub mod cluster {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.managedkafka.v1.Cluster.State",
-            ))
+                ".google.cloud.managedkafka.v1.Cluster.State"))
         }
     }
 
@@ -3778,6 +3757,7 @@ pub mod cluster {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CapacityConfig {
+
     /// Required. The number of vCPUs to provision for the cluster. Minimum: 3.
     pub vcpu_count: i64,
 
@@ -3829,6 +3809,7 @@ impl wkt::message::Message for CapacityConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RebalanceConfig {
+
     /// Optional. The rebalance behavior for the cluster.
     /// When not specified, defaults to `NO_REBALANCE`.
     pub mode: crate::model::rebalance_config::Mode,
@@ -3850,10 +3831,7 @@ impl RebalanceConfig {
     /// let x0 = RebalanceConfig::new().set_mode(Mode::NoRebalance);
     /// let x1 = RebalanceConfig::new().set_mode(Mode::AutoRebalanceOnScaleUp);
     /// ```
-    pub fn set_mode<T: std::convert::Into<crate::model::rebalance_config::Mode>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_mode<T: std::convert::Into<crate::model::rebalance_config::Mode>>(mut self, v: T) -> Self {
         self.mode = v.into();
         self
     }
@@ -3869,6 +3847,7 @@ impl wkt::message::Message for RebalanceConfig {
 pub mod rebalance_config {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The partition rebalance mode for the cluster.
     ///
@@ -3932,9 +3911,7 @@ pub mod rebalance_config {
             match self {
                 Self::Unspecified => std::option::Option::Some("MODE_UNSPECIFIED"),
                 Self::NoRebalance => std::option::Option::Some("NO_REBALANCE"),
-                Self::AutoRebalanceOnScaleUp => {
-                    std::option::Option::Some("AUTO_REBALANCE_ON_SCALE_UP")
-                }
+                Self::AutoRebalanceOnScaleUp => std::option::Option::Some("AUTO_REBALANCE_ON_SCALE_UP"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -3959,9 +3936,7 @@ pub mod rebalance_config {
                 0 => Self::Unspecified,
                 1 => Self::NoRebalance,
                 2 => Self::AutoRebalanceOnScaleUp,
-                _ => Self::UnknownValue(mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(mode::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -3973,9 +3948,7 @@ pub mod rebalance_config {
                 "MODE_UNSPECIFIED" => Self::Unspecified,
                 "NO_REBALANCE" => Self::NoRebalance,
                 "AUTO_REBALANCE_ON_SCALE_UP" => Self::AutoRebalanceOnScaleUp,
-                _ => Self::UnknownValue(mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(mode::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -4000,8 +3973,7 @@ pub mod rebalance_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Mode>::new(
-                ".google.cloud.managedkafka.v1.RebalanceConfig.Mode",
-            ))
+                ".google.cloud.managedkafka.v1.RebalanceConfig.Mode"))
         }
     }
 }
@@ -4011,6 +3983,7 @@ pub mod rebalance_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NetworkConfig {
+
     /// Required. Name of the VPC subnet in which to create Private Service Connect
     /// (PSC) endpoints for the Kafka brokers and bootstrap address. Structured
     /// like: projects/{project}/regions/{region}/subnetworks/{subnet_id}
@@ -4051,6 +4024,7 @@ impl wkt::message::Message for NetworkConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AccessConfig {
+
     /// Required. Virtual Private Cloud (VPC) networks that must be granted direct
     /// access to the Kafka cluster. Minimum of 1 network is required. Maximum 10
     /// networks can be specified.
@@ -4079,7 +4053,7 @@ impl AccessConfig {
     pub fn set_network_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::NetworkConfig>,
+        V: std::convert::Into<crate::model::NetworkConfig>
     {
         use std::iter::Iterator;
         self.network_configs = v.into_iter().map(|i| i.into()).collect();
@@ -4098,6 +4072,7 @@ impl wkt::message::Message for AccessConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GcpConfig {
+
     /// Required. Access configuration for the Kafka cluster.
     pub access_config: std::option::Option<crate::model::AccessConfig>,
 
@@ -4124,8 +4099,7 @@ impl GcpConfig {
     /// let x = GcpConfig::new().set_access_config(AccessConfig::default()/* use setters */);
     /// ```
     pub fn set_access_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AccessConfig>,
+    where T: std::convert::Into<crate::model::AccessConfig>
     {
         self.access_config = std::option::Option::Some(v.into());
         self
@@ -4141,8 +4115,7 @@ impl GcpConfig {
     /// let x = GcpConfig::new().set_or_clear_access_config(None::<AccessConfig>);
     /// ```
     pub fn set_or_clear_access_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AccessConfig>,
+    where T: std::convert::Into<crate::model::AccessConfig>
     {
         self.access_config = v.map(|x| x.into());
         self
@@ -4171,6 +4144,7 @@ impl wkt::message::Message for GcpConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TlsConfig {
+
     /// Optional. The configuration of the broker truststore. If specified, clients
     /// can use mTLS for authentication.
     pub trust_config: std::option::Option<crate::model::TrustConfig>,
@@ -4203,8 +4177,7 @@ impl TlsConfig {
     /// let x = TlsConfig::new().set_trust_config(TrustConfig::default()/* use setters */);
     /// ```
     pub fn set_trust_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TrustConfig>,
+    where T: std::convert::Into<crate::model::TrustConfig>
     {
         self.trust_config = std::option::Option::Some(v.into());
         self
@@ -4220,8 +4193,7 @@ impl TlsConfig {
     /// let x = TlsConfig::new().set_or_clear_trust_config(None::<TrustConfig>);
     /// ```
     pub fn set_or_clear_trust_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TrustConfig>,
+    where T: std::convert::Into<crate::model::TrustConfig>
     {
         self.trust_config = v.map(|x| x.into());
         self
@@ -4234,10 +4206,7 @@ impl TlsConfig {
     /// # use google_cloud_managedkafka_v1::model::TlsConfig;
     /// let x = TlsConfig::new().set_ssl_principal_mapping_rules("example");
     /// ```
-    pub fn set_ssl_principal_mapping_rules<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_ssl_principal_mapping_rules<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ssl_principal_mapping_rules = v.into();
         self
     }
@@ -4253,6 +4222,7 @@ impl wkt::message::Message for TlsConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TrustConfig {
+
     /// Optional. Configuration for the Google Certificate Authority Service.
     /// Maximum 10.
     pub cas_configs: std::vec::Vec<crate::model::trust_config::CertificateAuthorityServiceConfig>,
@@ -4280,7 +4250,7 @@ impl TrustConfig {
     pub fn set_cas_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::trust_config::CertificateAuthorityServiceConfig>,
+        V: std::convert::Into<crate::model::trust_config::CertificateAuthorityServiceConfig>
     {
         use std::iter::Iterator;
         self.cas_configs = v.into_iter().map(|i| i.into()).collect();
@@ -4299,10 +4269,12 @@ pub mod trust_config {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// A configuration for the Google Certificate Authority Service.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CertificateAuthorityServiceConfig {
+
         /// Required. The name of the CA pool to pull CA certificates from.
         /// Structured like:
         /// projects/{project}/locations/{location}/caPools/{ca_pool}.
@@ -4342,6 +4314,7 @@ pub mod trust_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Topic {
+
     /// Identifier. The name of the topic. The `topic` segment is used when
     /// connecting directly to the cluster. Structured like:
     /// projects/{project}/locations/{location}/clusters/{cluster}/topics/{topic}
@@ -4360,7 +4333,7 @@ pub struct Topic {
     /// Optional. Configurations for the topic that are overridden from the cluster
     /// defaults. The key of the map is a Kafka topic property name, for example:
     /// `cleanup.policy`, `compression.type`.
-    pub configs: std::collections::HashMap<std::string::String, std::string::String>,
+    pub configs: std::collections::HashMap<std::string::String,std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -4438,9 +4411,10 @@ impl wkt::message::Message for Topic {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConsumerTopicMetadata {
+
     /// Optional. Metadata for this consumer group and topic for all partition
     /// indexes it has metadata for.
-    pub partitions: std::collections::HashMap<i32, crate::model::ConsumerPartitionMetadata>,
+    pub partitions: std::collections::HashMap<i32,crate::model::ConsumerPartitionMetadata>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -4483,6 +4457,7 @@ impl wkt::message::Message for ConsumerTopicMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConsumerPartitionMetadata {
+
     /// Required. The current offset for this partition, or 0 if no offset has been
     /// committed.
     pub offset: i64,
@@ -4534,6 +4509,7 @@ impl wkt::message::Message for ConsumerPartitionMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConsumerGroup {
+
     /// Identifier. The name of the consumer group. The `consumer_group` segment is
     /// used when connecting directly to the cluster. Structured like:
     /// projects/{project}/locations/{location}/clusters/{cluster}/consumerGroups/{consumer_group}
@@ -4542,7 +4518,7 @@ pub struct ConsumerGroup {
     /// Optional. Metadata for this consumer group for all topics it has metadata
     /// for. The key of the map is a topic name, structured like:
     /// projects/{project}/locations/{location}/clusters/{cluster}/topics/{topic}
-    pub topics: std::collections::HashMap<std::string::String, crate::model::ConsumerTopicMetadata>,
+    pub topics: std::collections::HashMap<std::string::String,crate::model::ConsumerTopicMetadata>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -4597,6 +4573,7 @@ impl wkt::message::Message for ConsumerGroup {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
+
     /// Output only. The time the operation was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
@@ -4641,8 +4618,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -4658,8 +4634,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -4674,8 +4649,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -4691,8 +4665,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -4769,6 +4742,7 @@ impl wkt::message::Message for OperationMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConnectCluster {
+
     /// Identifier. The name of the Kafka Connect cluster. Structured like:
     /// projects/{project_number}/locations/{location}/connectClusters/{connect_cluster_id}
     pub name: std::string::String,
@@ -4785,7 +4759,7 @@ pub struct ConnectCluster {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Optional. Labels as key value pairs.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Required. Capacity configuration for the Kafka Connect cluster.
     pub capacity_config: std::option::Option<crate::model::CapacityConfig>,
@@ -4796,7 +4770,7 @@ pub struct ConnectCluster {
     /// Optional. Configurations for the worker that are overridden from the
     /// defaults. The key of the map is a Kafka Connect worker property name, for
     /// example: `exactly.once.source.support`.
-    pub config: std::collections::HashMap<std::string::String, std::string::String>,
+    pub config: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Platform specific configuration properties for a Kafka Connect cluster.
     pub platform_config: std::option::Option<crate::model::connect_cluster::PlatformConfig>,
@@ -4842,8 +4816,7 @@ impl ConnectCluster {
     /// let x = ConnectCluster::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -4859,8 +4832,7 @@ impl ConnectCluster {
     /// let x = ConnectCluster::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -4875,8 +4847,7 @@ impl ConnectCluster {
     /// let x = ConnectCluster::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -4892,8 +4863,7 @@ impl ConnectCluster {
     /// let x = ConnectCluster::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -4929,8 +4899,7 @@ impl ConnectCluster {
     /// let x = ConnectCluster::new().set_capacity_config(CapacityConfig::default()/* use setters */);
     /// ```
     pub fn set_capacity_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CapacityConfig>,
+    where T: std::convert::Into<crate::model::CapacityConfig>
     {
         self.capacity_config = std::option::Option::Some(v.into());
         self
@@ -4946,8 +4915,7 @@ impl ConnectCluster {
     /// let x = ConnectCluster::new().set_or_clear_capacity_config(None::<CapacityConfig>);
     /// ```
     pub fn set_or_clear_capacity_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CapacityConfig>,
+    where T: std::convert::Into<crate::model::CapacityConfig>
     {
         self.capacity_config = v.map(|x| x.into());
         self
@@ -4963,10 +4931,7 @@ impl ConnectCluster {
     /// let x1 = ConnectCluster::new().set_state(State::Active);
     /// let x2 = ConnectCluster::new().set_state(State::Deleting);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::connect_cluster::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::connect_cluster::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -5004,12 +4969,8 @@ impl ConnectCluster {
     /// let x = ConnectCluster::new().set_platform_config(Some(
     ///     google_cloud_managedkafka_v1::model::connect_cluster::PlatformConfig::GcpConfig(ConnectGcpConfig::default().into())));
     /// ```
-    pub fn set_platform_config<
-        T: std::convert::Into<std::option::Option<crate::model::connect_cluster::PlatformConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_platform_config<T: std::convert::Into<std::option::Option<crate::model::connect_cluster::PlatformConfig>>>(mut self, v: T) -> Self
+    {
         self.platform_config = v.into();
         self
     }
@@ -5017,14 +4978,10 @@ impl ConnectCluster {
     /// The value of [platform_config][crate::model::ConnectCluster::platform_config]
     /// if it holds a `GcpConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn gcp_config(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::ConnectGcpConfig>> {
+    pub fn gcp_config(&self) -> std::option::Option<&std::boxed::Box<crate::model::ConnectGcpConfig>> {
         #[allow(unreachable_patterns)]
         self.platform_config.as_ref().and_then(|v| match v {
-            crate::model::connect_cluster::PlatformConfig::GcpConfig(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::connect_cluster::PlatformConfig::GcpConfig(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -5042,14 +4999,11 @@ impl ConnectCluster {
     /// let x = ConnectCluster::new().set_gcp_config(ConnectGcpConfig::default()/* use setters */);
     /// assert!(x.gcp_config().is_some());
     /// ```
-    pub fn set_gcp_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::ConnectGcpConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_gcp_config<T: std::convert::Into<std::boxed::Box<crate::model::ConnectGcpConfig>>>(mut self, v: T) -> Self {
         self.platform_config = std::option::Option::Some(
-            crate::model::connect_cluster::PlatformConfig::GcpConfig(v.into()),
+            crate::model::connect_cluster::PlatformConfig::GcpConfig(
+                v.into()
+            )
         );
         self
     }
@@ -5065,6 +5019,7 @@ impl wkt::message::Message for ConnectCluster {
 pub mod connect_cluster {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The state of the cluster.
     ///
@@ -5157,9 +5112,7 @@ pub mod connect_cluster {
                 1 => Self::Creating,
                 2 => Self::Active,
                 3 => Self::Deleting,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -5172,9 +5125,7 @@ pub mod connect_cluster {
                 "CREATING" => Self::Creating,
                 "ACTIVE" => Self::Active,
                 "DELETING" => Self::Deleting,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -5200,8 +5151,7 @@ pub mod connect_cluster {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.managedkafka.v1.ConnectCluster.State",
-            ))
+                ".google.cloud.managedkafka.v1.ConnectCluster.State"))
         }
     }
 
@@ -5220,6 +5170,7 @@ pub mod connect_cluster {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConnectNetworkConfig {
+
     /// Required. VPC subnet to make available to the Kafka Connect cluster.
     /// Structured like:
     /// projects/{project}/regions/{region}/subnetworks/{subnet_id}
@@ -5276,7 +5227,7 @@ impl ConnectNetworkConfig {
     pub fn set_additional_subnets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.additional_subnets = v.into_iter().map(|i| i.into()).collect();
@@ -5293,7 +5244,7 @@ impl ConnectNetworkConfig {
     pub fn set_dns_domain_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.dns_domain_names = v.into_iter().map(|i| i.into()).collect();
@@ -5311,6 +5262,7 @@ impl wkt::message::Message for ConnectNetworkConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConnectAccessConfig {
+
     /// Required.
     /// Virtual Private Cloud (VPC) networks that must be granted direct access to
     /// the Kafka Connect cluster. Minimum of 1 network is required. Maximum 10
@@ -5340,7 +5292,7 @@ impl ConnectAccessConfig {
     pub fn set_network_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ConnectNetworkConfig>,
+        V: std::convert::Into<crate::model::ConnectNetworkConfig>
     {
         use std::iter::Iterator;
         self.network_configs = v.into_iter().map(|i| i.into()).collect();
@@ -5359,6 +5311,7 @@ impl wkt::message::Message for ConnectAccessConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConnectGcpConfig {
+
     /// Required. Access configuration for the Kafka Connect cluster.
     pub access_config: std::option::Option<crate::model::ConnectAccessConfig>,
 
@@ -5385,8 +5338,7 @@ impl ConnectGcpConfig {
     /// let x = ConnectGcpConfig::new().set_access_config(ConnectAccessConfig::default()/* use setters */);
     /// ```
     pub fn set_access_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ConnectAccessConfig>,
+    where T: std::convert::Into<crate::model::ConnectAccessConfig>
     {
         self.access_config = std::option::Option::Some(v.into());
         self
@@ -5402,8 +5354,7 @@ impl ConnectGcpConfig {
     /// let x = ConnectGcpConfig::new().set_or_clear_access_config(None::<ConnectAccessConfig>);
     /// ```
     pub fn set_or_clear_access_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ConnectAccessConfig>,
+    where T: std::convert::Into<crate::model::ConnectAccessConfig>
     {
         self.access_config = v.map(|x| x.into());
         self
@@ -5419,7 +5370,7 @@ impl ConnectGcpConfig {
     pub fn set_secret_paths<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.secret_paths = v.into_iter().map(|i| i.into()).collect();
@@ -5437,6 +5388,7 @@ impl wkt::message::Message for ConnectGcpConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Connector {
+
     /// Identifier. The name of the connector.
     /// Structured like:
     /// projects/{project}/locations/{location}/connectClusters/{connect_cluster}/connectors/{connector}
@@ -5445,7 +5397,7 @@ pub struct Connector {
     /// Optional. Connector config as keys/values.
     /// The keys of the map are connector property names, for example:
     /// `connector.class`, `tasks.max`, `key.converter`.
-    pub configs: std::collections::HashMap<std::string::String, std::string::String>,
+    pub configs: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Output only. The current state of the connector.
     pub state: crate::model::connector::State,
@@ -5506,10 +5458,7 @@ impl Connector {
     /// let x1 = Connector::new().set_state(State::Running);
     /// let x2 = Connector::new().set_state(State::Paused);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::connector::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::connector::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -5526,12 +5475,8 @@ impl Connector {
     /// let x = Connector::new().set_restart_policy(Some(
     ///     google_cloud_managedkafka_v1::model::connector::RestartPolicy::TaskRestartPolicy(TaskRetryPolicy::default().into())));
     /// ```
-    pub fn set_restart_policy<
-        T: std::convert::Into<std::option::Option<crate::model::connector::RestartPolicy>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_restart_policy<T: std::convert::Into<std::option::Option<crate::model::connector::RestartPolicy>>>(mut self, v: T) -> Self
+    {
         self.restart_policy = v.into();
         self
     }
@@ -5539,14 +5484,10 @@ impl Connector {
     /// The value of [restart_policy][crate::model::Connector::restart_policy]
     /// if it holds a `TaskRestartPolicy`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn task_restart_policy(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::TaskRetryPolicy>> {
+    pub fn task_restart_policy(&self) -> std::option::Option<&std::boxed::Box<crate::model::TaskRetryPolicy>> {
         #[allow(unreachable_patterns)]
         self.restart_policy.as_ref().and_then(|v| match v {
-            crate::model::connector::RestartPolicy::TaskRestartPolicy(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::connector::RestartPolicy::TaskRestartPolicy(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -5564,14 +5505,11 @@ impl Connector {
     /// let x = Connector::new().set_task_restart_policy(TaskRetryPolicy::default()/* use setters */);
     /// assert!(x.task_restart_policy().is_some());
     /// ```
-    pub fn set_task_restart_policy<
-        T: std::convert::Into<std::boxed::Box<crate::model::TaskRetryPolicy>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_task_restart_policy<T: std::convert::Into<std::boxed::Box<crate::model::TaskRetryPolicy>>>(mut self, v: T) -> Self {
         self.restart_policy = std::option::Option::Some(
-            crate::model::connector::RestartPolicy::TaskRestartPolicy(v.into()),
+            crate::model::connector::RestartPolicy::TaskRestartPolicy(
+                v.into()
+            )
         );
         self
     }
@@ -5587,6 +5525,7 @@ impl wkt::message::Message for Connector {
 pub mod connector {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The state of the connector.
     ///
@@ -5694,9 +5633,7 @@ pub mod connector {
                 4 => Self::Failed,
                 5 => Self::Restarting,
                 6 => Self::Stopped,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -5712,9 +5649,7 @@ pub mod connector {
                 "FAILED" => Self::Failed,
                 "RESTARTING" => Self::Restarting,
                 "STOPPED" => Self::Stopped,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -5743,8 +5678,7 @@ pub mod connector {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.managedkafka.v1.Connector.State",
-            ))
+                ".google.cloud.managedkafka.v1.Connector.State"))
         }
     }
 
@@ -5771,6 +5705,7 @@ pub mod connector {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TaskRetryPolicy {
+
     /// Optional. The minimum amount of time to wait before retrying a failed task.
     /// This sets a lower bound for the backoff delay.
     pub minimum_backoff: std::option::Option<wkt::Duration>,
@@ -5796,8 +5731,7 @@ impl TaskRetryPolicy {
     /// let x = TaskRetryPolicy::new().set_minimum_backoff(Duration::default()/* use setters */);
     /// ```
     pub fn set_minimum_backoff<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.minimum_backoff = std::option::Option::Some(v.into());
         self
@@ -5813,8 +5747,7 @@ impl TaskRetryPolicy {
     /// let x = TaskRetryPolicy::new().set_or_clear_minimum_backoff(None::<Duration>);
     /// ```
     pub fn set_or_clear_minimum_backoff<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.minimum_backoff = v.map(|x| x.into());
         self
@@ -5829,8 +5762,7 @@ impl TaskRetryPolicy {
     /// let x = TaskRetryPolicy::new().set_maximum_backoff(Duration::default()/* use setters */);
     /// ```
     pub fn set_maximum_backoff<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.maximum_backoff = std::option::Option::Some(v.into());
         self
@@ -5846,8 +5778,7 @@ impl TaskRetryPolicy {
     /// let x = TaskRetryPolicy::new().set_or_clear_maximum_backoff(None::<Duration>);
     /// ```
     pub fn set_or_clear_maximum_backoff<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.maximum_backoff = v.map(|x| x.into());
         self
@@ -5865,6 +5796,7 @@ impl wkt::message::Message for TaskRetryPolicy {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Acl {
+
     /// Identifier. The name for the acl. Represents a single Resource Pattern.
     /// Structured like:
     /// projects/{project}/locations/{location}/clusters/{cluster}/acls/{acl_id}
@@ -5954,7 +5886,7 @@ impl Acl {
     pub fn set_acl_entries<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AclEntry>,
+        V: std::convert::Into<crate::model::AclEntry>
     {
         use std::iter::Iterator;
         self.acl_entries = v.into_iter().map(|i| i.into()).collect();
@@ -6020,6 +5952,7 @@ impl wkt::message::Message for Acl {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AclEntry {
+
     /// Required. The principal. Specified as Google Cloud account, with the Kafka
     /// StandardAuthorizer prefix "User:". For example:
     /// "User:test-kafka-client@test-project.iam.gserviceaccount.com".

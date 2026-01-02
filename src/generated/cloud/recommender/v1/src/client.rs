@@ -83,53 +83,58 @@ impl Recommender {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::Recommender + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::Recommender + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Recommender>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Recommender>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Recommender> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Recommender> {
         super::transport::Recommender::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Recommender> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::Recommender::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Recommender> {
+        Self::build_transport(conf).await.map(super::tracing::Recommender::new)
     }
 
     /// Lists insights for the specified Cloud Resource. Requires the
     /// recommender.*.list IAM permission for the specified insight type.
-    pub fn list_insights(&self) -> super::builder::recommender::ListInsights {
+    pub fn list_insights(&self) -> super::builder::recommender::ListInsights
+    {
         super::builder::recommender::ListInsights::new(self.inner.clone())
     }
 
     /// Gets the requested insight. Requires the recommender.*.get IAM permission
     /// for the specified insight type.
-    pub fn get_insight(&self) -> super::builder::recommender::GetInsight {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recommender_v1::client::Recommender;
+    /// async fn sample(
+    ///    client: &Recommender,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_insight()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_insight(&self) -> super::builder::recommender::GetInsight
+    {
         super::builder::recommender::GetInsight::new(self.inner.clone())
     }
 
@@ -139,19 +144,55 @@ impl Recommender {
     ///
     /// MarkInsightAccepted can be applied to insights in ACTIVE state. Requires
     /// the recommender.*.update IAM permission for the specified insight.
-    pub fn mark_insight_accepted(&self) -> super::builder::recommender::MarkInsightAccepted {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recommender_v1::client::Recommender;
+    /// async fn sample(
+    ///    client: &Recommender
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .mark_insight_accepted()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn mark_insight_accepted(&self) -> super::builder::recommender::MarkInsightAccepted
+    {
         super::builder::recommender::MarkInsightAccepted::new(self.inner.clone())
     }
 
     /// Lists recommendations for the specified Cloud Resource. Requires the
     /// recommender.*.list IAM permission for the specified recommender.
-    pub fn list_recommendations(&self) -> super::builder::recommender::ListRecommendations {
+    pub fn list_recommendations(&self) -> super::builder::recommender::ListRecommendations
+    {
         super::builder::recommender::ListRecommendations::new(self.inner.clone())
     }
 
     /// Gets the requested recommendation. Requires the recommender.*.get
     /// IAM permission for the specified recommender.
-    pub fn get_recommendation(&self) -> super::builder::recommender::GetRecommendation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recommender_v1::client::Recommender;
+    /// async fn sample(
+    ///    client: &Recommender,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_recommendation()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_recommendation(&self) -> super::builder::recommender::GetRecommendation
+    {
         super::builder::recommender::GetRecommendation::new(self.inner.clone())
     }
 
@@ -164,9 +205,24 @@ impl Recommender {
     ///
     /// Requires the recommender.*.update IAM permission for the specified
     /// recommender.
-    pub fn mark_recommendation_dismissed(
-        &self,
-    ) -> super::builder::recommender::MarkRecommendationDismissed {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recommender_v1::client::Recommender;
+    /// async fn sample(
+    ///    client: &Recommender
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .mark_recommendation_dismissed()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn mark_recommendation_dismissed(&self) -> super::builder::recommender::MarkRecommendationDismissed
+    {
         super::builder::recommender::MarkRecommendationDismissed::new(self.inner.clone())
     }
 
@@ -180,9 +236,24 @@ impl Recommender {
     ///
     /// Requires the recommender.*.update IAM permission for the specified
     /// recommender.
-    pub fn mark_recommendation_claimed(
-        &self,
-    ) -> super::builder::recommender::MarkRecommendationClaimed {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recommender_v1::client::Recommender;
+    /// async fn sample(
+    ///    client: &Recommender
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .mark_recommendation_claimed()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn mark_recommendation_claimed(&self) -> super::builder::recommender::MarkRecommendationClaimed
+    {
         super::builder::recommender::MarkRecommendationClaimed::new(self.inner.clone())
     }
 
@@ -197,9 +268,24 @@ impl Recommender {
     ///
     /// Requires the recommender.*.update IAM permission for the specified
     /// recommender.
-    pub fn mark_recommendation_succeeded(
-        &self,
-    ) -> super::builder::recommender::MarkRecommendationSucceeded {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recommender_v1::client::Recommender;
+    /// async fn sample(
+    ///    client: &Recommender
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .mark_recommendation_succeeded()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn mark_recommendation_succeeded(&self) -> super::builder::recommender::MarkRecommendationSucceeded
+    {
         super::builder::recommender::MarkRecommendationSucceeded::new(self.inner.clone())
     }
 
@@ -214,37 +300,118 @@ impl Recommender {
     ///
     /// Requires the recommender.*.update IAM permission for the specified
     /// recommender.
-    pub fn mark_recommendation_failed(
-        &self,
-    ) -> super::builder::recommender::MarkRecommendationFailed {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recommender_v1::client::Recommender;
+    /// async fn sample(
+    ///    client: &Recommender
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .mark_recommendation_failed()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn mark_recommendation_failed(&self) -> super::builder::recommender::MarkRecommendationFailed
+    {
         super::builder::recommender::MarkRecommendationFailed::new(self.inner.clone())
     }
 
     /// Gets the requested Recommender Config. There is only one instance of the
     /// config for each Recommender.
-    pub fn get_recommender_config(&self) -> super::builder::recommender::GetRecommenderConfig {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recommender_v1::client::Recommender;
+    /// async fn sample(
+    ///    client: &Recommender,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_recommender_config()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_recommender_config(&self) -> super::builder::recommender::GetRecommenderConfig
+    {
         super::builder::recommender::GetRecommenderConfig::new(self.inner.clone())
     }
 
     /// Updates a Recommender Config. This will create a new revision of the
     /// config.
-    pub fn update_recommender_config(
-        &self,
-    ) -> super::builder::recommender::UpdateRecommenderConfig {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recommender_v1::client::Recommender;
+    /// async fn sample(
+    ///    client: &Recommender
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_recommender_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_recommender_config(&self) -> super::builder::recommender::UpdateRecommenderConfig
+    {
         super::builder::recommender::UpdateRecommenderConfig::new(self.inner.clone())
     }
 
     /// Gets the requested InsightTypeConfig. There is only one instance of the
     /// config for each InsightType.
-    pub fn get_insight_type_config(&self) -> super::builder::recommender::GetInsightTypeConfig {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recommender_v1::client::Recommender;
+    /// async fn sample(
+    ///    client: &Recommender,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_insight_type_config()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_insight_type_config(&self) -> super::builder::recommender::GetInsightTypeConfig
+    {
         super::builder::recommender::GetInsightTypeConfig::new(self.inner.clone())
     }
 
     /// Updates an InsightTypeConfig change. This will create a new revision of the
     /// config.
-    pub fn update_insight_type_config(
-        &self,
-    ) -> super::builder::recommender::UpdateInsightTypeConfig {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recommender_v1::client::Recommender;
+    /// async fn sample(
+    ///    client: &Recommender
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_insight_type_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_insight_type_config(&self) -> super::builder::recommender::UpdateInsightTypeConfig
+    {
         super::builder::recommender::UpdateInsightTypeConfig::new(self.inner.clone())
     }
 }

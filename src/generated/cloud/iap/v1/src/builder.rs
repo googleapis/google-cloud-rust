@@ -39,10 +39,7 @@ pub mod identity_aware_proxy_admin_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = IdentityAwareProxyAdminService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(
-                self,
-                config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -57,12 +54,8 @@ pub mod identity_aware_proxy_admin_service {
     }
 
     impl<R> RequestBuilder<R>
-    where
-        R: std::default::Default,
-    {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
-        ) -> Self {
+    where R: std::default::Default {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -92,10 +85,10 @@ pub mod identity_aware_proxy_admin_service {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -112,10 +105,7 @@ pub mod identity_aware_proxy_admin_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::Policy> {
-            (*self.0.stub)
-                .set_iam_policy(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).set_iam_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -130,8 +120,7 @@ pub mod identity_aware_proxy_admin_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<iam_v1::model::Policy>,
+        where T: std::convert::Into<iam_v1::model::Policy>
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
@@ -141,8 +130,7 @@ pub mod identity_aware_proxy_admin_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<iam_v1::model::Policy>,
+        where T: std::convert::Into<iam_v1::model::Policy>
         {
             self.0.request.policy = v.map(|x| x.into());
             self
@@ -150,8 +138,7 @@ pub mod identity_aware_proxy_admin_service {
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -159,8 +146,7 @@ pub mod identity_aware_proxy_admin_service {
 
         /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -195,10 +181,10 @@ pub mod identity_aware_proxy_admin_service {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -215,10 +201,7 @@ pub mod identity_aware_proxy_admin_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::Policy> {
-            (*self.0.stub)
-                .get_iam_policy(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_iam_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -231,8 +214,7 @@ pub mod identity_aware_proxy_admin_service {
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        where T: std::convert::Into<iam_v1::model::GetPolicyOptions>
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
@@ -240,8 +222,7 @@ pub mod identity_aware_proxy_admin_service {
 
         /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        where T: std::convert::Into<iam_v1::model::GetPolicyOptions>
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -276,17 +257,14 @@ pub mod identity_aware_proxy_admin_service {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -299,10 +277,7 @@ pub mod identity_aware_proxy_admin_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
-            (*self.0.stub)
-                .test_iam_permissions(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).test_iam_permissions(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -319,7 +294,7 @@ pub mod identity_aware_proxy_admin_service {
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.0.request.permissions = v.into_iter().map(|i| i.into()).collect();
@@ -355,10 +330,10 @@ pub mod identity_aware_proxy_admin_service {
     pub struct GetIapSettings(RequestBuilder<crate::model::GetIapSettingsRequest>);
 
     impl GetIapSettings {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -375,10 +350,7 @@ pub mod identity_aware_proxy_admin_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::IapSettings> {
-            (*self.0.stub)
-                .get_iap_settings(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_iap_settings(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetIapSettingsRequest::name].
@@ -418,17 +390,14 @@ pub mod identity_aware_proxy_admin_service {
     pub struct UpdateIapSettings(RequestBuilder<crate::model::UpdateIapSettingsRequest>);
 
     impl UpdateIapSettings {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateIapSettingsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateIapSettingsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -441,18 +410,14 @@ pub mod identity_aware_proxy_admin_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::IapSettings> {
-            (*self.0.stub)
-                .update_iap_settings(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_iap_settings(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [iap_settings][crate::model::UpdateIapSettingsRequest::iap_settings].
         ///
         /// This is a **required** field for requests.
         pub fn set_iap_settings<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::IapSettings>,
+        where T: std::convert::Into<crate::model::IapSettings>
         {
             self.0.request.iap_settings = std::option::Option::Some(v.into());
             self
@@ -462,8 +427,7 @@ pub mod identity_aware_proxy_admin_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_iap_settings<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::IapSettings>,
+        where T: std::convert::Into<crate::model::IapSettings>
         {
             self.0.request.iap_settings = v.map(|x| x.into());
             self
@@ -471,8 +435,7 @@ pub mod identity_aware_proxy_admin_service {
 
         /// Sets the value of [update_mask][crate::model::UpdateIapSettingsRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -480,8 +443,7 @@ pub mod identity_aware_proxy_admin_service {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateIapSettingsRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -513,22 +475,17 @@ pub mod identity_aware_proxy_admin_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ValidateIapAttributeExpression(
-        RequestBuilder<crate::model::ValidateIapAttributeExpressionRequest>,
-    );
+    pub struct ValidateIapAttributeExpression(RequestBuilder<crate::model::ValidateIapAttributeExpressionRequest>);
 
     impl ValidateIapAttributeExpression {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ValidateIapAttributeExpressionRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ValidateIapAttributeExpressionRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -541,10 +498,7 @@ pub mod identity_aware_proxy_admin_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ValidateIapAttributeExpressionResponse> {
-            (*self.0.stub)
-                .validate_iap_attribute_expression(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).validate_iap_attribute_expression(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ValidateIapAttributeExpressionRequest::name].
@@ -596,17 +550,14 @@ pub mod identity_aware_proxy_admin_service {
     pub struct ListTunnelDestGroups(RequestBuilder<crate::model::ListTunnelDestGroupsRequest>);
 
     impl ListTunnelDestGroups {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListTunnelDestGroupsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListTunnelDestGroupsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -619,17 +570,11 @@ pub mod identity_aware_proxy_admin_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListTunnelDestGroupsResponse> {
-            (*self.0.stub)
-                .list_tunnel_dest_groups(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_tunnel_dest_groups(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListTunnelDestGroupsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListTunnelDestGroupsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -641,12 +586,7 @@ pub mod identity_aware_proxy_admin_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListTunnelDestGroupsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListTunnelDestGroupsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -700,17 +640,14 @@ pub mod identity_aware_proxy_admin_service {
     pub struct CreateTunnelDestGroup(RequestBuilder<crate::model::CreateTunnelDestGroupRequest>);
 
     impl CreateTunnelDestGroup {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateTunnelDestGroupRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateTunnelDestGroupRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -723,10 +660,7 @@ pub mod identity_aware_proxy_admin_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::TunnelDestGroup> {
-            (*self.0.stub)
-                .create_tunnel_dest_group(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_tunnel_dest_group(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateTunnelDestGroupRequest::parent].
@@ -741,8 +675,7 @@ pub mod identity_aware_proxy_admin_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_tunnel_dest_group<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::TunnelDestGroup>,
+        where T: std::convert::Into<crate::model::TunnelDestGroup>
         {
             self.0.request.tunnel_dest_group = std::option::Option::Some(v.into());
             self
@@ -752,8 +685,7 @@ pub mod identity_aware_proxy_admin_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_tunnel_dest_group<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::TunnelDestGroup>,
+        where T: std::convert::Into<crate::model::TunnelDestGroup>
         {
             self.0.request.tunnel_dest_group = v.map(|x| x.into());
             self
@@ -796,17 +728,14 @@ pub mod identity_aware_proxy_admin_service {
     pub struct GetTunnelDestGroup(RequestBuilder<crate::model::GetTunnelDestGroupRequest>);
 
     impl GetTunnelDestGroup {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetTunnelDestGroupRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetTunnelDestGroupRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -819,10 +748,7 @@ pub mod identity_aware_proxy_admin_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::TunnelDestGroup> {
-            (*self.0.stub)
-                .get_tunnel_dest_group(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_tunnel_dest_group(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetTunnelDestGroupRequest::name].
@@ -862,17 +788,14 @@ pub mod identity_aware_proxy_admin_service {
     pub struct DeleteTunnelDestGroup(RequestBuilder<crate::model::DeleteTunnelDestGroupRequest>);
 
     impl DeleteTunnelDestGroup {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteTunnelDestGroupRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteTunnelDestGroupRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -885,10 +808,7 @@ pub mod identity_aware_proxy_admin_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .delete_tunnel_dest_group(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_tunnel_dest_group(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteTunnelDestGroupRequest::name].
@@ -928,17 +848,14 @@ pub mod identity_aware_proxy_admin_service {
     pub struct UpdateTunnelDestGroup(RequestBuilder<crate::model::UpdateTunnelDestGroupRequest>);
 
     impl UpdateTunnelDestGroup {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateTunnelDestGroupRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateTunnelDestGroupRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -951,18 +868,14 @@ pub mod identity_aware_proxy_admin_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::TunnelDestGroup> {
-            (*self.0.stub)
-                .update_tunnel_dest_group(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_tunnel_dest_group(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [tunnel_dest_group][crate::model::UpdateTunnelDestGroupRequest::tunnel_dest_group].
         ///
         /// This is a **required** field for requests.
         pub fn set_tunnel_dest_group<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::TunnelDestGroup>,
+        where T: std::convert::Into<crate::model::TunnelDestGroup>
         {
             self.0.request.tunnel_dest_group = std::option::Option::Some(v.into());
             self
@@ -972,8 +885,7 @@ pub mod identity_aware_proxy_admin_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_tunnel_dest_group<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::TunnelDestGroup>,
+        where T: std::convert::Into<crate::model::TunnelDestGroup>
         {
             self.0.request.tunnel_dest_group = v.map(|x| x.into());
             self
@@ -981,8 +893,7 @@ pub mod identity_aware_proxy_admin_service {
 
         /// Sets the value of [update_mask][crate::model::UpdateTunnelDestGroupRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -990,8 +901,7 @@ pub mod identity_aware_proxy_admin_service {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateTunnelDestGroupRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -1004,6 +914,7 @@ pub mod identity_aware_proxy_admin_service {
             &mut self.0.options
         }
     }
+
 }
 
 pub mod identity_aware_proxy_o_auth_service {
@@ -1031,10 +942,7 @@ pub mod identity_aware_proxy_o_auth_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = IdentityAwareProxyOAuthService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(
-                self,
-                config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -1049,12 +957,8 @@ pub mod identity_aware_proxy_o_auth_service {
     }
 
     impl<R> RequestBuilder<R>
-    where
-        R: std::default::Default,
-    {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>,
-        ) -> Self {
+    where R: std::default::Default {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -1084,10 +988,10 @@ pub mod identity_aware_proxy_o_auth_service {
     pub struct ListBrands(RequestBuilder<crate::model::ListBrandsRequest>);
 
     impl ListBrands {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1104,10 +1008,7 @@ pub mod identity_aware_proxy_o_auth_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListBrandsResponse> {
-            (*self.0.stub)
-                .list_brands(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_brands(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ListBrandsRequest::parent].
@@ -1147,10 +1048,10 @@ pub mod identity_aware_proxy_o_auth_service {
     pub struct CreateBrand(RequestBuilder<crate::model::CreateBrandRequest>);
 
     impl CreateBrand {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1167,10 +1068,7 @@ pub mod identity_aware_proxy_o_auth_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Brand> {
-            (*self.0.stub)
-                .create_brand(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_brand(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateBrandRequest::parent].
@@ -1185,8 +1083,7 @@ pub mod identity_aware_proxy_o_auth_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_brand<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Brand>,
+        where T: std::convert::Into<crate::model::Brand>
         {
             self.0.request.brand = std::option::Option::Some(v.into());
             self
@@ -1196,8 +1093,7 @@ pub mod identity_aware_proxy_o_auth_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_brand<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Brand>,
+        where T: std::convert::Into<crate::model::Brand>
         {
             self.0.request.brand = v.map(|x| x.into());
             self
@@ -1232,10 +1128,10 @@ pub mod identity_aware_proxy_o_auth_service {
     pub struct GetBrand(RequestBuilder<crate::model::GetBrandRequest>);
 
     impl GetBrand {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1252,10 +1148,7 @@ pub mod identity_aware_proxy_o_auth_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Brand> {
-            (*self.0.stub)
-                .get_brand(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_brand(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetBrandRequest::name].
@@ -1292,22 +1185,17 @@ pub mod identity_aware_proxy_o_auth_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateIdentityAwareProxyClient(
-        RequestBuilder<crate::model::CreateIdentityAwareProxyClientRequest>,
-    );
+    pub struct CreateIdentityAwareProxyClient(RequestBuilder<crate::model::CreateIdentityAwareProxyClientRequest>);
 
     impl CreateIdentityAwareProxyClient {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateIdentityAwareProxyClientRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateIdentityAwareProxyClientRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1320,10 +1208,7 @@ pub mod identity_aware_proxy_o_auth_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::IdentityAwareProxyClient> {
-            (*self.0.stub)
-                .create_identity_aware_proxy_client(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_identity_aware_proxy_client(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateIdentityAwareProxyClientRequest::parent].
@@ -1338,8 +1223,7 @@ pub mod identity_aware_proxy_o_auth_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_identity_aware_proxy_client<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::IdentityAwareProxyClient>,
+        where T: std::convert::Into<crate::model::IdentityAwareProxyClient>
         {
             self.0.request.identity_aware_proxy_client = std::option::Option::Some(v.into());
             self
@@ -1348,12 +1232,8 @@ pub mod identity_aware_proxy_o_auth_service {
         /// Sets or clears the value of [identity_aware_proxy_client][crate::model::CreateIdentityAwareProxyClientRequest::identity_aware_proxy_client].
         ///
         /// This is a **required** field for requests.
-        pub fn set_or_clear_identity_aware_proxy_client<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<crate::model::IdentityAwareProxyClient>,
+        pub fn set_or_clear_identity_aware_proxy_client<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<crate::model::IdentityAwareProxyClient>
         {
             self.0.request.identity_aware_proxy_client = v.map(|x| x.into());
             self
@@ -1389,22 +1269,17 @@ pub mod identity_aware_proxy_o_auth_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListIdentityAwareProxyClients(
-        RequestBuilder<crate::model::ListIdentityAwareProxyClientsRequest>,
-    );
+    pub struct ListIdentityAwareProxyClients(RequestBuilder<crate::model::ListIdentityAwareProxyClientsRequest>);
 
     impl ListIdentityAwareProxyClients {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListIdentityAwareProxyClientsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListIdentityAwareProxyClientsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1417,19 +1292,11 @@ pub mod identity_aware_proxy_o_auth_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListIdentityAwareProxyClientsResponse> {
-            (*self.0.stub)
-                .list_identity_aware_proxy_clients(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_identity_aware_proxy_clients(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<
-            crate::model::ListIdentityAwareProxyClientsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListIdentityAwareProxyClientsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1441,12 +1308,7 @@ pub mod identity_aware_proxy_o_auth_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListIdentityAwareProxyClientsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListIdentityAwareProxyClientsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1497,22 +1359,17 @@ pub mod identity_aware_proxy_o_auth_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIdentityAwareProxyClient(
-        RequestBuilder<crate::model::GetIdentityAwareProxyClientRequest>,
-    );
+    pub struct GetIdentityAwareProxyClient(RequestBuilder<crate::model::GetIdentityAwareProxyClientRequest>);
 
     impl GetIdentityAwareProxyClient {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetIdentityAwareProxyClientRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetIdentityAwareProxyClientRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1525,10 +1382,7 @@ pub mod identity_aware_proxy_o_auth_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::IdentityAwareProxyClient> {
-            (*self.0.stub)
-                .get_identity_aware_proxy_client(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_identity_aware_proxy_client(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetIdentityAwareProxyClientRequest::name].
@@ -1565,22 +1419,17 @@ pub mod identity_aware_proxy_o_auth_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ResetIdentityAwareProxyClientSecret(
-        RequestBuilder<crate::model::ResetIdentityAwareProxyClientSecretRequest>,
-    );
+    pub struct ResetIdentityAwareProxyClientSecret(RequestBuilder<crate::model::ResetIdentityAwareProxyClientSecretRequest>);
 
     impl ResetIdentityAwareProxyClientSecret {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ResetIdentityAwareProxyClientSecretRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ResetIdentityAwareProxyClientSecretRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1593,10 +1442,7 @@ pub mod identity_aware_proxy_o_auth_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::IdentityAwareProxyClient> {
-            (*self.0.stub)
-                .reset_identity_aware_proxy_client_secret(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).reset_identity_aware_proxy_client_secret(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ResetIdentityAwareProxyClientSecretRequest::name].
@@ -1633,22 +1479,17 @@ pub mod identity_aware_proxy_o_auth_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteIdentityAwareProxyClient(
-        RequestBuilder<crate::model::DeleteIdentityAwareProxyClientRequest>,
-    );
+    pub struct DeleteIdentityAwareProxyClient(RequestBuilder<crate::model::DeleteIdentityAwareProxyClientRequest>);
 
     impl DeleteIdentityAwareProxyClient {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteIdentityAwareProxyClientRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteIdentityAwareProxyClientRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1661,10 +1502,7 @@ pub mod identity_aware_proxy_o_auth_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .delete_identity_aware_proxy_client(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_identity_aware_proxy_client(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteIdentityAwareProxyClientRequest::name].
@@ -1682,4 +1520,5 @@ pub mod identity_aware_proxy_o_auth_service {
             &mut self.0.options
         }
     }
+
 }

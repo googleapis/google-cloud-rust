@@ -134,10 +134,7 @@ impl std::fmt::Debug for super::CreateClientConnectorServiceRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateClientConnectorServiceRequest");
         debug_struct.field("parent", &self.parent);
-        debug_struct.field(
-            "client_connector_service_id",
-            &self.client_connector_service_id,
-        );
+        debug_struct.field("client_connector_service_id", &self.client_connector_service_id);
         debug_struct.field("client_connector_service", &self.client_connector_service);
         debug_struct.field("request_id", &self.request_id);
         debug_struct.field("validate_only", &self.validate_only);

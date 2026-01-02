@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -28,7 +29,6 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -40,6 +40,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListVoicesRequest {
+
     /// Optional. Recommended.
     /// [BCP-47](https://www.rfc-editor.org/rfc/bcp/bcp47.txt) language tag.
     /// If not specified, the API will return all supported voices.
@@ -81,6 +82,7 @@ impl wkt::message::Message for ListVoicesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListVoicesResponse {
+
     /// The list of voices.
     pub voices: std::vec::Vec<crate::model::Voice>,
 
@@ -107,7 +109,7 @@ impl ListVoicesResponse {
     pub fn set_voices<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Voice>,
+        V: std::convert::Into<crate::model::Voice>
     {
         use std::iter::Iterator;
         self.voices = v.into_iter().map(|i| i.into()).collect();
@@ -125,6 +127,7 @@ impl wkt::message::Message for ListVoicesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Voice {
+
     /// The languages that this voice supports, expressed as
     /// [BCP-47](https://www.rfc-editor.org/rfc/bcp/bcp47.txt) language tags (e.g.
     /// "en-US", "es-419", "cmn-tw").
@@ -157,7 +160,7 @@ impl Voice {
     pub fn set_language_codes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.language_codes = v.into_iter().map(|i| i.into()).collect();
@@ -186,10 +189,7 @@ impl Voice {
     /// let x1 = Voice::new().set_ssml_gender(SsmlVoiceGender::Female);
     /// let x2 = Voice::new().set_ssml_gender(SsmlVoiceGender::Neutral);
     /// ```
-    pub fn set_ssml_gender<T: std::convert::Into<crate::model::SsmlVoiceGender>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_ssml_gender<T: std::convert::Into<crate::model::SsmlVoiceGender>>(mut self, v: T) -> Self {
         self.ssml_gender = v.into();
         self
     }
@@ -217,6 +217,7 @@ impl wkt::message::Message for Voice {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AdvancedVoiceOptions {
+
     /// Only for Journey voices. If false, the synthesis is context aware
     /// and has a higher latency.
     pub low_latency_journey_synthesis: std::option::Option<bool>,
@@ -243,8 +244,7 @@ impl AdvancedVoiceOptions {
     /// let x = AdvancedVoiceOptions::new().set_low_latency_journey_synthesis(true);
     /// ```
     pub fn set_low_latency_journey_synthesis<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.low_latency_journey_synthesis = std::option::Option::Some(v.into());
         self
@@ -258,12 +258,8 @@ impl AdvancedVoiceOptions {
     /// let x = AdvancedVoiceOptions::new().set_or_clear_low_latency_journey_synthesis(Some(false));
     /// let x = AdvancedVoiceOptions::new().set_or_clear_low_latency_journey_synthesis(None::<bool>);
     /// ```
-    pub fn set_or_clear_low_latency_journey_synthesis<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<bool>,
+    pub fn set_or_clear_low_latency_journey_synthesis<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<bool>
     {
         self.low_latency_journey_synthesis = v.map(|x| x.into());
         self
@@ -292,6 +288,7 @@ impl wkt::message::Message for AdvancedVoiceOptions {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SynthesizeSpeechRequest {
+
     /// Required. The Synthesizer requires either plain text or SSML as input.
     pub input: std::option::Option<crate::model::SynthesisInput>,
 
@@ -321,8 +318,7 @@ impl SynthesizeSpeechRequest {
     /// let x = SynthesizeSpeechRequest::new().set_input(SynthesisInput::default()/* use setters */);
     /// ```
     pub fn set_input<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::SynthesisInput>,
+    where T: std::convert::Into<crate::model::SynthesisInput>
     {
         self.input = std::option::Option::Some(v.into());
         self
@@ -338,8 +334,7 @@ impl SynthesizeSpeechRequest {
     /// let x = SynthesizeSpeechRequest::new().set_or_clear_input(None::<SynthesisInput>);
     /// ```
     pub fn set_or_clear_input<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::SynthesisInput>,
+    where T: std::convert::Into<crate::model::SynthesisInput>
     {
         self.input = v.map(|x| x.into());
         self
@@ -354,8 +349,7 @@ impl SynthesizeSpeechRequest {
     /// let x = SynthesizeSpeechRequest::new().set_voice(VoiceSelectionParams::default()/* use setters */);
     /// ```
     pub fn set_voice<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::VoiceSelectionParams>,
+    where T: std::convert::Into<crate::model::VoiceSelectionParams>
     {
         self.voice = std::option::Option::Some(v.into());
         self
@@ -371,8 +365,7 @@ impl SynthesizeSpeechRequest {
     /// let x = SynthesizeSpeechRequest::new().set_or_clear_voice(None::<VoiceSelectionParams>);
     /// ```
     pub fn set_or_clear_voice<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::VoiceSelectionParams>,
+    where T: std::convert::Into<crate::model::VoiceSelectionParams>
     {
         self.voice = v.map(|x| x.into());
         self
@@ -387,8 +380,7 @@ impl SynthesizeSpeechRequest {
     /// let x = SynthesizeSpeechRequest::new().set_audio_config(AudioConfig::default()/* use setters */);
     /// ```
     pub fn set_audio_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AudioConfig>,
+    where T: std::convert::Into<crate::model::AudioConfig>
     {
         self.audio_config = std::option::Option::Some(v.into());
         self
@@ -404,8 +396,7 @@ impl SynthesizeSpeechRequest {
     /// let x = SynthesizeSpeechRequest::new().set_or_clear_audio_config(None::<AudioConfig>);
     /// ```
     pub fn set_or_clear_audio_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AudioConfig>,
+    where T: std::convert::Into<crate::model::AudioConfig>
     {
         self.audio_config = v.map(|x| x.into());
         self
@@ -420,8 +411,7 @@ impl SynthesizeSpeechRequest {
     /// let x = SynthesizeSpeechRequest::new().set_advanced_voice_options(AdvancedVoiceOptions::default()/* use setters */);
     /// ```
     pub fn set_advanced_voice_options<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AdvancedVoiceOptions>,
+    where T: std::convert::Into<crate::model::AdvancedVoiceOptions>
     {
         self.advanced_voice_options = std::option::Option::Some(v.into());
         self
@@ -437,8 +427,7 @@ impl SynthesizeSpeechRequest {
     /// let x = SynthesizeSpeechRequest::new().set_or_clear_advanced_voice_options(None::<AdvancedVoiceOptions>);
     /// ```
     pub fn set_or_clear_advanced_voice_options<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AdvancedVoiceOptions>,
+    where T: std::convert::Into<crate::model::AdvancedVoiceOptions>
     {
         self.advanced_voice_options = v.map(|x| x.into());
         self
@@ -455,14 +444,14 @@ impl wkt::message::Message for SynthesizeSpeechRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CustomPronunciationParams {
+
     /// The phrase to which the customization is applied.
     /// The phrase can be multiple words, such as proper nouns, but shouldn't span
     /// the length of the sentence.
     pub phrase: std::option::Option<std::string::String>,
 
     /// The phonetic encoding of the phrase.
-    pub phonetic_encoding:
-        std::option::Option<crate::model::custom_pronunciation_params::PhoneticEncoding>,
+    pub phonetic_encoding: std::option::Option<crate::model::custom_pronunciation_params::PhoneticEncoding>,
 
     /// The pronunciation of the phrase. This must be in the phonetic encoding
     /// specified above.
@@ -484,8 +473,7 @@ impl CustomPronunciationParams {
     /// let x = CustomPronunciationParams::new().set_phrase("example");
     /// ```
     pub fn set_phrase<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.phrase = std::option::Option::Some(v.into());
         self
@@ -500,8 +488,7 @@ impl CustomPronunciationParams {
     /// let x = CustomPronunciationParams::new().set_or_clear_phrase(None::<String>);
     /// ```
     pub fn set_or_clear_phrase<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.phrase = v.map(|x| x.into());
         self
@@ -518,8 +505,7 @@ impl CustomPronunciationParams {
     /// let x2 = CustomPronunciationParams::new().set_phonetic_encoding(PhoneticEncoding::JapaneseYomigana);
     /// ```
     pub fn set_phonetic_encoding<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::custom_pronunciation_params::PhoneticEncoding>,
+    where T: std::convert::Into<crate::model::custom_pronunciation_params::PhoneticEncoding>
     {
         self.phonetic_encoding = std::option::Option::Some(v.into());
         self
@@ -537,8 +523,7 @@ impl CustomPronunciationParams {
     /// let x_none = CustomPronunciationParams::new().set_or_clear_phonetic_encoding(None::<PhoneticEncoding>);
     /// ```
     pub fn set_or_clear_phonetic_encoding<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::custom_pronunciation_params::PhoneticEncoding>,
+    where T: std::convert::Into<crate::model::custom_pronunciation_params::PhoneticEncoding>
     {
         self.phonetic_encoding = v.map(|x| x.into());
         self
@@ -552,8 +537,7 @@ impl CustomPronunciationParams {
     /// let x = CustomPronunciationParams::new().set_pronunciation("example");
     /// ```
     pub fn set_pronunciation<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.pronunciation = std::option::Option::Some(v.into());
         self
@@ -568,8 +552,7 @@ impl CustomPronunciationParams {
     /// let x = CustomPronunciationParams::new().set_or_clear_pronunciation(None::<String>);
     /// ```
     pub fn set_or_clear_pronunciation<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.pronunciation = v.map(|x| x.into());
         self
@@ -586,6 +569,7 @@ impl wkt::message::Message for CustomPronunciationParams {
 pub mod custom_pronunciation_params {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The phonetic encoding of the phrase.
     ///
@@ -676,9 +660,7 @@ pub mod custom_pronunciation_params {
                 Self::Unspecified => std::option::Option::Some("PHONETIC_ENCODING_UNSPECIFIED"),
                 Self::Ipa => std::option::Option::Some("PHONETIC_ENCODING_IPA"),
                 Self::XSampa => std::option::Option::Some("PHONETIC_ENCODING_X_SAMPA"),
-                Self::JapaneseYomigana => {
-                    std::option::Option::Some("PHONETIC_ENCODING_JAPANESE_YOMIGANA")
-                }
+                Self::JapaneseYomigana => std::option::Option::Some("PHONETIC_ENCODING_JAPANESE_YOMIGANA"),
                 Self::Pinyin => std::option::Option::Some("PHONETIC_ENCODING_PINYIN"),
                 Self::UnknownValue(u) => u.0.name(),
             }
@@ -706,9 +688,7 @@ pub mod custom_pronunciation_params {
                 2 => Self::XSampa,
                 3 => Self::JapaneseYomigana,
                 4 => Self::Pinyin,
-                _ => Self::UnknownValue(phonetic_encoding::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(phonetic_encoding::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -722,9 +702,7 @@ pub mod custom_pronunciation_params {
                 "PHONETIC_ENCODING_X_SAMPA" => Self::XSampa,
                 "PHONETIC_ENCODING_JAPANESE_YOMIGANA" => Self::JapaneseYomigana,
                 "PHONETIC_ENCODING_PINYIN" => Self::Pinyin,
-                _ => Self::UnknownValue(phonetic_encoding::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(phonetic_encoding::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -751,8 +729,7 @@ pub mod custom_pronunciation_params {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<PhoneticEncoding>::new(
-                ".google.cloud.texttospeech.v1.CustomPronunciationParams.PhoneticEncoding",
-            ))
+                ".google.cloud.texttospeech.v1.CustomPronunciationParams.PhoneticEncoding"))
         }
     }
 }
@@ -761,6 +738,7 @@ pub mod custom_pronunciation_params {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CustomPronunciations {
+
     /// The pronunciation customizations are applied.
     pub pronunciations: std::vec::Vec<crate::model::CustomPronunciationParams>,
 
@@ -787,7 +765,7 @@ impl CustomPronunciations {
     pub fn set_pronunciations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::CustomPronunciationParams>,
+        V: std::convert::Into<crate::model::CustomPronunciationParams>
     {
         use std::iter::Iterator;
         self.pronunciations = v.into_iter().map(|i| i.into()).collect();
@@ -805,6 +783,7 @@ impl wkt::message::Message for CustomPronunciations {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MultiSpeakerMarkup {
+
     /// Required. Speaker turns.
     pub turns: std::vec::Vec<crate::model::multi_speaker_markup::Turn>,
 
@@ -831,7 +810,7 @@ impl MultiSpeakerMarkup {
     pub fn set_turns<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::multi_speaker_markup::Turn>,
+        V: std::convert::Into<crate::model::multi_speaker_markup::Turn>
     {
         use std::iter::Iterator;
         self.turns = v.into_iter().map(|i| i.into()).collect();
@@ -850,10 +829,12 @@ pub mod multi_speaker_markup {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// A multi-speaker turn.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Turn {
+
         /// Required. The speaker of the turn, for example, 'O' or 'Q'. Please refer
         /// to documentation for available speakers.
         pub speaker: std::string::String,
@@ -906,6 +887,7 @@ pub mod multi_speaker_markup {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MultispeakerPrebuiltVoice {
+
     /// Required. The speaker alias of the voice. This is the user-chosen speaker
     /// name that is used in the multispeaker text input, such as "Speaker1".
     pub speaker_alias: std::string::String,
@@ -959,6 +941,7 @@ impl wkt::message::Message for MultispeakerPrebuiltVoice {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MultiSpeakerVoiceConfig {
+
     /// Required. A list of configurations for the voices of the speakers. Exactly
     /// two speaker voice configurations must be provided.
     pub speaker_voice_configs: std::vec::Vec<crate::model::MultispeakerPrebuiltVoice>,
@@ -986,7 +969,7 @@ impl MultiSpeakerVoiceConfig {
     pub fn set_speaker_voice_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::MultispeakerPrebuiltVoice>,
+        V: std::convert::Into<crate::model::MultispeakerPrebuiltVoice>
     {
         use std::iter::Iterator;
         self.speaker_voice_configs = v.into_iter().map(|i| i.into()).collect();
@@ -1007,6 +990,7 @@ impl wkt::message::Message for MultiSpeakerVoiceConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SynthesisInput {
+
     /// This system instruction is supported only for controllable/promptable voice
     /// models. If this system instruction is used, we pass the unedited text to
     /// Gemini-TTS. Otherwise, a default system instruction is used. AI Studio
@@ -1044,8 +1028,7 @@ impl SynthesisInput {
     /// let x = SynthesisInput::new().set_prompt("example");
     /// ```
     pub fn set_prompt<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.prompt = std::option::Option::Some(v.into());
         self
@@ -1060,8 +1043,7 @@ impl SynthesisInput {
     /// let x = SynthesisInput::new().set_or_clear_prompt(None::<String>);
     /// ```
     pub fn set_or_clear_prompt<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.prompt = v.map(|x| x.into());
         self
@@ -1076,8 +1058,7 @@ impl SynthesisInput {
     /// let x = SynthesisInput::new().set_custom_pronunciations(CustomPronunciations::default()/* use setters */);
     /// ```
     pub fn set_custom_pronunciations<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CustomPronunciations>,
+    where T: std::convert::Into<crate::model::CustomPronunciations>
     {
         self.custom_pronunciations = std::option::Option::Some(v.into());
         self
@@ -1093,8 +1074,7 @@ impl SynthesisInput {
     /// let x = SynthesisInput::new().set_or_clear_custom_pronunciations(None::<CustomPronunciations>);
     /// ```
     pub fn set_or_clear_custom_pronunciations<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CustomPronunciations>,
+    where T: std::convert::Into<crate::model::CustomPronunciations>
     {
         self.custom_pronunciations = v.map(|x| x.into());
         self
@@ -1111,12 +1091,8 @@ impl SynthesisInput {
     /// use google_cloud_texttospeech_v1::model::synthesis_input::InputSource;
     /// let x = SynthesisInput::new().set_input_source(Some(InputSource::Text("example".to_string())));
     /// ```
-    pub fn set_input_source<
-        T: std::convert::Into<std::option::Option<crate::model::synthesis_input::InputSource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_input_source<T: std::convert::Into<std::option::Option<crate::model::synthesis_input::InputSource>>>(mut self, v: T) -> Self
+    {
         self.input_source = v.into();
         self
     }
@@ -1148,8 +1124,11 @@ impl SynthesisInput {
     /// assert!(x.multi_speaker_markup().is_none());
     /// ```
     pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.input_source =
-            std::option::Option::Some(crate::model::synthesis_input::InputSource::Text(v.into()));
+        self.input_source = std::option::Option::Some(
+            crate::model::synthesis_input::InputSource::Text(
+                v.into()
+            )
+        );
         self
     }
 
@@ -1180,8 +1159,11 @@ impl SynthesisInput {
     /// assert!(x.multi_speaker_markup().is_none());
     /// ```
     pub fn set_markup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.input_source =
-            std::option::Option::Some(crate::model::synthesis_input::InputSource::Markup(v.into()));
+        self.input_source = std::option::Option::Some(
+            crate::model::synthesis_input::InputSource::Markup(
+                v.into()
+            )
+        );
         self
     }
 
@@ -1212,22 +1194,21 @@ impl SynthesisInput {
     /// assert!(x.multi_speaker_markup().is_none());
     /// ```
     pub fn set_ssml<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.input_source =
-            std::option::Option::Some(crate::model::synthesis_input::InputSource::Ssml(v.into()));
+        self.input_source = std::option::Option::Some(
+            crate::model::synthesis_input::InputSource::Ssml(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [input_source][crate::model::SynthesisInput::input_source]
     /// if it holds a `MultiSpeakerMarkup`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn multi_speaker_markup(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::MultiSpeakerMarkup>> {
+    pub fn multi_speaker_markup(&self) -> std::option::Option<&std::boxed::Box<crate::model::MultiSpeakerMarkup>> {
         #[allow(unreachable_patterns)]
         self.input_source.as_ref().and_then(|v| match v {
-            crate::model::synthesis_input::InputSource::MultiSpeakerMarkup(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::synthesis_input::InputSource::MultiSpeakerMarkup(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -1248,14 +1229,11 @@ impl SynthesisInput {
     /// assert!(x.markup().is_none());
     /// assert!(x.ssml().is_none());
     /// ```
-    pub fn set_multi_speaker_markup<
-        T: std::convert::Into<std::boxed::Box<crate::model::MultiSpeakerMarkup>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_multi_speaker_markup<T: std::convert::Into<std::boxed::Box<crate::model::MultiSpeakerMarkup>>>(mut self, v: T) -> Self {
         self.input_source = std::option::Option::Some(
-            crate::model::synthesis_input::InputSource::MultiSpeakerMarkup(v.into()),
+            crate::model::synthesis_input::InputSource::MultiSpeakerMarkup(
+                v.into()
+            )
         );
         self
     }
@@ -1271,6 +1249,7 @@ impl wkt::message::Message for SynthesisInput {
 pub mod synthesis_input {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The input source, which is either plain text or SSML.
     #[derive(Clone, Debug, PartialEq)]
@@ -1297,6 +1276,7 @@ pub mod synthesis_input {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VoiceSelectionParams {
+
     /// Required. The language (and potentially also the region) of the voice
     /// expressed as a [BCP-47](https://www.rfc-editor.org/rfc/bcp/bcp47.txt)
     /// language tag, e.g. "en-US". This should not include a script tag (e.g. use
@@ -1383,10 +1363,7 @@ impl VoiceSelectionParams {
     /// let x1 = VoiceSelectionParams::new().set_ssml_gender(SsmlVoiceGender::Female);
     /// let x2 = VoiceSelectionParams::new().set_ssml_gender(SsmlVoiceGender::Neutral);
     /// ```
-    pub fn set_ssml_gender<T: std::convert::Into<crate::model::SsmlVoiceGender>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_ssml_gender<T: std::convert::Into<crate::model::SsmlVoiceGender>>(mut self, v: T) -> Self {
         self.ssml_gender = v.into();
         self
     }
@@ -1400,8 +1377,7 @@ impl VoiceSelectionParams {
     /// let x = VoiceSelectionParams::new().set_custom_voice(CustomVoiceParams::default()/* use setters */);
     /// ```
     pub fn set_custom_voice<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CustomVoiceParams>,
+    where T: std::convert::Into<crate::model::CustomVoiceParams>
     {
         self.custom_voice = std::option::Option::Some(v.into());
         self
@@ -1417,8 +1393,7 @@ impl VoiceSelectionParams {
     /// let x = VoiceSelectionParams::new().set_or_clear_custom_voice(None::<CustomVoiceParams>);
     /// ```
     pub fn set_or_clear_custom_voice<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CustomVoiceParams>,
+    where T: std::convert::Into<crate::model::CustomVoiceParams>
     {
         self.custom_voice = v.map(|x| x.into());
         self
@@ -1433,8 +1408,7 @@ impl VoiceSelectionParams {
     /// let x = VoiceSelectionParams::new().set_voice_clone(VoiceCloneParams::default()/* use setters */);
     /// ```
     pub fn set_voice_clone<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::VoiceCloneParams>,
+    where T: std::convert::Into<crate::model::VoiceCloneParams>
     {
         self.voice_clone = std::option::Option::Some(v.into());
         self
@@ -1450,8 +1424,7 @@ impl VoiceSelectionParams {
     /// let x = VoiceSelectionParams::new().set_or_clear_voice_clone(None::<VoiceCloneParams>);
     /// ```
     pub fn set_or_clear_voice_clone<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::VoiceCloneParams>,
+    where T: std::convert::Into<crate::model::VoiceCloneParams>
     {
         self.voice_clone = v.map(|x| x.into());
         self
@@ -1478,8 +1451,7 @@ impl VoiceSelectionParams {
     /// let x = VoiceSelectionParams::new().set_multi_speaker_voice_config(MultiSpeakerVoiceConfig::default()/* use setters */);
     /// ```
     pub fn set_multi_speaker_voice_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::MultiSpeakerVoiceConfig>,
+    where T: std::convert::Into<crate::model::MultiSpeakerVoiceConfig>
     {
         self.multi_speaker_voice_config = std::option::Option::Some(v.into());
         self
@@ -1495,8 +1467,7 @@ impl VoiceSelectionParams {
     /// let x = VoiceSelectionParams::new().set_or_clear_multi_speaker_voice_config(None::<MultiSpeakerVoiceConfig>);
     /// ```
     pub fn set_or_clear_multi_speaker_voice_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::MultiSpeakerVoiceConfig>,
+    where T: std::convert::Into<crate::model::MultiSpeakerVoiceConfig>
     {
         self.multi_speaker_voice_config = v.map(|x| x.into());
         self
@@ -1513,6 +1484,7 @@ impl wkt::message::Message for VoiceSelectionParams {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AudioConfig {
+
     /// Required. The format of the audio byte stream.
     pub audio_encoding: crate::model::AudioEncoding,
 
@@ -1572,10 +1544,7 @@ impl AudioConfig {
     /// let x1 = AudioConfig::new().set_audio_encoding(AudioEncoding::Mp3);
     /// let x2 = AudioConfig::new().set_audio_encoding(AudioEncoding::OggOpus);
     /// ```
-    pub fn set_audio_encoding<T: std::convert::Into<crate::model::AudioEncoding>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_audio_encoding<T: std::convert::Into<crate::model::AudioEncoding>>(mut self, v: T) -> Self {
         self.audio_encoding = v.into();
         self
     }
@@ -1638,7 +1607,7 @@ impl AudioConfig {
     pub fn set_effects_profile_id<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.effects_profile_id = v.into_iter().map(|i| i.into()).collect();
@@ -1656,6 +1625,7 @@ impl wkt::message::Message for AudioConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CustomVoiceParams {
+
     /// Required. The name of the AutoML model that synthesizes the custom voice.
     pub model: std::string::String,
 
@@ -1693,12 +1663,7 @@ impl CustomVoiceParams {
     /// let x1 = CustomVoiceParams::new().set_reported_usage(ReportedUsage::Offline);
     /// ```
     #[deprecated]
-    pub fn set_reported_usage<
-        T: std::convert::Into<crate::model::custom_voice_params::ReportedUsage>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_reported_usage<T: std::convert::Into<crate::model::custom_voice_params::ReportedUsage>>(mut self, v: T) -> Self {
         self.reported_usage = v.into();
         self
     }
@@ -1714,6 +1679,7 @@ impl wkt::message::Message for CustomVoiceParams {
 pub mod custom_voice_params {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Deprecated. The usage of the synthesized audio. Usage does not affect
     /// billing.
@@ -1805,9 +1771,7 @@ pub mod custom_voice_params {
                 0 => Self::Unspecified,
                 1 => Self::Realtime,
                 2 => Self::Offline,
-                _ => Self::UnknownValue(reported_usage::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(reported_usage::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1819,9 +1783,7 @@ pub mod custom_voice_params {
                 "REPORTED_USAGE_UNSPECIFIED" => Self::Unspecified,
                 "REALTIME" => Self::Realtime,
                 "OFFLINE" => Self::Offline,
-                _ => Self::UnknownValue(reported_usage::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(reported_usage::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1846,8 +1808,7 @@ pub mod custom_voice_params {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<ReportedUsage>::new(
-                ".google.cloud.texttospeech.v1.CustomVoiceParams.ReportedUsage",
-            ))
+                ".google.cloud.texttospeech.v1.CustomVoiceParams.ReportedUsage"))
         }
     }
 }
@@ -1856,6 +1817,7 @@ pub mod custom_voice_params {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VoiceCloneParams {
+
     /// Required. Created by GenerateVoiceCloningKey.
     pub voice_cloning_key: std::string::String,
 
@@ -1874,10 +1836,7 @@ impl VoiceCloneParams {
     /// # use google_cloud_texttospeech_v1::model::VoiceCloneParams;
     /// let x = VoiceCloneParams::new().set_voice_cloning_key("example");
     /// ```
-    pub fn set_voice_cloning_key<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_voice_cloning_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.voice_cloning_key = v.into();
         self
     }
@@ -1893,6 +1852,7 @@ impl wkt::message::Message for VoiceCloneParams {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SynthesizeSpeechResponse {
+
     /// The audio data bytes encoded as specified in the request, including the
     /// header for encodings that are wrapped in containers (e.g. MP3, OGG_OPUS).
     /// For LINEAR16 audio, we include the WAV header. Note: as
@@ -1931,6 +1891,7 @@ impl wkt::message::Message for SynthesizeSpeechResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StreamingAudioConfig {
+
     /// Required. The format of the audio byte stream.
     /// Streaming supports PCM, ALAW, MULAW and OGG_OPUS. All other encodings
     /// return an error.
@@ -1963,10 +1924,7 @@ impl StreamingAudioConfig {
     /// let x1 = StreamingAudioConfig::new().set_audio_encoding(AudioEncoding::Mp3);
     /// let x2 = StreamingAudioConfig::new().set_audio_encoding(AudioEncoding::OggOpus);
     /// ```
-    pub fn set_audio_encoding<T: std::convert::Into<crate::model::AudioEncoding>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_audio_encoding<T: std::convert::Into<crate::model::AudioEncoding>>(mut self, v: T) -> Self {
         self.audio_encoding = v.into();
         self
     }
@@ -2006,6 +1964,7 @@ impl wkt::message::Message for StreamingAudioConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StreamingSynthesizeConfig {
+
     /// Required. The desired voice of the synthesized audio.
     pub voice: std::option::Option<crate::model::VoiceSelectionParams>,
 
@@ -2041,8 +2000,7 @@ impl StreamingSynthesizeConfig {
     /// let x = StreamingSynthesizeConfig::new().set_voice(VoiceSelectionParams::default()/* use setters */);
     /// ```
     pub fn set_voice<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::VoiceSelectionParams>,
+    where T: std::convert::Into<crate::model::VoiceSelectionParams>
     {
         self.voice = std::option::Option::Some(v.into());
         self
@@ -2058,8 +2016,7 @@ impl StreamingSynthesizeConfig {
     /// let x = StreamingSynthesizeConfig::new().set_or_clear_voice(None::<VoiceSelectionParams>);
     /// ```
     pub fn set_or_clear_voice<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::VoiceSelectionParams>,
+    where T: std::convert::Into<crate::model::VoiceSelectionParams>
     {
         self.voice = v.map(|x| x.into());
         self
@@ -2074,8 +2031,7 @@ impl StreamingSynthesizeConfig {
     /// let x = StreamingSynthesizeConfig::new().set_streaming_audio_config(StreamingAudioConfig::default()/* use setters */);
     /// ```
     pub fn set_streaming_audio_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::StreamingAudioConfig>,
+    where T: std::convert::Into<crate::model::StreamingAudioConfig>
     {
         self.streaming_audio_config = std::option::Option::Some(v.into());
         self
@@ -2091,8 +2047,7 @@ impl StreamingSynthesizeConfig {
     /// let x = StreamingSynthesizeConfig::new().set_or_clear_streaming_audio_config(None::<StreamingAudioConfig>);
     /// ```
     pub fn set_or_clear_streaming_audio_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::StreamingAudioConfig>,
+    where T: std::convert::Into<crate::model::StreamingAudioConfig>
     {
         self.streaming_audio_config = v.map(|x| x.into());
         self
@@ -2107,8 +2062,7 @@ impl StreamingSynthesizeConfig {
     /// let x = StreamingSynthesizeConfig::new().set_custom_pronunciations(CustomPronunciations::default()/* use setters */);
     /// ```
     pub fn set_custom_pronunciations<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CustomPronunciations>,
+    where T: std::convert::Into<crate::model::CustomPronunciations>
     {
         self.custom_pronunciations = std::option::Option::Some(v.into());
         self
@@ -2124,8 +2078,7 @@ impl StreamingSynthesizeConfig {
     /// let x = StreamingSynthesizeConfig::new().set_or_clear_custom_pronunciations(None::<CustomPronunciations>);
     /// ```
     pub fn set_or_clear_custom_pronunciations<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CustomPronunciations>,
+    where T: std::convert::Into<crate::model::CustomPronunciations>
     {
         self.custom_pronunciations = v.map(|x| x.into());
         self
@@ -2142,6 +2095,7 @@ impl wkt::message::Message for StreamingSynthesizeConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StreamingSynthesisInput {
+
     /// This is system instruction supported only for controllable voice models.
     pub prompt: std::option::Option<std::string::String>,
 
@@ -2163,8 +2117,7 @@ impl StreamingSynthesisInput {
     /// let x = StreamingSynthesisInput::new().set_prompt("example");
     /// ```
     pub fn set_prompt<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.prompt = std::option::Option::Some(v.into());
         self
@@ -2179,8 +2132,7 @@ impl StreamingSynthesisInput {
     /// let x = StreamingSynthesisInput::new().set_or_clear_prompt(None::<String>);
     /// ```
     pub fn set_or_clear_prompt<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.prompt = v.map(|x| x.into());
         self
@@ -2197,14 +2149,8 @@ impl StreamingSynthesisInput {
     /// use google_cloud_texttospeech_v1::model::streaming_synthesis_input::InputSource;
     /// let x = StreamingSynthesisInput::new().set_input_source(Some(InputSource::Text("example".to_string())));
     /// ```
-    pub fn set_input_source<
-        T: std::convert::Into<
-                std::option::Option<crate::model::streaming_synthesis_input::InputSource>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_input_source<T: std::convert::Into<std::option::Option<crate::model::streaming_synthesis_input::InputSource>>>(mut self, v: T) -> Self
+    {
         self.input_source = v.into();
         self
     }
@@ -2215,9 +2161,7 @@ impl StreamingSynthesisInput {
     pub fn text(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.input_source.as_ref().and_then(|v| match v {
-            crate::model::streaming_synthesis_input::InputSource::Text(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::streaming_synthesis_input::InputSource::Text(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -2238,7 +2182,9 @@ impl StreamingSynthesisInput {
     /// ```
     pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.input_source = std::option::Option::Some(
-            crate::model::streaming_synthesis_input::InputSource::Text(v.into()),
+            crate::model::streaming_synthesis_input::InputSource::Text(
+                v.into()
+            )
         );
         self
     }
@@ -2249,9 +2195,7 @@ impl StreamingSynthesisInput {
     pub fn markup(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.input_source.as_ref().and_then(|v| match v {
-            crate::model::streaming_synthesis_input::InputSource::Markup(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::streaming_synthesis_input::InputSource::Markup(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -2272,7 +2216,9 @@ impl StreamingSynthesisInput {
     /// ```
     pub fn set_markup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.input_source = std::option::Option::Some(
-            crate::model::streaming_synthesis_input::InputSource::Markup(v.into()),
+            crate::model::streaming_synthesis_input::InputSource::Markup(
+                v.into()
+            )
         );
         self
     }
@@ -2280,14 +2226,10 @@ impl StreamingSynthesisInput {
     /// The value of [input_source][crate::model::StreamingSynthesisInput::input_source]
     /// if it holds a `MultiSpeakerMarkup`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn multi_speaker_markup(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::MultiSpeakerMarkup>> {
+    pub fn multi_speaker_markup(&self) -> std::option::Option<&std::boxed::Box<crate::model::MultiSpeakerMarkup>> {
         #[allow(unreachable_patterns)]
         self.input_source.as_ref().and_then(|v| match v {
-            crate::model::streaming_synthesis_input::InputSource::MultiSpeakerMarkup(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::streaming_synthesis_input::InputSource::MultiSpeakerMarkup(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -2307,14 +2249,11 @@ impl StreamingSynthesisInput {
     /// assert!(x.text().is_none());
     /// assert!(x.markup().is_none());
     /// ```
-    pub fn set_multi_speaker_markup<
-        T: std::convert::Into<std::boxed::Box<crate::model::MultiSpeakerMarkup>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_multi_speaker_markup<T: std::convert::Into<std::boxed::Box<crate::model::MultiSpeakerMarkup>>>(mut self, v: T) -> Self {
         self.input_source = std::option::Option::Some(
-            crate::model::streaming_synthesis_input::InputSource::MultiSpeakerMarkup(v.into()),
+            crate::model::streaming_synthesis_input::InputSource::MultiSpeakerMarkup(
+                v.into()
+            )
         );
         self
     }
@@ -2330,6 +2269,7 @@ impl wkt::message::Message for StreamingSynthesisInput {
 pub mod streaming_synthesis_input {
     #[allow(unused_imports)]
     use super::*;
+
 
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -2355,10 +2295,10 @@ pub mod streaming_synthesis_input {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StreamingSynthesizeRequest {
+
     /// The request to be sent, either a StreamingSynthesizeConfig or
     /// StreamingSynthesisInput.
-    pub streaming_request:
-        std::option::Option<crate::model::streaming_synthesize_request::StreamingRequest>,
+    pub streaming_request: std::option::Option<crate::model::streaming_synthesize_request::StreamingRequest>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2380,14 +2320,8 @@ impl StreamingSynthesizeRequest {
     /// let x = StreamingSynthesizeRequest::new().set_streaming_request(Some(
     ///     google_cloud_texttospeech_v1::model::streaming_synthesize_request::StreamingRequest::StreamingConfig(StreamingSynthesizeConfig::default().into())));
     /// ```
-    pub fn set_streaming_request<
-        T: std::convert::Into<
-                std::option::Option<crate::model::streaming_synthesize_request::StreamingRequest>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_streaming_request<T: std::convert::Into<std::option::Option<crate::model::streaming_synthesize_request::StreamingRequest>>>(mut self, v: T) -> Self
+    {
         self.streaming_request = v.into();
         self
     }
@@ -2395,14 +2329,10 @@ impl StreamingSynthesizeRequest {
     /// The value of [streaming_request][crate::model::StreamingSynthesizeRequest::streaming_request]
     /// if it holds a `StreamingConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn streaming_config(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::StreamingSynthesizeConfig>> {
+    pub fn streaming_config(&self) -> std::option::Option<&std::boxed::Box<crate::model::StreamingSynthesizeConfig>> {
         #[allow(unreachable_patterns)]
         self.streaming_request.as_ref().and_then(|v| match v {
-            crate::model::streaming_synthesize_request::StreamingRequest::StreamingConfig(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::streaming_synthesize_request::StreamingRequest::StreamingConfig(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -2421,14 +2351,11 @@ impl StreamingSynthesizeRequest {
     /// assert!(x.streaming_config().is_some());
     /// assert!(x.input().is_none());
     /// ```
-    pub fn set_streaming_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::StreamingSynthesizeConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_streaming_config<T: std::convert::Into<std::boxed::Box<crate::model::StreamingSynthesizeConfig>>>(mut self, v: T) -> Self {
         self.streaming_request = std::option::Option::Some(
-            crate::model::streaming_synthesize_request::StreamingRequest::StreamingConfig(v.into()),
+            crate::model::streaming_synthesize_request::StreamingRequest::StreamingConfig(
+                v.into()
+            )
         );
         self
     }
@@ -2436,14 +2363,10 @@ impl StreamingSynthesizeRequest {
     /// The value of [streaming_request][crate::model::StreamingSynthesizeRequest::streaming_request]
     /// if it holds a `Input`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn input(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::StreamingSynthesisInput>> {
+    pub fn input(&self) -> std::option::Option<&std::boxed::Box<crate::model::StreamingSynthesisInput>> {
         #[allow(unreachable_patterns)]
         self.streaming_request.as_ref().and_then(|v| match v {
-            crate::model::streaming_synthesize_request::StreamingRequest::Input(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::streaming_synthesize_request::StreamingRequest::Input(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -2462,14 +2385,11 @@ impl StreamingSynthesizeRequest {
     /// assert!(x.input().is_some());
     /// assert!(x.streaming_config().is_none());
     /// ```
-    pub fn set_input<
-        T: std::convert::Into<std::boxed::Box<crate::model::StreamingSynthesisInput>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_input<T: std::convert::Into<std::boxed::Box<crate::model::StreamingSynthesisInput>>>(mut self, v: T) -> Self {
         self.streaming_request = std::option::Option::Some(
-            crate::model::streaming_synthesize_request::StreamingRequest::Input(v.into()),
+            crate::model::streaming_synthesize_request::StreamingRequest::Input(
+                v.into()
+            )
         );
         self
     }
@@ -2485,6 +2405,7 @@ impl wkt::message::Message for StreamingSynthesizeRequest {
 pub mod streaming_synthesize_request {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The request to be sent, either a StreamingSynthesizeConfig or
     /// StreamingSynthesisInput.
@@ -2506,6 +2427,7 @@ pub mod streaming_synthesize_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StreamingSynthesizeResponse {
+
     /// The audio data bytes encoded as specified in the request. This is
     /// headerless LINEAR16 audio with a sample rate of 24000.
     pub audio_content: ::bytes::Bytes,
@@ -2542,6 +2464,7 @@ impl wkt::message::Message for StreamingSynthesizeResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SynthesizeLongAudioRequest {
+
     /// The resource states of the request in the form of
     /// `projects/*/locations/*`.
     pub parent: std::string::String,
@@ -2589,8 +2512,7 @@ impl SynthesizeLongAudioRequest {
     /// let x = SynthesizeLongAudioRequest::new().set_input(SynthesisInput::default()/* use setters */);
     /// ```
     pub fn set_input<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::SynthesisInput>,
+    where T: std::convert::Into<crate::model::SynthesisInput>
     {
         self.input = std::option::Option::Some(v.into());
         self
@@ -2606,8 +2528,7 @@ impl SynthesizeLongAudioRequest {
     /// let x = SynthesizeLongAudioRequest::new().set_or_clear_input(None::<SynthesisInput>);
     /// ```
     pub fn set_or_clear_input<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::SynthesisInput>,
+    where T: std::convert::Into<crate::model::SynthesisInput>
     {
         self.input = v.map(|x| x.into());
         self
@@ -2622,8 +2543,7 @@ impl SynthesizeLongAudioRequest {
     /// let x = SynthesizeLongAudioRequest::new().set_audio_config(AudioConfig::default()/* use setters */);
     /// ```
     pub fn set_audio_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AudioConfig>,
+    where T: std::convert::Into<crate::model::AudioConfig>
     {
         self.audio_config = std::option::Option::Some(v.into());
         self
@@ -2639,8 +2559,7 @@ impl SynthesizeLongAudioRequest {
     /// let x = SynthesizeLongAudioRequest::new().set_or_clear_audio_config(None::<AudioConfig>);
     /// ```
     pub fn set_or_clear_audio_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AudioConfig>,
+    where T: std::convert::Into<crate::model::AudioConfig>
     {
         self.audio_config = v.map(|x| x.into());
         self
@@ -2667,8 +2586,7 @@ impl SynthesizeLongAudioRequest {
     /// let x = SynthesizeLongAudioRequest::new().set_voice(VoiceSelectionParams::default()/* use setters */);
     /// ```
     pub fn set_voice<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::VoiceSelectionParams>,
+    where T: std::convert::Into<crate::model::VoiceSelectionParams>
     {
         self.voice = std::option::Option::Some(v.into());
         self
@@ -2684,8 +2602,7 @@ impl SynthesizeLongAudioRequest {
     /// let x = SynthesizeLongAudioRequest::new().set_or_clear_voice(None::<VoiceSelectionParams>);
     /// ```
     pub fn set_or_clear_voice<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::VoiceSelectionParams>,
+    where T: std::convert::Into<crate::model::VoiceSelectionParams>
     {
         self.voice = v.map(|x| x.into());
         self
@@ -2702,6 +2619,7 @@ impl wkt::message::Message for SynthesizeLongAudioRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SynthesizeLongAudioResponse {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2721,6 +2639,7 @@ impl wkt::message::Message for SynthesizeLongAudioResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SynthesizeLongAudioMetadata {
+
     /// Time when the request was received.
     pub start_time: std::option::Option<wkt::Timestamp>,
 
@@ -2748,8 +2667,7 @@ impl SynthesizeLongAudioMetadata {
     /// let x = SynthesizeLongAudioMetadata::new().set_start_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -2765,8 +2683,7 @@ impl SynthesizeLongAudioMetadata {
     /// let x = SynthesizeLongAudioMetadata::new().set_or_clear_start_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -2782,8 +2699,7 @@ impl SynthesizeLongAudioMetadata {
     /// ```
     #[deprecated]
     pub fn set_last_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.last_update_time = std::option::Option::Some(v.into());
         self
@@ -2800,8 +2716,7 @@ impl SynthesizeLongAudioMetadata {
     /// ```
     #[deprecated]
     pub fn set_or_clear_last_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.last_update_time = v.map(|x| x.into());
         self
@@ -2922,9 +2837,7 @@ impl std::convert::From<i32> for SsmlVoiceGender {
             1 => Self::Male,
             2 => Self::Female,
             3 => Self::Neutral,
-            _ => Self::UnknownValue(ssml_voice_gender::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(ssml_voice_gender::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -2937,9 +2850,7 @@ impl std::convert::From<&str> for SsmlVoiceGender {
             "MALE" => Self::Male,
             "FEMALE" => Self::Female,
             "NEUTRAL" => Self::Neutral,
-            _ => Self::UnknownValue(ssml_voice_gender::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(ssml_voice_gender::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -2965,8 +2876,7 @@ impl<'de> serde::de::Deserialize<'de> for SsmlVoiceGender {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<SsmlVoiceGender>::new(
-            ".google.cloud.texttospeech.v1.SsmlVoiceGender",
-        ))
+            ".google.cloud.texttospeech.v1.SsmlVoiceGender"))
     }
 }
 
@@ -3092,9 +3002,7 @@ impl std::convert::From<i32> for AudioEncoding {
             6 => Self::Alaw,
             7 => Self::Pcm,
             8 => Self::M4A,
-            _ => Self::UnknownValue(audio_encoding::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(audio_encoding::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -3111,9 +3019,7 @@ impl std::convert::From<&str> for AudioEncoding {
             "ALAW" => Self::Alaw,
             "PCM" => Self::Pcm,
             "M4A" => Self::M4A,
-            _ => Self::UnknownValue(audio_encoding::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(audio_encoding::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -3143,7 +3049,6 @@ impl<'de> serde::de::Deserialize<'de> for AudioEncoding {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<AudioEncoding>::new(
-            ".google.cloud.texttospeech.v1.AudioEncoding",
-        ))
+            ".google.cloud.texttospeech.v1.AudioEncoding"))
     }
 }

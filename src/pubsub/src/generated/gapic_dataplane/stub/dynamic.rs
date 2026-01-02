@@ -22,6 +22,7 @@ pub trait Publisher: std::fmt::Debug + Send + Sync {
         req: crate::model::PublishRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::PublishResponse>>;
+
 }
 
 /// All implementations of [super::Publisher] also implement [Publisher].
@@ -35,6 +36,7 @@ impl<T: super::Publisher> Publisher for T {
     ) -> crate::Result<gax::response::Response<crate::model::PublishResponse>> {
         T::publish(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::Subscriber].
@@ -51,6 +53,7 @@ pub trait Subscriber: std::fmt::Debug + Send + Sync {
         req: crate::model::AcknowledgeRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
+
 }
 
 /// All implementations of [super::Subscriber] also implement [Subscriber].
@@ -73,4 +76,5 @@ impl<T: super::Subscriber> Subscriber for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::acknowledge(self, req, options).await
     }
+
 }

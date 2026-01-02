@@ -46,6 +46,7 @@ pub trait Maintenance: std::fmt::Debug + Send + Sync {
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<location::model::Location>>;
+
 }
 
 /// All implementations of [super::Maintenance] also implement [Maintenance].
@@ -65,8 +66,7 @@ impl<T: super::Maintenance> Maintenance for T {
         &self,
         req: crate::model::ListResourceMaintenancesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListResourceMaintenancesResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::ListResourceMaintenancesResponse>> {
         T::list_resource_maintenances(self, req, options).await
     }
 
@@ -96,4 +96,5 @@ impl<T: super::Maintenance> Maintenance for T {
     ) -> crate::Result<gax::response::Response<location::model::Location>> {
         T::get_location(self, req, options).await
     }
+
 }

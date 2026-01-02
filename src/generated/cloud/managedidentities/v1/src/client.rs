@@ -104,9 +104,7 @@ impl ManagedIdentitiesService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::managed_identities_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::managed_identities_service::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::managed_identities_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -114,44 +112,28 @@ impl ManagedIdentitiesService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::ManagedIdentitiesService + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::ManagedIdentitiesService + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<
-        std::sync::Arc<dyn super::stub::dynamic::ManagedIdentitiesService>,
-    > {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ManagedIdentitiesService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ManagedIdentitiesService> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ManagedIdentitiesService> {
         super::transport::ManagedIdentitiesService::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ManagedIdentitiesService> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::ManagedIdentitiesService::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ManagedIdentitiesService> {
+        Self::build_transport(conf).await.map(super::tracing::ManagedIdentitiesService::new)
     }
 
     /// Creates a Microsoft AD domain.
@@ -165,26 +147,59 @@ impl ManagedIdentitiesService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_microsoft_ad_domain(
-        &self,
-    ) -> super::builder::managed_identities_service::CreateMicrosoftAdDomain {
+    pub fn create_microsoft_ad_domain(&self) -> super::builder::managed_identities_service::CreateMicrosoftAdDomain
+    {
         super::builder::managed_identities_service::CreateMicrosoftAdDomain::new(self.inner.clone())
     }
 
     /// Resets a domain's administrator password.
-    pub fn reset_admin_password(
-        &self,
-    ) -> super::builder::managed_identities_service::ResetAdminPassword {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedidentities_v1::client::ManagedIdentitiesService;
+    /// async fn sample(
+    ///    client: &ManagedIdentitiesService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .reset_admin_password()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn reset_admin_password(&self) -> super::builder::managed_identities_service::ResetAdminPassword
+    {
         super::builder::managed_identities_service::ResetAdminPassword::new(self.inner.clone())
     }
 
     /// Lists domains in a project.
-    pub fn list_domains(&self) -> super::builder::managed_identities_service::ListDomains {
+    pub fn list_domains(&self) -> super::builder::managed_identities_service::ListDomains
+    {
         super::builder::managed_identities_service::ListDomains::new(self.inner.clone())
     }
 
     /// Gets information about a domain.
-    pub fn get_domain(&self) -> super::builder::managed_identities_service::GetDomain {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedidentities_v1::client::ManagedIdentitiesService;
+    /// async fn sample(
+    ///    client: &ManagedIdentitiesService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_domain()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_domain(&self) -> super::builder::managed_identities_service::GetDomain
+    {
         super::builder::managed_identities_service::GetDomain::new(self.inner.clone())
     }
 
@@ -199,7 +214,8 @@ impl ManagedIdentitiesService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_domain(&self) -> super::builder::managed_identities_service::UpdateDomain {
+    pub fn update_domain(&self) -> super::builder::managed_identities_service::UpdateDomain
+    {
         super::builder::managed_identities_service::UpdateDomain::new(self.inner.clone())
     }
 
@@ -214,7 +230,8 @@ impl ManagedIdentitiesService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_domain(&self) -> super::builder::managed_identities_service::DeleteDomain {
+    pub fn delete_domain(&self) -> super::builder::managed_identities_service::DeleteDomain
+    {
         super::builder::managed_identities_service::DeleteDomain::new(self.inner.clone())
     }
 
@@ -229,7 +246,8 @@ impl ManagedIdentitiesService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn attach_trust(&self) -> super::builder::managed_identities_service::AttachTrust {
+    pub fn attach_trust(&self) -> super::builder::managed_identities_service::AttachTrust
+    {
         super::builder::managed_identities_service::AttachTrust::new(self.inner.clone())
     }
 
@@ -244,9 +262,8 @@ impl ManagedIdentitiesService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn reconfigure_trust(
-        &self,
-    ) -> super::builder::managed_identities_service::ReconfigureTrust {
+    pub fn reconfigure_trust(&self) -> super::builder::managed_identities_service::ReconfigureTrust
+    {
         super::builder::managed_identities_service::ReconfigureTrust::new(self.inner.clone())
     }
 
@@ -261,7 +278,8 @@ impl ManagedIdentitiesService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn detach_trust(&self) -> super::builder::managed_identities_service::DetachTrust {
+    pub fn detach_trust(&self) -> super::builder::managed_identities_service::DetachTrust
+    {
         super::builder::managed_identities_service::DetachTrust::new(self.inner.clone())
     }
 
@@ -277,35 +295,86 @@ impl ManagedIdentitiesService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn validate_trust(&self) -> super::builder::managed_identities_service::ValidateTrust {
+    pub fn validate_trust(&self) -> super::builder::managed_identities_service::ValidateTrust
+    {
         super::builder::managed_identities_service::ValidateTrust::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::managed_identities_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::managed_identities_service::ListOperations
+    {
         super::builder::managed_identities_service::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::managed_identities_service::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedidentities_v1::client::ManagedIdentitiesService;
+    /// async fn sample(
+    ///    client: &ManagedIdentitiesService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::managed_identities_service::GetOperation
+    {
         super::builder::managed_identities_service::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(&self) -> super::builder::managed_identities_service::DeleteOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedidentities_v1::client::ManagedIdentitiesService;
+    /// async fn sample(
+    ///    client: &ManagedIdentitiesService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_operation(&self) -> super::builder::managed_identities_service::DeleteOperation
+    {
         super::builder::managed_identities_service::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(&self) -> super::builder::managed_identities_service::CancelOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedidentities_v1::client::ManagedIdentitiesService;
+    /// async fn sample(
+    ///    client: &ManagedIdentitiesService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_operation(&self) -> super::builder::managed_identities_service::CancelOperation
+    {
         super::builder::managed_identities_service::CancelOperation::new(self.inner.clone())
     }
 }

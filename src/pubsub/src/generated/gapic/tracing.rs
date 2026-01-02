@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [TopicAdmin](super::stub::TopicAdmin) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct TopicAdmin<T>
-where
-    T: super::stub::TopicAdmin + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::TopicAdmin + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> TopicAdmin<T>
-where
-    T: super::stub::TopicAdmin + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::TopicAdmin + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::TopicAdmin for TopicAdmin<T>
-where
-    T: super::stub::TopicAdmin + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::TopicAdmin + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn create_topic(
         &self,
@@ -108,30 +102,25 @@ where
     ) -> Result<gax::response::Response<crate::model::DetachSubscriptionResponse>> {
         self.inner.detach_subscription(req, options).await
     }
+
 }
 
 /// Implements a [SubscriptionAdmin](super::stub::SubscriptionAdmin) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct SubscriptionAdmin<T>
-where
-    T: super::stub::SubscriptionAdmin + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::SubscriptionAdmin + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> SubscriptionAdmin<T>
-where
-    T: super::stub::SubscriptionAdmin + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::SubscriptionAdmin + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::SubscriptionAdmin for SubscriptionAdmin<T>
-where
-    T: super::stub::SubscriptionAdmin + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::SubscriptionAdmin + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn create_subscription(
         &self,
@@ -239,30 +228,25 @@ where
     ) -> Result<gax::response::Response<crate::model::SeekResponse>> {
         self.inner.seek(req, options).await
     }
+
 }
 
 /// Implements a [SchemaService](super::stub::SchemaService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct SchemaService<T>
-where
-    T: super::stub::SchemaService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::SchemaService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> SchemaService<T>
-where
-    T: super::stub::SchemaService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::SchemaService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::SchemaService for SchemaService<T>
-where
-    T: super::stub::SchemaService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::SchemaService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn create_schema(
         &self,
@@ -379,4 +363,6 @@ where
     ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
+
 }
+

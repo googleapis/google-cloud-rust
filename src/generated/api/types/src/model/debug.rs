@@ -115,10 +115,7 @@ impl std::fmt::Debug for super::BackendRule {
         debug_struct.field("operation_deadline", &self.operation_deadline);
         debug_struct.field("path_translation", &self.path_translation);
         debug_struct.field("protocol", &self.protocol);
-        debug_struct.field(
-            "overrides_by_request_protocol",
-            &self.overrides_by_request_protocol,
-        );
+        debug_struct.field("overrides_by_request_protocol", &self.overrides_by_request_protocol);
         debug_struct.field("authentication", &self.authentication);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -126,6 +123,7 @@ impl std::fmt::Debug for super::BackendRule {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::Billing {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -155,10 +153,7 @@ impl std::fmt::Debug for super::CommonLanguageSettings {
         let mut debug_struct = f.debug_struct("CommonLanguageSettings");
         debug_struct.field("reference_docs_uri", &self.reference_docs_uri);
         debug_struct.field("destinations", &self.destinations);
-        debug_struct.field(
-            "selective_gapic_generation",
-            &self.selective_gapic_generation,
-        );
+        debug_struct.field("selective_gapic_generation", &self.selective_gapic_generation);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -199,14 +194,8 @@ impl std::fmt::Debug for super::Publishing {
         debug_struct.field("doc_tag_prefix", &self.doc_tag_prefix);
         debug_struct.field("organization", &self.organization);
         debug_struct.field("library_settings", &self.library_settings);
-        debug_struct.field(
-            "proto_reference_documentation_uri",
-            &self.proto_reference_documentation_uri,
-        );
-        debug_struct.field(
-            "rest_reference_documentation_uri",
-            &self.rest_reference_documentation_uri,
-        );
+        debug_struct.field("proto_reference_documentation_uri", &self.proto_reference_documentation_uri);
+        debug_struct.field("rest_reference_documentation_uri", &self.rest_reference_documentation_uri);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -265,14 +254,8 @@ impl std::fmt::Debug for super::python_settings::ExperimentalFeatures {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ExperimentalFeatures");
         debug_struct.field("rest_async_io_enabled", &self.rest_async_io_enabled);
-        debug_struct.field(
-            "protobuf_pythonic_types_enabled",
-            &self.protobuf_pythonic_types_enabled,
-        );
-        debug_struct.field(
-            "unversioned_package_disabled",
-            &self.unversioned_package_disabled,
-        );
+        debug_struct.field("protobuf_pythonic_types_enabled", &self.protobuf_pythonic_types_enabled);
+        debug_struct.field("unversioned_package_disabled", &self.unversioned_package_disabled);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -361,10 +344,7 @@ impl std::fmt::Debug for super::SelectiveGapicGeneration {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SelectiveGapicGeneration");
         debug_struct.field("methods", &self.methods);
-        debug_struct.field(
-            "generate_omitted_as_internal",
-            &self.generate_omitted_as_internal,
-        );
+        debug_struct.field("generate_omitted_as_internal", &self.generate_omitted_as_internal);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -439,14 +419,8 @@ impl std::fmt::Debug for super::ContextRule {
         debug_struct.field("selector", &self.selector);
         debug_struct.field("requested", &self.requested);
         debug_struct.field("provided", &self.provided);
-        debug_struct.field(
-            "allowed_request_extensions",
-            &self.allowed_request_extensions,
-        );
-        debug_struct.field(
-            "allowed_response_extensions",
-            &self.allowed_response_extensions,
-        );
+        debug_struct.field("allowed_request_extensions", &self.allowed_request_extensions);
+        debug_struct.field("allowed_response_extensions", &self.allowed_response_extensions);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -639,10 +613,7 @@ impl std::fmt::Debug for super::Http {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Http");
         debug_struct.field("rules", &self.rules);
-        debug_struct.field(
-            "fully_decode_reserved_expansion",
-            &self.fully_decode_reserved_expansion,
-        );
+        debug_struct.field("fully_decode_reserved_expansion", &self.fully_decode_reserved_expansion);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -768,10 +739,7 @@ impl std::fmt::Debug for super::metric_descriptor::MetricDescriptorMetadata {
         debug_struct.field("launch_stage", &self.launch_stage);
         debug_struct.field("sample_period", &self.sample_period);
         debug_struct.field("ingest_delay", &self.ingest_delay);
-        debug_struct.field(
-            "time_series_resource_hierarchy_level",
-            &self.time_series_resource_hierarchy_level,
-        );
+        debug_struct.field("time_series_resource_hierarchy_level", &self.time_series_resource_hierarchy_level);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1064,10 +1032,7 @@ impl std::fmt::Debug for super::Usage {
         let mut debug_struct = f.debug_struct("Usage");
         debug_struct.field("requirements", &self.requirements);
         debug_struct.field("rules", &self.rules);
-        debug_struct.field(
-            "producer_notification_channel",
-            &self.producer_notification_channel,
-        );
+        debug_struct.field("producer_notification_channel", &self.producer_notification_channel);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [LicenseManagementService](super::stub::LicenseManagementService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct LicenseManagementService<T>
-where
-    T: super::stub::LicenseManagementService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::LicenseManagementService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> LicenseManagementService<T>
-where
-    T: super::stub::LicenseManagementService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::LicenseManagementService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::LicenseManagementService for LicenseManagementService<T>
-where
-    T: super::stub::LicenseManagementService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::LicenseManagementService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn get_license_pool(
         &self,
@@ -90,30 +84,25 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
+
 }
 
 /// Implements a [ConsumerProcurementService](super::stub::ConsumerProcurementService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct ConsumerProcurementService<T>
-where
-    T: super::stub::ConsumerProcurementService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ConsumerProcurementService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> ConsumerProcurementService<T>
-where
-    T: super::stub::ConsumerProcurementService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ConsumerProcurementService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::ConsumerProcurementService for ConsumerProcurementService<T>
-where
-    T: super::stub::ConsumerProcurementService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ConsumerProcurementService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn place_order(
         &self,
@@ -168,6 +157,7 @@ where
         self.inner.get_operation(req, options).await
     }
 
+
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -182,3 +172,4 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 }
+

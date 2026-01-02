@@ -80,51 +80,56 @@ impl VmMigration {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::VmMigration + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::VmMigration + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::VmMigration>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::VmMigration>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::VmMigration> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::VmMigration> {
         super::transport::VmMigration::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::VmMigration> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::VmMigration::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::VmMigration> {
+        Self::build_transport(conf).await.map(super::tracing::VmMigration::new)
     }
 
     /// Lists Sources in a given project and location.
-    pub fn list_sources(&self) -> super::builder::vm_migration::ListSources {
+    pub fn list_sources(&self) -> super::builder::vm_migration::ListSources
+    {
         super::builder::vm_migration::ListSources::new(self.inner.clone())
     }
 
     /// Gets details of a single Source.
-    pub fn get_source(&self) -> super::builder::vm_migration::GetSource {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// async fn sample(
+    ///    client: &VmMigration,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_source()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_source(&self) -> super::builder::vm_migration::GetSource
+    {
         super::builder::vm_migration::GetSource::new(self.inner.clone())
     }
 
@@ -139,7 +144,8 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_source(&self) -> super::builder::vm_migration::CreateSource {
+    pub fn create_source(&self) -> super::builder::vm_migration::CreateSource
+    {
         super::builder::vm_migration::CreateSource::new(self.inner.clone())
     }
 
@@ -154,7 +160,8 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_source(&self) -> super::builder::vm_migration::UpdateSource {
+    pub fn update_source(&self) -> super::builder::vm_migration::UpdateSource
+    {
         super::builder::vm_migration::UpdateSource::new(self.inner.clone())
     }
 
@@ -169,7 +176,8 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_source(&self) -> super::builder::vm_migration::DeleteSource {
+    pub fn delete_source(&self) -> super::builder::vm_migration::DeleteSource
+    {
         super::builder::vm_migration::DeleteSource::new(self.inner.clone())
     }
 
@@ -178,7 +186,24 @@ impl VmMigration {
     /// Compute Engine). The inventory describes the list of existing VMs in that
     /// source. Note that this operation lists the VMs on the remote source, as
     /// opposed to listing the MigratingVms resources in the vmmigration service.
-    pub fn fetch_inventory(&self) -> super::builder::vm_migration::FetchInventory {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// async fn sample(
+    ///    client: &VmMigration
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .fetch_inventory()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn fetch_inventory(&self) -> super::builder::vm_migration::FetchInventory
+    {
         super::builder::vm_migration::FetchInventory::new(self.inner.clone())
     }
 
@@ -188,17 +213,37 @@ impl VmMigration {
     /// source. Note that this operation lists the resources on the remote source,
     /// as opposed to listing the MigratingVms resources in the vmmigration
     /// service.
-    pub fn fetch_storage_inventory(&self) -> super::builder::vm_migration::FetchStorageInventory {
+    pub fn fetch_storage_inventory(&self) -> super::builder::vm_migration::FetchStorageInventory
+    {
         super::builder::vm_migration::FetchStorageInventory::new(self.inner.clone())
     }
 
     /// Lists Utilization Reports of the given Source.
-    pub fn list_utilization_reports(&self) -> super::builder::vm_migration::ListUtilizationReports {
+    pub fn list_utilization_reports(&self) -> super::builder::vm_migration::ListUtilizationReports
+    {
         super::builder::vm_migration::ListUtilizationReports::new(self.inner.clone())
     }
 
     /// Gets a single Utilization Report.
-    pub fn get_utilization_report(&self) -> super::builder::vm_migration::GetUtilizationReport {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// async fn sample(
+    ///    client: &VmMigration,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_utilization_report()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_utilization_report(&self) -> super::builder::vm_migration::GetUtilizationReport
+    {
         super::builder::vm_migration::GetUtilizationReport::new(self.inner.clone())
     }
 
@@ -213,9 +258,8 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_utilization_report(
-        &self,
-    ) -> super::builder::vm_migration::CreateUtilizationReport {
+    pub fn create_utilization_report(&self) -> super::builder::vm_migration::CreateUtilizationReport
+    {
         super::builder::vm_migration::CreateUtilizationReport::new(self.inner.clone())
     }
 
@@ -230,21 +274,37 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_utilization_report(
-        &self,
-    ) -> super::builder::vm_migration::DeleteUtilizationReport {
+    pub fn delete_utilization_report(&self) -> super::builder::vm_migration::DeleteUtilizationReport
+    {
         super::builder::vm_migration::DeleteUtilizationReport::new(self.inner.clone())
     }
 
     /// Lists DatacenterConnectors in a given Source.
-    pub fn list_datacenter_connectors(
-        &self,
-    ) -> super::builder::vm_migration::ListDatacenterConnectors {
+    pub fn list_datacenter_connectors(&self) -> super::builder::vm_migration::ListDatacenterConnectors
+    {
         super::builder::vm_migration::ListDatacenterConnectors::new(self.inner.clone())
     }
 
     /// Gets details of a single DatacenterConnector.
-    pub fn get_datacenter_connector(&self) -> super::builder::vm_migration::GetDatacenterConnector {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// async fn sample(
+    ///    client: &VmMigration,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_datacenter_connector()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_datacenter_connector(&self) -> super::builder::vm_migration::GetDatacenterConnector
+    {
         super::builder::vm_migration::GetDatacenterConnector::new(self.inner.clone())
     }
 
@@ -259,9 +319,8 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_datacenter_connector(
-        &self,
-    ) -> super::builder::vm_migration::CreateDatacenterConnector {
+    pub fn create_datacenter_connector(&self) -> super::builder::vm_migration::CreateDatacenterConnector
+    {
         super::builder::vm_migration::CreateDatacenterConnector::new(self.inner.clone())
     }
 
@@ -276,9 +335,8 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_datacenter_connector(
-        &self,
-    ) -> super::builder::vm_migration::DeleteDatacenterConnector {
+    pub fn delete_datacenter_connector(&self) -> super::builder::vm_migration::DeleteDatacenterConnector
+    {
         super::builder::vm_migration::DeleteDatacenterConnector::new(self.inner.clone())
     }
 
@@ -294,7 +352,8 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn upgrade_appliance(&self) -> super::builder::vm_migration::UpgradeAppliance {
+    pub fn upgrade_appliance(&self) -> super::builder::vm_migration::UpgradeAppliance
+    {
         super::builder::vm_migration::UpgradeAppliance::new(self.inner.clone())
     }
 
@@ -309,17 +368,37 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_migrating_vm(&self) -> super::builder::vm_migration::CreateMigratingVm {
+    pub fn create_migrating_vm(&self) -> super::builder::vm_migration::CreateMigratingVm
+    {
         super::builder::vm_migration::CreateMigratingVm::new(self.inner.clone())
     }
 
     /// Lists MigratingVms in a given Source.
-    pub fn list_migrating_vms(&self) -> super::builder::vm_migration::ListMigratingVms {
+    pub fn list_migrating_vms(&self) -> super::builder::vm_migration::ListMigratingVms
+    {
         super::builder::vm_migration::ListMigratingVms::new(self.inner.clone())
     }
 
     /// Gets details of a single MigratingVm.
-    pub fn get_migrating_vm(&self) -> super::builder::vm_migration::GetMigratingVm {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// async fn sample(
+    ///    client: &VmMigration,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_migrating_vm()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_migrating_vm(&self) -> super::builder::vm_migration::GetMigratingVm
+    {
         super::builder::vm_migration::GetMigratingVm::new(self.inner.clone())
     }
 
@@ -334,7 +413,8 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_migrating_vm(&self) -> super::builder::vm_migration::UpdateMigratingVm {
+    pub fn update_migrating_vm(&self) -> super::builder::vm_migration::UpdateMigratingVm
+    {
         super::builder::vm_migration::UpdateMigratingVm::new(self.inner.clone())
     }
 
@@ -349,7 +429,8 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_migrating_vm(&self) -> super::builder::vm_migration::DeleteMigratingVm {
+    pub fn delete_migrating_vm(&self) -> super::builder::vm_migration::DeleteMigratingVm
+    {
         super::builder::vm_migration::DeleteMigratingVm::new(self.inner.clone())
     }
 
@@ -365,7 +446,8 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn start_migration(&self) -> super::builder::vm_migration::StartMigration {
+    pub fn start_migration(&self) -> super::builder::vm_migration::StartMigration
+    {
         super::builder::vm_migration::StartMigration::new(self.inner.clone())
     }
 
@@ -383,7 +465,8 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn resume_migration(&self) -> super::builder::vm_migration::ResumeMigration {
+    pub fn resume_migration(&self) -> super::builder::vm_migration::ResumeMigration
+    {
         super::builder::vm_migration::ResumeMigration::new(self.inner.clone())
     }
 
@@ -400,7 +483,8 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn pause_migration(&self) -> super::builder::vm_migration::PauseMigration {
+    pub fn pause_migration(&self) -> super::builder::vm_migration::PauseMigration
+    {
         super::builder::vm_migration::PauseMigration::new(self.inner.clone())
     }
 
@@ -416,7 +500,8 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn finalize_migration(&self) -> super::builder::vm_migration::FinalizeMigration {
+    pub fn finalize_migration(&self) -> super::builder::vm_migration::FinalizeMigration
+    {
         super::builder::vm_migration::FinalizeMigration::new(self.inner.clone())
     }
 
@@ -431,7 +516,8 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn extend_migration(&self) -> super::builder::vm_migration::ExtendMigration {
+    pub fn extend_migration(&self) -> super::builder::vm_migration::ExtendMigration
+    {
         super::builder::vm_migration::ExtendMigration::new(self.inner.clone())
     }
 
@@ -446,7 +532,8 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_clone_job(&self) -> super::builder::vm_migration::CreateCloneJob {
+    pub fn create_clone_job(&self) -> super::builder::vm_migration::CreateCloneJob
+    {
         super::builder::vm_migration::CreateCloneJob::new(self.inner.clone())
     }
 
@@ -461,18 +548,38 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn cancel_clone_job(&self) -> super::builder::vm_migration::CancelCloneJob {
+    pub fn cancel_clone_job(&self) -> super::builder::vm_migration::CancelCloneJob
+    {
         super::builder::vm_migration::CancelCloneJob::new(self.inner.clone())
     }
 
     /// Lists the CloneJobs of a migrating VM. Only 25 most recent CloneJobs are
     /// listed.
-    pub fn list_clone_jobs(&self) -> super::builder::vm_migration::ListCloneJobs {
+    pub fn list_clone_jobs(&self) -> super::builder::vm_migration::ListCloneJobs
+    {
         super::builder::vm_migration::ListCloneJobs::new(self.inner.clone())
     }
 
     /// Gets details of a single CloneJob.
-    pub fn get_clone_job(&self) -> super::builder::vm_migration::GetCloneJob {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// async fn sample(
+    ///    client: &VmMigration,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_clone_job()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_clone_job(&self) -> super::builder::vm_migration::GetCloneJob
+    {
         super::builder::vm_migration::GetCloneJob::new(self.inner.clone())
     }
 
@@ -489,7 +596,8 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_cutover_job(&self) -> super::builder::vm_migration::CreateCutoverJob {
+    pub fn create_cutover_job(&self) -> super::builder::vm_migration::CreateCutoverJob
+    {
         super::builder::vm_migration::CreateCutoverJob::new(self.inner.clone())
     }
 
@@ -504,28 +612,67 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn cancel_cutover_job(&self) -> super::builder::vm_migration::CancelCutoverJob {
+    pub fn cancel_cutover_job(&self) -> super::builder::vm_migration::CancelCutoverJob
+    {
         super::builder::vm_migration::CancelCutoverJob::new(self.inner.clone())
     }
 
     /// Lists the CutoverJobs of a migrating VM. Only 25 most recent CutoverJobs
     /// are listed.
-    pub fn list_cutover_jobs(&self) -> super::builder::vm_migration::ListCutoverJobs {
+    pub fn list_cutover_jobs(&self) -> super::builder::vm_migration::ListCutoverJobs
+    {
         super::builder::vm_migration::ListCutoverJobs::new(self.inner.clone())
     }
 
     /// Gets details of a single CutoverJob.
-    pub fn get_cutover_job(&self) -> super::builder::vm_migration::GetCutoverJob {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// async fn sample(
+    ///    client: &VmMigration,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_cutover_job()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_cutover_job(&self) -> super::builder::vm_migration::GetCutoverJob
+    {
         super::builder::vm_migration::GetCutoverJob::new(self.inner.clone())
     }
 
     /// Lists Groups in a given project and location.
-    pub fn list_groups(&self) -> super::builder::vm_migration::ListGroups {
+    pub fn list_groups(&self) -> super::builder::vm_migration::ListGroups
+    {
         super::builder::vm_migration::ListGroups::new(self.inner.clone())
     }
 
     /// Gets details of a single Group.
-    pub fn get_group(&self) -> super::builder::vm_migration::GetGroup {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// async fn sample(
+    ///    client: &VmMigration,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_group()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_group(&self) -> super::builder::vm_migration::GetGroup
+    {
         super::builder::vm_migration::GetGroup::new(self.inner.clone())
     }
 
@@ -540,7 +687,8 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_group(&self) -> super::builder::vm_migration::CreateGroup {
+    pub fn create_group(&self) -> super::builder::vm_migration::CreateGroup
+    {
         super::builder::vm_migration::CreateGroup::new(self.inner.clone())
     }
 
@@ -555,7 +703,8 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_group(&self) -> super::builder::vm_migration::UpdateGroup {
+    pub fn update_group(&self) -> super::builder::vm_migration::UpdateGroup
+    {
         super::builder::vm_migration::UpdateGroup::new(self.inner.clone())
     }
 
@@ -570,7 +719,8 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_group(&self) -> super::builder::vm_migration::DeleteGroup {
+    pub fn delete_group(&self) -> super::builder::vm_migration::DeleteGroup
+    {
         super::builder::vm_migration::DeleteGroup::new(self.inner.clone())
     }
 
@@ -585,7 +735,8 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn add_group_migration(&self) -> super::builder::vm_migration::AddGroupMigration {
+    pub fn add_group_migration(&self) -> super::builder::vm_migration::AddGroupMigration
+    {
         super::builder::vm_migration::AddGroupMigration::new(self.inner.clone())
     }
 
@@ -600,7 +751,8 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn remove_group_migration(&self) -> super::builder::vm_migration::RemoveGroupMigration {
+    pub fn remove_group_migration(&self) -> super::builder::vm_migration::RemoveGroupMigration
+    {
         super::builder::vm_migration::RemoveGroupMigration::new(self.inner.clone())
     }
 
@@ -608,7 +760,8 @@ impl VmMigration {
     ///
     /// NOTE: TargetProject is a global resource; hence the only supported value
     /// for location is `global`.
-    pub fn list_target_projects(&self) -> super::builder::vm_migration::ListTargetProjects {
+    pub fn list_target_projects(&self) -> super::builder::vm_migration::ListTargetProjects
+    {
         super::builder::vm_migration::ListTargetProjects::new(self.inner.clone())
     }
 
@@ -616,7 +769,25 @@ impl VmMigration {
     ///
     /// NOTE: TargetProject is a global resource; hence the only supported value
     /// for location is `global`.
-    pub fn get_target_project(&self) -> super::builder::vm_migration::GetTargetProject {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// async fn sample(
+    ///    client: &VmMigration,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_target_project()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_target_project(&self) -> super::builder::vm_migration::GetTargetProject
+    {
         super::builder::vm_migration::GetTargetProject::new(self.inner.clone())
     }
 
@@ -634,7 +805,8 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_target_project(&self) -> super::builder::vm_migration::CreateTargetProject {
+    pub fn create_target_project(&self) -> super::builder::vm_migration::CreateTargetProject
+    {
         super::builder::vm_migration::CreateTargetProject::new(self.inner.clone())
     }
 
@@ -652,7 +824,8 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_target_project(&self) -> super::builder::vm_migration::UpdateTargetProject {
+    pub fn update_target_project(&self) -> super::builder::vm_migration::UpdateTargetProject
+    {
         super::builder::vm_migration::UpdateTargetProject::new(self.inner.clone())
     }
 
@@ -670,27 +843,66 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_target_project(&self) -> super::builder::vm_migration::DeleteTargetProject {
+    pub fn delete_target_project(&self) -> super::builder::vm_migration::DeleteTargetProject
+    {
         super::builder::vm_migration::DeleteTargetProject::new(self.inner.clone())
     }
 
     /// Lists ReplicationCycles in a given MigratingVM.
-    pub fn list_replication_cycles(&self) -> super::builder::vm_migration::ListReplicationCycles {
+    pub fn list_replication_cycles(&self) -> super::builder::vm_migration::ListReplicationCycles
+    {
         super::builder::vm_migration::ListReplicationCycles::new(self.inner.clone())
     }
 
     /// Gets details of a single ReplicationCycle.
-    pub fn get_replication_cycle(&self) -> super::builder::vm_migration::GetReplicationCycle {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// async fn sample(
+    ///    client: &VmMigration,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_replication_cycle()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_replication_cycle(&self) -> super::builder::vm_migration::GetReplicationCycle
+    {
         super::builder::vm_migration::GetReplicationCycle::new(self.inner.clone())
     }
 
     /// Lists ImageImports in a given project.
-    pub fn list_image_imports(&self) -> super::builder::vm_migration::ListImageImports {
+    pub fn list_image_imports(&self) -> super::builder::vm_migration::ListImageImports
+    {
         super::builder::vm_migration::ListImageImports::new(self.inner.clone())
     }
 
     /// Gets details of a single ImageImport.
-    pub fn get_image_import(&self) -> super::builder::vm_migration::GetImageImport {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// async fn sample(
+    ///    client: &VmMigration,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_image_import()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_image_import(&self) -> super::builder::vm_migration::GetImageImport
+    {
         super::builder::vm_migration::GetImageImport::new(self.inner.clone())
     }
 
@@ -705,7 +917,8 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_image_import(&self) -> super::builder::vm_migration::CreateImageImport {
+    pub fn create_image_import(&self) -> super::builder::vm_migration::CreateImageImport
+    {
         super::builder::vm_migration::CreateImageImport::new(self.inner.clone())
     }
 
@@ -720,17 +933,37 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_image_import(&self) -> super::builder::vm_migration::DeleteImageImport {
+    pub fn delete_image_import(&self) -> super::builder::vm_migration::DeleteImageImport
+    {
         super::builder::vm_migration::DeleteImageImport::new(self.inner.clone())
     }
 
     /// Lists ImageImportJobs in a given project.
-    pub fn list_image_import_jobs(&self) -> super::builder::vm_migration::ListImageImportJobs {
+    pub fn list_image_import_jobs(&self) -> super::builder::vm_migration::ListImageImportJobs
+    {
         super::builder::vm_migration::ListImageImportJobs::new(self.inner.clone())
     }
 
     /// Gets details of a single ImageImportJob.
-    pub fn get_image_import_job(&self) -> super::builder::vm_migration::GetImageImportJob {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// async fn sample(
+    ///    client: &VmMigration,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_image_import_job()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_image_import_job(&self) -> super::builder::vm_migration::GetImageImportJob
+    {
         super::builder::vm_migration::GetImageImportJob::new(self.inner.clone())
     }
 
@@ -745,7 +978,8 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn cancel_image_import_job(&self) -> super::builder::vm_migration::CancelImageImportJob {
+    pub fn cancel_image_import_job(&self) -> super::builder::vm_migration::CancelImageImportJob
+    {
         super::builder::vm_migration::CancelImageImportJob::new(self.inner.clone())
     }
 
@@ -760,19 +994,37 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_disk_migration_job(
-        &self,
-    ) -> super::builder::vm_migration::CreateDiskMigrationJob {
+    pub fn create_disk_migration_job(&self) -> super::builder::vm_migration::CreateDiskMigrationJob
+    {
         super::builder::vm_migration::CreateDiskMigrationJob::new(self.inner.clone())
     }
 
     /// Lists DiskMigrationJobs in a given Source.
-    pub fn list_disk_migration_jobs(&self) -> super::builder::vm_migration::ListDiskMigrationJobs {
+    pub fn list_disk_migration_jobs(&self) -> super::builder::vm_migration::ListDiskMigrationJobs
+    {
         super::builder::vm_migration::ListDiskMigrationJobs::new(self.inner.clone())
     }
 
     /// Gets details of a single DiskMigrationJob.
-    pub fn get_disk_migration_job(&self) -> super::builder::vm_migration::GetDiskMigrationJob {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// async fn sample(
+    ///    client: &VmMigration,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_disk_migration_job()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_disk_migration_job(&self) -> super::builder::vm_migration::GetDiskMigrationJob
+    {
         super::builder::vm_migration::GetDiskMigrationJob::new(self.inner.clone())
     }
 
@@ -787,9 +1039,8 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_disk_migration_job(
-        &self,
-    ) -> super::builder::vm_migration::UpdateDiskMigrationJob {
+    pub fn update_disk_migration_job(&self) -> super::builder::vm_migration::UpdateDiskMigrationJob
+    {
         super::builder::vm_migration::UpdateDiskMigrationJob::new(self.inner.clone())
     }
 
@@ -804,9 +1055,8 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_disk_migration_job(
-        &self,
-    ) -> super::builder::vm_migration::DeleteDiskMigrationJob {
+    pub fn delete_disk_migration_job(&self) -> super::builder::vm_migration::DeleteDiskMigrationJob
+    {
         super::builder::vm_migration::DeleteDiskMigrationJob::new(self.inner.clone())
     }
 
@@ -821,7 +1071,8 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn run_disk_migration_job(&self) -> super::builder::vm_migration::RunDiskMigrationJob {
+    pub fn run_disk_migration_job(&self) -> super::builder::vm_migration::RunDiskMigrationJob
+    {
         super::builder::vm_migration::RunDiskMigrationJob::new(self.inner.clone())
     }
 
@@ -836,47 +1087,114 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn cancel_disk_migration_job(
-        &self,
-    ) -> super::builder::vm_migration::CancelDiskMigrationJob {
+    pub fn cancel_disk_migration_job(&self) -> super::builder::vm_migration::CancelDiskMigrationJob
+    {
         super::builder::vm_migration::CancelDiskMigrationJob::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::vm_migration::ListLocations {
+    pub fn list_locations(&self) -> super::builder::vm_migration::ListLocations
+    {
         super::builder::vm_migration::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(&self) -> super::builder::vm_migration::GetLocation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// async fn sample(
+    ///    client: &VmMigration
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_location(&self) -> super::builder::vm_migration::GetLocation
+    {
         super::builder::vm_migration::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::vm_migration::ListOperations {
+    pub fn list_operations(&self) -> super::builder::vm_migration::ListOperations
+    {
         super::builder::vm_migration::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::vm_migration::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// async fn sample(
+    ///    client: &VmMigration
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::vm_migration::GetOperation
+    {
         super::builder::vm_migration::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(&self) -> super::builder::vm_migration::DeleteOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// async fn sample(
+    ///    client: &VmMigration
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_operation(&self) -> super::builder::vm_migration::DeleteOperation
+    {
         super::builder::vm_migration::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(&self) -> super::builder::vm_migration::CancelOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// async fn sample(
+    ///    client: &VmMigration
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_operation(&self) -> super::builder::vm_migration::CancelOperation
+    {
         super::builder::vm_migration::CancelOperation::new(self.inner.clone())
     }
 }

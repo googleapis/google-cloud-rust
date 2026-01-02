@@ -73,14 +73,8 @@ impl std::fmt::Debug for super::Entitlement {
         debug_struct.field("privileged_access", &self.privileged_access);
         debug_struct.field("max_request_duration", &self.max_request_duration);
         debug_struct.field("state", &self.state);
-        debug_struct.field(
-            "requester_justification_config",
-            &self.requester_justification_config,
-        );
-        debug_struct.field(
-            "additional_notification_targets",
-            &self.additional_notification_targets,
-        );
+        debug_struct.field("requester_justification_config", &self.requester_justification_config);
+        debug_struct.field("additional_notification_targets", &self.additional_notification_targets);
         debug_struct.field("etag", &self.etag);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -124,10 +118,7 @@ impl std::fmt::Debug for super::entitlement::AdditionalNotificationTargets {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AdditionalNotificationTargets");
         debug_struct.field("admin_email_recipients", &self.admin_email_recipients);
-        debug_struct.field(
-            "requester_email_recipients",
-            &self.requester_email_recipients,
-        );
+        debug_struct.field("requester_email_recipients", &self.requester_email_recipients);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -160,10 +151,7 @@ impl std::fmt::Debug for super::ApprovalWorkflow {
 impl std::fmt::Debug for super::ManualApprovals {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ManualApprovals");
-        debug_struct.field(
-            "require_approver_justification",
-            &self.require_approver_justification,
-        );
+        debug_struct.field("require_approver_justification", &self.require_approver_justification);
         debug_struct.field("steps", &self.steps);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -339,10 +327,7 @@ impl std::fmt::Debug for super::Grant {
         debug_struct.field("timeline", &self.timeline);
         debug_struct.field("privileged_access", &self.privileged_access);
         debug_struct.field("audit_trail", &self.audit_trail);
-        debug_struct.field(
-            "additional_email_recipients",
-            &self.additional_email_recipients,
-        );
+        debug_struct.field("additional_email_recipients", &self.additional_email_recipients);
         debug_struct.field("externally_modified", &self.externally_modified);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);

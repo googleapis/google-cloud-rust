@@ -38,14 +38,13 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait GkeInferenceQuickstart: std::fmt::Debug + Send + Sync {
+
     /// Implements [super::client::GkeInferenceQuickstart::fetch_models].
     fn fetch_models(
         &self,
         _req: crate::model::FetchModelsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::FetchModelsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::FetchModelsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -54,9 +53,7 @@ pub trait GkeInferenceQuickstart: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::FetchModelServersRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::FetchModelServersResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::FetchModelServersResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -65,11 +62,7 @@ pub trait GkeInferenceQuickstart: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::FetchModelServerVersionsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::FetchModelServerVersionsResponse>,
-        >,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::FetchModelServerVersionsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -78,9 +71,7 @@ pub trait GkeInferenceQuickstart: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::FetchProfilesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::FetchProfilesResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::FetchProfilesResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -89,11 +80,7 @@ pub trait GkeInferenceQuickstart: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GenerateOptimizedManifestRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::GenerateOptimizedManifestResponse>,
-        >,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::GenerateOptimizedManifestResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -102,11 +89,8 @@ pub trait GkeInferenceQuickstart: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::FetchBenchmarkingDataRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::FetchBenchmarkingDataResponse>,
-        >,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::FetchBenchmarkingDataResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 }
+

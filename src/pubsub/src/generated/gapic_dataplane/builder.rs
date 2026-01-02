@@ -26,12 +26,8 @@ pub mod publisher {
     }
 
     impl<R> RequestBuilder<R>
-    where
-        R: std::default::Default,
-    {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::Publisher>,
-        ) -> Self {
+    where R: std::default::Default {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Publisher>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -61,10 +57,10 @@ pub mod publisher {
     pub struct Publish(RequestBuilder<crate::model::PublishRequest>);
 
     impl Publish {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::Publisher>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Publisher>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -81,10 +77,7 @@ pub mod publisher {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::PublishResponse> {
-            (*self.0.stub)
-                .publish(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).publish(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [topic][crate::model::PublishRequest::topic].
@@ -101,7 +94,7 @@ pub mod publisher {
         pub fn set_messages<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::PubsubMessage>,
+            V: std::convert::Into<crate::model::PubsubMessage>
         {
             use std::iter::Iterator;
             self.0.request.messages = v.into_iter().map(|i| i.into()).collect();
@@ -115,6 +108,7 @@ pub mod publisher {
             &mut self.0.options
         }
     }
+
 }
 
 pub mod subscriber {
@@ -129,12 +123,8 @@ pub mod subscriber {
     }
 
     impl<R> RequestBuilder<R>
-    where
-        R: std::default::Default,
-    {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::Subscriber>,
-        ) -> Self {
+    where R: std::default::Default {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Subscriber>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -164,17 +154,14 @@ pub mod subscriber {
     pub struct ModifyAckDeadline(RequestBuilder<crate::model::ModifyAckDeadlineRequest>);
 
     impl ModifyAckDeadline {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::Subscriber>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Subscriber>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ModifyAckDeadlineRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ModifyAckDeadlineRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -187,10 +174,7 @@ pub mod subscriber {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .modify_ack_deadline(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).modify_ack_deadline(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [subscription][crate::model::ModifyAckDeadlineRequest::subscription].
@@ -207,7 +191,7 @@ pub mod subscriber {
         pub fn set_ack_ids<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.0.request.ack_ids = v.into_iter().map(|i| i.into()).collect();
@@ -251,10 +235,10 @@ pub mod subscriber {
     pub struct Acknowledge(RequestBuilder<crate::model::AcknowledgeRequest>);
 
     impl Acknowledge {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::Subscriber>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Subscriber>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -271,10 +255,7 @@ pub mod subscriber {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .acknowledge(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).acknowledge(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [subscription][crate::model::AcknowledgeRequest::subscription].
@@ -291,7 +272,7 @@ pub mod subscriber {
         pub fn set_ack_ids<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.0.request.ack_ids = v.into_iter().map(|i| i.into()).collect();
@@ -305,4 +286,5 @@ pub mod subscriber {
             &mut self.0.options
         }
     }
+
 }

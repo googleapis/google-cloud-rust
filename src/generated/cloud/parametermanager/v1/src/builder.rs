@@ -39,10 +39,7 @@ pub mod parameter_manager {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = ParameterManager;
             type Credentials = gaxi::options::Credentials;
-            async fn build(
-                self,
-                config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -57,12 +54,8 @@ pub mod parameter_manager {
     }
 
     impl<R> RequestBuilder<R>
-    where
-        R: std::default::Default,
-    {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>,
-        ) -> Self {
+    where R: std::default::Default {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -96,10 +89,10 @@ pub mod parameter_manager {
     pub struct ListParameters(RequestBuilder<crate::model::ListParametersRequest>);
 
     impl ListParameters {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -116,17 +109,11 @@ pub mod parameter_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListParametersResponse> {
-            (*self.0.stub)
-                .list_parameters(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_parameters(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListParametersResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListParametersResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -138,10 +125,7 @@ pub mod parameter_manager {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListParametersResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListParametersResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -207,10 +191,10 @@ pub mod parameter_manager {
     pub struct GetParameter(RequestBuilder<crate::model::GetParameterRequest>);
 
     impl GetParameter {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -227,10 +211,7 @@ pub mod parameter_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Parameter> {
-            (*self.0.stub)
-                .get_parameter(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_parameter(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetParameterRequest::name].
@@ -270,10 +251,10 @@ pub mod parameter_manager {
     pub struct CreateParameter(RequestBuilder<crate::model::CreateParameterRequest>);
 
     impl CreateParameter {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -290,10 +271,7 @@ pub mod parameter_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Parameter> {
-            (*self.0.stub)
-                .create_parameter(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_parameter(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateParameterRequest::parent].
@@ -316,8 +294,7 @@ pub mod parameter_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_parameter<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Parameter>,
+        where T: std::convert::Into<crate::model::Parameter>
         {
             self.0.request.parameter = std::option::Option::Some(v.into());
             self
@@ -327,8 +304,7 @@ pub mod parameter_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_parameter<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Parameter>,
+        where T: std::convert::Into<crate::model::Parameter>
         {
             self.0.request.parameter = v.map(|x| x.into());
             self
@@ -369,10 +345,10 @@ pub mod parameter_manager {
     pub struct UpdateParameter(RequestBuilder<crate::model::UpdateParameterRequest>);
 
     impl UpdateParameter {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -389,16 +365,12 @@ pub mod parameter_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Parameter> {
-            (*self.0.stub)
-                .update_parameter(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_parameter(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateParameterRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -406,8 +378,7 @@ pub mod parameter_manager {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateParameterRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -417,8 +388,7 @@ pub mod parameter_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_parameter<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Parameter>,
+        where T: std::convert::Into<crate::model::Parameter>
         {
             self.0.request.parameter = std::option::Option::Some(v.into());
             self
@@ -428,8 +398,7 @@ pub mod parameter_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_parameter<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Parameter>,
+        where T: std::convert::Into<crate::model::Parameter>
         {
             self.0.request.parameter = v.map(|x| x.into());
             self
@@ -470,10 +439,10 @@ pub mod parameter_manager {
     pub struct DeleteParameter(RequestBuilder<crate::model::DeleteParameterRequest>);
 
     impl DeleteParameter {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -490,10 +459,7 @@ pub mod parameter_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .delete_parameter(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_parameter(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteParameterRequest::name].
@@ -543,17 +509,14 @@ pub mod parameter_manager {
     pub struct ListParameterVersions(RequestBuilder<crate::model::ListParameterVersionsRequest>);
 
     impl ListParameterVersions {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListParameterVersionsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListParameterVersionsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -566,17 +529,11 @@ pub mod parameter_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListParameterVersionsResponse> {
-            (*self.0.stub)
-                .list_parameter_versions(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_parameter_versions(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListParameterVersionsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListParameterVersionsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -588,12 +545,7 @@ pub mod parameter_manager {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListParameterVersionsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListParameterVersionsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -659,17 +611,14 @@ pub mod parameter_manager {
     pub struct GetParameterVersion(RequestBuilder<crate::model::GetParameterVersionRequest>);
 
     impl GetParameterVersion {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetParameterVersionRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetParameterVersionRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -682,10 +631,7 @@ pub mod parameter_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ParameterVersion> {
-            (*self.0.stub)
-                .get_parameter_version(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_parameter_version(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetParameterVersionRequest::name].
@@ -731,17 +677,14 @@ pub mod parameter_manager {
     pub struct RenderParameterVersion(RequestBuilder<crate::model::RenderParameterVersionRequest>);
 
     impl RenderParameterVersion {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::RenderParameterVersionRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::RenderParameterVersionRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -754,10 +697,7 @@ pub mod parameter_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::RenderParameterVersionResponse> {
-            (*self.0.stub)
-                .render_parameter_version(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).render_parameter_version(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::RenderParameterVersionRequest::name].
@@ -797,17 +737,14 @@ pub mod parameter_manager {
     pub struct CreateParameterVersion(RequestBuilder<crate::model::CreateParameterVersionRequest>);
 
     impl CreateParameterVersion {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateParameterVersionRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateParameterVersionRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -820,10 +757,7 @@ pub mod parameter_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ParameterVersion> {
-            (*self.0.stub)
-                .create_parameter_version(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_parameter_version(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateParameterVersionRequest::parent].
@@ -846,8 +780,7 @@ pub mod parameter_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_parameter_version<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::ParameterVersion>,
+        where T: std::convert::Into<crate::model::ParameterVersion>
         {
             self.0.request.parameter_version = std::option::Option::Some(v.into());
             self
@@ -857,8 +790,7 @@ pub mod parameter_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_parameter_version<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::ParameterVersion>,
+        where T: std::convert::Into<crate::model::ParameterVersion>
         {
             self.0.request.parameter_version = v.map(|x| x.into());
             self
@@ -899,17 +831,14 @@ pub mod parameter_manager {
     pub struct UpdateParameterVersion(RequestBuilder<crate::model::UpdateParameterVersionRequest>);
 
     impl UpdateParameterVersion {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateParameterVersionRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateParameterVersionRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -922,16 +851,12 @@ pub mod parameter_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ParameterVersion> {
-            (*self.0.stub)
-                .update_parameter_version(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_parameter_version(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateParameterVersionRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -939,8 +864,7 @@ pub mod parameter_manager {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateParameterVersionRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -950,8 +874,7 @@ pub mod parameter_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_parameter_version<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::ParameterVersion>,
+        where T: std::convert::Into<crate::model::ParameterVersion>
         {
             self.0.request.parameter_version = std::option::Option::Some(v.into());
             self
@@ -961,8 +884,7 @@ pub mod parameter_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_parameter_version<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::ParameterVersion>,
+        where T: std::convert::Into<crate::model::ParameterVersion>
         {
             self.0.request.parameter_version = v.map(|x| x.into());
             self
@@ -1003,17 +925,14 @@ pub mod parameter_manager {
     pub struct DeleteParameterVersion(RequestBuilder<crate::model::DeleteParameterVersionRequest>);
 
     impl DeleteParameterVersion {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteParameterVersionRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteParameterVersionRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1026,10 +945,7 @@ pub mod parameter_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .delete_parameter_version(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_parameter_version(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteParameterVersionRequest::name].
@@ -1079,17 +995,14 @@ pub mod parameter_manager {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1102,17 +1015,11 @@ pub mod parameter_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::ListLocationsResponse> {
-            (*self.0.stub)
-                .list_locations(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_locations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1124,10 +1031,7 @@ pub mod parameter_manager {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1185,10 +1089,10 @@ pub mod parameter_manager {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1205,10 +1109,7 @@ pub mod parameter_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::Location> {
-            (*self.0.stub)
-                .get_location(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_location(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -1224,4 +1125,5 @@ pub mod parameter_manager {
             &mut self.0.options
         }
     }
+
 }

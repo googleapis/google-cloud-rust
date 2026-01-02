@@ -72,8 +72,7 @@ impl<T: super::OrgPolicyViolationsPreviewService> OrgPolicyViolationsPreviewServ
         &self,
         req: crate::model::ListOrgPolicyViolationsPreviewsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListOrgPolicyViolationsPreviewsResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::ListOrgPolicyViolationsPreviewsResponse>> {
         T::list_org_policy_violations_previews(self, req, options).await
     }
 

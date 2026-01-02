@@ -39,10 +39,7 @@ pub mod iam_credentials {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = IAMCredentials;
             type Credentials = gaxi::options::Credentials;
-            async fn build(
-                self,
-                config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -57,12 +54,8 @@ pub mod iam_credentials {
     }
 
     impl<R> RequestBuilder<R>
-    where
-        R: std::default::Default,
-    {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::IAMCredentials>,
-        ) -> Self {
+    where R: std::default::Default {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::IAMCredentials>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -92,17 +85,14 @@ pub mod iam_credentials {
     pub struct GenerateAccessToken(RequestBuilder<crate::model::GenerateAccessTokenRequest>);
 
     impl GenerateAccessToken {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::IAMCredentials>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::IAMCredentials>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GenerateAccessTokenRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GenerateAccessTokenRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -115,10 +105,7 @@ pub mod iam_credentials {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::GenerateAccessTokenResponse> {
-            (*self.0.stub)
-                .generate_access_token(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).generate_access_token(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GenerateAccessTokenRequest::name].
@@ -133,7 +120,7 @@ pub mod iam_credentials {
         pub fn set_delegates<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.0.request.delegates = v.into_iter().map(|i| i.into()).collect();
@@ -146,7 +133,7 @@ pub mod iam_credentials {
         pub fn set_scope<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.0.request.scope = v.into_iter().map(|i| i.into()).collect();
@@ -155,8 +142,7 @@ pub mod iam_credentials {
 
         /// Sets the value of [lifetime][crate::model::GenerateAccessTokenRequest::lifetime].
         pub fn set_lifetime<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Duration>,
+        where T: std::convert::Into<wkt::Duration>
         {
             self.0.request.lifetime = std::option::Option::Some(v.into());
             self
@@ -164,8 +150,7 @@ pub mod iam_credentials {
 
         /// Sets or clears the value of [lifetime][crate::model::GenerateAccessTokenRequest::lifetime].
         pub fn set_or_clear_lifetime<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Duration>,
+        where T: std::convert::Into<wkt::Duration>
         {
             self.0.request.lifetime = v.map(|x| x.into());
             self
@@ -200,10 +185,10 @@ pub mod iam_credentials {
     pub struct GenerateIdToken(RequestBuilder<crate::model::GenerateIdTokenRequest>);
 
     impl GenerateIdToken {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::IAMCredentials>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::IAMCredentials>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -220,10 +205,7 @@ pub mod iam_credentials {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::GenerateIdTokenResponse> {
-            (*self.0.stub)
-                .generate_id_token(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).generate_id_token(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GenerateIdTokenRequest::name].
@@ -238,7 +220,7 @@ pub mod iam_credentials {
         pub fn set_delegates<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.0.request.delegates = v.into_iter().map(|i| i.into()).collect();
@@ -288,10 +270,10 @@ pub mod iam_credentials {
     pub struct SignBlob(RequestBuilder<crate::model::SignBlobRequest>);
 
     impl SignBlob {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::IAMCredentials>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::IAMCredentials>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -308,10 +290,7 @@ pub mod iam_credentials {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SignBlobResponse> {
-            (*self.0.stub)
-                .sign_blob(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).sign_blob(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::SignBlobRequest::name].
@@ -326,7 +305,7 @@ pub mod iam_credentials {
         pub fn set_delegates<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.0.request.delegates = v.into_iter().map(|i| i.into()).collect();
@@ -370,10 +349,10 @@ pub mod iam_credentials {
     pub struct SignJwt(RequestBuilder<crate::model::SignJwtRequest>);
 
     impl SignJwt {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::IAMCredentials>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::IAMCredentials>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -390,10 +369,7 @@ pub mod iam_credentials {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SignJwtResponse> {
-            (*self.0.stub)
-                .sign_jwt(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).sign_jwt(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::SignJwtRequest::name].
@@ -408,7 +384,7 @@ pub mod iam_credentials {
         pub fn set_delegates<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.0.request.delegates = v.into_iter().map(|i| i.into()).collect();
@@ -430,4 +406,5 @@ pub mod iam_credentials {
             &mut self.0.options
         }
     }
+
 }

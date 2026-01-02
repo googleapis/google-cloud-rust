@@ -38,14 +38,13 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
+
     /// Implements [super::client::BigtableInstanceAdmin::create_instance].
     fn create_instance(
         &self,
         _req: crate::model::CreateInstanceRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -54,9 +53,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetInstanceRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Instance>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Instance>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -65,9 +62,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListInstancesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListInstancesResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListInstancesResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -76,9 +71,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::Instance,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Instance>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Instance>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -87,9 +80,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::PartialUpdateInstanceRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -107,9 +98,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateClusterRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -118,9 +107,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetClusterRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Cluster>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Cluster>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -129,9 +116,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListClustersRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListClustersResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListClustersResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -140,9 +125,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::Cluster,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -151,9 +134,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::PartialUpdateClusterRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -171,9 +152,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateAppProfileRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::AppProfile>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::AppProfile>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -182,9 +161,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetAppProfileRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::AppProfile>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::AppProfile>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -193,9 +170,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListAppProfilesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListAppProfilesResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListAppProfilesResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -204,9 +179,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateAppProfileRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -224,9 +197,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -235,9 +206,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -246,9 +215,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -257,9 +224,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListHotTabletsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListHotTabletsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListHotTabletsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -268,9 +233,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateLogicalViewRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -279,9 +242,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetLogicalViewRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::LogicalView>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::LogicalView>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -290,9 +251,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListLogicalViewsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListLogicalViewsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListLogicalViewsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -301,9 +260,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateLogicalViewRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -321,9 +278,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateMaterializedViewRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -332,9 +287,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetMaterializedViewRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::MaterializedView>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::MaterializedView>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -343,11 +296,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListMaterializedViewsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::ListMaterializedViewsResponse>,
-        >,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListMaterializedViewsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -356,9 +305,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateMaterializedViewRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -376,9 +323,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -387,9 +332,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::GetOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -446,14 +389,13 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
+
     /// Implements [super::client::BigtableTableAdmin::create_table].
     fn create_table(
         &self,
         _req: crate::model::CreateTableRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Table>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Table>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -462,9 +404,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateTableFromSnapshotRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -473,9 +413,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListTablesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListTablesResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListTablesResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -484,9 +422,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetTableRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Table>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Table>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -495,9 +431,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateTableRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -515,9 +449,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UndeleteTableRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -526,9 +458,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateAuthorizedViewRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -537,9 +467,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListAuthorizedViewsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListAuthorizedViewsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListAuthorizedViewsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -548,9 +476,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetAuthorizedViewRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::AuthorizedView>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::AuthorizedView>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -559,9 +485,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateAuthorizedViewRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -579,9 +503,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ModifyColumnFamiliesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Table>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Table>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -599,11 +521,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GenerateConsistencyTokenRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::GenerateConsistencyTokenResponse>,
-        >,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::GenerateConsistencyTokenResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -612,9 +530,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CheckConsistencyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::CheckConsistencyResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::CheckConsistencyResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -623,9 +539,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SnapshotTableRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -634,9 +548,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetSnapshotRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Snapshot>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Snapshot>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -645,9 +557,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListSnapshotsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListSnapshotsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListSnapshotsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -665,9 +575,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateBackupRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -676,9 +584,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetBackupRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Backup>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Backup>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -687,9 +593,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateBackupRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Backup>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Backup>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -707,9 +611,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListBackupsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListBackupsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListBackupsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -718,9 +620,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::RestoreTableRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -729,9 +629,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CopyBackupRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -740,9 +638,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -751,9 +647,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -762,9 +656,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -773,9 +665,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateSchemaBundleRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -784,9 +674,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateSchemaBundleRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -795,9 +683,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetSchemaBundleRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::SchemaBundle>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::SchemaBundle>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -806,9 +692,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListSchemaBundlesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListSchemaBundlesResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListSchemaBundlesResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -826,9 +710,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -837,9 +719,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::GetOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -883,3 +763,4 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         std::sync::Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
     }
 }
+

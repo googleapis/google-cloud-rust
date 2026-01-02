@@ -353,6 +353,7 @@ impl std::fmt::Debug for super::input::SecurityRule {
     }
 }
 
+
 impl std::fmt::Debug for super::Channel {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Channel");
@@ -395,6 +396,7 @@ impl std::fmt::Debug for super::channel::Output {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::NormalizedCoordinate {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -662,6 +664,7 @@ impl std::fmt::Debug for super::event::UpdateEncryptionsTask {
     }
 }
 
+
 impl std::fmt::Debug for super::Clip {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Clip");
@@ -718,6 +721,7 @@ impl std::fmt::Debug for super::clip::ClipManifest {
     }
 }
 
+
 impl std::fmt::Debug for super::TimeInterval {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TimeInterval");
@@ -771,6 +775,7 @@ impl std::fmt::Debug for super::dvr_session::DvrWindow {
     }
 }
 
+
 impl std::fmt::Debug for super::Asset {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Asset");
@@ -810,6 +815,7 @@ impl std::fmt::Debug for super::asset::ImageAsset {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::Encryption {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -958,6 +964,7 @@ impl std::fmt::Debug for super::pool::NetworkConfig {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::CreateAssetRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

@@ -372,8 +372,7 @@ impl<T: super::EdgeNetwork> EdgeNetwork for T {
         &self,
         req: crate::model::ListInterconnectAttachmentsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListInterconnectAttachmentsResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::ListInterconnectAttachmentsResponse>> {
         T::list_interconnect_attachments(self, req, options).await
     }
 

@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -29,7 +30,6 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -41,6 +41,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Zone {
+
     /// Required. The resource name of the zone.
     pub name: std::string::String,
 
@@ -53,7 +54,7 @@ pub struct Zone {
     /// Deprecated: not implemented.
     /// Labels as key value pairs.
     #[deprecated]
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Deprecated: not implemented.
     /// The deployment layout type.
@@ -89,8 +90,7 @@ impl Zone {
     /// let x = Zone::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -106,8 +106,7 @@ impl Zone {
     /// let x = Zone::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -122,8 +121,7 @@ impl Zone {
     /// let x = Zone::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -139,8 +137,7 @@ impl Zone {
     /// let x = Zone::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -192,6 +189,7 @@ impl wkt::message::Message for Zone {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Network {
+
     /// Required. The canonical resource name of the network.
     pub name: std::string::String,
 
@@ -202,7 +200,7 @@ pub struct Network {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Labels associated with this resource.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. A free-text description of the resource. Max length 1024
     /// characters.
@@ -242,8 +240,7 @@ impl Network {
     /// let x = Network::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -259,8 +256,7 @@ impl Network {
     /// let x = Network::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -275,8 +271,7 @@ impl Network {
     /// let x = Network::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -292,8 +287,7 @@ impl Network {
     /// let x = Network::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -355,6 +349,7 @@ impl wkt::message::Message for Network {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Subnet {
+
     /// Required. The canonical resource name of the subnet.
     pub name: std::string::String,
 
@@ -365,7 +360,7 @@ pub struct Subnet {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Labels associated with this resource.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. A free-text description of the resource. Max length 1024
     /// characters.
@@ -423,8 +418,7 @@ impl Subnet {
     /// let x = Subnet::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -440,8 +434,7 @@ impl Subnet {
     /// let x = Subnet::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -456,8 +449,7 @@ impl Subnet {
     /// let x = Subnet::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -473,8 +465,7 @@ impl Subnet {
     /// let x = Subnet::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -535,7 +526,7 @@ impl Subnet {
     pub fn set_ipv4_cidr<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.ipv4_cidr = v.into_iter().map(|i| i.into()).collect();
@@ -552,7 +543,7 @@ impl Subnet {
     pub fn set_ipv6_cidr<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.ipv6_cidr = v.into_iter().map(|i| i.into()).collect();
@@ -580,10 +571,7 @@ impl Subnet {
     /// let x0 = Subnet::new().set_bonding_type(BondingType::Bonded);
     /// let x1 = Subnet::new().set_bonding_type(BondingType::NonBonded);
     /// ```
-    pub fn set_bonding_type<T: std::convert::Into<crate::model::subnet::BondingType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_bonding_type<T: std::convert::Into<crate::model::subnet::BondingType>>(mut self, v: T) -> Self {
         self.bonding_type = v.into();
         self
     }
@@ -614,6 +602,7 @@ impl wkt::message::Message for Subnet {
 pub mod subnet {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Bonding type in the subnet.
     ///
@@ -705,9 +694,7 @@ pub mod subnet {
                 0 => Self::Unspecified,
                 1 => Self::Bonded,
                 2 => Self::NonBonded,
-                _ => Self::UnknownValue(bonding_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(bonding_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -719,9 +706,7 @@ pub mod subnet {
                 "BONDING_TYPE_UNSPECIFIED" => Self::Unspecified,
                 "BONDED" => Self::Bonded,
                 "NON_BONDED" => Self::NonBonded,
-                _ => Self::UnknownValue(bonding_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(bonding_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -746,8 +731,7 @@ pub mod subnet {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<BondingType>::new(
-                ".google.cloud.edgenetwork.v1.Subnet.BondingType",
-            ))
+                ".google.cloud.edgenetwork.v1.Subnet.BondingType"))
         }
     }
 }
@@ -756,6 +740,7 @@ pub mod subnet {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Interconnect {
+
     /// Required. The canonical resource name of the interconnect.
     pub name: std::string::String,
 
@@ -766,7 +751,7 @@ pub struct Interconnect {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Labels associated with this resource.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. A free-text description of the resource. Max length 1024
     /// characters.
@@ -819,8 +804,7 @@ impl Interconnect {
     /// let x = Interconnect::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -836,8 +820,7 @@ impl Interconnect {
     /// let x = Interconnect::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -852,8 +835,7 @@ impl Interconnect {
     /// let x = Interconnect::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -869,8 +851,7 @@ impl Interconnect {
     /// let x = Interconnect::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -917,12 +898,7 @@ impl Interconnect {
     /// use google_cloud_edgenetwork_v1::model::interconnect::InterconnectType;
     /// let x0 = Interconnect::new().set_interconnect_type(InterconnectType::Dedicated);
     /// ```
-    pub fn set_interconnect_type<
-        T: std::convert::Into<crate::model::interconnect::InterconnectType>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_interconnect_type<T: std::convert::Into<crate::model::interconnect::InterconnectType>>(mut self, v: T) -> Self {
         self.interconnect_type = v.into();
         self
     }
@@ -946,10 +922,7 @@ impl Interconnect {
     /// # use google_cloud_edgenetwork_v1::model::Interconnect;
     /// let x = Interconnect::new().set_device_cloud_resource_name("example");
     /// ```
-    pub fn set_device_cloud_resource_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_device_cloud_resource_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.device_cloud_resource_name = v.into();
         self
     }
@@ -964,7 +937,7 @@ impl Interconnect {
     pub fn set_physical_ports<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.physical_ports = v.into_iter().map(|i| i.into()).collect();
@@ -980,12 +953,7 @@ impl Interconnect {
     /// let x0 = Interconnect::new().set_remote_peering_network_type(RemotePeeringNetworkType::CustomerInternal);
     /// let x1 = Interconnect::new().set_remote_peering_network_type(RemotePeeringNetworkType::CustomerInternet);
     /// ```
-    pub fn set_remote_peering_network_type<
-        T: std::convert::Into<crate::model::RemotePeeringNetworkType>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_remote_peering_network_type<T: std::convert::Into<crate::model::RemotePeeringNetworkType>>(mut self, v: T) -> Self {
         self.remote_peering_network_type = v.into();
         self
     }
@@ -1001,6 +969,7 @@ impl wkt::message::Message for Interconnect {
 pub mod interconnect {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Type of interconnect.
     ///
@@ -1083,9 +1052,7 @@ pub mod interconnect {
             match value {
                 0 => Self::Unspecified,
                 1 => Self::Dedicated,
-                _ => Self::UnknownValue(interconnect_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(interconnect_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1096,9 +1063,7 @@ pub mod interconnect {
             match value {
                 "INTERCONNECT_TYPE_UNSPECIFIED" => Self::Unspecified,
                 "DEDICATED" => Self::Dedicated,
-                _ => Self::UnknownValue(interconnect_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(interconnect_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1122,8 +1087,7 @@ pub mod interconnect {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<InterconnectType>::new(
-                ".google.cloud.edgenetwork.v1.Interconnect.InterconnectType",
-            ))
+                ".google.cloud.edgenetwork.v1.Interconnect.InterconnectType"))
         }
     }
 }
@@ -1132,6 +1096,7 @@ pub mod interconnect {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InterconnectAttachment {
+
     /// Required. The canonical resource name of the interconnect attachment.
     pub name: std::string::String,
 
@@ -1142,7 +1107,7 @@ pub struct InterconnectAttachment {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Labels associated with this resource.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. A free-text description of the resource. Max length 1024
     /// characters.
@@ -1201,8 +1166,7 @@ impl InterconnectAttachment {
     /// let x = InterconnectAttachment::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -1218,8 +1182,7 @@ impl InterconnectAttachment {
     /// let x = InterconnectAttachment::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -1234,8 +1197,7 @@ impl InterconnectAttachment {
     /// let x = InterconnectAttachment::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -1251,8 +1213,7 @@ impl InterconnectAttachment {
     /// let x = InterconnectAttachment::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -1363,10 +1324,7 @@ impl InterconnectAttachment {
     /// let x0 = InterconnectAttachment::new().set_peering_type(RemotePeeringNetworkType::CustomerInternal);
     /// let x1 = InterconnectAttachment::new().set_peering_type(RemotePeeringNetworkType::CustomerInternet);
     /// ```
-    pub fn set_peering_type<T: std::convert::Into<crate::model::RemotePeeringNetworkType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_peering_type<T: std::convert::Into<crate::model::RemotePeeringNetworkType>>(mut self, v: T) -> Self {
         self.peering_type = v.into();
         self
     }
@@ -1382,6 +1340,7 @@ impl wkt::message::Message for InterconnectAttachment {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Router {
+
     /// Required. The canonical resource name of the router.
     pub name: std::string::String,
 
@@ -1392,7 +1351,7 @@ pub struct Router {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Labels associated with this resource.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. A free-text description of the resource. Max length 1024
     /// characters.
@@ -1448,8 +1407,7 @@ impl Router {
     /// let x = Router::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -1465,8 +1423,7 @@ impl Router {
     /// let x = Router::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -1481,8 +1438,7 @@ impl Router {
     /// let x = Router::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -1498,8 +1454,7 @@ impl Router {
     /// let x = Router::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -1565,7 +1520,7 @@ impl Router {
     pub fn set_interface<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::router::Interface>,
+        V: std::convert::Into<crate::model::router::Interface>
     {
         use std::iter::Iterator;
         self.interface = v.into_iter().map(|i| i.into()).collect();
@@ -1587,7 +1542,7 @@ impl Router {
     pub fn set_bgp_peer<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::router::BgpPeer>,
+        V: std::convert::Into<crate::model::router::BgpPeer>
     {
         use std::iter::Iterator;
         self.bgp_peer = v.into_iter().map(|i| i.into()).collect();
@@ -1603,8 +1558,7 @@ impl Router {
     /// let x = Router::new().set_bgp(Bgp::default()/* use setters */);
     /// ```
     pub fn set_bgp<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::router::Bgp>,
+    where T: std::convert::Into<crate::model::router::Bgp>
     {
         self.bgp = std::option::Option::Some(v.into());
         self
@@ -1620,8 +1574,7 @@ impl Router {
     /// let x = Router::new().set_or_clear_bgp(None::<Bgp>);
     /// ```
     pub fn set_or_clear_bgp<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::router::Bgp>,
+    where T: std::convert::Into<crate::model::router::Bgp>
     {
         self.bgp = v.map(|x| x.into());
         self
@@ -1652,7 +1605,7 @@ impl Router {
     pub fn set_route_advertisements<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.route_advertisements = v.into_iter().map(|i| i.into()).collect();
@@ -1671,11 +1624,13 @@ pub mod router {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Router Interface defines the GDCE zone side layer-3 information for
     /// building the BGP session.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Interface {
+
         /// Name of this interface entry. Unique within the Zones resource.
         pub name: std::string::String,
 
@@ -1747,10 +1702,7 @@ pub mod router {
         /// # use google_cloud_edgenetwork_v1::model::router::Interface;
         /// let x = Interface::new().set_linked_interconnect_attachment("example");
         /// ```
-        pub fn set_linked_interconnect_attachment<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_linked_interconnect_attachment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.linked_interconnect_attachment = v.into();
             self
         }
@@ -1777,7 +1729,7 @@ pub mod router {
         pub fn set_loopback_ip_addresses<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.loopback_ip_addresses = v.into_iter().map(|i| i.into()).collect();
@@ -1796,6 +1748,7 @@ pub mod router {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct BgpPeer {
+
         /// Name of this BGP peer. Unique within the Zones resource.
         pub name: std::string::String,
 
@@ -1862,10 +1815,7 @@ pub mod router {
         /// # use google_cloud_edgenetwork_v1::model::router::BgpPeer;
         /// let x = BgpPeer::new().set_interface_ipv4_cidr("example");
         /// ```
-        pub fn set_interface_ipv4_cidr<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_interface_ipv4_cidr<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.interface_ipv4_cidr = v.into();
             self
         }
@@ -1877,10 +1827,7 @@ pub mod router {
         /// # use google_cloud_edgenetwork_v1::model::router::BgpPeer;
         /// let x = BgpPeer::new().set_interface_ipv6_cidr("example");
         /// ```
-        pub fn set_interface_ipv6_cidr<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_interface_ipv6_cidr<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.interface_ipv6_cidr = v.into();
             self
         }
@@ -1892,10 +1839,7 @@ pub mod router {
         /// # use google_cloud_edgenetwork_v1::model::router::BgpPeer;
         /// let x = BgpPeer::new().set_peer_ipv4_cidr("example");
         /// ```
-        pub fn set_peer_ipv4_cidr<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_peer_ipv4_cidr<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.peer_ipv4_cidr = v.into();
             self
         }
@@ -1907,10 +1851,7 @@ pub mod router {
         /// # use google_cloud_edgenetwork_v1::model::router::BgpPeer;
         /// let x = BgpPeer::new().set_peer_ipv6_cidr("example");
         /// ```
-        pub fn set_peer_ipv6_cidr<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_peer_ipv6_cidr<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.peer_ipv6_cidr = v.into();
             self
         }
@@ -1950,6 +1891,7 @@ pub mod router {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Bgp {
+
         /// Locally assigned BGP ASN.
         pub asn: u32,
 
@@ -1984,10 +1926,7 @@ pub mod router {
         /// # use google_cloud_edgenetwork_v1::model::router::Bgp;
         /// let x = Bgp::new().set_keepalive_interval_in_seconds(42_u32);
         /// ```
-        pub fn set_keepalive_interval_in_seconds<T: std::convert::Into<u32>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_keepalive_interval_in_seconds<T: std::convert::Into<u32>>(mut self, v: T) -> Self {
             self.keepalive_interval_in_seconds = v.into();
             self
         }
@@ -2004,6 +1943,7 @@ pub mod router {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LinkLayerAddress {
+
     /// The MAC address of this neighbor.
     pub mac_address: std::string::String,
 
@@ -2054,6 +1994,7 @@ impl wkt::message::Message for LinkLayerAddress {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SubnetStatus {
+
     /// The name of CCFE subnet resource.
     pub name: std::string::String,
 
@@ -2111,7 +2052,7 @@ impl SubnetStatus {
     pub fn set_link_layer_addresses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::LinkLayerAddress>,
+        V: std::convert::Into<crate::model::LinkLayerAddress>
     {
         use std::iter::Iterator;
         self.link_layer_addresses = v.into_iter().map(|i| i.into()).collect();
@@ -2130,6 +2071,7 @@ impl wkt::message::Message for SubnetStatus {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InterconnectDiagnostics {
+
     /// The MAC address of the Interconnect's bundle interface.
     pub mac_address: std::string::String,
 
@@ -2176,7 +2118,7 @@ impl InterconnectDiagnostics {
     pub fn set_link_layer_addresses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::LinkLayerAddress>,
+        V: std::convert::Into<crate::model::LinkLayerAddress>
     {
         use std::iter::Iterator;
         self.link_layer_addresses = v.into_iter().map(|i| i.into()).collect();
@@ -2198,7 +2140,7 @@ impl InterconnectDiagnostics {
     pub fn set_links<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::interconnect_diagnostics::LinkStatus>,
+        V: std::convert::Into<crate::model::interconnect_diagnostics::LinkStatus>
     {
         use std::iter::Iterator;
         self.links = v.into_iter().map(|i| i.into()).collect();
@@ -2217,24 +2159,24 @@ pub mod interconnect_diagnostics {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Describing the status for each link on the Interconnect.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct LinkStatus {
+
         /// The unique ID for this link assigned during turn up by Google.
         pub circuit_id: std::string::String,
 
         /// Describing the state of a LACP link.
-        pub lacp_status:
-            std::option::Option<crate::model::interconnect_diagnostics::LinkLACPStatus>,
+        pub lacp_status: std::option::Option<crate::model::interconnect_diagnostics::LinkLACPStatus>,
 
         /// A list of LinkLLDPStatus objects, used to describe LLDP status of each
         /// peer for each link on the Interconnect.
         pub lldp_statuses: std::vec::Vec<crate::model::interconnect_diagnostics::LinkLLDPStatus>,
 
         /// Packet counts specific statistics for this link.
-        pub packet_counts:
-            std::option::Option<crate::model::interconnect_diagnostics::PacketCounts>,
+        pub packet_counts: std::option::Option<crate::model::interconnect_diagnostics::PacketCounts>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -2265,8 +2207,7 @@ pub mod interconnect_diagnostics {
         /// let x = LinkStatus::new().set_lacp_status(LinkLACPStatus::default()/* use setters */);
         /// ```
         pub fn set_lacp_status<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::interconnect_diagnostics::LinkLACPStatus>,
+        where T: std::convert::Into<crate::model::interconnect_diagnostics::LinkLACPStatus>
         {
             self.lacp_status = std::option::Option::Some(v.into());
             self
@@ -2282,8 +2223,7 @@ pub mod interconnect_diagnostics {
         /// let x = LinkStatus::new().set_or_clear_lacp_status(None::<LinkLACPStatus>);
         /// ```
         pub fn set_or_clear_lacp_status<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::interconnect_diagnostics::LinkLACPStatus>,
+        where T: std::convert::Into<crate::model::interconnect_diagnostics::LinkLACPStatus>
         {
             self.lacp_status = v.map(|x| x.into());
             self
@@ -2304,7 +2244,7 @@ pub mod interconnect_diagnostics {
         pub fn set_lldp_statuses<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::interconnect_diagnostics::LinkLLDPStatus>,
+            V: std::convert::Into<crate::model::interconnect_diagnostics::LinkLLDPStatus>
         {
             use std::iter::Iterator;
             self.lldp_statuses = v.into_iter().map(|i| i.into()).collect();
@@ -2320,8 +2260,7 @@ pub mod interconnect_diagnostics {
         /// let x = LinkStatus::new().set_packet_counts(PacketCounts::default()/* use setters */);
         /// ```
         pub fn set_packet_counts<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::interconnect_diagnostics::PacketCounts>,
+        where T: std::convert::Into<crate::model::interconnect_diagnostics::PacketCounts>
         {
             self.packet_counts = std::option::Option::Some(v.into());
             self
@@ -2337,8 +2276,7 @@ pub mod interconnect_diagnostics {
         /// let x = LinkStatus::new().set_or_clear_packet_counts(None::<PacketCounts>);
         /// ```
         pub fn set_or_clear_packet_counts<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::interconnect_diagnostics::PacketCounts>,
+        where T: std::convert::Into<crate::model::interconnect_diagnostics::PacketCounts>
         {
             self.packet_counts = v.map(|x| x.into());
             self
@@ -2355,6 +2293,7 @@ pub mod interconnect_diagnostics {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PacketCounts {
+
         /// The number of packets that are delivered.
         pub inbound_unicast: i64,
 
@@ -2467,6 +2406,7 @@ pub mod interconnect_diagnostics {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct LinkLACPStatus {
+
         /// The state of a LACP link.
         pub state: crate::model::interconnect_diagnostics::link_lacp_status::State,
 
@@ -2506,12 +2446,7 @@ pub mod interconnect_diagnostics {
         /// let x0 = LinkLACPStatus::new().set_state(State::Active);
         /// let x1 = LinkLACPStatus::new().set_state(State::Detached);
         /// ```
-        pub fn set_state<
-            T: std::convert::Into<crate::model::interconnect_diagnostics::link_lacp_status::State>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_state<T: std::convert::Into<crate::model::interconnect_diagnostics::link_lacp_status::State>>(mut self, v: T) -> Self {
             self.state = v.into();
             self
         }
@@ -2523,10 +2458,7 @@ pub mod interconnect_diagnostics {
         /// # use google_cloud_edgenetwork_v1::model::interconnect_diagnostics::LinkLACPStatus;
         /// let x = LinkLACPStatus::new().set_google_system_id("example");
         /// ```
-        pub fn set_google_system_id<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_google_system_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.google_system_id = v.into();
             self
         }
@@ -2538,10 +2470,7 @@ pub mod interconnect_diagnostics {
         /// # use google_cloud_edgenetwork_v1::model::interconnect_diagnostics::LinkLACPStatus;
         /// let x = LinkLACPStatus::new().set_neighbor_system_id("example");
         /// ```
-        pub fn set_neighbor_system_id<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_neighbor_system_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.neighbor_system_id = v.into();
             self
         }
@@ -2593,6 +2522,7 @@ pub mod interconnect_diagnostics {
     pub mod link_lacp_status {
         #[allow(unused_imports)]
         use super::*;
+
 
         /// State enum for LACP link.
         ///
@@ -2670,10 +2600,7 @@ pub mod interconnect_diagnostics {
         }
 
         impl std::fmt::Display for State {
-            fn fmt(
-                &self,
-                f: &mut std::fmt::Formatter<'_>,
-            ) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -2684,9 +2611,7 @@ pub mod interconnect_diagnostics {
                     0 => Self::Unknown,
                     1 => Self::Active,
                     2 => Self::Detached,
-                    _ => Self::UnknownValue(state::UnknownValue(
-                        wkt::internal::UnknownEnumValue::Integer(value),
-                    )),
+                    _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
                 }
             }
         }
@@ -2698,9 +2623,7 @@ pub mod interconnect_diagnostics {
                     "UNKNOWN" => Self::Unknown,
                     "ACTIVE" => Self::Active,
                     "DETACHED" => Self::Detached,
-                    _ => Self::UnknownValue(state::UnknownValue(
-                        wkt::internal::UnknownEnumValue::String(value.to_string()),
-                    )),
+                    _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
                 }
             }
         }
@@ -2725,8 +2648,7 @@ pub mod interconnect_diagnostics {
                 D: serde::Deserializer<'de>,
             {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                    ".google.cloud.edgenetwork.v1.InterconnectDiagnostics.LinkLACPStatus.State",
-                ))
+                    ".google.cloud.edgenetwork.v1.InterconnectDiagnostics.LinkLACPStatus.State"))
             }
         }
     }
@@ -2735,6 +2657,7 @@ pub mod interconnect_diagnostics {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct LinkLLDPStatus {
+
         /// The peer system's administratively assigned name.
         pub peer_system_name: std::string::String,
 
@@ -2771,10 +2694,7 @@ pub mod interconnect_diagnostics {
         /// # use google_cloud_edgenetwork_v1::model::interconnect_diagnostics::LinkLLDPStatus;
         /// let x = LinkLLDPStatus::new().set_peer_system_name("example");
         /// ```
-        pub fn set_peer_system_name<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_peer_system_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.peer_system_name = v.into();
             self
         }
@@ -2786,10 +2706,7 @@ pub mod interconnect_diagnostics {
         /// # use google_cloud_edgenetwork_v1::model::interconnect_diagnostics::LinkLLDPStatus;
         /// let x = LinkLLDPStatus::new().set_peer_system_description("example");
         /// ```
-        pub fn set_peer_system_description<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_peer_system_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.peer_system_description = v.into();
             self
         }
@@ -2801,10 +2718,7 @@ pub mod interconnect_diagnostics {
         /// # use google_cloud_edgenetwork_v1::model::interconnect_diagnostics::LinkLLDPStatus;
         /// let x = LinkLLDPStatus::new().set_peer_chassis_id("example");
         /// ```
-        pub fn set_peer_chassis_id<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_peer_chassis_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.peer_chassis_id = v.into();
             self
         }
@@ -2816,10 +2730,7 @@ pub mod interconnect_diagnostics {
         /// # use google_cloud_edgenetwork_v1::model::interconnect_diagnostics::LinkLLDPStatus;
         /// let x = LinkLLDPStatus::new().set_peer_chassis_id_type("example");
         /// ```
-        pub fn set_peer_chassis_id_type<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_peer_chassis_id_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.peer_chassis_id_type = v.into();
             self
         }
@@ -2831,10 +2742,7 @@ pub mod interconnect_diagnostics {
         /// # use google_cloud_edgenetwork_v1::model::interconnect_diagnostics::LinkLLDPStatus;
         /// let x = LinkLLDPStatus::new().set_peer_port_id("example");
         /// ```
-        pub fn set_peer_port_id<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_peer_port_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.peer_port_id = v.into();
             self
         }
@@ -2846,10 +2754,7 @@ pub mod interconnect_diagnostics {
         /// # use google_cloud_edgenetwork_v1::model::interconnect_diagnostics::LinkLLDPStatus;
         /// let x = LinkLLDPStatus::new().set_peer_port_id_type("example");
         /// ```
-        pub fn set_peer_port_id_type<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_peer_port_id_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.peer_port_id_type = v.into();
             self
         }
@@ -2866,6 +2771,7 @@ pub mod interconnect_diagnostics {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RouterStatus {
+
     /// The canonical name of the network to which this router belongs.
     pub network: std::string::String,
 
@@ -2908,7 +2814,7 @@ impl RouterStatus {
     pub fn set_bgp_peer_status<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::router_status::BgpPeerStatus>,
+        V: std::convert::Into<crate::model::router_status::BgpPeerStatus>
     {
         use std::iter::Iterator;
         self.bgp_peer_status = v.into_iter().map(|i| i.into()).collect();
@@ -2927,10 +2833,12 @@ pub mod router_status {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Status of a BGP peer.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct BgpPeerStatus {
+
         /// Name of this BGP peer. Unique within the Routers resource.
         pub name: std::string::String,
 
@@ -2996,10 +2904,7 @@ pub mod router_status {
         /// # use google_cloud_edgenetwork_v1::model::router_status::BgpPeerStatus;
         /// let x = BgpPeerStatus::new().set_peer_ip_address("example");
         /// ```
-        pub fn set_peer_ip_address<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_peer_ip_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.peer_ip_address = v.into();
             self
         }
@@ -3013,12 +2918,7 @@ pub mod router_status {
         /// let x0 = BgpPeerStatus::new().set_status(BgpStatus::Up);
         /// let x1 = BgpPeerStatus::new().set_status(BgpStatus::Down);
         /// ```
-        pub fn set_status<
-            T: std::convert::Into<crate::model::router_status::bgp_peer_status::BgpStatus>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_status<T: std::convert::Into<crate::model::router_status::bgp_peer_status::BgpStatus>>(mut self, v: T) -> Self {
             self.status = v.into();
             self
         }
@@ -3068,8 +2968,7 @@ pub mod router_status {
         /// let x = BgpPeerStatus::new().set_prefix_counter(PrefixCounter::default()/* use setters */);
         /// ```
         pub fn set_prefix_counter<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::router_status::PrefixCounter>,
+        where T: std::convert::Into<crate::model::router_status::PrefixCounter>
         {
             self.prefix_counter = std::option::Option::Some(v.into());
             self
@@ -3085,8 +2984,7 @@ pub mod router_status {
         /// let x = BgpPeerStatus::new().set_or_clear_prefix_counter(None::<PrefixCounter>);
         /// ```
         pub fn set_or_clear_prefix_counter<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::router_status::PrefixCounter>,
+        where T: std::convert::Into<crate::model::router_status::PrefixCounter>
         {
             self.prefix_counter = v.map(|x| x.into());
             self
@@ -3103,6 +3001,7 @@ pub mod router_status {
     pub mod bgp_peer_status {
         #[allow(unused_imports)]
         use super::*;
+
 
         /// Status of the BGP peer: {UP, DOWN}
         ///
@@ -3179,10 +3078,7 @@ pub mod router_status {
         }
 
         impl std::fmt::Display for BgpStatus {
-            fn fmt(
-                &self,
-                f: &mut std::fmt::Formatter<'_>,
-            ) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -3193,9 +3089,7 @@ pub mod router_status {
                     0 => Self::Unknown,
                     1 => Self::Up,
                     2 => Self::Down,
-                    _ => Self::UnknownValue(bgp_status::UnknownValue(
-                        wkt::internal::UnknownEnumValue::Integer(value),
-                    )),
+                    _ => Self::UnknownValue(bgp_status::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
                 }
             }
         }
@@ -3207,9 +3101,7 @@ pub mod router_status {
                     "UNKNOWN" => Self::Unknown,
                     "UP" => Self::Up,
                     "DOWN" => Self::Down,
-                    _ => Self::UnknownValue(bgp_status::UnknownValue(
-                        wkt::internal::UnknownEnumValue::String(value.to_string()),
-                    )),
+                    _ => Self::UnknownValue(bgp_status::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
                 }
             }
         }
@@ -3234,8 +3126,7 @@ pub mod router_status {
                 D: serde::Deserializer<'de>,
             {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<BgpStatus>::new(
-                    ".google.cloud.edgenetwork.v1.RouterStatus.BgpPeerStatus.BgpStatus",
-                ))
+                    ".google.cloud.edgenetwork.v1.RouterStatus.BgpPeerStatus.BgpStatus"))
             }
         }
     }
@@ -3244,6 +3135,7 @@ pub mod router_status {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PrefixCounter {
+
         /// Number of prefixes advertised.
         pub advertised: i64,
 
@@ -3356,6 +3248,7 @@ pub mod router_status {
 #[non_exhaustive]
 #[deprecated]
 pub struct ListZonesRequest {
+
     /// Required. Parent value for ListZonesRequest
     pub parent: std::string::String,
 
@@ -3453,6 +3346,7 @@ impl wkt::message::Message for ListZonesRequest {
 #[non_exhaustive]
 #[deprecated]
 pub struct ListZonesResponse {
+
     /// The list of Zone
     pub zones: std::vec::Vec<crate::model::Zone>,
 
@@ -3485,7 +3379,7 @@ impl ListZonesResponse {
     pub fn set_zones<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Zone>,
+        V: std::convert::Into<crate::model::Zone>
     {
         use std::iter::Iterator;
         self.zones = v.into_iter().map(|i| i.into()).collect();
@@ -3514,7 +3408,7 @@ impl ListZonesResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -3548,6 +3442,7 @@ impl gax::paginator::internal::PageableResponse for ListZonesResponse {
 #[non_exhaustive]
 #[deprecated]
 pub struct GetZoneRequest {
+
     /// Required. Name of the resource
     pub name: std::string::String,
 
@@ -3582,6 +3477,7 @@ impl wkt::message::Message for GetZoneRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListNetworksRequest {
+
     /// Required. Parent value for ListNetworksRequest
     pub parent: std::string::String,
 
@@ -3677,6 +3573,7 @@ impl wkt::message::Message for ListNetworksRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListNetworksResponse {
+
     /// The list of Network
     pub networks: std::vec::Vec<crate::model::Network>,
 
@@ -3709,7 +3606,7 @@ impl ListNetworksResponse {
     pub fn set_networks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Network>,
+        V: std::convert::Into<crate::model::Network>
     {
         use std::iter::Iterator;
         self.networks = v.into_iter().map(|i| i.into()).collect();
@@ -3738,7 +3635,7 @@ impl ListNetworksResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -3770,6 +3667,7 @@ impl gax::paginator::internal::PageableResponse for ListNetworksResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetNetworkRequest {
+
     /// Required. Name of the resource
     pub name: std::string::String,
 
@@ -3804,6 +3702,7 @@ impl wkt::message::Message for GetNetworkRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateNetworkRequest {
+
     /// Required. Value for parent.
     pub parent: std::string::String,
 
@@ -3871,8 +3770,7 @@ impl CreateNetworkRequest {
     /// let x = CreateNetworkRequest::new().set_network(Network::default()/* use setters */);
     /// ```
     pub fn set_network<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Network>,
+    where T: std::convert::Into<crate::model::Network>
     {
         self.network = std::option::Option::Some(v.into());
         self
@@ -3888,8 +3786,7 @@ impl CreateNetworkRequest {
     /// let x = CreateNetworkRequest::new().set_or_clear_network(None::<Network>);
     /// ```
     pub fn set_or_clear_network<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Network>,
+    where T: std::convert::Into<crate::model::Network>
     {
         self.network = v.map(|x| x.into());
         self
@@ -3918,6 +3815,7 @@ impl wkt::message::Message for CreateNetworkRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteNetworkRequest {
+
     /// Required. Name of the resource
     pub name: std::string::String,
 
@@ -3979,6 +3877,7 @@ impl wkt::message::Message for DeleteNetworkRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSubnetsRequest {
+
     /// Required. Parent value for ListSubnetsRequest
     pub parent: std::string::String,
 
@@ -4074,6 +3973,7 @@ impl wkt::message::Message for ListSubnetsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSubnetsResponse {
+
     /// The list of Subnet
     pub subnets: std::vec::Vec<crate::model::Subnet>,
 
@@ -4106,7 +4006,7 @@ impl ListSubnetsResponse {
     pub fn set_subnets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Subnet>,
+        V: std::convert::Into<crate::model::Subnet>
     {
         use std::iter::Iterator;
         self.subnets = v.into_iter().map(|i| i.into()).collect();
@@ -4135,7 +4035,7 @@ impl ListSubnetsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -4167,6 +4067,7 @@ impl gax::paginator::internal::PageableResponse for ListSubnetsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSubnetRequest {
+
     /// Required. Name of the resource
     pub name: std::string::String,
 
@@ -4201,6 +4102,7 @@ impl wkt::message::Message for GetSubnetRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateSubnetRequest {
+
     /// Required. Value for parent.
     pub parent: std::string::String,
 
@@ -4268,8 +4170,7 @@ impl CreateSubnetRequest {
     /// let x = CreateSubnetRequest::new().set_subnet(Subnet::default()/* use setters */);
     /// ```
     pub fn set_subnet<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Subnet>,
+    where T: std::convert::Into<crate::model::Subnet>
     {
         self.subnet = std::option::Option::Some(v.into());
         self
@@ -4285,8 +4186,7 @@ impl CreateSubnetRequest {
     /// let x = CreateSubnetRequest::new().set_or_clear_subnet(None::<Subnet>);
     /// ```
     pub fn set_or_clear_subnet<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Subnet>,
+    where T: std::convert::Into<crate::model::Subnet>
     {
         self.subnet = v.map(|x| x.into());
         self
@@ -4315,6 +4215,7 @@ impl wkt::message::Message for CreateSubnetRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateSubnetRequest {
+
     /// Required. Field mask is used to specify the fields to be overwritten in the
     /// Subnet resource by the update.
     /// The fields specified in the update_mask are relative to the resource, not
@@ -4357,8 +4258,7 @@ impl UpdateSubnetRequest {
     /// let x = UpdateSubnetRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -4374,8 +4274,7 @@ impl UpdateSubnetRequest {
     /// let x = UpdateSubnetRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -4390,8 +4289,7 @@ impl UpdateSubnetRequest {
     /// let x = UpdateSubnetRequest::new().set_subnet(Subnet::default()/* use setters */);
     /// ```
     pub fn set_subnet<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Subnet>,
+    where T: std::convert::Into<crate::model::Subnet>
     {
         self.subnet = std::option::Option::Some(v.into());
         self
@@ -4407,8 +4305,7 @@ impl UpdateSubnetRequest {
     /// let x = UpdateSubnetRequest::new().set_or_clear_subnet(None::<Subnet>);
     /// ```
     pub fn set_or_clear_subnet<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Subnet>,
+    where T: std::convert::Into<crate::model::Subnet>
     {
         self.subnet = v.map(|x| x.into());
         self
@@ -4437,6 +4334,7 @@ impl wkt::message::Message for UpdateSubnetRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteSubnetRequest {
+
     /// Required. Name of the resource
     pub name: std::string::String,
 
@@ -4498,6 +4396,7 @@ impl wkt::message::Message for DeleteSubnetRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInterconnectsRequest {
+
     /// Required. Parent value for ListInterconnectsRequest
     pub parent: std::string::String,
 
@@ -4593,6 +4492,7 @@ impl wkt::message::Message for ListInterconnectsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInterconnectsResponse {
+
     /// The list of Interconnect
     pub interconnects: std::vec::Vec<crate::model::Interconnect>,
 
@@ -4625,7 +4525,7 @@ impl ListInterconnectsResponse {
     pub fn set_interconnects<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Interconnect>,
+        V: std::convert::Into<crate::model::Interconnect>
     {
         use std::iter::Iterator;
         self.interconnects = v.into_iter().map(|i| i.into()).collect();
@@ -4654,7 +4554,7 @@ impl ListInterconnectsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -4686,6 +4586,7 @@ impl gax::paginator::internal::PageableResponse for ListInterconnectsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetInterconnectRequest {
+
     /// Required. Name of the resource
     pub name: std::string::String,
 
@@ -4720,6 +4621,7 @@ impl wkt::message::Message for GetInterconnectRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInterconnectAttachmentsRequest {
+
     /// Required. Parent value for ListInterconnectAttachmentsRequest
     pub parent: std::string::String,
 
@@ -4815,6 +4717,7 @@ impl wkt::message::Message for ListInterconnectAttachmentsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInterconnectAttachmentsResponse {
+
     /// The list of InterconnectAttachment
     pub interconnect_attachments: std::vec::Vec<crate::model::InterconnectAttachment>,
 
@@ -4847,7 +4750,7 @@ impl ListInterconnectAttachmentsResponse {
     pub fn set_interconnect_attachments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::InterconnectAttachment>,
+        V: std::convert::Into<crate::model::InterconnectAttachment>
     {
         use std::iter::Iterator;
         self.interconnect_attachments = v.into_iter().map(|i| i.into()).collect();
@@ -4876,7 +4779,7 @@ impl ListInterconnectAttachmentsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -4908,6 +4811,7 @@ impl gax::paginator::internal::PageableResponse for ListInterconnectAttachmentsR
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetInterconnectAttachmentRequest {
+
     /// Required. Name of the resource
     pub name: std::string::String,
 
@@ -4942,6 +4846,7 @@ impl wkt::message::Message for GetInterconnectAttachmentRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateInterconnectAttachmentRequest {
+
     /// Required. Value for parent.
     pub parent: std::string::String,
 
@@ -4995,10 +4900,7 @@ impl CreateInterconnectAttachmentRequest {
     /// # use google_cloud_edgenetwork_v1::model::CreateInterconnectAttachmentRequest;
     /// let x = CreateInterconnectAttachmentRequest::new().set_interconnect_attachment_id("example");
     /// ```
-    pub fn set_interconnect_attachment_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_interconnect_attachment_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.interconnect_attachment_id = v.into();
         self
     }
@@ -5012,8 +4914,7 @@ impl CreateInterconnectAttachmentRequest {
     /// let x = CreateInterconnectAttachmentRequest::new().set_interconnect_attachment(InterconnectAttachment::default()/* use setters */);
     /// ```
     pub fn set_interconnect_attachment<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::InterconnectAttachment>,
+    where T: std::convert::Into<crate::model::InterconnectAttachment>
     {
         self.interconnect_attachment = std::option::Option::Some(v.into());
         self
@@ -5029,8 +4930,7 @@ impl CreateInterconnectAttachmentRequest {
     /// let x = CreateInterconnectAttachmentRequest::new().set_or_clear_interconnect_attachment(None::<InterconnectAttachment>);
     /// ```
     pub fn set_or_clear_interconnect_attachment<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::InterconnectAttachment>,
+    where T: std::convert::Into<crate::model::InterconnectAttachment>
     {
         self.interconnect_attachment = v.map(|x| x.into());
         self
@@ -5059,6 +4959,7 @@ impl wkt::message::Message for CreateInterconnectAttachmentRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteInterconnectAttachmentRequest {
+
     /// Required. Name of the resource
     pub name: std::string::String,
 
@@ -5120,6 +5021,7 @@ impl wkt::message::Message for DeleteInterconnectAttachmentRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRoutersRequest {
+
     /// Required. Parent value for ListRoutersRequest
     pub parent: std::string::String,
 
@@ -5215,6 +5117,7 @@ impl wkt::message::Message for ListRoutersRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRoutersResponse {
+
     /// The list of Router
     pub routers: std::vec::Vec<crate::model::Router>,
 
@@ -5247,7 +5150,7 @@ impl ListRoutersResponse {
     pub fn set_routers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Router>,
+        V: std::convert::Into<crate::model::Router>
     {
         use std::iter::Iterator;
         self.routers = v.into_iter().map(|i| i.into()).collect();
@@ -5276,7 +5179,7 @@ impl ListRoutersResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -5308,6 +5211,7 @@ impl gax::paginator::internal::PageableResponse for ListRoutersResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetRouterRequest {
+
     /// Required. Name of the resource
     pub name: std::string::String,
 
@@ -5342,6 +5246,7 @@ impl wkt::message::Message for GetRouterRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateRouterRequest {
+
     /// Required. Value for parent.
     pub parent: std::string::String,
 
@@ -5409,8 +5314,7 @@ impl CreateRouterRequest {
     /// let x = CreateRouterRequest::new().set_router(Router::default()/* use setters */);
     /// ```
     pub fn set_router<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Router>,
+    where T: std::convert::Into<crate::model::Router>
     {
         self.router = std::option::Option::Some(v.into());
         self
@@ -5426,8 +5330,7 @@ impl CreateRouterRequest {
     /// let x = CreateRouterRequest::new().set_or_clear_router(None::<Router>);
     /// ```
     pub fn set_or_clear_router<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Router>,
+    where T: std::convert::Into<crate::model::Router>
     {
         self.router = v.map(|x| x.into());
         self
@@ -5456,6 +5359,7 @@ impl wkt::message::Message for CreateRouterRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateRouterRequest {
+
     /// Required. Field mask is used to specify the fields to be overwritten in the
     /// Router resource by the update.
     /// The fields specified in the update_mask are relative to the resource, not
@@ -5498,8 +5402,7 @@ impl UpdateRouterRequest {
     /// let x = UpdateRouterRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -5515,8 +5418,7 @@ impl UpdateRouterRequest {
     /// let x = UpdateRouterRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -5531,8 +5433,7 @@ impl UpdateRouterRequest {
     /// let x = UpdateRouterRequest::new().set_router(Router::default()/* use setters */);
     /// ```
     pub fn set_router<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Router>,
+    where T: std::convert::Into<crate::model::Router>
     {
         self.router = std::option::Option::Some(v.into());
         self
@@ -5548,8 +5449,7 @@ impl UpdateRouterRequest {
     /// let x = UpdateRouterRequest::new().set_or_clear_router(None::<Router>);
     /// ```
     pub fn set_or_clear_router<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Router>,
+    where T: std::convert::Into<crate::model::Router>
     {
         self.router = v.map(|x| x.into());
         self
@@ -5578,6 +5478,7 @@ impl wkt::message::Message for UpdateRouterRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteRouterRequest {
+
     /// Required. Name of the resource
     pub name: std::string::String,
 
@@ -5639,6 +5540,7 @@ impl wkt::message::Message for DeleteRouterRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
+
     /// Output only. The time the operation was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
@@ -5683,8 +5585,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -5700,8 +5601,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -5716,8 +5616,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -5733,8 +5632,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -5811,6 +5709,7 @@ impl wkt::message::Message for OperationMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DiagnoseNetworkRequest {
+
     /// Required. The name of the network resource.
     pub name: std::string::String,
 
@@ -5845,6 +5744,7 @@ impl wkt::message::Message for DiagnoseNetworkRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DiagnoseNetworkResponse {
+
     /// The time when the network status was last updated.
     pub update_time: std::option::Option<wkt::Timestamp>,
 
@@ -5868,8 +5768,7 @@ impl DiagnoseNetworkResponse {
     /// let x = DiagnoseNetworkResponse::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -5885,8 +5784,7 @@ impl DiagnoseNetworkResponse {
     /// let x = DiagnoseNetworkResponse::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -5901,8 +5799,7 @@ impl DiagnoseNetworkResponse {
     /// let x = DiagnoseNetworkResponse::new().set_result(NetworkStatus::default()/* use setters */);
     /// ```
     pub fn set_result<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::diagnose_network_response::NetworkStatus>,
+    where T: std::convert::Into<crate::model::diagnose_network_response::NetworkStatus>
     {
         self.result = std::option::Option::Some(v.into());
         self
@@ -5918,8 +5815,7 @@ impl DiagnoseNetworkResponse {
     /// let x = DiagnoseNetworkResponse::new().set_or_clear_result(None::<NetworkStatus>);
     /// ```
     pub fn set_or_clear_result<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::diagnose_network_response::NetworkStatus>,
+    where T: std::convert::Into<crate::model::diagnose_network_response::NetworkStatus>
     {
         self.result = v.map(|x| x.into());
         self
@@ -5937,17 +5833,18 @@ pub mod diagnose_network_response {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// NetworkStatus has a list of status for the subnets under the current
     /// network.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct NetworkStatus {
+
         /// A list of status for the subnets under the current network.
         pub subnet_status: std::vec::Vec<crate::model::SubnetStatus>,
 
         /// The MACsec status of internal links.
-        pub macsec_status_internal_links:
-            crate::model::diagnose_network_response::network_status::MacsecStatus,
+        pub macsec_status_internal_links: crate::model::diagnose_network_response::network_status::MacsecStatus,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -5972,7 +5869,7 @@ pub mod diagnose_network_response {
         pub fn set_subnet_status<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::SubnetStatus>,
+            V: std::convert::Into<crate::model::SubnetStatus>
         {
             use std::iter::Iterator;
             self.subnet_status = v.into_iter().map(|i| i.into()).collect();
@@ -5988,14 +5885,7 @@ pub mod diagnose_network_response {
         /// let x0 = NetworkStatus::new().set_macsec_status_internal_links(MacsecStatus::Secure);
         /// let x1 = NetworkStatus::new().set_macsec_status_internal_links(MacsecStatus::Unsecure);
         /// ```
-        pub fn set_macsec_status_internal_links<
-            T: std::convert::Into<
-                    crate::model::diagnose_network_response::network_status::MacsecStatus,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_macsec_status_internal_links<T: std::convert::Into<crate::model::diagnose_network_response::network_status::MacsecStatus>>(mut self, v: T) -> Self {
             self.macsec_status_internal_links = v.into();
             self
         }
@@ -6011,6 +5901,7 @@ pub mod diagnose_network_response {
     pub mod network_status {
         #[allow(unused_imports)]
         use super::*;
+
 
         /// Denotes the status of MACsec sessions for the links of a zone.
         ///
@@ -6087,10 +5978,7 @@ pub mod diagnose_network_response {
         }
 
         impl std::fmt::Display for MacsecStatus {
-            fn fmt(
-                &self,
-                f: &mut std::fmt::Formatter<'_>,
-            ) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -6101,9 +5989,7 @@ pub mod diagnose_network_response {
                     0 => Self::Unspecified,
                     1 => Self::Secure,
                     2 => Self::Unsecure,
-                    _ => Self::UnknownValue(macsec_status::UnknownValue(
-                        wkt::internal::UnknownEnumValue::Integer(value),
-                    )),
+                    _ => Self::UnknownValue(macsec_status::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
                 }
             }
         }
@@ -6115,9 +6001,7 @@ pub mod diagnose_network_response {
                     "MACSEC_STATUS_UNSPECIFIED" => Self::Unspecified,
                     "SECURE" => Self::Secure,
                     "UNSECURE" => Self::Unsecure,
-                    _ => Self::UnknownValue(macsec_status::UnknownValue(
-                        wkt::internal::UnknownEnumValue::String(value.to_string()),
-                    )),
+                    _ => Self::UnknownValue(macsec_status::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
                 }
             }
         }
@@ -6153,6 +6037,7 @@ pub mod diagnose_network_response {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DiagnoseInterconnectRequest {
+
     /// Required. The name of the interconnect resource.
     pub name: std::string::String,
 
@@ -6188,6 +6073,7 @@ impl wkt::message::Message for DiagnoseInterconnectRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DiagnoseInterconnectResponse {
+
     /// The time when the interconnect diagnostics was last updated.
     pub update_time: std::option::Option<wkt::Timestamp>,
 
@@ -6211,8 +6097,7 @@ impl DiagnoseInterconnectResponse {
     /// let x = DiagnoseInterconnectResponse::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -6228,8 +6113,7 @@ impl DiagnoseInterconnectResponse {
     /// let x = DiagnoseInterconnectResponse::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -6244,8 +6128,7 @@ impl DiagnoseInterconnectResponse {
     /// let x = DiagnoseInterconnectResponse::new().set_result(InterconnectDiagnostics::default()/* use setters */);
     /// ```
     pub fn set_result<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::InterconnectDiagnostics>,
+    where T: std::convert::Into<crate::model::InterconnectDiagnostics>
     {
         self.result = std::option::Option::Some(v.into());
         self
@@ -6261,8 +6144,7 @@ impl DiagnoseInterconnectResponse {
     /// let x = DiagnoseInterconnectResponse::new().set_or_clear_result(None::<InterconnectDiagnostics>);
     /// ```
     pub fn set_or_clear_result<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::InterconnectDiagnostics>,
+    where T: std::convert::Into<crate::model::InterconnectDiagnostics>
     {
         self.result = v.map(|x| x.into());
         self
@@ -6279,6 +6161,7 @@ impl wkt::message::Message for DiagnoseInterconnectResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DiagnoseRouterRequest {
+
     /// Required. The name of the router resource.
     pub name: std::string::String,
 
@@ -6313,6 +6196,7 @@ impl wkt::message::Message for DiagnoseRouterRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DiagnoseRouterResponse {
+
     /// The time when the router status was last updated.
     pub update_time: std::option::Option<wkt::Timestamp>,
 
@@ -6336,8 +6220,7 @@ impl DiagnoseRouterResponse {
     /// let x = DiagnoseRouterResponse::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -6353,8 +6236,7 @@ impl DiagnoseRouterResponse {
     /// let x = DiagnoseRouterResponse::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -6369,8 +6251,7 @@ impl DiagnoseRouterResponse {
     /// let x = DiagnoseRouterResponse::new().set_result(RouterStatus::default()/* use setters */);
     /// ```
     pub fn set_result<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RouterStatus>,
+    where T: std::convert::Into<crate::model::RouterStatus>
     {
         self.result = std::option::Option::Some(v.into());
         self
@@ -6386,8 +6267,7 @@ impl DiagnoseRouterResponse {
     /// let x = DiagnoseRouterResponse::new().set_or_clear_result(None::<RouterStatus>);
     /// ```
     pub fn set_or_clear_result<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RouterStatus>,
+    where T: std::convert::Into<crate::model::RouterStatus>
     {
         self.result = v.map(|x| x.into());
         self
@@ -6404,6 +6284,7 @@ impl wkt::message::Message for DiagnoseRouterResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InitializeZoneRequest {
+
     /// Required. The name of the zone resource.
     pub name: std::string::String,
 
@@ -6438,6 +6319,7 @@ impl wkt::message::Message for InitializeZoneRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InitializeZoneResponse {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -6558,9 +6440,7 @@ impl std::convert::From<i32> for ResourceState {
             3 => Self::StateRunning,
             4 => Self::StateSuspended,
             5 => Self::StateDeleting,
-            _ => Self::UnknownValue(resource_state::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(resource_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -6575,9 +6455,7 @@ impl std::convert::From<&str> for ResourceState {
             "STATE_RUNNING" => Self::StateRunning,
             "STATE_SUSPENDED" => Self::StateSuspended,
             "STATE_DELETING" => Self::StateDeleting,
-            _ => Self::UnknownValue(resource_state::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(resource_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -6605,8 +6483,7 @@ impl<'de> serde::de::Deserialize<'de> for ResourceState {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<ResourceState>::new(
-            ".google.cloud.edgenetwork.v1.ResourceState",
-        ))
+            ".google.cloud.edgenetwork.v1.ResourceState"))
     }
 }
 
@@ -6670,15 +6547,9 @@ impl RemotePeeringNetworkType {
     /// the integer representation of enums.
     pub fn name(&self) -> std::option::Option<&str> {
         match self {
-            Self::Unspecified => {
-                std::option::Option::Some("REMOTE_PEERING_NETWORK_TYPE_UNSPECIFIED")
-            }
-            Self::CustomerInternal => {
-                std::option::Option::Some("REMOTE_PEERING_NETWORK_TYPE_CUSTOMER_INTERNAL")
-            }
-            Self::CustomerInternet => {
-                std::option::Option::Some("REMOTE_PEERING_NETWORK_TYPE_CUSTOMER_INTERNET")
-            }
+            Self::Unspecified => std::option::Option::Some("REMOTE_PEERING_NETWORK_TYPE_UNSPECIFIED"),
+            Self::CustomerInternal => std::option::Option::Some("REMOTE_PEERING_NETWORK_TYPE_CUSTOMER_INTERNAL"),
+            Self::CustomerInternet => std::option::Option::Some("REMOTE_PEERING_NETWORK_TYPE_CUSTOMER_INTERNET"),
             Self::UnknownValue(u) => u.0.name(),
         }
     }
@@ -6703,9 +6574,7 @@ impl std::convert::From<i32> for RemotePeeringNetworkType {
             0 => Self::Unspecified,
             1 => Self::CustomerInternal,
             2 => Self::CustomerInternet,
-            _ => Self::UnknownValue(remote_peering_network_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(remote_peering_network_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -6717,9 +6586,7 @@ impl std::convert::From<&str> for RemotePeeringNetworkType {
             "REMOTE_PEERING_NETWORK_TYPE_UNSPECIFIED" => Self::Unspecified,
             "REMOTE_PEERING_NETWORK_TYPE_CUSTOMER_INTERNAL" => Self::CustomerInternal,
             "REMOTE_PEERING_NETWORK_TYPE_CUSTOMER_INTERNET" => Self::CustomerInternet,
-            _ => Self::UnknownValue(remote_peering_network_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(remote_peering_network_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -6744,7 +6611,6 @@ impl<'de> serde::de::Deserialize<'de> for RemotePeeringNetworkType {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<RemotePeeringNetworkType>::new(
-            ".google.cloud.edgenetwork.v1.RemotePeeringNetworkType",
-        ))
+            ".google.cloud.edgenetwork.v1.RemotePeeringNetworkType"))
     }
 }

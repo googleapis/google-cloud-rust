@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [Maintenance](super::stub::Maintenance) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct Maintenance<T>
-where
-    T: super::stub::Maintenance + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Maintenance + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> Maintenance<T>
-where
-    T: super::stub::Maintenance + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Maintenance + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::Maintenance for Maintenance<T>
-where
-    T: super::stub::Maintenance + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Maintenance + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn summarize_maintenances(
         &self,
@@ -81,4 +75,6 @@ where
     ) -> Result<gax::response::Response<location::model::Location>> {
         self.inner.get_location(req, options).await
     }
+
 }
+

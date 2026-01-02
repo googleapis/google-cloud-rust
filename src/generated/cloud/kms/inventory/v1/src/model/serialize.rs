@@ -23,9 +23,9 @@ impl serde::ser::Serialize for super::ListCryptoKeysRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -60,9 +60,9 @@ impl serde::ser::Serialize for super::ListCryptoKeysResponse {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.crypto_keys.is_empty() {
             state.serialize_entry("cryptoKeys", &self.crypto_keys)?;
@@ -85,9 +85,9 @@ impl serde::ser::Serialize for super::GetProtectedResourcesSummaryRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -107,9 +107,9 @@ impl serde::ser::Serialize for super::ProtectedResourcesSummary {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -139,7 +139,7 @@ impl serde::ser::Serialize for super::ProtectedResourcesSummary {
             state.serialize_entry("projectCount", &__With(&self.project_count))?;
         }
         if !self.resource_types.is_empty() {
-            struct __With<'a>(&'a std::collections::HashMap<std::string::String, i64>);
+            struct __With<'a>(&'a std::collections::HashMap<std::string::String,i64>);
             impl<'a> serde::ser::Serialize for __With<'a> {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
@@ -151,7 +151,7 @@ impl serde::ser::Serialize for super::ProtectedResourcesSummary {
             state.serialize_entry("resourceTypes", &__With(&self.resource_types))?;
         }
         if !self.cloud_products.is_empty() {
-            struct __With<'a>(&'a std::collections::HashMap<std::string::String, i64>);
+            struct __With<'a>(&'a std::collections::HashMap<std::string::String,i64>);
             impl<'a> serde::ser::Serialize for __With<'a> {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
@@ -163,7 +163,7 @@ impl serde::ser::Serialize for super::ProtectedResourcesSummary {
             state.serialize_entry("cloudProducts", &__With(&self.cloud_products))?;
         }
         if !self.locations.is_empty() {
-            struct __With<'a>(&'a std::collections::HashMap<std::string::String, i64>);
+            struct __With<'a>(&'a std::collections::HashMap<std::string::String,i64>);
             impl<'a> serde::ser::Serialize for __With<'a> {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
@@ -189,9 +189,9 @@ impl serde::ser::Serialize for super::SearchProtectedResourcesRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.scope.is_empty() {
             state.serialize_entry("scope", &self.scope)?;
@@ -232,9 +232,9 @@ impl serde::ser::Serialize for super::SearchProtectedResourcesResponse {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.protected_resources.is_empty() {
             state.serialize_entry("protectedResources", &self.protected_resources)?;
@@ -257,9 +257,9 @@ impl serde::ser::Serialize for super::ProtectedResource {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;

@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -31,7 +32,6 @@ extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -43,6 +43,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListMigrationJobsRequest {
+
     /// Required. The parent which owns this collection of migrationJobs.
     pub parent: std::string::String,
 
@@ -153,6 +154,7 @@ impl wkt::message::Message for ListMigrationJobsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListMigrationJobsResponse {
+
     /// The list of migration jobs objects.
     pub migration_jobs: std::vec::Vec<crate::model::MigrationJob>,
 
@@ -186,7 +188,7 @@ impl ListMigrationJobsResponse {
     pub fn set_migration_jobs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::MigrationJob>,
+        V: std::convert::Into<crate::model::MigrationJob>
     {
         use std::iter::Iterator;
         self.migration_jobs = v.into_iter().map(|i| i.into()).collect();
@@ -215,7 +217,7 @@ impl ListMigrationJobsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -247,6 +249,7 @@ impl gax::paginator::internal::PageableResponse for ListMigrationJobsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetMigrationJobRequest {
+
     /// Required. Name of the migration job resource to get.
     pub name: std::string::String,
 
@@ -282,6 +285,7 @@ impl wkt::message::Message for GetMigrationJobRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateMigrationJobRequest {
+
     /// Required. The parent which owns this collection of migration jobs.
     pub parent: std::string::String,
 
@@ -329,10 +333,7 @@ impl CreateMigrationJobRequest {
     /// # use google_cloud_clouddms_v1::model::CreateMigrationJobRequest;
     /// let x = CreateMigrationJobRequest::new().set_migration_job_id("example");
     /// ```
-    pub fn set_migration_job_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_migration_job_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.migration_job_id = v.into();
         self
     }
@@ -346,8 +347,7 @@ impl CreateMigrationJobRequest {
     /// let x = CreateMigrationJobRequest::new().set_migration_job(MigrationJob::default()/* use setters */);
     /// ```
     pub fn set_migration_job<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::MigrationJob>,
+    where T: std::convert::Into<crate::model::MigrationJob>
     {
         self.migration_job = std::option::Option::Some(v.into());
         self
@@ -363,8 +363,7 @@ impl CreateMigrationJobRequest {
     /// let x = CreateMigrationJobRequest::new().set_or_clear_migration_job(None::<MigrationJob>);
     /// ```
     pub fn set_or_clear_migration_job<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::MigrationJob>,
+    where T: std::convert::Into<crate::model::MigrationJob>
     {
         self.migration_job = v.map(|x| x.into());
         self
@@ -393,6 +392,7 @@ impl wkt::message::Message for CreateMigrationJobRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateMigrationJobRequest {
+
     /// Required. Field mask is used to specify the fields to be overwritten by the
     /// update in the conversion workspace resource.
     pub update_mask: std::option::Option<wkt::FieldMask>,
@@ -426,8 +426,7 @@ impl UpdateMigrationJobRequest {
     /// let x = UpdateMigrationJobRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -443,8 +442,7 @@ impl UpdateMigrationJobRequest {
     /// let x = UpdateMigrationJobRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -459,8 +457,7 @@ impl UpdateMigrationJobRequest {
     /// let x = UpdateMigrationJobRequest::new().set_migration_job(MigrationJob::default()/* use setters */);
     /// ```
     pub fn set_migration_job<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::MigrationJob>,
+    where T: std::convert::Into<crate::model::MigrationJob>
     {
         self.migration_job = std::option::Option::Some(v.into());
         self
@@ -476,8 +473,7 @@ impl UpdateMigrationJobRequest {
     /// let x = UpdateMigrationJobRequest::new().set_or_clear_migration_job(None::<MigrationJob>);
     /// ```
     pub fn set_or_clear_migration_job<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::MigrationJob>,
+    where T: std::convert::Into<crate::model::MigrationJob>
     {
         self.migration_job = v.map(|x| x.into());
         self
@@ -506,6 +502,7 @@ impl wkt::message::Message for UpdateMigrationJobRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteMigrationJobRequest {
+
     /// Required. Name of the migration job resource to delete.
     pub name: std::string::String,
 
@@ -578,6 +575,7 @@ impl wkt::message::Message for DeleteMigrationJobRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StartMigrationJobRequest {
+
     /// Name of the migration job resource to start.
     pub name: std::string::String,
 
@@ -628,6 +626,7 @@ impl wkt::message::Message for StartMigrationJobRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StopMigrationJobRequest {
+
     /// Name of the migration job resource to stop.
     pub name: std::string::String,
 
@@ -662,6 +661,7 @@ impl wkt::message::Message for StopMigrationJobRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResumeMigrationJobRequest {
+
     /// Name of the migration job resource to resume.
     pub name: std::string::String,
 
@@ -696,6 +696,7 @@ impl wkt::message::Message for ResumeMigrationJobRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PromoteMigrationJobRequest {
+
     /// Name of the migration job resource to promote.
     pub name: std::string::String,
 
@@ -730,6 +731,7 @@ impl wkt::message::Message for PromoteMigrationJobRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VerifyMigrationJobRequest {
+
     /// Name of the migration job resource to verify.
     pub name: std::string::String,
 
@@ -770,8 +772,7 @@ impl VerifyMigrationJobRequest {
     /// let x = VerifyMigrationJobRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -787,8 +788,7 @@ impl VerifyMigrationJobRequest {
     /// let x = VerifyMigrationJobRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -803,8 +803,7 @@ impl VerifyMigrationJobRequest {
     /// let x = VerifyMigrationJobRequest::new().set_migration_job(MigrationJob::default()/* use setters */);
     /// ```
     pub fn set_migration_job<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::MigrationJob>,
+    where T: std::convert::Into<crate::model::MigrationJob>
     {
         self.migration_job = std::option::Option::Some(v.into());
         self
@@ -820,8 +819,7 @@ impl VerifyMigrationJobRequest {
     /// let x = VerifyMigrationJobRequest::new().set_or_clear_migration_job(None::<MigrationJob>);
     /// ```
     pub fn set_or_clear_migration_job<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::MigrationJob>,
+    where T: std::convert::Into<crate::model::MigrationJob>
     {
         self.migration_job = v.map(|x| x.into());
         self
@@ -838,6 +836,7 @@ impl wkt::message::Message for VerifyMigrationJobRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RestartMigrationJobRequest {
+
     /// Name of the migration job resource to restart.
     pub name: std::string::String,
 
@@ -888,6 +887,7 @@ impl wkt::message::Message for RestartMigrationJobRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateSshScriptRequest {
+
     /// Name of the migration job resource to generate the SSH script.
     pub migration_job: std::string::String,
 
@@ -956,14 +956,8 @@ impl GenerateSshScriptRequest {
     /// let x = GenerateSshScriptRequest::new().set_vm_config(Some(
     ///     google_cloud_clouddms_v1::model::generate_ssh_script_request::VmConfig::VmCreationConfig(VmCreationConfig::default().into())));
     /// ```
-    pub fn set_vm_config<
-        T: std::convert::Into<
-                std::option::Option<crate::model::generate_ssh_script_request::VmConfig>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_vm_config<T: std::convert::Into<std::option::Option<crate::model::generate_ssh_script_request::VmConfig>>>(mut self, v: T) -> Self
+    {
         self.vm_config = v.into();
         self
     }
@@ -971,14 +965,10 @@ impl GenerateSshScriptRequest {
     /// The value of [vm_config][crate::model::GenerateSshScriptRequest::vm_config]
     /// if it holds a `VmCreationConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn vm_creation_config(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::VmCreationConfig>> {
+    pub fn vm_creation_config(&self) -> std::option::Option<&std::boxed::Box<crate::model::VmCreationConfig>> {
         #[allow(unreachable_patterns)]
         self.vm_config.as_ref().and_then(|v| match v {
-            crate::model::generate_ssh_script_request::VmConfig::VmCreationConfig(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::generate_ssh_script_request::VmConfig::VmCreationConfig(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -997,14 +987,11 @@ impl GenerateSshScriptRequest {
     /// assert!(x.vm_creation_config().is_some());
     /// assert!(x.vm_selection_config().is_none());
     /// ```
-    pub fn set_vm_creation_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::VmCreationConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_vm_creation_config<T: std::convert::Into<std::boxed::Box<crate::model::VmCreationConfig>>>(mut self, v: T) -> Self {
         self.vm_config = std::option::Option::Some(
-            crate::model::generate_ssh_script_request::VmConfig::VmCreationConfig(v.into()),
+            crate::model::generate_ssh_script_request::VmConfig::VmCreationConfig(
+                v.into()
+            )
         );
         self
     }
@@ -1012,14 +999,10 @@ impl GenerateSshScriptRequest {
     /// The value of [vm_config][crate::model::GenerateSshScriptRequest::vm_config]
     /// if it holds a `VmSelectionConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn vm_selection_config(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::VmSelectionConfig>> {
+    pub fn vm_selection_config(&self) -> std::option::Option<&std::boxed::Box<crate::model::VmSelectionConfig>> {
         #[allow(unreachable_patterns)]
         self.vm_config.as_ref().and_then(|v| match v {
-            crate::model::generate_ssh_script_request::VmConfig::VmSelectionConfig(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::generate_ssh_script_request::VmConfig::VmSelectionConfig(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -1038,14 +1021,11 @@ impl GenerateSshScriptRequest {
     /// assert!(x.vm_selection_config().is_some());
     /// assert!(x.vm_creation_config().is_none());
     /// ```
-    pub fn set_vm_selection_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::VmSelectionConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_vm_selection_config<T: std::convert::Into<std::boxed::Box<crate::model::VmSelectionConfig>>>(mut self, v: T) -> Self {
         self.vm_config = std::option::Option::Some(
-            crate::model::generate_ssh_script_request::VmConfig::VmSelectionConfig(v.into()),
+            crate::model::generate_ssh_script_request::VmConfig::VmSelectionConfig(
+                v.into()
+            )
         );
         self
     }
@@ -1062,6 +1042,7 @@ pub mod generate_ssh_script_request {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// The VM configuration
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -1077,6 +1058,7 @@ pub mod generate_ssh_script_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VmCreationConfig {
+
     /// Required. VM instance machine type to create.
     pub vm_machine_type: std::string::String,
 
@@ -1141,6 +1123,7 @@ impl wkt::message::Message for VmCreationConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VmSelectionConfig {
+
     /// Required. The Google Cloud Platform zone the VM is located.
     pub vm_zone: std::string::String,
 
@@ -1175,6 +1158,7 @@ impl wkt::message::Message for VmSelectionConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SshScript {
+
     /// The ssh configuration script.
     pub script: std::string::String,
 
@@ -1209,6 +1193,7 @@ impl wkt::message::Message for SshScript {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateTcpProxyScriptRequest {
+
     /// Name of the migration job resource to generate the TCP Proxy script.
     pub migration_job: std::string::String,
 
@@ -1309,6 +1294,7 @@ impl wkt::message::Message for GenerateTcpProxyScriptRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TcpProxyScript {
+
     /// The TCP Proxy configuration script.
     pub script: std::string::String,
 
@@ -1343,6 +1329,7 @@ impl wkt::message::Message for TcpProxyScript {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListConnectionProfilesRequest {
+
     /// Required. The parent which owns this collection of connection profiles.
     pub parent: std::string::String,
 
@@ -1452,6 +1439,7 @@ impl wkt::message::Message for ListConnectionProfilesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListConnectionProfilesResponse {
+
     /// The response list of connection profiles.
     pub connection_profiles: std::vec::Vec<crate::model::ConnectionProfile>,
 
@@ -1485,7 +1473,7 @@ impl ListConnectionProfilesResponse {
     pub fn set_connection_profiles<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ConnectionProfile>,
+        V: std::convert::Into<crate::model::ConnectionProfile>
     {
         use std::iter::Iterator;
         self.connection_profiles = v.into_iter().map(|i| i.into()).collect();
@@ -1514,7 +1502,7 @@ impl ListConnectionProfilesResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -1546,6 +1534,7 @@ impl gax::paginator::internal::PageableResponse for ListConnectionProfilesRespon
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetConnectionProfileRequest {
+
     /// Required. Name of the connection profile resource to get.
     pub name: std::string::String,
 
@@ -1580,6 +1569,7 @@ impl wkt::message::Message for GetConnectionProfileRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateConnectionProfileRequest {
+
     /// Required. The parent which owns this collection of connection profiles.
     pub parent: std::string::String,
 
@@ -1635,10 +1625,7 @@ impl CreateConnectionProfileRequest {
     /// # use google_cloud_clouddms_v1::model::CreateConnectionProfileRequest;
     /// let x = CreateConnectionProfileRequest::new().set_connection_profile_id("example");
     /// ```
-    pub fn set_connection_profile_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_connection_profile_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.connection_profile_id = v.into();
         self
     }
@@ -1652,8 +1639,7 @@ impl CreateConnectionProfileRequest {
     /// let x = CreateConnectionProfileRequest::new().set_connection_profile(ConnectionProfile::default()/* use setters */);
     /// ```
     pub fn set_connection_profile<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ConnectionProfile>,
+    where T: std::convert::Into<crate::model::ConnectionProfile>
     {
         self.connection_profile = std::option::Option::Some(v.into());
         self
@@ -1669,8 +1655,7 @@ impl CreateConnectionProfileRequest {
     /// let x = CreateConnectionProfileRequest::new().set_or_clear_connection_profile(None::<ConnectionProfile>);
     /// ```
     pub fn set_or_clear_connection_profile<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ConnectionProfile>,
+    where T: std::convert::Into<crate::model::ConnectionProfile>
     {
         self.connection_profile = v.map(|x| x.into());
         self
@@ -1723,6 +1708,7 @@ impl wkt::message::Message for CreateConnectionProfileRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateConnectionProfileRequest {
+
     /// Required. Field mask is used to specify the fields to be overwritten by the
     /// update in the conversion workspace resource.
     pub update_mask: std::option::Option<wkt::FieldMask>,
@@ -1766,8 +1752,7 @@ impl UpdateConnectionProfileRequest {
     /// let x = UpdateConnectionProfileRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -1783,8 +1768,7 @@ impl UpdateConnectionProfileRequest {
     /// let x = UpdateConnectionProfileRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -1799,8 +1783,7 @@ impl UpdateConnectionProfileRequest {
     /// let x = UpdateConnectionProfileRequest::new().set_connection_profile(ConnectionProfile::default()/* use setters */);
     /// ```
     pub fn set_connection_profile<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ConnectionProfile>,
+    where T: std::convert::Into<crate::model::ConnectionProfile>
     {
         self.connection_profile = std::option::Option::Some(v.into());
         self
@@ -1816,8 +1799,7 @@ impl UpdateConnectionProfileRequest {
     /// let x = UpdateConnectionProfileRequest::new().set_or_clear_connection_profile(None::<ConnectionProfile>);
     /// ```
     pub fn set_or_clear_connection_profile<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ConnectionProfile>,
+    where T: std::convert::Into<crate::model::ConnectionProfile>
     {
         self.connection_profile = v.map(|x| x.into());
         self
@@ -1870,6 +1852,7 @@ impl wkt::message::Message for UpdateConnectionProfileRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteConnectionProfileRequest {
+
     /// Required. Name of the connection profile resource to delete.
     pub name: std::string::String,
 
@@ -1942,6 +1925,7 @@ impl wkt::message::Message for DeleteConnectionProfileRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreatePrivateConnectionRequest {
+
     /// Required. The parent that owns the collection of PrivateConnections.
     pub parent: std::string::String,
 
@@ -1990,10 +1974,7 @@ impl CreatePrivateConnectionRequest {
     /// # use google_cloud_clouddms_v1::model::CreatePrivateConnectionRequest;
     /// let x = CreatePrivateConnectionRequest::new().set_private_connection_id("example");
     /// ```
-    pub fn set_private_connection_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_private_connection_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.private_connection_id = v.into();
         self
     }
@@ -2007,8 +1988,7 @@ impl CreatePrivateConnectionRequest {
     /// let x = CreatePrivateConnectionRequest::new().set_private_connection(PrivateConnection::default()/* use setters */);
     /// ```
     pub fn set_private_connection<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::PrivateConnection>,
+    where T: std::convert::Into<crate::model::PrivateConnection>
     {
         self.private_connection = std::option::Option::Some(v.into());
         self
@@ -2024,8 +2004,7 @@ impl CreatePrivateConnectionRequest {
     /// let x = CreatePrivateConnectionRequest::new().set_or_clear_private_connection(None::<PrivateConnection>);
     /// ```
     pub fn set_or_clear_private_connection<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::PrivateConnection>,
+    where T: std::convert::Into<crate::model::PrivateConnection>
     {
         self.private_connection = v.map(|x| x.into());
         self
@@ -2067,6 +2046,7 @@ impl wkt::message::Message for CreatePrivateConnectionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPrivateConnectionsRequest {
+
     /// Required. The parent that owns the collection of private connections.
     pub parent: std::string::String,
 
@@ -2173,6 +2153,7 @@ impl wkt::message::Message for ListPrivateConnectionsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPrivateConnectionsResponse {
+
     /// List of private connections.
     pub private_connections: std::vec::Vec<crate::model::PrivateConnection>,
 
@@ -2206,7 +2187,7 @@ impl ListPrivateConnectionsResponse {
     pub fn set_private_connections<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::PrivateConnection>,
+        V: std::convert::Into<crate::model::PrivateConnection>
     {
         use std::iter::Iterator;
         self.private_connections = v.into_iter().map(|i| i.into()).collect();
@@ -2235,7 +2216,7 @@ impl ListPrivateConnectionsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -2267,6 +2248,7 @@ impl gax::paginator::internal::PageableResponse for ListPrivateConnectionsRespon
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeletePrivateConnectionRequest {
+
     /// Required. The name of the private connection to delete.
     pub name: std::string::String,
 
@@ -2322,6 +2304,7 @@ impl wkt::message::Message for DeletePrivateConnectionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetPrivateConnectionRequest {
+
     /// Required. The name of the private connection to get.
     pub name: std::string::String,
 
@@ -2356,6 +2339,7 @@ impl wkt::message::Message for GetPrivateConnectionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
+
     /// Output only. The time the operation was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
@@ -2402,8 +2386,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -2419,8 +2402,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -2435,8 +2417,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -2452,8 +2433,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -2530,6 +2510,7 @@ impl wkt::message::Message for OperationMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListConversionWorkspacesRequest {
+
     /// Required. The parent which owns this collection of conversion workspaces.
     pub parent: std::string::String,
 
@@ -2622,6 +2603,7 @@ impl wkt::message::Message for ListConversionWorkspacesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListConversionWorkspacesResponse {
+
     /// The list of conversion workspace objects.
     pub conversion_workspaces: std::vec::Vec<crate::model::ConversionWorkspace>,
 
@@ -2655,7 +2637,7 @@ impl ListConversionWorkspacesResponse {
     pub fn set_conversion_workspaces<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ConversionWorkspace>,
+        V: std::convert::Into<crate::model::ConversionWorkspace>
     {
         use std::iter::Iterator;
         self.conversion_workspaces = v.into_iter().map(|i| i.into()).collect();
@@ -2684,7 +2666,7 @@ impl ListConversionWorkspacesResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -2716,6 +2698,7 @@ impl gax::paginator::internal::PageableResponse for ListConversionWorkspacesResp
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetConversionWorkspaceRequest {
+
     /// Required. Name of the conversion workspace resource to get.
     pub name: std::string::String,
 
@@ -2751,6 +2734,7 @@ impl wkt::message::Message for GetConversionWorkspaceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateConversionWorkspaceRequest {
+
     /// Required. The parent which owns this collection of conversion workspaces.
     pub parent: std::string::String,
 
@@ -2796,10 +2780,7 @@ impl CreateConversionWorkspaceRequest {
     /// # use google_cloud_clouddms_v1::model::CreateConversionWorkspaceRequest;
     /// let x = CreateConversionWorkspaceRequest::new().set_conversion_workspace_id("example");
     /// ```
-    pub fn set_conversion_workspace_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_conversion_workspace_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.conversion_workspace_id = v.into();
         self
     }
@@ -2813,8 +2794,7 @@ impl CreateConversionWorkspaceRequest {
     /// let x = CreateConversionWorkspaceRequest::new().set_conversion_workspace(ConversionWorkspace::default()/* use setters */);
     /// ```
     pub fn set_conversion_workspace<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ConversionWorkspace>,
+    where T: std::convert::Into<crate::model::ConversionWorkspace>
     {
         self.conversion_workspace = std::option::Option::Some(v.into());
         self
@@ -2830,8 +2810,7 @@ impl CreateConversionWorkspaceRequest {
     /// let x = CreateConversionWorkspaceRequest::new().set_or_clear_conversion_workspace(None::<ConversionWorkspace>);
     /// ```
     pub fn set_or_clear_conversion_workspace<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ConversionWorkspace>,
+    where T: std::convert::Into<crate::model::ConversionWorkspace>
     {
         self.conversion_workspace = v.map(|x| x.into());
         self
@@ -2860,6 +2839,7 @@ impl wkt::message::Message for CreateConversionWorkspaceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateConversionWorkspaceRequest {
+
     /// Required. Field mask is used to specify the fields to be overwritten by the
     /// update in the conversion workspace resource.
     pub update_mask: std::option::Option<wkt::FieldMask>,
@@ -2893,8 +2873,7 @@ impl UpdateConversionWorkspaceRequest {
     /// let x = UpdateConversionWorkspaceRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -2910,8 +2889,7 @@ impl UpdateConversionWorkspaceRequest {
     /// let x = UpdateConversionWorkspaceRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -2926,8 +2904,7 @@ impl UpdateConversionWorkspaceRequest {
     /// let x = UpdateConversionWorkspaceRequest::new().set_conversion_workspace(ConversionWorkspace::default()/* use setters */);
     /// ```
     pub fn set_conversion_workspace<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ConversionWorkspace>,
+    where T: std::convert::Into<crate::model::ConversionWorkspace>
     {
         self.conversion_workspace = std::option::Option::Some(v.into());
         self
@@ -2943,8 +2920,7 @@ impl UpdateConversionWorkspaceRequest {
     /// let x = UpdateConversionWorkspaceRequest::new().set_or_clear_conversion_workspace(None::<ConversionWorkspace>);
     /// ```
     pub fn set_or_clear_conversion_workspace<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ConversionWorkspace>,
+    where T: std::convert::Into<crate::model::ConversionWorkspace>
     {
         self.conversion_workspace = v.map(|x| x.into());
         self
@@ -2973,6 +2949,7 @@ impl wkt::message::Message for UpdateConversionWorkspaceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteConversionWorkspaceRequest {
+
     /// Required. Name of the conversion workspace resource to delete.
     pub name: std::string::String,
 
@@ -3044,6 +3021,7 @@ impl wkt::message::Message for DeleteConversionWorkspaceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CommitConversionWorkspaceRequest {
+
     /// Required. Name of the conversion workspace resource to commit.
     pub name: std::string::String,
 
@@ -3093,6 +3071,7 @@ impl wkt::message::Message for CommitConversionWorkspaceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RollbackConversionWorkspaceRequest {
+
     /// Required. Name of the conversion workspace resource to roll back to.
     pub name: std::string::String,
 
@@ -3127,6 +3106,7 @@ impl wkt::message::Message for RollbackConversionWorkspaceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ApplyConversionWorkspaceRequest {
+
     /// Required. The name of the conversion workspace resource for which to apply
     /// the draft tree. Must be in the form of:
     /// projects/{project}/locations/{location}/conversionWorkspaces/{conversion_workspace}.
@@ -3146,8 +3126,7 @@ pub struct ApplyConversionWorkspaceRequest {
     pub auto_commit: bool,
 
     /// Which destination to use when applying the conversion workspace.
-    pub destination:
-        std::option::Option<crate::model::apply_conversion_workspace_request::Destination>,
+    pub destination: std::option::Option<crate::model::apply_conversion_workspace_request::Destination>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -3216,14 +3195,8 @@ impl ApplyConversionWorkspaceRequest {
     /// use google_cloud_clouddms_v1::model::apply_conversion_workspace_request::Destination;
     /// let x = ApplyConversionWorkspaceRequest::new().set_destination(Some(Destination::ConnectionProfile("example".to_string())));
     /// ```
-    pub fn set_destination<
-        T: std::convert::Into<
-                std::option::Option<crate::model::apply_conversion_workspace_request::Destination>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_destination<T: std::convert::Into<std::option::Option<crate::model::apply_conversion_workspace_request::Destination>>>(mut self, v: T) -> Self
+    {
         self.destination = v.into();
         self
     }
@@ -3234,9 +3207,7 @@ impl ApplyConversionWorkspaceRequest {
     pub fn connection_profile(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.destination.as_ref().and_then(|v| match v {
-            crate::model::apply_conversion_workspace_request::Destination::ConnectionProfile(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::apply_conversion_workspace_request::Destination::ConnectionProfile(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -3253,14 +3224,11 @@ impl ApplyConversionWorkspaceRequest {
     /// let x = ApplyConversionWorkspaceRequest::new().set_connection_profile("example");
     /// assert!(x.connection_profile().is_some());
     /// ```
-    pub fn set_connection_profile<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_connection_profile<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.destination = std::option::Option::Some(
             crate::model::apply_conversion_workspace_request::Destination::ConnectionProfile(
-                v.into(),
-            ),
+                v.into()
+            )
         );
         self
     }
@@ -3277,6 +3245,7 @@ pub mod apply_conversion_workspace_request {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Which destination to use when applying the conversion workspace.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -3291,6 +3260,7 @@ pub mod apply_conversion_workspace_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListMappingRulesRequest {
+
     /// Required. Name of the conversion workspace resource whose mapping rules are
     /// listed in the form of:
     /// projects/{project}/locations/{location}/conversionWorkspaces/{conversion_workspace}.
@@ -3362,6 +3332,7 @@ impl wkt::message::Message for ListMappingRulesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListMappingRulesResponse {
+
     /// The list of conversion workspace mapping rules.
     pub mapping_rules: std::vec::Vec<crate::model::MappingRule>,
 
@@ -3392,7 +3363,7 @@ impl ListMappingRulesResponse {
     pub fn set_mapping_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::MappingRule>,
+        V: std::convert::Into<crate::model::MappingRule>
     {
         use std::iter::Iterator;
         self.mapping_rules = v.into_iter().map(|i| i.into()).collect();
@@ -3436,6 +3407,7 @@ impl gax::paginator::internal::PageableResponse for ListMappingRulesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetMappingRuleRequest {
+
     /// Required. Name of the mapping rule resource to get.
     /// Example: conversionWorkspaces/123/mappingRules/rule123
     ///
@@ -3476,6 +3448,7 @@ impl wkt::message::Message for GetMappingRuleRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SeedConversionWorkspaceRequest {
+
     /// Name of the conversion workspace resource to seed with new database
     /// structure, in the form of:
     /// projects/{project}/locations/{location}/conversionWorkspaces/{conversion_workspace}.
@@ -3533,14 +3506,8 @@ impl SeedConversionWorkspaceRequest {
     /// use google_cloud_clouddms_v1::model::seed_conversion_workspace_request::SeedFrom;
     /// let x = SeedConversionWorkspaceRequest::new().set_seed_from(Some(SeedFrom::SourceConnectionProfile("example".to_string())));
     /// ```
-    pub fn set_seed_from<
-        T: std::convert::Into<
-                std::option::Option<crate::model::seed_conversion_workspace_request::SeedFrom>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_seed_from<T: std::convert::Into<std::option::Option<crate::model::seed_conversion_workspace_request::SeedFrom>>>(mut self, v: T) -> Self
+    {
         self.seed_from = v.into();
         self
     }
@@ -3551,9 +3518,7 @@ impl SeedConversionWorkspaceRequest {
     pub fn source_connection_profile(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.seed_from.as_ref().and_then(|v| match v {
-            crate::model::seed_conversion_workspace_request::SeedFrom::SourceConnectionProfile(
-                v,
-            ) => std::option::Option::Some(v),
+            crate::model::seed_conversion_workspace_request::SeedFrom::SourceConnectionProfile(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -3571,14 +3536,11 @@ impl SeedConversionWorkspaceRequest {
     /// assert!(x.source_connection_profile().is_some());
     /// assert!(x.destination_connection_profile().is_none());
     /// ```
-    pub fn set_source_connection_profile<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source_connection_profile<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.seed_from = std::option::Option::Some(
             crate::model::seed_conversion_workspace_request::SeedFrom::SourceConnectionProfile(
-                v.into(),
-            ),
+                v.into()
+            )
         );
         self
     }
@@ -3607,14 +3569,11 @@ impl SeedConversionWorkspaceRequest {
     /// assert!(x.destination_connection_profile().is_some());
     /// assert!(x.source_connection_profile().is_none());
     /// ```
-    pub fn set_destination_connection_profile<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_destination_connection_profile<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.seed_from = std::option::Option::Some(
             crate::model::seed_conversion_workspace_request::SeedFrom::DestinationConnectionProfile(
-                v.into(),
-            ),
+                v.into()
+            )
         );
         self
     }
@@ -3630,6 +3589,7 @@ impl wkt::message::Message for SeedConversionWorkspaceRequest {
 pub mod seed_conversion_workspace_request {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The input to be used for seeding the conversion workspace. The input can
     /// either be from the source or destination databases and it can be provided
@@ -3649,6 +3609,7 @@ pub mod seed_conversion_workspace_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConvertConversionWorkspaceRequest {
+
     /// Name of the conversion workspace resource to convert in the form of:
     /// projects/{project}/locations/{location}/conversionWorkspaces/{conversion_workspace}.
     pub name: std::string::String,
@@ -3733,6 +3694,7 @@ impl wkt::message::Message for ConvertConversionWorkspaceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportMappingRulesRequest {
+
     /// Required. Name of the conversion workspace resource to import the rules to
     /// in the form of:
     /// projects/{project}/locations/{location}/conversionWorkspaces/{conversion_workspace}.
@@ -3777,10 +3739,7 @@ impl ImportMappingRulesRequest {
     /// let x0 = ImportMappingRulesRequest::new().set_rules_format(ImportRulesFileFormat::HarbourBridgeSessionFile);
     /// let x1 = ImportMappingRulesRequest::new().set_rules_format(ImportRulesFileFormat::OratopgConfigFile);
     /// ```
-    pub fn set_rules_format<T: std::convert::Into<crate::model::ImportRulesFileFormat>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_rules_format<T: std::convert::Into<crate::model::ImportRulesFileFormat>>(mut self, v: T) -> Self {
         self.rules_format = v.into();
         self
     }
@@ -3800,7 +3759,7 @@ impl ImportMappingRulesRequest {
     pub fn set_rules_files<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::import_mapping_rules_request::RulesFile>,
+        V: std::convert::Into<crate::model::import_mapping_rules_request::RulesFile>
     {
         use std::iter::Iterator;
         self.rules_files = v.into_iter().map(|i| i.into()).collect();
@@ -3831,10 +3790,12 @@ pub mod import_mapping_rules_request {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Details of a single rules file.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct RulesFile {
+
         /// Required. The filename of the rules that needs to be converted. The
         /// filename is used mainly so that future logs of the import rules job
         /// contain it, and can therefore be searched by it.
@@ -3858,10 +3819,7 @@ pub mod import_mapping_rules_request {
         /// # use google_cloud_clouddms_v1::model::import_mapping_rules_request::RulesFile;
         /// let x = RulesFile::new().set_rules_source_filename("example");
         /// ```
-        pub fn set_rules_source_filename<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_rules_source_filename<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.rules_source_filename = v.into();
             self
         }
@@ -3873,10 +3831,7 @@ pub mod import_mapping_rules_request {
         /// # use google_cloud_clouddms_v1::model::import_mapping_rules_request::RulesFile;
         /// let x = RulesFile::new().set_rules_content("example");
         /// ```
-        pub fn set_rules_content<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_rules_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.rules_content = v.into();
             self
         }
@@ -3893,6 +3848,7 @@ pub mod import_mapping_rules_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DescribeDatabaseEntitiesRequest {
+
     /// Required. Name of the conversion workspace resource whose database entities
     /// are described. Must be in the form of:
     /// projects/{project}/locations/{location}/conversionWorkspaces/{conversion_workspace}.
@@ -3943,10 +3899,7 @@ impl DescribeDatabaseEntitiesRequest {
     /// # use google_cloud_clouddms_v1::model::DescribeDatabaseEntitiesRequest;
     /// let x = DescribeDatabaseEntitiesRequest::new().set_conversion_workspace("example");
     /// ```
-    pub fn set_conversion_workspace<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_conversion_workspace<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.conversion_workspace = v.into();
         self
     }
@@ -3985,12 +3938,7 @@ impl DescribeDatabaseEntitiesRequest {
     /// let x1 = DescribeDatabaseEntitiesRequest::new().set_tree(DBTreeType::DraftTree);
     /// let x2 = DescribeDatabaseEntitiesRequest::new().set_tree(DBTreeType::DestinationTree);
     /// ```
-    pub fn set_tree<
-        T: std::convert::Into<crate::model::describe_database_entities_request::DBTreeType>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_tree<T: std::convert::Into<crate::model::describe_database_entities_request::DBTreeType>>(mut self, v: T) -> Self {
         self.tree = v.into();
         self
     }
@@ -4041,10 +3989,7 @@ impl DescribeDatabaseEntitiesRequest {
     /// let x1 = DescribeDatabaseEntitiesRequest::new().set_view(DatabaseEntityView::Full);
     /// let x2 = DescribeDatabaseEntitiesRequest::new().set_view(DatabaseEntityView::RootSummary);
     /// ```
-    pub fn set_view<T: std::convert::Into<crate::model::DatabaseEntityView>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_view<T: std::convert::Into<crate::model::DatabaseEntityView>>(mut self, v: T) -> Self {
         self.view = v.into();
         self
     }
@@ -4060,6 +4005,7 @@ impl wkt::message::Message for DescribeDatabaseEntitiesRequest {
 pub mod describe_database_entities_request {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The type of a tree to return
     ///
@@ -4152,9 +4098,7 @@ pub mod describe_database_entities_request {
                 1 => Self::SourceTree,
                 2 => Self::DraftTree,
                 3 => Self::DestinationTree,
-                _ => Self::UnknownValue(db_tree_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(db_tree_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -4167,9 +4111,7 @@ pub mod describe_database_entities_request {
                 "SOURCE_TREE" => Self::SourceTree,
                 "DRAFT_TREE" => Self::DraftTree,
                 "DESTINATION_TREE" => Self::DestinationTree,
-                _ => Self::UnknownValue(db_tree_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(db_tree_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -4195,8 +4137,7 @@ pub mod describe_database_entities_request {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<DBTreeType>::new(
-                ".google.cloud.clouddms.v1.DescribeDatabaseEntitiesRequest.DBTreeType",
-            ))
+                ".google.cloud.clouddms.v1.DescribeDatabaseEntitiesRequest.DBTreeType"))
         }
     }
 }
@@ -4205,6 +4146,7 @@ pub mod describe_database_entities_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DescribeDatabaseEntitiesResponse {
+
     /// The list of database entities for the conversion workspace.
     pub database_entities: std::vec::Vec<crate::model::DatabaseEntity>,
 
@@ -4235,7 +4177,7 @@ impl DescribeDatabaseEntitiesResponse {
     pub fn set_database_entities<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::DatabaseEntity>,
+        V: std::convert::Into<crate::model::DatabaseEntity>
     {
         use std::iter::Iterator;
         self.database_entities = v.into_iter().map(|i| i.into()).collect();
@@ -4279,6 +4221,7 @@ impl gax::paginator::internal::PageableResponse for DescribeDatabaseEntitiesResp
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchBackgroundJobsRequest {
+
     /// Required. Name of the conversion workspace resource whose jobs are listed,
     /// in the form of:
     /// projects/{project}/locations/{location}/conversionWorkspaces/{conversion_workspace}.
@@ -4312,10 +4255,7 @@ impl SearchBackgroundJobsRequest {
     /// # use google_cloud_clouddms_v1::model::SearchBackgroundJobsRequest;
     /// let x = SearchBackgroundJobsRequest::new().set_conversion_workspace("example");
     /// ```
-    pub fn set_conversion_workspace<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_conversion_workspace<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.conversion_workspace = v.into();
         self
     }
@@ -4327,10 +4267,7 @@ impl SearchBackgroundJobsRequest {
     /// # use google_cloud_clouddms_v1::model::SearchBackgroundJobsRequest;
     /// let x = SearchBackgroundJobsRequest::new().set_return_most_recent_per_job_type(true);
     /// ```
-    pub fn set_return_most_recent_per_job_type<T: std::convert::Into<bool>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_return_most_recent_per_job_type<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.return_most_recent_per_job_type = v.into();
         self
     }
@@ -4356,8 +4293,7 @@ impl SearchBackgroundJobsRequest {
     /// let x = SearchBackgroundJobsRequest::new().set_completed_until_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_completed_until_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.completed_until_time = std::option::Option::Some(v.into());
         self
@@ -4373,8 +4309,7 @@ impl SearchBackgroundJobsRequest {
     /// let x = SearchBackgroundJobsRequest::new().set_or_clear_completed_until_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_completed_until_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.completed_until_time = v.map(|x| x.into());
         self
@@ -4391,6 +4326,7 @@ impl wkt::message::Message for SearchBackgroundJobsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchBackgroundJobsResponse {
+
     /// The list of conversion workspace mapping rules.
     pub jobs: std::vec::Vec<crate::model::BackgroundJobLogEntry>,
 
@@ -4417,7 +4353,7 @@ impl SearchBackgroundJobsResponse {
     pub fn set_jobs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::BackgroundJobLogEntry>,
+        V: std::convert::Into<crate::model::BackgroundJobLogEntry>
     {
         use std::iter::Iterator;
         self.jobs = v.into_iter().map(|i| i.into()).collect();
@@ -4435,6 +4371,7 @@ impl wkt::message::Message for SearchBackgroundJobsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DescribeConversionWorkspaceRevisionsRequest {
+
     /// Required. Name of the conversion workspace resource whose revisions are
     /// listed. Must be in the form of:
     /// projects/{project}/locations/{location}/conversionWorkspaces/{conversion_workspace}.
@@ -4458,10 +4395,7 @@ impl DescribeConversionWorkspaceRevisionsRequest {
     /// # use google_cloud_clouddms_v1::model::DescribeConversionWorkspaceRevisionsRequest;
     /// let x = DescribeConversionWorkspaceRevisionsRequest::new().set_conversion_workspace("example");
     /// ```
-    pub fn set_conversion_workspace<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_conversion_workspace<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.conversion_workspace = v.into();
         self
     }
@@ -4489,6 +4423,7 @@ impl wkt::message::Message for DescribeConversionWorkspaceRevisionsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DescribeConversionWorkspaceRevisionsResponse {
+
     /// The list of conversion workspace revisions.
     pub revisions: std::vec::Vec<crate::model::ConversionWorkspace>,
 
@@ -4515,7 +4450,7 @@ impl DescribeConversionWorkspaceRevisionsResponse {
     pub fn set_revisions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ConversionWorkspace>,
+        V: std::convert::Into<crate::model::ConversionWorkspace>
     {
         use std::iter::Iterator;
         self.revisions = v.into_iter().map(|i| i.into()).collect();
@@ -4533,6 +4468,7 @@ impl wkt::message::Message for DescribeConversionWorkspaceRevisionsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateMappingRuleRequest {
+
     /// Required. The parent which owns this collection of mapping rules.
     pub parent: std::string::String,
 
@@ -4594,8 +4530,7 @@ impl CreateMappingRuleRequest {
     /// let x = CreateMappingRuleRequest::new().set_mapping_rule(MappingRule::default()/* use setters */);
     /// ```
     pub fn set_mapping_rule<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::MappingRule>,
+    where T: std::convert::Into<crate::model::MappingRule>
     {
         self.mapping_rule = std::option::Option::Some(v.into());
         self
@@ -4611,8 +4546,7 @@ impl CreateMappingRuleRequest {
     /// let x = CreateMappingRuleRequest::new().set_or_clear_mapping_rule(None::<MappingRule>);
     /// ```
     pub fn set_or_clear_mapping_rule<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::MappingRule>,
+    where T: std::convert::Into<crate::model::MappingRule>
     {
         self.mapping_rule = v.map(|x| x.into());
         self
@@ -4641,6 +4575,7 @@ impl wkt::message::Message for CreateMappingRuleRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteMappingRuleRequest {
+
     /// Required. Name of the mapping rule resource to delete.
     pub name: std::string::String,
 
@@ -4696,6 +4631,7 @@ impl wkt::message::Message for DeleteMappingRuleRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchStaticIpsRequest {
+
     /// Required. The resource name for the location for which static IPs should be
     /// returned. Must be in the format `projects/*/locations/*`.
     pub name: std::string::String,
@@ -4761,6 +4697,7 @@ impl wkt::message::Message for FetchStaticIpsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchStaticIpsResponse {
+
     /// List of static IPs.
     pub static_ips: std::vec::Vec<std::string::String>,
 
@@ -4786,7 +4723,7 @@ impl FetchStaticIpsResponse {
     pub fn set_static_ips<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.static_ips = v.into_iter().map(|i| i.into()).collect();
@@ -4816,6 +4753,7 @@ impl wkt::message::Message for FetchStaticIpsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SslConfig {
+
     /// Output only. The ssl config type according to 'client_key',
     /// 'client_certificate' and 'ca_certificate'.
     pub r#type: crate::model::ssl_config::SslType,
@@ -4852,10 +4790,7 @@ impl SslConfig {
     /// let x0 = SslConfig::new().set_type(SslType::ServerOnly);
     /// let x1 = SslConfig::new().set_type(SslType::ServerClient);
     /// ```
-    pub fn set_type<T: std::convert::Into<crate::model::ssl_config::SslType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_type<T: std::convert::Into<crate::model::ssl_config::SslType>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
@@ -4879,10 +4814,7 @@ impl SslConfig {
     /// # use google_cloud_clouddms_v1::model::SslConfig;
     /// let x = SslConfig::new().set_client_certificate("example");
     /// ```
-    pub fn set_client_certificate<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_client_certificate<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.client_certificate = v.into();
         self
     }
@@ -4910,6 +4842,7 @@ impl wkt::message::Message for SslConfig {
 pub mod ssl_config {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Specifies The kind of ssl configuration used.
     ///
@@ -4998,9 +4931,7 @@ pub mod ssl_config {
                 0 => Self::Unspecified,
                 1 => Self::ServerOnly,
                 2 => Self::ServerClient,
-                _ => Self::UnknownValue(ssl_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(ssl_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -5012,9 +4943,7 @@ pub mod ssl_config {
                 "SSL_TYPE_UNSPECIFIED" => Self::Unspecified,
                 "SERVER_ONLY" => Self::ServerOnly,
                 "SERVER_CLIENT" => Self::ServerClient,
-                _ => Self::UnknownValue(ssl_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(ssl_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -5039,8 +4968,7 @@ pub mod ssl_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<SslType>::new(
-                ".google.cloud.clouddms.v1.SslConfig.SslType",
-            ))
+                ".google.cloud.clouddms.v1.SslConfig.SslType"))
         }
     }
 }
@@ -5049,6 +4977,7 @@ pub mod ssl_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MySqlConnectionProfile {
+
     /// Required. The IP or hostname of the source MySQL database.
     pub host: std::string::String,
 
@@ -5153,8 +5082,7 @@ impl MySqlConnectionProfile {
     /// let x = MySqlConnectionProfile::new().set_ssl(SslConfig::default()/* use setters */);
     /// ```
     pub fn set_ssl<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::SslConfig>,
+    where T: std::convert::Into<crate::model::SslConfig>
     {
         self.ssl = std::option::Option::Some(v.into());
         self
@@ -5170,8 +5098,7 @@ impl MySqlConnectionProfile {
     /// let x = MySqlConnectionProfile::new().set_or_clear_ssl(None::<SslConfig>);
     /// ```
     pub fn set_or_clear_ssl<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::SslConfig>,
+    where T: std::convert::Into<crate::model::SslConfig>
     {
         self.ssl = v.map(|x| x.into());
         self
@@ -5201,6 +5128,7 @@ impl wkt::message::Message for MySqlConnectionProfile {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PostgreSqlConnectionProfile {
+
     /// Required. The IP or hostname of the source PostgreSQL database.
     pub host: std::string::String,
 
@@ -5233,8 +5161,7 @@ pub struct PostgreSqlConnectionProfile {
     pub network_architecture: crate::model::NetworkArchitecture,
 
     /// Connectivity options used to establish a connection to the database server.
-    pub connectivity:
-        std::option::Option<crate::model::postgre_sql_connection_profile::Connectivity>,
+    pub connectivity: std::option::Option<crate::model::postgre_sql_connection_profile::Connectivity>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -5313,8 +5240,7 @@ impl PostgreSqlConnectionProfile {
     /// let x = PostgreSqlConnectionProfile::new().set_ssl(SslConfig::default()/* use setters */);
     /// ```
     pub fn set_ssl<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::SslConfig>,
+    where T: std::convert::Into<crate::model::SslConfig>
     {
         self.ssl = std::option::Option::Some(v.into());
         self
@@ -5330,8 +5256,7 @@ impl PostgreSqlConnectionProfile {
     /// let x = PostgreSqlConnectionProfile::new().set_or_clear_ssl(None::<SslConfig>);
     /// ```
     pub fn set_or_clear_ssl<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::SslConfig>,
+    where T: std::convert::Into<crate::model::SslConfig>
     {
         self.ssl = v.map(|x| x.into());
         self
@@ -5358,10 +5283,7 @@ impl PostgreSqlConnectionProfile {
     /// let x0 = PostgreSqlConnectionProfile::new().set_network_architecture(NetworkArchitecture::OldCsqlProducer);
     /// let x1 = PostgreSqlConnectionProfile::new().set_network_architecture(NetworkArchitecture::NewCsqlProducer);
     /// ```
-    pub fn set_network_architecture<T: std::convert::Into<crate::model::NetworkArchitecture>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_network_architecture<T: std::convert::Into<crate::model::NetworkArchitecture>>(mut self, v: T) -> Self {
         self.network_architecture = v.into();
         self
     }
@@ -5378,14 +5300,8 @@ impl PostgreSqlConnectionProfile {
     /// let x = PostgreSqlConnectionProfile::new().set_connectivity(Some(
     ///     google_cloud_clouddms_v1::model::postgre_sql_connection_profile::Connectivity::StaticIpConnectivity(StaticIpConnectivity::default().into())));
     /// ```
-    pub fn set_connectivity<
-        T: std::convert::Into<
-                std::option::Option<crate::model::postgre_sql_connection_profile::Connectivity>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_connectivity<T: std::convert::Into<std::option::Option<crate::model::postgre_sql_connection_profile::Connectivity>>>(mut self, v: T) -> Self
+    {
         self.connectivity = v.into();
         self
     }
@@ -5393,14 +5309,10 @@ impl PostgreSqlConnectionProfile {
     /// The value of [connectivity][crate::model::PostgreSqlConnectionProfile::connectivity]
     /// if it holds a `StaticIpConnectivity`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn static_ip_connectivity(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::StaticIpConnectivity>> {
+    pub fn static_ip_connectivity(&self) -> std::option::Option<&std::boxed::Box<crate::model::StaticIpConnectivity>> {
         #[allow(unreachable_patterns)]
         self.connectivity.as_ref().and_then(|v| match v {
-            crate::model::postgre_sql_connection_profile::Connectivity::StaticIpConnectivity(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::postgre_sql_connection_profile::Connectivity::StaticIpConnectivity(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -5419,16 +5331,11 @@ impl PostgreSqlConnectionProfile {
     /// assert!(x.static_ip_connectivity().is_some());
     /// assert!(x.private_service_connect_connectivity().is_none());
     /// ```
-    pub fn set_static_ip_connectivity<
-        T: std::convert::Into<std::boxed::Box<crate::model::StaticIpConnectivity>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_static_ip_connectivity<T: std::convert::Into<std::boxed::Box<crate::model::StaticIpConnectivity>>>(mut self, v: T) -> Self {
         self.connectivity = std::option::Option::Some(
             crate::model::postgre_sql_connection_profile::Connectivity::StaticIpConnectivity(
-                v.into(),
-            ),
+                v.into()
+            )
         );
         self
     }
@@ -5436,10 +5343,7 @@ impl PostgreSqlConnectionProfile {
     /// The value of [connectivity][crate::model::PostgreSqlConnectionProfile::connectivity]
     /// if it holds a `PrivateServiceConnectConnectivity`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn private_service_connect_connectivity(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::PrivateServiceConnectConnectivity>>
-    {
+    pub fn private_service_connect_connectivity(&self) -> std::option::Option<&std::boxed::Box<crate::model::PrivateServiceConnectConnectivity>> {
         #[allow(unreachable_patterns)]
         self.connectivity.as_ref().and_then(|v| match v {
             crate::model::postgre_sql_connection_profile::Connectivity::PrivateServiceConnectConnectivity(v) => std::option::Option::Some(v),
@@ -5461,12 +5365,7 @@ impl PostgreSqlConnectionProfile {
     /// assert!(x.private_service_connect_connectivity().is_some());
     /// assert!(x.static_ip_connectivity().is_none());
     /// ```
-    pub fn set_private_service_connect_connectivity<
-        T: std::convert::Into<std::boxed::Box<crate::model::PrivateServiceConnectConnectivity>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_private_service_connect_connectivity<T: std::convert::Into<std::boxed::Box<crate::model::PrivateServiceConnectConnectivity>>>(mut self, v: T) -> Self {
         self.connectivity = std::option::Option::Some(
             crate::model::postgre_sql_connection_profile::Connectivity::PrivateServiceConnectConnectivity(
                 v.into()
@@ -5487,6 +5386,7 @@ pub mod postgre_sql_connection_profile {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Connectivity options used to establish a connection to the database server.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -5494,9 +5394,7 @@ pub mod postgre_sql_connection_profile {
         /// Static ip connectivity data (default, no additional details needed).
         StaticIpConnectivity(std::boxed::Box<crate::model::StaticIpConnectivity>),
         /// Private service connect connectivity.
-        PrivateServiceConnectConnectivity(
-            std::boxed::Box<crate::model::PrivateServiceConnectConnectivity>,
-        ),
+        PrivateServiceConnectConnectivity(std::boxed::Box<crate::model::PrivateServiceConnectConnectivity>),
     }
 }
 
@@ -5505,6 +5403,7 @@ pub mod postgre_sql_connection_profile {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OracleConnectionProfile {
+
     /// Required. The IP or hostname of the source Oracle database.
     pub host: std::string::String,
 
@@ -5612,10 +5511,7 @@ impl OracleConnectionProfile {
     /// # use google_cloud_clouddms_v1::model::OracleConnectionProfile;
     /// let x = OracleConnectionProfile::new().set_database_service("example");
     /// ```
-    pub fn set_database_service<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_database_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database_service = v.into();
         self
     }
@@ -5629,8 +5525,7 @@ impl OracleConnectionProfile {
     /// let x = OracleConnectionProfile::new().set_ssl(SslConfig::default()/* use setters */);
     /// ```
     pub fn set_ssl<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::SslConfig>,
+    where T: std::convert::Into<crate::model::SslConfig>
     {
         self.ssl = std::option::Option::Some(v.into());
         self
@@ -5646,8 +5541,7 @@ impl OracleConnectionProfile {
     /// let x = OracleConnectionProfile::new().set_or_clear_ssl(None::<SslConfig>);
     /// ```
     pub fn set_or_clear_ssl<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::SslConfig>,
+    where T: std::convert::Into<crate::model::SslConfig>
     {
         self.ssl = v.map(|x| x.into());
         self
@@ -5665,14 +5559,8 @@ impl OracleConnectionProfile {
     /// let x = OracleConnectionProfile::new().set_connectivity(Some(
     ///     google_cloud_clouddms_v1::model::oracle_connection_profile::Connectivity::StaticServiceIpConnectivity(StaticServiceIpConnectivity::default().into())));
     /// ```
-    pub fn set_connectivity<
-        T: std::convert::Into<
-                std::option::Option<crate::model::oracle_connection_profile::Connectivity>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_connectivity<T: std::convert::Into<std::option::Option<crate::model::oracle_connection_profile::Connectivity>>>(mut self, v: T) -> Self
+    {
         self.connectivity = v.into();
         self
     }
@@ -5680,14 +5568,10 @@ impl OracleConnectionProfile {
     /// The value of [connectivity][crate::model::OracleConnectionProfile::connectivity]
     /// if it holds a `StaticServiceIpConnectivity`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn static_service_ip_connectivity(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::StaticServiceIpConnectivity>> {
+    pub fn static_service_ip_connectivity(&self) -> std::option::Option<&std::boxed::Box<crate::model::StaticServiceIpConnectivity>> {
         #[allow(unreachable_patterns)]
         self.connectivity.as_ref().and_then(|v| match v {
-            crate::model::oracle_connection_profile::Connectivity::StaticServiceIpConnectivity(
-                v,
-            ) => std::option::Option::Some(v),
+            crate::model::oracle_connection_profile::Connectivity::StaticServiceIpConnectivity(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -5707,16 +5591,11 @@ impl OracleConnectionProfile {
     /// assert!(x.forward_ssh_connectivity().is_none());
     /// assert!(x.private_connectivity().is_none());
     /// ```
-    pub fn set_static_service_ip_connectivity<
-        T: std::convert::Into<std::boxed::Box<crate::model::StaticServiceIpConnectivity>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_static_service_ip_connectivity<T: std::convert::Into<std::boxed::Box<crate::model::StaticServiceIpConnectivity>>>(mut self, v: T) -> Self {
         self.connectivity = std::option::Option::Some(
             crate::model::oracle_connection_profile::Connectivity::StaticServiceIpConnectivity(
-                v.into(),
-            ),
+                v.into()
+            )
         );
         self
     }
@@ -5724,14 +5603,10 @@ impl OracleConnectionProfile {
     /// The value of [connectivity][crate::model::OracleConnectionProfile::connectivity]
     /// if it holds a `ForwardSshConnectivity`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn forward_ssh_connectivity(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::ForwardSshTunnelConnectivity>> {
+    pub fn forward_ssh_connectivity(&self) -> std::option::Option<&std::boxed::Box<crate::model::ForwardSshTunnelConnectivity>> {
         #[allow(unreachable_patterns)]
         self.connectivity.as_ref().and_then(|v| match v {
-            crate::model::oracle_connection_profile::Connectivity::ForwardSshConnectivity(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::oracle_connection_profile::Connectivity::ForwardSshConnectivity(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -5751,14 +5626,11 @@ impl OracleConnectionProfile {
     /// assert!(x.static_service_ip_connectivity().is_none());
     /// assert!(x.private_connectivity().is_none());
     /// ```
-    pub fn set_forward_ssh_connectivity<
-        T: std::convert::Into<std::boxed::Box<crate::model::ForwardSshTunnelConnectivity>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_forward_ssh_connectivity<T: std::convert::Into<std::boxed::Box<crate::model::ForwardSshTunnelConnectivity>>>(mut self, v: T) -> Self {
         self.connectivity = std::option::Option::Some(
-            crate::model::oracle_connection_profile::Connectivity::ForwardSshConnectivity(v.into()),
+            crate::model::oracle_connection_profile::Connectivity::ForwardSshConnectivity(
+                v.into()
+            )
         );
         self
     }
@@ -5766,14 +5638,10 @@ impl OracleConnectionProfile {
     /// The value of [connectivity][crate::model::OracleConnectionProfile::connectivity]
     /// if it holds a `PrivateConnectivity`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn private_connectivity(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::PrivateConnectivity>> {
+    pub fn private_connectivity(&self) -> std::option::Option<&std::boxed::Box<crate::model::PrivateConnectivity>> {
         #[allow(unreachable_patterns)]
         self.connectivity.as_ref().and_then(|v| match v {
-            crate::model::oracle_connection_profile::Connectivity::PrivateConnectivity(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::oracle_connection_profile::Connectivity::PrivateConnectivity(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -5793,14 +5661,11 @@ impl OracleConnectionProfile {
     /// assert!(x.static_service_ip_connectivity().is_none());
     /// assert!(x.forward_ssh_connectivity().is_none());
     /// ```
-    pub fn set_private_connectivity<
-        T: std::convert::Into<std::boxed::Box<crate::model::PrivateConnectivity>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_private_connectivity<T: std::convert::Into<std::boxed::Box<crate::model::PrivateConnectivity>>>(mut self, v: T) -> Self {
         self.connectivity = std::option::Option::Some(
-            crate::model::oracle_connection_profile::Connectivity::PrivateConnectivity(v.into()),
+            crate::model::oracle_connection_profile::Connectivity::PrivateConnectivity(
+                v.into()
+            )
         );
         self
     }
@@ -5816,6 +5681,7 @@ impl wkt::message::Message for OracleConnectionProfile {
 pub mod oracle_connection_profile {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Connectivity options used to establish a connection to the database server.
     #[derive(Clone, Debug, PartialEq)]
@@ -5835,6 +5701,7 @@ pub mod oracle_connection_profile {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudSqlConnectionProfile {
+
     /// Output only. The Cloud SQL instance ID that this connection profile is
     /// associated with.
     pub cloud_sql_id: std::string::String,
@@ -5882,8 +5749,7 @@ impl CloudSqlConnectionProfile {
     /// let x = CloudSqlConnectionProfile::new().set_settings(CloudSqlSettings::default()/* use setters */);
     /// ```
     pub fn set_settings<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CloudSqlSettings>,
+    where T: std::convert::Into<crate::model::CloudSqlSettings>
     {
         self.settings = std::option::Option::Some(v.into());
         self
@@ -5899,8 +5765,7 @@ impl CloudSqlConnectionProfile {
     /// let x = CloudSqlConnectionProfile::new().set_or_clear_settings(None::<CloudSqlSettings>);
     /// ```
     pub fn set_or_clear_settings<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CloudSqlSettings>,
+    where T: std::convert::Into<crate::model::CloudSqlSettings>
     {
         self.settings = v.map(|x| x.into());
         self
@@ -5937,10 +5802,7 @@ impl CloudSqlConnectionProfile {
     /// # use google_cloud_clouddms_v1::model::CloudSqlConnectionProfile;
     /// let x = CloudSqlConnectionProfile::new().set_additional_public_ip("example");
     /// ```
-    pub fn set_additional_public_ip<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_additional_public_ip<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.additional_public_ip = v.into();
         self
     }
@@ -5957,6 +5819,7 @@ impl wkt::message::Message for CloudSqlConnectionProfile {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AlloyDbConnectionProfile {
+
     /// Required. The AlloyDB cluster ID that this connection profile is associated
     /// with.
     pub cluster_id: std::string::String,
@@ -5993,8 +5856,7 @@ impl AlloyDbConnectionProfile {
     /// let x = AlloyDbConnectionProfile::new().set_settings(AlloyDbSettings::default()/* use setters */);
     /// ```
     pub fn set_settings<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AlloyDbSettings>,
+    where T: std::convert::Into<crate::model::AlloyDbSettings>
     {
         self.settings = std::option::Option::Some(v.into());
         self
@@ -6010,8 +5872,7 @@ impl AlloyDbConnectionProfile {
     /// let x = AlloyDbConnectionProfile::new().set_or_clear_settings(None::<AlloyDbSettings>);
     /// ```
     pub fn set_or_clear_settings<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AlloyDbSettings>,
+    where T: std::convert::Into<crate::model::AlloyDbSettings>
     {
         self.settings = v.map(|x| x.into());
         self
@@ -6028,6 +5889,7 @@ impl wkt::message::Message for AlloyDbConnectionProfile {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlAclEntry {
+
     /// The allowlisted value for the access control list.
     pub value: std::string::String,
 
@@ -6081,12 +5943,8 @@ impl SqlAclEntry {
     /// let x = SqlAclEntry::new().set_expiration(Some(
     ///     google_cloud_clouddms_v1::model::sql_acl_entry::Expiration::ExpireTime(Timestamp::default().into())));
     /// ```
-    pub fn set_expiration<
-        T: std::convert::Into<std::option::Option<crate::model::sql_acl_entry::Expiration>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_expiration<T: std::convert::Into<std::option::Option<crate::model::sql_acl_entry::Expiration>>>(mut self, v: T) -> Self
+    {
         self.expiration = v.into();
         self
     }
@@ -6116,12 +5974,11 @@ impl SqlAclEntry {
     /// assert!(x.expire_time().is_some());
     /// assert!(x.ttl().is_none());
     /// ```
-    pub fn set_expire_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_expire_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(mut self, v: T) -> Self {
         self.expiration = std::option::Option::Some(
-            crate::model::sql_acl_entry::Expiration::ExpireTime(v.into()),
+            crate::model::sql_acl_entry::Expiration::ExpireTime(
+                v.into()
+            )
         );
         self
     }
@@ -6152,8 +6009,11 @@ impl SqlAclEntry {
     /// assert!(x.expire_time().is_none());
     /// ```
     pub fn set_ttl<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(mut self, v: T) -> Self {
-        self.expiration =
-            std::option::Option::Some(crate::model::sql_acl_entry::Expiration::Ttl(v.into()));
+        self.expiration = std::option::Option::Some(
+            crate::model::sql_acl_entry::Expiration::Ttl(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -6168,6 +6028,7 @@ impl wkt::message::Message for SqlAclEntry {
 pub mod sql_acl_entry {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The access control entry entry expiration.
     #[derive(Clone, Debug, PartialEq)]
@@ -6186,6 +6047,7 @@ pub mod sql_acl_entry {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlIpConfig {
+
     /// Whether the instance should be assigned an IPv4 address or not.
     pub enable_ipv4: std::option::Option<wkt::BoolValue>,
 
@@ -6229,8 +6091,7 @@ impl SqlIpConfig {
     /// let x = SqlIpConfig::new().set_enable_ipv4(BoolValue::default()/* use setters */);
     /// ```
     pub fn set_enable_ipv4<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.enable_ipv4 = std::option::Option::Some(v.into());
         self
@@ -6246,8 +6107,7 @@ impl SqlIpConfig {
     /// let x = SqlIpConfig::new().set_or_clear_enable_ipv4(None::<BoolValue>);
     /// ```
     pub fn set_or_clear_enable_ipv4<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.enable_ipv4 = v.map(|x| x.into());
         self
@@ -6272,10 +6132,7 @@ impl SqlIpConfig {
     /// # use google_cloud_clouddms_v1::model::SqlIpConfig;
     /// let x = SqlIpConfig::new().set_allocated_ip_range("example");
     /// ```
-    pub fn set_allocated_ip_range<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_allocated_ip_range<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.allocated_ip_range = v.into();
         self
     }
@@ -6289,8 +6146,7 @@ impl SqlIpConfig {
     /// let x = SqlIpConfig::new().set_require_ssl(BoolValue::default()/* use setters */);
     /// ```
     pub fn set_require_ssl<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.require_ssl = std::option::Option::Some(v.into());
         self
@@ -6306,8 +6162,7 @@ impl SqlIpConfig {
     /// let x = SqlIpConfig::new().set_or_clear_require_ssl(None::<BoolValue>);
     /// ```
     pub fn set_or_clear_require_ssl<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.require_ssl = v.map(|x| x.into());
         self
@@ -6328,7 +6183,7 @@ impl SqlIpConfig {
     pub fn set_authorized_networks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::SqlAclEntry>,
+        V: std::convert::Into<crate::model::SqlAclEntry>
     {
         use std::iter::Iterator;
         self.authorized_networks = v.into_iter().map(|i| i.into()).collect();
@@ -6346,6 +6201,7 @@ impl wkt::message::Message for SqlIpConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudSqlSettings {
+
     /// The database engine type and version.
     pub database_version: crate::model::cloud_sql_settings::SqlDatabaseVersion,
 
@@ -6354,7 +6210,7 @@ pub struct CloudSqlSettings {
     /// An object containing a list of "key": "value" pairs.
     ///
     /// Example: `{ "name": "wrench", "mass": "18kg", "count": "3" }`.
-    pub user_labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub user_labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// The tier (or machine type) for this instance, for example:
     /// `db-n1-standard-1` (MySQL instances) or
@@ -6393,7 +6249,7 @@ pub struct CloudSqlSettings {
     /// The database flags passed to the Cloud SQL instance at startup.
     /// An object containing a list of "key": value pairs.
     /// Example: { "name": "wrench", "mass": "1.3kg", "count": "3" }.
-    pub database_flags: std::collections::HashMap<std::string::String, std::string::String>,
+    pub database_flags: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// The type of storage: `PD_SSD` (default) or `PD_HDD`.
     pub data_disk_type: crate::model::cloud_sql_settings::SqlDataDiskType,
@@ -6457,12 +6313,7 @@ impl CloudSqlSettings {
     /// let x1 = CloudSqlSettings::new().set_database_version(SqlDatabaseVersion::Mysql57);
     /// let x2 = CloudSqlSettings::new().set_database_version(SqlDatabaseVersion::Postgres96);
     /// ```
-    pub fn set_database_version<
-        T: std::convert::Into<crate::model::cloud_sql_settings::SqlDatabaseVersion>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_database_version<T: std::convert::Into<crate::model::cloud_sql_settings::SqlDatabaseVersion>>(mut self, v: T) -> Self {
         self.database_version = v.into();
         self
     }
@@ -6509,8 +6360,7 @@ impl CloudSqlSettings {
     /// let x = CloudSqlSettings::new().set_storage_auto_resize_limit(Int64Value::default()/* use setters */);
     /// ```
     pub fn set_storage_auto_resize_limit<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.storage_auto_resize_limit = std::option::Option::Some(v.into());
         self
@@ -6526,8 +6376,7 @@ impl CloudSqlSettings {
     /// let x = CloudSqlSettings::new().set_or_clear_storage_auto_resize_limit(None::<Int64Value>);
     /// ```
     pub fn set_or_clear_storage_auto_resize_limit<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.storage_auto_resize_limit = v.map(|x| x.into());
         self
@@ -6542,12 +6391,7 @@ impl CloudSqlSettings {
     /// let x0 = CloudSqlSettings::new().set_activation_policy(SqlActivationPolicy::Always);
     /// let x1 = CloudSqlSettings::new().set_activation_policy(SqlActivationPolicy::Never);
     /// ```
-    pub fn set_activation_policy<
-        T: std::convert::Into<crate::model::cloud_sql_settings::SqlActivationPolicy>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_activation_policy<T: std::convert::Into<crate::model::cloud_sql_settings::SqlActivationPolicy>>(mut self, v: T) -> Self {
         self.activation_policy = v.into();
         self
     }
@@ -6561,8 +6405,7 @@ impl CloudSqlSettings {
     /// let x = CloudSqlSettings::new().set_ip_config(SqlIpConfig::default()/* use setters */);
     /// ```
     pub fn set_ip_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::SqlIpConfig>,
+    where T: std::convert::Into<crate::model::SqlIpConfig>
     {
         self.ip_config = std::option::Option::Some(v.into());
         self
@@ -6578,8 +6421,7 @@ impl CloudSqlSettings {
     /// let x = CloudSqlSettings::new().set_or_clear_ip_config(None::<SqlIpConfig>);
     /// ```
     pub fn set_or_clear_ip_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::SqlIpConfig>,
+    where T: std::convert::Into<crate::model::SqlIpConfig>
     {
         self.ip_config = v.map(|x| x.into());
         self
@@ -6594,8 +6436,7 @@ impl CloudSqlSettings {
     /// let x = CloudSqlSettings::new().set_auto_storage_increase(BoolValue::default()/* use setters */);
     /// ```
     pub fn set_auto_storage_increase<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.auto_storage_increase = std::option::Option::Some(v.into());
         self
@@ -6611,8 +6452,7 @@ impl CloudSqlSettings {
     /// let x = CloudSqlSettings::new().set_or_clear_auto_storage_increase(None::<BoolValue>);
     /// ```
     pub fn set_or_clear_auto_storage_increase<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.auto_storage_increase = v.map(|x| x.into());
         self
@@ -6648,12 +6488,7 @@ impl CloudSqlSettings {
     /// let x0 = CloudSqlSettings::new().set_data_disk_type(SqlDataDiskType::PdSsd);
     /// let x1 = CloudSqlSettings::new().set_data_disk_type(SqlDataDiskType::PdHdd);
     /// ```
-    pub fn set_data_disk_type<
-        T: std::convert::Into<crate::model::cloud_sql_settings::SqlDataDiskType>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_data_disk_type<T: std::convert::Into<crate::model::cloud_sql_settings::SqlDataDiskType>>(mut self, v: T) -> Self {
         self.data_disk_type = v.into();
         self
     }
@@ -6667,8 +6502,7 @@ impl CloudSqlSettings {
     /// let x = CloudSqlSettings::new().set_data_disk_size_gb(Int64Value::default()/* use setters */);
     /// ```
     pub fn set_data_disk_size_gb<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.data_disk_size_gb = std::option::Option::Some(v.into());
         self
@@ -6684,8 +6518,7 @@ impl CloudSqlSettings {
     /// let x = CloudSqlSettings::new().set_or_clear_data_disk_size_gb(None::<Int64Value>);
     /// ```
     pub fn set_or_clear_data_disk_size_gb<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.data_disk_size_gb = v.map(|x| x.into());
         self
@@ -6784,12 +6617,7 @@ impl CloudSqlSettings {
     /// let x0 = CloudSqlSettings::new().set_availability_type(SqlAvailabilityType::Zonal);
     /// let x1 = CloudSqlSettings::new().set_availability_type(SqlAvailabilityType::Regional);
     /// ```
-    pub fn set_availability_type<
-        T: std::convert::Into<crate::model::cloud_sql_settings::SqlAvailabilityType>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_availability_type<T: std::convert::Into<crate::model::cloud_sql_settings::SqlAvailabilityType>>(mut self, v: T) -> Self {
         self.availability_type = v.into();
         self
     }
@@ -6803,10 +6631,7 @@ impl CloudSqlSettings {
     /// let x0 = CloudSqlSettings::new().set_edition(Edition::Enterprise);
     /// let x1 = CloudSqlSettings::new().set_edition(Edition::EnterprisePlus);
     /// ```
-    pub fn set_edition<T: std::convert::Into<crate::model::cloud_sql_settings::Edition>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_edition<T: std::convert::Into<crate::model::cloud_sql_settings::Edition>>(mut self, v: T) -> Self {
         self.edition = v.into();
         self
     }
@@ -6822,6 +6647,7 @@ impl wkt::message::Message for CloudSqlSettings {
 pub mod cloud_sql_settings {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Specifies when the instance should be activated.
     ///
@@ -6909,9 +6735,7 @@ pub mod cloud_sql_settings {
                 0 => Self::Unspecified,
                 1 => Self::Always,
                 2 => Self::Never,
-                _ => Self::UnknownValue(sql_activation_policy::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(sql_activation_policy::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -6923,9 +6747,7 @@ pub mod cloud_sql_settings {
                 "SQL_ACTIVATION_POLICY_UNSPECIFIED" => Self::Unspecified,
                 "ALWAYS" => Self::Always,
                 "NEVER" => Self::Never,
-                _ => Self::UnknownValue(sql_activation_policy::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(sql_activation_policy::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -6950,8 +6772,7 @@ pub mod cloud_sql_settings {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<SqlActivationPolicy>::new(
-                ".google.cloud.clouddms.v1.CloudSqlSettings.SqlActivationPolicy",
-            ))
+                ".google.cloud.clouddms.v1.CloudSqlSettings.SqlActivationPolicy"))
         }
     }
 
@@ -7041,9 +6862,7 @@ pub mod cloud_sql_settings {
                 0 => Self::Unspecified,
                 1 => Self::PdSsd,
                 2 => Self::PdHdd,
-                _ => Self::UnknownValue(sql_data_disk_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(sql_data_disk_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -7055,9 +6874,7 @@ pub mod cloud_sql_settings {
                 "SQL_DATA_DISK_TYPE_UNSPECIFIED" => Self::Unspecified,
                 "PD_SSD" => Self::PdSsd,
                 "PD_HDD" => Self::PdHdd,
-                _ => Self::UnknownValue(sql_data_disk_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(sql_data_disk_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -7082,8 +6899,7 @@ pub mod cloud_sql_settings {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<SqlDataDiskType>::new(
-                ".google.cloud.clouddms.v1.CloudSqlSettings.SqlDataDiskType",
-            ))
+                ".google.cloud.clouddms.v1.CloudSqlSettings.SqlDataDiskType"))
         }
     }
 
@@ -7213,9 +7029,7 @@ pub mod cloud_sql_settings {
                 8 => Self::Postgres13,
                 17 => Self::Postgres14,
                 18 => Self::Postgres15,
-                _ => Self::UnknownValue(sql_database_version::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(sql_database_version::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -7235,9 +7049,7 @@ pub mod cloud_sql_settings {
                 "POSTGRES_13" => Self::Postgres13,
                 "POSTGRES_14" => Self::Postgres14,
                 "POSTGRES_15" => Self::Postgres15,
-                _ => Self::UnknownValue(sql_database_version::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(sql_database_version::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -7270,8 +7082,7 @@ pub mod cloud_sql_settings {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<SqlDatabaseVersion>::new(
-                ".google.cloud.clouddms.v1.CloudSqlSettings.SqlDatabaseVersion",
-            ))
+                ".google.cloud.clouddms.v1.CloudSqlSettings.SqlDatabaseVersion"))
         }
     }
 
@@ -7361,9 +7172,7 @@ pub mod cloud_sql_settings {
                 0 => Self::Unspecified,
                 1 => Self::Zonal,
                 2 => Self::Regional,
-                _ => Self::UnknownValue(sql_availability_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(sql_availability_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -7375,9 +7184,7 @@ pub mod cloud_sql_settings {
                 "SQL_AVAILABILITY_TYPE_UNSPECIFIED" => Self::Unspecified,
                 "ZONAL" => Self::Zonal,
                 "REGIONAL" => Self::Regional,
-                _ => Self::UnknownValue(sql_availability_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(sql_availability_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -7402,8 +7209,7 @@ pub mod cloud_sql_settings {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<SqlAvailabilityType>::new(
-                ".google.cloud.clouddms.v1.CloudSqlSettings.SqlAvailabilityType",
-            ))
+                ".google.cloud.clouddms.v1.CloudSqlSettings.SqlAvailabilityType"))
         }
     }
 
@@ -7494,9 +7300,7 @@ pub mod cloud_sql_settings {
                 0 => Self::Unspecified,
                 2 => Self::Enterprise,
                 3 => Self::EnterprisePlus,
-                _ => Self::UnknownValue(edition::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(edition::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -7508,9 +7312,7 @@ pub mod cloud_sql_settings {
                 "EDITION_UNSPECIFIED" => Self::Unspecified,
                 "ENTERPRISE" => Self::Enterprise,
                 "ENTERPRISE_PLUS" => Self::EnterprisePlus,
-                _ => Self::UnknownValue(edition::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(edition::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -7535,8 +7337,7 @@ pub mod cloud_sql_settings {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Edition>::new(
-                ".google.cloud.clouddms.v1.CloudSqlSettings.Edition",
-            ))
+                ".google.cloud.clouddms.v1.CloudSqlSettings.Edition"))
         }
     }
 }
@@ -7545,6 +7346,7 @@ pub mod cloud_sql_settings {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AlloyDbSettings {
+
     /// Required. Input only. Initial user to setup during cluster creation.
     /// Required.
     pub initial_user: std::option::Option<crate::model::alloy_db_settings::UserPassword>,
@@ -7558,10 +7360,9 @@ pub struct AlloyDbSettings {
 
     /// Labels for the AlloyDB cluster created by DMS. An object containing a list
     /// of 'key', 'value' pairs.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
-    pub primary_instance_settings:
-        std::option::Option<crate::model::alloy_db_settings::PrimaryInstanceSettings>,
+    pub primary_instance_settings: std::option::Option<crate::model::alloy_db_settings::PrimaryInstanceSettings>,
 
     /// Optional. The encryption config can be specified to encrypt the data disks
     /// and other persistent data resources of a cluster with a
@@ -7587,8 +7388,7 @@ impl AlloyDbSettings {
     /// let x = AlloyDbSettings::new().set_initial_user(UserPassword::default()/* use setters */);
     /// ```
     pub fn set_initial_user<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::alloy_db_settings::UserPassword>,
+    where T: std::convert::Into<crate::model::alloy_db_settings::UserPassword>
     {
         self.initial_user = std::option::Option::Some(v.into());
         self
@@ -7604,8 +7404,7 @@ impl AlloyDbSettings {
     /// let x = AlloyDbSettings::new().set_or_clear_initial_user(None::<UserPassword>);
     /// ```
     pub fn set_or_clear_initial_user<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::alloy_db_settings::UserPassword>,
+    where T: std::convert::Into<crate::model::alloy_db_settings::UserPassword>
     {
         self.initial_user = v.map(|x| x.into());
         self
@@ -7653,8 +7452,7 @@ impl AlloyDbSettings {
     /// let x = AlloyDbSettings::new().set_primary_instance_settings(PrimaryInstanceSettings::default()/* use setters */);
     /// ```
     pub fn set_primary_instance_settings<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::alloy_db_settings::PrimaryInstanceSettings>,
+    where T: std::convert::Into<crate::model::alloy_db_settings::PrimaryInstanceSettings>
     {
         self.primary_instance_settings = std::option::Option::Some(v.into());
         self
@@ -7670,8 +7468,7 @@ impl AlloyDbSettings {
     /// let x = AlloyDbSettings::new().set_or_clear_primary_instance_settings(None::<PrimaryInstanceSettings>);
     /// ```
     pub fn set_or_clear_primary_instance_settings<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::alloy_db_settings::PrimaryInstanceSettings>,
+    where T: std::convert::Into<crate::model::alloy_db_settings::PrimaryInstanceSettings>
     {
         self.primary_instance_settings = v.map(|x| x.into());
         self
@@ -7686,8 +7483,7 @@ impl AlloyDbSettings {
     /// let x = AlloyDbSettings::new().set_encryption_config(EncryptionConfig::default()/* use setters */);
     /// ```
     pub fn set_encryption_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::alloy_db_settings::EncryptionConfig>,
+    where T: std::convert::Into<crate::model::alloy_db_settings::EncryptionConfig>
     {
         self.encryption_config = std::option::Option::Some(v.into());
         self
@@ -7703,8 +7499,7 @@ impl AlloyDbSettings {
     /// let x = AlloyDbSettings::new().set_or_clear_encryption_config(None::<EncryptionConfig>);
     /// ```
     pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::alloy_db_settings::EncryptionConfig>,
+    where T: std::convert::Into<crate::model::alloy_db_settings::EncryptionConfig>
     {
         self.encryption_config = v.map(|x| x.into());
         self
@@ -7722,11 +7517,13 @@ pub mod alloy_db_settings {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// The username/password for a database user. Used for specifying initial
     /// users at cluster creation time.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct UserPassword {
+
         /// The database username.
         pub user: std::string::String,
 
@@ -7791,24 +7588,23 @@ pub mod alloy_db_settings {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PrimaryInstanceSettings {
+
         /// Required. The ID of the AlloyDB primary instance. The ID must satisfy the
         /// regex expression "[a-z0-9-]+".
         pub id: std::string::String,
 
         /// Configuration for the machines that host the underlying
         /// database engine.
-        pub machine_config: std::option::Option<
-            crate::model::alloy_db_settings::primary_instance_settings::MachineConfig,
-        >,
+        pub machine_config: std::option::Option<crate::model::alloy_db_settings::primary_instance_settings::MachineConfig>,
 
         /// Database flags to pass to AlloyDB when DMS is creating the AlloyDB
         /// cluster and instances. See the AlloyDB documentation for how these can be
         /// used.
-        pub database_flags: std::collections::HashMap<std::string::String, std::string::String>,
+        pub database_flags: std::collections::HashMap<std::string::String,std::string::String>,
 
         /// Labels for the AlloyDB primary instance created by DMS. An object
         /// containing a list of 'key', 'value' pairs.
-        pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+        pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
         /// Output only. The private IP address for the Instance.
         /// This is the connection endpoint for an end-user application.
@@ -7843,10 +7639,7 @@ pub mod alloy_db_settings {
         /// let x = PrimaryInstanceSettings::new().set_machine_config(MachineConfig::default()/* use setters */);
         /// ```
         pub fn set_machine_config<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<
-                    crate::model::alloy_db_settings::primary_instance_settings::MachineConfig,
-                >,
+        where T: std::convert::Into<crate::model::alloy_db_settings::primary_instance_settings::MachineConfig>
         {
             self.machine_config = std::option::Option::Some(v.into());
             self
@@ -7862,10 +7655,7 @@ pub mod alloy_db_settings {
         /// let x = PrimaryInstanceSettings::new().set_or_clear_machine_config(None::<MachineConfig>);
         /// ```
         pub fn set_or_clear_machine_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<
-                    crate::model::alloy_db_settings::primary_instance_settings::MachineConfig,
-                >,
+        where T: std::convert::Into<crate::model::alloy_db_settings::primary_instance_settings::MachineConfig>
         {
             self.machine_config = v.map(|x| x.into());
             self
@@ -7937,10 +7727,12 @@ pub mod alloy_db_settings {
         #[allow(unused_imports)]
         use super::*;
 
+
         /// MachineConfig describes the configuration of a machine.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct MachineConfig {
+
             /// The number of CPU's in the VM instance.
             pub cpu_count: i32,
 
@@ -7977,6 +7769,7 @@ pub mod alloy_db_settings {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct EncryptionConfig {
+
         /// The fully-qualified resource name of the KMS key.
         /// Each Cloud KMS key is regionalized and has the following format:
         /// projects/[PROJECT]/locations/[REGION]/keyRings/[RING]/cryptoKeys/[KEY_NAME]
@@ -7997,10 +7790,7 @@ pub mod alloy_db_settings {
         /// # use google_cloud_clouddms_v1::model::alloy_db_settings::EncryptionConfig;
         /// let x = EncryptionConfig::new().set_kms_key_name("example");
         /// ```
-        pub fn set_kms_key_name<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_kms_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.kms_key_name = v.into();
             self
         }
@@ -8020,6 +7810,7 @@ pub mod alloy_db_settings {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StaticIpConnectivity {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -8040,6 +7831,7 @@ impl wkt::message::Message for StaticIpConnectivity {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PrivateServiceConnectConnectivity {
+
     /// Required. A service attachment that exposes a database, and has the
     /// following format:
     /// projects/{project}/regions/{region}/serviceAttachments/{service_attachment_name}
@@ -8060,10 +7852,7 @@ impl PrivateServiceConnectConnectivity {
     /// # use google_cloud_clouddms_v1::model::PrivateServiceConnectConnectivity;
     /// let x = PrivateServiceConnectConnectivity::new().set_service_attachment("example");
     /// ```
-    pub fn set_service_attachment<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_service_attachment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_attachment = v.into();
         self
     }
@@ -8084,6 +7873,7 @@ impl wkt::message::Message for PrivateServiceConnectConnectivity {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReverseSshConnectivity {
+
     /// Required. The IP of the virtual machine (Compute Engine) used as the
     /// bastion server for the SSH tunnel.
     pub vm_ip: std::string::String,
@@ -8168,6 +7958,7 @@ impl wkt::message::Message for ReverseSshConnectivity {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VpcPeeringConnectivity {
+
     /// The name of the VPC network to peer with the Cloud SQL private network.
     pub vpc: std::string::String,
 
@@ -8202,6 +7993,7 @@ impl wkt::message::Message for VpcPeeringConnectivity {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ForwardSshTunnelConnectivity {
+
     /// Required. Hostname for the SSH tunnel.
     pub hostname: std::string::String,
 
@@ -8211,8 +8003,7 @@ pub struct ForwardSshTunnelConnectivity {
     /// Port for the SSH tunnel, default value is 22.
     pub port: i32,
 
-    pub authentication_method:
-        std::option::Option<crate::model::forward_ssh_tunnel_connectivity::AuthenticationMethod>,
+    pub authentication_method: std::option::Option<crate::model::forward_ssh_tunnel_connectivity::AuthenticationMethod>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -8269,16 +8060,8 @@ impl ForwardSshTunnelConnectivity {
     /// use google_cloud_clouddms_v1::model::forward_ssh_tunnel_connectivity::AuthenticationMethod;
     /// let x = ForwardSshTunnelConnectivity::new().set_authentication_method(Some(AuthenticationMethod::Password("example".to_string())));
     /// ```
-    pub fn set_authentication_method<
-        T: std::convert::Into<
-                std::option::Option<
-                    crate::model::forward_ssh_tunnel_connectivity::AuthenticationMethod,
-                >,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_authentication_method<T: std::convert::Into<std::option::Option<crate::model::forward_ssh_tunnel_connectivity::AuthenticationMethod>>>(mut self, v: T) -> Self
+    {
         self.authentication_method = v.into();
         self
     }
@@ -8289,9 +8072,7 @@ impl ForwardSshTunnelConnectivity {
     pub fn password(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.authentication_method.as_ref().and_then(|v| match v {
-            crate::model::forward_ssh_tunnel_connectivity::AuthenticationMethod::Password(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::forward_ssh_tunnel_connectivity::AuthenticationMethod::Password(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -8311,7 +8092,9 @@ impl ForwardSshTunnelConnectivity {
     /// ```
     pub fn set_password<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.authentication_method = std::option::Option::Some(
-            crate::model::forward_ssh_tunnel_connectivity::AuthenticationMethod::Password(v.into()),
+            crate::model::forward_ssh_tunnel_connectivity::AuthenticationMethod::Password(
+                v.into()
+            )
         );
         self
     }
@@ -8322,9 +8105,7 @@ impl ForwardSshTunnelConnectivity {
     pub fn private_key(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.authentication_method.as_ref().and_then(|v| match v {
-            crate::model::forward_ssh_tunnel_connectivity::AuthenticationMethod::PrivateKey(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::forward_ssh_tunnel_connectivity::AuthenticationMethod::PrivateKey(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -8345,8 +8126,8 @@ impl ForwardSshTunnelConnectivity {
     pub fn set_private_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.authentication_method = std::option::Option::Some(
             crate::model::forward_ssh_tunnel_connectivity::AuthenticationMethod::PrivateKey(
-                v.into(),
-            ),
+                v.into()
+            )
         );
         self
     }
@@ -8363,6 +8144,7 @@ pub mod forward_ssh_tunnel_connectivity {
     #[allow(unused_imports)]
     use super::*;
 
+
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum AuthenticationMethod {
@@ -8377,6 +8159,7 @@ pub mod forward_ssh_tunnel_connectivity {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StaticServiceIpConnectivity {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -8396,6 +8179,7 @@ impl wkt::message::Message for StaticServiceIpConnectivity {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PrivateConnectivity {
+
     /// Required. The resource name (URI) of the private connection.
     pub private_connection: std::string::String,
 
@@ -8414,10 +8198,7 @@ impl PrivateConnectivity {
     /// # use google_cloud_clouddms_v1::model::PrivateConnectivity;
     /// let x = PrivateConnectivity::new().set_private_connection("example");
     /// ```
-    pub fn set_private_connection<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_private_connection<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.private_connection = v.into();
         self
     }
@@ -8433,6 +8214,7 @@ impl wkt::message::Message for PrivateConnectivity {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DatabaseType {
+
     /// The database provider.
     pub provider: crate::model::DatabaseProvider,
 
@@ -8457,10 +8239,7 @@ impl DatabaseType {
     /// let x1 = DatabaseType::new().set_provider(DatabaseProvider::Rds);
     /// let x2 = DatabaseType::new().set_provider(DatabaseProvider::Aurora);
     /// ```
-    pub fn set_provider<T: std::convert::Into<crate::model::DatabaseProvider>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_provider<T: std::convert::Into<crate::model::DatabaseProvider>>(mut self, v: T) -> Self {
         self.provider = v.into();
         self
     }
@@ -8491,6 +8270,7 @@ impl wkt::message::Message for DatabaseType {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MigrationJob {
+
     /// The name (URI) of this migration job resource, in the form of:
     /// projects/{project}/locations/{location}/migrationJobs/{migrationJob}.
     pub name: std::string::String,
@@ -8510,7 +8290,7 @@ pub struct MigrationJob {
     /// list of "key": "value" pairs.
     ///
     /// Example: `{ "name": "wrench", "mass": "1.3kg", "count": "3" }`.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// The migration job display name.
     pub display_name: std::string::String,
@@ -8617,8 +8397,7 @@ impl MigrationJob {
     /// let x = MigrationJob::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -8634,8 +8413,7 @@ impl MigrationJob {
     /// let x = MigrationJob::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -8650,8 +8428,7 @@ impl MigrationJob {
     /// let x = MigrationJob::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -8667,8 +8444,7 @@ impl MigrationJob {
     /// let x = MigrationJob::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -8717,10 +8493,7 @@ impl MigrationJob {
     /// let x1 = MigrationJob::new().set_state(State::Draft);
     /// let x2 = MigrationJob::new().set_state(State::Creating);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::migration_job::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::migration_job::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -8735,10 +8508,7 @@ impl MigrationJob {
     /// let x1 = MigrationJob::new().set_phase(Phase::Cdc);
     /// let x2 = MigrationJob::new().set_phase(Phase::PromoteInProgress);
     /// ```
-    pub fn set_phase<T: std::convert::Into<crate::model::migration_job::Phase>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_phase<T: std::convert::Into<crate::model::migration_job::Phase>>(mut self, v: T) -> Self {
         self.phase = v.into();
         self
     }
@@ -8752,10 +8522,7 @@ impl MigrationJob {
     /// let x0 = MigrationJob::new().set_type(Type::OneTime);
     /// let x1 = MigrationJob::new().set_type(Type::Continuous);
     /// ```
-    pub fn set_type<T: std::convert::Into<crate::model::migration_job::Type>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_type<T: std::convert::Into<crate::model::migration_job::Type>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
@@ -8781,8 +8548,7 @@ impl MigrationJob {
     /// let x = MigrationJob::new().set_dump_flags(DumpFlags::default()/* use setters */);
     /// ```
     pub fn set_dump_flags<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::migration_job::DumpFlags>,
+    where T: std::convert::Into<crate::model::migration_job::DumpFlags>
     {
         self.dump_flags = std::option::Option::Some(v.into());
         self
@@ -8798,8 +8564,7 @@ impl MigrationJob {
     /// let x = MigrationJob::new().set_or_clear_dump_flags(None::<DumpFlags>);
     /// ```
     pub fn set_or_clear_dump_flags<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::migration_job::DumpFlags>,
+    where T: std::convert::Into<crate::model::migration_job::DumpFlags>
     {
         self.dump_flags = v.map(|x| x.into());
         self
@@ -8838,8 +8603,7 @@ impl MigrationJob {
     /// let x = MigrationJob::new().set_duration(Duration::default()/* use setters */);
     /// ```
     pub fn set_duration<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.duration = std::option::Option::Some(v.into());
         self
@@ -8855,8 +8619,7 @@ impl MigrationJob {
     /// let x = MigrationJob::new().set_or_clear_duration(None::<Duration>);
     /// ```
     pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.duration = v.map(|x| x.into());
         self
@@ -8871,8 +8634,7 @@ impl MigrationJob {
     /// let x = MigrationJob::new().set_error(Status::default()/* use setters */);
     /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<rpc::model::Status>,
+    where T: std::convert::Into<rpc::model::Status>
     {
         self.error = std::option::Option::Some(v.into());
         self
@@ -8888,8 +8650,7 @@ impl MigrationJob {
     /// let x = MigrationJob::new().set_or_clear_error(None::<Status>);
     /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<rpc::model::Status>,
+    where T: std::convert::Into<rpc::model::Status>
     {
         self.error = v.map(|x| x.into());
         self
@@ -8904,8 +8665,7 @@ impl MigrationJob {
     /// let x = MigrationJob::new().set_source_database(DatabaseType::default()/* use setters */);
     /// ```
     pub fn set_source_database<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DatabaseType>,
+    where T: std::convert::Into<crate::model::DatabaseType>
     {
         self.source_database = std::option::Option::Some(v.into());
         self
@@ -8921,8 +8681,7 @@ impl MigrationJob {
     /// let x = MigrationJob::new().set_or_clear_source_database(None::<DatabaseType>);
     /// ```
     pub fn set_or_clear_source_database<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DatabaseType>,
+    where T: std::convert::Into<crate::model::DatabaseType>
     {
         self.source_database = v.map(|x| x.into());
         self
@@ -8937,8 +8696,7 @@ impl MigrationJob {
     /// let x = MigrationJob::new().set_destination_database(DatabaseType::default()/* use setters */);
     /// ```
     pub fn set_destination_database<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DatabaseType>,
+    where T: std::convert::Into<crate::model::DatabaseType>
     {
         self.destination_database = std::option::Option::Some(v.into());
         self
@@ -8954,8 +8712,7 @@ impl MigrationJob {
     /// let x = MigrationJob::new().set_or_clear_destination_database(None::<DatabaseType>);
     /// ```
     pub fn set_or_clear_destination_database<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DatabaseType>,
+    where T: std::convert::Into<crate::model::DatabaseType>
     {
         self.destination_database = v.map(|x| x.into());
         self
@@ -8970,8 +8727,7 @@ impl MigrationJob {
     /// let x = MigrationJob::new().set_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -8987,8 +8743,7 @@ impl MigrationJob {
     /// let x = MigrationJob::new().set_or_clear_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -9003,8 +8758,7 @@ impl MigrationJob {
     /// let x = MigrationJob::new().set_conversion_workspace(ConversionWorkspaceInfo::default()/* use setters */);
     /// ```
     pub fn set_conversion_workspace<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ConversionWorkspaceInfo>,
+    where T: std::convert::Into<crate::model::ConversionWorkspaceInfo>
     {
         self.conversion_workspace = std::option::Option::Some(v.into());
         self
@@ -9020,8 +8774,7 @@ impl MigrationJob {
     /// let x = MigrationJob::new().set_or_clear_conversion_workspace(None::<ConversionWorkspaceInfo>);
     /// ```
     pub fn set_or_clear_conversion_workspace<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ConversionWorkspaceInfo>,
+    where T: std::convert::Into<crate::model::ConversionWorkspaceInfo>
     {
         self.conversion_workspace = v.map(|x| x.into());
         self
@@ -9060,8 +8813,7 @@ impl MigrationJob {
     /// let x = MigrationJob::new().set_performance_config(PerformanceConfig::default()/* use setters */);
     /// ```
     pub fn set_performance_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::migration_job::PerformanceConfig>,
+    where T: std::convert::Into<crate::model::migration_job::PerformanceConfig>
     {
         self.performance_config = std::option::Option::Some(v.into());
         self
@@ -9077,8 +8829,7 @@ impl MigrationJob {
     /// let x = MigrationJob::new().set_or_clear_performance_config(None::<PerformanceConfig>);
     /// ```
     pub fn set_or_clear_performance_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::migration_job::PerformanceConfig>,
+    where T: std::convert::Into<crate::model::migration_job::PerformanceConfig>
     {
         self.performance_config = v.map(|x| x.into());
         self
@@ -9096,12 +8847,8 @@ impl MigrationJob {
     /// let x = MigrationJob::new().set_connectivity(Some(
     ///     google_cloud_clouddms_v1::model::migration_job::Connectivity::ReverseSshConnectivity(ReverseSshConnectivity::default().into())));
     /// ```
-    pub fn set_connectivity<
-        T: std::convert::Into<std::option::Option<crate::model::migration_job::Connectivity>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_connectivity<T: std::convert::Into<std::option::Option<crate::model::migration_job::Connectivity>>>(mut self, v: T) -> Self
+    {
         self.connectivity = v.into();
         self
     }
@@ -9109,14 +8856,10 @@ impl MigrationJob {
     /// The value of [connectivity][crate::model::MigrationJob::connectivity]
     /// if it holds a `ReverseSshConnectivity`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn reverse_ssh_connectivity(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::ReverseSshConnectivity>> {
+    pub fn reverse_ssh_connectivity(&self) -> std::option::Option<&std::boxed::Box<crate::model::ReverseSshConnectivity>> {
         #[allow(unreachable_patterns)]
         self.connectivity.as_ref().and_then(|v| match v {
-            crate::model::migration_job::Connectivity::ReverseSshConnectivity(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::migration_job::Connectivity::ReverseSshConnectivity(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -9136,14 +8879,11 @@ impl MigrationJob {
     /// assert!(x.vpc_peering_connectivity().is_none());
     /// assert!(x.static_ip_connectivity().is_none());
     /// ```
-    pub fn set_reverse_ssh_connectivity<
-        T: std::convert::Into<std::boxed::Box<crate::model::ReverseSshConnectivity>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_reverse_ssh_connectivity<T: std::convert::Into<std::boxed::Box<crate::model::ReverseSshConnectivity>>>(mut self, v: T) -> Self {
         self.connectivity = std::option::Option::Some(
-            crate::model::migration_job::Connectivity::ReverseSshConnectivity(v.into()),
+            crate::model::migration_job::Connectivity::ReverseSshConnectivity(
+                v.into()
+            )
         );
         self
     }
@@ -9151,14 +8891,10 @@ impl MigrationJob {
     /// The value of [connectivity][crate::model::MigrationJob::connectivity]
     /// if it holds a `VpcPeeringConnectivity`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn vpc_peering_connectivity(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::VpcPeeringConnectivity>> {
+    pub fn vpc_peering_connectivity(&self) -> std::option::Option<&std::boxed::Box<crate::model::VpcPeeringConnectivity>> {
         #[allow(unreachable_patterns)]
         self.connectivity.as_ref().and_then(|v| match v {
-            crate::model::migration_job::Connectivity::VpcPeeringConnectivity(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::migration_job::Connectivity::VpcPeeringConnectivity(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -9178,14 +8914,11 @@ impl MigrationJob {
     /// assert!(x.reverse_ssh_connectivity().is_none());
     /// assert!(x.static_ip_connectivity().is_none());
     /// ```
-    pub fn set_vpc_peering_connectivity<
-        T: std::convert::Into<std::boxed::Box<crate::model::VpcPeeringConnectivity>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_vpc_peering_connectivity<T: std::convert::Into<std::boxed::Box<crate::model::VpcPeeringConnectivity>>>(mut self, v: T) -> Self {
         self.connectivity = std::option::Option::Some(
-            crate::model::migration_job::Connectivity::VpcPeeringConnectivity(v.into()),
+            crate::model::migration_job::Connectivity::VpcPeeringConnectivity(
+                v.into()
+            )
         );
         self
     }
@@ -9193,14 +8926,10 @@ impl MigrationJob {
     /// The value of [connectivity][crate::model::MigrationJob::connectivity]
     /// if it holds a `StaticIpConnectivity`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn static_ip_connectivity(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::StaticIpConnectivity>> {
+    pub fn static_ip_connectivity(&self) -> std::option::Option<&std::boxed::Box<crate::model::StaticIpConnectivity>> {
         #[allow(unreachable_patterns)]
         self.connectivity.as_ref().and_then(|v| match v {
-            crate::model::migration_job::Connectivity::StaticIpConnectivity(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::migration_job::Connectivity::StaticIpConnectivity(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -9220,14 +8949,11 @@ impl MigrationJob {
     /// assert!(x.reverse_ssh_connectivity().is_none());
     /// assert!(x.vpc_peering_connectivity().is_none());
     /// ```
-    pub fn set_static_ip_connectivity<
-        T: std::convert::Into<std::boxed::Box<crate::model::StaticIpConnectivity>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_static_ip_connectivity<T: std::convert::Into<std::boxed::Box<crate::model::StaticIpConnectivity>>>(mut self, v: T) -> Self {
         self.connectivity = std::option::Option::Some(
-            crate::model::migration_job::Connectivity::StaticIpConnectivity(v.into()),
+            crate::model::migration_job::Connectivity::StaticIpConnectivity(
+                v.into()
+            )
         );
         self
     }
@@ -9244,10 +8970,12 @@ pub mod migration_job {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Dump flag definition.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DumpFlag {
+
         /// The name of the flag
         pub name: std::string::String,
 
@@ -9297,6 +9025,7 @@ pub mod migration_job {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DumpFlags {
+
         /// The flags for the initial dump.
         pub dump_flags: std::vec::Vec<crate::model::migration_job::DumpFlag>,
 
@@ -9323,7 +9052,7 @@ pub mod migration_job {
         pub fn set_dump_flags<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::migration_job::DumpFlag>,
+            V: std::convert::Into<crate::model::migration_job::DumpFlag>
         {
             use std::iter::Iterator;
             self.dump_flags = v.into_iter().map(|i| i.into()).collect();
@@ -9341,6 +9070,7 @@ pub mod migration_job {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PerformanceConfig {
+
         /// Initial dump parallelism level.
         pub dump_parallel_level: crate::model::migration_job::performance_config::DumpParallelLevel,
 
@@ -9362,12 +9092,7 @@ pub mod migration_job {
         /// let x1 = PerformanceConfig::new().set_dump_parallel_level(DumpParallelLevel::Optimal);
         /// let x2 = PerformanceConfig::new().set_dump_parallel_level(DumpParallelLevel::Max);
         /// ```
-        pub fn set_dump_parallel_level<
-            T: std::convert::Into<crate::model::migration_job::performance_config::DumpParallelLevel>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_dump_parallel_level<T: std::convert::Into<crate::model::migration_job::performance_config::DumpParallelLevel>>(mut self, v: T) -> Self {
             self.dump_parallel_level = v.into();
             self
         }
@@ -9383,6 +9108,7 @@ pub mod migration_job {
     pub mod performance_config {
         #[allow(unused_imports)]
         use super::*;
+
 
         /// Describes the parallelism level during initial dump.
         ///
@@ -9446,9 +9172,7 @@ pub mod migration_job {
             /// the integer representation of enums.
             pub fn name(&self) -> std::option::Option<&str> {
                 match self {
-                    Self::Unspecified => {
-                        std::option::Option::Some("DUMP_PARALLEL_LEVEL_UNSPECIFIED")
-                    }
+                    Self::Unspecified => std::option::Option::Some("DUMP_PARALLEL_LEVEL_UNSPECIFIED"),
                     Self::Min => std::option::Option::Some("MIN"),
                     Self::Optimal => std::option::Option::Some("OPTIMAL"),
                     Self::Max => std::option::Option::Some("MAX"),
@@ -9465,10 +9189,7 @@ pub mod migration_job {
         }
 
         impl std::fmt::Display for DumpParallelLevel {
-            fn fmt(
-                &self,
-                f: &mut std::fmt::Formatter<'_>,
-            ) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -9480,9 +9201,7 @@ pub mod migration_job {
                     1 => Self::Min,
                     2 => Self::Optimal,
                     3 => Self::Max,
-                    _ => Self::UnknownValue(dump_parallel_level::UnknownValue(
-                        wkt::internal::UnknownEnumValue::Integer(value),
-                    )),
+                    _ => Self::UnknownValue(dump_parallel_level::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
                 }
             }
         }
@@ -9495,9 +9214,7 @@ pub mod migration_job {
                     "MIN" => Self::Min,
                     "OPTIMAL" => Self::Optimal,
                     "MAX" => Self::Max,
-                    _ => Self::UnknownValue(dump_parallel_level::UnknownValue(
-                        wkt::internal::UnknownEnumValue::String(value.to_string()),
-                    )),
+                    _ => Self::UnknownValue(dump_parallel_level::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
                 }
             }
         }
@@ -9523,8 +9240,7 @@ pub mod migration_job {
                 D: serde::Deserializer<'de>,
             {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<DumpParallelLevel>::new(
-                    ".google.cloud.clouddms.v1.MigrationJob.PerformanceConfig.DumpParallelLevel",
-                ))
+                    ".google.cloud.clouddms.v1.MigrationJob.PerformanceConfig.DumpParallelLevel"))
             }
         }
     }
@@ -9680,9 +9396,7 @@ pub mod migration_job {
                 13 => Self::Starting,
                 14 => Self::Restarting,
                 15 => Self::Resuming,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -9707,9 +9421,7 @@ pub mod migration_job {
                 "STARTING" => Self::Starting,
                 "RESTARTING" => Self::Restarting,
                 "RESUMING" => Self::Resuming,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -9747,8 +9459,7 @@ pub mod migration_job {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.clouddms.v1.MigrationJob.State",
-            ))
+                ".google.cloud.clouddms.v1.MigrationJob.State"))
         }
     }
 
@@ -9824,9 +9535,7 @@ pub mod migration_job {
                 Self::FullDump => std::option::Option::Some("FULL_DUMP"),
                 Self::Cdc => std::option::Option::Some("CDC"),
                 Self::PromoteInProgress => std::option::Option::Some("PROMOTE_IN_PROGRESS"),
-                Self::WaitingForSourceWritesToStop => {
-                    std::option::Option::Some("WAITING_FOR_SOURCE_WRITES_TO_STOP")
-                }
+                Self::WaitingForSourceWritesToStop => std::option::Option::Some("WAITING_FOR_SOURCE_WRITES_TO_STOP"),
                 Self::PreparingTheDump => std::option::Option::Some("PREPARING_THE_DUMP"),
                 Self::UnknownValue(u) => u.0.name(),
             }
@@ -9855,9 +9564,7 @@ pub mod migration_job {
                 3 => Self::PromoteInProgress,
                 4 => Self::WaitingForSourceWritesToStop,
                 5 => Self::PreparingTheDump,
-                _ => Self::UnknownValue(phase::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(phase::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -9872,9 +9579,7 @@ pub mod migration_job {
                 "PROMOTE_IN_PROGRESS" => Self::PromoteInProgress,
                 "WAITING_FOR_SOURCE_WRITES_TO_STOP" => Self::WaitingForSourceWritesToStop,
                 "PREPARING_THE_DUMP" => Self::PreparingTheDump,
-                _ => Self::UnknownValue(phase::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(phase::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -9902,8 +9607,7 @@ pub mod migration_job {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Phase>::new(
-                ".google.cloud.clouddms.v1.MigrationJob.Phase",
-            ))
+                ".google.cloud.clouddms.v1.MigrationJob.Phase"))
         }
     }
 
@@ -9993,9 +9697,7 @@ pub mod migration_job {
                 0 => Self::Unspecified,
                 1 => Self::OneTime,
                 2 => Self::Continuous,
-                _ => Self::UnknownValue(r#type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -10007,9 +9709,7 @@ pub mod migration_job {
                 "TYPE_UNSPECIFIED" => Self::Unspecified,
                 "ONE_TIME" => Self::OneTime,
                 "CONTINUOUS" => Self::Continuous,
-                _ => Self::UnknownValue(r#type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -10034,8 +9734,7 @@ pub mod migration_job {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
-                ".google.cloud.clouddms.v1.MigrationJob.Type",
-            ))
+                ".google.cloud.clouddms.v1.MigrationJob.Type"))
         }
     }
 
@@ -10057,6 +9756,7 @@ pub mod migration_job {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConversionWorkspaceInfo {
+
     /// The resource name (URI) of the conversion workspace.
     pub name: std::string::String,
 
@@ -10106,6 +9806,7 @@ impl wkt::message::Message for ConversionWorkspaceInfo {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConnectionProfile {
+
     /// The name of this connection profile resource in the form of
     /// projects/{project}/locations/{location}/connectionProfiles/{connectionProfile}.
     pub name: std::string::String,
@@ -10125,7 +9826,7 @@ pub struct ConnectionProfile {
     /// list of "key": "value" pairs.
     ///
     /// Example: `{ "name": "wrench", "mass": "1.3kg", "count": "3" }`.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// The current connection profile state (e.g. DRAFT, READY, or FAILED).
     pub state: crate::model::connection_profile::State,
@@ -10140,8 +9841,7 @@ pub struct ConnectionProfile {
     pub provider: crate::model::DatabaseProvider,
 
     /// The connection profile definition.
-    pub connection_profile:
-        std::option::Option<crate::model::connection_profile::ConnectionProfile>,
+    pub connection_profile: std::option::Option<crate::model::connection_profile::ConnectionProfile>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -10172,8 +9872,7 @@ impl ConnectionProfile {
     /// let x = ConnectionProfile::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -10189,8 +9888,7 @@ impl ConnectionProfile {
     /// let x = ConnectionProfile::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -10205,8 +9903,7 @@ impl ConnectionProfile {
     /// let x = ConnectionProfile::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -10222,8 +9919,7 @@ impl ConnectionProfile {
     /// let x = ConnectionProfile::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -10260,10 +9956,7 @@ impl ConnectionProfile {
     /// let x1 = ConnectionProfile::new().set_state(State::Creating);
     /// let x2 = ConnectionProfile::new().set_state(State::Ready);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::connection_profile::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::connection_profile::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -10289,8 +9982,7 @@ impl ConnectionProfile {
     /// let x = ConnectionProfile::new().set_error(Status::default()/* use setters */);
     /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<rpc::model::Status>,
+    where T: std::convert::Into<rpc::model::Status>
     {
         self.error = std::option::Option::Some(v.into());
         self
@@ -10306,8 +9998,7 @@ impl ConnectionProfile {
     /// let x = ConnectionProfile::new().set_or_clear_error(None::<Status>);
     /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<rpc::model::Status>,
+    where T: std::convert::Into<rpc::model::Status>
     {
         self.error = v.map(|x| x.into());
         self
@@ -10323,10 +10014,7 @@ impl ConnectionProfile {
     /// let x1 = ConnectionProfile::new().set_provider(DatabaseProvider::Rds);
     /// let x2 = ConnectionProfile::new().set_provider(DatabaseProvider::Aurora);
     /// ```
-    pub fn set_provider<T: std::convert::Into<crate::model::DatabaseProvider>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_provider<T: std::convert::Into<crate::model::DatabaseProvider>>(mut self, v: T) -> Self {
         self.provider = v.into();
         self
     }
@@ -10343,14 +10031,8 @@ impl ConnectionProfile {
     /// let x = ConnectionProfile::new().set_connection_profile(Some(
     ///     google_cloud_clouddms_v1::model::connection_profile::ConnectionProfile::Mysql(MySqlConnectionProfile::default().into())));
     /// ```
-    pub fn set_connection_profile<
-        T: std::convert::Into<
-                std::option::Option<crate::model::connection_profile::ConnectionProfile>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_connection_profile<T: std::convert::Into<std::option::Option<crate::model::connection_profile::ConnectionProfile>>>(mut self, v: T) -> Self
+    {
         self.connection_profile = v.into();
         self
     }
@@ -10358,14 +10040,10 @@ impl ConnectionProfile {
     /// The value of [connection_profile][crate::model::ConnectionProfile::connection_profile]
     /// if it holds a `Mysql`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn mysql(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::MySqlConnectionProfile>> {
+    pub fn mysql(&self) -> std::option::Option<&std::boxed::Box<crate::model::MySqlConnectionProfile>> {
         #[allow(unreachable_patterns)]
         self.connection_profile.as_ref().and_then(|v| match v {
-            crate::model::connection_profile::ConnectionProfile::Mysql(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::connection_profile::ConnectionProfile::Mysql(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -10387,14 +10065,11 @@ impl ConnectionProfile {
     /// assert!(x.cloudsql().is_none());
     /// assert!(x.alloydb().is_none());
     /// ```
-    pub fn set_mysql<
-        T: std::convert::Into<std::boxed::Box<crate::model::MySqlConnectionProfile>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_mysql<T: std::convert::Into<std::boxed::Box<crate::model::MySqlConnectionProfile>>>(mut self, v: T) -> Self {
         self.connection_profile = std::option::Option::Some(
-            crate::model::connection_profile::ConnectionProfile::Mysql(v.into()),
+            crate::model::connection_profile::ConnectionProfile::Mysql(
+                v.into()
+            )
         );
         self
     }
@@ -10402,14 +10077,10 @@ impl ConnectionProfile {
     /// The value of [connection_profile][crate::model::ConnectionProfile::connection_profile]
     /// if it holds a `Postgresql`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn postgresql(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::PostgreSqlConnectionProfile>> {
+    pub fn postgresql(&self) -> std::option::Option<&std::boxed::Box<crate::model::PostgreSqlConnectionProfile>> {
         #[allow(unreachable_patterns)]
         self.connection_profile.as_ref().and_then(|v| match v {
-            crate::model::connection_profile::ConnectionProfile::Postgresql(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::connection_profile::ConnectionProfile::Postgresql(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -10431,14 +10102,11 @@ impl ConnectionProfile {
     /// assert!(x.cloudsql().is_none());
     /// assert!(x.alloydb().is_none());
     /// ```
-    pub fn set_postgresql<
-        T: std::convert::Into<std::boxed::Box<crate::model::PostgreSqlConnectionProfile>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_postgresql<T: std::convert::Into<std::boxed::Box<crate::model::PostgreSqlConnectionProfile>>>(mut self, v: T) -> Self {
         self.connection_profile = std::option::Option::Some(
-            crate::model::connection_profile::ConnectionProfile::Postgresql(v.into()),
+            crate::model::connection_profile::ConnectionProfile::Postgresql(
+                v.into()
+            )
         );
         self
     }
@@ -10446,14 +10114,10 @@ impl ConnectionProfile {
     /// The value of [connection_profile][crate::model::ConnectionProfile::connection_profile]
     /// if it holds a `Oracle`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn oracle(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::OracleConnectionProfile>> {
+    pub fn oracle(&self) -> std::option::Option<&std::boxed::Box<crate::model::OracleConnectionProfile>> {
         #[allow(unreachable_patterns)]
         self.connection_profile.as_ref().and_then(|v| match v {
-            crate::model::connection_profile::ConnectionProfile::Oracle(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::connection_profile::ConnectionProfile::Oracle(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -10475,14 +10139,11 @@ impl ConnectionProfile {
     /// assert!(x.cloudsql().is_none());
     /// assert!(x.alloydb().is_none());
     /// ```
-    pub fn set_oracle<
-        T: std::convert::Into<std::boxed::Box<crate::model::OracleConnectionProfile>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_oracle<T: std::convert::Into<std::boxed::Box<crate::model::OracleConnectionProfile>>>(mut self, v: T) -> Self {
         self.connection_profile = std::option::Option::Some(
-            crate::model::connection_profile::ConnectionProfile::Oracle(v.into()),
+            crate::model::connection_profile::ConnectionProfile::Oracle(
+                v.into()
+            )
         );
         self
     }
@@ -10490,14 +10151,10 @@ impl ConnectionProfile {
     /// The value of [connection_profile][crate::model::ConnectionProfile::connection_profile]
     /// if it holds a `Cloudsql`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn cloudsql(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::CloudSqlConnectionProfile>> {
+    pub fn cloudsql(&self) -> std::option::Option<&std::boxed::Box<crate::model::CloudSqlConnectionProfile>> {
         #[allow(unreachable_patterns)]
         self.connection_profile.as_ref().and_then(|v| match v {
-            crate::model::connection_profile::ConnectionProfile::Cloudsql(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::connection_profile::ConnectionProfile::Cloudsql(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -10519,14 +10176,11 @@ impl ConnectionProfile {
     /// assert!(x.oracle().is_none());
     /// assert!(x.alloydb().is_none());
     /// ```
-    pub fn set_cloudsql<
-        T: std::convert::Into<std::boxed::Box<crate::model::CloudSqlConnectionProfile>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_cloudsql<T: std::convert::Into<std::boxed::Box<crate::model::CloudSqlConnectionProfile>>>(mut self, v: T) -> Self {
         self.connection_profile = std::option::Option::Some(
-            crate::model::connection_profile::ConnectionProfile::Cloudsql(v.into()),
+            crate::model::connection_profile::ConnectionProfile::Cloudsql(
+                v.into()
+            )
         );
         self
     }
@@ -10534,14 +10188,10 @@ impl ConnectionProfile {
     /// The value of [connection_profile][crate::model::ConnectionProfile::connection_profile]
     /// if it holds a `Alloydb`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn alloydb(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::AlloyDbConnectionProfile>> {
+    pub fn alloydb(&self) -> std::option::Option<&std::boxed::Box<crate::model::AlloyDbConnectionProfile>> {
         #[allow(unreachable_patterns)]
         self.connection_profile.as_ref().and_then(|v| match v {
-            crate::model::connection_profile::ConnectionProfile::Alloydb(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::connection_profile::ConnectionProfile::Alloydb(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -10563,14 +10213,11 @@ impl ConnectionProfile {
     /// assert!(x.oracle().is_none());
     /// assert!(x.cloudsql().is_none());
     /// ```
-    pub fn set_alloydb<
-        T: std::convert::Into<std::boxed::Box<crate::model::AlloyDbConnectionProfile>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_alloydb<T: std::convert::Into<std::boxed::Box<crate::model::AlloyDbConnectionProfile>>>(mut self, v: T) -> Self {
         self.connection_profile = std::option::Option::Some(
-            crate::model::connection_profile::ConnectionProfile::Alloydb(v.into()),
+            crate::model::connection_profile::ConnectionProfile::Alloydb(
+                v.into()
+            )
         );
         self
     }
@@ -10586,6 +10233,7 @@ impl wkt::message::Message for ConnectionProfile {
 pub mod connection_profile {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The current connection profile state (e.g. DRAFT, READY, or FAILED).
     ///
@@ -10698,9 +10346,7 @@ pub mod connection_profile {
                 5 => Self::Deleting,
                 6 => Self::Deleted,
                 7 => Self::Failed,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -10717,9 +10363,7 @@ pub mod connection_profile {
                 "DELETING" => Self::Deleting,
                 "DELETED" => Self::Deleted,
                 "FAILED" => Self::Failed,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -10749,8 +10393,7 @@ pub mod connection_profile {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.clouddms.v1.ConnectionProfile.State",
-            ))
+                ".google.cloud.clouddms.v1.ConnectionProfile.State"))
         }
     }
 
@@ -10775,6 +10418,7 @@ pub mod connection_profile {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MigrationJobVerificationError {
+
     /// Output only. An instance of ErrorCode specifying the error that occurred.
     pub error_code: crate::model::migration_job_verification_error::ErrorCode,
 
@@ -10803,12 +10447,7 @@ impl MigrationJobVerificationError {
     /// let x1 = MigrationJobVerificationError::new().set_error_code(ErrorCode::AuthenticationFailure);
     /// let x2 = MigrationJobVerificationError::new().set_error_code(ErrorCode::InvalidConnectionProfileConfig);
     /// ```
-    pub fn set_error_code<
-        T: std::convert::Into<crate::model::migration_job_verification_error::ErrorCode>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_error_code<T: std::convert::Into<crate::model::migration_job_verification_error::ErrorCode>>(mut self, v: T) -> Self {
         self.error_code = v.into();
         self
     }
@@ -10832,10 +10471,7 @@ impl MigrationJobVerificationError {
     /// # use google_cloud_clouddms_v1::model::MigrationJobVerificationError;
     /// let x = MigrationJobVerificationError::new().set_error_detail_message("example");
     /// ```
-    pub fn set_error_detail_message<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_error_detail_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.error_detail_message = v.into();
         self
     }
@@ -10851,6 +10487,7 @@ impl wkt::message::Message for MigrationJobVerificationError {
 pub mod migration_job_verification_error {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// A general error code describing the type of error that occurred.
     ///
@@ -10995,67 +10632,31 @@ pub mod migration_job_verification_error {
                 Self::Unspecified => std::option::Option::Some("ERROR_CODE_UNSPECIFIED"),
                 Self::ConnectionFailure => std::option::Option::Some("CONNECTION_FAILURE"),
                 Self::AuthenticationFailure => std::option::Option::Some("AUTHENTICATION_FAILURE"),
-                Self::InvalidConnectionProfileConfig => {
-                    std::option::Option::Some("INVALID_CONNECTION_PROFILE_CONFIG")
-                }
-                Self::VersionIncompatibility => {
-                    std::option::Option::Some("VERSION_INCOMPATIBILITY")
-                }
-                Self::ConnectionProfileTypesIncompatibility => {
-                    std::option::Option::Some("CONNECTION_PROFILE_TYPES_INCOMPATIBILITY")
-                }
+                Self::InvalidConnectionProfileConfig => std::option::Option::Some("INVALID_CONNECTION_PROFILE_CONFIG"),
+                Self::VersionIncompatibility => std::option::Option::Some("VERSION_INCOMPATIBILITY"),
+                Self::ConnectionProfileTypesIncompatibility => std::option::Option::Some("CONNECTION_PROFILE_TYPES_INCOMPATIBILITY"),
                 Self::NoPglogicalInstalled => std::option::Option::Some("NO_PGLOGICAL_INSTALLED"),
-                Self::PglogicalNodeAlreadyExists => {
-                    std::option::Option::Some("PGLOGICAL_NODE_ALREADY_EXISTS")
-                }
+                Self::PglogicalNodeAlreadyExists => std::option::Option::Some("PGLOGICAL_NODE_ALREADY_EXISTS"),
                 Self::InvalidWalLevel => std::option::Option::Some("INVALID_WAL_LEVEL"),
-                Self::InvalidSharedPreloadLibrary => {
-                    std::option::Option::Some("INVALID_SHARED_PRELOAD_LIBRARY")
-                }
-                Self::InsufficientMaxReplicationSlots => {
-                    std::option::Option::Some("INSUFFICIENT_MAX_REPLICATION_SLOTS")
-                }
-                Self::InsufficientMaxWalSenders => {
-                    std::option::Option::Some("INSUFFICIENT_MAX_WAL_SENDERS")
-                }
-                Self::InsufficientMaxWorkerProcesses => {
-                    std::option::Option::Some("INSUFFICIENT_MAX_WORKER_PROCESSES")
-                }
+                Self::InvalidSharedPreloadLibrary => std::option::Option::Some("INVALID_SHARED_PRELOAD_LIBRARY"),
+                Self::InsufficientMaxReplicationSlots => std::option::Option::Some("INSUFFICIENT_MAX_REPLICATION_SLOTS"),
+                Self::InsufficientMaxWalSenders => std::option::Option::Some("INSUFFICIENT_MAX_WAL_SENDERS"),
+                Self::InsufficientMaxWorkerProcesses => std::option::Option::Some("INSUFFICIENT_MAX_WORKER_PROCESSES"),
                 Self::UnsupportedExtensions => std::option::Option::Some("UNSUPPORTED_EXTENSIONS"),
-                Self::UnsupportedMigrationType => {
-                    std::option::Option::Some("UNSUPPORTED_MIGRATION_TYPE")
-                }
-                Self::InvalidRdsLogicalReplication => {
-                    std::option::Option::Some("INVALID_RDS_LOGICAL_REPLICATION")
-                }
+                Self::UnsupportedMigrationType => std::option::Option::Some("UNSUPPORTED_MIGRATION_TYPE"),
+                Self::InvalidRdsLogicalReplication => std::option::Option::Some("INVALID_RDS_LOGICAL_REPLICATION"),
                 Self::UnsupportedGtidMode => std::option::Option::Some("UNSUPPORTED_GTID_MODE"),
-                Self::UnsupportedTableDefinition => {
-                    std::option::Option::Some("UNSUPPORTED_TABLE_DEFINITION")
-                }
+                Self::UnsupportedTableDefinition => std::option::Option::Some("UNSUPPORTED_TABLE_DEFINITION"),
                 Self::UnsupportedDefiner => std::option::Option::Some("UNSUPPORTED_DEFINER"),
-                Self::CantRestartRunningMigration => {
-                    std::option::Option::Some("CANT_RESTART_RUNNING_MIGRATION")
-                }
+                Self::CantRestartRunningMigration => std::option::Option::Some("CANT_RESTART_RUNNING_MIGRATION"),
                 Self::SourceAlreadySetup => std::option::Option::Some("SOURCE_ALREADY_SETUP"),
-                Self::TablesWithLimitedSupport => {
-                    std::option::Option::Some("TABLES_WITH_LIMITED_SUPPORT")
-                }
-                Self::UnsupportedDatabaseLocale => {
-                    std::option::Option::Some("UNSUPPORTED_DATABASE_LOCALE")
-                }
-                Self::UnsupportedDatabaseFdwConfig => {
-                    std::option::Option::Some("UNSUPPORTED_DATABASE_FDW_CONFIG")
-                }
+                Self::TablesWithLimitedSupport => std::option::Option::Some("TABLES_WITH_LIMITED_SUPPORT"),
+                Self::UnsupportedDatabaseLocale => std::option::Option::Some("UNSUPPORTED_DATABASE_LOCALE"),
+                Self::UnsupportedDatabaseFdwConfig => std::option::Option::Some("UNSUPPORTED_DATABASE_FDW_CONFIG"),
                 Self::ErrorRdbms => std::option::Option::Some("ERROR_RDBMS"),
-                Self::SourceSizeExceedsThreshold => {
-                    std::option::Option::Some("SOURCE_SIZE_EXCEEDS_THRESHOLD")
-                }
-                Self::ExistingConflictingDatabases => {
-                    std::option::Option::Some("EXISTING_CONFLICTING_DATABASES")
-                }
-                Self::ParallelImportInsufficientPrivilege => {
-                    std::option::Option::Some("PARALLEL_IMPORT_INSUFFICIENT_PRIVILEGE")
-                }
+                Self::SourceSizeExceedsThreshold => std::option::Option::Some("SOURCE_SIZE_EXCEEDS_THRESHOLD"),
+                Self::ExistingConflictingDatabases => std::option::Option::Some("EXISTING_CONFLICTING_DATABASES"),
+                Self::ParallelImportInsufficientPrivilege => std::option::Option::Some("PARALLEL_IMPORT_INSUFFICIENT_PRIVILEGE"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -11105,9 +10706,7 @@ pub mod migration_job_verification_error {
                 28 => Self::SourceSizeExceedsThreshold,
                 29 => Self::ExistingConflictingDatabases,
                 30 => Self::ParallelImportInsufficientPrivilege,
-                _ => Self::UnknownValue(error_code::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(error_code::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -11121,9 +10720,7 @@ pub mod migration_job_verification_error {
                 "AUTHENTICATION_FAILURE" => Self::AuthenticationFailure,
                 "INVALID_CONNECTION_PROFILE_CONFIG" => Self::InvalidConnectionProfileConfig,
                 "VERSION_INCOMPATIBILITY" => Self::VersionIncompatibility,
-                "CONNECTION_PROFILE_TYPES_INCOMPATIBILITY" => {
-                    Self::ConnectionProfileTypesIncompatibility
-                }
+                "CONNECTION_PROFILE_TYPES_INCOMPATIBILITY" => Self::ConnectionProfileTypesIncompatibility,
                 "NO_PGLOGICAL_INSTALLED" => Self::NoPglogicalInstalled,
                 "PGLOGICAL_NODE_ALREADY_EXISTS" => Self::PglogicalNodeAlreadyExists,
                 "INVALID_WAL_LEVEL" => Self::InvalidWalLevel,
@@ -11145,12 +10742,8 @@ pub mod migration_job_verification_error {
                 "ERROR_RDBMS" => Self::ErrorRdbms,
                 "SOURCE_SIZE_EXCEEDS_THRESHOLD" => Self::SourceSizeExceedsThreshold,
                 "EXISTING_CONFLICTING_DATABASES" => Self::ExistingConflictingDatabases,
-                "PARALLEL_IMPORT_INSUFFICIENT_PRIVILEGE" => {
-                    Self::ParallelImportInsufficientPrivilege
-                }
-                _ => Self::UnknownValue(error_code::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                "PARALLEL_IMPORT_INSUFFICIENT_PRIVILEGE" => Self::ParallelImportInsufficientPrivilege,
+                _ => Self::UnknownValue(error_code::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -11200,8 +10793,7 @@ pub mod migration_job_verification_error {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<ErrorCode>::new(
-                ".google.cloud.clouddms.v1.MigrationJobVerificationError.ErrorCode",
-            ))
+                ".google.cloud.clouddms.v1.MigrationJobVerificationError.ErrorCode"))
         }
     }
 }
@@ -11211,6 +10803,7 @@ pub mod migration_job_verification_error {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PrivateConnection {
+
     /// The name of the resource.
     pub name: std::string::String,
 
@@ -11225,7 +10818,7 @@ pub struct PrivateConnection {
     /// list of "key": "value" pairs.
     ///
     /// Example: `{ "name": "wrench", "mass": "1.3kg", "count": "3" }`.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// The private connection display name.
     pub display_name: std::string::String,
@@ -11267,8 +10860,7 @@ impl PrivateConnection {
     /// let x = PrivateConnection::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -11284,8 +10876,7 @@ impl PrivateConnection {
     /// let x = PrivateConnection::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -11300,8 +10891,7 @@ impl PrivateConnection {
     /// let x = PrivateConnection::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -11317,8 +10907,7 @@ impl PrivateConnection {
     /// let x = PrivateConnection::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -11367,10 +10956,7 @@ impl PrivateConnection {
     /// let x1 = PrivateConnection::new().set_state(State::Created);
     /// let x2 = PrivateConnection::new().set_state(State::Failed);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::private_connection::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::private_connection::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -11384,8 +10970,7 @@ impl PrivateConnection {
     /// let x = PrivateConnection::new().set_error(Status::default()/* use setters */);
     /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<rpc::model::Status>,
+    where T: std::convert::Into<rpc::model::Status>
     {
         self.error = std::option::Option::Some(v.into());
         self
@@ -11401,8 +10986,7 @@ impl PrivateConnection {
     /// let x = PrivateConnection::new().set_or_clear_error(None::<Status>);
     /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<rpc::model::Status>,
+    where T: std::convert::Into<rpc::model::Status>
     {
         self.error = v.map(|x| x.into());
         self
@@ -11420,12 +11004,8 @@ impl PrivateConnection {
     /// let x = PrivateConnection::new().set_connectivity(Some(
     ///     google_cloud_clouddms_v1::model::private_connection::Connectivity::VpcPeeringConfig(VpcPeeringConfig::default().into())));
     /// ```
-    pub fn set_connectivity<
-        T: std::convert::Into<std::option::Option<crate::model::private_connection::Connectivity>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_connectivity<T: std::convert::Into<std::option::Option<crate::model::private_connection::Connectivity>>>(mut self, v: T) -> Self
+    {
         self.connectivity = v.into();
         self
     }
@@ -11433,14 +11013,10 @@ impl PrivateConnection {
     /// The value of [connectivity][crate::model::PrivateConnection::connectivity]
     /// if it holds a `VpcPeeringConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn vpc_peering_config(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::VpcPeeringConfig>> {
+    pub fn vpc_peering_config(&self) -> std::option::Option<&std::boxed::Box<crate::model::VpcPeeringConfig>> {
         #[allow(unreachable_patterns)]
         self.connectivity.as_ref().and_then(|v| match v {
-            crate::model::private_connection::Connectivity::VpcPeeringConfig(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::private_connection::Connectivity::VpcPeeringConfig(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -11458,14 +11034,11 @@ impl PrivateConnection {
     /// let x = PrivateConnection::new().set_vpc_peering_config(VpcPeeringConfig::default()/* use setters */);
     /// assert!(x.vpc_peering_config().is_some());
     /// ```
-    pub fn set_vpc_peering_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::VpcPeeringConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_vpc_peering_config<T: std::convert::Into<std::boxed::Box<crate::model::VpcPeeringConfig>>>(mut self, v: T) -> Self {
         self.connectivity = std::option::Option::Some(
-            crate::model::private_connection::Connectivity::VpcPeeringConfig(v.into()),
+            crate::model::private_connection::Connectivity::VpcPeeringConfig(
+                v.into()
+            )
         );
         self
     }
@@ -11481,6 +11054,7 @@ impl wkt::message::Message for PrivateConnection {
 pub mod private_connection {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Private Connection state.
     ///
@@ -11587,9 +11161,7 @@ pub mod private_connection {
                 4 => Self::Deleting,
                 5 => Self::FailedToDelete,
                 6 => Self::Deleted,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -11605,9 +11177,7 @@ pub mod private_connection {
                 "DELETING" => Self::Deleting,
                 "FAILED_TO_DELETE" => Self::FailedToDelete,
                 "DELETED" => Self::Deleted,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -11636,8 +11206,7 @@ pub mod private_connection {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.clouddms.v1.PrivateConnection.State",
-            ))
+                ".google.cloud.clouddms.v1.PrivateConnection.State"))
         }
     }
 
@@ -11654,6 +11223,7 @@ pub mod private_connection {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VpcPeeringConfig {
+
     /// Required. Fully qualified name of the VPC that Database Migration Service
     /// will peer to.
     pub vpc_name: std::string::String,
@@ -11704,6 +11274,7 @@ impl wkt::message::Message for VpcPeeringConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DatabaseEngineInfo {
+
     /// Required. Engine type.
     pub engine: crate::model::DatabaseEngine,
 
@@ -11756,6 +11327,7 @@ impl wkt::message::Message for DatabaseEngineInfo {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConversionWorkspace {
+
     /// Full name of the workspace resource, in the form of:
     /// projects/{project}/locations/{location}/conversionWorkspaces/{conversion_workspace}.
     pub name: std::string::String,
@@ -11771,7 +11343,7 @@ pub struct ConversionWorkspace {
     /// for the mapping rules engine or turn on or off specific features.
     /// Such examples can be: convert_foreign_key_to_interleave=true,
     /// skip_triggers=false, ignore_non_table_synonyms=true
-    pub global_settings: std::collections::HashMap<std::string::String, std::string::String>,
+    pub global_settings: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Output only. Whether the workspace has uncommitted changes (changes which
     /// were made after the workspace was committed).
@@ -11821,8 +11393,7 @@ impl ConversionWorkspace {
     /// let x = ConversionWorkspace::new().set_source(DatabaseEngineInfo::default()/* use setters */);
     /// ```
     pub fn set_source<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DatabaseEngineInfo>,
+    where T: std::convert::Into<crate::model::DatabaseEngineInfo>
     {
         self.source = std::option::Option::Some(v.into());
         self
@@ -11838,8 +11409,7 @@ impl ConversionWorkspace {
     /// let x = ConversionWorkspace::new().set_or_clear_source(None::<DatabaseEngineInfo>);
     /// ```
     pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DatabaseEngineInfo>,
+    where T: std::convert::Into<crate::model::DatabaseEngineInfo>
     {
         self.source = v.map(|x| x.into());
         self
@@ -11854,8 +11424,7 @@ impl ConversionWorkspace {
     /// let x = ConversionWorkspace::new().set_destination(DatabaseEngineInfo::default()/* use setters */);
     /// ```
     pub fn set_destination<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DatabaseEngineInfo>,
+    where T: std::convert::Into<crate::model::DatabaseEngineInfo>
     {
         self.destination = std::option::Option::Some(v.into());
         self
@@ -11871,8 +11440,7 @@ impl ConversionWorkspace {
     /// let x = ConversionWorkspace::new().set_or_clear_destination(None::<DatabaseEngineInfo>);
     /// ```
     pub fn set_or_clear_destination<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DatabaseEngineInfo>,
+    where T: std::convert::Into<crate::model::DatabaseEngineInfo>
     {
         self.destination = v.map(|x| x.into());
         self
@@ -11918,10 +11486,7 @@ impl ConversionWorkspace {
     /// # use google_cloud_clouddms_v1::model::ConversionWorkspace;
     /// let x = ConversionWorkspace::new().set_latest_commit_id("example");
     /// ```
-    pub fn set_latest_commit_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_latest_commit_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.latest_commit_id = v.into();
         self
     }
@@ -11935,8 +11500,7 @@ impl ConversionWorkspace {
     /// let x = ConversionWorkspace::new().set_latest_commit_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_latest_commit_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.latest_commit_time = std::option::Option::Some(v.into());
         self
@@ -11952,8 +11516,7 @@ impl ConversionWorkspace {
     /// let x = ConversionWorkspace::new().set_or_clear_latest_commit_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_latest_commit_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.latest_commit_time = v.map(|x| x.into());
         self
@@ -11968,8 +11531,7 @@ impl ConversionWorkspace {
     /// let x = ConversionWorkspace::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -11985,8 +11547,7 @@ impl ConversionWorkspace {
     /// let x = ConversionWorkspace::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -12001,8 +11562,7 @@ impl ConversionWorkspace {
     /// let x = ConversionWorkspace::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -12018,8 +11578,7 @@ impl ConversionWorkspace {
     /// let x = ConversionWorkspace::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -12048,6 +11607,7 @@ impl wkt::message::Message for ConversionWorkspace {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BackgroundJobLogEntry {
+
     /// The background job log entry ID.
     pub id: std::string::String,
 
@@ -12104,10 +11664,7 @@ impl BackgroundJobLogEntry {
     /// let x1 = BackgroundJobLogEntry::new().set_job_type(BackgroundJobType::Convert);
     /// let x2 = BackgroundJobLogEntry::new().set_job_type(BackgroundJobType::ApplyDestination);
     /// ```
-    pub fn set_job_type<T: std::convert::Into<crate::model::BackgroundJobType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_job_type<T: std::convert::Into<crate::model::BackgroundJobType>>(mut self, v: T) -> Self {
         self.job_type = v.into();
         self
     }
@@ -12121,8 +11678,7 @@ impl BackgroundJobLogEntry {
     /// let x = BackgroundJobLogEntry::new().set_start_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -12138,8 +11694,7 @@ impl BackgroundJobLogEntry {
     /// let x = BackgroundJobLogEntry::new().set_or_clear_start_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -12154,8 +11709,7 @@ impl BackgroundJobLogEntry {
     /// let x = BackgroundJobLogEntry::new().set_finish_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_finish_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.finish_time = std::option::Option::Some(v.into());
         self
@@ -12171,8 +11725,7 @@ impl BackgroundJobLogEntry {
     /// let x = BackgroundJobLogEntry::new().set_or_clear_finish_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_finish_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.finish_time = v.map(|x| x.into());
         self
@@ -12187,12 +11740,7 @@ impl BackgroundJobLogEntry {
     /// let x0 = BackgroundJobLogEntry::new().set_completion_state(JobCompletionState::Succeeded);
     /// let x1 = BackgroundJobLogEntry::new().set_completion_state(JobCompletionState::Failed);
     /// ```
-    pub fn set_completion_state<
-        T: std::convert::Into<crate::model::background_job_log_entry::JobCompletionState>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_completion_state<T: std::convert::Into<crate::model::background_job_log_entry::JobCompletionState>>(mut self, v: T) -> Self {
         self.completion_state = v.into();
         self
     }
@@ -12204,10 +11752,7 @@ impl BackgroundJobLogEntry {
     /// # use google_cloud_clouddms_v1::model::BackgroundJobLogEntry;
     /// let x = BackgroundJobLogEntry::new().set_completion_comment("example");
     /// ```
-    pub fn set_completion_comment<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_completion_comment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.completion_comment = v.into();
         self
     }
@@ -12236,12 +11781,8 @@ impl BackgroundJobLogEntry {
     /// let x = BackgroundJobLogEntry::new().set_job_details(Some(
     ///     google_cloud_clouddms_v1::model::background_job_log_entry::JobDetails::SeedJobDetails(SeedJobDetails::default().into())));
     /// ```
-    pub fn set_job_details<
-        T: std::convert::Into<std::option::Option<crate::model::background_job_log_entry::JobDetails>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_job_details<T: std::convert::Into<std::option::Option<crate::model::background_job_log_entry::JobDetails>>>(mut self, v: T) -> Self
+    {
         self.job_details = v.into();
         self
     }
@@ -12249,15 +11790,10 @@ impl BackgroundJobLogEntry {
     /// The value of [job_details][crate::model::BackgroundJobLogEntry::job_details]
     /// if it holds a `SeedJobDetails`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn seed_job_details(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::background_job_log_entry::SeedJobDetails>>
-    {
+    pub fn seed_job_details(&self) -> std::option::Option<&std::boxed::Box<crate::model::background_job_log_entry::SeedJobDetails>> {
         #[allow(unreachable_patterns)]
         self.job_details.as_ref().and_then(|v| match v {
-            crate::model::background_job_log_entry::JobDetails::SeedJobDetails(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::background_job_log_entry::JobDetails::SeedJobDetails(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -12278,14 +11814,11 @@ impl BackgroundJobLogEntry {
     /// assert!(x.convert_job_details().is_none());
     /// assert!(x.apply_job_details().is_none());
     /// ```
-    pub fn set_seed_job_details<
-        T: std::convert::Into<std::boxed::Box<crate::model::background_job_log_entry::SeedJobDetails>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_seed_job_details<T: std::convert::Into<std::boxed::Box<crate::model::background_job_log_entry::SeedJobDetails>>>(mut self, v: T) -> Self {
         self.job_details = std::option::Option::Some(
-            crate::model::background_job_log_entry::JobDetails::SeedJobDetails(v.into()),
+            crate::model::background_job_log_entry::JobDetails::SeedJobDetails(
+                v.into()
+            )
         );
         self
     }
@@ -12293,16 +11826,10 @@ impl BackgroundJobLogEntry {
     /// The value of [job_details][crate::model::BackgroundJobLogEntry::job_details]
     /// if it holds a `ImportRulesJobDetails`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn import_rules_job_details(
-        &self,
-    ) -> std::option::Option<
-        &std::boxed::Box<crate::model::background_job_log_entry::ImportRulesJobDetails>,
-    > {
+    pub fn import_rules_job_details(&self) -> std::option::Option<&std::boxed::Box<crate::model::background_job_log_entry::ImportRulesJobDetails>> {
         #[allow(unreachable_patterns)]
         self.job_details.as_ref().and_then(|v| match v {
-            crate::model::background_job_log_entry::JobDetails::ImportRulesJobDetails(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::background_job_log_entry::JobDetails::ImportRulesJobDetails(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -12323,16 +11850,11 @@ impl BackgroundJobLogEntry {
     /// assert!(x.convert_job_details().is_none());
     /// assert!(x.apply_job_details().is_none());
     /// ```
-    pub fn set_import_rules_job_details<
-        T: std::convert::Into<
-                std::boxed::Box<crate::model::background_job_log_entry::ImportRulesJobDetails>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_import_rules_job_details<T: std::convert::Into<std::boxed::Box<crate::model::background_job_log_entry::ImportRulesJobDetails>>>(mut self, v: T) -> Self {
         self.job_details = std::option::Option::Some(
-            crate::model::background_job_log_entry::JobDetails::ImportRulesJobDetails(v.into()),
+            crate::model::background_job_log_entry::JobDetails::ImportRulesJobDetails(
+                v.into()
+            )
         );
         self
     }
@@ -12340,16 +11862,10 @@ impl BackgroundJobLogEntry {
     /// The value of [job_details][crate::model::BackgroundJobLogEntry::job_details]
     /// if it holds a `ConvertJobDetails`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn convert_job_details(
-        &self,
-    ) -> std::option::Option<
-        &std::boxed::Box<crate::model::background_job_log_entry::ConvertJobDetails>,
-    > {
+    pub fn convert_job_details(&self) -> std::option::Option<&std::boxed::Box<crate::model::background_job_log_entry::ConvertJobDetails>> {
         #[allow(unreachable_patterns)]
         self.job_details.as_ref().and_then(|v| match v {
-            crate::model::background_job_log_entry::JobDetails::ConvertJobDetails(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::background_job_log_entry::JobDetails::ConvertJobDetails(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -12370,16 +11886,11 @@ impl BackgroundJobLogEntry {
     /// assert!(x.import_rules_job_details().is_none());
     /// assert!(x.apply_job_details().is_none());
     /// ```
-    pub fn set_convert_job_details<
-        T: std::convert::Into<
-                std::boxed::Box<crate::model::background_job_log_entry::ConvertJobDetails>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_convert_job_details<T: std::convert::Into<std::boxed::Box<crate::model::background_job_log_entry::ConvertJobDetails>>>(mut self, v: T) -> Self {
         self.job_details = std::option::Option::Some(
-            crate::model::background_job_log_entry::JobDetails::ConvertJobDetails(v.into()),
+            crate::model::background_job_log_entry::JobDetails::ConvertJobDetails(
+                v.into()
+            )
         );
         self
     }
@@ -12387,16 +11898,10 @@ impl BackgroundJobLogEntry {
     /// The value of [job_details][crate::model::BackgroundJobLogEntry::job_details]
     /// if it holds a `ApplyJobDetails`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn apply_job_details(
-        &self,
-    ) -> std::option::Option<
-        &std::boxed::Box<crate::model::background_job_log_entry::ApplyJobDetails>,
-    > {
+    pub fn apply_job_details(&self) -> std::option::Option<&std::boxed::Box<crate::model::background_job_log_entry::ApplyJobDetails>> {
         #[allow(unreachable_patterns)]
         self.job_details.as_ref().and_then(|v| match v {
-            crate::model::background_job_log_entry::JobDetails::ApplyJobDetails(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::background_job_log_entry::JobDetails::ApplyJobDetails(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -12417,16 +11922,11 @@ impl BackgroundJobLogEntry {
     /// assert!(x.import_rules_job_details().is_none());
     /// assert!(x.convert_job_details().is_none());
     /// ```
-    pub fn set_apply_job_details<
-        T: std::convert::Into<
-                std::boxed::Box<crate::model::background_job_log_entry::ApplyJobDetails>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_apply_job_details<T: std::convert::Into<std::boxed::Box<crate::model::background_job_log_entry::ApplyJobDetails>>>(mut self, v: T) -> Self {
         self.job_details = std::option::Option::Some(
-            crate::model::background_job_log_entry::JobDetails::ApplyJobDetails(v.into()),
+            crate::model::background_job_log_entry::JobDetails::ApplyJobDetails(
+                v.into()
+            )
         );
         self
     }
@@ -12443,10 +11943,12 @@ pub mod background_job_log_entry {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Details regarding a Seed background job.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SeedJobDetails {
+
         /// Output only. The connection profile which was used for the seed job.
         pub connection_profile: std::string::String,
 
@@ -12465,10 +11967,7 @@ pub mod background_job_log_entry {
         /// # use google_cloud_clouddms_v1::model::background_job_log_entry::SeedJobDetails;
         /// let x = SeedJobDetails::new().set_connection_profile("example");
         /// ```
-        pub fn set_connection_profile<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_connection_profile<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.connection_profile = v.into();
             self
         }
@@ -12484,6 +11983,7 @@ pub mod background_job_log_entry {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ImportRulesJobDetails {
+
         /// Output only. File names used for the import rules job.
         pub files: std::vec::Vec<std::string::String>,
 
@@ -12508,7 +12008,7 @@ pub mod background_job_log_entry {
         pub fn set_files<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.files = v.into_iter().map(|i| i.into()).collect();
@@ -12524,10 +12024,7 @@ pub mod background_job_log_entry {
         /// let x0 = ImportRulesJobDetails::new().set_file_format(ImportRulesFileFormat::HarbourBridgeSessionFile);
         /// let x1 = ImportRulesJobDetails::new().set_file_format(ImportRulesFileFormat::OratopgConfigFile);
         /// ```
-        pub fn set_file_format<T: std::convert::Into<crate::model::ImportRulesFileFormat>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_file_format<T: std::convert::Into<crate::model::ImportRulesFileFormat>>(mut self, v: T) -> Self {
             self.file_format = v.into();
             self
         }
@@ -12543,6 +12040,7 @@ pub mod background_job_log_entry {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ConvertJobDetails {
+
         /// Output only. AIP-160 based filter used to specify the entities to convert
         pub filter: std::string::String,
 
@@ -12577,6 +12075,7 @@ pub mod background_job_log_entry {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ApplyJobDetails {
+
         /// Output only. The connection profile which was used for the apply job.
         pub connection_profile: std::string::String,
 
@@ -12598,10 +12097,7 @@ pub mod background_job_log_entry {
         /// # use google_cloud_clouddms_v1::model::background_job_log_entry::ApplyJobDetails;
         /// let x = ApplyJobDetails::new().set_connection_profile("example");
         /// ```
-        pub fn set_connection_profile<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_connection_profile<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.connection_profile = v.into();
             self
         }
@@ -12712,9 +12208,7 @@ pub mod background_job_log_entry {
                 0 => Self::Unspecified,
                 1 => Self::Succeeded,
                 2 => Self::Failed,
-                _ => Self::UnknownValue(job_completion_state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(job_completion_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -12726,9 +12220,7 @@ pub mod background_job_log_entry {
                 "JOB_COMPLETION_STATE_UNSPECIFIED" => Self::Unspecified,
                 "SUCCEEDED" => Self::Succeeded,
                 "FAILED" => Self::Failed,
-                _ => Self::UnknownValue(job_completion_state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(job_completion_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -12753,8 +12245,7 @@ pub mod background_job_log_entry {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<JobCompletionState>::new(
-                ".google.cloud.clouddms.v1.BackgroundJobLogEntry.JobCompletionState",
-            ))
+                ".google.cloud.clouddms.v1.BackgroundJobLogEntry.JobCompletionState"))
         }
     }
 
@@ -12764,13 +12255,9 @@ pub mod background_job_log_entry {
         /// Output only. Seed job details.
         SeedJobDetails(std::boxed::Box<crate::model::background_job_log_entry::SeedJobDetails>),
         /// Output only. Import rules job details.
-        ImportRulesJobDetails(
-            std::boxed::Box<crate::model::background_job_log_entry::ImportRulesJobDetails>,
-        ),
+        ImportRulesJobDetails(std::boxed::Box<crate::model::background_job_log_entry::ImportRulesJobDetails>),
         /// Output only. Convert job details.
-        ConvertJobDetails(
-            std::boxed::Box<crate::model::background_job_log_entry::ConvertJobDetails>,
-        ),
+        ConvertJobDetails(std::boxed::Box<crate::model::background_job_log_entry::ConvertJobDetails>),
         /// Output only. Apply job details.
         ApplyJobDetails(std::boxed::Box<crate::model::background_job_log_entry::ApplyJobDetails>),
     }
@@ -12782,6 +12269,7 @@ pub mod background_job_log_entry {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MappingRuleFilter {
+
     /// Optional. The rule should be applied to entities whose parent entity
     /// (fully qualified name) matches the given value.
     /// For example, if the rule applies to a table entity, the expected value
@@ -12833,10 +12321,7 @@ impl MappingRuleFilter {
     /// # use google_cloud_clouddms_v1::model::MappingRuleFilter;
     /// let x = MappingRuleFilter::new().set_entity_name_prefix("example");
     /// ```
-    pub fn set_entity_name_prefix<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_entity_name_prefix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.entity_name_prefix = v.into();
         self
     }
@@ -12848,10 +12333,7 @@ impl MappingRuleFilter {
     /// # use google_cloud_clouddms_v1::model::MappingRuleFilter;
     /// let x = MappingRuleFilter::new().set_entity_name_suffix("example");
     /// ```
-    pub fn set_entity_name_suffix<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_entity_name_suffix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.entity_name_suffix = v.into();
         self
     }
@@ -12863,10 +12345,7 @@ impl MappingRuleFilter {
     /// # use google_cloud_clouddms_v1::model::MappingRuleFilter;
     /// let x = MappingRuleFilter::new().set_entity_name_contains("example");
     /// ```
-    pub fn set_entity_name_contains<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_entity_name_contains<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.entity_name_contains = v.into();
         self
     }
@@ -12881,7 +12360,7 @@ impl MappingRuleFilter {
     pub fn set_entities<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.entities = v.into_iter().map(|i| i.into()).collect();
@@ -12901,6 +12380,7 @@ impl wkt::message::Message for MappingRuleFilter {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MappingRule {
+
     /// Full name of the mapping rule resource, in the form of:
     /// projects/{project}/locations/{location}/conversionWorkspaces/{set}/mappingRule/{rule}.
     pub name: std::string::String,
@@ -12974,10 +12454,7 @@ impl MappingRule {
     /// let x1 = MappingRule::new().set_state(State::Disabled);
     /// let x2 = MappingRule::new().set_state(State::Deleted);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::mapping_rule::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::mapping_rule::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -12992,10 +12469,7 @@ impl MappingRule {
     /// let x1 = MappingRule::new().set_rule_scope(DatabaseEntityType::Table);
     /// let x2 = MappingRule::new().set_rule_scope(DatabaseEntityType::Column);
     /// ```
-    pub fn set_rule_scope<T: std::convert::Into<crate::model::DatabaseEntityType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_rule_scope<T: std::convert::Into<crate::model::DatabaseEntityType>>(mut self, v: T) -> Self {
         self.rule_scope = v.into();
         self
     }
@@ -13009,8 +12483,7 @@ impl MappingRule {
     /// let x = MappingRule::new().set_filter(MappingRuleFilter::default()/* use setters */);
     /// ```
     pub fn set_filter<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::MappingRuleFilter>,
+    where T: std::convert::Into<crate::model::MappingRuleFilter>
     {
         self.filter = std::option::Option::Some(v.into());
         self
@@ -13026,8 +12499,7 @@ impl MappingRule {
     /// let x = MappingRule::new().set_or_clear_filter(None::<MappingRuleFilter>);
     /// ```
     pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::MappingRuleFilter>,
+    where T: std::convert::Into<crate::model::MappingRuleFilter>
     {
         self.filter = v.map(|x| x.into());
         self
@@ -13066,8 +12538,7 @@ impl MappingRule {
     /// let x = MappingRule::new().set_revision_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_revision_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.revision_create_time = std::option::Option::Some(v.into());
         self
@@ -13083,8 +12554,7 @@ impl MappingRule {
     /// let x = MappingRule::new().set_or_clear_revision_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_revision_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.revision_create_time = v.map(|x| x.into());
         self
@@ -13102,12 +12572,8 @@ impl MappingRule {
     /// let x = MappingRule::new().set_details(Some(
     ///     google_cloud_clouddms_v1::model::mapping_rule::Details::SingleEntityRename(SingleEntityRename::default().into())));
     /// ```
-    pub fn set_details<
-        T: std::convert::Into<std::option::Option<crate::model::mapping_rule::Details>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_details<T: std::convert::Into<std::option::Option<crate::model::mapping_rule::Details>>>(mut self, v: T) -> Self
+    {
         self.details = v.into();
         self
     }
@@ -13115,14 +12581,10 @@ impl MappingRule {
     /// The value of [details][crate::model::MappingRule::details]
     /// if it holds a `SingleEntityRename`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn single_entity_rename(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SingleEntityRename>> {
+    pub fn single_entity_rename(&self) -> std::option::Option<&std::boxed::Box<crate::model::SingleEntityRename>> {
         #[allow(unreachable_patterns)]
         self.details.as_ref().and_then(|v| match v {
-            crate::model::mapping_rule::Details::SingleEntityRename(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::mapping_rule::Details::SingleEntityRename(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -13150,14 +12612,11 @@ impl MappingRule {
     /// assert!(x.source_sql_change().is_none());
     /// assert!(x.filter_table_columns().is_none());
     /// ```
-    pub fn set_single_entity_rename<
-        T: std::convert::Into<std::boxed::Box<crate::model::SingleEntityRename>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_single_entity_rename<T: std::convert::Into<std::boxed::Box<crate::model::SingleEntityRename>>>(mut self, v: T) -> Self {
         self.details = std::option::Option::Some(
-            crate::model::mapping_rule::Details::SingleEntityRename(v.into()),
+            crate::model::mapping_rule::Details::SingleEntityRename(
+                v.into()
+            )
         );
         self
     }
@@ -13165,14 +12624,10 @@ impl MappingRule {
     /// The value of [details][crate::model::MappingRule::details]
     /// if it holds a `MultiEntityRename`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn multi_entity_rename(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::MultiEntityRename>> {
+    pub fn multi_entity_rename(&self) -> std::option::Option<&std::boxed::Box<crate::model::MultiEntityRename>> {
         #[allow(unreachable_patterns)]
         self.details.as_ref().and_then(|v| match v {
-            crate::model::mapping_rule::Details::MultiEntityRename(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::mapping_rule::Details::MultiEntityRename(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -13200,14 +12655,11 @@ impl MappingRule {
     /// assert!(x.source_sql_change().is_none());
     /// assert!(x.filter_table_columns().is_none());
     /// ```
-    pub fn set_multi_entity_rename<
-        T: std::convert::Into<std::boxed::Box<crate::model::MultiEntityRename>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_multi_entity_rename<T: std::convert::Into<std::boxed::Box<crate::model::MultiEntityRename>>>(mut self, v: T) -> Self {
         self.details = std::option::Option::Some(
-            crate::model::mapping_rule::Details::MultiEntityRename(v.into()),
+            crate::model::mapping_rule::Details::MultiEntityRename(
+                v.into()
+            )
         );
         self
     }
@@ -13246,26 +12698,22 @@ impl MappingRule {
     /// assert!(x.source_sql_change().is_none());
     /// assert!(x.filter_table_columns().is_none());
     /// ```
-    pub fn set_entity_move<T: std::convert::Into<std::boxed::Box<crate::model::EntityMove>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.details =
-            std::option::Option::Some(crate::model::mapping_rule::Details::EntityMove(v.into()));
+    pub fn set_entity_move<T: std::convert::Into<std::boxed::Box<crate::model::EntityMove>>>(mut self, v: T) -> Self {
+        self.details = std::option::Option::Some(
+            crate::model::mapping_rule::Details::EntityMove(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [details][crate::model::MappingRule::details]
     /// if it holds a `SingleColumnChange`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn single_column_change(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SingleColumnChange>> {
+    pub fn single_column_change(&self) -> std::option::Option<&std::boxed::Box<crate::model::SingleColumnChange>> {
         #[allow(unreachable_patterns)]
         self.details.as_ref().and_then(|v| match v {
-            crate::model::mapping_rule::Details::SingleColumnChange(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::mapping_rule::Details::SingleColumnChange(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -13293,14 +12741,11 @@ impl MappingRule {
     /// assert!(x.source_sql_change().is_none());
     /// assert!(x.filter_table_columns().is_none());
     /// ```
-    pub fn set_single_column_change<
-        T: std::convert::Into<std::boxed::Box<crate::model::SingleColumnChange>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_single_column_change<T: std::convert::Into<std::boxed::Box<crate::model::SingleColumnChange>>>(mut self, v: T) -> Self {
         self.details = std::option::Option::Some(
-            crate::model::mapping_rule::Details::SingleColumnChange(v.into()),
+            crate::model::mapping_rule::Details::SingleColumnChange(
+                v.into()
+            )
         );
         self
     }
@@ -13308,14 +12753,10 @@ impl MappingRule {
     /// The value of [details][crate::model::MappingRule::details]
     /// if it holds a `MultiColumnDataTypeChange`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn multi_column_data_type_change(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::MultiColumnDatatypeChange>> {
+    pub fn multi_column_data_type_change(&self) -> std::option::Option<&std::boxed::Box<crate::model::MultiColumnDatatypeChange>> {
         #[allow(unreachable_patterns)]
         self.details.as_ref().and_then(|v| match v {
-            crate::model::mapping_rule::Details::MultiColumnDataTypeChange(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::mapping_rule::Details::MultiColumnDataTypeChange(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -13343,14 +12784,11 @@ impl MappingRule {
     /// assert!(x.source_sql_change().is_none());
     /// assert!(x.filter_table_columns().is_none());
     /// ```
-    pub fn set_multi_column_data_type_change<
-        T: std::convert::Into<std::boxed::Box<crate::model::MultiColumnDatatypeChange>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_multi_column_data_type_change<T: std::convert::Into<std::boxed::Box<crate::model::MultiColumnDatatypeChange>>>(mut self, v: T) -> Self {
         self.details = std::option::Option::Some(
-            crate::model::mapping_rule::Details::MultiColumnDataTypeChange(v.into()),
+            crate::model::mapping_rule::Details::MultiColumnDataTypeChange(
+                v.into()
+            )
         );
         self
     }
@@ -13358,14 +12796,10 @@ impl MappingRule {
     /// The value of [details][crate::model::MappingRule::details]
     /// if it holds a `ConditionalColumnSetValue`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn conditional_column_set_value(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::ConditionalColumnSetValue>> {
+    pub fn conditional_column_set_value(&self) -> std::option::Option<&std::boxed::Box<crate::model::ConditionalColumnSetValue>> {
         #[allow(unreachable_patterns)]
         self.details.as_ref().and_then(|v| match v {
-            crate::model::mapping_rule::Details::ConditionalColumnSetValue(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::mapping_rule::Details::ConditionalColumnSetValue(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -13393,14 +12827,11 @@ impl MappingRule {
     /// assert!(x.source_sql_change().is_none());
     /// assert!(x.filter_table_columns().is_none());
     /// ```
-    pub fn set_conditional_column_set_value<
-        T: std::convert::Into<std::boxed::Box<crate::model::ConditionalColumnSetValue>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_conditional_column_set_value<T: std::convert::Into<std::boxed::Box<crate::model::ConditionalColumnSetValue>>>(mut self, v: T) -> Self {
         self.details = std::option::Option::Some(
-            crate::model::mapping_rule::Details::ConditionalColumnSetValue(v.into()),
+            crate::model::mapping_rule::Details::ConditionalColumnSetValue(
+                v.into()
+            )
         );
         self
     }
@@ -13408,14 +12839,10 @@ impl MappingRule {
     /// The value of [details][crate::model::MappingRule::details]
     /// if it holds a `ConvertRowidColumn`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn convert_rowid_column(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::ConvertRowIdToColumn>> {
+    pub fn convert_rowid_column(&self) -> std::option::Option<&std::boxed::Box<crate::model::ConvertRowIdToColumn>> {
         #[allow(unreachable_patterns)]
         self.details.as_ref().and_then(|v| match v {
-            crate::model::mapping_rule::Details::ConvertRowidColumn(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::mapping_rule::Details::ConvertRowidColumn(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -13443,14 +12870,11 @@ impl MappingRule {
     /// assert!(x.source_sql_change().is_none());
     /// assert!(x.filter_table_columns().is_none());
     /// ```
-    pub fn set_convert_rowid_column<
-        T: std::convert::Into<std::boxed::Box<crate::model::ConvertRowIdToColumn>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_convert_rowid_column<T: std::convert::Into<std::boxed::Box<crate::model::ConvertRowIdToColumn>>>(mut self, v: T) -> Self {
         self.details = std::option::Option::Some(
-            crate::model::mapping_rule::Details::ConvertRowidColumn(v.into()),
+            crate::model::mapping_rule::Details::ConvertRowidColumn(
+                v.into()
+            )
         );
         self
     }
@@ -13458,14 +12882,10 @@ impl MappingRule {
     /// The value of [details][crate::model::MappingRule::details]
     /// if it holds a `SetTablePrimaryKey`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn set_table_primary_key(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SetTablePrimaryKey>> {
+    pub fn set_table_primary_key(&self) -> std::option::Option<&std::boxed::Box<crate::model::SetTablePrimaryKey>> {
         #[allow(unreachable_patterns)]
         self.details.as_ref().and_then(|v| match v {
-            crate::model::mapping_rule::Details::SetTablePrimaryKey(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::mapping_rule::Details::SetTablePrimaryKey(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -13493,14 +12913,11 @@ impl MappingRule {
     /// assert!(x.source_sql_change().is_none());
     /// assert!(x.filter_table_columns().is_none());
     /// ```
-    pub fn set_set_table_primary_key<
-        T: std::convert::Into<std::boxed::Box<crate::model::SetTablePrimaryKey>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_set_table_primary_key<T: std::convert::Into<std::boxed::Box<crate::model::SetTablePrimaryKey>>>(mut self, v: T) -> Self {
         self.details = std::option::Option::Some(
-            crate::model::mapping_rule::Details::SetTablePrimaryKey(v.into()),
+            crate::model::mapping_rule::Details::SetTablePrimaryKey(
+                v.into()
+            )
         );
         self
     }
@@ -13508,14 +12925,10 @@ impl MappingRule {
     /// The value of [details][crate::model::MappingRule::details]
     /// if it holds a `SinglePackageChange`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn single_package_change(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SinglePackageChange>> {
+    pub fn single_package_change(&self) -> std::option::Option<&std::boxed::Box<crate::model::SinglePackageChange>> {
         #[allow(unreachable_patterns)]
         self.details.as_ref().and_then(|v| match v {
-            crate::model::mapping_rule::Details::SinglePackageChange(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::mapping_rule::Details::SinglePackageChange(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -13543,14 +12956,11 @@ impl MappingRule {
     /// assert!(x.source_sql_change().is_none());
     /// assert!(x.filter_table_columns().is_none());
     /// ```
-    pub fn set_single_package_change<
-        T: std::convert::Into<std::boxed::Box<crate::model::SinglePackageChange>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_single_package_change<T: std::convert::Into<std::boxed::Box<crate::model::SinglePackageChange>>>(mut self, v: T) -> Self {
         self.details = std::option::Option::Some(
-            crate::model::mapping_rule::Details::SinglePackageChange(v.into()),
+            crate::model::mapping_rule::Details::SinglePackageChange(
+                v.into()
+            )
         );
         self
     }
@@ -13558,9 +12968,7 @@ impl MappingRule {
     /// The value of [details][crate::model::MappingRule::details]
     /// if it holds a `SourceSqlChange`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn source_sql_change(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SourceSqlChange>> {
+    pub fn source_sql_change(&self) -> std::option::Option<&std::boxed::Box<crate::model::SourceSqlChange>> {
         #[allow(unreachable_patterns)]
         self.details.as_ref().and_then(|v| match v {
             crate::model::mapping_rule::Details::SourceSqlChange(v) => std::option::Option::Some(v),
@@ -13591,14 +12999,11 @@ impl MappingRule {
     /// assert!(x.single_package_change().is_none());
     /// assert!(x.filter_table_columns().is_none());
     /// ```
-    pub fn set_source_sql_change<
-        T: std::convert::Into<std::boxed::Box<crate::model::SourceSqlChange>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source_sql_change<T: std::convert::Into<std::boxed::Box<crate::model::SourceSqlChange>>>(mut self, v: T) -> Self {
         self.details = std::option::Option::Some(
-            crate::model::mapping_rule::Details::SourceSqlChange(v.into()),
+            crate::model::mapping_rule::Details::SourceSqlChange(
+                v.into()
+            )
         );
         self
     }
@@ -13606,14 +13011,10 @@ impl MappingRule {
     /// The value of [details][crate::model::MappingRule::details]
     /// if it holds a `FilterTableColumns`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn filter_table_columns(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::FilterTableColumns>> {
+    pub fn filter_table_columns(&self) -> std::option::Option<&std::boxed::Box<crate::model::FilterTableColumns>> {
         #[allow(unreachable_patterns)]
         self.details.as_ref().and_then(|v| match v {
-            crate::model::mapping_rule::Details::FilterTableColumns(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::mapping_rule::Details::FilterTableColumns(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -13641,14 +13042,11 @@ impl MappingRule {
     /// assert!(x.single_package_change().is_none());
     /// assert!(x.source_sql_change().is_none());
     /// ```
-    pub fn set_filter_table_columns<
-        T: std::convert::Into<std::boxed::Box<crate::model::FilterTableColumns>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_filter_table_columns<T: std::convert::Into<std::boxed::Box<crate::model::FilterTableColumns>>>(mut self, v: T) -> Self {
         self.details = std::option::Option::Some(
-            crate::model::mapping_rule::Details::FilterTableColumns(v.into()),
+            crate::model::mapping_rule::Details::FilterTableColumns(
+                v.into()
+            )
         );
         self
     }
@@ -13664,6 +13062,7 @@ impl wkt::message::Message for MappingRule {
 pub mod mapping_rule {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The current mapping rule state such as enabled, disabled or deleted.
     ///
@@ -13756,9 +13155,7 @@ pub mod mapping_rule {
                 1 => Self::Enabled,
                 2 => Self::Disabled,
                 3 => Self::Deleted,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -13771,9 +13168,7 @@ pub mod mapping_rule {
                 "ENABLED" => Self::Enabled,
                 "DISABLED" => Self::Disabled,
                 "DELETED" => Self::Deleted,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -13799,8 +13194,7 @@ pub mod mapping_rule {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.clouddms.v1.MappingRule.State",
-            ))
+                ".google.cloud.clouddms.v1.MappingRule.State"))
         }
     }
 
@@ -13851,6 +13245,7 @@ pub mod mapping_rule {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SingleEntityRename {
+
     /// Required. The new name of the destination entity
     pub new_name: std::string::String,
 
@@ -13891,6 +13286,7 @@ impl wkt::message::Message for SingleEntityRename {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MultiEntityRename {
+
     /// Optional. The pattern used to generate the new entity's name. This pattern
     /// must include the characters '{name}', which will be replaced with the name
     /// of the original entity. For example, the pattern 't_{name}' for an entity
@@ -13919,10 +13315,7 @@ impl MultiEntityRename {
     /// # use google_cloud_clouddms_v1::model::MultiEntityRename;
     /// let x = MultiEntityRename::new().set_new_name_pattern("example");
     /// ```
-    pub fn set_new_name_pattern<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_new_name_pattern<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.new_name_pattern = v.into();
         self
     }
@@ -13937,12 +13330,7 @@ impl MultiEntityRename {
     /// let x1 = MultiEntityRename::new().set_source_name_transformation(EntityNameTransformation::LowerCase);
     /// let x2 = MultiEntityRename::new().set_source_name_transformation(EntityNameTransformation::UpperCase);
     /// ```
-    pub fn set_source_name_transformation<
-        T: std::convert::Into<crate::model::EntityNameTransformation>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source_name_transformation<T: std::convert::Into<crate::model::EntityNameTransformation>>(mut self, v: T) -> Self {
         self.source_name_transformation = v.into();
         self
     }
@@ -13964,6 +13352,7 @@ impl wkt::message::Message for MultiEntityRename {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EntityMove {
+
     /// Required. The new schema
     pub new_schema: std::string::String,
 
@@ -14006,6 +13395,7 @@ impl wkt::message::Message for EntityMove {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SingleColumnChange {
+
     /// Optional. Column data type name.
     pub data_type: std::string::String,
 
@@ -14215,8 +13605,7 @@ impl SingleColumnChange {
     /// let x = SingleColumnChange::new().set_custom_features(Struct::default()/* use setters */);
     /// ```
     pub fn set_custom_features<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Struct>,
+    where T: std::convert::Into<wkt::Struct>
     {
         self.custom_features = std::option::Option::Some(v.into());
         self
@@ -14232,8 +13621,7 @@ impl SingleColumnChange {
     /// let x = SingleColumnChange::new().set_or_clear_custom_features(None::<Struct>);
     /// ```
     pub fn set_or_clear_custom_features<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Struct>,
+    where T: std::convert::Into<wkt::Struct>
     {
         self.custom_features = v.map(|x| x.into());
         self
@@ -14249,7 +13637,7 @@ impl SingleColumnChange {
     pub fn set_set_values<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.set_values = v.into_iter().map(|i| i.into()).collect();
@@ -14291,6 +13679,7 @@ impl wkt::message::Message for SingleColumnChange {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MultiColumnDatatypeChange {
+
     /// Required. Filter on source data type.
     pub source_data_type_filter: std::string::String,
 
@@ -14318,8 +13707,7 @@ pub struct MultiColumnDatatypeChange {
     pub custom_features: std::option::Option<wkt::Struct>,
 
     /// Filter on source column parameters.
-    pub source_filter:
-        std::option::Option<crate::model::multi_column_datatype_change::SourceFilter>,
+    pub source_filter: std::option::Option<crate::model::multi_column_datatype_change::SourceFilter>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -14336,10 +13724,7 @@ impl MultiColumnDatatypeChange {
     /// # use google_cloud_clouddms_v1::model::MultiColumnDatatypeChange;
     /// let x = MultiColumnDatatypeChange::new().set_source_data_type_filter("example");
     /// ```
-    pub fn set_source_data_type_filter<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source_data_type_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_data_type_filter = v.into();
         self
     }
@@ -14399,10 +13784,7 @@ impl MultiColumnDatatypeChange {
     /// # use google_cloud_clouddms_v1::model::MultiColumnDatatypeChange;
     /// let x = MultiColumnDatatypeChange::new().set_override_fractional_seconds_precision(42);
     /// ```
-    pub fn set_override_fractional_seconds_precision<T: std::convert::Into<i32>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_override_fractional_seconds_precision<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.override_fractional_seconds_precision = v.into();
         self
     }
@@ -14416,8 +13798,7 @@ impl MultiColumnDatatypeChange {
     /// let x = MultiColumnDatatypeChange::new().set_custom_features(Struct::default()/* use setters */);
     /// ```
     pub fn set_custom_features<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Struct>,
+    where T: std::convert::Into<wkt::Struct>
     {
         self.custom_features = std::option::Option::Some(v.into());
         self
@@ -14433,8 +13814,7 @@ impl MultiColumnDatatypeChange {
     /// let x = MultiColumnDatatypeChange::new().set_or_clear_custom_features(None::<Struct>);
     /// ```
     pub fn set_or_clear_custom_features<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Struct>,
+    where T: std::convert::Into<wkt::Struct>
     {
         self.custom_features = v.map(|x| x.into());
         self
@@ -14452,14 +13832,8 @@ impl MultiColumnDatatypeChange {
     /// let x = MultiColumnDatatypeChange::new().set_source_filter(Some(
     ///     google_cloud_clouddms_v1::model::multi_column_datatype_change::SourceFilter::SourceTextFilter(SourceTextFilter::default().into())));
     /// ```
-    pub fn set_source_filter<
-        T: std::convert::Into<
-                std::option::Option<crate::model::multi_column_datatype_change::SourceFilter>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source_filter<T: std::convert::Into<std::option::Option<crate::model::multi_column_datatype_change::SourceFilter>>>(mut self, v: T) -> Self
+    {
         self.source_filter = v.into();
         self
     }
@@ -14467,14 +13841,10 @@ impl MultiColumnDatatypeChange {
     /// The value of [source_filter][crate::model::MultiColumnDatatypeChange::source_filter]
     /// if it holds a `SourceTextFilter`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn source_text_filter(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SourceTextFilter>> {
+    pub fn source_text_filter(&self) -> std::option::Option<&std::boxed::Box<crate::model::SourceTextFilter>> {
         #[allow(unreachable_patterns)]
         self.source_filter.as_ref().and_then(|v| match v {
-            crate::model::multi_column_datatype_change::SourceFilter::SourceTextFilter(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::multi_column_datatype_change::SourceFilter::SourceTextFilter(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -14493,14 +13863,11 @@ impl MultiColumnDatatypeChange {
     /// assert!(x.source_text_filter().is_some());
     /// assert!(x.source_numeric_filter().is_none());
     /// ```
-    pub fn set_source_text_filter<
-        T: std::convert::Into<std::boxed::Box<crate::model::SourceTextFilter>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source_text_filter<T: std::convert::Into<std::boxed::Box<crate::model::SourceTextFilter>>>(mut self, v: T) -> Self {
         self.source_filter = std::option::Option::Some(
-            crate::model::multi_column_datatype_change::SourceFilter::SourceTextFilter(v.into()),
+            crate::model::multi_column_datatype_change::SourceFilter::SourceTextFilter(
+                v.into()
+            )
         );
         self
     }
@@ -14508,14 +13875,10 @@ impl MultiColumnDatatypeChange {
     /// The value of [source_filter][crate::model::MultiColumnDatatypeChange::source_filter]
     /// if it holds a `SourceNumericFilter`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn source_numeric_filter(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SourceNumericFilter>> {
+    pub fn source_numeric_filter(&self) -> std::option::Option<&std::boxed::Box<crate::model::SourceNumericFilter>> {
         #[allow(unreachable_patterns)]
         self.source_filter.as_ref().and_then(|v| match v {
-            crate::model::multi_column_datatype_change::SourceFilter::SourceNumericFilter(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::multi_column_datatype_change::SourceFilter::SourceNumericFilter(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -14534,14 +13897,11 @@ impl MultiColumnDatatypeChange {
     /// assert!(x.source_numeric_filter().is_some());
     /// assert!(x.source_text_filter().is_none());
     /// ```
-    pub fn set_source_numeric_filter<
-        T: std::convert::Into<std::boxed::Box<crate::model::SourceNumericFilter>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source_numeric_filter<T: std::convert::Into<std::boxed::Box<crate::model::SourceNumericFilter>>>(mut self, v: T) -> Self {
         self.source_filter = std::option::Option::Some(
-            crate::model::multi_column_datatype_change::SourceFilter::SourceNumericFilter(v.into()),
+            crate::model::multi_column_datatype_change::SourceFilter::SourceNumericFilter(
+                v.into()
+            )
         );
         self
     }
@@ -14557,6 +13917,7 @@ impl wkt::message::Message for MultiColumnDatatypeChange {
 pub mod multi_column_datatype_change {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Filter on source column parameters.
     #[derive(Clone, Debug, PartialEq)]
@@ -14574,6 +13935,7 @@ pub mod multi_column_datatype_change {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SourceTextFilter {
+
     /// Optional. The filter will match columns with length greater than or equal
     /// to this number.
     pub source_min_length_filter: i64,
@@ -14625,6 +13987,7 @@ impl wkt::message::Message for SourceTextFilter {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SourceNumericFilter {
+
     /// Optional. The filter will match columns with scale greater than or equal to
     /// this number.
     pub source_min_scale_filter: i32,
@@ -14711,10 +14074,7 @@ impl SourceNumericFilter {
     /// let x1 = SourceNumericFilter::new().set_numeric_filter_option(NumericFilterOption::Limit);
     /// let x2 = SourceNumericFilter::new().set_numeric_filter_option(NumericFilterOption::Limitless);
     /// ```
-    pub fn set_numeric_filter_option<T: std::convert::Into<crate::model::NumericFilterOption>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_numeric_filter_option<T: std::convert::Into<crate::model::NumericFilterOption>>(mut self, v: T) -> Self {
         self.numeric_filter_option = v.into();
         self
     }
@@ -14735,14 +14095,14 @@ impl wkt::message::Message for SourceNumericFilter {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConditionalColumnSetValue {
+
     /// Required. Description of data transformation during migration.
     pub value_transformation: std::option::Option<crate::model::ValueTransformation>,
 
     /// Optional. Custom engine specific features.
     pub custom_features: std::option::Option<wkt::Struct>,
 
-    pub source_filter:
-        std::option::Option<crate::model::conditional_column_set_value::SourceFilter>,
+    pub source_filter: std::option::Option<crate::model::conditional_column_set_value::SourceFilter>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -14761,8 +14121,7 @@ impl ConditionalColumnSetValue {
     /// let x = ConditionalColumnSetValue::new().set_value_transformation(ValueTransformation::default()/* use setters */);
     /// ```
     pub fn set_value_transformation<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ValueTransformation>,
+    where T: std::convert::Into<crate::model::ValueTransformation>
     {
         self.value_transformation = std::option::Option::Some(v.into());
         self
@@ -14778,8 +14137,7 @@ impl ConditionalColumnSetValue {
     /// let x = ConditionalColumnSetValue::new().set_or_clear_value_transformation(None::<ValueTransformation>);
     /// ```
     pub fn set_or_clear_value_transformation<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ValueTransformation>,
+    where T: std::convert::Into<crate::model::ValueTransformation>
     {
         self.value_transformation = v.map(|x| x.into());
         self
@@ -14794,8 +14152,7 @@ impl ConditionalColumnSetValue {
     /// let x = ConditionalColumnSetValue::new().set_custom_features(Struct::default()/* use setters */);
     /// ```
     pub fn set_custom_features<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Struct>,
+    where T: std::convert::Into<wkt::Struct>
     {
         self.custom_features = std::option::Option::Some(v.into());
         self
@@ -14811,8 +14168,7 @@ impl ConditionalColumnSetValue {
     /// let x = ConditionalColumnSetValue::new().set_or_clear_custom_features(None::<Struct>);
     /// ```
     pub fn set_or_clear_custom_features<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Struct>,
+    where T: std::convert::Into<wkt::Struct>
     {
         self.custom_features = v.map(|x| x.into());
         self
@@ -14830,14 +14186,8 @@ impl ConditionalColumnSetValue {
     /// let x = ConditionalColumnSetValue::new().set_source_filter(Some(
     ///     google_cloud_clouddms_v1::model::conditional_column_set_value::SourceFilter::SourceTextFilter(SourceTextFilter::default().into())));
     /// ```
-    pub fn set_source_filter<
-        T: std::convert::Into<
-                std::option::Option<crate::model::conditional_column_set_value::SourceFilter>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source_filter<T: std::convert::Into<std::option::Option<crate::model::conditional_column_set_value::SourceFilter>>>(mut self, v: T) -> Self
+    {
         self.source_filter = v.into();
         self
     }
@@ -14845,14 +14195,10 @@ impl ConditionalColumnSetValue {
     /// The value of [source_filter][crate::model::ConditionalColumnSetValue::source_filter]
     /// if it holds a `SourceTextFilter`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn source_text_filter(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SourceTextFilter>> {
+    pub fn source_text_filter(&self) -> std::option::Option<&std::boxed::Box<crate::model::SourceTextFilter>> {
         #[allow(unreachable_patterns)]
         self.source_filter.as_ref().and_then(|v| match v {
-            crate::model::conditional_column_set_value::SourceFilter::SourceTextFilter(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::conditional_column_set_value::SourceFilter::SourceTextFilter(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -14871,14 +14217,11 @@ impl ConditionalColumnSetValue {
     /// assert!(x.source_text_filter().is_some());
     /// assert!(x.source_numeric_filter().is_none());
     /// ```
-    pub fn set_source_text_filter<
-        T: std::convert::Into<std::boxed::Box<crate::model::SourceTextFilter>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source_text_filter<T: std::convert::Into<std::boxed::Box<crate::model::SourceTextFilter>>>(mut self, v: T) -> Self {
         self.source_filter = std::option::Option::Some(
-            crate::model::conditional_column_set_value::SourceFilter::SourceTextFilter(v.into()),
+            crate::model::conditional_column_set_value::SourceFilter::SourceTextFilter(
+                v.into()
+            )
         );
         self
     }
@@ -14886,14 +14229,10 @@ impl ConditionalColumnSetValue {
     /// The value of [source_filter][crate::model::ConditionalColumnSetValue::source_filter]
     /// if it holds a `SourceNumericFilter`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn source_numeric_filter(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SourceNumericFilter>> {
+    pub fn source_numeric_filter(&self) -> std::option::Option<&std::boxed::Box<crate::model::SourceNumericFilter>> {
         #[allow(unreachable_patterns)]
         self.source_filter.as_ref().and_then(|v| match v {
-            crate::model::conditional_column_set_value::SourceFilter::SourceNumericFilter(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::conditional_column_set_value::SourceFilter::SourceNumericFilter(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -14912,14 +14251,11 @@ impl ConditionalColumnSetValue {
     /// assert!(x.source_numeric_filter().is_some());
     /// assert!(x.source_text_filter().is_none());
     /// ```
-    pub fn set_source_numeric_filter<
-        T: std::convert::Into<std::boxed::Box<crate::model::SourceNumericFilter>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source_numeric_filter<T: std::convert::Into<std::boxed::Box<crate::model::SourceNumericFilter>>>(mut self, v: T) -> Self {
         self.source_filter = std::option::Option::Some(
-            crate::model::conditional_column_set_value::SourceFilter::SourceNumericFilter(v.into()),
+            crate::model::conditional_column_set_value::SourceFilter::SourceNumericFilter(
+                v.into()
+            )
         );
         self
     }
@@ -14935,6 +14271,7 @@ impl wkt::message::Message for ConditionalColumnSetValue {
 pub mod conditional_column_set_value {
     #[allow(unused_imports)]
     use super::*;
+
 
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -14953,6 +14290,7 @@ pub mod conditional_column_set_value {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ValueTransformation {
+
     pub filter: std::option::Option<crate::model::value_transformation::Filter>,
 
     pub action: std::option::Option<crate::model::value_transformation::Action>,
@@ -14977,12 +14315,8 @@ impl ValueTransformation {
     /// let x = ValueTransformation::new().set_filter(Some(
     ///     google_cloud_clouddms_v1::model::value_transformation::Filter::IsNull(Empty::default().into())));
     /// ```
-    pub fn set_filter<
-        T: std::convert::Into<std::option::Option<crate::model::value_transformation::Filter>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_filter<T: std::convert::Into<std::option::Option<crate::model::value_transformation::Filter>>>(mut self, v: T) -> Self
+    {
         self.filter = v.into();
         self
     }
@@ -15015,22 +14349,21 @@ impl ValueTransformation {
     /// assert!(x.double_comparison().is_none());
     /// ```
     pub fn set_is_null<T: std::convert::Into<std::boxed::Box<wkt::Empty>>>(mut self, v: T) -> Self {
-        self.filter =
-            std::option::Option::Some(crate::model::value_transformation::Filter::IsNull(v.into()));
+        self.filter = std::option::Option::Some(
+            crate::model::value_transformation::Filter::IsNull(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [filter][crate::model::ValueTransformation::filter]
     /// if it holds a `ValueList`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn value_list(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::ValueListFilter>> {
+    pub fn value_list(&self) -> std::option::Option<&std::boxed::Box<crate::model::ValueListFilter>> {
         #[allow(unreachable_patterns)]
         self.filter.as_ref().and_then(|v| match v {
-            crate::model::value_transformation::Filter::ValueList(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::value_transformation::Filter::ValueList(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -15051,12 +14384,11 @@ impl ValueTransformation {
     /// assert!(x.int_comparison().is_none());
     /// assert!(x.double_comparison().is_none());
     /// ```
-    pub fn set_value_list<T: std::convert::Into<std::boxed::Box<crate::model::ValueListFilter>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_value_list<T: std::convert::Into<std::boxed::Box<crate::model::ValueListFilter>>>(mut self, v: T) -> Self {
         self.filter = std::option::Option::Some(
-            crate::model::value_transformation::Filter::ValueList(v.into()),
+            crate::model::value_transformation::Filter::ValueList(
+                v.into()
+            )
         );
         self
     }
@@ -15064,14 +14396,10 @@ impl ValueTransformation {
     /// The value of [filter][crate::model::ValueTransformation::filter]
     /// if it holds a `IntComparison`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn int_comparison(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::IntComparisonFilter>> {
+    pub fn int_comparison(&self) -> std::option::Option<&std::boxed::Box<crate::model::IntComparisonFilter>> {
         #[allow(unreachable_patterns)]
         self.filter.as_ref().and_then(|v| match v {
-            crate::model::value_transformation::Filter::IntComparison(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::value_transformation::Filter::IntComparison(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -15092,14 +14420,11 @@ impl ValueTransformation {
     /// assert!(x.value_list().is_none());
     /// assert!(x.double_comparison().is_none());
     /// ```
-    pub fn set_int_comparison<
-        T: std::convert::Into<std::boxed::Box<crate::model::IntComparisonFilter>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_int_comparison<T: std::convert::Into<std::boxed::Box<crate::model::IntComparisonFilter>>>(mut self, v: T) -> Self {
         self.filter = std::option::Option::Some(
-            crate::model::value_transformation::Filter::IntComparison(v.into()),
+            crate::model::value_transformation::Filter::IntComparison(
+                v.into()
+            )
         );
         self
     }
@@ -15107,14 +14432,10 @@ impl ValueTransformation {
     /// The value of [filter][crate::model::ValueTransformation::filter]
     /// if it holds a `DoubleComparison`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn double_comparison(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::DoubleComparisonFilter>> {
+    pub fn double_comparison(&self) -> std::option::Option<&std::boxed::Box<crate::model::DoubleComparisonFilter>> {
         #[allow(unreachable_patterns)]
         self.filter.as_ref().and_then(|v| match v {
-            crate::model::value_transformation::Filter::DoubleComparison(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::value_transformation::Filter::DoubleComparison(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -15135,14 +14456,11 @@ impl ValueTransformation {
     /// assert!(x.value_list().is_none());
     /// assert!(x.int_comparison().is_none());
     /// ```
-    pub fn set_double_comparison<
-        T: std::convert::Into<std::boxed::Box<crate::model::DoubleComparisonFilter>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_double_comparison<T: std::convert::Into<std::boxed::Box<crate::model::DoubleComparisonFilter>>>(mut self, v: T) -> Self {
         self.filter = std::option::Option::Some(
-            crate::model::value_transformation::Filter::DoubleComparison(v.into()),
+            crate::model::value_transformation::Filter::DoubleComparison(
+                v.into()
+            )
         );
         self
     }
@@ -15159,12 +14477,8 @@ impl ValueTransformation {
     /// let x = ValueTransformation::new().set_action(Some(
     ///     google_cloud_clouddms_v1::model::value_transformation::Action::AssignNull(Empty::default().into())));
     /// ```
-    pub fn set_action<
-        T: std::convert::Into<std::option::Option<crate::model::value_transformation::Action>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_action<T: std::convert::Into<std::option::Option<crate::model::value_transformation::Action>>>(mut self, v: T) -> Self
+    {
         self.action = v.into();
         self
     }
@@ -15175,9 +14489,7 @@ impl ValueTransformation {
     pub fn assign_null(&self) -> std::option::Option<&std::boxed::Box<wkt::Empty>> {
         #[allow(unreachable_patterns)]
         self.action.as_ref().and_then(|v| match v {
-            crate::model::value_transformation::Action::AssignNull(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::value_transformation::Action::AssignNull(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -15200,12 +14512,11 @@ impl ValueTransformation {
     /// assert!(x.round_scale().is_none());
     /// assert!(x.apply_hash().is_none());
     /// ```
-    pub fn set_assign_null<T: std::convert::Into<std::boxed::Box<wkt::Empty>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_assign_null<T: std::convert::Into<std::boxed::Box<wkt::Empty>>>(mut self, v: T) -> Self {
         self.action = std::option::Option::Some(
-            crate::model::value_transformation::Action::AssignNull(v.into()),
+            crate::model::value_transformation::Action::AssignNull(
+                v.into()
+            )
         );
         self
     }
@@ -15213,14 +14524,10 @@ impl ValueTransformation {
     /// The value of [action][crate::model::ValueTransformation::action]
     /// if it holds a `AssignSpecificValue`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn assign_specific_value(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::AssignSpecificValue>> {
+    pub fn assign_specific_value(&self) -> std::option::Option<&std::boxed::Box<crate::model::AssignSpecificValue>> {
         #[allow(unreachable_patterns)]
         self.action.as_ref().and_then(|v| match v {
-            crate::model::value_transformation::Action::AssignSpecificValue(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::value_transformation::Action::AssignSpecificValue(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -15243,14 +14550,11 @@ impl ValueTransformation {
     /// assert!(x.round_scale().is_none());
     /// assert!(x.apply_hash().is_none());
     /// ```
-    pub fn set_assign_specific_value<
-        T: std::convert::Into<std::boxed::Box<crate::model::AssignSpecificValue>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_assign_specific_value<T: std::convert::Into<std::boxed::Box<crate::model::AssignSpecificValue>>>(mut self, v: T) -> Self {
         self.action = std::option::Option::Some(
-            crate::model::value_transformation::Action::AssignSpecificValue(v.into()),
+            crate::model::value_transformation::Action::AssignSpecificValue(
+                v.into()
+            )
         );
         self
     }
@@ -15261,9 +14565,7 @@ impl ValueTransformation {
     pub fn assign_min_value(&self) -> std::option::Option<&std::boxed::Box<wkt::Empty>> {
         #[allow(unreachable_patterns)]
         self.action.as_ref().and_then(|v| match v {
-            crate::model::value_transformation::Action::AssignMinValue(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::value_transformation::Action::AssignMinValue(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -15286,12 +14588,11 @@ impl ValueTransformation {
     /// assert!(x.round_scale().is_none());
     /// assert!(x.apply_hash().is_none());
     /// ```
-    pub fn set_assign_min_value<T: std::convert::Into<std::boxed::Box<wkt::Empty>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_assign_min_value<T: std::convert::Into<std::boxed::Box<wkt::Empty>>>(mut self, v: T) -> Self {
         self.action = std::option::Option::Some(
-            crate::model::value_transformation::Action::AssignMinValue(v.into()),
+            crate::model::value_transformation::Action::AssignMinValue(
+                v.into()
+            )
         );
         self
     }
@@ -15302,9 +14603,7 @@ impl ValueTransformation {
     pub fn assign_max_value(&self) -> std::option::Option<&std::boxed::Box<wkt::Empty>> {
         #[allow(unreachable_patterns)]
         self.action.as_ref().and_then(|v| match v {
-            crate::model::value_transformation::Action::AssignMaxValue(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::value_transformation::Action::AssignMaxValue(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -15327,12 +14626,11 @@ impl ValueTransformation {
     /// assert!(x.round_scale().is_none());
     /// assert!(x.apply_hash().is_none());
     /// ```
-    pub fn set_assign_max_value<T: std::convert::Into<std::boxed::Box<wkt::Empty>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_assign_max_value<T: std::convert::Into<std::boxed::Box<wkt::Empty>>>(mut self, v: T) -> Self {
         self.action = std::option::Option::Some(
-            crate::model::value_transformation::Action::AssignMaxValue(v.into()),
+            crate::model::value_transformation::Action::AssignMaxValue(
+                v.into()
+            )
         );
         self
     }
@@ -15343,9 +14641,7 @@ impl ValueTransformation {
     pub fn round_scale(&self) -> std::option::Option<&std::boxed::Box<crate::model::RoundToScale>> {
         #[allow(unreachable_patterns)]
         self.action.as_ref().and_then(|v| match v {
-            crate::model::value_transformation::Action::RoundScale(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::value_transformation::Action::RoundScale(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -15368,12 +14664,11 @@ impl ValueTransformation {
     /// assert!(x.assign_max_value().is_none());
     /// assert!(x.apply_hash().is_none());
     /// ```
-    pub fn set_round_scale<T: std::convert::Into<std::boxed::Box<crate::model::RoundToScale>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_round_scale<T: std::convert::Into<std::boxed::Box<crate::model::RoundToScale>>>(mut self, v: T) -> Self {
         self.action = std::option::Option::Some(
-            crate::model::value_transformation::Action::RoundScale(v.into()),
+            crate::model::value_transformation::Action::RoundScale(
+                v.into()
+            )
         );
         self
     }
@@ -15384,9 +14679,7 @@ impl ValueTransformation {
     pub fn apply_hash(&self) -> std::option::Option<&std::boxed::Box<crate::model::ApplyHash>> {
         #[allow(unreachable_patterns)]
         self.action.as_ref().and_then(|v| match v {
-            crate::model::value_transformation::Action::ApplyHash(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::value_transformation::Action::ApplyHash(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -15409,12 +14702,11 @@ impl ValueTransformation {
     /// assert!(x.assign_max_value().is_none());
     /// assert!(x.round_scale().is_none());
     /// ```
-    pub fn set_apply_hash<T: std::convert::Into<std::boxed::Box<crate::model::ApplyHash>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_apply_hash<T: std::convert::Into<std::boxed::Box<crate::model::ApplyHash>>>(mut self, v: T) -> Self {
         self.action = std::option::Option::Some(
-            crate::model::value_transformation::Action::ApplyHash(v.into()),
+            crate::model::value_transformation::Action::ApplyHash(
+                v.into()
+            )
         );
         self
     }
@@ -15430,6 +14722,7 @@ impl wkt::message::Message for ValueTransformation {
 pub mod value_transformation {
     #[allow(unused_imports)]
     use super::*;
+
 
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -15481,6 +14774,7 @@ pub mod value_transformation {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConvertRowIdToColumn {
+
     /// Required. Only work on tables without primary key defined
     pub only_if_no_primary_key: bool,
 
@@ -15521,6 +14815,7 @@ impl wkt::message::Message for ConvertRowIdToColumn {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SetTablePrimaryKey {
+
     /// Required. List of column names for the primary key
     pub primary_key_columns: std::vec::Vec<std::string::String>,
 
@@ -15545,7 +14840,7 @@ impl SetTablePrimaryKey {
     pub fn set_primary_key_columns<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.primary_key_columns = v.into_iter().map(|i| i.into()).collect();
@@ -15580,6 +14875,7 @@ impl wkt::message::Message for SetTablePrimaryKey {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SinglePackageChange {
+
     /// Optional. Sql code for package description
     pub package_description: std::string::String,
 
@@ -15601,10 +14897,7 @@ impl SinglePackageChange {
     /// # use google_cloud_clouddms_v1::model::SinglePackageChange;
     /// let x = SinglePackageChange::new().set_package_description("example");
     /// ```
-    pub fn set_package_description<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_package_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.package_description = v.into();
         self
     }
@@ -15637,6 +14930,7 @@ impl wkt::message::Message for SinglePackageChange {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SourceSqlChange {
+
     /// Required. Sql code for source (stored procedure, function, trigger or view)
     pub sql_code: std::string::String,
 
@@ -15679,6 +14973,7 @@ impl wkt::message::Message for SourceSqlChange {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FilterTableColumns {
+
     /// Optional. List of columns to be included for a particular table.
     pub include_columns: std::vec::Vec<std::string::String>,
 
@@ -15703,7 +14998,7 @@ impl FilterTableColumns {
     pub fn set_include_columns<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.include_columns = v.into_iter().map(|i| i.into()).collect();
@@ -15720,7 +15015,7 @@ impl FilterTableColumns {
     pub fn set_exclude_columns<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.exclude_columns = v.into_iter().map(|i| i.into()).collect();
@@ -15738,6 +15033,7 @@ impl wkt::message::Message for FilterTableColumns {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ValueListFilter {
+
     /// Required. Indicates whether the filter matches rows with values that are
     /// present in the list or those with values not present in it.
     pub value_present_list: crate::model::ValuePresentInList,
@@ -15766,10 +15062,7 @@ impl ValueListFilter {
     /// let x0 = ValueListFilter::new().set_value_present_list(ValuePresentInList::IfValueList);
     /// let x1 = ValueListFilter::new().set_value_present_list(ValuePresentInList::IfValueNotList);
     /// ```
-    pub fn set_value_present_list<T: std::convert::Into<crate::model::ValuePresentInList>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_value_present_list<T: std::convert::Into<crate::model::ValuePresentInList>>(mut self, v: T) -> Self {
         self.value_present_list = v.into();
         self
     }
@@ -15784,7 +15077,7 @@ impl ValueListFilter {
     pub fn set_values<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.values = v.into_iter().map(|i| i.into()).collect();
@@ -15815,6 +15108,7 @@ impl wkt::message::Message for ValueListFilter {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct IntComparisonFilter {
+
     /// Required. Relation between source value and compare value
     pub value_comparison: crate::model::ValueComparison,
 
@@ -15839,10 +15133,7 @@ impl IntComparisonFilter {
     /// let x1 = IntComparisonFilter::new().set_value_comparison(ValueComparison::IfValueSmallerEqualThan);
     /// let x2 = IntComparisonFilter::new().set_value_comparison(ValueComparison::IfValueLargerThan);
     /// ```
-    pub fn set_value_comparison<T: std::convert::Into<crate::model::ValueComparison>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_value_comparison<T: std::convert::Into<crate::model::ValueComparison>>(mut self, v: T) -> Self {
         self.value_comparison = v.into();
         self
     }
@@ -15871,6 +15162,7 @@ impl wkt::message::Message for IntComparisonFilter {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DoubleComparisonFilter {
+
     /// Required. Relation between source value and compare value
     pub value_comparison: crate::model::ValueComparison,
 
@@ -15895,10 +15187,7 @@ impl DoubleComparisonFilter {
     /// let x1 = DoubleComparisonFilter::new().set_value_comparison(ValueComparison::IfValueSmallerEqualThan);
     /// let x2 = DoubleComparisonFilter::new().set_value_comparison(ValueComparison::IfValueLargerThan);
     /// ```
-    pub fn set_value_comparison<T: std::convert::Into<crate::model::ValueComparison>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_value_comparison<T: std::convert::Into<crate::model::ValueComparison>>(mut self, v: T) -> Self {
         self.value_comparison = v.into();
         self
     }
@@ -15926,6 +15215,7 @@ impl wkt::message::Message for DoubleComparisonFilter {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AssignSpecificValue {
+
     /// Required. Specific value to be assigned
     pub value: std::string::String,
 
@@ -15960,6 +15250,7 @@ impl wkt::message::Message for AssignSpecificValue {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ApplyHash {
+
     pub hash_function: std::option::Option<crate::model::apply_hash::HashFunction>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -15982,12 +15273,8 @@ impl ApplyHash {
     /// let x = ApplyHash::new().set_hash_function(Some(
     ///     google_cloud_clouddms_v1::model::apply_hash::HashFunction::UuidFromBytes(Empty::default().into())));
     /// ```
-    pub fn set_hash_function<
-        T: std::convert::Into<std::option::Option<crate::model::apply_hash::HashFunction>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_hash_function<T: std::convert::Into<std::option::Option<crate::model::apply_hash::HashFunction>>>(mut self, v: T) -> Self
+    {
         self.hash_function = v.into();
         self
     }
@@ -15998,9 +15285,7 @@ impl ApplyHash {
     pub fn uuid_from_bytes(&self) -> std::option::Option<&std::boxed::Box<wkt::Empty>> {
         #[allow(unreachable_patterns)]
         self.hash_function.as_ref().and_then(|v| match v {
-            crate::model::apply_hash::HashFunction::UuidFromBytes(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::apply_hash::HashFunction::UuidFromBytes(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -16018,12 +15303,11 @@ impl ApplyHash {
     /// let x = ApplyHash::new().set_uuid_from_bytes(Empty::default()/* use setters */);
     /// assert!(x.uuid_from_bytes().is_some());
     /// ```
-    pub fn set_uuid_from_bytes<T: std::convert::Into<std::boxed::Box<wkt::Empty>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_uuid_from_bytes<T: std::convert::Into<std::boxed::Box<wkt::Empty>>>(mut self, v: T) -> Self {
         self.hash_function = std::option::Option::Some(
-            crate::model::apply_hash::HashFunction::UuidFromBytes(v.into()),
+            crate::model::apply_hash::HashFunction::UuidFromBytes(
+                v.into()
+            )
         );
         self
     }
@@ -16040,6 +15324,7 @@ pub mod apply_hash {
     #[allow(unused_imports)]
     use super::*;
 
+
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum HashFunction {
@@ -16054,6 +15339,7 @@ pub mod apply_hash {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RoundToScale {
+
     /// Required. Scale value to be used
     pub scale: i32,
 
@@ -16090,6 +15376,7 @@ impl wkt::message::Message for RoundToScale {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DatabaseEntity {
+
     /// The short name (e.g. table name) of the entity.
     pub short_name: std::string::String,
 
@@ -16163,10 +15450,7 @@ impl DatabaseEntity {
     /// let x1 = DatabaseEntity::new().set_tree(TreeType::Draft);
     /// let x2 = DatabaseEntity::new().set_tree(TreeType::Destination);
     /// ```
-    pub fn set_tree<T: std::convert::Into<crate::model::database_entity::TreeType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_tree<T: std::convert::Into<crate::model::database_entity::TreeType>>(mut self, v: T) -> Self {
         self.tree = v.into();
         self
     }
@@ -16181,10 +15465,7 @@ impl DatabaseEntity {
     /// let x1 = DatabaseEntity::new().set_entity_type(DatabaseEntityType::Table);
     /// let x2 = DatabaseEntity::new().set_entity_type(DatabaseEntityType::Column);
     /// ```
-    pub fn set_entity_type<T: std::convert::Into<crate::model::DatabaseEntityType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_entity_type<T: std::convert::Into<crate::model::DatabaseEntityType>>(mut self, v: T) -> Self {
         self.entity_type = v.into();
         self
     }
@@ -16204,7 +15485,7 @@ impl DatabaseEntity {
     pub fn set_mappings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::EntityMapping>,
+        V: std::convert::Into<crate::model::EntityMapping>
     {
         use std::iter::Iterator;
         self.mappings = v.into_iter().map(|i| i.into()).collect();
@@ -16226,7 +15507,7 @@ impl DatabaseEntity {
     pub fn set_entity_ddl<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::EntityDdl>,
+        V: std::convert::Into<crate::model::EntityDdl>
     {
         use std::iter::Iterator;
         self.entity_ddl = v.into_iter().map(|i| i.into()).collect();
@@ -16248,7 +15529,7 @@ impl DatabaseEntity {
     pub fn set_issues<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::EntityIssue>,
+        V: std::convert::Into<crate::model::EntityIssue>
     {
         use std::iter::Iterator;
         self.issues = v.into_iter().map(|i| i.into()).collect();
@@ -16267,12 +15548,8 @@ impl DatabaseEntity {
     /// let x = DatabaseEntity::new().set_entity_body(Some(
     ///     google_cloud_clouddms_v1::model::database_entity::EntityBody::Database(DatabaseInstanceEntity::default().into())));
     /// ```
-    pub fn set_entity_body<
-        T: std::convert::Into<std::option::Option<crate::model::database_entity::EntityBody>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_entity_body<T: std::convert::Into<std::option::Option<crate::model::database_entity::EntityBody>>>(mut self, v: T) -> Self
+    {
         self.entity_body = v.into();
         self
     }
@@ -16280,9 +15557,7 @@ impl DatabaseEntity {
     /// The value of [entity_body][crate::model::DatabaseEntity::entity_body]
     /// if it holds a `Database`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn database(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::DatabaseInstanceEntity>> {
+    pub fn database(&self) -> std::option::Option<&std::boxed::Box<crate::model::DatabaseInstanceEntity>> {
         #[allow(unreachable_patterns)]
         self.entity_body.as_ref().and_then(|v| match v {
             crate::model::database_entity::EntityBody::Database(v) => std::option::Option::Some(v),
@@ -16313,14 +15588,11 @@ impl DatabaseEntity {
     /// assert!(x.udt().is_none());
     /// assert!(x.materialized_view().is_none());
     /// ```
-    pub fn set_database<
-        T: std::convert::Into<std::boxed::Box<crate::model::DatabaseInstanceEntity>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_database<T: std::convert::Into<std::boxed::Box<crate::model::DatabaseInstanceEntity>>>(mut self, v: T) -> Self {
         self.entity_body = std::option::Option::Some(
-            crate::model::database_entity::EntityBody::Database(v.into()),
+            crate::model::database_entity::EntityBody::Database(
+                v.into()
+            )
         );
         self
     }
@@ -16359,12 +15631,12 @@ impl DatabaseEntity {
     /// assert!(x.udt().is_none());
     /// assert!(x.materialized_view().is_none());
     /// ```
-    pub fn set_schema<T: std::convert::Into<std::boxed::Box<crate::model::SchemaEntity>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.entity_body =
-            std::option::Option::Some(crate::model::database_entity::EntityBody::Schema(v.into()));
+    pub fn set_schema<T: std::convert::Into<std::boxed::Box<crate::model::SchemaEntity>>>(mut self, v: T) -> Self {
+        self.entity_body = std::option::Option::Some(
+            crate::model::database_entity::EntityBody::Schema(
+                v.into()
+            )
+        );
         self
     }
 
@@ -16402,12 +15674,12 @@ impl DatabaseEntity {
     /// assert!(x.udt().is_none());
     /// assert!(x.materialized_view().is_none());
     /// ```
-    pub fn set_table<T: std::convert::Into<std::boxed::Box<crate::model::TableEntity>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.entity_body =
-            std::option::Option::Some(crate::model::database_entity::EntityBody::Table(v.into()));
+    pub fn set_table<T: std::convert::Into<std::boxed::Box<crate::model::TableEntity>>>(mut self, v: T) -> Self {
+        self.entity_body = std::option::Option::Some(
+            crate::model::database_entity::EntityBody::Table(
+                v.into()
+            )
+        );
         self
     }
 
@@ -16445,12 +15717,12 @@ impl DatabaseEntity {
     /// assert!(x.udt().is_none());
     /// assert!(x.materialized_view().is_none());
     /// ```
-    pub fn set_view<T: std::convert::Into<std::boxed::Box<crate::model::ViewEntity>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.entity_body =
-            std::option::Option::Some(crate::model::database_entity::EntityBody::View(v.into()));
+    pub fn set_view<T: std::convert::Into<std::boxed::Box<crate::model::ViewEntity>>>(mut self, v: T) -> Self {
+        self.entity_body = std::option::Option::Some(
+            crate::model::database_entity::EntityBody::View(
+                v.into()
+            )
+        );
         self
     }
 
@@ -16488,12 +15760,11 @@ impl DatabaseEntity {
     /// assert!(x.udt().is_none());
     /// assert!(x.materialized_view().is_none());
     /// ```
-    pub fn set_sequence<T: std::convert::Into<std::boxed::Box<crate::model::SequenceEntity>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_sequence<T: std::convert::Into<std::boxed::Box<crate::model::SequenceEntity>>>(mut self, v: T) -> Self {
         self.entity_body = std::option::Option::Some(
-            crate::model::database_entity::EntityBody::Sequence(v.into()),
+            crate::model::database_entity::EntityBody::Sequence(
+                v.into()
+            )
         );
         self
     }
@@ -16501,14 +15772,10 @@ impl DatabaseEntity {
     /// The value of [entity_body][crate::model::DatabaseEntity::entity_body]
     /// if it holds a `StoredProcedure`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn stored_procedure(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::StoredProcedureEntity>> {
+    pub fn stored_procedure(&self) -> std::option::Option<&std::boxed::Box<crate::model::StoredProcedureEntity>> {
         #[allow(unreachable_patterns)]
         self.entity_body.as_ref().and_then(|v| match v {
-            crate::model::database_entity::EntityBody::StoredProcedure(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::database_entity::EntityBody::StoredProcedure(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -16536,14 +15803,11 @@ impl DatabaseEntity {
     /// assert!(x.udt().is_none());
     /// assert!(x.materialized_view().is_none());
     /// ```
-    pub fn set_stored_procedure<
-        T: std::convert::Into<std::boxed::Box<crate::model::StoredProcedureEntity>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_stored_procedure<T: std::convert::Into<std::boxed::Box<crate::model::StoredProcedureEntity>>>(mut self, v: T) -> Self {
         self.entity_body = std::option::Option::Some(
-            crate::model::database_entity::EntityBody::StoredProcedure(v.into()),
+            crate::model::database_entity::EntityBody::StoredProcedure(
+                v.into()
+            )
         );
         self
     }
@@ -16551,14 +15815,10 @@ impl DatabaseEntity {
     /// The value of [entity_body][crate::model::DatabaseEntity::entity_body]
     /// if it holds a `DatabaseFunction`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn database_function(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::FunctionEntity>> {
+    pub fn database_function(&self) -> std::option::Option<&std::boxed::Box<crate::model::FunctionEntity>> {
         #[allow(unreachable_patterns)]
         self.entity_body.as_ref().and_then(|v| match v {
-            crate::model::database_entity::EntityBody::DatabaseFunction(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::database_entity::EntityBody::DatabaseFunction(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -16586,14 +15846,11 @@ impl DatabaseEntity {
     /// assert!(x.udt().is_none());
     /// assert!(x.materialized_view().is_none());
     /// ```
-    pub fn set_database_function<
-        T: std::convert::Into<std::boxed::Box<crate::model::FunctionEntity>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_database_function<T: std::convert::Into<std::boxed::Box<crate::model::FunctionEntity>>>(mut self, v: T) -> Self {
         self.entity_body = std::option::Option::Some(
-            crate::model::database_entity::EntityBody::DatabaseFunction(v.into()),
+            crate::model::database_entity::EntityBody::DatabaseFunction(
+                v.into()
+            )
         );
         self
     }
@@ -16632,26 +15889,22 @@ impl DatabaseEntity {
     /// assert!(x.udt().is_none());
     /// assert!(x.materialized_view().is_none());
     /// ```
-    pub fn set_synonym<T: std::convert::Into<std::boxed::Box<crate::model::SynonymEntity>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.entity_body =
-            std::option::Option::Some(crate::model::database_entity::EntityBody::Synonym(v.into()));
+    pub fn set_synonym<T: std::convert::Into<std::boxed::Box<crate::model::SynonymEntity>>>(mut self, v: T) -> Self {
+        self.entity_body = std::option::Option::Some(
+            crate::model::database_entity::EntityBody::Synonym(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [entity_body][crate::model::DatabaseEntity::entity_body]
     /// if it holds a `DatabasePackage`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn database_package(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::PackageEntity>> {
+    pub fn database_package(&self) -> std::option::Option<&std::boxed::Box<crate::model::PackageEntity>> {
         #[allow(unreachable_patterns)]
         self.entity_body.as_ref().and_then(|v| match v {
-            crate::model::database_entity::EntityBody::DatabasePackage(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::database_entity::EntityBody::DatabasePackage(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -16679,14 +15932,11 @@ impl DatabaseEntity {
     /// assert!(x.udt().is_none());
     /// assert!(x.materialized_view().is_none());
     /// ```
-    pub fn set_database_package<
-        T: std::convert::Into<std::boxed::Box<crate::model::PackageEntity>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_database_package<T: std::convert::Into<std::boxed::Box<crate::model::PackageEntity>>>(mut self, v: T) -> Self {
         self.entity_body = std::option::Option::Some(
-            crate::model::database_entity::EntityBody::DatabasePackage(v.into()),
+            crate::model::database_entity::EntityBody::DatabasePackage(
+                v.into()
+            )
         );
         self
     }
@@ -16725,26 +15975,22 @@ impl DatabaseEntity {
     /// assert!(x.database_package().is_none());
     /// assert!(x.materialized_view().is_none());
     /// ```
-    pub fn set_udt<T: std::convert::Into<std::boxed::Box<crate::model::UDTEntity>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.entity_body =
-            std::option::Option::Some(crate::model::database_entity::EntityBody::Udt(v.into()));
+    pub fn set_udt<T: std::convert::Into<std::boxed::Box<crate::model::UDTEntity>>>(mut self, v: T) -> Self {
+        self.entity_body = std::option::Option::Some(
+            crate::model::database_entity::EntityBody::Udt(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [entity_body][crate::model::DatabaseEntity::entity_body]
     /// if it holds a `MaterializedView`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn materialized_view(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::MaterializedViewEntity>> {
+    pub fn materialized_view(&self) -> std::option::Option<&std::boxed::Box<crate::model::MaterializedViewEntity>> {
         #[allow(unreachable_patterns)]
         self.entity_body.as_ref().and_then(|v| match v {
-            crate::model::database_entity::EntityBody::MaterializedView(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::database_entity::EntityBody::MaterializedView(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -16772,14 +16018,11 @@ impl DatabaseEntity {
     /// assert!(x.database_package().is_none());
     /// assert!(x.udt().is_none());
     /// ```
-    pub fn set_materialized_view<
-        T: std::convert::Into<std::boxed::Box<crate::model::MaterializedViewEntity>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_materialized_view<T: std::convert::Into<std::boxed::Box<crate::model::MaterializedViewEntity>>>(mut self, v: T) -> Self {
         self.entity_body = std::option::Option::Some(
-            crate::model::database_entity::EntityBody::MaterializedView(v.into()),
+            crate::model::database_entity::EntityBody::MaterializedView(
+                v.into()
+            )
         );
         self
     }
@@ -16795,6 +16038,7 @@ impl wkt::message::Message for DatabaseEntity {
 pub mod database_entity {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The type of database entities tree.
     ///
@@ -16887,9 +16131,7 @@ pub mod database_entity {
                 1 => Self::Source,
                 2 => Self::Draft,
                 3 => Self::Destination,
-                _ => Self::UnknownValue(tree_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(tree_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -16902,9 +16144,7 @@ pub mod database_entity {
                 "SOURCE" => Self::Source,
                 "DRAFT" => Self::Draft,
                 "DESTINATION" => Self::Destination,
-                _ => Self::UnknownValue(tree_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(tree_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -16930,8 +16170,7 @@ pub mod database_entity {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<TreeType>::new(
-                ".google.cloud.clouddms.v1.DatabaseEntity.TreeType",
-            ))
+                ".google.cloud.clouddms.v1.DatabaseEntity.TreeType"))
         }
     }
 
@@ -16968,6 +16207,7 @@ pub mod database_entity {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DatabaseInstanceEntity {
+
     /// Custom engine specific features.
     pub custom_features: std::option::Option<wkt::Struct>,
 
@@ -16988,8 +16228,7 @@ impl DatabaseInstanceEntity {
     /// let x = DatabaseInstanceEntity::new().set_custom_features(Struct::default()/* use setters */);
     /// ```
     pub fn set_custom_features<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Struct>,
+    where T: std::convert::Into<wkt::Struct>
     {
         self.custom_features = std::option::Option::Some(v.into());
         self
@@ -17005,8 +16244,7 @@ impl DatabaseInstanceEntity {
     /// let x = DatabaseInstanceEntity::new().set_or_clear_custom_features(None::<Struct>);
     /// ```
     pub fn set_or_clear_custom_features<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Struct>,
+    where T: std::convert::Into<wkt::Struct>
     {
         self.custom_features = v.map(|x| x.into());
         self
@@ -17027,6 +16265,7 @@ impl wkt::message::Message for DatabaseInstanceEntity {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SchemaEntity {
+
     /// Custom engine specific features.
     pub custom_features: std::option::Option<wkt::Struct>,
 
@@ -17047,8 +16286,7 @@ impl SchemaEntity {
     /// let x = SchemaEntity::new().set_custom_features(Struct::default()/* use setters */);
     /// ```
     pub fn set_custom_features<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Struct>,
+    where T: std::convert::Into<wkt::Struct>
     {
         self.custom_features = std::option::Option::Some(v.into());
         self
@@ -17064,8 +16302,7 @@ impl SchemaEntity {
     /// let x = SchemaEntity::new().set_or_clear_custom_features(None::<Struct>);
     /// ```
     pub fn set_or_clear_custom_features<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Struct>,
+    where T: std::convert::Into<wkt::Struct>
     {
         self.custom_features = v.map(|x| x.into());
         self
@@ -17082,6 +16319,7 @@ impl wkt::message::Message for SchemaEntity {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TableEntity {
+
     /// Table columns.
     pub columns: std::vec::Vec<crate::model::ColumnEntity>,
 
@@ -17123,7 +16361,7 @@ impl TableEntity {
     pub fn set_columns<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ColumnEntity>,
+        V: std::convert::Into<crate::model::ColumnEntity>
     {
         use std::iter::Iterator;
         self.columns = v.into_iter().map(|i| i.into()).collect();
@@ -17145,7 +16383,7 @@ impl TableEntity {
     pub fn set_constraints<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ConstraintEntity>,
+        V: std::convert::Into<crate::model::ConstraintEntity>
     {
         use std::iter::Iterator;
         self.constraints = v.into_iter().map(|i| i.into()).collect();
@@ -17167,7 +16405,7 @@ impl TableEntity {
     pub fn set_indices<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::IndexEntity>,
+        V: std::convert::Into<crate::model::IndexEntity>
     {
         use std::iter::Iterator;
         self.indices = v.into_iter().map(|i| i.into()).collect();
@@ -17189,7 +16427,7 @@ impl TableEntity {
     pub fn set_triggers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::TriggerEntity>,
+        V: std::convert::Into<crate::model::TriggerEntity>
     {
         use std::iter::Iterator;
         self.triggers = v.into_iter().map(|i| i.into()).collect();
@@ -17205,8 +16443,7 @@ impl TableEntity {
     /// let x = TableEntity::new().set_custom_features(Struct::default()/* use setters */);
     /// ```
     pub fn set_custom_features<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Struct>,
+    where T: std::convert::Into<wkt::Struct>
     {
         self.custom_features = std::option::Option::Some(v.into());
         self
@@ -17222,8 +16459,7 @@ impl TableEntity {
     /// let x = TableEntity::new().set_or_clear_custom_features(None::<Struct>);
     /// ```
     pub fn set_or_clear_custom_features<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Struct>,
+    where T: std::convert::Into<wkt::Struct>
     {
         self.custom_features = v.map(|x| x.into());
         self
@@ -17253,6 +16489,7 @@ impl wkt::message::Message for TableEntity {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ColumnEntity {
+
     /// Column name.
     pub name: std::string::String,
 
@@ -17481,8 +16718,7 @@ impl ColumnEntity {
     /// let x = ColumnEntity::new().set_custom_features(Struct::default()/* use setters */);
     /// ```
     pub fn set_custom_features<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Struct>,
+    where T: std::convert::Into<wkt::Struct>
     {
         self.custom_features = std::option::Option::Some(v.into());
         self
@@ -17498,8 +16734,7 @@ impl ColumnEntity {
     /// let x = ColumnEntity::new().set_or_clear_custom_features(None::<Struct>);
     /// ```
     pub fn set_or_clear_custom_features<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Struct>,
+    where T: std::convert::Into<wkt::Struct>
     {
         self.custom_features = v.map(|x| x.into());
         self
@@ -17515,7 +16750,7 @@ impl ColumnEntity {
     pub fn set_set_values<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.set_values = v.into_iter().map(|i| i.into()).collect();
@@ -17570,6 +16805,7 @@ impl wkt::message::Message for ColumnEntity {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConstraintEntity {
+
     /// The name of the table constraint.
     pub name: std::string::String,
 
@@ -17642,7 +16878,7 @@ impl ConstraintEntity {
     pub fn set_table_columns<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.table_columns = v.into_iter().map(|i| i.into()).collect();
@@ -17658,8 +16894,7 @@ impl ConstraintEntity {
     /// let x = ConstraintEntity::new().set_custom_features(Struct::default()/* use setters */);
     /// ```
     pub fn set_custom_features<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Struct>,
+    where T: std::convert::Into<wkt::Struct>
     {
         self.custom_features = std::option::Option::Some(v.into());
         self
@@ -17675,8 +16910,7 @@ impl ConstraintEntity {
     /// let x = ConstraintEntity::new().set_or_clear_custom_features(None::<Struct>);
     /// ```
     pub fn set_or_clear_custom_features<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Struct>,
+    where T: std::convert::Into<wkt::Struct>
     {
         self.custom_features = v.map(|x| x.into());
         self
@@ -17692,7 +16926,7 @@ impl ConstraintEntity {
     pub fn set_reference_columns<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.reference_columns = v.into_iter().map(|i| i.into()).collect();
@@ -17735,6 +16969,7 @@ impl wkt::message::Message for ConstraintEntity {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct IndexEntity {
+
     /// The name of the index.
     pub name: std::string::String,
 
@@ -17793,7 +17028,7 @@ impl IndexEntity {
     pub fn set_table_columns<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.table_columns = v.into_iter().map(|i| i.into()).collect();
@@ -17821,8 +17056,7 @@ impl IndexEntity {
     /// let x = IndexEntity::new().set_custom_features(Struct::default()/* use setters */);
     /// ```
     pub fn set_custom_features<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Struct>,
+    where T: std::convert::Into<wkt::Struct>
     {
         self.custom_features = std::option::Option::Some(v.into());
         self
@@ -17838,8 +17072,7 @@ impl IndexEntity {
     /// let x = IndexEntity::new().set_or_clear_custom_features(None::<Struct>);
     /// ```
     pub fn set_or_clear_custom_features<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Struct>,
+    where T: std::convert::Into<wkt::Struct>
     {
         self.custom_features = v.map(|x| x.into());
         self
@@ -17857,6 +17090,7 @@ impl wkt::message::Message for IndexEntity {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TriggerEntity {
+
     /// The name of the trigger.
     pub name: std::string::String,
 
@@ -17904,7 +17138,7 @@ impl TriggerEntity {
     pub fn set_triggering_events<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.triggering_events = v.into_iter().map(|i| i.into()).collect();
@@ -17944,8 +17178,7 @@ impl TriggerEntity {
     /// let x = TriggerEntity::new().set_custom_features(Struct::default()/* use setters */);
     /// ```
     pub fn set_custom_features<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Struct>,
+    where T: std::convert::Into<wkt::Struct>
     {
         self.custom_features = std::option::Option::Some(v.into());
         self
@@ -17961,8 +17194,7 @@ impl TriggerEntity {
     /// let x = TriggerEntity::new().set_or_clear_custom_features(None::<Struct>);
     /// ```
     pub fn set_or_clear_custom_features<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Struct>,
+    where T: std::convert::Into<wkt::Struct>
     {
         self.custom_features = v.map(|x| x.into());
         self
@@ -17979,6 +17211,7 @@ impl wkt::message::Message for TriggerEntity {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ViewEntity {
+
     /// The SQL code which creates the view.
     pub sql_code: std::string::String,
 
@@ -18017,8 +17250,7 @@ impl ViewEntity {
     /// let x = ViewEntity::new().set_custom_features(Struct::default()/* use setters */);
     /// ```
     pub fn set_custom_features<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Struct>,
+    where T: std::convert::Into<wkt::Struct>
     {
         self.custom_features = std::option::Option::Some(v.into());
         self
@@ -18034,8 +17266,7 @@ impl ViewEntity {
     /// let x = ViewEntity::new().set_or_clear_custom_features(None::<Struct>);
     /// ```
     pub fn set_or_clear_custom_features<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Struct>,
+    where T: std::convert::Into<wkt::Struct>
     {
         self.custom_features = v.map(|x| x.into());
         self
@@ -18056,7 +17287,7 @@ impl ViewEntity {
     pub fn set_constraints<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ConstraintEntity>,
+        V: std::convert::Into<crate::model::ConstraintEntity>
     {
         use std::iter::Iterator;
         self.constraints = v.into_iter().map(|i| i.into()).collect();
@@ -18074,6 +17305,7 @@ impl wkt::message::Message for ViewEntity {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SequenceEntity {
+
     /// Increment value for the sequence.
     pub increment: i64,
 
@@ -18187,8 +17419,7 @@ impl SequenceEntity {
     /// let x = SequenceEntity::new().set_custom_features(Struct::default()/* use setters */);
     /// ```
     pub fn set_custom_features<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Struct>,
+    where T: std::convert::Into<wkt::Struct>
     {
         self.custom_features = std::option::Option::Some(v.into());
         self
@@ -18204,8 +17435,7 @@ impl SequenceEntity {
     /// let x = SequenceEntity::new().set_or_clear_custom_features(None::<Struct>);
     /// ```
     pub fn set_or_clear_custom_features<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Struct>,
+    where T: std::convert::Into<wkt::Struct>
     {
         self.custom_features = v.map(|x| x.into());
         self
@@ -18222,6 +17452,7 @@ impl wkt::message::Message for SequenceEntity {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StoredProcedureEntity {
+
     /// The SQL code which creates the stored procedure.
     pub sql_code: std::string::String,
 
@@ -18257,8 +17488,7 @@ impl StoredProcedureEntity {
     /// let x = StoredProcedureEntity::new().set_custom_features(Struct::default()/* use setters */);
     /// ```
     pub fn set_custom_features<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Struct>,
+    where T: std::convert::Into<wkt::Struct>
     {
         self.custom_features = std::option::Option::Some(v.into());
         self
@@ -18274,8 +17504,7 @@ impl StoredProcedureEntity {
     /// let x = StoredProcedureEntity::new().set_or_clear_custom_features(None::<Struct>);
     /// ```
     pub fn set_or_clear_custom_features<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Struct>,
+    where T: std::convert::Into<wkt::Struct>
     {
         self.custom_features = v.map(|x| x.into());
         self
@@ -18292,6 +17521,7 @@ impl wkt::message::Message for StoredProcedureEntity {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FunctionEntity {
+
     /// The SQL code which creates the function.
     pub sql_code: std::string::String,
 
@@ -18327,8 +17557,7 @@ impl FunctionEntity {
     /// let x = FunctionEntity::new().set_custom_features(Struct::default()/* use setters */);
     /// ```
     pub fn set_custom_features<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Struct>,
+    where T: std::convert::Into<wkt::Struct>
     {
         self.custom_features = std::option::Option::Some(v.into());
         self
@@ -18344,8 +17573,7 @@ impl FunctionEntity {
     /// let x = FunctionEntity::new().set_or_clear_custom_features(None::<Struct>);
     /// ```
     pub fn set_or_clear_custom_features<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Struct>,
+    where T: std::convert::Into<wkt::Struct>
     {
         self.custom_features = v.map(|x| x.into());
         self
@@ -18362,6 +17590,7 @@ impl wkt::message::Message for FunctionEntity {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MaterializedViewEntity {
+
     /// The SQL code which creates the view.
     pub sql_code: std::string::String,
 
@@ -18397,8 +17626,7 @@ impl MaterializedViewEntity {
     /// let x = MaterializedViewEntity::new().set_custom_features(Struct::default()/* use setters */);
     /// ```
     pub fn set_custom_features<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Struct>,
+    where T: std::convert::Into<wkt::Struct>
     {
         self.custom_features = std::option::Option::Some(v.into());
         self
@@ -18414,8 +17642,7 @@ impl MaterializedViewEntity {
     /// let x = MaterializedViewEntity::new().set_or_clear_custom_features(None::<Struct>);
     /// ```
     pub fn set_or_clear_custom_features<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Struct>,
+    where T: std::convert::Into<wkt::Struct>
     {
         self.custom_features = v.map(|x| x.into());
         self
@@ -18432,6 +17659,7 @@ impl wkt::message::Message for MaterializedViewEntity {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SynonymEntity {
+
     /// The name of the entity for which the synonym is being created (the source).
     pub source_entity: std::string::String,
 
@@ -18472,10 +17700,7 @@ impl SynonymEntity {
     /// let x1 = SynonymEntity::new().set_source_type(DatabaseEntityType::Table);
     /// let x2 = SynonymEntity::new().set_source_type(DatabaseEntityType::Column);
     /// ```
-    pub fn set_source_type<T: std::convert::Into<crate::model::DatabaseEntityType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source_type<T: std::convert::Into<crate::model::DatabaseEntityType>>(mut self, v: T) -> Self {
         self.source_type = v.into();
         self
     }
@@ -18489,8 +17714,7 @@ impl SynonymEntity {
     /// let x = SynonymEntity::new().set_custom_features(Struct::default()/* use setters */);
     /// ```
     pub fn set_custom_features<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Struct>,
+    where T: std::convert::Into<wkt::Struct>
     {
         self.custom_features = std::option::Option::Some(v.into());
         self
@@ -18506,8 +17730,7 @@ impl SynonymEntity {
     /// let x = SynonymEntity::new().set_or_clear_custom_features(None::<Struct>);
     /// ```
     pub fn set_or_clear_custom_features<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Struct>,
+    where T: std::convert::Into<wkt::Struct>
     {
         self.custom_features = v.map(|x| x.into());
         self
@@ -18524,6 +17747,7 @@ impl wkt::message::Message for SynonymEntity {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PackageEntity {
+
     /// The SQL code which creates the package.
     pub package_sql_code: std::string::String,
 
@@ -18549,10 +17773,7 @@ impl PackageEntity {
     /// # use google_cloud_clouddms_v1::model::PackageEntity;
     /// let x = PackageEntity::new().set_package_sql_code("example");
     /// ```
-    pub fn set_package_sql_code<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_package_sql_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.package_sql_code = v.into();
         self
     }
@@ -18578,8 +17799,7 @@ impl PackageEntity {
     /// let x = PackageEntity::new().set_custom_features(Struct::default()/* use setters */);
     /// ```
     pub fn set_custom_features<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Struct>,
+    where T: std::convert::Into<wkt::Struct>
     {
         self.custom_features = std::option::Option::Some(v.into());
         self
@@ -18595,8 +17815,7 @@ impl PackageEntity {
     /// let x = PackageEntity::new().set_or_clear_custom_features(None::<Struct>);
     /// ```
     pub fn set_or_clear_custom_features<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Struct>,
+    where T: std::convert::Into<wkt::Struct>
     {
         self.custom_features = v.map(|x| x.into());
         self
@@ -18613,6 +17832,7 @@ impl wkt::message::Message for PackageEntity {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UDTEntity {
+
     /// The SQL code which creates the udt.
     pub udt_sql_code: std::string::String,
 
@@ -18663,8 +17883,7 @@ impl UDTEntity {
     /// let x = UDTEntity::new().set_custom_features(Struct::default()/* use setters */);
     /// ```
     pub fn set_custom_features<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Struct>,
+    where T: std::convert::Into<wkt::Struct>
     {
         self.custom_features = std::option::Option::Some(v.into());
         self
@@ -18680,8 +17899,7 @@ impl UDTEntity {
     /// let x = UDTEntity::new().set_or_clear_custom_features(None::<Struct>);
     /// ```
     pub fn set_or_clear_custom_features<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Struct>,
+    where T: std::convert::Into<wkt::Struct>
     {
         self.custom_features = v.map(|x| x.into());
         self
@@ -18698,6 +17916,7 @@ impl wkt::message::Message for UDTEntity {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EntityMapping {
+
     /// Source entity full name.
     /// The source entity can also be a column, index or constraint using the
     /// same naming notation schema.table.column.
@@ -18763,10 +17982,7 @@ impl EntityMapping {
     /// let x1 = EntityMapping::new().set_source_type(DatabaseEntityType::Table);
     /// let x2 = EntityMapping::new().set_source_type(DatabaseEntityType::Column);
     /// ```
-    pub fn set_source_type<T: std::convert::Into<crate::model::DatabaseEntityType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source_type<T: std::convert::Into<crate::model::DatabaseEntityType>>(mut self, v: T) -> Self {
         self.source_type = v.into();
         self
     }
@@ -18781,10 +17997,7 @@ impl EntityMapping {
     /// let x1 = EntityMapping::new().set_draft_type(DatabaseEntityType::Table);
     /// let x2 = EntityMapping::new().set_draft_type(DatabaseEntityType::Column);
     /// ```
-    pub fn set_draft_type<T: std::convert::Into<crate::model::DatabaseEntityType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_draft_type<T: std::convert::Into<crate::model::DatabaseEntityType>>(mut self, v: T) -> Self {
         self.draft_type = v.into();
         self
     }
@@ -18804,7 +18017,7 @@ impl EntityMapping {
     pub fn set_mapping_log<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::EntityMappingLogEntry>,
+        V: std::convert::Into<crate::model::EntityMappingLogEntry>
     {
         use std::iter::Iterator;
         self.mapping_log = v.into_iter().map(|i| i.into()).collect();
@@ -18822,6 +18035,7 @@ impl wkt::message::Message for EntityMapping {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EntityMappingLogEntry {
+
     /// Which rule caused this log entry.
     pub rule_id: std::string::String,
 
@@ -18858,10 +18072,7 @@ impl EntityMappingLogEntry {
     /// # use google_cloud_clouddms_v1::model::EntityMappingLogEntry;
     /// let x = EntityMappingLogEntry::new().set_rule_revision_id("example");
     /// ```
-    pub fn set_rule_revision_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_rule_revision_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.rule_revision_id = v.into();
         self
     }
@@ -18889,6 +18100,7 @@ impl wkt::message::Message for EntityMappingLogEntry {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EntityDdl {
+
     /// Type of DDL (Create, Alter).
     pub ddl_type: std::string::String,
 
@@ -18958,10 +18170,7 @@ impl EntityDdl {
     /// let x1 = EntityDdl::new().set_entity_type(DatabaseEntityType::Table);
     /// let x2 = EntityDdl::new().set_entity_type(DatabaseEntityType::Column);
     /// ```
-    pub fn set_entity_type<T: std::convert::Into<crate::model::DatabaseEntityType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_entity_type<T: std::convert::Into<crate::model::DatabaseEntityType>>(mut self, v: T) -> Self {
         self.entity_type = v.into();
         self
     }
@@ -18976,7 +18185,7 @@ impl EntityDdl {
     pub fn set_issue_id<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.issue_id = v.into_iter().map(|i| i.into()).collect();
@@ -18994,6 +18203,7 @@ impl wkt::message::Message for EntityDdl {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EntityIssue {
+
     /// Unique Issue ID.
     pub id: std::string::String,
 
@@ -19048,10 +18258,7 @@ impl EntityIssue {
     /// let x1 = EntityIssue::new().set_type(IssueType::Apply);
     /// let x2 = EntityIssue::new().set_type(IssueType::Convert);
     /// ```
-    pub fn set_type<T: std::convert::Into<crate::model::entity_issue::IssueType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_type<T: std::convert::Into<crate::model::entity_issue::IssueType>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
@@ -19066,10 +18273,7 @@ impl EntityIssue {
     /// let x1 = EntityIssue::new().set_severity(IssueSeverity::Warning);
     /// let x2 = EntityIssue::new().set_severity(IssueSeverity::Error);
     /// ```
-    pub fn set_severity<T: std::convert::Into<crate::model::entity_issue::IssueSeverity>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_severity<T: std::convert::Into<crate::model::entity_issue::IssueSeverity>>(mut self, v: T) -> Self {
         self.severity = v.into();
         self
     }
@@ -19106,8 +18310,7 @@ impl EntityIssue {
     /// let x = EntityIssue::new().set_ddl("example");
     /// ```
     pub fn set_ddl<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.ddl = std::option::Option::Some(v.into());
         self
@@ -19122,8 +18325,7 @@ impl EntityIssue {
     /// let x = EntityIssue::new().set_or_clear_ddl(None::<String>);
     /// ```
     pub fn set_or_clear_ddl<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.ddl = v.map(|x| x.into());
         self
@@ -19138,8 +18340,7 @@ impl EntityIssue {
     /// let x = EntityIssue::new().set_position(Position::default()/* use setters */);
     /// ```
     pub fn set_position<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::entity_issue::Position>,
+    where T: std::convert::Into<crate::model::entity_issue::Position>
     {
         self.position = std::option::Option::Some(v.into());
         self
@@ -19155,8 +18356,7 @@ impl EntityIssue {
     /// let x = EntityIssue::new().set_or_clear_position(None::<Position>);
     /// ```
     pub fn set_or_clear_position<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::entity_issue::Position>,
+    where T: std::convert::Into<crate::model::entity_issue::Position>
     {
         self.position = v.map(|x| x.into());
         self
@@ -19172,10 +18372,7 @@ impl EntityIssue {
     /// let x1 = EntityIssue::new().set_entity_type(DatabaseEntityType::Table);
     /// let x2 = EntityIssue::new().set_entity_type(DatabaseEntityType::Column);
     /// ```
-    pub fn set_entity_type<T: std::convert::Into<crate::model::DatabaseEntityType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_entity_type<T: std::convert::Into<crate::model::DatabaseEntityType>>(mut self, v: T) -> Self {
         self.entity_type = v.into();
         self
     }
@@ -19192,10 +18389,12 @@ pub mod entity_issue {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Issue position.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Position {
+
         /// Issue line number
         pub line: i32,
 
@@ -19362,9 +18561,7 @@ pub mod entity_issue {
                 1 => Self::Ddl,
                 2 => Self::Apply,
                 3 => Self::Convert,
-                _ => Self::UnknownValue(issue_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(issue_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -19377,9 +18574,7 @@ pub mod entity_issue {
                 "ISSUE_TYPE_DDL" => Self::Ddl,
                 "ISSUE_TYPE_APPLY" => Self::Apply,
                 "ISSUE_TYPE_CONVERT" => Self::Convert,
-                _ => Self::UnknownValue(issue_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(issue_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -19405,8 +18600,7 @@ pub mod entity_issue {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<IssueType>::new(
-                ".google.cloud.clouddms.v1.EntityIssue.IssueType",
-            ))
+                ".google.cloud.clouddms.v1.EntityIssue.IssueType"))
         }
     }
 
@@ -19501,9 +18695,7 @@ pub mod entity_issue {
                 1 => Self::Info,
                 2 => Self::Warning,
                 3 => Self::Error,
-                _ => Self::UnknownValue(issue_severity::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(issue_severity::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -19516,9 +18708,7 @@ pub mod entity_issue {
                 "ISSUE_SEVERITY_INFO" => Self::Info,
                 "ISSUE_SEVERITY_WARNING" => Self::Warning,
                 "ISSUE_SEVERITY_ERROR" => Self::Error,
-                _ => Self::UnknownValue(issue_severity::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(issue_severity::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -19544,8 +18734,7 @@ pub mod entity_issue {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<IssueSeverity>::new(
-                ".google.cloud.clouddms.v1.EntityIssue.IssueSeverity",
-            ))
+                ".google.cloud.clouddms.v1.EntityIssue.IssueSeverity"))
         }
     }
 }
@@ -19645,9 +18834,7 @@ impl std::convert::From<i32> for DatabaseEntityView {
             1 => Self::Basic,
             2 => Self::Full,
             3 => Self::RootSummary,
-            _ => Self::UnknownValue(database_entity_view::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(database_entity_view::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -19660,9 +18847,7 @@ impl std::convert::From<&str> for DatabaseEntityView {
             "DATABASE_ENTITY_VIEW_BASIC" => Self::Basic,
             "DATABASE_ENTITY_VIEW_FULL" => Self::Full,
             "DATABASE_ENTITY_VIEW_ROOT_SUMMARY" => Self::RootSummary,
-            _ => Self::UnknownValue(database_entity_view::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(database_entity_view::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -19688,8 +18873,7 @@ impl<'de> serde::de::Deserialize<'de> for DatabaseEntityView {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<DatabaseEntityView>::new(
-            ".google.cloud.clouddms.v1.DatabaseEntityView",
-        ))
+            ".google.cloud.clouddms.v1.DatabaseEntityView"))
     }
 }
 
@@ -19751,12 +18935,8 @@ impl NetworkArchitecture {
     pub fn name(&self) -> std::option::Option<&str> {
         match self {
             Self::Unspecified => std::option::Option::Some("NETWORK_ARCHITECTURE_UNSPECIFIED"),
-            Self::OldCsqlProducer => {
-                std::option::Option::Some("NETWORK_ARCHITECTURE_OLD_CSQL_PRODUCER")
-            }
-            Self::NewCsqlProducer => {
-                std::option::Option::Some("NETWORK_ARCHITECTURE_NEW_CSQL_PRODUCER")
-            }
+            Self::OldCsqlProducer => std::option::Option::Some("NETWORK_ARCHITECTURE_OLD_CSQL_PRODUCER"),
+            Self::NewCsqlProducer => std::option::Option::Some("NETWORK_ARCHITECTURE_NEW_CSQL_PRODUCER"),
             Self::UnknownValue(u) => u.0.name(),
         }
     }
@@ -19781,9 +18961,7 @@ impl std::convert::From<i32> for NetworkArchitecture {
             0 => Self::Unspecified,
             1 => Self::OldCsqlProducer,
             2 => Self::NewCsqlProducer,
-            _ => Self::UnknownValue(network_architecture::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(network_architecture::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -19795,9 +18973,7 @@ impl std::convert::From<&str> for NetworkArchitecture {
             "NETWORK_ARCHITECTURE_UNSPECIFIED" => Self::Unspecified,
             "NETWORK_ARCHITECTURE_OLD_CSQL_PRODUCER" => Self::OldCsqlProducer,
             "NETWORK_ARCHITECTURE_NEW_CSQL_PRODUCER" => Self::NewCsqlProducer,
-            _ => Self::UnknownValue(network_architecture::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(network_architecture::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -19822,8 +18998,7 @@ impl<'de> serde::de::Deserialize<'de> for NetworkArchitecture {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<NetworkArchitecture>::new(
-            ".google.cloud.clouddms.v1.NetworkArchitecture",
-        ))
+            ".google.cloud.clouddms.v1.NetworkArchitecture"))
     }
 }
 
@@ -19918,9 +19093,7 @@ impl std::convert::From<i32> for DatabaseEngine {
             1 => Self::Mysql,
             2 => Self::Postgresql,
             4 => Self::Oracle,
-            _ => Self::UnknownValue(database_engine::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(database_engine::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -19933,9 +19106,7 @@ impl std::convert::From<&str> for DatabaseEngine {
             "MYSQL" => Self::Mysql,
             "POSTGRESQL" => Self::Postgresql,
             "ORACLE" => Self::Oracle,
-            _ => Self::UnknownValue(database_engine::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(database_engine::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -19961,8 +19132,7 @@ impl<'de> serde::de::Deserialize<'de> for DatabaseEngine {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<DatabaseEngine>::new(
-            ".google.cloud.clouddms.v1.DatabaseEngine",
-        ))
+            ".google.cloud.clouddms.v1.DatabaseEngine"))
     }
 }
 
@@ -20062,9 +19232,7 @@ impl std::convert::From<i32> for DatabaseProvider {
             2 => Self::Rds,
             3 => Self::Aurora,
             4 => Self::Alloydb,
-            _ => Self::UnknownValue(database_provider::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(database_provider::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -20078,9 +19246,7 @@ impl std::convert::From<&str> for DatabaseProvider {
             "RDS" => Self::Rds,
             "AURORA" => Self::Aurora,
             "ALLOYDB" => Self::Alloydb,
-            _ => Self::UnknownValue(database_provider::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(database_provider::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -20107,8 +19273,7 @@ impl<'de> serde::de::Deserialize<'de> for DatabaseProvider {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<DatabaseProvider>::new(
-            ".google.cloud.clouddms.v1.DatabaseProvider",
-        ))
+            ".google.cloud.clouddms.v1.DatabaseProvider"))
     }
 }
 
@@ -20174,9 +19339,7 @@ impl ValuePresentInList {
         match self {
             Self::Unspecified => std::option::Option::Some("VALUE_PRESENT_IN_LIST_UNSPECIFIED"),
             Self::IfValueList => std::option::Option::Some("VALUE_PRESENT_IN_LIST_IF_VALUE_LIST"),
-            Self::IfValueNotList => {
-                std::option::Option::Some("VALUE_PRESENT_IN_LIST_IF_VALUE_NOT_LIST")
-            }
+            Self::IfValueNotList => std::option::Option::Some("VALUE_PRESENT_IN_LIST_IF_VALUE_NOT_LIST"),
             Self::UnknownValue(u) => u.0.name(),
         }
     }
@@ -20201,9 +19364,7 @@ impl std::convert::From<i32> for ValuePresentInList {
             0 => Self::Unspecified,
             1 => Self::IfValueList,
             2 => Self::IfValueNotList,
-            _ => Self::UnknownValue(value_present_in_list::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(value_present_in_list::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -20215,9 +19376,7 @@ impl std::convert::From<&str> for ValuePresentInList {
             "VALUE_PRESENT_IN_LIST_UNSPECIFIED" => Self::Unspecified,
             "VALUE_PRESENT_IN_LIST_IF_VALUE_LIST" => Self::IfValueList,
             "VALUE_PRESENT_IN_LIST_IF_VALUE_NOT_LIST" => Self::IfValueNotList,
-            _ => Self::UnknownValue(value_present_in_list::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(value_present_in_list::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -20242,8 +19401,7 @@ impl<'de> serde::de::Deserialize<'de> for ValuePresentInList {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<ValuePresentInList>::new(
-            ".google.cloud.clouddms.v1.ValuePresentInList",
-        ))
+            ".google.cloud.clouddms.v1.ValuePresentInList"))
     }
 }
 
@@ -20354,18 +19512,12 @@ impl DatabaseEntityType {
             Self::Trigger => std::option::Option::Some("DATABASE_ENTITY_TYPE_TRIGGER"),
             Self::View => std::option::Option::Some("DATABASE_ENTITY_TYPE_VIEW"),
             Self::Sequence => std::option::Option::Some("DATABASE_ENTITY_TYPE_SEQUENCE"),
-            Self::StoredProcedure => {
-                std::option::Option::Some("DATABASE_ENTITY_TYPE_STORED_PROCEDURE")
-            }
+            Self::StoredProcedure => std::option::Option::Some("DATABASE_ENTITY_TYPE_STORED_PROCEDURE"),
             Self::Function => std::option::Option::Some("DATABASE_ENTITY_TYPE_FUNCTION"),
             Self::Synonym => std::option::Option::Some("DATABASE_ENTITY_TYPE_SYNONYM"),
-            Self::DatabasePackage => {
-                std::option::Option::Some("DATABASE_ENTITY_TYPE_DATABASE_PACKAGE")
-            }
+            Self::DatabasePackage => std::option::Option::Some("DATABASE_ENTITY_TYPE_DATABASE_PACKAGE"),
             Self::Udt => std::option::Option::Some("DATABASE_ENTITY_TYPE_UDT"),
-            Self::MaterializedView => {
-                std::option::Option::Some("DATABASE_ENTITY_TYPE_MATERIALIZED_VIEW")
-            }
+            Self::MaterializedView => std::option::Option::Some("DATABASE_ENTITY_TYPE_MATERIALIZED_VIEW"),
             Self::Database => std::option::Option::Some("DATABASE_ENTITY_TYPE_DATABASE"),
             Self::UnknownValue(u) => u.0.name(),
         }
@@ -20404,9 +19556,7 @@ impl std::convert::From<i32> for DatabaseEntityType {
             13 => Self::Udt,
             14 => Self::MaterializedView,
             15 => Self::Database,
-            _ => Self::UnknownValue(database_entity_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(database_entity_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -20431,9 +19581,7 @@ impl std::convert::From<&str> for DatabaseEntityType {
             "DATABASE_ENTITY_TYPE_UDT" => Self::Udt,
             "DATABASE_ENTITY_TYPE_MATERIALIZED_VIEW" => Self::MaterializedView,
             "DATABASE_ENTITY_TYPE_DATABASE" => Self::Database,
-            _ => Self::UnknownValue(database_entity_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(database_entity_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -20471,8 +19619,7 @@ impl<'de> serde::de::Deserialize<'de> for DatabaseEntityType {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<DatabaseEntityType>::new(
-            ".google.cloud.clouddms.v1.DatabaseEntityType",
-        ))
+            ".google.cloud.clouddms.v1.DatabaseEntityType"))
     }
 }
 
@@ -20541,17 +19688,11 @@ impl EntityNameTransformation {
     /// the integer representation of enums.
     pub fn name(&self) -> std::option::Option<&str> {
         match self {
-            Self::Unspecified => {
-                std::option::Option::Some("ENTITY_NAME_TRANSFORMATION_UNSPECIFIED")
-            }
-            Self::NoTransformation => {
-                std::option::Option::Some("ENTITY_NAME_TRANSFORMATION_NO_TRANSFORMATION")
-            }
+            Self::Unspecified => std::option::Option::Some("ENTITY_NAME_TRANSFORMATION_UNSPECIFIED"),
+            Self::NoTransformation => std::option::Option::Some("ENTITY_NAME_TRANSFORMATION_NO_TRANSFORMATION"),
             Self::LowerCase => std::option::Option::Some("ENTITY_NAME_TRANSFORMATION_LOWER_CASE"),
             Self::UpperCase => std::option::Option::Some("ENTITY_NAME_TRANSFORMATION_UPPER_CASE"),
-            Self::CapitalizedCase => {
-                std::option::Option::Some("ENTITY_NAME_TRANSFORMATION_CAPITALIZED_CASE")
-            }
+            Self::CapitalizedCase => std::option::Option::Some("ENTITY_NAME_TRANSFORMATION_CAPITALIZED_CASE"),
             Self::UnknownValue(u) => u.0.name(),
         }
     }
@@ -20578,9 +19719,7 @@ impl std::convert::From<i32> for EntityNameTransformation {
             2 => Self::LowerCase,
             3 => Self::UpperCase,
             4 => Self::CapitalizedCase,
-            _ => Self::UnknownValue(entity_name_transformation::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(entity_name_transformation::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -20594,9 +19733,7 @@ impl std::convert::From<&str> for EntityNameTransformation {
             "ENTITY_NAME_TRANSFORMATION_LOWER_CASE" => Self::LowerCase,
             "ENTITY_NAME_TRANSFORMATION_UPPER_CASE" => Self::UpperCase,
             "ENTITY_NAME_TRANSFORMATION_CAPITALIZED_CASE" => Self::CapitalizedCase,
-            _ => Self::UnknownValue(entity_name_transformation::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(entity_name_transformation::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -20623,8 +19760,7 @@ impl<'de> serde::de::Deserialize<'de> for EntityNameTransformation {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<EntityNameTransformation>::new(
-            ".google.cloud.clouddms.v1.EntityNameTransformation",
-        ))
+            ".google.cloud.clouddms.v1.EntityNameTransformation"))
     }
 }
 
@@ -20698,12 +19834,8 @@ impl BackgroundJobType {
             Self::Unspecified => std::option::Option::Some("BACKGROUND_JOB_TYPE_UNSPECIFIED"),
             Self::SourceSeed => std::option::Option::Some("BACKGROUND_JOB_TYPE_SOURCE_SEED"),
             Self::Convert => std::option::Option::Some("BACKGROUND_JOB_TYPE_CONVERT"),
-            Self::ApplyDestination => {
-                std::option::Option::Some("BACKGROUND_JOB_TYPE_APPLY_DESTINATION")
-            }
-            Self::ImportRulesFile => {
-                std::option::Option::Some("BACKGROUND_JOB_TYPE_IMPORT_RULES_FILE")
-            }
+            Self::ApplyDestination => std::option::Option::Some("BACKGROUND_JOB_TYPE_APPLY_DESTINATION"),
+            Self::ImportRulesFile => std::option::Option::Some("BACKGROUND_JOB_TYPE_IMPORT_RULES_FILE"),
             Self::UnknownValue(u) => u.0.name(),
         }
     }
@@ -20730,9 +19862,7 @@ impl std::convert::From<i32> for BackgroundJobType {
             2 => Self::Convert,
             3 => Self::ApplyDestination,
             5 => Self::ImportRulesFile,
-            _ => Self::UnknownValue(background_job_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(background_job_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -20746,9 +19876,7 @@ impl std::convert::From<&str> for BackgroundJobType {
             "BACKGROUND_JOB_TYPE_CONVERT" => Self::Convert,
             "BACKGROUND_JOB_TYPE_APPLY_DESTINATION" => Self::ApplyDestination,
             "BACKGROUND_JOB_TYPE_IMPORT_RULES_FILE" => Self::ImportRulesFile,
-            _ => Self::UnknownValue(background_job_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(background_job_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -20775,8 +19903,7 @@ impl<'de> serde::de::Deserialize<'de> for BackgroundJobType {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<BackgroundJobType>::new(
-            ".google.cloud.clouddms.v1.BackgroundJobType",
-        ))
+            ".google.cloud.clouddms.v1.BackgroundJobType"))
     }
 }
 
@@ -20840,12 +19967,8 @@ impl ImportRulesFileFormat {
     pub fn name(&self) -> std::option::Option<&str> {
         match self {
             Self::Unspecified => std::option::Option::Some("IMPORT_RULES_FILE_FORMAT_UNSPECIFIED"),
-            Self::HarbourBridgeSessionFile => {
-                std::option::Option::Some("IMPORT_RULES_FILE_FORMAT_HARBOUR_BRIDGE_SESSION_FILE")
-            }
-            Self::OratopgConfigFile => {
-                std::option::Option::Some("IMPORT_RULES_FILE_FORMAT_ORATOPG_CONFIG_FILE")
-            }
+            Self::HarbourBridgeSessionFile => std::option::Option::Some("IMPORT_RULES_FILE_FORMAT_HARBOUR_BRIDGE_SESSION_FILE"),
+            Self::OratopgConfigFile => std::option::Option::Some("IMPORT_RULES_FILE_FORMAT_ORATOPG_CONFIG_FILE"),
             Self::UnknownValue(u) => u.0.name(),
         }
     }
@@ -20870,9 +19993,7 @@ impl std::convert::From<i32> for ImportRulesFileFormat {
             0 => Self::Unspecified,
             1 => Self::HarbourBridgeSessionFile,
             2 => Self::OratopgConfigFile,
-            _ => Self::UnknownValue(import_rules_file_format::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(import_rules_file_format::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -20882,13 +20003,9 @@ impl std::convert::From<&str> for ImportRulesFileFormat {
         use std::string::ToString;
         match value {
             "IMPORT_RULES_FILE_FORMAT_UNSPECIFIED" => Self::Unspecified,
-            "IMPORT_RULES_FILE_FORMAT_HARBOUR_BRIDGE_SESSION_FILE" => {
-                Self::HarbourBridgeSessionFile
-            }
+            "IMPORT_RULES_FILE_FORMAT_HARBOUR_BRIDGE_SESSION_FILE" => Self::HarbourBridgeSessionFile,
             "IMPORT_RULES_FILE_FORMAT_ORATOPG_CONFIG_FILE" => Self::OratopgConfigFile,
-            _ => Self::UnknownValue(import_rules_file_format::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(import_rules_file_format::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -20913,8 +20030,7 @@ impl<'de> serde::de::Deserialize<'de> for ImportRulesFileFormat {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<ImportRulesFileFormat>::new(
-            ".google.cloud.clouddms.v1.ImportRulesFileFormat",
-        ))
+            ".google.cloud.clouddms.v1.ImportRulesFileFormat"))
     }
 }
 
@@ -20985,18 +20101,10 @@ impl ValueComparison {
     pub fn name(&self) -> std::option::Option<&str> {
         match self {
             Self::Unspecified => std::option::Option::Some("VALUE_COMPARISON_UNSPECIFIED"),
-            Self::IfValueSmallerThan => {
-                std::option::Option::Some("VALUE_COMPARISON_IF_VALUE_SMALLER_THAN")
-            }
-            Self::IfValueSmallerEqualThan => {
-                std::option::Option::Some("VALUE_COMPARISON_IF_VALUE_SMALLER_EQUAL_THAN")
-            }
-            Self::IfValueLargerThan => {
-                std::option::Option::Some("VALUE_COMPARISON_IF_VALUE_LARGER_THAN")
-            }
-            Self::IfValueLargerEqualThan => {
-                std::option::Option::Some("VALUE_COMPARISON_IF_VALUE_LARGER_EQUAL_THAN")
-            }
+            Self::IfValueSmallerThan => std::option::Option::Some("VALUE_COMPARISON_IF_VALUE_SMALLER_THAN"),
+            Self::IfValueSmallerEqualThan => std::option::Option::Some("VALUE_COMPARISON_IF_VALUE_SMALLER_EQUAL_THAN"),
+            Self::IfValueLargerThan => std::option::Option::Some("VALUE_COMPARISON_IF_VALUE_LARGER_THAN"),
+            Self::IfValueLargerEqualThan => std::option::Option::Some("VALUE_COMPARISON_IF_VALUE_LARGER_EQUAL_THAN"),
             Self::UnknownValue(u) => u.0.name(),
         }
     }
@@ -21023,9 +20131,7 @@ impl std::convert::From<i32> for ValueComparison {
             2 => Self::IfValueSmallerEqualThan,
             3 => Self::IfValueLargerThan,
             4 => Self::IfValueLargerEqualThan,
-            _ => Self::UnknownValue(value_comparison::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(value_comparison::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -21039,9 +20145,7 @@ impl std::convert::From<&str> for ValueComparison {
             "VALUE_COMPARISON_IF_VALUE_SMALLER_EQUAL_THAN" => Self::IfValueSmallerEqualThan,
             "VALUE_COMPARISON_IF_VALUE_LARGER_THAN" => Self::IfValueLargerThan,
             "VALUE_COMPARISON_IF_VALUE_LARGER_EQUAL_THAN" => Self::IfValueLargerEqualThan,
-            _ => Self::UnknownValue(value_comparison::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(value_comparison::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -21068,8 +20172,7 @@ impl<'de> serde::de::Deserialize<'de> for ValueComparison {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<ValueComparison>::new(
-            ".google.cloud.clouddms.v1.ValueComparison",
-        ))
+            ".google.cloud.clouddms.v1.ValueComparison"))
     }
 }
 
@@ -21166,9 +20269,7 @@ impl std::convert::From<i32> for NumericFilterOption {
             1 => Self::All,
             2 => Self::Limit,
             3 => Self::Limitless,
-            _ => Self::UnknownValue(numeric_filter_option::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(numeric_filter_option::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -21181,9 +20282,7 @@ impl std::convert::From<&str> for NumericFilterOption {
             "NUMERIC_FILTER_OPTION_ALL" => Self::All,
             "NUMERIC_FILTER_OPTION_LIMIT" => Self::Limit,
             "NUMERIC_FILTER_OPTION_LIMITLESS" => Self::Limitless,
-            _ => Self::UnknownValue(numeric_filter_option::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(numeric_filter_option::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -21209,7 +20308,6 @@ impl<'de> serde::de::Deserialize<'de> for NumericFilterOption {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<NumericFilterOption>::new(
-            ".google.cloud.clouddms.v1.NumericFilterOption",
-        ))
+            ".google.cloud.clouddms.v1.NumericFilterOption"))
     }
 }

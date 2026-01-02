@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -26,7 +27,6 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -40,6 +40,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Actor {
+
     /// The name to display for the actor. If not provided, it is inferred from
     /// credentials supplied during case creation. When an email is provided, a
     /// display name must also be provided. This will be obfuscated if the user
@@ -140,6 +141,7 @@ impl wkt::message::Message for Actor {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Attachment {
+
     /// Output only. Identifier. The resource name of the attachment.
     pub name: std::string::String,
 
@@ -188,8 +190,7 @@ impl Attachment {
     /// let x = Attachment::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -205,8 +206,7 @@ impl Attachment {
     /// let x = Attachment::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -221,8 +221,7 @@ impl Attachment {
     /// let x = Attachment::new().set_creator(Actor::default()/* use setters */);
     /// ```
     pub fn set_creator<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Actor>,
+    where T: std::convert::Into<crate::model::Actor>
     {
         self.creator = std::option::Option::Some(v.into());
         self
@@ -238,8 +237,7 @@ impl Attachment {
     /// let x = Attachment::new().set_or_clear_creator(None::<Actor>);
     /// ```
     pub fn set_or_clear_creator<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Actor>,
+    where T: std::convert::Into<crate::model::Actor>
     {
         self.creator = v.map(|x| x.into());
         self
@@ -292,6 +290,7 @@ impl wkt::message::Message for Attachment {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAttachmentsRequest {
+
     /// Required. The name of the case for which attachments should be listed.
     pub parent: std::string::String,
 
@@ -364,6 +363,7 @@ impl wkt::message::Message for ListAttachmentsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAttachmentsResponse {
+
     /// The list of attachments associated with a case.
     pub attachments: std::vec::Vec<crate::model::Attachment>,
 
@@ -395,7 +395,7 @@ impl ListAttachmentsResponse {
     pub fn set_attachments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Attachment>,
+        V: std::convert::Into<crate::model::Attachment>
     {
         use std::iter::Iterator;
         self.attachments = v.into_iter().map(|i| i.into()).collect();
@@ -465,6 +465,7 @@ impl gax::paginator::internal::PageableResponse for ListAttachmentsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Case {
+
     /// Identifier. The resource name for the case.
     pub name: std::string::String,
 
@@ -578,8 +579,7 @@ impl Case {
     /// let x = Case::new().set_classification(CaseClassification::default()/* use setters */);
     /// ```
     pub fn set_classification<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CaseClassification>,
+    where T: std::convert::Into<crate::model::CaseClassification>
     {
         self.classification = std::option::Option::Some(v.into());
         self
@@ -595,8 +595,7 @@ impl Case {
     /// let x = Case::new().set_or_clear_classification(None::<CaseClassification>);
     /// ```
     pub fn set_or_clear_classification<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CaseClassification>,
+    where T: std::convert::Into<crate::model::CaseClassification>
     {
         self.classification = v.map(|x| x.into());
         self
@@ -624,7 +623,7 @@ impl Case {
     pub fn set_subscriber_email_addresses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.subscriber_email_addresses = v.into_iter().map(|i| i.into()).collect();
@@ -655,8 +654,7 @@ impl Case {
     /// let x = Case::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -672,8 +670,7 @@ impl Case {
     /// let x = Case::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -688,8 +685,7 @@ impl Case {
     /// let x = Case::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -705,8 +701,7 @@ impl Case {
     /// let x = Case::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -721,8 +716,7 @@ impl Case {
     /// let x = Case::new().set_creator(Actor::default()/* use setters */);
     /// ```
     pub fn set_creator<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Actor>,
+    where T: std::convert::Into<crate::model::Actor>
     {
         self.creator = std::option::Option::Some(v.into());
         self
@@ -738,8 +732,7 @@ impl Case {
     /// let x = Case::new().set_or_clear_creator(None::<Actor>);
     /// ```
     pub fn set_or_clear_creator<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Actor>,
+    where T: std::convert::Into<crate::model::Actor>
     {
         self.creator = v.map(|x| x.into());
         self
@@ -803,10 +796,7 @@ impl Case {
     /// let x1 = Case::new().set_priority(Priority::P1);
     /// let x2 = Case::new().set_priority(Priority::P2);
     /// ```
-    pub fn set_priority<T: std::convert::Into<crate::model::case::Priority>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_priority<T: std::convert::Into<crate::model::case::Priority>>(mut self, v: T) -> Self {
         self.priority = v.into();
         self
     }
@@ -822,6 +812,7 @@ impl wkt::message::Message for Case {
 pub mod case {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The status of a support case.
     ///
@@ -893,9 +884,7 @@ pub mod case {
             match self {
                 Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
                 Self::New => std::option::Option::Some("NEW"),
-                Self::InProgressGoogleSupport => {
-                    std::option::Option::Some("IN_PROGRESS_GOOGLE_SUPPORT")
-                }
+                Self::InProgressGoogleSupport => std::option::Option::Some("IN_PROGRESS_GOOGLE_SUPPORT"),
                 Self::ActionRequired => std::option::Option::Some("ACTION_REQUIRED"),
                 Self::SolutionProvided => std::option::Option::Some("SOLUTION_PROVIDED"),
                 Self::Closed => std::option::Option::Some("CLOSED"),
@@ -926,9 +915,7 @@ pub mod case {
                 3 => Self::ActionRequired,
                 4 => Self::SolutionProvided,
                 5 => Self::Closed,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -943,9 +930,7 @@ pub mod case {
                 "ACTION_REQUIRED" => Self::ActionRequired,
                 "SOLUTION_PROVIDED" => Self::SolutionProvided,
                 "CLOSED" => Self::Closed,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -973,8 +958,7 @@ pub mod case {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.support.v2.Case.State",
-            ))
+                ".google.cloud.support.v2.Case.State"))
         }
     }
 
@@ -1082,9 +1066,7 @@ pub mod case {
                 3 => Self::P2,
                 4 => Self::P3,
                 5 => Self::P4,
-                _ => Self::UnknownValue(priority::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(priority::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1099,9 +1081,7 @@ pub mod case {
                 "P2" => Self::P2,
                 "P3" => Self::P3,
                 "P4" => Self::P4,
-                _ => Self::UnknownValue(priority::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(priority::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1129,8 +1109,7 @@ pub mod case {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Priority>::new(
-                ".google.cloud.support.v2.Case.Priority",
-            ))
+                ".google.cloud.support.v2.Case.Priority"))
         }
     }
 }
@@ -1144,6 +1123,7 @@ pub mod case {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CaseClassification {
+
     /// The unique ID for a classification. Must be specified for case creation.
     ///
     /// To retrieve valid classification IDs for case creation, use
@@ -1204,6 +1184,7 @@ impl wkt::message::Message for CaseClassification {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetCaseRequest {
+
     /// Required. The full name of a case to be retrieved.
     pub name: std::string::String,
 
@@ -1238,6 +1219,7 @@ impl wkt::message::Message for GetCaseRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateCaseRequest {
+
     /// Required. The name of the parent under which the case should be created.
     pub parent: std::string::String,
 
@@ -1273,8 +1255,7 @@ impl CreateCaseRequest {
     /// let x = CreateCaseRequest::new().set_case(Case::default()/* use setters */);
     /// ```
     pub fn set_case<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Case>,
+    where T: std::convert::Into<crate::model::Case>
     {
         self.case = std::option::Option::Some(v.into());
         self
@@ -1290,8 +1271,7 @@ impl CreateCaseRequest {
     /// let x = CreateCaseRequest::new().set_or_clear_case(None::<Case>);
     /// ```
     pub fn set_or_clear_case<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Case>,
+    where T: std::convert::Into<crate::model::Case>
     {
         self.case = v.map(|x| x.into());
         self
@@ -1308,6 +1288,7 @@ impl wkt::message::Message for CreateCaseRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCasesRequest {
+
     /// Required. The name of a parent to list cases under.
     pub parent: std::string::String,
 
@@ -1406,6 +1387,7 @@ impl wkt::message::Message for ListCasesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCasesResponse {
+
     /// The list of cases associated with the parent after any
     /// filters have been applied.
     pub cases: std::vec::Vec<crate::model::Case>,
@@ -1438,7 +1420,7 @@ impl ListCasesResponse {
     pub fn set_cases<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Case>,
+        V: std::convert::Into<crate::model::Case>
     {
         use std::iter::Iterator;
         self.cases = v.into_iter().map(|i| i.into()).collect();
@@ -1482,6 +1464,7 @@ impl gax::paginator::internal::PageableResponse for ListCasesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchCasesRequest {
+
     /// The name of the parent resource to search for cases under.
     pub parent: std::string::String,
 
@@ -1594,6 +1577,7 @@ impl wkt::message::Message for SearchCasesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchCasesResponse {
+
     /// The list of cases associated with the parent after any
     /// filters have been applied.
     pub cases: std::vec::Vec<crate::model::Case>,
@@ -1626,7 +1610,7 @@ impl SearchCasesResponse {
     pub fn set_cases<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Case>,
+        V: std::convert::Into<crate::model::Case>
     {
         use std::iter::Iterator;
         self.cases = v.into_iter().map(|i| i.into()).collect();
@@ -1670,6 +1654,7 @@ impl gax::paginator::internal::PageableResponse for SearchCasesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EscalateCaseRequest {
+
     /// Required. The name of the case to be escalated.
     pub name: std::string::String,
 
@@ -1705,8 +1690,7 @@ impl EscalateCaseRequest {
     /// let x = EscalateCaseRequest::new().set_escalation(Escalation::default()/* use setters */);
     /// ```
     pub fn set_escalation<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Escalation>,
+    where T: std::convert::Into<crate::model::Escalation>
     {
         self.escalation = std::option::Option::Some(v.into());
         self
@@ -1722,8 +1706,7 @@ impl EscalateCaseRequest {
     /// let x = EscalateCaseRequest::new().set_or_clear_escalation(None::<Escalation>);
     /// ```
     pub fn set_or_clear_escalation<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Escalation>,
+    where T: std::convert::Into<crate::model::Escalation>
     {
         self.escalation = v.map(|x| x.into());
         self
@@ -1740,6 +1723,7 @@ impl wkt::message::Message for EscalateCaseRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateCaseRequest {
+
     /// Required. The case to update.
     pub case: std::option::Option<crate::model::Case>,
 
@@ -1770,8 +1754,7 @@ impl UpdateCaseRequest {
     /// let x = UpdateCaseRequest::new().set_case(Case::default()/* use setters */);
     /// ```
     pub fn set_case<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Case>,
+    where T: std::convert::Into<crate::model::Case>
     {
         self.case = std::option::Option::Some(v.into());
         self
@@ -1787,8 +1770,7 @@ impl UpdateCaseRequest {
     /// let x = UpdateCaseRequest::new().set_or_clear_case(None::<Case>);
     /// ```
     pub fn set_or_clear_case<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Case>,
+    where T: std::convert::Into<crate::model::Case>
     {
         self.case = v.map(|x| x.into());
         self
@@ -1803,8 +1785,7 @@ impl UpdateCaseRequest {
     /// let x = UpdateCaseRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -1820,8 +1801,7 @@ impl UpdateCaseRequest {
     /// let x = UpdateCaseRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -1838,6 +1818,7 @@ impl wkt::message::Message for UpdateCaseRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloseCaseRequest {
+
     /// Required. The name of the case to close.
     pub name: std::string::String,
 
@@ -1872,6 +1853,7 @@ impl wkt::message::Message for CloseCaseRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchCaseClassificationsRequest {
+
     /// An expression used to filter case classifications.
     ///
     /// If it's an empty string, then no filtering happens. Otherwise, case
@@ -1940,6 +1922,7 @@ impl wkt::message::Message for SearchCaseClassificationsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchCaseClassificationsResponse {
+
     /// The classifications retrieved.
     pub case_classifications: std::vec::Vec<crate::model::CaseClassification>,
 
@@ -1971,7 +1954,7 @@ impl SearchCaseClassificationsResponse {
     pub fn set_case_classifications<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::CaseClassification>,
+        V: std::convert::Into<crate::model::CaseClassification>
     {
         use std::iter::Iterator;
         self.case_classifications = v.into_iter().map(|i| i.into()).collect();
@@ -2019,6 +2002,7 @@ impl gax::paginator::internal::PageableResponse for SearchCaseClassificationsRes
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Comment {
+
     /// Output only. Identifier. The resource name of the comment.
     pub name: std::string::String,
 
@@ -2070,8 +2054,7 @@ impl Comment {
     /// let x = Comment::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -2087,8 +2070,7 @@ impl Comment {
     /// let x = Comment::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -2103,8 +2085,7 @@ impl Comment {
     /// let x = Comment::new().set_creator(Actor::default()/* use setters */);
     /// ```
     pub fn set_creator<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Actor>,
+    where T: std::convert::Into<crate::model::Actor>
     {
         self.creator = std::option::Option::Some(v.into());
         self
@@ -2120,8 +2101,7 @@ impl Comment {
     /// let x = Comment::new().set_or_clear_creator(None::<Actor>);
     /// ```
     pub fn set_or_clear_creator<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Actor>,
+    where T: std::convert::Into<crate::model::Actor>
     {
         self.creator = v.map(|x| x.into());
         self
@@ -2163,6 +2143,7 @@ impl wkt::message::Message for Comment {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCommentsRequest {
+
     /// Required. The name of the case for which to list comments.
     pub parent: std::string::String,
 
@@ -2228,6 +2209,7 @@ impl wkt::message::Message for ListCommentsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCommentsResponse {
+
     /// List of the comments associated with the case.
     pub comments: std::vec::Vec<crate::model::Comment>,
 
@@ -2259,7 +2241,7 @@ impl ListCommentsResponse {
     pub fn set_comments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Comment>,
+        V: std::convert::Into<crate::model::Comment>
     {
         use std::iter::Iterator;
         self.comments = v.into_iter().map(|i| i.into()).collect();
@@ -2303,6 +2285,7 @@ impl gax::paginator::internal::PageableResponse for ListCommentsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateCommentRequest {
+
     /// Required. The name of the case to which the comment should be added.
     pub parent: std::string::String,
 
@@ -2338,8 +2321,7 @@ impl CreateCommentRequest {
     /// let x = CreateCommentRequest::new().set_comment(Comment::default()/* use setters */);
     /// ```
     pub fn set_comment<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Comment>,
+    where T: std::convert::Into<crate::model::Comment>
     {
         self.comment = std::option::Option::Some(v.into());
         self
@@ -2355,8 +2337,7 @@ impl CreateCommentRequest {
     /// let x = CreateCommentRequest::new().set_or_clear_comment(None::<Comment>);
     /// ```
     pub fn set_or_clear_comment<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Comment>,
+    where T: std::convert::Into<crate::model::Comment>
     {
         self.comment = v.map(|x| x.into());
         self
@@ -2373,6 +2354,7 @@ impl wkt::message::Message for CreateCommentRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Escalation {
+
     /// Required. The reason why the Case is being escalated.
     pub reason: crate::model::escalation::Reason,
 
@@ -2398,10 +2380,7 @@ impl Escalation {
     /// let x1 = Escalation::new().set_reason(Reason::TechnicalExpertise);
     /// let x2 = Escalation::new().set_reason(Reason::BusinessImpact);
     /// ```
-    pub fn set_reason<T: std::convert::Into<crate::model::escalation::Reason>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_reason<T: std::convert::Into<crate::model::escalation::Reason>>(mut self, v: T) -> Self {
         self.reason = v.into();
         self
     }
@@ -2429,6 +2408,7 @@ impl wkt::message::Message for Escalation {
 pub mod escalation {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// An enum detailing the possible reasons a case may be escalated.
     ///
@@ -2522,9 +2502,7 @@ pub mod escalation {
                 1 => Self::ResolutionTime,
                 2 => Self::TechnicalExpertise,
                 3 => Self::BusinessImpact,
-                _ => Self::UnknownValue(reason::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(reason::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -2537,9 +2515,7 @@ pub mod escalation {
                 "RESOLUTION_TIME" => Self::ResolutionTime,
                 "TECHNICAL_EXPERTISE" => Self::TechnicalExpertise,
                 "BUSINESS_IMPACT" => Self::BusinessImpact,
-                _ => Self::UnknownValue(reason::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(reason::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -2565,8 +2541,7 @@ pub mod escalation {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Reason>::new(
-                ".google.cloud.support.v2.Escalation.Reason",
-            ))
+                ".google.cloud.support.v2.Escalation.Reason"))
         }
     }
 }

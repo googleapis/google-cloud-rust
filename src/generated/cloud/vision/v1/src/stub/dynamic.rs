@@ -407,8 +407,7 @@ impl<T: super::ProductSearch> ProductSearch for T {
         &self,
         req: crate::model::ListProductsInProductSetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListProductsInProductSetResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::ListProductsInProductSetResponse>> {
         T::list_products_in_product_set(self, req, options).await
     }
 

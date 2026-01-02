@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [EdgeNetwork](super::stub::EdgeNetwork) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct EdgeNetwork<T>
-where
-    T: super::stub::EdgeNetwork + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::EdgeNetwork + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> EdgeNetwork<T>
-where
-    T: super::stub::EdgeNetwork + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::EdgeNetwork + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::EdgeNetwork for EdgeNetwork<T>
-where
-    T: super::stub::EdgeNetwork + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::EdgeNetwork + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn initialize_zone(
         &self,
@@ -205,9 +199,7 @@ where
         req: crate::model::CreateInterconnectAttachmentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        self.inner
-            .create_interconnect_attachment(req, options)
-            .await
+        self.inner.create_interconnect_attachment(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -216,9 +208,7 @@ where
         req: crate::model::DeleteInterconnectAttachmentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        self.inner
-            .delete_interconnect_attachment(req, options)
-            .await
+        self.inner.delete_interconnect_attachment(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -329,6 +319,7 @@ where
         self.inner.cancel_operation(req, options).await
     }
 
+
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -343,3 +334,4 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 }
+

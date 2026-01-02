@@ -123,8 +123,7 @@ impl<T: super::PolicyBindings> PolicyBindings for T {
         &self,
         req: crate::model::SearchTargetPolicyBindingsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SearchTargetPolicyBindingsResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::SearchTargetPolicyBindingsResponse>> {
         T::search_target_policy_bindings(self, req, options).await
     }
 
@@ -183,17 +182,13 @@ pub trait PrincipalAccessBoundaryPolicies: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ListPrincipalAccessBoundaryPoliciesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::ListPrincipalAccessBoundaryPoliciesResponse>,
-    >;
+    ) -> crate::Result<gax::response::Response<crate::model::ListPrincipalAccessBoundaryPoliciesResponse>>;
 
     async fn search_principal_access_boundary_policy_bindings(
         &self,
         req: crate::model::SearchPrincipalAccessBoundaryPolicyBindingsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::SearchPrincipalAccessBoundaryPolicyBindingsResponse>,
-    >;
+    ) -> crate::Result<gax::response::Response<crate::model::SearchPrincipalAccessBoundaryPolicyBindingsResponse>>;
 
     async fn get_operation(
         &self,
@@ -256,9 +251,7 @@ impl<T: super::PrincipalAccessBoundaryPolicies> PrincipalAccessBoundaryPolicies 
         &self,
         req: crate::model::ListPrincipalAccessBoundaryPoliciesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::ListPrincipalAccessBoundaryPoliciesResponse>,
-    > {
+    ) -> crate::Result<gax::response::Response<crate::model::ListPrincipalAccessBoundaryPoliciesResponse>> {
         T::list_principal_access_boundary_policies(self, req, options).await
     }
 
@@ -267,9 +260,7 @@ impl<T: super::PrincipalAccessBoundaryPolicies> PrincipalAccessBoundaryPolicies 
         &self,
         req: crate::model::SearchPrincipalAccessBoundaryPolicyBindingsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::SearchPrincipalAccessBoundaryPolicyBindingsResponse>,
-    > {
+    ) -> crate::Result<gax::response::Response<crate::model::SearchPrincipalAccessBoundaryPolicyBindingsResponse>> {
         T::search_principal_access_boundary_policy_bindings(self, req, options).await
     }
 

@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -30,7 +31,6 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -42,6 +42,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateFrameworkAuditScopeReportRequest {
+
     /// Required. The organization, folder or project for the audit report.
     ///
     /// Supported formats are the following:
@@ -85,12 +86,7 @@ impl GenerateFrameworkAuditScopeReportRequest {
     /// use google_cloud_cloudsecuritycompliance_v1::model::generate_framework_audit_scope_report_request::Format;
     /// let x0 = GenerateFrameworkAuditScopeReportRequest::new().set_report_format(Format::Odf);
     /// ```
-    pub fn set_report_format<
-        T: std::convert::Into<crate::model::generate_framework_audit_scope_report_request::Format>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_report_format<T: std::convert::Into<crate::model::generate_framework_audit_scope_report_request::Format>>(mut self, v: T) -> Self {
         self.report_format = v.into();
         self
     }
@@ -102,10 +98,7 @@ impl GenerateFrameworkAuditScopeReportRequest {
     /// # use google_cloud_cloudsecuritycompliance_v1::model::GenerateFrameworkAuditScopeReportRequest;
     /// let x = GenerateFrameworkAuditScopeReportRequest::new().set_compliance_framework("example");
     /// ```
-    pub fn set_compliance_framework<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_compliance_framework<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.compliance_framework = v.into();
         self
     }
@@ -121,6 +114,7 @@ impl wkt::message::Message for GenerateFrameworkAuditScopeReportRequest {
 pub mod generate_framework_audit_scope_report_request {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The set of options for the audit scope report format.
     ///
@@ -203,9 +197,7 @@ pub mod generate_framework_audit_scope_report_request {
             match value {
                 0 => Self::Unspecified,
                 1 => Self::Odf,
-                _ => Self::UnknownValue(format::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(format::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -216,9 +208,7 @@ pub mod generate_framework_audit_scope_report_request {
             match value {
                 "FORMAT_UNSPECIFIED" => Self::Unspecified,
                 "ODF" => Self::Odf,
-                _ => Self::UnknownValue(format::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(format::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -251,6 +241,7 @@ pub mod generate_framework_audit_scope_report_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateFrameworkAuditScopeReportResponse {
+
     /// Identifier. The name of the audit report, in the format that was
     /// given in the request.
     pub name: std::string::String,
@@ -260,9 +251,7 @@ pub struct GenerateFrameworkAuditScopeReportResponse {
     pub compliance_framework: std::string::String,
 
     /// The set of options that the audit scope report is exported in.
-    pub audit_report: std::option::Option<
-        crate::model::generate_framework_audit_scope_report_response::AuditReport,
-    >,
+    pub audit_report: std::option::Option<crate::model::generate_framework_audit_scope_report_response::AuditReport>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -291,10 +280,7 @@ impl GenerateFrameworkAuditScopeReportResponse {
     /// # use google_cloud_cloudsecuritycompliance_v1::model::GenerateFrameworkAuditScopeReportResponse;
     /// let x = GenerateFrameworkAuditScopeReportResponse::new().set_compliance_framework("example");
     /// ```
-    pub fn set_compliance_framework<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_compliance_framework<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.compliance_framework = v.into();
         self
     }
@@ -310,16 +296,8 @@ impl GenerateFrameworkAuditScopeReportResponse {
     /// use google_cloud_cloudsecuritycompliance_v1::model::generate_framework_audit_scope_report_response::AuditReport;
     /// let x = GenerateFrameworkAuditScopeReportResponse::new().set_audit_report(Some(AuditReport::ScopeReportContents(bytes::Bytes::from_static(b"example"))));
     /// ```
-    pub fn set_audit_report<
-        T: std::convert::Into<
-                std::option::Option<
-                    crate::model::generate_framework_audit_scope_report_response::AuditReport,
-                >,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_audit_report<T: std::convert::Into<std::option::Option<crate::model::generate_framework_audit_scope_report_response::AuditReport>>>(mut self, v: T) -> Self
+    {
         self.audit_report = v.into();
         self
     }
@@ -347,10 +325,7 @@ impl GenerateFrameworkAuditScopeReportResponse {
     /// let x = GenerateFrameworkAuditScopeReportResponse::new().set_scope_report_contents(bytes::Bytes::from_static(b"example"));
     /// assert!(x.scope_report_contents().is_some());
     /// ```
-    pub fn set_scope_report_contents<T: std::convert::Into<::bytes::Bytes>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_scope_report_contents<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.audit_report = std::option::Option::Some(
             crate::model::generate_framework_audit_scope_report_response::AuditReport::ScopeReportContents(
                 v.into()
@@ -371,6 +346,7 @@ pub mod generate_framework_audit_scope_report_response {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// The set of options that the audit scope report is exported in.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -384,6 +360,7 @@ pub mod generate_framework_audit_scope_report_response {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReportSummary {
+
     /// Output only. The total number of checks.
     pub total_count: i32,
 
@@ -478,6 +455,7 @@ impl wkt::message::Message for ReportSummary {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateFrameworkAuditRequest {
+
     /// Required. The parent resource where this framework audit is created.
     ///
     /// Supported formats are the following:
@@ -524,10 +502,7 @@ impl CreateFrameworkAuditRequest {
     /// # use google_cloud_cloudsecuritycompliance_v1::model::CreateFrameworkAuditRequest;
     /// let x = CreateFrameworkAuditRequest::new().set_framework_audit_id("example");
     /// ```
-    pub fn set_framework_audit_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_framework_audit_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.framework_audit_id = v.into();
         self
     }
@@ -541,8 +516,7 @@ impl CreateFrameworkAuditRequest {
     /// let x = CreateFrameworkAuditRequest::new().set_framework_audit(FrameworkAudit::default()/* use setters */);
     /// ```
     pub fn set_framework_audit<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::FrameworkAudit>,
+    where T: std::convert::Into<crate::model::FrameworkAudit>
     {
         self.framework_audit = std::option::Option::Some(v.into());
         self
@@ -558,8 +532,7 @@ impl CreateFrameworkAuditRequest {
     /// let x = CreateFrameworkAuditRequest::new().set_or_clear_framework_audit(None::<FrameworkAudit>);
     /// ```
     pub fn set_or_clear_framework_audit<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::FrameworkAudit>,
+    where T: std::convert::Into<crate::model::FrameworkAudit>
     {
         self.framework_audit = v.map(|x| x.into());
         self
@@ -576,9 +549,9 @@ impl wkt::message::Message for CreateFrameworkAuditRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FrameworkAuditDestination {
+
     /// The type of destination.
-    pub destination_type:
-        std::option::Option<crate::model::framework_audit_destination::DestinationType>,
+    pub destination_type: std::option::Option<crate::model::framework_audit_destination::DestinationType>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -600,14 +573,8 @@ impl FrameworkAuditDestination {
     /// let x = FrameworkAuditDestination::new().set_destination_type(Some(
     ///     google_cloud_cloudsecuritycompliance_v1::model::framework_audit_destination::DestinationType::Bucket(BucketDestination::default().into())));
     /// ```
-    pub fn set_destination_type<
-        T: std::convert::Into<
-                std::option::Option<crate::model::framework_audit_destination::DestinationType>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_destination_type<T: std::convert::Into<std::option::Option<crate::model::framework_audit_destination::DestinationType>>>(mut self, v: T) -> Self
+    {
         self.destination_type = v.into();
         self
     }
@@ -618,9 +585,7 @@ impl FrameworkAuditDestination {
     pub fn bucket(&self) -> std::option::Option<&std::boxed::Box<crate::model::BucketDestination>> {
         #[allow(unreachable_patterns)]
         self.destination_type.as_ref().and_then(|v| match v {
-            crate::model::framework_audit_destination::DestinationType::Bucket(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::framework_audit_destination::DestinationType::Bucket(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -638,12 +603,11 @@ impl FrameworkAuditDestination {
     /// let x = FrameworkAuditDestination::new().set_bucket(BucketDestination::default()/* use setters */);
     /// assert!(x.bucket().is_some());
     /// ```
-    pub fn set_bucket<T: std::convert::Into<std::boxed::Box<crate::model::BucketDestination>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_bucket<T: std::convert::Into<std::boxed::Box<crate::model::BucketDestination>>>(mut self, v: T) -> Self {
         self.destination_type = std::option::Option::Some(
-            crate::model::framework_audit_destination::DestinationType::Bucket(v.into()),
+            crate::model::framework_audit_destination::DestinationType::Bucket(
+                v.into()
+            )
         );
         self
     }
@@ -660,6 +624,7 @@ pub mod framework_audit_destination {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// The type of destination.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -673,6 +638,7 @@ pub mod framework_audit_destination {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BucketDestination {
+
     /// Required. The URI of the Cloud Storage bucket.
     pub bucket_uri: std::string::String,
 
@@ -707,12 +673,7 @@ impl BucketDestination {
     /// use google_cloud_cloudsecuritycompliance_v1::model::bucket_destination::Format;
     /// let x0 = BucketDestination::new().set_framework_audit_format(Format::Odf);
     /// ```
-    pub fn set_framework_audit_format<
-        T: std::convert::Into<crate::model::bucket_destination::Format>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_framework_audit_format<T: std::convert::Into<crate::model::bucket_destination::Format>>(mut self, v: T) -> Self {
         self.framework_audit_format = v.into();
         self
     }
@@ -728,6 +689,7 @@ impl wkt::message::Message for BucketDestination {
 pub mod bucket_destination {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The set of options for the framework audit format.
     ///
@@ -810,9 +772,7 @@ pub mod bucket_destination {
             match value {
                 0 => Self::Unspecified,
                 1 => Self::Odf,
-                _ => Self::UnknownValue(format::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(format::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -823,9 +783,7 @@ pub mod bucket_destination {
             match value {
                 "FORMAT_UNSPECIFIED" => Self::Unspecified,
                 "ODF" => Self::Odf,
-                _ => Self::UnknownValue(format::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(format::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -849,8 +807,7 @@ pub mod bucket_destination {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Format>::new(
-                ".google.cloud.cloudsecuritycompliance.v1.BucketDestination.Format",
-            ))
+                ".google.cloud.cloudsecuritycompliance.v1.BucketDestination.Format"))
         }
     }
 }
@@ -859,6 +816,7 @@ pub mod bucket_destination {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FrameworkAudit {
+
     /// Output only. Identifier. The name of the framework audit.
     pub name: std::string::String,
 
@@ -887,8 +845,7 @@ pub struct FrameworkAudit {
     pub report_summary: std::option::Option<crate::model::ReportSummary>,
 
     /// Optional. The details for the cloud control groups within this audit.
-    pub cloud_control_group_audit_details:
-        std::vec::Vec<crate::model::CloudControlGroupAuditDetails>,
+    pub cloud_control_group_audit_details: std::vec::Vec<crate::model::CloudControlGroupAuditDetails>,
 
     /// Optional. The details for the cloud controls within this audit.
     pub cloud_control_audit_details: std::vec::Vec<crate::model::CloudControlAuditDetails>,
@@ -926,10 +883,7 @@ impl FrameworkAudit {
     /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkAudit;
     /// let x = FrameworkAudit::new().set_framework_audit_id("example");
     /// ```
-    pub fn set_framework_audit_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_framework_audit_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.framework_audit_id = v.into();
         self
     }
@@ -941,10 +895,7 @@ impl FrameworkAudit {
     /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkAudit;
     /// let x = FrameworkAudit::new().set_compliance_framework("example");
     /// ```
-    pub fn set_compliance_framework<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_compliance_framework<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.compliance_framework = v.into();
         self
     }
@@ -970,8 +921,7 @@ impl FrameworkAudit {
     /// let x = FrameworkAudit::new().set_framework_audit_destination(FrameworkAuditDestination::default()/* use setters */);
     /// ```
     pub fn set_framework_audit_destination<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::FrameworkAuditDestination>,
+    where T: std::convert::Into<crate::model::FrameworkAuditDestination>
     {
         self.framework_audit_destination = std::option::Option::Some(v.into());
         self
@@ -987,8 +937,7 @@ impl FrameworkAudit {
     /// let x = FrameworkAudit::new().set_or_clear_framework_audit_destination(None::<FrameworkAuditDestination>);
     /// ```
     pub fn set_or_clear_framework_audit_destination<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::FrameworkAuditDestination>,
+    where T: std::convert::Into<crate::model::FrameworkAuditDestination>
     {
         self.framework_audit_destination = v.map(|x| x.into());
         self
@@ -1003,8 +952,7 @@ impl FrameworkAudit {
     /// let x = FrameworkAudit::new().set_start_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -1020,8 +968,7 @@ impl FrameworkAudit {
     /// let x = FrameworkAudit::new().set_or_clear_start_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -1036,8 +983,7 @@ impl FrameworkAudit {
     /// let x = FrameworkAudit::new().set_finish_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_finish_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.finish_time = std::option::Option::Some(v.into());
         self
@@ -1053,8 +999,7 @@ impl FrameworkAudit {
     /// let x = FrameworkAudit::new().set_or_clear_finish_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_finish_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.finish_time = v.map(|x| x.into());
         self
@@ -1070,10 +1015,7 @@ impl FrameworkAudit {
     /// let x1 = FrameworkAudit::new().set_compliance_state(ComplianceState::Violation);
     /// let x2 = FrameworkAudit::new().set_compliance_state(ComplianceState::ManualReviewNeeded);
     /// ```
-    pub fn set_compliance_state<T: std::convert::Into<crate::model::ComplianceState>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_compliance_state<T: std::convert::Into<crate::model::ComplianceState>>(mut self, v: T) -> Self {
         self.compliance_state = v.into();
         self
     }
@@ -1087,8 +1029,7 @@ impl FrameworkAudit {
     /// let x = FrameworkAudit::new().set_report_summary(ReportSummary::default()/* use setters */);
     /// ```
     pub fn set_report_summary<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ReportSummary>,
+    where T: std::convert::Into<crate::model::ReportSummary>
     {
         self.report_summary = std::option::Option::Some(v.into());
         self
@@ -1104,8 +1045,7 @@ impl FrameworkAudit {
     /// let x = FrameworkAudit::new().set_or_clear_report_summary(None::<ReportSummary>);
     /// ```
     pub fn set_or_clear_report_summary<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ReportSummary>,
+    where T: std::convert::Into<crate::model::ReportSummary>
     {
         self.report_summary = v.map(|x| x.into());
         self
@@ -1126,7 +1066,7 @@ impl FrameworkAudit {
     pub fn set_cloud_control_group_audit_details<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::CloudControlGroupAuditDetails>,
+        V: std::convert::Into<crate::model::CloudControlGroupAuditDetails>
     {
         use std::iter::Iterator;
         self.cloud_control_group_audit_details = v.into_iter().map(|i| i.into()).collect();
@@ -1148,7 +1088,7 @@ impl FrameworkAudit {
     pub fn set_cloud_control_audit_details<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::CloudControlAuditDetails>,
+        V: std::convert::Into<crate::model::CloudControlAuditDetails>
     {
         use std::iter::Iterator;
         self.cloud_control_audit_details = v.into_iter().map(|i| i.into()).collect();
@@ -1177,10 +1117,7 @@ impl FrameworkAudit {
     /// let x1 = FrameworkAudit::new().set_state(State::Running);
     /// let x2 = FrameworkAudit::new().set_state(State::Uploading);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::framework_audit::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::framework_audit::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -1196,6 +1133,7 @@ impl wkt::message::Message for FrameworkAudit {
 pub mod framework_audit {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The state of the framework audit.
     ///
@@ -1298,9 +1236,7 @@ pub mod framework_audit {
                 3 => Self::Uploading,
                 4 => Self::Failed,
                 5 => Self::Succeeded,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1315,9 +1251,7 @@ pub mod framework_audit {
                 "UPLOADING" => Self::Uploading,
                 "FAILED" => Self::Failed,
                 "SUCCEEDED" => Self::Succeeded,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1345,8 +1279,7 @@ pub mod framework_audit {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.cloudsecuritycompliance.v1.FrameworkAudit.State",
-            ))
+                ".google.cloud.cloudsecuritycompliance.v1.FrameworkAudit.State"))
         }
     }
 }
@@ -1355,6 +1288,7 @@ pub mod framework_audit {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListFrameworkAuditsRequest {
+
     /// Required. The parent resource where the framework audits are listed.
     ///
     /// Supported formats are the following:
@@ -1448,6 +1382,7 @@ impl wkt::message::Message for ListFrameworkAuditsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListFrameworkAuditsResponse {
+
     /// The framework audits.
     pub framework_audits: std::vec::Vec<crate::model::FrameworkAudit>,
 
@@ -1478,7 +1413,7 @@ impl ListFrameworkAuditsResponse {
     pub fn set_framework_audits<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::FrameworkAudit>,
+        V: std::convert::Into<crate::model::FrameworkAudit>
     {
         use std::iter::Iterator;
         self.framework_audits = v.into_iter().map(|i| i.into()).collect();
@@ -1522,6 +1457,7 @@ impl gax::paginator::internal::PageableResponse for ListFrameworkAuditsResponse 
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetFrameworkAuditRequest {
+
     /// Required. The name of the framework audit to retrieve.
     ///
     /// Supported formats are the following:
@@ -1562,6 +1498,7 @@ impl wkt::message::Message for GetFrameworkAuditRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudControlGroupAuditDetails {
+
     /// Output only. The ID of the cloud control group.
     pub cloud_control_group_id: std::string::String,
 
@@ -1616,10 +1553,7 @@ impl CloudControlGroupAuditDetails {
     /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlGroupAuditDetails;
     /// let x = CloudControlGroupAuditDetails::new().set_cloud_control_group_id("example");
     /// ```
-    pub fn set_cloud_control_group_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_cloud_control_group_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cloud_control_group_id = v.into();
         self
     }
@@ -1655,10 +1589,7 @@ impl CloudControlGroupAuditDetails {
     /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlGroupAuditDetails;
     /// let x = CloudControlGroupAuditDetails::new().set_responsibility_type("example");
     /// ```
-    pub fn set_responsibility_type<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_responsibility_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.responsibility_type = v.into();
         self
     }
@@ -1670,10 +1601,7 @@ impl CloudControlGroupAuditDetails {
     /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlGroupAuditDetails;
     /// let x = CloudControlGroupAuditDetails::new().set_google_responsibility_description("example");
     /// ```
-    pub fn set_google_responsibility_description<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_google_responsibility_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.google_responsibility_description = v.into();
         self
     }
@@ -1685,10 +1613,7 @@ impl CloudControlGroupAuditDetails {
     /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlGroupAuditDetails;
     /// let x = CloudControlGroupAuditDetails::new().set_google_responsibility_implementation("example");
     /// ```
-    pub fn set_google_responsibility_implementation<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_google_responsibility_implementation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.google_responsibility_implementation = v.into();
         self
     }
@@ -1700,10 +1625,7 @@ impl CloudControlGroupAuditDetails {
     /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlGroupAuditDetails;
     /// let x = CloudControlGroupAuditDetails::new().set_customer_responsibility_description("example");
     /// ```
-    pub fn set_customer_responsibility_description<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_customer_responsibility_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.customer_responsibility_description = v.into();
         self
     }
@@ -1715,12 +1637,7 @@ impl CloudControlGroupAuditDetails {
     /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlGroupAuditDetails;
     /// let x = CloudControlGroupAuditDetails::new().set_customer_responsibility_implementation("example");
     /// ```
-    pub fn set_customer_responsibility_implementation<
-        T: std::convert::Into<std::string::String>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_customer_responsibility_implementation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.customer_responsibility_implementation = v.into();
         self
     }
@@ -1735,10 +1652,7 @@ impl CloudControlGroupAuditDetails {
     /// let x1 = CloudControlGroupAuditDetails::new().set_compliance_state(ComplianceState::Violation);
     /// let x2 = CloudControlGroupAuditDetails::new().set_compliance_state(ComplianceState::ManualReviewNeeded);
     /// ```
-    pub fn set_compliance_state<T: std::convert::Into<crate::model::ComplianceState>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_compliance_state<T: std::convert::Into<crate::model::ComplianceState>>(mut self, v: T) -> Self {
         self.compliance_state = v.into();
         self
     }
@@ -1764,8 +1678,7 @@ impl CloudControlGroupAuditDetails {
     /// let x = CloudControlGroupAuditDetails::new().set_control_family(ControlFamily::default()/* use setters */);
     /// ```
     pub fn set_control_family<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ControlFamily>,
+    where T: std::convert::Into<crate::model::ControlFamily>
     {
         self.control_family = std::option::Option::Some(v.into());
         self
@@ -1781,8 +1694,7 @@ impl CloudControlGroupAuditDetails {
     /// let x = CloudControlGroupAuditDetails::new().set_or_clear_control_family(None::<ControlFamily>);
     /// ```
     pub fn set_or_clear_control_family<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ControlFamily>,
+    where T: std::convert::Into<crate::model::ControlFamily>
     {
         self.control_family = v.map(|x| x.into());
         self
@@ -1803,7 +1715,7 @@ impl CloudControlGroupAuditDetails {
     pub fn set_cloud_control_details<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::CloudControlAuditDetails>,
+        V: std::convert::Into<crate::model::CloudControlAuditDetails>
     {
         use std::iter::Iterator;
         self.cloud_control_details = v.into_iter().map(|i| i.into()).collect();
@@ -1819,8 +1731,7 @@ impl CloudControlGroupAuditDetails {
     /// let x = CloudControlGroupAuditDetails::new().set_report_summary(ReportSummary::default()/* use setters */);
     /// ```
     pub fn set_report_summary<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ReportSummary>,
+    where T: std::convert::Into<crate::model::ReportSummary>
     {
         self.report_summary = std::option::Option::Some(v.into());
         self
@@ -1836,8 +1747,7 @@ impl CloudControlGroupAuditDetails {
     /// let x = CloudControlGroupAuditDetails::new().set_or_clear_report_summary(None::<ReportSummary>);
     /// ```
     pub fn set_or_clear_report_summary<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ReportSummary>,
+    where T: std::convert::Into<crate::model::ReportSummary>
     {
         self.report_summary = v.map(|x| x.into());
         self
@@ -1854,6 +1764,7 @@ impl wkt::message::Message for CloudControlGroupAuditDetails {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FindingDetails {
+
     /// Output only. The name of the finding.
     pub name: std::string::String,
 
@@ -1896,10 +1807,7 @@ impl FindingDetails {
     /// let x1 = FindingDetails::new().set_compliance_state(ComplianceState::Violation);
     /// let x2 = FindingDetails::new().set_compliance_state(ComplianceState::ManualReviewNeeded);
     /// ```
-    pub fn set_compliance_state<T: std::convert::Into<crate::model::ComplianceState>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_compliance_state<T: std::convert::Into<crate::model::ComplianceState>>(mut self, v: T) -> Self {
         self.compliance_state = v.into();
         self
     }
@@ -1913,8 +1821,7 @@ impl FindingDetails {
     /// let x = FindingDetails::new().set_observation(ObservationDetails::default()/* use setters */);
     /// ```
     pub fn set_observation<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ObservationDetails>,
+    where T: std::convert::Into<crate::model::ObservationDetails>
     {
         self.observation = std::option::Option::Some(v.into());
         self
@@ -1930,8 +1837,7 @@ impl FindingDetails {
     /// let x = FindingDetails::new().set_or_clear_observation(None::<ObservationDetails>);
     /// ```
     pub fn set_or_clear_observation<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ObservationDetails>,
+    where T: std::convert::Into<crate::model::ObservationDetails>
     {
         self.observation = v.map(|x| x.into());
         self
@@ -1946,8 +1852,7 @@ impl FindingDetails {
     /// let x = FindingDetails::new().set_evidence(EvidenceDetails::default()/* use setters */);
     /// ```
     pub fn set_evidence<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::EvidenceDetails>,
+    where T: std::convert::Into<crate::model::EvidenceDetails>
     {
         self.evidence = std::option::Option::Some(v.into());
         self
@@ -1963,8 +1868,7 @@ impl FindingDetails {
     /// let x = FindingDetails::new().set_or_clear_evidence(None::<EvidenceDetails>);
     /// ```
     pub fn set_or_clear_evidence<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::EvidenceDetails>,
+    where T: std::convert::Into<crate::model::EvidenceDetails>
     {
         self.evidence = v.map(|x| x.into());
         self
@@ -1981,6 +1885,7 @@ impl wkt::message::Message for FindingDetails {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ObservationDetails {
+
     /// Output only. The current value.
     pub current_value: std::string::String,
 
@@ -2045,6 +1950,7 @@ impl wkt::message::Message for ObservationDetails {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EvidenceDetails {
+
     /// Output only. The resource identifier.
     pub resource: std::string::String,
 
@@ -2109,6 +2015,7 @@ impl wkt::message::Message for EvidenceDetails {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudControlAuditDetails {
+
     /// Output only. The name of the cloud control.
     pub cloud_control: std::string::String,
 
@@ -2154,10 +2061,7 @@ impl CloudControlAuditDetails {
     /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlAuditDetails;
     /// let x = CloudControlAuditDetails::new().set_cloud_control_id("example");
     /// ```
-    pub fn set_cloud_control_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_cloud_control_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cloud_control_id = v.into();
         self
     }
@@ -2169,10 +2073,7 @@ impl CloudControlAuditDetails {
     /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlAuditDetails;
     /// let x = CloudControlAuditDetails::new().set_cloud_control_description("example");
     /// ```
-    pub fn set_cloud_control_description<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_cloud_control_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cloud_control_description = v.into();
         self
     }
@@ -2187,10 +2088,7 @@ impl CloudControlAuditDetails {
     /// let x1 = CloudControlAuditDetails::new().set_compliance_state(ComplianceState::Violation);
     /// let x2 = CloudControlAuditDetails::new().set_compliance_state(ComplianceState::ManualReviewNeeded);
     /// ```
-    pub fn set_compliance_state<T: std::convert::Into<crate::model::ComplianceState>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_compliance_state<T: std::convert::Into<crate::model::ComplianceState>>(mut self, v: T) -> Self {
         self.compliance_state = v.into();
         self
     }
@@ -2204,8 +2102,7 @@ impl CloudControlAuditDetails {
     /// let x = CloudControlAuditDetails::new().set_report_summary(ReportSummary::default()/* use setters */);
     /// ```
     pub fn set_report_summary<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ReportSummary>,
+    where T: std::convert::Into<crate::model::ReportSummary>
     {
         self.report_summary = std::option::Option::Some(v.into());
         self
@@ -2221,8 +2118,7 @@ impl CloudControlAuditDetails {
     /// let x = CloudControlAuditDetails::new().set_or_clear_report_summary(None::<ReportSummary>);
     /// ```
     pub fn set_or_clear_report_summary<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ReportSummary>,
+    where T: std::convert::Into<crate::model::ReportSummary>
     {
         self.report_summary = v.map(|x| x.into());
         self
@@ -2243,7 +2139,7 @@ impl CloudControlAuditDetails {
     pub fn set_findings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::FindingDetails>,
+        V: std::convert::Into<crate::model::FindingDetails>
     {
         use std::iter::Iterator;
         self.findings = v.into_iter().map(|i| i.into()).collect();
@@ -2261,6 +2157,7 @@ impl wkt::message::Message for CloudControlAuditDetails {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateCmEnrollmentRequest {
+
     /// Required. The Compliance Manager enrollment to update.
     /// The `name` field is used to identify the settings that you want to update.
     pub cm_enrollment: std::option::Option<crate::model::CmEnrollment>,
@@ -2285,8 +2182,7 @@ impl UpdateCmEnrollmentRequest {
     /// let x = UpdateCmEnrollmentRequest::new().set_cm_enrollment(CmEnrollment::default()/* use setters */);
     /// ```
     pub fn set_cm_enrollment<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CmEnrollment>,
+    where T: std::convert::Into<crate::model::CmEnrollment>
     {
         self.cm_enrollment = std::option::Option::Some(v.into());
         self
@@ -2302,8 +2198,7 @@ impl UpdateCmEnrollmentRequest {
     /// let x = UpdateCmEnrollmentRequest::new().set_or_clear_cm_enrollment(None::<CmEnrollment>);
     /// ```
     pub fn set_or_clear_cm_enrollment<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CmEnrollment>,
+    where T: std::convert::Into<crate::model::CmEnrollment>
     {
         self.cm_enrollment = v.map(|x| x.into());
         self
@@ -2318,8 +2213,7 @@ impl UpdateCmEnrollmentRequest {
     /// let x = UpdateCmEnrollmentRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -2335,8 +2229,7 @@ impl UpdateCmEnrollmentRequest {
     /// let x = UpdateCmEnrollmentRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -2353,6 +2246,7 @@ impl wkt::message::Message for UpdateCmEnrollmentRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CalculateEffectiveCmEnrollmentRequest {
+
     /// Required. The name of the Compliance Manager enrollment to calculate.
     ///
     /// Supported formats are the following:
@@ -2393,6 +2287,7 @@ impl wkt::message::Message for CalculateEffectiveCmEnrollmentRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CmEnrollment {
+
     /// Identifier. The name of the Compliance Manager enrollment.
     ///
     /// Supported formats are the following:
@@ -2452,8 +2347,7 @@ impl CmEnrollment {
     /// let x = CmEnrollment::new().set_audit_config(AuditConfig::default()/* use setters */);
     /// ```
     pub fn set_audit_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AuditConfig>,
+    where T: std::convert::Into<crate::model::AuditConfig>
     {
         self.audit_config = std::option::Option::Some(v.into());
         self
@@ -2469,8 +2363,7 @@ impl CmEnrollment {
     /// let x = CmEnrollment::new().set_or_clear_audit_config(None::<AuditConfig>);
     /// ```
     pub fn set_or_clear_audit_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AuditConfig>,
+    where T: std::convert::Into<crate::model::AuditConfig>
     {
         self.audit_config = v.map(|x| x.into());
         self
@@ -2487,6 +2380,7 @@ impl wkt::message::Message for CmEnrollment {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CalculateEffectiveCmEnrollmentResponse {
+
     /// The effective Compliance Manager enrollment for the resource.
     pub cm_enrollment: std::option::Option<crate::model::CmEnrollment>,
 
@@ -2507,8 +2401,7 @@ impl CalculateEffectiveCmEnrollmentResponse {
     /// let x = CalculateEffectiveCmEnrollmentResponse::new().set_cm_enrollment(CmEnrollment::default()/* use setters */);
     /// ```
     pub fn set_cm_enrollment<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CmEnrollment>,
+    where T: std::convert::Into<crate::model::CmEnrollment>
     {
         self.cm_enrollment = std::option::Option::Some(v.into());
         self
@@ -2524,8 +2417,7 @@ impl CalculateEffectiveCmEnrollmentResponse {
     /// let x = CalculateEffectiveCmEnrollmentResponse::new().set_or_clear_cm_enrollment(None::<CmEnrollment>);
     /// ```
     pub fn set_or_clear_cm_enrollment<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CmEnrollment>,
+    where T: std::convert::Into<crate::model::CmEnrollment>
     {
         self.cm_enrollment = v.map(|x| x.into());
         self
@@ -2542,6 +2434,7 @@ impl wkt::message::Message for CalculateEffectiveCmEnrollmentResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AuditConfig {
+
     /// Required. The list of destinations that can be selected for uploading audit
     /// reports to.
     pub destinations: std::vec::Vec<crate::model::audit_config::CmEligibleDestination>,
@@ -2569,7 +2462,7 @@ impl AuditConfig {
     pub fn set_destinations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::audit_config::CmEligibleDestination>,
+        V: std::convert::Into<crate::model::audit_config::CmEligibleDestination>
     {
         use std::iter::Iterator;
         self.destinations = v.into_iter().map(|i| i.into()).collect();
@@ -2588,15 +2481,15 @@ pub mod audit_config {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// The destination details where audit reports are
     /// uploaded.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CmEligibleDestination {
+
         /// Set of options for the report destination location.
-        pub cm_eligible_destinations: std::option::Option<
-            crate::model::audit_config::cm_eligible_destination::CmEligibleDestinations,
-        >,
+        pub cm_eligible_destinations: std::option::Option<crate::model::audit_config::cm_eligible_destination::CmEligibleDestinations>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -2617,16 +2510,8 @@ pub mod audit_config {
         /// use google_cloud_cloudsecuritycompliance_v1::model::audit_config::cm_eligible_destination::CmEligibleDestinations;
         /// let x = CmEligibleDestination::new().set_cm_eligible_destinations(Some(CmEligibleDestinations::GcsBucket("example".to_string())));
         /// ```
-        pub fn set_cm_eligible_destinations<
-            T: std::convert::Into<
-                    std::option::Option<
-                        crate::model::audit_config::cm_eligible_destination::CmEligibleDestinations,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_cm_eligible_destinations<T: std::convert::Into<std::option::Option<crate::model::audit_config::cm_eligible_destination::CmEligibleDestinations>>>(mut self, v: T) -> Self
+        {
             self.cm_eligible_destinations = v.into();
             self
         }
@@ -2675,6 +2560,7 @@ pub mod audit_config {
         #[allow(unused_imports)]
         use super::*;
 
+
         /// Set of options for the report destination location.
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
@@ -2692,6 +2578,7 @@ pub mod audit_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Framework {
+
     /// Required. Identifier. The name of the framework, in the format
     /// `organizations/{organization}/locations/{location}/frameworks/{framework_id}`.
     /// The only supported location is `global`.
@@ -2793,10 +2680,7 @@ impl Framework {
     /// let x0 = Framework::new().set_type(FrameworkType::BuiltIn);
     /// let x1 = Framework::new().set_type(FrameworkType::Custom);
     /// ```
-    pub fn set_type<T: std::convert::Into<crate::model::framework::FrameworkType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_type<T: std::convert::Into<crate::model::framework::FrameworkType>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
@@ -2816,7 +2700,7 @@ impl Framework {
     pub fn set_cloud_control_details<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::CloudControlDetails>,
+        V: std::convert::Into<crate::model::CloudControlDetails>
     {
         use std::iter::Iterator;
         self.cloud_control_details = v.into_iter().map(|i| i.into()).collect();
@@ -2838,7 +2722,7 @@ impl Framework {
     pub fn set_category<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::FrameworkCategory>,
+        V: std::convert::Into<crate::model::FrameworkCategory>
     {
         use std::iter::Iterator;
         self.category = v.into_iter().map(|i| i.into()).collect();
@@ -2860,7 +2744,7 @@ impl Framework {
     pub fn set_supported_cloud_providers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::CloudProvider>,
+        V: std::convert::Into<crate::model::CloudProvider>
     {
         use std::iter::Iterator;
         self.supported_cloud_providers = v.into_iter().map(|i| i.into()).collect();
@@ -2882,7 +2766,7 @@ impl Framework {
     pub fn set_supported_target_resource_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::TargetResourceType>,
+        V: std::convert::Into<crate::model::TargetResourceType>
     {
         use std::iter::Iterator;
         self.supported_target_resource_types = v.into_iter().map(|i| i.into()).collect();
@@ -2904,7 +2788,7 @@ impl Framework {
     pub fn set_supported_enforcement_modes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::EnforcementMode>,
+        V: std::convert::Into<crate::model::EnforcementMode>
     {
         use std::iter::Iterator;
         self.supported_enforcement_modes = v.into_iter().map(|i| i.into()).collect();
@@ -2922,6 +2806,7 @@ impl wkt::message::Message for Framework {
 pub mod framework {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The type of framework.
     ///
@@ -3009,9 +2894,7 @@ pub mod framework {
                 0 => Self::Unspecified,
                 1 => Self::BuiltIn,
                 2 => Self::Custom,
-                _ => Self::UnknownValue(framework_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(framework_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -3023,9 +2906,7 @@ pub mod framework {
                 "FRAMEWORK_TYPE_UNSPECIFIED" => Self::Unspecified,
                 "BUILT_IN" => Self::BuiltIn,
                 "CUSTOM" => Self::Custom,
-                _ => Self::UnknownValue(framework_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(framework_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -3050,8 +2931,7 @@ pub mod framework {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<FrameworkType>::new(
-                ".google.cloud.cloudsecuritycompliance.v1.Framework.FrameworkType",
-            ))
+                ".google.cloud.cloudsecuritycompliance.v1.Framework.FrameworkType"))
         }
     }
 }
@@ -3060,6 +2940,7 @@ pub mod framework {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudControlDetails {
+
     /// Required. The name of the cloud control, in the format
     /// `organizations/{organization}/locations/{location}/cloudControls/{cloud-control}`.
     /// The only supported location is `global`.
@@ -3121,7 +3002,7 @@ impl CloudControlDetails {
     pub fn set_parameters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Parameter>,
+        V: std::convert::Into<crate::model::Parameter>
     {
         use std::iter::Iterator;
         self.parameters = v.into_iter().map(|i| i.into()).collect();
@@ -3141,6 +3022,7 @@ impl wkt::message::Message for CloudControlDetails {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FrameworkReference {
+
     /// Required. The major version of the framework. If not specified, the version
     /// corresponds to the latest version of the framework.
     pub framework: std::string::String,
@@ -3177,8 +3059,7 @@ impl FrameworkReference {
     /// let x = FrameworkReference::new().set_major_revision_id(42);
     /// ```
     pub fn set_major_revision_id<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.major_revision_id = std::option::Option::Some(v.into());
         self
@@ -3193,8 +3074,7 @@ impl FrameworkReference {
     /// let x = FrameworkReference::new().set_or_clear_major_revision_id(None::<i32>);
     /// ```
     pub fn set_or_clear_major_revision_id<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.major_revision_id = v.map(|x| x.into());
         self
@@ -3213,6 +3093,7 @@ impl wkt::message::Message for FrameworkReference {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Parameter {
+
     /// Required. The name or key of the parameter.
     pub name: std::string::String,
 
@@ -3248,8 +3129,7 @@ impl Parameter {
     /// let x = Parameter::new().set_parameter_value(ParamValue::default()/* use setters */);
     /// ```
     pub fn set_parameter_value<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ParamValue>,
+    where T: std::convert::Into<crate::model::ParamValue>
     {
         self.parameter_value = std::option::Option::Some(std::boxed::Box::new(v.into()));
         self
@@ -3265,8 +3145,7 @@ impl Parameter {
     /// let x = Parameter::new().set_or_clear_parameter_value(None::<ParamValue>);
     /// ```
     pub fn set_or_clear_parameter_value<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ParamValue>,
+    where T: std::convert::Into<crate::model::ParamValue>
     {
         self.parameter_value = v.map(|x| std::boxed::Box::new(x.into()));
         self
@@ -3284,6 +3163,7 @@ impl wkt::message::Message for Parameter {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudControl {
+
     /// Required. Identifier. The name of the cloud control, in the format
     /// `organizations/{organization}/locations/{location}/cloudControls/{cloud_control_id}`.
     /// The only supported location is `global`.
@@ -3412,7 +3292,7 @@ impl CloudControl {
     pub fn set_supported_enforcement_modes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::EnforcementMode>,
+        V: std::convert::Into<crate::model::EnforcementMode>
     {
         use std::iter::Iterator;
         self.supported_enforcement_modes = v.into_iter().map(|i| i.into()).collect();
@@ -3434,7 +3314,7 @@ impl CloudControl {
     pub fn set_parameter_spec<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ParameterSpec>,
+        V: std::convert::Into<crate::model::ParameterSpec>
     {
         use std::iter::Iterator;
         self.parameter_spec = v.into_iter().map(|i| i.into()).collect();
@@ -3456,7 +3336,7 @@ impl CloudControl {
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Rule>,
+        V: std::convert::Into<crate::model::Rule>
     {
         use std::iter::Iterator;
         self.rules = v.into_iter().map(|i| i.into()).collect();
@@ -3485,10 +3365,7 @@ impl CloudControl {
     /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControl;
     /// let x = CloudControl::new().set_finding_category("example");
     /// ```
-    pub fn set_finding_category<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_finding_category<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.finding_category = v.into();
         self
     }
@@ -3508,7 +3385,7 @@ impl CloudControl {
     pub fn set_supported_cloud_providers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::CloudProvider>,
+        V: std::convert::Into<crate::model::CloudProvider>
     {
         use std::iter::Iterator;
         self.supported_cloud_providers = v.into_iter().map(|i| i.into()).collect();
@@ -3525,7 +3402,7 @@ impl CloudControl {
     pub fn set_related_frameworks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.related_frameworks = v.into_iter().map(|i| i.into()).collect();
@@ -3539,10 +3416,7 @@ impl CloudControl {
     /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControl;
     /// let x = CloudControl::new().set_remediation_steps("example");
     /// ```
-    pub fn set_remediation_steps<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_remediation_steps<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.remediation_steps = v.into();
         self
     }
@@ -3562,7 +3436,7 @@ impl CloudControl {
     pub fn set_categories<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::CloudControlCategory>,
+        V: std::convert::Into<crate::model::CloudControlCategory>
     {
         use std::iter::Iterator;
         self.categories = v.into_iter().map(|i| i.into()).collect();
@@ -3578,8 +3452,7 @@ impl CloudControl {
     /// let x = CloudControl::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -3595,8 +3468,7 @@ impl CloudControl {
     /// let x = CloudControl::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -3617,7 +3489,7 @@ impl CloudControl {
     pub fn set_supported_target_resource_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::TargetResourceType>,
+        V: std::convert::Into<crate::model::TargetResourceType>
     {
         use std::iter::Iterator;
         self.supported_target_resource_types = v.into_iter().map(|i| i.into()).collect();
@@ -3635,6 +3507,7 @@ impl wkt::message::Message for CloudControl {
 pub mod cloud_control {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The type of cloud control.
     ///
@@ -3722,9 +3595,7 @@ pub mod cloud_control {
                 0 => Self::Unspecified,
                 1 => Self::Custom,
                 2 => Self::BuiltIn,
-                _ => Self::UnknownValue(r#type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -3736,9 +3607,7 @@ pub mod cloud_control {
                 "TYPE_UNSPECIFIED" => Self::Unspecified,
                 "CUSTOM" => Self::Custom,
                 "BUILT_IN" => Self::BuiltIn,
-                _ => Self::UnknownValue(r#type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -3763,8 +3632,7 @@ pub mod cloud_control {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
-                ".google.cloud.cloudsecuritycompliance.v1.CloudControl.Type",
-            ))
+                ".google.cloud.cloudsecuritycompliance.v1.CloudControl.Type"))
         }
     }
 }
@@ -3773,6 +3641,7 @@ pub mod cloud_control {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ParameterSpec {
+
     /// Required. The name of the parameter.
     pub name: std::string::String,
 
@@ -3868,10 +3737,7 @@ impl ParameterSpec {
     /// let x1 = ParameterSpec::new().set_value_type(ValueType::Boolean);
     /// let x2 = ParameterSpec::new().set_value_type(ValueType::Stringlist);
     /// ```
-    pub fn set_value_type<T: std::convert::Into<crate::model::parameter_spec::ValueType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_value_type<T: std::convert::Into<crate::model::parameter_spec::ValueType>>(mut self, v: T) -> Self {
         self.value_type = v.into();
         self
     }
@@ -3885,8 +3751,7 @@ impl ParameterSpec {
     /// let x = ParameterSpec::new().set_default_value(ParamValue::default()/* use setters */);
     /// ```
     pub fn set_default_value<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ParamValue>,
+    where T: std::convert::Into<crate::model::ParamValue>
     {
         self.default_value = std::option::Option::Some(v.into());
         self
@@ -3902,8 +3767,7 @@ impl ParameterSpec {
     /// let x = ParameterSpec::new().set_or_clear_default_value(None::<ParamValue>);
     /// ```
     pub fn set_or_clear_default_value<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ParamValue>,
+    where T: std::convert::Into<crate::model::ParamValue>
     {
         self.default_value = v.map(|x| x.into());
         self
@@ -3924,7 +3788,7 @@ impl ParameterSpec {
     pub fn set_substitution_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ParameterSubstitutionRule>,
+        V: std::convert::Into<crate::model::ParameterSubstitutionRule>
     {
         use std::iter::Iterator;
         self.substitution_rules = v.into_iter().map(|i| i.into()).collect();
@@ -3945,7 +3809,7 @@ impl ParameterSpec {
     pub fn set_sub_parameters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ParameterSpec>,
+        V: std::convert::Into<crate::model::ParameterSpec>
     {
         use std::iter::Iterator;
         self.sub_parameters = v.into_iter().map(|i| i.into()).collect();
@@ -3961,8 +3825,7 @@ impl ParameterSpec {
     /// let x = ParameterSpec::new().set_validation(Validation::default()/* use setters */);
     /// ```
     pub fn set_validation<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Validation>,
+    where T: std::convert::Into<crate::model::Validation>
     {
         self.validation = std::option::Option::Some(v.into());
         self
@@ -3978,8 +3841,7 @@ impl ParameterSpec {
     /// let x = ParameterSpec::new().set_or_clear_validation(None::<Validation>);
     /// ```
     pub fn set_or_clear_validation<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Validation>,
+    where T: std::convert::Into<crate::model::Validation>
     {
         self.validation = v.map(|x| x.into());
         self
@@ -3996,6 +3858,7 @@ impl wkt::message::Message for ParameterSpec {
 pub mod parameter_spec {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The type of parameter value.
     ///
@@ -4098,9 +3961,7 @@ pub mod parameter_spec {
                 5 => Self::Stringlist,
                 6 => Self::Number,
                 7 => Self::Oneof,
-                _ => Self::UnknownValue(value_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(value_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -4115,9 +3976,7 @@ pub mod parameter_spec {
                 "STRINGLIST" => Self::Stringlist,
                 "NUMBER" => Self::Number,
                 "ONEOF" => Self::Oneof,
-                _ => Self::UnknownValue(value_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(value_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -4145,8 +4004,7 @@ pub mod parameter_spec {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<ValueType>::new(
-                ".google.cloud.cloudsecuritycompliance.v1.ParameterSpec.ValueType",
-            ))
+                ".google.cloud.cloudsecuritycompliance.v1.ParameterSpec.ValueType"))
         }
     }
 }
@@ -4155,6 +4013,7 @@ pub mod parameter_spec {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Validation {
+
     /// Defines validators for parameter values.
     pub constraint: std::option::Option<crate::model::validation::Constraint>,
 
@@ -4178,12 +4037,8 @@ impl Validation {
     /// let x = Validation::new().set_constraint(Some(
     ///     google_cloud_cloudsecuritycompliance_v1::model::validation::Constraint::AllowedValues(AllowedValues::default().into())));
     /// ```
-    pub fn set_constraint<
-        T: std::convert::Into<std::option::Option<crate::model::validation::Constraint>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_constraint<T: std::convert::Into<std::option::Option<crate::model::validation::Constraint>>>(mut self, v: T) -> Self
+    {
         self.constraint = v.into();
         self
     }
@@ -4191,9 +4046,7 @@ impl Validation {
     /// The value of [constraint][crate::model::Validation::constraint]
     /// if it holds a `AllowedValues`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn allowed_values(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::AllowedValues>> {
+    pub fn allowed_values(&self) -> std::option::Option<&std::boxed::Box<crate::model::AllowedValues>> {
         #[allow(unreachable_patterns)]
         self.constraint.as_ref().and_then(|v| match v {
             crate::model::validation::Constraint::AllowedValues(v) => std::option::Option::Some(v),
@@ -4216,14 +4069,11 @@ impl Validation {
     /// assert!(x.int_range().is_none());
     /// assert!(x.regexp_pattern().is_none());
     /// ```
-    pub fn set_allowed_values<
-        T: std::convert::Into<std::boxed::Box<crate::model::AllowedValues>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_allowed_values<T: std::convert::Into<std::boxed::Box<crate::model::AllowedValues>>>(mut self, v: T) -> Self {
         self.constraint = std::option::Option::Some(
-            crate::model::validation::Constraint::AllowedValues(v.into()),
+            crate::model::validation::Constraint::AllowedValues(
+                v.into()
+            )
         );
         self
     }
@@ -4254,21 +4104,19 @@ impl Validation {
     /// assert!(x.allowed_values().is_none());
     /// assert!(x.regexp_pattern().is_none());
     /// ```
-    pub fn set_int_range<T: std::convert::Into<std::boxed::Box<crate::model::IntRange>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.constraint =
-            std::option::Option::Some(crate::model::validation::Constraint::IntRange(v.into()));
+    pub fn set_int_range<T: std::convert::Into<std::boxed::Box<crate::model::IntRange>>>(mut self, v: T) -> Self {
+        self.constraint = std::option::Option::Some(
+            crate::model::validation::Constraint::IntRange(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [constraint][crate::model::Validation::constraint]
     /// if it holds a `RegexpPattern`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn regexp_pattern(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::RegexpPattern>> {
+    pub fn regexp_pattern(&self) -> std::option::Option<&std::boxed::Box<crate::model::RegexpPattern>> {
         #[allow(unreachable_patterns)]
         self.constraint.as_ref().and_then(|v| match v {
             crate::model::validation::Constraint::RegexpPattern(v) => std::option::Option::Some(v),
@@ -4291,14 +4139,11 @@ impl Validation {
     /// assert!(x.allowed_values().is_none());
     /// assert!(x.int_range().is_none());
     /// ```
-    pub fn set_regexp_pattern<
-        T: std::convert::Into<std::boxed::Box<crate::model::RegexpPattern>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_regexp_pattern<T: std::convert::Into<std::boxed::Box<crate::model::RegexpPattern>>>(mut self, v: T) -> Self {
         self.constraint = std::option::Option::Some(
-            crate::model::validation::Constraint::RegexpPattern(v.into()),
+            crate::model::validation::Constraint::RegexpPattern(
+                v.into()
+            )
         );
         self
     }
@@ -4314,6 +4159,7 @@ impl wkt::message::Message for Validation {
 pub mod validation {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Defines validators for parameter values.
     #[derive(Clone, Debug, PartialEq)]
@@ -4332,6 +4178,7 @@ pub mod validation {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AllowedValues {
+
     /// Required. The list of allowed values for the parameter.
     pub values: std::vec::Vec<crate::model::ParamValue>,
 
@@ -4358,7 +4205,7 @@ impl AllowedValues {
     pub fn set_values<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ParamValue>,
+        V: std::convert::Into<crate::model::ParamValue>
     {
         use std::iter::Iterator;
         self.values = v.into_iter().map(|i| i.into()).collect();
@@ -4376,6 +4223,7 @@ impl wkt::message::Message for AllowedValues {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RegexpPattern {
+
     /// Required. The regex pattern to match the values of the parameter with.
     pub pattern: std::string::String,
 
@@ -4410,6 +4258,7 @@ impl wkt::message::Message for RegexpPattern {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct IntRange {
+
     /// Required. The minimum permitted value for the numeric parameter
     /// (inclusive).
     pub min: i64,
@@ -4461,6 +4310,7 @@ impl wkt::message::Message for IntRange {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StringList {
+
     /// Required. The strings in the list.
     pub values: std::vec::Vec<std::string::String>,
 
@@ -4482,7 +4332,7 @@ impl StringList {
     pub fn set_values<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.values = v.into_iter().map(|i| i.into()).collect();
@@ -4500,6 +4350,7 @@ impl wkt::message::Message for StringList {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ParamValue {
+
     /// The list of possible parameter value types.
     pub kind: std::option::Option<crate::model::param_value::Kind>,
 
@@ -4522,10 +4373,8 @@ impl ParamValue {
     /// use google_cloud_cloudsecuritycompliance_v1::model::param_value::Kind;
     /// let x = ParamValue::new().set_kind(Some(Kind::StringValue("example".to_string())));
     /// ```
-    pub fn set_kind<T: std::convert::Into<std::option::Option<crate::model::param_value::Kind>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_kind<T: std::convert::Into<std::option::Option<crate::model::param_value::Kind>>>(mut self, v: T) -> Self
+    {
         self.kind = v.into();
         self
     }
@@ -4558,8 +4407,11 @@ impl ParamValue {
     /// assert!(x.oneof_value().is_none());
     /// ```
     pub fn set_string_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.kind =
-            std::option::Option::Some(crate::model::param_value::Kind::StringValue(v.into()));
+        self.kind = std::option::Option::Some(
+            crate::model::param_value::Kind::StringValue(
+                v.into()
+            )
+        );
         self
     }
 
@@ -4591,16 +4443,18 @@ impl ParamValue {
     /// assert!(x.oneof_value().is_none());
     /// ```
     pub fn set_bool_value<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.kind = std::option::Option::Some(crate::model::param_value::Kind::BoolValue(v.into()));
+        self.kind = std::option::Option::Some(
+            crate::model::param_value::Kind::BoolValue(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [kind][crate::model::ParamValue::kind]
     /// if it holds a `StringListValue`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn string_list_value(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::StringList>> {
+    pub fn string_list_value(&self) -> std::option::Option<&std::boxed::Box<crate::model::StringList>> {
         #[allow(unreachable_patterns)]
         self.kind.as_ref().and_then(|v| match v {
             crate::model::param_value::Kind::StringListValue(v) => std::option::Option::Some(v),
@@ -4625,14 +4479,12 @@ impl ParamValue {
     /// assert!(x.number_value().is_none());
     /// assert!(x.oneof_value().is_none());
     /// ```
-    pub fn set_string_list_value<
-        T: std::convert::Into<std::boxed::Box<crate::model::StringList>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.kind =
-            std::option::Option::Some(crate::model::param_value::Kind::StringListValue(v.into()));
+    pub fn set_string_list_value<T: std::convert::Into<std::boxed::Box<crate::model::StringList>>>(mut self, v: T) -> Self {
+        self.kind = std::option::Option::Some(
+            crate::model::param_value::Kind::StringListValue(
+                v.into()
+            )
+        );
         self
     }
 
@@ -4664,8 +4516,11 @@ impl ParamValue {
     /// assert!(x.oneof_value().is_none());
     /// ```
     pub fn set_number_value<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
-        self.kind =
-            std::option::Option::Some(crate::model::param_value::Kind::NumberValue(v.into()));
+        self.kind = std::option::Option::Some(
+            crate::model::param_value::Kind::NumberValue(
+                v.into()
+            )
+        );
         self
     }
 
@@ -4697,12 +4552,12 @@ impl ParamValue {
     /// assert!(x.string_list_value().is_none());
     /// assert!(x.number_value().is_none());
     /// ```
-    pub fn set_oneof_value<T: std::convert::Into<std::boxed::Box<crate::model::Parameter>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.kind =
-            std::option::Option::Some(crate::model::param_value::Kind::OneofValue(v.into()));
+    pub fn set_oneof_value<T: std::convert::Into<std::boxed::Box<crate::model::Parameter>>>(mut self, v: T) -> Self {
+        self.kind = std::option::Option::Some(
+            crate::model::param_value::Kind::OneofValue(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -4717,6 +4572,7 @@ impl wkt::message::Message for ParamValue {
 pub mod param_value {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The list of possible parameter value types.
     #[derive(Clone, Debug, PartialEq)]
@@ -4739,9 +4595,9 @@ pub mod param_value {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ParameterSubstitutionRule {
+
     /// The type of substitution.
-    pub substitution_type:
-        std::option::Option<crate::model::parameter_substitution_rule::SubstitutionType>,
+    pub substitution_type: std::option::Option<crate::model::parameter_substitution_rule::SubstitutionType>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -4763,14 +4619,8 @@ impl ParameterSubstitutionRule {
     /// let x = ParameterSubstitutionRule::new().set_substitution_type(Some(
     ///     google_cloud_cloudsecuritycompliance_v1::model::parameter_substitution_rule::SubstitutionType::PlaceholderSubstitutionRule(PlaceholderSubstitutionRule::default().into())));
     /// ```
-    pub fn set_substitution_type<
-        T: std::convert::Into<
-                std::option::Option<crate::model::parameter_substitution_rule::SubstitutionType>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_substitution_type<T: std::convert::Into<std::option::Option<crate::model::parameter_substitution_rule::SubstitutionType>>>(mut self, v: T) -> Self
+    {
         self.substitution_type = v.into();
         self
     }
@@ -4778,9 +4628,7 @@ impl ParameterSubstitutionRule {
     /// The value of [substitution_type][crate::model::ParameterSubstitutionRule::substitution_type]
     /// if it holds a `PlaceholderSubstitutionRule`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn placeholder_substitution_rule(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::PlaceholderSubstitutionRule>> {
+    pub fn placeholder_substitution_rule(&self) -> std::option::Option<&std::boxed::Box<crate::model::PlaceholderSubstitutionRule>> {
         #[allow(unreachable_patterns)]
         self.substitution_type.as_ref().and_then(|v| match v {
             crate::model::parameter_substitution_rule::SubstitutionType::PlaceholderSubstitutionRule(v) => std::option::Option::Some(v),
@@ -4802,12 +4650,7 @@ impl ParameterSubstitutionRule {
     /// assert!(x.placeholder_substitution_rule().is_some());
     /// assert!(x.attribute_substitution_rule().is_none());
     /// ```
-    pub fn set_placeholder_substitution_rule<
-        T: std::convert::Into<std::boxed::Box<crate::model::PlaceholderSubstitutionRule>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_placeholder_substitution_rule<T: std::convert::Into<std::boxed::Box<crate::model::PlaceholderSubstitutionRule>>>(mut self, v: T) -> Self {
         self.substitution_type = std::option::Option::Some(
             crate::model::parameter_substitution_rule::SubstitutionType::PlaceholderSubstitutionRule(
                 v.into()
@@ -4819,9 +4662,7 @@ impl ParameterSubstitutionRule {
     /// The value of [substitution_type][crate::model::ParameterSubstitutionRule::substitution_type]
     /// if it holds a `AttributeSubstitutionRule`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn attribute_substitution_rule(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::AttributeSubstitutionRule>> {
+    pub fn attribute_substitution_rule(&self) -> std::option::Option<&std::boxed::Box<crate::model::AttributeSubstitutionRule>> {
         #[allow(unreachable_patterns)]
         self.substitution_type.as_ref().and_then(|v| match v {
             crate::model::parameter_substitution_rule::SubstitutionType::AttributeSubstitutionRule(v) => std::option::Option::Some(v),
@@ -4843,16 +4684,11 @@ impl ParameterSubstitutionRule {
     /// assert!(x.attribute_substitution_rule().is_some());
     /// assert!(x.placeholder_substitution_rule().is_none());
     /// ```
-    pub fn set_attribute_substitution_rule<
-        T: std::convert::Into<std::boxed::Box<crate::model::AttributeSubstitutionRule>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_attribute_substitution_rule<T: std::convert::Into<std::boxed::Box<crate::model::AttributeSubstitutionRule>>>(mut self, v: T) -> Self {
         self.substitution_type = std::option::Option::Some(
             crate::model::parameter_substitution_rule::SubstitutionType::AttributeSubstitutionRule(
-                v.into(),
-            ),
+                v.into()
+            )
         );
         self
     }
@@ -4869,6 +4705,7 @@ pub mod parameter_substitution_rule {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// The type of substitution.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -4884,6 +4721,7 @@ pub mod parameter_substitution_rule {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AttributeSubstitutionRule {
+
     /// The fully qualified proto attribute path, in dot notation.
     /// For example: `rules[0].cel_expression.resource_types_values`
     pub attribute: std::string::String,
@@ -4919,6 +4757,7 @@ impl wkt::message::Message for AttributeSubstitutionRule {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PlaceholderSubstitutionRule {
+
     /// The fully qualified proto attribute path, in dot notation.
     pub attribute: std::string::String,
 
@@ -4953,6 +4792,7 @@ impl wkt::message::Message for PlaceholderSubstitutionRule {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Rule {
+
     /// Optional. The rule description. The maximum length is 2000 characters.
     pub description: std::string::String,
 
@@ -4997,7 +4837,7 @@ impl Rule {
     pub fn set_rule_action_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::RuleActionType>,
+        V: std::convert::Into<crate::model::RuleActionType>
     {
         use std::iter::Iterator;
         self.rule_action_types = v.into_iter().map(|i| i.into()).collect();
@@ -5016,12 +4856,8 @@ impl Rule {
     /// let x = Rule::new().set_implementation(Some(
     ///     google_cloud_cloudsecuritycompliance_v1::model::rule::Implementation::CelExpression(CELExpression::default().into())));
     /// ```
-    pub fn set_implementation<
-        T: std::convert::Into<std::option::Option<crate::model::rule::Implementation>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_implementation<T: std::convert::Into<std::option::Option<crate::model::rule::Implementation>>>(mut self, v: T) -> Self
+    {
         self.implementation = v.into();
         self
     }
@@ -5029,9 +4865,7 @@ impl Rule {
     /// The value of [implementation][crate::model::Rule::implementation]
     /// if it holds a `CelExpression`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn cel_expression(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::CELExpression>> {
+    pub fn cel_expression(&self) -> std::option::Option<&std::boxed::Box<crate::model::CELExpression>> {
         #[allow(unreachable_patterns)]
         self.implementation.as_ref().and_then(|v| match v {
             crate::model::rule::Implementation::CelExpression(v) => std::option::Option::Some(v),
@@ -5052,14 +4886,12 @@ impl Rule {
     /// let x = Rule::new().set_cel_expression(CELExpression::default()/* use setters */);
     /// assert!(x.cel_expression().is_some());
     /// ```
-    pub fn set_cel_expression<
-        T: std::convert::Into<std::boxed::Box<crate::model::CELExpression>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.implementation =
-            std::option::Option::Some(crate::model::rule::Implementation::CelExpression(v.into()));
+    pub fn set_cel_expression<T: std::convert::Into<std::boxed::Box<crate::model::CELExpression>>>(mut self, v: T) -> Self {
+        self.implementation = std::option::Option::Some(
+            crate::model::rule::Implementation::CelExpression(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -5075,6 +4907,7 @@ pub mod rule {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// The rule implementation.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -5088,6 +4921,7 @@ pub mod rule {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CELExpression {
+
     /// Required. The logical expression in CEL. The maximum length of the
     /// condition is 1000 characters. For more information, see [CEL
     /// expression](https://cloud.google.com/security-command-center/docs/compliance-manager-write-cel-expressions).
@@ -5128,12 +4962,8 @@ impl CELExpression {
     /// let x = CELExpression::new().set_criteria(Some(
     ///     google_cloud_cloudsecuritycompliance_v1::model::cel_expression::Criteria::ResourceTypesValues(StringList::default().into())));
     /// ```
-    pub fn set_criteria<
-        T: std::convert::Into<std::option::Option<crate::model::cel_expression::Criteria>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_criteria<T: std::convert::Into<std::option::Option<crate::model::cel_expression::Criteria>>>(mut self, v: T) -> Self
+    {
         self.criteria = v.into();
         self
     }
@@ -5141,14 +4971,10 @@ impl CELExpression {
     /// The value of [criteria][crate::model::CELExpression::criteria]
     /// if it holds a `ResourceTypesValues`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn resource_types_values(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::StringList>> {
+    pub fn resource_types_values(&self) -> std::option::Option<&std::boxed::Box<crate::model::StringList>> {
         #[allow(unreachable_patterns)]
         self.criteria.as_ref().and_then(|v| match v {
-            crate::model::cel_expression::Criteria::ResourceTypesValues(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::cel_expression::Criteria::ResourceTypesValues(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -5166,14 +4992,11 @@ impl CELExpression {
     /// let x = CELExpression::new().set_resource_types_values(StringList::default()/* use setters */);
     /// assert!(x.resource_types_values().is_some());
     /// ```
-    pub fn set_resource_types_values<
-        T: std::convert::Into<std::boxed::Box<crate::model::StringList>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_resource_types_values<T: std::convert::Into<std::boxed::Box<crate::model::StringList>>>(mut self, v: T) -> Self {
         self.criteria = std::option::Option::Some(
-            crate::model::cel_expression::Criteria::ResourceTypesValues(v.into()),
+            crate::model::cel_expression::Criteria::ResourceTypesValues(
+                v.into()
+            )
         );
         self
     }
@@ -5190,6 +5013,7 @@ pub mod cel_expression {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// The criteria of the CEL expression.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -5205,6 +5029,7 @@ pub mod cel_expression {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
+
     /// Output only. The time the operation was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
@@ -5249,8 +5074,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -5266,8 +5090,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -5282,8 +5105,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -5299,8 +5121,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -5377,6 +5198,7 @@ impl wkt::message::Message for OperationMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ControlFamily {
+
     /// The identifier for the regulatory control family.
     pub family_id: std::string::String,
 
@@ -5426,6 +5248,7 @@ impl wkt::message::Message for ControlFamily {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListFrameworksRequest {
+
     /// Required. The parent resource name, in the format
     /// `organizations/{organization}/locations/{location}`.
     /// The only supported location is `global`.
@@ -5498,6 +5321,7 @@ impl wkt::message::Message for ListFrameworksRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListFrameworksResponse {
+
     /// The list of framework resources.
     pub frameworks: std::vec::Vec<crate::model::Framework>,
 
@@ -5528,7 +5352,7 @@ impl ListFrameworksResponse {
     pub fn set_frameworks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Framework>,
+        V: std::convert::Into<crate::model::Framework>
     {
         use std::iter::Iterator;
         self.frameworks = v.into_iter().map(|i| i.into()).collect();
@@ -5572,6 +5396,7 @@ impl gax::paginator::internal::PageableResponse for ListFrameworksResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetFrameworkRequest {
+
     /// Required. The name of the framework to retrieve, in the format
     /// `organizations/{organization}/locations/{location}/frameworks/{framework_id}`
     /// The only supported location is `global`.
@@ -5624,6 +5449,7 @@ impl wkt::message::Message for GetFrameworkRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateFrameworkRequest {
+
     /// Required. The parent resource name, in the format
     /// `organizations/{organization}/locations/{location}`.
     /// The only supported location is `global`.
@@ -5677,8 +5503,7 @@ impl CreateFrameworkRequest {
     /// let x = CreateFrameworkRequest::new().set_framework(Framework::default()/* use setters */);
     /// ```
     pub fn set_framework<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Framework>,
+    where T: std::convert::Into<crate::model::Framework>
     {
         self.framework = std::option::Option::Some(v.into());
         self
@@ -5694,8 +5519,7 @@ impl CreateFrameworkRequest {
     /// let x = CreateFrameworkRequest::new().set_or_clear_framework(None::<Framework>);
     /// ```
     pub fn set_or_clear_framework<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Framework>,
+    where T: std::convert::Into<crate::model::Framework>
     {
         self.framework = v.map(|x| x.into());
         self
@@ -5712,6 +5536,7 @@ impl wkt::message::Message for CreateFrameworkRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateFrameworkRequest {
+
     /// Optional. A field mask is used to specify the fields to be overwritten in
     /// the framework resource by the update. The fields specified in the
     /// `update_mask` are relative to the resource, not the full request. A field
@@ -5742,8 +5567,7 @@ impl UpdateFrameworkRequest {
     /// let x = UpdateFrameworkRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -5759,8 +5583,7 @@ impl UpdateFrameworkRequest {
     /// let x = UpdateFrameworkRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -5775,8 +5598,7 @@ impl UpdateFrameworkRequest {
     /// let x = UpdateFrameworkRequest::new().set_framework(Framework::default()/* use setters */);
     /// ```
     pub fn set_framework<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Framework>,
+    where T: std::convert::Into<crate::model::Framework>
     {
         self.framework = std::option::Option::Some(v.into());
         self
@@ -5792,8 +5614,7 @@ impl UpdateFrameworkRequest {
     /// let x = UpdateFrameworkRequest::new().set_or_clear_framework(None::<Framework>);
     /// ```
     pub fn set_or_clear_framework<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Framework>,
+    where T: std::convert::Into<crate::model::Framework>
     {
         self.framework = v.map(|x| x.into());
         self
@@ -5822,6 +5643,7 @@ impl wkt::message::Message for UpdateFrameworkRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteFrameworkRequest {
+
     /// Required. The name of the resource, in the format
     /// `organizations/{organization}/locations/{location}/frameworks/{framework}`.
     /// The only supported location is `global`.
@@ -5858,6 +5680,7 @@ impl wkt::message::Message for DeleteFrameworkRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCloudControlsRequest {
+
     /// Required. The parent resource name, in the format
     /// `organizations/{organization}/locations/{location}`.
     /// The only supported location is `global`.
@@ -5936,6 +5759,7 @@ impl wkt::message::Message for ListCloudControlsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCloudControlsResponse {
+
     /// The list of CloudControl resources.
     pub cloud_controls: std::vec::Vec<crate::model::CloudControl>,
 
@@ -5966,7 +5790,7 @@ impl ListCloudControlsResponse {
     pub fn set_cloud_controls<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::CloudControl>,
+        V: std::convert::Into<crate::model::CloudControl>
     {
         use std::iter::Iterator;
         self.cloud_controls = v.into_iter().map(|i| i.into()).collect();
@@ -6010,6 +5834,7 @@ impl gax::paginator::internal::PageableResponse for ListCloudControlsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetCloudControlRequest {
+
     /// Required. The name of the cloud control to retrieve, in the format
     /// `organizations/{organization}/locations/{location}/cloudControls/{cloud_control}`.
     /// The only supported location is `global`.
@@ -6062,6 +5887,7 @@ impl wkt::message::Message for GetCloudControlRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateCloudControlRequest {
+
     /// Required. The parent resource name, in the format
     /// `organizations/{organization}/locations/{location}`.
     /// The only supported location is `global`.
@@ -6102,10 +5928,7 @@ impl CreateCloudControlRequest {
     /// # use google_cloud_cloudsecuritycompliance_v1::model::CreateCloudControlRequest;
     /// let x = CreateCloudControlRequest::new().set_cloud_control_id("example");
     /// ```
-    pub fn set_cloud_control_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_cloud_control_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cloud_control_id = v.into();
         self
     }
@@ -6119,8 +5942,7 @@ impl CreateCloudControlRequest {
     /// let x = CreateCloudControlRequest::new().set_cloud_control(CloudControl::default()/* use setters */);
     /// ```
     pub fn set_cloud_control<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CloudControl>,
+    where T: std::convert::Into<crate::model::CloudControl>
     {
         self.cloud_control = std::option::Option::Some(v.into());
         self
@@ -6136,8 +5958,7 @@ impl CreateCloudControlRequest {
     /// let x = CreateCloudControlRequest::new().set_or_clear_cloud_control(None::<CloudControl>);
     /// ```
     pub fn set_or_clear_cloud_control<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CloudControl>,
+    where T: std::convert::Into<crate::model::CloudControl>
     {
         self.cloud_control = v.map(|x| x.into());
         self
@@ -6154,6 +5975,7 @@ impl wkt::message::Message for CreateCloudControlRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateCloudControlRequest {
+
     /// Optional. Use a field mask to specify the fields to be overwritten in the
     /// cloud control during the update.
     /// The fields that you specify in the `update_mask` are relative to the
@@ -6190,8 +6012,7 @@ impl UpdateCloudControlRequest {
     /// let x = UpdateCloudControlRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -6207,8 +6028,7 @@ impl UpdateCloudControlRequest {
     /// let x = UpdateCloudControlRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -6223,8 +6043,7 @@ impl UpdateCloudControlRequest {
     /// let x = UpdateCloudControlRequest::new().set_cloud_control(CloudControl::default()/* use setters */);
     /// ```
     pub fn set_cloud_control<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CloudControl>,
+    where T: std::convert::Into<crate::model::CloudControl>
     {
         self.cloud_control = std::option::Option::Some(v.into());
         self
@@ -6240,8 +6059,7 @@ impl UpdateCloudControlRequest {
     /// let x = UpdateCloudControlRequest::new().set_or_clear_cloud_control(None::<CloudControl>);
     /// ```
     pub fn set_or_clear_cloud_control<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CloudControl>,
+    where T: std::convert::Into<crate::model::CloudControl>
     {
         self.cloud_control = v.map(|x| x.into());
         self
@@ -6258,6 +6076,7 @@ impl wkt::message::Message for UpdateCloudControlRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteCloudControlRequest {
+
     /// Required. The name of the cloud control to delete, in the format
     /// `organizations/{organization}/locations/{location}/CloudControls/{CloudControl}`.
     /// The only supported location is `global`.
@@ -6296,6 +6115,7 @@ impl wkt::message::Message for DeleteCloudControlRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FrameworkDeployment {
+
     /// Identifier. The name of the framework deployment, in the format
     /// `organizations/{organization}/locations/{location}/frameworkDeployments/{framework_deployment_id}`.
     /// The only supported location is `global`.
@@ -6361,8 +6181,7 @@ pub struct FrameworkDeployment {
     ///   "organizations/{organization}/locations/{location}/cloudControlDeployments/cc-deployment-2"
     ///  }
     /// ```
-    pub cloud_control_deployment_references:
-        std::vec::Vec<crate::model::CloudControlDeploymentReference>,
+    pub cloud_control_deployment_references: std::vec::Vec<crate::model::CloudControlDeploymentReference>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -6393,8 +6212,7 @@ impl FrameworkDeployment {
     /// let x = FrameworkDeployment::new().set_target_resource_config(TargetResourceConfig::default()/* use setters */);
     /// ```
     pub fn set_target_resource_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TargetResourceConfig>,
+    where T: std::convert::Into<crate::model::TargetResourceConfig>
     {
         self.target_resource_config = std::option::Option::Some(v.into());
         self
@@ -6410,8 +6228,7 @@ impl FrameworkDeployment {
     /// let x = FrameworkDeployment::new().set_or_clear_target_resource_config(None::<TargetResourceConfig>);
     /// ```
     pub fn set_or_clear_target_resource_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TargetResourceConfig>,
+    where T: std::convert::Into<crate::model::TargetResourceConfig>
     {
         self.target_resource_config = v.map(|x| x.into());
         self
@@ -6424,10 +6241,7 @@ impl FrameworkDeployment {
     /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkDeployment;
     /// let x = FrameworkDeployment::new().set_computed_target_resource("example");
     /// ```
-    pub fn set_computed_target_resource<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_computed_target_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.computed_target_resource = v.into();
         self
     }
@@ -6441,8 +6255,7 @@ impl FrameworkDeployment {
     /// let x = FrameworkDeployment::new().set_framework(FrameworkReference::default()/* use setters */);
     /// ```
     pub fn set_framework<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::FrameworkReference>,
+    where T: std::convert::Into<crate::model::FrameworkReference>
     {
         self.framework = std::option::Option::Some(v.into());
         self
@@ -6458,8 +6271,7 @@ impl FrameworkDeployment {
     /// let x = FrameworkDeployment::new().set_or_clear_framework(None::<FrameworkReference>);
     /// ```
     pub fn set_or_clear_framework<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::FrameworkReference>,
+    where T: std::convert::Into<crate::model::FrameworkReference>
     {
         self.framework = v.map(|x| x.into());
         self
@@ -6492,7 +6304,7 @@ impl FrameworkDeployment {
     pub fn set_cloud_control_metadata<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::CloudControlMetadata>,
+        V: std::convert::Into<crate::model::CloudControlMetadata>
     {
         use std::iter::Iterator;
         self.cloud_control_metadata = v.into_iter().map(|i| i.into()).collect();
@@ -6509,10 +6321,7 @@ impl FrameworkDeployment {
     /// let x1 = FrameworkDeployment::new().set_deployment_state(DeploymentState::Creating);
     /// let x2 = FrameworkDeployment::new().set_deployment_state(DeploymentState::Deleting);
     /// ```
-    pub fn set_deployment_state<T: std::convert::Into<crate::model::DeploymentState>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_deployment_state<T: std::convert::Into<crate::model::DeploymentState>>(mut self, v: T) -> Self {
         self.deployment_state = v.into();
         self
     }
@@ -6526,8 +6335,7 @@ impl FrameworkDeployment {
     /// let x = FrameworkDeployment::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -6543,8 +6351,7 @@ impl FrameworkDeployment {
     /// let x = FrameworkDeployment::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -6559,8 +6366,7 @@ impl FrameworkDeployment {
     /// let x = FrameworkDeployment::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -6576,8 +6382,7 @@ impl FrameworkDeployment {
     /// let x = FrameworkDeployment::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -6602,10 +6407,7 @@ impl FrameworkDeployment {
     /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkDeployment;
     /// let x = FrameworkDeployment::new().set_target_resource_display_name("example");
     /// ```
-    pub fn set_target_resource_display_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_target_resource_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target_resource_display_name = v.into();
         self
     }
@@ -6625,7 +6427,7 @@ impl FrameworkDeployment {
     pub fn set_cloud_control_deployment_references<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::CloudControlDeploymentReference>,
+        V: std::convert::Into<crate::model::CloudControlDeploymentReference>
     {
         use std::iter::Iterator;
         self.cloud_control_deployment_references = v.into_iter().map(|i| i.into()).collect();
@@ -6646,6 +6448,7 @@ impl wkt::message::Message for FrameworkDeployment {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudControlDeployment {
+
     /// Identifier. The name for the cloud control deployment, in the format
     /// `organizations/{organization}/locations/{location}/cloudControlDeployments/{cloud_control_deployment_id}`.
     /// The only supported location is `global`.
@@ -6725,8 +6528,7 @@ impl CloudControlDeployment {
     /// let x = CloudControlDeployment::new().set_target_resource_config(TargetResourceConfig::default()/* use setters */);
     /// ```
     pub fn set_target_resource_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TargetResourceConfig>,
+    where T: std::convert::Into<crate::model::TargetResourceConfig>
     {
         self.target_resource_config = std::option::Option::Some(v.into());
         self
@@ -6742,8 +6544,7 @@ impl CloudControlDeployment {
     /// let x = CloudControlDeployment::new().set_or_clear_target_resource_config(None::<TargetResourceConfig>);
     /// ```
     pub fn set_or_clear_target_resource_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TargetResourceConfig>,
+    where T: std::convert::Into<crate::model::TargetResourceConfig>
     {
         self.target_resource_config = v.map(|x| x.into());
         self
@@ -6770,8 +6571,7 @@ impl CloudControlDeployment {
     /// let x = CloudControlDeployment::new().set_cloud_control_metadata(CloudControlMetadata::default()/* use setters */);
     /// ```
     pub fn set_cloud_control_metadata<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CloudControlMetadata>,
+    where T: std::convert::Into<crate::model::CloudControlMetadata>
     {
         self.cloud_control_metadata = std::option::Option::Some(v.into());
         self
@@ -6787,8 +6587,7 @@ impl CloudControlDeployment {
     /// let x = CloudControlDeployment::new().set_or_clear_cloud_control_metadata(None::<CloudControlMetadata>);
     /// ```
     pub fn set_or_clear_cloud_control_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CloudControlMetadata>,
+    where T: std::convert::Into<crate::model::CloudControlMetadata>
     {
         self.cloud_control_metadata = v.map(|x| x.into());
         self
@@ -6816,10 +6615,7 @@ impl CloudControlDeployment {
     /// let x1 = CloudControlDeployment::new().set_deployment_state(DeploymentState::Creating);
     /// let x2 = CloudControlDeployment::new().set_deployment_state(DeploymentState::Deleting);
     /// ```
-    pub fn set_deployment_state<T: std::convert::Into<crate::model::DeploymentState>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_deployment_state<T: std::convert::Into<crate::model::DeploymentState>>(mut self, v: T) -> Self {
         self.deployment_state = v.into();
         self
     }
@@ -6833,8 +6629,7 @@ impl CloudControlDeployment {
     /// let x = CloudControlDeployment::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -6850,8 +6645,7 @@ impl CloudControlDeployment {
     /// let x = CloudControlDeployment::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -6866,8 +6660,7 @@ impl CloudControlDeployment {
     /// let x = CloudControlDeployment::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -6883,8 +6676,7 @@ impl CloudControlDeployment {
     /// let x = CloudControlDeployment::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -6911,8 +6703,7 @@ impl CloudControlDeployment {
     /// let x = CloudControlDeployment::new().set_parameter_substituted_cloud_control(CloudControl::default()/* use setters */);
     /// ```
     pub fn set_parameter_substituted_cloud_control<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CloudControl>,
+    where T: std::convert::Into<crate::model::CloudControl>
     {
         self.parameter_substituted_cloud_control = std::option::Option::Some(v.into());
         self
@@ -6927,12 +6718,8 @@ impl CloudControlDeployment {
     /// let x = CloudControlDeployment::new().set_or_clear_parameter_substituted_cloud_control(Some(CloudControl::default()/* use setters */));
     /// let x = CloudControlDeployment::new().set_or_clear_parameter_substituted_cloud_control(None::<CloudControl>);
     /// ```
-    pub fn set_or_clear_parameter_substituted_cloud_control<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<crate::model::CloudControl>,
+    pub fn set_or_clear_parameter_substituted_cloud_control<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<crate::model::CloudControl>
     {
         self.parameter_substituted_cloud_control = v.map(|x| x.into());
         self
@@ -6953,7 +6740,7 @@ impl CloudControlDeployment {
     pub fn set_framework_deployment_references<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::FrameworkDeploymentReference>,
+        V: std::convert::Into<crate::model::FrameworkDeploymentReference>
     {
         use std::iter::Iterator;
         self.framework_deployment_references = v.into_iter().map(|i| i.into()).collect();
@@ -6967,10 +6754,7 @@ impl CloudControlDeployment {
     /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlDeployment;
     /// let x = CloudControlDeployment::new().set_target_resource_display_name("example");
     /// ```
-    pub fn set_target_resource_display_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_target_resource_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target_resource_display_name = v.into();
         self
     }
@@ -6987,6 +6771,7 @@ impl wkt::message::Message for CloudControlDeployment {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TargetResourceConfig {
+
     /// The resource configuration for the target resource.
     pub resource_config: std::option::Option<crate::model::target_resource_config::ResourceConfig>,
 
@@ -7009,14 +6794,8 @@ impl TargetResourceConfig {
     /// use google_cloud_cloudsecuritycompliance_v1::model::target_resource_config::ResourceConfig;
     /// let x = TargetResourceConfig::new().set_resource_config(Some(ResourceConfig::ExistingTargetResource("example".to_string())));
     /// ```
-    pub fn set_resource_config<
-        T: std::convert::Into<
-                std::option::Option<crate::model::target_resource_config::ResourceConfig>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_resource_config<T: std::convert::Into<std::option::Option<crate::model::target_resource_config::ResourceConfig>>>(mut self, v: T) -> Self
+    {
         self.resource_config = v.into();
         self
     }
@@ -7027,9 +6806,7 @@ impl TargetResourceConfig {
     pub fn existing_target_resource(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.resource_config.as_ref().and_then(|v| match v {
-            crate::model::target_resource_config::ResourceConfig::ExistingTargetResource(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::target_resource_config::ResourceConfig::ExistingTargetResource(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -7047,12 +6824,11 @@ impl TargetResourceConfig {
     /// assert!(x.existing_target_resource().is_some());
     /// assert!(x.target_resource_creation_config().is_none());
     /// ```
-    pub fn set_existing_target_resource<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_existing_target_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource_config = std::option::Option::Some(
-            crate::model::target_resource_config::ResourceConfig::ExistingTargetResource(v.into()),
+            crate::model::target_resource_config::ResourceConfig::ExistingTargetResource(
+                v.into()
+            )
         );
         self
     }
@@ -7060,14 +6836,10 @@ impl TargetResourceConfig {
     /// The value of [resource_config][crate::model::TargetResourceConfig::resource_config]
     /// if it holds a `TargetResourceCreationConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn target_resource_creation_config(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::TargetResourceCreationConfig>> {
+    pub fn target_resource_creation_config(&self) -> std::option::Option<&std::boxed::Box<crate::model::TargetResourceCreationConfig>> {
         #[allow(unreachable_patterns)]
         self.resource_config.as_ref().and_then(|v| match v {
-            crate::model::target_resource_config::ResourceConfig::TargetResourceCreationConfig(
-                v,
-            ) => std::option::Option::Some(v),
+            crate::model::target_resource_config::ResourceConfig::TargetResourceCreationConfig(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -7086,16 +6858,11 @@ impl TargetResourceConfig {
     /// assert!(x.target_resource_creation_config().is_some());
     /// assert!(x.existing_target_resource().is_none());
     /// ```
-    pub fn set_target_resource_creation_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::TargetResourceCreationConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_target_resource_creation_config<T: std::convert::Into<std::boxed::Box<crate::model::TargetResourceCreationConfig>>>(mut self, v: T) -> Self {
         self.resource_config = std::option::Option::Some(
             crate::model::target_resource_config::ResourceConfig::TargetResourceCreationConfig(
-                v.into(),
-            ),
+                v.into()
+            )
         );
         self
     }
@@ -7111,6 +6878,7 @@ impl wkt::message::Message for TargetResourceConfig {
 pub mod target_resource_config {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The resource configuration for the target resource.
     #[derive(Clone, Debug, PartialEq)]
@@ -7132,9 +6900,9 @@ pub mod target_resource_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TargetResourceCreationConfig {
+
     /// The configuration that's required to create the target resource.
-    pub resource_creation_config:
-        std::option::Option<crate::model::target_resource_creation_config::ResourceCreationConfig>,
+    pub resource_creation_config: std::option::Option<crate::model::target_resource_creation_config::ResourceCreationConfig>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -7156,16 +6924,8 @@ impl TargetResourceCreationConfig {
     /// let x = TargetResourceCreationConfig::new().set_resource_creation_config(Some(
     ///     google_cloud_cloudsecuritycompliance_v1::model::target_resource_creation_config::ResourceCreationConfig::FolderCreationConfig(FolderCreationConfig::default().into())));
     /// ```
-    pub fn set_resource_creation_config<
-        T: std::convert::Into<
-                std::option::Option<
-                    crate::model::target_resource_creation_config::ResourceCreationConfig,
-                >,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_resource_creation_config<T: std::convert::Into<std::option::Option<crate::model::target_resource_creation_config::ResourceCreationConfig>>>(mut self, v: T) -> Self
+    {
         self.resource_creation_config = v.into();
         self
     }
@@ -7173,9 +6933,7 @@ impl TargetResourceCreationConfig {
     /// The value of [resource_creation_config][crate::model::TargetResourceCreationConfig::resource_creation_config]
     /// if it holds a `FolderCreationConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn folder_creation_config(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::FolderCreationConfig>> {
+    pub fn folder_creation_config(&self) -> std::option::Option<&std::boxed::Box<crate::model::FolderCreationConfig>> {
         #[allow(unreachable_patterns)]
         self.resource_creation_config.as_ref().and_then(|v| match v {
             crate::model::target_resource_creation_config::ResourceCreationConfig::FolderCreationConfig(v) => std::option::Option::Some(v),
@@ -7197,12 +6955,7 @@ impl TargetResourceCreationConfig {
     /// assert!(x.folder_creation_config().is_some());
     /// assert!(x.project_creation_config().is_none());
     /// ```
-    pub fn set_folder_creation_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::FolderCreationConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_folder_creation_config<T: std::convert::Into<std::boxed::Box<crate::model::FolderCreationConfig>>>(mut self, v: T) -> Self {
         self.resource_creation_config = std::option::Option::Some(
             crate::model::target_resource_creation_config::ResourceCreationConfig::FolderCreationConfig(
                 v.into()
@@ -7214,9 +6967,7 @@ impl TargetResourceCreationConfig {
     /// The value of [resource_creation_config][crate::model::TargetResourceCreationConfig::resource_creation_config]
     /// if it holds a `ProjectCreationConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn project_creation_config(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::ProjectCreationConfig>> {
+    pub fn project_creation_config(&self) -> std::option::Option<&std::boxed::Box<crate::model::ProjectCreationConfig>> {
         #[allow(unreachable_patterns)]
         self.resource_creation_config.as_ref().and_then(|v| match v {
             crate::model::target_resource_creation_config::ResourceCreationConfig::ProjectCreationConfig(v) => std::option::Option::Some(v),
@@ -7238,12 +6989,7 @@ impl TargetResourceCreationConfig {
     /// assert!(x.project_creation_config().is_some());
     /// assert!(x.folder_creation_config().is_none());
     /// ```
-    pub fn set_project_creation_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::ProjectCreationConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_project_creation_config<T: std::convert::Into<std::boxed::Box<crate::model::ProjectCreationConfig>>>(mut self, v: T) -> Self {
         self.resource_creation_config = std::option::Option::Some(
             crate::model::target_resource_creation_config::ResourceCreationConfig::ProjectCreationConfig(
                 v.into()
@@ -7264,6 +7010,7 @@ pub mod target_resource_creation_config {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// The configuration that's required to create the target resource.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -7280,6 +7027,7 @@ pub mod target_resource_creation_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FolderCreationConfig {
+
     /// Required. The parent of the folder, in the format
     /// `organizations/{organizationID}` or `folders/{folderID}`.
     pub parent: std::string::String,
@@ -7314,10 +7062,7 @@ impl FolderCreationConfig {
     /// # use google_cloud_cloudsecuritycompliance_v1::model::FolderCreationConfig;
     /// let x = FolderCreationConfig::new().set_folder_display_name("example");
     /// ```
-    pub fn set_folder_display_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_folder_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.folder_display_name = v.into();
         self
     }
@@ -7334,6 +7079,7 @@ impl wkt::message::Message for FolderCreationConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProjectCreationConfig {
+
     /// Required. The parent of the project, in the format
     /// `organizations/{organizationID}` or `folders/{folderID}`.
     pub parent: std::string::String,
@@ -7371,10 +7117,7 @@ impl ProjectCreationConfig {
     /// # use google_cloud_cloudsecuritycompliance_v1::model::ProjectCreationConfig;
     /// let x = ProjectCreationConfig::new().set_project_display_name("example");
     /// ```
-    pub fn set_project_display_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_project_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_display_name = v.into();
         self
     }
@@ -7386,10 +7129,7 @@ impl ProjectCreationConfig {
     /// # use google_cloud_cloudsecuritycompliance_v1::model::ProjectCreationConfig;
     /// let x = ProjectCreationConfig::new().set_billing_account_id("example");
     /// ```
-    pub fn set_billing_account_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_billing_account_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.billing_account_id = v.into();
         self
     }
@@ -7406,6 +7146,7 @@ impl wkt::message::Message for ProjectCreationConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudControlMetadata {
+
     /// Required. The cloud control name and parameters.
     pub cloud_control_details: std::option::Option<crate::model::CloudControlDetails>,
 
@@ -7429,8 +7170,7 @@ impl CloudControlMetadata {
     /// let x = CloudControlMetadata::new().set_cloud_control_details(CloudControlDetails::default()/* use setters */);
     /// ```
     pub fn set_cloud_control_details<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CloudControlDetails>,
+    where T: std::convert::Into<crate::model::CloudControlDetails>
     {
         self.cloud_control_details = std::option::Option::Some(v.into());
         self
@@ -7446,8 +7186,7 @@ impl CloudControlMetadata {
     /// let x = CloudControlMetadata::new().set_or_clear_cloud_control_details(None::<CloudControlDetails>);
     /// ```
     pub fn set_or_clear_cloud_control_details<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CloudControlDetails>,
+    where T: std::convert::Into<crate::model::CloudControlDetails>
     {
         self.cloud_control_details = v.map(|x| x.into());
         self
@@ -7463,10 +7202,7 @@ impl CloudControlMetadata {
     /// let x1 = CloudControlMetadata::new().set_enforcement_mode(EnforcementMode::Detective);
     /// let x2 = CloudControlMetadata::new().set_enforcement_mode(EnforcementMode::Audit);
     /// ```
-    pub fn set_enforcement_mode<T: std::convert::Into<crate::model::EnforcementMode>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_enforcement_mode<T: std::convert::Into<crate::model::EnforcementMode>>(mut self, v: T) -> Self {
         self.enforcement_mode = v.into();
         self
     }
@@ -7482,6 +7218,7 @@ impl wkt::message::Message for CloudControlMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateFrameworkDeploymentRequest {
+
     /// Required. The parent resource of the framework deployment in the format
     /// `organizations/{organization}/locations/{location}`.
     /// Only the global location is supported.
@@ -7522,10 +7259,7 @@ impl CreateFrameworkDeploymentRequest {
     /// # use google_cloud_cloudsecuritycompliance_v1::model::CreateFrameworkDeploymentRequest;
     /// let x = CreateFrameworkDeploymentRequest::new().set_framework_deployment_id("example");
     /// ```
-    pub fn set_framework_deployment_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_framework_deployment_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.framework_deployment_id = v.into();
         self
     }
@@ -7539,8 +7273,7 @@ impl CreateFrameworkDeploymentRequest {
     /// let x = CreateFrameworkDeploymentRequest::new().set_framework_deployment(FrameworkDeployment::default()/* use setters */);
     /// ```
     pub fn set_framework_deployment<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::FrameworkDeployment>,
+    where T: std::convert::Into<crate::model::FrameworkDeployment>
     {
         self.framework_deployment = std::option::Option::Some(v.into());
         self
@@ -7556,8 +7289,7 @@ impl CreateFrameworkDeploymentRequest {
     /// let x = CreateFrameworkDeploymentRequest::new().set_or_clear_framework_deployment(None::<FrameworkDeployment>);
     /// ```
     pub fn set_or_clear_framework_deployment<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::FrameworkDeployment>,
+    where T: std::convert::Into<crate::model::FrameworkDeployment>
     {
         self.framework_deployment = v.map(|x| x.into());
         self
@@ -7574,6 +7306,7 @@ impl wkt::message::Message for CreateFrameworkDeploymentRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteFrameworkDeploymentRequest {
+
     /// Required. The name of the framework deployment that you want to delete,
     /// in the format
     /// `organizations/{organization}/locations/{location}/frameworkDeployments/{framework_deployment_id}`.
@@ -7633,6 +7366,7 @@ impl wkt::message::Message for DeleteFrameworkDeploymentRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetFrameworkDeploymentRequest {
+
     /// Required. The name of the framework deployment, in the format
     /// `organizations/{organization}/locations/{location}/frameworkDeployments/{framework_deployment_id}`.
     /// The only supported location is `global`.
@@ -7669,6 +7403,7 @@ impl wkt::message::Message for GetFrameworkDeploymentRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListFrameworkDeploymentsRequest {
+
     /// Required. The parent resource of the framework deployment, in the format
     /// `organizations/{organization}/locations/{location}`.
     /// The only supported location is `global`.
@@ -7775,6 +7510,7 @@ impl wkt::message::Message for ListFrameworkDeploymentsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListFrameworkDeploymentsResponse {
+
     /// The list of framework deployments.
     pub framework_deployments: std::vec::Vec<crate::model::FrameworkDeployment>,
 
@@ -7805,7 +7541,7 @@ impl ListFrameworkDeploymentsResponse {
     pub fn set_framework_deployments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::FrameworkDeployment>,
+        V: std::convert::Into<crate::model::FrameworkDeployment>
     {
         use std::iter::Iterator;
         self.framework_deployments = v.into_iter().map(|i| i.into()).collect();
@@ -7849,6 +7585,7 @@ impl gax::paginator::internal::PageableResponse for ListFrameworkDeploymentsResp
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetCloudControlDeploymentRequest {
+
     /// Required. The name for the cloud control deployment, in the format
     /// `organizations/{organization}/locations/{location}/cloudControlDeployments/{cloud_control_deployment_id}`.
     /// The only supported location is `global`.
@@ -7885,6 +7622,7 @@ impl wkt::message::Message for GetCloudControlDeploymentRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCloudControlDeploymentsRequest {
+
     /// Required. The parent resource for the cloud control deployment, in the
     /// format `organizations/{organization}/locations/{location}`. The only
     /// supported location is `global`.
@@ -7991,6 +7729,7 @@ impl wkt::message::Message for ListCloudControlDeploymentsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCloudControlDeploymentsResponse {
+
     /// The list of cloud control deployments.
     pub cloud_control_deployments: std::vec::Vec<crate::model::CloudControlDeployment>,
 
@@ -8021,7 +7760,7 @@ impl ListCloudControlDeploymentsResponse {
     pub fn set_cloud_control_deployments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::CloudControlDeployment>,
+        V: std::convert::Into<crate::model::CloudControlDeployment>
     {
         use std::iter::Iterator;
         self.cloud_control_deployments = v.into_iter().map(|i| i.into()).collect();
@@ -8065,6 +7804,7 @@ impl gax::paginator::internal::PageableResponse for ListCloudControlDeploymentsR
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudControlDeploymentReference {
+
     /// Output only. The name of the CloudControlDeployment. The format is
     /// `organizations/{org}/locations/{location}/cloudControlDeployments/{cloud_control_deployment_id}`.
     /// The only supported location is `global`.
@@ -8085,10 +7825,7 @@ impl CloudControlDeploymentReference {
     /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlDeploymentReference;
     /// let x = CloudControlDeploymentReference::new().set_cloud_control_deployment("example");
     /// ```
-    pub fn set_cloud_control_deployment<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_cloud_control_deployment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cloud_control_deployment = v.into();
         self
     }
@@ -8104,6 +7841,7 @@ impl wkt::message::Message for CloudControlDeploymentReference {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FrameworkDeploymentReference {
+
     /// Output only. The name of the framework deployment, in the format
     /// `organizations/{org}/locations/{location}/frameworkDeployments/{framework_deployment_id}`.
     /// The only supported location is `global`.
@@ -8142,10 +7880,7 @@ impl FrameworkDeploymentReference {
     /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkDeploymentReference;
     /// let x = FrameworkDeploymentReference::new().set_framework_deployment("example");
     /// ```
-    pub fn set_framework_deployment<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_framework_deployment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.framework_deployment = v.into();
         self
     }
@@ -8159,8 +7894,7 @@ impl FrameworkDeploymentReference {
     /// let x = FrameworkDeploymentReference::new().set_framework_reference(FrameworkReference::default()/* use setters */);
     /// ```
     pub fn set_framework_reference<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::FrameworkReference>,
+    where T: std::convert::Into<crate::model::FrameworkReference>
     {
         self.framework_reference = std::option::Option::Some(v.into());
         self
@@ -8176,8 +7910,7 @@ impl FrameworkDeploymentReference {
     /// let x = FrameworkDeploymentReference::new().set_or_clear_framework_reference(None::<FrameworkReference>);
     /// ```
     pub fn set_or_clear_framework_reference<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::FrameworkReference>,
+    where T: std::convert::Into<crate::model::FrameworkReference>
     {
         self.framework_reference = v.map(|x| x.into());
         self
@@ -8190,10 +7923,7 @@ impl FrameworkDeploymentReference {
     /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkDeploymentReference;
     /// let x = FrameworkDeploymentReference::new().set_framework_display_name("example");
     /// ```
-    pub fn set_framework_display_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_framework_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.framework_display_name = v.into();
         self
     }
@@ -8212,6 +7942,7 @@ impl wkt::message::Message for FrameworkDeploymentReference {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListFrameworkComplianceSummariesRequest {
+
     /// Required. The parent scope for the framework compliance summary.
     pub parent: std::string::String,
 
@@ -8296,6 +8027,7 @@ impl wkt::message::Message for ListFrameworkComplianceSummariesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListFrameworkComplianceSummariesResponse {
+
     /// The list of framework compliance summaries.
     pub framework_compliance_summaries: std::vec::Vec<crate::model::FrameworkComplianceSummary>,
 
@@ -8325,7 +8057,7 @@ impl ListFrameworkComplianceSummariesResponse {
     pub fn set_framework_compliance_summaries<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::FrameworkComplianceSummary>,
+        V: std::convert::Into<crate::model::FrameworkComplianceSummary>
     {
         use std::iter::Iterator;
         self.framework_compliance_summaries = v.into_iter().map(|i| i.into()).collect();
@@ -8369,6 +8101,7 @@ impl gax::paginator::internal::PageableResponse for ListFrameworkComplianceSumma
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FrameworkComplianceReport {
+
     /// The name of the framework.
     pub framework: std::string::String,
 
@@ -8432,10 +8165,7 @@ impl FrameworkComplianceReport {
     /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkComplianceReport;
     /// let x = FrameworkComplianceReport::new().set_framework_description("example");
     /// ```
-    pub fn set_framework_description<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_framework_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.framework_description = v.into();
         self
     }
@@ -8449,8 +8179,7 @@ impl FrameworkComplianceReport {
     /// let x = FrameworkComplianceReport::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -8466,8 +8195,7 @@ impl FrameworkComplianceReport {
     /// let x = FrameworkComplianceReport::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -8482,8 +8210,7 @@ impl FrameworkComplianceReport {
     /// let x = FrameworkComplianceReport::new().set_control_assessment_details(ControlAssessmentDetails::default()/* use setters */);
     /// ```
     pub fn set_control_assessment_details<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ControlAssessmentDetails>,
+    where T: std::convert::Into<crate::model::ControlAssessmentDetails>
     {
         self.control_assessment_details = std::option::Option::Some(v.into());
         self
@@ -8499,8 +8226,7 @@ impl FrameworkComplianceReport {
     /// let x = FrameworkComplianceReport::new().set_or_clear_control_assessment_details(None::<ControlAssessmentDetails>);
     /// ```
     pub fn set_or_clear_control_assessment_details<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ControlAssessmentDetails>,
+    where T: std::convert::Into<crate::model::ControlAssessmentDetails>
     {
         self.control_assessment_details = v.map(|x| x.into());
         self
@@ -8515,10 +8241,7 @@ impl FrameworkComplianceReport {
     /// let x0 = FrameworkComplianceReport::new().set_framework_type(FrameworkType::BuiltIn);
     /// let x1 = FrameworkComplianceReport::new().set_framework_type(FrameworkType::Custom);
     /// ```
-    pub fn set_framework_type<T: std::convert::Into<crate::model::framework::FrameworkType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_framework_type<T: std::convert::Into<crate::model::framework::FrameworkType>>(mut self, v: T) -> Self {
         self.framework_type = v.into();
         self
     }
@@ -8538,7 +8261,7 @@ impl FrameworkComplianceReport {
     pub fn set_supported_cloud_providers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::CloudProvider>,
+        V: std::convert::Into<crate::model::CloudProvider>
     {
         use std::iter::Iterator;
         self.supported_cloud_providers = v.into_iter().map(|i| i.into()).collect();
@@ -8560,7 +8283,7 @@ impl FrameworkComplianceReport {
     pub fn set_framework_categories<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::FrameworkCategory>,
+        V: std::convert::Into<crate::model::FrameworkCategory>
     {
         use std::iter::Iterator;
         self.framework_categories = v.into_iter().map(|i| i.into()).collect();
@@ -8574,10 +8297,7 @@ impl FrameworkComplianceReport {
     /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkComplianceReport;
     /// let x = FrameworkComplianceReport::new().set_framework_display_name("example");
     /// ```
-    pub fn set_framework_display_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_framework_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.framework_display_name = v.into();
         self
     }
@@ -8633,7 +8353,7 @@ impl FrameworkComplianceReport {
     pub fn set_target_resource_details<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::TargetResourceDetails>,
+        V: std::convert::Into<crate::model::TargetResourceDetails>
     {
         use std::iter::Iterator;
         self.target_resource_details = v.into_iter().map(|i| i.into()).collect();
@@ -8651,6 +8371,7 @@ impl wkt::message::Message for FrameworkComplianceReport {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchFrameworkComplianceReportRequest {
+
     /// Required. The name of the framework compliance report to retrieve.
     pub name: std::string::String,
 
@@ -8686,8 +8407,7 @@ impl FetchFrameworkComplianceReportRequest {
     /// let x = FetchFrameworkComplianceReportRequest::new().set_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -8703,8 +8423,7 @@ impl FetchFrameworkComplianceReportRequest {
     /// let x = FetchFrameworkComplianceReportRequest::new().set_or_clear_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -8721,6 +8440,7 @@ impl wkt::message::Message for FetchFrameworkComplianceReportRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListFindingSummariesRequest {
+
     /// Required. The parent scope for the framework overview page.
     pub parent: std::string::String,
 
@@ -8805,8 +8525,7 @@ impl ListFindingSummariesRequest {
     /// ```
     #[deprecated]
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -8823,8 +8542,7 @@ impl ListFindingSummariesRequest {
     /// ```
     #[deprecated]
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -8841,6 +8559,7 @@ impl wkt::message::Message for ListFindingSummariesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListFindingSummariesResponse {
+
     /// List of finding summary by category.
     pub finding_summaries: std::vec::Vec<crate::model::FindingSummary>,
 
@@ -8870,7 +8589,7 @@ impl ListFindingSummariesResponse {
     pub fn set_finding_summaries<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::FindingSummary>,
+        V: std::convert::Into<crate::model::FindingSummary>
     {
         use std::iter::Iterator;
         self.finding_summaries = v.into_iter().map(|i| i.into()).collect();
@@ -8914,6 +8633,7 @@ impl gax::paginator::internal::PageableResponse for ListFindingSummariesResponse
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListControlComplianceSummariesRequest {
+
     /// Required. The parent scope for the framework overview page.
     pub parent: std::string::String,
 
@@ -8962,8 +8682,7 @@ impl ListControlComplianceSummariesRequest {
     /// ```
     #[deprecated]
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -8980,8 +8699,7 @@ impl ListControlComplianceSummariesRequest {
     /// ```
     #[deprecated]
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -9034,6 +8752,7 @@ impl wkt::message::Message for ListControlComplianceSummariesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListControlComplianceSummariesResponse {
+
     /// The list of control compliance details.
     pub control_compliance_summaries: std::vec::Vec<crate::model::ControlComplianceSummary>,
 
@@ -9063,7 +8782,7 @@ impl ListControlComplianceSummariesResponse {
     pub fn set_control_compliance_summaries<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ControlComplianceSummary>,
+        V: std::convert::Into<crate::model::ControlComplianceSummary>
     {
         use std::iter::Iterator;
         self.control_compliance_summaries = v.into_iter().map(|i| i.into()).collect();
@@ -9107,6 +8826,7 @@ impl gax::paginator::internal::PageableResponse for ListControlComplianceSummari
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AggregateFrameworkComplianceReportRequest {
+
     /// Required. The name of the aggregated compliance report over time to
     /// retrieve.
     ///
@@ -9150,8 +8870,7 @@ impl AggregateFrameworkComplianceReportRequest {
     /// let x = AggregateFrameworkComplianceReportRequest::new().set_interval(Interval::default()/* use setters */);
     /// ```
     pub fn set_interval<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<gtype::model::Interval>,
+    where T: std::convert::Into<gtype::model::Interval>
     {
         self.interval = std::option::Option::Some(v.into());
         self
@@ -9167,8 +8886,7 @@ impl AggregateFrameworkComplianceReportRequest {
     /// let x = AggregateFrameworkComplianceReportRequest::new().set_or_clear_interval(None::<Interval>);
     /// ```
     pub fn set_or_clear_interval<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<gtype::model::Interval>,
+    where T: std::convert::Into<gtype::model::Interval>
     {
         self.interval = v.map(|x| x.into());
         self
@@ -9197,6 +8915,7 @@ impl wkt::message::Message for AggregateFrameworkComplianceReportRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AggregateFrameworkComplianceReportResponse {
+
     /// The list of aggregated compliance reports.
     pub aggregated_compliance_reports: std::vec::Vec<crate::model::AggregatedComplianceReport>,
 
@@ -9223,7 +8942,7 @@ impl AggregateFrameworkComplianceReportResponse {
     pub fn set_aggregated_compliance_reports<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AggregatedComplianceReport>,
+        V: std::convert::Into<crate::model::AggregatedComplianceReport>
     {
         use std::iter::Iterator;
         self.aggregated_compliance_reports = v.into_iter().map(|i| i.into()).collect();
@@ -9241,6 +8960,7 @@ impl wkt::message::Message for AggregateFrameworkComplianceReportResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ControlAssessmentDetails {
+
     /// The number of controls that are passing or not assessed.
     pub passing_controls: i32,
 
@@ -9321,6 +9041,7 @@ impl wkt::message::Message for ControlAssessmentDetails {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FrameworkComplianceSummary {
+
     /// The name of the framework.
     pub framework: std::string::String,
 
@@ -9380,8 +9101,7 @@ impl FrameworkComplianceSummary {
     /// let x = FrameworkComplianceSummary::new().set_control_assessment_details(ControlAssessmentDetails::default()/* use setters */);
     /// ```
     pub fn set_control_assessment_details<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ControlAssessmentDetails>,
+    where T: std::convert::Into<crate::model::ControlAssessmentDetails>
     {
         self.control_assessment_details = std::option::Option::Some(v.into());
         self
@@ -9397,8 +9117,7 @@ impl FrameworkComplianceSummary {
     /// let x = FrameworkComplianceSummary::new().set_or_clear_control_assessment_details(None::<ControlAssessmentDetails>);
     /// ```
     pub fn set_or_clear_control_assessment_details<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ControlAssessmentDetails>,
+    where T: std::convert::Into<crate::model::ControlAssessmentDetails>
     {
         self.control_assessment_details = v.map(|x| x.into());
         self
@@ -9413,10 +9132,7 @@ impl FrameworkComplianceSummary {
     /// let x0 = FrameworkComplianceSummary::new().set_framework_type(FrameworkType::BuiltIn);
     /// let x1 = FrameworkComplianceSummary::new().set_framework_type(FrameworkType::Custom);
     /// ```
-    pub fn set_framework_type<T: std::convert::Into<crate::model::framework::FrameworkType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_framework_type<T: std::convert::Into<crate::model::framework::FrameworkType>>(mut self, v: T) -> Self {
         self.framework_type = v.into();
         self
     }
@@ -9436,7 +9152,7 @@ impl FrameworkComplianceSummary {
     pub fn set_supported_cloud_providers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::CloudProvider>,
+        V: std::convert::Into<crate::model::CloudProvider>
     {
         use std::iter::Iterator;
         self.supported_cloud_providers = v.into_iter().map(|i| i.into()).collect();
@@ -9458,7 +9174,7 @@ impl FrameworkComplianceSummary {
     pub fn set_framework_categories<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::FrameworkCategory>,
+        V: std::convert::Into<crate::model::FrameworkCategory>
     {
         use std::iter::Iterator;
         self.framework_categories = v.into_iter().map(|i| i.into()).collect();
@@ -9472,10 +9188,7 @@ impl FrameworkComplianceSummary {
     /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkComplianceSummary;
     /// let x = FrameworkComplianceSummary::new().set_framework_display_name("example");
     /// ```
-    pub fn set_framework_display_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_framework_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.framework_display_name = v.into();
         self
     }
@@ -9531,7 +9244,7 @@ impl FrameworkComplianceSummary {
     pub fn set_target_resource_details<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::TargetResourceDetails>,
+        V: std::convert::Into<crate::model::TargetResourceDetails>
     {
         use std::iter::Iterator;
         self.target_resource_details = v.into_iter().map(|i| i.into()).collect();
@@ -9549,6 +9262,7 @@ impl wkt::message::Message for FrameworkComplianceSummary {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FindingSummary {
+
     /// The category of the finding.
     pub finding_category: std::string::String,
 
@@ -9585,10 +9299,7 @@ impl FindingSummary {
     /// # use google_cloud_cloudsecuritycompliance_v1::model::FindingSummary;
     /// let x = FindingSummary::new().set_finding_category("example");
     /// ```
-    pub fn set_finding_category<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_finding_category<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.finding_category = v.into();
         self
     }
@@ -9603,10 +9314,7 @@ impl FindingSummary {
     /// let x1 = FindingSummary::new().set_finding_class(FindingClass::Vulnerability);
     /// let x2 = FindingSummary::new().set_finding_class(FindingClass::Misconfiguration);
     /// ```
-    pub fn set_finding_class<T: std::convert::Into<crate::model::FindingClass>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_finding_class<T: std::convert::Into<crate::model::FindingClass>>(mut self, v: T) -> Self {
         self.finding_class = v.into();
         self
     }
@@ -9647,8 +9355,7 @@ impl FindingSummary {
     /// let x = FindingSummary::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -9664,8 +9371,7 @@ impl FindingSummary {
     /// let x = FindingSummary::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -9681,7 +9387,7 @@ impl FindingSummary {
     pub fn set_related_frameworks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.related_frameworks = v.into_iter().map(|i| i.into()).collect();
@@ -9711,6 +9417,7 @@ impl wkt::message::Message for FindingSummary {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ControlComplianceSummary {
+
     /// The name of the control.
     pub control: std::string::String,
 
@@ -9799,10 +9506,7 @@ impl ControlComplianceSummary {
     /// let x1 = ControlComplianceSummary::new().set_overall_evaluation_state(EvaluationState::Failed);
     /// let x2 = ControlComplianceSummary::new().set_overall_evaluation_state(EvaluationState::NotAssessed);
     /// ```
-    pub fn set_overall_evaluation_state<T: std::convert::Into<crate::model::EvaluationState>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_overall_evaluation_state<T: std::convert::Into<crate::model::EvaluationState>>(mut self, v: T) -> Self {
         self.overall_evaluation_state = v.into();
         self
     }
@@ -9829,7 +9533,7 @@ impl ControlComplianceSummary {
     pub fn set_compliance_frameworks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.compliance_frameworks = v.into_iter().map(|i| i.into()).collect();
@@ -9851,7 +9555,7 @@ impl ControlComplianceSummary {
     pub fn set_similar_controls<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::SimilarControls>,
+        V: std::convert::Into<crate::model::SimilarControls>
     {
         use std::iter::Iterator;
         self.similar_controls = v.into_iter().map(|i| i.into()).collect();
@@ -9873,7 +9577,7 @@ impl ControlComplianceSummary {
     pub fn set_cloud_control_reports<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::CloudControlReport>,
+        V: std::convert::Into<crate::model::CloudControlReport>
     {
         use std::iter::Iterator;
         self.cloud_control_reports = v.into_iter().map(|i| i.into()).collect();
@@ -9890,12 +9594,7 @@ impl ControlComplianceSummary {
     /// let x1 = ControlComplianceSummary::new().set_control_responsibility_type(RegulatoryControlResponsibilityType::Customer);
     /// let x2 = ControlComplianceSummary::new().set_control_responsibility_type(RegulatoryControlResponsibilityType::Shared);
     /// ```
-    pub fn set_control_responsibility_type<
-        T: std::convert::Into<crate::model::RegulatoryControlResponsibilityType>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_control_responsibility_type<T: std::convert::Into<crate::model::RegulatoryControlResponsibilityType>>(mut self, v: T) -> Self {
         self.control_responsibility_type = v.into();
         self
     }
@@ -9935,6 +9634,7 @@ impl wkt::message::Message for ControlComplianceSummary {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudControlReport {
+
     /// The name of the cloud control.
     pub cloud_control: std::string::String,
 
@@ -9978,8 +9678,7 @@ pub struct CloudControlReport {
     pub framework_major_revision_ids: std::vec::Vec<i64>,
 
     /// The assessment details of the cloud control.
-    pub assessment_details:
-        std::option::Option<crate::model::cloud_control_report::AssessmentDetails>,
+    pub assessment_details: std::option::Option<crate::model::cloud_control_report::AssessmentDetails>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -10035,7 +9734,7 @@ impl CloudControlReport {
     pub fn set_categories<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.categories = v.into_iter().map(|i| i.into()).collect();
@@ -10057,7 +9756,7 @@ impl CloudControlReport {
     pub fn set_similar_controls<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::SimilarControls>,
+        V: std::convert::Into<crate::model::SimilarControls>
     {
         use std::iter::Iterator;
         self.similar_controls = v.into_iter().map(|i| i.into()).collect();
@@ -10073,10 +9772,7 @@ impl CloudControlReport {
     /// let x0 = CloudControlReport::new().set_cloud_control_type(Type::Custom);
     /// let x1 = CloudControlReport::new().set_cloud_control_type(Type::BuiltIn);
     /// ```
-    pub fn set_cloud_control_type<T: std::convert::Into<crate::model::cloud_control::Type>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_cloud_control_type<T: std::convert::Into<crate::model::cloud_control::Type>>(mut self, v: T) -> Self {
         self.cloud_control_type = v.into();
         self
     }
@@ -10088,10 +9784,7 @@ impl CloudControlReport {
     /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlReport;
     /// let x = CloudControlReport::new().set_finding_category("example");
     /// ```
-    pub fn set_finding_category<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_finding_category<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.finding_category = v.into();
         self
     }
@@ -10111,7 +9804,7 @@ impl CloudControlReport {
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Rule>,
+        V: std::convert::Into<crate::model::Rule>
     {
         use std::iter::Iterator;
         self.rules = v.into_iter().map(|i| i.into()).collect();
@@ -10128,10 +9821,7 @@ impl CloudControlReport {
     /// let x1 = CloudControlReport::new().set_finding_severity(Severity::High);
     /// let x2 = CloudControlReport::new().set_finding_severity(Severity::Medium);
     /// ```
-    pub fn set_finding_severity<T: std::convert::Into<crate::model::Severity>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_finding_severity<T: std::convert::Into<crate::model::Severity>>(mut self, v: T) -> Self {
         self.finding_severity = v.into();
         self
     }
@@ -10146,10 +9836,7 @@ impl CloudControlReport {
     /// let x1 = CloudControlReport::new().set_enforcement_mode(EnforcementMode::Detective);
     /// let x2 = CloudControlReport::new().set_enforcement_mode(EnforcementMode::Audit);
     /// ```
-    pub fn set_enforcement_mode<T: std::convert::Into<crate::model::EnforcementMode>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_enforcement_mode<T: std::convert::Into<crate::model::EnforcementMode>>(mut self, v: T) -> Self {
         self.enforcement_mode = v.into();
         self
     }
@@ -10161,10 +9848,7 @@ impl CloudControlReport {
     /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlReport;
     /// let x = CloudControlReport::new().set_cloud_control_deployment("example");
     /// ```
-    pub fn set_cloud_control_deployment<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_cloud_control_deployment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cloud_control_deployment = v.into();
         self
     }
@@ -10203,7 +9887,7 @@ impl CloudControlReport {
     pub fn set_framework_major_revision_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<i64>,
+        V: std::convert::Into<i64>
     {
         use std::iter::Iterator;
         self.framework_major_revision_ids = v.into_iter().map(|i| i.into()).collect();
@@ -10222,14 +9906,8 @@ impl CloudControlReport {
     /// let x = CloudControlReport::new().set_assessment_details(Some(
     ///     google_cloud_cloudsecuritycompliance_v1::model::cloud_control_report::AssessmentDetails::ManualCloudControlAssessmentDetails(ManualCloudControlAssessmentDetails::default().into())));
     /// ```
-    pub fn set_assessment_details<
-        T: std::convert::Into<
-                std::option::Option<crate::model::cloud_control_report::AssessmentDetails>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_assessment_details<T: std::convert::Into<std::option::Option<crate::model::cloud_control_report::AssessmentDetails>>>(mut self, v: T) -> Self
+    {
         self.assessment_details = v.into();
         self
     }
@@ -10237,10 +9915,7 @@ impl CloudControlReport {
     /// The value of [assessment_details][crate::model::CloudControlReport::assessment_details]
     /// if it holds a `ManualCloudControlAssessmentDetails`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn manual_cloud_control_assessment_details(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::ManualCloudControlAssessmentDetails>>
-    {
+    pub fn manual_cloud_control_assessment_details(&self) -> std::option::Option<&std::boxed::Box<crate::model::ManualCloudControlAssessmentDetails>> {
         #[allow(unreachable_patterns)]
         self.assessment_details.as_ref().and_then(|v| match v {
             crate::model::cloud_control_report::AssessmentDetails::ManualCloudControlAssessmentDetails(v) => std::option::Option::Some(v),
@@ -10262,12 +9937,7 @@ impl CloudControlReport {
     /// assert!(x.manual_cloud_control_assessment_details().is_some());
     /// assert!(x.cloud_control_assessment_details().is_none());
     /// ```
-    pub fn set_manual_cloud_control_assessment_details<
-        T: std::convert::Into<std::boxed::Box<crate::model::ManualCloudControlAssessmentDetails>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_manual_cloud_control_assessment_details<T: std::convert::Into<std::boxed::Box<crate::model::ManualCloudControlAssessmentDetails>>>(mut self, v: T) -> Self {
         self.assessment_details = std::option::Option::Some(
             crate::model::cloud_control_report::AssessmentDetails::ManualCloudControlAssessmentDetails(
                 v.into()
@@ -10279,9 +9949,7 @@ impl CloudControlReport {
     /// The value of [assessment_details][crate::model::CloudControlReport::assessment_details]
     /// if it holds a `CloudControlAssessmentDetails`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn cloud_control_assessment_details(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::CloudControlAssessmentDetails>> {
+    pub fn cloud_control_assessment_details(&self) -> std::option::Option<&std::boxed::Box<crate::model::CloudControlAssessmentDetails>> {
         #[allow(unreachable_patterns)]
         self.assessment_details.as_ref().and_then(|v| match v {
             crate::model::cloud_control_report::AssessmentDetails::CloudControlAssessmentDetails(v) => std::option::Option::Some(v),
@@ -10303,16 +9971,11 @@ impl CloudControlReport {
     /// assert!(x.cloud_control_assessment_details().is_some());
     /// assert!(x.manual_cloud_control_assessment_details().is_none());
     /// ```
-    pub fn set_cloud_control_assessment_details<
-        T: std::convert::Into<std::boxed::Box<crate::model::CloudControlAssessmentDetails>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_cloud_control_assessment_details<T: std::convert::Into<std::boxed::Box<crate::model::CloudControlAssessmentDetails>>>(mut self, v: T) -> Self {
         self.assessment_details = std::option::Option::Some(
             crate::model::cloud_control_report::AssessmentDetails::CloudControlAssessmentDetails(
-                v.into(),
-            ),
+                v.into()
+            )
         );
         self
     }
@@ -10329,14 +9992,13 @@ pub mod cloud_control_report {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// The assessment details of the cloud control.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum AssessmentDetails {
         /// The details of a manual cloud control assessment.
-        ManualCloudControlAssessmentDetails(
-            std::boxed::Box<crate::model::ManualCloudControlAssessmentDetails>,
-        ),
+        ManualCloudControlAssessmentDetails(std::boxed::Box<crate::model::ManualCloudControlAssessmentDetails>),
         /// The details of a cloud control assessment.
         CloudControlAssessmentDetails(std::boxed::Box<crate::model::CloudControlAssessmentDetails>),
     }
@@ -10346,6 +10008,7 @@ pub mod cloud_control_report {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ManualCloudControlAssessmentDetails {
+
     /// The guide for assessing a cloud control manually.
     pub manual_cloud_control_guide: std::vec::Vec<std::string::String>,
 
@@ -10367,7 +10030,7 @@ impl ManualCloudControlAssessmentDetails {
     pub fn set_manual_cloud_control_guide<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.manual_cloud_control_guide = v.into_iter().map(|i| i.into()).collect();
@@ -10385,6 +10048,7 @@ impl wkt::message::Message for ManualCloudControlAssessmentDetails {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudControlAssessmentDetails {
+
     /// The number of findings for the cloud control.
     pub findings_count: i32,
 
@@ -10421,10 +10085,7 @@ impl CloudControlAssessmentDetails {
     /// let x1 = CloudControlAssessmentDetails::new().set_evaluation_state(EvaluationState::Failed);
     /// let x2 = CloudControlAssessmentDetails::new().set_evaluation_state(EvaluationState::NotAssessed);
     /// ```
-    pub fn set_evaluation_state<T: std::convert::Into<crate::model::EvaluationState>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_evaluation_state<T: std::convert::Into<crate::model::EvaluationState>>(mut self, v: T) -> Self {
         self.evaluation_state = v.into();
         self
     }
@@ -10440,6 +10101,7 @@ impl wkt::message::Message for CloudControlAssessmentDetails {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SimilarControls {
+
     /// The name of the framework.
     pub framework: std::string::String,
 
@@ -10489,6 +10151,7 @@ impl wkt::message::Message for SimilarControls {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AggregatedComplianceReport {
+
     /// The control assessment details of the framework.
     pub control_assessment_details: std::option::Option<crate::model::ControlAssessmentDetails>,
 
@@ -10512,8 +10175,7 @@ impl AggregatedComplianceReport {
     /// let x = AggregatedComplianceReport::new().set_control_assessment_details(ControlAssessmentDetails::default()/* use setters */);
     /// ```
     pub fn set_control_assessment_details<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ControlAssessmentDetails>,
+    where T: std::convert::Into<crate::model::ControlAssessmentDetails>
     {
         self.control_assessment_details = std::option::Option::Some(v.into());
         self
@@ -10529,8 +10191,7 @@ impl AggregatedComplianceReport {
     /// let x = AggregatedComplianceReport::new().set_or_clear_control_assessment_details(None::<ControlAssessmentDetails>);
     /// ```
     pub fn set_or_clear_control_assessment_details<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ControlAssessmentDetails>,
+    where T: std::convert::Into<crate::model::ControlAssessmentDetails>
     {
         self.control_assessment_details = v.map(|x| x.into());
         self
@@ -10545,8 +10206,7 @@ impl AggregatedComplianceReport {
     /// let x = AggregatedComplianceReport::new().set_report_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_report_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.report_time = std::option::Option::Some(v.into());
         self
@@ -10562,8 +10222,7 @@ impl AggregatedComplianceReport {
     /// let x = AggregatedComplianceReport::new().set_or_clear_report_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_report_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.report_time = v.map(|x| x.into());
         self
@@ -10580,6 +10239,7 @@ impl wkt::message::Message for AggregatedComplianceReport {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TargetResourceDetails {
+
     /// The framework deployment name for the target resource.
     ///
     /// For example,
@@ -10621,10 +10281,7 @@ impl TargetResourceDetails {
     /// # use google_cloud_cloudsecuritycompliance_v1::model::TargetResourceDetails;
     /// let x = TargetResourceDetails::new().set_framework_deployment("example");
     /// ```
-    pub fn set_framework_deployment<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_framework_deployment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.framework_deployment = v.into();
         self
     }
@@ -10636,10 +10293,7 @@ impl TargetResourceDetails {
     /// # use google_cloud_cloudsecuritycompliance_v1::model::TargetResourceDetails;
     /// let x = TargetResourceDetails::new().set_target_resource_display_name("example");
     /// ```
-    pub fn set_target_resource_display_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_target_resource_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target_resource_display_name = v.into();
         self
     }
@@ -10665,8 +10319,7 @@ impl TargetResourceDetails {
     /// let x = TargetResourceDetails::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -10682,8 +10335,7 @@ impl TargetResourceDetails {
     /// let x = TargetResourceDetails::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -10698,8 +10350,7 @@ impl TargetResourceDetails {
     /// let x = TargetResourceDetails::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -10715,8 +10366,7 @@ impl TargetResourceDetails {
     /// let x = TargetResourceDetails::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -10854,9 +10504,7 @@ impl std::convert::From<i32> for ComplianceState {
             3 => Self::ManualReviewNeeded,
             4 => Self::Error,
             5 => Self::AuditNotSupported,
-            _ => Self::UnknownValue(compliance_state::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(compliance_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -10871,9 +10519,7 @@ impl std::convert::From<&str> for ComplianceState {
             "MANUAL_REVIEW_NEEDED" => Self::ManualReviewNeeded,
             "ERROR" => Self::Error,
             "AUDIT_NOT_SUPPORTED" => Self::AuditNotSupported,
-            _ => Self::UnknownValue(compliance_state::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(compliance_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -10901,8 +10547,7 @@ impl<'de> serde::de::Deserialize<'de> for ComplianceState {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<ComplianceState>::new(
-            ".google.cloud.cloudsecuritycompliance.v1.ComplianceState",
-        ))
+            ".google.cloud.cloudsecuritycompliance.v1.ComplianceState"))
     }
 }
 
@@ -10968,9 +10613,7 @@ impl RegulatoryControlResponsibilityType {
     /// the integer representation of enums.
     pub fn name(&self) -> std::option::Option<&str> {
         match self {
-            Self::Unspecified => {
-                std::option::Option::Some("REGULATORY_CONTROL_RESPONSIBILITY_TYPE_UNSPECIFIED")
-            }
+            Self::Unspecified => std::option::Option::Some("REGULATORY_CONTROL_RESPONSIBILITY_TYPE_UNSPECIFIED"),
             Self::Google => std::option::Option::Some("GOOGLE"),
             Self::Customer => std::option::Option::Some("CUSTOMER"),
             Self::Shared => std::option::Option::Some("SHARED"),
@@ -10999,9 +10642,7 @@ impl std::convert::From<i32> for RegulatoryControlResponsibilityType {
             1 => Self::Google,
             2 => Self::Customer,
             3 => Self::Shared,
-            _ => Self::UnknownValue(regulatory_control_responsibility_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(regulatory_control_responsibility_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -11014,9 +10655,7 @@ impl std::convert::From<&str> for RegulatoryControlResponsibilityType {
             "GOOGLE" => Self::Google,
             "CUSTOMER" => Self::Customer,
             "SHARED" => Self::Shared,
-            _ => Self::UnknownValue(regulatory_control_responsibility_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(regulatory_control_responsibility_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -11041,11 +10680,8 @@ impl<'de> serde::de::Deserialize<'de> for RegulatoryControlResponsibilityType {
     where
         D: serde::Deserializer<'de>,
     {
-        deserializer.deserialize_any(wkt::internal::EnumVisitor::<
-            RegulatoryControlResponsibilityType,
-        >::new(
-            ".google.cloud.cloudsecuritycompliance.v1.RegulatoryControlResponsibilityType",
-        ))
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<RegulatoryControlResponsibilityType>::new(
+            ".google.cloud.cloudsecuritycompliance.v1.RegulatoryControlResponsibilityType"))
     }
 }
 
@@ -11140,9 +10776,7 @@ impl std::convert::From<i32> for EnforcementMode {
             1 => Self::Preventive,
             2 => Self::Detective,
             3 => Self::Audit,
-            _ => Self::UnknownValue(enforcement_mode::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(enforcement_mode::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -11155,9 +10789,7 @@ impl std::convert::From<&str> for EnforcementMode {
             "PREVENTIVE" => Self::Preventive,
             "DETECTIVE" => Self::Detective,
             "AUDIT" => Self::Audit,
-            _ => Self::UnknownValue(enforcement_mode::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(enforcement_mode::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -11183,8 +10815,7 @@ impl<'de> serde::de::Deserialize<'de> for EnforcementMode {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<EnforcementMode>::new(
-            ".google.cloud.cloudsecuritycompliance.v1.EnforcementMode",
-        ))
+            ".google.cloud.cloudsecuritycompliance.v1.EnforcementMode"))
     }
 }
 
@@ -11289,9 +10920,7 @@ impl std::convert::From<i32> for FrameworkCategory {
             3 => Self::DataSecurity,
             4 => Self::GoogleBestPractices,
             5 => Self::CustomFramework,
-            _ => Self::UnknownValue(framework_category::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(framework_category::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -11306,9 +10935,7 @@ impl std::convert::From<&str> for FrameworkCategory {
             "DATA_SECURITY" => Self::DataSecurity,
             "GOOGLE_BEST_PRACTICES" => Self::GoogleBestPractices,
             "CUSTOM_FRAMEWORK" => Self::CustomFramework,
-            _ => Self::UnknownValue(framework_category::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(framework_category::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -11336,8 +10963,7 @@ impl<'de> serde::de::Deserialize<'de> for FrameworkCategory {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<FrameworkCategory>::new(
-            ".google.cloud.cloudsecuritycompliance.v1.FrameworkCategory",
-        ))
+            ".google.cloud.cloudsecuritycompliance.v1.FrameworkCategory"))
     }
 }
 
@@ -11440,41 +11066,19 @@ impl CloudControlCategory {
     pub fn name(&self) -> std::option::Option<&str> {
         match self {
             Self::Unspecified => std::option::Option::Some("CLOUD_CONTROL_CATEGORY_UNSPECIFIED"),
-            Self::CcCategoryInfrastructure => {
-                std::option::Option::Some("CC_CATEGORY_INFRASTRUCTURE")
-            }
-            Self::CcCategoryArtificialIntelligence => {
-                std::option::Option::Some("CC_CATEGORY_ARTIFICIAL_INTELLIGENCE")
-            }
-            Self::CcCategoryPhysicalSecurity => {
-                std::option::Option::Some("CC_CATEGORY_PHYSICAL_SECURITY")
-            }
+            Self::CcCategoryInfrastructure => std::option::Option::Some("CC_CATEGORY_INFRASTRUCTURE"),
+            Self::CcCategoryArtificialIntelligence => std::option::Option::Some("CC_CATEGORY_ARTIFICIAL_INTELLIGENCE"),
+            Self::CcCategoryPhysicalSecurity => std::option::Option::Some("CC_CATEGORY_PHYSICAL_SECURITY"),
             Self::CcCategoryDataSecurity => std::option::Option::Some("CC_CATEGORY_DATA_SECURITY"),
-            Self::CcCategoryNetworkSecurity => {
-                std::option::Option::Some("CC_CATEGORY_NETWORK_SECURITY")
-            }
-            Self::CcCategoryIncidentManagement => {
-                std::option::Option::Some("CC_CATEGORY_INCIDENT_MANAGEMENT")
-            }
-            Self::CcCategoryIdentityAndAccessManagement => {
-                std::option::Option::Some("CC_CATEGORY_IDENTITY_AND_ACCESS_MANAGEMENT")
-            }
+            Self::CcCategoryNetworkSecurity => std::option::Option::Some("CC_CATEGORY_NETWORK_SECURITY"),
+            Self::CcCategoryIncidentManagement => std::option::Option::Some("CC_CATEGORY_INCIDENT_MANAGEMENT"),
+            Self::CcCategoryIdentityAndAccessManagement => std::option::Option::Some("CC_CATEGORY_IDENTITY_AND_ACCESS_MANAGEMENT"),
             Self::CcCategoryEncryption => std::option::Option::Some("CC_CATEGORY_ENCRYPTION"),
-            Self::CcCategoryLogsManagementAndInfrastructure => {
-                std::option::Option::Some("CC_CATEGORY_LOGS_MANAGEMENT_AND_INFRASTRUCTURE")
-            }
-            Self::CcCategoryHrAdminAndProcesses => {
-                std::option::Option::Some("CC_CATEGORY_HR_ADMIN_AND_PROCESSES")
-            }
-            Self::CcCategoryThirdPartyAndSubProcessorManagement => {
-                std::option::Option::Some("CC_CATEGORY_THIRD_PARTY_AND_SUB_PROCESSOR_MANAGEMENT")
-            }
-            Self::CcCategoryLegalAndDisclosures => {
-                std::option::Option::Some("CC_CATEGORY_LEGAL_AND_DISCLOSURES")
-            }
-            Self::CcCategoryVulnerabilityManagement => {
-                std::option::Option::Some("CC_CATEGORY_VULNERABILITY_MANAGEMENT")
-            }
+            Self::CcCategoryLogsManagementAndInfrastructure => std::option::Option::Some("CC_CATEGORY_LOGS_MANAGEMENT_AND_INFRASTRUCTURE"),
+            Self::CcCategoryHrAdminAndProcesses => std::option::Option::Some("CC_CATEGORY_HR_ADMIN_AND_PROCESSES"),
+            Self::CcCategoryThirdPartyAndSubProcessorManagement => std::option::Option::Some("CC_CATEGORY_THIRD_PARTY_AND_SUB_PROCESSOR_MANAGEMENT"),
+            Self::CcCategoryLegalAndDisclosures => std::option::Option::Some("CC_CATEGORY_LEGAL_AND_DISCLOSURES"),
+            Self::CcCategoryVulnerabilityManagement => std::option::Option::Some("CC_CATEGORY_VULNERABILITY_MANAGEMENT"),
             Self::CcCategoryPrivacy => std::option::Option::Some("CC_CATEGORY_PRIVACY"),
             Self::CcCategoryBcdr => std::option::Option::Some("CC_CATEGORY_BCDR"),
             Self::UnknownValue(u) => u.0.name(),
@@ -11514,9 +11118,7 @@ impl std::convert::From<i32> for CloudControlCategory {
             13 => Self::CcCategoryVulnerabilityManagement,
             14 => Self::CcCategoryPrivacy,
             15 => Self::CcCategoryBcdr,
-            _ => Self::UnknownValue(cloud_control_category::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(cloud_control_category::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -11532,24 +11134,16 @@ impl std::convert::From<&str> for CloudControlCategory {
             "CC_CATEGORY_DATA_SECURITY" => Self::CcCategoryDataSecurity,
             "CC_CATEGORY_NETWORK_SECURITY" => Self::CcCategoryNetworkSecurity,
             "CC_CATEGORY_INCIDENT_MANAGEMENT" => Self::CcCategoryIncidentManagement,
-            "CC_CATEGORY_IDENTITY_AND_ACCESS_MANAGEMENT" => {
-                Self::CcCategoryIdentityAndAccessManagement
-            }
+            "CC_CATEGORY_IDENTITY_AND_ACCESS_MANAGEMENT" => Self::CcCategoryIdentityAndAccessManagement,
             "CC_CATEGORY_ENCRYPTION" => Self::CcCategoryEncryption,
-            "CC_CATEGORY_LOGS_MANAGEMENT_AND_INFRASTRUCTURE" => {
-                Self::CcCategoryLogsManagementAndInfrastructure
-            }
+            "CC_CATEGORY_LOGS_MANAGEMENT_AND_INFRASTRUCTURE" => Self::CcCategoryLogsManagementAndInfrastructure,
             "CC_CATEGORY_HR_ADMIN_AND_PROCESSES" => Self::CcCategoryHrAdminAndProcesses,
-            "CC_CATEGORY_THIRD_PARTY_AND_SUB_PROCESSOR_MANAGEMENT" => {
-                Self::CcCategoryThirdPartyAndSubProcessorManagement
-            }
+            "CC_CATEGORY_THIRD_PARTY_AND_SUB_PROCESSOR_MANAGEMENT" => Self::CcCategoryThirdPartyAndSubProcessorManagement,
             "CC_CATEGORY_LEGAL_AND_DISCLOSURES" => Self::CcCategoryLegalAndDisclosures,
             "CC_CATEGORY_VULNERABILITY_MANAGEMENT" => Self::CcCategoryVulnerabilityManagement,
             "CC_CATEGORY_PRIVACY" => Self::CcCategoryPrivacy,
             "CC_CATEGORY_BCDR" => Self::CcCategoryBcdr,
-            _ => Self::UnknownValue(cloud_control_category::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(cloud_control_category::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -11587,8 +11181,7 @@ impl<'de> serde::de::Deserialize<'de> for CloudControlCategory {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<CloudControlCategory>::new(
-            ".google.cloud.cloudsecuritycompliance.v1.CloudControlCategory",
-        ))
+            ".google.cloud.cloudsecuritycompliance.v1.CloudControlCategory"))
     }
 }
 
@@ -11683,9 +11276,7 @@ impl std::convert::From<i32> for CloudProvider {
             1 => Self::Aws,
             2 => Self::Azure,
             3 => Self::Gcp,
-            _ => Self::UnknownValue(cloud_provider::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(cloud_provider::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -11698,9 +11289,7 @@ impl std::convert::From<&str> for CloudProvider {
             "AWS" => Self::Aws,
             "AZURE" => Self::Azure,
             "GCP" => Self::Gcp,
-            _ => Self::UnknownValue(cloud_provider::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(cloud_provider::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -11726,8 +11315,7 @@ impl<'de> serde::de::Deserialize<'de> for CloudProvider {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<CloudProvider>::new(
-            ".google.cloud.cloudsecuritycompliance.v1.CloudProvider",
-        ))
+            ".google.cloud.cloudsecuritycompliance.v1.CloudProvider"))
     }
 }
 
@@ -11860,9 +11448,7 @@ impl std::convert::From<i32> for Severity {
             2 => Self::High,
             3 => Self::Medium,
             4 => Self::Low,
-            _ => Self::UnknownValue(severity::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(severity::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -11876,9 +11462,7 @@ impl std::convert::From<&str> for Severity {
             "HIGH" => Self::High,
             "MEDIUM" => Self::Medium,
             "LOW" => Self::Low,
-            _ => Self::UnknownValue(severity::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(severity::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -11905,8 +11489,7 @@ impl<'de> serde::de::Deserialize<'de> for Severity {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<Severity>::new(
-            ".google.cloud.cloudsecuritycompliance.v1.Severity",
-        ))
+            ".google.cloud.cloudsecuritycompliance.v1.Severity"))
     }
 }
 
@@ -12001,9 +11584,7 @@ impl std::convert::From<i32> for RuleActionType {
             1 => Self::Preventive,
             2 => Self::Detective,
             3 => Self::Audit,
-            _ => Self::UnknownValue(rule_action_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(rule_action_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -12016,9 +11597,7 @@ impl std::convert::From<&str> for RuleActionType {
             "RULE_ACTION_TYPE_PREVENTIVE" => Self::Preventive,
             "RULE_ACTION_TYPE_DETECTIVE" => Self::Detective,
             "RULE_ACTION_TYPE_AUDIT" => Self::Audit,
-            _ => Self::UnknownValue(rule_action_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(rule_action_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -12044,8 +11623,7 @@ impl<'de> serde::de::Deserialize<'de> for RuleActionType {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<RuleActionType>::new(
-            ".google.cloud.cloudsecuritycompliance.v1.RuleActionType",
-        ))
+            ".google.cloud.cloudsecuritycompliance.v1.RuleActionType"))
     }
 }
 
@@ -12115,15 +11693,9 @@ impl TargetResourceType {
     pub fn name(&self) -> std::option::Option<&str> {
         match self {
             Self::Unspecified => std::option::Option::Some("TARGET_RESOURCE_TYPE_UNSPECIFIED"),
-            Self::TargetResourceCrmTypeOrg => {
-                std::option::Option::Some("TARGET_RESOURCE_CRM_TYPE_ORG")
-            }
-            Self::TargetResourceCrmTypeFolder => {
-                std::option::Option::Some("TARGET_RESOURCE_CRM_TYPE_FOLDER")
-            }
-            Self::TargetResourceCrmTypeProject => {
-                std::option::Option::Some("TARGET_RESOURCE_CRM_TYPE_PROJECT")
-            }
+            Self::TargetResourceCrmTypeOrg => std::option::Option::Some("TARGET_RESOURCE_CRM_TYPE_ORG"),
+            Self::TargetResourceCrmTypeFolder => std::option::Option::Some("TARGET_RESOURCE_CRM_TYPE_FOLDER"),
+            Self::TargetResourceCrmTypeProject => std::option::Option::Some("TARGET_RESOURCE_CRM_TYPE_PROJECT"),
             Self::Application => std::option::Option::Some("TARGET_RESOURCE_TYPE_APPLICATION"),
             Self::UnknownValue(u) => u.0.name(),
         }
@@ -12151,9 +11723,7 @@ impl std::convert::From<i32> for TargetResourceType {
             2 => Self::TargetResourceCrmTypeFolder,
             3 => Self::TargetResourceCrmTypeProject,
             4 => Self::Application,
-            _ => Self::UnknownValue(target_resource_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(target_resource_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -12167,9 +11737,7 @@ impl std::convert::From<&str> for TargetResourceType {
             "TARGET_RESOURCE_CRM_TYPE_FOLDER" => Self::TargetResourceCrmTypeFolder,
             "TARGET_RESOURCE_CRM_TYPE_PROJECT" => Self::TargetResourceCrmTypeProject,
             "TARGET_RESOURCE_TYPE_APPLICATION" => Self::Application,
-            _ => Self::UnknownValue(target_resource_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(target_resource_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -12196,8 +11764,7 @@ impl<'de> serde::de::Deserialize<'de> for TargetResourceType {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<TargetResourceType>::new(
-            ".google.cloud.cloudsecuritycompliance.v1.TargetResourceType",
-        ))
+            ".google.cloud.cloudsecuritycompliance.v1.TargetResourceType"))
     }
 }
 
@@ -12287,12 +11854,8 @@ impl DeploymentState {
             Self::Deleting => std::option::Option::Some("DEPLOYMENT_STATE_DELETING"),
             Self::Failed => std::option::Option::Some("DEPLOYMENT_STATE_FAILED"),
             Self::Ready => std::option::Option::Some("DEPLOYMENT_STATE_READY"),
-            Self::PartiallyDeployed => {
-                std::option::Option::Some("DEPLOYMENT_STATE_PARTIALLY_DEPLOYED")
-            }
-            Self::PartiallyDeleted => {
-                std::option::Option::Some("DEPLOYMENT_STATE_PARTIALLY_DELETED")
-            }
+            Self::PartiallyDeployed => std::option::Option::Some("DEPLOYMENT_STATE_PARTIALLY_DEPLOYED"),
+            Self::PartiallyDeleted => std::option::Option::Some("DEPLOYMENT_STATE_PARTIALLY_DELETED"),
             Self::UnknownValue(u) => u.0.name(),
         }
     }
@@ -12322,9 +11885,7 @@ impl std::convert::From<i32> for DeploymentState {
             5 => Self::Ready,
             6 => Self::PartiallyDeployed,
             7 => Self::PartiallyDeleted,
-            _ => Self::UnknownValue(deployment_state::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(deployment_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -12341,9 +11902,7 @@ impl std::convert::From<&str> for DeploymentState {
             "DEPLOYMENT_STATE_READY" => Self::Ready,
             "DEPLOYMENT_STATE_PARTIALLY_DEPLOYED" => Self::PartiallyDeployed,
             "DEPLOYMENT_STATE_PARTIALLY_DELETED" => Self::PartiallyDeleted,
-            _ => Self::UnknownValue(deployment_state::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(deployment_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -12373,8 +11932,7 @@ impl<'de> serde::de::Deserialize<'de> for DeploymentState {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<DeploymentState>::new(
-            ".google.cloud.cloudsecuritycompliance.v1.DeploymentState",
-        ))
+            ".google.cloud.cloudsecuritycompliance.v1.DeploymentState"))
     }
 }
 
@@ -12469,9 +12027,7 @@ impl std::convert::From<i32> for EvaluationState {
             1 => Self::Passed,
             2 => Self::Failed,
             3 => Self::NotAssessed,
-            _ => Self::UnknownValue(evaluation_state::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(evaluation_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -12484,9 +12040,7 @@ impl std::convert::From<&str> for EvaluationState {
             "EVALUATION_STATE_PASSED" => Self::Passed,
             "EVALUATION_STATE_FAILED" => Self::Failed,
             "EVALUATION_STATE_NOT_ASSESSED" => Self::NotAssessed,
-            _ => Self::UnknownValue(evaluation_state::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(evaluation_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -12512,8 +12066,7 @@ impl<'de> serde::de::Deserialize<'de> for EvaluationState {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<EvaluationState>::new(
-            ".google.cloud.cloudsecuritycompliance.v1.EvaluationState",
-        ))
+            ".google.cloud.cloudsecuritycompliance.v1.EvaluationState"))
     }
 }
 
@@ -12645,9 +12198,7 @@ impl std::convert::From<i32> for FindingClass {
             7 => Self::ToxicCombination,
             8 => Self::SensitiveDataRisk,
             9 => Self::Chokepoint,
-            _ => Self::UnknownValue(finding_class::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(finding_class::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -12666,9 +12217,7 @@ impl std::convert::From<&str> for FindingClass {
             "TOXIC_COMBINATION" => Self::ToxicCombination,
             "SENSITIVE_DATA_RISK" => Self::SensitiveDataRisk,
             "CHOKEPOINT" => Self::Chokepoint,
-            _ => Self::UnknownValue(finding_class::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(finding_class::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -12700,7 +12249,6 @@ impl<'de> serde::de::Deserialize<'de> for FindingClass {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<FindingClass>::new(
-            ".google.cloud.cloudsecuritycompliance.v1.FindingClass",
-        ))
+            ".google.cloud.cloudsecuritycompliance.v1.FindingClass"))
     }
 }

@@ -72,10 +72,7 @@ impl std::fmt::Debug for super::Secret {
         debug_struct.field("version_aliases", &self.version_aliases);
         debug_struct.field("annotations", &self.annotations);
         debug_struct.field("version_destroy_ttl", &self.version_destroy_ttl);
-        debug_struct.field(
-            "customer_managed_encryption",
-            &self.customer_managed_encryption,
-        );
+        debug_struct.field("customer_managed_encryption", &self.customer_managed_encryption);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -98,10 +95,7 @@ impl std::fmt::Debug for super::Replication {
 impl std::fmt::Debug for super::Automatic {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Automatic");
-        debug_struct.field(
-            "customer_managed_encryption",
-            &self.customer_managed_encryption,
-        );
+        debug_struct.field("customer_managed_encryption", &self.customer_managed_encryption);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -135,10 +129,7 @@ impl std::fmt::Debug for super::Replica {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Replica");
         debug_struct.field("location", &self.location);
-        debug_struct.field(
-            "customer_managed_encryption",
-            &self.customer_managed_encryption,
-        );
+        debug_struct.field("customer_managed_encryption", &self.customer_managed_encryption);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -201,15 +192,9 @@ impl std::fmt::Debug for super::SecretVersion {
         debug_struct.field("state", &self.state);
         debug_struct.field("replication_status", &self.replication_status);
         debug_struct.field("etag", &self.etag);
-        debug_struct.field(
-            "client_specified_payload_checksum",
-            &self.client_specified_payload_checksum,
-        );
+        debug_struct.field("client_specified_payload_checksum", &self.client_specified_payload_checksum);
         debug_struct.field("scheduled_destroy_time", &self.scheduled_destroy_time);
-        debug_struct.field(
-            "customer_managed_encryption",
-            &self.customer_managed_encryption,
-        );
+        debug_struct.field("customer_managed_encryption", &self.customer_managed_encryption);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -232,10 +217,7 @@ impl std::fmt::Debug for super::ReplicationStatus {
 impl std::fmt::Debug for super::AutomaticStatus {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AutomaticStatus");
-        debug_struct.field(
-            "customer_managed_encryption",
-            &self.customer_managed_encryption,
-        );
+        debug_struct.field("customer_managed_encryption", &self.customer_managed_encryption);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -269,10 +251,7 @@ impl std::fmt::Debug for super::ReplicaStatus {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ReplicaStatus");
         debug_struct.field("location", &self.location);
-        debug_struct.field(
-            "customer_managed_encryption",
-            &self.customer_managed_encryption,
-        );
+        debug_struct.field("customer_managed_encryption", &self.customer_managed_encryption);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -447,6 +426,7 @@ impl std::fmt::Debug for super::TestIamPermissionsResponse {
     }
 }
 
+
 impl std::fmt::Debug for super::secret_manager_service::ListLocationsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListLocationsRequest");
@@ -542,12 +522,9 @@ impl std::fmt::Debug for super::secret_manager_service::AddSecretVersionRequest 
     }
 }
 
-impl std::fmt::Debug
-    for super::secret_manager_service::AddSecretVersionByProjectAndLocationAndSecretRequest
-{
+impl std::fmt::Debug for super::secret_manager_service::AddSecretVersionByProjectAndLocationAndSecretRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct =
-            f.debug_struct("AddSecretVersionByProjectAndLocationAndSecretRequest");
+        let mut debug_struct = f.debug_struct("AddSecretVersionByProjectAndLocationAndSecretRequest");
         debug_struct.field("project", &self.project);
         debug_struct.field("location", &self.location);
         debug_struct.field("secret", &self.secret);
@@ -598,9 +575,7 @@ impl std::fmt::Debug for super::secret_manager_service::UpdateSecretRequest {
     }
 }
 
-impl std::fmt::Debug
-    for super::secret_manager_service::GetSecretByProjectAndLocationAndSecretRequest
-{
+impl std::fmt::Debug for super::secret_manager_service::GetSecretByProjectAndLocationAndSecretRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetSecretByProjectAndLocationAndSecretRequest");
         debug_struct.field("project", &self.project);
@@ -613,9 +588,7 @@ impl std::fmt::Debug
     }
 }
 
-impl std::fmt::Debug
-    for super::secret_manager_service::DeleteSecretByProjectAndLocationAndSecretRequest
-{
+impl std::fmt::Debug for super::secret_manager_service::DeleteSecretByProjectAndLocationAndSecretRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteSecretByProjectAndLocationAndSecretRequest");
         debug_struct.field("project", &self.project);
@@ -629,9 +602,7 @@ impl std::fmt::Debug
     }
 }
 
-impl std::fmt::Debug
-    for super::secret_manager_service::UpdateSecretByProjectAndLocationAndSecretRequest
-{
+impl std::fmt::Debug for super::secret_manager_service::UpdateSecretByProjectAndLocationAndSecretRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateSecretByProjectAndLocationAndSecretRequest");
         debug_struct.field("project", &self.project);
@@ -661,12 +632,9 @@ impl std::fmt::Debug for super::secret_manager_service::ListSecretVersionsReques
     }
 }
 
-impl std::fmt::Debug
-    for super::secret_manager_service::ListSecretVersionsByProjectAndLocationAndSecretRequest
-{
+impl std::fmt::Debug for super::secret_manager_service::ListSecretVersionsByProjectAndLocationAndSecretRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct =
-            f.debug_struct("ListSecretVersionsByProjectAndLocationAndSecretRequest");
+        let mut debug_struct = f.debug_struct("ListSecretVersionsByProjectAndLocationAndSecretRequest");
         debug_struct.field("project", &self.project);
         debug_struct.field("location", &self.location);
         debug_struct.field("secret", &self.secret);
@@ -834,9 +802,7 @@ impl std::fmt::Debug for super::secret_manager_service::SetIamPolicyRequest {
     }
 }
 
-impl std::fmt::Debug
-    for super::secret_manager_service::SetIamPolicyByProjectAndLocationAndSecretRequest
-{
+impl std::fmt::Debug for super::secret_manager_service::SetIamPolicyByProjectAndLocationAndSecretRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SetIamPolicyByProjectAndLocationAndSecretRequest");
         debug_struct.field("project", &self.project);
@@ -855,10 +821,7 @@ impl std::fmt::Debug for super::secret_manager_service::GetIamPolicyRequest {
         let mut debug_struct = f.debug_struct("GetIamPolicyRequest");
         debug_struct.field("project", &self.project);
         debug_struct.field("secret", &self.secret);
-        debug_struct.field(
-            "options_requested_policy_version",
-            &self.options_requested_policy_version,
-        );
+        debug_struct.field("options_requested_policy_version", &self.options_requested_policy_version);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -866,18 +829,13 @@ impl std::fmt::Debug for super::secret_manager_service::GetIamPolicyRequest {
     }
 }
 
-impl std::fmt::Debug
-    for super::secret_manager_service::GetIamPolicyByProjectAndLocationAndSecretRequest
-{
+impl std::fmt::Debug for super::secret_manager_service::GetIamPolicyByProjectAndLocationAndSecretRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetIamPolicyByProjectAndLocationAndSecretRequest");
         debug_struct.field("project", &self.project);
         debug_struct.field("location", &self.location);
         debug_struct.field("secret", &self.secret);
-        debug_struct.field(
-            "options_requested_policy_version",
-            &self.options_requested_policy_version,
-        );
+        debug_struct.field("options_requested_policy_version", &self.options_requested_policy_version);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -898,12 +856,9 @@ impl std::fmt::Debug for super::secret_manager_service::TestIamPermissionsReques
     }
 }
 
-impl std::fmt::Debug
-    for super::secret_manager_service::TestIamPermissionsByProjectAndLocationAndSecretRequest
-{
+impl std::fmt::Debug for super::secret_manager_service::TestIamPermissionsByProjectAndLocationAndSecretRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct =
-            f.debug_struct("TestIamPermissionsByProjectAndLocationAndSecretRequest");
+        let mut debug_struct = f.debug_struct("TestIamPermissionsByProjectAndLocationAndSecretRequest");
         debug_struct.field("project", &self.project);
         debug_struct.field("location", &self.location);
         debug_struct.field("secret", &self.secret);

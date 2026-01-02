@@ -185,6 +185,7 @@ impl std::fmt::Debug for super::app_connection::Gateway {
     }
 }
 
+
 impl std::fmt::Debug for super::AppConnectionOperationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AppConnectionOperationMetadata");

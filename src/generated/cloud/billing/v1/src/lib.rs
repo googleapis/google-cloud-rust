@@ -30,6 +30,7 @@
 //! * [CloudBilling](client/struct.CloudBilling.html)
 //! * [CloudCatalog](client/struct.CloudCatalog.html)
 
+
 /// The messages and enums that are part of this client library.
 #[allow(clippy::module_inception)]
 pub mod model;
@@ -70,3 +71,4 @@ pub(crate) mod info {
         };
     }
 }
+

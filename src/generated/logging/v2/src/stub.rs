@@ -38,6 +38,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait LoggingServiceV2: std::fmt::Debug + Send + Sync {
+
     /// Implements [super::client::LoggingServiceV2::delete_log].
     fn delete_log(
         &self,
@@ -52,9 +53,7 @@ pub trait LoggingServiceV2: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::WriteLogEntriesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::WriteLogEntriesResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::WriteLogEntriesResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -63,9 +62,7 @@ pub trait LoggingServiceV2: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListLogEntriesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListLogEntriesResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListLogEntriesResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -74,11 +71,7 @@ pub trait LoggingServiceV2: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListMonitoredResourceDescriptorsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::ListMonitoredResourceDescriptorsResponse>,
-        >,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListMonitoredResourceDescriptorsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -87,9 +80,7 @@ pub trait LoggingServiceV2: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListLogsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListLogsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListLogsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -98,9 +89,7 @@ pub trait LoggingServiceV2: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -109,9 +98,7 @@ pub trait LoggingServiceV2: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::GetOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -137,14 +124,13 @@ pub trait LoggingServiceV2: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
+
     /// Implements [super::client::ConfigServiceV2::list_buckets].
     fn list_buckets(
         &self,
         _req: crate::model::ListBucketsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListBucketsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListBucketsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -153,9 +139,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetBucketRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::LogBucket>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::LogBucket>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -164,9 +148,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateBucketRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -175,9 +157,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateBucketRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -186,9 +166,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateBucketRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::LogBucket>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::LogBucket>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -197,9 +175,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateBucketRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::LogBucket>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::LogBucket>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -226,9 +202,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListViewsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListViewsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListViewsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -237,9 +211,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetViewRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::LogView>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::LogView>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -248,9 +220,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateViewRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::LogView>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::LogView>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -259,9 +229,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateViewRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::LogView>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::LogView>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -279,9 +247,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListSinksRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListSinksResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListSinksResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -290,9 +256,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetSinkRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::LogSink>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::LogSink>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -301,9 +265,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateSinkRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::LogSink>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::LogSink>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -312,9 +274,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateSinkRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::LogSink>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::LogSink>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -332,9 +292,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateLinkRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -343,9 +301,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteLinkRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -354,9 +310,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListLinksRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListLinksResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListLinksResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -365,9 +319,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetLinkRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Link>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Link>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -376,9 +328,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListExclusionsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListExclusionsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListExclusionsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -387,9 +337,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetExclusionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::LogExclusion>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::LogExclusion>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -398,9 +346,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateExclusionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::LogExclusion>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::LogExclusion>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -409,9 +355,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateExclusionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::LogExclusion>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::LogExclusion>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -429,9 +373,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetCmekSettingsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::CmekSettings>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::CmekSettings>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -440,9 +382,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateCmekSettingsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::CmekSettings>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::CmekSettings>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -451,9 +391,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetSettingsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Settings>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Settings>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -462,9 +400,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateSettingsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Settings>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Settings>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -473,9 +409,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CopyLogEntriesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -484,9 +418,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -495,9 +427,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::GetOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -545,14 +475,13 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait MetricsServiceV2: std::fmt::Debug + Send + Sync {
+
     /// Implements [super::client::MetricsServiceV2::list_log_metrics].
     fn list_log_metrics(
         &self,
         _req: crate::model::ListLogMetricsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListLogMetricsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListLogMetricsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -561,9 +490,7 @@ pub trait MetricsServiceV2: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetLogMetricRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::LogMetric>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::LogMetric>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -572,9 +499,7 @@ pub trait MetricsServiceV2: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateLogMetricRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::LogMetric>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::LogMetric>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -583,9 +508,7 @@ pub trait MetricsServiceV2: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateLogMetricRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::LogMetric>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::LogMetric>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -603,9 +526,7 @@ pub trait MetricsServiceV2: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -614,9 +535,7 @@ pub trait MetricsServiceV2: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::GetOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -629,3 +548,4 @@ pub trait MetricsServiceV2: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 }
+

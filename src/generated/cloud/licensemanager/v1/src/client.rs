@@ -80,51 +80,56 @@ impl LicenseManager {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::LicenseManager + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::LicenseManager + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::LicenseManager>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::LicenseManager>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::LicenseManager> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::LicenseManager> {
         super::transport::LicenseManager::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::LicenseManager> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::LicenseManager::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::LicenseManager> {
+        Self::build_transport(conf).await.map(super::tracing::LicenseManager::new)
     }
 
     /// Lists Configurations in a given project and location.
-    pub fn list_configurations(&self) -> super::builder::license_manager::ListConfigurations {
+    pub fn list_configurations(&self) -> super::builder::license_manager::ListConfigurations
+    {
         super::builder::license_manager::ListConfigurations::new(self.inner.clone())
     }
 
     /// Gets details of a single Configuration.
-    pub fn get_configuration(&self) -> super::builder::license_manager::GetConfiguration {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_licensemanager_v1::client::LicenseManager;
+    /// async fn sample(
+    ///    client: &LicenseManager,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_configuration()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_configuration(&self) -> super::builder::license_manager::GetConfiguration
+    {
         super::builder::license_manager::GetConfiguration::new(self.inner.clone())
     }
 
@@ -139,7 +144,8 @@ impl LicenseManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_configuration(&self) -> super::builder::license_manager::CreateConfiguration {
+    pub fn create_configuration(&self) -> super::builder::license_manager::CreateConfiguration
+    {
         super::builder::license_manager::CreateConfiguration::new(self.inner.clone())
     }
 
@@ -154,7 +160,8 @@ impl LicenseManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_configuration(&self) -> super::builder::license_manager::UpdateConfiguration {
+    pub fn update_configuration(&self) -> super::builder::license_manager::UpdateConfiguration
+    {
         super::builder::license_manager::UpdateConfiguration::new(self.inner.clone())
     }
 
@@ -169,17 +176,37 @@ impl LicenseManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_configuration(&self) -> super::builder::license_manager::DeleteConfiguration {
+    pub fn delete_configuration(&self) -> super::builder::license_manager::DeleteConfiguration
+    {
         super::builder::license_manager::DeleteConfiguration::new(self.inner.clone())
     }
 
     /// Lists Instances in a given project and location.
-    pub fn list_instances(&self) -> super::builder::license_manager::ListInstances {
+    pub fn list_instances(&self) -> super::builder::license_manager::ListInstances
+    {
         super::builder::license_manager::ListInstances::new(self.inner.clone())
     }
 
     /// Gets details of a single Instance.
-    pub fn get_instance(&self) -> super::builder::license_manager::GetInstance {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_licensemanager_v1::client::LicenseManager;
+    /// async fn sample(
+    ///    client: &LicenseManager,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_instance()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_instance(&self) -> super::builder::license_manager::GetInstance
+    {
         super::builder::license_manager::GetInstance::new(self.inner.clone())
     }
 
@@ -194,9 +221,8 @@ impl LicenseManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn deactivate_configuration(
-        &self,
-    ) -> super::builder::license_manager::DeactivateConfiguration {
+    pub fn deactivate_configuration(&self) -> super::builder::license_manager::DeactivateConfiguration
+    {
         super::builder::license_manager::DeactivateConfiguration::new(self.inner.clone())
     }
 
@@ -211,69 +237,171 @@ impl LicenseManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn reactivate_configuration(
-        &self,
-    ) -> super::builder::license_manager::ReactivateConfiguration {
+    pub fn reactivate_configuration(&self) -> super::builder::license_manager::ReactivateConfiguration
+    {
         super::builder::license_manager::ReactivateConfiguration::new(self.inner.clone())
     }
 
     /// License Usage information for a Configuration.
-    pub fn query_configuration_license_usage(
-        &self,
-    ) -> super::builder::license_manager::QueryConfigurationLicenseUsage {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_licensemanager_v1::client::LicenseManager;
+    /// async fn sample(
+    ///    client: &LicenseManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .query_configuration_license_usage()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn query_configuration_license_usage(&self) -> super::builder::license_manager::QueryConfigurationLicenseUsage
+    {
         super::builder::license_manager::QueryConfigurationLicenseUsage::new(self.inner.clone())
     }
 
     /// Aggregates Usage per Instance for a Configuration.
-    pub fn aggregate_usage(&self) -> super::builder::license_manager::AggregateUsage {
+    pub fn aggregate_usage(&self) -> super::builder::license_manager::AggregateUsage
+    {
         super::builder::license_manager::AggregateUsage::new(self.inner.clone())
     }
 
     /// Lists Products in a given project and location.
-    pub fn list_products(&self) -> super::builder::license_manager::ListProducts {
+    pub fn list_products(&self) -> super::builder::license_manager::ListProducts
+    {
         super::builder::license_manager::ListProducts::new(self.inner.clone())
     }
 
     /// Gets details of a single Product.
-    pub fn get_product(&self) -> super::builder::license_manager::GetProduct {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_licensemanager_v1::client::LicenseManager;
+    /// async fn sample(
+    ///    client: &LicenseManager,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_product()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_product(&self) -> super::builder::license_manager::GetProduct
+    {
         super::builder::license_manager::GetProduct::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::license_manager::ListLocations {
+    pub fn list_locations(&self) -> super::builder::license_manager::ListLocations
+    {
         super::builder::license_manager::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(&self) -> super::builder::license_manager::GetLocation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_licensemanager_v1::client::LicenseManager;
+    /// async fn sample(
+    ///    client: &LicenseManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_location(&self) -> super::builder::license_manager::GetLocation
+    {
         super::builder::license_manager::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::license_manager::ListOperations {
+    pub fn list_operations(&self) -> super::builder::license_manager::ListOperations
+    {
         super::builder::license_manager::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::license_manager::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_licensemanager_v1::client::LicenseManager;
+    /// async fn sample(
+    ///    client: &LicenseManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::license_manager::GetOperation
+    {
         super::builder::license_manager::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(&self) -> super::builder::license_manager::DeleteOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_licensemanager_v1::client::LicenseManager;
+    /// async fn sample(
+    ///    client: &LicenseManager
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_operation(&self) -> super::builder::license_manager::DeleteOperation
+    {
         super::builder::license_manager::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(&self) -> super::builder::license_manager::CancelOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_licensemanager_v1::client::LicenseManager;
+    /// async fn sample(
+    ///    client: &LicenseManager
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_operation(&self) -> super::builder::license_manager::CancelOperation
+    {
         super::builder::license_manager::CancelOperation::new(self.inner.clone())
     }
 }

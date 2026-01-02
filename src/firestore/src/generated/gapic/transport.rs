@@ -63,21 +63,21 @@ impl super::stub::Firestore for Firestore {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Document>> {
         use gaxi::prost::ToProto;
-        let options = gax::options::internal::set_default_idempotency(options, true);
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            true,
+        );
         let extensions = {
             let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
-                "google.firestore.v1.Firestore",
-                "GetDocument",
-            ));
+            e.insert(tonic::GrpcMethod::new("google.firestore.v1.Firestore", "GetDocument"));
             e
         };
-        let path =
-            http::uri::PathAndQuery::from_static("/google.firestore.v1.Firestore/GetDocument");
-        let x_goog_request_params = [Some(&req)
-            .map(|m| &m.name)
-            .map(|s| s.as_str())
-            .map(|v| format!("name={v}"))]
+        let path = http::uri::PathAndQuery::from_static(
+            "/google.firestore.v1.Firestore/GetDocument"
+        );
+        let x_goog_request_params = [
+                Some(&req).map(|m| &m.name).map(|s| s.as_str()).map(|v| format!("name={v}")),
+        ]
         .into_iter()
         .flatten()
         .fold(String::new(), |b, p| b + "&" + &p);
@@ -102,26 +102,21 @@ impl super::stub::Firestore for Firestore {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListDocumentsResponse>> {
         use gaxi::prost::ToProto;
-        let options = gax::options::internal::set_default_idempotency(options, true);
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            true,
+        );
         let extensions = {
             let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
-                "google.firestore.v1.Firestore",
-                "ListDocuments",
-            ));
+            e.insert(tonic::GrpcMethod::new("google.firestore.v1.Firestore", "ListDocuments"));
             e
         };
-        let path =
-            http::uri::PathAndQuery::from_static("/google.firestore.v1.Firestore/ListDocuments");
+        let path = http::uri::PathAndQuery::from_static(
+            "/google.firestore.v1.Firestore/ListDocuments"
+        );
         let x_goog_request_params = [
-            Some(&req)
-                .map(|m| &m.parent)
-                .map(|s| s.as_str())
-                .map(|v| format!("parent={v}")),
-            Some(&req)
-                .map(|m| &m.collection_id)
-                .map(|s| s.as_str())
-                .map(|v| format!("collection_id={v}")),
+                Some(&req).map(|m| &m.parent).map(|s| s.as_str()).map(|v| format!("parent={v}")),
+                Some(&req).map(|m| &m.collection_id).map(|s| s.as_str()).map(|v| format!("collection_id={v}")),
         ]
         .into_iter()
         .flatten()
@@ -147,22 +142,21 @@ impl super::stub::Firestore for Firestore {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Document>> {
         use gaxi::prost::ToProto;
-        let options = gax::options::internal::set_default_idempotency(options, false);
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            false,
+        );
         let extensions = {
             let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
-                "google.firestore.v1.Firestore",
-                "UpdateDocument",
-            ));
+            e.insert(tonic::GrpcMethod::new("google.firestore.v1.Firestore", "UpdateDocument"));
             e
         };
-        let path =
-            http::uri::PathAndQuery::from_static("/google.firestore.v1.Firestore/UpdateDocument");
-        let x_goog_request_params = [Some(&req)
-            .and_then(|m| m.document.as_ref())
-            .map(|m| &m.name)
-            .map(|s| s.as_str())
-            .map(|v| format!("document.name={v}"))]
+        let path = http::uri::PathAndQuery::from_static(
+            "/google.firestore.v1.Firestore/UpdateDocument"
+        );
+        let x_goog_request_params = [
+                Some(&req).and_then(|m| m.document.as_ref()).map(|m| &m.name).map(|s| s.as_str()).map(|v| format!("document.name={v}")),
+        ]
         .into_iter()
         .flatten()
         .fold(String::new(), |b, p| b + "&" + &p);
@@ -187,21 +181,21 @@ impl super::stub::Firestore for Firestore {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gaxi::prost::ToProto;
-        let options = gax::options::internal::set_default_idempotency(options, true);
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            true,
+        );
         let extensions = {
             let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
-                "google.firestore.v1.Firestore",
-                "DeleteDocument",
-            ));
+            e.insert(tonic::GrpcMethod::new("google.firestore.v1.Firestore", "DeleteDocument"));
             e
         };
-        let path =
-            http::uri::PathAndQuery::from_static("/google.firestore.v1.Firestore/DeleteDocument");
-        let x_goog_request_params = [Some(&req)
-            .map(|m| &m.name)
-            .map(|s| s.as_str())
-            .map(|v| format!("name={v}"))]
+        let path = http::uri::PathAndQuery::from_static(
+            "/google.firestore.v1.Firestore/DeleteDocument"
+        );
+        let x_goog_request_params = [
+                Some(&req).map(|m| &m.name).map(|s| s.as_str()).map(|v| format!("name={v}")),
+        ]
         .into_iter()
         .flatten()
         .fold(String::new(), |b, p| b + "&" + &p);
@@ -226,21 +220,21 @@ impl super::stub::Firestore for Firestore {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::BeginTransactionResponse>> {
         use gaxi::prost::ToProto;
-        let options = gax::options::internal::set_default_idempotency(options, false);
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            false,
+        );
         let extensions = {
             let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
-                "google.firestore.v1.Firestore",
-                "BeginTransaction",
-            ));
+            e.insert(tonic::GrpcMethod::new("google.firestore.v1.Firestore", "BeginTransaction"));
             e
         };
-        let path =
-            http::uri::PathAndQuery::from_static("/google.firestore.v1.Firestore/BeginTransaction");
-        let x_goog_request_params = [Some(&req)
-            .map(|m| &m.database)
-            .map(|s| s.as_str())
-            .map(|v| format!("database={v}"))]
+        let path = http::uri::PathAndQuery::from_static(
+            "/google.firestore.v1.Firestore/BeginTransaction"
+        );
+        let x_goog_request_params = [
+                Some(&req).map(|m| &m.database).map(|s| s.as_str()).map(|v| format!("database={v}")),
+        ]
         .into_iter()
         .flatten()
         .fold(String::new(), |b, p| b + "&" + &p);
@@ -265,20 +259,21 @@ impl super::stub::Firestore for Firestore {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::CommitResponse>> {
         use gaxi::prost::ToProto;
-        let options = gax::options::internal::set_default_idempotency(options, false);
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            false,
+        );
         let extensions = {
             let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
-                "google.firestore.v1.Firestore",
-                "Commit",
-            ));
+            e.insert(tonic::GrpcMethod::new("google.firestore.v1.Firestore", "Commit"));
             e
         };
-        let path = http::uri::PathAndQuery::from_static("/google.firestore.v1.Firestore/Commit");
-        let x_goog_request_params = [Some(&req)
-            .map(|m| &m.database)
-            .map(|s| s.as_str())
-            .map(|v| format!("database={v}"))]
+        let path = http::uri::PathAndQuery::from_static(
+            "/google.firestore.v1.Firestore/Commit"
+        );
+        let x_goog_request_params = [
+                Some(&req).map(|m| &m.database).map(|s| s.as_str()).map(|v| format!("database={v}")),
+        ]
         .into_iter()
         .flatten()
         .fold(String::new(), |b, p| b + "&" + &p);
@@ -303,20 +298,21 @@ impl super::stub::Firestore for Firestore {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gaxi::prost::ToProto;
-        let options = gax::options::internal::set_default_idempotency(options, false);
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            false,
+        );
         let extensions = {
             let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
-                "google.firestore.v1.Firestore",
-                "Rollback",
-            ));
+            e.insert(tonic::GrpcMethod::new("google.firestore.v1.Firestore", "Rollback"));
             e
         };
-        let path = http::uri::PathAndQuery::from_static("/google.firestore.v1.Firestore/Rollback");
-        let x_goog_request_params = [Some(&req)
-            .map(|m| &m.database)
-            .map(|s| s.as_str())
-            .map(|v| format!("database={v}"))]
+        let path = http::uri::PathAndQuery::from_static(
+            "/google.firestore.v1.Firestore/Rollback"
+        );
+        let x_goog_request_params = [
+                Some(&req).map(|m| &m.database).map(|s| s.as_str()).map(|v| format!("database={v}")),
+        ]
         .into_iter()
         .flatten()
         .fold(String::new(), |b, p| b + "&" + &p);
@@ -341,21 +337,21 @@ impl super::stub::Firestore for Firestore {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::PartitionQueryResponse>> {
         use gaxi::prost::ToProto;
-        let options = gax::options::internal::set_default_idempotency(options, false);
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            false,
+        );
         let extensions = {
             let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
-                "google.firestore.v1.Firestore",
-                "PartitionQuery",
-            ));
+            e.insert(tonic::GrpcMethod::new("google.firestore.v1.Firestore", "PartitionQuery"));
             e
         };
-        let path =
-            http::uri::PathAndQuery::from_static("/google.firestore.v1.Firestore/PartitionQuery");
-        let x_goog_request_params = [Some(&req)
-            .map(|m| &m.parent)
-            .map(|s| s.as_str())
-            .map(|v| format!("parent={v}"))]
+        let path = http::uri::PathAndQuery::from_static(
+            "/google.firestore.v1.Firestore/PartitionQuery"
+        );
+        let x_goog_request_params = [
+                Some(&req).map(|m| &m.parent).map(|s| s.as_str()).map(|v| format!("parent={v}")),
+        ]
         .into_iter()
         .flatten()
         .fold(String::new(), |b, p| b + "&" + &p);
@@ -380,22 +376,21 @@ impl super::stub::Firestore for Firestore {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListCollectionIdsResponse>> {
         use gaxi::prost::ToProto;
-        let options = gax::options::internal::set_default_idempotency(options, false);
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            false,
+        );
         let extensions = {
             let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
-                "google.firestore.v1.Firestore",
-                "ListCollectionIds",
-            ));
+            e.insert(tonic::GrpcMethod::new("google.firestore.v1.Firestore", "ListCollectionIds"));
             e
         };
         let path = http::uri::PathAndQuery::from_static(
-            "/google.firestore.v1.Firestore/ListCollectionIds",
+            "/google.firestore.v1.Firestore/ListCollectionIds"
         );
-        let x_goog_request_params = [Some(&req)
-            .map(|m| &m.parent)
-            .map(|s| s.as_str())
-            .map(|v| format!("parent={v}"))]
+        let x_goog_request_params = [
+                Some(&req).map(|m| &m.parent).map(|s| s.as_str()).map(|v| format!("parent={v}")),
+        ]
         .into_iter()
         .flatten()
         .fold(String::new(), |b, p| b + "&" + &p);
@@ -420,21 +415,21 @@ impl super::stub::Firestore for Firestore {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::BatchWriteResponse>> {
         use gaxi::prost::ToProto;
-        let options = gax::options::internal::set_default_idempotency(options, false);
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            false,
+        );
         let extensions = {
             let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
-                "google.firestore.v1.Firestore",
-                "BatchWrite",
-            ));
+            e.insert(tonic::GrpcMethod::new("google.firestore.v1.Firestore", "BatchWrite"));
             e
         };
-        let path =
-            http::uri::PathAndQuery::from_static("/google.firestore.v1.Firestore/BatchWrite");
-        let x_goog_request_params = [Some(&req)
-            .map(|m| &m.database)
-            .map(|s| s.as_str())
-            .map(|v| format!("database={v}"))]
+        let path = http::uri::PathAndQuery::from_static(
+            "/google.firestore.v1.Firestore/BatchWrite"
+        );
+        let x_goog_request_params = [
+                Some(&req).map(|m| &m.database).map(|s| s.as_str()).map(|v| format!("database={v}")),
+        ]
         .into_iter()
         .flatten()
         .fold(String::new(), |b, p| b + "&" + &p);
@@ -459,26 +454,21 @@ impl super::stub::Firestore for Firestore {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Document>> {
         use gaxi::prost::ToProto;
-        let options = gax::options::internal::set_default_idempotency(options, false);
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            false,
+        );
         let extensions = {
             let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
-                "google.firestore.v1.Firestore",
-                "CreateDocument",
-            ));
+            e.insert(tonic::GrpcMethod::new("google.firestore.v1.Firestore", "CreateDocument"));
             e
         };
-        let path =
-            http::uri::PathAndQuery::from_static("/google.firestore.v1.Firestore/CreateDocument");
+        let path = http::uri::PathAndQuery::from_static(
+            "/google.firestore.v1.Firestore/CreateDocument"
+        );
         let x_goog_request_params = [
-            Some(&req)
-                .map(|m| &m.parent)
-                .map(|s| s.as_str())
-                .map(|v| format!("parent={v}")),
-            Some(&req)
-                .map(|m| &m.collection_id)
-                .map(|s| s.as_str())
-                .map(|v| format!("collection_id={v}")),
+                Some(&req).map(|m| &m.parent).map(|s| s.as_str()).map(|v| format!("parent={v}")),
+                Some(&req).map(|m| &m.collection_id).map(|s| s.as_str()).map(|v| format!("collection_id={v}")),
         ]
         .into_iter()
         .flatten()
@@ -497,4 +487,6 @@ impl super::stub::Firestore for Firestore {
             .await
             .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::Document>)
     }
+
 }
+

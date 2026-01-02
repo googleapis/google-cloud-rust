@@ -39,10 +39,7 @@ pub mod access_approval {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = AccessApproval;
             type Credentials = gaxi::options::Credentials;
-            async fn build(
-                self,
-                config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -57,12 +54,8 @@ pub mod access_approval {
     }
 
     impl<R> RequestBuilder<R>
-    where
-        R: std::default::Default,
-    {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessApproval>,
-        ) -> Self {
+    where R: std::default::Default {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessApproval>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -96,17 +89,14 @@ pub mod access_approval {
     pub struct ListApprovalRequests(RequestBuilder<crate::model::ListApprovalRequestsMessage>);
 
     impl ListApprovalRequests {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessApproval>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessApproval>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListApprovalRequestsMessage>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListApprovalRequestsMessage>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -119,17 +109,11 @@ pub mod access_approval {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListApprovalRequestsResponse> {
-            (*self.0.stub)
-                .list_approval_requests(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_approval_requests(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListApprovalRequestsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListApprovalRequestsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -141,12 +125,7 @@ pub mod access_approval {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListApprovalRequestsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListApprovalRequestsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -204,17 +183,14 @@ pub mod access_approval {
     pub struct GetApprovalRequest(RequestBuilder<crate::model::GetApprovalRequestMessage>);
 
     impl GetApprovalRequest {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessApproval>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessApproval>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetApprovalRequestMessage>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetApprovalRequestMessage>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -227,10 +203,7 @@ pub mod access_approval {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ApprovalRequest> {
-            (*self.0.stub)
-                .get_approval_request(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_approval_request(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetApprovalRequestMessage::name].
@@ -268,17 +241,14 @@ pub mod access_approval {
     pub struct ApproveApprovalRequest(RequestBuilder<crate::model::ApproveApprovalRequestMessage>);
 
     impl ApproveApprovalRequest {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessApproval>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessApproval>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ApproveApprovalRequestMessage>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ApproveApprovalRequestMessage>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -291,10 +261,7 @@ pub mod access_approval {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ApprovalRequest> {
-            (*self.0.stub)
-                .approve_approval_request(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).approve_approval_request(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ApproveApprovalRequestMessage::name].
@@ -305,8 +272,7 @@ pub mod access_approval {
 
         /// Sets the value of [expire_time][crate::model::ApproveApprovalRequestMessage::expire_time].
         pub fn set_expire_time<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.0.request.expire_time = std::option::Option::Some(v.into());
             self
@@ -314,8 +280,7 @@ pub mod access_approval {
 
         /// Sets or clears the value of [expire_time][crate::model::ApproveApprovalRequestMessage::expire_time].
         pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.0.request.expire_time = v.map(|x| x.into());
             self
@@ -350,17 +315,14 @@ pub mod access_approval {
     pub struct DismissApprovalRequest(RequestBuilder<crate::model::DismissApprovalRequestMessage>);
 
     impl DismissApprovalRequest {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessApproval>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessApproval>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DismissApprovalRequestMessage>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DismissApprovalRequestMessage>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -373,10 +335,7 @@ pub mod access_approval {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ApprovalRequest> {
-            (*self.0.stub)
-                .dismiss_approval_request(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).dismiss_approval_request(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DismissApprovalRequestMessage::name].
@@ -411,22 +370,17 @@ pub mod access_approval {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct InvalidateApprovalRequest(
-        RequestBuilder<crate::model::InvalidateApprovalRequestMessage>,
-    );
+    pub struct InvalidateApprovalRequest(RequestBuilder<crate::model::InvalidateApprovalRequestMessage>);
 
     impl InvalidateApprovalRequest {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessApproval>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessApproval>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::InvalidateApprovalRequestMessage>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::InvalidateApprovalRequestMessage>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -439,10 +393,7 @@ pub mod access_approval {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ApprovalRequest> {
-            (*self.0.stub)
-                .invalidate_approval_request(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).invalidate_approval_request(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::InvalidateApprovalRequestMessage::name].
@@ -477,22 +428,17 @@ pub mod access_approval {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetAccessApprovalSettings(
-        RequestBuilder<crate::model::GetAccessApprovalSettingsMessage>,
-    );
+    pub struct GetAccessApprovalSettings(RequestBuilder<crate::model::GetAccessApprovalSettingsMessage>);
 
     impl GetAccessApprovalSettings {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessApproval>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessApproval>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetAccessApprovalSettingsMessage>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetAccessApprovalSettingsMessage>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -505,10 +451,7 @@ pub mod access_approval {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::AccessApprovalSettings> {
-            (*self.0.stub)
-                .get_access_approval_settings(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_access_approval_settings(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAccessApprovalSettingsMessage::name].
@@ -543,22 +486,17 @@ pub mod access_approval {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateAccessApprovalSettings(
-        RequestBuilder<crate::model::UpdateAccessApprovalSettingsMessage>,
-    );
+    pub struct UpdateAccessApprovalSettings(RequestBuilder<crate::model::UpdateAccessApprovalSettingsMessage>);
 
     impl UpdateAccessApprovalSettings {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessApproval>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessApproval>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateAccessApprovalSettingsMessage>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateAccessApprovalSettingsMessage>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -571,16 +509,12 @@ pub mod access_approval {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::AccessApprovalSettings> {
-            (*self.0.stub)
-                .update_access_approval_settings(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_access_approval_settings(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [settings][crate::model::UpdateAccessApprovalSettingsMessage::settings].
         pub fn set_settings<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::AccessApprovalSettings>,
+        where T: std::convert::Into<crate::model::AccessApprovalSettings>
         {
             self.0.request.settings = std::option::Option::Some(v.into());
             self
@@ -588,8 +522,7 @@ pub mod access_approval {
 
         /// Sets or clears the value of [settings][crate::model::UpdateAccessApprovalSettingsMessage::settings].
         pub fn set_or_clear_settings<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::AccessApprovalSettings>,
+        where T: std::convert::Into<crate::model::AccessApprovalSettings>
         {
             self.0.request.settings = v.map(|x| x.into());
             self
@@ -597,8 +530,7 @@ pub mod access_approval {
 
         /// Sets the value of [update_mask][crate::model::UpdateAccessApprovalSettingsMessage::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -606,8 +538,7 @@ pub mod access_approval {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateAccessApprovalSettingsMessage::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -639,22 +570,17 @@ pub mod access_approval {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteAccessApprovalSettings(
-        RequestBuilder<crate::model::DeleteAccessApprovalSettingsMessage>,
-    );
+    pub struct DeleteAccessApprovalSettings(RequestBuilder<crate::model::DeleteAccessApprovalSettingsMessage>);
 
     impl DeleteAccessApprovalSettings {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessApproval>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessApproval>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteAccessApprovalSettingsMessage>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteAccessApprovalSettingsMessage>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -667,10 +593,7 @@ pub mod access_approval {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .delete_access_approval_settings(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_access_approval_settings(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteAccessApprovalSettingsMessage::name].
@@ -705,22 +628,17 @@ pub mod access_approval {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetAccessApprovalServiceAccount(
-        RequestBuilder<crate::model::GetAccessApprovalServiceAccountMessage>,
-    );
+    pub struct GetAccessApprovalServiceAccount(RequestBuilder<crate::model::GetAccessApprovalServiceAccountMessage>);
 
     impl GetAccessApprovalServiceAccount {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessApproval>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessApproval>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetAccessApprovalServiceAccountMessage>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetAccessApprovalServiceAccountMessage>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -733,10 +651,7 @@ pub mod access_approval {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::AccessApprovalServiceAccount> {
-            (*self.0.stub)
-                .get_access_approval_service_account(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_access_approval_service_account(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAccessApprovalServiceAccountMessage::name].
@@ -752,4 +667,5 @@ pub mod access_approval {
             &mut self.0.options
         }
     }
+
 }

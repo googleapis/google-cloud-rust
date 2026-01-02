@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [AnalyticsHubService](super::stub::AnalyticsHubService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct AnalyticsHubService<T>
-where
-    T: super::stub::AnalyticsHubService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::AnalyticsHubService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> AnalyticsHubService<T>
-where
-    T: super::stub::AnalyticsHubService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::AnalyticsHubService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::AnalyticsHubService for AnalyticsHubService<T>
-where
-    T: super::stub::AnalyticsHubService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::AnalyticsHubService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn list_data_exchanges(
         &self,
@@ -186,11 +180,8 @@ where
         &self,
         req: crate::model::ListSharedResourceSubscriptionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListSharedResourceSubscriptionsResponse>>
-    {
-        self.inner
-            .list_shared_resource_subscriptions(req, options)
-            .await
+    ) -> Result<gax::response::Response<crate::model::ListSharedResourceSubscriptionsResponse>> {
+        self.inner.list_shared_resource_subscriptions(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -310,6 +301,7 @@ where
         self.inner.get_operation(req, options).await
     }
 
+
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -324,3 +316,4 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 }
+

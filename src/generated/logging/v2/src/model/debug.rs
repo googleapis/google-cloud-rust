@@ -42,6 +42,7 @@ impl std::fmt::Debug for super::LogEntry {
     }
 }
 
+
 impl std::fmt::Debug for super::LogEntryOperation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("LogEntryOperation");
@@ -345,10 +346,7 @@ impl std::fmt::Debug for super::BigQueryOptions {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BigQueryOptions");
         debug_struct.field("use_partitioned_tables", &self.use_partitioned_tables);
-        debug_struct.field(
-            "uses_timestamp_column_partitioning",
-            &self.uses_timestamp_column_partitioning,
-        );
+        debug_struct.field("uses_timestamp_column_partitioning", &self.uses_timestamp_column_partitioning);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -913,6 +911,7 @@ impl std::fmt::Debug for super::LogMetric {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::ListLogMetricsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

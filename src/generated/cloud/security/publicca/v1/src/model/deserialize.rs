@@ -72,9 +72,9 @@ impl<'de> serde::de::Deserialize<'de> for super::ExternalAccountKey {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
-                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -82,47 +82,35 @@ impl<'de> serde::de::Deserialize<'de> for super::ExternalAccountKey {
                     match tag {
                         __FieldTag::__name => {
                             if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for name"));
                             }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.name = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::__key_id => {
                             if !fields.insert(__FieldTag::__key_id) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for key_id",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for key_id"));
                             }
-                            result.key_id = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.key_id = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::__b64_mac_key => {
                             if !fields.insert(__FieldTag::__b64_mac_key) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for b64_mac_key",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for b64_mac_key"));
                             }
-                            struct __With(std::option::Option<::bytes::Bytes>);
+                            struct __With( std::option::Option<::bytes::Bytes> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(
-                                    deserializer: D,
-                                ) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.b64_mac_key = map.next_value::<__With>()?.0.unwrap_or_default();
-                        }
+                            result.b64_mac_key = map.next_value::< __With >()?.0.unwrap_or_default();
+                        },
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        }
+                        },
                     }
                 }
                 std::result::Result::Ok(result)
@@ -184,9 +172,9 @@ impl<'de> serde::de::Deserialize<'de> for super::CreateExternalAccountKeyRequest
             where
                 A: serde::de::MapAccess<'de>,
             {
+                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
-                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -194,27 +182,21 @@ impl<'de> serde::de::Deserialize<'de> for super::CreateExternalAccountKeyRequest
                     match tag {
                         __FieldTag::__parent => {
                             if !fields.insert(__FieldTag::__parent) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for parent",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for parent"));
                             }
-                            result.parent = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
+                            result.parent = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
                         __FieldTag::__external_account_key => {
                             if !fields.insert(__FieldTag::__external_account_key) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for external_account_key",
-                                ));
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for external_account_key"));
                             }
                             result.external_account_key = map.next_value::<std::option::Option<crate::model::ExternalAccountKey>>()?
                                 ;
-                        }
+                        },
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        }
+                        },
                     }
                 }
                 std::result::Result::Ok(result)

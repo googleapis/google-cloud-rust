@@ -141,9 +141,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::GenerateAutonomousDatabaseWalletRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::GenerateAutonomousDatabaseWalletResponse>,
-    >;
+    ) -> crate::Result<gax::response::Response<crate::model::GenerateAutonomousDatabaseWalletResponse>>;
 
     async fn list_autonomous_db_versions(
         &self,
@@ -155,9 +153,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ListAutonomousDatabaseCharacterSetsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::ListAutonomousDatabaseCharacterSetsResponse>,
-    >;
+    ) -> crate::Result<gax::response::Response<crate::model::ListAutonomousDatabaseCharacterSetsResponse>>;
 
     async fn list_autonomous_database_backups(
         &self,
@@ -424,8 +420,7 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
         &self,
         req: crate::model::ListCloudExadataInfrastructuresRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListCloudExadataInfrastructuresResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::ListCloudExadataInfrastructuresResponse>> {
         T::list_cloud_exadata_infrastructures(self, req, options).await
     }
 
@@ -605,9 +600,7 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
         &self,
         req: crate::model::GenerateAutonomousDatabaseWalletRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::GenerateAutonomousDatabaseWalletResponse>,
-    > {
+    ) -> crate::Result<gax::response::Response<crate::model::GenerateAutonomousDatabaseWalletResponse>> {
         T::generate_autonomous_database_wallet(self, req, options).await
     }
 
@@ -616,8 +609,7 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
         &self,
         req: crate::model::ListAutonomousDbVersionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListAutonomousDbVersionsResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::ListAutonomousDbVersionsResponse>> {
         T::list_autonomous_db_versions(self, req, options).await
     }
 
@@ -626,9 +618,7 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
         &self,
         req: crate::model::ListAutonomousDatabaseCharacterSetsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::ListAutonomousDatabaseCharacterSetsResponse>,
-    > {
+    ) -> crate::Result<gax::response::Response<crate::model::ListAutonomousDatabaseCharacterSetsResponse>> {
         T::list_autonomous_database_character_sets(self, req, options).await
     }
 
@@ -637,8 +627,7 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
         &self,
         req: crate::model::ListAutonomousDatabaseBackupsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListAutonomousDatabaseBackupsResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::ListAutonomousDatabaseBackupsResponse>> {
         T::list_autonomous_database_backups(self, req, options).await
     }
 
@@ -818,8 +807,7 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
         &self,
         req: crate::model::ListExascaleDbStorageVaultsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListExascaleDbStorageVaultsResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::ListExascaleDbStorageVaultsResponse>> {
         T::list_exascale_db_storage_vaults(self, req, options).await
     }
 
@@ -855,8 +843,7 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
         &self,
         req: crate::model::ListDbSystemInitialStorageSizesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListDbSystemInitialStorageSizesResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::ListDbSystemInitialStorageSizesResponse>> {
         T::list_db_system_initial_storage_sizes(self, req, options).await
     }
 
@@ -946,8 +933,7 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
         &self,
         req: crate::model::ListDatabaseCharacterSetsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListDatabaseCharacterSetsResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::ListDatabaseCharacterSetsResponse>> {
         T::list_database_character_sets(self, req, options).await
     }
 

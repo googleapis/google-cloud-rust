@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -30,7 +31,6 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -42,6 +42,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Instance {
+
     /// Optional. A unique identifier for an instance. The name should be of the
     /// format:
     /// `projects/{project_number}/locations/{location_id}/instances/{instance_id}`
@@ -63,7 +64,7 @@ pub struct Instance {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Optional. Labels as key value pairs.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. Private settings for private instance.
     pub private_config: std::option::Option<crate::model::instance::PrivateConfig>,
@@ -84,8 +85,7 @@ pub struct Instance {
 
     /// Optional. Configuration for Workforce Identity Federation to support
     /// third party identity provider. If unset, defaults to the Google OIDC IdP.
-    pub workforce_identity_federation_config:
-        std::option::Option<crate::model::instance::WorkforceIdentityFederationConfig>,
+    pub workforce_identity_federation_config: std::option::Option<crate::model::instance::WorkforceIdentityFederationConfig>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -116,8 +116,7 @@ impl Instance {
     /// let x = Instance::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -133,8 +132,7 @@ impl Instance {
     /// let x = Instance::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -149,8 +147,7 @@ impl Instance {
     /// let x = Instance::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -166,8 +163,7 @@ impl Instance {
     /// let x = Instance::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -203,8 +199,7 @@ impl Instance {
     /// let x = Instance::new().set_private_config(PrivateConfig::default()/* use setters */);
     /// ```
     pub fn set_private_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::instance::PrivateConfig>,
+    where T: std::convert::Into<crate::model::instance::PrivateConfig>
     {
         self.private_config = std::option::Option::Some(v.into());
         self
@@ -220,8 +215,7 @@ impl Instance {
     /// let x = Instance::new().set_or_clear_private_config(None::<PrivateConfig>);
     /// ```
     pub fn set_or_clear_private_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::instance::PrivateConfig>,
+    where T: std::convert::Into<crate::model::instance::PrivateConfig>
     {
         self.private_config = v.map(|x| x.into());
         self
@@ -250,10 +244,7 @@ impl Instance {
     /// use google_cloud_securesourcemanager_v1::model::instance::StateNote;
     /// let x0 = Instance::new().set_state_note(StateNote::PausedCmekUnavailable);
     /// ```
-    pub fn set_state_note<T: std::convert::Into<crate::model::instance::StateNote>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state_note<T: std::convert::Into<crate::model::instance::StateNote>>(mut self, v: T) -> Self {
         self.state_note = v.into();
         self
     }
@@ -279,8 +270,7 @@ impl Instance {
     /// let x = Instance::new().set_host_config(HostConfig::default()/* use setters */);
     /// ```
     pub fn set_host_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::instance::HostConfig>,
+    where T: std::convert::Into<crate::model::instance::HostConfig>
     {
         self.host_config = std::option::Option::Some(v.into());
         self
@@ -296,8 +286,7 @@ impl Instance {
     /// let x = Instance::new().set_or_clear_host_config(None::<HostConfig>);
     /// ```
     pub fn set_or_clear_host_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::instance::HostConfig>,
+    where T: std::convert::Into<crate::model::instance::HostConfig>
     {
         self.host_config = v.map(|x| x.into());
         self
@@ -312,8 +301,7 @@ impl Instance {
     /// let x = Instance::new().set_workforce_identity_federation_config(WorkforceIdentityFederationConfig::default()/* use setters */);
     /// ```
     pub fn set_workforce_identity_federation_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::instance::WorkforceIdentityFederationConfig>,
+    where T: std::convert::Into<crate::model::instance::WorkforceIdentityFederationConfig>
     {
         self.workforce_identity_federation_config = std::option::Option::Some(v.into());
         self
@@ -328,12 +316,8 @@ impl Instance {
     /// let x = Instance::new().set_or_clear_workforce_identity_federation_config(Some(WorkforceIdentityFederationConfig::default()/* use setters */));
     /// let x = Instance::new().set_or_clear_workforce_identity_federation_config(None::<WorkforceIdentityFederationConfig>);
     /// ```
-    pub fn set_or_clear_workforce_identity_federation_config<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<crate::model::instance::WorkforceIdentityFederationConfig>,
+    pub fn set_or_clear_workforce_identity_federation_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<crate::model::instance::WorkforceIdentityFederationConfig>
     {
         self.workforce_identity_federation_config = v.map(|x| x.into());
         self
@@ -351,10 +335,12 @@ pub mod instance {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// HostConfig has different instance endpoints.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct HostConfig {
+
         /// Output only. HTML hostname.
         pub html: std::string::String,
 
@@ -434,6 +420,7 @@ pub mod instance {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PrivateConfig {
+
         /// Required. Immutable. Indicate if it's private instance.
         pub is_private: bool,
 
@@ -493,10 +480,7 @@ pub mod instance {
         /// # use google_cloud_securesourcemanager_v1::model::instance::PrivateConfig;
         /// let x = PrivateConfig::new().set_http_service_attachment("example");
         /// ```
-        pub fn set_http_service_attachment<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_http_service_attachment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.http_service_attachment = v.into();
             self
         }
@@ -508,10 +492,7 @@ pub mod instance {
         /// # use google_cloud_securesourcemanager_v1::model::instance::PrivateConfig;
         /// let x = PrivateConfig::new().set_ssh_service_attachment("example");
         /// ```
-        pub fn set_ssh_service_attachment<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_ssh_service_attachment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.ssh_service_attachment = v.into();
             self
         }
@@ -526,7 +507,7 @@ pub mod instance {
         pub fn set_psc_allowed_projects<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.psc_allowed_projects = v.into_iter().map(|i| i.into()).collect();
@@ -545,6 +526,7 @@ pub mod instance {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct WorkforceIdentityFederationConfig {
+
         /// Optional. Immutable. Whether Workforce Identity Federation is enabled.
         pub enabled: bool,
 
@@ -676,9 +658,7 @@ pub mod instance {
                 3 => Self::Deleting,
                 4 => Self::Paused,
                 6 => Self::Unknown,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -693,9 +673,7 @@ pub mod instance {
                 "DELETING" => Self::Deleting,
                 "PAUSED" => Self::Paused,
                 "UNKNOWN" => Self::Unknown,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -723,8 +701,7 @@ pub mod instance {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.securesourcemanager.v1.Instance.State",
-            ))
+                ".google.cloud.securesourcemanager.v1.Instance.State"))
         }
     }
 
@@ -816,9 +793,7 @@ pub mod instance {
                 0 => Self::Unspecified,
                 1 => Self::PausedCmekUnavailable,
                 2 => Self::InstanceResuming,
-                _ => Self::UnknownValue(state_note::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state_note::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -830,9 +805,7 @@ pub mod instance {
                 "STATE_NOTE_UNSPECIFIED" => Self::Unspecified,
                 "PAUSED_CMEK_UNAVAILABLE" => Self::PausedCmekUnavailable,
                 "INSTANCE_RESUMING" => Self::InstanceResuming,
-                _ => Self::UnknownValue(state_note::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state_note::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -857,8 +830,7 @@ pub mod instance {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<StateNote>::new(
-                ".google.cloud.securesourcemanager.v1.Instance.StateNote",
-            ))
+                ".google.cloud.securesourcemanager.v1.Instance.StateNote"))
         }
     }
 }
@@ -867,6 +839,7 @@ pub mod instance {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Repository {
+
     /// Optional. A unique identifier for a repository. The name should be of the
     /// format:
     /// `projects/{project}/locations/{location_id}/repositories/{repository_id}`
@@ -969,8 +942,7 @@ impl Repository {
     /// let x = Repository::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -986,8 +958,7 @@ impl Repository {
     /// let x = Repository::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -1002,8 +973,7 @@ impl Repository {
     /// let x = Repository::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -1019,8 +989,7 @@ impl Repository {
     /// let x = Repository::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -1047,8 +1016,7 @@ impl Repository {
     /// let x = Repository::new().set_uris(URIs::default()/* use setters */);
     /// ```
     pub fn set_uris<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::repository::URIs>,
+    where T: std::convert::Into<crate::model::repository::URIs>
     {
         self.uris = std::option::Option::Some(v.into());
         self
@@ -1064,8 +1032,7 @@ impl Repository {
     /// let x = Repository::new().set_or_clear_uris(None::<URIs>);
     /// ```
     pub fn set_or_clear_uris<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::repository::URIs>,
+    where T: std::convert::Into<crate::model::repository::URIs>
     {
         self.uris = v.map(|x| x.into());
         self
@@ -1080,8 +1047,7 @@ impl Repository {
     /// let x = Repository::new().set_initial_config(InitialConfig::default()/* use setters */);
     /// ```
     pub fn set_initial_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::repository::InitialConfig>,
+    where T: std::convert::Into<crate::model::repository::InitialConfig>
     {
         self.initial_config = std::option::Option::Some(v.into());
         self
@@ -1097,8 +1063,7 @@ impl Repository {
     /// let x = Repository::new().set_or_clear_initial_config(None::<InitialConfig>);
     /// ```
     pub fn set_or_clear_initial_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::repository::InitialConfig>,
+    where T: std::convert::Into<crate::model::repository::InitialConfig>
     {
         self.initial_config = v.map(|x| x.into());
         self
@@ -1116,10 +1081,12 @@ pub mod repository {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// URIs for the repository.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct URIs {
+
         /// Output only. HTML is the URI for user to view the repository in a
         /// browser.
         pub html: std::string::String,
@@ -1185,6 +1152,7 @@ pub mod repository {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct InitialConfig {
+
         /// Default branch name of the repository.
         pub default_branch: std::string::String,
 
@@ -1336,10 +1304,7 @@ pub mod repository {
         /// # use google_cloud_securesourcemanager_v1::model::repository::InitialConfig;
         /// let x = InitialConfig::new().set_default_branch("example");
         /// ```
-        pub fn set_default_branch<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_default_branch<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.default_branch = v.into();
             self
         }
@@ -1354,7 +1319,7 @@ pub mod repository {
         pub fn set_gitignores<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.gitignores = v.into_iter().map(|i| i.into()).collect();
@@ -1397,6 +1362,7 @@ pub mod repository {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Hook {
+
     /// Identifier. A unique identifier for a Hook. The name should be of the
     /// format:
     /// `projects/{project}/locations/{location_id}/repositories/{repository_id}/hooks/{hook_id}`
@@ -1485,7 +1451,7 @@ impl Hook {
     pub fn set_events<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::hook::HookEventType>,
+        V: std::convert::Into<crate::model::hook::HookEventType>
     {
         use std::iter::Iterator;
         self.events = v.into_iter().map(|i| i.into()).collect();
@@ -1501,8 +1467,7 @@ impl Hook {
     /// let x = Hook::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -1518,8 +1483,7 @@ impl Hook {
     /// let x = Hook::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -1534,8 +1498,7 @@ impl Hook {
     /// let x = Hook::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -1551,8 +1514,7 @@ impl Hook {
     /// let x = Hook::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -1579,8 +1541,7 @@ impl Hook {
     /// let x = Hook::new().set_push_option(PushOption::default()/* use setters */);
     /// ```
     pub fn set_push_option<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::hook::PushOption>,
+    where T: std::convert::Into<crate::model::hook::PushOption>
     {
         self.push_option = std::option::Option::Some(v.into());
         self
@@ -1596,8 +1557,7 @@ impl Hook {
     /// let x = Hook::new().set_or_clear_push_option(None::<PushOption>);
     /// ```
     pub fn set_or_clear_push_option<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::hook::PushOption>,
+    where T: std::convert::Into<crate::model::hook::PushOption>
     {
         self.push_option = v.map(|x| x.into());
         self
@@ -1610,10 +1570,7 @@ impl Hook {
     /// # use google_cloud_securesourcemanager_v1::model::Hook;
     /// let x = Hook::new().set_sensitive_query_string("example");
     /// ```
-    pub fn set_sensitive_query_string<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_sensitive_query_string<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.sensitive_query_string = v.into();
         self
     }
@@ -1630,9 +1587,11 @@ pub mod hook {
     #[allow(unused_imports)]
     use super::*;
 
+
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PushOption {
+
         /// Optional. Trigger hook for matching branches only.
         /// Specified as glob pattern. If empty or *, events for all branches are
         /// reported. Examples: main, {main,release*}.
@@ -1654,10 +1613,7 @@ pub mod hook {
         /// # use google_cloud_securesourcemanager_v1::model::hook::PushOption;
         /// let x = PushOption::new().set_branch_filter("example");
         /// ```
-        pub fn set_branch_filter<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_branch_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.branch_filter = v.into();
             self
         }
@@ -1755,9 +1711,7 @@ pub mod hook {
                 0 => Self::Unspecified,
                 1 => Self::Push,
                 2 => Self::PullRequest,
-                _ => Self::UnknownValue(hook_event_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(hook_event_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1769,9 +1723,7 @@ pub mod hook {
                 "UNSPECIFIED" => Self::Unspecified,
                 "PUSH" => Self::Push,
                 "PULL_REQUEST" => Self::PullRequest,
-                _ => Self::UnknownValue(hook_event_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(hook_event_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1796,8 +1748,7 @@ pub mod hook {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<HookEventType>::new(
-                ".google.cloud.securesourcemanager.v1.Hook.HookEventType",
-            ))
+                ".google.cloud.securesourcemanager.v1.Hook.HookEventType"))
         }
     }
 }
@@ -1807,6 +1758,7 @@ pub mod hook {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BranchRule {
+
     /// Optional. A unique identifier for a BranchRule. The name should be of the
     /// format:
     /// `projects/{project}/locations/{location}/repositories/{repository}/branchRules/{branch_rule}`
@@ -1824,7 +1776,7 @@ pub struct BranchRule {
     /// Optional. User annotations. These attributes can only be set and used by
     /// the user. See <https://google.aip.dev/128#annotations> for more details such
     /// as format and size limitations.
-    pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
+    pub annotations: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. This checksum is computed by the server based on the value of
     /// other fields, and may be sent on update and delete requests to ensure the
@@ -1907,8 +1859,7 @@ impl BranchRule {
     /// let x = BranchRule::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -1924,8 +1875,7 @@ impl BranchRule {
     /// let x = BranchRule::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -1940,8 +1890,7 @@ impl BranchRule {
     /// let x = BranchRule::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -1957,8 +1906,7 @@ impl BranchRule {
     /// let x = BranchRule::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -2108,7 +2056,7 @@ impl BranchRule {
     pub fn set_required_status_checks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::branch_rule::Check>,
+        V: std::convert::Into<crate::model::branch_rule::Check>
     {
         use std::iter::Iterator;
         self.required_status_checks = v.into_iter().map(|i| i.into()).collect();
@@ -2127,10 +2075,12 @@ pub mod branch_rule {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Check is a type for status check.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Check {
+
         /// Required. The context of the check.
         pub context: std::string::String,
 
@@ -2167,6 +2117,7 @@ pub mod branch_rule {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PullRequest {
+
     /// Output only. A unique identifier for a PullRequest. The number appended at
     /// the end is generated by the server. Format:
     /// `projects/{project}/locations/{location}/repositories/{repository}/pullRequests/{pull_request_id}`
@@ -2251,8 +2202,7 @@ impl PullRequest {
     /// let x = PullRequest::new().set_base(Branch::default()/* use setters */);
     /// ```
     pub fn set_base<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::pull_request::Branch>,
+    where T: std::convert::Into<crate::model::pull_request::Branch>
     {
         self.base = std::option::Option::Some(v.into());
         self
@@ -2268,8 +2218,7 @@ impl PullRequest {
     /// let x = PullRequest::new().set_or_clear_base(None::<Branch>);
     /// ```
     pub fn set_or_clear_base<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::pull_request::Branch>,
+    where T: std::convert::Into<crate::model::pull_request::Branch>
     {
         self.base = v.map(|x| x.into());
         self
@@ -2284,8 +2233,7 @@ impl PullRequest {
     /// let x = PullRequest::new().set_head(Branch::default()/* use setters */);
     /// ```
     pub fn set_head<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::pull_request::Branch>,
+    where T: std::convert::Into<crate::model::pull_request::Branch>
     {
         self.head = std::option::Option::Some(v.into());
         self
@@ -2301,8 +2249,7 @@ impl PullRequest {
     /// let x = PullRequest::new().set_or_clear_head(None::<Branch>);
     /// ```
     pub fn set_or_clear_head<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::pull_request::Branch>,
+    where T: std::convert::Into<crate::model::pull_request::Branch>
     {
         self.head = v.map(|x| x.into());
         self
@@ -2318,10 +2265,7 @@ impl PullRequest {
     /// let x1 = PullRequest::new().set_state(State::Closed);
     /// let x2 = PullRequest::new().set_state(State::Merged);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::pull_request::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::pull_request::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -2335,8 +2279,7 @@ impl PullRequest {
     /// let x = PullRequest::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -2352,8 +2295,7 @@ impl PullRequest {
     /// let x = PullRequest::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -2368,8 +2310,7 @@ impl PullRequest {
     /// let x = PullRequest::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -2385,8 +2326,7 @@ impl PullRequest {
     /// let x = PullRequest::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -2401,8 +2341,7 @@ impl PullRequest {
     /// let x = PullRequest::new().set_close_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_close_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.close_time = std::option::Option::Some(v.into());
         self
@@ -2418,8 +2357,7 @@ impl PullRequest {
     /// let x = PullRequest::new().set_or_clear_close_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_close_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.close_time = v.map(|x| x.into());
         self
@@ -2437,10 +2375,12 @@ pub mod pull_request {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Branch represents a branch involved in a pull request.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Branch {
+
         /// Required. Name of the branch.
         pub r#ref: std::string::String,
 
@@ -2577,9 +2517,7 @@ pub mod pull_request {
                 1 => Self::Open,
                 2 => Self::Closed,
                 3 => Self::Merged,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -2592,9 +2530,7 @@ pub mod pull_request {
                 "OPEN" => Self::Open,
                 "CLOSED" => Self::Closed,
                 "MERGED" => Self::Merged,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -2620,8 +2556,7 @@ pub mod pull_request {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.securesourcemanager.v1.PullRequest.State",
-            ))
+                ".google.cloud.securesourcemanager.v1.PullRequest.State"))
         }
     }
 }
@@ -2631,6 +2566,7 @@ pub mod pull_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FileDiff {
+
     /// Output only. The name of the file.
     pub name: std::string::String,
 
@@ -2673,10 +2609,7 @@ impl FileDiff {
     /// let x1 = FileDiff::new().set_action(Action::Modified);
     /// let x2 = FileDiff::new().set_action(Action::Deleted);
     /// ```
-    pub fn set_action<T: std::convert::Into<crate::model::file_diff::Action>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_action<T: std::convert::Into<crate::model::file_diff::Action>>(mut self, v: T) -> Self {
         self.action = v.into();
         self
     }
@@ -2716,6 +2649,7 @@ impl wkt::message::Message for FileDiff {
 pub mod file_diff {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Action taken on the file.
     ///
@@ -2808,9 +2742,7 @@ pub mod file_diff {
                 1 => Self::Added,
                 2 => Self::Modified,
                 3 => Self::Deleted,
-                _ => Self::UnknownValue(action::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(action::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -2823,9 +2755,7 @@ pub mod file_diff {
                 "ADDED" => Self::Added,
                 "MODIFIED" => Self::Modified,
                 "DELETED" => Self::Deleted,
-                _ => Self::UnknownValue(action::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(action::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -2851,8 +2781,7 @@ pub mod file_diff {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Action>::new(
-                ".google.cloud.securesourcemanager.v1.FileDiff.Action",
-            ))
+                ".google.cloud.securesourcemanager.v1.FileDiff.Action"))
         }
     }
 }
@@ -2861,6 +2790,7 @@ pub mod file_diff {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Issue {
+
     /// Identifier. Unique identifier for an issue. The issue id is generated by
     /// the server. Format:
     /// `projects/{project}/locations/{location}/repositories/{repository}/issues/{issue_id}`
@@ -2956,8 +2886,7 @@ impl Issue {
     /// let x = Issue::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -2973,8 +2902,7 @@ impl Issue {
     /// let x = Issue::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -2989,8 +2917,7 @@ impl Issue {
     /// let x = Issue::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -3006,8 +2933,7 @@ impl Issue {
     /// let x = Issue::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -3022,8 +2948,7 @@ impl Issue {
     /// let x = Issue::new().set_close_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_close_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.close_time = std::option::Option::Some(v.into());
         self
@@ -3039,8 +2964,7 @@ impl Issue {
     /// let x = Issue::new().set_or_clear_close_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_close_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.close_time = v.map(|x| x.into());
         self
@@ -3069,6 +2993,7 @@ impl wkt::message::Message for Issue {
 pub mod issue {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Possible states of an issue.
     ///
@@ -3156,9 +3081,7 @@ pub mod issue {
                 0 => Self::Unspecified,
                 1 => Self::Open,
                 2 => Self::Closed,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -3170,9 +3093,7 @@ pub mod issue {
                 "STATE_UNSPECIFIED" => Self::Unspecified,
                 "OPEN" => Self::Open,
                 "CLOSED" => Self::Closed,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -3197,8 +3118,7 @@ pub mod issue {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.securesourcemanager.v1.Issue.State",
-            ))
+                ".google.cloud.securesourcemanager.v1.Issue.State"))
         }
     }
 }
@@ -3207,6 +3127,7 @@ pub mod issue {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct IssueComment {
+
     /// Identifier. Unique identifier for an issue comment. The comment id is
     /// generated by the server. Format:
     /// `projects/{project}/locations/{location}/repositories/{repository}/issues/{issue}/issueComments/{comment_id}`
@@ -3262,8 +3183,7 @@ impl IssueComment {
     /// let x = IssueComment::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -3279,8 +3199,7 @@ impl IssueComment {
     /// let x = IssueComment::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -3295,8 +3214,7 @@ impl IssueComment {
     /// let x = IssueComment::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -3312,8 +3230,7 @@ impl IssueComment {
     /// let x = IssueComment::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -3330,6 +3247,7 @@ impl wkt::message::Message for IssueComment {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PullRequestComment {
+
     /// Identifier. Unique identifier for the pull request comment. The comment id
     /// is generated by the server. Format:
     /// `projects/{project}/locations/{location}/repositories/{repository}/pullRequests/{pull_request}/pullRequestComments/{comment_id}`
@@ -3374,8 +3292,7 @@ impl PullRequestComment {
     /// let x = PullRequestComment::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -3391,8 +3308,7 @@ impl PullRequestComment {
     /// let x = PullRequestComment::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -3407,8 +3323,7 @@ impl PullRequestComment {
     /// let x = PullRequestComment::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -3424,8 +3339,7 @@ impl PullRequestComment {
     /// let x = PullRequestComment::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -3443,12 +3357,8 @@ impl PullRequestComment {
     /// let x = PullRequestComment::new().set_comment_detail(Some(
     ///     google_cloud_securesourcemanager_v1::model::pull_request_comment::CommentDetail::Review(Review::default().into())));
     /// ```
-    pub fn set_comment_detail<
-        T: std::convert::Into<std::option::Option<crate::model::pull_request_comment::CommentDetail>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_comment_detail<T: std::convert::Into<std::option::Option<crate::model::pull_request_comment::CommentDetail>>>(mut self, v: T) -> Self
+    {
         self.comment_detail = v.into();
         self
     }
@@ -3456,14 +3366,10 @@ impl PullRequestComment {
     /// The value of [comment_detail][crate::model::PullRequestComment::comment_detail]
     /// if it holds a `Review`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn review(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::pull_request_comment::Review>> {
+    pub fn review(&self) -> std::option::Option<&std::boxed::Box<crate::model::pull_request_comment::Review>> {
         #[allow(unreachable_patterns)]
         self.comment_detail.as_ref().and_then(|v| match v {
-            crate::model::pull_request_comment::CommentDetail::Review(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::pull_request_comment::CommentDetail::Review(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -3483,14 +3389,11 @@ impl PullRequestComment {
     /// assert!(x.comment().is_none());
     /// assert!(x.code().is_none());
     /// ```
-    pub fn set_review<
-        T: std::convert::Into<std::boxed::Box<crate::model::pull_request_comment::Review>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_review<T: std::convert::Into<std::boxed::Box<crate::model::pull_request_comment::Review>>>(mut self, v: T) -> Self {
         self.comment_detail = std::option::Option::Some(
-            crate::model::pull_request_comment::CommentDetail::Review(v.into()),
+            crate::model::pull_request_comment::CommentDetail::Review(
+                v.into()
+            )
         );
         self
     }
@@ -3498,14 +3401,10 @@ impl PullRequestComment {
     /// The value of [comment_detail][crate::model::PullRequestComment::comment_detail]
     /// if it holds a `Comment`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn comment(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::pull_request_comment::Comment>> {
+    pub fn comment(&self) -> std::option::Option<&std::boxed::Box<crate::model::pull_request_comment::Comment>> {
         #[allow(unreachable_patterns)]
         self.comment_detail.as_ref().and_then(|v| match v {
-            crate::model::pull_request_comment::CommentDetail::Comment(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::pull_request_comment::CommentDetail::Comment(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -3525,14 +3424,11 @@ impl PullRequestComment {
     /// assert!(x.review().is_none());
     /// assert!(x.code().is_none());
     /// ```
-    pub fn set_comment<
-        T: std::convert::Into<std::boxed::Box<crate::model::pull_request_comment::Comment>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_comment<T: std::convert::Into<std::boxed::Box<crate::model::pull_request_comment::Comment>>>(mut self, v: T) -> Self {
         self.comment_detail = std::option::Option::Some(
-            crate::model::pull_request_comment::CommentDetail::Comment(v.into()),
+            crate::model::pull_request_comment::CommentDetail::Comment(
+                v.into()
+            )
         );
         self
     }
@@ -3540,14 +3436,10 @@ impl PullRequestComment {
     /// The value of [comment_detail][crate::model::PullRequestComment::comment_detail]
     /// if it holds a `Code`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn code(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::pull_request_comment::Code>> {
+    pub fn code(&self) -> std::option::Option<&std::boxed::Box<crate::model::pull_request_comment::Code>> {
         #[allow(unreachable_patterns)]
         self.comment_detail.as_ref().and_then(|v| match v {
-            crate::model::pull_request_comment::CommentDetail::Code(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::pull_request_comment::CommentDetail::Code(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -3567,14 +3459,11 @@ impl PullRequestComment {
     /// assert!(x.review().is_none());
     /// assert!(x.comment().is_none());
     /// ```
-    pub fn set_code<
-        T: std::convert::Into<std::boxed::Box<crate::model::pull_request_comment::Code>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_code<T: std::convert::Into<std::boxed::Box<crate::model::pull_request_comment::Code>>>(mut self, v: T) -> Self {
         self.comment_detail = std::option::Option::Some(
-            crate::model::pull_request_comment::CommentDetail::Code(v.into()),
+            crate::model::pull_request_comment::CommentDetail::Code(
+                v.into()
+            )
         );
         self
     }
@@ -3591,10 +3480,12 @@ pub mod pull_request_comment {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// The review summary comment.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Review {
+
         /// Required. The review action type.
         pub action_type: crate::model::pull_request_comment::review::ActionType,
 
@@ -3622,12 +3513,7 @@ pub mod pull_request_comment {
         /// let x1 = Review::new().set_action_type(ActionType::ChangeRequested);
         /// let x2 = Review::new().set_action_type(ActionType::Approved);
         /// ```
-        pub fn set_action_type<
-            T: std::convert::Into<crate::model::pull_request_comment::review::ActionType>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_action_type<T: std::convert::Into<crate::model::pull_request_comment::review::ActionType>>(mut self, v: T) -> Self {
             self.action_type = v.into();
             self
         }
@@ -3651,10 +3537,7 @@ pub mod pull_request_comment {
         /// # use google_cloud_securesourcemanager_v1::model::pull_request_comment::Review;
         /// let x = Review::new().set_effective_commit_sha("example");
         /// ```
-        pub fn set_effective_commit_sha<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_effective_commit_sha<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.effective_commit_sha = v.into();
             self
         }
@@ -3670,6 +3553,7 @@ pub mod pull_request_comment {
     pub mod review {
         #[allow(unused_imports)]
         use super::*;
+
 
         /// The review action type.
         ///
@@ -3750,10 +3634,7 @@ pub mod pull_request_comment {
         }
 
         impl std::fmt::Display for ActionType {
-            fn fmt(
-                &self,
-                f: &mut std::fmt::Formatter<'_>,
-            ) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -3765,9 +3646,7 @@ pub mod pull_request_comment {
                     1 => Self::Comment,
                     2 => Self::ChangeRequested,
                     3 => Self::Approved,
-                    _ => Self::UnknownValue(action_type::UnknownValue(
-                        wkt::internal::UnknownEnumValue::Integer(value),
-                    )),
+                    _ => Self::UnknownValue(action_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
                 }
             }
         }
@@ -3780,9 +3659,7 @@ pub mod pull_request_comment {
                     "COMMENT" => Self::Comment,
                     "CHANGE_REQUESTED" => Self::ChangeRequested,
                     "APPROVED" => Self::Approved,
-                    _ => Self::UnknownValue(action_type::UnknownValue(
-                        wkt::internal::UnknownEnumValue::String(value.to_string()),
-                    )),
+                    _ => Self::UnknownValue(action_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
                 }
             }
         }
@@ -3808,8 +3685,7 @@ pub mod pull_request_comment {
                 D: serde::Deserializer<'de>,
             {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<ActionType>::new(
-                    ".google.cloud.securesourcemanager.v1.PullRequestComment.Review.ActionType",
-                ))
+                    ".google.cloud.securesourcemanager.v1.PullRequestComment.Review.ActionType"))
             }
         }
     }
@@ -3818,6 +3694,7 @@ pub mod pull_request_comment {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Comment {
+
         /// Required. The comment body.
         pub body: std::string::String,
 
@@ -3852,6 +3729,7 @@ pub mod pull_request_comment {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Code {
+
         /// Required. The comment body.
         pub body: std::string::String,
 
@@ -3913,8 +3791,7 @@ pub mod pull_request_comment {
         /// let x = Code::new().set_position(Position::default()/* use setters */);
         /// ```
         pub fn set_position<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::pull_request_comment::Position>,
+        where T: std::convert::Into<crate::model::pull_request_comment::Position>
         {
             self.position = std::option::Option::Some(v.into());
             self
@@ -3930,8 +3807,7 @@ pub mod pull_request_comment {
         /// let x = Code::new().set_or_clear_position(None::<Position>);
         /// ```
         pub fn set_or_clear_position<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::pull_request_comment::Position>,
+        where T: std::convert::Into<crate::model::pull_request_comment::Position>
         {
             self.position = v.map(|x| x.into());
             self
@@ -3944,10 +3820,7 @@ pub mod pull_request_comment {
         /// # use google_cloud_securesourcemanager_v1::model::pull_request_comment::Code;
         /// let x = Code::new().set_effective_root_comment("example");
         /// ```
-        pub fn set_effective_root_comment<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_effective_root_comment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.effective_root_comment = v.into();
             self
         }
@@ -3971,10 +3844,7 @@ pub mod pull_request_comment {
         /// # use google_cloud_securesourcemanager_v1::model::pull_request_comment::Code;
         /// let x = Code::new().set_effective_commit_sha("example");
         /// ```
-        pub fn set_effective_commit_sha<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_effective_commit_sha<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.effective_commit_sha = v.into();
             self
         }
@@ -3990,6 +3860,7 @@ pub mod pull_request_comment {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Position {
+
         /// Required. The path of the file.
         pub path: std::string::String,
 
@@ -4054,6 +3925,7 @@ pub mod pull_request_comment {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInstancesRequest {
+
     /// Required. Parent value for ListInstancesRequest.
     pub parent: std::string::String,
 
@@ -4148,6 +4020,7 @@ impl wkt::message::Message for ListInstancesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInstancesResponse {
+
     /// The list of instances.
     pub instances: std::vec::Vec<crate::model::Instance>,
 
@@ -4180,7 +4053,7 @@ impl ListInstancesResponse {
     pub fn set_instances<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Instance>,
+        V: std::convert::Into<crate::model::Instance>
     {
         use std::iter::Iterator;
         self.instances = v.into_iter().map(|i| i.into()).collect();
@@ -4209,7 +4082,7 @@ impl ListInstancesResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -4241,6 +4114,7 @@ impl gax::paginator::internal::PageableResponse for ListInstancesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetInstanceRequest {
+
     /// Required. Name of the resource.
     pub name: std::string::String,
 
@@ -4275,6 +4149,7 @@ impl wkt::message::Message for GetInstanceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateInstanceRequest {
+
     /// Required. Value for parent.
     pub parent: std::string::String,
 
@@ -4340,8 +4215,7 @@ impl CreateInstanceRequest {
     /// let x = CreateInstanceRequest::new().set_instance(Instance::default()/* use setters */);
     /// ```
     pub fn set_instance<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Instance>,
+    where T: std::convert::Into<crate::model::Instance>
     {
         self.instance = std::option::Option::Some(v.into());
         self
@@ -4357,8 +4231,7 @@ impl CreateInstanceRequest {
     /// let x = CreateInstanceRequest::new().set_or_clear_instance(None::<Instance>);
     /// ```
     pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Instance>,
+    where T: std::convert::Into<crate::model::Instance>
     {
         self.instance = v.map(|x| x.into());
         self
@@ -4387,6 +4260,7 @@ impl wkt::message::Message for CreateInstanceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteInstanceRequest {
+
     /// Required. Name of the resource.
     pub name: std::string::String,
 
@@ -4448,6 +4322,7 @@ impl wkt::message::Message for DeleteInstanceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
+
     /// Output only. The time the operation was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
@@ -4493,8 +4368,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -4510,8 +4384,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -4526,8 +4399,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -4543,8 +4415,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -4621,6 +4492,7 @@ impl wkt::message::Message for OperationMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRepositoriesRequest {
+
     /// Required. Parent value for ListRepositoriesRequest.
     pub parent: std::string::String,
 
@@ -4720,6 +4592,7 @@ impl wkt::message::Message for ListRepositoriesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRepositoriesResponse {
+
     /// The list of repositories.
     pub repositories: std::vec::Vec<crate::model::Repository>,
 
@@ -4749,7 +4622,7 @@ impl ListRepositoriesResponse {
     pub fn set_repositories<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Repository>,
+        V: std::convert::Into<crate::model::Repository>
     {
         use std::iter::Iterator;
         self.repositories = v.into_iter().map(|i| i.into()).collect();
@@ -4793,6 +4666,7 @@ impl gax::paginator::internal::PageableResponse for ListRepositoriesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetRepositoryRequest {
+
     /// Required. Name of the repository to retrieve.
     /// The format is
     /// `projects/{project_number}/locations/{location_id}/repositories/{repository_id}`.
@@ -4829,6 +4703,7 @@ impl wkt::message::Message for GetRepositoryRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateRepositoryRequest {
+
     /// Required. The project in which to create the repository. Values are of the
     /// form `projects/{project_number}/locations/{location_id}`
     pub parent: std::string::String,
@@ -4870,8 +4745,7 @@ impl CreateRepositoryRequest {
     /// let x = CreateRepositoryRequest::new().set_repository(Repository::default()/* use setters */);
     /// ```
     pub fn set_repository<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Repository>,
+    where T: std::convert::Into<crate::model::Repository>
     {
         self.repository = std::option::Option::Some(v.into());
         self
@@ -4887,8 +4761,7 @@ impl CreateRepositoryRequest {
     /// let x = CreateRepositoryRequest::new().set_or_clear_repository(None::<Repository>);
     /// ```
     pub fn set_or_clear_repository<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Repository>,
+    where T: std::convert::Into<crate::model::Repository>
     {
         self.repository = v.map(|x| x.into());
         self
@@ -4917,6 +4790,7 @@ impl wkt::message::Message for CreateRepositoryRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateRepositoryRequest {
+
     /// Optional. Field mask is used to specify the fields to be overwritten in the
     /// repository resource by the update.
     /// The fields specified in the update_mask are relative to the resource, not
@@ -4948,8 +4822,7 @@ impl UpdateRepositoryRequest {
     /// let x = UpdateRepositoryRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -4965,8 +4838,7 @@ impl UpdateRepositoryRequest {
     /// let x = UpdateRepositoryRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -4981,8 +4853,7 @@ impl UpdateRepositoryRequest {
     /// let x = UpdateRepositoryRequest::new().set_repository(Repository::default()/* use setters */);
     /// ```
     pub fn set_repository<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Repository>,
+    where T: std::convert::Into<crate::model::Repository>
     {
         self.repository = std::option::Option::Some(v.into());
         self
@@ -4998,8 +4869,7 @@ impl UpdateRepositoryRequest {
     /// let x = UpdateRepositoryRequest::new().set_or_clear_repository(None::<Repository>);
     /// ```
     pub fn set_or_clear_repository<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Repository>,
+    where T: std::convert::Into<crate::model::Repository>
     {
         self.repository = v.map(|x| x.into());
         self
@@ -5028,6 +4898,7 @@ impl wkt::message::Message for UpdateRepositoryRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteRepositoryRequest {
+
     /// Required. Name of the repository to delete.
     /// The format is
     /// `projects/{project_number}/locations/{location_id}/repositories/{repository_id}`.
@@ -5080,6 +4951,7 @@ impl wkt::message::Message for DeleteRepositoryRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListHooksRequest {
+
     /// Required. Parent value for ListHooksRequest.
     pub parent: std::string::String,
 
@@ -5145,6 +5017,7 @@ impl wkt::message::Message for ListHooksRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListHooksResponse {
+
     /// The list of hooks.
     pub hooks: std::vec::Vec<crate::model::Hook>,
 
@@ -5174,7 +5047,7 @@ impl ListHooksResponse {
     pub fn set_hooks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Hook>,
+        V: std::convert::Into<crate::model::Hook>
     {
         use std::iter::Iterator;
         self.hooks = v.into_iter().map(|i| i.into()).collect();
@@ -5218,6 +5091,7 @@ impl gax::paginator::internal::PageableResponse for ListHooksResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetHookRequest {
+
     /// Required. Name of the hook to retrieve.
     /// The format is
     /// `projects/{project_number}/locations/{location_id}/repositories/{repository_id}/hooks/{hook_id}`.
@@ -5254,6 +5128,7 @@ impl wkt::message::Message for GetHookRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateHookRequest {
+
     /// Required. The repository in which to create the hook. Values are of the
     /// form
     /// `projects/{project_number}/locations/{location_id}/repositories/{repository_id}`
@@ -5297,8 +5172,7 @@ impl CreateHookRequest {
     /// let x = CreateHookRequest::new().set_hook(Hook::default()/* use setters */);
     /// ```
     pub fn set_hook<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Hook>,
+    where T: std::convert::Into<crate::model::Hook>
     {
         self.hook = std::option::Option::Some(v.into());
         self
@@ -5314,8 +5188,7 @@ impl CreateHookRequest {
     /// let x = CreateHookRequest::new().set_or_clear_hook(None::<Hook>);
     /// ```
     pub fn set_or_clear_hook<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Hook>,
+    where T: std::convert::Into<crate::model::Hook>
     {
         self.hook = v.map(|x| x.into());
         self
@@ -5344,6 +5217,7 @@ impl wkt::message::Message for CreateHookRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateHookRequest {
+
     /// Required. Field mask is used to specify the fields to be overwritten in the
     /// hook resource by the update.
     /// The fields specified in the update_mask are relative to the resource, not
@@ -5371,8 +5245,7 @@ impl UpdateHookRequest {
     /// let x = UpdateHookRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -5388,8 +5261,7 @@ impl UpdateHookRequest {
     /// let x = UpdateHookRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -5404,8 +5276,7 @@ impl UpdateHookRequest {
     /// let x = UpdateHookRequest::new().set_hook(Hook::default()/* use setters */);
     /// ```
     pub fn set_hook<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Hook>,
+    where T: std::convert::Into<crate::model::Hook>
     {
         self.hook = std::option::Option::Some(v.into());
         self
@@ -5421,8 +5292,7 @@ impl UpdateHookRequest {
     /// let x = UpdateHookRequest::new().set_or_clear_hook(None::<Hook>);
     /// ```
     pub fn set_or_clear_hook<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Hook>,
+    where T: std::convert::Into<crate::model::Hook>
     {
         self.hook = v.map(|x| x.into());
         self
@@ -5439,6 +5309,7 @@ impl wkt::message::Message for UpdateHookRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteHookRequest {
+
     /// Required. Name of the hook to delete.
     /// The format is
     /// `projects/{project_number}/locations/{location_id}/repositories/{repository_id}/hooks/{hook_id}`.
@@ -5475,6 +5346,7 @@ impl wkt::message::Message for DeleteHookRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetBranchRuleRequest {
+
     /// Required. Name of the repository to retrieve.
     /// The format is
     /// `projects/{project}/locations/{location}/repositories/{repository}/branchRules/{branch_rule}`.
@@ -5511,6 +5383,7 @@ impl wkt::message::Message for GetBranchRuleRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateBranchRuleRequest {
+
     pub parent: std::string::String,
 
     pub branch_rule: std::option::Option<crate::model::BranchRule>,
@@ -5546,8 +5419,7 @@ impl CreateBranchRuleRequest {
     /// let x = CreateBranchRuleRequest::new().set_branch_rule(BranchRule::default()/* use setters */);
     /// ```
     pub fn set_branch_rule<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::BranchRule>,
+    where T: std::convert::Into<crate::model::BranchRule>
     {
         self.branch_rule = std::option::Option::Some(v.into());
         self
@@ -5563,8 +5435,7 @@ impl CreateBranchRuleRequest {
     /// let x = CreateBranchRuleRequest::new().set_or_clear_branch_rule(None::<BranchRule>);
     /// ```
     pub fn set_or_clear_branch_rule<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::BranchRule>,
+    where T: std::convert::Into<crate::model::BranchRule>
     {
         self.branch_rule = v.map(|x| x.into());
         self
@@ -5593,6 +5464,7 @@ impl wkt::message::Message for CreateBranchRuleRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBranchRulesRequest {
+
     pub parent: std::string::String,
 
     pub page_size: i32,
@@ -5654,6 +5526,7 @@ impl wkt::message::Message for ListBranchRulesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteBranchRuleRequest {
+
     pub name: std::string::String,
 
     /// Optional. If set to true, and the branch rule is not found, the request
@@ -5703,6 +5576,7 @@ impl wkt::message::Message for DeleteBranchRuleRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateBranchRuleRequest {
+
     pub branch_rule: std::option::Option<crate::model::BranchRule>,
 
     /// Optional. If set, validate the request and preview the review, but do not
@@ -5733,8 +5607,7 @@ impl UpdateBranchRuleRequest {
     /// let x = UpdateBranchRuleRequest::new().set_branch_rule(BranchRule::default()/* use setters */);
     /// ```
     pub fn set_branch_rule<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::BranchRule>,
+    where T: std::convert::Into<crate::model::BranchRule>
     {
         self.branch_rule = std::option::Option::Some(v.into());
         self
@@ -5750,8 +5623,7 @@ impl UpdateBranchRuleRequest {
     /// let x = UpdateBranchRuleRequest::new().set_or_clear_branch_rule(None::<BranchRule>);
     /// ```
     pub fn set_or_clear_branch_rule<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::BranchRule>,
+    where T: std::convert::Into<crate::model::BranchRule>
     {
         self.branch_rule = v.map(|x| x.into());
         self
@@ -5778,8 +5650,7 @@ impl UpdateBranchRuleRequest {
     /// let x = UpdateBranchRuleRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -5795,8 +5666,7 @@ impl UpdateBranchRuleRequest {
     /// let x = UpdateBranchRuleRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -5813,6 +5683,7 @@ impl wkt::message::Message for UpdateBranchRuleRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBranchRulesResponse {
+
     /// The list of branch rules.
     pub branch_rules: std::vec::Vec<crate::model::BranchRule>,
 
@@ -5842,7 +5713,7 @@ impl ListBranchRulesResponse {
     pub fn set_branch_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::BranchRule>,
+        V: std::convert::Into<crate::model::BranchRule>
     {
         use std::iter::Iterator;
         self.branch_rules = v.into_iter().map(|i| i.into()).collect();
@@ -5886,6 +5757,7 @@ impl gax::paginator::internal::PageableResponse for ListBranchRulesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreatePullRequestRequest {
+
     /// Required. The repository that the pull request is created from. Format:
     /// `projects/{project_number}/locations/{location_id}/repositories/{repository_id}`
     pub parent: std::string::String,
@@ -5922,8 +5794,7 @@ impl CreatePullRequestRequest {
     /// let x = CreatePullRequestRequest::new().set_pull_request(PullRequest::default()/* use setters */);
     /// ```
     pub fn set_pull_request<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::PullRequest>,
+    where T: std::convert::Into<crate::model::PullRequest>
     {
         self.pull_request = std::option::Option::Some(v.into());
         self
@@ -5939,8 +5810,7 @@ impl CreatePullRequestRequest {
     /// let x = CreatePullRequestRequest::new().set_or_clear_pull_request(None::<PullRequest>);
     /// ```
     pub fn set_or_clear_pull_request<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::PullRequest>,
+    where T: std::convert::Into<crate::model::PullRequest>
     {
         self.pull_request = v.map(|x| x.into());
         self
@@ -5957,6 +5827,7 @@ impl wkt::message::Message for CreatePullRequestRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetPullRequestRequest {
+
     /// Required. Name of the pull request to retrieve.
     /// The format is
     /// `projects/{project}/locations/{location}/repositories/{repository}/pullRequests/{pull_request}`.
@@ -5993,6 +5864,7 @@ impl wkt::message::Message for GetPullRequestRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPullRequestsRequest {
+
     /// Required. The repository in which to list pull requests. Format:
     /// `projects/{project_number}/locations/{location_id}/repositories/{repository_id}`
     pub parent: std::string::String,
@@ -6059,6 +5931,7 @@ impl wkt::message::Message for ListPullRequestsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPullRequestsResponse {
+
     /// The list of pull requests.
     pub pull_requests: std::vec::Vec<crate::model::PullRequest>,
 
@@ -6088,7 +5961,7 @@ impl ListPullRequestsResponse {
     pub fn set_pull_requests<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::PullRequest>,
+        V: std::convert::Into<crate::model::PullRequest>
     {
         use std::iter::Iterator;
         self.pull_requests = v.into_iter().map(|i| i.into()).collect();
@@ -6132,6 +6005,7 @@ impl gax::paginator::internal::PageableResponse for ListPullRequestsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdatePullRequestRequest {
+
     /// Required. The pull request to update.
     pub pull_request: std::option::Option<crate::model::PullRequest>,
 
@@ -6159,8 +6033,7 @@ impl UpdatePullRequestRequest {
     /// let x = UpdatePullRequestRequest::new().set_pull_request(PullRequest::default()/* use setters */);
     /// ```
     pub fn set_pull_request<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::PullRequest>,
+    where T: std::convert::Into<crate::model::PullRequest>
     {
         self.pull_request = std::option::Option::Some(v.into());
         self
@@ -6176,8 +6049,7 @@ impl UpdatePullRequestRequest {
     /// let x = UpdatePullRequestRequest::new().set_or_clear_pull_request(None::<PullRequest>);
     /// ```
     pub fn set_or_clear_pull_request<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::PullRequest>,
+    where T: std::convert::Into<crate::model::PullRequest>
     {
         self.pull_request = v.map(|x| x.into());
         self
@@ -6192,8 +6064,7 @@ impl UpdatePullRequestRequest {
     /// let x = UpdatePullRequestRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -6209,8 +6080,7 @@ impl UpdatePullRequestRequest {
     /// let x = UpdatePullRequestRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -6227,6 +6097,7 @@ impl wkt::message::Message for UpdatePullRequestRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MergePullRequestRequest {
+
     /// Required. The pull request to merge.
     /// Format:
     /// `projects/{project_number}/locations/{location_id}/repositories/{repository_id}/pullRequests/{pull_request_id}`
@@ -6263,6 +6134,7 @@ impl wkt::message::Message for MergePullRequestRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OpenPullRequestRequest {
+
     /// Required. The pull request to open.
     /// Format:
     /// `projects/{project_number}/locations/{location_id}/repositories/{repository_id}/pullRequests/{pull_request_id}`
@@ -6299,6 +6171,7 @@ impl wkt::message::Message for OpenPullRequestRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ClosePullRequestRequest {
+
     /// Required. The pull request to close.
     /// Format:
     /// `projects/{project_number}/locations/{location_id}/repositories/{repository_id}/pullRequests/{pull_request_id}`
@@ -6336,6 +6209,7 @@ impl wkt::message::Message for ClosePullRequestRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPullRequestFileDiffsRequest {
+
     /// Required. The pull request to list file diffs for.
     /// Format:
     /// `projects/{project_number}/locations/{location_id}/repositories/{repository_id}/pullRequests/{pull_request_id}`
@@ -6404,6 +6278,7 @@ impl wkt::message::Message for ListPullRequestFileDiffsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPullRequestFileDiffsResponse {
+
     /// The list of pull request file diffs.
     pub file_diffs: std::vec::Vec<crate::model::FileDiff>,
 
@@ -6433,7 +6308,7 @@ impl ListPullRequestFileDiffsResponse {
     pub fn set_file_diffs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::FileDiff>,
+        V: std::convert::Into<crate::model::FileDiff>
     {
         use std::iter::Iterator;
         self.file_diffs = v.into_iter().map(|i| i.into()).collect();
@@ -6477,6 +6352,7 @@ impl gax::paginator::internal::PageableResponse for ListPullRequestFileDiffsResp
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateIssueRequest {
+
     /// Required. The repository in which to create the issue. Format:
     /// `projects/{project_number}/locations/{location_id}/repositories/{repository_id}`
     pub parent: std::string::String,
@@ -6513,8 +6389,7 @@ impl CreateIssueRequest {
     /// let x = CreateIssueRequest::new().set_issue(Issue::default()/* use setters */);
     /// ```
     pub fn set_issue<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Issue>,
+    where T: std::convert::Into<crate::model::Issue>
     {
         self.issue = std::option::Option::Some(v.into());
         self
@@ -6530,8 +6405,7 @@ impl CreateIssueRequest {
     /// let x = CreateIssueRequest::new().set_or_clear_issue(None::<Issue>);
     /// ```
     pub fn set_or_clear_issue<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Issue>,
+    where T: std::convert::Into<crate::model::Issue>
     {
         self.issue = v.map(|x| x.into());
         self
@@ -6548,6 +6422,7 @@ impl wkt::message::Message for CreateIssueRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetIssueRequest {
+
     /// Required. Name of the issue to retrieve.
     /// The format is
     /// `projects/{project}/locations/{location}/repositories/{repository}/issues/{issue_id}`.
@@ -6584,6 +6459,7 @@ impl wkt::message::Message for GetIssueRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListIssuesRequest {
+
     /// Required. The repository in which to list issues. Format:
     /// `projects/{project_number}/locations/{location_id}/repositories/{repository_id}`
     pub parent: std::string::String,
@@ -6665,6 +6541,7 @@ impl wkt::message::Message for ListIssuesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListIssuesResponse {
+
     /// The list of issues.
     pub issues: std::vec::Vec<crate::model::Issue>,
 
@@ -6694,7 +6571,7 @@ impl ListIssuesResponse {
     pub fn set_issues<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Issue>,
+        V: std::convert::Into<crate::model::Issue>
     {
         use std::iter::Iterator;
         self.issues = v.into_iter().map(|i| i.into()).collect();
@@ -6738,6 +6615,7 @@ impl gax::paginator::internal::PageableResponse for ListIssuesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateIssueRequest {
+
     /// Required. The issue to update.
     pub issue: std::option::Option<crate::model::Issue>,
 
@@ -6765,8 +6643,7 @@ impl UpdateIssueRequest {
     /// let x = UpdateIssueRequest::new().set_issue(Issue::default()/* use setters */);
     /// ```
     pub fn set_issue<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Issue>,
+    where T: std::convert::Into<crate::model::Issue>
     {
         self.issue = std::option::Option::Some(v.into());
         self
@@ -6782,8 +6659,7 @@ impl UpdateIssueRequest {
     /// let x = UpdateIssueRequest::new().set_or_clear_issue(None::<Issue>);
     /// ```
     pub fn set_or_clear_issue<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Issue>,
+    where T: std::convert::Into<crate::model::Issue>
     {
         self.issue = v.map(|x| x.into());
         self
@@ -6798,8 +6674,7 @@ impl UpdateIssueRequest {
     /// let x = UpdateIssueRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -6815,8 +6690,7 @@ impl UpdateIssueRequest {
     /// let x = UpdateIssueRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -6833,6 +6707,7 @@ impl wkt::message::Message for UpdateIssueRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteIssueRequest {
+
     /// Required. Name of the issue to delete.
     /// The format is
     /// `projects/{project_number}/locations/{location_id}/repositories/{repository_id}/issues/{issue_id}`.
@@ -6886,6 +6761,7 @@ impl wkt::message::Message for DeleteIssueRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloseIssueRequest {
+
     /// Required. Name of the issue to close.
     /// The format is
     /// `projects/{project_number}/locations/{location_id}/repositories/{repository_id}/issues/{issue_id}`.
@@ -6939,6 +6815,7 @@ impl wkt::message::Message for CloseIssueRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OpenIssueRequest {
+
     /// Required. Name of the issue to open.
     /// The format is
     /// `projects/{project_number}/locations/{location_id}/repositories/{repository_id}/issues/{issue_id}`.
@@ -6992,6 +6869,7 @@ impl wkt::message::Message for OpenIssueRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TreeEntry {
+
     /// Output only. The type of the object (TREE, BLOB, COMMIT).  Output-only.
     pub r#type: crate::model::tree_entry::ObjectType,
 
@@ -7027,10 +6905,7 @@ impl TreeEntry {
     /// let x1 = TreeEntry::new().set_type(ObjectType::Blob);
     /// let x2 = TreeEntry::new().set_type(ObjectType::Commit);
     /// ```
-    pub fn set_type<T: std::convert::Into<crate::model::tree_entry::ObjectType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_type<T: std::convert::Into<crate::model::tree_entry::ObjectType>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
@@ -7094,6 +6969,7 @@ impl wkt::message::Message for TreeEntry {
 pub mod tree_entry {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Defines the type of object the TreeEntry represents.
     ///
@@ -7186,9 +7062,7 @@ pub mod tree_entry {
                 1 => Self::Tree,
                 2 => Self::Blob,
                 3 => Self::Commit,
-                _ => Self::UnknownValue(object_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(object_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -7201,9 +7075,7 @@ pub mod tree_entry {
                 "TREE" => Self::Tree,
                 "BLOB" => Self::Blob,
                 "COMMIT" => Self::Commit,
-                _ => Self::UnknownValue(object_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(object_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -7229,8 +7101,7 @@ pub mod tree_entry {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<ObjectType>::new(
-                ".google.cloud.securesourcemanager.v1.TreeEntry.ObjectType",
-            ))
+                ".google.cloud.securesourcemanager.v1.TreeEntry.ObjectType"))
         }
     }
 }
@@ -7239,6 +7110,7 @@ pub mod tree_entry {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchTreeRequest {
+
     /// Required. The format is
     /// `projects/{project_number}/locations/{location_id}/repositories/{repository_id}`.
     /// Specifies the repository to fetch the tree from.
@@ -7338,6 +7210,7 @@ impl wkt::message::Message for FetchTreeRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchTreeResponse {
+
     /// The list of TreeEntry objects.
     pub tree_entries: std::vec::Vec<crate::model::TreeEntry>,
 
@@ -7367,7 +7240,7 @@ impl FetchTreeResponse {
     pub fn set_tree_entries<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::TreeEntry>,
+        V: std::convert::Into<crate::model::TreeEntry>
     {
         use std::iter::Iterator;
         self.tree_entries = v.into_iter().map(|i| i.into()).collect();
@@ -7411,6 +7284,7 @@ impl gax::paginator::internal::PageableResponse for FetchTreeResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchBlobRequest {
+
     /// Required. The format is
     /// `projects/{project_number}/locations/{location_id}/repositories/{repository_id}`.
     /// Specifies the repository containing the blob.
@@ -7462,6 +7336,7 @@ impl wkt::message::Message for FetchBlobRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchBlobResponse {
+
     /// The SHA-1 hash of the blob.
     pub sha: std::string::String,
 
@@ -7511,6 +7386,7 @@ impl wkt::message::Message for FetchBlobResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPullRequestCommentsRequest {
+
     /// Required. The pull request in which to list pull request comments. Format:
     /// `projects/{project_number}/locations/{location_id}/repositories/{repository_id}/pullRequests/{pull_request_id}`
     pub parent: std::string::String,
@@ -7578,6 +7454,7 @@ impl wkt::message::Message for ListPullRequestCommentsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPullRequestCommentsResponse {
+
     /// The list of pull request comments.
     pub pull_request_comments: std::vec::Vec<crate::model::PullRequestComment>,
 
@@ -7608,7 +7485,7 @@ impl ListPullRequestCommentsResponse {
     pub fn set_pull_request_comments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::PullRequestComment>,
+        V: std::convert::Into<crate::model::PullRequestComment>
     {
         use std::iter::Iterator;
         self.pull_request_comments = v.into_iter().map(|i| i.into()).collect();
@@ -7652,6 +7529,7 @@ impl gax::paginator::internal::PageableResponse for ListPullRequestCommentsRespo
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreatePullRequestCommentRequest {
+
     /// Required. The pull request in which to create the pull request comment.
     /// Format:
     /// `projects/{project_number}/locations/{location_id}/repositories/{repository_id}/pullRequests/{pull_request_id}`
@@ -7689,8 +7567,7 @@ impl CreatePullRequestCommentRequest {
     /// let x = CreatePullRequestCommentRequest::new().set_pull_request_comment(PullRequestComment::default()/* use setters */);
     /// ```
     pub fn set_pull_request_comment<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::PullRequestComment>,
+    where T: std::convert::Into<crate::model::PullRequestComment>
     {
         self.pull_request_comment = std::option::Option::Some(v.into());
         self
@@ -7706,8 +7583,7 @@ impl CreatePullRequestCommentRequest {
     /// let x = CreatePullRequestCommentRequest::new().set_or_clear_pull_request_comment(None::<PullRequestComment>);
     /// ```
     pub fn set_or_clear_pull_request_comment<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::PullRequestComment>,
+    where T: std::convert::Into<crate::model::PullRequestComment>
     {
         self.pull_request_comment = v.map(|x| x.into());
         self
@@ -7724,6 +7600,7 @@ impl wkt::message::Message for CreatePullRequestCommentRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchCreatePullRequestCommentsRequest {
+
     /// Required. The pull request in which to create the pull request comments.
     /// Format:
     /// `projects/{project_number}/locations/{location_id}/repositories/{repository_id}/pullRequests/{pull_request_id}`
@@ -7770,7 +7647,7 @@ impl BatchCreatePullRequestCommentsRequest {
     pub fn set_requests<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::CreatePullRequestCommentRequest>,
+        V: std::convert::Into<crate::model::CreatePullRequestCommentRequest>
     {
         use std::iter::Iterator;
         self.requests = v.into_iter().map(|i| i.into()).collect();
@@ -7788,6 +7665,7 @@ impl wkt::message::Message for BatchCreatePullRequestCommentsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchCreatePullRequestCommentsResponse {
+
     /// The list of pull request comments created.
     pub pull_request_comments: std::vec::Vec<crate::model::PullRequestComment>,
 
@@ -7814,7 +7692,7 @@ impl BatchCreatePullRequestCommentsResponse {
     pub fn set_pull_request_comments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::PullRequestComment>,
+        V: std::convert::Into<crate::model::PullRequestComment>
     {
         use std::iter::Iterator;
         self.pull_request_comments = v.into_iter().map(|i| i.into()).collect();
@@ -7832,6 +7710,7 @@ impl wkt::message::Message for BatchCreatePullRequestCommentsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdatePullRequestCommentRequest {
+
     /// Required. The pull request comment to update.
     pub pull_request_comment: std::option::Option<crate::model::PullRequestComment>,
 
@@ -7857,8 +7736,7 @@ impl UpdatePullRequestCommentRequest {
     /// let x = UpdatePullRequestCommentRequest::new().set_pull_request_comment(PullRequestComment::default()/* use setters */);
     /// ```
     pub fn set_pull_request_comment<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::PullRequestComment>,
+    where T: std::convert::Into<crate::model::PullRequestComment>
     {
         self.pull_request_comment = std::option::Option::Some(v.into());
         self
@@ -7874,8 +7752,7 @@ impl UpdatePullRequestCommentRequest {
     /// let x = UpdatePullRequestCommentRequest::new().set_or_clear_pull_request_comment(None::<PullRequestComment>);
     /// ```
     pub fn set_or_clear_pull_request_comment<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::PullRequestComment>,
+    where T: std::convert::Into<crate::model::PullRequestComment>
     {
         self.pull_request_comment = v.map(|x| x.into());
         self
@@ -7890,8 +7767,7 @@ impl UpdatePullRequestCommentRequest {
     /// let x = UpdatePullRequestCommentRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -7907,8 +7783,7 @@ impl UpdatePullRequestCommentRequest {
     /// let x = UpdatePullRequestCommentRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -7926,6 +7801,7 @@ impl wkt::message::Message for UpdatePullRequestCommentRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeletePullRequestCommentRequest {
+
     /// Required. Name of the pull request comment to delete.
     /// The format is
     /// `projects/{project_number}/locations/{location_id}/repositories/{repository_id}/pullRequests/{pull_request_id}/pullRequestComments/{comment_id}`.
@@ -7962,6 +7838,7 @@ impl wkt::message::Message for DeletePullRequestCommentRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetPullRequestCommentRequest {
+
     /// Required. Name of the pull request comment to retrieve.
     /// The format is
     /// `projects/{project_number}/locations/{location_id}/repositories/{repository_id}/pullRequests/{pull_request_id}/pullRequestComments/{comment_id}`.
@@ -7998,6 +7875,7 @@ impl wkt::message::Message for GetPullRequestCommentRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResolvePullRequestCommentsRequest {
+
     /// Required. The pull request in which to resolve the pull request comments.
     /// Format:
     /// `projects/{project_number}/locations/{location_id}/repositories/{repository_id}/pullRequests/{pull_request_id}`
@@ -8043,7 +7921,7 @@ impl ResolvePullRequestCommentsRequest {
     pub fn set_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.names = v.into_iter().map(|i| i.into()).collect();
@@ -8073,6 +7951,7 @@ impl wkt::message::Message for ResolvePullRequestCommentsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResolvePullRequestCommentsResponse {
+
     /// The list of pull request comments resolved.
     pub pull_request_comments: std::vec::Vec<crate::model::PullRequestComment>,
 
@@ -8099,7 +7978,7 @@ impl ResolvePullRequestCommentsResponse {
     pub fn set_pull_request_comments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::PullRequestComment>,
+        V: std::convert::Into<crate::model::PullRequestComment>
     {
         use std::iter::Iterator;
         self.pull_request_comments = v.into_iter().map(|i| i.into()).collect();
@@ -8117,6 +7996,7 @@ impl wkt::message::Message for ResolvePullRequestCommentsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UnresolvePullRequestCommentsRequest {
+
     /// Required. The pull request in which to resolve the pull request comments.
     /// Format:
     /// `projects/{project_number}/locations/{location_id}/repositories/{repository_id}/pullRequests/{pull_request_id}`
@@ -8162,7 +8042,7 @@ impl UnresolvePullRequestCommentsRequest {
     pub fn set_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.names = v.into_iter().map(|i| i.into()).collect();
@@ -8192,6 +8072,7 @@ impl wkt::message::Message for UnresolvePullRequestCommentsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UnresolvePullRequestCommentsResponse {
+
     /// The list of pull request comments unresolved.
     pub pull_request_comments: std::vec::Vec<crate::model::PullRequestComment>,
 
@@ -8218,7 +8099,7 @@ impl UnresolvePullRequestCommentsResponse {
     pub fn set_pull_request_comments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::PullRequestComment>,
+        V: std::convert::Into<crate::model::PullRequestComment>
     {
         use std::iter::Iterator;
         self.pull_request_comments = v.into_iter().map(|i| i.into()).collect();
@@ -8236,6 +8117,7 @@ impl wkt::message::Message for UnresolvePullRequestCommentsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateIssueCommentRequest {
+
     /// Required. The issue in which to create the issue comment. Format:
     /// `projects/{project_number}/locations/{location_id}/repositories/{repository_id}/issues/{issue_id}`
     pub parent: std::string::String,
@@ -8272,8 +8154,7 @@ impl CreateIssueCommentRequest {
     /// let x = CreateIssueCommentRequest::new().set_issue_comment(IssueComment::default()/* use setters */);
     /// ```
     pub fn set_issue_comment<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::IssueComment>,
+    where T: std::convert::Into<crate::model::IssueComment>
     {
         self.issue_comment = std::option::Option::Some(v.into());
         self
@@ -8289,8 +8170,7 @@ impl CreateIssueCommentRequest {
     /// let x = CreateIssueCommentRequest::new().set_or_clear_issue_comment(None::<IssueComment>);
     /// ```
     pub fn set_or_clear_issue_comment<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::IssueComment>,
+    where T: std::convert::Into<crate::model::IssueComment>
     {
         self.issue_comment = v.map(|x| x.into());
         self
@@ -8307,6 +8187,7 @@ impl wkt::message::Message for CreateIssueCommentRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetIssueCommentRequest {
+
     /// Required. Name of the issue comment to retrieve.
     /// The format is
     /// `projects/{project}/locations/{location}/repositories/{repository}/issues/{issue_id}/issueComments/{comment_id}`.
@@ -8343,6 +8224,7 @@ impl wkt::message::Message for GetIssueCommentRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListIssueCommentsRequest {
+
     /// Required. The issue in which to list the comments. Format:
     /// `projects/{project_number}/locations/{location_id}/repositories/{repository_id}/issues/{issue_id}`
     pub parent: std::string::String,
@@ -8409,6 +8291,7 @@ impl wkt::message::Message for ListIssueCommentsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListIssueCommentsResponse {
+
     /// The list of issue comments.
     pub issue_comments: std::vec::Vec<crate::model::IssueComment>,
 
@@ -8438,7 +8321,7 @@ impl ListIssueCommentsResponse {
     pub fn set_issue_comments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::IssueComment>,
+        V: std::convert::Into<crate::model::IssueComment>
     {
         use std::iter::Iterator;
         self.issue_comments = v.into_iter().map(|i| i.into()).collect();
@@ -8482,6 +8365,7 @@ impl gax::paginator::internal::PageableResponse for ListIssueCommentsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateIssueCommentRequest {
+
     /// Required. The issue comment to update.
     pub issue_comment: std::option::Option<crate::model::IssueComment>,
 
@@ -8509,8 +8393,7 @@ impl UpdateIssueCommentRequest {
     /// let x = UpdateIssueCommentRequest::new().set_issue_comment(IssueComment::default()/* use setters */);
     /// ```
     pub fn set_issue_comment<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::IssueComment>,
+    where T: std::convert::Into<crate::model::IssueComment>
     {
         self.issue_comment = std::option::Option::Some(v.into());
         self
@@ -8526,8 +8409,7 @@ impl UpdateIssueCommentRequest {
     /// let x = UpdateIssueCommentRequest::new().set_or_clear_issue_comment(None::<IssueComment>);
     /// ```
     pub fn set_or_clear_issue_comment<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::IssueComment>,
+    where T: std::convert::Into<crate::model::IssueComment>
     {
         self.issue_comment = v.map(|x| x.into());
         self
@@ -8542,8 +8424,7 @@ impl UpdateIssueCommentRequest {
     /// let x = UpdateIssueCommentRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -8559,8 +8440,7 @@ impl UpdateIssueCommentRequest {
     /// let x = UpdateIssueCommentRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -8577,6 +8457,7 @@ impl wkt::message::Message for UpdateIssueCommentRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteIssueCommentRequest {
+
     /// Required. Name of the issue comment to delete.
     /// The format is
     /// `projects/{project_number}/locations/{location_id}/repositories/{repository_id}/issues/{issue_id}/issueComments/{comment_id}`.

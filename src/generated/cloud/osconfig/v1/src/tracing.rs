@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [OsConfigService](super::stub::OsConfigService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct OsConfigService<T>
-where
-    T: super::stub::OsConfigService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::OsConfigService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> OsConfigService<T>
-where
-    T: super::stub::OsConfigService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::OsConfigService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::OsConfigService for OsConfigService<T>
-where
-    T: super::stub::OsConfigService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::OsConfigService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn execute_patch_job(
         &self,
@@ -79,9 +73,7 @@ where
         req: crate::model::ListPatchJobInstanceDetailsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListPatchJobInstanceDetailsResponse>> {
-        self.inner
-            .list_patch_job_instance_details(req, options)
-            .await
+        self.inner.list_patch_job_instance_details(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -164,30 +156,25 @@ where
     ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
+
 }
 
 /// Implements a [OsConfigZonalService](super::stub::OsConfigZonalService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct OsConfigZonalService<T>
-where
-    T: super::stub::OsConfigZonalService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::OsConfigZonalService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> OsConfigZonalService<T>
-where
-    T: super::stub::OsConfigZonalService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::OsConfigZonalService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::OsConfigZonalService for OsConfigZonalService<T>
-where
-    T: super::stub::OsConfigZonalService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::OsConfigZonalService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn create_os_policy_assignment(
         &self,
@@ -229,11 +216,8 @@ where
         &self,
         req: crate::model::ListOSPolicyAssignmentRevisionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListOSPolicyAssignmentRevisionsResponse>>
-    {
-        self.inner
-            .list_os_policy_assignment_revisions(req, options)
-            .await
+    ) -> Result<gax::response::Response<crate::model::ListOSPolicyAssignmentRevisionsResponse>> {
+        self.inner.list_os_policy_assignment_revisions(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -251,9 +235,7 @@ where
         req: crate::model::GetOSPolicyAssignmentReportRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::OSPolicyAssignmentReport>> {
-        self.inner
-            .get_os_policy_assignment_report(req, options)
-            .await
+        self.inner.get_os_policy_assignment_report(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -262,9 +244,7 @@ where
         req: crate::model::ListOSPolicyAssignmentReportsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListOSPolicyAssignmentReportsResponse>> {
-        self.inner
-            .list_os_policy_assignment_reports(req, options)
-            .await
+        self.inner.list_os_policy_assignment_reports(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -321,6 +301,7 @@ where
         self.inner.cancel_operation(req, options).await
     }
 
+
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -335,3 +316,4 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 }
+

@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -30,7 +31,6 @@ extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -42,6 +42,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TimestampRange {
+
     /// Begin of the period (inclusive).
     pub start_time: std::option::Option<wkt::Timestamp>,
 
@@ -65,8 +66,7 @@ impl TimestampRange {
     /// let x = TimestampRange::new().set_start_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -82,8 +82,7 @@ impl TimestampRange {
     /// let x = TimestampRange::new().set_or_clear_start_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -98,8 +97,7 @@ impl TimestampRange {
     /// let x = TimestampRange::new().set_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -115,8 +113,7 @@ impl TimestampRange {
     /// let x = TimestampRange::new().set_or_clear_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -133,6 +130,7 @@ impl wkt::message::Message for TimestampRange {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Location {
+
     /// The type of a location, which corresponds to the address lines field of
     /// [google.type.PostalAddress][google.type.PostalAddress]. For example,
     /// "Downtown, Atlanta, GA, USA" has a type of
@@ -181,10 +179,7 @@ impl Location {
     /// let x1 = Location::new().set_location_type(LocationType::AdministrativeArea);
     /// let x2 = Location::new().set_location_type(LocationType::SubAdministrativeArea);
     /// ```
-    pub fn set_location_type<T: std::convert::Into<crate::model::location::LocationType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_location_type<T: std::convert::Into<crate::model::location::LocationType>>(mut self, v: T) -> Self {
         self.location_type = v.into();
         self
     }
@@ -198,8 +193,7 @@ impl Location {
     /// let x = Location::new().set_postal_address(PostalAddress::default()/* use setters */);
     /// ```
     pub fn set_postal_address<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<gtype::model::PostalAddress>,
+    where T: std::convert::Into<gtype::model::PostalAddress>
     {
         self.postal_address = std::option::Option::Some(v.into());
         self
@@ -215,8 +209,7 @@ impl Location {
     /// let x = Location::new().set_or_clear_postal_address(None::<PostalAddress>);
     /// ```
     pub fn set_or_clear_postal_address<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<gtype::model::PostalAddress>,
+    where T: std::convert::Into<gtype::model::PostalAddress>
     {
         self.postal_address = v.map(|x| x.into());
         self
@@ -231,8 +224,7 @@ impl Location {
     /// let x = Location::new().set_lat_lng(LatLng::default()/* use setters */);
     /// ```
     pub fn set_lat_lng<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<gtype::model::LatLng>,
+    where T: std::convert::Into<gtype::model::LatLng>
     {
         self.lat_lng = std::option::Option::Some(v.into());
         self
@@ -248,8 +240,7 @@ impl Location {
     /// let x = Location::new().set_or_clear_lat_lng(None::<LatLng>);
     /// ```
     pub fn set_or_clear_lat_lng<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<gtype::model::LatLng>,
+    where T: std::convert::Into<gtype::model::LatLng>
     {
         self.lat_lng = v.map(|x| x.into());
         self
@@ -278,6 +269,7 @@ impl wkt::message::Message for Location {
 pub mod location {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// An enum which represents the type of a location.
     ///
@@ -409,9 +401,7 @@ pub mod location {
                 8 => Self::SubLocality2,
                 9 => Self::Neighborhood,
                 10 => Self::StreetAddress,
-                _ => Self::UnknownValue(location_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(location_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -431,9 +421,7 @@ pub mod location {
                 "SUB_LOCALITY_2" => Self::SubLocality2,
                 "NEIGHBORHOOD" => Self::Neighborhood,
                 "STREET_ADDRESS" => Self::StreetAddress,
-                _ => Self::UnknownValue(location_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(location_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -466,8 +454,7 @@ pub mod location {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<LocationType>::new(
-                ".google.cloud.talent.v4.Location.LocationType",
-            ))
+                ".google.cloud.talent.v4.Location.LocationType"))
         }
     }
 }
@@ -478,6 +465,7 @@ pub mod location {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RequestMetadata {
+
     /// Required if
     /// [allow_missing_ids][google.cloud.talent.v4.RequestMetadata.allow_missing_ids]
     /// is unset or `false`.
@@ -619,8 +607,7 @@ impl RequestMetadata {
     /// let x = RequestMetadata::new().set_device_info(DeviceInfo::default()/* use setters */);
     /// ```
     pub fn set_device_info<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DeviceInfo>,
+    where T: std::convert::Into<crate::model::DeviceInfo>
     {
         self.device_info = std::option::Option::Some(v.into());
         self
@@ -636,8 +623,7 @@ impl RequestMetadata {
     /// let x = RequestMetadata::new().set_or_clear_device_info(None::<DeviceInfo>);
     /// ```
     pub fn set_or_clear_device_info<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DeviceInfo>,
+    where T: std::convert::Into<crate::model::DeviceInfo>
     {
         self.device_info = v.map(|x| x.into());
         self
@@ -654,6 +640,7 @@ impl wkt::message::Message for RequestMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResponseMetadata {
+
     /// A unique id associated with this call.
     /// This id is logged for tracking purposes.
     pub request_id: std::string::String,
@@ -691,6 +678,7 @@ impl wkt::message::Message for ResponseMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeviceInfo {
+
     /// Type of the device.
     pub device_type: crate::model::device_info::DeviceType,
 
@@ -716,10 +704,7 @@ impl DeviceInfo {
     /// let x1 = DeviceInfo::new().set_device_type(DeviceType::MobileWeb);
     /// let x2 = DeviceInfo::new().set_device_type(DeviceType::Android);
     /// ```
-    pub fn set_device_type<T: std::convert::Into<crate::model::device_info::DeviceType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_device_type<T: std::convert::Into<crate::model::device_info::DeviceType>>(mut self, v: T) -> Self {
         self.device_type = v.into();
         self
     }
@@ -747,6 +732,7 @@ impl wkt::message::Message for DeviceInfo {
 pub mod device_info {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// An enumeration describing an API access portal and exposure mechanism.
     ///
@@ -857,9 +843,7 @@ pub mod device_info {
                 4 => Self::Ios,
                 5 => Self::Bot,
                 6 => Self::Other,
-                _ => Self::UnknownValue(device_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(device_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -875,9 +859,7 @@ pub mod device_info {
                 "IOS" => Self::Ios,
                 "BOT" => Self::Bot,
                 "OTHER" => Self::Other,
-                _ => Self::UnknownValue(device_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(device_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -906,8 +888,7 @@ pub mod device_info {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<DeviceType>::new(
-                ".google.cloud.talent.v4.DeviceInfo.DeviceType",
-            ))
+                ".google.cloud.talent.v4.DeviceInfo.DeviceType"))
         }
     }
 }
@@ -916,6 +897,7 @@ pub mod device_info {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CustomAttribute {
+
     /// Exactly one of
     /// [string_values][google.cloud.talent.v4.CustomAttribute.string_values] or
     /// [long_values][google.cloud.talent.v4.CustomAttribute.long_values] must be
@@ -985,7 +967,7 @@ impl CustomAttribute {
     pub fn set_string_values<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.string_values = v.into_iter().map(|i| i.into()).collect();
@@ -1002,7 +984,7 @@ impl CustomAttribute {
     pub fn set_long_values<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<i64>,
+        V: std::convert::Into<i64>
     {
         use std::iter::Iterator;
         self.long_values = v.into_iter().map(|i| i.into()).collect();
@@ -1044,6 +1026,7 @@ impl wkt::message::Message for CustomAttribute {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SpellingCorrection {
+
     /// Indicates if the query was corrected by the spell checker.
     pub corrected: bool,
 
@@ -1114,6 +1097,7 @@ impl wkt::message::Message for SpellingCorrection {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CompensationInfo {
+
     /// Job compensation information.
     ///
     /// At most one entry can be of type
@@ -1136,8 +1120,7 @@ pub struct CompensationInfo {
     /// [google.cloud.talent.v4.CompensationInfo.CompensationEntry]: crate::model::compensation_info::CompensationEntry
     /// [google.cloud.talent.v4.CompensationInfo.CompensationEntry.amount]: crate::model::compensation_info::CompensationEntry::compensation_amount
     /// [google.cloud.talent.v4.CompensationInfo.CompensationEntry.expected_units_per_year]: crate::model::compensation_info::CompensationEntry::expected_units_per_year
-    pub annualized_base_compensation_range:
-        std::option::Option<crate::model::compensation_info::CompensationRange>,
+    pub annualized_base_compensation_range: std::option::Option<crate::model::compensation_info::CompensationRange>,
 
     /// Output only. Annualized total compensation range. Computed as all
     /// compensation entries'
@@ -1152,8 +1135,7 @@ pub struct CompensationInfo {
     /// [google.cloud.talent.v4.CompensationInfo.CompensationEntry]: crate::model::compensation_info::CompensationEntry
     /// [google.cloud.talent.v4.CompensationInfo.CompensationEntry.amount]: crate::model::compensation_info::CompensationEntry::compensation_amount
     /// [google.cloud.talent.v4.CompensationInfo.CompensationEntry.expected_units_per_year]: crate::model::compensation_info::CompensationEntry::expected_units_per_year
-    pub annualized_total_compensation_range:
-        std::option::Option<crate::model::compensation_info::CompensationRange>,
+    pub annualized_total_compensation_range: std::option::Option<crate::model::compensation_info::CompensationRange>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1178,7 +1160,7 @@ impl CompensationInfo {
     pub fn set_entries<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::compensation_info::CompensationEntry>,
+        V: std::convert::Into<crate::model::compensation_info::CompensationEntry>
     {
         use std::iter::Iterator;
         self.entries = v.into_iter().map(|i| i.into()).collect();
@@ -1194,8 +1176,7 @@ impl CompensationInfo {
     /// let x = CompensationInfo::new().set_annualized_base_compensation_range(CompensationRange::default()/* use setters */);
     /// ```
     pub fn set_annualized_base_compensation_range<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::compensation_info::CompensationRange>,
+    where T: std::convert::Into<crate::model::compensation_info::CompensationRange>
     {
         self.annualized_base_compensation_range = std::option::Option::Some(v.into());
         self
@@ -1210,12 +1191,8 @@ impl CompensationInfo {
     /// let x = CompensationInfo::new().set_or_clear_annualized_base_compensation_range(Some(CompensationRange::default()/* use setters */));
     /// let x = CompensationInfo::new().set_or_clear_annualized_base_compensation_range(None::<CompensationRange>);
     /// ```
-    pub fn set_or_clear_annualized_base_compensation_range<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<crate::model::compensation_info::CompensationRange>,
+    pub fn set_or_clear_annualized_base_compensation_range<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<crate::model::compensation_info::CompensationRange>
     {
         self.annualized_base_compensation_range = v.map(|x| x.into());
         self
@@ -1230,8 +1207,7 @@ impl CompensationInfo {
     /// let x = CompensationInfo::new().set_annualized_total_compensation_range(CompensationRange::default()/* use setters */);
     /// ```
     pub fn set_annualized_total_compensation_range<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::compensation_info::CompensationRange>,
+    where T: std::convert::Into<crate::model::compensation_info::CompensationRange>
     {
         self.annualized_total_compensation_range = std::option::Option::Some(v.into());
         self
@@ -1246,12 +1222,8 @@ impl CompensationInfo {
     /// let x = CompensationInfo::new().set_or_clear_annualized_total_compensation_range(Some(CompensationRange::default()/* use setters */));
     /// let x = CompensationInfo::new().set_or_clear_annualized_total_compensation_range(None::<CompensationRange>);
     /// ```
-    pub fn set_or_clear_annualized_total_compensation_range<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<crate::model::compensation_info::CompensationRange>,
+    pub fn set_or_clear_annualized_total_compensation_range<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<crate::model::compensation_info::CompensationRange>
     {
         self.annualized_total_compensation_range = v.map(|x| x.into());
         self
@@ -1268,6 +1240,7 @@ impl wkt::message::Message for CompensationInfo {
 pub mod compensation_info {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// A compensation entry that represents one component of compensation, such
     /// as base pay, bonus, or other compensation type.
@@ -1293,6 +1266,7 @@ pub mod compensation_info {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CompensationEntry {
+
         /// Compensation type.
         ///
         /// Default is
@@ -1331,9 +1305,7 @@ pub mod compensation_info {
         pub expected_units_per_year: std::option::Option<wkt::DoubleValue>,
 
         /// Compensation amount. It could be a fixed amount or a floating range.
-        pub compensation_amount: std::option::Option<
-            crate::model::compensation_info::compensation_entry::CompensationAmount,
-        >,
+        pub compensation_amount: std::option::Option<crate::model::compensation_info::compensation_entry::CompensationAmount>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -1353,12 +1325,7 @@ pub mod compensation_info {
         /// let x1 = CompensationEntry::new().set_type(CompensationType::Bonus);
         /// let x2 = CompensationEntry::new().set_type(CompensationType::SigningBonus);
         /// ```
-        pub fn set_type<
-            T: std::convert::Into<crate::model::compensation_info::CompensationType>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_type<T: std::convert::Into<crate::model::compensation_info::CompensationType>>(mut self, v: T) -> Self {
             self.r#type = v.into();
             self
         }
@@ -1373,12 +1340,7 @@ pub mod compensation_info {
         /// let x1 = CompensationEntry::new().set_unit(CompensationUnit::Daily);
         /// let x2 = CompensationEntry::new().set_unit(CompensationUnit::Weekly);
         /// ```
-        pub fn set_unit<
-            T: std::convert::Into<crate::model::compensation_info::CompensationUnit>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_unit<T: std::convert::Into<crate::model::compensation_info::CompensationUnit>>(mut self, v: T) -> Self {
             self.unit = v.into();
             self
         }
@@ -1404,8 +1366,7 @@ pub mod compensation_info {
         /// let x = CompensationEntry::new().set_expected_units_per_year(DoubleValue::default()/* use setters */);
         /// ```
         pub fn set_expected_units_per_year<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::DoubleValue>,
+        where T: std::convert::Into<wkt::DoubleValue>
         {
             self.expected_units_per_year = std::option::Option::Some(v.into());
             self
@@ -1421,8 +1382,7 @@ pub mod compensation_info {
         /// let x = CompensationEntry::new().set_or_clear_expected_units_per_year(None::<DoubleValue>);
         /// ```
         pub fn set_or_clear_expected_units_per_year<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::DoubleValue>,
+        where T: std::convert::Into<wkt::DoubleValue>
         {
             self.expected_units_per_year = v.map(|x| x.into());
             self
@@ -1440,16 +1400,8 @@ pub mod compensation_info {
         /// let x = CompensationEntry::new().set_compensation_amount(Some(
         ///     google_cloud_talent_v4::model::compensation_info::compensation_entry::CompensationAmount::Amount(Money::default().into())));
         /// ```
-        pub fn set_compensation_amount<
-            T: std::convert::Into<
-                    std::option::Option<
-                        crate::model::compensation_info::compensation_entry::CompensationAmount,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_compensation_amount<T: std::convert::Into<std::option::Option<crate::model::compensation_info::compensation_entry::CompensationAmount>>>(mut self, v: T) -> Self
+        {
             self.compensation_amount = v.into();
             self
         }
@@ -1460,9 +1412,7 @@ pub mod compensation_info {
         pub fn amount(&self) -> std::option::Option<&std::boxed::Box<gtype::model::Money>> {
             #[allow(unreachable_patterns)]
             self.compensation_amount.as_ref().and_then(|v| match v {
-                crate::model::compensation_info::compensation_entry::CompensationAmount::Amount(
-                    v,
-                ) => std::option::Option::Some(v),
+                crate::model::compensation_info::compensation_entry::CompensationAmount::Amount(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
@@ -1481,14 +1431,11 @@ pub mod compensation_info {
         /// assert!(x.amount().is_some());
         /// assert!(x.range().is_none());
         /// ```
-        pub fn set_amount<T: std::convert::Into<std::boxed::Box<gtype::model::Money>>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_amount<T: std::convert::Into<std::boxed::Box<gtype::model::Money>>>(mut self, v: T) -> Self {
             self.compensation_amount = std::option::Option::Some(
                 crate::model::compensation_info::compensation_entry::CompensationAmount::Amount(
-                    v.into(),
-                ),
+                    v.into()
+                )
             );
             self
         }
@@ -1496,15 +1443,10 @@ pub mod compensation_info {
         /// The value of [compensation_amount][crate::model::compensation_info::CompensationEntry::compensation_amount]
         /// if it holds a `Range`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn range(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::compensation_info::CompensationRange>>
-        {
+        pub fn range(&self) -> std::option::Option<&std::boxed::Box<crate::model::compensation_info::CompensationRange>> {
             #[allow(unreachable_patterns)]
             self.compensation_amount.as_ref().and_then(|v| match v {
-                crate::model::compensation_info::compensation_entry::CompensationAmount::Range(
-                    v,
-                ) => std::option::Option::Some(v),
+                crate::model::compensation_info::compensation_entry::CompensationAmount::Range(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
@@ -1523,16 +1465,11 @@ pub mod compensation_info {
         /// assert!(x.range().is_some());
         /// assert!(x.amount().is_none());
         /// ```
-        pub fn set_range<
-            T: std::convert::Into<std::boxed::Box<crate::model::compensation_info::CompensationRange>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_range<T: std::convert::Into<std::boxed::Box<crate::model::compensation_info::CompensationRange>>>(mut self, v: T) -> Self {
             self.compensation_amount = std::option::Option::Some(
                 crate::model::compensation_info::compensation_entry::CompensationAmount::Range(
-                    v.into(),
-                ),
+                    v.into()
+                )
             );
             self
         }
@@ -1549,6 +1486,7 @@ pub mod compensation_info {
         #[allow(unused_imports)]
         use super::*;
 
+
         /// Compensation amount. It could be a fixed amount or a floating range.
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
@@ -1564,6 +1502,7 @@ pub mod compensation_info {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CompensationRange {
+
         /// The maximum amount of compensation. If left empty, the value is set
         /// to a maximal compensation value and the currency code is set to
         /// match the [currency code][google.type.Money.currency_code] of
@@ -1596,8 +1535,7 @@ pub mod compensation_info {
         /// let x = CompensationRange::new().set_max_compensation(Money::default()/* use setters */);
         /// ```
         pub fn set_max_compensation<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<gtype::model::Money>,
+        where T: std::convert::Into<gtype::model::Money>
         {
             self.max_compensation = std::option::Option::Some(v.into());
             self
@@ -1613,8 +1551,7 @@ pub mod compensation_info {
         /// let x = CompensationRange::new().set_or_clear_max_compensation(None::<Money>);
         /// ```
         pub fn set_or_clear_max_compensation<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<gtype::model::Money>,
+        where T: std::convert::Into<gtype::model::Money>
         {
             self.max_compensation = v.map(|x| x.into());
             self
@@ -1629,8 +1566,7 @@ pub mod compensation_info {
         /// let x = CompensationRange::new().set_min_compensation(Money::default()/* use setters */);
         /// ```
         pub fn set_min_compensation<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<gtype::model::Money>,
+        where T: std::convert::Into<gtype::model::Money>
         {
             self.min_compensation = std::option::Option::Some(v.into());
             self
@@ -1646,8 +1582,7 @@ pub mod compensation_info {
         /// let x = CompensationRange::new().set_or_clear_min_compensation(None::<Money>);
         /// ```
         pub fn set_or_clear_min_compensation<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<gtype::model::Money>,
+        where T: std::convert::Into<gtype::model::Money>
         {
             self.min_compensation = v.map(|x| x.into());
             self
@@ -1810,9 +1745,7 @@ pub mod compensation_info {
                 6 => Self::Commissions,
                 7 => Self::Tips,
                 8 => Self::OtherCompensationType,
-                _ => Self::UnknownValue(compensation_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(compensation_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1830,9 +1763,7 @@ pub mod compensation_info {
                 "COMMISSIONS" => Self::Commissions,
                 "TIPS" => Self::Tips,
                 "OTHER_COMPENSATION_TYPE" => Self::OtherCompensationType,
-                _ => Self::UnknownValue(compensation_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(compensation_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1863,8 +1794,7 @@ pub mod compensation_info {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<CompensationType>::new(
-                ".google.cloud.talent.v4.CompensationInfo.CompensationType",
-            ))
+                ".google.cloud.talent.v4.CompensationInfo.CompensationType"))
         }
     }
 
@@ -1979,9 +1909,7 @@ pub mod compensation_info {
                 5 => Self::Yearly,
                 6 => Self::OneTime,
                 7 => Self::OtherCompensationUnit,
-                _ => Self::UnknownValue(compensation_unit::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(compensation_unit::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1998,9 +1926,7 @@ pub mod compensation_info {
                 "YEARLY" => Self::Yearly,
                 "ONE_TIME" => Self::OneTime,
                 "OTHER_COMPENSATION_UNIT" => Self::OtherCompensationUnit,
-                _ => Self::UnknownValue(compensation_unit::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(compensation_unit::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -2030,8 +1956,7 @@ pub mod compensation_info {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<CompensationUnit>::new(
-                ".google.cloud.talent.v4.CompensationInfo.CompensationUnit",
-            ))
+                ".google.cloud.talent.v4.CompensationInfo.CompensationUnit"))
         }
     }
 }
@@ -2044,6 +1969,7 @@ pub mod compensation_info {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchOperationMetadata {
+
     /// The state of a long running operation.
     pub state: crate::model::batch_operation_metadata::State,
 
@@ -2094,10 +2020,7 @@ impl BatchOperationMetadata {
     /// let x1 = BatchOperationMetadata::new().set_state(State::Processing);
     /// let x2 = BatchOperationMetadata::new().set_state(State::Succeeded);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::batch_operation_metadata::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::batch_operation_metadata::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -2109,10 +2032,7 @@ impl BatchOperationMetadata {
     /// # use google_cloud_talent_v4::model::BatchOperationMetadata;
     /// let x = BatchOperationMetadata::new().set_state_description("example");
     /// ```
-    pub fn set_state_description<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.state_description = v.into();
         self
     }
@@ -2162,8 +2082,7 @@ impl BatchOperationMetadata {
     /// let x = BatchOperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -2179,8 +2098,7 @@ impl BatchOperationMetadata {
     /// let x = BatchOperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -2195,8 +2113,7 @@ impl BatchOperationMetadata {
     /// let x = BatchOperationMetadata::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -2212,8 +2129,7 @@ impl BatchOperationMetadata {
     /// let x = BatchOperationMetadata::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -2228,8 +2144,7 @@ impl BatchOperationMetadata {
     /// let x = BatchOperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -2245,8 +2160,7 @@ impl BatchOperationMetadata {
     /// let x = BatchOperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -2263,6 +2177,7 @@ impl wkt::message::Message for BatchOperationMetadata {
 pub mod batch_operation_metadata {
     #[allow(unused_imports)]
     use super::*;
+
 
     ///
     /// # Working with unknown values
@@ -2375,9 +2290,7 @@ pub mod batch_operation_metadata {
                 4 => Self::Failed,
                 5 => Self::Cancelling,
                 6 => Self::Cancelled,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -2393,9 +2306,7 @@ pub mod batch_operation_metadata {
                 "FAILED" => Self::Failed,
                 "CANCELLING" => Self::Cancelling,
                 "CANCELLED" => Self::Cancelled,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -2424,8 +2335,7 @@ pub mod batch_operation_metadata {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.talent.v4.BatchOperationMetadata.State",
-            ))
+                ".google.cloud.talent.v4.BatchOperationMetadata.State"))
         }
     }
 }
@@ -2436,6 +2346,7 @@ pub mod batch_operation_metadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Company {
+
     /// Required during company update.
     ///
     /// The resource name for a company. This is generated by the service when a
@@ -2584,10 +2495,7 @@ impl Company {
     /// # use google_cloud_talent_v4::model::Company;
     /// let x = Company::new().set_headquarters_address("example");
     /// ```
-    pub fn set_headquarters_address<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_headquarters_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.headquarters_address = v.into();
         self
     }
@@ -2663,7 +2571,7 @@ impl Company {
     pub fn set_keyword_searchable_job_custom_attributes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.keyword_searchable_job_custom_attributes = v.into_iter().map(|i| i.into()).collect();
@@ -2679,8 +2587,7 @@ impl Company {
     /// let x = Company::new().set_derived_info(DerivedInfo::default()/* use setters */);
     /// ```
     pub fn set_derived_info<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::company::DerivedInfo>,
+    where T: std::convert::Into<crate::model::company::DerivedInfo>
     {
         self.derived_info = std::option::Option::Some(v.into());
         self
@@ -2696,8 +2603,7 @@ impl Company {
     /// let x = Company::new().set_or_clear_derived_info(None::<DerivedInfo>);
     /// ```
     pub fn set_or_clear_derived_info<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::company::DerivedInfo>,
+    where T: std::convert::Into<crate::model::company::DerivedInfo>
     {
         self.derived_info = v.map(|x| x.into());
         self
@@ -2727,10 +2633,12 @@ pub mod company {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Derived details about the company.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DerivedInfo {
+
         /// A structured headquarters location of the company, resolved from
         /// [Company.headquarters_address][google.cloud.talent.v4.Company.headquarters_address]
         /// if provided.
@@ -2755,8 +2663,7 @@ pub mod company {
         /// let x = DerivedInfo::new().set_headquarters_location(Location::default()/* use setters */);
         /// ```
         pub fn set_headquarters_location<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Location>,
+        where T: std::convert::Into<crate::model::Location>
         {
             self.headquarters_location = std::option::Option::Some(v.into());
             self
@@ -2772,8 +2679,7 @@ pub mod company {
         /// let x = DerivedInfo::new().set_or_clear_headquarters_location(None::<Location>);
         /// ```
         pub fn set_or_clear_headquarters_location<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Location>,
+        where T: std::convert::Into<crate::model::Location>
         {
             self.headquarters_location = v.map(|x| x.into());
             self
@@ -2791,6 +2697,7 @@ pub mod company {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateCompanyRequest {
+
     /// Required. Resource name of the tenant under which the company is created.
     ///
     /// The format is "projects/{project_id}/tenants/{tenant_id}", for example,
@@ -2829,8 +2736,7 @@ impl CreateCompanyRequest {
     /// let x = CreateCompanyRequest::new().set_company(Company::default()/* use setters */);
     /// ```
     pub fn set_company<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Company>,
+    where T: std::convert::Into<crate::model::Company>
     {
         self.company = std::option::Option::Some(v.into());
         self
@@ -2846,8 +2752,7 @@ impl CreateCompanyRequest {
     /// let x = CreateCompanyRequest::new().set_or_clear_company(None::<Company>);
     /// ```
     pub fn set_or_clear_company<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Company>,
+    where T: std::convert::Into<crate::model::Company>
     {
         self.company = v.map(|x| x.into());
         self
@@ -2864,6 +2769,7 @@ impl wkt::message::Message for CreateCompanyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetCompanyRequest {
+
     /// Required. The resource name of the company to be retrieved.
     ///
     /// The format is
@@ -2902,6 +2808,7 @@ impl wkt::message::Message for GetCompanyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateCompanyRequest {
+
     /// Required. The company resource to replace the current resource in the
     /// system.
     pub company: std::option::Option<crate::model::Company>,
@@ -2939,8 +2846,7 @@ impl UpdateCompanyRequest {
     /// let x = UpdateCompanyRequest::new().set_company(Company::default()/* use setters */);
     /// ```
     pub fn set_company<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Company>,
+    where T: std::convert::Into<crate::model::Company>
     {
         self.company = std::option::Option::Some(v.into());
         self
@@ -2956,8 +2862,7 @@ impl UpdateCompanyRequest {
     /// let x = UpdateCompanyRequest::new().set_or_clear_company(None::<Company>);
     /// ```
     pub fn set_or_clear_company<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Company>,
+    where T: std::convert::Into<crate::model::Company>
     {
         self.company = v.map(|x| x.into());
         self
@@ -2972,8 +2877,7 @@ impl UpdateCompanyRequest {
     /// let x = UpdateCompanyRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -2989,8 +2893,7 @@ impl UpdateCompanyRequest {
     /// let x = UpdateCompanyRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -3007,6 +2910,7 @@ impl wkt::message::Message for UpdateCompanyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteCompanyRequest {
+
     /// Required. The resource name of the company to be deleted.
     ///
     /// The format is
@@ -3045,6 +2949,7 @@ impl wkt::message::Message for DeleteCompanyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCompaniesRequest {
+
     /// Required. Resource name of the tenant under which the company is created.
     ///
     /// The format is "projects/{project_id}/tenants/{tenant_id}", for example,
@@ -3136,6 +3041,7 @@ impl wkt::message::Message for ListCompaniesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCompaniesResponse {
+
     /// Companies for the current client.
     pub companies: std::vec::Vec<crate::model::Company>,
 
@@ -3169,7 +3075,7 @@ impl ListCompaniesResponse {
     pub fn set_companies<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Company>,
+        V: std::convert::Into<crate::model::Company>
     {
         use std::iter::Iterator;
         self.companies = v.into_iter().map(|i| i.into()).collect();
@@ -3197,8 +3103,7 @@ impl ListCompaniesResponse {
     /// let x = ListCompaniesResponse::new().set_metadata(ResponseMetadata::default()/* use setters */);
     /// ```
     pub fn set_metadata<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ResponseMetadata>,
+    where T: std::convert::Into<crate::model::ResponseMetadata>
     {
         self.metadata = std::option::Option::Some(v.into());
         self
@@ -3214,8 +3119,7 @@ impl ListCompaniesResponse {
     /// let x = ListCompaniesResponse::new().set_or_clear_metadata(None::<ResponseMetadata>);
     /// ```
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ResponseMetadata>,
+    where T: std::convert::Into<crate::model::ResponseMetadata>
     {
         self.metadata = v.map(|x| x.into());
         self
@@ -3246,6 +3150,7 @@ impl gax::paginator::internal::PageableResponse for ListCompaniesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CompleteQueryRequest {
+
     /// Required. Resource name of tenant the completion is performed within.
     ///
     /// The format is "projects/{project_id}/tenants/{tenant_id}", for example,
@@ -3331,7 +3236,7 @@ impl CompleteQueryRequest {
     pub fn set_language_codes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.language_codes = v.into_iter().map(|i| i.into()).collect();
@@ -3371,12 +3276,7 @@ impl CompleteQueryRequest {
     /// let x0 = CompleteQueryRequest::new().set_scope(CompletionScope::Tenant);
     /// let x1 = CompleteQueryRequest::new().set_scope(CompletionScope::Public);
     /// ```
-    pub fn set_scope<
-        T: std::convert::Into<crate::model::complete_query_request::CompletionScope>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_scope<T: std::convert::Into<crate::model::complete_query_request::CompletionScope>>(mut self, v: T) -> Self {
         self.scope = v.into();
         self
     }
@@ -3391,10 +3291,7 @@ impl CompleteQueryRequest {
     /// let x1 = CompleteQueryRequest::new().set_type(CompletionType::CompanyName);
     /// let x2 = CompleteQueryRequest::new().set_type(CompletionType::Combined);
     /// ```
-    pub fn set_type<T: std::convert::Into<crate::model::complete_query_request::CompletionType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_type<T: std::convert::Into<crate::model::complete_query_request::CompletionType>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
@@ -3410,6 +3307,7 @@ impl wkt::message::Message for CompleteQueryRequest {
 pub mod complete_query_request {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Enum to specify the scope of completion.
     ///
@@ -3498,9 +3396,7 @@ pub mod complete_query_request {
                 0 => Self::Unspecified,
                 1 => Self::Tenant,
                 2 => Self::Public,
-                _ => Self::UnknownValue(completion_scope::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(completion_scope::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -3512,9 +3408,7 @@ pub mod complete_query_request {
                 "COMPLETION_SCOPE_UNSPECIFIED" => Self::Unspecified,
                 "TENANT" => Self::Tenant,
                 "PUBLIC" => Self::Public,
-                _ => Self::UnknownValue(completion_scope::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(completion_scope::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -3539,8 +3433,7 @@ pub mod complete_query_request {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<CompletionScope>::new(
-                ".google.cloud.talent.v4.CompleteQueryRequest.CompletionScope",
-            ))
+                ".google.cloud.talent.v4.CompleteQueryRequest.CompletionScope"))
         }
     }
 
@@ -3664,9 +3557,7 @@ pub mod complete_query_request {
                 1 => Self::JobTitle,
                 2 => Self::CompanyName,
                 3 => Self::Combined,
-                _ => Self::UnknownValue(completion_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(completion_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -3679,9 +3570,7 @@ pub mod complete_query_request {
                 "JOB_TITLE" => Self::JobTitle,
                 "COMPANY_NAME" => Self::CompanyName,
                 "COMBINED" => Self::Combined,
-                _ => Self::UnknownValue(completion_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(completion_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -3707,8 +3596,7 @@ pub mod complete_query_request {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<CompletionType>::new(
-                ".google.cloud.talent.v4.CompleteQueryRequest.CompletionType",
-            ))
+                ".google.cloud.talent.v4.CompleteQueryRequest.CompletionType"))
         }
     }
 }
@@ -3717,6 +3605,7 @@ pub mod complete_query_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CompleteQueryResponse {
+
     /// Results of the matching job/company candidates.
     pub completion_results: std::vec::Vec<crate::model::complete_query_response::CompletionResult>,
 
@@ -3747,7 +3636,7 @@ impl CompleteQueryResponse {
     pub fn set_completion_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::complete_query_response::CompletionResult>,
+        V: std::convert::Into<crate::model::complete_query_response::CompletionResult>
     {
         use std::iter::Iterator;
         self.completion_results = v.into_iter().map(|i| i.into()).collect();
@@ -3763,8 +3652,7 @@ impl CompleteQueryResponse {
     /// let x = CompleteQueryResponse::new().set_metadata(ResponseMetadata::default()/* use setters */);
     /// ```
     pub fn set_metadata<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ResponseMetadata>,
+    where T: std::convert::Into<crate::model::ResponseMetadata>
     {
         self.metadata = std::option::Option::Some(v.into());
         self
@@ -3780,8 +3668,7 @@ impl CompleteQueryResponse {
     /// let x = CompleteQueryResponse::new().set_or_clear_metadata(None::<ResponseMetadata>);
     /// ```
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ResponseMetadata>,
+    where T: std::convert::Into<crate::model::ResponseMetadata>
     {
         self.metadata = v.map(|x| x.into());
         self
@@ -3799,10 +3686,12 @@ pub mod complete_query_response {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Resource that represents completion results.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CompletionResult {
+
         /// The suggestion for the query.
         pub suggestion: std::string::String,
 
@@ -3845,12 +3734,7 @@ pub mod complete_query_response {
         /// let x1 = CompletionResult::new().set_type(CompletionType::CompanyName);
         /// let x2 = CompletionResult::new().set_type(CompletionType::Combined);
         /// ```
-        pub fn set_type<
-            T: std::convert::Into<crate::model::complete_query_request::CompletionType>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_type<T: std::convert::Into<crate::model::complete_query_request::CompletionType>>(mut self, v: T) -> Self {
             self.r#type = v.into();
             self
         }
@@ -3883,6 +3767,7 @@ pub mod complete_query_response {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ClientEvent {
+
     /// Strongly recommended for the best service experience.
     ///
     /// A unique ID generated in the API responses. It can be found in
@@ -3947,8 +3832,7 @@ impl ClientEvent {
     /// let x = ClientEvent::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -3964,8 +3848,7 @@ impl ClientEvent {
     /// let x = ClientEvent::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -3995,12 +3878,8 @@ impl ClientEvent {
     /// let x = ClientEvent::new().set_event(Some(
     ///     google_cloud_talent_v4::model::client_event::Event::JobEvent(JobEvent::default().into())));
     /// ```
-    pub fn set_event<
-        T: std::convert::Into<std::option::Option<crate::model::client_event::Event>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_event<T: std::convert::Into<std::option::Option<crate::model::client_event::Event>>>(mut self, v: T) -> Self
+    {
         self.event = v.into();
         self
     }
@@ -4029,12 +3908,12 @@ impl ClientEvent {
     /// let x = ClientEvent::new().set_job_event(JobEvent::default()/* use setters */);
     /// assert!(x.job_event().is_some());
     /// ```
-    pub fn set_job_event<T: std::convert::Into<std::boxed::Box<crate::model::JobEvent>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.event =
-            std::option::Option::Some(crate::model::client_event::Event::JobEvent(v.into()));
+    pub fn set_job_event<T: std::convert::Into<std::boxed::Box<crate::model::JobEvent>>>(mut self, v: T) -> Self {
+        self.event = std::option::Option::Some(
+            crate::model::client_event::Event::JobEvent(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -4049,6 +3928,7 @@ impl wkt::message::Message for ClientEvent {
 pub mod client_event {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Required.
     ///
@@ -4067,6 +3947,7 @@ pub mod client_event {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct JobEvent {
+
     /// Required. The type of the event (see
     /// [JobEventType][google.cloud.talent.v4.JobEvent.JobEventType]).
     ///
@@ -4108,10 +3989,7 @@ impl JobEvent {
     /// let x1 = JobEvent::new().set_type(JobEventType::View);
     /// let x2 = JobEvent::new().set_type(JobEventType::ViewRedirect);
     /// ```
-    pub fn set_type<T: std::convert::Into<crate::model::job_event::JobEventType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_type<T: std::convert::Into<crate::model::job_event::JobEventType>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
@@ -4126,7 +4004,7 @@ impl JobEvent {
     pub fn set_jobs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.jobs = v.into_iter().map(|i| i.into()).collect();
@@ -4144,6 +4022,7 @@ impl wkt::message::Message for JobEvent {
 pub mod job_event {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// An enumeration of an event attributed to the behavior of the end user,
     /// such as a job seeker.
@@ -4306,19 +4185,11 @@ pub mod job_event {
                 Self::ViewRedirect => std::option::Option::Some("VIEW_REDIRECT"),
                 Self::ApplicationStart => std::option::Option::Some("APPLICATION_START"),
                 Self::ApplicationFinish => std::option::Option::Some("APPLICATION_FINISH"),
-                Self::ApplicationQuickSubmission => {
-                    std::option::Option::Some("APPLICATION_QUICK_SUBMISSION")
-                }
+                Self::ApplicationQuickSubmission => std::option::Option::Some("APPLICATION_QUICK_SUBMISSION"),
                 Self::ApplicationRedirect => std::option::Option::Some("APPLICATION_REDIRECT"),
-                Self::ApplicationStartFromSearch => {
-                    std::option::Option::Some("APPLICATION_START_FROM_SEARCH")
-                }
-                Self::ApplicationRedirectFromSearch => {
-                    std::option::Option::Some("APPLICATION_REDIRECT_FROM_SEARCH")
-                }
-                Self::ApplicationCompanySubmit => {
-                    std::option::Option::Some("APPLICATION_COMPANY_SUBMIT")
-                }
+                Self::ApplicationStartFromSearch => std::option::Option::Some("APPLICATION_START_FROM_SEARCH"),
+                Self::ApplicationRedirectFromSearch => std::option::Option::Some("APPLICATION_REDIRECT_FROM_SEARCH"),
+                Self::ApplicationCompanySubmit => std::option::Option::Some("APPLICATION_COMPANY_SUBMIT"),
                 Self::Bookmark => std::option::Option::Some("BOOKMARK"),
                 Self::Notification => std::option::Option::Some("NOTIFICATION"),
                 Self::Hired => std::option::Option::Some("HIRED"),
@@ -4361,9 +4232,7 @@ pub mod job_event {
                 13 => Self::Hired,
                 14 => Self::SentCv,
                 15 => Self::InterviewGranted,
-                _ => Self::UnknownValue(job_event_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(job_event_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -4388,9 +4257,7 @@ pub mod job_event {
                 "HIRED" => Self::Hired,
                 "SENT_CV" => Self::SentCv,
                 "INTERVIEW_GRANTED" => Self::InterviewGranted,
-                _ => Self::UnknownValue(job_event_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(job_event_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -4428,8 +4295,7 @@ pub mod job_event {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<JobEventType>::new(
-                ".google.cloud.talent.v4.JobEvent.JobEventType",
-            ))
+                ".google.cloud.talent.v4.JobEvent.JobEventType"))
         }
     }
 }
@@ -4438,6 +4304,7 @@ pub mod job_event {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateClientEventRequest {
+
     /// Required. Resource name of the tenant under which the event is created.
     ///
     /// The format is "projects/{project_id}/tenants/{tenant_id}", for example,
@@ -4477,8 +4344,7 @@ impl CreateClientEventRequest {
     /// let x = CreateClientEventRequest::new().set_client_event(ClientEvent::default()/* use setters */);
     /// ```
     pub fn set_client_event<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ClientEvent>,
+    where T: std::convert::Into<crate::model::ClientEvent>
     {
         self.client_event = std::option::Option::Some(v.into());
         self
@@ -4494,8 +4360,7 @@ impl CreateClientEventRequest {
     /// let x = CreateClientEventRequest::new().set_or_clear_client_event(None::<ClientEvent>);
     /// ```
     pub fn set_or_clear_client_event<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ClientEvent>,
+    where T: std::convert::Into<crate::model::ClientEvent>
     {
         self.client_event = v.map(|x| x.into());
         self
@@ -4512,6 +4377,7 @@ impl wkt::message::Message for CreateClientEventRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct JobQuery {
+
     /// The query string that matches against the job title, description, and
     /// location fields.
     ///
@@ -4724,10 +4590,7 @@ impl JobQuery {
     /// # use google_cloud_talent_v4::model::JobQuery;
     /// let x = JobQuery::new().set_query_language_code("example");
     /// ```
-    pub fn set_query_language_code<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_query_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.query_language_code = v.into();
         self
     }
@@ -4742,7 +4605,7 @@ impl JobQuery {
     pub fn set_companies<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.companies = v.into_iter().map(|i| i.into()).collect();
@@ -4764,7 +4627,7 @@ impl JobQuery {
     pub fn set_location_filters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::LocationFilter>,
+        V: std::convert::Into<crate::model::LocationFilter>
     {
         use std::iter::Iterator;
         self.location_filters = v.into_iter().map(|i| i.into()).collect();
@@ -4786,7 +4649,7 @@ impl JobQuery {
     pub fn set_job_categories<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::JobCategory>,
+        V: std::convert::Into<crate::model::JobCategory>
     {
         use std::iter::Iterator;
         self.job_categories = v.into_iter().map(|i| i.into()).collect();
@@ -4802,8 +4665,7 @@ impl JobQuery {
     /// let x = JobQuery::new().set_commute_filter(CommuteFilter::default()/* use setters */);
     /// ```
     pub fn set_commute_filter<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CommuteFilter>,
+    where T: std::convert::Into<crate::model::CommuteFilter>
     {
         self.commute_filter = std::option::Option::Some(v.into());
         self
@@ -4819,8 +4681,7 @@ impl JobQuery {
     /// let x = JobQuery::new().set_or_clear_commute_filter(None::<CommuteFilter>);
     /// ```
     pub fn set_or_clear_commute_filter<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CommuteFilter>,
+    where T: std::convert::Into<crate::model::CommuteFilter>
     {
         self.commute_filter = v.map(|x| x.into());
         self
@@ -4836,7 +4697,7 @@ impl JobQuery {
     pub fn set_company_display_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.company_display_names = v.into_iter().map(|i| i.into()).collect();
@@ -4852,8 +4713,7 @@ impl JobQuery {
     /// let x = JobQuery::new().set_compensation_filter(CompensationFilter::default()/* use setters */);
     /// ```
     pub fn set_compensation_filter<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CompensationFilter>,
+    where T: std::convert::Into<crate::model::CompensationFilter>
     {
         self.compensation_filter = std::option::Option::Some(v.into());
         self
@@ -4869,8 +4729,7 @@ impl JobQuery {
     /// let x = JobQuery::new().set_or_clear_compensation_filter(None::<CompensationFilter>);
     /// ```
     pub fn set_or_clear_compensation_filter<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CompensationFilter>,
+    where T: std::convert::Into<crate::model::CompensationFilter>
     {
         self.compensation_filter = v.map(|x| x.into());
         self
@@ -4883,10 +4742,7 @@ impl JobQuery {
     /// # use google_cloud_talent_v4::model::JobQuery;
     /// let x = JobQuery::new().set_custom_attribute_filter("example");
     /// ```
-    pub fn set_custom_attribute_filter<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_custom_attribute_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.custom_attribute_filter = v.into();
         self
     }
@@ -4918,7 +4774,7 @@ impl JobQuery {
     pub fn set_employment_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::EmploymentType>,
+        V: std::convert::Into<crate::model::EmploymentType>
     {
         use std::iter::Iterator;
         self.employment_types = v.into_iter().map(|i| i.into()).collect();
@@ -4935,7 +4791,7 @@ impl JobQuery {
     pub fn set_language_codes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.language_codes = v.into_iter().map(|i| i.into()).collect();
@@ -4951,8 +4807,7 @@ impl JobQuery {
     /// let x = JobQuery::new().set_publish_time_range(TimestampRange::default()/* use setters */);
     /// ```
     pub fn set_publish_time_range<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TimestampRange>,
+    where T: std::convert::Into<crate::model::TimestampRange>
     {
         self.publish_time_range = std::option::Option::Some(v.into());
         self
@@ -4968,8 +4823,7 @@ impl JobQuery {
     /// let x = JobQuery::new().set_or_clear_publish_time_range(None::<TimestampRange>);
     /// ```
     pub fn set_or_clear_publish_time_range<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TimestampRange>,
+    where T: std::convert::Into<crate::model::TimestampRange>
     {
         self.publish_time_range = v.map(|x| x.into());
         self
@@ -4985,7 +4839,7 @@ impl JobQuery {
     pub fn set_excluded_jobs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.excluded_jobs = v.into_iter().map(|i| i.into()).collect();
@@ -5003,6 +4857,7 @@ impl wkt::message::Message for JobQuery {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LocationFilter {
+
     /// The address name, such as "Mountain View" or "Bay Area".
     pub address: std::string::String,
 
@@ -5110,8 +4965,7 @@ impl LocationFilter {
     /// let x = LocationFilter::new().set_lat_lng(LatLng::default()/* use setters */);
     /// ```
     pub fn set_lat_lng<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<gtype::model::LatLng>,
+    where T: std::convert::Into<gtype::model::LatLng>
     {
         self.lat_lng = std::option::Option::Some(v.into());
         self
@@ -5127,8 +4981,7 @@ impl LocationFilter {
     /// let x = LocationFilter::new().set_or_clear_lat_lng(None::<LatLng>);
     /// ```
     pub fn set_or_clear_lat_lng<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<gtype::model::LatLng>,
+    where T: std::convert::Into<gtype::model::LatLng>
     {
         self.lat_lng = v.map(|x| x.into());
         self
@@ -5155,12 +5008,7 @@ impl LocationFilter {
     /// let x0 = LocationFilter::new().set_telecommute_preference(TelecommutePreference::TelecommuteAllowed);
     /// let x1 = LocationFilter::new().set_telecommute_preference(TelecommutePreference::TelecommuteJobsExcluded);
     /// ```
-    pub fn set_telecommute_preference<
-        T: std::convert::Into<crate::model::location_filter::TelecommutePreference>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_telecommute_preference<T: std::convert::Into<crate::model::location_filter::TelecommutePreference>>(mut self, v: T) -> Self {
         self.telecommute_preference = v.into();
         self
     }
@@ -5176,6 +5024,7 @@ impl wkt::message::Message for LocationFilter {
 pub mod location_filter {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Specify whether to include telecommute jobs.
     ///
@@ -5241,14 +5090,10 @@ pub mod location_filter {
         /// the integer representation of enums.
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
-                Self::Unspecified => {
-                    std::option::Option::Some("TELECOMMUTE_PREFERENCE_UNSPECIFIED")
-                }
+                Self::Unspecified => std::option::Option::Some("TELECOMMUTE_PREFERENCE_UNSPECIFIED"),
                 Self::TelecommuteExcluded => std::option::Option::Some("TELECOMMUTE_EXCLUDED"),
                 Self::TelecommuteAllowed => std::option::Option::Some("TELECOMMUTE_ALLOWED"),
-                Self::TelecommuteJobsExcluded => {
-                    std::option::Option::Some("TELECOMMUTE_JOBS_EXCLUDED")
-                }
+                Self::TelecommuteJobsExcluded => std::option::Option::Some("TELECOMMUTE_JOBS_EXCLUDED"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -5274,9 +5119,7 @@ pub mod location_filter {
                 1 => Self::TelecommuteExcluded,
                 2 => Self::TelecommuteAllowed,
                 3 => Self::TelecommuteJobsExcluded,
-                _ => Self::UnknownValue(telecommute_preference::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(telecommute_preference::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -5289,9 +5132,7 @@ pub mod location_filter {
                 "TELECOMMUTE_EXCLUDED" => Self::TelecommuteExcluded,
                 "TELECOMMUTE_ALLOWED" => Self::TelecommuteAllowed,
                 "TELECOMMUTE_JOBS_EXCLUDED" => Self::TelecommuteJobsExcluded,
-                _ => Self::UnknownValue(telecommute_preference::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(telecommute_preference::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -5317,8 +5158,7 @@ pub mod location_filter {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<TelecommutePreference>::new(
-                ".google.cloud.talent.v4.LocationFilter.TelecommutePreference",
-            ))
+                ".google.cloud.talent.v4.LocationFilter.TelecommutePreference"))
         }
     }
 }
@@ -5327,6 +5167,7 @@ pub mod location_filter {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CompensationFilter {
+
     /// Required. Type of filter.
     pub r#type: crate::model::compensation_filter::FilterType,
 
@@ -5361,10 +5202,7 @@ impl CompensationFilter {
     /// let x1 = CompensationFilter::new().set_type(FilterType::UnitAndAmount);
     /// let x2 = CompensationFilter::new().set_type(FilterType::AnnualizedBaseAmount);
     /// ```
-    pub fn set_type<T: std::convert::Into<crate::model::compensation_filter::FilterType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_type<T: std::convert::Into<crate::model::compensation_filter::FilterType>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
@@ -5384,7 +5222,7 @@ impl CompensationFilter {
     pub fn set_units<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::compensation_info::CompensationUnit>,
+        V: std::convert::Into<crate::model::compensation_info::CompensationUnit>
     {
         use std::iter::Iterator;
         self.units = v.into_iter().map(|i| i.into()).collect();
@@ -5400,8 +5238,7 @@ impl CompensationFilter {
     /// let x = CompensationFilter::new().set_range(CompensationRange::default()/* use setters */);
     /// ```
     pub fn set_range<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::compensation_info::CompensationRange>,
+    where T: std::convert::Into<crate::model::compensation_info::CompensationRange>
     {
         self.range = std::option::Option::Some(v.into());
         self
@@ -5417,8 +5254,7 @@ impl CompensationFilter {
     /// let x = CompensationFilter::new().set_or_clear_range(None::<CompensationRange>);
     /// ```
     pub fn set_or_clear_range<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::compensation_info::CompensationRange>,
+    where T: std::convert::Into<crate::model::compensation_info::CompensationRange>
     {
         self.range = v.map(|x| x.into());
         self
@@ -5431,10 +5267,7 @@ impl CompensationFilter {
     /// # use google_cloud_talent_v4::model::CompensationFilter;
     /// let x = CompensationFilter::new().set_include_jobs_with_unspecified_compensation_range(true);
     /// ```
-    pub fn set_include_jobs_with_unspecified_compensation_range<T: std::convert::Into<bool>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_include_jobs_with_unspecified_compensation_range<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.include_jobs_with_unspecified_compensation_range = v.into();
         self
     }
@@ -5450,6 +5283,7 @@ impl wkt::message::Message for CompensationFilter {
 pub mod compensation_filter {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Specify the type of filtering.
     ///
@@ -5588,9 +5422,7 @@ pub mod compensation_filter {
                 2 => Self::UnitAndAmount,
                 3 => Self::AnnualizedBaseAmount,
                 4 => Self::AnnualizedTotalAmount,
-                _ => Self::UnknownValue(filter_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(filter_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -5604,9 +5436,7 @@ pub mod compensation_filter {
                 "UNIT_AND_AMOUNT" => Self::UnitAndAmount,
                 "ANNUALIZED_BASE_AMOUNT" => Self::AnnualizedBaseAmount,
                 "ANNUALIZED_TOTAL_AMOUNT" => Self::AnnualizedTotalAmount,
-                _ => Self::UnknownValue(filter_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(filter_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -5633,8 +5463,7 @@ pub mod compensation_filter {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<FilterType>::new(
-                ".google.cloud.talent.v4.CompensationFilter.FilterType",
-            ))
+                ".google.cloud.talent.v4.CompensationFilter.FilterType"))
         }
     }
 }
@@ -5643,6 +5472,7 @@ pub mod compensation_filter {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CommuteFilter {
+
     /// Required. The method of transportation to calculate the commute time for.
     pub commute_method: crate::model::CommuteMethod,
 
@@ -5682,10 +5512,7 @@ impl CommuteFilter {
     /// let x1 = CommuteFilter::new().set_commute_method(CommuteMethod::Transit);
     /// let x2 = CommuteFilter::new().set_commute_method(CommuteMethod::Walking);
     /// ```
-    pub fn set_commute_method<T: std::convert::Into<crate::model::CommuteMethod>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_commute_method<T: std::convert::Into<crate::model::CommuteMethod>>(mut self, v: T) -> Self {
         self.commute_method = v.into();
         self
     }
@@ -5699,8 +5526,7 @@ impl CommuteFilter {
     /// let x = CommuteFilter::new().set_start_coordinates(LatLng::default()/* use setters */);
     /// ```
     pub fn set_start_coordinates<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<gtype::model::LatLng>,
+    where T: std::convert::Into<gtype::model::LatLng>
     {
         self.start_coordinates = std::option::Option::Some(v.into());
         self
@@ -5716,8 +5542,7 @@ impl CommuteFilter {
     /// let x = CommuteFilter::new().set_or_clear_start_coordinates(None::<LatLng>);
     /// ```
     pub fn set_or_clear_start_coordinates<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<gtype::model::LatLng>,
+    where T: std::convert::Into<gtype::model::LatLng>
     {
         self.start_coordinates = v.map(|x| x.into());
         self
@@ -5732,8 +5557,7 @@ impl CommuteFilter {
     /// let x = CommuteFilter::new().set_travel_duration(Duration::default()/* use setters */);
     /// ```
     pub fn set_travel_duration<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.travel_duration = std::option::Option::Some(v.into());
         self
@@ -5749,8 +5573,7 @@ impl CommuteFilter {
     /// let x = CommuteFilter::new().set_or_clear_travel_duration(None::<Duration>);
     /// ```
     pub fn set_or_clear_travel_duration<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.travel_duration = v.map(|x| x.into());
         self
@@ -5782,12 +5605,8 @@ impl CommuteFilter {
     /// let x1 = CommuteFilter::new().set_traffic_option(Some(
     ///     google_cloud_talent_v4::model::commute_filter::TrafficOption::RoadTraffic(RoadTraffic::BusyHour)));
     /// ```
-    pub fn set_traffic_option<
-        T: std::convert::Into<std::option::Option<crate::model::commute_filter::TrafficOption>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_traffic_option<T: std::convert::Into<std::option::Option<crate::model::commute_filter::TrafficOption>>>(mut self, v: T) -> Self
+    {
         self.traffic_option = v.into();
         self
     }
@@ -5798,9 +5617,7 @@ impl CommuteFilter {
     pub fn road_traffic(&self) -> std::option::Option<&crate::model::commute_filter::RoadTraffic> {
         #[allow(unreachable_patterns)]
         self.traffic_option.as_ref().and_then(|v| match v {
-            crate::model::commute_filter::TrafficOption::RoadTraffic(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::commute_filter::TrafficOption::RoadTraffic(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -5822,12 +5639,11 @@ impl CommuteFilter {
     /// assert!(x1.road_traffic().is_some());
     /// assert!(x1.departure_time().is_none());
     /// ```
-    pub fn set_road_traffic<T: std::convert::Into<crate::model::commute_filter::RoadTraffic>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_road_traffic<T: std::convert::Into<crate::model::commute_filter::RoadTraffic>>(mut self, v: T) -> Self {
         self.traffic_option = std::option::Option::Some(
-            crate::model::commute_filter::TrafficOption::RoadTraffic(v.into()),
+            crate::model::commute_filter::TrafficOption::RoadTraffic(
+                v.into()
+            )
         );
         self
     }
@@ -5838,9 +5654,7 @@ impl CommuteFilter {
     pub fn departure_time(&self) -> std::option::Option<&std::boxed::Box<gtype::model::TimeOfDay>> {
         #[allow(unreachable_patterns)]
         self.traffic_option.as_ref().and_then(|v| match v {
-            crate::model::commute_filter::TrafficOption::DepartureTime(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::commute_filter::TrafficOption::DepartureTime(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -5859,12 +5673,11 @@ impl CommuteFilter {
     /// assert!(x.departure_time().is_some());
     /// assert!(x.road_traffic().is_none());
     /// ```
-    pub fn set_departure_time<T: std::convert::Into<std::boxed::Box<gtype::model::TimeOfDay>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_departure_time<T: std::convert::Into<std::boxed::Box<gtype::model::TimeOfDay>>>(mut self, v: T) -> Self {
         self.traffic_option = std::option::Option::Some(
-            crate::model::commute_filter::TrafficOption::DepartureTime(v.into()),
+            crate::model::commute_filter::TrafficOption::DepartureTime(
+                v.into()
+            )
         );
         self
     }
@@ -5880,6 +5693,7 @@ impl wkt::message::Message for CommuteFilter {
 pub mod commute_filter {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The traffic density to use when calculating commute time.
     ///
@@ -5967,9 +5781,7 @@ pub mod commute_filter {
                 0 => Self::Unspecified,
                 1 => Self::TrafficFree,
                 2 => Self::BusyHour,
-                _ => Self::UnknownValue(road_traffic::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(road_traffic::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -5981,9 +5793,7 @@ pub mod commute_filter {
                 "ROAD_TRAFFIC_UNSPECIFIED" => Self::Unspecified,
                 "TRAFFIC_FREE" => Self::TrafficFree,
                 "BUSY_HOUR" => Self::BusyHour,
-                _ => Self::UnknownValue(road_traffic::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(road_traffic::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -6008,8 +5818,7 @@ pub mod commute_filter {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<RoadTraffic>::new(
-                ".google.cloud.talent.v4.CommuteFilter.RoadTraffic",
-            ))
+                ".google.cloud.talent.v4.CommuteFilter.RoadTraffic"))
         }
     }
 
@@ -6033,6 +5842,7 @@ pub mod commute_filter {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HistogramQuery {
+
     /// An expression specifies a histogram request against matching jobs for
     /// searches.
     ///
@@ -6078,6 +5888,7 @@ impl wkt::message::Message for HistogramQuery {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HistogramQueryResult {
+
     /// Requested histogram expression.
     pub histogram_query: std::string::String,
 
@@ -6091,7 +5902,7 @@ pub struct HistogramQueryResult {
     ///   for `bucket(0, MAX, "non-negative")`, the key will be `non-negative`.
     /// * (for anonymous numeric bucket) range formatted as `<low>-<high>`, for
     ///   example, `0-1000`, `MIN-0`, and `0-MAX`.
-    pub histogram: std::collections::HashMap<std::string::String, i64>,
+    pub histogram: std::collections::HashMap<std::string::String,i64>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -6150,6 +5961,7 @@ impl wkt::message::Message for HistogramQueryResult {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Job {
+
     /// Required during job update.
     ///
     /// The resource name for the job. This is generated by the service when a
@@ -6273,8 +6085,7 @@ pub struct Job {
     /// allowed, with each string no more than 255 characters. For unfilterable
     /// `string_values`, the maximum total size of `string_values` across all keys
     /// is 50KB.
-    pub custom_attributes:
-        std::collections::HashMap<std::string::String, crate::model::CustomAttribute>,
+    pub custom_attributes: std::collections::HashMap<std::string::String,crate::model::CustomAttribute>,
 
     /// The desired education degrees for the job, such as Bachelors, Masters.
     pub degree_types: std::vec::Vec<crate::model::DegreeType>,
@@ -6553,7 +6364,7 @@ impl Job {
     pub fn set_addresses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.addresses = v.into_iter().map(|i| i.into()).collect();
@@ -6569,8 +6380,7 @@ impl Job {
     /// let x = Job::new().set_application_info(ApplicationInfo::default()/* use setters */);
     /// ```
     pub fn set_application_info<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::job::ApplicationInfo>,
+    where T: std::convert::Into<crate::model::job::ApplicationInfo>
     {
         self.application_info = std::option::Option::Some(v.into());
         self
@@ -6586,8 +6396,7 @@ impl Job {
     /// let x = Job::new().set_or_clear_application_info(None::<ApplicationInfo>);
     /// ```
     pub fn set_or_clear_application_info<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::job::ApplicationInfo>,
+    where T: std::convert::Into<crate::model::job::ApplicationInfo>
     {
         self.application_info = v.map(|x| x.into());
         self
@@ -6608,7 +6417,7 @@ impl Job {
     pub fn set_job_benefits<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::JobBenefit>,
+        V: std::convert::Into<crate::model::JobBenefit>
     {
         use std::iter::Iterator;
         self.job_benefits = v.into_iter().map(|i| i.into()).collect();
@@ -6624,8 +6433,7 @@ impl Job {
     /// let x = Job::new().set_compensation_info(CompensationInfo::default()/* use setters */);
     /// ```
     pub fn set_compensation_info<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CompensationInfo>,
+    where T: std::convert::Into<crate::model::CompensationInfo>
     {
         self.compensation_info = std::option::Option::Some(v.into());
         self
@@ -6641,8 +6449,7 @@ impl Job {
     /// let x = Job::new().set_or_clear_compensation_info(None::<CompensationInfo>);
     /// ```
     pub fn set_or_clear_compensation_info<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CompensationInfo>,
+    where T: std::convert::Into<crate::model::CompensationInfo>
     {
         self.compensation_info = v.map(|x| x.into());
         self
@@ -6685,7 +6492,7 @@ impl Job {
     pub fn set_degree_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::DegreeType>,
+        V: std::convert::Into<crate::model::DegreeType>
     {
         use std::iter::Iterator;
         self.degree_types = v.into_iter().map(|i| i.into()).collect();
@@ -6719,7 +6526,7 @@ impl Job {
     pub fn set_employment_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::EmploymentType>,
+        V: std::convert::Into<crate::model::EmploymentType>
     {
         use std::iter::Iterator;
         self.employment_types = v.into_iter().map(|i| i.into()).collect();
@@ -6796,10 +6603,7 @@ impl Job {
     /// # use google_cloud_talent_v4::model::Job;
     /// let x = Job::new().set_responsibilities("example");
     /// ```
-    pub fn set_responsibilities<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_responsibilities<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.responsibilities = v.into();
         self
     }
@@ -6814,10 +6618,7 @@ impl Job {
     /// let x1 = Job::new().set_posting_region(PostingRegion::Nation);
     /// let x2 = Job::new().set_posting_region(PostingRegion::Telecommute);
     /// ```
-    pub fn set_posting_region<T: std::convert::Into<crate::model::PostingRegion>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_posting_region<T: std::convert::Into<crate::model::PostingRegion>>(mut self, v: T) -> Self {
         self.posting_region = v.into();
         self
     }
@@ -6847,8 +6648,7 @@ impl Job {
     /// let x = Job::new().set_job_start_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_job_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.job_start_time = std::option::Option::Some(v.into());
         self
@@ -6864,8 +6664,7 @@ impl Job {
     /// let x = Job::new().set_or_clear_job_start_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_job_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.job_start_time = v.map(|x| x.into());
         self
@@ -6880,8 +6679,7 @@ impl Job {
     /// let x = Job::new().set_job_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_job_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.job_end_time = std::option::Option::Some(v.into());
         self
@@ -6897,8 +6695,7 @@ impl Job {
     /// let x = Job::new().set_or_clear_job_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_job_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.job_end_time = v.map(|x| x.into());
         self
@@ -6913,8 +6710,7 @@ impl Job {
     /// let x = Job::new().set_posting_publish_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_posting_publish_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.posting_publish_time = std::option::Option::Some(v.into());
         self
@@ -6930,8 +6726,7 @@ impl Job {
     /// let x = Job::new().set_or_clear_posting_publish_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_posting_publish_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.posting_publish_time = v.map(|x| x.into());
         self
@@ -6946,8 +6741,7 @@ impl Job {
     /// let x = Job::new().set_posting_expire_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_posting_expire_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.posting_expire_time = std::option::Option::Some(v.into());
         self
@@ -6963,8 +6757,7 @@ impl Job {
     /// let x = Job::new().set_or_clear_posting_expire_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_posting_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.posting_expire_time = v.map(|x| x.into());
         self
@@ -6979,8 +6772,7 @@ impl Job {
     /// let x = Job::new().set_posting_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_posting_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.posting_create_time = std::option::Option::Some(v.into());
         self
@@ -6996,8 +6788,7 @@ impl Job {
     /// let x = Job::new().set_or_clear_posting_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_posting_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.posting_create_time = v.map(|x| x.into());
         self
@@ -7012,8 +6803,7 @@ impl Job {
     /// let x = Job::new().set_posting_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_posting_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.posting_update_time = std::option::Option::Some(v.into());
         self
@@ -7029,8 +6819,7 @@ impl Job {
     /// let x = Job::new().set_or_clear_posting_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_posting_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.posting_update_time = v.map(|x| x.into());
         self
@@ -7043,10 +6832,7 @@ impl Job {
     /// # use google_cloud_talent_v4::model::Job;
     /// let x = Job::new().set_company_display_name("example");
     /// ```
-    pub fn set_company_display_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_company_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.company_display_name = v.into();
         self
     }
@@ -7060,8 +6846,7 @@ impl Job {
     /// let x = Job::new().set_derived_info(DerivedInfo::default()/* use setters */);
     /// ```
     pub fn set_derived_info<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::job::DerivedInfo>,
+    where T: std::convert::Into<crate::model::job::DerivedInfo>
     {
         self.derived_info = std::option::Option::Some(v.into());
         self
@@ -7077,8 +6862,7 @@ impl Job {
     /// let x = Job::new().set_or_clear_derived_info(None::<DerivedInfo>);
     /// ```
     pub fn set_or_clear_derived_info<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::job::DerivedInfo>,
+    where T: std::convert::Into<crate::model::job::DerivedInfo>
     {
         self.derived_info = v.map(|x| x.into());
         self
@@ -7093,8 +6877,7 @@ impl Job {
     /// let x = Job::new().set_processing_options(ProcessingOptions::default()/* use setters */);
     /// ```
     pub fn set_processing_options<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::job::ProcessingOptions>,
+    where T: std::convert::Into<crate::model::job::ProcessingOptions>
     {
         self.processing_options = std::option::Option::Some(v.into());
         self
@@ -7110,8 +6893,7 @@ impl Job {
     /// let x = Job::new().set_or_clear_processing_options(None::<ProcessingOptions>);
     /// ```
     pub fn set_or_clear_processing_options<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::job::ProcessingOptions>,
+    where T: std::convert::Into<crate::model::job::ProcessingOptions>
     {
         self.processing_options = v.map(|x| x.into());
         self
@@ -7129,10 +6911,12 @@ pub mod job {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Application related details of a job posting.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ApplicationInfo {
+
         /// Use this field to specify email address(es) to which resumes or
         /// applications can be sent.
         ///
@@ -7172,7 +6956,7 @@ pub mod job {
         pub fn set_emails<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.emails = v.into_iter().map(|i| i.into()).collect();
@@ -7201,7 +6985,7 @@ pub mod job {
         pub fn set_uris<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.uris = v.into_iter().map(|i| i.into()).collect();
@@ -7219,6 +7003,7 @@ pub mod job {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DerivedInfo {
+
         /// Structured locations of the job, resolved from
         /// [Job.addresses][google.cloud.talent.v4.Job.addresses].
         ///
@@ -7260,7 +7045,7 @@ pub mod job {
         pub fn set_locations<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::Location>,
+            V: std::convert::Into<crate::model::Location>
         {
             use std::iter::Iterator;
             self.locations = v.into_iter().map(|i| i.into()).collect();
@@ -7282,7 +7067,7 @@ pub mod job {
         pub fn set_job_categories<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::JobCategory>,
+            V: std::convert::Into<crate::model::JobCategory>
         {
             use std::iter::Iterator;
             self.job_categories = v.into_iter().map(|i| i.into()).collect();
@@ -7300,6 +7085,7 @@ pub mod job {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ProcessingOptions {
+
         /// If set to `true`, the service does not attempt to resolve a
         /// more precise address for the job.
         pub disable_street_address_resolution: bool,
@@ -7336,10 +7122,7 @@ pub mod job {
         /// # use google_cloud_talent_v4::model::job::ProcessingOptions;
         /// let x = ProcessingOptions::new().set_disable_street_address_resolution(true);
         /// ```
-        pub fn set_disable_street_address_resolution<T: std::convert::Into<bool>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_disable_street_address_resolution<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.disable_street_address_resolution = v.into();
             self
         }
@@ -7353,10 +7136,7 @@ pub mod job {
         /// let x0 = ProcessingOptions::new().set_html_sanitization(HtmlSanitization::Disabled);
         /// let x1 = ProcessingOptions::new().set_html_sanitization(HtmlSanitization::SimpleFormattingOnly);
         /// ```
-        pub fn set_html_sanitization<T: std::convert::Into<crate::model::HtmlSanitization>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_html_sanitization<T: std::convert::Into<crate::model::HtmlSanitization>>(mut self, v: T) -> Self {
             self.html_sanitization = v.into();
             self
         }
@@ -7373,6 +7153,7 @@ pub mod job {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateJobRequest {
+
     /// Required. The resource name of the tenant under which the job is created.
     ///
     /// The format is "projects/{project_id}/tenants/{tenant_id}". For example,
@@ -7411,8 +7192,7 @@ impl CreateJobRequest {
     /// let x = CreateJobRequest::new().set_job(Job::default()/* use setters */);
     /// ```
     pub fn set_job<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Job>,
+    where T: std::convert::Into<crate::model::Job>
     {
         self.job = std::option::Option::Some(v.into());
         self
@@ -7428,8 +7208,7 @@ impl CreateJobRequest {
     /// let x = CreateJobRequest::new().set_or_clear_job(None::<Job>);
     /// ```
     pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Job>,
+    where T: std::convert::Into<crate::model::Job>
     {
         self.job = v.map(|x| x.into());
         self
@@ -7446,6 +7225,7 @@ impl wkt::message::Message for CreateJobRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetJobRequest {
+
     /// Required. The resource name of the job to retrieve.
     ///
     /// The format is
@@ -7484,6 +7264,7 @@ impl wkt::message::Message for GetJobRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateJobRequest {
+
     /// Required. The Job to be updated.
     pub job: std::option::Option<crate::model::Job>,
 
@@ -7519,8 +7300,7 @@ impl UpdateJobRequest {
     /// let x = UpdateJobRequest::new().set_job(Job::default()/* use setters */);
     /// ```
     pub fn set_job<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Job>,
+    where T: std::convert::Into<crate::model::Job>
     {
         self.job = std::option::Option::Some(v.into());
         self
@@ -7536,8 +7316,7 @@ impl UpdateJobRequest {
     /// let x = UpdateJobRequest::new().set_or_clear_job(None::<Job>);
     /// ```
     pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Job>,
+    where T: std::convert::Into<crate::model::Job>
     {
         self.job = v.map(|x| x.into());
         self
@@ -7552,8 +7331,7 @@ impl UpdateJobRequest {
     /// let x = UpdateJobRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -7569,8 +7347,7 @@ impl UpdateJobRequest {
     /// let x = UpdateJobRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -7587,6 +7364,7 @@ impl wkt::message::Message for UpdateJobRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteJobRequest {
+
     /// Required. The resource name of the job to be deleted.
     ///
     /// The format is
@@ -7625,6 +7403,7 @@ impl wkt::message::Message for DeleteJobRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListJobsRequest {
+
     /// Required. The resource name of the tenant under which the job is created.
     ///
     /// The format is "projects/{project_id}/tenants/{tenant_id}". For example,
@@ -7762,6 +7541,7 @@ impl wkt::message::Message for ListJobsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListJobsResponse {
+
     /// The Jobs for a given company.
     ///
     /// The maximum number of items returned is based on the limit field
@@ -7798,7 +7578,7 @@ impl ListJobsResponse {
     pub fn set_jobs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Job>,
+        V: std::convert::Into<crate::model::Job>
     {
         use std::iter::Iterator;
         self.jobs = v.into_iter().map(|i| i.into()).collect();
@@ -7826,8 +7606,7 @@ impl ListJobsResponse {
     /// let x = ListJobsResponse::new().set_metadata(ResponseMetadata::default()/* use setters */);
     /// ```
     pub fn set_metadata<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ResponseMetadata>,
+    where T: std::convert::Into<crate::model::ResponseMetadata>
     {
         self.metadata = std::option::Option::Some(v.into());
         self
@@ -7843,8 +7622,7 @@ impl ListJobsResponse {
     /// let x = ListJobsResponse::new().set_or_clear_metadata(None::<ResponseMetadata>);
     /// ```
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ResponseMetadata>,
+    where T: std::convert::Into<crate::model::ResponseMetadata>
     {
         self.metadata = v.map(|x| x.into());
         self
@@ -7875,6 +7653,7 @@ impl gax::paginator::internal::PageableResponse for ListJobsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchJobsRequest {
+
     /// Required. The resource name of the tenant to search within.
     ///
     /// The format is "projects/{project_id}/tenants/{tenant_id}". For example,
@@ -8145,8 +7924,7 @@ pub struct SearchJobsRequest {
 
     /// Controls over how job documents get ranked on top of existing relevance
     /// score (determined by API algorithm).
-    pub custom_ranking_info:
-        std::option::Option<crate::model::search_jobs_request::CustomRankingInfo>,
+    pub custom_ranking_info: std::option::Option<crate::model::search_jobs_request::CustomRankingInfo>,
 
     /// This field is deprecated. Please use
     /// [SearchJobsRequest.keyword_match_mode][google.cloud.talent.v4.SearchJobsRequest.keyword_match_mode]
@@ -8243,10 +8021,7 @@ impl SearchJobsRequest {
     /// let x0 = SearchJobsRequest::new().set_search_mode(SearchMode::JobSearch);
     /// let x1 = SearchJobsRequest::new().set_search_mode(SearchMode::FeaturedJobSearch);
     /// ```
-    pub fn set_search_mode<T: std::convert::Into<crate::model::search_jobs_request::SearchMode>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_search_mode<T: std::convert::Into<crate::model::search_jobs_request::SearchMode>>(mut self, v: T) -> Self {
         self.search_mode = v.into();
         self
     }
@@ -8260,8 +8035,7 @@ impl SearchJobsRequest {
     /// let x = SearchJobsRequest::new().set_request_metadata(RequestMetadata::default()/* use setters */);
     /// ```
     pub fn set_request_metadata<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RequestMetadata>,
+    where T: std::convert::Into<crate::model::RequestMetadata>
     {
         self.request_metadata = std::option::Option::Some(v.into());
         self
@@ -8277,8 +8051,7 @@ impl SearchJobsRequest {
     /// let x = SearchJobsRequest::new().set_or_clear_request_metadata(None::<RequestMetadata>);
     /// ```
     pub fn set_or_clear_request_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RequestMetadata>,
+    where T: std::convert::Into<crate::model::RequestMetadata>
     {
         self.request_metadata = v.map(|x| x.into());
         self
@@ -8293,8 +8066,7 @@ impl SearchJobsRequest {
     /// let x = SearchJobsRequest::new().set_job_query(JobQuery::default()/* use setters */);
     /// ```
     pub fn set_job_query<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::JobQuery>,
+    where T: std::convert::Into<crate::model::JobQuery>
     {
         self.job_query = std::option::Option::Some(v.into());
         self
@@ -8310,8 +8082,7 @@ impl SearchJobsRequest {
     /// let x = SearchJobsRequest::new().set_or_clear_job_query(None::<JobQuery>);
     /// ```
     pub fn set_or_clear_job_query<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::JobQuery>,
+    where T: std::convert::Into<crate::model::JobQuery>
     {
         self.job_query = v.map(|x| x.into());
         self
@@ -8344,7 +8115,7 @@ impl SearchJobsRequest {
     pub fn set_histogram_queries<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::HistogramQuery>,
+        V: std::convert::Into<crate::model::HistogramQuery>
     {
         use std::iter::Iterator;
         self.histogram_queries = v.into_iter().map(|i| i.into()).collect();
@@ -8424,12 +8195,7 @@ impl SearchJobsRequest {
     /// let x1 = SearchJobsRequest::new().set_diversification_level(DiversificationLevel::Simple);
     /// let x2 = SearchJobsRequest::new().set_diversification_level(DiversificationLevel::OnePerCompany);
     /// ```
-    pub fn set_diversification_level<
-        T: std::convert::Into<crate::model::search_jobs_request::DiversificationLevel>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_diversification_level<T: std::convert::Into<crate::model::search_jobs_request::DiversificationLevel>>(mut self, v: T) -> Self {
         self.diversification_level = v.into();
         self
     }
@@ -8443,8 +8209,7 @@ impl SearchJobsRequest {
     /// let x = SearchJobsRequest::new().set_custom_ranking_info(CustomRankingInfo::default()/* use setters */);
     /// ```
     pub fn set_custom_ranking_info<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::search_jobs_request::CustomRankingInfo>,
+    where T: std::convert::Into<crate::model::search_jobs_request::CustomRankingInfo>
     {
         self.custom_ranking_info = std::option::Option::Some(v.into());
         self
@@ -8460,8 +8225,7 @@ impl SearchJobsRequest {
     /// let x = SearchJobsRequest::new().set_or_clear_custom_ranking_info(None::<CustomRankingInfo>);
     /// ```
     pub fn set_or_clear_custom_ranking_info<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::search_jobs_request::CustomRankingInfo>,
+    where T: std::convert::Into<crate::model::search_jobs_request::CustomRankingInfo>
     {
         self.custom_ranking_info = v.map(|x| x.into());
         self
@@ -8490,12 +8254,7 @@ impl SearchJobsRequest {
     /// let x1 = SearchJobsRequest::new().set_keyword_match_mode(KeywordMatchMode::KeywordMatchAll);
     /// let x2 = SearchJobsRequest::new().set_keyword_match_mode(KeywordMatchMode::KeywordMatchTitleOnly);
     /// ```
-    pub fn set_keyword_match_mode<
-        T: std::convert::Into<crate::model::search_jobs_request::KeywordMatchMode>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_keyword_match_mode<T: std::convert::Into<crate::model::search_jobs_request::KeywordMatchMode>>(mut self, v: T) -> Self {
         self.keyword_match_mode = v.into();
         self
     }
@@ -8510,12 +8269,7 @@ impl SearchJobsRequest {
     /// let x1 = SearchJobsRequest::new().set_relevance_threshold(RelevanceThreshold::Low);
     /// let x2 = SearchJobsRequest::new().set_relevance_threshold(RelevanceThreshold::Medium);
     /// ```
-    pub fn set_relevance_threshold<
-        T: std::convert::Into<crate::model::search_jobs_request::RelevanceThreshold>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_relevance_threshold<T: std::convert::Into<crate::model::search_jobs_request::RelevanceThreshold>>(mut self, v: T) -> Self {
         self.relevance_threshold = v.into();
         self
     }
@@ -8532,6 +8286,7 @@ pub mod search_jobs_request {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Custom ranking information for
     /// [SearchJobsRequest][google.cloud.talent.v4.SearchJobsRequest].
     ///
@@ -8539,6 +8294,7 @@ pub mod search_jobs_request {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CustomRankingInfo {
+
         /// Required. Controls over how important the score of
         /// [CustomRankingInfo.ranking_expression][google.cloud.talent.v4.SearchJobsRequest.CustomRankingInfo.ranking_expression]
         /// gets applied to job's final ranking position.
@@ -8546,8 +8302,7 @@ pub mod search_jobs_request {
         /// An error is thrown if not specified.
         ///
         /// [google.cloud.talent.v4.SearchJobsRequest.CustomRankingInfo.ranking_expression]: crate::model::search_jobs_request::CustomRankingInfo::ranking_expression
-        pub importance_level:
-            crate::model::search_jobs_request::custom_ranking_info::ImportanceLevel,
+        pub importance_level: crate::model::search_jobs_request::custom_ranking_info::ImportanceLevel,
 
         /// Required. Controls over how job documents get ranked on top of existing
         /// relevance score (determined by API algorithm). A combination of the
@@ -8594,14 +8349,7 @@ pub mod search_jobs_request {
         /// let x1 = CustomRankingInfo::new().set_importance_level(ImportanceLevel::Low);
         /// let x2 = CustomRankingInfo::new().set_importance_level(ImportanceLevel::Mild);
         /// ```
-        pub fn set_importance_level<
-            T: std::convert::Into<
-                    crate::model::search_jobs_request::custom_ranking_info::ImportanceLevel,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_importance_level<T: std::convert::Into<crate::model::search_jobs_request::custom_ranking_info::ImportanceLevel>>(mut self, v: T) -> Self {
             self.importance_level = v.into();
             self
         }
@@ -8613,10 +8361,7 @@ pub mod search_jobs_request {
         /// # use google_cloud_talent_v4::model::search_jobs_request::CustomRankingInfo;
         /// let x = CustomRankingInfo::new().set_ranking_expression("example");
         /// ```
-        pub fn set_ranking_expression<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_ranking_expression<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.ranking_expression = v.into();
             self
         }
@@ -8632,6 +8377,7 @@ pub mod search_jobs_request {
     pub mod custom_ranking_info {
         #[allow(unused_imports)]
         use super::*;
+
 
         /// The importance level for
         /// [CustomRankingInfo.ranking_expression][google.cloud.talent.v4.SearchJobsRequest.CustomRankingInfo.ranking_expression].
@@ -8739,10 +8485,7 @@ pub mod search_jobs_request {
         }
 
         impl std::fmt::Display for ImportanceLevel {
-            fn fmt(
-                &self,
-                f: &mut std::fmt::Formatter<'_>,
-            ) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -8757,9 +8500,7 @@ pub mod search_jobs_request {
                     4 => Self::Medium,
                     5 => Self::High,
                     6 => Self::Extreme,
-                    _ => Self::UnknownValue(importance_level::UnknownValue(
-                        wkt::internal::UnknownEnumValue::Integer(value),
-                    )),
+                    _ => Self::UnknownValue(importance_level::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
                 }
             }
         }
@@ -8775,9 +8516,7 @@ pub mod search_jobs_request {
                     "MEDIUM" => Self::Medium,
                     "HIGH" => Self::High,
                     "EXTREME" => Self::Extreme,
-                    _ => Self::UnknownValue(importance_level::UnknownValue(
-                        wkt::internal::UnknownEnumValue::String(value.to_string()),
-                    )),
+                    _ => Self::UnknownValue(importance_level::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
                 }
             }
         }
@@ -8806,8 +8545,7 @@ pub mod search_jobs_request {
                 D: serde::Deserializer<'de>,
             {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<ImportanceLevel>::new(
-                    ".google.cloud.talent.v4.SearchJobsRequest.CustomRankingInfo.ImportanceLevel",
-                ))
+                    ".google.cloud.talent.v4.SearchJobsRequest.CustomRankingInfo.ImportanceLevel"))
             }
         }
     }
@@ -8905,9 +8643,7 @@ pub mod search_jobs_request {
                 0 => Self::Unspecified,
                 1 => Self::JobSearch,
                 2 => Self::FeaturedJobSearch,
-                _ => Self::UnknownValue(search_mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(search_mode::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -8919,9 +8655,7 @@ pub mod search_jobs_request {
                 "SEARCH_MODE_UNSPECIFIED" => Self::Unspecified,
                 "JOB_SEARCH" => Self::JobSearch,
                 "FEATURED_JOB_SEARCH" => Self::FeaturedJobSearch,
-                _ => Self::UnknownValue(search_mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(search_mode::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -8946,8 +8680,7 @@ pub mod search_jobs_request {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<SearchMode>::new(
-                ".google.cloud.talent.v4.SearchJobsRequest.SearchMode",
-            ))
+                ".google.cloud.talent.v4.SearchJobsRequest.SearchMode"))
         }
     }
 
@@ -9050,9 +8783,7 @@ pub mod search_jobs_request {
                 Self::OnePerCompany => std::option::Option::Some("ONE_PER_COMPANY"),
                 Self::TwoPerCompany => std::option::Option::Some("TWO_PER_COMPANY"),
                 Self::MaxThreePerCompany => std::option::Option::Some("MAX_THREE_PER_COMPANY"),
-                Self::DiversifyByLooserSimilarity => {
-                    std::option::Option::Some("DIVERSIFY_BY_LOOSER_SIMILARITY")
-                }
+                Self::DiversifyByLooserSimilarity => std::option::Option::Some("DIVERSIFY_BY_LOOSER_SIMILARITY"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -9081,9 +8812,7 @@ pub mod search_jobs_request {
                 4 => Self::TwoPerCompany,
                 5 => Self::DiversifyByLooserSimilarity,
                 6 => Self::MaxThreePerCompany,
-                _ => Self::UnknownValue(diversification_level::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(diversification_level::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -9099,9 +8828,7 @@ pub mod search_jobs_request {
                 "TWO_PER_COMPANY" => Self::TwoPerCompany,
                 "MAX_THREE_PER_COMPANY" => Self::MaxThreePerCompany,
                 "DIVERSIFY_BY_LOOSER_SIMILARITY" => Self::DiversifyByLooserSimilarity,
-                _ => Self::UnknownValue(diversification_level::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(diversification_level::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -9130,8 +8857,7 @@ pub mod search_jobs_request {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<DiversificationLevel>::new(
-                ".google.cloud.talent.v4.SearchJobsRequest.DiversificationLevel",
-            ))
+                ".google.cloud.talent.v4.SearchJobsRequest.DiversificationLevel"))
         }
     }
 
@@ -9240,9 +8966,7 @@ pub mod search_jobs_request {
                 Self::Unspecified => std::option::Option::Some("KEYWORD_MATCH_MODE_UNSPECIFIED"),
                 Self::KeywordMatchDisabled => std::option::Option::Some("KEYWORD_MATCH_DISABLED"),
                 Self::KeywordMatchAll => std::option::Option::Some("KEYWORD_MATCH_ALL"),
-                Self::KeywordMatchTitleOnly => {
-                    std::option::Option::Some("KEYWORD_MATCH_TITLE_ONLY")
-                }
+                Self::KeywordMatchTitleOnly => std::option::Option::Some("KEYWORD_MATCH_TITLE_ONLY"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -9268,9 +8992,7 @@ pub mod search_jobs_request {
                 1 => Self::KeywordMatchDisabled,
                 2 => Self::KeywordMatchAll,
                 3 => Self::KeywordMatchTitleOnly,
-                _ => Self::UnknownValue(keyword_match_mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(keyword_match_mode::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -9283,9 +9005,7 @@ pub mod search_jobs_request {
                 "KEYWORD_MATCH_DISABLED" => Self::KeywordMatchDisabled,
                 "KEYWORD_MATCH_ALL" => Self::KeywordMatchAll,
                 "KEYWORD_MATCH_TITLE_ONLY" => Self::KeywordMatchTitleOnly,
-                _ => Self::UnknownValue(keyword_match_mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(keyword_match_mode::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -9311,8 +9031,7 @@ pub mod search_jobs_request {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<KeywordMatchMode>::new(
-                ".google.cloud.talent.v4.SearchJobsRequest.KeywordMatchMode",
-            ))
+                ".google.cloud.talent.v4.SearchJobsRequest.KeywordMatchMode"))
         }
     }
 
@@ -9415,9 +9134,7 @@ pub mod search_jobs_request {
                 2 => Self::Low,
                 3 => Self::Medium,
                 4 => Self::High,
-                _ => Self::UnknownValue(relevance_threshold::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(relevance_threshold::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -9431,9 +9148,7 @@ pub mod search_jobs_request {
                 "LOW" => Self::Low,
                 "MEDIUM" => Self::Medium,
                 "HIGH" => Self::High,
-                _ => Self::UnknownValue(relevance_threshold::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(relevance_threshold::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -9460,8 +9175,7 @@ pub mod search_jobs_request {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<RelevanceThreshold>::new(
-                ".google.cloud.talent.v4.SearchJobsRequest.RelevanceThreshold",
-            ))
+                ".google.cloud.talent.v4.SearchJobsRequest.RelevanceThreshold"))
         }
     }
 }
@@ -9470,6 +9184,7 @@ pub mod search_jobs_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchJobsResponse {
+
     /// The Job entities that match the specified
     /// [SearchJobsRequest][google.cloud.talent.v4.SearchJobsRequest].
     ///
@@ -9539,7 +9254,7 @@ impl SearchJobsResponse {
     pub fn set_matching_jobs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::search_jobs_response::MatchingJob>,
+        V: std::convert::Into<crate::model::search_jobs_response::MatchingJob>
     {
         use std::iter::Iterator;
         self.matching_jobs = v.into_iter().map(|i| i.into()).collect();
@@ -9561,7 +9276,7 @@ impl SearchJobsResponse {
     pub fn set_histogram_query_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::HistogramQueryResult>,
+        V: std::convert::Into<crate::model::HistogramQueryResult>
     {
         use std::iter::Iterator;
         self.histogram_query_results = v.into_iter().map(|i| i.into()).collect();
@@ -9595,7 +9310,7 @@ impl SearchJobsResponse {
     pub fn set_location_filters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Location>,
+        V: std::convert::Into<crate::model::Location>
     {
         use std::iter::Iterator;
         self.location_filters = v.into_iter().map(|i| i.into()).collect();
@@ -9623,8 +9338,7 @@ impl SearchJobsResponse {
     /// let x = SearchJobsResponse::new().set_metadata(ResponseMetadata::default()/* use setters */);
     /// ```
     pub fn set_metadata<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ResponseMetadata>,
+    where T: std::convert::Into<crate::model::ResponseMetadata>
     {
         self.metadata = std::option::Option::Some(v.into());
         self
@@ -9640,8 +9354,7 @@ impl SearchJobsResponse {
     /// let x = SearchJobsResponse::new().set_or_clear_metadata(None::<ResponseMetadata>);
     /// ```
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ResponseMetadata>,
+    where T: std::convert::Into<crate::model::ResponseMetadata>
     {
         self.metadata = v.map(|x| x.into());
         self
@@ -9668,8 +9381,7 @@ impl SearchJobsResponse {
     /// let x = SearchJobsResponse::new().set_spell_correction(SpellingCorrection::default()/* use setters */);
     /// ```
     pub fn set_spell_correction<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::SpellingCorrection>,
+    where T: std::convert::Into<crate::model::SpellingCorrection>
     {
         self.spell_correction = std::option::Option::Some(v.into());
         self
@@ -9685,8 +9397,7 @@ impl SearchJobsResponse {
     /// let x = SearchJobsResponse::new().set_or_clear_spell_correction(None::<SpellingCorrection>);
     /// ```
     pub fn set_or_clear_spell_correction<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::SpellingCorrection>,
+    where T: std::convert::Into<crate::model::SpellingCorrection>
     {
         self.spell_correction = v.map(|x| x.into());
         self
@@ -9704,6 +9415,7 @@ pub mod search_jobs_response {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Job entry with metadata inside
     /// [SearchJobsResponse][google.cloud.talent.v4.SearchJobsResponse].
     ///
@@ -9711,6 +9423,7 @@ pub mod search_jobs_response {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct MatchingJob {
+
         /// Job resource that matches the specified
         /// [SearchJobsRequest][google.cloud.talent.v4.SearchJobsRequest].
         ///
@@ -9761,8 +9474,7 @@ pub mod search_jobs_response {
         /// let x = MatchingJob::new().set_job(Job::default()/* use setters */);
         /// ```
         pub fn set_job<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Job>,
+        where T: std::convert::Into<crate::model::Job>
         {
             self.job = std::option::Option::Some(v.into());
             self
@@ -9778,8 +9490,7 @@ pub mod search_jobs_response {
         /// let x = MatchingJob::new().set_or_clear_job(None::<Job>);
         /// ```
         pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Job>,
+        where T: std::convert::Into<crate::model::Job>
         {
             self.job = v.map(|x| x.into());
             self
@@ -9804,10 +9515,7 @@ pub mod search_jobs_response {
         /// # use google_cloud_talent_v4::model::search_jobs_response::MatchingJob;
         /// let x = MatchingJob::new().set_job_title_snippet("example");
         /// ```
-        pub fn set_job_title_snippet<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_job_title_snippet<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.job_title_snippet = v.into();
             self
         }
@@ -9819,10 +9527,7 @@ pub mod search_jobs_response {
         /// # use google_cloud_talent_v4::model::search_jobs_response::MatchingJob;
         /// let x = MatchingJob::new().set_search_text_snippet("example");
         /// ```
-        pub fn set_search_text_snippet<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_search_text_snippet<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.search_text_snippet = v.into();
             self
         }
@@ -9836,8 +9541,7 @@ pub mod search_jobs_response {
         /// let x = MatchingJob::new().set_commute_info(CommuteInfo::default()/* use setters */);
         /// ```
         pub fn set_commute_info<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::search_jobs_response::CommuteInfo>,
+        where T: std::convert::Into<crate::model::search_jobs_response::CommuteInfo>
         {
             self.commute_info = std::option::Option::Some(v.into());
             self
@@ -9853,8 +9557,7 @@ pub mod search_jobs_response {
         /// let x = MatchingJob::new().set_or_clear_commute_info(None::<CommuteInfo>);
         /// ```
         pub fn set_or_clear_commute_info<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::search_jobs_response::CommuteInfo>,
+        where T: std::convert::Into<crate::model::search_jobs_response::CommuteInfo>
         {
             self.commute_info = v.map(|x| x.into());
             self
@@ -9871,6 +9574,7 @@ pub mod search_jobs_response {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CommuteInfo {
+
         /// Location used as the destination in the commute calculation.
         pub job_location: std::option::Option<crate::model::Location>,
 
@@ -9897,8 +9601,7 @@ pub mod search_jobs_response {
         /// let x = CommuteInfo::new().set_job_location(Location::default()/* use setters */);
         /// ```
         pub fn set_job_location<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Location>,
+        where T: std::convert::Into<crate::model::Location>
         {
             self.job_location = std::option::Option::Some(v.into());
             self
@@ -9914,8 +9617,7 @@ pub mod search_jobs_response {
         /// let x = CommuteInfo::new().set_or_clear_job_location(None::<Location>);
         /// ```
         pub fn set_or_clear_job_location<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Location>,
+        where T: std::convert::Into<crate::model::Location>
         {
             self.job_location = v.map(|x| x.into());
             self
@@ -9930,8 +9632,7 @@ pub mod search_jobs_response {
         /// let x = CommuteInfo::new().set_travel_duration(Duration::default()/* use setters */);
         /// ```
         pub fn set_travel_duration<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Duration>,
+        where T: std::convert::Into<wkt::Duration>
         {
             self.travel_duration = std::option::Option::Some(v.into());
             self
@@ -9947,8 +9648,7 @@ pub mod search_jobs_response {
         /// let x = CommuteInfo::new().set_or_clear_travel_duration(None::<Duration>);
         /// ```
         pub fn set_or_clear_travel_duration<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Duration>,
+        where T: std::convert::Into<wkt::Duration>
         {
             self.travel_duration = v.map(|x| x.into());
             self
@@ -9966,6 +9666,7 @@ pub mod search_jobs_response {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchCreateJobsRequest {
+
     /// Required. The resource name of the tenant under which the job is created.
     ///
     /// The format is "projects/{project_id}/tenants/{tenant_id}". For example,
@@ -10011,7 +9712,7 @@ impl BatchCreateJobsRequest {
     pub fn set_jobs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Job>,
+        V: std::convert::Into<crate::model::Job>
     {
         use std::iter::Iterator;
         self.jobs = v.into_iter().map(|i| i.into()).collect();
@@ -10029,6 +9730,7 @@ impl wkt::message::Message for BatchCreateJobsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchUpdateJobsRequest {
+
     /// Required. The resource name of the tenant under which the job is created.
     ///
     /// The format is "projects/{project_id}/tenants/{tenant_id}". For example,
@@ -10096,7 +9798,7 @@ impl BatchUpdateJobsRequest {
     pub fn set_jobs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Job>,
+        V: std::convert::Into<crate::model::Job>
     {
         use std::iter::Iterator;
         self.jobs = v.into_iter().map(|i| i.into()).collect();
@@ -10112,8 +9814,7 @@ impl BatchUpdateJobsRequest {
     /// let x = BatchUpdateJobsRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -10129,8 +9830,7 @@ impl BatchUpdateJobsRequest {
     /// let x = BatchUpdateJobsRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -10147,6 +9847,7 @@ impl wkt::message::Message for BatchUpdateJobsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchDeleteJobsRequest {
+
     /// Required. The resource name of the tenant under which the job is created.
     ///
     /// The format is "projects/{project_id}/tenants/{tenant_id}". For example,
@@ -10193,7 +9894,7 @@ impl BatchDeleteJobsRequest {
     pub fn set_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.names = v.into_iter().map(|i| i.into()).collect();
@@ -10211,6 +9912,7 @@ impl wkt::message::Message for BatchDeleteJobsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct JobResult {
+
     /// Here [Job][google.cloud.talent.v4.Job] only contains basic information
     /// including [name][google.cloud.talent.v4.Job.name],
     /// [company][google.cloud.talent.v4.Job.company],
@@ -10248,8 +9950,7 @@ impl JobResult {
     /// let x = JobResult::new().set_job(Job::default()/* use setters */);
     /// ```
     pub fn set_job<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Job>,
+    where T: std::convert::Into<crate::model::Job>
     {
         self.job = std::option::Option::Some(v.into());
         self
@@ -10265,8 +9966,7 @@ impl JobResult {
     /// let x = JobResult::new().set_or_clear_job(None::<Job>);
     /// ```
     pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Job>,
+    where T: std::convert::Into<crate::model::Job>
     {
         self.job = v.map(|x| x.into());
         self
@@ -10281,8 +9981,7 @@ impl JobResult {
     /// let x = JobResult::new().set_status(Status::default()/* use setters */);
     /// ```
     pub fn set_status<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<rpc::model::Status>,
+    where T: std::convert::Into<rpc::model::Status>
     {
         self.status = std::option::Option::Some(v.into());
         self
@@ -10298,8 +9997,7 @@ impl JobResult {
     /// let x = JobResult::new().set_or_clear_status(None::<Status>);
     /// ```
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<rpc::model::Status>,
+    where T: std::convert::Into<rpc::model::Status>
     {
         self.status = v.map(|x| x.into());
         self
@@ -10323,6 +10021,7 @@ impl wkt::message::Message for JobResult {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchCreateJobsResponse {
+
     /// List of job mutation results from a batch create operation. It can change
     /// until operation status is FINISHED, FAILED or CANCELLED.
     pub job_results: std::vec::Vec<crate::model::JobResult>,
@@ -10350,7 +10049,7 @@ impl BatchCreateJobsResponse {
     pub fn set_job_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::JobResult>,
+        V: std::convert::Into<crate::model::JobResult>
     {
         use std::iter::Iterator;
         self.job_results = v.into_iter().map(|i| i.into()).collect();
@@ -10375,6 +10074,7 @@ impl wkt::message::Message for BatchCreateJobsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchUpdateJobsResponse {
+
     /// List of job mutation results from a batch update operation. It can change
     /// until operation status is FINISHED, FAILED or CANCELLED.
     pub job_results: std::vec::Vec<crate::model::JobResult>,
@@ -10402,7 +10102,7 @@ impl BatchUpdateJobsResponse {
     pub fn set_job_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::JobResult>,
+        V: std::convert::Into<crate::model::JobResult>
     {
         use std::iter::Iterator;
         self.job_results = v.into_iter().map(|i| i.into()).collect();
@@ -10427,6 +10127,7 @@ impl wkt::message::Message for BatchUpdateJobsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchDeleteJobsResponse {
+
     /// List of job mutation results from a batch delete operation. It can change
     /// until operation status is FINISHED, FAILED or CANCELLED.
     pub job_results: std::vec::Vec<crate::model::JobResult>,
@@ -10454,7 +10155,7 @@ impl BatchDeleteJobsResponse {
     pub fn set_job_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::JobResult>,
+        V: std::convert::Into<crate::model::JobResult>
     {
         use std::iter::Iterator;
         self.job_results = v.into_iter().map(|i| i.into()).collect();
@@ -10475,6 +10176,7 @@ impl wkt::message::Message for BatchDeleteJobsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Tenant {
+
     /// Required during tenant update.
     ///
     /// The resource name for a tenant. This is generated by the service when a
@@ -10533,6 +10235,7 @@ impl wkt::message::Message for Tenant {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateTenantRequest {
+
     /// Required. Resource name of the project under which the tenant is created.
     ///
     /// The format is "projects/{project_id}", for example,
@@ -10571,8 +10274,7 @@ impl CreateTenantRequest {
     /// let x = CreateTenantRequest::new().set_tenant(Tenant::default()/* use setters */);
     /// ```
     pub fn set_tenant<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Tenant>,
+    where T: std::convert::Into<crate::model::Tenant>
     {
         self.tenant = std::option::Option::Some(v.into());
         self
@@ -10588,8 +10290,7 @@ impl CreateTenantRequest {
     /// let x = CreateTenantRequest::new().set_or_clear_tenant(None::<Tenant>);
     /// ```
     pub fn set_or_clear_tenant<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Tenant>,
+    where T: std::convert::Into<crate::model::Tenant>
     {
         self.tenant = v.map(|x| x.into());
         self
@@ -10606,6 +10307,7 @@ impl wkt::message::Message for CreateTenantRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetTenantRequest {
+
     /// Required. The resource name of the tenant to be retrieved.
     ///
     /// The format is "projects/{project_id}/tenants/{tenant_id}", for example,
@@ -10643,6 +10345,7 @@ impl wkt::message::Message for GetTenantRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateTenantRequest {
+
     /// Required. The tenant resource to replace the current resource in the
     /// system.
     pub tenant: std::option::Option<crate::model::Tenant>,
@@ -10679,8 +10382,7 @@ impl UpdateTenantRequest {
     /// let x = UpdateTenantRequest::new().set_tenant(Tenant::default()/* use setters */);
     /// ```
     pub fn set_tenant<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Tenant>,
+    where T: std::convert::Into<crate::model::Tenant>
     {
         self.tenant = std::option::Option::Some(v.into());
         self
@@ -10696,8 +10398,7 @@ impl UpdateTenantRequest {
     /// let x = UpdateTenantRequest::new().set_or_clear_tenant(None::<Tenant>);
     /// ```
     pub fn set_or_clear_tenant<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Tenant>,
+    where T: std::convert::Into<crate::model::Tenant>
     {
         self.tenant = v.map(|x| x.into());
         self
@@ -10712,8 +10413,7 @@ impl UpdateTenantRequest {
     /// let x = UpdateTenantRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -10729,8 +10429,7 @@ impl UpdateTenantRequest {
     /// let x = UpdateTenantRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -10747,6 +10446,7 @@ impl wkt::message::Message for UpdateTenantRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteTenantRequest {
+
     /// Required. The resource name of the tenant to be deleted.
     ///
     /// The format is "projects/{project_id}/tenants/{tenant_id}", for example,
@@ -10784,6 +10484,7 @@ impl wkt::message::Message for DeleteTenantRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTenantsRequest {
+
     /// Required. Resource name of the project under which the tenant is created.
     ///
     /// The format is "projects/{project_id}", for example,
@@ -10852,6 +10553,7 @@ impl wkt::message::Message for ListTenantsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTenantsResponse {
+
     /// Tenants for the current client.
     pub tenants: std::vec::Vec<crate::model::Tenant>,
 
@@ -10885,7 +10587,7 @@ impl ListTenantsResponse {
     pub fn set_tenants<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Tenant>,
+        V: std::convert::Into<crate::model::Tenant>
     {
         use std::iter::Iterator;
         self.tenants = v.into_iter().map(|i| i.into()).collect();
@@ -10913,8 +10615,7 @@ impl ListTenantsResponse {
     /// let x = ListTenantsResponse::new().set_metadata(ResponseMetadata::default()/* use setters */);
     /// ```
     pub fn set_metadata<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ResponseMetadata>,
+    where T: std::convert::Into<crate::model::ResponseMetadata>
     {
         self.metadata = std::option::Option::Some(v.into());
         self
@@ -10930,8 +10631,7 @@ impl ListTenantsResponse {
     /// let x = ListTenantsResponse::new().set_or_clear_metadata(None::<ResponseMetadata>);
     /// ```
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ResponseMetadata>,
+    where T: std::convert::Into<crate::model::ResponseMetadata>
     {
         self.metadata = v.map(|x| x.into());
         self
@@ -11069,9 +10769,7 @@ impl std::convert::From<i32> for CompanySize {
             5 => Self::Big,
             6 => Self::Bigger,
             7 => Self::Giant,
-            _ => Self::UnknownValue(company_size::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(company_size::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -11088,9 +10786,7 @@ impl std::convert::From<&str> for CompanySize {
             "BIG" => Self::Big,
             "BIGGER" => Self::Bigger,
             "GIANT" => Self::Giant,
-            _ => Self::UnknownValue(company_size::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(company_size::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -11120,8 +10816,7 @@ impl<'de> serde::de::Deserialize<'de> for CompanySize {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<CompanySize>::new(
-            ".google.cloud.talent.v4.CompanySize",
-        ))
+            ".google.cloud.talent.v4.CompanySize"))
     }
 }
 
@@ -11262,9 +10957,7 @@ impl std::convert::From<i32> for JobBenefit {
             9 => Self::SickDays,
             10 => Self::Vacation,
             11 => Self::Vision,
-            _ => Self::UnknownValue(job_benefit::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(job_benefit::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -11285,9 +10978,7 @@ impl std::convert::From<&str> for JobBenefit {
             "SICK_DAYS" => Self::SickDays,
             "VACATION" => Self::Vacation,
             "VISION" => Self::Vision,
-            _ => Self::UnknownValue(job_benefit::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(job_benefit::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -11321,8 +11012,7 @@ impl<'de> serde::de::Deserialize<'de> for JobBenefit {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<JobBenefit>::new(
-            ".google.cloud.talent.v4.JobBenefit",
-        ))
+            ".google.cloud.talent.v4.JobBenefit"))
     }
 }
 
@@ -11467,9 +11157,7 @@ impl std::convert::From<i32> for DegreeType {
             6 => Self::BachelorsOrEquivalent,
             7 => Self::MastersOrEquivalent,
             8 => Self::DoctoralOrEquivalent,
-            _ => Self::UnknownValue(degree_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(degree_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -11487,9 +11175,7 @@ impl std::convert::From<&str> for DegreeType {
             "BACHELORS_OR_EQUIVALENT" => Self::BachelorsOrEquivalent,
             "MASTERS_OR_EQUIVALENT" => Self::MastersOrEquivalent,
             "DOCTORAL_OR_EQUIVALENT" => Self::DoctoralOrEquivalent,
-            _ => Self::UnknownValue(degree_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(degree_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -11520,8 +11206,7 @@ impl<'de> serde::de::Deserialize<'de> for DegreeType {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<DegreeType>::new(
-            ".google.cloud.talent.v4.DegreeType",
-        ))
+            ".google.cloud.talent.v4.DegreeType"))
     }
 }
 
@@ -11667,9 +11352,7 @@ impl std::convert::From<i32> for EmploymentType {
             8 => Self::PerDiem,
             9 => Self::FlyInFlyOut,
             10 => Self::OtherEmploymentType,
-            _ => Self::UnknownValue(employment_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(employment_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -11689,9 +11372,7 @@ impl std::convert::From<&str> for EmploymentType {
             "PER_DIEM" => Self::PerDiem,
             "FLY_IN_FLY_OUT" => Self::FlyInFlyOut,
             "OTHER_EMPLOYMENT_TYPE" => Self::OtherEmploymentType,
-            _ => Self::UnknownValue(employment_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(employment_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -11724,8 +11405,7 @@ impl<'de> serde::de::Deserialize<'de> for EmploymentType {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<EmploymentType>::new(
-            ".google.cloud.talent.v4.EmploymentType",
-        ))
+            ".google.cloud.talent.v4.EmploymentType"))
     }
 }
 
@@ -11832,9 +11512,7 @@ impl std::convert::From<i32> for JobLevel {
             3 => Self::Manager,
             4 => Self::Director,
             5 => Self::Executive,
-            _ => Self::UnknownValue(job_level::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(job_level::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -11849,9 +11527,7 @@ impl std::convert::From<&str> for JobLevel {
             "MANAGER" => Self::Manager,
             "DIRECTOR" => Self::Director,
             "EXECUTIVE" => Self::Executive,
-            _ => Self::UnknownValue(job_level::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(job_level::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -11879,8 +11555,7 @@ impl<'de> serde::de::Deserialize<'de> for JobLevel {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<JobLevel>::new(
-            ".google.cloud.talent.v4.JobLevel",
-        ))
+            ".google.cloud.talent.v4.JobLevel"))
     }
 }
 
@@ -12046,37 +11721,21 @@ impl JobCategory {
             Self::FarmingAndOutdoors => std::option::Option::Some("FARMING_AND_OUTDOORS"),
             Self::Healthcare => std::option::Option::Some("HEALTHCARE"),
             Self::HumanResources => std::option::Option::Some("HUMAN_RESOURCES"),
-            Self::InstallationMaintenanceAndRepair => {
-                std::option::Option::Some("INSTALLATION_MAINTENANCE_AND_REPAIR")
-            }
+            Self::InstallationMaintenanceAndRepair => std::option::Option::Some("INSTALLATION_MAINTENANCE_AND_REPAIR"),
             Self::Legal => std::option::Option::Some("LEGAL"),
             Self::Management => std::option::Option::Some("MANAGEMENT"),
-            Self::ManufacturingAndWarehouse => {
-                std::option::Option::Some("MANUFACTURING_AND_WAREHOUSE")
-            }
-            Self::MediaCommunicationsAndWriting => {
-                std::option::Option::Some("MEDIA_COMMUNICATIONS_AND_WRITING")
-            }
+            Self::ManufacturingAndWarehouse => std::option::Option::Some("MANUFACTURING_AND_WAREHOUSE"),
+            Self::MediaCommunicationsAndWriting => std::option::Option::Some("MEDIA_COMMUNICATIONS_AND_WRITING"),
             Self::OilGasAndMining => std::option::Option::Some("OIL_GAS_AND_MINING"),
-            Self::PersonalCareAndServices => {
-                std::option::Option::Some("PERSONAL_CARE_AND_SERVICES")
-            }
+            Self::PersonalCareAndServices => std::option::Option::Some("PERSONAL_CARE_AND_SERVICES"),
             Self::ProtectiveServices => std::option::Option::Some("PROTECTIVE_SERVICES"),
             Self::RealEstate => std::option::Option::Some("REAL_ESTATE"),
-            Self::RestaurantAndHospitality => {
-                std::option::Option::Some("RESTAURANT_AND_HOSPITALITY")
-            }
+            Self::RestaurantAndHospitality => std::option::Option::Some("RESTAURANT_AND_HOSPITALITY"),
             Self::SalesAndRetail => std::option::Option::Some("SALES_AND_RETAIL"),
             Self::ScienceAndEngineering => std::option::Option::Some("SCIENCE_AND_ENGINEERING"),
-            Self::SocialServicesAndNonProfit => {
-                std::option::Option::Some("SOCIAL_SERVICES_AND_NON_PROFIT")
-            }
-            Self::SportsFitnessAndRecreation => {
-                std::option::Option::Some("SPORTS_FITNESS_AND_RECREATION")
-            }
-            Self::TransportationAndLogistics => {
-                std::option::Option::Some("TRANSPORTATION_AND_LOGISTICS")
-            }
+            Self::SocialServicesAndNonProfit => std::option::Option::Some("SOCIAL_SERVICES_AND_NON_PROFIT"),
+            Self::SportsFitnessAndRecreation => std::option::Option::Some("SPORTS_FITNESS_AND_RECREATION"),
+            Self::TransportationAndLogistics => std::option::Option::Some("TRANSPORTATION_AND_LOGISTICS"),
             Self::UnknownValue(u) => u.0.name(),
         }
     }
@@ -12129,9 +11788,7 @@ impl std::convert::From<i32> for JobCategory {
             28 => Self::SocialServicesAndNonProfit,
             29 => Self::SportsFitnessAndRecreation,
             30 => Self::TransportationAndLogistics,
-            _ => Self::UnknownValue(job_category::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(job_category::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -12171,9 +11828,7 @@ impl std::convert::From<&str> for JobCategory {
             "SOCIAL_SERVICES_AND_NON_PROFIT" => Self::SocialServicesAndNonProfit,
             "SPORTS_FITNESS_AND_RECREATION" => Self::SportsFitnessAndRecreation,
             "TRANSPORTATION_AND_LOGISTICS" => Self::TransportationAndLogistics,
-            _ => Self::UnknownValue(job_category::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(job_category::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -12226,8 +11881,7 @@ impl<'de> serde::de::Deserialize<'de> for JobCategory {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<JobCategory>::new(
-            ".google.cloud.talent.v4.JobCategory",
-        ))
+            ".google.cloud.talent.v4.JobCategory"))
     }
 }
 
@@ -12347,9 +12001,7 @@ impl std::convert::From<i32> for PostingRegion {
             1 => Self::AdministrativeArea,
             2 => Self::Nation,
             3 => Self::Telecommute,
-            _ => Self::UnknownValue(posting_region::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(posting_region::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -12362,9 +12014,7 @@ impl std::convert::From<&str> for PostingRegion {
             "ADMINISTRATIVE_AREA" => Self::AdministrativeArea,
             "NATION" => Self::Nation,
             "TELECOMMUTE" => Self::Telecommute,
-            _ => Self::UnknownValue(posting_region::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(posting_region::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -12390,8 +12040,7 @@ impl<'de> serde::de::Deserialize<'de> for PostingRegion {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<PostingRegion>::new(
-            ".google.cloud.talent.v4.PostingRegion",
-        ))
+            ".google.cloud.talent.v4.PostingRegion"))
     }
 }
 
@@ -12491,9 +12140,7 @@ impl std::convert::From<i32> for Visibility {
             1 => Self::AccountOnly,
             2 => Self::SharedWithGoogle,
             3 => Self::SharedWithPublic,
-            _ => Self::UnknownValue(visibility::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(visibility::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -12506,9 +12153,7 @@ impl std::convert::From<&str> for Visibility {
             "ACCOUNT_ONLY" => Self::AccountOnly,
             "SHARED_WITH_GOOGLE" => Self::SharedWithGoogle,
             "SHARED_WITH_PUBLIC" => Self::SharedWithPublic,
-            _ => Self::UnknownValue(visibility::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(visibility::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -12534,8 +12179,7 @@ impl<'de> serde::de::Deserialize<'de> for Visibility {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<Visibility>::new(
-            ".google.cloud.talent.v4.Visibility",
-        ))
+            ".google.cloud.talent.v4.Visibility"))
     }
 }
 
@@ -12628,9 +12272,7 @@ impl std::convert::From<i32> for HtmlSanitization {
             0 => Self::Unspecified,
             1 => Self::Disabled,
             2 => Self::SimpleFormattingOnly,
-            _ => Self::UnknownValue(html_sanitization::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(html_sanitization::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -12642,9 +12284,7 @@ impl std::convert::From<&str> for HtmlSanitization {
             "HTML_SANITIZATION_UNSPECIFIED" => Self::Unspecified,
             "HTML_SANITIZATION_DISABLED" => Self::Disabled,
             "SIMPLE_FORMATTING_ONLY" => Self::SimpleFormattingOnly,
-            _ => Self::UnknownValue(html_sanitization::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(html_sanitization::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -12669,8 +12309,7 @@ impl<'de> serde::de::Deserialize<'de> for HtmlSanitization {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<HtmlSanitization>::new(
-            ".google.cloud.talent.v4.HtmlSanitization",
-        ))
+            ".google.cloud.talent.v4.HtmlSanitization"))
     }
 }
 
@@ -12778,9 +12417,7 @@ impl std::convert::From<i32> for CommuteMethod {
             3 => Self::Walking,
             4 => Self::Cycling,
             5 => Self::TransitAccessible,
-            _ => Self::UnknownValue(commute_method::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(commute_method::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -12795,9 +12432,7 @@ impl std::convert::From<&str> for CommuteMethod {
             "WALKING" => Self::Walking,
             "CYCLING" => Self::Cycling,
             "TRANSIT_ACCESSIBLE" => Self::TransitAccessible,
-            _ => Self::UnknownValue(commute_method::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(commute_method::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -12825,8 +12460,7 @@ impl<'de> serde::de::Deserialize<'de> for CommuteMethod {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<CommuteMethod>::new(
-            ".google.cloud.talent.v4.CommuteMethod",
-        ))
+            ".google.cloud.talent.v4.CommuteMethod"))
     }
 }
 
@@ -12969,9 +12603,7 @@ impl std::convert::From<i32> for JobView {
             2 => Self::Minimal,
             3 => Self::Small,
             4 => Self::Full,
-            _ => Self::UnknownValue(job_view::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(job_view::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -12985,9 +12617,7 @@ impl std::convert::From<&str> for JobView {
             "JOB_VIEW_MINIMAL" => Self::Minimal,
             "JOB_VIEW_SMALL" => Self::Small,
             "JOB_VIEW_FULL" => Self::Full,
-            _ => Self::UnknownValue(job_view::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(job_view::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -13014,7 +12644,6 @@ impl<'de> serde::de::Deserialize<'de> for JobView {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<JobView>::new(
-            ".google.cloud.talent.v4.JobView",
-        ))
+            ".google.cloud.talent.v4.JobView"))
     }
 }

@@ -58,6 +58,7 @@
 //! * [Versions](client/struct.Versions.html)
 
 #![cfg_attr(docsrs, feature(doc_cfg))]
+
 #![allow(deprecated)]
 
 /// The messages and enums that are part of this client library.
@@ -84,56 +85,10 @@ pub(crate) mod tracing;
 pub(crate) mod transport;
 
 /// The default host used by the service.
-#[cfg(any(
-    feature = "agents",
-    feature = "answer-records",
-    feature = "contexts",
-    feature = "conversations",
-    feature = "conversation-datasets",
-    feature = "conversation-models",
-    feature = "conversation-profiles",
-    feature = "documents",
-    feature = "encryption-spec-service",
-    feature = "entity-types",
-    feature = "environments",
-    feature = "fulfillments",
-    feature = "generators",
-    feature = "generator-evaluations",
-    feature = "intents",
-    feature = "knowledge-bases",
-    feature = "participants",
-    feature = "sessions",
-    feature = "session-entity-types",
-    feature = "sip-trunks",
-    feature = "tools",
-    feature = "versions",
-))]
+#[cfg(any(feature = "agents",feature = "answer-records",feature = "contexts",feature = "conversations",feature = "conversation-datasets",feature = "conversation-models",feature = "conversation-profiles",feature = "documents",feature = "encryption-spec-service",feature = "entity-types",feature = "environments",feature = "fulfillments",feature = "generators",feature = "generator-evaluations",feature = "intents",feature = "knowledge-bases",feature = "participants",feature = "sessions",feature = "session-entity-types",feature = "sip-trunks",feature = "tools",feature = "versions",))]
 const DEFAULT_HOST: &str = "https://dialogflow.googleapis.com/";
 
-#[cfg(any(
-    feature = "agents",
-    feature = "answer-records",
-    feature = "contexts",
-    feature = "conversations",
-    feature = "conversation-datasets",
-    feature = "conversation-models",
-    feature = "conversation-profiles",
-    feature = "documents",
-    feature = "encryption-spec-service",
-    feature = "entity-types",
-    feature = "environments",
-    feature = "fulfillments",
-    feature = "generators",
-    feature = "generator-evaluations",
-    feature = "intents",
-    feature = "knowledge-bases",
-    feature = "participants",
-    feature = "sessions",
-    feature = "session-entity-types",
-    feature = "sip-trunks",
-    feature = "tools",
-    feature = "versions",
-))]
+#[cfg(any(feature = "agents",feature = "answer-records",feature = "contexts",feature = "conversations",feature = "conversation-datasets",feature = "conversation-models",feature = "conversation-profiles",feature = "documents",feature = "encryption-spec-service",feature = "entity-types",feature = "environments",feature = "fulfillments",feature = "generators",feature = "generator-evaluations",feature = "intents",feature = "knowledge-bases",feature = "participants",feature = "sessions",feature = "session-entity-types",feature = "sip-trunks",feature = "tools",feature = "versions",))]
 pub(crate) mod info {
     const NAME: &str = env!("CARGO_PKG_NAME");
     const VERSION: &str = env!("CARGO_PKG_VERSION");
@@ -148,3 +103,4 @@ pub(crate) mod info {
         };
     }
 }
+

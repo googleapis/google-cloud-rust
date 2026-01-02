@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -27,7 +28,6 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -39,6 +39,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTunnelDestGroupsRequest {
+
     /// Required. Google Cloud Project ID and location.
     /// In the following format:
     /// `projects/{project_number/id}/iap_tunnel/locations/{location}`.
@@ -114,6 +115,7 @@ impl wkt::message::Message for ListTunnelDestGroupsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTunnelDestGroupsResponse {
+
     /// TunnelDestGroup existing in the project.
     pub tunnel_dest_groups: std::vec::Vec<crate::model::TunnelDestGroup>,
 
@@ -144,7 +146,7 @@ impl ListTunnelDestGroupsResponse {
     pub fn set_tunnel_dest_groups<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::TunnelDestGroup>,
+        V: std::convert::Into<crate::model::TunnelDestGroup>
     {
         use std::iter::Iterator;
         self.tunnel_dest_groups = v.into_iter().map(|i| i.into()).collect();
@@ -188,6 +190,7 @@ impl gax::paginator::internal::PageableResponse for ListTunnelDestGroupsResponse
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateTunnelDestGroupRequest {
+
     /// Required. Google Cloud Project ID and location.
     /// In the following format:
     /// `projects/{project_number/id}/iap_tunnel/locations/{location}`.
@@ -232,8 +235,7 @@ impl CreateTunnelDestGroupRequest {
     /// let x = CreateTunnelDestGroupRequest::new().set_tunnel_dest_group(TunnelDestGroup::default()/* use setters */);
     /// ```
     pub fn set_tunnel_dest_group<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TunnelDestGroup>,
+    where T: std::convert::Into<crate::model::TunnelDestGroup>
     {
         self.tunnel_dest_group = std::option::Option::Some(v.into());
         self
@@ -249,8 +251,7 @@ impl CreateTunnelDestGroupRequest {
     /// let x = CreateTunnelDestGroupRequest::new().set_or_clear_tunnel_dest_group(None::<TunnelDestGroup>);
     /// ```
     pub fn set_or_clear_tunnel_dest_group<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TunnelDestGroup>,
+    where T: std::convert::Into<crate::model::TunnelDestGroup>
     {
         self.tunnel_dest_group = v.map(|x| x.into());
         self
@@ -263,10 +264,7 @@ impl CreateTunnelDestGroupRequest {
     /// # use google_cloud_iap_v1::model::CreateTunnelDestGroupRequest;
     /// let x = CreateTunnelDestGroupRequest::new().set_tunnel_dest_group_id("example");
     /// ```
-    pub fn set_tunnel_dest_group_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_tunnel_dest_group_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.tunnel_dest_group_id = v.into();
         self
     }
@@ -282,6 +280,7 @@ impl wkt::message::Message for CreateTunnelDestGroupRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetTunnelDestGroupRequest {
+
     /// Required. Name of the TunnelDestGroup to be fetched.
     /// In the following format:
     /// `projects/{project_number/id}/iap_tunnel/locations/{location}/destGroups/{dest_group}`.
@@ -318,6 +317,7 @@ impl wkt::message::Message for GetTunnelDestGroupRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteTunnelDestGroupRequest {
+
     /// Required. Name of the TunnelDestGroup to delete.
     /// In the following format:
     /// `projects/{project_number/id}/iap_tunnel/locations/{location}/destGroups/{dest_group}`.
@@ -354,6 +354,7 @@ impl wkt::message::Message for DeleteTunnelDestGroupRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateTunnelDestGroupRequest {
+
     /// Required. The new values for the TunnelDestGroup.
     pub tunnel_dest_group: std::option::Option<crate::model::TunnelDestGroup>,
 
@@ -379,8 +380,7 @@ impl UpdateTunnelDestGroupRequest {
     /// let x = UpdateTunnelDestGroupRequest::new().set_tunnel_dest_group(TunnelDestGroup::default()/* use setters */);
     /// ```
     pub fn set_tunnel_dest_group<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TunnelDestGroup>,
+    where T: std::convert::Into<crate::model::TunnelDestGroup>
     {
         self.tunnel_dest_group = std::option::Option::Some(v.into());
         self
@@ -396,8 +396,7 @@ impl UpdateTunnelDestGroupRequest {
     /// let x = UpdateTunnelDestGroupRequest::new().set_or_clear_tunnel_dest_group(None::<TunnelDestGroup>);
     /// ```
     pub fn set_or_clear_tunnel_dest_group<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TunnelDestGroup>,
+    where T: std::convert::Into<crate::model::TunnelDestGroup>
     {
         self.tunnel_dest_group = v.map(|x| x.into());
         self
@@ -412,8 +411,7 @@ impl UpdateTunnelDestGroupRequest {
     /// let x = UpdateTunnelDestGroupRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -429,8 +427,7 @@ impl UpdateTunnelDestGroupRequest {
     /// let x = UpdateTunnelDestGroupRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -447,6 +444,7 @@ impl wkt::message::Message for UpdateTunnelDestGroupRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TunnelDestGroup {
+
     /// Identifier. Identifier for the TunnelDestGroup. Must be unique within the
     /// project and contain only lower case letters (a-z) and dashes (-).
     pub name: std::string::String,
@@ -487,7 +485,7 @@ impl TunnelDestGroup {
     pub fn set_cidrs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.cidrs = v.into_iter().map(|i| i.into()).collect();
@@ -504,7 +502,7 @@ impl TunnelDestGroup {
     pub fn set_fqdns<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.fqdns = v.into_iter().map(|i| i.into()).collect();
@@ -522,6 +520,7 @@ impl wkt::message::Message for TunnelDestGroup {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetIapSettingsRequest {
+
     /// Required. The resource name for which to retrieve the settings.
     /// Authorization: Requires the `getSettings` permission for the associated
     /// resource.
@@ -558,6 +557,7 @@ impl wkt::message::Message for GetIapSettingsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateIapSettingsRequest {
+
     /// Required. The new values for the IAP settings to be updated.
     /// Authorization: Requires the `updateSettings` permission for the associated
     /// resource.
@@ -588,8 +588,7 @@ impl UpdateIapSettingsRequest {
     /// let x = UpdateIapSettingsRequest::new().set_iap_settings(IapSettings::default()/* use setters */);
     /// ```
     pub fn set_iap_settings<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::IapSettings>,
+    where T: std::convert::Into<crate::model::IapSettings>
     {
         self.iap_settings = std::option::Option::Some(v.into());
         self
@@ -605,8 +604,7 @@ impl UpdateIapSettingsRequest {
     /// let x = UpdateIapSettingsRequest::new().set_or_clear_iap_settings(None::<IapSettings>);
     /// ```
     pub fn set_or_clear_iap_settings<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::IapSettings>,
+    where T: std::convert::Into<crate::model::IapSettings>
     {
         self.iap_settings = v.map(|x| x.into());
         self
@@ -621,8 +619,7 @@ impl UpdateIapSettingsRequest {
     /// let x = UpdateIapSettingsRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -638,8 +635,7 @@ impl UpdateIapSettingsRequest {
     /// let x = UpdateIapSettingsRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -656,6 +652,7 @@ impl wkt::message::Message for UpdateIapSettingsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct IapSettings {
+
     /// Required. The resource name of the IAP protected resource.
     pub name: std::string::String,
 
@@ -694,8 +691,7 @@ impl IapSettings {
     /// let x = IapSettings::new().set_access_settings(AccessSettings::default()/* use setters */);
     /// ```
     pub fn set_access_settings<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AccessSettings>,
+    where T: std::convert::Into<crate::model::AccessSettings>
     {
         self.access_settings = std::option::Option::Some(v.into());
         self
@@ -711,8 +707,7 @@ impl IapSettings {
     /// let x = IapSettings::new().set_or_clear_access_settings(None::<AccessSettings>);
     /// ```
     pub fn set_or_clear_access_settings<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AccessSettings>,
+    where T: std::convert::Into<crate::model::AccessSettings>
     {
         self.access_settings = v.map(|x| x.into());
         self
@@ -727,8 +722,7 @@ impl IapSettings {
     /// let x = IapSettings::new().set_application_settings(ApplicationSettings::default()/* use setters */);
     /// ```
     pub fn set_application_settings<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ApplicationSettings>,
+    where T: std::convert::Into<crate::model::ApplicationSettings>
     {
         self.application_settings = std::option::Option::Some(v.into());
         self
@@ -744,8 +738,7 @@ impl IapSettings {
     /// let x = IapSettings::new().set_or_clear_application_settings(None::<ApplicationSettings>);
     /// ```
     pub fn set_or_clear_application_settings<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ApplicationSettings>,
+    where T: std::convert::Into<crate::model::ApplicationSettings>
     {
         self.application_settings = v.map(|x| x.into());
         self
@@ -762,6 +755,7 @@ impl wkt::message::Message for IapSettings {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AccessSettings {
+
     /// Optional. GCIP claims and endpoint configurations for 3p identity
     /// providers.
     pub gcip_settings: std::option::Option<crate::model::GcipSettings>,
@@ -803,8 +797,7 @@ impl AccessSettings {
     /// let x = AccessSettings::new().set_gcip_settings(GcipSettings::default()/* use setters */);
     /// ```
     pub fn set_gcip_settings<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::GcipSettings>,
+    where T: std::convert::Into<crate::model::GcipSettings>
     {
         self.gcip_settings = std::option::Option::Some(v.into());
         self
@@ -820,8 +813,7 @@ impl AccessSettings {
     /// let x = AccessSettings::new().set_or_clear_gcip_settings(None::<GcipSettings>);
     /// ```
     pub fn set_or_clear_gcip_settings<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::GcipSettings>,
+    where T: std::convert::Into<crate::model::GcipSettings>
     {
         self.gcip_settings = v.map(|x| x.into());
         self
@@ -836,8 +828,7 @@ impl AccessSettings {
     /// let x = AccessSettings::new().set_cors_settings(CorsSettings::default()/* use setters */);
     /// ```
     pub fn set_cors_settings<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CorsSettings>,
+    where T: std::convert::Into<crate::model::CorsSettings>
     {
         self.cors_settings = std::option::Option::Some(v.into());
         self
@@ -853,8 +844,7 @@ impl AccessSettings {
     /// let x = AccessSettings::new().set_or_clear_cors_settings(None::<CorsSettings>);
     /// ```
     pub fn set_or_clear_cors_settings<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CorsSettings>,
+    where T: std::convert::Into<crate::model::CorsSettings>
     {
         self.cors_settings = v.map(|x| x.into());
         self
@@ -869,8 +859,7 @@ impl AccessSettings {
     /// let x = AccessSettings::new().set_oauth_settings(OAuthSettings::default()/* use setters */);
     /// ```
     pub fn set_oauth_settings<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::OAuthSettings>,
+    where T: std::convert::Into<crate::model::OAuthSettings>
     {
         self.oauth_settings = std::option::Option::Some(v.into());
         self
@@ -886,8 +875,7 @@ impl AccessSettings {
     /// let x = AccessSettings::new().set_or_clear_oauth_settings(None::<OAuthSettings>);
     /// ```
     pub fn set_or_clear_oauth_settings<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::OAuthSettings>,
+    where T: std::convert::Into<crate::model::OAuthSettings>
     {
         self.oauth_settings = v.map(|x| x.into());
         self
@@ -902,8 +890,7 @@ impl AccessSettings {
     /// let x = AccessSettings::new().set_reauth_settings(ReauthSettings::default()/* use setters */);
     /// ```
     pub fn set_reauth_settings<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ReauthSettings>,
+    where T: std::convert::Into<crate::model::ReauthSettings>
     {
         self.reauth_settings = std::option::Option::Some(v.into());
         self
@@ -919,8 +906,7 @@ impl AccessSettings {
     /// let x = AccessSettings::new().set_or_clear_reauth_settings(None::<ReauthSettings>);
     /// ```
     pub fn set_or_clear_reauth_settings<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ReauthSettings>,
+    where T: std::convert::Into<crate::model::ReauthSettings>
     {
         self.reauth_settings = v.map(|x| x.into());
         self
@@ -935,8 +921,7 @@ impl AccessSettings {
     /// let x = AccessSettings::new().set_allowed_domains_settings(AllowedDomainsSettings::default()/* use setters */);
     /// ```
     pub fn set_allowed_domains_settings<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AllowedDomainsSettings>,
+    where T: std::convert::Into<crate::model::AllowedDomainsSettings>
     {
         self.allowed_domains_settings = std::option::Option::Some(v.into());
         self
@@ -952,8 +937,7 @@ impl AccessSettings {
     /// let x = AccessSettings::new().set_or_clear_allowed_domains_settings(None::<AllowedDomainsSettings>);
     /// ```
     pub fn set_or_clear_allowed_domains_settings<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AllowedDomainsSettings>,
+    where T: std::convert::Into<crate::model::AllowedDomainsSettings>
     {
         self.allowed_domains_settings = v.map(|x| x.into());
         self
@@ -968,8 +952,7 @@ impl AccessSettings {
     /// let x = AccessSettings::new().set_workforce_identity_settings(WorkforceIdentitySettings::default()/* use setters */);
     /// ```
     pub fn set_workforce_identity_settings<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::WorkforceIdentitySettings>,
+    where T: std::convert::Into<crate::model::WorkforceIdentitySettings>
     {
         self.workforce_identity_settings = std::option::Option::Some(v.into());
         self
@@ -985,8 +968,7 @@ impl AccessSettings {
     /// let x = AccessSettings::new().set_or_clear_workforce_identity_settings(None::<WorkforceIdentitySettings>);
     /// ```
     pub fn set_or_clear_workforce_identity_settings<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::WorkforceIdentitySettings>,
+    where T: std::convert::Into<crate::model::WorkforceIdentitySettings>
     {
         self.workforce_identity_settings = v.map(|x| x.into());
         self
@@ -1005,7 +987,7 @@ impl AccessSettings {
     pub fn set_identity_sources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::access_settings::IdentitySource>,
+        V: std::convert::Into<crate::model::access_settings::IdentitySource>
     {
         use std::iter::Iterator;
         self.identity_sources = v.into_iter().map(|i| i.into()).collect();
@@ -1023,6 +1005,7 @@ impl wkt::message::Message for AccessSettings {
 pub mod access_settings {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Types of identity source supported by IAP.
     ///
@@ -1086,9 +1069,7 @@ pub mod access_settings {
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
                 Self::Unspecified => std::option::Option::Some("IDENTITY_SOURCE_UNSPECIFIED"),
-                Self::WorkforceIdentityFederation => {
-                    std::option::Option::Some("WORKFORCE_IDENTITY_FEDERATION")
-                }
+                Self::WorkforceIdentityFederation => std::option::Option::Some("WORKFORCE_IDENTITY_FEDERATION"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -1112,9 +1093,7 @@ pub mod access_settings {
             match value {
                 0 => Self::Unspecified,
                 3 => Self::WorkforceIdentityFederation,
-                _ => Self::UnknownValue(identity_source::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(identity_source::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1125,9 +1104,7 @@ pub mod access_settings {
             match value {
                 "IDENTITY_SOURCE_UNSPECIFIED" => Self::Unspecified,
                 "WORKFORCE_IDENTITY_FEDERATION" => Self::WorkforceIdentityFederation,
-                _ => Self::UnknownValue(identity_source::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(identity_source::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1151,8 +1128,7 @@ pub mod access_settings {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<IdentitySource>::new(
-                ".google.cloud.iap.v1.AccessSettings.IdentitySource",
-            ))
+                ".google.cloud.iap.v1.AccessSettings.IdentitySource"))
         }
     }
 }
@@ -1162,6 +1138,7 @@ pub mod access_settings {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GcipSettings {
+
     /// Optional. GCIP tenant IDs that are linked to the IAP resource. `tenant_ids`
     /// could be a string beginning with a number character to indicate
     /// authenticating with GCIP tenant flow, or in the format of
@@ -1193,7 +1170,7 @@ impl GcipSettings {
     pub fn set_tenant_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.tenant_ids = v.into_iter().map(|i| i.into()).collect();
@@ -1209,8 +1186,7 @@ impl GcipSettings {
     /// let x = GcipSettings::new().set_login_page_uri(StringValue::default()/* use setters */);
     /// ```
     pub fn set_login_page_uri<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::StringValue>,
+    where T: std::convert::Into<wkt::StringValue>
     {
         self.login_page_uri = std::option::Option::Some(v.into());
         self
@@ -1226,8 +1202,7 @@ impl GcipSettings {
     /// let x = GcipSettings::new().set_or_clear_login_page_uri(None::<StringValue>);
     /// ```
     pub fn set_or_clear_login_page_uri<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::StringValue>,
+    where T: std::convert::Into<wkt::StringValue>
     {
         self.login_page_uri = v.map(|x| x.into());
         self
@@ -1245,6 +1220,7 @@ impl wkt::message::Message for GcipSettings {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CorsSettings {
+
     /// Configuration to allow HTTP `OPTIONS` calls to skip
     /// authentication and authorization. If undefined, IAP will not apply any
     /// special logic to `OPTIONS` requests.
@@ -1267,8 +1243,7 @@ impl CorsSettings {
     /// let x = CorsSettings::new().set_allow_http_options(BoolValue::default()/* use setters */);
     /// ```
     pub fn set_allow_http_options<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.allow_http_options = std::option::Option::Some(v.into());
         self
@@ -1284,8 +1259,7 @@ impl CorsSettings {
     /// let x = CorsSettings::new().set_or_clear_allow_http_options(None::<BoolValue>);
     /// ```
     pub fn set_or_clear_allow_http_options<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.allow_http_options = v.map(|x| x.into());
         self
@@ -1303,6 +1277,7 @@ impl wkt::message::Message for CorsSettings {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OAuthSettings {
+
     /// Domain hint to send as hd=? parameter in OAuth request flow. Enables
     /// redirect to primary IDP by skipping Google's login screen.
     /// <https://developers.google.com/identity/protocols/OpenIDConnect#hd-param>
@@ -1330,8 +1305,7 @@ impl OAuthSettings {
     /// let x = OAuthSettings::new().set_login_hint(StringValue::default()/* use setters */);
     /// ```
     pub fn set_login_hint<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::StringValue>,
+    where T: std::convert::Into<wkt::StringValue>
     {
         self.login_hint = std::option::Option::Some(v.into());
         self
@@ -1347,8 +1321,7 @@ impl OAuthSettings {
     /// let x = OAuthSettings::new().set_or_clear_login_hint(None::<StringValue>);
     /// ```
     pub fn set_or_clear_login_hint<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::StringValue>,
+    where T: std::convert::Into<wkt::StringValue>
     {
         self.login_hint = v.map(|x| x.into());
         self
@@ -1364,7 +1337,7 @@ impl OAuthSettings {
     pub fn set_programmatic_clients<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.programmatic_clients = v.into_iter().map(|i| i.into()).collect();
@@ -1384,6 +1357,7 @@ impl wkt::message::Message for OAuthSettings {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WorkforceIdentitySettings {
+
     /// The workforce pool resources. Only one workforce pool is accepted.
     pub workforce_pools: std::vec::Vec<std::string::String>,
 
@@ -1409,7 +1383,7 @@ impl WorkforceIdentitySettings {
     pub fn set_workforce_pools<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.workforce_pools = v.into_iter().map(|i| i.into()).collect();
@@ -1425,8 +1399,7 @@ impl WorkforceIdentitySettings {
     /// let x = WorkforceIdentitySettings::new().set_oauth2(OAuth2::default()/* use setters */);
     /// ```
     pub fn set_oauth2<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::OAuth2>,
+    where T: std::convert::Into<crate::model::OAuth2>
     {
         self.oauth2 = std::option::Option::Some(v.into());
         self
@@ -1442,8 +1415,7 @@ impl WorkforceIdentitySettings {
     /// let x = WorkforceIdentitySettings::new().set_or_clear_oauth2(None::<OAuth2>);
     /// ```
     pub fn set_or_clear_oauth2<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::OAuth2>,
+    where T: std::convert::Into<crate::model::OAuth2>
     {
         self.oauth2 = v.map(|x| x.into());
         self
@@ -1460,6 +1432,7 @@ impl wkt::message::Message for WorkforceIdentitySettings {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OAuth2 {
+
     /// The OAuth 2.0 client ID registered in the workforce identity federation
     /// OAuth 2.0 Server.
     pub client_id: std::string::String,
@@ -1511,10 +1484,7 @@ impl OAuth2 {
     /// # use google_cloud_iap_v1::model::OAuth2;
     /// let x = OAuth2::new().set_client_secret_sha256("example");
     /// ```
-    pub fn set_client_secret_sha256<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_client_secret_sha256<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.client_secret_sha256 = v.into();
         self
     }
@@ -1530,6 +1500,7 @@ impl wkt::message::Message for OAuth2 {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReauthSettings {
+
     /// Optional. Reauth method requested.
     pub method: crate::model::reauth_settings::Method,
 
@@ -1560,10 +1531,7 @@ impl ReauthSettings {
     /// let x1 = ReauthSettings::new().set_method(Method::SecureKey);
     /// let x2 = ReauthSettings::new().set_method(Method::EnrolledSecondFactors);
     /// ```
-    pub fn set_method<T: std::convert::Into<crate::model::reauth_settings::Method>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_method<T: std::convert::Into<crate::model::reauth_settings::Method>>(mut self, v: T) -> Self {
         self.method = v.into();
         self
     }
@@ -1577,8 +1545,7 @@ impl ReauthSettings {
     /// let x = ReauthSettings::new().set_max_age(Duration::default()/* use setters */);
     /// ```
     pub fn set_max_age<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.max_age = std::option::Option::Some(v.into());
         self
@@ -1594,8 +1561,7 @@ impl ReauthSettings {
     /// let x = ReauthSettings::new().set_or_clear_max_age(None::<Duration>);
     /// ```
     pub fn set_or_clear_max_age<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.max_age = v.map(|x| x.into());
         self
@@ -1610,10 +1576,7 @@ impl ReauthSettings {
     /// let x0 = ReauthSettings::new().set_policy_type(PolicyType::Minimum);
     /// let x1 = ReauthSettings::new().set_policy_type(PolicyType::Default);
     /// ```
-    pub fn set_policy_type<T: std::convert::Into<crate::model::reauth_settings::PolicyType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_policy_type<T: std::convert::Into<crate::model::reauth_settings::PolicyType>>(mut self, v: T) -> Self {
         self.policy_type = v.into();
         self
     }
@@ -1629,6 +1592,7 @@ impl wkt::message::Message for ReauthSettings {
 pub mod reauth_settings {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Types of reauthentication methods supported by IAP.
     ///
@@ -1726,9 +1690,7 @@ pub mod reauth_settings {
                 2 => Self::Password,
                 3 => Self::SecureKey,
                 4 => Self::EnrolledSecondFactors,
-                _ => Self::UnknownValue(method::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(method::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1742,9 +1704,7 @@ pub mod reauth_settings {
                 "PASSWORD" => Self::Password,
                 "SECURE_KEY" => Self::SecureKey,
                 "ENROLLED_SECOND_FACTORS" => Self::EnrolledSecondFactors,
-                _ => Self::UnknownValue(method::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(method::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1771,8 +1731,7 @@ pub mod reauth_settings {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Method>::new(
-                ".google.cloud.iap.v1.ReauthSettings.Method",
-            ))
+                ".google.cloud.iap.v1.ReauthSettings.Method"))
         }
     }
 
@@ -1863,9 +1822,7 @@ pub mod reauth_settings {
                 0 => Self::Unspecified,
                 1 => Self::Minimum,
                 2 => Self::Default,
-                _ => Self::UnknownValue(policy_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(policy_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1877,9 +1834,7 @@ pub mod reauth_settings {
                 "POLICY_TYPE_UNSPECIFIED" => Self::Unspecified,
                 "MINIMUM" => Self::Minimum,
                 "DEFAULT" => Self::Default,
-                _ => Self::UnknownValue(policy_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(policy_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1904,8 +1859,7 @@ pub mod reauth_settings {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<PolicyType>::new(
-                ".google.cloud.iap.v1.ReauthSettings.PolicyType",
-            ))
+                ".google.cloud.iap.v1.ReauthSettings.PolicyType"))
         }
     }
 }
@@ -1915,6 +1869,7 @@ pub mod reauth_settings {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AllowedDomainsSettings {
+
     /// Optional. Configuration for customers to opt in for the feature.
     pub enable: std::option::Option<bool>,
 
@@ -1937,8 +1892,7 @@ impl AllowedDomainsSettings {
     /// let x = AllowedDomainsSettings::new().set_enable(true);
     /// ```
     pub fn set_enable<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.enable = std::option::Option::Some(v.into());
         self
@@ -1953,8 +1907,7 @@ impl AllowedDomainsSettings {
     /// let x = AllowedDomainsSettings::new().set_or_clear_enable(None::<bool>);
     /// ```
     pub fn set_or_clear_enable<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.enable = v.map(|x| x.into());
         self
@@ -1970,7 +1923,7 @@ impl AllowedDomainsSettings {
     pub fn set_domains<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.domains = v.into_iter().map(|i| i.into()).collect();
@@ -1988,6 +1941,7 @@ impl wkt::message::Message for AllowedDomainsSettings {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ApplicationSettings {
+
     /// Optional. Settings to configure IAP's behavior for a service mesh.
     pub csm_settings: std::option::Option<crate::model::CsmSettings>,
 
@@ -1999,8 +1953,7 @@ pub struct ApplicationSettings {
     pub cookie_domain: std::option::Option<wkt::StringValue>,
 
     /// Optional. Settings to configure attribute propagation.
-    pub attribute_propagation_settings:
-        std::option::Option<crate::model::AttributePropagationSettings>,
+    pub attribute_propagation_settings: std::option::Option<crate::model::AttributePropagationSettings>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2019,8 +1972,7 @@ impl ApplicationSettings {
     /// let x = ApplicationSettings::new().set_csm_settings(CsmSettings::default()/* use setters */);
     /// ```
     pub fn set_csm_settings<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CsmSettings>,
+    where T: std::convert::Into<crate::model::CsmSettings>
     {
         self.csm_settings = std::option::Option::Some(v.into());
         self
@@ -2036,8 +1988,7 @@ impl ApplicationSettings {
     /// let x = ApplicationSettings::new().set_or_clear_csm_settings(None::<CsmSettings>);
     /// ```
     pub fn set_or_clear_csm_settings<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CsmSettings>,
+    where T: std::convert::Into<crate::model::CsmSettings>
     {
         self.csm_settings = v.map(|x| x.into());
         self
@@ -2052,8 +2003,7 @@ impl ApplicationSettings {
     /// let x = ApplicationSettings::new().set_access_denied_page_settings(AccessDeniedPageSettings::default()/* use setters */);
     /// ```
     pub fn set_access_denied_page_settings<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AccessDeniedPageSettings>,
+    where T: std::convert::Into<crate::model::AccessDeniedPageSettings>
     {
         self.access_denied_page_settings = std::option::Option::Some(v.into());
         self
@@ -2069,8 +2019,7 @@ impl ApplicationSettings {
     /// let x = ApplicationSettings::new().set_or_clear_access_denied_page_settings(None::<AccessDeniedPageSettings>);
     /// ```
     pub fn set_or_clear_access_denied_page_settings<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AccessDeniedPageSettings>,
+    where T: std::convert::Into<crate::model::AccessDeniedPageSettings>
     {
         self.access_denied_page_settings = v.map(|x| x.into());
         self
@@ -2085,8 +2034,7 @@ impl ApplicationSettings {
     /// let x = ApplicationSettings::new().set_cookie_domain(StringValue::default()/* use setters */);
     /// ```
     pub fn set_cookie_domain<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::StringValue>,
+    where T: std::convert::Into<wkt::StringValue>
     {
         self.cookie_domain = std::option::Option::Some(v.into());
         self
@@ -2102,8 +2050,7 @@ impl ApplicationSettings {
     /// let x = ApplicationSettings::new().set_or_clear_cookie_domain(None::<StringValue>);
     /// ```
     pub fn set_or_clear_cookie_domain<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::StringValue>,
+    where T: std::convert::Into<wkt::StringValue>
     {
         self.cookie_domain = v.map(|x| x.into());
         self
@@ -2118,8 +2065,7 @@ impl ApplicationSettings {
     /// let x = ApplicationSettings::new().set_attribute_propagation_settings(AttributePropagationSettings::default()/* use setters */);
     /// ```
     pub fn set_attribute_propagation_settings<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AttributePropagationSettings>,
+    where T: std::convert::Into<crate::model::AttributePropagationSettings>
     {
         self.attribute_propagation_settings = std::option::Option::Some(v.into());
         self
@@ -2134,12 +2080,8 @@ impl ApplicationSettings {
     /// let x = ApplicationSettings::new().set_or_clear_attribute_propagation_settings(Some(AttributePropagationSettings::default()/* use setters */));
     /// let x = ApplicationSettings::new().set_or_clear_attribute_propagation_settings(None::<AttributePropagationSettings>);
     /// ```
-    pub fn set_or_clear_attribute_propagation_settings<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<crate::model::AttributePropagationSettings>,
+    pub fn set_or_clear_attribute_propagation_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<crate::model::AttributePropagationSettings>
     {
         self.attribute_propagation_settings = v.map(|x| x.into());
         self
@@ -2159,6 +2101,7 @@ impl wkt::message::Message for ApplicationSettings {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CsmSettings {
+
     /// Audience claim set in the generated RCToken. This value is not validated by
     /// IAP.
     pub rctoken_aud: std::option::Option<wkt::StringValue>,
@@ -2180,8 +2123,7 @@ impl CsmSettings {
     /// let x = CsmSettings::new().set_rctoken_aud(StringValue::default()/* use setters */);
     /// ```
     pub fn set_rctoken_aud<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::StringValue>,
+    where T: std::convert::Into<wkt::StringValue>
     {
         self.rctoken_aud = std::option::Option::Some(v.into());
         self
@@ -2197,8 +2139,7 @@ impl CsmSettings {
     /// let x = CsmSettings::new().set_or_clear_rctoken_aud(None::<StringValue>);
     /// ```
     pub fn set_or_clear_rctoken_aud<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::StringValue>,
+    where T: std::convert::Into<wkt::StringValue>
     {
         self.rctoken_aud = v.map(|x| x.into());
         self
@@ -2218,6 +2159,7 @@ impl wkt::message::Message for CsmSettings {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AccessDeniedPageSettings {
+
     /// The URI to be redirected to when access is denied.
     pub access_denied_page_uri: std::option::Option<wkt::StringValue>,
 
@@ -2246,8 +2188,7 @@ impl AccessDeniedPageSettings {
     /// let x = AccessDeniedPageSettings::new().set_access_denied_page_uri(StringValue::default()/* use setters */);
     /// ```
     pub fn set_access_denied_page_uri<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::StringValue>,
+    where T: std::convert::Into<wkt::StringValue>
     {
         self.access_denied_page_uri = std::option::Option::Some(v.into());
         self
@@ -2263,8 +2204,7 @@ impl AccessDeniedPageSettings {
     /// let x = AccessDeniedPageSettings::new().set_or_clear_access_denied_page_uri(None::<StringValue>);
     /// ```
     pub fn set_or_clear_access_denied_page_uri<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::StringValue>,
+    where T: std::convert::Into<wkt::StringValue>
     {
         self.access_denied_page_uri = v.map(|x| x.into());
         self
@@ -2279,8 +2219,7 @@ impl AccessDeniedPageSettings {
     /// let x = AccessDeniedPageSettings::new().set_generate_troubleshooting_uri(BoolValue::default()/* use setters */);
     /// ```
     pub fn set_generate_troubleshooting_uri<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.generate_troubleshooting_uri = std::option::Option::Some(v.into());
         self
@@ -2296,8 +2235,7 @@ impl AccessDeniedPageSettings {
     /// let x = AccessDeniedPageSettings::new().set_or_clear_generate_troubleshooting_uri(None::<BoolValue>);
     /// ```
     pub fn set_or_clear_generate_troubleshooting_uri<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.generate_troubleshooting_uri = v.map(|x| x.into());
         self
@@ -2312,8 +2250,7 @@ impl AccessDeniedPageSettings {
     /// let x = AccessDeniedPageSettings::new().set_remediation_token_generation_enabled(BoolValue::default()/* use setters */);
     /// ```
     pub fn set_remediation_token_generation_enabled<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.remediation_token_generation_enabled = std::option::Option::Some(v.into());
         self
@@ -2328,12 +2265,8 @@ impl AccessDeniedPageSettings {
     /// let x = AccessDeniedPageSettings::new().set_or_clear_remediation_token_generation_enabled(Some(BoolValue::default()/* use setters */));
     /// let x = AccessDeniedPageSettings::new().set_or_clear_remediation_token_generation_enabled(None::<BoolValue>);
     /// ```
-    pub fn set_or_clear_remediation_token_generation_enabled<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    pub fn set_or_clear_remediation_token_generation_enabled<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.remediation_token_generation_enabled = v.map(|x| x.into());
         self
@@ -2351,6 +2284,7 @@ impl wkt::message::Message for AccessDeniedPageSettings {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AttributePropagationSettings {
+
     /// Optional. Raw string CEL expression. Must return a list of attributes. A
     /// maximum of 45 attributes can be selected. Expressions can select different
     /// attribute types from `attributes`: `attributes.saml_attributes`,
@@ -2385,8 +2319,7 @@ pub struct AttributePropagationSettings {
     /// Optional. Which output credentials attributes selected by the CEL
     /// expression should be propagated in. All attributes will be fully duplicated
     /// in each selected output credential.
-    pub output_credentials:
-        std::vec::Vec<crate::model::attribute_propagation_settings::OutputCredentials>,
+    pub output_credentials: std::vec::Vec<crate::model::attribute_propagation_settings::OutputCredentials>,
 
     /// Optional. Whether the provided attribute propagation settings should be
     /// evaluated on user requests. If set to true, attributes returned from the
@@ -2409,8 +2342,7 @@ impl AttributePropagationSettings {
     /// let x = AttributePropagationSettings::new().set_expression("example");
     /// ```
     pub fn set_expression<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.expression = std::option::Option::Some(v.into());
         self
@@ -2425,8 +2357,7 @@ impl AttributePropagationSettings {
     /// let x = AttributePropagationSettings::new().set_or_clear_expression(None::<String>);
     /// ```
     pub fn set_or_clear_expression<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.expression = v.map(|x| x.into());
         self
@@ -2447,7 +2378,7 @@ impl AttributePropagationSettings {
     pub fn set_output_credentials<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::attribute_propagation_settings::OutputCredentials>,
+        V: std::convert::Into<crate::model::attribute_propagation_settings::OutputCredentials>
     {
         use std::iter::Iterator;
         self.output_credentials = v.into_iter().map(|i| i.into()).collect();
@@ -2462,8 +2393,7 @@ impl AttributePropagationSettings {
     /// let x = AttributePropagationSettings::new().set_enable(true);
     /// ```
     pub fn set_enable<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.enable = std::option::Option::Some(v.into());
         self
@@ -2478,8 +2408,7 @@ impl AttributePropagationSettings {
     /// let x = AttributePropagationSettings::new().set_or_clear_enable(None::<bool>);
     /// ```
     pub fn set_or_clear_enable<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.enable = v.map(|x| x.into());
         self
@@ -2496,6 +2425,7 @@ impl wkt::message::Message for AttributePropagationSettings {
 pub mod attribute_propagation_settings {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Supported output credentials for attribute propagation. Each output
     /// credential maps to a "field" in the response. For example, selecting JWT
@@ -2592,9 +2522,7 @@ pub mod attribute_propagation_settings {
                 1 => Self::Header,
                 2 => Self::Jwt,
                 3 => Self::Rctoken,
-                _ => Self::UnknownValue(output_credentials::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(output_credentials::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -2607,9 +2535,7 @@ pub mod attribute_propagation_settings {
                 "HEADER" => Self::Header,
                 "JWT" => Self::Jwt,
                 "RCTOKEN" => Self::Rctoken,
-                _ => Self::UnknownValue(output_credentials::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(output_credentials::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -2635,8 +2561,7 @@ pub mod attribute_propagation_settings {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<OutputCredentials>::new(
-                ".google.cloud.iap.v1.AttributePropagationSettings.OutputCredentials",
-            ))
+                ".google.cloud.iap.v1.AttributePropagationSettings.OutputCredentials"))
         }
     }
 }
@@ -2645,6 +2570,7 @@ pub mod attribute_propagation_settings {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ValidateIapAttributeExpressionRequest {
+
     /// Required. The resource name of the IAP protected resource.
     pub name: std::string::String,
 
@@ -2696,6 +2622,7 @@ impl wkt::message::Message for ValidateIapAttributeExpressionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ValidateIapAttributeExpressionResponse {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2715,6 +2642,7 @@ impl wkt::message::Message for ValidateIapAttributeExpressionResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBrandsRequest {
+
     /// Required. GCP Project number/id.
     /// In the following format: projects/{project_number/id}.
     pub parent: std::string::String,
@@ -2750,6 +2678,7 @@ impl wkt::message::Message for ListBrandsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBrandsResponse {
+
     /// Brands existing in the project.
     pub brands: std::vec::Vec<crate::model::Brand>,
 
@@ -2776,7 +2705,7 @@ impl ListBrandsResponse {
     pub fn set_brands<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Brand>,
+        V: std::convert::Into<crate::model::Brand>
     {
         use std::iter::Iterator;
         self.brands = v.into_iter().map(|i| i.into()).collect();
@@ -2794,6 +2723,7 @@ impl wkt::message::Message for ListBrandsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateBrandRequest {
+
     /// Required. GCP Project number/id under which the brand is to be created.
     /// In the following format: projects/{project_number/id}.
     pub parent: std::string::String,
@@ -2830,8 +2760,7 @@ impl CreateBrandRequest {
     /// let x = CreateBrandRequest::new().set_brand(Brand::default()/* use setters */);
     /// ```
     pub fn set_brand<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Brand>,
+    where T: std::convert::Into<crate::model::Brand>
     {
         self.brand = std::option::Option::Some(v.into());
         self
@@ -2847,8 +2776,7 @@ impl CreateBrandRequest {
     /// let x = CreateBrandRequest::new().set_or_clear_brand(None::<Brand>);
     /// ```
     pub fn set_or_clear_brand<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Brand>,
+    where T: std::convert::Into<crate::model::Brand>
     {
         self.brand = v.map(|x| x.into());
         self
@@ -2865,6 +2793,7 @@ impl wkt::message::Message for CreateBrandRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetBrandRequest {
+
     /// Required. Name of the brand to be fetched.
     /// In the following format: projects/{project_number/id}/brands/{brand}.
     pub name: std::string::String,
@@ -2900,6 +2829,7 @@ impl wkt::message::Message for GetBrandRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListIdentityAwareProxyClientsRequest {
+
     /// Required. Full brand path.
     /// In the following format: projects/{project_number/id}/brands/{brand}.
     pub parent: std::string::String,
@@ -2973,6 +2903,7 @@ impl wkt::message::Message for ListIdentityAwareProxyClientsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListIdentityAwareProxyClientsResponse {
+
     /// Clients existing in the brand.
     pub identity_aware_proxy_clients: std::vec::Vec<crate::model::IdentityAwareProxyClient>,
 
@@ -3003,7 +2934,7 @@ impl ListIdentityAwareProxyClientsResponse {
     pub fn set_identity_aware_proxy_clients<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::IdentityAwareProxyClient>,
+        V: std::convert::Into<crate::model::IdentityAwareProxyClient>
     {
         use std::iter::Iterator;
         self.identity_aware_proxy_clients = v.into_iter().map(|i| i.into()).collect();
@@ -3047,6 +2978,7 @@ impl gax::paginator::internal::PageableResponse for ListIdentityAwareProxyClient
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateIdentityAwareProxyClientRequest {
+
     /// Required. Path to create the client in.
     /// In the following format:
     /// projects/{project_number/id}/brands/{brand}.
@@ -3085,8 +3017,7 @@ impl CreateIdentityAwareProxyClientRequest {
     /// let x = CreateIdentityAwareProxyClientRequest::new().set_identity_aware_proxy_client(IdentityAwareProxyClient::default()/* use setters */);
     /// ```
     pub fn set_identity_aware_proxy_client<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::IdentityAwareProxyClient>,
+    where T: std::convert::Into<crate::model::IdentityAwareProxyClient>
     {
         self.identity_aware_proxy_client = std::option::Option::Some(v.into());
         self
@@ -3102,8 +3033,7 @@ impl CreateIdentityAwareProxyClientRequest {
     /// let x = CreateIdentityAwareProxyClientRequest::new().set_or_clear_identity_aware_proxy_client(None::<IdentityAwareProxyClient>);
     /// ```
     pub fn set_or_clear_identity_aware_proxy_client<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::IdentityAwareProxyClient>,
+    where T: std::convert::Into<crate::model::IdentityAwareProxyClient>
     {
         self.identity_aware_proxy_client = v.map(|x| x.into());
         self
@@ -3120,6 +3050,7 @@ impl wkt::message::Message for CreateIdentityAwareProxyClientRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetIdentityAwareProxyClientRequest {
+
     /// Required. Name of the Identity Aware Proxy client to be fetched.
     /// In the following format:
     /// projects/{project_number/id}/brands/{brand}/identityAwareProxyClients/{client_id}.
@@ -3156,6 +3087,7 @@ impl wkt::message::Message for GetIdentityAwareProxyClientRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResetIdentityAwareProxyClientSecretRequest {
+
     /// Required. Name of the Identity Aware Proxy client to that will have its
     /// secret reset. In the following format:
     /// projects/{project_number/id}/brands/{brand}/identityAwareProxyClients/{client_id}.
@@ -3192,6 +3124,7 @@ impl wkt::message::Message for ResetIdentityAwareProxyClientSecretRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteIdentityAwareProxyClientRequest {
+
     /// Required. Name of the Identity Aware Proxy client to be deleted.
     /// In the following format:
     /// projects/{project_number/id}/brands/{brand}/identityAwareProxyClients/{client_id}.
@@ -3229,6 +3162,7 @@ impl wkt::message::Message for DeleteIdentityAwareProxyClientRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Brand {
+
     /// Output only. Identifier of the brand.
     /// NOTE: GCP project number achieves the same brand identification purpose as
     /// only one brand per project can be created.
@@ -3283,10 +3217,7 @@ impl Brand {
     /// # use google_cloud_iap_v1::model::Brand;
     /// let x = Brand::new().set_application_title("example");
     /// ```
-    pub fn set_application_title<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_application_title<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.application_title = v.into();
         self
     }
@@ -3314,6 +3245,7 @@ impl wkt::message::Message for Brand {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct IdentityAwareProxyClient {
+
     /// Output only. Unique identifier of the OAuth client.
     pub name: std::string::String,
 

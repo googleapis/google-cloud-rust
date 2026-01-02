@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -29,7 +30,6 @@ extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -41,6 +41,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AnnotateVideoRequest {
+
     /// Input video location. Currently, only
     /// [Cloud Storage](https://cloud.google.com/storage/) URIs are
     /// supported. URIs must be specified in the following format:
@@ -127,7 +128,7 @@ impl AnnotateVideoRequest {
     pub fn set_features<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Feature>,
+        V: std::convert::Into<crate::model::Feature>
     {
         use std::iter::Iterator;
         self.features = v.into_iter().map(|i| i.into()).collect();
@@ -143,8 +144,7 @@ impl AnnotateVideoRequest {
     /// let x = AnnotateVideoRequest::new().set_video_context(VideoContext::default()/* use setters */);
     /// ```
     pub fn set_video_context<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::VideoContext>,
+    where T: std::convert::Into<crate::model::VideoContext>
     {
         self.video_context = std::option::Option::Some(v.into());
         self
@@ -160,8 +160,7 @@ impl AnnotateVideoRequest {
     /// let x = AnnotateVideoRequest::new().set_or_clear_video_context(None::<VideoContext>);
     /// ```
     pub fn set_or_clear_video_context<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::VideoContext>,
+    where T: std::convert::Into<crate::model::VideoContext>
     {
         self.video_context = v.map(|x| x.into());
         self
@@ -202,6 +201,7 @@ impl wkt::message::Message for AnnotateVideoRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VideoContext {
+
     /// Video segments to annotate. The segments may overlap and are not required
     /// to be contiguous or span the whole video. If unspecified, each video is
     /// treated as a single segment.
@@ -214,8 +214,7 @@ pub struct VideoContext {
     pub shot_change_detection_config: std::option::Option<crate::model::ShotChangeDetectionConfig>,
 
     /// Config for EXPLICIT_CONTENT_DETECTION.
-    pub explicit_content_detection_config:
-        std::option::Option<crate::model::ExplicitContentDetectionConfig>,
+    pub explicit_content_detection_config: std::option::Option<crate::model::ExplicitContentDetectionConfig>,
 
     /// Config for FACE_DETECTION.
     pub face_detection_config: std::option::Option<crate::model::FaceDetectionConfig>,
@@ -255,7 +254,7 @@ impl VideoContext {
     pub fn set_segments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::VideoSegment>,
+        V: std::convert::Into<crate::model::VideoSegment>
     {
         use std::iter::Iterator;
         self.segments = v.into_iter().map(|i| i.into()).collect();
@@ -271,8 +270,7 @@ impl VideoContext {
     /// let x = VideoContext::new().set_label_detection_config(LabelDetectionConfig::default()/* use setters */);
     /// ```
     pub fn set_label_detection_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::LabelDetectionConfig>,
+    where T: std::convert::Into<crate::model::LabelDetectionConfig>
     {
         self.label_detection_config = std::option::Option::Some(v.into());
         self
@@ -288,8 +286,7 @@ impl VideoContext {
     /// let x = VideoContext::new().set_or_clear_label_detection_config(None::<LabelDetectionConfig>);
     /// ```
     pub fn set_or_clear_label_detection_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::LabelDetectionConfig>,
+    where T: std::convert::Into<crate::model::LabelDetectionConfig>
     {
         self.label_detection_config = v.map(|x| x.into());
         self
@@ -304,8 +301,7 @@ impl VideoContext {
     /// let x = VideoContext::new().set_shot_change_detection_config(ShotChangeDetectionConfig::default()/* use setters */);
     /// ```
     pub fn set_shot_change_detection_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ShotChangeDetectionConfig>,
+    where T: std::convert::Into<crate::model::ShotChangeDetectionConfig>
     {
         self.shot_change_detection_config = std::option::Option::Some(v.into());
         self
@@ -321,8 +317,7 @@ impl VideoContext {
     /// let x = VideoContext::new().set_or_clear_shot_change_detection_config(None::<ShotChangeDetectionConfig>);
     /// ```
     pub fn set_or_clear_shot_change_detection_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ShotChangeDetectionConfig>,
+    where T: std::convert::Into<crate::model::ShotChangeDetectionConfig>
     {
         self.shot_change_detection_config = v.map(|x| x.into());
         self
@@ -337,8 +332,7 @@ impl VideoContext {
     /// let x = VideoContext::new().set_explicit_content_detection_config(ExplicitContentDetectionConfig::default()/* use setters */);
     /// ```
     pub fn set_explicit_content_detection_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ExplicitContentDetectionConfig>,
+    where T: std::convert::Into<crate::model::ExplicitContentDetectionConfig>
     {
         self.explicit_content_detection_config = std::option::Option::Some(v.into());
         self
@@ -353,12 +347,8 @@ impl VideoContext {
     /// let x = VideoContext::new().set_or_clear_explicit_content_detection_config(Some(ExplicitContentDetectionConfig::default()/* use setters */));
     /// let x = VideoContext::new().set_or_clear_explicit_content_detection_config(None::<ExplicitContentDetectionConfig>);
     /// ```
-    pub fn set_or_clear_explicit_content_detection_config<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<crate::model::ExplicitContentDetectionConfig>,
+    pub fn set_or_clear_explicit_content_detection_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<crate::model::ExplicitContentDetectionConfig>
     {
         self.explicit_content_detection_config = v.map(|x| x.into());
         self
@@ -373,8 +363,7 @@ impl VideoContext {
     /// let x = VideoContext::new().set_face_detection_config(FaceDetectionConfig::default()/* use setters */);
     /// ```
     pub fn set_face_detection_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::FaceDetectionConfig>,
+    where T: std::convert::Into<crate::model::FaceDetectionConfig>
     {
         self.face_detection_config = std::option::Option::Some(v.into());
         self
@@ -390,8 +379,7 @@ impl VideoContext {
     /// let x = VideoContext::new().set_or_clear_face_detection_config(None::<FaceDetectionConfig>);
     /// ```
     pub fn set_or_clear_face_detection_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::FaceDetectionConfig>,
+    where T: std::convert::Into<crate::model::FaceDetectionConfig>
     {
         self.face_detection_config = v.map(|x| x.into());
         self
@@ -406,8 +394,7 @@ impl VideoContext {
     /// let x = VideoContext::new().set_speech_transcription_config(SpeechTranscriptionConfig::default()/* use setters */);
     /// ```
     pub fn set_speech_transcription_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::SpeechTranscriptionConfig>,
+    where T: std::convert::Into<crate::model::SpeechTranscriptionConfig>
     {
         self.speech_transcription_config = std::option::Option::Some(v.into());
         self
@@ -423,8 +410,7 @@ impl VideoContext {
     /// let x = VideoContext::new().set_or_clear_speech_transcription_config(None::<SpeechTranscriptionConfig>);
     /// ```
     pub fn set_or_clear_speech_transcription_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::SpeechTranscriptionConfig>,
+    where T: std::convert::Into<crate::model::SpeechTranscriptionConfig>
     {
         self.speech_transcription_config = v.map(|x| x.into());
         self
@@ -439,8 +425,7 @@ impl VideoContext {
     /// let x = VideoContext::new().set_text_detection_config(TextDetectionConfig::default()/* use setters */);
     /// ```
     pub fn set_text_detection_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TextDetectionConfig>,
+    where T: std::convert::Into<crate::model::TextDetectionConfig>
     {
         self.text_detection_config = std::option::Option::Some(v.into());
         self
@@ -456,8 +441,7 @@ impl VideoContext {
     /// let x = VideoContext::new().set_or_clear_text_detection_config(None::<TextDetectionConfig>);
     /// ```
     pub fn set_or_clear_text_detection_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TextDetectionConfig>,
+    where T: std::convert::Into<crate::model::TextDetectionConfig>
     {
         self.text_detection_config = v.map(|x| x.into());
         self
@@ -472,8 +456,7 @@ impl VideoContext {
     /// let x = VideoContext::new().set_person_detection_config(PersonDetectionConfig::default()/* use setters */);
     /// ```
     pub fn set_person_detection_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::PersonDetectionConfig>,
+    where T: std::convert::Into<crate::model::PersonDetectionConfig>
     {
         self.person_detection_config = std::option::Option::Some(v.into());
         self
@@ -489,8 +472,7 @@ impl VideoContext {
     /// let x = VideoContext::new().set_or_clear_person_detection_config(None::<PersonDetectionConfig>);
     /// ```
     pub fn set_or_clear_person_detection_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::PersonDetectionConfig>,
+    where T: std::convert::Into<crate::model::PersonDetectionConfig>
     {
         self.person_detection_config = v.map(|x| x.into());
         self
@@ -505,8 +487,7 @@ impl VideoContext {
     /// let x = VideoContext::new().set_object_tracking_config(ObjectTrackingConfig::default()/* use setters */);
     /// ```
     pub fn set_object_tracking_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ObjectTrackingConfig>,
+    where T: std::convert::Into<crate::model::ObjectTrackingConfig>
     {
         self.object_tracking_config = std::option::Option::Some(v.into());
         self
@@ -522,8 +503,7 @@ impl VideoContext {
     /// let x = VideoContext::new().set_or_clear_object_tracking_config(None::<ObjectTrackingConfig>);
     /// ```
     pub fn set_or_clear_object_tracking_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ObjectTrackingConfig>,
+    where T: std::convert::Into<crate::model::ObjectTrackingConfig>
     {
         self.object_tracking_config = v.map(|x| x.into());
         self
@@ -540,6 +520,7 @@ impl wkt::message::Message for VideoContext {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LabelDetectionConfig {
+
     /// What labels should be detected with LABEL_DETECTION, in addition to
     /// video-level labels or segment-level labels.
     /// If unspecified, defaults to `SHOT_MODE`.
@@ -589,10 +570,7 @@ impl LabelDetectionConfig {
     /// let x1 = LabelDetectionConfig::new().set_label_detection_mode(LabelDetectionMode::FrameMode);
     /// let x2 = LabelDetectionConfig::new().set_label_detection_mode(LabelDetectionMode::ShotAndFrameMode);
     /// ```
-    pub fn set_label_detection_mode<T: std::convert::Into<crate::model::LabelDetectionMode>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_label_detection_mode<T: std::convert::Into<crate::model::LabelDetectionMode>>(mut self, v: T) -> Self {
         self.label_detection_mode = v.into();
         self
     }
@@ -656,6 +634,7 @@ impl wkt::message::Message for LabelDetectionConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ShotChangeDetectionConfig {
+
     /// Model to use for shot change detection.
     /// Supported values: "builtin/stable" (the default if unset) and
     /// "builtin/latest".
@@ -692,6 +671,7 @@ impl wkt::message::Message for ShotChangeDetectionConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ObjectTrackingConfig {
+
     /// Model to use for object tracking.
     /// Supported values: "builtin/stable" (the default if unset) and
     /// "builtin/latest".
@@ -728,6 +708,7 @@ impl wkt::message::Message for ObjectTrackingConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FaceDetectionConfig {
+
     /// Model to use for face detection.
     /// Supported values: "builtin/stable" (the default if unset) and
     /// "builtin/latest".
@@ -795,6 +776,7 @@ impl wkt::message::Message for FaceDetectionConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PersonDetectionConfig {
+
     /// Whether bounding boxes are included in the person detection annotation
     /// output.
     pub include_bounding_boxes: bool,
@@ -864,6 +846,7 @@ impl wkt::message::Message for PersonDetectionConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExplicitContentDetectionConfig {
+
     /// Model to use for explicit content detection.
     /// Supported values: "builtin/stable" (the default if unset) and
     /// "builtin/latest".
@@ -900,6 +883,7 @@ impl wkt::message::Message for ExplicitContentDetectionConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TextDetectionConfig {
+
     /// Language hint can be specified if the language to be detected is known a
     /// priori. It can increase the accuracy of the detection. Language hint must
     /// be language code in BCP-47 format.
@@ -930,7 +914,7 @@ impl TextDetectionConfig {
     pub fn set_language_hints<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.language_hints = v.into_iter().map(|i| i.into()).collect();
@@ -960,6 +944,7 @@ impl wkt::message::Message for TextDetectionConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VideoSegment {
+
     /// Time-offset, relative to the beginning of the video,
     /// corresponding to the start of the segment (inclusive).
     pub start_time_offset: std::option::Option<wkt::Duration>,
@@ -985,8 +970,7 @@ impl VideoSegment {
     /// let x = VideoSegment::new().set_start_time_offset(Duration::default()/* use setters */);
     /// ```
     pub fn set_start_time_offset<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.start_time_offset = std::option::Option::Some(v.into());
         self
@@ -1002,8 +986,7 @@ impl VideoSegment {
     /// let x = VideoSegment::new().set_or_clear_start_time_offset(None::<Duration>);
     /// ```
     pub fn set_or_clear_start_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.start_time_offset = v.map(|x| x.into());
         self
@@ -1018,8 +1001,7 @@ impl VideoSegment {
     /// let x = VideoSegment::new().set_end_time_offset(Duration::default()/* use setters */);
     /// ```
     pub fn set_end_time_offset<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.end_time_offset = std::option::Option::Some(v.into());
         self
@@ -1035,8 +1017,7 @@ impl VideoSegment {
     /// let x = VideoSegment::new().set_or_clear_end_time_offset(None::<Duration>);
     /// ```
     pub fn set_or_clear_end_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.end_time_offset = v.map(|x| x.into());
         self
@@ -1053,6 +1034,7 @@ impl wkt::message::Message for VideoSegment {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LabelSegment {
+
     /// Video segment where a label was detected.
     pub segment: std::option::Option<crate::model::VideoSegment>,
 
@@ -1076,8 +1058,7 @@ impl LabelSegment {
     /// let x = LabelSegment::new().set_segment(VideoSegment::default()/* use setters */);
     /// ```
     pub fn set_segment<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::VideoSegment>,
+    where T: std::convert::Into<crate::model::VideoSegment>
     {
         self.segment = std::option::Option::Some(v.into());
         self
@@ -1093,8 +1074,7 @@ impl LabelSegment {
     /// let x = LabelSegment::new().set_or_clear_segment(None::<VideoSegment>);
     /// ```
     pub fn set_or_clear_segment<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::VideoSegment>,
+    where T: std::convert::Into<crate::model::VideoSegment>
     {
         self.segment = v.map(|x| x.into());
         self
@@ -1123,6 +1103,7 @@ impl wkt::message::Message for LabelSegment {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LabelFrame {
+
     /// Time-offset, relative to the beginning of the video, corresponding to the
     /// video frame for this location.
     pub time_offset: std::option::Option<wkt::Duration>,
@@ -1147,8 +1128,7 @@ impl LabelFrame {
     /// let x = LabelFrame::new().set_time_offset(Duration::default()/* use setters */);
     /// ```
     pub fn set_time_offset<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.time_offset = std::option::Option::Some(v.into());
         self
@@ -1164,8 +1144,7 @@ impl LabelFrame {
     /// let x = LabelFrame::new().set_or_clear_time_offset(None::<Duration>);
     /// ```
     pub fn set_or_clear_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.time_offset = v.map(|x| x.into());
         self
@@ -1194,6 +1173,7 @@ impl wkt::message::Message for LabelFrame {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Entity {
+
     /// Opaque entity ID. Some IDs may be available in
     /// [Google Knowledge Graph Search
     /// API](https://developers.google.com/knowledge-graph/).
@@ -1260,6 +1240,7 @@ impl wkt::message::Message for Entity {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LabelAnnotation {
+
     /// Detected entity.
     pub entity: std::option::Option<crate::model::Entity>,
 
@@ -1295,8 +1276,7 @@ impl LabelAnnotation {
     /// let x = LabelAnnotation::new().set_entity(Entity::default()/* use setters */);
     /// ```
     pub fn set_entity<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Entity>,
+    where T: std::convert::Into<crate::model::Entity>
     {
         self.entity = std::option::Option::Some(v.into());
         self
@@ -1312,8 +1292,7 @@ impl LabelAnnotation {
     /// let x = LabelAnnotation::new().set_or_clear_entity(None::<Entity>);
     /// ```
     pub fn set_or_clear_entity<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Entity>,
+    where T: std::convert::Into<crate::model::Entity>
     {
         self.entity = v.map(|x| x.into());
         self
@@ -1334,7 +1313,7 @@ impl LabelAnnotation {
     pub fn set_category_entities<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Entity>,
+        V: std::convert::Into<crate::model::Entity>
     {
         use std::iter::Iterator;
         self.category_entities = v.into_iter().map(|i| i.into()).collect();
@@ -1356,7 +1335,7 @@ impl LabelAnnotation {
     pub fn set_segments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::LabelSegment>,
+        V: std::convert::Into<crate::model::LabelSegment>
     {
         use std::iter::Iterator;
         self.segments = v.into_iter().map(|i| i.into()).collect();
@@ -1378,7 +1357,7 @@ impl LabelAnnotation {
     pub fn set_frames<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::LabelFrame>,
+        V: std::convert::Into<crate::model::LabelFrame>
     {
         use std::iter::Iterator;
         self.frames = v.into_iter().map(|i| i.into()).collect();
@@ -1408,6 +1387,7 @@ impl wkt::message::Message for LabelAnnotation {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExplicitContentFrame {
+
     /// Time-offset, relative to the beginning of the video, corresponding to the
     /// video frame for this location.
     pub time_offset: std::option::Option<wkt::Duration>,
@@ -1432,8 +1412,7 @@ impl ExplicitContentFrame {
     /// let x = ExplicitContentFrame::new().set_time_offset(Duration::default()/* use setters */);
     /// ```
     pub fn set_time_offset<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.time_offset = std::option::Option::Some(v.into());
         self
@@ -1449,8 +1428,7 @@ impl ExplicitContentFrame {
     /// let x = ExplicitContentFrame::new().set_or_clear_time_offset(None::<Duration>);
     /// ```
     pub fn set_or_clear_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.time_offset = v.map(|x| x.into());
         self
@@ -1466,10 +1444,7 @@ impl ExplicitContentFrame {
     /// let x1 = ExplicitContentFrame::new().set_pornography_likelihood(Likelihood::Unlikely);
     /// let x2 = ExplicitContentFrame::new().set_pornography_likelihood(Likelihood::Possible);
     /// ```
-    pub fn set_pornography_likelihood<T: std::convert::Into<crate::model::Likelihood>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_pornography_likelihood<T: std::convert::Into<crate::model::Likelihood>>(mut self, v: T) -> Self {
         self.pornography_likelihood = v.into();
         self
     }
@@ -1487,6 +1462,7 @@ impl wkt::message::Message for ExplicitContentFrame {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExplicitContentAnnotation {
+
     /// All video frames where explicit content was detected.
     pub frames: std::vec::Vec<crate::model::ExplicitContentFrame>,
 
@@ -1516,7 +1492,7 @@ impl ExplicitContentAnnotation {
     pub fn set_frames<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ExplicitContentFrame>,
+        V: std::convert::Into<crate::model::ExplicitContentFrame>
     {
         use std::iter::Iterator;
         self.frames = v.into_iter().map(|i| i.into()).collect();
@@ -1548,6 +1524,7 @@ impl wkt::message::Message for ExplicitContentAnnotation {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NormalizedBoundingBox {
+
     /// Left X coordinate.
     pub left: f32,
 
@@ -1627,6 +1604,7 @@ impl wkt::message::Message for NormalizedBoundingBox {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FaceDetectionAnnotation {
+
     /// The face tracks with attributes.
     pub tracks: std::vec::Vec<crate::model::Track>,
 
@@ -1659,7 +1637,7 @@ impl FaceDetectionAnnotation {
     pub fn set_tracks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Track>,
+        V: std::convert::Into<crate::model::Track>
     {
         use std::iter::Iterator;
         self.tracks = v.into_iter().map(|i| i.into()).collect();
@@ -1701,6 +1679,7 @@ impl wkt::message::Message for FaceDetectionAnnotation {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PersonDetectionAnnotation {
+
     /// The detected tracks of a person.
     pub tracks: std::vec::Vec<crate::model::Track>,
 
@@ -1730,7 +1709,7 @@ impl PersonDetectionAnnotation {
     pub fn set_tracks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Track>,
+        V: std::convert::Into<crate::model::Track>
     {
         use std::iter::Iterator;
         self.tracks = v.into_iter().map(|i| i.into()).collect();
@@ -1760,6 +1739,7 @@ impl wkt::message::Message for PersonDetectionAnnotation {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FaceSegment {
+
     /// Video segment where a face was detected.
     pub segment: std::option::Option<crate::model::VideoSegment>,
 
@@ -1780,8 +1760,7 @@ impl FaceSegment {
     /// let x = FaceSegment::new().set_segment(VideoSegment::default()/* use setters */);
     /// ```
     pub fn set_segment<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::VideoSegment>,
+    where T: std::convert::Into<crate::model::VideoSegment>
     {
         self.segment = std::option::Option::Some(v.into());
         self
@@ -1797,8 +1776,7 @@ impl FaceSegment {
     /// let x = FaceSegment::new().set_or_clear_segment(None::<VideoSegment>);
     /// ```
     pub fn set_or_clear_segment<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::VideoSegment>,
+    where T: std::convert::Into<crate::model::VideoSegment>
     {
         self.segment = v.map(|x| x.into());
         self
@@ -1816,6 +1794,7 @@ impl wkt::message::Message for FaceSegment {
 #[non_exhaustive]
 #[deprecated]
 pub struct FaceFrame {
+
     /// Normalized Bounding boxes in a frame.
     /// There can be more than one boxes if the same face is detected in multiple
     /// locations within the current frame.
@@ -1848,7 +1827,7 @@ impl FaceFrame {
     pub fn set_normalized_bounding_boxes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::NormalizedBoundingBox>,
+        V: std::convert::Into<crate::model::NormalizedBoundingBox>
     {
         use std::iter::Iterator;
         self.normalized_bounding_boxes = v.into_iter().map(|i| i.into()).collect();
@@ -1864,8 +1843,7 @@ impl FaceFrame {
     /// let x = FaceFrame::new().set_time_offset(Duration::default()/* use setters */);
     /// ```
     pub fn set_time_offset<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.time_offset = std::option::Option::Some(v.into());
         self
@@ -1881,8 +1859,7 @@ impl FaceFrame {
     /// let x = FaceFrame::new().set_or_clear_time_offset(None::<Duration>);
     /// ```
     pub fn set_or_clear_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.time_offset = v.map(|x| x.into());
         self
@@ -1900,6 +1877,7 @@ impl wkt::message::Message for FaceFrame {
 #[non_exhaustive]
 #[deprecated]
 pub struct FaceAnnotation {
+
     /// Thumbnail of a representative face view (in JPEG format).
     pub thumbnail: ::bytes::Bytes,
 
@@ -1944,7 +1922,7 @@ impl FaceAnnotation {
     pub fn set_segments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::FaceSegment>,
+        V: std::convert::Into<crate::model::FaceSegment>
     {
         use std::iter::Iterator;
         self.segments = v.into_iter().map(|i| i.into()).collect();
@@ -1966,7 +1944,7 @@ impl FaceAnnotation {
     pub fn set_frames<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::FaceFrame>,
+        V: std::convert::Into<crate::model::FaceFrame>
     {
         use std::iter::Iterator;
         self.frames = v.into_iter().map(|i| i.into()).collect();
@@ -1986,6 +1964,7 @@ impl wkt::message::Message for FaceAnnotation {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TimestampedObject {
+
     /// Normalized Bounding box in a frame, where the object is located.
     pub normalized_bounding_box: std::option::Option<crate::model::NormalizedBoundingBox>,
 
@@ -2016,8 +1995,7 @@ impl TimestampedObject {
     /// let x = TimestampedObject::new().set_normalized_bounding_box(NormalizedBoundingBox::default()/* use setters */);
     /// ```
     pub fn set_normalized_bounding_box<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::NormalizedBoundingBox>,
+    where T: std::convert::Into<crate::model::NormalizedBoundingBox>
     {
         self.normalized_bounding_box = std::option::Option::Some(v.into());
         self
@@ -2033,8 +2011,7 @@ impl TimestampedObject {
     /// let x = TimestampedObject::new().set_or_clear_normalized_bounding_box(None::<NormalizedBoundingBox>);
     /// ```
     pub fn set_or_clear_normalized_bounding_box<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::NormalizedBoundingBox>,
+    where T: std::convert::Into<crate::model::NormalizedBoundingBox>
     {
         self.normalized_bounding_box = v.map(|x| x.into());
         self
@@ -2049,8 +2026,7 @@ impl TimestampedObject {
     /// let x = TimestampedObject::new().set_time_offset(Duration::default()/* use setters */);
     /// ```
     pub fn set_time_offset<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.time_offset = std::option::Option::Some(v.into());
         self
@@ -2066,8 +2042,7 @@ impl TimestampedObject {
     /// let x = TimestampedObject::new().set_or_clear_time_offset(None::<Duration>);
     /// ```
     pub fn set_or_clear_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.time_offset = v.map(|x| x.into());
         self
@@ -2088,7 +2063,7 @@ impl TimestampedObject {
     pub fn set_attributes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::DetectedAttribute>,
+        V: std::convert::Into<crate::model::DetectedAttribute>
     {
         use std::iter::Iterator;
         self.attributes = v.into_iter().map(|i| i.into()).collect();
@@ -2110,7 +2085,7 @@ impl TimestampedObject {
     pub fn set_landmarks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::DetectedLandmark>,
+        V: std::convert::Into<crate::model::DetectedLandmark>
     {
         use std::iter::Iterator;
         self.landmarks = v.into_iter().map(|i| i.into()).collect();
@@ -2128,6 +2103,7 @@ impl wkt::message::Message for TimestampedObject {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Track {
+
     /// Video segment of a track.
     pub segment: std::option::Option<crate::model::VideoSegment>,
 
@@ -2157,8 +2133,7 @@ impl Track {
     /// let x = Track::new().set_segment(VideoSegment::default()/* use setters */);
     /// ```
     pub fn set_segment<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::VideoSegment>,
+    where T: std::convert::Into<crate::model::VideoSegment>
     {
         self.segment = std::option::Option::Some(v.into());
         self
@@ -2174,8 +2149,7 @@ impl Track {
     /// let x = Track::new().set_or_clear_segment(None::<VideoSegment>);
     /// ```
     pub fn set_or_clear_segment<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::VideoSegment>,
+    where T: std::convert::Into<crate::model::VideoSegment>
     {
         self.segment = v.map(|x| x.into());
         self
@@ -2196,7 +2170,7 @@ impl Track {
     pub fn set_timestamped_objects<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::TimestampedObject>,
+        V: std::convert::Into<crate::model::TimestampedObject>
     {
         use std::iter::Iterator;
         self.timestamped_objects = v.into_iter().map(|i| i.into()).collect();
@@ -2218,7 +2192,7 @@ impl Track {
     pub fn set_attributes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::DetectedAttribute>,
+        V: std::convert::Into<crate::model::DetectedAttribute>
     {
         use std::iter::Iterator;
         self.attributes = v.into_iter().map(|i| i.into()).collect();
@@ -2248,6 +2222,7 @@ impl wkt::message::Message for Track {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DetectedAttribute {
+
     /// The name of the attribute, for example, glasses, dark_glasses, mouth_open.
     /// A full list of supported type names will be provided in the document.
     pub name: std::string::String,
@@ -2315,6 +2290,7 @@ impl wkt::message::Message for DetectedAttribute {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DetectedLandmark {
+
     /// The name of this landmark, for example, left_hand, right_shoulder.
     pub name: std::string::String,
 
@@ -2354,8 +2330,7 @@ impl DetectedLandmark {
     /// let x = DetectedLandmark::new().set_point(NormalizedVertex::default()/* use setters */);
     /// ```
     pub fn set_point<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::NormalizedVertex>,
+    where T: std::convert::Into<crate::model::NormalizedVertex>
     {
         self.point = std::option::Option::Some(v.into());
         self
@@ -2371,8 +2346,7 @@ impl DetectedLandmark {
     /// let x = DetectedLandmark::new().set_or_clear_point(None::<NormalizedVertex>);
     /// ```
     pub fn set_or_clear_point<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::NormalizedVertex>,
+    where T: std::convert::Into<crate::model::NormalizedVertex>
     {
         self.point = v.map(|x| x.into());
         self
@@ -2401,6 +2375,7 @@ impl wkt::message::Message for DetectedLandmark {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VideoAnnotationResults {
+
     /// Video file location in
     /// [Cloud Storage](https://cloud.google.com/storage/).
     pub input_uri: std::string::String,
@@ -2498,8 +2473,7 @@ impl VideoAnnotationResults {
     /// let x = VideoAnnotationResults::new().set_segment(VideoSegment::default()/* use setters */);
     /// ```
     pub fn set_segment<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::VideoSegment>,
+    where T: std::convert::Into<crate::model::VideoSegment>
     {
         self.segment = std::option::Option::Some(v.into());
         self
@@ -2515,8 +2489,7 @@ impl VideoAnnotationResults {
     /// let x = VideoAnnotationResults::new().set_or_clear_segment(None::<VideoSegment>);
     /// ```
     pub fn set_or_clear_segment<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::VideoSegment>,
+    where T: std::convert::Into<crate::model::VideoSegment>
     {
         self.segment = v.map(|x| x.into());
         self
@@ -2537,7 +2510,7 @@ impl VideoAnnotationResults {
     pub fn set_segment_label_annotations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::LabelAnnotation>,
+        V: std::convert::Into<crate::model::LabelAnnotation>
     {
         use std::iter::Iterator;
         self.segment_label_annotations = v.into_iter().map(|i| i.into()).collect();
@@ -2559,7 +2532,7 @@ impl VideoAnnotationResults {
     pub fn set_segment_presence_label_annotations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::LabelAnnotation>,
+        V: std::convert::Into<crate::model::LabelAnnotation>
     {
         use std::iter::Iterator;
         self.segment_presence_label_annotations = v.into_iter().map(|i| i.into()).collect();
@@ -2581,7 +2554,7 @@ impl VideoAnnotationResults {
     pub fn set_shot_label_annotations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::LabelAnnotation>,
+        V: std::convert::Into<crate::model::LabelAnnotation>
     {
         use std::iter::Iterator;
         self.shot_label_annotations = v.into_iter().map(|i| i.into()).collect();
@@ -2603,7 +2576,7 @@ impl VideoAnnotationResults {
     pub fn set_shot_presence_label_annotations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::LabelAnnotation>,
+        V: std::convert::Into<crate::model::LabelAnnotation>
     {
         use std::iter::Iterator;
         self.shot_presence_label_annotations = v.into_iter().map(|i| i.into()).collect();
@@ -2625,7 +2598,7 @@ impl VideoAnnotationResults {
     pub fn set_frame_label_annotations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::LabelAnnotation>,
+        V: std::convert::Into<crate::model::LabelAnnotation>
     {
         use std::iter::Iterator;
         self.frame_label_annotations = v.into_iter().map(|i| i.into()).collect();
@@ -2648,7 +2621,7 @@ impl VideoAnnotationResults {
     pub fn set_face_annotations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::FaceAnnotation>,
+        V: std::convert::Into<crate::model::FaceAnnotation>
     {
         use std::iter::Iterator;
         self.face_annotations = v.into_iter().map(|i| i.into()).collect();
@@ -2670,7 +2643,7 @@ impl VideoAnnotationResults {
     pub fn set_face_detection_annotations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::FaceDetectionAnnotation>,
+        V: std::convert::Into<crate::model::FaceDetectionAnnotation>
     {
         use std::iter::Iterator;
         self.face_detection_annotations = v.into_iter().map(|i| i.into()).collect();
@@ -2692,7 +2665,7 @@ impl VideoAnnotationResults {
     pub fn set_shot_annotations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::VideoSegment>,
+        V: std::convert::Into<crate::model::VideoSegment>
     {
         use std::iter::Iterator;
         self.shot_annotations = v.into_iter().map(|i| i.into()).collect();
@@ -2708,8 +2681,7 @@ impl VideoAnnotationResults {
     /// let x = VideoAnnotationResults::new().set_explicit_annotation(ExplicitContentAnnotation::default()/* use setters */);
     /// ```
     pub fn set_explicit_annotation<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ExplicitContentAnnotation>,
+    where T: std::convert::Into<crate::model::ExplicitContentAnnotation>
     {
         self.explicit_annotation = std::option::Option::Some(v.into());
         self
@@ -2725,8 +2697,7 @@ impl VideoAnnotationResults {
     /// let x = VideoAnnotationResults::new().set_or_clear_explicit_annotation(None::<ExplicitContentAnnotation>);
     /// ```
     pub fn set_or_clear_explicit_annotation<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ExplicitContentAnnotation>,
+    where T: std::convert::Into<crate::model::ExplicitContentAnnotation>
     {
         self.explicit_annotation = v.map(|x| x.into());
         self
@@ -2747,7 +2718,7 @@ impl VideoAnnotationResults {
     pub fn set_speech_transcriptions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::SpeechTranscription>,
+        V: std::convert::Into<crate::model::SpeechTranscription>
     {
         use std::iter::Iterator;
         self.speech_transcriptions = v.into_iter().map(|i| i.into()).collect();
@@ -2769,7 +2740,7 @@ impl VideoAnnotationResults {
     pub fn set_text_annotations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::TextAnnotation>,
+        V: std::convert::Into<crate::model::TextAnnotation>
     {
         use std::iter::Iterator;
         self.text_annotations = v.into_iter().map(|i| i.into()).collect();
@@ -2791,7 +2762,7 @@ impl VideoAnnotationResults {
     pub fn set_object_annotations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ObjectTrackingAnnotation>,
+        V: std::convert::Into<crate::model::ObjectTrackingAnnotation>
     {
         use std::iter::Iterator;
         self.object_annotations = v.into_iter().map(|i| i.into()).collect();
@@ -2813,7 +2784,7 @@ impl VideoAnnotationResults {
     pub fn set_logo_recognition_annotations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::LogoRecognitionAnnotation>,
+        V: std::convert::Into<crate::model::LogoRecognitionAnnotation>
     {
         use std::iter::Iterator;
         self.logo_recognition_annotations = v.into_iter().map(|i| i.into()).collect();
@@ -2835,7 +2806,7 @@ impl VideoAnnotationResults {
     pub fn set_person_detection_annotations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::PersonDetectionAnnotation>,
+        V: std::convert::Into<crate::model::PersonDetectionAnnotation>
     {
         use std::iter::Iterator;
         self.person_detection_annotations = v.into_iter().map(|i| i.into()).collect();
@@ -2851,8 +2822,7 @@ impl VideoAnnotationResults {
     /// let x = VideoAnnotationResults::new().set_error(Status::default()/* use setters */);
     /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<rpc::model::Status>,
+    where T: std::convert::Into<rpc::model::Status>
     {
         self.error = std::option::Option::Some(v.into());
         self
@@ -2868,8 +2838,7 @@ impl VideoAnnotationResults {
     /// let x = VideoAnnotationResults::new().set_or_clear_error(None::<Status>);
     /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<rpc::model::Status>,
+    where T: std::convert::Into<rpc::model::Status>
     {
         self.error = v.map(|x| x.into());
         self
@@ -2888,6 +2857,7 @@ impl wkt::message::Message for VideoAnnotationResults {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AnnotateVideoResponse {
+
     /// Annotation results for all videos specified in `AnnotateVideoRequest`.
     pub annotation_results: std::vec::Vec<crate::model::VideoAnnotationResults>,
 
@@ -2914,7 +2884,7 @@ impl AnnotateVideoResponse {
     pub fn set_annotation_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::VideoAnnotationResults>,
+        V: std::convert::Into<crate::model::VideoAnnotationResults>
     {
         use std::iter::Iterator;
         self.annotation_results = v.into_iter().map(|i| i.into()).collect();
@@ -2932,6 +2902,7 @@ impl wkt::message::Message for AnnotateVideoResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VideoAnnotationProgress {
+
     /// Video file location in
     /// [Cloud Storage](https://cloud.google.com/storage/).
     pub input_uri: std::string::String,
@@ -2995,8 +2966,7 @@ impl VideoAnnotationProgress {
     /// let x = VideoAnnotationProgress::new().set_start_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -3012,8 +2982,7 @@ impl VideoAnnotationProgress {
     /// let x = VideoAnnotationProgress::new().set_or_clear_start_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -3028,8 +2997,7 @@ impl VideoAnnotationProgress {
     /// let x = VideoAnnotationProgress::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -3045,8 +3013,7 @@ impl VideoAnnotationProgress {
     /// let x = VideoAnnotationProgress::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -3076,8 +3043,7 @@ impl VideoAnnotationProgress {
     /// let x = VideoAnnotationProgress::new().set_segment(VideoSegment::default()/* use setters */);
     /// ```
     pub fn set_segment<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::VideoSegment>,
+    where T: std::convert::Into<crate::model::VideoSegment>
     {
         self.segment = std::option::Option::Some(v.into());
         self
@@ -3093,8 +3059,7 @@ impl VideoAnnotationProgress {
     /// let x = VideoAnnotationProgress::new().set_or_clear_segment(None::<VideoSegment>);
     /// ```
     pub fn set_or_clear_segment<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::VideoSegment>,
+    where T: std::convert::Into<crate::model::VideoSegment>
     {
         self.segment = v.map(|x| x.into());
         self
@@ -3113,6 +3078,7 @@ impl wkt::message::Message for VideoAnnotationProgress {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AnnotateVideoProgress {
+
     /// Progress metadata for all videos specified in `AnnotateVideoRequest`.
     pub annotation_progress: std::vec::Vec<crate::model::VideoAnnotationProgress>,
 
@@ -3139,7 +3105,7 @@ impl AnnotateVideoProgress {
     pub fn set_annotation_progress<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::VideoAnnotationProgress>,
+        V: std::convert::Into<crate::model::VideoAnnotationProgress>
     {
         use std::iter::Iterator;
         self.annotation_progress = v.into_iter().map(|i| i.into()).collect();
@@ -3157,6 +3123,7 @@ impl wkt::message::Message for AnnotateVideoProgress {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SpeechTranscriptionConfig {
+
     /// Required. *Required* The language of the supplied audio as a
     /// [BCP-47](https://www.rfc-editor.org/rfc/bcp/bcp47.txt) language tag.
     /// Example: "en-US".
@@ -3270,7 +3237,7 @@ impl SpeechTranscriptionConfig {
     pub fn set_speech_contexts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::SpeechContext>,
+        V: std::convert::Into<crate::model::SpeechContext>
     {
         use std::iter::Iterator;
         self.speech_contexts = v.into_iter().map(|i| i.into()).collect();
@@ -3299,7 +3266,7 @@ impl SpeechTranscriptionConfig {
     pub fn set_audio_tracks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<i32>,
+        V: std::convert::Into<i32>
     {
         use std::iter::Iterator;
         self.audio_tracks = v.into_iter().map(|i| i.into()).collect();
@@ -3354,6 +3321,7 @@ impl wkt::message::Message for SpeechTranscriptionConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SpeechContext {
+
     /// Optional. A list of strings containing words and phrases "hints" so that
     /// the speech recognition is more likely to recognize them. This can be used
     /// to improve the accuracy for specific words and phrases, for example, if
@@ -3380,7 +3348,7 @@ impl SpeechContext {
     pub fn set_phrases<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.phrases = v.into_iter().map(|i| i.into()).collect();
@@ -3398,6 +3366,7 @@ impl wkt::message::Message for SpeechContext {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SpeechTranscription {
+
     /// May contain one or more recognition hypotheses (up to the maximum specified
     /// in `max_alternatives`).  These alternatives are ordered in terms of
     /// accuracy, with the top (first) alternative being the most probable, as
@@ -3432,7 +3401,7 @@ impl SpeechTranscription {
     pub fn set_alternatives<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::SpeechRecognitionAlternative>,
+        V: std::convert::Into<crate::model::SpeechRecognitionAlternative>
     {
         use std::iter::Iterator;
         self.alternatives = v.into_iter().map(|i| i.into()).collect();
@@ -3462,6 +3431,7 @@ impl wkt::message::Message for SpeechTranscription {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SpeechRecognitionAlternative {
+
     /// Transcript text representing the words that the user spoke.
     pub transcript: std::string::String,
 
@@ -3525,7 +3495,7 @@ impl SpeechRecognitionAlternative {
     pub fn set_words<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::WordInfo>,
+        V: std::convert::Into<crate::model::WordInfo>
     {
         use std::iter::Iterator;
         self.words = v.into_iter().map(|i| i.into()).collect();
@@ -3545,6 +3515,7 @@ impl wkt::message::Message for SpeechRecognitionAlternative {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WordInfo {
+
     /// Time offset relative to the beginning of the audio, and
     /// corresponding to the start of the spoken word. This field is only set if
     /// `enable_word_time_offsets=true` and only in the top hypothesis. This is an
@@ -3591,8 +3562,7 @@ impl WordInfo {
     /// let x = WordInfo::new().set_start_time(Duration::default()/* use setters */);
     /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -3608,8 +3578,7 @@ impl WordInfo {
     /// let x = WordInfo::new().set_or_clear_start_time(None::<Duration>);
     /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -3624,8 +3593,7 @@ impl WordInfo {
     /// let x = WordInfo::new().set_end_time(Duration::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -3641,8 +3609,7 @@ impl WordInfo {
     /// let x = WordInfo::new().set_or_clear_end_time(None::<Duration>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -3697,6 +3664,7 @@ impl wkt::message::Message for WordInfo {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NormalizedVertex {
+
     /// X coordinate.
     pub x: f32,
 
@@ -3762,6 +3730,7 @@ impl wkt::message::Message for NormalizedVertex {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NormalizedBoundingPoly {
+
     /// Normalized vertices of the bounding polygon.
     pub vertices: std::vec::Vec<crate::model::NormalizedVertex>,
 
@@ -3788,7 +3757,7 @@ impl NormalizedBoundingPoly {
     pub fn set_vertices<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::NormalizedVertex>,
+        V: std::convert::Into<crate::model::NormalizedVertex>
     {
         use std::iter::Iterator;
         self.vertices = v.into_iter().map(|i| i.into()).collect();
@@ -3806,6 +3775,7 @@ impl wkt::message::Message for NormalizedBoundingPoly {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TextSegment {
+
     /// Video segment where a text snippet was detected.
     pub segment: std::option::Option<crate::model::VideoSegment>,
 
@@ -3833,8 +3803,7 @@ impl TextSegment {
     /// let x = TextSegment::new().set_segment(VideoSegment::default()/* use setters */);
     /// ```
     pub fn set_segment<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::VideoSegment>,
+    where T: std::convert::Into<crate::model::VideoSegment>
     {
         self.segment = std::option::Option::Some(v.into());
         self
@@ -3850,8 +3819,7 @@ impl TextSegment {
     /// let x = TextSegment::new().set_or_clear_segment(None::<VideoSegment>);
     /// ```
     pub fn set_or_clear_segment<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::VideoSegment>,
+    where T: std::convert::Into<crate::model::VideoSegment>
     {
         self.segment = v.map(|x| x.into());
         self
@@ -3884,7 +3852,7 @@ impl TextSegment {
     pub fn set_frames<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::TextFrame>,
+        V: std::convert::Into<crate::model::TextFrame>
     {
         use std::iter::Iterator;
         self.frames = v.into_iter().map(|i| i.into()).collect();
@@ -3904,6 +3872,7 @@ impl wkt::message::Message for TextSegment {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TextFrame {
+
     /// Bounding polygon of the detected text for this frame.
     pub rotated_bounding_box: std::option::Option<crate::model::NormalizedBoundingPoly>,
 
@@ -3927,8 +3896,7 @@ impl TextFrame {
     /// let x = TextFrame::new().set_rotated_bounding_box(NormalizedBoundingPoly::default()/* use setters */);
     /// ```
     pub fn set_rotated_bounding_box<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::NormalizedBoundingPoly>,
+    where T: std::convert::Into<crate::model::NormalizedBoundingPoly>
     {
         self.rotated_bounding_box = std::option::Option::Some(v.into());
         self
@@ -3944,8 +3912,7 @@ impl TextFrame {
     /// let x = TextFrame::new().set_or_clear_rotated_bounding_box(None::<NormalizedBoundingPoly>);
     /// ```
     pub fn set_or_clear_rotated_bounding_box<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::NormalizedBoundingPoly>,
+    where T: std::convert::Into<crate::model::NormalizedBoundingPoly>
     {
         self.rotated_bounding_box = v.map(|x| x.into());
         self
@@ -3960,8 +3927,7 @@ impl TextFrame {
     /// let x = TextFrame::new().set_time_offset(Duration::default()/* use setters */);
     /// ```
     pub fn set_time_offset<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.time_offset = std::option::Option::Some(v.into());
         self
@@ -3977,8 +3943,7 @@ impl TextFrame {
     /// let x = TextFrame::new().set_or_clear_time_offset(None::<Duration>);
     /// ```
     pub fn set_or_clear_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.time_offset = v.map(|x| x.into());
         self
@@ -3997,6 +3962,7 @@ impl wkt::message::Message for TextFrame {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TextAnnotation {
+
     /// The detected text.
     pub text: std::string::String,
 
@@ -4041,7 +4007,7 @@ impl TextAnnotation {
     pub fn set_segments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::TextSegment>,
+        V: std::convert::Into<crate::model::TextSegment>
     {
         use std::iter::Iterator;
         self.segments = v.into_iter().map(|i| i.into()).collect();
@@ -4072,6 +4038,7 @@ impl wkt::message::Message for TextAnnotation {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ObjectTrackingFrame {
+
     /// The normalized bounding box location of this object track for the frame.
     pub normalized_bounding_box: std::option::Option<crate::model::NormalizedBoundingBox>,
 
@@ -4095,8 +4062,7 @@ impl ObjectTrackingFrame {
     /// let x = ObjectTrackingFrame::new().set_normalized_bounding_box(NormalizedBoundingBox::default()/* use setters */);
     /// ```
     pub fn set_normalized_bounding_box<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::NormalizedBoundingBox>,
+    where T: std::convert::Into<crate::model::NormalizedBoundingBox>
     {
         self.normalized_bounding_box = std::option::Option::Some(v.into());
         self
@@ -4112,8 +4078,7 @@ impl ObjectTrackingFrame {
     /// let x = ObjectTrackingFrame::new().set_or_clear_normalized_bounding_box(None::<NormalizedBoundingBox>);
     /// ```
     pub fn set_or_clear_normalized_bounding_box<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::NormalizedBoundingBox>,
+    where T: std::convert::Into<crate::model::NormalizedBoundingBox>
     {
         self.normalized_bounding_box = v.map(|x| x.into());
         self
@@ -4128,8 +4093,7 @@ impl ObjectTrackingFrame {
     /// let x = ObjectTrackingFrame::new().set_time_offset(Duration::default()/* use setters */);
     /// ```
     pub fn set_time_offset<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.time_offset = std::option::Option::Some(v.into());
         self
@@ -4145,8 +4109,7 @@ impl ObjectTrackingFrame {
     /// let x = ObjectTrackingFrame::new().set_or_clear_time_offset(None::<Duration>);
     /// ```
     pub fn set_or_clear_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.time_offset = v.map(|x| x.into());
         self
@@ -4163,6 +4126,7 @@ impl wkt::message::Message for ObjectTrackingFrame {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ObjectTrackingAnnotation {
+
     /// Entity to specify the object category that this track is labeled as.
     pub entity: std::option::Option<crate::model::Entity>,
 
@@ -4199,8 +4163,7 @@ impl ObjectTrackingAnnotation {
     /// let x = ObjectTrackingAnnotation::new().set_entity(Entity::default()/* use setters */);
     /// ```
     pub fn set_entity<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Entity>,
+    where T: std::convert::Into<crate::model::Entity>
     {
         self.entity = std::option::Option::Some(v.into());
         self
@@ -4216,8 +4179,7 @@ impl ObjectTrackingAnnotation {
     /// let x = ObjectTrackingAnnotation::new().set_or_clear_entity(None::<Entity>);
     /// ```
     pub fn set_or_clear_entity<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Entity>,
+    where T: std::convert::Into<crate::model::Entity>
     {
         self.entity = v.map(|x| x.into());
         self
@@ -4250,7 +4212,7 @@ impl ObjectTrackingAnnotation {
     pub fn set_frames<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ObjectTrackingFrame>,
+        V: std::convert::Into<crate::model::ObjectTrackingFrame>
     {
         use std::iter::Iterator;
         self.frames = v.into_iter().map(|i| i.into()).collect();
@@ -4280,14 +4242,8 @@ impl ObjectTrackingAnnotation {
     /// use google_cloud_videointelligence_v1::model::object_tracking_annotation::TrackInfo;
     /// let x = ObjectTrackingAnnotation::new().set_track_info(Some(TrackInfo::TrackId(42)));
     /// ```
-    pub fn set_track_info<
-        T: std::convert::Into<
-                std::option::Option<crate::model::object_tracking_annotation::TrackInfo>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_track_info<T: std::convert::Into<std::option::Option<crate::model::object_tracking_annotation::TrackInfo>>>(mut self, v: T) -> Self
+    {
         self.track_info = v.into();
         self
     }
@@ -4298,9 +4254,7 @@ impl ObjectTrackingAnnotation {
     pub fn segment(&self) -> std::option::Option<&std::boxed::Box<crate::model::VideoSegment>> {
         #[allow(unreachable_patterns)]
         self.track_info.as_ref().and_then(|v| match v {
-            crate::model::object_tracking_annotation::TrackInfo::Segment(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::object_tracking_annotation::TrackInfo::Segment(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -4319,12 +4273,11 @@ impl ObjectTrackingAnnotation {
     /// assert!(x.segment().is_some());
     /// assert!(x.track_id().is_none());
     /// ```
-    pub fn set_segment<T: std::convert::Into<std::boxed::Box<crate::model::VideoSegment>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_segment<T: std::convert::Into<std::boxed::Box<crate::model::VideoSegment>>>(mut self, v: T) -> Self {
         self.track_info = std::option::Option::Some(
-            crate::model::object_tracking_annotation::TrackInfo::Segment(v.into()),
+            crate::model::object_tracking_annotation::TrackInfo::Segment(
+                v.into()
+            )
         );
         self
     }
@@ -4335,9 +4288,7 @@ impl ObjectTrackingAnnotation {
     pub fn track_id(&self) -> std::option::Option<&i64> {
         #[allow(unreachable_patterns)]
         self.track_info.as_ref().and_then(|v| match v {
-            crate::model::object_tracking_annotation::TrackInfo::TrackId(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::object_tracking_annotation::TrackInfo::TrackId(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -4357,7 +4308,9 @@ impl ObjectTrackingAnnotation {
     /// ```
     pub fn set_track_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.track_info = std::option::Option::Some(
-            crate::model::object_tracking_annotation::TrackInfo::TrackId(v.into()),
+            crate::model::object_tracking_annotation::TrackInfo::TrackId(
+                v.into()
+            )
         );
         self
     }
@@ -4373,6 +4326,7 @@ impl wkt::message::Message for ObjectTrackingAnnotation {
 pub mod object_tracking_annotation {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Different representation of tracking info in non-streaming batch
     /// and streaming modes.
@@ -4396,6 +4350,7 @@ pub mod object_tracking_annotation {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LogoRecognitionAnnotation {
+
     /// Entity category information to specify the logo class that all the logo
     /// tracks within this LogoRecognitionAnnotation are recognized as.
     pub entity: std::option::Option<crate::model::Entity>,
@@ -4425,8 +4380,7 @@ impl LogoRecognitionAnnotation {
     /// let x = LogoRecognitionAnnotation::new().set_entity(Entity::default()/* use setters */);
     /// ```
     pub fn set_entity<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Entity>,
+    where T: std::convert::Into<crate::model::Entity>
     {
         self.entity = std::option::Option::Some(v.into());
         self
@@ -4442,8 +4396,7 @@ impl LogoRecognitionAnnotation {
     /// let x = LogoRecognitionAnnotation::new().set_or_clear_entity(None::<Entity>);
     /// ```
     pub fn set_or_clear_entity<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Entity>,
+    where T: std::convert::Into<crate::model::Entity>
     {
         self.entity = v.map(|x| x.into());
         self
@@ -4464,7 +4417,7 @@ impl LogoRecognitionAnnotation {
     pub fn set_tracks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Track>,
+        V: std::convert::Into<crate::model::Track>
     {
         use std::iter::Iterator;
         self.tracks = v.into_iter().map(|i| i.into()).collect();
@@ -4486,7 +4439,7 @@ impl LogoRecognitionAnnotation {
     pub fn set_segments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::VideoSegment>,
+        V: std::convert::Into<crate::model::VideoSegment>
     {
         use std::iter::Iterator;
         self.segments = v.into_iter().map(|i| i.into()).collect();
@@ -4583,9 +4536,7 @@ impl Feature {
             Self::Unspecified => std::option::Option::Some("FEATURE_UNSPECIFIED"),
             Self::LabelDetection => std::option::Option::Some("LABEL_DETECTION"),
             Self::ShotChangeDetection => std::option::Option::Some("SHOT_CHANGE_DETECTION"),
-            Self::ExplicitContentDetection => {
-                std::option::Option::Some("EXPLICIT_CONTENT_DETECTION")
-            }
+            Self::ExplicitContentDetection => std::option::Option::Some("EXPLICIT_CONTENT_DETECTION"),
             Self::FaceDetection => std::option::Option::Some("FACE_DETECTION"),
             Self::SpeechTranscription => std::option::Option::Some("SPEECH_TRANSCRIPTION"),
             Self::TextDetection => std::option::Option::Some("TEXT_DETECTION"),
@@ -4623,9 +4574,7 @@ impl std::convert::From<i32> for Feature {
             9 => Self::ObjectTracking,
             12 => Self::LogoRecognition,
             14 => Self::PersonDetection,
-            _ => Self::UnknownValue(feature::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(feature::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -4644,9 +4593,7 @@ impl std::convert::From<&str> for Feature {
             "OBJECT_TRACKING" => Self::ObjectTracking,
             "LOGO_RECOGNITION" => Self::LogoRecognition,
             "PERSON_DETECTION" => Self::PersonDetection,
-            _ => Self::UnknownValue(feature::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(feature::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -4678,8 +4625,7 @@ impl<'de> serde::de::Deserialize<'de> for Feature {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<Feature>::new(
-            ".google.cloud.videointelligence.v1.Feature",
-        ))
+            ".google.cloud.videointelligence.v1.Feature"))
     }
 }
 
@@ -4774,9 +4720,7 @@ impl std::convert::From<i32> for LabelDetectionMode {
             1 => Self::ShotMode,
             2 => Self::FrameMode,
             3 => Self::ShotAndFrameMode,
-            _ => Self::UnknownValue(label_detection_mode::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(label_detection_mode::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -4789,9 +4733,7 @@ impl std::convert::From<&str> for LabelDetectionMode {
             "SHOT_MODE" => Self::ShotMode,
             "FRAME_MODE" => Self::FrameMode,
             "SHOT_AND_FRAME_MODE" => Self::ShotAndFrameMode,
-            _ => Self::UnknownValue(label_detection_mode::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(label_detection_mode::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -4817,8 +4759,7 @@ impl<'de> serde::de::Deserialize<'de> for LabelDetectionMode {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<LabelDetectionMode>::new(
-            ".google.cloud.videointelligence.v1.LabelDetectionMode",
-        ))
+            ".google.cloud.videointelligence.v1.LabelDetectionMode"))
     }
 }
 
@@ -4923,9 +4864,7 @@ impl std::convert::From<i32> for Likelihood {
             3 => Self::Possible,
             4 => Self::Likely,
             5 => Self::VeryLikely,
-            _ => Self::UnknownValue(likelihood::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(likelihood::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -4940,9 +4879,7 @@ impl std::convert::From<&str> for Likelihood {
             "POSSIBLE" => Self::Possible,
             "LIKELY" => Self::Likely,
             "VERY_LIKELY" => Self::VeryLikely,
-            _ => Self::UnknownValue(likelihood::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(likelihood::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -4970,7 +4907,6 @@ impl<'de> serde::de::Deserialize<'de> for Likelihood {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<Likelihood>::new(
-            ".google.cloud.videointelligence.v1.Likelihood",
-        ))
+            ".google.cloud.videointelligence.v1.Likelihood"))
     }
 }

@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [ReachabilityService](super::stub::ReachabilityService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct ReachabilityService<T>
-where
-    T: super::stub::ReachabilityService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ReachabilityService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> ReachabilityService<T>
-where
-    T: super::stub::ReachabilityService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ReachabilityService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::ReachabilityService for ReachabilityService<T>
-where
-    T: super::stub::ReachabilityService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ReachabilityService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn list_connectivity_tests(
         &self,
@@ -172,6 +166,7 @@ where
         self.inner.cancel_operation(req, options).await
     }
 
+
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -190,25 +185,19 @@ where
 /// Implements a [VpcFlowLogsService](super::stub::VpcFlowLogsService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct VpcFlowLogsService<T>
-where
-    T: super::stub::VpcFlowLogsService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::VpcFlowLogsService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> VpcFlowLogsService<T>
-where
-    T: super::stub::VpcFlowLogsService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::VpcFlowLogsService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::VpcFlowLogsService for VpcFlowLogsService<T>
-where
-    T: super::stub::VpcFlowLogsService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::VpcFlowLogsService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn list_vpc_flow_logs_configs(
         &self,
@@ -260,9 +249,7 @@ where
         req: crate::model::QueryOrgVpcFlowLogsConfigsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::QueryOrgVpcFlowLogsConfigsResponse>> {
-        self.inner
-            .query_org_vpc_flow_logs_configs(req, options)
-            .await
+        self.inner.query_org_vpc_flow_logs_configs(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -271,9 +258,7 @@ where
         req: crate::model::ShowEffectiveFlowLogsConfigsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ShowEffectiveFlowLogsConfigsResponse>> {
-        self.inner
-            .show_effective_flow_logs_configs(req, options)
-            .await
+        self.inner.show_effective_flow_logs_configs(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -357,6 +342,7 @@ where
         self.inner.cancel_operation(req, options).await
     }
 
+
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -375,25 +361,19 @@ where
 /// Implements a [OrganizationVpcFlowLogsService](super::stub::OrganizationVpcFlowLogsService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct OrganizationVpcFlowLogsService<T>
-where
-    T: super::stub::OrganizationVpcFlowLogsService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::OrganizationVpcFlowLogsService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> OrganizationVpcFlowLogsService<T>
-where
-    T: super::stub::OrganizationVpcFlowLogsService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::OrganizationVpcFlowLogsService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::OrganizationVpcFlowLogsService for OrganizationVpcFlowLogsService<T>
-where
-    T: super::stub::OrganizationVpcFlowLogsService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::OrganizationVpcFlowLogsService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
     async fn list_vpc_flow_logs_configs(
         &self,
@@ -520,6 +500,7 @@ where
         self.inner.cancel_operation(req, options).await
     }
 
+
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -534,3 +515,4 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 }
+

@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -26,7 +27,6 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -38,6 +38,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AccessLocations {
+
     /// The "home office" location of the principal. A two-letter country code
     /// (ISO 3166-1 alpha-2), such as "US", "DE" or "GB" or a region code. In some
     /// limited situations Google systems may refer refer to a region code instead
@@ -85,10 +86,7 @@ impl AccessLocations {
     /// # use google_cloud_accessapproval_v1::model::AccessLocations;
     /// let x = AccessLocations::new().set_principal_office_country("example");
     /// ```
-    pub fn set_principal_office_country<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_principal_office_country<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.principal_office_country = v.into();
         self
     }
@@ -100,10 +98,7 @@ impl AccessLocations {
     /// # use google_cloud_accessapproval_v1::model::AccessLocations;
     /// let x = AccessLocations::new().set_principal_physical_location_country("example");
     /// ```
-    pub fn set_principal_physical_location_country<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_principal_physical_location_country<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.principal_physical_location_country = v.into();
         self
     }
@@ -118,6 +113,7 @@ impl wkt::message::Message for AccessLocations {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AccessReason {
+
     /// Type of access justification.
     pub r#type: crate::model::access_reason::Type,
 
@@ -142,10 +138,7 @@ impl AccessReason {
     /// let x1 = AccessReason::new().set_type(Type::GoogleInitiatedService);
     /// let x2 = AccessReason::new().set_type(Type::GoogleInitiatedReview);
     /// ```
-    pub fn set_type<T: std::convert::Into<crate::model::access_reason::Type>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_type<T: std::convert::Into<crate::model::access_reason::Type>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
@@ -173,6 +166,7 @@ impl wkt::message::Message for AccessReason {
 pub mod access_reason {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Type of access justification.
     ///
@@ -258,19 +252,11 @@ pub mod access_reason {
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
                 Self::Unspecified => std::option::Option::Some("TYPE_UNSPECIFIED"),
-                Self::CustomerInitiatedSupport => {
-                    std::option::Option::Some("CUSTOMER_INITIATED_SUPPORT")
-                }
-                Self::GoogleInitiatedService => {
-                    std::option::Option::Some("GOOGLE_INITIATED_SERVICE")
-                }
+                Self::CustomerInitiatedSupport => std::option::Option::Some("CUSTOMER_INITIATED_SUPPORT"),
+                Self::GoogleInitiatedService => std::option::Option::Some("GOOGLE_INITIATED_SERVICE"),
                 Self::GoogleInitiatedReview => std::option::Option::Some("GOOGLE_INITIATED_REVIEW"),
-                Self::ThirdPartyDataRequest => {
-                    std::option::Option::Some("THIRD_PARTY_DATA_REQUEST")
-                }
-                Self::GoogleResponseToProductionAlert => {
-                    std::option::Option::Some("GOOGLE_RESPONSE_TO_PRODUCTION_ALERT")
-                }
+                Self::ThirdPartyDataRequest => std::option::Option::Some("THIRD_PARTY_DATA_REQUEST"),
+                Self::GoogleResponseToProductionAlert => std::option::Option::Some("GOOGLE_RESPONSE_TO_PRODUCTION_ALERT"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -298,9 +284,7 @@ pub mod access_reason {
                 3 => Self::GoogleInitiatedReview,
                 4 => Self::ThirdPartyDataRequest,
                 5 => Self::GoogleResponseToProductionAlert,
-                _ => Self::UnknownValue(r#type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -315,9 +299,7 @@ pub mod access_reason {
                 "GOOGLE_INITIATED_REVIEW" => Self::GoogleInitiatedReview,
                 "THIRD_PARTY_DATA_REQUEST" => Self::ThirdPartyDataRequest,
                 "GOOGLE_RESPONSE_TO_PRODUCTION_ALERT" => Self::GoogleResponseToProductionAlert,
-                _ => Self::UnknownValue(r#type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -345,8 +327,7 @@ pub mod access_reason {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
-                ".google.cloud.accessapproval.v1.AccessReason.Type",
-            ))
+                ".google.cloud.accessapproval.v1.AccessReason.Type"))
         }
     }
 }
@@ -355,6 +336,7 @@ pub mod access_reason {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SignatureInfo {
+
     /// The digital signature.
     pub signature: ::bytes::Bytes,
 
@@ -392,12 +374,8 @@ impl SignatureInfo {
     /// use google_cloud_accessapproval_v1::model::signature_info::VerificationInfo;
     /// let x = SignatureInfo::new().set_verification_info(Some(VerificationInfo::GooglePublicKeyPem("example".to_string())));
     /// ```
-    pub fn set_verification_info<
-        T: std::convert::Into<std::option::Option<crate::model::signature_info::VerificationInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_verification_info<T: std::convert::Into<std::option::Option<crate::model::signature_info::VerificationInfo>>>(mut self, v: T) -> Self
+    {
         self.verification_info = v.into();
         self
     }
@@ -408,9 +386,7 @@ impl SignatureInfo {
     pub fn google_public_key_pem(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.verification_info.as_ref().and_then(|v| match v {
-            crate::model::signature_info::VerificationInfo::GooglePublicKeyPem(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::signature_info::VerificationInfo::GooglePublicKeyPem(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -428,12 +404,11 @@ impl SignatureInfo {
     /// assert!(x.google_public_key_pem().is_some());
     /// assert!(x.customer_kms_key_version().is_none());
     /// ```
-    pub fn set_google_public_key_pem<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_google_public_key_pem<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verification_info = std::option::Option::Some(
-            crate::model::signature_info::VerificationInfo::GooglePublicKeyPem(v.into()),
+            crate::model::signature_info::VerificationInfo::GooglePublicKeyPem(
+                v.into()
+            )
         );
         self
     }
@@ -444,9 +419,7 @@ impl SignatureInfo {
     pub fn customer_kms_key_version(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.verification_info.as_ref().and_then(|v| match v {
-            crate::model::signature_info::VerificationInfo::CustomerKmsKeyVersion(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::signature_info::VerificationInfo::CustomerKmsKeyVersion(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -464,12 +437,11 @@ impl SignatureInfo {
     /// assert!(x.customer_kms_key_version().is_some());
     /// assert!(x.google_public_key_pem().is_none());
     /// ```
-    pub fn set_customer_kms_key_version<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_customer_kms_key_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verification_info = std::option::Option::Some(
-            crate::model::signature_info::VerificationInfo::CustomerKmsKeyVersion(v.into()),
+            crate::model::signature_info::VerificationInfo::CustomerKmsKeyVersion(
+                v.into()
+            )
         );
         self
     }
@@ -485,6 +457,7 @@ impl wkt::message::Message for SignatureInfo {
 pub mod signature_info {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// How this signature may be verified.
     #[derive(Clone, Debug, PartialEq)]
@@ -503,6 +476,7 @@ pub mod signature_info {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ApproveDecision {
+
     /// The time at which approval was granted.
     pub approve_time: std::option::Option<wkt::Timestamp>,
 
@@ -535,8 +509,7 @@ impl ApproveDecision {
     /// let x = ApproveDecision::new().set_approve_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_approve_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.approve_time = std::option::Option::Some(v.into());
         self
@@ -552,8 +525,7 @@ impl ApproveDecision {
     /// let x = ApproveDecision::new().set_or_clear_approve_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_approve_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.approve_time = v.map(|x| x.into());
         self
@@ -568,8 +540,7 @@ impl ApproveDecision {
     /// let x = ApproveDecision::new().set_expire_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_expire_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.expire_time = std::option::Option::Some(v.into());
         self
@@ -585,8 +556,7 @@ impl ApproveDecision {
     /// let x = ApproveDecision::new().set_or_clear_expire_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.expire_time = v.map(|x| x.into());
         self
@@ -601,8 +571,7 @@ impl ApproveDecision {
     /// let x = ApproveDecision::new().set_invalidate_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_invalidate_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.invalidate_time = std::option::Option::Some(v.into());
         self
@@ -618,8 +587,7 @@ impl ApproveDecision {
     /// let x = ApproveDecision::new().set_or_clear_invalidate_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_invalidate_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.invalidate_time = v.map(|x| x.into());
         self
@@ -634,8 +602,7 @@ impl ApproveDecision {
     /// let x = ApproveDecision::new().set_signature_info(SignatureInfo::default()/* use setters */);
     /// ```
     pub fn set_signature_info<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::SignatureInfo>,
+    where T: std::convert::Into<crate::model::SignatureInfo>
     {
         self.signature_info = std::option::Option::Some(v.into());
         self
@@ -651,8 +618,7 @@ impl ApproveDecision {
     /// let x = ApproveDecision::new().set_or_clear_signature_info(None::<SignatureInfo>);
     /// ```
     pub fn set_or_clear_signature_info<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::SignatureInfo>,
+    where T: std::convert::Into<crate::model::SignatureInfo>
     {
         self.signature_info = v.map(|x| x.into());
         self
@@ -681,6 +647,7 @@ impl wkt::message::Message for ApproveDecision {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DismissDecision {
+
     /// The time at which the approval request was dismissed.
     pub dismiss_time: std::option::Option<wkt::Timestamp>,
 
@@ -706,8 +673,7 @@ impl DismissDecision {
     /// let x = DismissDecision::new().set_dismiss_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_dismiss_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.dismiss_time = std::option::Option::Some(v.into());
         self
@@ -723,8 +689,7 @@ impl DismissDecision {
     /// let x = DismissDecision::new().set_or_clear_dismiss_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_dismiss_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.dismiss_time = v.map(|x| x.into());
         self
@@ -753,6 +718,7 @@ impl wkt::message::Message for DismissDecision {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResourceProperties {
+
     /// Whether an approval will exclude the descendants of the resource being
     /// requested.
     pub excludes_descendants: bool,
@@ -788,6 +754,7 @@ impl wkt::message::Message for ResourceProperties {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ApprovalRequest {
+
     /// The resource name of the request. Format is
     /// "{projects|folders|organizations}/{id}/approvalRequests/{approval_request}".
     pub name: std::string::String,
@@ -847,10 +814,7 @@ impl ApprovalRequest {
     /// # use google_cloud_accessapproval_v1::model::ApprovalRequest;
     /// let x = ApprovalRequest::new().set_requested_resource_name("example");
     /// ```
-    pub fn set_requested_resource_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_requested_resource_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.requested_resource_name = v.into();
         self
     }
@@ -864,8 +828,7 @@ impl ApprovalRequest {
     /// let x = ApprovalRequest::new().set_requested_resource_properties(ResourceProperties::default()/* use setters */);
     /// ```
     pub fn set_requested_resource_properties<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ResourceProperties>,
+    where T: std::convert::Into<crate::model::ResourceProperties>
     {
         self.requested_resource_properties = std::option::Option::Some(v.into());
         self
@@ -880,12 +843,8 @@ impl ApprovalRequest {
     /// let x = ApprovalRequest::new().set_or_clear_requested_resource_properties(Some(ResourceProperties::default()/* use setters */));
     /// let x = ApprovalRequest::new().set_or_clear_requested_resource_properties(None::<ResourceProperties>);
     /// ```
-    pub fn set_or_clear_requested_resource_properties<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<crate::model::ResourceProperties>,
+    pub fn set_or_clear_requested_resource_properties<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<crate::model::ResourceProperties>
     {
         self.requested_resource_properties = v.map(|x| x.into());
         self
@@ -900,8 +859,7 @@ impl ApprovalRequest {
     /// let x = ApprovalRequest::new().set_requested_reason(AccessReason::default()/* use setters */);
     /// ```
     pub fn set_requested_reason<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AccessReason>,
+    where T: std::convert::Into<crate::model::AccessReason>
     {
         self.requested_reason = std::option::Option::Some(v.into());
         self
@@ -917,8 +875,7 @@ impl ApprovalRequest {
     /// let x = ApprovalRequest::new().set_or_clear_requested_reason(None::<AccessReason>);
     /// ```
     pub fn set_or_clear_requested_reason<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AccessReason>,
+    where T: std::convert::Into<crate::model::AccessReason>
     {
         self.requested_reason = v.map(|x| x.into());
         self
@@ -933,8 +890,7 @@ impl ApprovalRequest {
     /// let x = ApprovalRequest::new().set_requested_locations(AccessLocations::default()/* use setters */);
     /// ```
     pub fn set_requested_locations<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AccessLocations>,
+    where T: std::convert::Into<crate::model::AccessLocations>
     {
         self.requested_locations = std::option::Option::Some(v.into());
         self
@@ -950,8 +906,7 @@ impl ApprovalRequest {
     /// let x = ApprovalRequest::new().set_or_clear_requested_locations(None::<AccessLocations>);
     /// ```
     pub fn set_or_clear_requested_locations<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AccessLocations>,
+    where T: std::convert::Into<crate::model::AccessLocations>
     {
         self.requested_locations = v.map(|x| x.into());
         self
@@ -966,8 +921,7 @@ impl ApprovalRequest {
     /// let x = ApprovalRequest::new().set_request_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_request_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.request_time = std::option::Option::Some(v.into());
         self
@@ -983,8 +937,7 @@ impl ApprovalRequest {
     /// let x = ApprovalRequest::new().set_or_clear_request_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_request_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.request_time = v.map(|x| x.into());
         self
@@ -999,8 +952,7 @@ impl ApprovalRequest {
     /// let x = ApprovalRequest::new().set_requested_expiration(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_requested_expiration<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.requested_expiration = std::option::Option::Some(v.into());
         self
@@ -1016,8 +968,7 @@ impl ApprovalRequest {
     /// let x = ApprovalRequest::new().set_or_clear_requested_expiration(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_requested_expiration<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.requested_expiration = v.map(|x| x.into());
         self
@@ -1035,12 +986,8 @@ impl ApprovalRequest {
     /// let x = ApprovalRequest::new().set_decision(Some(
     ///     google_cloud_accessapproval_v1::model::approval_request::Decision::Approve(ApproveDecision::default().into())));
     /// ```
-    pub fn set_decision<
-        T: std::convert::Into<std::option::Option<crate::model::approval_request::Decision>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_decision<T: std::convert::Into<std::option::Option<crate::model::approval_request::Decision>>>(mut self, v: T) -> Self
+    {
         self.decision = v.into();
         self
     }
@@ -1070,12 +1017,12 @@ impl ApprovalRequest {
     /// assert!(x.approve().is_some());
     /// assert!(x.dismiss().is_none());
     /// ```
-    pub fn set_approve<T: std::convert::Into<std::boxed::Box<crate::model::ApproveDecision>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.decision =
-            std::option::Option::Some(crate::model::approval_request::Decision::Approve(v.into()));
+    pub fn set_approve<T: std::convert::Into<std::boxed::Box<crate::model::ApproveDecision>>>(mut self, v: T) -> Self {
+        self.decision = std::option::Option::Some(
+            crate::model::approval_request::Decision::Approve(
+                v.into()
+            )
+        );
         self
     }
 
@@ -1104,12 +1051,12 @@ impl ApprovalRequest {
     /// assert!(x.dismiss().is_some());
     /// assert!(x.approve().is_none());
     /// ```
-    pub fn set_dismiss<T: std::convert::Into<std::boxed::Box<crate::model::DismissDecision>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.decision =
-            std::option::Option::Some(crate::model::approval_request::Decision::Dismiss(v.into()));
+    pub fn set_dismiss<T: std::convert::Into<std::boxed::Box<crate::model::DismissDecision>>>(mut self, v: T) -> Self {
+        self.decision = std::option::Option::Some(
+            crate::model::approval_request::Decision::Dismiss(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -1124,6 +1071,7 @@ impl wkt::message::Message for ApprovalRequest {
 pub mod approval_request {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The current decision on the approval request.
     #[derive(Clone, Debug, PartialEq)]
@@ -1140,6 +1088,7 @@ pub mod approval_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnrolledService {
+
     /// The product for which Access Approval will be enrolled. Allowed values are
     /// listed below (case-sensitive):
     ///
@@ -1235,10 +1184,7 @@ impl EnrolledService {
     /// use google_cloud_accessapproval_v1::model::EnrollmentLevel;
     /// let x0 = EnrolledService::new().set_enrollment_level(EnrollmentLevel::BlockAll);
     /// ```
-    pub fn set_enrollment_level<T: std::convert::Into<crate::model::EnrollmentLevel>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_enrollment_level<T: std::convert::Into<crate::model::EnrollmentLevel>>(mut self, v: T) -> Self {
         self.enrollment_level = v.into();
         self
     }
@@ -1254,6 +1200,7 @@ impl wkt::message::Message for EnrolledService {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AccessApprovalSettings {
+
     /// The resource name of the settings. Format is one of:
     ///
     /// * "projects/{project}/accessApprovalSettings"
@@ -1338,7 +1285,7 @@ impl AccessApprovalSettings {
     pub fn set_notification_emails<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.notification_emails = v.into_iter().map(|i| i.into()).collect();
@@ -1360,7 +1307,7 @@ impl AccessApprovalSettings {
     pub fn set_enrolled_services<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::EnrolledService>,
+        V: std::convert::Into<crate::model::EnrolledService>
     {
         use std::iter::Iterator;
         self.enrolled_services = v.into_iter().map(|i| i.into()).collect();
@@ -1386,10 +1333,7 @@ impl AccessApprovalSettings {
     /// # use google_cloud_accessapproval_v1::model::AccessApprovalSettings;
     /// let x = AccessApprovalSettings::new().set_active_key_version("example");
     /// ```
-    pub fn set_active_key_version<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_active_key_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.active_key_version = v.into();
         self
     }
@@ -1401,10 +1345,7 @@ impl AccessApprovalSettings {
     /// # use google_cloud_accessapproval_v1::model::AccessApprovalSettings;
     /// let x = AccessApprovalSettings::new().set_ancestor_has_active_key_version(true);
     /// ```
-    pub fn set_ancestor_has_active_key_version<T: std::convert::Into<bool>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_ancestor_has_active_key_version<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.ancestor_has_active_key_version = v.into();
         self
     }
@@ -1432,6 +1373,7 @@ impl wkt::message::Message for AccessApprovalSettings {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AccessApprovalServiceAccount {
+
     /// The resource name of the Access Approval service account. Format is one of:
     ///
     /// * "projects/{project}/serviceAccount"
@@ -1485,6 +1427,7 @@ impl wkt::message::Message for AccessApprovalServiceAccount {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListApprovalRequestsMessage {
+
     /// The parent resource. This may be "projects/{project}",
     /// "folders/{folder}", or "organizations/{organization}".
     pub parent: std::string::String,
@@ -1576,6 +1519,7 @@ impl wkt::message::Message for ListApprovalRequestsMessage {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListApprovalRequestsResponse {
+
     /// Approval request details.
     pub approval_requests: std::vec::Vec<crate::model::ApprovalRequest>,
 
@@ -1605,7 +1549,7 @@ impl ListApprovalRequestsResponse {
     pub fn set_approval_requests<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ApprovalRequest>,
+        V: std::convert::Into<crate::model::ApprovalRequest>
     {
         use std::iter::Iterator;
         self.approval_requests = v.into_iter().map(|i| i.into()).collect();
@@ -1649,6 +1593,7 @@ impl gax::paginator::internal::PageableResponse for ListApprovalRequestsResponse
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetApprovalRequestMessage {
+
     /// The name of the approval request to retrieve.
     /// Format:
     /// "{projects|folders|organizations}/{id}/approvalRequests/{approval_request}"
@@ -1685,6 +1630,7 @@ impl wkt::message::Message for GetApprovalRequestMessage {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ApproveApprovalRequestMessage {
+
     /// Name of the approval request to approve.
     pub name: std::string::String,
 
@@ -1720,8 +1666,7 @@ impl ApproveApprovalRequestMessage {
     /// let x = ApproveApprovalRequestMessage::new().set_expire_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_expire_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.expire_time = std::option::Option::Some(v.into());
         self
@@ -1737,8 +1682,7 @@ impl ApproveApprovalRequestMessage {
     /// let x = ApproveApprovalRequestMessage::new().set_or_clear_expire_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.expire_time = v.map(|x| x.into());
         self
@@ -1755,6 +1699,7 @@ impl wkt::message::Message for ApproveApprovalRequestMessage {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DismissApprovalRequestMessage {
+
     /// Name of the ApprovalRequest to dismiss.
     pub name: std::string::String,
 
@@ -1789,6 +1734,7 @@ impl wkt::message::Message for DismissApprovalRequestMessage {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InvalidateApprovalRequestMessage {
+
     /// Name of the ApprovalRequest to invalidate.
     pub name: std::string::String,
 
@@ -1823,6 +1769,7 @@ impl wkt::message::Message for InvalidateApprovalRequestMessage {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAccessApprovalSettingsMessage {
+
     /// The name of the AccessApprovalSettings to retrieve.
     /// Format: "{projects|folders|organizations}/{id}/accessApprovalSettings"
     pub name: std::string::String,
@@ -1858,6 +1805,7 @@ impl wkt::message::Message for GetAccessApprovalSettingsMessage {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateAccessApprovalSettingsMessage {
+
     /// The new AccessApprovalSettings.
     pub settings: std::option::Option<crate::model::AccessApprovalSettings>,
 
@@ -1890,8 +1838,7 @@ impl UpdateAccessApprovalSettingsMessage {
     /// let x = UpdateAccessApprovalSettingsMessage::new().set_settings(AccessApprovalSettings::default()/* use setters */);
     /// ```
     pub fn set_settings<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AccessApprovalSettings>,
+    where T: std::convert::Into<crate::model::AccessApprovalSettings>
     {
         self.settings = std::option::Option::Some(v.into());
         self
@@ -1907,8 +1854,7 @@ impl UpdateAccessApprovalSettingsMessage {
     /// let x = UpdateAccessApprovalSettingsMessage::new().set_or_clear_settings(None::<AccessApprovalSettings>);
     /// ```
     pub fn set_or_clear_settings<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AccessApprovalSettings>,
+    where T: std::convert::Into<crate::model::AccessApprovalSettings>
     {
         self.settings = v.map(|x| x.into());
         self
@@ -1923,8 +1869,7 @@ impl UpdateAccessApprovalSettingsMessage {
     /// let x = UpdateAccessApprovalSettingsMessage::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -1940,8 +1885,7 @@ impl UpdateAccessApprovalSettingsMessage {
     /// let x = UpdateAccessApprovalSettingsMessage::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -1958,6 +1902,7 @@ impl wkt::message::Message for UpdateAccessApprovalSettingsMessage {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteAccessApprovalSettingsMessage {
+
     /// Name of the AccessApprovalSettings to delete.
     pub name: std::string::String,
 
@@ -1992,6 +1937,7 @@ impl wkt::message::Message for DeleteAccessApprovalSettingsMessage {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAccessApprovalServiceAccountMessage {
+
     /// Name of the AccessApprovalServiceAccount to retrieve.
     pub name: std::string::String,
 
@@ -2103,9 +2049,7 @@ impl std::convert::From<i32> for EnrollmentLevel {
         match value {
             0 => Self::Unspecified,
             1 => Self::BlockAll,
-            _ => Self::UnknownValue(enrollment_level::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(enrollment_level::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -2116,9 +2060,7 @@ impl std::convert::From<&str> for EnrollmentLevel {
         match value {
             "ENROLLMENT_LEVEL_UNSPECIFIED" => Self::Unspecified,
             "BLOCK_ALL" => Self::BlockAll,
-            _ => Self::UnknownValue(enrollment_level::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(enrollment_level::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -2142,7 +2084,6 @@ impl<'de> serde::de::Deserialize<'de> for EnrollmentLevel {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<EnrollmentLevel>::new(
-            ".google.cloud.accessapproval.v1.EnrollmentLevel",
-        ))
+            ".google.cloud.accessapproval.v1.EnrollmentLevel"))
     }
 }

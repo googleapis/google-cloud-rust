@@ -76,15 +76,9 @@ impl std::fmt::Debug for super::service_connection_map::ConsumerPscConfig {
         debug_struct.field("disable_global_access", &self.disable_global_access);
         debug_struct.field("state", &self.state);
         debug_struct.field("producer_instance_id", &self.producer_instance_id);
-        debug_struct.field(
-            "service_attachment_ip_address_map",
-            &self.service_attachment_ip_address_map,
-        );
+        debug_struct.field("service_attachment_ip_address_map", &self.service_attachment_ip_address_map);
         debug_struct.field("consumer_instance_project", &self.consumer_instance_project);
-        debug_struct.field(
-            "producer_instance_metadata",
-            &self.producer_instance_metadata,
-        );
+        debug_struct.field("producer_instance_metadata", &self.producer_instance_metadata);
         debug_struct.field("ip_version", &self.ip_version);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -92,6 +86,8 @@ impl std::fmt::Debug for super::service_connection_map::ConsumerPscConfig {
         debug_struct.finish()
     }
 }
+
+
 
 impl std::fmt::Debug for super::service_connection_map::ConsumerPscConnection {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -109,10 +105,7 @@ impl std::fmt::Debug for super::service_connection_map::ConsumerPscConnection {
         debug_struct.field("error_info", &self.error_info);
         debug_struct.field("selected_subnetwork", &self.selected_subnetwork);
         debug_struct.field("producer_instance_id", &self.producer_instance_id);
-        debug_struct.field(
-            "producer_instance_metadata",
-            &self.producer_instance_metadata,
-        );
+        debug_struct.field("producer_instance_metadata", &self.producer_instance_metadata);
         debug_struct.field("ip_version", &self.ip_version);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -120,6 +113,8 @@ impl std::fmt::Debug for super::service_connection_map::ConsumerPscConnection {
         debug_struct.finish()
     }
 }
+
+
 
 impl std::fmt::Debug for super::ListServiceConnectionMapsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -226,14 +221,8 @@ impl std::fmt::Debug for super::service_connection_policy::PscConfig {
         let mut debug_struct = f.debug_struct("PscConfig");
         debug_struct.field("subnetworks", &self.subnetworks);
         debug_struct.field("limit", &self.limit);
-        debug_struct.field(
-            "producer_instance_location",
-            &self.producer_instance_location,
-        );
-        debug_struct.field(
-            "allowed_google_producers_resource_hierarchy_level",
-            &self.allowed_google_producers_resource_hierarchy_level,
-        );
+        debug_struct.field("producer_instance_location", &self.producer_instance_location);
+        debug_struct.field("allowed_google_producers_resource_hierarchy_level", &self.allowed_google_producers_resource_hierarchy_level);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -255,10 +244,7 @@ impl std::fmt::Debug for super::service_connection_policy::PscConnection {
         debug_struct.field("error_info", &self.error_info);
         debug_struct.field("selected_subnetwork", &self.selected_subnetwork);
         debug_struct.field("producer_instance_id", &self.producer_instance_id);
-        debug_struct.field(
-            "producer_instance_metadata",
-            &self.producer_instance_metadata,
-        );
+        debug_struct.field("producer_instance_metadata", &self.producer_instance_metadata);
         debug_struct.field("service_class", &self.service_class);
         debug_struct.field("ip_version", &self.ip_version);
         if !self._unknown_fields.is_empty() {
@@ -267,6 +253,7 @@ impl std::fmt::Debug for super::service_connection_policy::PscConnection {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::ListServiceConnectionPoliciesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -286,10 +273,7 @@ impl std::fmt::Debug for super::ListServiceConnectionPoliciesRequest {
 impl std::fmt::Debug for super::ListServiceConnectionPoliciesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListServiceConnectionPoliciesResponse");
-        debug_struct.field(
-            "service_connection_policies",
-            &self.service_connection_policies,
-        );
+        debug_struct.field("service_connection_policies", &self.service_connection_policies);
         debug_struct.field("next_page_token", &self.next_page_token);
         debug_struct.field("unreachable", &self.unreachable);
         if !self._unknown_fields.is_empty() {
@@ -314,10 +298,7 @@ impl std::fmt::Debug for super::CreateServiceConnectionPolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateServiceConnectionPolicyRequest");
         debug_struct.field("parent", &self.parent);
-        debug_struct.field(
-            "service_connection_policy_id",
-            &self.service_connection_policy_id,
-        );
+        debug_struct.field("service_connection_policy_id", &self.service_connection_policy_id);
         debug_struct.field("service_connection_policy", &self.service_connection_policy);
         debug_struct.field("request_id", &self.request_id);
         if !self._unknown_fields.is_empty() {
@@ -497,10 +478,7 @@ impl std::fmt::Debug for super::CreateServiceConnectionTokenRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateServiceConnectionTokenRequest");
         debug_struct.field("parent", &self.parent);
-        debug_struct.field(
-            "service_connection_token_id",
-            &self.service_connection_token_id,
-        );
+        debug_struct.field("service_connection_token_id", &self.service_connection_token_id);
         debug_struct.field("service_connection_token", &self.service_connection_token);
         debug_struct.field("request_id", &self.request_id);
         if !self._unknown_fields.is_empty() {
@@ -562,10 +540,7 @@ impl std::fmt::Debug for super::ListMulticloudDataTransferConfigsRequest {
 impl std::fmt::Debug for super::ListMulticloudDataTransferConfigsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListMulticloudDataTransferConfigsResponse");
-        debug_struct.field(
-            "multicloud_data_transfer_configs",
-            &self.multicloud_data_transfer_configs,
-        );
+        debug_struct.field("multicloud_data_transfer_configs", &self.multicloud_data_transfer_configs);
         debug_struct.field("next_page_token", &self.next_page_token);
         debug_struct.field("unreachable", &self.unreachable);
         if !self._unknown_fields.is_empty() {
@@ -590,14 +565,8 @@ impl std::fmt::Debug for super::CreateMulticloudDataTransferConfigRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateMulticloudDataTransferConfigRequest");
         debug_struct.field("parent", &self.parent);
-        debug_struct.field(
-            "multicloud_data_transfer_config_id",
-            &self.multicloud_data_transfer_config_id,
-        );
-        debug_struct.field(
-            "multicloud_data_transfer_config",
-            &self.multicloud_data_transfer_config,
-        );
+        debug_struct.field("multicloud_data_transfer_config_id", &self.multicloud_data_transfer_config_id);
+        debug_struct.field("multicloud_data_transfer_config", &self.multicloud_data_transfer_config);
         debug_struct.field("request_id", &self.request_id);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -610,10 +579,7 @@ impl std::fmt::Debug for super::UpdateMulticloudDataTransferConfigRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateMulticloudDataTransferConfigRequest");
         debug_struct.field("update_mask", &self.update_mask);
-        debug_struct.field(
-            "multicloud_data_transfer_config",
-            &self.multicloud_data_transfer_config,
-        );
+        debug_struct.field("multicloud_data_transfer_config", &self.multicloud_data_transfer_config);
         debug_struct.field("request_id", &self.request_id);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -668,6 +634,7 @@ impl std::fmt::Debug for super::destination::DestinationEndpoint {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::ListDestinationsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -822,12 +789,8 @@ impl std::fmt::Debug for super::ListMulticloudDataTransferSupportedServicesReque
 
 impl std::fmt::Debug for super::ListMulticloudDataTransferSupportedServicesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct =
-            f.debug_struct("ListMulticloudDataTransferSupportedServicesResponse");
-        debug_struct.field(
-            "multicloud_data_transfer_supported_services",
-            &self.multicloud_data_transfer_supported_services,
-        );
+        let mut debug_struct = f.debug_struct("ListMulticloudDataTransferSupportedServicesResponse");
+        debug_struct.field("multicloud_data_transfer_supported_services", &self.multicloud_data_transfer_supported_services);
         debug_struct.field("next_page_token", &self.next_page_token);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -863,10 +826,7 @@ impl std::fmt::Debug for super::RoutingVPC {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RoutingVPC");
         debug_struct.field("uri", &self.uri);
-        debug_struct.field(
-            "required_for_new_site_to_site_data_transfer_spokes",
-            &self.required_for_new_site_to_site_data_transfer_spokes,
-        );
+        debug_struct.field("required_for_new_site_to_site_data_transfer_spokes", &self.required_for_new_site_to_site_data_transfer_spokes);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -885,28 +845,16 @@ impl std::fmt::Debug for super::Spoke {
         debug_struct.field("hub", &self.hub);
         debug_struct.field("group", &self.group);
         debug_struct.field("linked_vpn_tunnels", &self.linked_vpn_tunnels);
-        debug_struct.field(
-            "linked_interconnect_attachments",
-            &self.linked_interconnect_attachments,
-        );
-        debug_struct.field(
-            "linked_router_appliance_instances",
-            &self.linked_router_appliance_instances,
-        );
+        debug_struct.field("linked_interconnect_attachments", &self.linked_interconnect_attachments);
+        debug_struct.field("linked_router_appliance_instances", &self.linked_router_appliance_instances);
         debug_struct.field("linked_vpc_network", &self.linked_vpc_network);
-        debug_struct.field(
-            "linked_producer_vpc_network",
-            &self.linked_producer_vpc_network,
-        );
+        debug_struct.field("linked_producer_vpc_network", &self.linked_producer_vpc_network);
         debug_struct.field("unique_id", &self.unique_id);
         debug_struct.field("state", &self.state);
         debug_struct.field("reasons", &self.reasons);
         debug_struct.field("spoke_type", &self.spoke_type);
         debug_struct.field("etag", &self.etag);
-        debug_struct.field(
-            "field_paths_pending_update",
-            &self.field_paths_pending_update,
-        );
+        debug_struct.field("field_paths_pending_update", &self.field_paths_pending_update);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -926,6 +874,7 @@ impl std::fmt::Debug for super::spoke::StateReason {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::RouteTable {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -961,14 +910,8 @@ impl std::fmt::Debug for super::Route {
         debug_struct.field("location", &self.location);
         debug_struct.field("priority", &self.priority);
         debug_struct.field("next_hop_vpn_tunnel", &self.next_hop_vpn_tunnel);
-        debug_struct.field(
-            "next_hop_router_appliance_instance",
-            &self.next_hop_router_appliance_instance,
-        );
-        debug_struct.field(
-            "next_hop_interconnect_attachment",
-            &self.next_hop_interconnect_attachment,
-        );
+        debug_struct.field("next_hop_router_appliance_instance", &self.next_hop_router_appliance_instance);
+        debug_struct.field("next_hop_interconnect_attachment", &self.next_hop_interconnect_attachment);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1460,10 +1403,7 @@ impl std::fmt::Debug for super::LinkedVpnTunnels {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("LinkedVpnTunnels");
         debug_struct.field("uris", &self.uris);
-        debug_struct.field(
-            "site_to_site_data_transfer",
-            &self.site_to_site_data_transfer,
-        );
+        debug_struct.field("site_to_site_data_transfer", &self.site_to_site_data_transfer);
         debug_struct.field("vpc_network", &self.vpc_network);
         debug_struct.field("include_import_ranges", &self.include_import_ranges);
         if !self._unknown_fields.is_empty() {
@@ -1477,10 +1417,7 @@ impl std::fmt::Debug for super::LinkedInterconnectAttachments {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("LinkedInterconnectAttachments");
         debug_struct.field("uris", &self.uris);
-        debug_struct.field(
-            "site_to_site_data_transfer",
-            &self.site_to_site_data_transfer,
-        );
+        debug_struct.field("site_to_site_data_transfer", &self.site_to_site_data_transfer);
         debug_struct.field("vpc_network", &self.vpc_network);
         debug_struct.field("include_import_ranges", &self.include_import_ranges);
         if !self._unknown_fields.is_empty() {
@@ -1494,10 +1431,7 @@ impl std::fmt::Debug for super::LinkedRouterApplianceInstances {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("LinkedRouterApplianceInstances");
         debug_struct.field("instances", &self.instances);
-        debug_struct.field(
-            "site_to_site_data_transfer",
-            &self.site_to_site_data_transfer,
-        );
+        debug_struct.field("site_to_site_data_transfer", &self.site_to_site_data_transfer);
         debug_struct.field("vpc_network", &self.vpc_network);
         debug_struct.field("include_import_ranges", &self.include_import_ranges);
         if !self._unknown_fields.is_empty() {
@@ -1513,14 +1447,8 @@ impl std::fmt::Debug for super::LinkedVpcNetwork {
         debug_struct.field("uri", &self.uri);
         debug_struct.field("exclude_export_ranges", &self.exclude_export_ranges);
         debug_struct.field("include_export_ranges", &self.include_export_ranges);
-        debug_struct.field(
-            "proposed_include_export_ranges",
-            &self.proposed_include_export_ranges,
-        );
-        debug_struct.field(
-            "proposed_exclude_export_ranges",
-            &self.proposed_exclude_export_ranges,
-        );
+        debug_struct.field("proposed_include_export_ranges", &self.proposed_include_export_ranges);
+        debug_struct.field("proposed_exclude_export_ranges", &self.proposed_exclude_export_ranges);
         debug_struct.field("producer_vpc_spokes", &self.producer_vpc_spokes);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1533,22 +1461,13 @@ impl std::fmt::Debug for super::LinkedProducerVpcNetwork {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("LinkedProducerVpcNetwork");
         debug_struct.field("network", &self.network);
-        debug_struct.field(
-            "service_consumer_vpc_spoke",
-            &self.service_consumer_vpc_spoke,
-        );
+        debug_struct.field("service_consumer_vpc_spoke", &self.service_consumer_vpc_spoke);
         debug_struct.field("peering", &self.peering);
         debug_struct.field("producer_network", &self.producer_network);
         debug_struct.field("exclude_export_ranges", &self.exclude_export_ranges);
         debug_struct.field("include_export_ranges", &self.include_export_ranges);
-        debug_struct.field(
-            "proposed_include_export_ranges",
-            &self.proposed_include_export_ranges,
-        );
-        debug_struct.field(
-            "proposed_exclude_export_ranges",
-            &self.proposed_exclude_export_ranges,
-        );
+        debug_struct.field("proposed_include_export_ranges", &self.proposed_include_export_ranges);
+        debug_struct.field("proposed_exclude_export_ranges", &self.proposed_exclude_export_ranges);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1595,10 +1514,7 @@ impl std::fmt::Debug for super::NextHopVPNTunnel {
         let mut debug_struct = f.debug_struct("NextHopVPNTunnel");
         debug_struct.field("uri", &self.uri);
         debug_struct.field("vpc_network", &self.vpc_network);
-        debug_struct.field(
-            "site_to_site_data_transfer",
-            &self.site_to_site_data_transfer,
-        );
+        debug_struct.field("site_to_site_data_transfer", &self.site_to_site_data_transfer);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1611,10 +1527,7 @@ impl std::fmt::Debug for super::NextHopRouterApplianceInstance {
         let mut debug_struct = f.debug_struct("NextHopRouterApplianceInstance");
         debug_struct.field("uri", &self.uri);
         debug_struct.field("vpc_network", &self.vpc_network);
-        debug_struct.field(
-            "site_to_site_data_transfer",
-            &self.site_to_site_data_transfer,
-        );
+        debug_struct.field("site_to_site_data_transfer", &self.site_to_site_data_transfer);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1627,10 +1540,7 @@ impl std::fmt::Debug for super::NextHopInterconnectAttachment {
         let mut debug_struct = f.debug_struct("NextHopInterconnectAttachment");
         debug_struct.field("uri", &self.uri);
         debug_struct.field("vpc_network", &self.vpc_network);
-        debug_struct.field(
-            "site_to_site_data_transfer",
-            &self.site_to_site_data_transfer,
-        );
+        debug_struct.field("site_to_site_data_transfer", &self.site_to_site_data_transfer);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1754,16 +1664,14 @@ impl std::fmt::Debug for super::internal_range::AllocationOptions {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AllocationOptions");
         debug_struct.field("allocation_strategy", &self.allocation_strategy);
-        debug_struct.field(
-            "first_available_ranges_lookup_size",
-            &self.first_available_ranges_lookup_size,
-        );
+        debug_struct.field("first_available_ranges_lookup_size", &self.first_available_ranges_lookup_size);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::ListInternalRangesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -1914,6 +1822,8 @@ impl std::fmt::Debug for super::policy_based_route::Warnings {
         debug_struct.finish()
     }
 }
+
+
 
 impl std::fmt::Debug for super::ListPolicyBasedRoutesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

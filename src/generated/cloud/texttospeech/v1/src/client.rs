@@ -80,66 +80,104 @@ impl TextToSpeech {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::TextToSpeech + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::TextToSpeech + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::TextToSpeech>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::TextToSpeech>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::TextToSpeech> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::TextToSpeech> {
         super::transport::TextToSpeech::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::TextToSpeech> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::TextToSpeech::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::TextToSpeech> {
+        Self::build_transport(conf).await.map(super::tracing::TextToSpeech::new)
     }
 
     /// Returns a list of Voice supported for synthesis.
-    pub fn list_voices(&self) -> super::builder::text_to_speech::ListVoices {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::client::TextToSpeech;
+    /// async fn sample(
+    ///    client: &TextToSpeech
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .list_voices()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_voices(&self) -> super::builder::text_to_speech::ListVoices
+    {
         super::builder::text_to_speech::ListVoices::new(self.inner.clone())
     }
 
     /// Synthesizes speech synchronously: receive results after all text input
     /// has been processed.
-    pub fn synthesize_speech(&self) -> super::builder::text_to_speech::SynthesizeSpeech {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::client::TextToSpeech;
+    /// async fn sample(
+    ///    client: &TextToSpeech
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .synthesize_speech()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn synthesize_speech(&self) -> super::builder::text_to_speech::SynthesizeSpeech
+    {
         super::builder::text_to_speech::SynthesizeSpeech::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::text_to_speech::ListOperations {
+    pub fn list_operations(&self) -> super::builder::text_to_speech::ListOperations
+    {
         super::builder::text_to_speech::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::text_to_speech::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::client::TextToSpeech;
+    /// async fn sample(
+    ///    client: &TextToSpeech
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::text_to_speech::GetOperation
+    {
         super::builder::text_to_speech::GetOperation::new(self.inner.clone())
     }
 }
@@ -200,9 +238,7 @@ impl TextToSpeechLongAudioSynthesize {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::text_to_speech_long_audio_synthesize::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::text_to_speech_long_audio_synthesize::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::text_to_speech_long_audio_synthesize::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -210,44 +246,28 @@ impl TextToSpeechLongAudioSynthesize {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::TextToSpeechLongAudioSynthesize + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::TextToSpeechLongAudioSynthesize + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<
-        std::sync::Arc<dyn super::stub::dynamic::TextToSpeechLongAudioSynthesize>,
-    > {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::TextToSpeechLongAudioSynthesize>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::TextToSpeechLongAudioSynthesize> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::TextToSpeechLongAudioSynthesize> {
         super::transport::TextToSpeechLongAudioSynthesize::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::TextToSpeechLongAudioSynthesize> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::TextToSpeechLongAudioSynthesize::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::TextToSpeechLongAudioSynthesize> {
+        Self::build_transport(conf).await.map(super::tracing::TextToSpeechLongAudioSynthesize::new)
     }
 
     /// Synthesizes long form text asynchronously.
@@ -261,31 +281,40 @@ impl TextToSpeechLongAudioSynthesize {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn synthesize_long_audio(
-        &self,
-    ) -> super::builder::text_to_speech_long_audio_synthesize::SynthesizeLongAudio {
-        super::builder::text_to_speech_long_audio_synthesize::SynthesizeLongAudio::new(
-            self.inner.clone(),
-        )
+    pub fn synthesize_long_audio(&self) -> super::builder::text_to_speech_long_audio_synthesize::SynthesizeLongAudio
+    {
+        super::builder::text_to_speech_long_audio_synthesize::SynthesizeLongAudio::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-    ) -> super::builder::text_to_speech_long_audio_synthesize::ListOperations {
-        super::builder::text_to_speech_long_audio_synthesize::ListOperations::new(
-            self.inner.clone(),
-        )
+    pub fn list_operations(&self) -> super::builder::text_to_speech_long_audio_synthesize::ListOperations
+    {
+        super::builder::text_to_speech_long_audio_synthesize::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-    ) -> super::builder::text_to_speech_long_audio_synthesize::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::client::TextToSpeechLongAudioSynthesize;
+    /// async fn sample(
+    ///    client: &TextToSpeechLongAudioSynthesize
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::text_to_speech_long_audio_synthesize::GetOperation
+    {
         super::builder::text_to_speech_long_audio_synthesize::GetOperation::new(self.inner.clone())
     }
 }

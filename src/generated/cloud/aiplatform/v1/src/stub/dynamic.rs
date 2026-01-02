@@ -83,6 +83,7 @@ pub trait DataFoundryService: std::fmt::Debug + Send + Sync {
         req: longrunning::model::WaitOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
 }
 
 /// All implementations of [super::DataFoundryService] also implement [DataFoundryService].
@@ -187,6 +188,7 @@ impl<T: super::DataFoundryService> DataFoundryService for T {
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::wait_operation(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::DatasetService].
@@ -796,8 +798,7 @@ impl<T: super::DeploymentResourcePoolService> DeploymentResourcePoolService for 
         &self,
         req: crate::model::ListDeploymentResourcePoolsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListDeploymentResourcePoolsResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::ListDeploymentResourcePoolsResponse>> {
         T::list_deployment_resource_pools(self, req, options).await
     }
 
@@ -1321,6 +1322,7 @@ pub trait EvaluationService: std::fmt::Debug + Send + Sync {
         req: longrunning::model::WaitOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
 }
 
 /// All implementations of [super::EvaluationService] also implement [EvaluationService].
@@ -1425,6 +1427,7 @@ impl<T: super::EvaluationService> EvaluationService for T {
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::wait_operation(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::FeatureOnlineStoreAdminService].
@@ -1887,6 +1890,7 @@ pub trait FeatureOnlineStoreService: std::fmt::Debug + Send + Sync {
         req: longrunning::model::WaitOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
 }
 
 /// All implementations of [super::FeatureOnlineStoreService] also implement [FeatureOnlineStoreService].
@@ -1916,8 +1920,7 @@ impl<T: super::FeatureOnlineStoreService> FeatureOnlineStoreService for T {
         &self,
         req: crate::model::GenerateFetchAccessTokenRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::GenerateFetchAccessTokenResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::GenerateFetchAccessTokenResponse>> {
         T::generate_fetch_access_token(self, req, options).await
     }
 
@@ -2010,6 +2013,7 @@ impl<T: super::FeatureOnlineStoreService> FeatureOnlineStoreService for T {
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::wait_operation(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::FeatureRegistryService].
@@ -2436,6 +2440,7 @@ pub trait FeaturestoreOnlineServingService: std::fmt::Debug + Send + Sync {
         req: longrunning::model::WaitOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
 }
 
 /// All implementations of [super::FeaturestoreOnlineServingService] also implement [FeaturestoreOnlineServingService].
@@ -2549,6 +2554,7 @@ impl<T: super::FeaturestoreOnlineServingService> FeaturestoreOnlineServingServic
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::wait_operation(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::FeaturestoreService].
@@ -3143,6 +3149,7 @@ pub trait GenAiCacheService: std::fmt::Debug + Send + Sync {
         req: longrunning::model::WaitOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
 }
 
 /// All implementations of [super::GenAiCacheService] also implement [GenAiCacheService].
@@ -3283,6 +3290,7 @@ impl<T: super::GenAiCacheService> GenAiCacheService for T {
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::wait_operation(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::GenAiTuningService].
@@ -4313,11 +4321,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SearchModelDeploymentMonitoringStatsAnomaliesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<
-            crate::model::SearchModelDeploymentMonitoringStatsAnomaliesResponse,
-        >,
-    >;
+    ) -> crate::Result<gax::response::Response<crate::model::SearchModelDeploymentMonitoringStatsAnomaliesResponse>>;
 
     async fn get_model_deployment_monitoring_job(
         &self,
@@ -4329,9 +4333,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ListModelDeploymentMonitoringJobsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::ListModelDeploymentMonitoringJobsResponse>,
-    >;
+    ) -> crate::Result<gax::response::Response<crate::model::ListModelDeploymentMonitoringJobsResponse>>;
 
     async fn update_model_deployment_monitoring_job(
         &self,
@@ -4545,8 +4547,7 @@ impl<T: super::JobService> JobService for T {
         &self,
         req: crate::model::ListHyperparameterTuningJobsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListHyperparameterTuningJobsResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::ListHyperparameterTuningJobsResponse>> {
         T::list_hyperparameter_tuning_jobs(self, req, options).await
     }
 
@@ -4690,11 +4691,7 @@ impl<T: super::JobService> JobService for T {
         &self,
         req: crate::model::SearchModelDeploymentMonitoringStatsAnomaliesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<
-            crate::model::SearchModelDeploymentMonitoringStatsAnomaliesResponse,
-        >,
-    > {
+    ) -> crate::Result<gax::response::Response<crate::model::SearchModelDeploymentMonitoringStatsAnomaliesResponse>> {
         T::search_model_deployment_monitoring_stats_anomalies(self, req, options).await
     }
 
@@ -4712,9 +4709,7 @@ impl<T: super::JobService> JobService for T {
         &self,
         req: crate::model::ListModelDeploymentMonitoringJobsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::ListModelDeploymentMonitoringJobsResponse>,
-    > {
+    ) -> crate::Result<gax::response::Response<crate::model::ListModelDeploymentMonitoringJobsResponse>> {
         T::list_model_deployment_monitoring_jobs(self, req, options).await
     }
 
@@ -4934,6 +4929,7 @@ pub trait LlmUtilityService: std::fmt::Debug + Send + Sync {
         req: longrunning::model::WaitOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
 }
 
 /// All implementations of [super::LlmUtilityService] also implement [LlmUtilityService].
@@ -5047,6 +5043,7 @@ impl<T: super::LlmUtilityService> LlmUtilityService for T {
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::wait_operation(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::MatchService].
@@ -5124,6 +5121,7 @@ pub trait MatchService: std::fmt::Debug + Send + Sync {
         req: longrunning::model::WaitOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
 }
 
 /// All implementations of [super::MatchService] also implement [MatchService].
@@ -5237,6 +5235,7 @@ impl<T: super::MatchService> MatchService for T {
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::wait_operation(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::MetadataService].
@@ -5343,9 +5342,7 @@ pub trait MetadataService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::AddContextArtifactsAndExecutionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::AddContextArtifactsAndExecutionsResponse>,
-    >;
+    ) -> crate::Result<gax::response::Response<crate::model::AddContextArtifactsAndExecutionsResponse>>;
 
     async fn add_context_children(
         &self,
@@ -5661,9 +5658,7 @@ impl<T: super::MetadataService> MetadataService for T {
         &self,
         req: crate::model::AddContextArtifactsAndExecutionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::AddContextArtifactsAndExecutionsResponse>,
-    > {
+    ) -> crate::Result<gax::response::Response<crate::model::AddContextArtifactsAndExecutionsResponse>> {
         T::add_context_artifacts_and_executions(self, req, options).await
     }
 
@@ -6003,8 +5998,7 @@ impl<T: super::MigrationService> MigrationService for T {
         &self,
         req: crate::model::SearchMigratableResourcesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SearchMigratableResourcesResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::SearchMigratableResourcesResponse>> {
         T::search_migratable_resources(self, req, options).await
     }
 
@@ -6422,9 +6416,7 @@ pub trait ModelService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::BatchImportModelEvaluationSlicesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::BatchImportModelEvaluationSlicesResponse>,
-    >;
+    ) -> crate::Result<gax::response::Response<crate::model::BatchImportModelEvaluationSlicesResponse>>;
 
     async fn batch_import_evaluated_annotations(
         &self,
@@ -6572,8 +6564,7 @@ impl<T: super::ModelService> ModelService for T {
         &self,
         req: crate::model::ListModelVersionCheckpointsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListModelVersionCheckpointsResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::ListModelVersionCheckpointsResponse>> {
         T::list_model_version_checkpoints(self, req, options).await
     }
 
@@ -6654,9 +6645,7 @@ impl<T: super::ModelService> ModelService for T {
         &self,
         req: crate::model::BatchImportModelEvaluationSlicesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::BatchImportModelEvaluationSlicesResponse>,
-    > {
+    ) -> crate::Result<gax::response::Response<crate::model::BatchImportModelEvaluationSlicesResponse>> {
         T::batch_import_model_evaluation_slices(self, req, options).await
     }
 
@@ -6665,8 +6654,7 @@ impl<T: super::ModelService> ModelService for T {
         &self,
         req: crate::model::BatchImportEvaluatedAnnotationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::BatchImportEvaluatedAnnotationsResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::BatchImportEvaluatedAnnotationsResponse>> {
         T::batch_import_evaluated_annotations(self, req, options).await
     }
 
@@ -6702,8 +6690,7 @@ impl<T: super::ModelService> ModelService for T {
         &self,
         req: crate::model::ListModelEvaluationSlicesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListModelEvaluationSlicesResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::ListModelEvaluationSlicesResponse>> {
         T::list_model_evaluation_slices(self, req, options).await
     }
 
@@ -7010,8 +6997,7 @@ impl<T: super::NotebookService> NotebookService for T {
         &self,
         req: crate::model::ListNotebookRuntimeTemplatesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListNotebookRuntimeTemplatesResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::ListNotebookRuntimeTemplatesResponse>> {
         T::list_notebook_runtime_templates(self, req, options).await
     }
 
@@ -7119,8 +7105,7 @@ impl<T: super::NotebookService> NotebookService for T {
         &self,
         req: crate::model::ListNotebookExecutionJobsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListNotebookExecutionJobsResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::ListNotebookExecutionJobsResponse>> {
         T::list_notebook_execution_jobs(self, req, options).await
     }
 
@@ -7981,6 +7966,7 @@ pub trait PredictionService: std::fmt::Debug + Send + Sync {
         req: longrunning::model::WaitOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
 }
 
 /// All implementations of [super::PredictionService] also implement [PredictionService].
@@ -8139,6 +8125,7 @@ impl<T: super::PredictionService> PredictionService for T {
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::wait_operation(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::ReasoningEngineExecutionService].
@@ -8210,6 +8197,7 @@ pub trait ReasoningEngineExecutionService: std::fmt::Debug + Send + Sync {
         req: longrunning::model::WaitOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
 }
 
 /// All implementations of [super::ReasoningEngineExecutionService] also implement [ReasoningEngineExecutionService].
@@ -8314,6 +8302,7 @@ impl<T: super::ReasoningEngineExecutionService> ReasoningEngineExecutionService 
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::wait_operation(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::ReasoningEngineService].
@@ -9239,9 +9228,7 @@ pub trait TensorboardService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::BatchCreateTensorboardTimeSeriesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::BatchCreateTensorboardTimeSeriesResponse>,
-    >;
+    ) -> crate::Result<gax::response::Response<crate::model::BatchCreateTensorboardTimeSeriesResponse>>;
 
     async fn create_tensorboard_time_series(
         &self,
@@ -9277,9 +9264,7 @@ pub trait TensorboardService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::BatchReadTensorboardTimeSeriesDataRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::BatchReadTensorboardTimeSeriesDataResponse>,
-    >;
+    ) -> crate::Result<gax::response::Response<crate::model::BatchReadTensorboardTimeSeriesDataResponse>>;
 
     async fn read_tensorboard_time_series_data(
         &self,
@@ -9475,8 +9460,7 @@ impl<T: super::TensorboardService> TensorboardService for T {
         &self,
         req: crate::model::ListTensorboardExperimentsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListTensorboardExperimentsResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::ListTensorboardExperimentsResponse>> {
         T::list_tensorboard_experiments(self, req, options).await
     }
 
@@ -9503,8 +9487,7 @@ impl<T: super::TensorboardService> TensorboardService for T {
         &self,
         req: crate::model::BatchCreateTensorboardRunsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::BatchCreateTensorboardRunsResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::BatchCreateTensorboardRunsResponse>> {
         T::batch_create_tensorboard_runs(self, req, options).await
     }
 
@@ -9549,9 +9532,7 @@ impl<T: super::TensorboardService> TensorboardService for T {
         &self,
         req: crate::model::BatchCreateTensorboardTimeSeriesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::BatchCreateTensorboardTimeSeriesResponse>,
-    > {
+    ) -> crate::Result<gax::response::Response<crate::model::BatchCreateTensorboardTimeSeriesResponse>> {
         T::batch_create_tensorboard_time_series(self, req, options).await
     }
 
@@ -9587,8 +9568,7 @@ impl<T: super::TensorboardService> TensorboardService for T {
         &self,
         req: crate::model::ListTensorboardTimeSeriesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListTensorboardTimeSeriesResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::ListTensorboardTimeSeriesResponse>> {
         T::list_tensorboard_time_series(self, req, options).await
     }
 
@@ -9606,9 +9586,7 @@ impl<T: super::TensorboardService> TensorboardService for T {
         &self,
         req: crate::model::BatchReadTensorboardTimeSeriesDataRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::BatchReadTensorboardTimeSeriesDataResponse>,
-    > {
+    ) -> crate::Result<gax::response::Response<crate::model::BatchReadTensorboardTimeSeriesDataResponse>> {
         T::batch_read_tensorboard_time_series_data(self, req, options).await
     }
 
@@ -9617,8 +9595,7 @@ impl<T: super::TensorboardService> TensorboardService for T {
         &self,
         req: crate::model::ReadTensorboardTimeSeriesDataRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ReadTensorboardTimeSeriesDataResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::ReadTensorboardTimeSeriesDataResponse>> {
         T::read_tensorboard_time_series_data(self, req, options).await
     }
 
@@ -9627,8 +9604,7 @@ impl<T: super::TensorboardService> TensorboardService for T {
         &self,
         req: crate::model::WriteTensorboardExperimentDataRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::WriteTensorboardExperimentDataResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::WriteTensorboardExperimentDataResponse>> {
         T::write_tensorboard_experiment_data(self, req, options).await
     }
 
@@ -9646,8 +9622,7 @@ impl<T: super::TensorboardService> TensorboardService for T {
         &self,
         req: crate::model::ExportTensorboardTimeSeriesDataRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ExportTensorboardTimeSeriesDataResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::ExportTensorboardTimeSeriesDataResponse>> {
         T::export_tensorboard_time_series_data(self, req, options).await
     }
 
@@ -10201,6 +10176,7 @@ pub trait VertexRagService: std::fmt::Debug + Send + Sync {
         req: longrunning::model::WaitOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
 }
 
 /// All implementations of [super::VertexRagService] also implement [VertexRagService].
@@ -10323,6 +10299,7 @@ impl<T: super::VertexRagService> VertexRagService for T {
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::wait_operation(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::VizierService].

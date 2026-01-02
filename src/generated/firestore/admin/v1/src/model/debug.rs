@@ -60,14 +60,8 @@ impl std::fmt::Debug for super::Database {
         debug_struct.field("concurrency_mode", &self.concurrency_mode);
         debug_struct.field("version_retention_period", &self.version_retention_period);
         debug_struct.field("earliest_version_time", &self.earliest_version_time);
-        debug_struct.field(
-            "point_in_time_recovery_enablement",
-            &self.point_in_time_recovery_enablement,
-        );
-        debug_struct.field(
-            "app_engine_integration_mode",
-            &self.app_engine_integration_mode,
-        );
+        debug_struct.field("point_in_time_recovery_enablement", &self.point_in_time_recovery_enablement);
+        debug_struct.field("app_engine_integration_mode", &self.app_engine_integration_mode);
         debug_struct.field("key_prefix", &self.key_prefix);
         debug_struct.field("delete_protection_state", &self.delete_protection_state);
         debug_struct.field("cmek_config", &self.cmek_config);
@@ -160,6 +154,7 @@ impl std::fmt::Debug for super::database::encryption_config::CustomerManagedEncr
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::Field {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

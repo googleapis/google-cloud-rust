@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -30,7 +31,6 @@ extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -42,6 +42,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AdaptiveMtDataset {
+
     /// Required. The resource name of the dataset, in form of
     /// `projects/{project-number-or-id}/locations/{location_id}/adaptiveMtDatasets/{dataset_id}`
     pub name: std::string::String,
@@ -105,10 +106,7 @@ impl AdaptiveMtDataset {
     /// # use google_cloud_translation_v3::model::AdaptiveMtDataset;
     /// let x = AdaptiveMtDataset::new().set_source_language_code("example");
     /// ```
-    pub fn set_source_language_code<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_language_code = v.into();
         self
     }
@@ -120,10 +118,7 @@ impl AdaptiveMtDataset {
     /// # use google_cloud_translation_v3::model::AdaptiveMtDataset;
     /// let x = AdaptiveMtDataset::new().set_target_language_code("example");
     /// ```
-    pub fn set_target_language_code<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_target_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target_language_code = v.into();
         self
     }
@@ -149,8 +144,7 @@ impl AdaptiveMtDataset {
     /// let x = AdaptiveMtDataset::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -166,8 +160,7 @@ impl AdaptiveMtDataset {
     /// let x = AdaptiveMtDataset::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -182,8 +175,7 @@ impl AdaptiveMtDataset {
     /// let x = AdaptiveMtDataset::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -199,8 +191,7 @@ impl AdaptiveMtDataset {
     /// let x = AdaptiveMtDataset::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -217,6 +208,7 @@ impl wkt::message::Message for AdaptiveMtDataset {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateAdaptiveMtDatasetRequest {
+
     /// Required. Name of the parent project. In form of
     /// `projects/{project-number-or-id}/locations/{location-id}`
     pub parent: std::string::String,
@@ -253,8 +245,7 @@ impl CreateAdaptiveMtDatasetRequest {
     /// let x = CreateAdaptiveMtDatasetRequest::new().set_adaptive_mt_dataset(AdaptiveMtDataset::default()/* use setters */);
     /// ```
     pub fn set_adaptive_mt_dataset<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AdaptiveMtDataset>,
+    where T: std::convert::Into<crate::model::AdaptiveMtDataset>
     {
         self.adaptive_mt_dataset = std::option::Option::Some(v.into());
         self
@@ -270,8 +261,7 @@ impl CreateAdaptiveMtDatasetRequest {
     /// let x = CreateAdaptiveMtDatasetRequest::new().set_or_clear_adaptive_mt_dataset(None::<AdaptiveMtDataset>);
     /// ```
     pub fn set_or_clear_adaptive_mt_dataset<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AdaptiveMtDataset>,
+    where T: std::convert::Into<crate::model::AdaptiveMtDataset>
     {
         self.adaptive_mt_dataset = v.map(|x| x.into());
         self
@@ -288,6 +278,7 @@ impl wkt::message::Message for CreateAdaptiveMtDatasetRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteAdaptiveMtDatasetRequest {
+
     /// Required. Name of the dataset. In the form of
     /// `projects/{project-number-or-id}/locations/{location-id}/adaptiveMtDatasets/{adaptive-mt-dataset-id}`
     pub name: std::string::String,
@@ -323,6 +314,7 @@ impl wkt::message::Message for DeleteAdaptiveMtDatasetRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAdaptiveMtDatasetRequest {
+
     /// Required. Name of the dataset. In the form of
     /// `projects/{project-number-or-id}/locations/{location-id}/adaptiveMtDatasets/{adaptive-mt-dataset-id}`
     pub name: std::string::String,
@@ -359,6 +351,7 @@ impl wkt::message::Message for GetAdaptiveMtDatasetRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAdaptiveMtDatasetsRequest {
+
     /// Required. The resource name of the project from which to list the Adaptive
     /// MT datasets. `projects/{project-number-or-id}/locations/{location-id}`
     pub parent: std::string::String,
@@ -445,6 +438,7 @@ impl wkt::message::Message for ListAdaptiveMtDatasetsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAdaptiveMtDatasetsResponse {
+
     /// Output only. A list of Adaptive MT datasets.
     pub adaptive_mt_datasets: std::vec::Vec<crate::model::AdaptiveMtDataset>,
 
@@ -476,7 +470,7 @@ impl ListAdaptiveMtDatasetsResponse {
     pub fn set_adaptive_mt_datasets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AdaptiveMtDataset>,
+        V: std::convert::Into<crate::model::AdaptiveMtDataset>
     {
         use std::iter::Iterator;
         self.adaptive_mt_datasets = v.into_iter().map(|i| i.into()).collect();
@@ -520,6 +514,7 @@ impl gax::paginator::internal::PageableResponse for ListAdaptiveMtDatasetsRespon
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AdaptiveMtTranslateRequest {
+
     /// Required. Location to make a regional call.
     ///
     /// Format: `projects/{project-number-or-id}/locations/{location-id}`.
@@ -533,14 +528,12 @@ pub struct AdaptiveMtTranslateRequest {
     pub content: std::vec::Vec<std::string::String>,
 
     /// Configuration for caller provided reference sentences.
-    pub reference_sentence_config:
-        std::option::Option<crate::model::adaptive_mt_translate_request::ReferenceSentenceConfig>,
+    pub reference_sentence_config: std::option::Option<crate::model::adaptive_mt_translate_request::ReferenceSentenceConfig>,
 
     /// Optional. Glossary to be applied. The glossary must be
     /// within the same region (have the same location-id) as the model, otherwise
     /// an INVALID_ARGUMENT (400) error is returned.
-    pub glossary_config:
-        std::option::Option<crate::model::adaptive_mt_translate_request::GlossaryConfig>,
+    pub glossary_config: std::option::Option<crate::model::adaptive_mt_translate_request::GlossaryConfig>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -584,7 +577,7 @@ impl AdaptiveMtTranslateRequest {
     pub fn set_content<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.content = v.into_iter().map(|i| i.into()).collect();
@@ -600,8 +593,7 @@ impl AdaptiveMtTranslateRequest {
     /// let x = AdaptiveMtTranslateRequest::new().set_reference_sentence_config(ReferenceSentenceConfig::default()/* use setters */);
     /// ```
     pub fn set_reference_sentence_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::adaptive_mt_translate_request::ReferenceSentenceConfig>,
+    where T: std::convert::Into<crate::model::adaptive_mt_translate_request::ReferenceSentenceConfig>
     {
         self.reference_sentence_config = std::option::Option::Some(v.into());
         self
@@ -617,8 +609,7 @@ impl AdaptiveMtTranslateRequest {
     /// let x = AdaptiveMtTranslateRequest::new().set_or_clear_reference_sentence_config(None::<ReferenceSentenceConfig>);
     /// ```
     pub fn set_or_clear_reference_sentence_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::adaptive_mt_translate_request::ReferenceSentenceConfig>,
+    where T: std::convert::Into<crate::model::adaptive_mt_translate_request::ReferenceSentenceConfig>
     {
         self.reference_sentence_config = v.map(|x| x.into());
         self
@@ -633,8 +624,7 @@ impl AdaptiveMtTranslateRequest {
     /// let x = AdaptiveMtTranslateRequest::new().set_glossary_config(GlossaryConfig::default()/* use setters */);
     /// ```
     pub fn set_glossary_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::adaptive_mt_translate_request::GlossaryConfig>,
+    where T: std::convert::Into<crate::model::adaptive_mt_translate_request::GlossaryConfig>
     {
         self.glossary_config = std::option::Option::Some(v.into());
         self
@@ -650,8 +640,7 @@ impl AdaptiveMtTranslateRequest {
     /// let x = AdaptiveMtTranslateRequest::new().set_or_clear_glossary_config(None::<GlossaryConfig>);
     /// ```
     pub fn set_or_clear_glossary_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::adaptive_mt_translate_request::GlossaryConfig>,
+    where T: std::convert::Into<crate::model::adaptive_mt_translate_request::GlossaryConfig>
     {
         self.glossary_config = v.map(|x| x.into());
         self
@@ -669,10 +658,12 @@ pub mod adaptive_mt_translate_request {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// A pair of sentences used as reference in source and target languages.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ReferenceSentencePair {
+
         /// Source sentence in the sentence pair.
         pub source_sentence: std::string::String,
 
@@ -694,10 +685,7 @@ pub mod adaptive_mt_translate_request {
         /// # use google_cloud_translation_v3::model::adaptive_mt_translate_request::ReferenceSentencePair;
         /// let x = ReferenceSentencePair::new().set_source_sentence("example");
         /// ```
-        pub fn set_source_sentence<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_source_sentence<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.source_sentence = v.into();
             self
         }
@@ -709,10 +697,7 @@ pub mod adaptive_mt_translate_request {
         /// # use google_cloud_translation_v3::model::adaptive_mt_translate_request::ReferenceSentencePair;
         /// let x = ReferenceSentencePair::new().set_target_sentence("example");
         /// ```
-        pub fn set_target_sentence<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_target_sentence<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.target_sentence = v.into();
             self
         }
@@ -728,9 +713,9 @@ pub mod adaptive_mt_translate_request {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ReferenceSentencePairList {
+
         /// Reference sentence pairs.
-        pub reference_sentence_pairs:
-            std::vec::Vec<crate::model::adaptive_mt_translate_request::ReferenceSentencePair>,
+        pub reference_sentence_pairs: std::vec::Vec<crate::model::adaptive_mt_translate_request::ReferenceSentencePair>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -755,9 +740,7 @@ pub mod adaptive_mt_translate_request {
         pub fn set_reference_sentence_pairs<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<
-                    crate::model::adaptive_mt_translate_request::ReferenceSentencePair,
-                >,
+            V: std::convert::Into<crate::model::adaptive_mt_translate_request::ReferenceSentencePair>
         {
             use std::iter::Iterator;
             self.reference_sentence_pairs = v.into_iter().map(|i| i.into()).collect();
@@ -775,12 +758,12 @@ pub mod adaptive_mt_translate_request {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ReferenceSentenceConfig {
+
         /// Reference sentences pair lists. Each list will be used as the references
         /// to translate the sentence under "content" field at the corresponding
         /// index. Length of the list is required to be equal to the length of
         /// "content" field.
-        pub reference_sentence_pair_lists:
-            std::vec::Vec<crate::model::adaptive_mt_translate_request::ReferenceSentencePairList>,
+        pub reference_sentence_pair_lists: std::vec::Vec<crate::model::adaptive_mt_translate_request::ReferenceSentencePairList>,
 
         /// Source language code.
         pub source_language_code: std::string::String,
@@ -811,9 +794,7 @@ pub mod adaptive_mt_translate_request {
         pub fn set_reference_sentence_pair_lists<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<
-                    crate::model::adaptive_mt_translate_request::ReferenceSentencePairList,
-                >,
+            V: std::convert::Into<crate::model::adaptive_mt_translate_request::ReferenceSentencePairList>
         {
             use std::iter::Iterator;
             self.reference_sentence_pair_lists = v.into_iter().map(|i| i.into()).collect();
@@ -827,10 +808,7 @@ pub mod adaptive_mt_translate_request {
         /// # use google_cloud_translation_v3::model::adaptive_mt_translate_request::ReferenceSentenceConfig;
         /// let x = ReferenceSentenceConfig::new().set_source_language_code("example");
         /// ```
-        pub fn set_source_language_code<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_source_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.source_language_code = v.into();
             self
         }
@@ -842,10 +820,7 @@ pub mod adaptive_mt_translate_request {
         /// # use google_cloud_translation_v3::model::adaptive_mt_translate_request::ReferenceSentenceConfig;
         /// let x = ReferenceSentenceConfig::new().set_target_language_code("example");
         /// ```
-        pub fn set_target_language_code<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_target_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.target_language_code = v.into();
             self
         }
@@ -863,6 +838,7 @@ pub mod adaptive_mt_translate_request {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GlossaryConfig {
+
         /// Required. The `glossary` to be applied for this translation.
         ///
         /// The format depends on the glossary:
@@ -918,10 +894,7 @@ pub mod adaptive_mt_translate_request {
         /// # use google_cloud_translation_v3::model::adaptive_mt_translate_request::GlossaryConfig;
         /// let x = GlossaryConfig::new().set_contextual_translation_enabled(true);
         /// ```
-        pub fn set_contextual_translation_enabled<T: std::convert::Into<bool>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_contextual_translation_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.contextual_translation_enabled = v.into();
             self
         }
@@ -938,6 +911,7 @@ pub mod adaptive_mt_translate_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AdaptiveMtTranslation {
+
     /// Output only. The translated text.
     pub translated_text: std::string::String,
 
@@ -972,6 +946,7 @@ impl wkt::message::Message for AdaptiveMtTranslation {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AdaptiveMtTranslateResponse {
+
     /// Output only. The translation.
     pub translations: std::vec::Vec<crate::model::AdaptiveMtTranslation>,
 
@@ -1005,7 +980,7 @@ impl AdaptiveMtTranslateResponse {
     pub fn set_translations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AdaptiveMtTranslation>,
+        V: std::convert::Into<crate::model::AdaptiveMtTranslation>
     {
         use std::iter::Iterator;
         self.translations = v.into_iter().map(|i| i.into()).collect();
@@ -1039,7 +1014,7 @@ impl AdaptiveMtTranslateResponse {
     pub fn set_glossary_translations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AdaptiveMtTranslation>,
+        V: std::convert::Into<crate::model::AdaptiveMtTranslation>
     {
         use std::iter::Iterator;
         self.glossary_translations = v.into_iter().map(|i| i.into()).collect();
@@ -1057,6 +1032,7 @@ impl wkt::message::Message for AdaptiveMtTranslateResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AdaptiveMtFile {
+
     /// Required. The resource name of the file, in form of
     /// `projects/{project-number-or-id}/locations/{location_id}/adaptiveMtDatasets/{dataset}/adaptiveMtFiles/{file}`
     pub name: std::string::String,
@@ -1126,8 +1102,7 @@ impl AdaptiveMtFile {
     /// let x = AdaptiveMtFile::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -1143,8 +1118,7 @@ impl AdaptiveMtFile {
     /// let x = AdaptiveMtFile::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -1159,8 +1133,7 @@ impl AdaptiveMtFile {
     /// let x = AdaptiveMtFile::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -1176,8 +1149,7 @@ impl AdaptiveMtFile {
     /// let x = AdaptiveMtFile::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -1194,6 +1166,7 @@ impl wkt::message::Message for AdaptiveMtFile {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAdaptiveMtFileRequest {
+
     /// Required. The resource name of the file, in form of
     /// `projects/{project-number-or-id}/locations/{location_id}/adaptiveMtDatasets/{dataset}/adaptiveMtFiles/{file}`
     pub name: std::string::String,
@@ -1229,6 +1202,7 @@ impl wkt::message::Message for GetAdaptiveMtFileRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteAdaptiveMtFileRequest {
+
     /// Required. The resource name of the file to delete, in form of
     /// `projects/{project-number-or-id}/locations/{location_id}/adaptiveMtDatasets/{dataset}/adaptiveMtFiles/{file}`
     pub name: std::string::String,
@@ -1264,6 +1238,7 @@ impl wkt::message::Message for DeleteAdaptiveMtFileRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportAdaptiveMtFileRequest {
+
     /// Required. The resource name of the file, in form of
     /// `projects/{project-number-or-id}/locations/{location_id}/adaptiveMtDatasets/{dataset}`
     pub parent: std::string::String,
@@ -1303,14 +1278,8 @@ impl ImportAdaptiveMtFileRequest {
     /// let x = ImportAdaptiveMtFileRequest::new().set_source(Some(
     ///     google_cloud_translation_v3::model::import_adaptive_mt_file_request::Source::FileInputSource(FileInputSource::default().into())));
     /// ```
-    pub fn set_source<
-        T: std::convert::Into<
-                std::option::Option<crate::model::import_adaptive_mt_file_request::Source>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source<T: std::convert::Into<std::option::Option<crate::model::import_adaptive_mt_file_request::Source>>>(mut self, v: T) -> Self
+    {
         self.source = v.into();
         self
     }
@@ -1318,14 +1287,10 @@ impl ImportAdaptiveMtFileRequest {
     /// The value of [source][crate::model::ImportAdaptiveMtFileRequest::source]
     /// if it holds a `FileInputSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn file_input_source(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::FileInputSource>> {
+    pub fn file_input_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::FileInputSource>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
-            crate::model::import_adaptive_mt_file_request::Source::FileInputSource(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::import_adaptive_mt_file_request::Source::FileInputSource(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -1344,14 +1309,11 @@ impl ImportAdaptiveMtFileRequest {
     /// assert!(x.file_input_source().is_some());
     /// assert!(x.gcs_input_source().is_none());
     /// ```
-    pub fn set_file_input_source<
-        T: std::convert::Into<std::boxed::Box<crate::model::FileInputSource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_file_input_source<T: std::convert::Into<std::boxed::Box<crate::model::FileInputSource>>>(mut self, v: T) -> Self {
         self.source = std::option::Option::Some(
-            crate::model::import_adaptive_mt_file_request::Source::FileInputSource(v.into()),
+            crate::model::import_adaptive_mt_file_request::Source::FileInputSource(
+                v.into()
+            )
         );
         self
     }
@@ -1359,14 +1321,10 @@ impl ImportAdaptiveMtFileRequest {
     /// The value of [source][crate::model::ImportAdaptiveMtFileRequest::source]
     /// if it holds a `GcsInputSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn gcs_input_source(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::GcsInputSource>> {
+    pub fn gcs_input_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsInputSource>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
-            crate::model::import_adaptive_mt_file_request::Source::GcsInputSource(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::import_adaptive_mt_file_request::Source::GcsInputSource(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -1385,14 +1343,11 @@ impl ImportAdaptiveMtFileRequest {
     /// assert!(x.gcs_input_source().is_some());
     /// assert!(x.file_input_source().is_none());
     /// ```
-    pub fn set_gcs_input_source<
-        T: std::convert::Into<std::boxed::Box<crate::model::GcsInputSource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_gcs_input_source<T: std::convert::Into<std::boxed::Box<crate::model::GcsInputSource>>>(mut self, v: T) -> Self {
         self.source = std::option::Option::Some(
-            crate::model::import_adaptive_mt_file_request::Source::GcsInputSource(v.into()),
+            crate::model::import_adaptive_mt_file_request::Source::GcsInputSource(
+                v.into()
+            )
         );
         self
     }
@@ -1409,6 +1364,7 @@ pub mod import_adaptive_mt_file_request {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// The source for the document.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -1424,6 +1380,7 @@ pub mod import_adaptive_mt_file_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportAdaptiveMtFileResponse {
+
     /// Output only. The Adaptive MT file that was imported.
     pub adaptive_mt_file: std::option::Option<crate::model::AdaptiveMtFile>,
 
@@ -1444,8 +1401,7 @@ impl ImportAdaptiveMtFileResponse {
     /// let x = ImportAdaptiveMtFileResponse::new().set_adaptive_mt_file(AdaptiveMtFile::default()/* use setters */);
     /// ```
     pub fn set_adaptive_mt_file<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AdaptiveMtFile>,
+    where T: std::convert::Into<crate::model::AdaptiveMtFile>
     {
         self.adaptive_mt_file = std::option::Option::Some(v.into());
         self
@@ -1461,8 +1417,7 @@ impl ImportAdaptiveMtFileResponse {
     /// let x = ImportAdaptiveMtFileResponse::new().set_or_clear_adaptive_mt_file(None::<AdaptiveMtFile>);
     /// ```
     pub fn set_or_clear_adaptive_mt_file<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AdaptiveMtFile>,
+    where T: std::convert::Into<crate::model::AdaptiveMtFile>
     {
         self.adaptive_mt_file = v.map(|x| x.into());
         self
@@ -1479,6 +1434,7 @@ impl wkt::message::Message for ImportAdaptiveMtFileResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAdaptiveMtFilesRequest {
+
     /// Required. The resource name of the project from which to list the Adaptive
     /// MT files.
     /// `projects/{project}/locations/{location}/adaptiveMtDatasets/{dataset}`
@@ -1549,6 +1505,7 @@ impl wkt::message::Message for ListAdaptiveMtFilesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAdaptiveMtFilesResponse {
+
     /// Output only. The Adaptive MT files.
     pub adaptive_mt_files: std::vec::Vec<crate::model::AdaptiveMtFile>,
 
@@ -1580,7 +1537,7 @@ impl ListAdaptiveMtFilesResponse {
     pub fn set_adaptive_mt_files<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AdaptiveMtFile>,
+        V: std::convert::Into<crate::model::AdaptiveMtFile>
     {
         use std::iter::Iterator;
         self.adaptive_mt_files = v.into_iter().map(|i| i.into()).collect();
@@ -1624,6 +1581,7 @@ impl gax::paginator::internal::PageableResponse for ListAdaptiveMtFilesResponse 
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AdaptiveMtSentence {
+
     /// Required. The resource name of the file, in form of
     /// `projects/{project-number-or-id}/locations/{location_id}/adaptiveMtDatasets/{dataset}/adaptiveMtFiles/{file}/adaptiveMtSentences/{sentence}`
     pub name: std::string::String,
@@ -1693,8 +1651,7 @@ impl AdaptiveMtSentence {
     /// let x = AdaptiveMtSentence::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -1710,8 +1667,7 @@ impl AdaptiveMtSentence {
     /// let x = AdaptiveMtSentence::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -1726,8 +1682,7 @@ impl AdaptiveMtSentence {
     /// let x = AdaptiveMtSentence::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -1743,8 +1698,7 @@ impl AdaptiveMtSentence {
     /// let x = AdaptiveMtSentence::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -1761,6 +1715,7 @@ impl wkt::message::Message for AdaptiveMtSentence {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAdaptiveMtSentencesRequest {
+
     /// Required. The resource name of the project from which to list the Adaptive
     /// MT files. The following format lists all sentences under a file.
     /// `projects/{project}/locations/{location}/adaptiveMtDatasets/{dataset}/adaptiveMtFiles/{file}`
@@ -1832,6 +1787,7 @@ impl wkt::message::Message for ListAdaptiveMtSentencesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAdaptiveMtSentencesResponse {
+
     /// Output only. The list of AdaptiveMtSentences.
     pub adaptive_mt_sentences: std::vec::Vec<crate::model::AdaptiveMtSentence>,
 
@@ -1861,7 +1817,7 @@ impl ListAdaptiveMtSentencesResponse {
     pub fn set_adaptive_mt_sentences<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AdaptiveMtSentence>,
+        V: std::convert::Into<crate::model::AdaptiveMtSentence>
     {
         use std::iter::Iterator;
         self.adaptive_mt_sentences = v.into_iter().map(|i| i.into()).collect();
@@ -1905,6 +1861,7 @@ impl gax::paginator::internal::PageableResponse for ListAdaptiveMtSentencesRespo
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportDataRequest {
+
     /// Required. Name of the dataset. In form of
     /// `projects/{project-number-or-id}/locations/{location-id}/datasets/{dataset-id}`
     pub dataset: std::string::String,
@@ -1941,8 +1898,7 @@ impl ImportDataRequest {
     /// let x = ImportDataRequest::new().set_input_config(DatasetInputConfig::default()/* use setters */);
     /// ```
     pub fn set_input_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DatasetInputConfig>,
+    where T: std::convert::Into<crate::model::DatasetInputConfig>
     {
         self.input_config = std::option::Option::Some(v.into());
         self
@@ -1958,8 +1914,7 @@ impl ImportDataRequest {
     /// let x = ImportDataRequest::new().set_or_clear_input_config(None::<DatasetInputConfig>);
     /// ```
     pub fn set_or_clear_input_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DatasetInputConfig>,
+    where T: std::convert::Into<crate::model::DatasetInputConfig>
     {
         self.input_config = v.map(|x| x.into());
         self
@@ -1976,6 +1931,7 @@ impl wkt::message::Message for ImportDataRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DatasetInputConfig {
+
     /// Files containing the sentence pairs to be imported to the dataset.
     pub input_files: std::vec::Vec<crate::model::dataset_input_config::InputFile>,
 
@@ -2002,7 +1958,7 @@ impl DatasetInputConfig {
     pub fn set_input_files<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::dataset_input_config::InputFile>,
+        V: std::convert::Into<crate::model::dataset_input_config::InputFile>
     {
         use std::iter::Iterator;
         self.input_files = v.into_iter().map(|i| i.into()).collect();
@@ -2021,10 +1977,12 @@ pub mod dataset_input_config {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// An input file.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct InputFile {
+
         /// Optional. Usage of the file contents. Options are TRAIN|VALIDATION|TEST,
         /// or UNASSIGNED (by default) for auto split.
         pub usage: std::string::String,
@@ -2066,14 +2024,8 @@ pub mod dataset_input_config {
         /// let x = InputFile::new().set_source(Some(
         ///     google_cloud_translation_v3::model::dataset_input_config::input_file::Source::GcsSource(GcsInputSource::default().into())));
         /// ```
-        pub fn set_source<
-            T: std::convert::Into<
-                    std::option::Option<crate::model::dataset_input_config::input_file::Source>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_source<T: std::convert::Into<std::option::Option<crate::model::dataset_input_config::input_file::Source>>>(mut self, v: T) -> Self
+        {
             self.source = v.into();
             self
         }
@@ -2081,14 +2033,10 @@ pub mod dataset_input_config {
         /// The value of [source][crate::model::dataset_input_config::InputFile::source]
         /// if it holds a `GcsSource`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn gcs_source(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::GcsInputSource>> {
+        pub fn gcs_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsInputSource>> {
             #[allow(unreachable_patterns)]
             self.source.as_ref().and_then(|v| match v {
-                crate::model::dataset_input_config::input_file::Source::GcsSource(v) => {
-                    std::option::Option::Some(v)
-                }
+                crate::model::dataset_input_config::input_file::Source::GcsSource(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
@@ -2106,14 +2054,11 @@ pub mod dataset_input_config {
         /// let x = InputFile::new().set_gcs_source(GcsInputSource::default()/* use setters */);
         /// assert!(x.gcs_source().is_some());
         /// ```
-        pub fn set_gcs_source<
-            T: std::convert::Into<std::boxed::Box<crate::model::GcsInputSource>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_gcs_source<T: std::convert::Into<std::boxed::Box<crate::model::GcsInputSource>>>(mut self, v: T) -> Self {
             self.source = std::option::Option::Some(
-                crate::model::dataset_input_config::input_file::Source::GcsSource(v.into()),
+                crate::model::dataset_input_config::input_file::Source::GcsSource(
+                    v.into()
+                )
             );
             self
         }
@@ -2129,6 +2074,7 @@ pub mod dataset_input_config {
     pub mod input_file {
         #[allow(unused_imports)]
         use super::*;
+
 
         /// Source of the file containing sentence pairs.
         /// Supported formats are tab-separated values (.tsv) and Translation Memory
@@ -2146,6 +2092,7 @@ pub mod dataset_input_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportDataMetadata {
+
     /// The current state of the operation.
     pub state: crate::model::OperationState,
 
@@ -2190,8 +2137,7 @@ impl ImportDataMetadata {
     /// let x = ImportDataMetadata::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -2207,8 +2153,7 @@ impl ImportDataMetadata {
     /// let x = ImportDataMetadata::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -2223,8 +2168,7 @@ impl ImportDataMetadata {
     /// let x = ImportDataMetadata::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -2240,8 +2184,7 @@ impl ImportDataMetadata {
     /// let x = ImportDataMetadata::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -2256,8 +2199,7 @@ impl ImportDataMetadata {
     /// let x = ImportDataMetadata::new().set_error(Status::default()/* use setters */);
     /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<rpc::model::Status>,
+    where T: std::convert::Into<rpc::model::Status>
     {
         self.error = std::option::Option::Some(v.into());
         self
@@ -2273,8 +2215,7 @@ impl ImportDataMetadata {
     /// let x = ImportDataMetadata::new().set_or_clear_error(None::<Status>);
     /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<rpc::model::Status>,
+    where T: std::convert::Into<rpc::model::Status>
     {
         self.error = v.map(|x| x.into());
         self
@@ -2291,6 +2232,7 @@ impl wkt::message::Message for ImportDataMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportDataRequest {
+
     /// Required. Name of the dataset. In form of
     /// `projects/{project-number-or-id}/locations/{location-id}/datasets/{dataset-id}`
     pub dataset: std::string::String,
@@ -2327,8 +2269,7 @@ impl ExportDataRequest {
     /// let x = ExportDataRequest::new().set_output_config(DatasetOutputConfig::default()/* use setters */);
     /// ```
     pub fn set_output_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DatasetOutputConfig>,
+    where T: std::convert::Into<crate::model::DatasetOutputConfig>
     {
         self.output_config = std::option::Option::Some(v.into());
         self
@@ -2344,8 +2285,7 @@ impl ExportDataRequest {
     /// let x = ExportDataRequest::new().set_or_clear_output_config(None::<DatasetOutputConfig>);
     /// ```
     pub fn set_or_clear_output_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DatasetOutputConfig>,
+    where T: std::convert::Into<crate::model::DatasetOutputConfig>
     {
         self.output_config = v.map(|x| x.into());
         self
@@ -2362,6 +2302,7 @@ impl wkt::message::Message for ExportDataRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DatasetOutputConfig {
+
     /// Required. Specify the output.
     pub destination: std::option::Option<crate::model::dataset_output_config::Destination>,
 
@@ -2385,12 +2326,8 @@ impl DatasetOutputConfig {
     /// let x = DatasetOutputConfig::new().set_destination(Some(
     ///     google_cloud_translation_v3::model::dataset_output_config::Destination::GcsDestination(GcsOutputDestination::default().into())));
     /// ```
-    pub fn set_destination<
-        T: std::convert::Into<std::option::Option<crate::model::dataset_output_config::Destination>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_destination<T: std::convert::Into<std::option::Option<crate::model::dataset_output_config::Destination>>>(mut self, v: T) -> Self
+    {
         self.destination = v.into();
         self
     }
@@ -2398,14 +2335,10 @@ impl DatasetOutputConfig {
     /// The value of [destination][crate::model::DatasetOutputConfig::destination]
     /// if it holds a `GcsDestination`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn gcs_destination(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::GcsOutputDestination>> {
+    pub fn gcs_destination(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsOutputDestination>> {
         #[allow(unreachable_patterns)]
         self.destination.as_ref().and_then(|v| match v {
-            crate::model::dataset_output_config::Destination::GcsDestination(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::dataset_output_config::Destination::GcsDestination(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -2423,14 +2356,11 @@ impl DatasetOutputConfig {
     /// let x = DatasetOutputConfig::new().set_gcs_destination(GcsOutputDestination::default()/* use setters */);
     /// assert!(x.gcs_destination().is_some());
     /// ```
-    pub fn set_gcs_destination<
-        T: std::convert::Into<std::boxed::Box<crate::model::GcsOutputDestination>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_gcs_destination<T: std::convert::Into<std::boxed::Box<crate::model::GcsOutputDestination>>>(mut self, v: T) -> Self {
         self.destination = std::option::Option::Some(
-            crate::model::dataset_output_config::Destination::GcsDestination(v.into()),
+            crate::model::dataset_output_config::Destination::GcsDestination(
+                v.into()
+            )
         );
         self
     }
@@ -2447,6 +2377,7 @@ pub mod dataset_output_config {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Required. Specify the output.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -2460,6 +2391,7 @@ pub mod dataset_output_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportDataMetadata {
+
     /// The current state of the operation.
     pub state: crate::model::OperationState,
 
@@ -2504,8 +2436,7 @@ impl ExportDataMetadata {
     /// let x = ExportDataMetadata::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -2521,8 +2452,7 @@ impl ExportDataMetadata {
     /// let x = ExportDataMetadata::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -2537,8 +2467,7 @@ impl ExportDataMetadata {
     /// let x = ExportDataMetadata::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -2554,8 +2483,7 @@ impl ExportDataMetadata {
     /// let x = ExportDataMetadata::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -2570,8 +2498,7 @@ impl ExportDataMetadata {
     /// let x = ExportDataMetadata::new().set_error(Status::default()/* use setters */);
     /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<rpc::model::Status>,
+    where T: std::convert::Into<rpc::model::Status>
     {
         self.error = std::option::Option::Some(v.into());
         self
@@ -2587,8 +2514,7 @@ impl ExportDataMetadata {
     /// let x = ExportDataMetadata::new().set_or_clear_error(None::<Status>);
     /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<rpc::model::Status>,
+    where T: std::convert::Into<rpc::model::Status>
     {
         self.error = v.map(|x| x.into());
         self
@@ -2605,6 +2531,7 @@ impl wkt::message::Message for ExportDataMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteDatasetRequest {
+
     /// Required. The name of the dataset to delete.
     pub name: std::string::String,
 
@@ -2639,6 +2566,7 @@ impl wkt::message::Message for DeleteDatasetRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteDatasetMetadata {
+
     /// The current state of the operation.
     pub state: crate::model::OperationState,
 
@@ -2683,8 +2611,7 @@ impl DeleteDatasetMetadata {
     /// let x = DeleteDatasetMetadata::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -2700,8 +2627,7 @@ impl DeleteDatasetMetadata {
     /// let x = DeleteDatasetMetadata::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -2716,8 +2642,7 @@ impl DeleteDatasetMetadata {
     /// let x = DeleteDatasetMetadata::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -2733,8 +2658,7 @@ impl DeleteDatasetMetadata {
     /// let x = DeleteDatasetMetadata::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -2749,8 +2673,7 @@ impl DeleteDatasetMetadata {
     /// let x = DeleteDatasetMetadata::new().set_error(Status::default()/* use setters */);
     /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<rpc::model::Status>,
+    where T: std::convert::Into<rpc::model::Status>
     {
         self.error = std::option::Option::Some(v.into());
         self
@@ -2766,8 +2689,7 @@ impl DeleteDatasetMetadata {
     /// let x = DeleteDatasetMetadata::new().set_or_clear_error(None::<Status>);
     /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<rpc::model::Status>,
+    where T: std::convert::Into<rpc::model::Status>
     {
         self.error = v.map(|x| x.into());
         self
@@ -2784,6 +2706,7 @@ impl wkt::message::Message for DeleteDatasetMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetDatasetRequest {
+
     /// Required. The resource name of the dataset to retrieve.
     pub name: std::string::String,
 
@@ -2818,6 +2741,7 @@ impl wkt::message::Message for GetDatasetRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDatasetsRequest {
+
     /// Required. Name of the parent project. In form of
     /// `projects/{project-number-or-id}/locations/{location-id}`
     pub parent: std::string::String,
@@ -2886,6 +2810,7 @@ impl wkt::message::Message for ListDatasetsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDatasetsResponse {
+
     /// The datasets read.
     pub datasets: std::vec::Vec<crate::model::Dataset>,
 
@@ -2917,7 +2842,7 @@ impl ListDatasetsResponse {
     pub fn set_datasets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Dataset>,
+        V: std::convert::Into<crate::model::Dataset>
     {
         use std::iter::Iterator;
         self.datasets = v.into_iter().map(|i| i.into()).collect();
@@ -2961,6 +2886,7 @@ impl gax::paginator::internal::PageableResponse for ListDatasetsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateDatasetRequest {
+
     /// Required. The project name.
     pub parent: std::string::String,
 
@@ -2996,8 +2922,7 @@ impl CreateDatasetRequest {
     /// let x = CreateDatasetRequest::new().set_dataset(Dataset::default()/* use setters */);
     /// ```
     pub fn set_dataset<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Dataset>,
+    where T: std::convert::Into<crate::model::Dataset>
     {
         self.dataset = std::option::Option::Some(v.into());
         self
@@ -3013,8 +2938,7 @@ impl CreateDatasetRequest {
     /// let x = CreateDatasetRequest::new().set_or_clear_dataset(None::<Dataset>);
     /// ```
     pub fn set_or_clear_dataset<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Dataset>,
+    where T: std::convert::Into<crate::model::Dataset>
     {
         self.dataset = v.map(|x| x.into());
         self
@@ -3031,6 +2955,7 @@ impl wkt::message::Message for CreateDatasetRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateDatasetMetadata {
+
     /// The current state of the operation.
     pub state: crate::model::OperationState,
 
@@ -3075,8 +3000,7 @@ impl CreateDatasetMetadata {
     /// let x = CreateDatasetMetadata::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -3092,8 +3016,7 @@ impl CreateDatasetMetadata {
     /// let x = CreateDatasetMetadata::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -3108,8 +3031,7 @@ impl CreateDatasetMetadata {
     /// let x = CreateDatasetMetadata::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -3125,8 +3047,7 @@ impl CreateDatasetMetadata {
     /// let x = CreateDatasetMetadata::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -3141,8 +3062,7 @@ impl CreateDatasetMetadata {
     /// let x = CreateDatasetMetadata::new().set_error(Status::default()/* use setters */);
     /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<rpc::model::Status>,
+    where T: std::convert::Into<rpc::model::Status>
     {
         self.error = std::option::Option::Some(v.into());
         self
@@ -3158,8 +3078,7 @@ impl CreateDatasetMetadata {
     /// let x = CreateDatasetMetadata::new().set_or_clear_error(None::<Status>);
     /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<rpc::model::Status>,
+    where T: std::convert::Into<rpc::model::Status>
     {
         self.error = v.map(|x| x.into());
         self
@@ -3176,6 +3095,7 @@ impl wkt::message::Message for CreateDatasetMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListExamplesRequest {
+
     /// Required. Name of the parent dataset. In form of
     /// `projects/{project-number-or-id}/locations/{location-id}/datasets/{dataset-id}`
     pub parent: std::string::String,
@@ -3262,6 +3182,7 @@ impl wkt::message::Message for ListExamplesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListExamplesResponse {
+
     /// The sentence pairs.
     pub examples: std::vec::Vec<crate::model::Example>,
 
@@ -3293,7 +3214,7 @@ impl ListExamplesResponse {
     pub fn set_examples<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Example>,
+        V: std::convert::Into<crate::model::Example>
     {
         use std::iter::Iterator;
         self.examples = v.into_iter().map(|i| i.into()).collect();
@@ -3337,6 +3258,7 @@ impl gax::paginator::internal::PageableResponse for ListExamplesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Example {
+
     /// Output only. The resource name of the example, in form of
     /// `projects/{project-number-or-id}/locations/{location_id}/datasets/{dataset_id}/examples/{example_id}`
     pub name: std::string::String,
@@ -3417,9 +3339,9 @@ impl wkt::message::Message for Example {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchTransferResourcesResponse {
+
     /// Responses of the transfer for individual resources.
-    pub responses:
-        std::vec::Vec<crate::model::batch_transfer_resources_response::TransferResourceResponse>,
+    pub responses: std::vec::Vec<crate::model::batch_transfer_resources_response::TransferResourceResponse>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -3444,9 +3366,7 @@ impl BatchTransferResourcesResponse {
     pub fn set_responses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<
-                crate::model::batch_transfer_resources_response::TransferResourceResponse,
-            >,
+        V: std::convert::Into<crate::model::batch_transfer_resources_response::TransferResourceResponse>
     {
         use std::iter::Iterator;
         self.responses = v.into_iter().map(|i| i.into()).collect();
@@ -3465,10 +3385,12 @@ pub mod batch_transfer_resources_response {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Transfer response for a single resource.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TransferResourceResponse {
+
         /// Full name of the resource to transfer as specified in the request.
         pub source: std::string::String,
 
@@ -3520,8 +3442,7 @@ pub mod batch_transfer_resources_response {
         /// let x = TransferResourceResponse::new().set_error(Status::default()/* use setters */);
         /// ```
         pub fn set_error<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<rpc::model::Status>,
+        where T: std::convert::Into<rpc::model::Status>
         {
             self.error = std::option::Option::Some(v.into());
             self
@@ -3537,8 +3458,7 @@ pub mod batch_transfer_resources_response {
         /// let x = TransferResourceResponse::new().set_or_clear_error(None::<Status>);
         /// ```
         pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<rpc::model::Status>,
+        where T: std::convert::Into<rpc::model::Status>
         {
             self.error = v.map(|x| x.into());
             self
@@ -3557,6 +3477,7 @@ pub mod batch_transfer_resources_response {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Dataset {
+
     /// The resource name of the dataset, in form of
     /// `projects/{project-number-or-id}/locations/{location_id}/datasets/{dataset_id}`
     pub name: std::string::String,
@@ -3629,10 +3550,7 @@ impl Dataset {
     /// # use google_cloud_translation_v3::model::Dataset;
     /// let x = Dataset::new().set_source_language_code("example");
     /// ```
-    pub fn set_source_language_code<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_language_code = v.into();
         self
     }
@@ -3644,10 +3562,7 @@ impl Dataset {
     /// # use google_cloud_translation_v3::model::Dataset;
     /// let x = Dataset::new().set_target_language_code("example");
     /// ```
-    pub fn set_target_language_code<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_target_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target_language_code = v.into();
         self
     }
@@ -3709,8 +3624,7 @@ impl Dataset {
     /// let x = Dataset::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -3726,8 +3640,7 @@ impl Dataset {
     /// let x = Dataset::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -3742,8 +3655,7 @@ impl Dataset {
     /// let x = Dataset::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -3759,8 +3671,7 @@ impl Dataset {
     /// let x = Dataset::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -3777,6 +3688,7 @@ impl wkt::message::Message for Dataset {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateModelRequest {
+
     /// Required. The project name, in form of
     /// `projects/{project}/locations/{location}`
     pub parent: std::string::String,
@@ -3813,8 +3725,7 @@ impl CreateModelRequest {
     /// let x = CreateModelRequest::new().set_model(Model::default()/* use setters */);
     /// ```
     pub fn set_model<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Model>,
+    where T: std::convert::Into<crate::model::Model>
     {
         self.model = std::option::Option::Some(v.into());
         self
@@ -3830,8 +3741,7 @@ impl CreateModelRequest {
     /// let x = CreateModelRequest::new().set_or_clear_model(None::<Model>);
     /// ```
     pub fn set_or_clear_model<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Model>,
+    where T: std::convert::Into<crate::model::Model>
     {
         self.model = v.map(|x| x.into());
         self
@@ -3848,6 +3758,7 @@ impl wkt::message::Message for CreateModelRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateModelMetadata {
+
     /// The current state of the operation.
     pub state: crate::model::OperationState,
 
@@ -3892,8 +3803,7 @@ impl CreateModelMetadata {
     /// let x = CreateModelMetadata::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -3909,8 +3819,7 @@ impl CreateModelMetadata {
     /// let x = CreateModelMetadata::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -3925,8 +3834,7 @@ impl CreateModelMetadata {
     /// let x = CreateModelMetadata::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -3942,8 +3850,7 @@ impl CreateModelMetadata {
     /// let x = CreateModelMetadata::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -3958,8 +3865,7 @@ impl CreateModelMetadata {
     /// let x = CreateModelMetadata::new().set_error(Status::default()/* use setters */);
     /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<rpc::model::Status>,
+    where T: std::convert::Into<rpc::model::Status>
     {
         self.error = std::option::Option::Some(v.into());
         self
@@ -3975,8 +3881,7 @@ impl CreateModelMetadata {
     /// let x = CreateModelMetadata::new().set_or_clear_error(None::<Status>);
     /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<rpc::model::Status>,
+    where T: std::convert::Into<rpc::model::Status>
     {
         self.error = v.map(|x| x.into());
         self
@@ -3993,6 +3898,7 @@ impl wkt::message::Message for CreateModelMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListModelsRequest {
+
     /// Required. Name of the parent project. In form of
     /// `projects/{project-number-or-id}/locations/{location-id}`
     pub parent: std::string::String,
@@ -4078,6 +3984,7 @@ impl wkt::message::Message for ListModelsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListModelsResponse {
+
     /// The models read.
     pub models: std::vec::Vec<crate::model::Model>,
 
@@ -4109,7 +4016,7 @@ impl ListModelsResponse {
     pub fn set_models<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Model>,
+        V: std::convert::Into<crate::model::Model>
     {
         use std::iter::Iterator;
         self.models = v.into_iter().map(|i| i.into()).collect();
@@ -4153,6 +4060,7 @@ impl gax::paginator::internal::PageableResponse for ListModelsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetModelRequest {
+
     /// Required. The resource name of the model to retrieve.
     pub name: std::string::String,
 
@@ -4187,6 +4095,7 @@ impl wkt::message::Message for GetModelRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteModelRequest {
+
     /// Required. The name of the model to delete.
     pub name: std::string::String,
 
@@ -4221,6 +4130,7 @@ impl wkt::message::Message for DeleteModelRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteModelMetadata {
+
     /// The current state of the operation.
     pub state: crate::model::OperationState,
 
@@ -4265,8 +4175,7 @@ impl DeleteModelMetadata {
     /// let x = DeleteModelMetadata::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -4282,8 +4191,7 @@ impl DeleteModelMetadata {
     /// let x = DeleteModelMetadata::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -4298,8 +4206,7 @@ impl DeleteModelMetadata {
     /// let x = DeleteModelMetadata::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -4315,8 +4222,7 @@ impl DeleteModelMetadata {
     /// let x = DeleteModelMetadata::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -4331,8 +4237,7 @@ impl DeleteModelMetadata {
     /// let x = DeleteModelMetadata::new().set_error(Status::default()/* use setters */);
     /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<rpc::model::Status>,
+    where T: std::convert::Into<rpc::model::Status>
     {
         self.error = std::option::Option::Some(v.into());
         self
@@ -4348,8 +4253,7 @@ impl DeleteModelMetadata {
     /// let x = DeleteModelMetadata::new().set_or_clear_error(None::<Status>);
     /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<rpc::model::Status>,
+    where T: std::convert::Into<rpc::model::Status>
     {
         self.error = v.map(|x| x.into());
         self
@@ -4366,6 +4270,7 @@ impl wkt::message::Message for DeleteModelMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Model {
+
     /// The resource name of the model, in form of
     /// `projects/{project-number-or-id}/locations/{location_id}/models/{model_id}`
     pub name: std::string::String,
@@ -4453,10 +4358,7 @@ impl Model {
     /// # use google_cloud_translation_v3::model::Model;
     /// let x = Model::new().set_source_language_code("example");
     /// ```
-    pub fn set_source_language_code<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_language_code = v.into();
         self
     }
@@ -4468,10 +4370,7 @@ impl Model {
     /// # use google_cloud_translation_v3::model::Model;
     /// let x = Model::new().set_target_language_code("example");
     /// ```
-    pub fn set_target_language_code<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_target_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target_language_code = v.into();
         self
     }
@@ -4521,8 +4420,7 @@ impl Model {
     /// let x = Model::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -4538,8 +4436,7 @@ impl Model {
     /// let x = Model::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -4554,8 +4451,7 @@ impl Model {
     /// let x = Model::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -4571,8 +4467,7 @@ impl Model {
     /// let x = Model::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -4589,6 +4484,7 @@ impl wkt::message::Message for Model {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GcsInputSource {
+
     /// Required. Source data URI. For example, `gs://my_bucket/my_object`.
     pub input_uri: std::string::String,
 
@@ -4623,6 +4519,7 @@ impl wkt::message::Message for GcsInputSource {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FileInputSource {
+
     /// Required. The file's mime type.
     pub mime_type: std::string::String,
 
@@ -4687,6 +4584,7 @@ impl wkt::message::Message for FileInputSource {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GcsOutputDestination {
+
     /// Required. Google Cloud Storage URI to output directory. For example,
     /// `gs://bucket/directory`. The requesting user must have write permission to
     /// the bucket. The directory will be created if it doesn't exist.
@@ -4707,10 +4605,7 @@ impl GcsOutputDestination {
     /// # use google_cloud_translation_v3::model::GcsOutputDestination;
     /// let x = GcsOutputDestination::new().set_output_uri_prefix("example");
     /// ```
-    pub fn set_output_uri_prefix<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_output_uri_prefix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.output_uri_prefix = v.into();
         self
     }
@@ -4726,6 +4621,7 @@ impl wkt::message::Message for GcsOutputDestination {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GlossaryEntry {
+
     /// Identifier. The resource name of the entry.
     /// Format:
     /// `projects/*/locations/*/glossaries/*/glossaryEntries/*`
@@ -4782,12 +4678,8 @@ impl GlossaryEntry {
     /// let x = GlossaryEntry::new().set_data(Some(
     ///     google_cloud_translation_v3::model::glossary_entry::Data::TermsPair(GlossaryTermsPair::default().into())));
     /// ```
-    pub fn set_data<
-        T: std::convert::Into<std::option::Option<crate::model::glossary_entry::Data>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_data<T: std::convert::Into<std::option::Option<crate::model::glossary_entry::Data>>>(mut self, v: T) -> Self
+    {
         self.data = v.into();
         self
     }
@@ -4795,10 +4687,7 @@ impl GlossaryEntry {
     /// The value of [data][crate::model::GlossaryEntry::data]
     /// if it holds a `TermsPair`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn terms_pair(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::glossary_entry::GlossaryTermsPair>>
-    {
+    pub fn terms_pair(&self) -> std::option::Option<&std::boxed::Box<crate::model::glossary_entry::GlossaryTermsPair>> {
         #[allow(unreachable_patterns)]
         self.data.as_ref().and_then(|v| match v {
             crate::model::glossary_entry::Data::TermsPair(v) => std::option::Option::Some(v),
@@ -4820,23 +4709,19 @@ impl GlossaryEntry {
     /// assert!(x.terms_pair().is_some());
     /// assert!(x.terms_set().is_none());
     /// ```
-    pub fn set_terms_pair<
-        T: std::convert::Into<std::boxed::Box<crate::model::glossary_entry::GlossaryTermsPair>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.data =
-            std::option::Option::Some(crate::model::glossary_entry::Data::TermsPair(v.into()));
+    pub fn set_terms_pair<T: std::convert::Into<std::boxed::Box<crate::model::glossary_entry::GlossaryTermsPair>>>(mut self, v: T) -> Self {
+        self.data = std::option::Option::Some(
+            crate::model::glossary_entry::Data::TermsPair(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [data][crate::model::GlossaryEntry::data]
     /// if it holds a `TermsSet`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn terms_set(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::glossary_entry::GlossaryTermsSet>> {
+    pub fn terms_set(&self) -> std::option::Option<&std::boxed::Box<crate::model::glossary_entry::GlossaryTermsSet>> {
         #[allow(unreachable_patterns)]
         self.data.as_ref().and_then(|v| match v {
             crate::model::glossary_entry::Data::TermsSet(v) => std::option::Option::Some(v),
@@ -4858,14 +4743,12 @@ impl GlossaryEntry {
     /// assert!(x.terms_set().is_some());
     /// assert!(x.terms_pair().is_none());
     /// ```
-    pub fn set_terms_set<
-        T: std::convert::Into<std::boxed::Box<crate::model::glossary_entry::GlossaryTermsSet>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.data =
-            std::option::Option::Some(crate::model::glossary_entry::Data::TermsSet(v.into()));
+    pub fn set_terms_set<T: std::convert::Into<std::boxed::Box<crate::model::glossary_entry::GlossaryTermsSet>>>(mut self, v: T) -> Self {
+        self.data = std::option::Option::Some(
+            crate::model::glossary_entry::Data::TermsSet(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -4881,10 +4764,12 @@ pub mod glossary_entry {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Represents a single entry for an unidirectional glossary.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GlossaryTermsPair {
+
         /// The source term is the term that will get match in the text,
         pub source_term: std::option::Option<crate::model::GlossaryTerm>,
 
@@ -4908,8 +4793,7 @@ pub mod glossary_entry {
         /// let x = GlossaryTermsPair::new().set_source_term(GlossaryTerm::default()/* use setters */);
         /// ```
         pub fn set_source_term<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::GlossaryTerm>,
+        where T: std::convert::Into<crate::model::GlossaryTerm>
         {
             self.source_term = std::option::Option::Some(v.into());
             self
@@ -4925,8 +4809,7 @@ pub mod glossary_entry {
         /// let x = GlossaryTermsPair::new().set_or_clear_source_term(None::<GlossaryTerm>);
         /// ```
         pub fn set_or_clear_source_term<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::GlossaryTerm>,
+        where T: std::convert::Into<crate::model::GlossaryTerm>
         {
             self.source_term = v.map(|x| x.into());
             self
@@ -4941,8 +4824,7 @@ pub mod glossary_entry {
         /// let x = GlossaryTermsPair::new().set_target_term(GlossaryTerm::default()/* use setters */);
         /// ```
         pub fn set_target_term<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::GlossaryTerm>,
+        where T: std::convert::Into<crate::model::GlossaryTerm>
         {
             self.target_term = std::option::Option::Some(v.into());
             self
@@ -4958,8 +4840,7 @@ pub mod glossary_entry {
         /// let x = GlossaryTermsPair::new().set_or_clear_target_term(None::<GlossaryTerm>);
         /// ```
         pub fn set_or_clear_target_term<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::GlossaryTerm>,
+        where T: std::convert::Into<crate::model::GlossaryTerm>
         {
             self.target_term = v.map(|x| x.into());
             self
@@ -4978,6 +4859,7 @@ pub mod glossary_entry {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GlossaryTermsSet {
+
         /// Each term in the set represents a term that can be replaced by the other
         /// terms.
         pub terms: std::vec::Vec<crate::model::GlossaryTerm>,
@@ -5005,7 +4887,7 @@ pub mod glossary_entry {
         pub fn set_terms<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::GlossaryTerm>,
+            V: std::convert::Into<crate::model::GlossaryTerm>
         {
             use std::iter::Iterator;
             self.terms = v.into_iter().map(|i| i.into()).collect();
@@ -5035,6 +4917,7 @@ pub mod glossary_entry {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GlossaryTerm {
+
     /// The language for this glossary term.
     pub language_code: std::string::String,
 
@@ -5084,6 +4967,7 @@ impl wkt::message::Message for GlossaryTerm {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TransliterationConfig {
+
     /// If true, source text in romanized form can be translated to the target
     /// language.
     pub enable_transliteration: bool,
@@ -5119,6 +5003,7 @@ impl wkt::message::Message for TransliterationConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TranslateTextRequest {
+
     /// Required. The content of the input in string format.
     /// We recommend the total content be less than 30,000 codepoints. The max
     /// length of this field is 1024. Use BatchTranslateText for larger text.
@@ -5195,7 +5080,7 @@ pub struct TranslateTextRequest {
     ///
     /// See <https://cloud.google.com/translate/docs/advanced/labels> for more
     /// information.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -5215,7 +5100,7 @@ impl TranslateTextRequest {
     pub fn set_contents<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.contents = v.into_iter().map(|i| i.into()).collect();
@@ -5241,10 +5126,7 @@ impl TranslateTextRequest {
     /// # use google_cloud_translation_v3::model::TranslateTextRequest;
     /// let x = TranslateTextRequest::new().set_source_language_code("example");
     /// ```
-    pub fn set_source_language_code<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_language_code = v.into();
         self
     }
@@ -5256,10 +5138,7 @@ impl TranslateTextRequest {
     /// # use google_cloud_translation_v3::model::TranslateTextRequest;
     /// let x = TranslateTextRequest::new().set_target_language_code("example");
     /// ```
-    pub fn set_target_language_code<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_target_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target_language_code = v.into();
         self
     }
@@ -5297,8 +5176,7 @@ impl TranslateTextRequest {
     /// let x = TranslateTextRequest::new().set_glossary_config(TranslateTextGlossaryConfig::default()/* use setters */);
     /// ```
     pub fn set_glossary_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TranslateTextGlossaryConfig>,
+    where T: std::convert::Into<crate::model::TranslateTextGlossaryConfig>
     {
         self.glossary_config = std::option::Option::Some(v.into());
         self
@@ -5314,8 +5192,7 @@ impl TranslateTextRequest {
     /// let x = TranslateTextRequest::new().set_or_clear_glossary_config(None::<TranslateTextGlossaryConfig>);
     /// ```
     pub fn set_or_clear_glossary_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TranslateTextGlossaryConfig>,
+    where T: std::convert::Into<crate::model::TranslateTextGlossaryConfig>
     {
         self.glossary_config = v.map(|x| x.into());
         self
@@ -5330,8 +5207,7 @@ impl TranslateTextRequest {
     /// let x = TranslateTextRequest::new().set_transliteration_config(TransliterationConfig::default()/* use setters */);
     /// ```
     pub fn set_transliteration_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TransliterationConfig>,
+    where T: std::convert::Into<crate::model::TransliterationConfig>
     {
         self.transliteration_config = std::option::Option::Some(v.into());
         self
@@ -5347,8 +5223,7 @@ impl TranslateTextRequest {
     /// let x = TranslateTextRequest::new().set_or_clear_transliteration_config(None::<TransliterationConfig>);
     /// ```
     pub fn set_or_clear_transliteration_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TransliterationConfig>,
+    where T: std::convert::Into<crate::model::TransliterationConfig>
     {
         self.transliteration_config = v.map(|x| x.into());
         self
@@ -5385,6 +5260,7 @@ impl wkt::message::Message for TranslateTextRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TranslateTextResponse {
+
     /// Text translation responses with no glossary applied.
     /// This field has the same length as
     /// [`contents`][google.cloud.translation.v3.TranslateTextRequest.contents].
@@ -5425,7 +5301,7 @@ impl TranslateTextResponse {
     pub fn set_translations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Translation>,
+        V: std::convert::Into<crate::model::Translation>
     {
         use std::iter::Iterator;
         self.translations = v.into_iter().map(|i| i.into()).collect();
@@ -5447,7 +5323,7 @@ impl TranslateTextResponse {
     pub fn set_glossary_translations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Translation>,
+        V: std::convert::Into<crate::model::Translation>
     {
         use std::iter::Iterator;
         self.glossary_translations = v.into_iter().map(|i| i.into()).collect();
@@ -5465,6 +5341,7 @@ impl wkt::message::Message for TranslateTextResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Translation {
+
     /// Text translated into the target language.
     /// If an error occurs during translation, this field might be excluded from
     /// the response.
@@ -5528,10 +5405,7 @@ impl Translation {
     /// # use google_cloud_translation_v3::model::Translation;
     /// let x = Translation::new().set_detected_language_code("example");
     /// ```
-    pub fn set_detected_language_code<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_detected_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.detected_language_code = v.into();
         self
     }
@@ -5545,8 +5419,7 @@ impl Translation {
     /// let x = Translation::new().set_glossary_config(TranslateTextGlossaryConfig::default()/* use setters */);
     /// ```
     pub fn set_glossary_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TranslateTextGlossaryConfig>,
+    where T: std::convert::Into<crate::model::TranslateTextGlossaryConfig>
     {
         self.glossary_config = std::option::Option::Some(v.into());
         self
@@ -5562,8 +5435,7 @@ impl Translation {
     /// let x = Translation::new().set_or_clear_glossary_config(None::<TranslateTextGlossaryConfig>);
     /// ```
     pub fn set_or_clear_glossary_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TranslateTextGlossaryConfig>,
+    where T: std::convert::Into<crate::model::TranslateTextGlossaryConfig>
     {
         self.glossary_config = v.map(|x| x.into());
         self
@@ -5580,6 +5452,7 @@ impl wkt::message::Message for Translation {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RomanizeTextRequest {
+
     /// Required. Project or location to make a call. Must refer to a caller's
     /// project.
     ///
@@ -5632,7 +5505,7 @@ impl RomanizeTextRequest {
     pub fn set_contents<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.contents = v.into_iter().map(|i| i.into()).collect();
@@ -5646,10 +5519,7 @@ impl RomanizeTextRequest {
     /// # use google_cloud_translation_v3::model::RomanizeTextRequest;
     /// let x = RomanizeTextRequest::new().set_source_language_code("example");
     /// ```
-    pub fn set_source_language_code<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_language_code = v.into();
         self
     }
@@ -5665,6 +5535,7 @@ impl wkt::message::Message for RomanizeTextRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Romanization {
+
     /// Romanized text.
     /// If an error occurs during romanization, this field might be excluded from
     /// the response.
@@ -5703,10 +5574,7 @@ impl Romanization {
     /// # use google_cloud_translation_v3::model::Romanization;
     /// let x = Romanization::new().set_detected_language_code("example");
     /// ```
-    pub fn set_detected_language_code<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_detected_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.detected_language_code = v.into();
         self
     }
@@ -5722,6 +5590,7 @@ impl wkt::message::Message for Romanization {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RomanizeTextResponse {
+
     /// Text romanization responses.
     /// This field has the same length as
     /// [`contents`][google.cloud.translation.v3.RomanizeTextRequest.contents].
@@ -5752,7 +5621,7 @@ impl RomanizeTextResponse {
     pub fn set_romanizations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Romanization>,
+        V: std::convert::Into<crate::model::Romanization>
     {
         use std::iter::Iterator;
         self.romanizations = v.into_iter().map(|i| i.into()).collect();
@@ -5770,6 +5639,7 @@ impl wkt::message::Message for RomanizeTextResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DetectLanguageRequest {
+
     /// Required. Project or location to make a call. Must refer to a caller's
     /// project.
     ///
@@ -5807,7 +5677,7 @@ pub struct DetectLanguageRequest {
     ///
     /// See <https://cloud.google.com/translate/docs/advanced/labels> for more
     /// information.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Required. The source of the document from which to detect the language.
     pub source: std::option::Option<crate::model::detect_language_request::Source>,
@@ -5888,12 +5758,8 @@ impl DetectLanguageRequest {
     /// use google_cloud_translation_v3::model::detect_language_request::Source;
     /// let x = DetectLanguageRequest::new().set_source(Some(Source::Content("example".to_string())));
     /// ```
-    pub fn set_source<
-        T: std::convert::Into<std::option::Option<crate::model::detect_language_request::Source>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source<T: std::convert::Into<std::option::Option<crate::model::detect_language_request::Source>>>(mut self, v: T) -> Self
+    {
         self.source = v.into();
         self
     }
@@ -5904,9 +5770,7 @@ impl DetectLanguageRequest {
     pub fn content(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
-            crate::model::detect_language_request::Source::Content(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::detect_language_request::Source::Content(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -5925,7 +5789,9 @@ impl DetectLanguageRequest {
     /// ```
     pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source = std::option::Option::Some(
-            crate::model::detect_language_request::Source::Content(v.into()),
+            crate::model::detect_language_request::Source::Content(
+                v.into()
+            )
         );
         self
     }
@@ -5942,6 +5808,7 @@ pub mod detect_language_request {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Required. The source of the document from which to detect the language.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -5955,6 +5822,7 @@ pub mod detect_language_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DetectedLanguage {
+
     /// The ISO-639 language code of the source content in the request, detected
     /// automatically.
     pub language_code: std::string::String,
@@ -6005,6 +5873,7 @@ impl wkt::message::Message for DetectedLanguage {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DetectLanguageResponse {
+
     /// The most probable language detected by the Translation API. For each
     /// request, the Translation API will always return only one result.
     pub languages: std::vec::Vec<crate::model::DetectedLanguage>,
@@ -6032,7 +5901,7 @@ impl DetectLanguageResponse {
     pub fn set_languages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::DetectedLanguage>,
+        V: std::convert::Into<crate::model::DetectedLanguage>
     {
         use std::iter::Iterator;
         self.languages = v.into_iter().map(|i| i.into()).collect();
@@ -6050,6 +5919,7 @@ impl wkt::message::Message for DetectLanguageResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSupportedLanguagesRequest {
+
     /// Required. Project or location to make a call. Must refer to a caller's
     /// project.
     ///
@@ -6112,10 +5982,7 @@ impl GetSupportedLanguagesRequest {
     /// # use google_cloud_translation_v3::model::GetSupportedLanguagesRequest;
     /// let x = GetSupportedLanguagesRequest::new().set_display_language_code("example");
     /// ```
-    pub fn set_display_language_code<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_display_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_language_code = v.into();
         self
     }
@@ -6143,6 +6010,7 @@ impl wkt::message::Message for GetSupportedLanguagesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SupportedLanguages {
+
     /// A list of supported language responses. This list contains an entry
     /// for each language the Translation API supports.
     pub languages: std::vec::Vec<crate::model::SupportedLanguage>,
@@ -6170,7 +6038,7 @@ impl SupportedLanguages {
     pub fn set_languages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::SupportedLanguage>,
+        V: std::convert::Into<crate::model::SupportedLanguage>
     {
         use std::iter::Iterator;
         self.languages = v.into_iter().map(|i| i.into()).collect();
@@ -6189,6 +6057,7 @@ impl wkt::message::Message for SupportedLanguages {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SupportedLanguage {
+
     /// Supported language code, generally consisting of its ISO 639-1
     /// identifier, for example, 'en', 'ja'. In certain cases, ISO-639 codes
     /// including language and region identifiers are returned (for example,
@@ -6272,6 +6141,7 @@ impl wkt::message::Message for SupportedLanguage {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GcsSource {
+
     /// Required. Source data URI. For example, `gs://my_bucket/my_object`.
     pub input_uri: std::string::String,
 
@@ -6306,6 +6176,7 @@ impl wkt::message::Message for GcsSource {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InputConfig {
+
     /// Optional. Can be "text/plain" or "text/html".
     /// For `.tsv`, "text/html" is used if mime_type is missing.
     /// For `.html`, this field must be "text/html" or empty.
@@ -6347,12 +6218,8 @@ impl InputConfig {
     /// let x = InputConfig::new().set_source(Some(
     ///     google_cloud_translation_v3::model::input_config::Source::GcsSource(GcsSource::default().into())));
     /// ```
-    pub fn set_source<
-        T: std::convert::Into<std::option::Option<crate::model::input_config::Source>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source<T: std::convert::Into<std::option::Option<crate::model::input_config::Source>>>(mut self, v: T) -> Self
+    {
         self.source = v.into();
         self
     }
@@ -6381,12 +6248,12 @@ impl InputConfig {
     /// let x = InputConfig::new().set_gcs_source(GcsSource::default()/* use setters */);
     /// assert!(x.gcs_source().is_some());
     /// ```
-    pub fn set_gcs_source<T: std::convert::Into<std::boxed::Box<crate::model::GcsSource>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source =
-            std::option::Option::Some(crate::model::input_config::Source::GcsSource(v.into()));
+    pub fn set_gcs_source<T: std::convert::Into<std::boxed::Box<crate::model::GcsSource>>>(mut self, v: T) -> Self {
+        self.source = std::option::Option::Some(
+            crate::model::input_config::Source::GcsSource(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -6401,6 +6268,7 @@ impl wkt::message::Message for InputConfig {
 pub mod input_config {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Required. Specify the input.
     #[derive(Clone, Debug, PartialEq)]
@@ -6432,6 +6300,7 @@ pub mod input_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GcsDestination {
+
     /// Required. The bucket used in 'output_uri_prefix' must exist and there must
     /// be no files under 'output_uri_prefix'. 'output_uri_prefix' must end with
     /// "/" and start with "gs://". One 'output_uri_prefix' can only be used by one
@@ -6454,10 +6323,7 @@ impl GcsDestination {
     /// # use google_cloud_translation_v3::model::GcsDestination;
     /// let x = GcsDestination::new().set_output_uri_prefix("example");
     /// ```
-    pub fn set_output_uri_prefix<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_output_uri_prefix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.output_uri_prefix = v.into();
         self
     }
@@ -6473,6 +6339,7 @@ impl wkt::message::Message for GcsDestination {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OutputConfig {
+
     /// Required. The destination of output.
     pub destination: std::option::Option<crate::model::output_config::Destination>,
 
@@ -6496,12 +6363,8 @@ impl OutputConfig {
     /// let x = OutputConfig::new().set_destination(Some(
     ///     google_cloud_translation_v3::model::output_config::Destination::GcsDestination(GcsDestination::default().into())));
     /// ```
-    pub fn set_destination<
-        T: std::convert::Into<std::option::Option<crate::model::output_config::Destination>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_destination<T: std::convert::Into<std::option::Option<crate::model::output_config::Destination>>>(mut self, v: T) -> Self
+    {
         self.destination = v.into();
         self
     }
@@ -6509,14 +6372,10 @@ impl OutputConfig {
     /// The value of [destination][crate::model::OutputConfig::destination]
     /// if it holds a `GcsDestination`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn gcs_destination(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::GcsDestination>> {
+    pub fn gcs_destination(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsDestination>> {
         #[allow(unreachable_patterns)]
         self.destination.as_ref().and_then(|v| match v {
-            crate::model::output_config::Destination::GcsDestination(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::output_config::Destination::GcsDestination(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -6534,14 +6393,11 @@ impl OutputConfig {
     /// let x = OutputConfig::new().set_gcs_destination(GcsDestination::default()/* use setters */);
     /// assert!(x.gcs_destination().is_some());
     /// ```
-    pub fn set_gcs_destination<
-        T: std::convert::Into<std::boxed::Box<crate::model::GcsDestination>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_gcs_destination<T: std::convert::Into<std::boxed::Box<crate::model::GcsDestination>>>(mut self, v: T) -> Self {
         self.destination = std::option::Option::Some(
-            crate::model::output_config::Destination::GcsDestination(v.into()),
+            crate::model::output_config::Destination::GcsDestination(
+                v.into()
+            )
         );
         self
     }
@@ -6557,6 +6413,7 @@ impl wkt::message::Message for OutputConfig {
 pub mod output_config {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Required. The destination of output.
     #[derive(Clone, Debug, PartialEq)]
@@ -6641,6 +6498,7 @@ pub mod output_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DocumentInputConfig {
+
     /// Specifies the input document's mime_type.
     ///
     /// If not specified it will be determined using the file extension for
@@ -6695,12 +6553,8 @@ impl DocumentInputConfig {
     /// use google_cloud_translation_v3::model::document_input_config::Source;
     /// let x = DocumentInputConfig::new().set_source(Some(Source::Content(bytes::Bytes::from_static(b"example"))));
     /// ```
-    pub fn set_source<
-        T: std::convert::Into<std::option::Option<crate::model::document_input_config::Source>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source<T: std::convert::Into<std::option::Option<crate::model::document_input_config::Source>>>(mut self, v: T) -> Self
+    {
         self.source = v.into();
         self
     }
@@ -6731,7 +6585,9 @@ impl DocumentInputConfig {
     /// ```
     pub fn set_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.source = std::option::Option::Some(
-            crate::model::document_input_config::Source::Content(v.into()),
+            crate::model::document_input_config::Source::Content(
+                v.into()
+            )
         );
         self
     }
@@ -6742,9 +6598,7 @@ impl DocumentInputConfig {
     pub fn gcs_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsSource>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
-            crate::model::document_input_config::Source::GcsSource(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::document_input_config::Source::GcsSource(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -6763,12 +6617,11 @@ impl DocumentInputConfig {
     /// assert!(x.gcs_source().is_some());
     /// assert!(x.content().is_none());
     /// ```
-    pub fn set_gcs_source<T: std::convert::Into<std::boxed::Box<crate::model::GcsSource>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_gcs_source<T: std::convert::Into<std::boxed::Box<crate::model::GcsSource>>>(mut self, v: T) -> Self {
         self.source = std::option::Option::Some(
-            crate::model::document_input_config::Source::GcsSource(v.into()),
+            crate::model::document_input_config::Source::GcsSource(
+                v.into()
+            )
         );
         self
     }
@@ -6784,6 +6637,7 @@ impl wkt::message::Message for DocumentInputConfig {
 pub mod document_input_config {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Specifies the source for the document's content.
     /// The input file size should be <= 20MB for
@@ -6808,6 +6662,7 @@ pub mod document_input_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DocumentOutputConfig {
+
     /// Optional. Specifies the translated document's mime_type.
     /// If not specified, the translated file's mime type will be the same as the
     /// input file's mime type.
@@ -6860,12 +6715,8 @@ impl DocumentOutputConfig {
     /// let x = DocumentOutputConfig::new().set_destination(Some(
     ///     google_cloud_translation_v3::model::document_output_config::Destination::GcsDestination(GcsDestination::default().into())));
     /// ```
-    pub fn set_destination<
-        T: std::convert::Into<std::option::Option<crate::model::document_output_config::Destination>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_destination<T: std::convert::Into<std::option::Option<crate::model::document_output_config::Destination>>>(mut self, v: T) -> Self
+    {
         self.destination = v.into();
         self
     }
@@ -6873,14 +6724,10 @@ impl DocumentOutputConfig {
     /// The value of [destination][crate::model::DocumentOutputConfig::destination]
     /// if it holds a `GcsDestination`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn gcs_destination(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::GcsDestination>> {
+    pub fn gcs_destination(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsDestination>> {
         #[allow(unreachable_patterns)]
         self.destination.as_ref().and_then(|v| match v {
-            crate::model::document_output_config::Destination::GcsDestination(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::document_output_config::Destination::GcsDestination(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -6898,14 +6745,11 @@ impl DocumentOutputConfig {
     /// let x = DocumentOutputConfig::new().set_gcs_destination(GcsDestination::default()/* use setters */);
     /// assert!(x.gcs_destination().is_some());
     /// ```
-    pub fn set_gcs_destination<
-        T: std::convert::Into<std::boxed::Box<crate::model::GcsDestination>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_gcs_destination<T: std::convert::Into<std::boxed::Box<crate::model::GcsDestination>>>(mut self, v: T) -> Self {
         self.destination = std::option::Option::Some(
-            crate::model::document_output_config::Destination::GcsDestination(v.into()),
+            crate::model::document_output_config::Destination::GcsDestination(
+                v.into()
+            )
         );
         self
     }
@@ -6921,6 +6765,7 @@ impl wkt::message::Message for DocumentOutputConfig {
 pub mod document_output_config {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// A URI destination for the translated document.
     /// It is optional to provide a destination. If provided the results from
@@ -6983,6 +6828,7 @@ pub mod document_output_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TranslateDocumentRequest {
+
     /// Required. Location to make a regional call.
     ///
     /// Format: `projects/{project-number-or-id}/locations/{location-id}`.
@@ -7050,7 +6896,7 @@ pub struct TranslateDocumentRequest {
     ///
     /// See <https://cloud.google.com/translate/docs/advanced/labels> for more
     /// information.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. This flag is to support user customized attribution.
     /// If not provided, the default is `Machine Translated by Google`.
@@ -7099,10 +6945,7 @@ impl TranslateDocumentRequest {
     /// # use google_cloud_translation_v3::model::TranslateDocumentRequest;
     /// let x = TranslateDocumentRequest::new().set_source_language_code("example");
     /// ```
-    pub fn set_source_language_code<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_language_code = v.into();
         self
     }
@@ -7114,10 +6957,7 @@ impl TranslateDocumentRequest {
     /// # use google_cloud_translation_v3::model::TranslateDocumentRequest;
     /// let x = TranslateDocumentRequest::new().set_target_language_code("example");
     /// ```
-    pub fn set_target_language_code<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_target_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target_language_code = v.into();
         self
     }
@@ -7131,8 +6971,7 @@ impl TranslateDocumentRequest {
     /// let x = TranslateDocumentRequest::new().set_document_input_config(DocumentInputConfig::default()/* use setters */);
     /// ```
     pub fn set_document_input_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DocumentInputConfig>,
+    where T: std::convert::Into<crate::model::DocumentInputConfig>
     {
         self.document_input_config = std::option::Option::Some(v.into());
         self
@@ -7148,8 +6987,7 @@ impl TranslateDocumentRequest {
     /// let x = TranslateDocumentRequest::new().set_or_clear_document_input_config(None::<DocumentInputConfig>);
     /// ```
     pub fn set_or_clear_document_input_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DocumentInputConfig>,
+    where T: std::convert::Into<crate::model::DocumentInputConfig>
     {
         self.document_input_config = v.map(|x| x.into());
         self
@@ -7164,8 +7002,7 @@ impl TranslateDocumentRequest {
     /// let x = TranslateDocumentRequest::new().set_document_output_config(DocumentOutputConfig::default()/* use setters */);
     /// ```
     pub fn set_document_output_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DocumentOutputConfig>,
+    where T: std::convert::Into<crate::model::DocumentOutputConfig>
     {
         self.document_output_config = std::option::Option::Some(v.into());
         self
@@ -7181,8 +7018,7 @@ impl TranslateDocumentRequest {
     /// let x = TranslateDocumentRequest::new().set_or_clear_document_output_config(None::<DocumentOutputConfig>);
     /// ```
     pub fn set_or_clear_document_output_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DocumentOutputConfig>,
+    where T: std::convert::Into<crate::model::DocumentOutputConfig>
     {
         self.document_output_config = v.map(|x| x.into());
         self
@@ -7209,8 +7045,7 @@ impl TranslateDocumentRequest {
     /// let x = TranslateDocumentRequest::new().set_glossary_config(TranslateTextGlossaryConfig::default()/* use setters */);
     /// ```
     pub fn set_glossary_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TranslateTextGlossaryConfig>,
+    where T: std::convert::Into<crate::model::TranslateTextGlossaryConfig>
     {
         self.glossary_config = std::option::Option::Some(v.into());
         self
@@ -7226,8 +7061,7 @@ impl TranslateDocumentRequest {
     /// let x = TranslateDocumentRequest::new().set_or_clear_glossary_config(None::<TranslateTextGlossaryConfig>);
     /// ```
     pub fn set_or_clear_glossary_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TranslateTextGlossaryConfig>,
+    where T: std::convert::Into<crate::model::TranslateTextGlossaryConfig>
     {
         self.glossary_config = v.map(|x| x.into());
         self
@@ -7261,10 +7095,7 @@ impl TranslateDocumentRequest {
     /// # use google_cloud_translation_v3::model::TranslateDocumentRequest;
     /// let x = TranslateDocumentRequest::new().set_customized_attribution("example");
     /// ```
-    pub fn set_customized_attribution<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_customized_attribution<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.customized_attribution = v.into();
         self
     }
@@ -7288,10 +7119,7 @@ impl TranslateDocumentRequest {
     /// # use google_cloud_translation_v3::model::TranslateDocumentRequest;
     /// let x = TranslateDocumentRequest::new().set_enable_shadow_removal_native_pdf(true);
     /// ```
-    pub fn set_enable_shadow_removal_native_pdf<T: std::convert::Into<bool>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_enable_shadow_removal_native_pdf<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_shadow_removal_native_pdf = v.into();
         self
     }
@@ -7319,6 +7147,7 @@ impl wkt::message::Message for TranslateDocumentRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DocumentTranslation {
+
     /// The array of translated documents. It is expected to be size 1 for now. We
     /// may produce multiple translated documents in the future for other type of
     /// file formats.
@@ -7354,7 +7183,7 @@ impl DocumentTranslation {
     pub fn set_byte_stream_outputs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<::bytes::Bytes>,
+        V: std::convert::Into<::bytes::Bytes>
     {
         use std::iter::Iterator;
         self.byte_stream_outputs = v.into_iter().map(|i| i.into()).collect();
@@ -7380,10 +7209,7 @@ impl DocumentTranslation {
     /// # use google_cloud_translation_v3::model::DocumentTranslation;
     /// let x = DocumentTranslation::new().set_detected_language_code("example");
     /// ```
-    pub fn set_detected_language_code<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_detected_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.detected_language_code = v.into();
         self
     }
@@ -7399,6 +7225,7 @@ impl wkt::message::Message for DocumentTranslation {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TranslateDocumentResponse {
+
     /// Translated document.
     pub document_translation: std::option::Option<crate::model::DocumentTranslation>,
 
@@ -7437,8 +7264,7 @@ impl TranslateDocumentResponse {
     /// let x = TranslateDocumentResponse::new().set_document_translation(DocumentTranslation::default()/* use setters */);
     /// ```
     pub fn set_document_translation<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DocumentTranslation>,
+    where T: std::convert::Into<crate::model::DocumentTranslation>
     {
         self.document_translation = std::option::Option::Some(v.into());
         self
@@ -7454,8 +7280,7 @@ impl TranslateDocumentResponse {
     /// let x = TranslateDocumentResponse::new().set_or_clear_document_translation(None::<DocumentTranslation>);
     /// ```
     pub fn set_or_clear_document_translation<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DocumentTranslation>,
+    where T: std::convert::Into<crate::model::DocumentTranslation>
     {
         self.document_translation = v.map(|x| x.into());
         self
@@ -7470,8 +7295,7 @@ impl TranslateDocumentResponse {
     /// let x = TranslateDocumentResponse::new().set_glossary_document_translation(DocumentTranslation::default()/* use setters */);
     /// ```
     pub fn set_glossary_document_translation<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DocumentTranslation>,
+    where T: std::convert::Into<crate::model::DocumentTranslation>
     {
         self.glossary_document_translation = std::option::Option::Some(v.into());
         self
@@ -7486,12 +7310,8 @@ impl TranslateDocumentResponse {
     /// let x = TranslateDocumentResponse::new().set_or_clear_glossary_document_translation(Some(DocumentTranslation::default()/* use setters */));
     /// let x = TranslateDocumentResponse::new().set_or_clear_glossary_document_translation(None::<DocumentTranslation>);
     /// ```
-    pub fn set_or_clear_glossary_document_translation<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<crate::model::DocumentTranslation>,
+    pub fn set_or_clear_glossary_document_translation<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<crate::model::DocumentTranslation>
     {
         self.glossary_document_translation = v.map(|x| x.into());
         self
@@ -7518,8 +7338,7 @@ impl TranslateDocumentResponse {
     /// let x = TranslateDocumentResponse::new().set_glossary_config(TranslateTextGlossaryConfig::default()/* use setters */);
     /// ```
     pub fn set_glossary_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TranslateTextGlossaryConfig>,
+    where T: std::convert::Into<crate::model::TranslateTextGlossaryConfig>
     {
         self.glossary_config = std::option::Option::Some(v.into());
         self
@@ -7535,8 +7354,7 @@ impl TranslateDocumentResponse {
     /// let x = TranslateDocumentResponse::new().set_or_clear_glossary_config(None::<TranslateTextGlossaryConfig>);
     /// ```
     pub fn set_or_clear_glossary_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TranslateTextGlossaryConfig>,
+    where T: std::convert::Into<crate::model::TranslateTextGlossaryConfig>
     {
         self.glossary_config = v.map(|x| x.into());
         self
@@ -7553,6 +7371,7 @@ impl wkt::message::Message for TranslateDocumentResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchTranslateTextRequest {
+
     /// Required. Location to make a call. Must refer to a caller's project.
     ///
     /// Format: `projects/{project-number-or-id}/locations/{location-id}`.
@@ -7589,7 +7408,7 @@ pub struct BatchTranslateTextRequest {
     ///
     /// If the map is empty or a specific model is
     /// not requested for a language pair, then default google model (nmt) is used.
-    pub models: std::collections::HashMap<std::string::String, std::string::String>,
+    pub models: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Required. Input configurations.
     /// The total number of files matched should be <= 100.
@@ -7604,8 +7423,7 @@ pub struct BatchTranslateTextRequest {
 
     /// Optional. Glossaries to be applied for translation.
     /// It's keyed by target language code.
-    pub glossaries:
-        std::collections::HashMap<std::string::String, crate::model::TranslateTextGlossaryConfig>,
+    pub glossaries: std::collections::HashMap<std::string::String,crate::model::TranslateTextGlossaryConfig>,
 
     /// Optional. The labels with user-defined metadata for the request.
     ///
@@ -7616,7 +7434,7 @@ pub struct BatchTranslateTextRequest {
     ///
     /// See <https://cloud.google.com/translate/docs/advanced/labels> for more
     /// information.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -7645,10 +7463,7 @@ impl BatchTranslateTextRequest {
     /// # use google_cloud_translation_v3::model::BatchTranslateTextRequest;
     /// let x = BatchTranslateTextRequest::new().set_source_language_code("example");
     /// ```
-    pub fn set_source_language_code<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_language_code = v.into();
         self
     }
@@ -7663,7 +7478,7 @@ impl BatchTranslateTextRequest {
     pub fn set_target_language_codes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.target_language_codes = v.into_iter().map(|i| i.into()).collect();
@@ -7706,7 +7521,7 @@ impl BatchTranslateTextRequest {
     pub fn set_input_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::InputConfig>,
+        V: std::convert::Into<crate::model::InputConfig>
     {
         use std::iter::Iterator;
         self.input_configs = v.into_iter().map(|i| i.into()).collect();
@@ -7722,8 +7537,7 @@ impl BatchTranslateTextRequest {
     /// let x = BatchTranslateTextRequest::new().set_output_config(OutputConfig::default()/* use setters */);
     /// ```
     pub fn set_output_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::OutputConfig>,
+    where T: std::convert::Into<crate::model::OutputConfig>
     {
         self.output_config = std::option::Option::Some(v.into());
         self
@@ -7739,8 +7553,7 @@ impl BatchTranslateTextRequest {
     /// let x = BatchTranslateTextRequest::new().set_or_clear_output_config(None::<OutputConfig>);
     /// ```
     pub fn set_or_clear_output_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::OutputConfig>,
+    where T: std::convert::Into<crate::model::OutputConfig>
     {
         self.output_config = v.map(|x| x.into());
         self
@@ -7800,6 +7613,7 @@ impl wkt::message::Message for BatchTranslateTextRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchTranslateMetadata {
+
     /// The state of the operation.
     pub state: crate::model::batch_translate_metadata::State,
 
@@ -7836,10 +7650,7 @@ impl BatchTranslateMetadata {
     /// let x1 = BatchTranslateMetadata::new().set_state(State::Succeeded);
     /// let x2 = BatchTranslateMetadata::new().set_state(State::Failed);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::batch_translate_metadata::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::batch_translate_metadata::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -7889,8 +7700,7 @@ impl BatchTranslateMetadata {
     /// let x = BatchTranslateMetadata::new().set_submit_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_submit_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.submit_time = std::option::Option::Some(v.into());
         self
@@ -7906,8 +7716,7 @@ impl BatchTranslateMetadata {
     /// let x = BatchTranslateMetadata::new().set_or_clear_submit_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_submit_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.submit_time = v.map(|x| x.into());
         self
@@ -7924,6 +7733,7 @@ impl wkt::message::Message for BatchTranslateMetadata {
 pub mod batch_translate_metadata {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// State of the job.
     ///
@@ -8030,9 +7840,7 @@ pub mod batch_translate_metadata {
                 3 => Self::Failed,
                 4 => Self::Cancelling,
                 5 => Self::Cancelled,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -8047,9 +7855,7 @@ pub mod batch_translate_metadata {
                 "FAILED" => Self::Failed,
                 "CANCELLING" => Self::Cancelling,
                 "CANCELLED" => Self::Cancelled,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -8077,8 +7883,7 @@ pub mod batch_translate_metadata {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.translation.v3.BatchTranslateMetadata.State",
-            ))
+                ".google.cloud.translation.v3.BatchTranslateMetadata.State"))
         }
     }
 }
@@ -8092,6 +7897,7 @@ pub mod batch_translate_metadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchTranslateResponse {
+
     /// Total number of characters (Unicode codepoints).
     pub total_characters: i64,
 
@@ -8164,8 +7970,7 @@ impl BatchTranslateResponse {
     /// let x = BatchTranslateResponse::new().set_submit_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_submit_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.submit_time = std::option::Option::Some(v.into());
         self
@@ -8181,8 +7986,7 @@ impl BatchTranslateResponse {
     /// let x = BatchTranslateResponse::new().set_or_clear_submit_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_submit_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.submit_time = v.map(|x| x.into());
         self
@@ -8197,8 +8001,7 @@ impl BatchTranslateResponse {
     /// let x = BatchTranslateResponse::new().set_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -8214,8 +8017,7 @@ impl BatchTranslateResponse {
     /// let x = BatchTranslateResponse::new().set_or_clear_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -8232,6 +8034,7 @@ impl wkt::message::Message for BatchTranslateResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GlossaryInputConfig {
+
     /// Required. Specify the input.
     pub source: std::option::Option<crate::model::glossary_input_config::Source>,
 
@@ -8255,12 +8058,8 @@ impl GlossaryInputConfig {
     /// let x = GlossaryInputConfig::new().set_source(Some(
     ///     google_cloud_translation_v3::model::glossary_input_config::Source::GcsSource(GcsSource::default().into())));
     /// ```
-    pub fn set_source<
-        T: std::convert::Into<std::option::Option<crate::model::glossary_input_config::Source>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source<T: std::convert::Into<std::option::Option<crate::model::glossary_input_config::Source>>>(mut self, v: T) -> Self
+    {
         self.source = v.into();
         self
     }
@@ -8271,9 +8070,7 @@ impl GlossaryInputConfig {
     pub fn gcs_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsSource>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
-            crate::model::glossary_input_config::Source::GcsSource(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::glossary_input_config::Source::GcsSource(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -8291,12 +8088,11 @@ impl GlossaryInputConfig {
     /// let x = GlossaryInputConfig::new().set_gcs_source(GcsSource::default()/* use setters */);
     /// assert!(x.gcs_source().is_some());
     /// ```
-    pub fn set_gcs_source<T: std::convert::Into<std::boxed::Box<crate::model::GcsSource>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_gcs_source<T: std::convert::Into<std::boxed::Box<crate::model::GcsSource>>>(mut self, v: T) -> Self {
         self.source = std::option::Option::Some(
-            crate::model::glossary_input_config::Source::GcsSource(v.into()),
+            crate::model::glossary_input_config::Source::GcsSource(
+                v.into()
+            )
         );
         self
     }
@@ -8312,6 +8108,7 @@ impl wkt::message::Message for GlossaryInputConfig {
 pub mod glossary_input_config {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Required. Specify the input.
     #[derive(Clone, Debug, PartialEq)]
@@ -8347,6 +8144,7 @@ pub mod glossary_input_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Glossary {
+
     /// Required. The resource name of the glossary. Glossary names have the form
     /// `projects/{project-number-or-id}/locations/{location-id}/glossaries/{glossary-id}`.
     pub name: std::string::String,
@@ -8399,8 +8197,7 @@ impl Glossary {
     /// let x = Glossary::new().set_input_config(GlossaryInputConfig::default()/* use setters */);
     /// ```
     pub fn set_input_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::GlossaryInputConfig>,
+    where T: std::convert::Into<crate::model::GlossaryInputConfig>
     {
         self.input_config = std::option::Option::Some(v.into());
         self
@@ -8416,8 +8213,7 @@ impl Glossary {
     /// let x = Glossary::new().set_or_clear_input_config(None::<GlossaryInputConfig>);
     /// ```
     pub fn set_or_clear_input_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::GlossaryInputConfig>,
+    where T: std::convert::Into<crate::model::GlossaryInputConfig>
     {
         self.input_config = v.map(|x| x.into());
         self
@@ -8444,8 +8240,7 @@ impl Glossary {
     /// let x = Glossary::new().set_submit_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_submit_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.submit_time = std::option::Option::Some(v.into());
         self
@@ -8461,8 +8256,7 @@ impl Glossary {
     /// let x = Glossary::new().set_or_clear_submit_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_submit_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.submit_time = v.map(|x| x.into());
         self
@@ -8477,8 +8271,7 @@ impl Glossary {
     /// let x = Glossary::new().set_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -8494,8 +8287,7 @@ impl Glossary {
     /// let x = Glossary::new().set_or_clear_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -8525,12 +8317,8 @@ impl Glossary {
     /// let x = Glossary::new().set_languages(Some(
     ///     google_cloud_translation_v3::model::glossary::Languages::LanguagePair(LanguageCodePair::default().into())));
     /// ```
-    pub fn set_languages<
-        T: std::convert::Into<std::option::Option<crate::model::glossary::Languages>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_languages<T: std::convert::Into<std::option::Option<crate::model::glossary::Languages>>>(mut self, v: T) -> Self
+    {
         self.languages = v.into();
         self
     }
@@ -8538,9 +8326,7 @@ impl Glossary {
     /// The value of [languages][crate::model::Glossary::languages]
     /// if it holds a `LanguagePair`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn language_pair(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::glossary::LanguageCodePair>> {
+    pub fn language_pair(&self) -> std::option::Option<&std::boxed::Box<crate::model::glossary::LanguageCodePair>> {
         #[allow(unreachable_patterns)]
         self.languages.as_ref().and_then(|v| match v {
             crate::model::glossary::Languages::LanguagePair(v) => std::option::Option::Some(v),
@@ -8562,23 +8348,19 @@ impl Glossary {
     /// assert!(x.language_pair().is_some());
     /// assert!(x.language_codes_set().is_none());
     /// ```
-    pub fn set_language_pair<
-        T: std::convert::Into<std::boxed::Box<crate::model::glossary::LanguageCodePair>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.languages =
-            std::option::Option::Some(crate::model::glossary::Languages::LanguagePair(v.into()));
+    pub fn set_language_pair<T: std::convert::Into<std::boxed::Box<crate::model::glossary::LanguageCodePair>>>(mut self, v: T) -> Self {
+        self.languages = std::option::Option::Some(
+            crate::model::glossary::Languages::LanguagePair(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [languages][crate::model::Glossary::languages]
     /// if it holds a `LanguageCodesSet`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn language_codes_set(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::glossary::LanguageCodesSet>> {
+    pub fn language_codes_set(&self) -> std::option::Option<&std::boxed::Box<crate::model::glossary::LanguageCodesSet>> {
         #[allow(unreachable_patterns)]
         self.languages.as_ref().and_then(|v| match v {
             crate::model::glossary::Languages::LanguageCodesSet(v) => std::option::Option::Some(v),
@@ -8600,14 +8382,11 @@ impl Glossary {
     /// assert!(x.language_codes_set().is_some());
     /// assert!(x.language_pair().is_none());
     /// ```
-    pub fn set_language_codes_set<
-        T: std::convert::Into<std::boxed::Box<crate::model::glossary::LanguageCodesSet>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_language_codes_set<T: std::convert::Into<std::boxed::Box<crate::model::glossary::LanguageCodesSet>>>(mut self, v: T) -> Self {
         self.languages = std::option::Option::Some(
-            crate::model::glossary::Languages::LanguageCodesSet(v.into()),
+            crate::model::glossary::Languages::LanguageCodesSet(
+                v.into()
+            )
         );
         self
     }
@@ -8624,10 +8403,12 @@ pub mod glossary {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Used with unidirectional glossaries.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct LanguageCodePair {
+
         /// Required. The ISO-639 language code of the input text, for example,
         /// "en-US". Expected to be an exact match for GlossaryTerm.language_code.
         pub source_language_code: std::string::String,
@@ -8651,10 +8432,7 @@ pub mod glossary {
         /// # use google_cloud_translation_v3::model::glossary::LanguageCodePair;
         /// let x = LanguageCodePair::new().set_source_language_code("example");
         /// ```
-        pub fn set_source_language_code<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_source_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.source_language_code = v.into();
             self
         }
@@ -8666,10 +8444,7 @@ pub mod glossary {
         /// # use google_cloud_translation_v3::model::glossary::LanguageCodePair;
         /// let x = LanguageCodePair::new().set_target_language_code("example");
         /// ```
-        pub fn set_target_language_code<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_target_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.target_language_code = v.into();
             self
         }
@@ -8685,6 +8460,7 @@ pub mod glossary {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct LanguageCodesSet {
+
         /// The ISO-639 language code(s) for terms defined in the glossary.
         /// All entries are unique. The list contains at least two entries.
         /// Expected to be an exact match for GlossaryTerm.language_code.
@@ -8708,7 +8484,7 @@ pub mod glossary {
         pub fn set_language_codes<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.language_codes = v.into_iter().map(|i| i.into()).collect();
@@ -8737,6 +8513,7 @@ pub mod glossary {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateGlossaryRequest {
+
     /// Required. The project name.
     pub parent: std::string::String,
 
@@ -8772,8 +8549,7 @@ impl CreateGlossaryRequest {
     /// let x = CreateGlossaryRequest::new().set_glossary(Glossary::default()/* use setters */);
     /// ```
     pub fn set_glossary<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Glossary>,
+    where T: std::convert::Into<crate::model::Glossary>
     {
         self.glossary = std::option::Option::Some(v.into());
         self
@@ -8789,8 +8565,7 @@ impl CreateGlossaryRequest {
     /// let x = CreateGlossaryRequest::new().set_or_clear_glossary(None::<Glossary>);
     /// ```
     pub fn set_or_clear_glossary<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Glossary>,
+    where T: std::convert::Into<crate::model::Glossary>
     {
         self.glossary = v.map(|x| x.into());
         self
@@ -8807,6 +8582,7 @@ impl wkt::message::Message for CreateGlossaryRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateGlossaryRequest {
+
     /// Required. The glossary entry to update.
     pub glossary: std::option::Option<crate::model::Glossary>,
 
@@ -8831,8 +8607,7 @@ impl UpdateGlossaryRequest {
     /// let x = UpdateGlossaryRequest::new().set_glossary(Glossary::default()/* use setters */);
     /// ```
     pub fn set_glossary<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Glossary>,
+    where T: std::convert::Into<crate::model::Glossary>
     {
         self.glossary = std::option::Option::Some(v.into());
         self
@@ -8848,8 +8623,7 @@ impl UpdateGlossaryRequest {
     /// let x = UpdateGlossaryRequest::new().set_or_clear_glossary(None::<Glossary>);
     /// ```
     pub fn set_or_clear_glossary<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Glossary>,
+    where T: std::convert::Into<crate::model::Glossary>
     {
         self.glossary = v.map(|x| x.into());
         self
@@ -8864,8 +8638,7 @@ impl UpdateGlossaryRequest {
     /// let x = UpdateGlossaryRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -8881,8 +8654,7 @@ impl UpdateGlossaryRequest {
     /// let x = UpdateGlossaryRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -8899,6 +8671,7 @@ impl wkt::message::Message for UpdateGlossaryRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetGlossaryRequest {
+
     /// Required. The name of the glossary to retrieve.
     pub name: std::string::String,
 
@@ -8933,6 +8706,7 @@ impl wkt::message::Message for GetGlossaryRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteGlossaryRequest {
+
     /// Required. The name of the glossary to delete.
     pub name: std::string::String,
 
@@ -8967,6 +8741,7 @@ impl wkt::message::Message for DeleteGlossaryRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListGlossariesRequest {
+
     /// Required. The name of the project from which to list all of the glossaries.
     pub parent: std::string::String,
 
@@ -9065,6 +8840,7 @@ impl wkt::message::Message for ListGlossariesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListGlossariesResponse {
+
     /// The list of glossaries for a project.
     pub glossaries: std::vec::Vec<crate::model::Glossary>,
 
@@ -9096,7 +8872,7 @@ impl ListGlossariesResponse {
     pub fn set_glossaries<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Glossary>,
+        V: std::convert::Into<crate::model::Glossary>
     {
         use std::iter::Iterator;
         self.glossaries = v.into_iter().map(|i| i.into()).collect();
@@ -9140,6 +8916,7 @@ impl gax::paginator::internal::PageableResponse for ListGlossariesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetGlossaryEntryRequest {
+
     /// Required. The resource name of the glossary entry to get
     pub name: std::string::String,
 
@@ -9174,6 +8951,7 @@ impl wkt::message::Message for GetGlossaryEntryRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteGlossaryEntryRequest {
+
     /// Required. The resource name of the glossary entry to delete
     pub name: std::string::String,
 
@@ -9208,6 +8986,7 @@ impl wkt::message::Message for DeleteGlossaryEntryRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListGlossaryEntriesRequest {
+
     /// Required. The parent glossary resource name for listing the glossary's
     /// entries.
     pub parent: std::string::String,
@@ -9277,6 +9056,7 @@ impl wkt::message::Message for ListGlossaryEntriesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListGlossaryEntriesResponse {
+
     /// Optional. The Glossary Entries
     pub glossary_entries: std::vec::Vec<crate::model::GlossaryEntry>,
 
@@ -9307,7 +9087,7 @@ impl ListGlossaryEntriesResponse {
     pub fn set_glossary_entries<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::GlossaryEntry>,
+        V: std::convert::Into<crate::model::GlossaryEntry>
     {
         use std::iter::Iterator;
         self.glossary_entries = v.into_iter().map(|i| i.into()).collect();
@@ -9351,6 +9131,7 @@ impl gax::paginator::internal::PageableResponse for ListGlossaryEntriesResponse 
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateGlossaryEntryRequest {
+
     /// Required. The resource name of the glossary to create the entry under.
     pub parent: std::string::String,
 
@@ -9386,8 +9167,7 @@ impl CreateGlossaryEntryRequest {
     /// let x = CreateGlossaryEntryRequest::new().set_glossary_entry(GlossaryEntry::default()/* use setters */);
     /// ```
     pub fn set_glossary_entry<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::GlossaryEntry>,
+    where T: std::convert::Into<crate::model::GlossaryEntry>
     {
         self.glossary_entry = std::option::Option::Some(v.into());
         self
@@ -9403,8 +9183,7 @@ impl CreateGlossaryEntryRequest {
     /// let x = CreateGlossaryEntryRequest::new().set_or_clear_glossary_entry(None::<GlossaryEntry>);
     /// ```
     pub fn set_or_clear_glossary_entry<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::GlossaryEntry>,
+    where T: std::convert::Into<crate::model::GlossaryEntry>
     {
         self.glossary_entry = v.map(|x| x.into());
         self
@@ -9421,6 +9200,7 @@ impl wkt::message::Message for CreateGlossaryEntryRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateGlossaryEntryRequest {
+
     /// Required. The glossary entry to update.
     pub glossary_entry: std::option::Option<crate::model::GlossaryEntry>,
 
@@ -9441,8 +9221,7 @@ impl UpdateGlossaryEntryRequest {
     /// let x = UpdateGlossaryEntryRequest::new().set_glossary_entry(GlossaryEntry::default()/* use setters */);
     /// ```
     pub fn set_glossary_entry<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::GlossaryEntry>,
+    where T: std::convert::Into<crate::model::GlossaryEntry>
     {
         self.glossary_entry = std::option::Option::Some(v.into());
         self
@@ -9458,8 +9237,7 @@ impl UpdateGlossaryEntryRequest {
     /// let x = UpdateGlossaryEntryRequest::new().set_or_clear_glossary_entry(None::<GlossaryEntry>);
     /// ```
     pub fn set_or_clear_glossary_entry<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::GlossaryEntry>,
+    where T: std::convert::Into<crate::model::GlossaryEntry>
     {
         self.glossary_entry = v.map(|x| x.into());
         self
@@ -9480,6 +9258,7 @@ impl wkt::message::Message for UpdateGlossaryEntryRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateGlossaryMetadata {
+
     /// The name of the glossary that is being created.
     pub name: std::string::String,
 
@@ -9519,10 +9298,7 @@ impl CreateGlossaryMetadata {
     /// let x1 = CreateGlossaryMetadata::new().set_state(State::Succeeded);
     /// let x2 = CreateGlossaryMetadata::new().set_state(State::Failed);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::create_glossary_metadata::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::create_glossary_metadata::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -9536,8 +9312,7 @@ impl CreateGlossaryMetadata {
     /// let x = CreateGlossaryMetadata::new().set_submit_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_submit_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.submit_time = std::option::Option::Some(v.into());
         self
@@ -9553,8 +9328,7 @@ impl CreateGlossaryMetadata {
     /// let x = CreateGlossaryMetadata::new().set_or_clear_submit_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_submit_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.submit_time = v.map(|x| x.into());
         self
@@ -9571,6 +9345,7 @@ impl wkt::message::Message for CreateGlossaryMetadata {
 pub mod create_glossary_metadata {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Enumerates the possible states that the creation request can be in.
     ///
@@ -9674,9 +9449,7 @@ pub mod create_glossary_metadata {
                 3 => Self::Failed,
                 4 => Self::Cancelling,
                 5 => Self::Cancelled,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -9691,9 +9464,7 @@ pub mod create_glossary_metadata {
                 "FAILED" => Self::Failed,
                 "CANCELLING" => Self::Cancelling,
                 "CANCELLED" => Self::Cancelled,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -9721,8 +9492,7 @@ pub mod create_glossary_metadata {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.translation.v3.CreateGlossaryMetadata.State",
-            ))
+                ".google.cloud.translation.v3.CreateGlossaryMetadata.State"))
         }
     }
 }
@@ -9735,6 +9505,7 @@ pub mod create_glossary_metadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateGlossaryMetadata {
+
     /// The updated glossary object.
     pub glossary: std::option::Option<crate::model::Glossary>,
 
@@ -9762,8 +9533,7 @@ impl UpdateGlossaryMetadata {
     /// let x = UpdateGlossaryMetadata::new().set_glossary(Glossary::default()/* use setters */);
     /// ```
     pub fn set_glossary<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Glossary>,
+    where T: std::convert::Into<crate::model::Glossary>
     {
         self.glossary = std::option::Option::Some(v.into());
         self
@@ -9779,8 +9549,7 @@ impl UpdateGlossaryMetadata {
     /// let x = UpdateGlossaryMetadata::new().set_or_clear_glossary(None::<Glossary>);
     /// ```
     pub fn set_or_clear_glossary<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Glossary>,
+    where T: std::convert::Into<crate::model::Glossary>
     {
         self.glossary = v.map(|x| x.into());
         self
@@ -9796,10 +9565,7 @@ impl UpdateGlossaryMetadata {
     /// let x1 = UpdateGlossaryMetadata::new().set_state(State::Succeeded);
     /// let x2 = UpdateGlossaryMetadata::new().set_state(State::Failed);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::update_glossary_metadata::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::update_glossary_metadata::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -9813,8 +9579,7 @@ impl UpdateGlossaryMetadata {
     /// let x = UpdateGlossaryMetadata::new().set_submit_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_submit_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.submit_time = std::option::Option::Some(v.into());
         self
@@ -9830,8 +9595,7 @@ impl UpdateGlossaryMetadata {
     /// let x = UpdateGlossaryMetadata::new().set_or_clear_submit_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_submit_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.submit_time = v.map(|x| x.into());
         self
@@ -9848,6 +9612,7 @@ impl wkt::message::Message for UpdateGlossaryMetadata {
 pub mod update_glossary_metadata {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Enumerates the possible states that the update request can be in.
     ///
@@ -9951,9 +9716,7 @@ pub mod update_glossary_metadata {
                 3 => Self::Failed,
                 4 => Self::Cancelling,
                 5 => Self::Cancelled,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -9968,9 +9731,7 @@ pub mod update_glossary_metadata {
                 "FAILED" => Self::Failed,
                 "CANCELLING" => Self::Cancelling,
                 "CANCELLED" => Self::Cancelled,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -9998,8 +9759,7 @@ pub mod update_glossary_metadata {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.translation.v3.UpdateGlossaryMetadata.State",
-            ))
+                ".google.cloud.translation.v3.UpdateGlossaryMetadata.State"))
         }
     }
 }
@@ -10012,6 +9772,7 @@ pub mod update_glossary_metadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteGlossaryMetadata {
+
     /// The name of the glossary that is being deleted.
     pub name: std::string::String,
 
@@ -10051,10 +9812,7 @@ impl DeleteGlossaryMetadata {
     /// let x1 = DeleteGlossaryMetadata::new().set_state(State::Succeeded);
     /// let x2 = DeleteGlossaryMetadata::new().set_state(State::Failed);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::delete_glossary_metadata::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::delete_glossary_metadata::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -10068,8 +9826,7 @@ impl DeleteGlossaryMetadata {
     /// let x = DeleteGlossaryMetadata::new().set_submit_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_submit_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.submit_time = std::option::Option::Some(v.into());
         self
@@ -10085,8 +9842,7 @@ impl DeleteGlossaryMetadata {
     /// let x = DeleteGlossaryMetadata::new().set_or_clear_submit_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_submit_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.submit_time = v.map(|x| x.into());
         self
@@ -10103,6 +9859,7 @@ impl wkt::message::Message for DeleteGlossaryMetadata {
 pub mod delete_glossary_metadata {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Enumerates the possible states that the creation request can be in.
     ///
@@ -10206,9 +9963,7 @@ pub mod delete_glossary_metadata {
                 3 => Self::Failed,
                 4 => Self::Cancelling,
                 5 => Self::Cancelled,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -10223,9 +9978,7 @@ pub mod delete_glossary_metadata {
                 "FAILED" => Self::Failed,
                 "CANCELLING" => Self::Cancelling,
                 "CANCELLED" => Self::Cancelled,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -10253,8 +10006,7 @@ pub mod delete_glossary_metadata {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.translation.v3.DeleteGlossaryMetadata.State",
-            ))
+                ".google.cloud.translation.v3.DeleteGlossaryMetadata.State"))
         }
     }
 }
@@ -10267,6 +10019,7 @@ pub mod delete_glossary_metadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteGlossaryResponse {
+
     /// The name of the deleted glossary.
     pub name: std::string::String,
 
@@ -10309,8 +10062,7 @@ impl DeleteGlossaryResponse {
     /// let x = DeleteGlossaryResponse::new().set_submit_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_submit_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.submit_time = std::option::Option::Some(v.into());
         self
@@ -10326,8 +10078,7 @@ impl DeleteGlossaryResponse {
     /// let x = DeleteGlossaryResponse::new().set_or_clear_submit_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_submit_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.submit_time = v.map(|x| x.into());
         self
@@ -10342,8 +10093,7 @@ impl DeleteGlossaryResponse {
     /// let x = DeleteGlossaryResponse::new().set_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -10359,8 +10109,7 @@ impl DeleteGlossaryResponse {
     /// let x = DeleteGlossaryResponse::new().set_or_clear_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -10377,6 +10126,7 @@ impl wkt::message::Message for DeleteGlossaryResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchTranslateDocumentRequest {
+
     /// Required. Location to make a regional call.
     ///
     /// Format: `projects/{project-number-or-id}/locations/{location-id}`.
@@ -10425,11 +10175,10 @@ pub struct BatchTranslateDocumentRequest {
     ///
     /// If the map is empty or a specific model is
     /// not requested for a language pair, then default google model (nmt) is used.
-    pub models: std::collections::HashMap<std::string::String, std::string::String>,
+    pub models: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. Glossaries to be applied. It's keyed by target language code.
-    pub glossaries:
-        std::collections::HashMap<std::string::String, crate::model::TranslateTextGlossaryConfig>,
+    pub glossaries: std::collections::HashMap<std::string::String,crate::model::TranslateTextGlossaryConfig>,
 
     /// Optional. The file format conversion map that is applied to all input
     /// files. The map key is the original mime_type. The map value is the target
@@ -10442,7 +10191,7 @@ pub struct BatchTranslateDocumentRequest {
     ///
     /// If nothing specified, output files will be in the same format as the
     /// original file.
-    pub format_conversions: std::collections::HashMap<std::string::String, std::string::String>,
+    pub format_conversions: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. This flag is to support user customized attribution.
     /// If not provided, the default is `Machine Translated by Google`.
@@ -10486,10 +10235,7 @@ impl BatchTranslateDocumentRequest {
     /// # use google_cloud_translation_v3::model::BatchTranslateDocumentRequest;
     /// let x = BatchTranslateDocumentRequest::new().set_source_language_code("example");
     /// ```
-    pub fn set_source_language_code<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_language_code = v.into();
         self
     }
@@ -10504,7 +10250,7 @@ impl BatchTranslateDocumentRequest {
     pub fn set_target_language_codes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.target_language_codes = v.into_iter().map(|i| i.into()).collect();
@@ -10526,7 +10272,7 @@ impl BatchTranslateDocumentRequest {
     pub fn set_input_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::BatchDocumentInputConfig>,
+        V: std::convert::Into<crate::model::BatchDocumentInputConfig>
     {
         use std::iter::Iterator;
         self.input_configs = v.into_iter().map(|i| i.into()).collect();
@@ -10542,8 +10288,7 @@ impl BatchTranslateDocumentRequest {
     /// let x = BatchTranslateDocumentRequest::new().set_output_config(BatchDocumentOutputConfig::default()/* use setters */);
     /// ```
     pub fn set_output_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::BatchDocumentOutputConfig>,
+    where T: std::convert::Into<crate::model::BatchDocumentOutputConfig>
     {
         self.output_config = std::option::Option::Some(v.into());
         self
@@ -10559,8 +10304,7 @@ impl BatchTranslateDocumentRequest {
     /// let x = BatchTranslateDocumentRequest::new().set_or_clear_output_config(None::<BatchDocumentOutputConfig>);
     /// ```
     pub fn set_or_clear_output_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::BatchDocumentOutputConfig>,
+    where T: std::convert::Into<crate::model::BatchDocumentOutputConfig>
     {
         self.output_config = v.map(|x| x.into());
         self
@@ -10637,10 +10381,7 @@ impl BatchTranslateDocumentRequest {
     /// # use google_cloud_translation_v3::model::BatchTranslateDocumentRequest;
     /// let x = BatchTranslateDocumentRequest::new().set_customized_attribution("example");
     /// ```
-    pub fn set_customized_attribution<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_customized_attribution<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.customized_attribution = v.into();
         self
     }
@@ -10652,10 +10393,7 @@ impl BatchTranslateDocumentRequest {
     /// # use google_cloud_translation_v3::model::BatchTranslateDocumentRequest;
     /// let x = BatchTranslateDocumentRequest::new().set_enable_shadow_removal_native_pdf(true);
     /// ```
-    pub fn set_enable_shadow_removal_native_pdf<T: std::convert::Into<bool>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_enable_shadow_removal_native_pdf<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_shadow_removal_native_pdf = v.into();
         self
     }
@@ -10683,6 +10421,7 @@ impl wkt::message::Message for BatchTranslateDocumentRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchDocumentInputConfig {
+
     /// Specify the input.
     pub source: std::option::Option<crate::model::batch_document_input_config::Source>,
 
@@ -10706,12 +10445,8 @@ impl BatchDocumentInputConfig {
     /// let x = BatchDocumentInputConfig::new().set_source(Some(
     ///     google_cloud_translation_v3::model::batch_document_input_config::Source::GcsSource(GcsSource::default().into())));
     /// ```
-    pub fn set_source<
-        T: std::convert::Into<std::option::Option<crate::model::batch_document_input_config::Source>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source<T: std::convert::Into<std::option::Option<crate::model::batch_document_input_config::Source>>>(mut self, v: T) -> Self
+    {
         self.source = v.into();
         self
     }
@@ -10722,9 +10457,7 @@ impl BatchDocumentInputConfig {
     pub fn gcs_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsSource>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
-            crate::model::batch_document_input_config::Source::GcsSource(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::batch_document_input_config::Source::GcsSource(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -10742,12 +10475,11 @@ impl BatchDocumentInputConfig {
     /// let x = BatchDocumentInputConfig::new().set_gcs_source(GcsSource::default()/* use setters */);
     /// assert!(x.gcs_source().is_some());
     /// ```
-    pub fn set_gcs_source<T: std::convert::Into<std::boxed::Box<crate::model::GcsSource>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_gcs_source<T: std::convert::Into<std::boxed::Box<crate::model::GcsSource>>>(mut self, v: T) -> Self {
         self.source = std::option::Option::Some(
-            crate::model::batch_document_input_config::Source::GcsSource(v.into()),
+            crate::model::batch_document_input_config::Source::GcsSource(
+                v.into()
+            )
         );
         self
     }
@@ -10763,6 +10495,7 @@ impl wkt::message::Message for BatchDocumentInputConfig {
 pub mod batch_document_input_config {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Specify the input.
     #[derive(Clone, Debug, PartialEq)]
@@ -10796,6 +10529,7 @@ pub mod batch_document_input_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchDocumentOutputConfig {
+
     /// The destination of output. The destination directory provided must exist
     /// and be empty.
     pub destination: std::option::Option<crate::model::batch_document_output_config::Destination>,
@@ -10820,14 +10554,8 @@ impl BatchDocumentOutputConfig {
     /// let x = BatchDocumentOutputConfig::new().set_destination(Some(
     ///     google_cloud_translation_v3::model::batch_document_output_config::Destination::GcsDestination(GcsDestination::default().into())));
     /// ```
-    pub fn set_destination<
-        T: std::convert::Into<
-                std::option::Option<crate::model::batch_document_output_config::Destination>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_destination<T: std::convert::Into<std::option::Option<crate::model::batch_document_output_config::Destination>>>(mut self, v: T) -> Self
+    {
         self.destination = v.into();
         self
     }
@@ -10835,14 +10563,10 @@ impl BatchDocumentOutputConfig {
     /// The value of [destination][crate::model::BatchDocumentOutputConfig::destination]
     /// if it holds a `GcsDestination`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn gcs_destination(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::GcsDestination>> {
+    pub fn gcs_destination(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsDestination>> {
         #[allow(unreachable_patterns)]
         self.destination.as_ref().and_then(|v| match v {
-            crate::model::batch_document_output_config::Destination::GcsDestination(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::batch_document_output_config::Destination::GcsDestination(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -10860,14 +10584,11 @@ impl BatchDocumentOutputConfig {
     /// let x = BatchDocumentOutputConfig::new().set_gcs_destination(GcsDestination::default()/* use setters */);
     /// assert!(x.gcs_destination().is_some());
     /// ```
-    pub fn set_gcs_destination<
-        T: std::convert::Into<std::boxed::Box<crate::model::GcsDestination>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_gcs_destination<T: std::convert::Into<std::boxed::Box<crate::model::GcsDestination>>>(mut self, v: T) -> Self {
         self.destination = std::option::Option::Some(
-            crate::model::batch_document_output_config::Destination::GcsDestination(v.into()),
+            crate::model::batch_document_output_config::Destination::GcsDestination(
+                v.into()
+            )
         );
         self
     }
@@ -10883,6 +10604,7 @@ impl wkt::message::Message for BatchDocumentOutputConfig {
 pub mod batch_document_output_config {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The destination of output. The destination directory provided must exist
     /// and be empty.
@@ -10947,6 +10669,7 @@ pub mod batch_document_output_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchTranslateDocumentResponse {
+
     /// Total number of pages to translate in all documents. Documents without
     /// clear page definition (such as XLSX) are not counted.
     pub total_pages: i64,
@@ -11101,8 +10824,7 @@ impl BatchTranslateDocumentResponse {
     /// let x = BatchTranslateDocumentResponse::new().set_submit_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_submit_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.submit_time = std::option::Option::Some(v.into());
         self
@@ -11118,8 +10840,7 @@ impl BatchTranslateDocumentResponse {
     /// let x = BatchTranslateDocumentResponse::new().set_or_clear_submit_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_submit_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.submit_time = v.map(|x| x.into());
         self
@@ -11134,8 +10855,7 @@ impl BatchTranslateDocumentResponse {
     /// let x = BatchTranslateDocumentResponse::new().set_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -11151,8 +10871,7 @@ impl BatchTranslateDocumentResponse {
     /// let x = BatchTranslateDocumentResponse::new().set_or_clear_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -11169,6 +10888,7 @@ impl wkt::message::Message for BatchTranslateDocumentResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchTranslateDocumentMetadata {
+
     /// The state of the operation.
     pub state: crate::model::batch_translate_document_metadata::State,
 
@@ -11224,12 +10944,7 @@ impl BatchTranslateDocumentMetadata {
     /// let x1 = BatchTranslateDocumentMetadata::new().set_state(State::Succeeded);
     /// let x2 = BatchTranslateDocumentMetadata::new().set_state(State::Failed);
     /// ```
-    pub fn set_state<
-        T: std::convert::Into<crate::model::batch_translate_document_metadata::State>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::batch_translate_document_metadata::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -11339,8 +11054,7 @@ impl BatchTranslateDocumentMetadata {
     /// let x = BatchTranslateDocumentMetadata::new().set_submit_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_submit_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.submit_time = std::option::Option::Some(v.into());
         self
@@ -11356,8 +11070,7 @@ impl BatchTranslateDocumentMetadata {
     /// let x = BatchTranslateDocumentMetadata::new().set_or_clear_submit_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_submit_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.submit_time = v.map(|x| x.into());
         self
@@ -11374,6 +11087,7 @@ impl wkt::message::Message for BatchTranslateDocumentMetadata {
 pub mod batch_translate_document_metadata {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// State of the job.
     ///
@@ -11479,9 +11193,7 @@ pub mod batch_translate_document_metadata {
                 3 => Self::Failed,
                 4 => Self::Cancelling,
                 5 => Self::Cancelled,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -11496,9 +11208,7 @@ pub mod batch_translate_document_metadata {
                 "FAILED" => Self::Failed,
                 "CANCELLING" => Self::Cancelling,
                 "CANCELLED" => Self::Cancelled,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -11526,8 +11236,7 @@ pub mod batch_translate_document_metadata {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.translation.v3.BatchTranslateDocumentMetadata.State",
-            ))
+                ".google.cloud.translation.v3.BatchTranslateDocumentMetadata.State"))
         }
     }
 }
@@ -11537,6 +11246,7 @@ pub mod batch_translate_document_metadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TranslateTextGlossaryConfig {
+
     /// Required. The `glossary` to be applied for this translation.
     ///
     /// The format depends on the glossary:
@@ -11706,9 +11416,7 @@ impl std::convert::From<i32> for OperationState {
             3 => Self::Failed,
             4 => Self::Cancelling,
             5 => Self::Cancelled,
-            _ => Self::UnknownValue(operation_state::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(operation_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -11723,9 +11431,7 @@ impl std::convert::From<&str> for OperationState {
             "OPERATION_STATE_FAILED" => Self::Failed,
             "OPERATION_STATE_CANCELLING" => Self::Cancelling,
             "OPERATION_STATE_CANCELLED" => Self::Cancelled,
-            _ => Self::UnknownValue(operation_state::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(operation_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -11753,7 +11459,6 @@ impl<'de> serde::de::Deserialize<'de> for OperationState {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<OperationState>::new(
-            ".google.cloud.translation.v3.OperationState",
-        ))
+            ".google.cloud.translation.v3.OperationState"))
     }
 }

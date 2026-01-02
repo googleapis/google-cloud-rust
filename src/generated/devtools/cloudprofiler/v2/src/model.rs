@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -26,7 +27,6 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -41,6 +41,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateProfileRequest {
+
     /// Parent project to create the profile in.
     pub parent: std::string::String,
 
@@ -79,8 +80,7 @@ impl CreateProfileRequest {
     /// let x = CreateProfileRequest::new().set_deployment(Deployment::default()/* use setters */);
     /// ```
     pub fn set_deployment<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Deployment>,
+    where T: std::convert::Into<crate::model::Deployment>
     {
         self.deployment = std::option::Option::Some(v.into());
         self
@@ -96,8 +96,7 @@ impl CreateProfileRequest {
     /// let x = CreateProfileRequest::new().set_or_clear_deployment(None::<Deployment>);
     /// ```
     pub fn set_or_clear_deployment<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Deployment>,
+    where T: std::convert::Into<crate::model::Deployment>
     {
         self.deployment = v.map(|x| x.into());
         self
@@ -118,7 +117,7 @@ impl CreateProfileRequest {
     pub fn set_profile_type<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ProfileType>,
+        V: std::convert::Into<crate::model::ProfileType>
     {
         use std::iter::Iterator;
         self.profile_type = v.into_iter().map(|i| i.into()).collect();
@@ -137,6 +136,7 @@ impl wkt::message::Message for CreateProfileRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateOfflineProfileRequest {
+
     /// Parent project to create the profile in.
     pub parent: std::string::String,
 
@@ -172,8 +172,7 @@ impl CreateOfflineProfileRequest {
     /// let x = CreateOfflineProfileRequest::new().set_profile(Profile::default()/* use setters */);
     /// ```
     pub fn set_profile<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Profile>,
+    where T: std::convert::Into<crate::model::Profile>
     {
         self.profile = std::option::Option::Some(v.into());
         self
@@ -189,8 +188,7 @@ impl CreateOfflineProfileRequest {
     /// let x = CreateOfflineProfileRequest::new().set_or_clear_profile(None::<Profile>);
     /// ```
     pub fn set_or_clear_profile<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Profile>,
+    where T: std::convert::Into<crate::model::Profile>
     {
         self.profile = v.map(|x| x.into());
         self
@@ -207,6 +205,7 @@ impl wkt::message::Message for CreateOfflineProfileRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateProfileRequest {
+
     /// Profile to update.
     pub profile: std::option::Option<crate::model::Profile>,
 
@@ -233,8 +232,7 @@ impl UpdateProfileRequest {
     /// let x = UpdateProfileRequest::new().set_profile(Profile::default()/* use setters */);
     /// ```
     pub fn set_profile<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Profile>,
+    where T: std::convert::Into<crate::model::Profile>
     {
         self.profile = std::option::Option::Some(v.into());
         self
@@ -250,8 +248,7 @@ impl UpdateProfileRequest {
     /// let x = UpdateProfileRequest::new().set_or_clear_profile(None::<Profile>);
     /// ```
     pub fn set_or_clear_profile<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Profile>,
+    where T: std::convert::Into<crate::model::Profile>
     {
         self.profile = v.map(|x| x.into());
         self
@@ -266,8 +263,7 @@ impl UpdateProfileRequest {
     /// let x = UpdateProfileRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -283,8 +279,7 @@ impl UpdateProfileRequest {
     /// let x = UpdateProfileRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -301,6 +296,7 @@ impl wkt::message::Message for UpdateProfileRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Profile {
+
     /// Output only. Opaque, server-assigned, unique ID for this profile.
     pub name: std::string::String,
 
@@ -327,7 +323,7 @@ pub struct Profile {
     /// Input only. Labels associated to this specific profile. These labels will
     /// get merged with the deployment labels for the final data set. See
     /// documentation on deployment labels for validation rules and limits.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Output only. Start time for the profile.
     /// This output is only present in response from the ListProfiles method.
@@ -363,10 +359,7 @@ impl Profile {
     /// let x1 = Profile::new().set_profile_type(ProfileType::Wall);
     /// let x2 = Profile::new().set_profile_type(ProfileType::Heap);
     /// ```
-    pub fn set_profile_type<T: std::convert::Into<crate::model::ProfileType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_profile_type<T: std::convert::Into<crate::model::ProfileType>>(mut self, v: T) -> Self {
         self.profile_type = v.into();
         self
     }
@@ -380,8 +373,7 @@ impl Profile {
     /// let x = Profile::new().set_deployment(Deployment::default()/* use setters */);
     /// ```
     pub fn set_deployment<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Deployment>,
+    where T: std::convert::Into<crate::model::Deployment>
     {
         self.deployment = std::option::Option::Some(v.into());
         self
@@ -397,8 +389,7 @@ impl Profile {
     /// let x = Profile::new().set_or_clear_deployment(None::<Deployment>);
     /// ```
     pub fn set_or_clear_deployment<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Deployment>,
+    where T: std::convert::Into<crate::model::Deployment>
     {
         self.deployment = v.map(|x| x.into());
         self
@@ -413,8 +404,7 @@ impl Profile {
     /// let x = Profile::new().set_duration(Duration::default()/* use setters */);
     /// ```
     pub fn set_duration<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.duration = std::option::Option::Some(v.into());
         self
@@ -430,8 +420,7 @@ impl Profile {
     /// let x = Profile::new().set_or_clear_duration(None::<Duration>);
     /// ```
     pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.duration = v.map(|x| x.into());
         self
@@ -479,8 +468,7 @@ impl Profile {
     /// let x = Profile::new().set_start_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -496,8 +484,7 @@ impl Profile {
     /// let x = Profile::new().set_or_clear_start_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -514,6 +501,7 @@ impl wkt::message::Message for Profile {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Deployment {
+
     /// Project ID is the ID of a cloud project.
     /// Validation regex: `^[a-z][-a-z0-9:.]{4,61}[a-z0-9]$`.
     pub project_id: std::string::String,
@@ -540,7 +528,7 @@ pub struct Deployment {
     /// should be present describing the deployment location. An example of a zone
     /// is "us-central1-a", an example of a region is "us-central1" or
     /// "us-central".
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -607,6 +595,7 @@ impl wkt::message::Message for Deployment {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListProfilesRequest {
+
     /// Required. The parent, which owns this collection of profiles.
     /// Format: projects/{user_project_id}
     pub parent: std::string::String,
@@ -677,6 +666,7 @@ impl wkt::message::Message for ListProfilesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListProfilesResponse {
+
     /// List of profiles fetched.
     pub profiles: std::vec::Vec<crate::model::Profile>,
 
@@ -713,7 +703,7 @@ impl ListProfilesResponse {
     pub fn set_profiles<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Profile>,
+        V: std::convert::Into<crate::model::Profile>
     {
         use std::iter::Iterator;
         self.profiles = v.into_iter().map(|i| i.into()).collect();
@@ -884,9 +874,7 @@ impl std::convert::From<i32> for ProfileType {
             5 => Self::Contention,
             6 => Self::PeakHeap,
             7 => Self::HeapAlloc,
-            _ => Self::UnknownValue(profile_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(profile_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -903,9 +891,7 @@ impl std::convert::From<&str> for ProfileType {
             "CONTENTION" => Self::Contention,
             "PEAK_HEAP" => Self::PeakHeap,
             "HEAP_ALLOC" => Self::HeapAlloc,
-            _ => Self::UnknownValue(profile_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(profile_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -935,7 +921,6 @@ impl<'de> serde::de::Deserialize<'de> for ProfileType {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<ProfileType>::new(
-            ".google.devtools.cloudprofiler.v2.ProfileType",
-        ))
+            ".google.devtools.cloudprofiler.v2.ProfileType"))
     }
 }

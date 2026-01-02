@@ -80,48 +80,49 @@ impl Audit {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::Audit + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::Audit + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Audit>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Audit>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Audit> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Audit> {
         super::transport::Audit::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Audit> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::Audit::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Audit> {
+        Self::build_transport(conf).await.map(super::tracing::Audit::new)
     }
 
     /// Generates an audit scope report for a framework.
-    pub fn generate_framework_audit_scope_report(
-        &self,
-    ) -> super::builder::audit::GenerateFrameworkAuditScopeReport {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Audit;
+    /// async fn sample(
+    ///    client: &Audit
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .generate_framework_audit_scope_report()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn generate_framework_audit_scope_report(&self) -> super::builder::audit::GenerateFrameworkAuditScopeReport
+    {
         super::builder::audit::GenerateFrameworkAuditScopeReport::new(self.inner.clone())
     }
 
@@ -136,55 +137,143 @@ impl Audit {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_framework_audit(&self) -> super::builder::audit::CreateFrameworkAudit {
+    pub fn create_framework_audit(&self) -> super::builder::audit::CreateFrameworkAudit
+    {
         super::builder::audit::CreateFrameworkAudit::new(self.inner.clone())
     }
 
     /// Lists the framework audits for a given organization, folder, or project.
-    pub fn list_framework_audits(&self) -> super::builder::audit::ListFrameworkAudits {
+    pub fn list_framework_audits(&self) -> super::builder::audit::ListFrameworkAudits
+    {
         super::builder::audit::ListFrameworkAudits::new(self.inner.clone())
     }
 
     /// Gets the details for a framework audit.
-    pub fn get_framework_audit(&self) -> super::builder::audit::GetFrameworkAudit {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Audit;
+    /// async fn sample(
+    ///    client: &Audit,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_framework_audit()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_framework_audit(&self) -> super::builder::audit::GetFrameworkAudit
+    {
         super::builder::audit::GetFrameworkAudit::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::audit::ListLocations {
+    pub fn list_locations(&self) -> super::builder::audit::ListLocations
+    {
         super::builder::audit::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(&self) -> super::builder::audit::GetLocation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Audit;
+    /// async fn sample(
+    ///    client: &Audit
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_location(&self) -> super::builder::audit::GetLocation
+    {
         super::builder::audit::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::audit::ListOperations {
+    pub fn list_operations(&self) -> super::builder::audit::ListOperations
+    {
         super::builder::audit::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::audit::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Audit;
+    /// async fn sample(
+    ///    client: &Audit
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::audit::GetOperation
+    {
         super::builder::audit::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(&self) -> super::builder::audit::DeleteOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Audit;
+    /// async fn sample(
+    ///    client: &Audit
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_operation(&self) -> super::builder::audit::DeleteOperation
+    {
         super::builder::audit::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(&self) -> super::builder::audit::CancelOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Audit;
+    /// async fn sample(
+    ///    client: &Audit
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_operation(&self) -> super::builder::audit::CancelOperation
+    {
         super::builder::audit::CancelOperation::new(self.inner.clone())
     }
 }
@@ -246,9 +335,7 @@ impl CmEnrollmentService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::cm_enrollment_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::cm_enrollment_service::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::cm_enrollment_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -256,52 +343,52 @@ impl CmEnrollmentService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::CmEnrollmentService + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::CmEnrollmentService + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CmEnrollmentService>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CmEnrollmentService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::CmEnrollmentService> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::CmEnrollmentService> {
         super::transport::CmEnrollmentService::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::CmEnrollmentService> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::CmEnrollmentService::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::CmEnrollmentService> {
+        Self::build_transport(conf).await.map(super::tracing::CmEnrollmentService::new)
     }
 
     /// Updates the Compliance Manager enrollment for a resource to facilitate
     /// an audit.
     /// Use this method to enroll a resource in Compliance Manager or to
     /// create or update feature-specific configurations.
-    pub fn update_cm_enrollment(
-        &self,
-    ) -> super::builder::cm_enrollment_service::UpdateCmEnrollment {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::CmEnrollmentService;
+    /// async fn sample(
+    ///    client: &CmEnrollmentService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_cm_enrollment()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_cm_enrollment(&self) -> super::builder::cm_enrollment_service::UpdateCmEnrollment
+    {
         super::builder::cm_enrollment_service::UpdateCmEnrollment::new(self.inner.clone())
     }
 
@@ -309,49 +396,130 @@ impl CmEnrollmentService {
     /// An effective enrollment is either a direct enrollment of a
     /// resource (if it exists), or an enrollment of the closest parent of a
     /// resource that's enrolled in Compliance Manager.
-    pub fn calculate_effective_cm_enrollment(
-        &self,
-    ) -> super::builder::cm_enrollment_service::CalculateEffectiveCmEnrollment {
-        super::builder::cm_enrollment_service::CalculateEffectiveCmEnrollment::new(
-            self.inner.clone(),
-        )
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::CmEnrollmentService;
+    /// async fn sample(
+    ///    client: &CmEnrollmentService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .calculate_effective_cm_enrollment()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn calculate_effective_cm_enrollment(&self) -> super::builder::cm_enrollment_service::CalculateEffectiveCmEnrollment
+    {
+        super::builder::cm_enrollment_service::CalculateEffectiveCmEnrollment::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::cm_enrollment_service::ListLocations {
+    pub fn list_locations(&self) -> super::builder::cm_enrollment_service::ListLocations
+    {
         super::builder::cm_enrollment_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(&self) -> super::builder::cm_enrollment_service::GetLocation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::CmEnrollmentService;
+    /// async fn sample(
+    ///    client: &CmEnrollmentService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_location(&self) -> super::builder::cm_enrollment_service::GetLocation
+    {
         super::builder::cm_enrollment_service::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::cm_enrollment_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::cm_enrollment_service::ListOperations
+    {
         super::builder::cm_enrollment_service::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::cm_enrollment_service::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::CmEnrollmentService;
+    /// async fn sample(
+    ///    client: &CmEnrollmentService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::cm_enrollment_service::GetOperation
+    {
         super::builder::cm_enrollment_service::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(&self) -> super::builder::cm_enrollment_service::DeleteOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::CmEnrollmentService;
+    /// async fn sample(
+    ///    client: &CmEnrollmentService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_operation(&self) -> super::builder::cm_enrollment_service::DeleteOperation
+    {
         super::builder::cm_enrollment_service::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(&self) -> super::builder::cm_enrollment_service::CancelOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::CmEnrollmentService;
+    /// async fn sample(
+    ///    client: &CmEnrollmentService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_operation(&self) -> super::builder::cm_enrollment_service::CancelOperation
+    {
         super::builder::cm_enrollment_service::CancelOperation::new(self.inner.clone())
     }
 }
@@ -421,49 +589,36 @@ impl Config {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::Config + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::Config + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Config>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Config>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Config> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Config> {
         super::transport::Config::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Config> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::Config::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Config> {
+        Self::build_transport(conf).await.map(super::tracing::Config::new)
     }
 
     /// Lists the frameworks (both built-in and custom) that are available within
     /// the parent resource. The latest major version of each framework is
     /// returned.
     /// This method supports pagination.
-    pub fn list_frameworks(&self) -> super::builder::config::ListFrameworks {
+    pub fn list_frameworks(&self) -> super::builder::config::ListFrameworks
+    {
         super::builder::config::ListFrameworks::new(self.inner.clone())
     }
 
@@ -472,14 +627,49 @@ impl Config {
     ///
     /// To retrieve a specific major version, include `major_revision_id` in
     /// the request.
-    pub fn get_framework(&self) -> super::builder::config::GetFramework {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Config;
+    /// async fn sample(
+    ///    client: &Config,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_framework()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_framework(&self) -> super::builder::config::GetFramework
+    {
         super::builder::config::GetFramework::new(self.inner.clone())
     }
 
     /// Creates a custom framework in a given parent resource.
     /// You can't create built-in frameworks because those are managed by
     /// Google.
-    pub fn create_framework(&self) -> super::builder::config::CreateFramework {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Config;
+    /// async fn sample(
+    ///    client: &Config
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_framework()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_framework(&self) -> super::builder::config::CreateFramework
+    {
         super::builder::config::CreateFramework::new(self.inner.clone())
     }
 
@@ -495,7 +685,24 @@ impl Config {
     ///
     /// You can only update frameworks with the `CUSTOM` type.
     /// A successful update creates a new version of the framework.
-    pub fn update_framework(&self) -> super::builder::config::UpdateFramework {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Config;
+    /// async fn sample(
+    ///    client: &Config
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_framework()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_framework(&self) -> super::builder::config::UpdateFramework
+    {
         super::builder::config::UpdateFramework::new(self.inner.clone())
     }
 
@@ -506,7 +713,24 @@ impl Config {
     ///   with type `CUSTOM`.
     /// - You can't delete frameworks that are deployed to a resource.
     /// - You can't restore a deleted framework. This action is permanent.
-    pub fn delete_framework(&self) -> super::builder::config::DeleteFramework {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Config;
+    /// async fn sample(
+    ///    client: &Config,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_framework()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_framework(&self) -> super::builder::config::DeleteFramework
+    {
         super::builder::config::DeleteFramework::new(self.inner.clone())
     }
 
@@ -514,7 +738,8 @@ impl Config {
     /// in a given parent resource. The latest major version of each cloud control
     /// is returned.
     /// This method supports pagination.
-    pub fn list_cloud_controls(&self) -> super::builder::config::ListCloudControls {
+    pub fn list_cloud_controls(&self) -> super::builder::config::ListCloudControls
+    {
         super::builder::config::ListCloudControls::new(self.inner.clone())
     }
 
@@ -525,7 +750,25 @@ impl Config {
     /// By default, the latest major version of the cloud control is returned.
     /// To retrieve a specific major version, include `major_revision_id` in
     /// the request.
-    pub fn get_cloud_control(&self) -> super::builder::config::GetCloudControl {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Config;
+    /// async fn sample(
+    ///    client: &Config,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_cloud_control()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_cloud_control(&self) -> super::builder::config::GetCloudControl
+    {
         super::builder::config::GetCloudControl::new(self.inner.clone())
     }
 
@@ -533,7 +776,24 @@ impl Config {
     /// resource.
     /// You can't create built-in cloud controls because those are managed by
     /// Google.
-    pub fn create_cloud_control(&self) -> super::builder::config::CreateCloudControl {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Config;
+    /// async fn sample(
+    ///    client: &Config
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_cloud_control()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_cloud_control(&self) -> super::builder::config::CreateCloudControl
+    {
         super::builder::config::CreateCloudControl::new(self.inner.clone())
     }
 
@@ -549,7 +809,24 @@ impl Config {
     ///
     /// You can only update cloud controls with the `CUSTOM` type.
     /// A successful update creates a new version of the cloud control.
-    pub fn update_cloud_control(&self) -> super::builder::config::UpdateCloudControl {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Config;
+    /// async fn sample(
+    ///    client: &Config
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_cloud_control()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_cloud_control(&self) -> super::builder::config::UpdateCloudControl
+    {
         super::builder::config::UpdateCloudControl::new(self.inner.clone())
     }
 
@@ -561,45 +838,130 @@ impl Config {
     /// - You can't delete cloud controls if any of the versions are referenced
     ///   by a framework.
     /// - You can't restore a deleted cloud control. This action is permanent.
-    pub fn delete_cloud_control(&self) -> super::builder::config::DeleteCloudControl {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Config;
+    /// async fn sample(
+    ///    client: &Config,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_cloud_control()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_cloud_control(&self) -> super::builder::config::DeleteCloudControl
+    {
         super::builder::config::DeleteCloudControl::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::config::ListLocations {
+    pub fn list_locations(&self) -> super::builder::config::ListLocations
+    {
         super::builder::config::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(&self) -> super::builder::config::GetLocation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Config;
+    /// async fn sample(
+    ///    client: &Config
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_location(&self) -> super::builder::config::GetLocation
+    {
         super::builder::config::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::config::ListOperations {
+    pub fn list_operations(&self) -> super::builder::config::ListOperations
+    {
         super::builder::config::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::config::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Config;
+    /// async fn sample(
+    ///    client: &Config
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::config::GetOperation
+    {
         super::builder::config::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(&self) -> super::builder::config::DeleteOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Config;
+    /// async fn sample(
+    ///    client: &Config
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_operation(&self) -> super::builder::config::DeleteOperation
+    {
         super::builder::config::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(&self) -> super::builder::config::CancelOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Config;
+    /// async fn sample(
+    ///    client: &Config
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_operation(&self) -> super::builder::config::CancelOperation
+    {
         super::builder::config::CancelOperation::new(self.inner.clone())
     }
 }
@@ -669,42 +1031,28 @@ impl Deployment {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::Deployment + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::Deployment + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Deployment>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Deployment>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Deployment> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Deployment> {
         super::transport::Deployment::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Deployment> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::Deployment::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Deployment> {
+        Self::build_transport(conf).await.map(super::tracing::Deployment::new)
     }
 
     /// Creates a framework deployment in a given parent resource. A
@@ -721,9 +1069,8 @@ impl Deployment {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_framework_deployment(
-        &self,
-    ) -> super::builder::deployment::CreateFrameworkDeployment {
+    pub fn create_framework_deployment(&self) -> super::builder::deployment::CreateFrameworkDeployment
+    {
         super::builder::deployment::CreateFrameworkDeployment::new(self.inner.clone())
     }
 
@@ -738,73 +1085,172 @@ impl Deployment {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_framework_deployment(
-        &self,
-    ) -> super::builder::deployment::DeleteFrameworkDeployment {
+    pub fn delete_framework_deployment(&self) -> super::builder::deployment::DeleteFrameworkDeployment
+    {
         super::builder::deployment::DeleteFrameworkDeployment::new(self.inner.clone())
     }
 
     /// Gets details about a framework deployment.
-    pub fn get_framework_deployment(&self) -> super::builder::deployment::GetFrameworkDeployment {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Deployment;
+    /// async fn sample(
+    ///    client: &Deployment,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_framework_deployment()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_framework_deployment(&self) -> super::builder::deployment::GetFrameworkDeployment
+    {
         super::builder::deployment::GetFrameworkDeployment::new(self.inner.clone())
     }
 
     /// Lists the framework deployments in a given parent resource.
-    pub fn list_framework_deployments(
-        &self,
-    ) -> super::builder::deployment::ListFrameworkDeployments {
+    pub fn list_framework_deployments(&self) -> super::builder::deployment::ListFrameworkDeployments
+    {
         super::builder::deployment::ListFrameworkDeployments::new(self.inner.clone())
     }
 
     /// Gets details about a cloud control deployment.
-    pub fn get_cloud_control_deployment(
-        &self,
-    ) -> super::builder::deployment::GetCloudControlDeployment {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Deployment;
+    /// async fn sample(
+    ///    client: &Deployment,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_cloud_control_deployment()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_cloud_control_deployment(&self) -> super::builder::deployment::GetCloudControlDeployment
+    {
         super::builder::deployment::GetCloudControlDeployment::new(self.inner.clone())
     }
 
     /// Lists the cloud conrol deployments in a given parent resource.
-    pub fn list_cloud_control_deployments(
-        &self,
-    ) -> super::builder::deployment::ListCloudControlDeployments {
+    pub fn list_cloud_control_deployments(&self) -> super::builder::deployment::ListCloudControlDeployments
+    {
         super::builder::deployment::ListCloudControlDeployments::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::deployment::ListLocations {
+    pub fn list_locations(&self) -> super::builder::deployment::ListLocations
+    {
         super::builder::deployment::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(&self) -> super::builder::deployment::GetLocation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Deployment;
+    /// async fn sample(
+    ///    client: &Deployment
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_location(&self) -> super::builder::deployment::GetLocation
+    {
         super::builder::deployment::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::deployment::ListOperations {
+    pub fn list_operations(&self) -> super::builder::deployment::ListOperations
+    {
         super::builder::deployment::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::deployment::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Deployment;
+    /// async fn sample(
+    ///    client: &Deployment
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::deployment::GetOperation
+    {
         super::builder::deployment::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(&self) -> super::builder::deployment::DeleteOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Deployment;
+    /// async fn sample(
+    ///    client: &Deployment
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_operation(&self) -> super::builder::deployment::DeleteOperation
+    {
         super::builder::deployment::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(&self) -> super::builder::deployment::CancelOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Deployment;
+    /// async fn sample(
+    ///    client: &Deployment
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_operation(&self) -> super::builder::deployment::CancelOperation
+    {
         super::builder::deployment::CancelOperation::new(self.inner.clone())
     }
 }
@@ -873,112 +1319,195 @@ impl Monitoring {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::Monitoring + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::Monitoring + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Monitoring>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Monitoring>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Monitoring> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Monitoring> {
         super::transport::Monitoring::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Monitoring> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::Monitoring::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Monitoring> {
+        Self::build_transport(conf).await.map(super::tracing::Monitoring::new)
     }
 
     /// Lists the framework compliance summary for a given scope.
-    pub fn list_framework_compliance_summaries(
-        &self,
-    ) -> super::builder::monitoring::ListFrameworkComplianceSummaries {
+    pub fn list_framework_compliance_summaries(&self) -> super::builder::monitoring::ListFrameworkComplianceSummaries
+    {
         super::builder::monitoring::ListFrameworkComplianceSummaries::new(self.inner.clone())
     }
 
     /// Lists the finding summary by category for a given scope.
-    pub fn list_finding_summaries(&self) -> super::builder::monitoring::ListFindingSummaries {
+    pub fn list_finding_summaries(&self) -> super::builder::monitoring::ListFindingSummaries
+    {
         super::builder::monitoring::ListFindingSummaries::new(self.inner.clone())
     }
 
     /// Fetches the framework compliance report for a given scope.
-    pub fn fetch_framework_compliance_report(
-        &self,
-    ) -> super::builder::monitoring::FetchFrameworkComplianceReport {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Monitoring;
+    /// async fn sample(
+    ///    client: &Monitoring
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .fetch_framework_compliance_report()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn fetch_framework_compliance_report(&self) -> super::builder::monitoring::FetchFrameworkComplianceReport
+    {
         super::builder::monitoring::FetchFrameworkComplianceReport::new(self.inner.clone())
     }
 
     /// Lists the control compliance summary for a given scope.
-    pub fn list_control_compliance_summaries(
-        &self,
-    ) -> super::builder::monitoring::ListControlComplianceSummaries {
+    pub fn list_control_compliance_summaries(&self) -> super::builder::monitoring::ListControlComplianceSummaries
+    {
         super::builder::monitoring::ListControlComplianceSummaries::new(self.inner.clone())
     }
 
     /// Gets the aggregated compliance report over time for a given scope.
-    pub fn aggregate_framework_compliance_report(
-        &self,
-    ) -> super::builder::monitoring::AggregateFrameworkComplianceReport {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Monitoring;
+    /// async fn sample(
+    ///    client: &Monitoring
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .aggregate_framework_compliance_report()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn aggregate_framework_compliance_report(&self) -> super::builder::monitoring::AggregateFrameworkComplianceReport
+    {
         super::builder::monitoring::AggregateFrameworkComplianceReport::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::monitoring::ListLocations {
+    pub fn list_locations(&self) -> super::builder::monitoring::ListLocations
+    {
         super::builder::monitoring::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(&self) -> super::builder::monitoring::GetLocation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Monitoring;
+    /// async fn sample(
+    ///    client: &Monitoring
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_location(&self) -> super::builder::monitoring::GetLocation
+    {
         super::builder::monitoring::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::monitoring::ListOperations {
+    pub fn list_operations(&self) -> super::builder::monitoring::ListOperations
+    {
         super::builder::monitoring::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::monitoring::GetOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Monitoring;
+    /// async fn sample(
+    ///    client: &Monitoring
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::monitoring::GetOperation
+    {
         super::builder::monitoring::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(&self) -> super::builder::monitoring::DeleteOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Monitoring;
+    /// async fn sample(
+    ///    client: &Monitoring
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_operation(&self) -> super::builder::monitoring::DeleteOperation
+    {
         super::builder::monitoring::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(&self) -> super::builder::monitoring::CancelOperation {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Monitoring;
+    /// async fn sample(
+    ///    client: &Monitoring
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_operation(&self) -> super::builder::monitoring::CancelOperation
+    {
         super::builder::monitoring::CancelOperation::new(self.inner.clone())
     }
 }

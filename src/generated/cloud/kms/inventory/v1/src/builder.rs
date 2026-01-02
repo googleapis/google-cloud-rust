@@ -39,10 +39,7 @@ pub mod key_dashboard_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = KeyDashboardService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(
-                self,
-                config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -57,12 +54,8 @@ pub mod key_dashboard_service {
     }
 
     impl<R> RequestBuilder<R>
-    where
-        R: std::default::Default,
-    {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyDashboardService>,
-        ) -> Self {
+    where R: std::default::Default {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyDashboardService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -96,10 +89,10 @@ pub mod key_dashboard_service {
     pub struct ListCryptoKeys(RequestBuilder<crate::model::ListCryptoKeysRequest>);
 
     impl ListCryptoKeys {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyDashboardService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyDashboardService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -116,17 +109,11 @@ pub mod key_dashboard_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListCryptoKeysResponse> {
-            (*self.0.stub)
-                .list_crypto_keys(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_crypto_keys(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListCryptoKeysResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListCryptoKeysResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -138,10 +125,7 @@ pub mod key_dashboard_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListCryptoKeysResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListCryptoKeysResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -173,6 +157,7 @@ pub mod key_dashboard_service {
             &mut self.0.options
         }
     }
+
 }
 
 pub mod key_tracking_service {
@@ -200,10 +185,7 @@ pub mod key_tracking_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = KeyTrackingService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(
-                self,
-                config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -218,12 +200,8 @@ pub mod key_tracking_service {
     }
 
     impl<R> RequestBuilder<R>
-    where
-        R: std::default::Default,
-    {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyTrackingService>,
-        ) -> Self {
+    where R: std::default::Default {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyTrackingService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -250,22 +228,17 @@ pub mod key_tracking_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetProtectedResourcesSummary(
-        RequestBuilder<crate::model::GetProtectedResourcesSummaryRequest>,
-    );
+    pub struct GetProtectedResourcesSummary(RequestBuilder<crate::model::GetProtectedResourcesSummaryRequest>);
 
     impl GetProtectedResourcesSummary {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyTrackingService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyTrackingService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetProtectedResourcesSummaryRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetProtectedResourcesSummaryRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -278,10 +251,7 @@ pub mod key_tracking_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ProtectedResourcesSummary> {
-            (*self.0.stub)
-                .get_protected_resources_summary(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_protected_resources_summary(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetProtectedResourcesSummaryRequest::name].
@@ -322,22 +292,17 @@ pub mod key_tracking_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SearchProtectedResources(
-        RequestBuilder<crate::model::SearchProtectedResourcesRequest>,
-    );
+    pub struct SearchProtectedResources(RequestBuilder<crate::model::SearchProtectedResourcesRequest>);
 
     impl SearchProtectedResources {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyTrackingService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyTrackingService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SearchProtectedResourcesRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::SearchProtectedResourcesRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -350,19 +315,11 @@ pub mod key_tracking_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SearchProtectedResourcesResponse> {
-            (*self.0.stub)
-                .search_protected_resources(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).search_protected_resources(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<
-            crate::model::SearchProtectedResourcesResponse,
-            gax::error::Error,
-        > {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::SearchProtectedResourcesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -374,12 +331,7 @@ pub mod key_tracking_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::SearchProtectedResourcesResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::SearchProtectedResourcesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -416,7 +368,7 @@ pub mod key_tracking_service {
         pub fn set_resource_types<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.0.request.resource_types = v.into_iter().map(|i| i.into()).collect();
@@ -430,4 +382,5 @@ pub mod key_tracking_service {
             &mut self.0.options
         }
     }
+
 }

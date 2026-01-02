@@ -39,10 +39,7 @@ pub mod cloud_tasks {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = CloudTasks;
             type Credentials = gaxi::options::Credentials;
-            async fn build(
-                self,
-                config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -57,12 +54,8 @@ pub mod cloud_tasks {
     }
 
     impl<R> RequestBuilder<R>
-    where
-        R: std::default::Default,
-    {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
-        ) -> Self {
+    where R: std::default::Default {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -96,10 +89,10 @@ pub mod cloud_tasks {
     pub struct ListQueues(RequestBuilder<crate::model::ListQueuesRequest>);
 
     impl ListQueues {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -116,17 +109,11 @@ pub mod cloud_tasks {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListQueuesResponse> {
-            (*self.0.stub)
-                .list_queues(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_queues(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListQueuesResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListQueuesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -138,10 +125,7 @@ pub mod cloud_tasks {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListQueuesResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListQueuesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -201,10 +185,10 @@ pub mod cloud_tasks {
     pub struct GetQueue(RequestBuilder<crate::model::GetQueueRequest>);
 
     impl GetQueue {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -221,10 +205,7 @@ pub mod cloud_tasks {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Queue> {
-            (*self.0.stub)
-                .get_queue(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_queue(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetQueueRequest::name].
@@ -264,10 +245,10 @@ pub mod cloud_tasks {
     pub struct CreateQueue(RequestBuilder<crate::model::CreateQueueRequest>);
 
     impl CreateQueue {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -284,10 +265,7 @@ pub mod cloud_tasks {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Queue> {
-            (*self.0.stub)
-                .create_queue(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_queue(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateQueueRequest::parent].
@@ -302,8 +280,7 @@ pub mod cloud_tasks {
         ///
         /// This is a **required** field for requests.
         pub fn set_queue<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Queue>,
+        where T: std::convert::Into<crate::model::Queue>
         {
             self.0.request.queue = std::option::Option::Some(v.into());
             self
@@ -313,8 +290,7 @@ pub mod cloud_tasks {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_queue<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Queue>,
+        where T: std::convert::Into<crate::model::Queue>
         {
             self.0.request.queue = v.map(|x| x.into());
             self
@@ -349,10 +325,10 @@ pub mod cloud_tasks {
     pub struct UpdateQueue(RequestBuilder<crate::model::UpdateQueueRequest>);
 
     impl UpdateQueue {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -369,18 +345,14 @@ pub mod cloud_tasks {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Queue> {
-            (*self.0.stub)
-                .update_queue(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_queue(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [queue][crate::model::UpdateQueueRequest::queue].
         ///
         /// This is a **required** field for requests.
         pub fn set_queue<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Queue>,
+        where T: std::convert::Into<crate::model::Queue>
         {
             self.0.request.queue = std::option::Option::Some(v.into());
             self
@@ -390,8 +362,7 @@ pub mod cloud_tasks {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_queue<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Queue>,
+        where T: std::convert::Into<crate::model::Queue>
         {
             self.0.request.queue = v.map(|x| x.into());
             self
@@ -399,8 +370,7 @@ pub mod cloud_tasks {
 
         /// Sets the value of [update_mask][crate::model::UpdateQueueRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -408,8 +378,7 @@ pub mod cloud_tasks {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateQueueRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -444,10 +413,10 @@ pub mod cloud_tasks {
     pub struct DeleteQueue(RequestBuilder<crate::model::DeleteQueueRequest>);
 
     impl DeleteQueue {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -464,10 +433,7 @@ pub mod cloud_tasks {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .delete_queue(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_queue(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteQueueRequest::name].
@@ -507,10 +473,10 @@ pub mod cloud_tasks {
     pub struct PurgeQueue(RequestBuilder<crate::model::PurgeQueueRequest>);
 
     impl PurgeQueue {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -527,10 +493,7 @@ pub mod cloud_tasks {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Queue> {
-            (*self.0.stub)
-                .purge_queue(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).purge_queue(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::PurgeQueueRequest::name].
@@ -570,10 +533,10 @@ pub mod cloud_tasks {
     pub struct PauseQueue(RequestBuilder<crate::model::PauseQueueRequest>);
 
     impl PauseQueue {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -590,10 +553,7 @@ pub mod cloud_tasks {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Queue> {
-            (*self.0.stub)
-                .pause_queue(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).pause_queue(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::PauseQueueRequest::name].
@@ -633,10 +593,10 @@ pub mod cloud_tasks {
     pub struct ResumeQueue(RequestBuilder<crate::model::ResumeQueueRequest>);
 
     impl ResumeQueue {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -653,10 +613,7 @@ pub mod cloud_tasks {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Queue> {
-            (*self.0.stub)
-                .resume_queue(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).resume_queue(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ResumeQueueRequest::name].
@@ -696,10 +653,10 @@ pub mod cloud_tasks {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -716,10 +673,7 @@ pub mod cloud_tasks {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::Policy> {
-            (*self.0.stub)
-                .get_iam_policy(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_iam_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -732,8 +686,7 @@ pub mod cloud_tasks {
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        where T: std::convert::Into<iam_v1::model::GetPolicyOptions>
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
@@ -741,8 +694,7 @@ pub mod cloud_tasks {
 
         /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        where T: std::convert::Into<iam_v1::model::GetPolicyOptions>
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -777,10 +729,10 @@ pub mod cloud_tasks {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -797,10 +749,7 @@ pub mod cloud_tasks {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::Policy> {
-            (*self.0.stub)
-                .set_iam_policy(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).set_iam_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -815,8 +764,7 @@ pub mod cloud_tasks {
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<iam_v1::model::Policy>,
+        where T: std::convert::Into<iam_v1::model::Policy>
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
@@ -826,8 +774,7 @@ pub mod cloud_tasks {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<iam_v1::model::Policy>,
+        where T: std::convert::Into<iam_v1::model::Policy>
         {
             self.0.request.policy = v.map(|x| x.into());
             self
@@ -835,8 +782,7 @@ pub mod cloud_tasks {
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -844,8 +790,7 @@ pub mod cloud_tasks {
 
         /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -880,17 +825,14 @@ pub mod cloud_tasks {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -903,10 +845,7 @@ pub mod cloud_tasks {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
-            (*self.0.stub)
-                .test_iam_permissions(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).test_iam_permissions(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -923,7 +862,7 @@ pub mod cloud_tasks {
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.0.request.permissions = v.into_iter().map(|i| i.into()).collect();
@@ -963,10 +902,10 @@ pub mod cloud_tasks {
     pub struct ListTasks(RequestBuilder<crate::model::ListTasksRequest>);
 
     impl ListTasks {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -983,17 +922,11 @@ pub mod cloud_tasks {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListTasksResponse> {
-            (*self.0.stub)
-                .list_tasks(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_tasks(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListTasksResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListTasksResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1005,10 +938,7 @@ pub mod cloud_tasks {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListTasksResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListTasksResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1068,10 +998,10 @@ pub mod cloud_tasks {
     pub struct GetTask(RequestBuilder<crate::model::GetTaskRequest>);
 
     impl GetTask {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1088,10 +1018,7 @@ pub mod cloud_tasks {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Task> {
-            (*self.0.stub)
-                .get_task(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_task(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetTaskRequest::name].
@@ -1137,10 +1064,10 @@ pub mod cloud_tasks {
     pub struct CreateTask(RequestBuilder<crate::model::CreateTaskRequest>);
 
     impl CreateTask {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1157,10 +1084,7 @@ pub mod cloud_tasks {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Task> {
-            (*self.0.stub)
-                .create_task(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_task(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateTaskRequest::parent].
@@ -1175,8 +1099,7 @@ pub mod cloud_tasks {
         ///
         /// This is a **required** field for requests.
         pub fn set_task<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Task>,
+        where T: std::convert::Into<crate::model::Task>
         {
             self.0.request.task = std::option::Option::Some(v.into());
             self
@@ -1186,8 +1109,7 @@ pub mod cloud_tasks {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_task<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Task>,
+        where T: std::convert::Into<crate::model::Task>
         {
             self.0.request.task = v.map(|x| x.into());
             self
@@ -1228,10 +1150,10 @@ pub mod cloud_tasks {
     pub struct DeleteTask(RequestBuilder<crate::model::DeleteTaskRequest>);
 
     impl DeleteTask {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1248,10 +1170,7 @@ pub mod cloud_tasks {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .delete_task(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_task(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteTaskRequest::name].
@@ -1291,10 +1210,10 @@ pub mod cloud_tasks {
     pub struct RunTask(RequestBuilder<crate::model::RunTaskRequest>);
 
     impl RunTask {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1311,10 +1230,7 @@ pub mod cloud_tasks {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Task> {
-            (*self.0.stub)
-                .run_task(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).run_task(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::RunTaskRequest::name].
@@ -1364,17 +1280,14 @@ pub mod cloud_tasks {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1387,17 +1300,11 @@ pub mod cloud_tasks {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::ListLocationsResponse> {
-            (*self.0.stub)
-                .list_locations(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_locations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1409,10 +1316,7 @@ pub mod cloud_tasks {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1470,10 +1374,10 @@ pub mod cloud_tasks {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1490,10 +1394,7 @@ pub mod cloud_tasks {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::Location> {
-            (*self.0.stub)
-                .get_location(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_location(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -1509,4 +1410,5 @@ pub mod cloud_tasks {
             &mut self.0.options
         }
     }
+
 }

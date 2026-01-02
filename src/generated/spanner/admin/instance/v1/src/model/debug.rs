@@ -68,21 +68,16 @@ impl std::fmt::Debug for super::InstanceConfig {
         debug_struct.field("leader_options", &self.leader_options);
         debug_struct.field("reconciling", &self.reconciling);
         debug_struct.field("state", &self.state);
-        debug_struct.field(
-            "free_instance_availability",
-            &self.free_instance_availability,
-        );
+        debug_struct.field("free_instance_availability", &self.free_instance_availability);
         debug_struct.field("quorum_type", &self.quorum_type);
-        debug_struct.field(
-            "storage_limit_per_processing_unit",
-            &self.storage_limit_per_processing_unit,
-        );
+        debug_struct.field("storage_limit_per_processing_unit", &self.storage_limit_per_processing_unit);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::ReplicaComputeCapacity {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -101,10 +96,7 @@ impl std::fmt::Debug for super::AutoscalingConfig {
         let mut debug_struct = f.debug_struct("AutoscalingConfig");
         debug_struct.field("autoscaling_limits", &self.autoscaling_limits);
         debug_struct.field("autoscaling_targets", &self.autoscaling_targets);
-        debug_struct.field(
-            "asymmetric_autoscaling_options",
-            &self.asymmetric_autoscaling_options,
-        );
+        debug_struct.field("asymmetric_autoscaling_options", &self.asymmetric_autoscaling_options);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -127,18 +119,9 @@ impl std::fmt::Debug for super::autoscaling_config::AutoscalingLimits {
 impl std::fmt::Debug for super::autoscaling_config::AutoscalingTargets {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AutoscalingTargets");
-        debug_struct.field(
-            "high_priority_cpu_utilization_percent",
-            &self.high_priority_cpu_utilization_percent,
-        );
-        debug_struct.field(
-            "total_cpu_utilization_percent",
-            &self.total_cpu_utilization_percent,
-        );
-        debug_struct.field(
-            "storage_utilization_percent",
-            &self.storage_utilization_percent,
-        );
+        debug_struct.field("high_priority_cpu_utilization_percent", &self.high_priority_cpu_utilization_percent);
+        debug_struct.field("total_cpu_utilization_percent", &self.total_cpu_utilization_percent);
+        debug_struct.field("storage_utilization_percent", &self.storage_utilization_percent);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -158,28 +141,14 @@ impl std::fmt::Debug for super::autoscaling_config::AsymmetricAutoscalingOption 
     }
 }
 
-impl std::fmt::Debug
-    for super::autoscaling_config::asymmetric_autoscaling_option::AutoscalingConfigOverrides
-{
+impl std::fmt::Debug for super::autoscaling_config::asymmetric_autoscaling_option::AutoscalingConfigOverrides {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AutoscalingConfigOverrides");
         debug_struct.field("autoscaling_limits", &self.autoscaling_limits);
-        debug_struct.field(
-            "autoscaling_target_high_priority_cpu_utilization_percent",
-            &self.autoscaling_target_high_priority_cpu_utilization_percent,
-        );
-        debug_struct.field(
-            "autoscaling_target_total_cpu_utilization_percent",
-            &self.autoscaling_target_total_cpu_utilization_percent,
-        );
-        debug_struct.field(
-            "disable_high_priority_cpu_autoscaling",
-            &self.disable_high_priority_cpu_autoscaling,
-        );
-        debug_struct.field(
-            "disable_total_cpu_autoscaling",
-            &self.disable_total_cpu_autoscaling,
-        );
+        debug_struct.field("autoscaling_target_high_priority_cpu_utilization_percent", &self.autoscaling_target_high_priority_cpu_utilization_percent);
+        debug_struct.field("autoscaling_target_total_cpu_utilization_percent", &self.autoscaling_target_total_cpu_utilization_percent);
+        debug_struct.field("disable_high_priority_cpu_autoscaling", &self.disable_high_priority_cpu_autoscaling);
+        debug_struct.field("disable_total_cpu_autoscaling", &self.disable_total_cpu_autoscaling);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -205,16 +174,14 @@ impl std::fmt::Debug for super::Instance {
         debug_struct.field("update_time", &self.update_time);
         debug_struct.field("free_instance_metadata", &self.free_instance_metadata);
         debug_struct.field("edition", &self.edition);
-        debug_struct.field(
-            "default_backup_schedule_type",
-            &self.default_backup_schedule_type,
-        );
+        debug_struct.field("default_backup_schedule_type", &self.default_backup_schedule_type);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::ListInstanceConfigsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -401,10 +368,7 @@ impl std::fmt::Debug for super::CreateInstanceMetadata {
         debug_struct.field("start_time", &self.start_time);
         debug_struct.field("cancel_time", &self.cancel_time);
         debug_struct.field("end_time", &self.end_time);
-        debug_struct.field(
-            "expected_fulfillment_period",
-            &self.expected_fulfillment_period,
-        );
+        debug_struct.field("expected_fulfillment_period", &self.expected_fulfillment_period);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -419,10 +383,7 @@ impl std::fmt::Debug for super::UpdateInstanceMetadata {
         debug_struct.field("start_time", &self.start_time);
         debug_struct.field("cancel_time", &self.cancel_time);
         debug_struct.field("end_time", &self.end_time);
-        debug_struct.field(
-            "expected_fulfillment_period",
-            &self.expected_fulfillment_period,
-        );
+        debug_struct.field("expected_fulfillment_period", &self.expected_fulfillment_period);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -572,10 +533,7 @@ impl std::fmt::Debug for super::ListInstancePartitionsRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
-        debug_struct.field(
-            "instance_partition_deadline",
-            &self.instance_partition_deadline,
-        );
+        debug_struct.field("instance_partition_deadline", &self.instance_partition_deadline);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -603,10 +561,7 @@ impl std::fmt::Debug for super::ListInstancePartitionOperationsRequest {
         debug_struct.field("filter", &self.filter);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
-        debug_struct.field(
-            "instance_partition_deadline",
-            &self.instance_partition_deadline,
-        );
+        debug_struct.field("instance_partition_deadline", &self.instance_partition_deadline);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -619,10 +574,7 @@ impl std::fmt::Debug for super::ListInstancePartitionOperationsResponse {
         let mut debug_struct = f.debug_struct("ListInstancePartitionOperationsResponse");
         debug_struct.field("operations", &self.operations);
         debug_struct.field("next_page_token", &self.next_page_token);
-        debug_struct.field(
-            "unreachable_instance_partitions",
-            &self.unreachable_instance_partitions,
-        );
+        debug_struct.field("unreachable_instance_partitions", &self.unreachable_instance_partitions);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
